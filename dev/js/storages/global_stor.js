@@ -18,6 +18,7 @@
     thisFactory.publicObj = {
 
       globalSource: {
+        showCurrentTemp : 0,
         getPCPower: 0,
         isDevice: 0,
         continued: 0,
@@ -56,6 +57,9 @@
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
+        createHandle: [],
+        heightTEMP: [],
+        widthTEMP: [],
 
         //------ Rooms background
         showRoomSelectorDialog: 0,
@@ -64,6 +68,7 @@
 
         //------- Templates
         imgLink: '',
+        selectRoom: 0,
         background: 0,
         heightCheck: 0,
         widthCheck: 0,
@@ -72,6 +77,8 @@
         templatesSourceSTORE: [],
         //TODO templateIcons: [],
         isSashesInTemplate: 0,
+        templateIndex: -1,
+        templatesType: 1,
 
         //------ Profiles
         profiles: [],
@@ -97,13 +104,14 @@
         lamGroupFiltered: [],
 
         //------ Add Elements
-        typeMenu: 55,
-        typeMenuID: 55,
+        typeMenu: 5555,
+        typeMenuID: 5555,
         addElementsAll: [],
         tempAddElements: [],
 
         //-------- Door
         noDoorExist: 0,
+        checkDoors: 0,
         doorKitsT1: [],
         doorKitsT2: [],
         type_door: 0,
@@ -131,13 +139,15 @@
         locations: {
           countries: [],
           regions: [],
-          cities: []
+          cities: [],
+          areas: []
         },
         margins: {},
         deliveryCoeff: {},
 
         //----- Alert
         isAlert: 0,
+        isAlertInfo: 0,
         alertTitle: '',
         alertDescr: '',
         isBox: 0,
@@ -151,7 +161,8 @@
         isSizeCalculator: 0,
         isWidthCalculator: 0,
         maxSizeLimit: 3200,
-        maxSquareLimit: 6
+        maxSquareLimit: 6,
+        changeLocation: 1
       },
 
       setDefaultGlobal: setDefaultGlobal

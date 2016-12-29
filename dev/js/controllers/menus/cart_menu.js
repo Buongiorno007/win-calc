@@ -12,6 +12,7 @@
     OrderStor,
     UserStor,
     CartStor,
+    ProductStor,
     CartMenuServ
   ) {
     /*jshint validthis:true */
@@ -20,6 +21,7 @@
     thisCtrl.U = UserStor;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
+    thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
       activeMenuItem: false,
@@ -47,6 +49,8 @@
     thisCtrl.TOTAL_PRICE_LABEL = $filter('translate')('cart.TOTAL_PRICE_LABEL');
     thisCtrl.ORDER = $filter('translate')('cart.ORDER');
     thisCtrl.MEASURE = $filter('translate')('cart.MEASURE');
+    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
+    thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
 
 
 
@@ -75,6 +79,7 @@
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
+      CartStor.cart.showCurrentTemp = 0;
       if(OrderStor.order.products.length) {
         if (OrderStor.order.is_instalment) {
           CartStor.cart.isCreditDialog = 1;

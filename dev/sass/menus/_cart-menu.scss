@@ -1,10 +1,12 @@
 .cart-menu {
   @extend .menu-right-general;
   @include justify-content(space-between);
+  padding-top: 2.75rem;
   position: relative;
   z-index: 2;
   .items-list {
     @include flex-grow(0);
+
   }
   .item {
     position: relative;
@@ -24,6 +26,15 @@
       content: $config_menu-arrow-icon;
     }
     &.active {
+      background-color: #f0f0f0;
+      border-bottom: none;
+      &:after {
+        @include rotate(270deg);
+      }
+    }
+    &.hov:hover {
+      margin-left: -2.75rem;
+      padding-left: 2.75rem;
       background-color: #f0f0f0;
       border-bottom: none;
       &:after {
@@ -268,6 +279,7 @@
 
   .order-btn {
     @extend .cart-btn;
+
   }
   .measure-btn {
     @extend .big-button;
@@ -320,6 +332,7 @@
       z-index: 2;
     }
   }
+
 }
 .old-price-inst-tab {
   @extend .old-price-tab;

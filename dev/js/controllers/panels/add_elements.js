@@ -34,7 +34,7 @@
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 55,
+      colorFilter: 5555,
       typing: 'on'
     };
 
@@ -55,26 +55,6 @@
 
 
     /**============ METHODS ================*/
-// elementType
-// elementsList
-//     console.log(ProductStor.product, 'ProductStor')
-//     console.log(GlobalStor.global.addElementsAll, 'GlobalStor.global.addElementsAll')
-  
-    function filterAddElem() {
-      var connectors = [];
-      var extenders = [];
-      var addElementsAll = angular.copy(GlobalStor.global.addElementsAll);
-      for(var x=0; x<addElementsAll.legnth; x+=1) {
-        for(var y=0; y<addElementsAll[x].elementsList.legnth; y+=1) {
-          for(var z=0; z<addElementsAll.elementsList[y].legnth; z+=1) {
-
-                  console.log(GlobalStor.global.addElementsAll, 'GlobalStor.global.addElementsAll')
-            
-          }
-        }
-      }
-    }
-
     // Show Window Scheme Dialog
     function showWindowScheme() {
       filterAddElem();
@@ -89,13 +69,12 @@
     }
 
     function click(id){
-      filterAddElem();
       GlobalStor.global.typeMenu = 0;
       GlobalStor.global.typeMenuID = id;
       $timeout(function(id){
         GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
         thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
-        if (GlobalStor.global.typeMenu === 55) {
+        if (GlobalStor.global.typeMenu === 5555) {
           $('.aux-handle').css({
           'left': 14.375 +'rem',
            'top': 82.625 +'rem'
@@ -113,7 +92,6 @@
 
     //------ clicking
     thisCtrl.click = click;
-    thisCtrl.filterAddElem = filterAddElem;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;

@@ -16,8 +16,12 @@
     /**============ METHODS ================*/
 
     /** close Info Box */
-    function closeInfoBox() {
-      GlobalStor.global.inform.push( GlobalStor.global.activePanel)
+    function closeInfoBox(clickEvent) {
+      clickEvent.stopPropagation();
+      if(GlobalStor.global.showApply === 1) {
+        GlobalStor.global.inform = 1;
+      }
+      GlobalStor.global.showApply = 0
       GlobalStor.global.isInfoBox = 0;
       GlobalStor.global.infoTitle = '';
       GlobalStor.global.infoImg =  '';

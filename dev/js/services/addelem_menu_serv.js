@@ -160,11 +160,19 @@
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       AuxStor.aux.tempSize.length = 0;
-      desactiveAddElementParameters();
-      //-------- recalculate add element price
-      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
-        setAddElementsTotalPrice(ProductStor.product);
-      });
+      if(ProductStor.product.chosenAddElements[index][elementIndex].element_width <= GlobalStor.global.maxSizeAddElem) {
+        desactiveAddElementParameters();
+        DesignStor.design.isMinSizeRestriction = 0;
+        DesignStor.design.isMaxSizeRestriction = 0;
+        //-------- recalculate add element price
+        calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
+          setAddElementsTotalPrice(ProductStor.product);
+        });
+      } else {
+        DesignStor.design.isMinSizeRestriction = 0;
+        DesignStor.design.isMaxSizeRestriction = 1;
+        ProductStor.product.chosenAddElements[index][elementIndex].element_width = 1000;
+      }
     }
 
 
@@ -381,7 +389,7 @@
       while(--blocksQty > 0) {
         if(blockId) {
           /** set grid to template block by its Id */
-          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
+          if(ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
             /** check block to old grid
              * delete in product.choosenAddElements if exist
              * */
@@ -429,7 +437,6 @@
     //--------- when we select new addElement, function checks
     // is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, currElement) {
-      console.log(elementsArr, currElement)
       var elementsQty = elementsArr.length, isExist = 0;
       while(--elementsQty > -1){
         if(elementsArr[elementsQty].id === currElement.id) {
@@ -465,11 +472,12 @@
 
 
     function pushSelectedAddElement(currProduct, currElement) {
-      console.log(AuxStor.aux.isFocusedAddElement, 'AuxStor.aux.isFocusedAddElement')
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
-      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
-      if(!existedElement) {
+      if(index !== 0) {
+        existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      }
+      if(!existedElement || index == 0) {
         var newElementSource = {
               element_type: index,
               element_width: 0,
@@ -513,12 +521,22 @@
 
     /** set Selected Grids */
     function confirmGrid() {
-      if(DesignStor.design.selectedGlass.length) {
-        var grids = DesignStor.design.selectedGlass.map(function(item) {
-          var blockId = item.attributes.block_id.nodeValue;
-          //------- collect grids relative to blocks
+      var gridsT = [], grids = [];
+      if(GlobalStor.global.sashTypeBlock.length>0) {
+        gridsT = GlobalStor.global.sashTypeBlock.map(function(item) {
+          var blockId = item;
           return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
         });
+      }
+      if(DesignStor.design.selectedGlass.length) {
+        grids = DesignStor.design.selectedGlass.map(function(item) {
+          var blockId = item.attributes.block_id.nodeValue;
+          return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
+        });
+      }
+
+      grids = _.union(_.compact(grids), gridsT);
+      if(grids.length>0) {
         insertGrids(grids);
       }
     }
@@ -690,7 +708,6 @@
     function takeAddElemFilt(groupId, typeId, elementId, clickEvent) {
       clickEvent.stopPropagation();
       closeAddElementsMenu();
-
       AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[groupId-1].elementsList);
 
       /** if grid,  show grid selector dialog */
@@ -722,7 +739,7 @@
         finishCalculators();
       }
       /**------- if grid delete --------*/
-      if(AuxStor.aux.isFocusedAddElement === 1) {
+      if(AuxStor.aux.isFocusedAddElement === 1 || AuxStor.aux.isAddElementListView) {
         deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
       }
       ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);

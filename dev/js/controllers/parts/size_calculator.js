@@ -10,7 +10,8 @@
     GlobalStor,
     DesignStor,
     AddElementMenuServ,
-    DesignServ
+    DesignServ,
+    EditAddElementCartServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -24,17 +25,24 @@
     //------ clicking
     //------ for Add Elements Panel
     if(GlobalStor.global.currOpenPage === 'main') {
-      thisCtrl.isDesignPage = false;
+      thisCtrl.isDesignPage = true;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
     //------ for Design Page
+    } else if(GlobalStor.global.currOpenPage === 'cart') {
+      thisCtrl.isDesignPage = true;
+      thisCtrl.setValueSize = EditAddElementCartServ.setValueSize;
+      thisCtrl.deleteLastNumber = EditAddElementCartServ.deleteLastNumber;
+      thisCtrl.closeSizeCaclulator = EditAddElementCartServ.closeSizeCaclulator;
+      //------ for Design Page
     } else {
       thisCtrl.isDesignPage = true;
       thisCtrl.setValueSize = DesignServ.setValueSize;
       thisCtrl.deleteLastNumber = DesignServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = DesignServ.closeSizeCaclulator;
     }
+    GlobalStor.global.activePanel = 0;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 

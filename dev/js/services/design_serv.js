@@ -34,7 +34,6 @@
     /**============ METHODS ================*/
 
 
-
     function hideAllDimension() {
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', false);
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', false);
@@ -82,12 +81,7 @@
     }
 
 
-    function rebuildSVGTemplate() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-        .then(function(result) {
-          DesignStor.design.templateTEMP = angular.copy(result);
-        });
-    }
+
 
 
     function showErrorInBlock(blockID, svgSelector) {
@@ -180,11 +174,11 @@
           curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
           curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-          finishSize = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          startSize =+DesignStor.design.oldSize.attributes[11].nodeValue,
+          finishSize =+DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
-          level = +DesignStor.design.oldSize.attributes[14].nodeValue,
-          newCoord = startSize + newLength,
+          level =+DesignStor.design.oldSize.attributes[14].nodeValue,
+          newCoord = startSize+newLength,
           newCoordLast = finishSize - newLength,
           blocksQty = blocks.length, isLastDim = 0,
           overall = [], overallQty, newHeightQ, b, i, pointsQQty, pointsOutQty;
@@ -199,7 +193,7 @@
         /** changing Radius */
         newHeightQ = culcHeightQByRadiusCurve(startSize, newLength);
 
-        mainFor: for (b = 1; b < blocksQty; b+=1) {
+        mainFor: for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].id === curBlockId) {
             //-------- search in PointsQ
             if(blocks[b].pointsQ) {
@@ -244,20 +238,20 @@
         //------- defined last dim for inside dimensions
         if(!level) {
           //------- collect overall dimensions
-          for (b = 1; b < blocksQty; b += 1) {
-            if (blocks[b].level === 1) {
+          for(b = 1; b < blocksQty; b+= 1) {
+            if(blocks[b].level === 1) {
               overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
             }
           }
           //------- check current dimension with overall
           overallQty = overall.length;
           while (--overallQty > -1) {
-            if (axis === 'x') {
-              if (overall[overallQty].maxX === finishSize) {
+            if(axis === 'x') {
+              if(overall[overallQty].maxX === finishSize) {
                 isLastDim = 1;
               }
-            } else if (axis === 'y') {
-              if (overall[overallQty].maxY === finishSize) {
+            } else if(axis === 'y') {
+              if(overall[overallQty].maxY === finishSize) {
                 isLastDim = 1;
               }
             }
@@ -270,12 +264,12 @@
             while(--pointsOutQty > -1) {
               //------ if not last dimension
               if(!isLastDim) {
-                if (axis === 'x') {
-                  if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
+                if(axis === 'x') {
+                  if(blocks[b].pointsOut[pointsOutQty].x === finishSize) {
                     blocks[b].pointsOut[pointsOutQty].x = newCoord;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].pointsOut[pointsOutQty].y === finishSize) {
+                } else if(axis === 'y') {
+                  if(blocks[b].pointsOut[pointsOutQty].y === finishSize) {
                     blocks[b].pointsOut[pointsOutQty].y = newCoord;
                   }
                 }
@@ -286,22 +280,22 @@
             for(i = 0; i < 2; i+=1) {
               //------ if last dimension
               if(isLastDim) {
-                if (axis === 'x') {
-                  if (blocks[b].impost.impostAxis[i].x === startSize) {
+                if(axis === 'x') {
+                  if(blocks[b].impost.impostAxis[i].x === startSize) {
                     blocks[b].impost.impostAxis[i].x = newCoordLast;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].impost.impostAxis[i].y === startSize) {
+                } else if(axis === 'y') {
+                  if(blocks[b].impost.impostAxis[i].y === startSize) {
                     blocks[b].impost.impostAxis[i].y = newCoordLast;
                   }
                 }
               } else {
-                if (axis === 'x') {
-                  if (blocks[b].impost.impostAxis[i].x === finishSize) {
+                if(axis === 'x') {
+                  if(blocks[b].impost.impostAxis[i].x === finishSize) {
                     blocks[b].impost.impostAxis[i].x = newCoord;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].impost.impostAxis[i].y === finishSize) {
+                } else if(axis === 'y') {
+                  if(blocks[b].impost.impostAxis[i].y === finishSize) {
                     blocks[b].impost.impostAxis[i].y = newCoord;
                   }
                 }
@@ -321,33 +315,33 @@
     function rebuildPointsOut(newLength) {
       var blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
-          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          startSize =+DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue =+DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
           newPointsOut, b, pointsOutQty, isRealBlock;
 
       for(b = 1; b < blocksQty; b+=1) {
-        if (blocks[b].level === 1) {
+        if(blocks[b].level === 1) {
           pointsOutQty = blocks[b].pointsOut.length;
-          if (pointsOutQty) {
+          if(pointsOutQty) {
             isRealBlock = 0;
             isRealBlock = blocks[b].pointsOut.some(function(item) {
-              if (axis === 'x') {
+              if(axis === 'x') {
                 return item.x === oldSizeValue;
-              } else if (axis === 'y') {
+              } else if(axis === 'y') {
                 return item.y === oldSizeValue;
               }
             });
             if(isRealBlock) {
               newPointsOut = angular.copy(blocks[b].pointsOut);
               while (--pointsOutQty > -1) {
-                if (axis === 'x') {
-                  if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                    newPointsOut[pointsOutQty].x = startSize + newLength;
+                if(axis === 'x') {
+                  if(blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                    newPointsOut[pointsOutQty].x = startSize+newLength;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                    newPointsOut[pointsOutQty].y = startSize + newLength;
+                } else if(axis === 'y') {
+                  if(blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                    newPointsOut[pointsOutQty].y = startSize+newLength;
                   }
                 }
               }
@@ -359,7 +353,49 @@
     }
 
 
+    function checkSize(res, construction_type) {
+      GlobalStor.global.timeoutFunc = 0;
+      res = res.priceElements.sashesBlock;
+      var heightT = [], widthT = [];
+      if(ProductStor.product.construction_type === 4 || construction_type === 4) {
+        widthT = (res[0].sizes)? res[0].sizes[0]:0;
+        heightT = (res[0].sizes)? res[0].sizes[1]:0;
+        size(res)
+        return {
+          widthT:widthT,
+          heightT:heightT
+        }
+      }
+    }
 
+    function size(res) {
+      var intervalID = setInterval( function() {
+        if(ProductStor.product.doorLock.width_min){
+          clearInterval(intervalID);
+          var heightT = 0,
+              widthT = 0;
+          var product = ProductStor.product.doorLock;
+          for(var x=0; x<res.length; x+=1) {
+            if(GlobalStor.global.checkDoors !== 1) {
+              widthT = GlobalStor.global.widthTEMP = res[x].sizes[0];
+              heightT = GlobalStor.global.heightTEMP = res[x].sizes[1];
+              GlobalStor.global.heightLim = '('+product.width_min+' - '+product.width_max+') x ('+product.height_min+' - '+product.height_max+')';
+              if(heightT <= product.height_max && heightT >= product.height_min) {
+                if(widthT <= product.width_max && widthT >= product.width_min) {
+                } else {
+                  GlobalStor.global.checkDoors = 1;
+                  break
+                }
+              } else {
+                GlobalStor.global.checkDoors = 1;
+                break
+              }
+            }
+          }
+          GlobalStor.global.timeoutFunc = 1;
+        }
+      } , 50);
+    }
 
     function closeSizeCaclulator(prom) {
       var deff = $q.defer();
@@ -372,7 +408,7 @@
         if(currSquare < GlobalStor.global.maxSquareLimit) {
           /** Dimensions limits checking */
 
-          if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
+          if(newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
             addNewSizeInTemplate(newLength);
             //------ close size calculator and deactive size box in svg
             hideSizeTools();
@@ -380,6 +416,8 @@
             SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
               .then(function(result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
+                DesignStor.design.resultSize = angular.copy(result);
+                checkSize(result);
                 cleanTempSize();
                 deff.resolve(1);
               });
@@ -397,7 +435,7 @@
                 DesignStor.design.isMaxSizeRestriction = 0;
               }
 
-            } else if(newLength > DesignStor.design.maxSizeLimit) {
+            } else if(newLength >= DesignStor.design.maxSizeLimit) {
               if(GlobalStor.global.isVoiceHelper) {
                 playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'),GlobalStor.global.voiceHelperLanguage);
                 //------- deactive size box in svg
@@ -456,6 +494,7 @@
 
     //-------- Get number from calculator
     function setValueSize(newValue) {
+      GlobalStor.global.activePanel = 0;
       var sizeLength = DesignStor.design.tempSize.length;
       //console.log('take new value = ', newValue);
       if(GlobalStor.global.isVoiceHelper) {
@@ -465,8 +504,8 @@
         DesignStor.design.voiceTxt = '';
         DesignStor.design.openVoiceHelper = false;
 
-        if ((tempVal > 0) && (tempVal < 10000)) {
-          DesignStor.design.tempSize = ("" + tempVal).split('');
+        if((tempVal > 0) && (tempVal < 10000)) {
+          DesignStor.design.tempSize = (""+tempVal).split('');
           //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
           changeSize();
         }
@@ -474,19 +513,19 @@
 
       } else {
         //---- clear array from 0 after delete all number in array
-        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
+        if(sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
           DesignStor.design.tempSize.length = 0;
         }
-        if (newValue === '0') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
+        if(newValue === '0') {
+          if(sizeLength && DesignStor.design.tempSize[0]) {
             DesignStor.design.tempSize.push(newValue);
             changeSize();
           }
         } else if(newValue === '00') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
-            if (sizeLength < 3) {
+          if(sizeLength && DesignStor.design.tempSize[0]) {
+            if(sizeLength < 3) {
               DesignStor.design.tempSize.push(0, 0);
-            } else if (sizeLength === 3) {
+            } else if(sizeLength === 3) {
               DesignStor.design.tempSize.push(0);
             }
             changeSize();
@@ -512,7 +551,7 @@
     function pressCulculator(keyEvent) {
       var newValue;
       //--------- Enter
-      if (keyEvent.which === 13) {
+      if(keyEvent.which === 13) {
         closeSizeCaclulator();
         $rootScope.$apply();
       } else if(keyEvent.which === 8) {
@@ -579,7 +618,7 @@
         var intValue = parseStringToDimension(value);
         //console.log("данные после парса", intValue);
         //console.log("тип полученных данных", typeof intValue);
-        if (intValue === "NaN") {
+        if(intValue === "NaN") {
           intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
         }
         playTTS(intValue);
@@ -592,7 +631,7 @@
 
     //---------- define voice force
     function recognitionProgress(value) {
-      if (value > 100) {
+      if(value > 100) {
         //console.log('value', value);
         DesignStor.design.loudVoice = true;
         DesignStor.design.quietVoice = false;
@@ -609,6 +648,7 @@
 
     //------- set click to all Dimensions
     function initAllDimension() {
+      GlobalStor.global.activePanel = 0;
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
         .each(function() {
           var size = d3.select(this);
@@ -620,7 +660,7 @@
               closeSizeCaclulator();
               cleanTempSize();
             } else {
-              if (isActive) {
+              if(isActive) {
                 hideSizeTools();
               } else {
                 deselectAllDimension();
@@ -629,10 +669,10 @@
                 dim.classed('active', true);
                 DesignStor.design.oldSize = dim[0][0];
                 DesignStor.design.prevSize = dim[0][0].textContent;
-                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                DesignStor.design.minSizeLimit =+dim[0][0].attributes[8].nodeValue;
+                DesignStor.design.maxSizeLimit =+dim[0][0].attributes[9].nodeValue;
                 //------- show caclulator or voice helper
-                if (GlobalStor.global.isVoiceHelper) {
+                if(GlobalStor.global.isVoiceHelper) {
                   DesignStor.design.openVoiceHelper = 1;
                   startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
                 } else {
@@ -675,7 +715,7 @@
         while(--blockQty > 0) {
           //------- if grid there is in this block
           if(blocks[blockQty].gridId) {
-            for (g = 0; g < gridQty; g += 1) {
+            for(g = 0; g < gridQty; g+= 1) {
               if(blocks[blockQty].id === gridsOld[g].block_id) {
                 gridTemp = gridsOld[g];
                 sizeTemp = {};
@@ -731,41 +771,421 @@
     }
 
 
-
-
-
-
-
-
-
-
-
     /**---------------- DOORs--------------*/
 
+    /**---------- Show Door Configuration --------*/
+
+    function toggleDoorConfig() {
+      MainServ.setCurrentGlassForTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
+      ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+      GlobalStor.global.checkDoors = 0;
+      DesignStor.design.steps.isDoorConfig = 1;
+      closeSizeCaclulator();
+    }
+
+    /**---------- Select door shape --------*/
+
+    function idsForNewTemplate(id, product) {
+      var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
+      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
+      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var doorKitsT1 = GlobalStor.global.doorKitsT1;
+      var sash=[], doorSill=[];
+      DesignStor.design.doorShapeList.length = [];
+      DesignStor.designSource.doorShapeList.length = [];
+      for(var z=0; z<doorsGroups.length; z+=1) {
+        for(var i=0; i<doorsLaminations.length; i+=1) {
+          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
+          && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
+              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
+              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
+              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
+              doorsGroups[z].doorstep_type = 0;
+              doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
+              DesignStor.design.doorsGroups.push(doorsGroups[z].id)
+              for(var x=0; x<doorKitsT1.length; x+=1) {
+                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
+                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
+                }
+              }
+              break
+            }
+          }
+        }
+      }
+
+      for(d = 0; d < doorTypeQty; d+=1) {
+        var ch1 = sash = doorsGroups.filter(function(item) {
+                    return item.doorstep_type === 2;
+                  });
+        var ch2 = sash = doorsGroups.filter(function(item) {
+                    return item.doorstep_type === 1;
+                  });
+
+        isExist = 0;
+        if(d === 2 && ch1.length) {
+          isExist = 1;
+        } else if(d === 3 && ch2.length) {
+          isExist = 1;
+        } else if(!d || d === 1){
+          isExist = 1;
+        }
+        if(isExist && d !== 2) {
+          doorSill.push(DesignStor.design.doorShapeData[d]);
+        }
+      }
+
+      sash.length = 0;
+      switch (id) {
+        case 0:
+        case 1:
+          if (doorsGroups.length) {
+            sash = angular.copy(doorsGroups);
+          }
+          break;
+        case 3:
+          if (doorsGroups.length) {
+            sash = doorsGroups.filter(function(item) {
+              return item.doorstep_type === 2;
+            });
+          break;
+        }
+        case 2:
+          if (doorsGroups.length) {
+            sash = doorsGroups.filter(function(item) {
+              return item.doorstep_type === 1;
+            });
+          break;
+        }
+      }
+      return sash[id];
+    }
+
+    function selectDoor(id, product) {
+      var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
+      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
+      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var temp = [];
+      var doorKitsT1 = GlobalStor.global.doorKitsT1;
+      DesignStor.design.doorShapeList.length = [];
+      DesignStor.designSource.doorShapeList.length = [];
+      for(var z=0; z<doorsGroups.length; z+=1) {
+        for(var i=0; i<doorsLaminations.length; i+=1) {
+          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
+          && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
+              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
+              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
+              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
+              doorsGroups[z].doorstep_type = 0;
+              doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
+              DesignStor.design.doorsGroups.push(doorsGroups[z].id)
+              for(var x=0; x<doorKitsT1.length; x+=1) {
+                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
+                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
+                }
+              }
+              temp.push(doorsGroups[z]);
+              break
+            }
+          }
+        }
+      }
+      doorsGroups = angular.copy(temp);
+      for(d = 0; d < doorTypeQty; d+=1) {
+        var ch1 = DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
+                    return item.doorstep_type === 2;
+                  });
+        var ch2 = DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
+                    return item.doorstep_type === 1;
+                  });
+
+        isExist = 0;
+        if(d === 2 && ch1.length) {
+          isExist = 1;
+        } else if(d === 3 && ch2.length) {
+          isExist = 1;
+        } else if(!d || d === 1){
+          isExist = 1;
+        }
+        if(isExist && d !== 2) {
+          DesignStor.design.doorShapeList.push(DesignStor.design.doorShapeData[d]);
+          DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
+        }
+      }
+
+      if(!DesignStor.design.steps.selectedStep2) {
+        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+          DesignStor.design.doorConfig.doorShapeIndex = '';
+          DesignStor.design.steps.selectedStep1 = 0;
+        } else {
+          DesignStor.design.sashShapeList.length = 0;
+          switch (id) {
+            case 0:
+            case 1:
+              if (doorsGroups.length) {
+                DesignStor.design.sashShapeList = angular.copy(doorsGroups);
+              }
+              break;
+            case 3:
+              if (doorsGroups.length) {
+                DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
+                  return item.doorstep_type === 2;
+                });
+              break;
+            }
+            case 2:
+              if (doorsGroups.length) {
+                DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
+                  return item.doorstep_type === 1;
+                });
+              break;
+            }
+          }
+          DesignStor.design.doorConfig.doorShapeIndex = id;
+          DesignStor.design.doorConfig.doorTypeIndex = DesignStor.design.doorShapeList[id].id;
+          DesignStor.design.steps.selectedStep1 = 1;
+          return DesignStor.design.sashShapeList[id];
+        }
+      }
+    }
+
+    /**---------- Select prifile/sash shape --------*/
+
+    function selectSash(id, product) {
+      var deferred = $q.defer();
+      DesignStor.design.handleShapeList = [];
+      if(!DesignStor.design.steps.selectedStep3) {
+        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
+          DesignStor.design.doorConfig.sashShapeIndex = '';
+          DesignStor.design.steps.selectedStep2 = 0;
+        } else {
+          DesignStor.design.doorConfig.sashShapeIndex = id;
+          DesignStor.design.steps.selectedStep2 = 1;
+        }
+      }
+      if(GlobalStor.global.currOpenPage !== 'history' && GlobalStor.global.currOpenPage !== 'cart') {
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+      } 
+
+
+
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
+        ).then(function(dependencies) {
+          for(var x=0; x<=dependencies.length; x+=1) {
+            if(x !== dependencies.length) {
+              depend(dependencies[x])
+            } else {
+              deferred.resolve(1);
+            }
+          }
+        });
+         return deferred.promise;
+    }
+    function depend(item) {
+      var newHandleArr;
+      newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
+        return handle.profIds.indexOf('hel'+item.hardware_group_id+'lo')+1;
+      });
+      DesignStor.design.handleShapeList = DesignStor.design.handleShapeList.concat(newHandleArr);
+      var used = {};
+      var filtered = DesignStor.design.handleShapeList.filter(function(obj) {
+        return obj.id in used ? 0:(used[obj.id]=1);
+      });
+      DesignStor.design.handleShapeList = filtered;
+    }
+
+    /**---------- Select handle shape --------*/
+
+    function selectHandle(id, product) {
+      var pnt = checkSize(DesignStor.design.templateTEMP, 4);
+      var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
+      var array = [];
+      if(!DesignStor.design.steps.selectedStep4) {
+        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
+          DesignStor.design.doorConfig.handleShapeIndex = '';
+          DesignStor.design.steps.selectedStep3 = 0;
+        } else {
+          DesignStor.design.doorConfig.handleShapeIndex = id;
+          DesignStor.design.steps.selectedStep3 = 1;
+        }
+        var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
+          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
+        });
+        var newLockArr = lockArr.filter(function(doorLocks) {
+          return DesignStor.design.handleShapeList[id].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
+        });
+        var template = product.template.priceElements.shtulpsSize;
+        for(var x=0; x<newLockArr.length; x+=1) {
+          if (pnt.heightT <= newLockArr[x].height_max) {
+            if (pnt.heightT >= newLockArr[x].height_min) {
+              if (pnt.widthT <= newLockArr[x].width_max) {
+                if (pnt.widthT >= newLockArr[x].width_min) {
+                  if(newLockArr[x].hardware_type_id === (template.length)+1) {
+                    array.push(newLockArr[x])
+                  }
+                }
+              }
+            }
+          }
+        }
+        DesignStor.design.lockShapeList = array;
+      }
+    }
+
+    /**---------- Select lock shape --------*/
+
+    function selectLock(id, product) {
+      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        DesignStor.design.steps.selectedStep4 = 0;
+      } else {
+        DesignStor.design.doorConfig.lockShapeIndex = id;
+        DesignStor.design.steps.selectedStep4 = 1;
+      }
+    }
+
+    /**---------- Close Door Configuration --------*/
+
+    function closeDoorConfig() {
+      if(DesignStor.design.steps.selectedStep3) {
+        DesignStor.design.steps.selectedStep3 = 0;
+        DesignStor.design.steps.selectedStep4 = 0;
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        DesignStor.design.doorConfig.handleShapeIndex = '';
+      } else if(DesignStor.design.steps.selectedStep2) {
+        DesignStor.design.steps.selectedStep2 = 0;
+        DesignStor.design.doorConfig.sashShapeIndex = '';
+      } else if(DesignStor.design.steps.selectedStep1) {
+        DesignStor.design.steps.selectedStep1 = 0;
+        DesignStor.design.doorConfig.doorShapeIndex = '';
+      } else {
+        //------ close door config
+        DesignStor.design.steps.isDoorConfig = 0;
+        //------ set Default indexes
+        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+      }
+    }
+
+    /**---------- Save Door Configuration --------*/
+
+    function saveDoorConfig(product) {
+      (product) ? product = product: product = ProductStor.product;
+      var deferred = $q.defer();
+      setNewDoorParamValue(
+        product,
+        DesignStor.design
+      ).then(function(res) {
+        SVGServ.createSVGTemplate(
+          product.template_source,
+          product.profileDepths
+        ).then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+            MainServ.preparePrice(
+              result,
+              ProductStor.product.profile.id,
+              ProductStor.product.glass,
+              ProductStor.product.hardware.id,
+              ProductStor.product.lamination.lamination_in_id
+            ).then(function () {
+            if(ProductStor.product.template_source.doorSill) {
+              DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
+            }
+            SVGServ.createSVGTemplate(
+              product.template_source,
+              product.profileDepths
+            ).then(function(result) {
+              deferred.resolve(1);
+            });
+          });
+        });
+      });
+      DesignStor.design.steps.isDoorConfig = 0;
+      return deferred.promise;
+    }
 
     function setDoorParamValue(product, source) {
+      var w =[900], h = [2000];
+      var k = product.door_lock_shape_id || 0;
+      var widthTEMP, heightTEMP;
+      var clipboard;
+      var doorsItems = angular.copy(GlobalStor.global.doorsItems);
+      (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
+      (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
+
+      function countHandle(source) {
+        var count = source.templateTEMP.details.filter(function(item) {
+          if(item.blockType == 'sash') {
+            if(item.handlePos !== 0) {
+              return item;
+            }
+          }
+        })
+        return count;
+      }
+
+      source.lockShapeList[k].elem = [];
+      product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
+      product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
-      product.doorLock = source.lockShapeList[product.door_lock_shape_id];
-      if(ProductStor.product.construction_type === 4) {
-        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      product.doorLock = source.lockShapeList[k];
+      product.doorHandle.count = countHandle(source).length;
+      for(var e=0; e<source.templateTEMP.details.length; e+=1) {
+        if(source.templateTEMP.details[e].blockType == 'sash') {
+          if(source.templateTEMP.details[e].handlePos !== 0) {
+            if(source.templateTEMP.details[e].openDir[0] === 4) {
+               source.templateTEMP.details[e].openDir[0] = 3;
+            }
+            for(var x=0; x<doorsItems.length; x+=1) {
+              if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
+                if(source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id || doorsItems[x].direction_id === 1) {
+                  if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
+                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) {
+                      if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
+                        if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
+                          if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
+                            doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
+                            clipboard = angular.copy(doorsItems[x]);
+                            source.lockShapeList[k].elem.push(clipboard);
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 
     function doorId(product, source) {
       var deferred = $q.defer();
+      product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
+      product.profile.short_name = '';
+      product.profile.description = '';
+      product.template_source.hardware_id = product.hardware.id;
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+      product.profile.id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profileId;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
       product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      product.doorLock.stvorka_type = source.sashShapeList[product.door_sash_shape_id].list_type_id;
       $q.all([
         MainServ.downloadProfileDepth(product.profile.rama_list_id),
         MainServ.downloadProfileDepth(product.profile.rama_still_list_id),
@@ -785,95 +1205,55 @@
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
+      var deferred = $q.defer();
+      product.door_type_index = source.doorConfig.doorTypeIndex;
       product.door_shape_id = source.doorConfig.doorShapeIndex;
       product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
-     // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
+      GlobalStor.global.type_door = source.doorConfig.doorShapeIndex;
 
-    if(ProductStor.product.construction_type === 4) {
-      doorId(product, source);
+      if(product.construction_type === 4) {
+        setDoorParamValue(product, source);
+      }
+      doorId(product, source).then(function(res) {
+        deferred.resolve(1);
+      });
+     return deferred.promise;
     }
-      setDoorParamValue(product, source);
-    }
-
 
     /** for start */
     function setDoorConfigDefault(product) {
-      var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
-      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
-      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
-      var doorKitsT1 = GlobalStor.global.doorKitsT1;
-      DesignStor.designSource.doorShapeList.length = 0;
-      for(d = 0; d < doorTypeQty; d+=1) {
-        isExist = 0;
-        if(d === 2 && doorsGroups.length) {
-          isExist = 1;
-        } else if(d === 3 && doorsGroups.length) {
-          isExist = 1;
-        } else if(!d || d === 1){
-          isExist = 1;
-        }
-        if(isExist) {
-          DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
-        }
-      }
-      for(var i=0; i<doorsLaminations.length; i+=1) {
-        if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
-        && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
-          for(var z=0; z<doorsGroups.length; z+=1) {
-            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
-              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
-              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
-              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
-              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
-              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = doorsLaminations[i].profileId
-              for(var x=0; x<doorKitsT1.length; x+=1) {
-                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
-                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              break
-            }
-          }
-        }
-      }
-      if(!GlobalStor.global.noDoorExist) {
-        switch (product.door_shape_id) {
-          case 0:
-          case 1:
-            if (doorsGroups.length) {
-              DesignStor.designSource.sashShapeList = angular.copy(doorsGroups);;
-            } else if (doorsGroups.length) {
-              DesignStor.designSource.sashShapeList = angular.copy(doorsGroups);;
-            }
-            break;
-          case 2:
-            if (doorsGroups.length) {
-              DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 2;
-              });
-            }
-            break;
-          case 3:
-            if (doorsGroups.length) {
-              DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 1;
-              });
-            }
-            break;
-        }
+      var deferred = $q.defer();
+      DesignStor.designSource.templateSourceTEMP = angular.copy(product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(product.template);
 
-        DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
-        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
+      DesignStor.design.steps.selectedStep3 = 0;
+      DesignStor.design.steps.selectedStep4 = 0;
+      DesignStor.design.doorConfig.lockShapeIndex = '';
+      DesignStor.design.doorConfig.handleShapeIndex = '';
+      DesignStor.design.steps.selectedStep2 = 0;
+      DesignStor.design.doorConfig.sashShapeIndex = '';
+      DesignStor.design.steps.selectedStep1 = 0;
+      DesignStor.design.doorConfig.doorShapeIndex = '';
+      //------ close door config
+      DesignStor.design.steps.isDoorConfig = 0;
+      //------ set Default indexes
+      DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
 
-        setDoorParamValue(product, DesignStor.designSource);
-      }
+      selectDoor(product.door_shape_id, product);
+      selectSash(product.door_sash_shape_id, product).then(function(res) {
+        selectHandle(product.door_handle_shape_id, product);
+        selectLock(product.door_lock_shape_id, product);
+        saveDoorConfig(product).then(function(res2) {
+          deferred.resolve(product);
+          //console.log(product);
+        });
+      });
+      return deferred.promise;
     }
-
-
-
 
     //------- set Default Construction
     function setDefaultConstruction() {
@@ -882,15 +1262,6 @@
       DesignStor.design = DesignStor.setDefaultDesign();
       setDefaultTemplate();
     }
-
-
-
-
-
-
-
-
-
 
     /**-------------- Edit Design --------------*/
 
@@ -926,7 +1297,7 @@
               cleanTempSize();
             } else {
               var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
-              if (isImpost) {
+              if(isImpost) {
                 impost.classed('frame-active', true);
                 //------- active impost menu and submenu
                 DesignStor.design.activeMenuItem = 3;
@@ -939,7 +1310,7 @@
               } else {
                 impost.classed('frame-active', false);
                 //----- if none imposts
-                if (!DesignStor.design.selectedImpost.length) {
+                if(!DesignStor.design.selectedImpost.length) {
                   //------- close impost menu and submenu
                   DesignStor.design.activeMenuItem = 0;
                   DesignStor.design.activeSubMenuItem = 0;
@@ -963,10 +1334,10 @@
       if(dimQty) {
         while (--dimQty > -1) {
           axis = dim[0][dimQty].attributes.axis;
-          if (axis) {
-            if (axis.nodeValue === 'x') {
+          if(axis) {
+            if(axis.nodeValue === 'x') {
               isXDim = 1;
-            } else if (axis.nodeValue === 'y') {
+            } else if(axis.nodeValue === 'y') {
               isYDim = 1;
             }
           }
@@ -982,22 +1353,16 @@
       }
     }
 
-
-
     function showCurrentDimLevel(currDimId) {
       var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']');
       showBlockDimensions(dim, globalConstants.SVG_ID_EDIT);
     }
-
-
 
     /**------- show all dimensions for Glass and Grid Selectors -------*/
     function showAllDimension(svgID) {
       var dim = d3.selectAll('#'+svgID+' .dim_block');
       showBlockDimensions(dim, svgID);
     }
-
-
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
@@ -1014,7 +1379,7 @@
               var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                   blockID = glass[0][0].attributes.block_id.nodeValue;
 
-              if (isGlass) {
+              if(isGlass) {
                 glass.classed('glass-active', true);
                 hideCornerMarks();
                 deselectAllImpost();
@@ -1028,10 +1393,10 @@
               } else {
                 glass.classed('glass-active', false);
                 //------- hide Dimensions of current Block
-                d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id=' + blockID + ']')
+                d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+blockID+']')
                   .classed('dim_hidden', true);
 
-                if (!DesignStor.design.selectedGlass.length) {
+                if(!DesignStor.design.selectedGlass.length) {
                   //------- close glass menu and submenu
                   DesignStor.design.activeMenuItem = 0;
                   DesignStor.design.activeSubMenuItem = 0;
@@ -1058,10 +1423,11 @@
               var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                   blockID = glass[0][0].attributes.block_id.nodeValue;
 
-              if (isGlass) {
+              if(isGlass) {
                 glass.classed('glass-active', true);
-                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.selectGlassName);
+                d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.selectGlassName);
                 MainServ.setGlassToTemplateBlocks(
+                  GlobalStor.global.selectGlassType,
                   ProductStor.product.template,
                   GlobalStor.global.selectGlassId,
                   GlobalStor.global.selectGlassName,
@@ -1069,8 +1435,9 @@
                 );
               } else {
                 glass.classed('glass-active', false);
-                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.prevGlassName);
+                d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.prevGlassName);
                 MainServ.setGlassToTemplateBlocks(
+                  GlobalStor.global.selectGlassType,
                   ProductStor.product.template,
                   GlobalStor.global.prevGlassId,
                   GlobalStor.global.prevGlassName,
@@ -1106,29 +1473,111 @@
     /**------- set click to all Glass for Grid selector ---------- */
 
     function initAllGlassXGrid() {
+
+      function test(blocks, blocksQty, parent) {
+        if(parent || !parent === 'block_0') {
+          var block = blocks.filter(function(item) {
+            if(item.id === parent) {
+              return item;
+            }
+          });
+          if(block[0].blockType === "sash") {
+            test2(block[0].children, blocks);
+
+            if(GlobalStor.global.sashTypeBlock.length>0) {
+              var double = GlobalStor.global.sashTypeBlock.filter(function(sash) {
+                if(sash === block[0].id) {
+                  return sash;
+                }
+              });
+              if(double.length>0) {
+                GlobalStor.global.sashTypeBlock = GlobalStor.global.sashTypeBlock.filter(function(sash) {
+                  if(!sash === double) {
+                    return sash;
+                  }
+                });
+              } else {
+                GlobalStor.global.sashTypeBlock[GlobalStor.global.sashTypeBlock.length] = block[0].id;
+              }
+            } else {
+              GlobalStor.global.sashTypeBlock[GlobalStor.global.sashTypeBlock.length] = block[0].id;
+            }
+          } else {
+            test(blocks, blocksQty, block[0].parent);
+          }
+        } else {
+                    //------ show error
+          showErrorInBlock(GlobalStor.global.allGlass[0].attributes.block_id.nodeValue, globalConstants.SVG_ID_GRID);
+        }
+      }
+
+      function test2(items, blocks) {
+        var temp = [];
+        if(items.length>0) {
+          GlobalStor.global.children = _.uniq(GlobalStor.global.children.concat(items));
+          GlobalStor.global.childrenTEMP = angular.copy(GlobalStor.global.children);
+          for(var j=0; j<blocks.length; j+=1) {
+            for(var x=0; x<items.length; x+=1) {
+              if(items[x] === blocks[j].id) {
+                temp = _.union(temp, blocks[j].children);
+              }
+            }
+          }
+
+          test2(temp, blocks);
+        } else {
+          test3();
+        }
+      }
+
+      function test3() {
+        var glasses = GlobalStor.global.allGlass.filter(function(gl) {
+          for(var t=0; t<GlobalStor.global.children.length; t+=1) {
+            if(d3.select(gl)[0][0].attributes.block_id.nodeValue == GlobalStor.global.children[t]) {
+              (isExistElementInSelected(d3.select(gl)[0][0], DesignStor.design.selectedGlass)) ? d3.select(gl).classed('glass-active', true) : d3.select(gl).classed('glass-active', false);
+            }
+          }
+        })
+      }
+
+      GlobalStor.global.sashTypeBlock = [];
       DesignStor.design.selectedGlass.length = 0;
       d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
         .each(function() {
-          var glass = d3.select(this);
+          var glass = GlobalStor.global.mosGlassRes = d3.select(this);
           glass.on(clickEvent, function() {
+            GlobalStor.global.parents = [];
+            GlobalStor.global.children = [];
             var blocks = ProductStor.product.template.details,
                 blocksQty = blocks.length,
                 blockID = glass[0][0].attributes.block_id.nodeValue,
-                isGlass;
+                parentID = glass[0][0].attributes.parent_id.nodeValue,
+                items = $(this).siblings(),
+                isGlass, allGlass = [];
+                allGlass.push(this);
+                for(var x=0; x<items.length; x+=1) {
+                  if(items[x].__data__) {
+                    if(items[x].__data__.type) {
+                      if(items[x].__data__.type === 'glass') {
+                        allGlass.push(items[x]);
+                      }
+                    }
+                  }
+                }
+                GlobalStor.global.allGlass = allGlass;
             //-------- check glass per sash
             while(--blocksQty > 0) {
               if(blocks[blocksQty].id === blockID) {
-                if (blocks[blocksQty].blockType === "sash") {
+                if(blocks[blocksQty].blockType === "sash") {
                   isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
                   //========= select glass
-                  if (isGlass) {
+                  if(isGlass) {
                     glass.classed('glass-active', true);
                   } else {
                     glass.classed('glass-active', false);
                   }
                 } else {
-                  //------ show error
-                  showErrorInBlock(blockID, globalConstants.SVG_ID_GRID);
+                  test(blocks, blocksQty, parentID)
                 }
               }
             }
@@ -1166,7 +1615,7 @@
 
     function initAllArcs() {
       var arcs = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')[0].filter(function (item) {
-        if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+        if(item.__data__.type === 'frame' || item.__data__.type === 'arc') {
           return true;
         }
       });
@@ -1180,7 +1629,7 @@
             } else {
               var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
               //console.log('add to ARC++++', DesignStor.design.selectedArc);
-              if (isArc) {
+              if(isArc) {
                 arc.classed('active_svg', true);
                 deselectAllGlass();
                 hideCornerMarks();
@@ -1189,7 +1638,7 @@
                 $rootScope.$apply();
               } else {
                 arc.classed('active_svg', false);
-                if (!DesignStor.design.selectedArc.length) {
+                if(!DesignStor.design.selectedArc.length) {
                   //------- close glass menu and submenu
                   DesignStor.design.activeMenuItem = 0;
                   DesignStor.design.activeSubMenuItem = 0;
@@ -1211,7 +1660,7 @@
 
 
 
-    /**++++++++++ Edit Sash +++++++++*/
+    /**++++++++++Edit Sash+++++++++*/
 
     function checkImpPointInCorner(linePoint, impPoint) {
       var noMatch = 1,
@@ -1258,8 +1707,8 @@
     function createChildBlock (blockN, blockIndex, blocks, isShtulp, sashParams) {
       var newBlock = {
         type: 'skylight',
-        id: 'block_' + blockN,
-        level: blocks[blockIndex].level + 1,
+        id: 'block_'+blockN,
+        level: blocks[blockIndex].level+1,
         blockType: 'frame',
         parent: blocks[blockIndex].id,
         children: [],
@@ -1268,7 +1717,9 @@
         pointsLight: [],
         parts: [],
         glassId: blocks[blockIndex].glassId,
-        glassTxt: blocks[blockIndex].glassTxt
+        glassTxt: blocks[blockIndex].glassTxt,
+        glass_type: blocks[blockIndex].glass_type,
+        glass_color: blocks[blockIndex].glass_color
       };
 
       //---------- for SHTULP
@@ -1340,7 +1791,7 @@
               if(noInCorner1) {
                 noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
                 if(noInCorner2) {
-                  //console.log('IMp++++++++++ line', lines[l]);
+                  //console.log('IMp++++++++++line', lines[l]);
                   //console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
                   impPoints.push(coord);
                 }
@@ -1378,17 +1829,17 @@
         SVGServ.setLineCoef(impLine);
         coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
         //------ if impost vert or hor
-        if (!impLine.coefA && position === 1) {
+        if(!impLine.coefA && position === 1) {
           coordQ.y -= impRadius * 2;
-        } else if (!impLine.coefB && position === 4) {
+        } else if(!impLine.coefB && position === 4) {
           coordQ.x -= impRadius * 2;
         }
         posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
         while (--pointsQty > -1) {
           var posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
-          if (posP > 0 && posQ > 0) {
+          if(posP > 0 && posQ > 0) {
             currPoints.push(pointsIn[pointsQty]);
-          } else if (posP < 0 && posQ < 0) {
+          } else if(posP < 0 && posQ < 0) {
             currPoints.push(pointsIn[pointsQty]);
           }
         }
@@ -1396,9 +1847,9 @@
         //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
         currBlockCenter = SVGServ.centerBlock(currPoints);
         //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
-        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
+        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x+impLine.coefB * currBlockCenter.y+impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
         //      console.log('IMP -------------',impRadius, distCenterToImpost);
-        if (impRadius < distCenterToImpost) {
+        if(impRadius < distCenterToImpost) {
           return impRadius / 2;
         } else {
           return distCenterToImpost / 2;
@@ -1436,8 +1887,8 @@
 
       //------- find lines as to current block
       while (--blocksQty > 0) {
-        if (blocks[blocksQty].id === blockID) {
-          currBlockInd = +blocksQty;
+        if(blocks[blocksQty].id === blockID) {
+          currBlockInd =+blocksQty;
           curBlockN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
         }
       }
@@ -1450,7 +1901,7 @@
       }
 
       var impPointsQty = crossPoints.length;
-      if (impPointsQty === 2) {
+      if(impPointsQty === 2) {
         while (--impPointsQty > -1) {
           createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, dimType, 1);
           createChildBlock(lastBlockN+=1, currBlockInd, blocksSource, 1, sashesParams[impPointsQty]);
@@ -1468,108 +1919,141 @@
     function createSash(type, glassObj) {
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.block_id.nodeValue,
+          parentID = glassObj.attributes.parent_id.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           minGlassSize = d3.min(glass.sizes),
           sashesParams, b;
 
-      /**---- shtulps ---*/
-      if(type === 8 || type === 9) {
-        if(minGlassSize >= globalConstants.minSizeLimitStulp) {
-
-          if(type === 8) {
-            sashesParams = [
-              {
-                openDir: [4],
-                handlePos: 0,
-                sashType: 4
-              },
-              {
-                openDir: (ProductStor.product.construction_type === 4) ? [2] : [1, 2],
-                handlePos: 2,
-                sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+      function permit(parentID, blocks) {
+        var defer = $q.defer();
+        function subPermit(parent, blocks) {
+          if(parent) {
+            if(parent !== 'block_0') {
+              var block = blocks.filter(function(item) {
+                if(item.id === parent) {
+                  return item;
+                }
+              });
+              if(block[0].blockType !== "sash") {
+                subPermit(block[0].parent, blocks);
+              } else {
+                defer.resolve('error');
               }
-            ];
-          } else if(type === 9) {
-            sashesParams = [
-              {
-                openDir: (ProductStor.product.construction_type === 4) ? [4] : [1, 4],
-                handlePos: 4,
-                sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
-              },
-              {
-                openDir: [2],
-                handlePos: 0,
-                sashType: 4
-              }
-            ];
-          }
-
-          createShtulp(blockID, sashesParams);
-
-        } else {
-          //------ show error
-          showErrorInBlock(blockID);
-        }
-
-      } else {
-
-        if (minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
-
-          //---- save last step
-          DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-          for (b = 1; b < blocksQty; b+=1) {
-            if (blocks[b].id === blockID) {
-              blocks[b].blockType = 'sash';
-              blocks[b].gridId = 0;
-              blocks[b].gridTxt = '';
-
-              switch (type) {
-                //----- 'left'
-                case 2:
-                  blocks[b].openDir = [4];
-                  blocks[b].handlePos = 4;
-                  blocks[b].sashType = 2;
-                  break;
-                //----- 'right'
-                case 3:
-                  blocks[b].openDir = [2];
-                  blocks[b].handlePos = 2;
-                  blocks[b].sashType = 2;
-                  break;
-                //----- 'up'
-                case 4:
-                  blocks[b].openDir = [1];
-                  blocks[b].handlePos = 1;
-                  blocks[b].sashType = 7;
-                  break;
-                //------ 'down'
-                case 5:
-                  blocks[b].openDir = [3];
-                  blocks[b].handlePos = 3;
-                  blocks[b].sashType = 2;
-                  break;
-                //------ 'up', 'right'
-                case 6:
-                  blocks[b].openDir = [1, 2];
-                  blocks[b].handlePos = 2;
-                  blocks[b].sashType = 6;
-                  break;
-                //------ 'up', 'left'
-                case 7:
-                  blocks[b].openDir = [1, 4];
-                  blocks[b].handlePos = 4;
-                  blocks[b].sashType = 6;
-                  break;
-              }
-              //----- change Template
-              rebuildSVGTemplate();
+            } else {
+              defer.resolve('good');
             }
+          } else {
+            defer.resolve('good');
           }
+        }
+        subPermit(parentID, blocks);
+        return defer.promise;
+      }
+
+      permit(parentID, blocks).then(function(result) {
+        (result === 'good' || ProductStor.product.construction_type !==4)?doSash(type, glassObj): showErrorInBlock(blockID);
+      });
+
+      function doSash(type, glassObj) {
+        /**---- shtulps ---*/
+        if(type === 8 || type === 9) {
+          if(minGlassSize >= globalConstants.minSizeLimitStulp) {
+
+            if(type === 8) {
+              sashesParams = [
+                {
+                  openDir: [4],
+                  handlePos: 0,
+                  sashType: 4
+                },
+                {
+                  openDir: (ProductStor.product.construction_type === 4) ? [2] : [1, 2],
+                  handlePos: 2,
+                  sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+                }
+              ];
+            } else if(type === 9) {
+              sashesParams = [
+                {
+                  openDir: (ProductStor.product.construction_type === 4) ? [4] : [1, 4],
+                  handlePos: 4,
+                  sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+                },
+                {
+                  openDir: [2],
+                  handlePos: 0,
+                  sashType: 4
+                }
+              ];
+            }
+
+            createShtulp(blockID, sashesParams);
+
+          } else {
+            //------ show error
+            showErrorInBlock(blockID);
+          }
+
         } else {
-          //------ show error
-          showErrorInBlock(blockID);
+
+          if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+
+            //---- save last step
+            DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+            for(b = 1; b < blocksQty; b+=1) {
+              if(blocks[b].id === blockID) {
+                blocks[b].blockType = 'sash';
+                blocks[b].gridId = 0;
+                blocks[b].gridTxt = '';
+
+                switch (type) {
+                  //----- 'left'
+                  case 2:
+                    blocks[b].openDir = [4];
+                    blocks[b].handlePos = 4;
+                    blocks[b].sashType = 2;
+                    break;
+                  //----- 'right'
+                  case 3:
+                    blocks[b].openDir = [2];
+                    blocks[b].handlePos = 2;
+                    blocks[b].sashType = 2;
+                    break;
+                  //----- 'up'
+                  case 4:
+                    blocks[b].openDir = [1];
+                    blocks[b].handlePos = 1;
+                    blocks[b].sashType = 7;
+                    break;
+                  //------ 'down'
+                  case 5:
+                    blocks[b].openDir = [3];
+                    blocks[b].handlePos = 3;
+                    blocks[b].sashType = 2;
+                    break;
+                  //------ 'up', 'right'
+                  case 6:
+                    blocks[b].openDir = [1, 2];
+                    blocks[b].handlePos = 2;
+                    blocks[b].sashType = 6;
+                    break;
+                  //------ 'up', 'left'
+                  case 7:
+                    blocks[b].openDir = [1, 4];
+                    blocks[b].handlePos = 4;
+                    blocks[b].sashType = 6;
+                    break;
+                }
+                //----- change Template
+                rebuildSVGTemplate();
+              }
+            }
+          } else {
+            //------ show error
+            showErrorInBlock(blockID);
+          }
         }
       }
     }
@@ -1636,7 +2120,7 @@
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       for(b = 1; b < blocksQty; b+=1) {
-        if (blocks[b].id === blockID) {
+        if(blocks[b].id === blockID) {
           //console.log('delete sash-----', blocks[b]);
 
           //------- checking existing SHTULP
@@ -1689,22 +2173,22 @@
 
 
 
-    /**++++++++++ Edit Corners ++++++++*/
+    /**++++++++++Edit Corners++++++++*/
 
 
     function createCornerPoint(pointN, cornerN, line, blockIndex, blocks) {
       var dictance = 200,
           cornerPoint = {
             type:'corner',
-            id: 'c' + cornerN + '-' + pointN,
+            id: 'c'+cornerN+'-'+pointN,
             dir:'line'
           };
       if(pointN === 1) {
-        cornerPoint.x = ( line.from.x * (line.size - dictance) + line.to.x * dictance)/ line.size;
-        cornerPoint.y = ( line.from.y * (line.size - dictance) + line.to.y * dictance)/ line.size;
+        cornerPoint.x = ( line.from.x * (line.size - dictance)+line.to.x * dictance)/ line.size;
+        cornerPoint.y = ( line.from.y * (line.size - dictance)+line.to.y * dictance)/ line.size;
       } else if(pointN === 2) {
-        cornerPoint.x = ( line.from.x * dictance + line.to.x * (line.size - dictance))/ line.size;
-        cornerPoint.y = ( line.from.y * dictance + line.to.y * (line.size - dictance))/ line.size;
+        cornerPoint.x = ( line.from.x * dictance+line.to.x * (line.size - dictance))/ line.size;
+        cornerPoint.y = ( line.from.y * dictance+line.to.y * (line.size - dictance))/ line.size;
       }
       blocks[blockIndex].pointsOut.push(cornerPoint);
     }
@@ -1771,10 +2255,10 @@
           currLine = {};
       while (--pointOutQty > -1) {
         if(blocks[blocksInd].pointsOut[pointOutQty].type === 'corner') {
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-2') {
+          if(blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-2') {
             currLine.from = blocks[blocksInd].pointsOut[pointOutQty];
           }
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-1') {
+          if(blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-1') {
             currLine.to = blocks[blocksInd].pointsOut[pointOutQty];
           }
         }
@@ -1851,14 +2335,14 @@
       while(--blocksQty > 0) {
         if(blocks[blocksQty].id === blockID) {
           //----- set curve corner
-          if (cornerObj.__data__.view) {
+          if(cornerObj.__data__.view) {
             startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
             createQCPoint(cornerN, blocksQty, blocksSource);
             //----- change simple corner to corve
           } else {
             linesQty = blocks[blocksQty].linesOut.length;
-            for (l = 0; l < linesQty; l+=1) {
-              if (blocks[blocksQty].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[blocksQty].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
+            for(l = 0; l < linesQty; l+=1) {
+              if(blocks[blocksQty].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[blocksQty].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
                 createCurveQPoint(
                   'corner', 'qc'+cornerN, blocks[blocksQty].linesOut[l], cornerN, blocksQty, blocksSource
                 );
@@ -1886,7 +2370,7 @@
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //------- delete corner point in block
-      removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2'], blockID, blocksSource);
+      removePoint(['c'+cornerN+'-1', 'c'+cornerN+'-2'], blockID, blocksSource);
 
       //------- delete Q point in block
       removePointQ('qc'+cornerN, blockID, blocksSource);
@@ -1912,20 +2396,20 @@
 
 
 
-    /**++++++++++ Edit Arc ++++++++*/
+    /**++++++++++Edit Arc++++++++*/
 
 
     function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
       while(--pointsQty > -1) {
         if(param) {
           if(dir) {
-            points[pointsQty].x += shift;
+            points[pointsQty].x+= shift;
           } else {
             points[pointsQty].x -= shift;
           }
         } else {
           if(dir) {
-            points[pointsQty].y += shift;
+            points[pointsQty].y+= shift;
           } else {
             points[pointsQty].y -= shift;
           }
@@ -1981,9 +2465,9 @@
       if(!$.isEmptyObject(arcObj)) {
 
         var arc = arcObj.__data__;
-//        console.log('+++++++++++++ ARC +++++++++++++++++++++');
+//        console.log('+++++++++++++ARC+++++++++++++++++++++');
         //------ make changes only if element is frame, don't touch arc
-        if (arc.type === 'frame') {
+        if(arc.type === 'frame') {
           var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
               blockID = arcObj.attributes.block_id.nodeValue,
               blocks = angular.copy(DesignStor.design.templateTEMP.details),
@@ -1995,11 +2479,11 @@
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
           //------- find line and block in order to insert Q point
-          for (b = 1; b < blocksQty; b+=1) {
-            if (blocks[b].id === blockID) {
+          for(b = 1; b < blocksQty; b+=1) {
+            if(blocks[b].id === blockID) {
               linesQty = blocks[b].linesOut.length;
               while (--linesQty > -1) {
-                if (blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
+                if(blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
                   currBlockIndex = b;
                   currLine = blocks[b].linesOut[linesQty];
                 }
@@ -2007,30 +2491,30 @@
             }
           }
           //------ up
-          if (arc.points[0].fi < 180 && arc.points[1].fi < 180) {
+          if(arc.points[0].fi < 180 && arc.points[1].fi < 180) {
             position = 1;
             //------ right
-          } else if (arc.points[0].fi < 90 && arc.points[1].fi > 270) {
+          } else if(arc.points[0].fi < 90 && arc.points[1].fi > 270) {
             position = 2;
             //------ down
-          } else if (arc.points[0].fi > 180 && arc.points[1].fi > 180) {
+          } else if(arc.points[0].fi > 180 && arc.points[1].fi > 180) {
             position = 3;
             //------ left
-          } else if (arc.points[0].fi < 270 && arc.points[1].fi > 90) {
+          } else if(arc.points[0].fi < 270 && arc.points[1].fi > 90) {
             position = 4;
           }
           var coordQ = SVGServ.setQPointCoord(position, currLine, currLine.size / 2);
-          if (position === 1) {
+          if(position === 1) {
             shiftingAllPoints(1, 0, coordQ.y, blocks);
             shiftingAllPoints(1, 0, coordQ.y, blocksSource);
             coordQ.y = 0;
-          } else if (position === 4) {
+          } else if(position === 4) {
             shiftingAllPoints(1, 1, coordQ.x, blocks);
             shiftingAllPoints(1, 1, coordQ.x, blocksSource);
             coordQ.x = 0;
           }
           //------- rebuild linesOut after shifting of points
-          if (!coordQ.y || !coordQ.x) {
+          if(!coordQ.y || !coordQ.x) {
             currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource);
           }
           createCurveQPoint('arc', 'qa'+arcN, currLine, position, currBlockIndex, blocksSource);
@@ -2040,7 +2524,7 @@
             .then(function (result) {
               //------ delete sash if block sizes are small
               var wasSashDelet = checkSashesBySizeBlock(result);
-              if (wasSashDelet) {
+              if(wasSashDelet) {
                 SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                   .then(function (result) {
                     DesignStor.design.templateTEMP = angular.copy(result);
@@ -2069,7 +2553,7 @@
       if(!$.isEmptyObject(arcObj)) {
         var arc = arcObj.__data__;
 //console.log('DELET ARC+++++++',arc);
-        if (arc.type === 'arc') {
+        if(arc.type === 'arc') {
           var arcID = arc.points[1].id,
               blockID = arcObj.attributes.block_id.nodeValue,
               blocksSource = DesignStor.design.templateSourceTEMP.details;
@@ -2081,9 +2565,9 @@
           removePointQ(arcID, blockID, blocksSource);
 
           //------ unshifting
-          if (!arc.points[1].x) {
+          if(!arc.points[1].x) {
             shiftingAllPoints(0, 1, arc.points[0].x, blocksSource);
-          } else if (!arc.points[1].y) {
+          } else if(!arc.points[1].y) {
             shiftingAllPoints(0, 0, arc.points[0].y, blocksSource);
           }
 
@@ -2092,7 +2576,7 @@
             .then(function (result) {
               //------ delete sash if block sizes are small
               var wasSashDelet = checkSashesBySizeBlock(result);
-              if (wasSashDelet) {
+              if(wasSashDelet) {
                 SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                   .then(function (result) {
                     DesignStor.design.templateTEMP = angular.copy(result);
@@ -2142,7 +2626,7 @@
 
 
 
-    /**++++++++++ Edit Imposts ++++++++*/
+    /**++++++++++Edit Imposts++++++++*/
 
 
 
@@ -2243,8 +2727,8 @@
             break;
         }
         //------- find lines as to current block
-        for (b = 1; b < blocksQty; b+=1) {
-          if (blocks[b].id === blockID) {
+        for(b = 1; b < blocksQty; b+=1) {
+          if(blocks[b].id === blockID) {
             currBlockInd = b;
             curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
           }
@@ -2259,7 +2743,7 @@
         }
 
         var impPointsQty = crossPoints.length;
-        if (impPointsQty === 2) {
+        if(impPointsQty === 2) {
 
           while (--impPointsQty > -1) {
 //            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, impPointsQty);
@@ -2267,7 +2751,7 @@
             createChildBlock(++lastBlockN, currBlockInd, blocksSource);
           }
           //------- if impost is curve
-          if (isImpCurv) {
+          if(isImpCurv) {
             var distMax = getRadiusMaxImpostCurv(
               positionQ, impVector, blocks[currBlockInd].linesIn, blocks[currBlockInd].pointsIn
             );
@@ -2279,7 +2763,7 @@
         } else {
           //------ show error
           showErrorInBlock(blockID);
-          //TODO reload again createImpost(impType, glassObj) with angel changed +10 degree
+          //TODO reload again createImpost(impType, glassObj) with angel changed+10 degree
         }
 
       } else {
@@ -2322,7 +2806,7 @@
 
 
 
-    /**++++++++++ Create Mirror ++++++++*/
+    /**++++++++++Create Mirror++++++++*/
 
 
 
@@ -2330,9 +2814,9 @@
       var pointsQty = points.length;
       while(--pointsQty > -1) {
         //        if(points[pointsQty].type !== 'frame') {
-        if (points[pointsQty].x === 0) {
+        if(points[pointsQty].x === 0) {
           points[pointsQty].x = maxX;
-        } else if (points[pointsQty].x === maxX) {
+        } else if(points[pointsQty].x === maxX) {
           points[pointsQty].x = 0;
         } else {
           points[pointsQty].x = maxX - points[pointsQty].x;
@@ -2454,7 +2938,7 @@
 
 
 
-    /**++++++++++ Set Position by Axises ++++++++*/
+    /**++++++++++Set Position by Axises++++++++*/
 
 
 
@@ -2480,7 +2964,18 @@
       }
       return isInside;
     }
-
+    function rebuildSVGTemplate() {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+        .then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.design.templateTEMP.details.forEach(function(entry,index){
+            if(entry.impost){
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[1].x;
+            }
+          });
+        });
+    }
 
 
     function positionAxises() {
@@ -2537,9 +3032,9 @@
         for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
           if(!i) {
-            newX = (parentSizeMin + step);
+            newX = (parentSizeMin+step);
           } else {
-            newX = (impostIndSort[i-1].x + step);
+            newX = (impostIndSort[i-1].x+step);
           }
           //console.warn('final----', newX);
           //--------- checking is new impost Position inside of block
@@ -2559,6 +3054,7 @@
         }
       }
       rebuildSVGTemplate();
+
     }
 
 
@@ -2567,7 +3063,7 @@
 
 
 
-    /**++++++++++ Set Position by Glass Width ++++++++*/
+    /**++++++++++Set Position by Glass Width++++++++*/
 
 
     function prepareBlockXPosition(currBlock, selectedBlocks) {
@@ -2667,7 +3163,7 @@
       //------ common glass width for each selectedBlocks
       //glassWidthAvg = GeneralServ.rounding100(selectedBlocks.reduce(function(summ, item) {
       glassWidthAvg = GeneralServ.roundingValue(selectedBlocks.reduce(function(summ, item) {
-        return {width: (summ.width + item.width)};
+        return {width: (summ.width+item.width)};
       }).width/selectedBlocksQty);
 
       //console.info(selectedBlocks, glassWidthAvg);
@@ -2693,7 +3189,7 @@
         impsSBQty = selectedBlocks[sb].imps.length;
         step = Math.round(glassWidthAvg - selectedBlocks[sb].width);
         //console.info('step----', selectedBlocks[sb]);
-        //console.info('step----', glassWidthAvg +' - '+ selectedBlocks[sb].width, step);
+        //console.info('step----', glassWidthAvg+' - '+selectedBlocks[sb].width, step);
         for(isb = 0; isb < impsSBQty; isb+=1) {
           if(!selectedBlocks[sb].imps[isb].isChanged) {
             isAprove = 0;
@@ -2709,14 +3205,14 @@
                 //----- if impost is left, it shoud be decrece if glass is bigger
                 step *= -1;
               }
-              selectedBlocks[sb].imps[isb].x += step;
+              selectedBlocks[sb].imps[isb].x+= step;
               //console.info('impst----', selectedBlocks[sb].imps[isb].x);
               //------- set mark in equals impost other blocks
-              for (sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
-                if (isb !== sb2) {
+              for(sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
+                if(isb !== sb2) {
                   impsSBQty2 = selectedBlocks[sb2].imps.length;
-                  for (isb2 = 0; isb2 < impsSBQty2; isb2+=1) {
-                    if (sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
+                  for(isb2 = 0; isb2 < impsSBQty2; isb2+=1) {
+                    if(sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
                       selectedBlocks[sb2].imps[isb2].isChanged = 1;
                       selectedBlocks[sb2].width -= step;
                     }
@@ -2738,8 +3234,8 @@
               blockN = Number(blocksSource[p].id.replace(/\D+/g, ""));
               if(blockN === impostN) {
                 if(blocksSource[p].impost) {
-                  blocksSource[p].impost.impostAxis[0].x = +selectedBlocks[sb].imps[isb].x;
-                  blocksSource[p].impost.impostAxis[1].x = +selectedBlocks[sb].imps[isb].x;
+                  blocksSource[p].impost.impostAxis[0].x =+selectedBlocks[sb].imps[isb].x;
+                  blocksSource[p].impost.impostAxis[1].x =+selectedBlocks[sb].imps[isb].x;
                 }
               }
             }
@@ -2750,12 +3246,8 @@
       rebuildSVGTemplate();
     }
 
-
-
-
-
-
     function stepBack() {
+      GlobalStor.global.checkDoors = 0;
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
       rebuildSVGTemplate();
@@ -2765,103 +3257,139 @@
     }
 
 
-
-
-
-
-
     /**------- Save and Close Construction Page ----------*/
+    function saveSizeCheck() {
+      if(ProductStor.product.construction_type === 4) {
+
+        DesignStor.design.steps.selectedStep3 = 0;
+        DesignStor.design.steps.selectedStep4 = 0;
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        DesignStor.design.doorConfig.handleShapeIndex = '';
+        DesignStor.design.steps.selectedStep2 = 0;
+        DesignStor.design.doorConfig.sashShapeIndex = '';
+        DesignStor.design.steps.selectedStep1 = 0;
+        DesignStor.design.doorConfig.doorShapeIndex = '';
+        //------ close door config
+        DesignStor.design.steps.isDoorConfig = 0;
+        //------ set Default indexes
+        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+
+        selectDoor(ProductStor.product.door_shape_id, ProductStor.product);
+        selectSash(ProductStor.product.door_sash_shape_id, ProductStor.product).then(function(res) {
+          selectHandle(ProductStor.product.door_handle_shape_id, ProductStor.product);
+          selectLock(ProductStor.product.door_lock_shape_id, ProductStor.product);
+          saveDoorConfig(ProductStor.product).then(function(res2) {
+            rebuildSVGTemplate();
+            checkSize(DesignStor.design.templateTEMP);
+          });
+        });
+
+
+
+        var intervalID = setInterval( function() {
+          if(GlobalStor.global.timeoutFunc === 1){
+            clearInterval(intervalID);
+              designSaved();
+          }
+        } , 50);
+      } else {
+        ProductStor.product.doorLock = {};
+        designSaved();
+      }
+    }
+
+
 
     function designSaved() {
-      var doorConfig = DesignStor.design.doorConfig,
-          isSashesInTemplate;
-      GlobalStor.global.isLoader = 1;
-      closeSizeCaclulator(1).then(function() {
-
-        /** check sizes of all glass */
-        MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
-        if(DesignStor.design.extraGlass.length){
-          /** expose Alert */
-          GlobalStor.global.isLoader = 0;
-          DesignStor.design.isGlassExtra = 1;
-        } else {
-          /** if sash was added/removed in template */
-          isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
-          if (isSashesInTemplate) {
-            /** set first hardware if sash were not existed before */
-            if (!GlobalStor.global.isSashesInTemplate) {
-              GlobalStor.global.isSashesInTemplate = 1;
-              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-            }
-            /** check sizes of all hardware in sashes */
-            MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
-
-          } else {
-            /** sashes were removed */
-            ProductStor.product.hardware = {};
-            ProductStor.product.hardware.id = 0;
-            GlobalStor.global.isSashesInTemplate = 0;
-            //------ clean Extra Hardware
-            DesignStor.design.extraHardware.length = 0;
-          }
-
-          if(DesignStor.design.extraHardware.length){
+      if(GlobalStor.global.checkDoors === 0) {
+        var doorConfig = DesignStor.design.doorConfig,
+            isSashesInTemplate;
+        GlobalStor.global.isLoader = 1;
+        closeSizeCaclulator(1).then(function() {
+          /** check sizes of all glass */
+          MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
+          if(DesignStor.design.extraGlass.length){
             /** expose Alert */
             GlobalStor.global.isLoader = 0;
-            DesignStor.design.isHardwareExtra = 1;
+            DesignStor.design.isGlassExtra = 1;
           } else {
-            /** save new template in product */
-            ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-            ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+            /** if sash was added/removed in template */
+            isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
+            if(isSashesInTemplate) {
+              /** set first hardware if sash were not existed before */
+              if(!GlobalStor.global.isSashesInTemplate) {
+                GlobalStor.global.isSashesInTemplate = 1;
+                ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+              }
+              /** check sizes of all hardware in sashes */
+              MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
 
-            /** rebuild glasses */
-            MainServ.setCurrentGlass(ProductStor.product, 1);
+            } else {
+              /** sashes were removed */
+              ProductStor.product.hardware = {};
+              ProductStor.product.hardware.id = 0;
+              GlobalStor.global.isSashesInTemplate = 0;
+              //------ clean Extra Hardware
+              DesignStor.design.extraHardware.length = 0;
+            }
 
-            /** create template icon */
-            SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+            if(DesignStor.design.extraHardware.length){
+              /** expose Alert */
+              GlobalStor.global.isLoader = 0;
+              DesignStor.design.isHardwareExtra = 1;
+            } else {
+              /** save new template in product ***** */
+              ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+              ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+              /** rebuild glasses */
+              MainServ.setGlassfilter();
+              MainServ.setCurrentGlass(ProductStor.product, 1);
+
+              /** create template icon */
+              SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                .then(function (result) {
+                  ProductStor.product.templateIcon = angular.copy(result);
+                });
+
+              /** save new template in templates Array */
+              GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
+                ProductStor.product.template_source
+              );
+
+              /** check grids */
+              var isChanged = updateGrids();
+              if(isChanged) {
+                //------ get new grids price
+                loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
+              }
+              SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
               .then(function (result) {
-                ProductStor.product.templateIcon = angular.copy(result);
+                ProductStor.product.template = angular.copy(result);
+                /** refresh price of new template */
+                MainServ.preparePrice(
+                  ProductStor.product.template,
+                  ProductStor.product.profile.id,
+                  ProductStor.product.glass,
+                  ProductStor.product.hardware.id,
+                  ProductStor.product.lamination.lamination_in_id
+                ).then(function () {
+                    //-------- template was changed
+                    SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+                    .then(function (result) {
+                      ProductStor.product.template = angular.copy(result);
+
+                    GlobalStor.global.isChangedTemplate = 1;
+                    backtoTemplatePanel();
+                  });
+                });
               });
-
-            /** if Door Construction */
-            if (ProductStor.product.construction_type === 4) {
-              //---- set door profile
-       /*       ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
-                GlobalStor.global.profiles
-              ));*/
             }
-
-            /** save new template in templates Array */
-            GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
-              ProductStor.product.template_source
-            );
-
-            /** check grids */
-            var isChanged = updateGrids();
-            if (isChanged) {
-              //------ get new grids price
-              loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
-            }
-
-            /** refresh price of new template */
-            MainServ.preparePrice(
-              ProductStor.product.template,
-              ProductStor.product.profile.id,
-              ProductStor.product.glass,
-              ProductStor.product.hardware.id,
-              ProductStor.product.lamination.lamination_in_id
-            ).then(function () {
-              //-------- template was changed
-              GlobalStor.global.isChangedTemplate = 1;
-              backtoTemplatePanel();
-            });
 
           }
 
-        }
-
-      });
+        });
+      }
     }
 
 
@@ -2870,6 +3398,7 @@
     //--------- Cancel and Close Construction Page
     function designCancel() {
       //------- close calculator if is opened
+      ProductStor.product = angular.copy(GlobalStor.global.templateTEMP)
       hideSizeTools();
       //------ go to Main Page
       backtoTemplatePanel();
@@ -2885,6 +3414,7 @@
       setDefaultTemplate: setDefaultTemplate,
       designSaved: designSaved,
       designCancel: designCancel,
+      checkSize: checkSize,
       setDefaultConstruction: setDefaultConstruction,
 
       initAllImposts: initAllImposts,
@@ -2930,8 +3460,19 @@
 
       stepBack: stepBack,
       //---- door
+      idsForNewTemplate: idsForNewTemplate,
       setNewDoorParamValue: setNewDoorParamValue,
-      setDoorConfigDefault: setDoorConfigDefault
+      setDoorConfigDefault: setDoorConfigDefault,
+      saveSizeCheck: saveSizeCheck,
+
+
+      toggleDoorConfig: toggleDoorConfig,
+      selectDoor: selectDoor,
+      selectSash: selectSash,
+      selectHandle: selectHandle,
+      selectLock: selectLock,
+      closeDoorConfig: closeDoorConfig,
+      saveDoorConfig: saveDoorConfig
 
     };
 

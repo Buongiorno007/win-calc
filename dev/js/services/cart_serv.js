@@ -26,6 +26,7 @@
     //------- add new product in order
     function addNewProductInOrder() {
       //------- set previos Page
+      CartStor.cart.showCurrentTemp=0;
       GeneralServ.setPreviosPage();
       //=============== CREATE NEW PRODUCT =========//
       MainServ.createNewProduct();
@@ -45,7 +46,6 @@
 
     //----- Delete Product
     function clickDeleteProduct(productIndex) {
-
       function deleteProduct() {
         //playSound('delete');
         OrderStor.order.products.splice(productIndex, 1);
@@ -53,7 +53,11 @@
 
         //----- if all products were deleted go to main page????
         CartMenuServ.calculateOrderPrice();
-        if(OrderStor.order.products.length > 0 ) {
+        var products = OrderStor.order.products;
+        if(products.length > 0 ) {
+          for(var x=0; x<products.length; x+=1) {
+            products[x].product_id = x+1;
+          }
           //--------- Change order price
         } else {
           //$scope.global.createNewProjectCart();
@@ -81,7 +85,54 @@
       }
       CartMenuServ.joinAllAddElements();
     }
+    /*** FASTEDIT*/
+    function fastEdit(productIndex, type){
+      console.log("edit");
+      function edit(){
+      CartStor.cart.showCurrentTemp = !CartStor.cart.showCurrentTemp;
+      ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
+      GlobalStor.global.productEditNumber = ProductStor.product.product_id;
+      GlobalStor.global.isCreatedNewProduct = 1;
+      GlobalStor.global.isChangedTemplate = 1;
+      MainServ.prepareMainPage();
+      if(type === 'auxiliary') {
+        //------ open AddElements Panel
+        GlobalStor.global.activePanel = 6;
+      }
+      if(!ProductStor.product.is_addelem_only) {
+        //------- set previos Page
+        GeneralServ.setPreviosPage();
+        var productTEMP;
+        var newId = ProductStor.product.profile.id;
+        /** save previous Product */
+        productTEMP = angular.copy(ProductStor.product);
 
+        /** check new Profile */
+        MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+          //------- set current template for product
+          MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+
+            /** Extra Glass finding */
+            MainServ.checkGlassSizes(ProductStor.product.template);
+
+            /** return previous Product */
+            ProductStor.product = angular.copy(productTEMP);
+            $location.path('/main');
+          });
+        });
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      } else {
+        GlobalStor.global.activePanel = 6;
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        $location.path('/main');
+      }
+      }
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.BUTTON_E')+"?",
+        $filter('translate')('  '),
+        edit
+      );
+    }
 
 
     //----- Edit Produtct in main page
@@ -98,10 +149,33 @@
           //------ open AddElements Panel
           GlobalStor.global.activePanel = 6;
         }
-        //------- set previos Page
-        GeneralServ.setPreviosPage();
-        $location.path('/main');
-        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        if(!ProductStor.product.is_addelem_only) {
+          //------- set previos Page
+          GeneralServ.setPreviosPage();
+          var productTEMP;
+          var newId = ProductStor.product.profile.id;
+          /** save previous Product */
+          productTEMP = angular.copy(ProductStor.product);
+
+          /** check new Profile */
+          MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+            //------- set current template for product
+            MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+
+              /** Extra Glass finding */
+              MainServ.checkGlassSizes(ProductStor.product.template);
+
+              /** return previous Product */
+              ProductStor.product = angular.copy(productTEMP);
+              $location.path('/main');
+            });
+          });
+          GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        } else {
+          GlobalStor.global.activePanel = 6;
+          GlobalStor.global.isBox = !GlobalStor.global.isBox;
+          $location.path('/main');
+        }
       }
       function addCloneProductInOrder(cloneProduct, lastProductId) {
         //console.log(cloneProduct)
@@ -142,33 +216,36 @@
           addElemsQty = addElemsSource.length,
           prodQty, elemsOrderQty, noExist;
       CartStor.cart.allAddElemsOrder.length = 0;
-      while(--addElemsQty > -1) {
-        prodQty = addElemsSource[addElemsQty].length;
-        if(prodQty) {
-          while(--prodQty > -1) {
-            elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
-            if(elemsOrderQty) {
-              noExist = 1;
-              while(--elemsOrderQty > -1) {
-                if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
-                  if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
-                    if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
-                      CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
-                      noExist -= 1;
+      if(CartStor.cart.selectedProduct === -1) {
+        while(--addElemsQty > -1) {
+          prodQty = addElemsSource[addElemsQty].length;
+          if(prodQty) {
+            while(--prodQty > -1) {
+              elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
+              if(elemsOrderQty) {
+                noExist = 1;
+                while(--elemsOrderQty > -1) {
+                  if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
+                    if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
+                      if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
+                        CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
+                        noExist -= 1;
+                      }
                     }
                   }
                 }
-              }
-              if(noExist) {
+                if(noExist) {
+                  CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
+                }
+              } else {
                 CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
               }
-            } else {
-              CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
             }
           }
         }
+      } else {
+        CartStor.cart.allAddElemsOrder = angular.copy(addElemsSource[CartStor.cart.selectedProduct]).reverse();
       }
-      console.warn(CartStor.cart.allAddElemsOrder);
     }
 
 
@@ -264,13 +341,14 @@
       addNewProductInOrder: addNewProductInOrder,
       clickDeleteProduct: clickDeleteProduct,
       box:box,
-
+      fastEdit:fastEdit,
       showAllAddElements: showAllAddElements,
       collectAllAddElems: collectAllAddElems,
       getAddElemsPriceTotal: getAddElemsPriceTotal,
       calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
       createProductCopy: createProductCopy,
-      addCloneProductInOrder: addCloneProductInOrder
+      addCloneProductInOrder: addCloneProductInOrder,
+      initSelectedProductsArr: initSelectedProductsArr
     };
 
     return thisFactory.publicObj;

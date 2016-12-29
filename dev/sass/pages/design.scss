@@ -1,6 +1,17 @@
 $door-config-header: 355px;
 $door-config-content: $ipad-height - $door-config-header;
-
+.call-price {
+  height: 4.875rem;
+  width: 26rem;
+  position: absolute;
+  left: 49rem;
+  TOP: 84rem;
+  color: #fff;
+  background-color: #f98000;
+  font: normal 3rem/1.5 roboto-light, sans-serif, icons;
+  border-radius: 1rem;
+  text-align: center;
+}
 .construction-container {
   position: relative;
 }
@@ -14,7 +25,7 @@ $door-config-content: $ipad-height - $door-config-header;
 }
 
 .construction-label {
-  @include roboto-bd(rem(24px), rem(24px));
+  @include roboto-bd(rem(22px), rem(24px));
 
   margin-top: rem(20px);
   text-transform: uppercase;
@@ -66,6 +77,12 @@ $door-config-content: $ipad-height - $door-config-header;
         color: #fff;
       }
     }
+    &.hov:hover {
+      background-color: $main_green;
+        .figure-icon {
+        color: #fff;
+      }
+    }
   }
 
   .figure-icon {
@@ -74,29 +91,74 @@ $door-config-content: $ipad-height - $door-config-header;
     color: $main_green;
   }
 
-  .sash-shape {
+  .sash-shape-a {
     &:after {
-      content: $sash-shape-icon;
+      content: $sash-shape-icon-a;
     }
   }
-  .angel-shape {
+  .sash-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: #f98000;
     &:after {
-      content: $angel-shape-icon;
+      content: $sash-shape-icon-b;
     }
   }
-  .impost-shape {
+  .angel-shape-a {
     &:after {
-      content: $impost-shape-icon;
+      content: $angel-shape-icon-a;
     }
   }
-  .arch-shape {
+  .angel-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: #f98000;
     &:after {
-      content: $arch-shape-icon;
+      content: $angel-shape-icon-b;
     }
   }
-  .position-shape {
+  .impost-shape-a {
     &:after {
-      content: $position-shape-icon;
+      content: $impost-shape-icon-a;
+    }
+  }  
+  .impost-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: #f98000;
+    &:after {
+      content: $impost-shape-icon-b;
+    }
+  }
+  .arch-shape-a {
+    &:after {
+      content: $arch-shape-icon-a;
+    }
+  }
+  .arch-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: #f98000;
+    &:after {
+      content: $arch-shape-icon-b;
+    }
+  }
+  .position-shape-a {
+    &:after {
+      content: $position-shape-icon-a;
+    }
+  }
+  .position-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: #f98000;
+    &:after {
+      content: $position-shape-icon-b;
     }
   }
 
@@ -107,8 +169,8 @@ $door-config-content: $ipad-height - $door-config-header;
 
   .left-menu-footer {
     position: absolute;
-    left: rem(60px);
-    bottom: 8rem;
+    left: rem(1452px);
+    bottom: 87rem;
     width: rem(350px);
   }
   .footer-description {
@@ -165,7 +227,9 @@ $door-config-content: $ipad-height - $door-config-header;
 #position-menu {
   top: 58rem;
 }
-
+#position-menu-for-position {
+  top: 58rem;
+}
 .constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
   position: relative;
@@ -181,6 +245,18 @@ $door-config-content: $ipad-height - $door-config-header;
 
 }
 
+.constr-shape-position {
+  /* font: normal 2.125rem/2.5rem icons, sans-serif; */
+  position: relative;
+  /* padding: 0 0.7rem; */
+  border-right: 1px solid #bebebe;
+  text-align: center;
+  color: #ddd;
+  background-color: #242424;
+  z-index: 5;
+  width: 11rem;
+  text-transform: lowercase;
+}
 
 .drop-shape-icon {
   @include transition(top 0.3s linear);
@@ -392,7 +468,6 @@ $door-config-content: $ipad-height - $door-config-header;
 .position-glass:after {
   content: $position-glass;
 }
-
 // Construction SVG
 
 .construction-block {
@@ -617,7 +692,17 @@ $door-config-content: $ipad-height - $door-config-header;
   .door-config-finish-btn {
     @extend button;
     @extend .icon-setting;
-    @include font-icon(rem(60px), 1);
+    @include font-icon(rem(176px), 1);
+
+    width: 100%;
+    color: #fff;
+    outline: none;
+    border: none;
+  }
+  .door-config-finish-save-btn {
+    @extend button;
+    @extend .icon-setting;
+    @include font-icon(rem(120px), 1);
 
     width: 100%;
     color: #fff;

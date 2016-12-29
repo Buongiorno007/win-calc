@@ -13,6 +13,8 @@
     thisCtrl.BUTTON_Y = $filter('translate')('common_words.BUTTON_Y');
     thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
     thisCtrl.BUTTON_E = $filter('translate')('common_words.BUTTON_E');
+    thisCtrl.OK       = $filter('translate')('common_words.OK');
+
 
     /**============ METHODS ================*/
 

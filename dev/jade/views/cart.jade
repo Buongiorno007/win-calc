@@ -10,36 +10,41 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", fs-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
-            button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
+            //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .scroll-hor-container
             .order-block
-              .order(ng-repeat="product in cartPage.O.order.products track by $index")
+              .order(ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index")
                 button.order-delete(fs-click="cartPage.clickDeleteProduct($index)")
-                .order-header
+                .order-header(ng-click="cartPage.showCartTemplte($index)")
                   img.imgg(ng-src='img/copy_edit.png', fs-click="cartPage.box($index, 'product')")
 
-                  img.order-header-fon(ng-src="{{cartPage.G.global.rooms[product.room_id].img}}", fs-click="cartPage.box($index, 'product')")
-
                   .order-template
-                    svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
-                  .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
-                    div R = {{ product.heat_coef_total }}
-                    div {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL }}
+                    svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
+
                   .order-u-coeff(ng-if="!cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > cartPage.O.order.heat_coef_min}")
                     div U = {{ product.heat_coef_total }}
                     div {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
                 .order-content
+                  .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
+                    div.R-MInfo
+                     p.number {{ $index+1+"."+"\u00A0"}}
+                    div.R-MInfo {{ product.heat_coef_total +"\u00A0"+"\u00A0"}}
+                    div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
+                    div.inner-text {{cartPage.THERMAL_RESISTANCE}}
                   ul.order-list
                     li.order-item
-                      .order-value {{ product.template_width }} {{ ::cartPage.MM }}
+                      .order-value {{ product.template_width }} {{ ::cartPage.MM +"\u00A0"}}
                       .order-value {{ product.template_height }} {{ ::cartPage.MM }}
                       .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                     li.order-item
                       .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
                       .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
                       .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
-                    li.order-item
+                    li.order-item(ng-if="product.glass.length > 1")
+                      .order-value {{ product.glass[0].sku + ', ...' }}
+                      .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                    li.order-item(ng-if="product.glass.length <= 1")
                       .order-value {{ product.glass[0].sku }}
                       .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
                     li.order-item
@@ -49,11 +54,11 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                     li.order-item
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}
                       .order-value
-                        span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
-                        span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
-                        span /
                         span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
                         span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
+                        span /
+                        span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
+                        span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
                     li.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
                       .order-value {{cartPage.C.cart.allAddElements[$index].length}}
@@ -71,9 +76,12 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .order-comment(ng-class="{'active': cartPage.config.isProductComment === $index+1}")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
-                    .order-comment-content {{ product.comment }}
-
+                    .order-comment-content {{ cartPage.O.order.comment }}
             button.view-switch-tab(fs-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
+          .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
+            button.close-cur-window(fs-click="cartPage.C.cart.showCurrentTemp=0")
+            img.edit-cur-window(ng-src='img/copy_edit.png', fs-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
+            svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
 
 
           .discount-container
@@ -86,7 +94,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
                   .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
                   input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempConstructDisc")
-              .discount-txt(fs-click="cartPage.approveNewDisc(0)")
+              .discount-txt(ng-click="cartPage.approveNewDisc(0)")
                 .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
 
             //.discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
@@ -96,7 +104,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
                   .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
                   input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempAddelemDisc")
-              .discount-txt(fs-click="cartPage.approveNewDisc(1)")
+              .discount-txt(ng-click="cartPage.approveNewDisc(1)")
                 .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
 
 
@@ -121,7 +129,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements(fs-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
-            button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
+            //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .order-block.scroll-vert-container
             .order(ng-repeat="product in cartPage.O.order.products track by $index")
@@ -217,6 +225,11 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
     section.right-menu
       include menus/_cart-menu
+      .right-menu-footer
+        .calculators-box.size-calculator(ng-class="{'active': cartPage.G.global.isSizeCalculator}")
+          include parts/_size-calculator
+        .calculators-box.qty-calculator(ng-class="{'active': cartPage.G.global.isQtyCalculator}")
+          include parts/_qty-calculator
       include menus/_addelems-menu
 
     section.order-forms(ng-controller="OrderFormCtrl as orderForm")

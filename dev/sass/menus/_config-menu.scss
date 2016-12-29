@@ -17,6 +17,11 @@
         content: $config_menu-arrow-icon;
       }
     }
+    &.hov:hover {
+      background-color: rgba(0,0,0,0.07);
+      margin-left: -2.75rem;
+      padding-left: 2.75rem;
+    }
   }
   .item-header {
     min-height: rem(350px);

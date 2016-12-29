@@ -1,6 +1,6 @@
 .template-container {
-  padding: rem(50px);
-  left: -135rem;
+  //padding: rem(50px);
+  //left: -135rem;
 
   .template-header {
     text-align: center;
@@ -71,7 +71,12 @@
   }
 
   .template-footer {
-    @include display-flex();
+      @include display-flex();
+      overflow: auto;
+      position: relative;
+      top: 5rem;
+      display: flex;
+      overflow: auto;
 //    @include flex-flow(row nowrap);
 //    @include justify-content(center);
   }
@@ -89,6 +94,10 @@
     min-width: rem(300px);
     margin: 0 rem(10px);
     cursor: pointer;
+    &.selected {
+      background-color: rgba(114, 225, 133, 0.55);
+      border-radius: 1rem;
+    }
   }
 
   .other-template-img {

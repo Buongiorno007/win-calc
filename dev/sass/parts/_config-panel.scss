@@ -14,6 +14,40 @@
     @include top_left_coord(0px, 0px);
     overflow: hidden;
   }
+  &.actived {
+    @include top_left_coord(0px, 0px);
+    overflow: auto;
+  }
+
+  .construction-type {
+    position: absolute;
+    height: 3rem;
+    left: 2rem;
+    width: 100%;
+    .type-btn {
+      position: relative;
+      height: 100%;
+      width: auto;
+      margin: 0rem 5rem 0rem 0rem;
+      float: left;
+      font-size: large;
+      overflow: hidden;
+      text-transform: uppercase;
+      &.selected {
+        color: #4bd963;
+        text-decoration: underline;
+      }
+    }
+    .hide {
+      height: 2rem;
+      width: 2rem;
+      left: -0.8%;
+      border-radius: 1rem;
+      top: 0.7rem;
+      background: #f74f2e;
+      position: absolute;
+    }
+  }
   .info {
     position: absolute;
     cursor: pointer;
@@ -34,7 +68,58 @@
     overflow-y: auto;
   }
 }
-
+.configur-panel {
+  @include transition(all .2s linear);
+  @include top_left_coord(0px, -2000px);
+  @include transform(all .2s linear);
+  @include transform(translate3d(0,0,0));
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: rgba(#fff, .9);
+  z-index: 12;
+  &.active {
+    @include top_left_coord(1200px, 0px);
+    height: 21rem;
+    overflow: hidden;
+  }
+    &.select {
+    @include top_left_coord(1465px, 0px);
+    height: 21rem;
+    overflow: hidden;
+  }
+    .construction-type {
+    position: absolute;
+    height: 3rem;
+    left: 2rem;
+    width: 100%;
+    .type-btn {
+      position: relative;
+      height: 100%;
+      width: auto;
+      margin: 0rem 5rem 0rem 0rem;
+      float: left;
+      font-size: large;
+      overflow: hidden;
+      text-transform: uppercase;
+      &.selected {
+        color: #4bd963;
+        text-decoration: underline;
+      }
+    }
+    .hide {
+      height: 2rem;
+      width: 2rem;
+      left: -0.8%;
+      border-radius: 1rem;
+      top: 0.7rem;
+      background: #f74f2e;
+      position: absolute;
+    }
+  }
+}
 .config-section {
   width: 98%;
   //width: 96rem;
@@ -70,14 +155,22 @@
       right: 0;
     }
   }
+  .profile-cameras{
+    width: 100%;
+    height: auto;
+    display: inline-block;
+  }
   .type {
-    @include roboto-md(rem(36px), rem(56px));
-
-    display: inline;
-    padding: rem(5px) rem(20px);
-    color: #fff;
-    border-radius: rem($radius_general-big_button);
-    background-color: $main_green;
+    @include roboto-md(rem(96px), rem(56px));
+    color: $main_green;
+    float:left;
+  }
+  .type-label{
+    position:relative;
+    padding-left:rem(80px);
+    top :rem(32px);
+    @include roboto-md(rem(36px), rem(36px));
+    color: $main_gray_txt;
   }
   .coef-index {
     width: 19%;
@@ -115,18 +208,17 @@
     &.selected {
       position: relative;
       background-color: $main_green;
-      .type {
-        background-color: #57b23c;
-      }
       &:after {
         @include font-icon(rem(50px), 1);
-
         position: absolute;
         color: #fff;
         content: '\e61e';
       }
       .label {
         color: $main_gray_txt;
+      }
+      .cam {
+        color: white;
       }
       .coef-index {
         &:first-child {
@@ -147,13 +239,12 @@
       }
     }
   }
+
   .box_inner {
     padding: rem(45px);
   }
   .coef-level {
     @include display-flex();
-
-    margin-top: rem(10px);
     &:first-child {
       margin-top: 0;
     }
@@ -163,7 +254,8 @@
         &:nth-child(3),
         &:nth-child(4),
         &:last-child {
-          display: none;
+          border: 1px solid #b1b1b1;
+          background-color: white;
         }
         &:first-child {
           border-top-right-radius: rem($radius_coef-index);
@@ -176,11 +268,12 @@
         &:nth-child(3),
         &:nth-child(4),
         &:last-child {
-          display: none;
+          border: 1px solid #b1b1b1;
+          background-color: white;
         }
         &:nth-child(2) {
-          border-top-right-radius: rem($radius_coef-index);
-          border-bottom-right-radius: rem($radius_coef-index);
+          //border-top-right-radius: rem($radius_coef-index);
+          //border-bottom-right-radius: rem($radius_coef-index);
         }
       }
     }
@@ -188,22 +281,24 @@
       .coef-index {
         &:nth-child(4),
         &:last-child {
-          display: none;
+          border: 1px solid #b1b1b1;
+          background-color: white;
         }
         &:nth-child(3) {
-          border-top-right-radius: rem($radius_coef-index);
-          border-bottom-right-radius: rem($radius_coef-index);
+          //border-top-right-radius: rem($radius_coef-index);
+          //border-bottom-right-radius: rem($radius_coef-index);
         }
       }
     }
     &.coef-level-4 {
       .coef-index {
         &:nth-child(4) {
-          border-top-right-radius: rem($radius_coef-index);
-          border-bottom-right-radius: rem($radius_coef-index);
+          //border-top-right-radius: rem($radius_coef-index);
+          //border-bottom-right-radius: rem($radius_coef-index);
         }
         &:last-child {
-          display: none;
+          border: 1px solid #b1b1b1;
+          background-color: white;
         }
       }
     }

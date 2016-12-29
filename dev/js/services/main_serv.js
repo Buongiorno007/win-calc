@@ -27,25 +27,41 @@
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
-
-
-
-
-
     /**============ METHODS ================*/
-
+      var onlineMode;
+      $.get("http://api.steko.com.ua", function(data) {
+        onlineMode = true;
+        return true;
+      })
+      .fail(function() {
+        onlineMode = false;
+        return false;
+      });
     /**---------- Close Room Selector Dialog ---------*/
     function closeRoomSelectorDialog() {
       GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.selectRoom = 1;
       GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
       //playSound('fly');
     }
-
     function setDefaultDoorConfig() {
       ProductStor.product.door_shape_id = 0;
+      ProductStor.product.door_type_index = 0;
       ProductStor.product.door_sash_shape_id = 0;
       ProductStor.product.door_handle_shape_id = 0;
       ProductStor.product.door_lock_shape_id = 0;
+      ProductStor.product.doorName = '';
+      ProductStor.product.doorSashName = '';
+      ProductStor.product.doorHandle = {};
+      ProductStor.product.doorLock = {};
+      DesignStor.design.steps.selectedStep1 = 0;
+      DesignStor.design.steps.selectedStep2 = 0;
+      DesignStor.design.steps.selectedStep3 = 0;
+      DesignStor.design.steps.selectedStep4 = 0;
+      DesignStor.designSource.steps.selectedStep1 = 0;
+      DesignStor.designSource.steps.selectedStep2 = 0;
+      DesignStor.designSource.steps.selectedStep3 = 0;
+      DesignStor.designSource.steps.selectedStep4 = 0;
     }
 
 
@@ -71,7 +87,7 @@
         $timeout(function() {
           GlobalStor.global.showRoomSelectorDialog = 1;
         }, 2000);
-        $timeout(closeRoomSelectorDialog, 5000);
+       // $timeout(closeRoomSelectorDialog, 5000);
       }
     }
 
@@ -240,16 +256,38 @@
         product.profileDepths.sashDepth = result[2];
         product.profileDepths.impostDepth = result[3];
         product.profileDepths.shtulpDepth = result[4];
-        deferred.resolve(1);
+        deferred.resolve(product);
       });
       return deferred.promise;
     }
 
+    function setCurrentDoorProfile(product) {
+      var deferred = $q.defer();
+      //------- set Depths
+      $q.all([
+        downloadProfileDepth(product.profile.rama_list_id),
+        downloadProfileDepth(product.profile.rama_still_list_id),
+        downloadProfileDepth(product.profile.stvorka_list_id),
+        downloadProfileDepth(product.profile.impost_list_id),
+        downloadProfileDepth(product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        product.profileDepths.frameDepth = result[0];
+        product.profileDepths.frameStillDepth = result[1];
+        product.profileDepths.sashDepth = result[2];
+        product.profileDepths.impostDepth = result[3];
+        product.profileDepths.shtulpDepth = result[4];
+        deferred.resolve(product);
+      });
+      return deferred.promise;
+    }
+
+
+
+
     function doorProfile() {
       var door = []
-      async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (result, err) {
+      async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (err, result) {
         GlobalStor.global.doorsLaminations = angular.copy(door);
-        console.log('end');
       });
 
       function calculate (product, _cb) {
@@ -266,15 +304,13 @@
                 localDB.tablesLocalDB.elements_profile_systems.tableName, {'element_id': result[0].parent_element_id}, 'profile_system_id').then(function(result2) {
                   product.profileId = result2[0].profile_system_id;
                   door.push(product)
+                  _callback(null, product.profileId);
               });     
-              _callback(product.profileId);
             }
-          ], function (result, err) {
+          ], function (err, result) {
             if (err) {
-              //console.log('err', err)
-              return _cb(err);
+              return _cb(err, result);
             }
-              //console.log('herereer')
           _cb(null, result);
         });
       }
@@ -293,7 +329,7 @@
       return glassIds;
     }
 
-    function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
+    function setGlassToTemplateBlocks(type, template, glassId, glassName, blockId) {
       var blocksQty = template.details.length;
       while(--blocksQty > 0) {
         if(blockId) {
@@ -301,6 +337,7 @@
           if(template.details[blocksQty].id === blockId) {
             template.details[blocksQty].glassId = glassId;
             template.details[blocksQty].glassTxt = glassName;
+            template.details[blocksQty].glass_type = type;
             break;
           }
         } else {
@@ -308,6 +345,7 @@
           //if(!template.details[blocksQty].children.length) {
           template.details[blocksQty].glassId = glassId;
           template.details[blocksQty].glassTxt = glassName;
+          template.details[blocksQty].glass_type = type;
           //}
         }
       }
@@ -320,7 +358,7 @@
       product.glass.length = 0;
       if(id) {
         //----- get Glass Ids from template and check dublicates
-        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(ProductStor.product.template)),
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(product.template)),
             glassIdsQty = glassIds.length;
         //------- glass filling by new elements
         while(--glassIdsQty > -1) {
@@ -329,7 +367,12 @@
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          return item.profileId === product.profile.id;
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
+          } else {
+            return item.profileId === product.profile.id;
+
+          }
         });
         if(tempGlassArr.length) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
@@ -338,13 +381,30 @@
           GlobalStor.global.selectGlassId = product.glass[0].id;
           GlobalStor.global.selectGlassName = product.glass[0].sku;
           /** set Glass to all template blocks without children */
-          setGlassToTemplateBlocks(ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
+          setGlassToTemplateBlocks(product.glass[0].glass_type, ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
 
-
-
+    //for templateTemp  
+    function setCurrentGlassForTemplate(templateSource, product) {
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        if(product.profile.profileId) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+      if(tempGlassArr.length) {
+        GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+        GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+        product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+        GlobalStor.global.selectGlassId = product.glass[0].id;
+        GlobalStor.global.selectGlassName = product.glass[0].sku;
+        /** set Glass to all template blocks without children */
+        setGlassToTemplateBlocks(product.glass[0].glass_type, templateSource, product.glass[0].id, product.glass[0].sku);
+      }
+    }
 
     function checkSashInTemplate(template) {
       var templQty = template.details.length,
@@ -374,7 +434,6 @@
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
-
             .then(function(result) {
               //------ show elements of room
               GlobalStor.global.isRoomElements = 1;
@@ -389,6 +448,16 @@
     function saveTemplateInProductForOrder(templateIndex) {
       //-----копия функции создания template для подсчета цены.
       var defer = $q.defer();
+               //----- set default glass in ProductStor
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === ProductStor.product.profile.id;
+        });
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          GlobalStor.global.selectGlassId = ProductStor.product.glass[0].id;
+          GlobalStor.global.selectGlassName = ProductStor.product.glass[0].sku;
+        }
         ProductStor.product.template_source;
       //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
@@ -425,7 +494,6 @@
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
-      //console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -527,13 +595,27 @@
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
-            priceMargin;
+            priceMargin, doorData, tempDoorItems;
+
+        // for(var y=0; y<priceObj.constrElements.length; y+=1) {
+        //   for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
+        //     if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
+        //       ProductStor.product.template_source.doorSill = GlobalStor.global.allDoorSills[x];
+        //       downloadProfileDepth(GlobalStor.global.allDoorSills[x].id)
+        //         .then(function(result) {
+        //         ProductStor.product.profileDepths.sillDepth = result;
+        //       });
+        //     }
+        //   }
+        // }
+
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
-            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
+            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
-                var doorData = angular.copy(doorResult);
+                console.log('doorResult',JSON.stringify( doorResult));
+                doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
                 priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
@@ -612,7 +694,23 @@
           glassHeatCT = 0,
           profHeatCT = 0,
           heatCoeffTotal = 0,
-          g;
+          perimeterPrif = 0,
+          glassObj = {},
+          g,
+          coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
+
+        for (var l = 0; l < ProductStor.product.template.details.length; l += 1) {
+          if(!ProductStor.product.template.details[l].children.length) {
+            //ищем стеклопакет, чтобы получить значение glass_type
+            glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {id: ProductStor.product.template.details[l].glassId});
+            //умнажаем периметр с/п на coefGlass
+            if(ProductStor.product.template.details[l].sashPointsIn) {
+              perimeterPrif += ((Math.abs(ProductStor.product.template.details[l].sashPointsIn[1].x - ProductStor.product.template.details[l].sashPointsIn[0].x) * 2 + Math.abs(ProductStor.product.template.details[l].sashPointsIn[2].y - ProductStor.product.template.details[l].sashPointsIn[1].y) * 2)/1000) * coefGlass[glassObj.glass_type];
+            } else {
+              perimeterPrif += ((Math.abs(ProductStor.product.template.details[l].pointsIn[1].x - ProductStor.product.template.details[l].pointsIn[0].x) * 2 + Math.abs(ProductStor.product.template.details[l].pointsIn[2].y - ProductStor.product.template.details[l].pointsIn[1].y) * 2)/1000) * coefGlass[glassObj.glass_type];
+            }
+          }
+        }
 
       /** working with glasses */
       while(--glassSizeQty > -1) {
@@ -623,11 +721,11 @@
             if(!angular.isNumber(ProductStor.product.glass[g].transcalency)){
               ProductStor.product.glass[g].transcalency = 1;
             }
-            glassHeatCT += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
+            glassHeatCT += objXFormedPrice.sizes[5][glassSizeQty].square/ProductStor.product.glass[g].transcalency; //Sglasses
           }
         }
         /** get total glasses square */
-        glassSqT += objXFormedPrice.sizes[5][glassSizeQty].square;
+        glassSqT += objXFormedPrice.sizes[5][glassSizeQty].square; //Sстекломакетов
       }
       glassHeatCT = GeneralServ.roundingValue(glassHeatCT);
       glassSqT = GeneralServ.roundingValue(glassSqT, 3);
@@ -636,20 +734,20 @@
       if(!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
         ProductStor.product.profile.heat_coeff_value = 1;
       }
-      profHeatCT = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSqT);
+      profHeatCT = (ProductStor.product.template_square - glassSqT)/ProductStor.product.profile.heat_coeff_value;
 
-      heatCoeffTotal = profHeatCT + glassHeatCT;
+      heatCoeffTotal = profHeatCT + glassHeatCT + perimeterPrif;
       /** calculate Heat Coeff Total */
       if(UserStor.userInfo.therm_coeff_id) {
         /** R */
         ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
-          heatCoeffTotal/ProductStor.product.template_square
+          ProductStor.product.template_square/heatCoeffTotal
         );
       } else {
         /** U */
         ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
           ProductStor.product.template_square/heatCoeffTotal
-        );
+        )*1.03;
       }
 
     }
@@ -660,9 +758,8 @@
 
     /**--------- create object for price calculation ----------*/
 
-    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
+    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {   
       var deferred = $q.defer();
-//console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
         if(beadResult.length && beadResult[0]) {
@@ -690,7 +787,6 @@
             ],
             sizes: []
           };
-
           //-------- beads data for analysis
           ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
           //------- fill objXFormedPrice for sizes
@@ -928,7 +1024,13 @@
         } else {
           //----- set white lamination Couple
           if(!selectedLam[laminatGroupQty].id) {
+            var result = angular.copy(fineItemById(product.profile.id, GlobalStor.global.profiles));
             product.lamination = selectedLam[laminatGroupQty];
+            product.lamination.rama_list_id = result.rama_list_id;
+            product.lamination.rama_still_list_id = result.rama_still_list_id;
+            product.lamination.stvorka_list_id = result.stvorka_list_id;
+            product.lamination.impost_list_id = result.impost_list_id;
+            product.lamination.shtulp_list_id = result.shtulp_list_id;
           }
         }
       }
@@ -940,13 +1042,18 @@
 
     function setProfileByLaminat(lamId) {
       var deff = $q.defer();
-      if(lamId) {
+      if(lamId || lamId == 0) {
         //------ set profiles parameters
-        ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
-        ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
-        ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
-        ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
-        ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+        if(ProductStor.product.construction_type !== 4) {
+          ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
+          ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
+          ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
+          ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
+          ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+        } else {
+          ProductStor.product.profile = angular.copy(selectDoor(ProductStor.product.door_shape_id, ProductStor.product));
+          ProductStor.product.profile.rama_still_list_id = ProductStor.product.profile.door_sill_list_id;
+        }
       } 
       //------- set Depths
       $q.all([
@@ -961,14 +1068,14 @@
         ProductStor.product.profileDepths.sashDepth = result[2];
         ProductStor.product.profileDepths.impostDepth = result[3];
         ProductStor.product.profileDepths.shtulpDepth = result[4];
-
+        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profileId;
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
             var hardwareIds = ProductStor.product.hardware.id || 0;
             preparePrice(
               ProductStor.product.template,
-              ProductStor.product.profile.id,
+              profile,
               ProductStor.product.glass,
               hardwareIds,
               ProductStor.product.lamination.lamination_in_id
@@ -986,8 +1093,23 @@
       return deff.promise;
     }
 
-
-
+    /**==================temp location for this function!!! =================*/
+    function selectDoor(id, product) {
+      var doorsLaminations = angular.copy(GlobalStor.global.lamGroupFiltered);
+      for(var i=0; i<doorsLaminations.length; i+=1) {
+        if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+        && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+            product.profile.door_sill_list_id = doorsLaminations[i].door_sill_list_id
+            product.profile.impost_list_id = doorsLaminations[i].impost_list_id 
+            product.profile.rama_list_id = doorsLaminations[i].rama_list_id
+            product.profile.shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+            product.profile.stvorka_list_id = doorsLaminations[i].stvorka_list_id
+            break
+        }
+      }       
+      return product.profile;
+    } 
+    /**==================temp location for this function!!! =================*/
 
     /**----------- Glass sizes checking -------------*/
 
@@ -1089,64 +1211,66 @@
     /**----------- Hardware sizes checking -------------*/
 
     function checkHardwareSizes(template, harwareID) {
-      var blocks = template.details,
-          blocksQty = blocks.length,
-          harwareId = harwareID || ProductStor.product.hardware.id,
-          limits = GlobalStor.global.hardwareLimits.filter(function(item) {
-            return  item.group_id === harwareId;
-          }),
-          limitsQty = limits.length,
-          currLimit = 0,
-          overallSize, currWidth, currHeight,
-          wranSash, isSizeError, b, lim;
+      if(ProductStor.product.construction_type !== 4) {
+        var blocks = template.details,
+            blocksQty = blocks.length,
+            harwareId = harwareID || ProductStor.product.hardware.id,
+            limits = GlobalStor.global.hardwareLimits.filter(function(item) {
+              return  item.group_id === harwareId;
+            }),
+            limitsQty = limits.length,
+            currLimit = 0,
+            overallSize, currWidth, currHeight,
+            wranSash, isSizeError, b, lim;
 
-      //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
-      /** clean extra Hardware */
-      DesignStor.design.extraHardware.length = 0;
+        //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
+        /** clean extra Hardware */
+        DesignStor.design.extraHardware.length = 0;
 
-      if(limitsQty) {
-        /** template loop */
-        for (b = 1; b < blocksQty; b += 1) {
-          isSizeError = 0;
-          if (blocks[b].blockType === 'sash') {
-            /** finde limit for current sash */
-            for (lim = 0; lim < limitsQty; lim += 1) {
-              if (limits[lim].type_id === blocks[b].sashType) {
-                /** check available max/min sizes */
-                if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
-                  currLimit = limits[lim];
+        if(limitsQty) {
+          /** template loop */
+          for (b = 1; b < blocksQty; b += 1) {
+            isSizeError = 0;
+            if (blocks[b].blockType === 'sash') {
+              /** finde limit for current sash */
+              for (lim = 0; lim < limitsQty; lim += 1) {
+                if (limits[lim].type_id === blocks[b].sashType) {
+                  /** check available max/min sizes */
+                  if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                    currLimit = limits[lim];
+                  }
+                  break;
                 }
-                break;
               }
-            }
-            if (currLimit) {
-              if (blocks[b].hardwarePoints.length) {
-                /** estimate current sash sizes */
-                overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
-                currWidth = Math.round(overallSize.maxX - overallSize.minX);
-                currHeight = Math.round(overallSize.maxY - overallSize.minY);
-                if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
-                  isSizeError = 1;
-                }
-                if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
-                  isSizeError = 1;
-                }
+              if (currLimit) {
+                if (blocks[b].hardwarePoints.length) {
+                  /** estimate current sash sizes */
+                  overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+                  currWidth = Math.round(overallSize.maxX - overallSize.minX);
+                  currHeight = Math.round(overallSize.maxY - overallSize.minY);
+                  if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                    isSizeError = 1;
+                  }
+                  if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                    isSizeError = 1;
+                  }
 
-                if (isSizeError) {
-                  wranSash = currWidth + ' x ' + currHeight + ' ' +
-                    $filter('translate')('design.NO_MATCH_RANGE') +
-                    ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
-                    'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+                  if (isSizeError) {
+                    wranSash = currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') +
+                      ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                      'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
 
-                  DesignStor.design.extraHardware.push(wranSash);
+                    DesignStor.design.extraHardware.push(wranSash);
+                  }
+
                 }
-
               }
             }
           }
         }
       }
-      //console.info('glass result', DesignStor.design.extraHardware);
+        //console.info('glass result', DesignStor.design.extraHardware);
     }
 
 
@@ -1154,6 +1278,8 @@
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
+      console.log("id",id);
+      console.log("itemArr",itemArr);
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
@@ -1171,19 +1297,19 @@
         }
         if(!$.isEmptyObject(tempObj)) {
           GlobalStor.global.infoTitle = tempObj.name;
-          GlobalStor.global.infoImg =  tempObj.img;
+          GlobalStor.global.infoImg = tempObj.img;
           GlobalStor.global.infoLink = tempObj.link;
           GlobalStor.global.infoDescrip = tempObj.description;
           GlobalStor.global.isInfoBox = id;
         }
       }
+
     }
 
 
     /**========== CREATE ORDER ==========*/
 
     function createNewProject() {
-      console.log('new project!!!!!!!!!!!!!!', OrderStor.order);
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       //------- set new orderId
@@ -1220,7 +1346,6 @@
     /**========== CREATE PRODUCT ==========*/
 
     function createNewProduct() {
-      console.log('new product!!!!!!!!!!!!!!!');
       //------- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       GlobalStor.global.isCreatedNewProduct = 1;
@@ -1268,7 +1393,6 @@
       if(ProductStor.product.is_addelem_only) {
         permission = checkEmptyChoosenAddElems();
       }
-
       if(permission) {
         //console.info('product-----', ProductStor.product);
         GlobalStor.global.tempAddElements.length = 0;
@@ -1289,7 +1413,7 @@
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-          delete ProductStor.product.template;
+          //delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);
         }
@@ -1308,6 +1432,7 @@
       $timeout(function() {
         //------- set previos Page
         GeneralServ.setPreviosPage();
+
         $location.path('/cart');
       }, 100);
     }
@@ -1326,242 +1451,312 @@
     }
 
 
-    //-------- save Order into Local DB
+ //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
-      var deferred = $q.defer();
-      //---------- if EDIT Order, before inserting delete old order
-      if(GlobalStor.global.orderEditNumber) {
-        deleteOrderInDB(GlobalStor.global.orderEditNumber);
-        localDB.deleteOrderServer(
-          UserStor.userInfo.phone,
-          UserStor.userInfo.device_code,
-          GlobalStor.global.orderEditNumber
-        );
-        GlobalStor.global.orderEditNumber = 0;
-      }
+    var deferred = $q.defer();
       angular.extend(OrderStor.order, newOptions);
+      if(OrderStor.order.order_edit === 1) {
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': OrderStor.order.id});
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': OrderStor.order.id});
+        localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_products.tableName).then(function(def1) {
+          console.info('delete old products', def1);
+          localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_addelements.tableName).then(function(def2) {
+            console.info('delete old addElem', def2);
+            save().then(function(res) {
+              console.info('result edit order', res);
+              deferred.resolve(1);
+            });
+          });
+        }); 
+        
+      } else {
+        save().then(function(res) {
+          console.info('result save order', res);
+          deferred.resolve(1);
+        })
+      }
 
       /** ===== SAVE PRODUCTS =====*/
-
-      var prodQty = OrderStor.order.products.length, p;
-      OrderStor.order.products_qty = 0;
-      for(p = 0; p < prodQty; p+=1) {
-        var productData = angular.copy(OrderStor.order.products[p]);
-        productData.order_id = OrderStor.order.id;
-        if(!productData.is_addelem_only) {
-          productData.template_source['beads'] = angular.copy(productData.beadsData);
+      function save() {
+        var defer = $q.defer();
+        var prodQty = OrderStor.order.products.length, p;
+        OrderStor.order.products_qty = 0;
+        for(p = 0; p < prodQty; p+=1) {
+          /** culculate products quantity for order */
+          OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
         }
-        productData.template_source = JSON.stringify(productData.template_source);
-        productData.profile_id = OrderStor.order.products[p].profile.id;
-        productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
-          return item.id;
-        }).join(', ');
-       
-        if (OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
-          productData.hardware_id = 0;
-        } else {
-          productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
-        }
-        productData.lamination_id = OrderStor.order.products[p].lamination.id;
-        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
-        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
-        productData.modified = new Date();
-        if(productData.template) {
-          delete productData.template;
-        }
-        delete productData.templateIcon;
-        delete productData.profile;
-        delete productData.glass;
-        delete productData.hardware;
-        delete productData.lamination;
-        delete productData.chosenAddElements;
-        delete productData.profileDepths;
-        delete productData.addelemPriceDis;
-        delete productData.productPriceDis;
-        delete productData.report;
-        delete productData.beadsData;
-        delete productData.doorName;
-        delete productData.doorSashName;
-        delete productData.doorHandle;
-        delete productData.doorLock;
+        /** ============ SAVE ORDER =========== */
+        var orderData = angular.copy(OrderStor.order);
+        orderData.order_date = new Date(OrderStor.order.order_date);
+        orderData.order_type = orderType;
+        orderData.order_price_dis = OrderStor.order.order_price_dis;
+        orderData.order_price = OrderStor.order.order_price;
+        orderData.order_price_primary = OrderStor.order.order_price_primary;
+        orderData.order_style = orderStyle;
+        orderData.factory_id = UserStor.userInfo.factory_id;
+        orderData.user_id = UserStor.userInfo.id;
+        orderData.comment = OrderStor.order.comment;
+        orderData.delivery_date = new Date(OrderStor.order.delivery_date);
+        orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
+        orderData.customer_sex = +OrderStor.order.customer_sex || 0;
+        orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
+        orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
+        orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
+        orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
+        orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
+        //----- rates %
+        orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
+        orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
+        orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+        orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
+        orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
 
-        /** culculate products quantity for order */
-        OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
+        if(orderType && orderData.order_edit === 0) {
+          orderData.additional_payment = '';
+          orderData.created = new Date();
+          orderData.sended = new Date(0);
+          orderData.state_to = new Date(0);
+          orderData.state_buch = new Date(0);
+          orderData.batch = '---';
+          orderData.base_price = 0;
+          orderData.factory_margin = 0;
+          orderData.purchase_price = 0;
+          orderData.sale_price = 0;
+          orderData.modified = new Date();
+        }
 
-        console.log('SEND PRODUCT------', productData);
-        //-------- insert product into local DB
-        localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-        //-------- send to Server
-        if(orderType) {
+        delete orderData.products;
+        delete orderData.floorName;
+        delete orderData.mountingName;
+        delete orderData.selectedInstalmentPeriod;
+        delete orderData.selectedInstalmentPercent;
+        delete orderData.productsPriceDis;
+        delete orderData.orderPricePrimaryDis;
+        delete orderData.paymentFirstDis;
+        delete orderData.paymentMonthlyDis;
+        delete orderData.paymentFirstPrimaryDis;
+        delete orderData.paymentMonthlyPrimaryDis;
+
+
+        //console.log('!!!!orderData!!!!', orderData);
+        if(orderType && orderData.order_edit === 0) {
+          delete orderData.order_edit;
           localDB.insertServer(
             UserStor.userInfo.phone,
             UserStor.userInfo.device_code,
-            localDB.tablesLocalDB.order_products.tableName,
-            productData
-          );
+            localDB.tablesLocalDB.orders.tableName,
+            orderData
+          ).then(function(respond) {
+            if (onlineMode && navigator.onLine){
+              if(respond.status) {
+                orderData.order_number = respond.order_number;
+              }
+
+            } else {
+              orderData.order_number = 0;
+            }
+            localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+            defer.resolve(1);
+          });
+        } else if(orderType && orderData.order_edit === 1) {
+          var orderId = angular.copy(orderData.id);
+          delete orderData.order_edit;
+          localDB.updateOrderServer(
+            UserStor.userInfo.phone,
+            UserStor.userInfo.device_code,
+            localDB.tablesLocalDB.orders.tableName,
+            orderData,
+            orderId
+          ).then(function(res) {
+            //------- save draft
+            localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, orderData, {id:orderId});
+            defer.resolve(1);
+          })
         }
 
+        for(p = 0; p < prodQty; p+=1) {
+          var productData = angular.copy(OrderStor.order.products[p]);
+          productData.order_id = OrderStor.order.id;
+          if(!productData.is_addelem_only) {
+            productData.template_source['beads'] = angular.copy(productData.beadsData);
+          }
 
-        /** ====== SAVE Report Data ===== */
+          if(productData.construction_type === 4) {
+            productData.profile_id = 0;
+          } else {
+            productData.profile_id = OrderStor.order.products[p].profile.id;
+            (productData.door_group_id) ? productData.door_group_id = 0: productData.door_group_id = 0;
+          }
+          productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
+            return item.id;
+          }).join(', ');
 
-        var productReportData = angular.copy(OrderStor.order.products[p].report),
-            reportQty = productReportData.length;
-        //console.log('productReportData', productReportData);
-        while(--reportQty > -1) {
-          productReportData[reportQty].order_id = OrderStor.order.id;
-          productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
-          delete productReportData[reportQty].priceReal;
-          //-------- insert product Report into local DB
-          //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
-          //-------- send Report to Server
-          // TODO localDB.insertServer(
-          // UserStor.userInfo.phone, UserStor.userInfo.device_code,
-          // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
-        }
-
-        /**============= SAVE ADDELEMENTS ============ */
-
-        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
-        for(add = 0; add < addElemQty; add+=1) {
-          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
-          if(elemQty > 0) {
-            for (elem = 0; elem < elemQty; elem+=1) {
-
-              var addElementsData = {
-                order_id: OrderStor.order.id,
-                product_id: OrderStor.order.products[p].product_id,
-                element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
-                element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
-                name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
-                element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
-                element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
-                element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
-                element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
-                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
-                modified: new Date()
-              };
+          if(productData.construction_type === 4) {
+            productData.hardware_id = productData.doorLock.id;
+          } else {
+            if(productData.hardware.id) {
+              productData.hardware_id = productData.hardware.id;
+            } else {
+              productData.hardware_id = 0;
+            }
+          }
+          productData.lamination_id = OrderStor.order.products[p].lamination.id;
+          productData.template_source = JSON.stringify(productData.template_source);
+          productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
+          productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
+          productData.modified = new Date();
+          if(productData.template) {
+            delete productData.template;
+          }
+          delete productData.templateIcon;
+          delete productData.profile;
+          delete productData.glass;
+          delete productData.hardware;
+          delete productData.lamination;
+          delete productData.chosenAddElements;
+          delete productData.profileDepths;
+          delete productData.addelemPriceDis;
+          delete productData.productPriceDis;
+          delete productData.report;
+          delete productData.beadsData;
+          delete productData.doorName;
+          delete productData.doorSashName;
+          delete productData.doorHandle;
+          delete productData.doorLock;
 
 
-              console.log('SEND ADD',addElementsData);
-              localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
-              if(orderType) {
-                localDB.insertServer(
-                  UserStor.userInfo.phone,
-                  UserStor.userInfo.device_code,
-                  localDB.tablesLocalDB.order_addelements.tableName,
-                  addElementsData
-                );
+
+
+          if(orderType) {
+            localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+            console.log("productData",productData);
+            localDB.insertServer(
+              UserStor.userInfo.phone,
+              UserStor.userInfo.device_code,
+              localDB.tablesLocalDB.order_products.tableName,
+              productData
+            );
+          }
+
+          /** ====== SAVE Report Data ===== */
+          var productReportData = angular.copy(OrderStor.order.products[p].report),
+              reportQty = productReportData.length;
+          while(--reportQty > -1) {
+            productReportData[reportQty].order_id = OrderStor.order.id;
+            productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
+            delete productReportData[reportQty].priceReal;
+            //-------- insert product Report into local DB
+            //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
+            //-------- send Report to Server
+            // TODO localDB.insertServer(
+            // UserStor.userInfo.phone, UserStor.userInfo.device_code,
+            // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+          }
+
+          /**============= SAVE ADDELEMENTS ============ */
+
+          var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
+          for(add = 0; add < addElemQty; add+=1) {
+            var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
+            if(elemQty > 0) {
+              for (elem = 0; elem < elemQty; elem+=1) {
+                if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20 && !productData.is_addelem_only) {
+                  if (typeof OrderStor.order.products[p].chosenAddElements[add][elem].block_id !== 'number' ) {
+                    OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+                  }
+                }
+                var addElementsData = {
+                  order_id: OrderStor.order.id,
+                  product_id: OrderStor.order.products[p].product_id,
+                  element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
+                  element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                  name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
+                  element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
+                  element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
+                  element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
+                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                  block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id*1,
+                  modified: new Date()
+                };
+
+
+                //console.log('SEND ADD',addElementsData);
+                if(orderType) {
+                  localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
+                  localDB.insertServer(
+                    UserStor.userInfo.phone,
+                    UserStor.userInfo.device_code,
+                    localDB.tablesLocalDB.order_addelements.tableName,
+                    addElementsData
+                  );
+                }
               }
             }
           }
         }
-      }
-
-      /** ============ SAVE ORDER =========== */
-
-      var orderData = angular.copy(OrderStor.order);
-      orderData.order_date = new Date(OrderStor.order.order_date);
-      orderData.order_type = orderType;
-      orderData.order_style = orderStyle;
-      orderData.factory_id = UserStor.userInfo.factory_id;
-      orderData.user_id = UserStor.userInfo.id;
-      orderData.delivery_date = new Date(OrderStor.order.delivery_date);
-      orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
-      orderData.customer_sex = +OrderStor.order.customer_sex || 0;
-      orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
-      orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
-      orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
-      orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
-      orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
-      //----- rates %
-      orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
-      orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
-      orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
-      orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
-      orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
-
-      if(orderType) {
-        orderData.additional_payment = '';
-        orderData.created = new Date();
-        orderData.sended = new Date(0);
-        orderData.state_to = new Date(0);
-        orderData.state_buch = new Date(0);
-        orderData.batch = '---';
-        orderData.base_price = 0;
-        orderData.factory_margin = 0;
-        orderData.purchase_price = 0;
-        orderData.sale_price = 0;
-        orderData.modified = new Date();
-      }
-
-      delete orderData.products;
-      delete orderData.floorName;
-      delete orderData.mountingName;
-      delete orderData.selectedInstalmentPeriod;
-      delete orderData.selectedInstalmentPercent;
-      delete orderData.productsPriceDis;
-      delete orderData.orderPricePrimaryDis;
-      delete orderData.paymentFirstDis;
-      delete orderData.paymentMonthlyDis;
-      delete orderData.paymentFirstPrimaryDis;
-      delete orderData.paymentMonthlyPrimaryDis;
 
 
-      console.log('!!!!orderData!!!!', orderData);
-      if(orderType) {
-        localDB.insertServer(
-          UserStor.userInfo.phone,
-          UserStor.userInfo.device_code,
-          localDB.tablesLocalDB.orders.tableName,
-          orderData
-        ).then(function(respond) {
-          if(respond.status) {
-            orderData.order_number = respond.order_number;
-          }
-          localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
-          deferred.resolve(1);
-        });
-      } else {
-        //------- save draft
-        localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
-        deferred.resolve(1);
-      }
 
-      //TODO
-      //------ send analytics data to Server
-      //      AnalyticsServ.sendAnalyticsDB();
+        //TODO
+        //------ send analytics data to Server
+        //      AnalyticsServ.sendAnalyticsDB();
 
-      //----- cleaning order
-      OrderStor.order = OrderStor.setDefaultOrder();
-      //------ set current GeoLocation
-      loginServ.setUserGeoLocation(
-        UserStor.userInfo.city_id,
-        UserStor.userInfo.cityName,
-        UserStor.userInfo.climaticZone,
-        UserStor.userInfo.heatTransfer,
-        UserStor.userInfo.fullLocation
-      );
-
-      if (GlobalStor.global.currOpenPage === 'history') {
-        localDB.updateLocalServerDBs(
-          localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
-            order_price: HistoryStor.history.price,
-            order_price_dis: HistoryStor.history.price,
-            order_price_primary: HistoryStor.history.price
-          }
+        //----- cleaning order
+        OrderStor.order = OrderStor.setDefaultOrder();
+        //------ set current GeoLocation
+        loginServ.setUserGeoLocation(
+          UserStor.userInfo.city_id,
+          UserStor.userInfo.cityName,
+          UserStor.userInfo.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          UserStor.userInfo.fullLocation
         );
+      
+        //----- finish working with order
+        GlobalStor.global.isCreatedNewProject = 0;
+        return defer.promise;
       }
-    
-      //----- finish working with order
-      GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;
     }
 
+    function setGlassfilter() {
+      var product = angular.copy(ProductStor.product);
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
+        if (product.profile.profileId) {
+          return (product.construction_type == 4) ? item.profileId === product.profile.profileId : item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+    }
+    function setGlassDefault(profileId, template, product) {
+      product.glass.length = 0;
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === profileId;
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+      product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+
+      GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+      GlobalStor.global.selectGlassId = product.glass[0].id;
+      GlobalStor.global.selectGlassName = product.glass[0].sku;
+
+      for(var x=0; x<template.details.length; x+=1) {
+        template.details[x].glassId = product.glass[0].id;
+        template.details[x].glassTxt = product.glass[0].sku;
+        template.details[x].glass_type = product.glass[0].glass_type;
+      }
+    }
 
     /**========== FINISH ==========*/
 
 
     thisFactory.publicObj = {
+      setGlassfilter: setGlassfilter,
+      setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
@@ -1572,6 +1767,7 @@
       downloadAllTemplates: downloadAllTemplates,
 
       setCurrentProfile: setCurrentProfile,
+      setCurrentDoorProfile: setCurrentDoorProfile,
       setCurrentGlass: setCurrentGlass,
       setGlassToTemplateBlocks: setGlassToTemplateBlocks,
       setCurrentHardware: setCurrentHardware,
@@ -1601,7 +1797,9 @@
       inputProductInOrder: inputProductInOrder,
       goToCart: goToCart,
       saveOrderInDB: saveOrderInDB,
-      deleteOrderInDB: deleteOrderInDB
+      deleteOrderInDB: deleteOrderInDB, 
+
+      setCurrentGlassForTemplate: setCurrentGlassForTemplate
     };
 
     return thisFactory.publicObj;

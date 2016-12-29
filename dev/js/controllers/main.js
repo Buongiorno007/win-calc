@@ -46,15 +46,15 @@
       typing: 'on'
     };
 
-    MainServ.laminationDoor();
     /**============ METHODS ================*/
     //TODO delete
     function goToEditTemplate() {
+      GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
       if(!ProductStor.product.is_addelem_only) {
         if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
           /** calc Price previous parameter and close caclulators */
           AddElementMenuServ.finishCalculators();
-        }
+        } 
         //---- hide rooms if opened
         GlobalStor.global.showRoomSelectorDialog = 0;
         //---- hide tips
@@ -76,8 +76,6 @@
     }
 
 
-
-
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
@@ -90,14 +88,20 @@
 
 
     /**================ EDIT PRODUCT =================*/
-
-    if (GlobalStor.global.productEditNumber) {
+    if (GlobalStor.global.productEditNumber && !ProductStor.product.is_addelem_only) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(data) {
           ProductStor.product.template = data;
         });
+    } 
+    if(!ProductStor.product.is_addelem_only) {
+      profile(); 
+      MainServ.doorProfile();
+      MainServ.laminationDoor();
     }
-    console.log(getPCPower(), profile(), MainServ.doorProfile(), 'getPCPower()')
+    getPCPower(); 
+
+
     function getPCPower() {
       var iterations = 1000000;
       var s = 0;
@@ -118,12 +122,11 @@
       return Math.round(1000000 / diffs);
       
     }
-
     function profile() {
       var deferred = $q.defer();
       if(ProductStor.product.is_addelem_only === 0) {
        localDB.selectLocalDB(
-         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+         localDB.tablesLocalDB.elements_profile_systems.tableName, {
           'profile_system_id': ProductStor.product.profile.id
         }).then(function(result) {
           GlobalStor.global.dataProfiles = angular.copy(result)

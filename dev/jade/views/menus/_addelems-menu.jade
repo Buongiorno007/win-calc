@@ -9,14 +9,15 @@
 				li.item.empty-element(ng-class="{'active': elementsMenu.A.aux.isAddElement == false}", ng-click="elementsMenu.chooseAddElement()")
 					.value {{ ::elementsMenu.EMPTY_ELEMENT }}
 
-			ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}")
+			ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
 				.title(ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
+					button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
 					.open-list(id="{{$index + 'open'}}")
 						img(ng-src='img/plus.png')
 					.open-list2(id="{{$index + 'close'}}")
 						img(ng-src='img/minus.png')
 				li.item(ng-repeat="addElement in type track by $index")
-					.value(fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
+					.value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
 					button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
 
 		footer.menu-footer
@@ -27,7 +28,7 @@
 	//========== one element pannel in List View
 	.list-items(ng-show="elementsMenu.A.aux.isAddElementListView && elementsMenu.A.aux.showAddElementsMenu && ((elementsMenu.G.global.currOpenPage === 'main' && elementsMenu.A.aux.isFocusedAddElement > 1) || elementsMenu.G.global.currOpenPage === 'cart')", ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
 		.list-item(ng-repeat="addElement in type track by $index")
-			.aux-list-item(ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.coordinats")
+			.aux-list-item(ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.A.aux.coordinats")
 				.aux-list-row
 					.aux-name
 						.aux-title {{ addElement.name }}

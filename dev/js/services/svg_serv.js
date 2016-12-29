@@ -441,7 +441,6 @@
 
 
 
-
     function getNewCoefC(depths, line, group) {
       var depth = 0, beadDepth = 20;
       //console.info('depth++++', group, line.type);
@@ -1314,8 +1313,13 @@
 
 
 
-    function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
-      //AH928206
+    function setParts(frameStill, sourceObj, pointsOut, pointsIn, priceElements, currGlassId) {
+      var shapeIndex = 0;
+      var doorSill = (frameStill)? frameStill:0;
+
+      if(GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
+        shapeIndex = ProductStor.product.door_type_index;
+      };
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -1358,8 +1362,7 @@
             part.dir = 'curv';
           } else {
             /**----- DOOR -----*/
-
-            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+            if(ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(pointsIn[0]);
@@ -1369,12 +1372,14 @@
                 /** if line */
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+            } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3 && doorSill) {
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(newPointsOut[0]);
-                tempPoint.y = pointsIn[0].y * 1;
-                collectPointsInParts(part, newPointsOut[index], tempPoint, pointsIn[0], pointsIn[index]);
+                tempPoint.y = pointsIn[0].y +doorSill.a;
+                tempPoint2 = angular.copy(pointsIn[0]);
+                tempPoint2.y = pointsIn[0].y +doorSill.a;
+                collectPointsInParts(part, newPointsOut[index], tempPoint, tempPoint2, pointsIn[index]);
               } else {
                 /** if line */
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
@@ -1383,7 +1388,6 @@
               /** if line */
               collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
             }
-
           }
         } else {
 
@@ -1398,7 +1402,7 @@
               }
             } else {
               part.points.push(newPointsOut[0], pointsIn[0]);
-              if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
+              if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {  
                 part.type = 'arc-corner';
               }
             }
@@ -1407,17 +1411,17 @@
             index+=1;
           } else {
             /**----- DOOR -----*/
-            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+            if(ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
               /** without doorstep */
               //-------- delete fp3-fp4 frame
-              if(DesignStor.design.doorConfig.doorShapeIndex === 1) {
+              if(shapeIndex === 1) {
                 if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                   continue;
                 }
               }
               /** doorstep Al inner */
               //-------- change fp3-fp4 frame to inner doorstep
-              if(DesignStor.design.doorConfig.doorShapeIndex === 2) {
+              if(shapeIndex === 2) {
                 if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                   tempPoint = angular.copy(newPointsOut[index]);
                   tempPoint.x = pointsIn[index].x * 1;
@@ -1441,14 +1445,23 @@
                   );
                 }
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+            } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3 && doorSill) {
               /** doorstep Al outer */
               //-------- change fp3-fp4 frame to outer doorstep
-              if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
-                tempPoint = angular.copy(pointsIn[index]);
-                tempPoint.x = newPointsOut[index].x * 1;
-                tempPoint2 = angular.copy(pointsIn[index+1]);
-                tempPoint2.x = newPointsOut[index+1].x * 1;
+              if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {    
+                if(doorSill.a) {
+                  tempPoint = angular.copy(pointsIn[index]);
+                  tempPoint.y = newPointsOut[index].y-doorSill.a;
+                  tempPoint2 = angular.copy(pointsIn[index+1]);
+                  tempPoint2.y = newPointsOut[index+1].y-doorSill.a;
+                  tempPoint.x = newPointsOut[index].x * 1;
+                  tempPoint2.x = newPointsOut[index+1].x * 1;
+                } else {
+                  tempPoint = angular.copy(pointsIn[index]);
+                  tempPoint.x = newPointsOut[index].x * 1;
+                  tempPoint2 = angular.copy(pointsIn[index+1]);
+                  tempPoint2.x = newPointsOut[index+1].x * 1;
+                }
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], tempPoint2, tempPoint);
                 part.doorstep = 1;
               }
@@ -1456,14 +1469,62 @@
               if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
                 //-------- change points fp4-fp1 frame
                 tempPoint = angular.copy(newPointsOut[index]);
-                tempPoint.y = pointsIn[index].y * 1;
-                collectPointsInParts(part, tempPoint, newPointsOut[index+1], pointsIn[index+1], pointsIn[index]);
+                tempPoint.y = pointsIn[index].y +doorSill.a;
+                tempPoint2 = angular.copy(pointsIn[index]);
+                tempPoint2.y = pointsIn[index].y +doorSill.a;
+                collectPointsInParts(part, tempPoint, newPointsOut[index+1], pointsIn[index+1], tempPoint2);
               } else {
                 if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
-                  /** if line */
-                  collectPointsInParts(
-                    part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
-                  );
+                  if(newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
+                    var item1 = newPointsOut[index];
+                    item1.y = newPointsOut[index].y +doorSill.a;
+                    var item2 = newPointsOut[index+1];
+                    item2.y = newPointsOut[index+1].y +doorSill.a;
+                    var item3 = pointsIn[index+1];
+                    item3.y = pointsIn[index+1].y +doorSill.a;
+                    var item4 = pointsIn[index];
+                    item4.y = pointsIn[index].y +doorSill.a;
+                    collectPointsInParts(
+                      part, item1, item2, item3, item4
+                    );
+                  } else if(newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
+                    var item1 = newPointsOut[index];
+                    var item2 = newPointsOut[index+1];
+                    var item3 = pointsIn[index+1];
+                    var item4 = pointsIn[index];
+                    collectPointsInParts(
+                      part, item1, item2, item3, item4
+                    );
+                  } else if(newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
+                    var item1 = newPointsOut[index];
+                    item1.y = newPointsOut[index].y +doorSill.a;
+                    var item2 = newPointsOut[index+1];
+                    item2.y = newPointsOut[index+1].y +doorSill.a;
+                    var item3 = pointsIn[index+1];
+                    item3.y = pointsIn[index+1].y +doorSill.a;
+                    var item4 = pointsIn[index];
+                    item4.y = pointsIn[index].y +doorSill.a;
+                    collectPointsInParts(
+                      part, item1, item2, item3, item4
+                    );
+                  } else if(newPointsOut[index].type === 'sash' && newPointsOut[index+1].type === 'sash' && index ===0) {
+                    var item1 = newPointsOut[index];
+                    item1.y = newPointsOut[index].y +doorSill.a;
+                    var item2 = newPointsOut[index+1];
+                    item2.y = newPointsOut[index+1].y +doorSill.a;
+                    var item3 = pointsIn[index+1];
+                    item3.y = pointsIn[index+1].y +doorSill.a;
+                    var item4 = pointsIn[index];
+                    item4.y = pointsIn[index].y +doorSill.a;
+                    collectPointsInParts(
+                      part, item1, item2, item3, item4
+                    );
+                  } else {
+                    /** if line */
+                    collectPointsInParts(
+                      part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                    );
+                  }
                 }
               }
             } else {
@@ -1490,7 +1551,7 @@
           part.type = 'sash';
           priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
-          if(part.sill || part.doorstep === 1) {
+          if(part.sill || part.doorstep === 1) {        
             priceElements.frameSillSize.push(sizeValue);
           } else {
             priceElements.framesSize.push(sizeValue);
@@ -1570,12 +1631,22 @@
 
 
 
-    function setGlass(glassPoints, priceElements, currGlassId) {
+    function setGlass(stillDepth, glassType, glassPoints, priceElements, currGlassId) {
+      var item1, item2;
+      // if(((glassPoints[0].type === 'frame' && glassPoints[3].type === 'frame') || (glassPoints[1].type === 'frame' && glassPoints[2].type === 'frame')) && ProductStor.product.door_type_index === 3) {
+      //   item1 = angular.copy(glassPoints[0]);
+      //   item1.y = glassPoints[0].y + stillDepth.a;
+      //   item2 = angular.copy(glassPoints[1]);
+      //   item2.y = glassPoints[1].y + stillDepth.a;
+      //   glassPoints = angular.copy([item1, item2, glassPoints[2], glassPoints[3]]);
+
+      // }
       var part = {
             type: 'glass',
             points: glassPoints,
             path: 'M ',
-            square: 0
+            square: 0,
+            glass_type: glassType,
           },
           glassObj = {
             elemId: currGlassId
@@ -1615,7 +1686,6 @@
       }
       part.square = calcSquare(glassPoints);
       part.sizes = culcLengthGlass(glassPoints);
-
       //------- per Price
       glassObj.square = angular.copy(part.square);
       //----- converting size from mm to m
@@ -2581,8 +2651,8 @@
           if(thisObj.details[i].level === 1) {
             setCornerProp(thisObj.details);
             //------- set points for each part of construction
-            $.merge(thisObj.details[i].parts, setParts(
-              thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
+            $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
+              sourceObj, thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
             ));
           }
 
@@ -2604,8 +2674,8 @@
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
-              $.merge(thisObj.details[i].parts, setParts(
-                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
+                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
               ));
 
               //----- set openPoints for sash
@@ -2630,11 +2700,12 @@
 
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
-
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                depths.frameStillDepth, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
+                depths.frameStillDepth,
+                sourceObj,
                 thisObj.details[i].beadPointsOut,
                 thisObj.details[i].beadPointsIn,
                 thisObj.priceElements,
@@ -2649,6 +2720,10 @@
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+
+              $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
+                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
               //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
@@ -2662,13 +2737,11 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
-              $.merge(thisObj.details[i].parts, setParts(
-                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
-              ));
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                depths.frameStillDepth, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
-              $.merge(thisObj.details[i].parts, setParts(
+              $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
+                sourceObj,
                 thisObj.details[i].beadPointsOut,
                 thisObj.details[i].beadPointsIn,
                 thisObj.priceElements,
@@ -2688,8 +2761,18 @@
           setPointsXChildren(thisObj.details[i], thisObj.details, depths);
           //----- create impost parts
           if(thisObj.details[i].children.length) {
-            thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
-          }
+            var temp1 = angular.copy(thisObj.details[i].impost.impostIn[0].y);
+            var temp2 = angular.copy(thisObj.details[i].impost.impostIn[3].x);
+            var temp3 = angular.copy(thisObj.details[i].impost.impostIn[3].y);
+            var temp4 = angular.copy(thisObj.details[i].impost.impostIn[0].x);
+            if(Math.abs(temp1-temp3) > Math.abs(temp2-temp4)) {
+              if(thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && ProductStor.product.door_type_index === 3) {
+                thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y+depths.frameStillDepth.a);
+                thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y+depths.frameStillDepth.a);
+              }
+            } 
+              thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
+            }
 
 
         }
@@ -2726,37 +2809,36 @@
     //----------- SCALE
 
     function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = ((dim.maxX - dim.minX)+600),
+      var templateW = (dim.maxX - dim.minX),
           templateH = (dim.maxY - dim.minY),
           scaleTmp,
           d3scaling = d3.scale.linear()
             .domain([0, 1])
             .range([0, padding]);
-
       if(templateW > templateH) {
         if(windowW > templateW) {
-          scaleTmp = d3scaling(templateW/windowW);
-          //console.info('W < =====', templateW/windowW, scaleTmp);
+          scaleTmp = d3scaling(templateW/(windowW+200));
+          // console.info('W < =====', templateW/windowW, scaleTmp);
         } else if(windowW < templateW) {
-          scaleTmp = d3scaling(windowW/templateW);
-          //console.info('W > =====', windowW/templateW, scaleTmp);
+          scaleTmp = d3scaling(windowW/(templateW+200));
+          // console.info('W > =====', windowW/templateW, scaleTmp);
         } else {
-          scaleTmp = d3scaling(1);
-          //console.info('W======', scaleTmp);
+          scaleTmp = d3scaling(0.9);
+          // console.info('W======', scaleTmp);
         }
-        //console.info('W > H --', scaleTmp);
+        // console.info('W > H --', scaleTmp);
       } else if(templateW <= templateH) {
         if(windowH > templateH) {
           scaleTmp = d3scaling(templateH/windowH);
-          //console.info('H < =====', templateH/windowH, scaleTmp);
+          // console.info('H < =====', templateH/windowH, scaleTmp);
         } else if(windowH < templateH) {
           scaleTmp = d3scaling(windowH/templateH);
-          //console.info('H > =====', (windowH/templateH), scaleTmp);
+          // console.info('H > =====', (windowH/templateH), scaleTmp);
         } else {
-          scaleTmp = d3scaling(1);
-          //console.info('H======', scaleTmp);
+          scaleTmp = d3scaling(0.9);
+          // console.info('H======', scaleTmp);
         }
-        //console.info('H > W --', scaleTmp);
+      // console.info('H > W --', scaleTmp);
       }
       return scaleTmp;
     }
@@ -2773,16 +2855,57 @@
       return scaleTmp;
     }
 
+    function setTemplateScalePrint(dim, windowW, windowH, padding) {
+      var templateW = (dim.maxX - dim.minX),
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+      if(templateW > templateH) {
+        if(windowW > templateW) {
+          scaleTmp = d3scaling(templateW/(windowW+200));
+          // console.info('W < =====', templateW/windowW, scaleTmp);
+        } else if(windowW < templateW) {
+          scaleTmp = d3scaling(windowW/(templateW+200));
+          // console.info('W > =====', windowW/templateW, scaleTmp);
+        } else {
+          scaleTmp = d3scaling(0.2);
+          // console.info('W======', scaleTmp);
+        }
+        // console.info('W > H --', scaleTmp);
+      } else if(templateW <= templateH) {
+        if(windowH > templateH) {
+          scaleTmp = d3scaling(templateH/windowH);
+          // console.info('H < =====', templateH/windowH, scaleTmp);
+        } else if(windowH < templateH) {
+          scaleTmp = d3scaling(windowH/templateH);
+          // console.info('H > =====', (windowH/templateH), scaleTmp);
+        } else {
+          scaleTmp = d3scaling(0.2);
+          // console.info('H======', scaleTmp);
+        }
+      // console.info('H > W --', scaleTmp);
+      }
+      return scaleTmp;
+    }
     //----------- TRANSLATE
 
-    function setTemplatePosition(dim, windowW, windowH, scale) {
-      var position = {
-        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: (windowH - (dim.minY + dim.maxY)*scale)/2
-      };
+    function setTemplatePosition(dim, windowW, windowH, scale, print) {
+      var position;
+      if(print) {
+        position = {
+          x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
+        };
+      } else {
+        position = {
+          x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
+        };
+      } 
       return position;
     }
-
 
     //----------- TRANSLATE MAIN
     function setTemplatePositionMAIN(dim, windowH, scale) {
@@ -2804,7 +2927,15 @@
           position.y = valueY-130;
         }
       }
-      if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
+      if(ProductStor.product.construction_type === 2) {
+        position.x = 276;
+        position.y = valueY-110;
+      }
+      if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type === 6) {
+        position.x = 242;
+        position.y = valueY-72;
+      }       
+      if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type !== 6) {
         position.x = 276;
         position.y = valueY-110;
       }
@@ -2846,6 +2977,7 @@
       setQPointCoord: setQPointCoord,
       getCenterLine: getCenterLine,
       calcSquare: calcSquare,
+      setTemplateScalePrint: setTemplateScalePrint,
 
       checkInsidePointInLineEasy: checkInsidePointInLineEasy,
       sortByX: sortByX

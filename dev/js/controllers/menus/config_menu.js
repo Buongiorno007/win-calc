@@ -72,7 +72,7 @@
     //------- Select menu item
 
     function selectConfigPanel(id) {
-      MainServ.laminatFiltering()
+      MainServ.laminatFiltering();
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
@@ -93,6 +93,7 @@
       }
 
       if(id === 1) {
+        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
         GlobalStor.global.activePanel = 0;
         DesignStor.design.isGlassExtra = 0;
         $location.path('/design');
@@ -138,20 +139,22 @@
           var obj = {
             name : '',
             product : 0,
-            tr: ''
+            tr: '',
+            list: 0
           };
             for (var y = 0; y<GlobalStor.global.dataProfiles.length; y+=1) {
-              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id) {
+              if(ProductStor.product.chosenAddElements[u][f].parent_element_id === GlobalStor.global.dataProfiles[y].element_id ) {
                 obj.tr = ProductStor.product.chosenAddElements[u][f].name;
               } else {
                 obj.name = ProductStor.product.chosenAddElements[u][f].name;
+                obj.list = ProductStor.product.chosenAddElements[u][f].list_group_id;
               }    
             }
               GlobalStor.global.nameAddElem.push(obj)
           }
         }
         for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
-          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
+          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr || GlobalStor.global.nameAddElem[d].list === 20) {
             delete GlobalStor.global.nameAddElem[d].name;
           }
         }
@@ -163,12 +166,19 @@
     }
 
     function checkForAddElem() {
-      alert();
-      if(GlobalStor.global.dangerAlert < 1) {
-        saveProduct()
-      }
-       else {
-        console.log('errrrrrrror')
+      if(!ProductStor.product.is_addelem_only) {
+        alert();
+        if(GlobalStor.global.dangerAlert < 1) {
+         if( ProductStor.product.beadsData.length > 0) {
+          saveProduct();
+        } else {
+            GeneralServ.isErrorProd(
+              $filter('translate')('common_words.ERROR_PROD_BEADS')
+            );
+          }
+        }
+      } else {
+        saveProduct();
       }
     }
 

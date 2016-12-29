@@ -1,4 +1,4 @@
-.config-panel.additional-list-container(ng-controller="AddElementsListCtrl as elementsListPanel", ng-class="{'active': elementsListPanel.A.aux.isAddElementListView}")
+.config-panel.additional-list-container(ng-controller="AddElementsListCtrl as elementsListPanel", ng-class="{'actived': elementsListPanel.A.aux.isAddElementListView}")
 
   include ../parts/_search-block
 
@@ -14,7 +14,7 @@
           tr.aux-list-row(ng-repeat="addElement in elemType track by $index")
             td.aux-tablecell-name
               .aux-name
-                .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", fs-click="elementsListPanel.selectAddElement($parent.$index + 1)") )
+                .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", ng-click="elementsListPanel.selectAddElement($parent.$index + 1)") )
                 .aux-label(data-output="{{ ::elementsListPanel.NAME_LABEL }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-qty
               .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")

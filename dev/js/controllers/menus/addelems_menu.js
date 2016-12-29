@@ -32,7 +32,7 @@
       DELAY_SHOW_ELEMENTS_MENU: 10 * globalConstants.STEP,
       typing: 'on'
     };
-
+    AuxStor.aux.coordinats = 0;
     //------- translate
     thisCtrl.TIP = $filter('translate')('add_elements_menu.TIP');
     thisCtrl.EMPTY_ELEMENT = $filter('translate')('add_elements_menu.EMPTY_ELEMENT');
@@ -57,83 +57,14 @@
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
-    function hideMenu(elementId) {
-      if (AuxStor.aux.truefalse === 1) {
-        $('#'+AuxStor.aux.trfal+'prod').css({
-            'color' : '#363636'
-             }),
-        $('#'+elementId).css({
-                    'width' : 100 + '%',
-                    'height' : 7 + '%'
-                     })
-      $('#'+elementId + 'open').css({
-                    'visibility' : 'visible'
-                     })
-      $('#'+elementId + 'close').css({
-                    'visibility' : 'hidden'
-                     })
-        AuxStor.aux.truefalse = 0;
-      } else {
-        $('#'+AuxStor.aux.trfal+'prod').css({
-            'color' : '#363636'
-             }),
-        $('#'+elementId).css({
-                    'width' : 100+'%',
-                    'height' : 'auto'
-                  })
-      $('#'+elementId + 'open').css({
-                    'visibility' : 'hidden'
-                     })
-      $('#'+elementId + 'close').css({
-                    'visibility' : 'visible'
-                     })
-        AuxStor.aux.truefalse = 1;
-      }
-    }
-
-    /**----------- Select Add Element when open List View ------------*/
-
-    function selectAddElementList(typeId, elementId, clickEvent) {
-      var coord;
-      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
-        AuxStor.aux.isAddElement = false;
-      } else if(AuxStor.aux.isAddElement === false) {
-        coord = $(clickEvent.target).offset();
-        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-        thisCtrl.coordinats = {'top': coord.top-17};
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
-        }, 500);
-      } else {
-        AuxStor.aux.isAddElement = false;
-        $timeout(function() {
-          coord = $(clickEvent.target).offset();
-          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-          thisCtrl.coordinats = {'top': coord.top-17};
-        }, 500);
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-        }, 1000);
-      }
-    }
-
-
-    /**---------- common function to select addElem in 2 cases --------*/
-
-
-
-
-
-
 
 
     /**========== FINISH ==========*/
 
       //------ clicking
+    thisCtrl.selectAddElementList = AddElementsServ.selectAddElementList;
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
-    thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
@@ -144,6 +75,7 @@
     thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.hideMenu = AddElementsServ.hideMenu;
 
 
   });

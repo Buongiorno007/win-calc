@@ -18,7 +18,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .tools-block.search-tool(ng-class="{ 'active': historyPage.H.history.isOrderSearch }")
                 button.tool.search-btn(fs-click="historyPage.orderSearching()")
 
-              .tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
+              //.tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
                 button.tool.calendar-btn(fs-click="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.H.history.startDate === '' &&  historyPage.H.history.finishDate === ''}")
                   span(ng-if="historyPage.H.history.startDate !== ''") {{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
@@ -65,15 +65,22 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }", fs-click="historyPage.sortingInit(1, 'done')")
                       .filter-label {{ ::historyPage.SORT_SHOW_DONE }}
                       .filter-select-icon
-
-
+            .history-req-panel(ng-show="!historyPage.H.history.isOrderSearch")
+              //#button.req-res(fs-click="historyPage.synchronizeOrders()") {{::historyPage.SYNCHRONIZE_ORDERS}}
+              button.req-res(fs-click="historyPage.reqResult()") {{::historyPage.DOWNLOAD_ORDERS}}
+              select.period-of-time(ng-model="historyPage.H.history.resTimeBox", ng-options="time.name for time in historyPage.time",
+              ng-change ="historyPage.deleteOption()")
+                option(id='deleteOption', value='') {{::historyPage.DURING_THE_WEEK}}
           .scroll-vert-container
             .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index")
-              .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }")
+              .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }") 
                 .account-row.header
+                  .tn-box
+                    .result(ng-show="historyPage.H.history.resAPI === order.id + 'doneOrder'") {{::historyPage.ORDER_DONE}}
+                    .error(ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'") {{historyPage.G.global.textErrorOrder}}
                   .account-data.title
                     .complete-icon(ng-show="order.order_style == 'done'")
-                    .account-id(ng-if="order.order_number") id {{ order.order_number }}
+                    .account-id id {{ order.order_number }} - {{ order.id }}
                       span(ng-if="order.order_hz && order.order_hz !== '---'") {{ order.order_hz }}
                     .account-addinfo
                       span(ng-hide="!order.floor_id && !order.mounting_id") - {{ ::historyPage.INCLUDED }}:
@@ -93,17 +100,22 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                   .account-data
                     .user-data.account-user-adress {{ order.customer_location }}, {{ order.customer_address }}
                     .account-label {{ ::historyPage.ADDRESS }}
-                .account-row.footer
-                  .account-value {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
+                .account-row.footer(ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}")
+                  .account-value(ng-click="historyPage.testFunc(order.id)") {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
                     span(ng-show="order.is_instalment") , {{ order.selectedInstalmentPeriod }} {{ ::historyPage.PAYMENTS }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}
                   .account-value(ng-show="order.order_style == 'master'") {{ ::historyPage.WAIT_MASTER }}
                   .account-date {{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
-              button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)")
-              button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.makeOrderCopy(order.order_style, order.id)")
-              button.account-tool.account-print-btn(fs-click="historyPage.orderPrint(order.id)")
+              button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)", ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}")
+                .text {{ ::historyPage.SEND_ORDER_TITLE }}
+
+              button.account-tool.account-copy-btn(fs-click="historyPage.makeOrderCopy(order.order_style, order.id)") 
+                .text {{ ::historyPage.BUTTON_C }}
+              button.account-tool.account-print-btn(fs-click="historyPage.orderPrint(order.id)") 
+                .text {{ ::historyPage.PRINT }}
               button.account-delete-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.clickDeleteOrder(order.order_type, order.id)")
-              button.account-change-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.editOrder(1, order.id)") {{ ::historyPage.CHANGE }}
+              button.account-tool.account-change-btn(ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}", ng-hide="order.order_style == 'done'", fs-click="historyPage.editOrder(1, order.id)") 
+                .text {{ ::historyPage.CHANGE }}
 
             .empty-search-result(ng-show="historyPage.H.history.searchingWord.length && (historyPage.H.history.orders | filter:historyPage.H.history.searchingWord).length == 0")
               .result-icon
@@ -170,9 +182,10 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .result-icon
               .result-text {{ ::historyPage.BY_YOUR_REQUEST }} {{ ::historyPage.NOT_FIND }}.
 
-          button.view-switch-tab(fs-click="historyPage.viewSwitching()") {{ ::historyPage.HISTORY_VIEW }}
+          button.view-switch-tab(fs-click="historyPage.viewSwitching()") {{ ::historyPage.HISTORY_VIEW }} 
 include parts/_attantions
 include parts/_loader
 include parts/_alert
 include parts/_edit-order
 include parts/_danger-alert
+include parts/_print-order

@@ -22,9 +22,9 @@
 
         .cart-dialog-label {{ ::orderForm.CALL_ORDER_DELIVERY }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
 
-        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.location.$error.required }")
-          input.user-field(type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ ::orderForm.CLIENT_LOCATION }}", autocomplete="off", required)
-          .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') {{ ::orderForm.EMPTY_FIELD }}
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.location.$error.required && orderForm.G.global.changeLocation === 0}")
+          input.user-field(id="impLocation", type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ ::orderForm.CLIENT_LOCATION }}", required)
+          .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') {{ ::orderForm.EMPTY_FIELD_LOCATION }}
           ul.location-list-tooltip(ng-show="orderForm.C.cart.isCityBox")
             li.location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", fs-click="orderForm.selectCity(location)") {{location.fullLocation}}
 

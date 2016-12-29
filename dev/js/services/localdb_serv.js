@@ -22,16 +22,18 @@
             'tableName': 'addition_folders',
             'prop': 'name VARCHAR(255),' +
             ' addition_type_id INTEGER,' +
+            ' is_push INTEGER,' +
             ' factory_id INTEGER,' +
             ' position INTEGER,' +
             ' img VARCHAR,' +
             ' description VARCHAR,' +
-            ' link VARCHAR',
+            ' link VARCHAR,' +
+            ' max_size INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
           },
           'cities': {
             'tableName': 'cities',
-            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
+            'prop': 'region_id INTEGER, name VARCHAR(255), transport VARCHAR(2), lat NUMERIC, long NUMERIC, is_capital INTEGER, code_sync INTEGER, name_sync VARCHAR(255), area_id INTEGER',
             'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
           },
           'countries': {
@@ -63,6 +65,7 @@
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
             ' img VARCHAR,' +
+            ' is_push INTEGER,' +
             ' position INTEGER,' +
             ' factory_id INTEGER,' +
             ' description VARCHAR,' +
@@ -189,7 +192,8 @@
             ' noise_coeff NUMERIC,' +
             ' sku VARCHAR(100),' +
             ' lamination_in_id INTEGER,' +
-            ' lamination_out_id INTEGER',
+            ' lamination_out_id INTEGER,' +
+            ' reg_coeff NUMERIC',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
           },
           'profile_system_folders': {
@@ -222,7 +226,8 @@
             ' heat_coeff_value NUMERIC(5,2),' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
-            ' img VARCHAR',
+            ' img VARCHAR,' +
+            ' is_push INTEGER',
             'foreignKey': ''
           },
           'profile_laminations': {
@@ -343,9 +348,11 @@
             ' img VARCHAR,' +
             ' beed_lamination_id INTEGER,' +
             ' in_door INTEGER,' +
+            ' is_push INTEGER,' +
             ' doorstep_type INTEGER,' +
             ' glass_type INTEGER,' +
-            ' glass_image INTEGER',
+            ' glass_image INTEGER,' +
+            ' glass_color INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -393,6 +400,7 @@
             ' max_height INTEGER,' +
             ' min_width INTEGER,' +
             ' max_width INTEGER,' +
+            ' is_push INTEGER,' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR',
@@ -492,6 +500,7 @@
             ' disc_term_plant NUMERIC,' +
             ' margin_plant NUMERIC,' +
 
+            ' comment TEXT,' +
             ' customer_name TEXT,' +
             ' customer_email TEXT,' +
             ' customer_phone VARCHAR(30),' +
@@ -528,11 +537,13 @@
             ' template_height NUMERIC,' +
             ' template_square NUMERIC,' +
             ' profile_id INTEGER,' +
+            ' door_group_id INTEGER,' +
             ' glass_id VARCHAR,' +
             ' hardware_id INTEGER,' +
             ' lamination_id INTEGER,' +
             ' lamination_out_id INTEGER,' +
             ' lamination_in_id INTEGER,' +
+            ' door_type_index INTEGER,' +
             ' door_shape_id INTEGER,' +
             ' door_sash_shape_id INTEGER,' +
             ' door_handle_shape_id INTEGER,' +
@@ -620,7 +631,8 @@
             'right_id INTEGER,'+
             'right_waste INTEGER,'+
             'cloth_id INTEGER,'+
-            'cloth_waste INTEGER',
+            'cloth_waste INTEGER,'+
+            'group_id INTEGER',
             'foreignKey': ''
           },
 
@@ -637,13 +649,60 @@
             'right_id INTEGER,'+
             'right_waste INTEGER,'+
             'cloth_id INTEGER,'+
-            'cloth_waste INTEGER',
+            'cloth_waste INTEGER,'+
+            'group_id INTEGER',
             'foreignKey': ''
           },
-        'doors_groups':{
+          'doors_groups_dependencies':{
+            'tableName': 'doors_groups_dependencies',
+            'prop' :
+            'doors_group_id INTEGER,'+
+            'hardware_group_id INTEGER',
+            'foreignKey': ''  
+          },
+          'doors_hardware_items':{
+            'tableName': 'doors_hardware_items',
+            'prop' :
+            'hardware_group_id  INTEGER,'+  
+            'min_width INTEGER,'+
+            'max_width INTEGER,'+
+            'min_height INTEGER,'+
+            'max_height INTEGER,'+
+            'direction_id   INTEGER,'+  
+            'hardware_color_id  INTEGER,'+  
+            'length INTEGER,'+  
+            'count  INTEGER,'+  
+            'child_id INTEGER,'+  
+            'position INTEGER,'+
+            'child_type STRING',    
+            'foreignKey': ''  
+          },
+          'doors_hardware_groups':{
+            'tableName': 'doors_hardware_groups',
+            'prop' :
+            'burglar_coeff INTEGER,'+   
+            'anticorrosion_coeff INTEGER,'+ 
+            'image VARCHAR(255),'+  
+            'description VARCHAR(255),'+    
+            'link VARCHAR(255),'+   
+            'country VARCHAR(255),'+    
+            'producer VARCHAR(255),'+   
+            'name VARCHAR(255),'+   
+            'hardware_type_id INTEGER,'+    
+            'factory_id INTEGER,'+  
+            'type INTEGER,'+
+            'is_push INTEGER,' +    
+            'height_max INTEGER,'+  
+            'height_min INTEGER,'+  
+            'width_max INTEGER,'+
+            'width_min INTEGER',
+            'foreignKey': ''  
+          },
+          'doors_groups':{
             'tableName': 'doors_groups',
             'prop' :
             'code_sync_white INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'shtulp_list_id INTEGER,'+
             'impost_list_id INTEGER,'+
             'stvorka_list_id INTEGER,'+
@@ -653,13 +712,19 @@
             'folder_id INTEGER,'+
             'factory_id INTEGER',
             'foreignKey': ''  
-
-
-        },
-        'doors_laminations_dependencies':{
+          },
+          'areas':{
+            'tableName': 'areas',
+            'prop':
+            'name VARCHAR(255),'+ 
+            'region_id INTEGER',
+            'foreignKey': ', FOREIGN KEY (region_id) REFERENCES regions(id)'
+          },
+          'doors_laminations_dependencies':{
             'tableName': 'doors_laminations_dependencies',
             'prop' :
-            'group_id INTEGER,'+ 
+            'group_id INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'lamination_in INTEGER,'+ 
             'lamination_out INTEGER,'+ 
             'rama_list_id INTEGER,'+ 
@@ -805,7 +870,19 @@
 
 
     function insertTablesLocalDB(result) {
-      //        console.log('INSERT START');
+      //console.log('INSERT START', result.tables);
+      var regionId = GlobalStor.global.regionCoefs;
+      var regions = [2, 6, 8, 13, 17, 19, 22, 25];
+      for(var x=0; x<regions.length; x+=1) {
+        if(regionId === regions[x]) {
+          if(result.tables.elements) {
+            for(var x=0; x<result.tables.elements.rows.length; x+=1) {
+              if(result.tables.elements.rows[x][28] > 0)
+              result.tables.elements.rows[x][21] = result.tables.elements.rows[x][21]*result.tables.elements.rows[x][28];
+            }
+          }
+        }
+      }
       var promises = [],
           tableKeys = Object.keys(result.tables),
           tableQty = tableKeys.length;
@@ -828,7 +905,7 @@
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ', error, tableKeys[t], colums);
+                //console.log('Error!!! ', error, tableKeys[t], colums, values);
                 defer.resolve(0);
               });
 
@@ -940,7 +1017,22 @@
     }
 
 
-
+    function deleteProductServer(login, access, orderNumber, table) {
+      var defer = $q.defer();
+      var dataSend = {
+              model: table,
+              orderId: orderNumber
+            }
+      $http.post(globalConstants.serverIP+'/api/remove-order-properties?login='+login+'&access_token='+access, dataSend).then(
+        function (result) {
+          defer.resolve(result.data);
+        },
+        function () {
+          defer.resolve({status: 0});
+        }
+      );
+      return defer.promise;
+    }
 
 
 
@@ -1010,10 +1102,10 @@
 
     function importAllDB(login, access) {
       var defer = $q.defer();
-      console.log('Import database begin!');
+      //console.log('Import database begin!');
       $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access).then(
         function (result) {
-          console.log('importAllDB+++', result);
+          //console.log('importAllDB+++', result);
           if(result.data.status) {
             //-------- insert in LocalDB
             insertTablesLocalDB(result.data).then(function() {
@@ -1025,7 +1117,7 @@
           }
         },
         function () {
-          console.log('Something went wrong with importing Database!');
+          //console.log('Something went wrong with importing Database!');
           defer.resolve(0);
         }
       );
@@ -1043,7 +1135,7 @@
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {
@@ -1055,18 +1147,46 @@
     }
 
 
+    function updateOrderServer(login, access, table, data, orderId) {
+      var defer = $q.defer();
+      if (data.id) {
+        delete data.id;
+      };
+      if (data.modified) {
+        delete data.modified;
+      };
+      var dataToSend = {
+        model: table,
+        rowId: orderId*1,
+        field: JSON.stringify(data)
+      };
+      $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, dataToSend).then(
+        function (result) {
+          //console.log('send changes to server success');
+          defer.resolve(1);
+        },
+        function (result) {
+          //console.log('send changes to server failed', result, table);
+          defer.resolve(0);
+        }
+      );
+      return defer.promise;
+    }
+
+
+
+
 
     function updateServer(login, access, data) {
-      //        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
       var promises = data.map(function(item) {
         var defer = $q.defer();
         $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item).then(
           function (result) {
-            console.log('send changes to server success:', result);
+            //console.log('send changes to server success:', result);
             defer.resolve(1);
           },
           function () {
-            console.log('send changes to server failed');
+            //console.log('send changes to server failed');
             defer.resolve(0);
           }
         );
@@ -1110,7 +1230,7 @@
       var dataSend = {orderId: +orderNumber};
       $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
         function (result) {
-          console.log(result.data);
+          //console.log(result.data);
         },
         function () {
           console.log('Something went wrong with order delete!');
@@ -1152,7 +1272,7 @@
         transformRequest: angular.identity
       }).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(1);
         },
         function () {
@@ -2196,7 +2316,7 @@
       parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel
     ) {
       if(currConsistElem) {
-        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
+        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1, tempS = 0, x=1.2;
 
         //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
         //console.log('Название: ' + currConsistElem.name);
@@ -2634,7 +2754,11 @@
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
         elemObj.price = GeneralServ.roundingValue(currencyExgange(elemObj.price, elemObj.currency_id), 3);
       }
-      elemObj.qty = (kit) ? kit.value : 1;
+      if(elem.count) {
+        elemObj.qty = elem.count;
+      } else {
+        elemObj.qty = (kit) ? kit.value : 1;
+      }
       elemObj.size = 0;
       elemObj.priceReal = GeneralServ.roundingValue((elemObj.price * elemObj.qty), 3);
       container.priceTot += elemObj.priceReal;
@@ -2649,18 +2773,79 @@
             priceTot: 0,
             elements: []
           };
-      //console.log(handleSource, lockSource);
+      var list = lockSource.filter(function(list) {
+        list.child_id = list.parent_element_id;
+        list.child_type = list.position;
+        list.value = list.count;
+        return list.position === 'list'
+      });
+      var elements = lockSource.filter(function(element) {
+        element.child_id = element.parent_element_id;
+        element.child_type = element.position;
+        element.value = element.count;
+        return element.position === 'element'
+      });
+
       getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
+        handleData.count = handleSource.count;
         getDoorElem(priceObj, handleData);
+        (function nextRecord() {
+            if (list.length) {
+              var firstKit = list.shift(0),
+                  firstKitId = 0;
+                  firstKitId = firstKit;
+                  var kit = {};
+            selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
+                var listArr = [];
+                parseListContent(firstKitId.parent_element_id).then(function(result2) {
+                    if(result2 !== 0) {
+                      listArr = angular.copy(result2);
+                      for(var x=0; x<listArr.length; x+=1) {
+                        listArr[x].parent_element_id = listArr[x].child_id;
+                      }
+                      listArr = listArr.filter(function(item) {
+                        if(item.direction_id == 1 || item.direction_id == firstKitId.openDir) {
+                          return item
+                        }
+                      });
+                    }
+                    result = result.concat(listArr);
 
-        getElementByListId(0, lockSource.parent_element_id).then(function(lockData) {
-          //console.info('price lock kit', lockData);
-          getDoorElem(priceObj, lockData);
+                  var element = result;
+                  async.eachSeries(element,calculate, function (err, result) {
+                     nextRecord();
+                  });
 
-          parseListContent(lockSource.id).then(function (consist) {
-            //console.warn('consist!!!!!!+', consist);
-            priceObj.consist = consist;
+                  function calculate (element, _cb) {
+                    async.waterfall([
+                        function (_callback) {
+                          if(element.child_type === 'list') {
+                            list.push(element)
+                            _callback(); 
+                          } else {
+                              getElementByListId(0, element.parent_element_id).then(function(lockData) {
+                              if(firstKitId.count) {
+                                kit.value = firstKitId.count;
+                              } else {
+                                kit.value = firstKitId.value;                             
+                              }
+                                getDoorElem(priceObj, lockData, kit);
+                              });
+                              _callback(); 
+                            } 
+                        }
+                      ], function (err, result) {
+                        if (err) {
+                          return _cb(err);
+                        }
+                      _cb(null);
+                    });
+                  }
+                });
+            });
+          } else {
+            priceObj.consist = elements;
             parseConsistElem([priceObj.consist]).then(function(consistElem) {
               //console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem[0];
@@ -2672,11 +2857,11 @@
               //console.warn('!!!!!!+', priceObj);
               deffMain.resolve(priceObj);
             });
-          });
+          }
+        })();
 
-
-        });
       });
+
       return deffMain.promise;
     }
 
@@ -2685,6 +2870,9 @@
     /**========= ADDELEMENT PRICE ==========*/
 
     function getAdditionalPrice(AddElement){
+      if(AddElement.elementWidth === 0 && AddElement.elementHeight === 0) {
+          AddElement.elementWidth = 1;
+      }
       var deffMain = $q.defer(),
           finishPriceObj = {},
           priceObj = {
@@ -2953,10 +3141,6 @@
       return deffMain.promise;
     }
 
-
-
-
-
     /**========== FINISH ==========*/
 
 
@@ -2979,6 +3163,7 @@
       importAllDB: importAllDB,
       insertServer: insertServer,
       updateServer: updateServer,
+      updateOrderServer: updateOrderServer,
       createUserServer: createUserServer,
       exportUserEntrance: exportUserEntrance,
       deleteOrderServer: deleteOrderServer,
@@ -2990,7 +3175,8 @@
       getAdditionalPrice: getAdditionalPrice,
       calculationGridPrice: calculationGridPrice,
       calcDoorElemPrice: calcDoorElemPrice,
-      currencyExgange: currencyExgange
+      currencyExgange: currencyExgange,
+      deleteProductServer: deleteProductServer
     };
 
     return thisFactory.publicObj;

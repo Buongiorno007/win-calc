@@ -1,0 +1,108 @@
+.print-conteiner#print-conteiner
+  .header
+    .order-number
+      b {{historyPage.H.history.orders[historyPage.H.history.historyID].id}}
+    .order-info
+      .col-md-7
+        p
+          | Заказчик: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_name}}
+          br
+          | Населённый пункт: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_location}}
+          br
+          | Адрес: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_address+ ' дом ' +  historyPage.H.history.orders[historyPage.H.history.historyID].customer_house + ' кв. ' + historyPage.H.history.orders[historyPage.H.history.historyID].customer_flat + ' этаж ' + historyPage.H.history.orders[historyPage.H.history.historyID].customer_floor}}
+          br
+          | Тел. моб: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_phone}}
+        p
+          | Исполнитель: {{historyPage.U.userInfo.name}}
+          br
+          | Телефон: {{historyPage.U.userInfo.phone}}
+          br
+          | Город: {{historyPage.U.userInfo.cityName}}
+          br
+          | Адрес: {{historyPage.U.userInfo.fullLocation + "("+historyPage.H.history.orders[historyPage.H.history.historyID].modified+")"}}
+      .col-md-5
+        table
+          tbody
+            tr
+              td(ng-class="title") Общее кол-во конструкций
+              td(ng-class="result") {{historyPage.H.history.OrderPrintLength}}
+            tr
+              td(ng-class="title") Общая площадь конструкций
+              td(ng-class="result") {{historyPage.H.history.OrderPrintSquare}}
+            tr
+              td(ng-class="title") Общий периметр конструкций
+              td(ng-class="result") {{historyPage.H.history.OrderPrintPerimeter}}
+        br
+        br
+        table
+          tbody
+            tr
+              td(ng-class="title")
+              td(ng-class="result") Скидка %
+              td(ng-class="result") Итоги к оплате:
+            tr
+              td(ng-class="title") Конструкции
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].discount_construct}}
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}
+            tr
+              td(ng-class="title") Доп. элементы
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].discount_addelem}}
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].addelems_price}}
+            tr
+              td(ng-class="title") Доставка
+              td(ng-class="result")
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].delivery_price}}
+            tr
+              td(ng-class="title") Монтаж
+              td(ng-class="result")
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].mounting_price}}
+            tr
+              td(ng-class="title") Итого
+              td(ng-class="result")
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].order_price}}
+  .content(ng-repeat="curProd in historyPage.H.history.PrintProduct track by $index")
+    .header
+      hr
+      .head-block {{curProd[$index].product_id}} Количество {{curProd[$index].product_qty}} шт., ширина {{curProd[$index].template_width}} мм., высота {{curProd[$index].template_height}} мм., площадь {{curProd[$index].template_square}}
+
+    .construction
+      .left
+        .construction-block-main(ng-if(curProd[$index].template.length))
+          .construction-scrollbox-main
+            svg-template(template="curProd[$index].template", template-width="399", template-height="300", type-construction="historyPage.constants.SVG_ID_PRINT")
+      .right
+        tbody
+          table
+            tr
+              td(ng-class="title") Профильная система
+              td(ng-class="result")  {{curProd[$index].profile.name}}
+            tr
+              td(ng-class="title") Стеклопакет(ы)
+              td(ng-class="result", ng-repeat="gl in curProd[$index].glass track by $index") {{gl.name}}
+            tr
+              td(ng-class="title") Фурнитура
+              td(ng-class="result") {{curProd[$index].hardware.name || 'отсутствует'}}
+            tr
+              td(ng-class="title") Коеф. теплоизоляции
+              td(ng-class="result") {{curProd[$index].template_square}}
+            tr
+              td(ng-class="title") Цвет профиля
+              td(ng-class="result") {{curProd[$index].lamination.laminat_in_name | translate }}
+            tr
+              td(ng-class="title") Доп. елементы
+              td(ng-class="result")
+                .resultAdd(ng-repeat="addEll in historyPage.H.history.PrintAddEl track by $index") {{addEll.name +"("+ addEll.element_width + addEll.element_height+addEll.element_qty +"шт.)"}}
+            tr
+              td(ng-class="title") Стоимость конструкции
+              td(ng-class="result") {{curProd[$index].template_price}}
+            tr
+              td(ng-class="title") Стоимость доп. елементов
+              td(ng-class="result") {{curProd[$index].addelem_price}}
+    .pagebreak
+  hr
+  p.footer
+    | Заказчик несёт ответственность за правильность размеров, конфигурации и комплектации заказа. Оплаченный счёт является потдтверждением.
+  p.footer
+    | Заказчик_________________________________________
+    br
+    | Исполнитель______________________________________

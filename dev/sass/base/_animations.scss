@@ -103,6 +103,23 @@
   }
 }
 
+@mixin behavior-ordersAlert($nameMove) {
+  @include keyframes($nameMove) {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    75% {
+    opacity: 1;
+    }
+    100% {
+    opacity: 0;
+    }
+  }
+}
+
 @mixin behavior-jump($nameMove, $fromX, $fromY, $toX, $toY) {
   @include keyframes($nameMove) {
     from {
@@ -120,7 +137,6 @@
   }
 }
 
-
 .splash {
   @include animation(splashing .5s ease 0s 1);
 }
@@ -135,6 +151,11 @@
   @include animation(firstLight 10s ease 0s infinite);
 }
 @include behavior-firstLight(firstLight);
+
+.ordersAlert {
+  @include animation(ordersAlert 3s ease 0s);
+}
+@include behavior-ordersAlert(ordersAlert);
 
 .secondLight {
   @include animation(secondLight 12s ease 0s infinite);

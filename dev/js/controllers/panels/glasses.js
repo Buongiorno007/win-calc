@@ -76,6 +76,7 @@
 
     function setGlassToAll() {
       MainServ.setGlassToTemplateBlocks(
+        GlobalStor.global.selectGlassType,
         ProductStor.product.template_source,
         GlobalStor.global.selectGlassId,
         GlobalStor.global.selectGlassName
@@ -92,10 +93,11 @@
       var selectBlockQty = DesignStor.design.selectedGlass.length,
           glassesTEMP = angular.copy(ProductStor.product.glass),
           blockId;
-
+          
       /** there are selected glasses */
       if(!selectBlockQty) {
         MainServ.setGlassToTemplateBlocks(
+          GlobalStor.global.selectGlassType,
           ProductStor.product.template,
           GlobalStor.global.selectGlassId,
           GlobalStor.global.selectGlassName
@@ -116,6 +118,7 @@
         ProductStor.product.glass = angular.copy(glassesTEMP);
         /** return prev value in template */
         MainServ.setGlassToTemplateBlocks(
+          GlobalStor.global.selectGlassType,
           ProductStor.product.template,
           GlobalStor.global.prevGlassId,
           GlobalStor.global.prevGlassName
@@ -126,6 +129,7 @@
           while (--selectBlockQty > -1) {
             blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
             MainServ.setGlassToTemplateBlocks(
+              GlobalStor.global.selectGlassType,
               ProductStor.product.template_source,
               GlobalStor.global.selectGlassId,
               GlobalStor.global.selectGlassName,
@@ -139,7 +143,10 @@
           setGlassToAll();
         }
       }
-
+      SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+        });
     }
 
 

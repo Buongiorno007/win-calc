@@ -14,14 +14,12 @@
     GlobalStor,
     ProductStor,
     AuxStor,
-    DesignServ
+    DesignServ,
+    DesignStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
-
-
-
     /**============ METHODS ================*/
 
 
@@ -29,6 +27,7 @@
       var index = (id - 1), gridsSort;
       AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
+
       /** if Grids */
       if (AuxStor.aux.isFocusedAddElement === 1) {
         if(ProductStor.product.is_addelem_only) {
@@ -46,6 +45,7 @@
       } else {
         AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
       }
+      console.log(AuxStor.aux.addElementsList);
     }
 
 
@@ -60,8 +60,72 @@
           AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
         }
       }
+      hideMenu('close');
     }
 
+    function hideMenu(elementId) {
+      if(elementId === 'close') {
+        if(AuxStor.aux.addElementsList.length>1) {
+        for(var x=0; x<AuxStor.aux.addElementsList.length; x+=1) {
+          $('#'+x).css({
+                      'width' : 100 + '%',
+                      'height' : 7 + '%'
+                       })
+          $('#'+x+'open').css({
+                      'visibility' : 'visible'
+                       })
+          $('#'+x+'close').css({
+                      'visibility' : 'hidden'
+                       })
+          AuxStor.aux.truefalse = 0;
+        }
+      } else {
+        $('#'+ 0).css({
+                      'width' : 100+'%',
+                      'height' : 'auto'
+                    })
+        $('#'+ 0 + 'open').css({
+                      'visibility' : 'hidden'
+                       })
+        $('#'+ 0 + 'close').css({
+                      'visibility' : 'visible'
+                       })
+          AuxStor.aux.truefalse = 1;
+      }
+      } else {
+        if (AuxStor.aux.truefalse === 1) {
+          $('#'+AuxStor.aux.trfal+'prod').css({
+              'color' : '#363636'
+               }),
+          $('#'+elementId).css({
+                      'width' : 100 + '%',
+                      'height' : 7 + '%'
+                       })
+        $('#'+elementId + 'open').css({
+                      'visibility' : 'visible'
+                       })
+        $('#'+elementId + 'close').css({
+                      'visibility' : 'hidden'
+                       })
+          AuxStor.aux.truefalse = 0;
+        } else {
+          $('#'+AuxStor.aux.trfal+'prod').css({
+              'color' : '#363636'
+               }),
+          $('#'+elementId).css({
+                      'width' : 100+'%',
+                      'height' : 'auto'
+                    })
+        $('#'+elementId + 'open').css({
+                      'visibility' : 'hidden'
+                       })
+        $('#'+elementId + 'close').css({
+                      'visibility' : 'visible'
+                       })
+          AuxStor.aux.truefalse = 1;
+        }
+      }
+    }
 
     /**--------- Select additional element group -----------*/
 
@@ -93,6 +157,15 @@
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
       var currElem;
+      DesignStor.design.minSizeLimit = 0;
+      if(ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size) {
+        DesignStor.design.maxSizeLimit = ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size;
+        GlobalStor.global.maxSizeAddElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size;
+      } else {
+        DesignStor.design.maxSizeLimit = 5000;
+        GlobalStor.global.maxSizeAddElem = 5000;
+      };
+      
       /** click to the same parameter => calc Price and close caclulators */
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
         AddElementMenuServ.finishCalculators();
@@ -246,16 +319,43 @@
         }
       }
     }
+    /**----------- Select Add Element when open List View ------------*/
 
+    function selectAddElementList(typeId, elementId, clickEvent) {
+      var coord;
+      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
+        AuxStor.aux.isAddElement = false;
+      } else if(AuxStor.aux.isAddElement === false) {
+        coord = $(clickEvent.target).offset();
+        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+        AuxStor.aux.coordinats = {'top': coord.top-17};
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
+        }, 500);
+      } else {
+        AuxStor.aux.isAddElement = false;
+        $timeout(function() {
+          coord = $(clickEvent.target).offset();
+          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+          AuxStor.aux.coordinats = {'top': coord.top-11};
+        }, 500);
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+        }, 1000);
+      }
+    }
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
+      selectAddElementList: selectAddElementList,
       selectAddElement: selectAddElement,
       initAddElementTools: initAddElementTools,
       selectAddElem: selectAddElem,
       openAddElementListView: openAddElementListView,
       closeAddElementListView: closeAddElementListView,
       createAddElementGroups: createAddElementGroups,
+      hideMenu: hideMenu,
       downloadAddElementsData: downloadAddElementsData
     };
 

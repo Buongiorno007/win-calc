@@ -408,7 +408,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Windowsill
   .aux-windowsill {
-    @include top_left_coord(1100px, 120px);
+    @include top_left_coord(1116px, 88px);
     z-index: 7;
   }
 
@@ -634,7 +634,8 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Others
   .aux-others {
-    @include top_left_coord(1250px, 1212px);
+
+    @include top_left_coord(1275px, 1212px);
     z-index: 13;
   }
 
@@ -680,11 +681,12 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-spil-txt {
-    @include top_left_coord(310px,384px);
+    @include top_left_coord(342px,416px);
   }
 
   .aux-outside-txt {
     @include top_left_coord(350px, 620px);
+    z-index: 10;
   }
 
   .aux-louver-txt {
@@ -774,7 +776,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     float: left;
     height: 5rem;
     line-height: 5rem;
-    font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
+    font: normal 2.5rem/2 roboto-light, sans-serif, icons;
     margin: 1.25rem 0.5rem;
     border-radius: 1rem;
     background-color: orange;

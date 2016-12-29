@@ -13,7 +13,8 @@
     GlobalStor,
     ProductStor,
     MainServ,
-    DesignStor
+    DesignStor,
+    localDB
   ) {
     /*jshint validthis:true */
     var thisCtrl = this,
@@ -35,18 +36,16 @@
       isDesignError: 0,
       isTest: 0,
 
-      //----- door
-      isDoorConfig: 0,
-      selectedStep1: 0,
-      selectedStep2: 0,
-      selectedStep3: 0,
-      selectedStep4: 0,
-
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
 
     //------- translate
+    thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
+    thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
+    thisCtrl.TEXT3 = $filter('translate')('natification.TEXT3');
+    thisCtrl.EDIT_HARDWARE = $filter('translate')('natification.EDIT_HARDWARE');
+    thisCtrl.EDIT_SIZE = $filter('translate')('natification.EDIT_SIZE');
     thisCtrl.IMPOST_SHAPE = $filter('translate')('design.IMPOST_SHAPE');
     thisCtrl.SASH_SHAPE = $filter('translate')('design.SASH_SHAPE');
     thisCtrl.ANGEL_SHAPE = $filter('translate')('design.ANGEL_SHAPE');
@@ -73,19 +72,21 @@
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
     thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
-
-
+    thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
+    thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
+    thisCtrl.CALC_PRICE = $filter('translate')('design.CALC_PRICE');
 
     //------ DOOR
-    DesignServ.setDoorConfigDefault(ProductStor.product);
+    //DesignServ.setDoorConfigDefault(ProductStor.product);
     //------ cleaning DesignStor
-    DesignStor.design = DesignStor.setDefaultDesign();
+    //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
-    DesignServ.setDefaultTemplate();
-
-
-
-
+    //DesignServ.setDefaultTemplate();
+    DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+    DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+    DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+    DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+  
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
       DesignServ.initAllImposts();
@@ -106,7 +107,6 @@
       DesignStor.design.isDropSubMenu = 0;
     }
 
-
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
       DesignStor.design.activeMenuItem = 0;
@@ -115,7 +115,6 @@
         thisCtrl.config.isDesignError = 0;
       }, 800);
     }
-
 
     /**++++++++++ Edit Sash ++++++++++*/
 
@@ -369,183 +368,10 @@
 
 
 
-
-    /**+++++++++++++++ DOOR +++++++++++++++++++*/
-
-    /**---------- Show Door Configuration --------*/
-
-    function toggleDoorConfig() {
-      thisCtrl.config.isDoorConfig = 1;
-      DesignServ.closeSizeCaclulator();
-      //----- show current items
-      //thisCtrl.config.selectedStep1 = 1;
-      //thisCtrl.config.selectedStep2 = 1;
-      //thisCtrl.config.selectedStep3 = 1;
-      //thisCtrl.config.selectedStep4 = 1;
-    }
-
-
-    /**---------- Select door shape --------*/
-
-    function selectDoor(id) {
-      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
-      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
-      var doorKitsT1 = GlobalStor.global.doorKitsT1;
-      for(var z=0; z<doorsGroups.length; z+=1) {
-        for(var i=0; i<doorsLaminations.length; i+=1) {
-          if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
-          && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
-            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
-              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
-              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
-              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
-              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
-              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].doorstep_type = 0;
-              doorsGroups[z].profileId = doorsLaminations[i].profileId;
-              DesignStor.design.doorsGroups.push(doorsGroups[z].id)
-              for(var x=0; x<doorKitsT1.length; x+=1) {
-                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
-                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              break
-            }
-          }
-        } 
-      }
-      if(!thisCtrl.config.selectedStep2) {
-        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
-          DesignStor.design.doorConfig.doorShapeIndex = '';
-          thisCtrl.config.selectedStep1 = 0;
-        } else {
-          DesignStor.design.sashShapeList.length = 0;
-          switch (id) {
-            case 0:
-            case 1:
-              if (doorsGroups.length) {
-                DesignStor.design.sashShapeList = angular.copy(doorsGroups);
-              } else if (doorsGroups.length) {
-                DesignStor.design.sashShapeList = angular.copy(doorsGroups);
-              }
-              break;
-            case 2:
-              if (doorsGroups.length) {
-                DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 2;
-                });
-              break;
-            }
-            case 3:
-              if (doorsGroups.length) {
-                DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 1;
-                });
-              break;
-            }
-          }
-          DesignStor.design.doorConfig.doorShapeIndex = id;
-          thisCtrl.config.selectedStep1 = 1;
-        }
-      }
-    } 
-
-
-
-    /**---------- Select prifile/sash shape --------*/
-
-    function selectSash(id) {
-      var newHandleArr;
-      if(!thisCtrl.config.selectedStep3) {
-        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
-          DesignStor.design.doorConfig.sashShapeIndex = '';
-          thisCtrl.config.selectedStep2 = 0;
-        } else {
-          DesignStor.design.doorConfig.sashShapeIndex = id;
-          thisCtrl.config.selectedStep2 = 1;
-        }
-        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
-          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].profileId)+1;
-        });
-        DesignStor.design.handleShapeList = newHandleArr;
-      }
-    }
-
-
-
-    /**---------- Select handle shape --------*/
-
-    function selectHandle(id) {
-      if(!thisCtrl.config.selectedStep4) {
-        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
-          DesignStor.design.doorConfig.handleShapeIndex = '';
-          thisCtrl.config.selectedStep3 = 0;
-        } else {
-          DesignStor.design.doorConfig.handleShapeIndex = id;
-          thisCtrl.config.selectedStep3 = 1;
-        }
-        DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[id];
-      }
-    }
-
-
-
-    /**---------- Select lock shape --------*/
-
-    function selectLock(id) {
-      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
-        DesignStor.design.doorConfig.lockShapeIndex = '';
-        thisCtrl.config.selectedStep4 = 0;
-      } else {
-        DesignStor.design.doorConfig.lockShapeIndex = id;
-        thisCtrl.config.selectedStep4 = 1;
-      }
-    }
-
-
-
-    /**---------- Close Door Configuration --------*/
-
-    function closeDoorConfig() {
-      if(thisCtrl.config.selectedStep3) {
-        thisCtrl.config.selectedStep3 = 0;
-        thisCtrl.config.selectedStep4 = 0;
-        DesignStor.design.doorConfig.lockShapeIndex = '';
-        DesignStor.design.doorConfig.handleShapeIndex = '';
-      } else if(thisCtrl.config.selectedStep2) {
-        thisCtrl.config.selectedStep2 = 0;
-        DesignStor.design.doorConfig.sashShapeIndex = '';
-      } else if(thisCtrl.config.selectedStep1) {
-        thisCtrl.config.selectedStep1 = 0;
-        DesignStor.design.doorConfig.doorShapeIndex = '';
-      } else {
-        //------ close door config
-        thisCtrl.config.isDoorConfig = 0;
-        //------ set Default indexes
-        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
-      }
-    }
-
-
-
-    /**---------- Save Door Configuration --------*/
-
-    function saveDoorConfig() {
-      DesignServ.setNewDoorParamValue(ProductStor.product, DesignStor.design);
-      DesignServ.rebuildSVGTemplate();
-      thisCtrl.config.isDoorConfig = 0;
-    }
-
-
-
-
-
-
-
-
     /**-------- Select menu item ---------*/
 
     function selectMenuItem(id) {
+      GlobalStor.global.activePanel = 0;
       if(DesignStor.design.tempSize.length) {
         //----- finish size culculation
         DesignServ.closeSizeCaclulator();
@@ -619,7 +445,6 @@
       }
     }
 
-
     /**----- open/close template pannel -------*/
 
     function showTemplates() {
@@ -644,28 +469,25 @@
     }
 
 
-
-
-
-
     /**========== FINISH ==========*/
 
     //------ clicking
 
-    thisCtrl.designSaved = DesignServ.designSaved;
+    thisCtrl.designSaved = DesignServ.saveSizeCheck;
     thisCtrl.designCancel = DesignServ.designCancel;
     thisCtrl.selectMenuItem = selectMenuItem;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
     thisCtrl.showTemplates = showTemplates;
 
     //----- door config
-    thisCtrl.toggleDoorConfig = toggleDoorConfig;
-    thisCtrl.selectDoor = selectDoor;
-    thisCtrl.selectSash = selectSash;
-    thisCtrl.selectHandle = selectHandle;
-    thisCtrl.selectLock = selectLock;
-    thisCtrl.closeDoorConfig = closeDoorConfig;
-    thisCtrl.saveDoorConfig = saveDoorConfig;
+    thisCtrl.toggleDoorConfig = DesignServ.toggleDoorConfig;
+    thisCtrl.selectDoor = DesignServ.selectDoor;
+    thisCtrl.selectSash = DesignServ.selectSash;
+    thisCtrl.selectHandle = DesignServ.selectHandle;
+    thisCtrl.selectLock = DesignServ.selectLock;
+    thisCtrl.closeDoorConfig = DesignServ.closeDoorConfig;
+    thisCtrl.saveDoorConfig = DesignServ.saveDoorConfig;
+    thisCtrl.setDoorConfigDefault = DesignServ.setDoorConfigDefault;
 
     //------ edit design
     thisCtrl.insertSash = insertSash;

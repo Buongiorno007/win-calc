@@ -2,7 +2,7 @@ doctype html
 html(ng-app='BauVoiceApp')
   head
     meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge', lang="ru")
     title BauVoice | {{ title }}
     meta(name='description', content='')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
@@ -14,14 +14,15 @@ html(ng-app='BauVoiceApp')
     link(rel='visor', href='vendor/vis.js')
 
   body
-    section.app-container(ng-view)
+    #main-frame(style='position:relative; background:white; min-width:1024px; min-height:770px; top:0; left : 0; transform: scale(1);')
+      section.app-container(ng-view)
 
-    script(src='js/plugins.js')
-    script(src='js/main.js')
+      script(src='js/plugins.js')
+      script(src='js/main.js')
 
-    audio#sounds
-      source(src="audio/soundsPrice.aac", type="audio/mpeg")
-      //source(src="audio/sounds.aac", type="audio/mpeg")
-      //source(src="audio/sounds.mp3", type="audio/mpeg")
-      //source(src="audio/sounds.wav", type="audio/wav")
-      //source(src="audio/sounds.ogg", type="audio/ogg")
+      audio#sounds
+        source(src="audio/soundsPrice.aac", type="audio/mpeg")
+        //source(src="audio/sounds.aac", type="audio/mpeg")
+        //source(src="audio/sounds.mp3", type="audio/mpeg")
+        //source(src="audio/sounds.wav", type="audio/wav")
+        //source(src="audio/sounds.ogg", type="audio/ogg")

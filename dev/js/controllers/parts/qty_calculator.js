@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('qtyCalculatorCtrl',
 
-  function($filter, AddElementMenuServ) {
+  function($filter, AddElementMenuServ, EditAddElementCartServ, GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
 
@@ -13,9 +13,14 @@
     thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
 
     //------ clicking
-    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
-    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-
+    if(GlobalStor.global.currOpenPage === 'cart') {
+      thisCtrl.setValueQty = EditAddElementCartServ.setValueQty;
+      thisCtrl.closeQtyCaclulator = EditAddElementCartServ.closeQtyCaclulator;
+      thisCtrl.pressCulculator = EditAddElementCartServ.pressCulculator;
+    } else {
+      thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+      thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
+      thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    }
   });
 })();

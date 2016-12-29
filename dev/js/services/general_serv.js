@@ -22,8 +22,8 @@
             id: 20,
             name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -32,7 +32,7 @@
             id: 21,
             name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
@@ -41,7 +41,7 @@
             id: 9,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
@@ -50,7 +50,7 @@
             id: 19,
             name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
@@ -59,8 +59,8 @@
             id: 26,
             name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
-            typeMenu: 11,
-            mainTypeMenu: 55,
+            typeMenu: 1111,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -69,8 +69,8 @@
             id: 19,
             name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
-            typeMenu: 11,
-            mainTypeMenu: 55,
+            typeMenu: 1111,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -79,8 +79,8 @@
             id: 12,
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -89,8 +89,8 @@
             id: 27,
             name: 'add_elements.FAN',
             typeClass: 'aux-fan',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -99,8 +99,8 @@
             id: 8,
             name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
-            typeMenu: 11,
-            mainTypeMenu: 55,
+            typeMenu: 1111,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -109,8 +109,8 @@
             id: 24,
             name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -119,8 +119,9 @@
             id: 18,
             name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
-            typeMenu: 11,
-            mainTypeMenu: 55,
+            typeMenu: 4444,
+            mainTypeMenu: 5555,
+
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -130,7 +131,7 @@
             id: 99,
             name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -140,7 +141,7 @@
             id: 9999,
             name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -149,7 +150,7 @@
             id: 999,
             name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },          
@@ -158,7 +159,7 @@
             id: 999,
             name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shut',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },          
@@ -167,7 +168,7 @@
             id: 9999,
             name: 'add_elements.GRATING',
             typeClass: 'aux-grat',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -176,7 +177,7 @@
             id: 21,
             name: 'add_elements.VISORS',
             typeClass: 'aux-vis',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -185,7 +186,7 @@
             id: 9,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spil',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -194,8 +195,8 @@
             id: 13,
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           }
@@ -294,13 +295,22 @@
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
     }
+    function infoAlert(title, descript) {
+      GlobalStor.global.isAlertInfo = 1;
+      GlobalStor.global.alertTitle = title || '';
+      GlobalStor.global.alertDescr = descript || '';
+    }
+    function isErrorProd(title) {
+      GlobalStor.global.isErrorProd = 1;
+      GlobalStor.global.isErrorProdTitle = title || '';
+    }
     function confirmPath(callback) {
       GlobalStor.global.confirmInActivity = callback;
     }
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
-        var ref = window.open(link);
+        var ref = window.open(link,"_self");
         ref.close();
       } else {
         $window.open(link);
@@ -311,6 +321,7 @@
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
+      isErrorProd: isErrorProd, 
       addElementDATA: addElementDATA,
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
@@ -323,6 +334,7 @@
       confirmAlert: confirmAlert,
       goToLink: goToLink,
       confirmPath: confirmPath,
+      infoAlert: infoAlert
     };
 
     return thisFactory.publicObj;

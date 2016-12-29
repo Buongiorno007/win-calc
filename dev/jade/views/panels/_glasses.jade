@@ -10,7 +10,7 @@
       .glass-block-footer.clearfix
         .footer-inner
           .box.glass-box.unvisible(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
-            .box_inner(fs-click="glassPanel.selectGlass(glass.id, glass.sku)")
+            .box_inner(ng-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
               .glass-box-view
                 .glass-img
                   img(ng-src="img/glasses/glass{{ glass.glass_image }}.png")

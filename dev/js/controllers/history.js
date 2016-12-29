@@ -11,13 +11,16 @@
     UserStor,
     HistoryStor,
     HistoryServ,
-    CartServ
+    CartServ,
+    PrintServ,
+    globalConstants
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.H = HistoryStor;
     thisCtrl.U = UserStor;
+    thisCtrl.constants = globalConstants;
 
     //------- translate
     thisCtrl.FROM = $filter('translate')('history.FROM');
@@ -45,11 +48,36 @@
     thisCtrl.ALLPRODUCTS = $filter('translate')('history.ALLPRODUCTS');
     thisCtrl.ON = $filter('translate')('history.ON');
     thisCtrl.CHANGE = $filter('translate')('common_words.CHANGE');
+    thisCtrl.SEND_ORDER_TITLE = $filter('translate')('common_words.SEND_ORDER_TITLE');
+    thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
+    thisCtrl.PRINT = $filter('translate')('common_words.PRINT');
     thisCtrl.BY_YOUR_REQUEST = $filter('translate')('history.BY_YOUR_REQUEST');
     thisCtrl.NOT_FIND = $filter('translate')('history.NOT_FIND');
     thisCtrl.DRAFT_VIEW = $filter('translate')('history.DRAFT_VIEW');
     thisCtrl.DRAFT = $filter('translate')('history.DRAFT');
+    thisCtrl.DOWNLOAD_ORDERS = $filter('translate')('history.DOWNLOAD_ORDERS');
+    thisCtrl.DURING_THE_WEEK = $filter('translate')('history.DURING_THE_WEEK')
+    thisCtrl.PER_MOUNTH = $filter('translate')('history.PER_MOUNTH')
+    thisCtrl.IN_A_YEAR = $filter('translate')('history.IN_A_YEAR')
     thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
+    thisCtrl.ORDER_DONE = $filter('translate')('history.ORDER_DONE')
+    thisCtrl.ORDER_ERROR = $filter('translate')('history.ORDER_ERROR');
+    thisCtrl.SYNCHRONIZE_ORDERS = $filter('translate')('history.SYNCHRONIZE_ORDERS');
+    thisCtrl.time = [
+        {
+            name:$filter('translate')('history.DURING_THE_WEEK'),
+            namb: 1
+        },
+        {
+            name:$filter('translate')('history.PER_MOUNTH'),
+            namb: 2
+        },
+        {
+            name:$filter('translate')('history.IN_A_YEAR'),
+            namb: 3
+        }
+        ];
+    
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'history';
@@ -58,20 +86,22 @@
     thisCtrl.createdDate = 'created';
 
     HistoryServ.downloadOrders();
-
-
     //------ clicking
+    thisCtrl.reqResult = HistoryServ.reqResult;
     thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;
     thisCtrl.sendOrderToFactory = HistoryServ.sendOrderToFactory;
     thisCtrl.makeOrderCopy = HistoryServ.makeOrderCopy;
     thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
     thisCtrl.editOrder = HistoryServ.editOrder;
     thisCtrl.orderPrint = HistoryServ.orderPrint;
+    thisCtrl.deleteOption = HistoryServ.deleteOption;
     thisCtrl.viewSwitching = HistoryServ.viewSwitching;
     thisCtrl.orderSearching = HistoryServ.orderSearching;
     thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
     thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
+    thisCtrl.testFunc = HistoryServ.testFunc;
+    thisCtrl.synchronizeOrders = HistoryServ.synchronizeOrders;
   });
 })();

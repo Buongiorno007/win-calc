@@ -25,6 +25,12 @@
 .glass-icon {
   fill: #94DEEE;
 }
+.glass-sandwich {
+  fill: #ececec;
+}
+.glass-brown {
+  fill: #A52A2A;
+}
 //----- door step
 .doorstep {
   fill: #000;
@@ -39,7 +45,7 @@
 .sash_mark {
   fill: none;
   stroke: $main_orange;
-  stroke-width: 2;
+  stroke-width: 6;
 }
 .corner_mark {
   @extend .active_svg;

@@ -4,7 +4,7 @@
     .laminat-filter
       .laminat-inner
         .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index")
-          .laminat-img(ng-class="{'selected': lamin.isActive}", fs-click="laminPanel.initLaminatFilter(lamin.type_id)")
+          .laminat-img(ng-class="{'selected': lamin.isActive}", ng-click="laminPanel.initLaminatFilter(lamin.type_id)")
             img(ng-src="img/lamination/{{ lamin.type_id }}.jpg")
           .laminat-label(ng-if="lamin.id > 1", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label(ng-if="lamin.id === 1", data-output="{{ ::lamin.name | translate}}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
@@ -14,11 +14,11 @@
         .laminat-row
           .laminat-label {{ ::laminPanel.LAMINAT_INSIDE }}
           .laminat-label {{ ::laminPanel.LAMINAT_OUTSIDE }}
-        .laminat-row.laminat-img(ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }", fs-click="laminPanel.selectLaminat(lamCouple.id)")
+        .laminat-row.laminat-img(ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }", ng-click="laminPanel.selectLaminat(lamCouple.id)")
             img(ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg")
             img(ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg")
         .laminat-row
-          .laminat-label(ng-if="lamCouple.img_in_id > 1") {{ ::lamCouple.laminat_in_name }}
-          .laminat-label(ng-if="lamCouple.img_in_id === 1") {{ ::lamCouple.laminat_in_name | translate }}
-          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1") {{ ::lamCouple.laminat_out_name }}
-          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1") {{ ::lamCouple.laminat_out_name | translate }}
+          .laminat-label(ng-if="lamCouple.img_in_id > 1") {{ lamCouple.laminat_in_name }}
+          .laminat-label(ng-if="lamCouple.img_in_id === 1") {{ lamCouple.laminat_in_name | translate }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1") {{ lamCouple.laminat_out_name }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1") {{ lamCouple.laminat_out_name | translate }}

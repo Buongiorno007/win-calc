@@ -1,7 +1,10 @@
 .right-menu-controller(ng-controller="CartMenuCtrl as cartMenu")
   .cart-menu
     ul.items-list
-      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1}", fs-click="cartMenu.selectMenuItem(1)")
+      li.item.add-prod(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}",fs-click="cartPage.addNewProductInOrder()")
+        .prod-btn {{ ::cartPage.ADD_ORDER }}
+        img.prod-img(ng-src='img/add-img.png')
+      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
         .title(data-output="{{ ::cartMenu.DELIVERY }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
           .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -18,7 +21,7 @@
               .value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
               .name.drop-txt + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
 
-      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2}", fs-click="cartMenu.selectMenuItem(2)")
+      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}", fs-click="cartMenu.selectMenuItem(2)")
         .title(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
           .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -36,7 +39,7 @@
               .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
 
 
-      li.item.switcher(ng-class="{'active': cartMenu.config.activeMenuItem == 3}", fs-click="cartMenu.selectMenuItem(3)")
+      li.item.switcher(ng-class="{'active': cartMenu.config.activeMenuItem == 3, 'hov': cartMenu.config.activeMenuItem !== 3}", fs-click="cartMenu.selectMenuItem(3)")
         .title(data-output="{{ ::cartMenu.PAYMENT_BY_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
           .value(ng-if="!cartMenu.O.order.is_instalment", data-output="{{ ::cartMenu.WITHOUT_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -58,7 +61,7 @@
               .value.value-percent {{ payment.value }} %
 
 
-      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 4}", fs-click="cartMenu.selectMenuItem(4)")
+      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 4, 'hov': cartMenu.config.activeMenuItem !== 4}", fs-click="cartMenu.selectMenuItem(4)")
         .title(data-output="{{ ::cartMenu.DELIVERY_DATE }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .value(data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 4}")
@@ -67,6 +70,12 @@
         .calendar-price.up(ng-show="cartMenu.O.order.is_date_price_more") + {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
         .calendar-price.down(ng-show="cartMenu.O.order.is_date_price_less") - {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
 
+      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}", fs-click="cartMenu.selectMenuItem(5)")
+        .title(data-output="{{ ::cartMenu.COMMENT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+        .cart-item-data
+        .value(data-output="{{ cartMenu.O.order.comment }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 5}")
+        textarea.comment-field.noPreventDefault(ng-model="cartMenu.O.order.comment")
 
     footer.menu-footer
       .price-block.price-with-instalments(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")

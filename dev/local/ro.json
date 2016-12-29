@@ -30,16 +30,23 @@
     "AND": "și",
     "OK": "OK",
     "BACK": "Înapoi",
+    "PRINT": "Print View",
     "LETTER_M": "m"
   },
   "natification": {
-    "ASKING_PRICE": " Verificați tarifele"
+    "ASKING_PRICE": " Verificați tarifele",
+    "TEXT1": "  Dimensiunea actuală a cordonului clapei: ",
+    "TEXT2": " dincolo de intervalul permis: ",
+    "TEXT3": ". Pentru a salva un design de redimensionare.",
+    "EDIT_HARDWARE": "Alte accesorii",
+    "EDIT_SIZE": "Întoarcere dimensiunea"
   },
   "login": {
     "ENTER": "Intră",
     "PASS_CODE": "Comunicați acest cod managerului.",
     "YOUR_CODE": "Codul Dvs.: ",
     "EMPTY_FIELD": "Completați acest câmp.",
+    "EMPTY_FIELD_LOCATION": "Modifică localizarea propusă",
     "WRONG_LOGIN": "Pentru numele de utilizator (parolă) folosiți doar cifre, litere latine și simbolurile  \"@\" , \".\" , \"-\" , \"_\" .",
     "SHORT_NAME": "Nume prea scurt.",
     "IMPORT_DB_START": "Așteptați, a început încărcarea bazei de date",
@@ -59,7 +66,12 @@
     "SELECT_FACTORY": "Nu ați selectat producătorul",
     "USER_PASSWORD_ERROR": "Parolă incorectă!",
     "OFFLINE": "Nu există conexiune la Internet!",
-    "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!"
+    "OFFLINE_INFO": "Conectați-vă la internet și încercați din nou",
+    "OFFLINE_IMPORT":"Nu există conexiune la Internet!",
+    "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!",
+    "AUTO_SYNCHRONIZE" : "Date de sincronizare automată la pornirea aplicației",
+    "SYNCHRONIZE_INFO" : "Când datele caracteristici activate sincronizarea automată, în timpul pornirii aplicațiilor este încărcată prețuri curente, precum și de economisire pe ordinele de server recrutați mai devreme. Sincronizarea automată numai dacă aveți acces la Internet"
+
   },
   "danger-alert": {
     "PRODUCT": "constructie",
@@ -118,17 +130,39 @@
     "HEAT_INSULATION": "izolare termică",
     "NOICE_INSULATION": "izolare fonică",
     "CORROSION_COEFF": "anticoroziune",
+
+    "TEMPLATE_WINDOW_HAND": "Modele de ferestre",
+    "TEMPLATE_BALCONY_HAND": "Uși de balcon",
+    "TEMPLATE_DOOR_HAND": "Usi de intrare",
+
+    "1_TYPE": "Fereastra orb",
+    "2_TYPE": "fereastra de pivotare",
+    "3_TYPE": "fereastră prelate & rândul său",
+    "4_TYPE": "fereastra orb cu bir",
+    "5_TYPE": "răsucirii fereastra cu bir",
+    "6_TYPE": "fereastră prelate & rândul său la Impost",
+    "7_TYPE": "geam dublu",
+    "8_TYPE": "ferestre cu frunze",
+    "9_TYPE": "fereastra blind cu bir",
+    "10_TYPE": "răsucirii fereastra cu bir",
+    "11_TYPE": "fereastra si inclinare activa cu montant",
+    "21_TYPE": "cu balamale pivotant",
+    "22_TYPE": "leagăn",
+    "23_TYPE": "cu frunze",
+    "31_TYPE": "ușa din față cu o singură aripă",
+    "32_TYPE": "ușa din față cu frunze",
+
     "BURGLAR_COEFF": "antiefracție",
     "LAMINAT_INSIDE": "în cameră",
     "LAMINAT_OUTSIDE": "fațadă",
     "ONE_WINDOW_TYPE": "Cu un canat",
     "TWO_WINDOW_TYPE": "Cu două canaturi",
     "THREE_WINDOW_TYPE": "Cu trei canaturi",
-    "CAMER_1": "1 камера",
-    "CAMER_2": "2 камеры",
-    "CAMER_GLASS": "Стекло",
-    "SENDVICH": "Сэндвич панель",
-    "PVX": "ПВХ панель",
+    "CAMER_1": "1 cameră",
+    "CAMER_2": "2 cameră",
+    "CAMER_GLASS": "sticlă",
+    "SENDVICH": "sandwich panou",
+    "PVX": "panou din PVC",
     "CAMERa": "cameră",
     "CAMER": "camere",
     "CAMERs": "camere",
@@ -196,11 +230,13 @@
     "TAB_EMPTY_EXPLAIN": "Selectați din listă primul element, pentru a începe crearea structurii."
   },
   "design": {
+    "BY_AXIS": "axă",
+    "BY_GLASS": "sticlă",
     "SASH_SHAPE": "canaturi",
     "ANGEL_SHAPE": "colțuri",
     "IMPOST_SHAPE": "imposte",
     "ARCH_SHAPE": "arce",
-    "POSITION_SHAPE": "poziție",
+    "POSITION_SHAPE": "allineare",
     "UNITS_DESCRIP": "Ca unitate de măsură sunt folosiți milimetrii",
     "PROJECT_DEFAULT": "Proiect implicit",
     "DOOR_CONFIG_LABEL": "configurația ușii",
@@ -221,7 +257,7 @@
     "SQUARE_EXTRA": "Suprafața construcției depășește valorile admisibile.",
     "DIM_EXTRA": "Dimensiunile construcției depășesc valorile admisibile. ",
     "NOT_AVAILABLE": "Nu este disponibil!",
-    "TEST_STAGE": "Se află la etapa de testare.",
+    "TEST_STAGE": "Disponibil pentru departamentul tehnic",
     "GLASS": "Termopanul",
     "GLASS_SIZE": "cu dimensiunea de",
     "NO_MATCH_RANGE": "nu corespunde diapazonului permis",
@@ -231,7 +267,8 @@
     "MAX_VALUE_HIGHER": "depășește valorile maxime admisibile",
     "EXTRA_SASH": "Dimensiunea curentă a canatului după falț ",
     "CHANGE_SIZE": "Pentru salvarea construcției modificați dimensiunile.",
-    "DOOR_ERROR": "Systems of entrance doors are not configured"
+    "DOOR_ERROR": "Systems of entrance doors are not configured",
+    "CALC_PRICE": "Se calculează prețul"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Căutare după cuvinte-cheie",
@@ -245,6 +282,10 @@
     "PAYMENTS": "plăți pentru",
     "ALLPRODUCTS": "articole",
     "ON": "la",
+    "DOWNLOAD_ORDERS" : "Descarcă ordine de",
+    "DURING_THE_WEEK" : "Pe săptămână",
+    "PER_MOUNTH" : "Pe lună",
+    "IN_A_YEAR" : "Pentru anul",
     "DRAFT": "Ciornă",
     "DATE_RANGE": "Diapazon de zile",
     "ALL_TIME": "Pentru toată perioada",
@@ -260,7 +301,8 @@
     "NOT_FIND": "nu au fost găsite rezultate",
     "WAIT_MASTER": "se așteaptă specialistul în măsurări",
     "INCLUDED": "incluse",
-    "NO_PRINT": "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet."
+    "NO_PRINT": "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet.",
+    "SYNCHRONIZE_ORDERS":"Sincronizarea ordinelor"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Toate elementele supl. ale comenzii",
@@ -286,7 +328,7 @@
     "READY": "Finalizat",
     "CALL_MASTER": "Chemarea specialistului în măsurări, pentru calcule",
     "CALL_MASTER_DESCRIP": "Pentru chemarea specialistului în măsurări trebuie să cunoaștem unele detalii. Ambele câmpuri sunt ",
-    "CLIENT_LOCATION": "Amplasare",
+    "CLIENT_LOCATION": "Localitate",
     "CLIENT_ADDRESS": "Adresa",
     "CLIENT_HOUSE": "Casă",
     "CLIENT_FLAT": "Ap.",
@@ -298,7 +340,7 @@
     "CALL_ORDER_DELIVERY": "Livrare comandă la",
     "CALL_ORDER_TOTAL_PRICE": "Total",
     "CALL_ORDER_ADD_INFO": "Suplimentar:",
-    "CLIENT_EMAIL_ORDER": "Электронная почта для получения спецификации",
+    "CLIENT_EMAIL_ORDER": "E-mail pentru specificații",
     "CLIENT_EMAIL": "E-mail",
     "ADD_PHONE": "Număr de telefon suplimentar",
     "CALL_CREDIT": "Achitare în rate și perfectarea comenzii pentru calculare",
@@ -345,8 +387,8 @@
     "DISCOUNT_WITHOUT": "Fără reducere",
     "DISCOUNT_WINDOW": "Reducere pentru articol",
     "DISCOUNT_ADDELEM": "Reducere pentru elementele suplimentare",
-    "ORDER_COMMENT": "Заметка о заказе",
-    "UNKNOWN": "Не известно"
+    "ORDER_COMMENT": "Notă în ordinea",
+    "UNKNOWN": "Necunoscut"
   },
   "settings": {
     "AUTHORIZATION": "Logare:",

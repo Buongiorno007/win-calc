@@ -15,6 +15,7 @@
 
     thisFactory.publicObj = {
       historySource: {
+        historyID : -1,
         //===== Order
         orders: [],
         ordersSource: [],
@@ -59,10 +60,20 @@
         reverseDraft: 1,
 
         dataProfiles: [],
+        resTimeBox: {
+            name:'history.DURING_THE_WEEK',
+            namb: 1
+        },
         listName: [],
         listNameGlass: [],
         listNameHardware: [],
-        listNameProfiles: []
+        listNameProfiles: [],
+        firstClick: [],
+        PrintProduct :[],
+        PrintAddEl :[],
+        OrderPrintLength:0,
+        OrderPrintSquare : 0,
+        OrderPrintPerimeter : 0
 
       },
       setDefaultHistory: setDefaultHistory
