@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ba610b26-e3e3-48af-9253-0737301353f0" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/audio/soundsPrice.aac" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/css/main.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/fonts/icons/icomoon.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/fonts/roboto/Roboto-Bold.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/fonts/roboto/Roboto-Light.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/fonts/roboto/Roboto-Medium.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/fonts/roboto/Roboto-Regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/fonts/roboto/Roboto-Thin.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/balcon-connector.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/fan.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/force-connector.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/grid.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/handle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/inside-slope-left.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/inside-slope-right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/inside-slope-top.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/louvers-bottom.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/louvers-middle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/louvers-top.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/spillway.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/visor.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-focused/windowsill.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/balcon-connector.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/fan.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/force-connector.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/grid.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/handle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/inside-slope-left.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/inside-slope-right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/inside-slope-top.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/louvers-bottom.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/louvers-middle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/louvers-top.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/spillway.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/visor.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries-selected/windowsill.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/balcon-connector.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/fan.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/force-connector.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/grid.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/handle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/inside-slope-left.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/inside-slope-right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/inside-slope-top.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/louvers-bottom.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/louvers-middle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/louvers-top.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/outside.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/spillway.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/visor.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/auxiliaries/windowsill.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/config-menu/configMenu_separator.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-arrow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/doorstep-al1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/doorstep-al2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/doorstep.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/lever-handle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/multilock.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/no-doorstep.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/onelock.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config-selected/standart-handle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/doorstep-al1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/doorstep-al2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/doorstep.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/lever-handle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/multilock.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/no-doorstep.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/onelock.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/door-config/standart-handle.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/glasses/glass1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/glasses/glass2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/14.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/15.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/16.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/18.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/5.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/6.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/7.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/lamination/8.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/login/login-bg.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/login/logo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/10.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/12.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/121.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/122.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/123.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/13.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/14.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/26.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/29.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/41.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/7.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/8.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/room/9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/spinner.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/10.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/12.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/7.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/8.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/img/templates/9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/js/main.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/js/plugins.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/cart.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/change-lang.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/change-pass.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/design.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/history.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/location.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/login.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/main.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/settings.html" afterPath="" />
+    </list>
+    <ignored path="bauvoiceapp.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="bauvoiceapp" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="_cart-menu.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-173">
+              <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+              <folding>
+                <marker date="1483020445000" expanded="true" signature="11:90" ph="{...}" />
+                <marker date="1483020445000" expanded="true" signature="6378:6380" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_cart-menu.jade" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dev/jade/views/menus/_cart-menu.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_navigation-menu.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/sass/menus/_navigation-menu.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-8">
+              <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_menu-right-general.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/sass/parts/_menu-right-general.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-62">
+              <caret line="46" column="31" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
+              <folding>
+                <marker date="1483020445000" expanded="true" signature="64:753" ph="{...}" />
+                <marker date="1483020445000" expanded="true" signature="350:534" ph="{...}" />
+                <marker date="1483020445000" expanded="true" signature="552:753" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cart.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <marker date="1483020445000" expanded="true" signature="7:635" ph="..." />
+                <marker date="1483020445000" expanded="true" signature="165:635" ph="..." />
+                <marker date="1483020445000" expanded="true" signature="194:635" ph="..." />
+                <marker date="1483020445000" expanded="true" signature="417:635" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/gulpfile.js" />
+        <option value="$PROJECT_DIR$/dev/local/pl.json" />
+        <option value="$PROJECT_DIR$/dev/local/ru.json" />
+        <option value="$PROJECT_DIR$/dev/vendor/underscore/underscore-min.js" />
+        <option value="$PROJECT_DIR$/dev/vendor/angular/angular.min.js" />
+        <option value="$PROJECT_DIR$/dev/vendor/angular-route/angular-route.min.js" />
+        <option value="$PROJECT_DIR$/dev/vendor/angular-touch/angular-touch.min.js" />
+        <option value="$PROJECT_DIR$/dev/vendor/async/async.min.js" />
+        <option value="$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss" />
+        <option value="$PROJECT_DIR$/dev/sass/parts/_menu-right-general.scss" />
+        <option value="$PROJECT_DIR$/dev/jade/views/menus/_cart-menu.jade" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <gulpfiles>
+      <GulpfileState>
+        <gulpfile-path>$PROJECT_DIR$/gulpfile.js</gulpfile-path>
+      </GulpfileState>
+    </gulpfiles>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1877" />
+    <option name="height" value="1057" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/node_modules/gulp" />
+    <property name="editor.config.accepted" value="true" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+  </component>
+  <component name="RunManager" selected="Gulp.js.bauvoiceapp">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="false" name="bauvoiceapp" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/gulpfile.js</gulpfile>
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Gulp.js.bauvoiceapp" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba610b26-e3e3-48af-9253-0737301353f0" name="Default" comment="" />
+      <created>1483015660532</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1483015660532</updated>
+      <workItem from="1483015692229" duration="4566000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="4566000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1877" height="1057" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953367" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32953367" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/dev/vendor/d3/d3.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13165">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/ng-cordova/ng-cordova.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8092">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/pl.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="268" column="31" selection-start-line="267" selection-start-column="67" selection-end-line="268" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/de.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3750">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/en.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3660">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/it.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3735">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/ro.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3990">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/uk.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3240">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/ru.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="273" column="4" selection-start-line="273" selection-start-column="4" selection-end-line="273" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="125" column="33" selection-start-line="125" selection-start-column="33" selection-end-line="125" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/panels/profile.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="793">
+          <caret line="58" column="21" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/pages/cart.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/underscore/underscore-min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/angular/angular.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="297" column="0" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-route/angular-route.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-swipe/angular-swipe.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-touch/angular-touch.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-translate/angular-translate.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-562">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/async/async.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/calendar/jquery.pickmeup.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1012">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/jquery/js/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7177">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/menus/_navigation-menu.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_menu-right-general.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-62">
+          <caret line="46" column="31" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
+          <folding>
+            <marker date="1483020445000" expanded="true" signature="64:753" ph="{...}" />
+            <marker date="1483020445000" expanded="true" signature="350:534" ph="{...}" />
+            <marker date="1483020445000" expanded="true" signature="552:753" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <marker date="1483020445000" expanded="true" signature="7:635" ph="..." />
+            <marker date="1483020445000" expanded="true" signature="165:635" ph="..." />
+            <marker date="1483020445000" expanded="true" signature="194:635" ph="..." />
+            <marker date="1483020445000" expanded="true" signature="417:635" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-173">
+          <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+          <folding>
+            <marker date="1483020445000" expanded="true" signature="11:90" ph="{...}" />
+            <marker date="1483020445000" expanded="true" signature="6378:6380" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/menus/_cart-menu.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
