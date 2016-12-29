@@ -1,10 +1,9 @@
-.slider-box
-  .slider
-    img(src='img/room/1.png', alt='')
-    img(src='img/room/2.png', alt='')
-    img(src='img/room/3.png', alt='')
-    img(src='img/room/4.png', alt='')
-    img(src='img/room/1.png', alt='')
-  .bullets
-  .prev
-  .next
+.slider
+  #featured(ng-class="{ 'visible' : loginPage.G.global.startSlider === 1}")
+    img(src='/img/orbit/1.jpg', alt='Link')
+    img(src='./img/orbit/2.jpg', alt='Ezio', rel='ezioCaption')
+    img(src='./img/orbit/3.jpg', alt='Ezio', rel='33333')
+  span#33333.orbit-caption
+    | Информация про акции
+    |  уже на сайте 
+    a(href='http://windowscalculator.net/help/ru/', target='_blank', style='color: #fff') link
