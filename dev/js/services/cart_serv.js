@@ -26,6 +26,7 @@
     //------- add new product in order
     function addNewProductInOrder() {
       //------- set previos Page
+      CartStor.cart.showCurrentTemp=0;
       GeneralServ.setPreviosPage();
       //=============== CREATE NEW PRODUCT =========//
       MainServ.createNewProduct();
@@ -84,7 +85,54 @@
       }
       CartMenuServ.joinAllAddElements();
     }
+    /*** FASTEDIT*/
+    function fastEdit(productIndex, type){
+      console.log("edit");
+      function edit(){
+      CartStor.cart.showCurrentTemp = !CartStor.cart.showCurrentTemp;
+      ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
+      GlobalStor.global.productEditNumber = ProductStor.product.product_id;
+      GlobalStor.global.isCreatedNewProduct = 1;
+      GlobalStor.global.isChangedTemplate = 1;
+      MainServ.prepareMainPage();
+      if(type === 'auxiliary') {
+        //------ open AddElements Panel
+        GlobalStor.global.activePanel = 6;
+      }
+      if(!ProductStor.product.is_addelem_only) {
+        //------- set previos Page
+        GeneralServ.setPreviosPage();
+        var productTEMP;
+        var newId = ProductStor.product.profile.id;
+        /** save previous Product */
+        productTEMP = angular.copy(ProductStor.product);
 
+        /** check new Profile */
+        MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+          //------- set current template for product
+          MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+
+            /** Extra Glass finding */
+            MainServ.checkGlassSizes(ProductStor.product.template);
+
+            /** return previous Product */
+            ProductStor.product = angular.copy(productTEMP);
+            $location.path('/main');
+          });
+        });
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      } else {
+        GlobalStor.global.activePanel = 6;
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        $location.path('/main');
+      }
+      }
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.BUTTON_E')+"?",
+        $filter('translate')('  '),
+        edit
+      );
+    }
 
 
     //----- Edit Produtct in main page
@@ -293,7 +341,7 @@
       addNewProductInOrder: addNewProductInOrder,
       clickDeleteProduct: clickDeleteProduct,
       box:box,
-
+      fastEdit:fastEdit,
       showAllAddElements: showAllAddElements,
       collectAllAddElems: collectAllAddElems,
       getAddElemsPriceTotal: getAddElemsPriceTotal,

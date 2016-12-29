@@ -1,3 +1,6 @@
+#tamlateGlassSVG{
+  padding: rem(50px) rem(70px);
+}
 .cart-page {
   position: relative;
   width: 100%;
@@ -11,6 +14,20 @@
     border-radius: rem($radius_order);
     background-color: #fff;
     text-align: center;
+  }
+  .template-window {
+    @extend .splash;
+    @extend .modal-dialog;
+    @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+    padding: 0;
+    width: auto;
+    height: auto;
+    background: white;
+    position: absolute;
+    top: rem(210px);
+    left: rem(200px);
+    z-index: 10;
+    border-radius: rem($radius_order);
   }
 
   //======== main Cart Page
@@ -94,6 +111,7 @@
   }
   .order-header {
     position: relative;
+    background-color: white;
   }
   .order-delete {
     @extend .small-cross-btn;
@@ -105,18 +123,39 @@
     z-index: 1;
   }
 
+  .R-MInfo {
+    width: auto;
+    display: inline-block;
+  }
+  .inner-text {
+    position: relative;
+    top: rem(-6px);
+    width: 100%;
+    @include roboto-lt(rem(22px));
+    color: #8c8c8c;
+    margin:0;
+  }
+  .number{
+    color: $main_gray_txt;
+    @include roboto-lt(rem(36px));
+    position: absolute;
+    left: 0;
+    top:0.3rem;
+    margin:0;
+  }
   .order-value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
     min-height: 3.214rem;
     color: $main_gray_txt;
+    display: inline-block;
+    overflow: hidden;
   }
   .addelements-btn {
     cursor: pointer;
   }
   .order-label {
     @include roboto-lt(rem(22px));
-
     color: #8c8c8c;
   }
   .order-qty {
@@ -217,28 +256,40 @@
       cursor: pointer;
     }
     .order-template {
+      text-align: center;
+      position: relative;
+      top: rem(30px);
+    }
+
+    .close-cur-window {
+      @extend .small-cross-btn;
+
       position: absolute;
-      bottom: rem(-73px);
-      left: rem(10px);
-      padding: rem(20px);
-      background-color: #fff;
-      border-radius: rem($radius_order-template);
+      top: rem(-20px);
+      right: rem(-20px);
+      background-color: #F98000;
+      z-index: 1;
+    }
+    .edit-cur-window {
+      @extend .small-cross-btn;
+      position: absolute;
+      right: 3rem;
+      z-index: 1;
+      top: -1.25rem;
     }
     .order-u-coeff {
       @include roboto-lt(rem(42px));
-      bottom: -7.75rem;
-      right: 3.3rem;
-      position: absolute;
-      margin-left: rem(5px);
-      background-color: #fff;
+      position: relative;
       color: $main_green;
-
+      text-align: center;
+      height:auto;
+      border-bottom: 1px solid $main_gray_btn;
       &.coeff-low {
         @extend .coeff-low;
       }
     }
     .order-content {
-      padding: rem(70px) rem(40px) 0 rem(50px);
+      padding: 0 rem(40px) 0 rem(50px);
       background-color: #fff;
     }
     .order-list {
@@ -272,8 +323,9 @@
       cursor: pointer;
     }
     .order-header {
-      min-height: 11rem;
+      min-height: 8rem;
       padding-top: 2.5rem;
+      background-color: white;
     }
     .order-content {
       padding: rem(40px) rem(20px);
@@ -296,8 +348,6 @@
       padding-top: rem(10px);
     }
   }
-
-
 
   //=========== AddElements Detail Block
 
@@ -423,11 +473,10 @@
   .order-item {
     padding: rem(7px) 0;
     border-bottom: 1px solid $main_gray_btn;
+    overflow:hidden;
   }
 
-
-
-//======== DISCOUNT ========//
+  //======== DISCOUNT ========//
 
   .discount-container {
     width: 90%;
@@ -546,14 +595,13 @@
     color: #8c8c8c;
   }
 
-
 }
 
-  .imgg {
-    position: absolute;
-    height: 17%;
-    right: 3rem;
-    z-index: 1;
-    top: -1.25rem;
-  }
+.imgg {
+  position: absolute;
+  height: 17%;
+  right: 3rem;
+  z-index: 1;
+  top: -1.25rem;
+}
 

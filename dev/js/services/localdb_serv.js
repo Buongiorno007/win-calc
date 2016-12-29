@@ -2316,7 +2316,7 @@
       parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel
     ) {
       if(currConsistElem) {
-        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
+        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1, tempS = 0, x=1.2;
 
         //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
         //console.log('Название: ' + currConsistElem.name);
@@ -2818,7 +2818,7 @@
                   });
 
                   function calculate (element, _cb) {
-                      async.waterfall([
+                    async.waterfall([
                         function (_callback) {
                           if(element.child_type === 'list') {
                             list.push(element)
@@ -2861,6 +2861,7 @@
         })();
 
       });
+
       return deffMain.promise;
     }
 

@@ -24,8 +24,11 @@
       SVG_ID_ICON: 'tamlateIconBigSVG',
       SVG_ID_GLASS: 'tamlateGlassSVG',
       SVG_ID_GRID: 'tamlateGridSVG',
+      SVG_ID_PRINT: 'tamlatePrintSVG',
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,
+      svgTemplateIconWidthCart: 130,
+      svgTemplateIconHeightCart: 130,
       svgTemplateIconBigWidth: 500,
       svgTemplateIconBigHeight: 450,
       svgTemplateWidth: 1022,
@@ -47,7 +50,8 @@
         {label: 'en', name: 'English'},
         {label: 'de', name: 'Deutsch'},
         {label: 'ro', name: 'Român'},
-        {label: 'it', name: 'Italiano'}
+        {label: 'it', name: 'Italiano'},
+        {label: 'pl', name: 'Polski'}
       ]
 
     });

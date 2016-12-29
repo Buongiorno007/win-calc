@@ -1,10 +1,12 @@
 .cart-menu {
   @extend .menu-right-general;
   @include justify-content(space-between);
+  padding-top: 2.75rem;
   position: relative;
   z-index: 2;
   .items-list {
     @include flex-grow(0);
+
   }
   .item {
     position: relative;
@@ -277,6 +279,7 @@
 
   .order-btn {
     @extend .cart-btn;
+
   }
   .measure-btn {
     @extend .big-button;
@@ -329,6 +332,7 @@
       z-index: 2;
     }
   }
+
 }
 .old-price-inst-tab {
   @extend .old-price-tab;

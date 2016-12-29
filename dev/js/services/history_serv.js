@@ -72,8 +72,14 @@
                 orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
                 orders[orderQty].order_date = new Date(orders[orderQty].order_date);
               }
-              HistoryStor.history.ordersSource = angular.copy(orders);
-              HistoryStor.history.orders = angular.copy(orders);
+
+              //noinspection JSAnnotator
+              function sortNumber(a, b) {
+                return b.order_date.getTime() - a.order_date.getTime();
+              }
+
+              HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
+              HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
 //          console.info('HISTORY orders+++++', HistoryStor.history.orders);
               //----- max day for calendar-scroll
@@ -334,6 +340,7 @@
             newOrderCopy.state_to = new Date(0);
             newOrderCopy.state_buch = new Date(0);
             newOrderCopy.created = new Date();
+            newOrderCopy.order_date = new Date();
             newOrderCopy.modified = new Date();
             newOrderCopy.order_style = 'order';
             (typeof newOrderCopy.customer_age === "number") ? newOrderCopy.customer_age = newOrderCopy.customer_age : newOrderCopy.customer_age = 0;
@@ -343,7 +350,6 @@
             localDB.insertServer(
               UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
             ).then(function (respond) {
-              console.log(respond, 'respond')
               if (respond !== null) {
                 if (respond.status) {
                   newOrderCopy.order_number = respond.order_number;
@@ -357,6 +363,12 @@
               HistoryStor.history.ordersSource.push(newOrderCopy);
               //---- save new order in LocalDB
               localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+              function sortNumber(a, b) {
+                return b.order_date.getTime() - a.order_date.getTime();
+              }
+
+              HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource.sort(sortNumber));
+              HistoryStor.history.ordersSource = angular.copy(HistoryStor.history.orders);
               GlobalStor.global.isLoader = 0;
             });
 
@@ -857,35 +869,48 @@
             downloadDrafts();
           }
         }
+
         //#
         function orderPrint(orderId) {
-          //var domainLink = globalConstants.serverIP.split('api.').join(''),
-          //    paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-          //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
-          var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
           /** check internet */
-          if (navigator.onLine) {
+          if (navigator.onLine && onlineMode) {
+            var domainLink = globalConstants.serverIP.split('api.').join(''),
+              paramLink = orderId + '?userId=' + UserStor.userInfo.id;
+            //printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+            var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
+            GeneralServ.goToLink(printLink);
+          } else {
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
+                entry.modified = entry.modified.substr(0, 10);
+                console.log(" HistoryStor.history.orders", entry);
                 HistoryStor.history.historyID = index;
               }
             });
-            //GeneralServ.goToLink(printLink);
+
             GlobalStor.global.orderEditNumber = orderId;
             downloadProducts(1).then(function (result_prod) {
               var tmpSquare = 0;
               var tmpPerim = 0;
               HistoryStor.history.OrderPrintLength = result_prod.length;
-              result_prod.forEach(function (entry,index) {
-                tmpSquare+=entry[index].template_square;
-                tmpPerim += (entry[index].template_height+entry[index].template_width)*2;
+              result_prod.forEach(function (item) {
+                item.forEach(function (entry) {
+
+                  if (!entry.is_addelem_only) {
+                    // console.log("entry", entry);
+                    // console.log("entry.template_square", entry.template_square);
+                    // console.log("entryPerim", (entry.template_height + entry.template_width) * 2);
+                     tmpSquare += entry.template_square;
+                     tmpPerim += (entry.template_height + entry.template_width) * 2;
+                  }
+
+                });
               });
               HistoryStor.history.OrderPrintSquare = tmpSquare;
-              HistoryStor.history.OrderPrintPerimeter =tmpPerim/100;
+              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 1000;
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {
-
                     if (entry.element_height === 0) {
                       entry.element_width = "";
                       entry.element_height = "";
@@ -900,9 +925,6 @@
               });
 
             })
-
-          } else {
-            HistoryStor.history.isNoPrint = 1;
           }
         }
 
@@ -1080,7 +1102,6 @@
         }
 
         function testFunc(orderNum) {
-          console.log('da')
           HistoryStor.history.orderEditNumber = orderNum;
           GlobalStor.global.isBox = !GlobalStor.global.isBox;
           GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;

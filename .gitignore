@@ -8,5 +8,9 @@ www/
 app2/
 _product/
 _iosApp/
+<<<<<<< HEAD
 .idea/
 
+=======
+.idea
+>>>>>>> e4442cad7d6f182896a4c41e9edb30e51f334808

@@ -20,17 +20,6 @@
     /*jshint validthis:true */
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
-
-
-    var onlineMode;
-      $.get("http://api.steko.com.ua", function(data) {
-        onlineMode = true;
-        return true;
-      })
-      .fail(function() {
-        onlineMode = false;
-        return false;
-      });
     /**============ METHODS ================*/
 
 
@@ -38,12 +27,7 @@
       var index = (id - 1), gridsSort;
       AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
-      if (onlineMode && navigator.onLine) {
-        AuxStor.aux.addElementsType = AuxStor.aux.addElementsType.filter(function(res) {
-          res.img = globalConstants.serverIP + res.img;
-          return res;
-        });
-      } 
+
       /** if Grids */
       if (AuxStor.aux.isFocusedAddElement === 1) {
         if(ProductStor.product.is_addelem_only) {

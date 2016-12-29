@@ -74,7 +74,7 @@
           }
         }
         function createDimension(dir, dim, dimGroup, lineCreator) {
-          if(scope.typeConstruction !== globalConstants.SVG_ID_MAIN) {
+          if(scope.typeConstruction !== (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
           var dimLineHeight = -150,
               dimEdger = 50,
               dimMarginBottom = -20,
@@ -154,7 +154,7 @@
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'tamlateSVG') {
+          if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -475,9 +475,10 @@
                 pnt = PointsServ.templatePoints(template);
             if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
+
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
-            } else if(scope.typeConstruction === globalConstants.SVG_ID_MAIN){
+            } else if(scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)){
               padding = 0.6;
             }
 
@@ -497,16 +498,23 @@
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               scale = SVGServ.setTemplateScaleMAIN(padding);
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
+              scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             } else {
               scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             }
-
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
+              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
+            }
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                 position = SVGServ.setTemplatePositionMAIN(dimMaxMin, heightSVG, scale);
+              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT || scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
+                position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
               } else {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
               }
+
             }
 
             mainGroup = mainSVG.append("g").attr({
@@ -749,7 +757,7 @@
 
                     var fillName;
                     if (d.type === 'glass') {
-                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                      if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                         if(d.glass_type === 3) {
                           fillName = '#ececec';
                         } else if (d.glass_type === 4) {
@@ -779,7 +787,7 @@
                           } else {
                               fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
                             }
-                        } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                        } else if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                           fillName = '#DCDCDC';
                         } else {
                           fillName = '#f9f9f9';
@@ -790,7 +798,7 @@
                   'fill-opacity': function(d) {
                     var fillName;
                     if (d.type === 'glass') {
-                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                      if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                         if(d.glass_type === 2) {
                           fillName = 0.5;
                         } else {
@@ -888,7 +896,7 @@
                 }
 
                 /** type Glass names */
-                if (scope.typeConstruction === 'tamlateGlassSVG') {
+                if (scope.typeConstruction === globalConstants.SVG_ID_GLASS) {
                   if(!template.details[i].children.length) {
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
@@ -902,7 +910,7 @@
                 }
 
                 /** type Grid names */
-                if (scope.typeConstruction === 'tamlateGridSVG') {
+                if (scope.typeConstruction === globalConstants.SVG_ID_GRID) {
                   if(template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)
