@@ -121,6 +121,7 @@
             typeClass: 'aux-others',
             typeMenu: 4444,
             mainTypeMenu: 5555,
+
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -309,7 +310,7 @@
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
-        var ref = window.open(link);
+        var ref = window.open(link,"_self");
         ref.close();
       } else {
         $window.open(link);

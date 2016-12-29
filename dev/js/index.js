@@ -5,8 +5,12 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
 (function () {
+  /** check browser */
+  if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
+    isDevice = 0;
+  }
   window.onload = function () {
-    location.hash = "#/";
+    if(!isDevice){location.hash = "#/";}
     var elm = document.getElementById('main-frame'); // all -- элемент, в который был обернут весь сайт
     var coeff = document.documentElement.clientHeight / elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
     if (coeff > 1) coeff = 1; // нам нужно только уменьшение сайта, но не его увеличение, поэтому ограничиваем коэффициент сверху единицей
@@ -34,10 +38,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
   };
 
-  /** check browser */
-  if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
-    isDevice = 0;
-  }
+
   //console.log('isDevice===', isDevice);
 
 

@@ -596,19 +596,6 @@
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
             priceMargin, doorData, tempDoorItems;
-
-        // for(var y=0; y<priceObj.constrElements.length; y+=1) {
-        //   for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
-        //     if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
-        //       ProductStor.product.template_source.doorSill = GlobalStor.global.allDoorSills[x];
-        //       downloadProfileDepth(GlobalStor.global.allDoorSills[x].id)
-        //         .then(function(result) {
-        //         ProductStor.product.profileDepths.sillDepth = result;
-        //       });
-        //     }
-        //   }
-        // }
-
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
@@ -747,7 +734,7 @@
         /** U */
         ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
           ProductStor.product.template_square/heatCoeffTotal
-        );
+        )*1.03;
       }
 
     }
@@ -1278,6 +1265,8 @@
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
+      console.log("id",id);
+      console.log("itemArr",itemArr);
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,

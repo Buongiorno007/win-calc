@@ -8,8 +8,12 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
 (function () {
+  /** check browser */
+  if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
+    isDevice = 0;
+  }
   window.onload = function () {
-    location.hash = "#/";
+    if(!isDevice){location.hash = "#/";}
     var elm = document.getElementById('main-frame'); // all -- элемент, в который был обернут весь сайт
     var coeff = document.documentElement.clientHeight / elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
     if (coeff > 1) coeff = 1; // нам нужно только уменьшение сайта, но не его увеличение, поэтому ограничиваем коэффициент сверху единицей
@@ -37,10 +41,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
   };
 
-  /** check browser */
-  if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
-    isDevice = 0;
-  }
+
   //console.log('isDevice===', isDevice);
 
 
@@ -266,6 +267,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
         thisCtrl.LINK_BETWEEN_COUPLE = $filter('translate')('cart.LINK_BETWEEN_COUPLE');
         thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
+        thisCtrl.THERMAL_RESISTANCE = $filter('translate')('mainpage.THERMAL_RESISTANCE');
 
         //------- set current Page
         GlobalStor.global.currOpenPage = 'cart';
@@ -628,6 +630,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
     thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
     thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
+    thisCtrl.CALC_PRICE = $filter('translate')('design.CALC_PRICE');
 
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);
@@ -9812,7 +9815,8 @@ function ErrorResult(code, message) {
         {label: 'en', name: 'English'},
         {label: 'de', name: 'Deutsch'},
         {label: 'ro', name: 'Român'},
-        {label: 'it', name: 'Italiano'}
+        {label: 'it', name: 'Italiano'},
+        {label: 'pl', name: 'Polski'}
       ]
 
     });
@@ -13864,6 +13868,7 @@ function ErrorResult(code, message) {
             typeClass: 'aux-others',
             typeMenu: 4444,
             mainTypeMenu: 5555,
+
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -14052,7 +14057,7 @@ function ErrorResult(code, message) {
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
-        var ref = window.open(link);
+        var ref = window.open(link,"_self");
         ref.close();
       } else {
         $window.open(link);
@@ -14293,9 +14298,11 @@ function ErrorResult(code, message) {
                 orders[orderQty].order_date = new Date(orders[orderQty].order_date);
               }
 
+              //noinspection JSAnnotator
               function sortNumber(a, b) {
                 return b.order_date.getTime() - a.order_date.getTime();
               }
+
               HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
               HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
@@ -14584,6 +14591,7 @@ function ErrorResult(code, message) {
               function sortNumber(a, b) {
                 return b.order_date.getTime() - a.order_date.getTime();
               }
+
               HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource.sort(sortNumber));
               HistoryStor.history.ordersSource = angular.copy(HistoryStor.history.orders);
               GlobalStor.global.isLoader = 0;
@@ -15092,15 +15100,15 @@ function ErrorResult(code, message) {
           /** check internet */
           if (navigator.onLine && onlineMode) {
             var domainLink = globalConstants.serverIP.split('api.').join(''),
-              paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-              printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+              paramLink = orderId + '?userId=' + UserStor.userInfo.id;
+            //printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
             var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
             GeneralServ.goToLink(printLink);
           } else {
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
-                entry.modified = entry.modified.substr(0,10);
-                console.log(" HistoryStor.history.orders",entry);
+                entry.modified = entry.modified.substr(0, 10);
+                console.log(" HistoryStor.history.orders", entry);
                 HistoryStor.history.historyID = index;
               }
             });
@@ -15110,12 +15118,19 @@ function ErrorResult(code, message) {
               var tmpSquare = 0;
               var tmpPerim = 0;
               HistoryStor.history.OrderPrintLength = result_prod.length;
-              for(var x=0; x<result_prod.length; x+=1) {
-                if(!result_prod[x].is_addelem_only) {
-                  tmpSquare += result_prod[x].template_square;
-                  tmpPerim += (result_prod[x].template_height + result_prod[x].template_width) * 2;
-                }
-              }
+              result_prod.forEach(function (item) {
+                item.forEach(function (entry) {
+
+                  if (!entry.is_addelem_only) {
+                    // console.log("entry", entry);
+                    // console.log("entry.template_square", entry.template_square);
+                    // console.log("entryPerim", (entry.template_height + entry.template_width) * 2);
+                     tmpSquare += entry.template_square;
+                     tmpPerim += (entry.template_height + entry.template_width) * 2;
+                  }
+
+                });
+              });
               HistoryStor.history.OrderPrintSquare = tmpSquare;
               HistoryStor.history.OrderPrintPerimeter = tmpPerim / 1000;
               downloadAddElements(1).then(function (result_add) {
@@ -15135,7 +15150,7 @@ function ErrorResult(code, message) {
               });
 
             })
-         }
+          }
         }
 
 
@@ -15592,6 +15607,7 @@ function ErrorResult(code, message) {
       }
       if(ids === 6 && qtyCheck !== 1) {
         itemArr = [];
+        //noinspection JSAnnotator
         function sort(a,b) {
           return Math.random()-0,5;
         }
@@ -15680,6 +15696,7 @@ function ErrorResult(code, message) {
       //AuxStor.aux.isTabFrame = true;
       AddElementsServ.selectAddElem(typeId, elementId, undefined)
     }
+
 
     /**========== FINISH ==========*/
 
@@ -21414,19 +21431,6 @@ function ErrorResult(code, message) {
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
             priceMargin, doorData, tempDoorItems;
-
-        // for(var y=0; y<priceObj.constrElements.length; y+=1) {
-        //   for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
-        //     if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
-        //       ProductStor.product.template_source.doorSill = GlobalStor.global.allDoorSills[x];
-        //       downloadProfileDepth(GlobalStor.global.allDoorSills[x].id)
-        //         .then(function(result) {
-        //         ProductStor.product.profileDepths.sillDepth = result;
-        //       });
-        //     }
-        //   }
-        // }
-
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
@@ -21565,7 +21569,7 @@ function ErrorResult(code, message) {
         /** U */
         ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
           ProductStor.product.template_square/heatCoeffTotal
-        );
+        )*1.03;
       }
 
     }
@@ -22096,6 +22100,8 @@ function ErrorResult(code, message) {
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
+      console.log("id",id);
+      console.log("itemArr",itemArr);
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
@@ -24843,73 +24849,7 @@ function ErrorResult(code, message) {
 
 // services/print_serv.js
 
-(function () {
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .factory('PrintServ',
-
-      function ($location,
-                $filter,
-                GeneralServ,
-                MainServ,
-                CartMenuServ,
-                GlobalStor,
-                HistoryStor) {
-        /*jshint validthis:true */
-        var thisFactory = this;
-
-
-        /**============ METHODS ================*/
-        function getProducts(products, addEl) {
-          HistoryStor.history.PrintProduct = products;
-          HistoryStor.history.PrintAddEl = addEl;
-          console.log(products, 'products=====');
-          console.log(addEl, 'addEl=====');
-          setTimeout(function () {
-            var print = $('#print-conteiner').html();
-            var prtContent = document.getElementById('print-conteiner');
-            var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';
-            var WinPrint = window.open(this.href, '_blank');
-            WinPrint.document.write('<div class="print-conteiner">');
-            WinPrint.document.write(prtCSS);
-            WinPrint.document.write(prtContent.innerHTML);
-            WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");
-            WinPrint.document.write('</div>');
-            WinPrint.document.close();
-            WinPrint.focus();
-
-          }, 1000);
-
-
-          // var mywindow = open('_blank','newokno','width=700,height=700,status=1,menubar=1');
-          // mywindow.document.open();
-          // mywindow.document.write('<html><head><title>Создаём хтмл-документ');
-          // mywindow.document.write('</title></head><body>');
-          // mywindow.document.write(print);
-          // mywindow.document.write('Это статичный текст');
-          // mywindow.document.write('</body></html>');
-          // mywindow.document.close();
-
-          // setTimeout(function () {
-          //   window.print();
-          // }, 1000);
-          //window.print();
-
-        }
-
-        /**========== FINISH ==========*/
-        thisFactory.publicObj = {
-          getProducts: getProducts,
-        };
-
-        return thisFactory.publicObj;
-
-
-      });
-})();
-
+(function () {  'use strict';  /**@ngInject*/  angular    .module('CartModule')    .factory('PrintServ',      function ($location,                $filter,                GeneralServ,                MainServ,                CartMenuServ,                GlobalStor,                HistoryStor) {        /*jshint validthis:true */        var thisFactory = this;        /**============ METHODS ================*/        function getProducts(products, addEl) {          HistoryStor.history.PrintProduct = products;          HistoryStor.history.PrintAddEl = addEl;          console.log(products, 'products=====');          console.log(addEl, 'addEl=====');          setTimeout(function () {            if (GlobalStor.global.isDevice) {              window.print();            } else {              var print = $('#print-conteiner').html();              var prtContent = document.getElementById('print-conteiner');              var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';              var WinPrint = window.open(this.href, '_blank');              WinPrint.document.write('<div class="print-conteiner">');              WinPrint.document.write(prtCSS);              WinPrint.document.write(prtContent.innerHTML);              WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");              WinPrint.document.write('</div>');              WinPrint.document.close();              WinPrint.focus();            }          }, 800);        }        /**========== FINISH ==========*/        thisFactory.publicObj = {          getProducts: getProducts,        };        return thisFactory.publicObj;      });})();
 
 
 // services/profile_serv.js

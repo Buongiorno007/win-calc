@@ -74,6 +74,7 @@
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
     thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
     thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
+    thisCtrl.CALC_PRICE = $filter('translate')('design.CALC_PRICE');
 
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);

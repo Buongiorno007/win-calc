@@ -87,6 +87,7 @@
       }
       if(ids === 6 && qtyCheck !== 1) {
         itemArr = [];
+        //noinspection JSAnnotator
         function sort(a,b) {
           return Math.random()-0,5;
         }
@@ -175,6 +176,7 @@
       //AuxStor.aux.isTabFrame = true;
       AddElementsServ.selectAddElem(typeId, elementId, undefined)
     }
+
 
     /**========== FINISH ==========*/
 

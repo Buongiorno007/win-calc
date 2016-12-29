@@ -3,8 +3,11 @@
     height: auto;
     width: 100%;
     overflow : visible;
+    border: none;
   }
   .print-conteiner {
+    position:absolute;
+    top:0;
     width: 100%;
     display: block;
     height: auto;
