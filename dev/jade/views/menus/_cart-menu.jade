@@ -1,7 +1,7 @@
 .right-menu-controller(ng-controller="CartMenuCtrl as cartMenu")
   .cart-menu
     ul.items-list
-      li.item.add-prod(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}",fs-click="cartPage.addNewProductInOrder()")
+      li.add-prod(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}",fs-click="cartPage.addNewProductInOrder()")
         .prod-btn {{ ::cartPage.ADD_ORDER }}
         img.prod-img(ng-src='img/add-img.png')
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
