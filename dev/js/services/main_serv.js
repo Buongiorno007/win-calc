@@ -614,7 +614,7 @@
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
-                //console.log(doorResult, 'doorResult')
+                console.log(doorResult, 'doorResult')
                 doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);

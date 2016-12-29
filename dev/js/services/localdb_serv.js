@@ -2793,77 +2793,55 @@
         getDoorElem(priceObj, handleData);
         (function nextRecord() {
             if (list.length) {
-              var firstKit = list.shift(0),
+              var kit = {},
+                  firstKit = list.shift(0),
                   firstKitId = 0;
                   firstKitId = firstKit;
-                  var kit = {};
-            selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
-                var listArr = [];
-                parseListContent(firstKitId.parent_element_id).then(function(result2) {
-                    if(result2 !== 0) {
-                      listArr = angular.copy(result2);
-                      for(var x=0; x<listArr.length; x+=1) {
-                        listArr[x].parent_element_id = listArr[x].child_id;
-                      }
-                      listArr = listArr.filter(function(item) {
-                        if(item.direction_id == 1 || item.direction_id == firstKitId.openDir) {
-                          return item
-                        }
-                      });
-                    }
-                    result = result.concat(listArr);
-
-                  var element = result;
-                  async.eachSeries(element,calculate, function (err, result) {
-                     nextRecord();
-                  });
-
-                  function calculate (element, _cb) {
-                      async.waterfall([
-                        function (_callback) {
-                          if(element.child_type === 'list') {
-                            list.push(element)
-                            _callback(); 
-                          } else {
-                              getElementByListId(0, element.parent_element_id).then(function(lockData) {
-                              if(firstKitId.count) {
-                                kit.value = firstKitId.count;
-                              } else {
-                                kit.value = firstKitId.value;                             
-                              }
-                                getDoorElem(priceObj, lockData, kit);
-                              });
-                              _callback(); 
-                            } 
-                        }
-                      ], function (err, result) {
-                        if (err) {
-                          return _cb(err);
-                        }
-                      _cb(null);
-                    });
-                  }
+              selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
+                var element = result;
+                async.eachSeries(element,calculate, function (err, result) {
+                  nextRecord();
                 });
-            });
-          } else {
-            priceObj.consist = elements;
-            parseConsistElem([priceObj.consist]).then(function(consistElem) {
-              //console.warn('consistElem!!!!!!+', consistElem);
-              priceObj.consistElem = consistElem[0];
-              var elemsQty = priceObj.consist.length;
-              while(--elemsQty > -1) {
-                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
-              }
-              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
-              //console.warn('!!!!!!+', priceObj);
-              deffMain.resolve(priceObj);
-            });
-          }
-        })();
-
-      });
+                function calculate (element, _cb) {
+                  async.waterfall([
+                    function (_callback) {
+                      getElementByListId(0, element.parent_element_id).then(function(lockData) {
+                        if(firstKitId.count) {
+                          kit.value = firstKitId.count;
+                        } else {
+                          kit.value = firstKitId.value;                             
+                        }
+                        getDoorElem(priceObj, lockData, kit);
+                      });
+                      _callback(); 
+                    }
+                  ], function (err, result) {
+                    if (err) {
+                      return _cb(err);
+                    }
+                    _cb(null);
+                  });
+                }
+             }); 
+            } else {
+              priceObj.consist = elements;
+              parseConsistElem([priceObj.consist]).then(function(consistElem) {
+                //console.warn('consistElem!!!!!!+', consistElem);
+                priceObj.consistElem = consistElem[0];
+                var elemsQty = priceObj.consist.length;
+                while(--elemsQty > -1) {
+                  getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+                }
+                priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+                //console.warn('!!!!!!+', priceObj);
+                deffMain.resolve(priceObj);
+              });
+            }
+          })();
+        });
       return deffMain.promise;
     }
+
 
 
 
