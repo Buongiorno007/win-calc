@@ -20,15 +20,15 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
                 button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", fs-click="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
                 .aux-label {{ ::cartPage.NAME_LABEL }}
             td.aux-tablecell-qty
-              .aux-params(ng-show="addElem.element_qty", ng-click="elemCartPanel.editQty($index, addElem, cartPage.C.cart.allAddElemsOrder)")
+              .aux-params(ng-class="{'selected': cartPage.C.cart.indexParam === 'qty' && cartPage.C.cart.indexElem === $index && cartPage.C.cart.indexType === elemType.id}", ng-show="addElem.element_qty", ng-click="elemCartPanel.editQty(elemType.id, $index, addElem, cartPage.C.cart.allAddElemsOrder)")
                 .aux-params-but {{ addElem.element_qty }}
                 .aux-label {{ ::cartPage.QTY_LABEL }}
             td.aux-tablecell-width
-              .aux-params(ng-show="addElem.element_width", ng-click="elemCartPanel.editWidth($index, addElem, cartPage.C.cart.allAddElemsOrder)")
+              .aux-params(ng-class="{'selected': cartPage.C.cart.indexParam === 'width' && cartPage.C.cart.indexElem === $index && cartPage.C.cart.indexType === elemType.id}", ng-show="addElem.element_width", ng-click="elemCartPanel.editWidth(elemType.id, $index, addElem, cartPage.C.cart.allAddElemsOrder)")
                 .aux-params-but {{ addElem.element_width }}
                 .aux-label {{ ::cartPage.WIDTH_LABEL }}
             td.aux-tablecell-height
-              .aux-params(ng-show="addElem.element_height", ng-click="elemCartPanel.editHeight($index, addElem, cartPage.C.cart.allAddElemsOrder)")
+              .aux-params(ng-class="{'selected': cartPage.C.cart.indexParam === 'height' && cartPage.C.cart.indexElem === $index && cartPage.C.cart.indexType === elemType.id}", ng-show="addElem.element_height", ng-click="elemCartPanel.editHeight(elemType.id, $index, addElem, cartPage.C.cart.allAddElemsOrder)")
                 .aux-params-but {{ addElem.element_height }}
                 .aux-label {{ ::cartPage.HEIGHT_LABEL }}
             td.aux-tablecell-price

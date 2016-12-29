@@ -2886,6 +2886,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
+    thisCtrl.C = CartStor;
     thisCtrl.constants = globalConstants;
     thisCtrl.config = {
       addElementDATA: GeneralServ.addElementDATA,
@@ -2924,6 +2925,13 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       GlobalStor.global.isWidthCalculator = 0;
       GlobalStor.global.isSizeCalculator = 0;
       GlobalStor.global.isQtyCalculator = 0;
+      CartStor.cart.indexType = null;
+      CartStor.cart.indexElem = null;
+      CartStor.cart.indexParam = null;
+      GlobalStor.global.maxSizeAddElem = null;
+      GlobalStor.global.isWidthCalculator = null;
+      GlobalStor.global.isSizeCalculator = null;
+      CartStor.cart.addElemIndex = null;
     }
 
 
@@ -2959,46 +2967,89 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       }
     }
 
-    function editQty(index, element, allElements) {
+    function editQty(indexType, index, element, allElements) {
+      var index2 = angular.copy(index);
       for(var x=0; x<allElements.length; x+=1) {
         if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
           index = x;
         }
       }
       if(CartStor.cart.selectedProduct>=0) {
-        GlobalStor.global.maxSizeAddElem = 2500;
-        GlobalStor.global.isWidthCalculator = 0;
-        GlobalStor.global.isSizeCalculator = 0;
-        CartStor.cart.addElemIndex = index;
+
+        if(CartStor.cart.indexType === indexType && CartStor.cart.indexParam === 'qty') {
+          CartStor.cart.indexType = null;
+          CartStor.cart.indexElem = null;
+          CartStor.cart.indexParam = null;
+          GlobalStor.global.maxSizeAddElem = null;
+          GlobalStor.global.isWidthCalculator = null;
+          GlobalStor.global.isSizeCalculator = null;
+          CartStor.cart.addElemIndex = null;
+        } else {
+          CartStor.cart.indexType = indexType;
+          CartStor.cart.indexParam = 'qty';
+          CartStor.cart.indexElem = index2;
+          GlobalStor.global.maxSizeAddElem = 2500;
+          GlobalStor.global.isWidthCalculator = 0;
+          GlobalStor.global.isSizeCalculator = 0;
+          CartStor.cart.addElemIndex = index;
+        }
         GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
       }
     }
-    function editWidth(index, element, allElements) {
+    function editWidth(indexType, index, element, allElements) {
+      var index2 = angular.copy(index);
       for(var x=0; x<allElements.length; x+=1) {
         if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
           index = x;
         }
       }
       if(CartStor.cart.selectedProduct>=0) {
-        GlobalStor.global.maxSizeAddElem = 2500;
-        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
-        GlobalStor.global.isQtyCalculator = 0;
-        GlobalStor.global.isWidthCalculator = 1;
-        CartStor.cart.addElemIndex = index;
+        if(CartStor.cart.indexType === indexType && CartStor.cart.indexParam === 'width') {
+          CartStor.cart.indexType = null;
+          CartStor.cart.indexElem = null;
+          CartStor.cart.indexParam = null;
+          GlobalStor.global.maxSizeAddElem = null;
+          GlobalStor.global.isWidthCalculator = null;
+          GlobalStor.global.isSizeCalculator = null;
+          CartStor.cart.addElemIndex = null;
+        } else {
+          GlobalStor.global.maxSizeAddElem = 2500;
+          GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+          GlobalStor.global.isQtyCalculator = 0;
+          GlobalStor.global.isWidthCalculator = 1;
+          CartStor.cart.addElemIndex = index;
+          CartStor.cart.indexType = indexType;
+          CartStor.cart.indexParam = 'width';
+          CartStor.cart.indexElem = index2;
+        }
       }
     }
-    function editHeight(index, element, allElements) {
+    function editHeight(indexType, index, element, allElements) {
+      var index2 = angular.copy(index);
       for(var x=0; x<allElements.length; x+=1) {
         if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
           index = x;
         }
       }
       if(CartStor.cart.selectedProduct>=0) {
-        GlobalStor.global.isQtyCalculator = 0;
-        GlobalStor.global.isWidthCalculator = 0;
-        GlobalStor.global.maxSizeAddElem = 2500;
-        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
-        CartStor.cart.addElemIndex = index;
+        if(CartStor.cart.indexType === indexType && CartStor.cart.indexParam === 'height') {
+          CartStor.cart.indexType = null;
+          CartStor.cart.indexElem = null;
+          CartStor.cart.indexParam = null;
+          GlobalStor.global.maxSizeAddElem = null;
+          GlobalStor.global.isWidthCalculator = null;
+          GlobalStor.global.isSizeCalculator = null;
+          CartStor.cart.addElemIndex = null;
+        } else {
+          CartStor.cart.indexType = indexType;
+          CartStor.cart.indexParam = 'height';
+          CartStor.cart.indexElem = index2;
+          GlobalStor.global.isQtyCalculator = 0;
+          GlobalStor.global.isWidthCalculator = 0;
+          GlobalStor.global.maxSizeAddElem = 2500;
+          GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+          CartStor.cart.addElemIndex = index;
+        }
       }
     }
 
@@ -3267,6 +3318,13 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       GlobalStor.global.isWidthCalculator = 0;
       GlobalStor.global.isSizeCalculator = 0;
       GlobalStor.global.isQtyCalculator = 0;
+      CartStor.cart.indexType = null;
+      CartStor.cart.indexElem = null;
+      CartStor.cart.indexParam = null;
+      GlobalStor.global.maxSizeAddElem = null;
+      GlobalStor.global.isWidthCalculator = null;
+      GlobalStor.global.isSizeCalculator = null;
+      CartStor.cart.addElemIndex = null;
       if(CartStor.cart.selectedProduct === prodInd) {
         CartStor.cart.selectedProduct = -1;
       } else {
@@ -3308,7 +3366,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.editHeight = editHeight;
     thisCtrl.editWidth = editWidth;
     thisCtrl.editQty = editQty;
-    thisCtrl.calcAddElemPrice = EditAddElementCartServ.calcAddElemPrice; // надо оптимизировать. Есть копия этой функции с таким же названием.
+    thisCtrl.calcAddElemPrice = EditAddElementCartServ.calcAddElemPrice; 
 
 
   });
