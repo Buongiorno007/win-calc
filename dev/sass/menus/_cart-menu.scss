@@ -18,7 +18,7 @@
       @include transition(transform 1s ease);
 
       position: absolute;
-      z-index: 11;
+      z-index: 0;
       top: rem(16px);
       right: rem(20px);
       display: block;
@@ -29,7 +29,7 @@
       background-color: #f0f0f0;
       border-bottom: none;
       &:after {
-        z-index: 0;
+
         @include rotate(270deg);
       }
     }
@@ -295,7 +295,7 @@
 
     width: 100%;
     height: rem(110px);
-    margin: rem(20px) 0;
+    margin: rem(5px) 0;
     color: $main_gray_txt;
     background-color: #fff;
     border-color: $main_gray_btn;
