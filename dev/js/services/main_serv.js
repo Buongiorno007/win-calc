@@ -356,11 +356,6 @@
     }
 
     function setCurrentGlass(product, id) {
-      if(ProductStor.product.construction_type == 4 && DesignStor.design.glassDepProf === true) {
-        id = 1;
-      } else if(ProductStor.product.construction_type == 4 && DesignStor.design.glassDepProf === false) {
-        id = undefined;
-      }
       //------- cleaning glass in product
       product.glass.length = 0;
       if(id) {
@@ -1241,8 +1236,6 @@
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
-      console.log("id",id);
-      console.log("itemArr",itemArr);
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
@@ -1592,7 +1585,6 @@
 
           if(orderType) {
             localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-            console.log("productData",productData);
             localDB.insertServer(
               UserStor.userInfo.phone,
               UserStor.userInfo.device_code,
@@ -1695,17 +1687,6 @@
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
     }
     function setGlassDefault(profileId, template, product) {
-      var tempGlasses = 0;
-      for(var x=0; x<template.details.length; x+=1) {
-        for(var y=0; y<product.glass.length; y+=1) {
-          if(_.isEqual({'id':template.details[x].glassId, 'name':template.details[x].glassTxt}, {'id':product.glass[y].id, 'name':product.glass[y].sku})) {
-            tempGlasses += 1;
-          }
-        }
-      }
-
-      console.log(tempGlasses, 'tempGlasses')
-
       product.glass.length = 0;
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           return item.profileId === profileId;

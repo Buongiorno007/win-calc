@@ -638,10 +638,10 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
     //DesignServ.setDefaultTemplate();
-    // DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    // DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-    // DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    // DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+    DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+    DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+    DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+    DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
   
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
@@ -9768,8 +9768,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -10181,7 +10181,6 @@ function ErrorResult(code, message) {
 
 
     function checkSize(res, construction_type) {
-      console.log(res, 'res')
       GlobalStor.global.timeoutFunc = 0;
       res = res.priceElements.sashesBlock;
       var heightT = [], widthT = [];
@@ -10787,7 +10786,6 @@ function ErrorResult(code, message) {
       var deferred = $q.defer();
       ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
       var ids = DesignStor.design.sashShapeList[DesignStor.design.doorConfig.doorShapeIndex];
-      //MainServ.setGlassDefault(ids.profileId, DesignStor.design.templateSourceTEMP, product);
       var profileDepths = {
             frameDepth: null,
             frameStillDepth: null,
@@ -10795,8 +10793,7 @@ function ErrorResult(code, message) {
             impostDepth: null,
             shtulpDepth: null
           };
-        DesignStor.design.glassDepProf = (ids.profile_id === product.profile.id) ? true: false;
-        console.log(DesignStor.design.glassDepProf, 'DesignStor.design.glassDepProf')
+      DesignStor.design.doorConfig.glassDepProf = (ids.profile_id === product.profile.id) ? true: false;
       $q.all([
         MainServ.downloadProfileDepth(ids.rama_list_id),
         MainServ.downloadProfileDepth(ids.door_sill_list_id),
@@ -10928,12 +10925,10 @@ function ErrorResult(code, message) {
     function saveDoorConfig(product) {
       (product) ? product = product: product = ProductStor.product;
       var deferred = $q.defer();
-      product.template = angular.copy(DesignStor.design.templateTEMP);
-      product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-      setNewDoorParamValue(
-        product,
-        DesignStor.design
-      ).then(function(res) {
+      setNewDoorParamValue(product, DesignStor.design).then(function(res) {
+        product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+        SVGServ.createSVGTemplate(product.template_source, product.profileDepths).then(function(result) {
+          product.template = angular.copy(result);
           MainServ.preparePrice(
             product.template,
             product.profile.id,
@@ -10941,14 +10936,12 @@ function ErrorResult(code, message) {
             product.hardware.id,
             product.lamination.lamination_in_id
           ).then(function () {
-            SVGServ.createSVGTemplate(
-              product.template_source,
-              product.profileDepths
-            ).then(function(result) {
+            SVGServ.createSVGTemplate(product.template_source, product.profileDepths).then(function(result) {
               deferred.resolve(1);
             });
           });
         });
+      });
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
     }
@@ -11053,9 +11046,8 @@ function ErrorResult(code, message) {
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
       GlobalStor.global.type_door = source.doorConfig.doorShapeIndex;
 
-      if(product.construction_type === 4) {
         setDoorParamValue(product, source);
-      }
+      
       doorId(product, source).then(function(res) {
         deferred.resolve(1);
       });
@@ -11084,7 +11076,8 @@ function ErrorResult(code, message) {
         selectLock(product.door_lock_shape_id, product);
         saveDoorConfig(product).then(function(res2) {
           deferred.resolve(product);
-          //console.log(product);
+          console.log(product);
+          rebuildSVGTemplate()
         });
       });
       return deferred.promise;
@@ -13179,7 +13172,17 @@ function ErrorResult(code, message) {
 
               /** rebuild glasses */
               MainServ.setGlassfilter();
-              MainServ.setCurrentGlass(ProductStor.product, 1);
+
+              if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === true) {
+                MainServ.setCurrentGlass(ProductStor.product, 1);
+                console.log('true')
+              } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === false) {
+                MainServ.setCurrentGlass(ProductStor.product);
+                console.log('false')
+              } else if(ProductStor.product.construction_type !== 4) {
+                MainServ.setCurrentGlass(ProductStor.product, 1);
+                console.log('window')
+              }
 
               /** create template icon */
               SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
@@ -21197,11 +21200,6 @@ function ErrorResult(code, message) {
     }
 
     function setCurrentGlass(product, id) {
-      if(ProductStor.product.construction_type == 4 && DesignStor.design.glassDepProf === true) {
-        id = 1;
-      } else if(ProductStor.product.construction_type == 4 && DesignStor.design.glassDepProf === false) {
-        id = undefined;
-      }
       //------- cleaning glass in product
       product.glass.length = 0;
       if(id) {
@@ -22082,8 +22080,6 @@ function ErrorResult(code, message) {
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
-      console.log("id",id);
-      console.log("itemArr",itemArr);
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
@@ -22433,7 +22429,6 @@ function ErrorResult(code, message) {
 
           if(orderType) {
             localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-            console.log("productData",productData);
             localDB.insertServer(
               UserStor.userInfo.phone,
               UserStor.userInfo.device_code,
@@ -22536,17 +22531,6 @@ function ErrorResult(code, message) {
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
     }
     function setGlassDefault(profileId, template, product) {
-      var tempGlasses = 0;
-      for(var x=0; x<template.details.length; x+=1) {
-        for(var y=0; y<product.glass.length; y+=1) {
-          if(_.isEqual({'id':template.details[x].glassId, 'name':template.details[x].glassTxt}, {'id':product.glass[y].id, 'name':product.glass[y].sku})) {
-            tempGlasses += 1;
-          }
-        }
-      }
-
-      console.log(tempGlasses, 'tempGlasses')
-
       product.glass.length = 0;
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           return item.profileId === profileId;
