@@ -351,9 +351,16 @@
       }
     }
 
+    function checkDependGlassTest(sash, product) {
 
+    }
 
     function setCurrentGlass(product, id) {
+      if(ProductStor.product.construction_type == 4 && DesignStor.design.glassDepProf === true) {
+        id = 1;
+      } else if(ProductStor.product.construction_type == 4 && DesignStor.design.glassDepProf === false) {
+        id = undefined;
+      }
       //------- cleaning glass in product
       product.glass.length = 0;
       if(id) {
@@ -441,36 +448,6 @@
               defer.resolve(1);
             });
         });     
-      return defer.promise;
-    }
-
-
-    function saveTemplateInProductForOrder(templateIndex) {
-      //-----копия функции создания template для подсчета цены.
-      var defer = $q.defer();
-               //----- set default glass in ProductStor
-        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          return item.profileId === ProductStor.product.profile.id;
-        });
-        if(tempGlassArr.length) {
-          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
-          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-          GlobalStor.global.selectGlassId = ProductStor.product.glass[0].id;
-          GlobalStor.global.selectGlassName = ProductStor.product.glass[0].sku;
-        }
-        ProductStor.product.template_source;
-      //----- create template
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
-        .then(function(result) {
-          ProductStor.product.template = angular.copy(result);
-          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
-          //------ show elements of room
-         
-          //----- console.log('TEMPLATE +++', ProductStor.product.template);
-          //----- create template icon
-        GlobalStor.global.isRoomElements = 1;
-        defer.resolve(1);
-        });    
       return defer.promise;
     }
 
@@ -601,7 +578,6 @@
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
-                console.log(doorResult, 'doorResult')
                 doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
@@ -1719,6 +1695,17 @@
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
     }
     function setGlassDefault(profileId, template, product) {
+      var tempGlasses = 0;
+      for(var x=0; x<template.details.length; x+=1) {
+        for(var y=0; y<product.glass.length; y+=1) {
+          if(_.isEqual({'id':template.details[x].glassId, 'name':template.details[x].glassTxt}, {'id':product.glass[y].id, 'name':product.glass[y].sku})) {
+            tempGlasses += 1;
+          }
+        }
+      }
+
+      console.log(tempGlasses, 'tempGlasses')
+
       product.glass.length = 0;
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           return item.profileId === profileId;
@@ -1742,6 +1729,7 @@
 
 
     thisFactory.publicObj = {
+      checkDependGlassTest:checkDependGlassTest,
       setGlassfilter: setGlassfilter,
       setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
@@ -1762,7 +1750,6 @@
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
       downloadProfileDepth: downloadProfileDepth,
-      saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,

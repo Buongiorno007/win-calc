@@ -50,11 +50,10 @@
 
       if(GlobalStor.global.selectRoom === 0) {
         $location.path('/design');
-        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)  
-        TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
+        TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
         GlobalStor.global.selectRoom = 1;
       } else {
-        TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
+        TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
       }
     }
 
@@ -63,7 +62,6 @@
     //------ clicking
     thisCtrl.selectRoom = selectRoom;
     thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
-    GlobalStor.global.selectRoom = 0;
     //---- hide rooms if opened
     GlobalStor.global.showRoomSelectorDialog = 0;
 

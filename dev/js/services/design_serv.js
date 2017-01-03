@@ -354,6 +354,7 @@
 
 
     function checkSize(res, construction_type) {
+      console.log(res, 'res')
       GlobalStor.global.timeoutFunc = 0;
       res = res.priceElements.sashesBlock;
       var heightT = [], widthT = [];
@@ -776,8 +777,6 @@
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
-      MainServ.setCurrentGlassForTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
-      ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
       GlobalStor.global.checkDoors = 0;
       DesignStor.design.steps.isDoorConfig = 1;
       closeSizeCaclulator();
@@ -959,37 +958,58 @@
 
     function selectSash(id, product) {
       var deferred = $q.defer();
-      DesignStor.design.handleShapeList = [];
-      if(!DesignStor.design.steps.selectedStep3) {
-        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
-          DesignStor.design.doorConfig.sashShapeIndex = '';
-          DesignStor.design.steps.selectedStep2 = 0;
-        } else {
-          DesignStor.design.doorConfig.sashShapeIndex = id;
-          DesignStor.design.steps.selectedStep2 = 1;
-        }
-      }
-      if(GlobalStor.global.currOpenPage !== 'history' && GlobalStor.global.currOpenPage !== 'cart') {
-        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
-        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
-        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
-        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
-      } 
-
-
-
-      localDB.selectLocalDB(
-        localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
-        ).then(function(dependencies) {
-          for(var x=0; x<=dependencies.length; x+=1) {
-            if(x !== dependencies.length) {
-              depend(dependencies[x])
-            } else {
-              deferred.resolve(1);
-            }
+      ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
+      var ids = DesignStor.design.sashShapeList[DesignStor.design.doorConfig.doorShapeIndex];
+      //MainServ.setGlassDefault(ids.profileId, DesignStor.design.templateSourceTEMP, product);
+      var profileDepths = {
+            frameDepth: null,
+            frameStillDepth: null,
+            sashDepth: null,
+            impostDepth: null,
+            shtulpDepth: null
+          };
+        DesignStor.design.glassDepProf = (ids.profile_id === product.profile.id) ? true: false;
+        console.log(DesignStor.design.glassDepProf, 'DesignStor.design.glassDepProf')
+      $q.all([
+        MainServ.downloadProfileDepth(ids.rama_list_id),
+        MainServ.downloadProfileDepth(ids.door_sill_list_id),
+        MainServ.downloadProfileDepth(ids.stvorka_list_id),
+        MainServ.downloadProfileDepth(ids.impost_list_id),
+        MainServ.downloadProfileDepth(ids.shtulp_list_id)
+      ]).then(function (result) {
+        profileDepths.frameDepth = result[0];
+        profileDepths.frameStillDepth = result[1];
+        profileDepths.sashDepth = result[2];
+        profileDepths.impostDepth = result[3];
+        profileDepths.shtulpDepth = result[4];
+        SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, profileDepths
+        ).then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.designSource.templateTEMP = angular.copy(result);
+          DesignStor.design.handleShapeList = [];
+        if(!DesignStor.design.steps.selectedStep3) {
+          if(DesignStor.design.doorConfig.sashShapeIndex === id) {
+            DesignStor.design.doorConfig.sashShapeIndex = '';
+            DesignStor.design.steps.selectedStep2 = 0;
+          } else {
+            DesignStor.design.doorConfig.sashShapeIndex = id;
+            DesignStor.design.steps.selectedStep2 = 1;
           }
+        }
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
+          ).then(function(dependencies) {
+            for(var x=0; x<=dependencies.length; x+=1) {
+              if(x !== dependencies.length) {
+                depend(dependencies[x])
+              } else {
+                deferred.resolve(1);
+              }
+            }
+          });
         });
-         return deferred.promise;
+      });
+      return deferred.promise;
     }
     function depend(item) {
       var newHandleArr;
@@ -1024,7 +1044,7 @@
         var newLockArr = lockArr.filter(function(doorLocks) {
           return DesignStor.design.handleShapeList[id].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
         });
-        var template = product.template.priceElements.shtulpsSize;
+        var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
         for(var x=0; x<newLockArr.length; x+=1) {
           if (pnt.heightT <= newLockArr[x].height_max) {
             if (pnt.heightT >= newLockArr[x].height_min) {
@@ -1081,25 +1101,19 @@
     function saveDoorConfig(product) {
       (product) ? product = product: product = ProductStor.product;
       var deferred = $q.defer();
+      product.template = angular.copy(DesignStor.design.templateTEMP);
+      product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
       setNewDoorParamValue(
         product,
         DesignStor.design
       ).then(function(res) {
-        SVGServ.createSVGTemplate(
-          product.template_source,
-          product.profileDepths
-        ).then(function(result) {
-          DesignStor.design.templateTEMP = angular.copy(result);
-            MainServ.preparePrice(
-              result,
-              ProductStor.product.profile.id,
-              ProductStor.product.glass,
-              ProductStor.product.hardware.id,
-              ProductStor.product.lamination.lamination_in_id
-            ).then(function () {
-            if(ProductStor.product.template_source.doorSill) {
-              DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
-            }
+          MainServ.preparePrice(
+            product.template,
+            product.profile.id,
+            product.glass,
+            product.hardware.id,
+            product.lamination.lamination_in_id
+          ).then(function () {
             SVGServ.createSVGTemplate(
               product.template_source,
               product.profileDepths
@@ -1108,7 +1122,6 @@
             });
           });
         });
-      });
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
     }
@@ -1225,11 +1238,6 @@
     /** for start */
     function setDoorConfigDefault(product) {
       var deferred = $q.defer();
-      DesignStor.designSource.templateSourceTEMP = angular.copy(product.template_source);
-      DesignStor.designSource.templateTEMP = angular.copy(product.template);
-      DesignStor.design.templateSourceTEMP = angular.copy(product.template_source);
-      DesignStor.design.templateTEMP = angular.copy(product.template);
-
       DesignStor.design.steps.selectedStep3 = 0;
       DesignStor.design.steps.selectedStep4 = 0;
       DesignStor.design.doorConfig.lockShapeIndex = '';

@@ -1316,7 +1316,6 @@
     function setParts(frameStill, sourceObj, pointsOut, pointsIn, priceElements, currGlassId) {
       var shapeIndex = 0;
       var doorSill = (frameStill)? frameStill:0;
-
       if(GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
         shapeIndex = ProductStor.product.door_type_index;
       };
