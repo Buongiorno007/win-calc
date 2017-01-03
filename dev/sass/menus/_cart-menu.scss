@@ -3,9 +3,11 @@
   @include justify-content(space-between);
   position: relative;
   z-index: 2;
+  height: 100%;
   .items-list {
     @include flex-grow(0);
   }
+
   .item {
     position: relative;
 
@@ -27,6 +29,7 @@
       background-color: #f0f0f0;
       border-bottom: none;
       &:after {
+        z-index: 0;
         @include rotate(270deg);
       }
     }
@@ -136,7 +139,7 @@
   .drop-calendar {
     text-align: center;
     &.active {
-      height: 28rem;
+      height: 26rem;
     }
   }
   .dropdown-items-list {
@@ -257,14 +260,20 @@
   // Footer menu
   .menu-footer {
     position: relative;
+
   }
   .price-block {
     @include transition(left .5s ease);
 
     position: absolute;
     left: rem(500px);
-    width: rem(415px);
     cursor: pointer;
+    background-color: #f8f8f8;
+    margin-left: -2.8125rem;
+    padding-left: 2.8125rem;
+    width: 255px !important;
+    padding-right: 4.5rem;
+    z-index: 3;
     &.active {
       left: 0;
     }
@@ -315,7 +324,6 @@
   }
   .name {
     @include roboto-lt(rem(22px));
-
     color: #8c8c8c;
   }
   .price {
@@ -361,5 +369,13 @@
   margin: 0;
   width:50%;
   float:left;
+}
+.hide-block{
+  height:250px;
+  width:100%;
+  background: rgba(#f8f8f8,1);
+  position:absolute;
+  bottom:0;
+  z-index:2;
 }
 /****/
