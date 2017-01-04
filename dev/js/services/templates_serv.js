@@ -68,13 +68,15 @@
           DesignStor.design.isNoDoors = 1;
         } 
         if(ProductStor.product.construction_type !== 4) {
-            MainServ.setCurrentProfile(ProductStor.product, 0);
-            culcPriceNewTemplate(templateIndex);
+            MainServ.setCurrentProfile(ProductStor.product, 0).then(function(result) {
+              culcPriceNewTemplate(templateIndex);
+            });
         } else if (ProductStor.product.construction_type === 4) {
           ProductStor.product.template_id = DesignStor.design.template_id;
           DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
+            console.log('door FINISH')
             ProductStor.product = angular.copy(result);
           });
         } 
@@ -93,17 +95,17 @@
 
     //---------- select new template and recalculate it price
      function selectNewTemplate(templateIndex, roomInd, whoCalled) {
-      MainServ.setDefaultDoorConfig();
-      DesignServ.setDefaultConstruction();
+      function goToNewTemplate() {
+        MainServ.setDefaultDoorConfig();
+        DesignServ.setDefaultConstruction();
 
-      //-------- check changes in current template
-      GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-      if(!whoCalled) {
-        ProductStor.product.construction_type = GlobalStor.global.templatesType;
-      } else {
-        ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
-
-      }
+        //-------- check changes in current template
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+        if(!whoCalled) {
+          ProductStor.product.construction_type = GlobalStor.global.templatesType;
+        } else {
+          ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+        }
         DesignStor.design.template_id = templateIndex;
         GlobalStor.global.selectRoom = 1;
         MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
@@ -117,6 +119,17 @@
             }
           }
         });
+      }
+      if(GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
+      } else {
+        goToNewTemplate()
+      }
     }
 
 

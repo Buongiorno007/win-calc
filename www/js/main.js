@@ -3820,6 +3820,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     //------------ Select lamination
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
+      GlobalStor.global.isChangedTemplate = 1;
       MainServ.laminatFiltering();
       MainServ.setCurrLamination(ProductStor.product, id);
 
@@ -4977,7 +4978,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
 
-      if(GlobalStor.global.selectRoom === 0) {
+      if(GlobalStor.global.selectRoom === 0 && !GlobalStor.global.selectNewTemplate) {
         GlobalStor.global.prohibitCopyingTemplate = 1;
         $location.path('/design');
         TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
@@ -9773,8 +9774,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -14169,6 +14170,7 @@ function ErrorResult(code, message) {
     /**============ METHODS ================*/
     
     function selectGlass(newId, newName, type) {
+      GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
       GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
       GlobalStor.global.selectGlassId = newId;
@@ -14225,6 +14227,7 @@ function ErrorResult(code, message) {
     
     /**----------- Select hardware -------- */
     function selectHardware(newId) {
+      GlobalStor.global.isChangedTemplate = 1;
       if(ProductStor.product.hardware.id !== newId) {
 
         /** check sizes of all hardware in sashes */
@@ -24937,6 +24940,7 @@ function ErrorResult(code, message) {
 
     /**============ METHODS ================*/
     function selectProfile(newId) {
+      GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.continued = 0;
       profileForAlert(newId);
       var productTEMP;
@@ -28743,13 +28747,15 @@ function ErrorResult(code, message) {
           DesignStor.design.isNoDoors = 1;
         } 
         if(ProductStor.product.construction_type !== 4) {
-            MainServ.setCurrentProfile(ProductStor.product, 0);
-            culcPriceNewTemplate(templateIndex);
+            MainServ.setCurrentProfile(ProductStor.product, 0).then(function(result) {
+              culcPriceNewTemplate(templateIndex);
+            });
         } else if (ProductStor.product.construction_type === 4) {
           ProductStor.product.template_id = DesignStor.design.template_id;
           DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
+            console.log('door FINISH')
             ProductStor.product = angular.copy(result);
           });
         } 
@@ -28768,17 +28774,17 @@ function ErrorResult(code, message) {
 
     //---------- select new template and recalculate it price
      function selectNewTemplate(templateIndex, roomInd, whoCalled) {
-      MainServ.setDefaultDoorConfig();
-      DesignServ.setDefaultConstruction();
+      function goToNewTemplate() {
+        MainServ.setDefaultDoorConfig();
+        DesignServ.setDefaultConstruction();
 
-      //-------- check changes in current template
-      GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-      if(!whoCalled) {
-        ProductStor.product.construction_type = GlobalStor.global.templatesType;
-      } else {
-        ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
-
-      }
+        //-------- check changes in current template
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+        if(!whoCalled) {
+          ProductStor.product.construction_type = GlobalStor.global.templatesType;
+        } else {
+          ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+        }
         DesignStor.design.template_id = templateIndex;
         GlobalStor.global.selectRoom = 1;
         MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
@@ -28792,6 +28798,17 @@ function ErrorResult(code, message) {
             }
           }
         });
+      }
+      if(GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
+      } else {
+        goToNewTemplate()
+      }
     }
 
 
