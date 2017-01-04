@@ -794,10 +794,10 @@
 
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
-            var products = OrderStor.order.products;
+            var products = angular.copy(OrderStor.order.products);
+            OrderStor.order.products = [];
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
-              downloadAddElements().then(function () {
                 GlobalStor.global.isConfigMenu = 1;
                 GlobalStor.global.isNavMenu = 0;
                 //------- set previos Page
@@ -805,14 +805,15 @@
                 GlobalStor.global.isLoader = 0;
                 //console.warn('ORDER ====', OrderStor.order);
                 $location.path('/cart');
-              });
             });
 
             function calculate(products, _cb) {
               async.waterfall([
                   function (_callback) {
                     if (products.construction_type === 4) {
-                      DesignServ.setDoorConfigDefault(products).then(function (res) {
+                      ProductStor.product = angular.copy(products);
+                      DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                        OrderStor.order.products.push(res);
                         _callback();
                       });
                     } else {

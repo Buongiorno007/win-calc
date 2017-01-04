@@ -1104,16 +1104,12 @@
           }
         }
       }
-      console.log(check, 'check');
       if(check === 0) {
-        console.log(check, 'check === 0');
         DesignStor.design.doorConfig.glassDepProf = false;
       }
       if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === true) {
-        console.log('true')
         MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product, 1);
       } else if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === false) {
-        console.log('false')
         MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
       }
     }
@@ -1175,6 +1171,7 @@
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
+      product.hardware = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[k];
       product.doorHandle.count = countHandle(source).length;
       for(var e=0; e<source.templateTEMP.details.length; e+=1) {
@@ -1258,8 +1255,12 @@
     }
 
     /** for start */
-    function setDoorConfigDefault(product) {
+    function setDoorConfigDefault(product, editOrder) {
       var deferred = $q.defer();
+      if(editOrder) {
+        DesignStor.design.templateTEMP = angular.copy(product.tempate);
+        DesignStor.design.templateSourceTEMP = angular.copy(product.template_source);
+      }
       DesignStor.design.steps.selectedStep3 = 0;
       DesignStor.design.steps.selectedStep4 = 0;
       DesignStor.design.doorConfig.lockShapeIndex = '';
@@ -3363,7 +3364,7 @@
             isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
             if(isSashesInTemplate) {
               /** set first hardware if sash were not existed before */
-              if(!GlobalStor.global.isSashesInTemplate) {
+              if(!GlobalStor.global.isSashesInTemplate && ProductStor.product.construction_type !== 4) {
                 GlobalStor.global.isSashesInTemplate = 1;
                 ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
               }

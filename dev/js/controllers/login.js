@@ -288,7 +288,7 @@
           localDB.importUser(thisCtrl.user.phone).then(function(result) {
             if(result.status) {
               var userTemp = angular.copy(result.user);
-              console.log('first');
+              //console.log('first');
               startSlider();
               //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
               //---------- check user password
@@ -614,7 +614,7 @@
                           if(newUserPassword === data[0].password) {
                             //----- checking user activation
                             if(data[0].locked) {
-                                console.log('second');
+                                //sssconsole.log('second');
                                 startSlider();
                               angular.extend(UserStor.userInfo, data[0]);
                               //------- set User Location

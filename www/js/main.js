@@ -1562,7 +1562,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
           localDB.importUser(thisCtrl.user.phone).then(function(result) {
             if(result.status) {
               var userTemp = angular.copy(result.user);
-              console.log('first');
+              //console.log('first');
               startSlider();
               //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
               //---------- check user password
@@ -1888,7 +1888,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                           if(newUserPassword === data[0].password) {
                             //----- checking user activation
                             if(data[0].locked) {
-                                console.log('second');
+                                //sssconsole.log('second');
                                 startSlider();
                               angular.extend(UserStor.userInfo, data[0]);
                               //------- set User Location
@@ -9774,8 +9774,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -10937,16 +10937,12 @@ function ErrorResult(code, message) {
           }
         }
       }
-      console.log(check, 'check');
       if(check === 0) {
-        console.log(check, 'check === 0');
         DesignStor.design.doorConfig.glassDepProf = false;
       }
       if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === true) {
-        console.log('true')
         MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product, 1);
       } else if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === false) {
-        console.log('false')
         MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
       }
     }
@@ -11008,6 +11004,7 @@ function ErrorResult(code, message) {
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
+      product.hardware = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[k];
       product.doorHandle.count = countHandle(source).length;
       for(var e=0; e<source.templateTEMP.details.length; e+=1) {
@@ -11091,8 +11088,12 @@ function ErrorResult(code, message) {
     }
 
     /** for start */
-    function setDoorConfigDefault(product) {
+    function setDoorConfigDefault(product, editOrder) {
       var deferred = $q.defer();
+      if(editOrder) {
+        DesignStor.design.templateTEMP = angular.copy(product.tempate);
+        DesignStor.design.templateSourceTEMP = angular.copy(product.template_source);
+      }
       DesignStor.design.steps.selectedStep3 = 0;
       DesignStor.design.steps.selectedStep4 = 0;
       DesignStor.design.doorConfig.lockShapeIndex = '';
@@ -13196,7 +13197,7 @@ function ErrorResult(code, message) {
             isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
             if(isSashesInTemplate) {
               /** set first hardware if sash were not existed before */
-              if(!GlobalStor.global.isSashesInTemplate) {
+              if(!GlobalStor.global.isSashesInTemplate && ProductStor.product.construction_type !== 4) {
                 GlobalStor.global.isSashesInTemplate = 1;
                 ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
               }
@@ -15076,10 +15077,10 @@ function ErrorResult(code, message) {
 
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
-            var products = OrderStor.order.products;
+            var products = angular.copy(OrderStor.order.products);
+            OrderStor.order.products = [];
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
-              downloadAddElements().then(function () {
                 GlobalStor.global.isConfigMenu = 1;
                 GlobalStor.global.isNavMenu = 0;
                 //------- set previos Page
@@ -15087,14 +15088,15 @@ function ErrorResult(code, message) {
                 GlobalStor.global.isLoader = 0;
                 //console.warn('ORDER ====', OrderStor.order);
                 $location.path('/cart');
-              });
             });
 
             function calculate(products, _cb) {
               async.waterfall([
                   function (_callback) {
                     if (products.construction_type === 4) {
-                      DesignServ.setDoorConfigDefault(products).then(function (res) {
+                      ProductStor.product = angular.copy(products);
+                      DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                        OrderStor.order.products.push(res);
                         _callback();
                       });
                     } else {
