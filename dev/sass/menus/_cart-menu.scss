@@ -3,9 +3,11 @@
   @include justify-content(space-between);
   position: relative;
   z-index: 2;
+  height: 100%;
   .items-list {
     @include flex-grow(0);
   }
+
   .item {
     position: relative;
 
@@ -16,7 +18,7 @@
       @include transition(transform 1s ease);
 
       position: absolute;
-      z-index: 11;
+      z-index: 0;
       top: rem(16px);
       right: rem(20px);
       display: block;
@@ -27,6 +29,7 @@
       background-color: #f0f0f0;
       border-bottom: none;
       &:after {
+
         @include rotate(270deg);
       }
     }
@@ -45,6 +48,7 @@
       }
     }
   }
+
   .cart-item-data {
     @include display-flex();
     @include flex-flow(row wrap);
@@ -107,7 +111,7 @@
 
 
 
-// Dropdown menu list
+  // Dropdown menu list
 
   .dropdown-cart-menu {
     @include transition(all 0.5s linear);
@@ -135,7 +139,7 @@
   .drop-calendar {
     text-align: center;
     &.active {
-      height: 28rem;
+      height: 26rem;
     }
   }
   .dropdown-items-list {
@@ -256,16 +260,22 @@
   // Footer menu
   .menu-footer {
     position: relative;
+
   }
   .price-block {
     @include transition(left .5s ease);
 
     position: absolute;
     left: rem(500px);
-    width: rem(415px);
     cursor: pointer;
+    background-color: #f8f8f8;
+    margin-left: -2.8125rem;
+    padding-left: 2.8125rem;
+    width: 255px !important;
+    padding-right: 4.5rem;
+    z-index: 3;
     &.active {
-     left: 0;
+      left: 0;
     }
   }
   .price-without-instalments {
@@ -285,7 +295,7 @@
 
     width: 100%;
     height: rem(110px);
-    margin: rem(20px) 0;
+    margin: rem(5px) 0;
     color: $main_gray_txt;
     background-color: #fff;
     border-color: $main_gray_btn;
@@ -314,7 +324,6 @@
   }
   .name {
     @include roboto-lt(rem(22px));
-
     color: #8c8c8c;
   }
   .price {
@@ -334,3 +343,39 @@
   @extend .old-price-tab;
   max-height: rem(300px);
 }
+/***/
+.add-prod{
+  padding: rem(10px) rem($config_menu-side_padding) rem(10px) 0;
+  border-bottom: 1px solid $main_gray_btn;
+}
+.add-prod:hover {
+  margin-left: -2.75rem;
+  padding-left: 2.75rem;
+  background-color: #f0f0f0;
+  border-bottom: none;
+}
+.add-prod:after{
+  content: none !important;
+}
+
+.prod-img{
+  float:right;
+  height:rem(90px);
+  width:rem(90px);
+}
+.prod-btn{
+  @include roboto-md(rem(40px), 1);
+  color: $main_orange;
+  margin: 0;
+  width:50%;
+  float:left;
+}
+.hide-block{
+  height:250px;
+  width:100%;
+  background: rgba(#f8f8f8,1);
+  position:absolute;
+  bottom:0;
+  z-index:2;
+}
+/****/

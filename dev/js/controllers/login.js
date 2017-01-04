@@ -129,7 +129,13 @@
         ]);
 
         /**============ METHODS ================*/
-
+        function startSlider() {
+          $('#featured').orbit({
+          'bullets': true,
+          'timer' : true,
+          'animation' : 'horizontal-slide'
+          });
+        }
 
         function startProgramm() {
           //console.time('prog');
@@ -151,6 +157,7 @@
             if(GlobalStor.global.locations.cities.length === 1) {
               loginServ.downloadAllCities(1);
               GlobalStor.global.isLoader = 0;
+              GlobalStor.global.startSlider = 0;
               //console.timeEnd('prog');
               $location.path('/main');
             }
@@ -217,6 +224,7 @@
               localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
                 .then(function(result) {
                   //            console.log('Factories++++++', result);
+                  GlobalStor.global.startSlider = 0;
                   GlobalStor.global.isLoader = 0;
                   if(result.status) {
                     thisCtrl.factories = setFactoryLocation(result.factories);
@@ -267,6 +275,7 @@
             });
           } else {
             GlobalStor.global.isLoader = 0;
+            GlobalStor.global.startSlider = 0;
             //---- show attantion
             thisCtrl.isUserNotActive = 1;
           }
@@ -279,18 +288,24 @@
           localDB.importUser(thisCtrl.user.phone).then(function(result) {
             if(result.status) {
               var userTemp = angular.copy(result.user);
+              console.log('first');
+              startSlider();
               //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
               //---------- check user password
               var newUserPassword = localDB.md5(thisCtrl.user.password);
               if(newUserPassword === userTemp.password) {
                 importDBProsses(userTemp);
+                GlobalStor.global.startSlider = 1;
+
               } else {
                 GlobalStor.global.isLoader = 0;
+                GlobalStor.global.startSlider = 0;
                 //---- user not exists
                 thisCtrl.isUserPasswordError = 1;
               }
             } else {
               GlobalStor.global.isLoader = 0;
+              GlobalStor.global.startSlider = 0;
               //---- user not exists
               thisCtrl.isUserNotExist = 1;
             }
@@ -475,12 +490,14 @@
             if(isCustomer) {
               if(thisCtrl.user.phone && thisCtrl.user.password) {
                 GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
                 checkingUser();
               }
             } else {
               localDB.importUser(url.access, 1).then(function(result) {
                 var userTemp = angular.copy(result.user);
                 GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
                 importDBProsses(userTemp);
               });
             }
@@ -550,6 +567,7 @@
           thisCtrl.submitted = 1;
           if (form.$valid) {
             GlobalStor.global.isLoader = 1;
+            GlobalStor.global.startSlider = 1;
             loader();
 
 
@@ -565,13 +583,16 @@
                 if (onlineMode && navigator.onLine ){
 
                   GlobalStor.global.isLoader = 1;
+                  GlobalStor.global.startSlider = 1;
                   HistoryServ.synchronizeOrders().then(function () {
                     GlobalStor.global.isLoader = 1;
+                    GlobalStor.global.startSlider = 1;
                     checkingUser();
                   });
                   //checkingUser();
                 } else {
                   GlobalStor.global.isLoader = 0;
+                    GlobalStor.global.startSlider = 0;
                   thisCtrl.isOfflineImport = 1;
                 }
               }
@@ -593,6 +614,8 @@
                           if(newUserPassword === data[0].password) {
                             //----- checking user activation
                             if(data[0].locked) {
+                                console.log('second');
+                                startSlider();
                               angular.extend(UserStor.userInfo, data[0]);
                               //------- set User Location
                               loginServ.prepareLocationToUse().then(function() {
@@ -600,12 +623,14 @@
                               });
 
                             } else {
+                              GlobalStor.global.startSlider = 0;
                               GlobalStor.global.isLoader = 0;
                               //---- show attantion
                               thisCtrl.isUserNotActive = 1;
                             }
                           } else {
                             GlobalStor.global.isLoader = 0;
+                            GlobalStor.global.startSlider = 0;
                             //---- user not exists
                             thisCtrl.isUserPasswordError = 1;
                           }
@@ -649,20 +674,24 @@
                             });
                           });
                         } else {
+                          GlobalStor.global.startSlider = 0;
                           GlobalStor.global.isLoader = 0;
                           thisCtrl.isOffline = 1;
                         }
                       } else {
+                        GlobalStor.global.startSlider = 0;
                         GlobalStor.global.isLoader = 0;
                         //---- show attantion
                         thisCtrl.isUserNotActive = 1;
                       }
                     } else {
+                      GlobalStor.global.startSlider = 0;
                       GlobalStor.global.isLoader = 0;
                       //---- user not exists
                       thisCtrl.isUserPasswordError = 1;
                     }
                   } else {
+                    GlobalStor.global.startSlider = 0;
                     GlobalStor.global.isLoader = 0;
                     //---- user not exists
                     thisCtrl.isUserNotExist = 1;
@@ -670,6 +699,7 @@
                 });
 
             } else {
+              GlobalStor.global.startSlider = 0;
               GlobalStor.global.isLoader = 0;
               thisCtrl.isOffline = 1;
             }
@@ -684,6 +714,7 @@
           if(thisCtrl.user.factoryId > 0) {
             //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
             if(thisCtrl.isOnline) {
+              GlobalStor.global.startSlider = 1;
               GlobalStor.global.isLoader = 1;
               //-------- send selected Factory Id in Server
               UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
@@ -853,6 +884,7 @@
         thisCtrl.selectFactory = selectFactory;
         thisCtrl.closeFactoryDialog = closeFactoryDialog;
         thisCtrl.closeOfflineAlert = closeOfflineAlert;
+        thisCtrl.startSlider = startSlider;
 
 
 

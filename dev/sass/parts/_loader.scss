@@ -3,7 +3,7 @@
 
   .loader {
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 48.5%;
     width: 11rem;
     height: 11rem;
@@ -11,6 +11,8 @@
     background-image: url('../img/spinner.gif');
     background-repeat: no-repeat;
     background-size: cover;
+    opacity: 1;
+    transition: opacity 0s, visibility 1s linear 1s;
     &.active {
       position: absolute;
       top: 50%;
@@ -26,11 +28,13 @@
   
   .loader-counter {
     position: absolute;
-    top: 45.8%;
+    top: 51%;
     font-size: 17px;
     left: 49%;
     width: 3.9rem;
     height: 3.9rem;
     color: #8c8c8c;
+    opacity: 1;
+    transition: opacity 0s, visibility 1s linear 1s;
   }
 }

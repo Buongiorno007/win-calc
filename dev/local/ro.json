@@ -1,4 +1,4 @@
-{ 
+{
   "common_words": {
     "CHANGE": "Modifică",
     "MONTHS": "Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Decembrie",
@@ -55,7 +55,6 @@
     "PASSWORD": "Parolă",
     "MOBILE": "Telefon mobil",
     "REGISTRATION": "Înregistrare",
-    "UPDATEDB" : "Обновить базу данных",
     "SELECT_COUNTRY": "Selectați țara",
     "SELECT_REGION": "Selectați regiunea",
     "SELECT_CITY": "Selectați orașul",
@@ -67,11 +66,11 @@
     "SELECT_FACTORY": "Nu ați selectat producătorul",
     "USER_PASSWORD_ERROR": "Parolă incorectă!",
     "OFFLINE": "Nu există conexiune la Internet!",
-    "OFFLINE_INFO": "Подключитесь к интернету и повторите попытку",
+    "OFFLINE_INFO": "Conectați-vă la internet și încercați din nou",
     "OFFLINE_IMPORT":"Nu există conexiune la Internet!",
     "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!",
     "AUTO_SYNCHRONIZE" : "Date de sincronizare automată la pornirea aplicației",
-    "SYNCHRONIZE_INFO" : "При включённой функции автосинхронизации данных, во время запуска приложения происходит загрузка текущих цен, а так же сохранение на сервер набранных ранее заказов. Автосинхронизация производится только при наличие доступа к интернет"
+    "SYNCHRONIZE_INFO" : "Când datele caracteristici activate sincronizarea automată, în timpul pornirii aplicațiilor este încărcată prețuri curente, precum și de economisire pe ordinele de server recrutați mai devreme. Sincronizarea automată numai dacă aveți acces la Internet"
 
   },
   "danger-alert": {
@@ -109,7 +108,7 @@
     "CONFIGMENU_ADDITIONAL": "Suplimentar",
     "CONFIGMENU_IN_CART": "În coș",
     "VOICE_SPEACH": "Vorbiți...",
-    "COMMENT": "Lăsați mențiunile cu privire la comandă aici.", 
+    "COMMENT": "Lăsați mențiunile cu privire la comandă aici.",
     "ROOM_SELECTION": "Selectare șablon",
     "CONFIGMENU_NO_ADDELEMENTS": "Elemente supl. nu au fost alese",
     "HEATCOEF_VAL": "W",
@@ -159,11 +158,11 @@
     "ONE_WINDOW_TYPE": "Cu un canat",
     "TWO_WINDOW_TYPE": "Cu două canaturi",
     "THREE_WINDOW_TYPE": "Cu trei canaturi",
-    "CAMER_1": "1 камера",
-    "CAMER_2": "2 камеры",
-    "CAMER_GLASS": "Стекло",
-    "SENDVICH": "Сэндвич панель",
-    "PVX": "ПВХ панель",
+    "CAMER_1": "1 cameră",
+    "CAMER_2": "2 cameră",
+    "CAMER_GLASS": "sticlă",
+    "SENDVICH": "sandwich panou",
+    "PVX": "panou din PVC",
     "CAMERa": "cameră",
     "CAMER": "camere",
     "CAMERs": "camere",
@@ -230,7 +229,7 @@
     "TAB_NAME_HARD_FRAME": "Structură din materiale compozite",
     "TAB_EMPTY_EXPLAIN": "Selectați din listă primul element, pentru a începe crearea structurii."
   },
-  "design": {    
+  "design": {
     "BY_AXIS": "axă",
     "BY_GLASS": "sticlă",
     "SASH_SHAPE": "canaturi",
@@ -268,7 +267,8 @@
     "MAX_VALUE_HIGHER": "depășește valorile maxime admisibile",
     "EXTRA_SASH": "Dimensiunea curentă a canatului după falț ",
     "CHANGE_SIZE": "Pentru salvarea construcției modificați dimensiunile.",
-    "DOOR_ERROR": "Systems of entrance doors are not configured"
+    "DOOR_ERROR": "Systems of entrance doors are not configured",
+    "CALC_PRICE": "Se calculează prețul"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Căutare după cuvinte-cheie",
@@ -302,7 +302,7 @@
     "WAIT_MASTER": "se așteaptă specialistul în măsurări",
     "INCLUDED": "incluse",
     "NO_PRINT": "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet.",
-    "SYNCHRONIZE_ORDERS":"Cинхронизировать заказы"
+    "SYNCHRONIZE_ORDERS":"Sincronizarea ordinelor"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Toate elementele supl. ale comenzii",
@@ -340,7 +340,7 @@
     "CALL_ORDER_DELIVERY": "Livrare comandă la",
     "CALL_ORDER_TOTAL_PRICE": "Total",
     "CALL_ORDER_ADD_INFO": "Suplimentar:",
-    "CLIENT_EMAIL_ORDER": "Электронная почта для получения спецификации",
+    "CLIENT_EMAIL_ORDER": "E-mail pentru specificații",
     "CLIENT_EMAIL": "E-mail",
     "ADD_PHONE": "Număr de telefon suplimentar",
     "CALL_CREDIT": "Achitare în rate și perfectarea comenzii pentru calculare",
@@ -388,7 +388,7 @@
     "DISCOUNT_WINDOW": "Reducere pentru articol",
     "DISCOUNT_ADDELEM": "Reducere pentru elementele suplimentare",
     "ORDER_COMMENT": "Notă în ordinea",
-    "UNKNOWN": "Не известно"
+    "UNKNOWN": "Necunoscut"
   },
   "settings": {
     "AUTHORIZATION": "Logare:",
