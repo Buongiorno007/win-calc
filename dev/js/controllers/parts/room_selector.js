@@ -49,6 +49,7 @@
 
 
       if(GlobalStor.global.selectRoom === 0) {
+        GlobalStor.global.prohibitCopyingTemplate = 1;
         $location.path('/design');
         TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
         GlobalStor.global.selectRoom = 1;

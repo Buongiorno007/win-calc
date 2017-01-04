@@ -638,10 +638,14 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
     //DesignServ.setDefaultTemplate();
-    DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-    DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+    if(!GlobalStor.global.prohibitCopyingTemplate) {
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+    } else {
+      delete GlobalStor.global.prohibitCopyingTemplate;
+    }
   
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
@@ -4974,6 +4978,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
       if(GlobalStor.global.selectRoom === 0) {
+        GlobalStor.global.prohibitCopyingTemplate = 1;
         $location.path('/design');
         TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
         GlobalStor.global.selectRoom = 1;
@@ -10785,7 +10790,7 @@ function ErrorResult(code, message) {
     function selectSash(id, product) {
       var deferred = $q.defer();
       ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
-      var ids = DesignStor.design.sashShapeList[DesignStor.design.doorConfig.doorShapeIndex];
+      var ids = DesignStor.design.sashShapeList[id];
       var profileDepths = {
             frameDepth: null,
             frameStillDepth: null,
@@ -10921,22 +10926,52 @@ function ErrorResult(code, message) {
     }
 
     /**---------- Save Door Configuration --------*/
+    function checkGlassInTemplate(product) {
+      var templateSource = DesignStor.design.templateSourceTEMP.details;
+      var check = 0;
+      for(var x=0; x<templateSource.length; x+=1) {
+        for(var y=0; y<product.glass.length; y+=1) {
+          if(_.isEqual({id: templateSource[x].glassId, name: templateSource[x].glassTxt}, {id: product.glass[y].id, name: product.glass[y].sku})) {
+            check +=1;
+          }
+        }
+      }
+      console.log(check, 'check');
+      if(check === 0) {
+        console.log(check, 'check === 0');
+        DesignStor.design.doorConfig.glassDepProf = false;
+      }
+      if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === true) {
+        console.log('true')
+        MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product, 1);
+      } else if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === false) {
+        console.log('false')
+        MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
+      }
+    }
+
+
+
+
+
+
+
 
     function saveDoorConfig(product) {
       (product) ? product = product: product = ProductStor.product;
       var deferred = $q.defer();
+      checkGlassInTemplate(product);
       setNewDoorParamValue(product, DesignStor.design).then(function(res) {
-        product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-        SVGServ.createSVGTemplate(product.template_source, product.profileDepths).then(function(result) {
-          product.template = angular.copy(result);
+        SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, product.profileDepths).then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
           MainServ.preparePrice(
-            product.template,
+            DesignStor.design.templateTEMP,
             product.profile.id,
             product.glass,
             product.hardware.id,
             product.lamination.lamination_in_id
           ).then(function () {
-            SVGServ.createSVGTemplate(product.template_source, product.profileDepths).then(function(result) {
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, product.profileDepths).then(function(result) {
               deferred.resolve(1);
             });
           });
@@ -11074,10 +11109,25 @@ function ErrorResult(code, message) {
       selectSash(product.door_sash_shape_id, product).then(function(res) {
         selectHandle(product.door_handle_shape_id, product);
         selectLock(product.door_lock_shape_id, product);
-        saveDoorConfig(product).then(function(res2) {
-          deferred.resolve(product);
-          console.log(product);
-          rebuildSVGTemplate()
+        saveDoorConfig(product).then(function(res2) {  
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
+            DesignStor.design.templateTEMP = angular.copy(result);
+            DesignStor.design.templateTEMP.details.forEach(function(entry,index) {
+              if(entry.impost){
+                DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[0].x;
+                DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[1].x;
+                var tempProd = angular.copy(product);
+                tempProd.template_source = angular.copy(product.templateSourceTEMP);
+                tempProd.template = angular.copy(product.templateTEMP);
+                deferred.resolve(tempProd);
+              } else {
+                var tempProd = angular.copy(product);
+                tempProd.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+                tempProd.template = angular.copy(DesignStor.design.templateTEMP);
+                deferred.resolve(tempProd);
+              }         
+            });
+          });
         });
       });
       return deferred.promise;
@@ -13173,13 +13223,8 @@ function ErrorResult(code, message) {
               /** rebuild glasses */
               MainServ.setGlassfilter();
 
-              if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === true) {
-                MainServ.setCurrentGlass(ProductStor.product, 1);
-                console.log('true')
-              } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === false) {
-                MainServ.setCurrentGlass(ProductStor.product);
-                console.log('false')
-              } else if(ProductStor.product.construction_type !== 4) {
+
+              if(ProductStor.product.construction_type !== 4) {
                 MainServ.setCurrentGlass(ProductStor.product, 1);
                 console.log('window')
               }
@@ -21232,6 +21277,39 @@ function ErrorResult(code, message) {
       }
     }
 
+    function setCurrentGlassInTemplate(templateSourceTemp, product, id) {
+      //------- cleaning glass in product
+      product.glass.length = 0;
+      if(id) {
+        //----- get Glass Ids from template and check dublicates
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(templateSourceTemp)),
+            glassIdsQty = glassIds.length;
+        //------- glass filling by new elements
+        while(--glassIdsQty > -1) {
+          product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
+        }
+      } else {
+        //----- set default glass in ProductStor
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
+          } else {
+            return item.profileId === product.profile.id;
+
+          }
+        });
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+          GlobalStor.global.selectGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassName = product.glass[0].sku;
+          /** set Glass to all template blocks without children */
+          setGlassToTemplateBlocks(product.glass[0].glass_type, templateSourceTemp, product.glass[0].id, product.glass[0].sku);
+        }
+      }
+    }
+
     //for templateTemp  
     function setCurrentGlassForTemplate(templateSource, product) {
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
@@ -22554,6 +22632,7 @@ function ErrorResult(code, message) {
 
 
     thisFactory.publicObj = {
+      setCurrentGlassInTemplate: setCurrentGlassInTemplate,
       checkDependGlassTest:checkDependGlassTest,
       setGlassfilter: setGlassfilter,
       setGlassDefault: setGlassDefault,
@@ -28670,7 +28749,9 @@ function ErrorResult(code, message) {
           ProductStor.product.template_id = DesignStor.design.template_id;
           DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
-          DesignServ.setDoorConfigDefault(ProductStor.product);
+          DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
+            ProductStor.product = angular.copy(result);
+          });
         } 
       }  
     }

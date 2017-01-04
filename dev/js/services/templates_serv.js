@@ -74,7 +74,9 @@
           ProductStor.product.template_id = DesignStor.design.template_id;
           DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
-          DesignServ.setDoorConfigDefault(ProductStor.product);
+          DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
+            ProductStor.product = angular.copy(result);
+          });
         } 
       }  
     }

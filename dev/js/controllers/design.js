@@ -82,10 +82,14 @@
     //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
     //DesignServ.setDefaultTemplate();
-    DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-    DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+    if(!GlobalStor.global.prohibitCopyingTemplate) {
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+    } else {
+      delete GlobalStor.global.prohibitCopyingTemplate;
+    }
   
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){

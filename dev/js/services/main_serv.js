@@ -388,6 +388,39 @@
       }
     }
 
+    function setCurrentGlassInTemplate(templateSourceTemp, product, id) {
+      //------- cleaning glass in product
+      product.glass.length = 0;
+      if(id) {
+        //----- get Glass Ids from template and check dublicates
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(templateSourceTemp)),
+            glassIdsQty = glassIds.length;
+        //------- glass filling by new elements
+        while(--glassIdsQty > -1) {
+          product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
+        }
+      } else {
+        //----- set default glass in ProductStor
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
+          } else {
+            return item.profileId === product.profile.id;
+
+          }
+        });
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+          GlobalStor.global.selectGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassName = product.glass[0].sku;
+          /** set Glass to all template blocks without children */
+          setGlassToTemplateBlocks(product.glass[0].glass_type, templateSourceTemp, product.glass[0].id, product.glass[0].sku);
+        }
+      }
+    }
+
     //for templateTemp  
     function setCurrentGlassForTemplate(templateSource, product) {
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
@@ -1710,6 +1743,7 @@
 
 
     thisFactory.publicObj = {
+      setCurrentGlassInTemplate: setCurrentGlassInTemplate,
       checkDependGlassTest:checkDependGlassTest,
       setGlassfilter: setGlassfilter,
       setGlassDefault: setGlassDefault,

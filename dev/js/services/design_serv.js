@@ -958,7 +958,7 @@
     function selectSash(id, product) {
       var deferred = $q.defer();
       ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
-      var ids = DesignStor.design.sashShapeList[DesignStor.design.doorConfig.doorShapeIndex];
+      var ids = DesignStor.design.sashShapeList[id];
       var profileDepths = {
             frameDepth: null,
             frameStillDepth: null,
@@ -1094,22 +1094,52 @@
     }
 
     /**---------- Save Door Configuration --------*/
+    function checkGlassInTemplate(product) {
+      var templateSource = DesignStor.design.templateSourceTEMP.details;
+      var check = 0;
+      for(var x=0; x<templateSource.length; x+=1) {
+        for(var y=0; y<product.glass.length; y+=1) {
+          if(_.isEqual({id: templateSource[x].glassId, name: templateSource[x].glassTxt}, {id: product.glass[y].id, name: product.glass[y].sku})) {
+            check +=1;
+          }
+        }
+      }
+      console.log(check, 'check');
+      if(check === 0) {
+        console.log(check, 'check === 0');
+        DesignStor.design.doorConfig.glassDepProf = false;
+      }
+      if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === true) {
+        console.log('true')
+        MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product, 1);
+      } else if(product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === false) {
+        console.log('false')
+        MainServ.setCurrentGlassInTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
+      }
+    }
+
+
+
+
+
+
+
 
     function saveDoorConfig(product) {
       (product) ? product = product: product = ProductStor.product;
       var deferred = $q.defer();
+      checkGlassInTemplate(product);
       setNewDoorParamValue(product, DesignStor.design).then(function(res) {
-        product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-        SVGServ.createSVGTemplate(product.template_source, product.profileDepths).then(function(result) {
-          product.template = angular.copy(result);
+        SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, product.profileDepths).then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
           MainServ.preparePrice(
-            product.template,
+            DesignStor.design.templateTEMP,
             product.profile.id,
             product.glass,
             product.hardware.id,
             product.lamination.lamination_in_id
           ).then(function () {
-            SVGServ.createSVGTemplate(product.template_source, product.profileDepths).then(function(result) {
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, product.profileDepths).then(function(result) {
               deferred.resolve(1);
             });
           });
@@ -1247,10 +1277,25 @@
       selectSash(product.door_sash_shape_id, product).then(function(res) {
         selectHandle(product.door_handle_shape_id, product);
         selectLock(product.door_lock_shape_id, product);
-        saveDoorConfig(product).then(function(res2) {
-          deferred.resolve(product);
-          console.log(product);
-          rebuildSVGTemplate()
+        saveDoorConfig(product).then(function(res2) {  
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
+            DesignStor.design.templateTEMP = angular.copy(result);
+            DesignStor.design.templateTEMP.details.forEach(function(entry,index) {
+              if(entry.impost){
+                DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[0].x;
+                DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[1].x;
+                var tempProd = angular.copy(product);
+                tempProd.template_source = angular.copy(product.templateSourceTEMP);
+                tempProd.template = angular.copy(product.templateTEMP);
+                deferred.resolve(tempProd);
+              } else {
+                var tempProd = angular.copy(product);
+                tempProd.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+                tempProd.template = angular.copy(DesignStor.design.templateTEMP);
+                deferred.resolve(tempProd);
+              }         
+            });
+          });
         });
       });
       return deferred.promise;
@@ -3346,13 +3391,8 @@
               /** rebuild glasses */
               MainServ.setGlassfilter();
 
-              if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === true) {
-                MainServ.setCurrentGlass(ProductStor.product, 1);
-                console.log('true')
-              } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.glassDepProf === false) {
-                MainServ.setCurrentGlass(ProductStor.product);
-                console.log('false')
-              } else if(ProductStor.product.construction_type !== 4) {
+
+              if(ProductStor.product.construction_type !== 4) {
                 MainServ.setCurrentGlass(ProductStor.product, 1);
                 console.log('window')
               }
