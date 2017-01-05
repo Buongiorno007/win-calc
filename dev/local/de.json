@@ -120,6 +120,8 @@
     "SELECT_GLASS_WARN": "Klicken Sie auf die Verglasung zu ändern, Sie wollen"
   },
   "panels": {
+    "INFO_HINT":"Starten Sie die Berechnung durch die gewünschte Vorlage auswählen",
+
     "TEMPLATE_WINDOW": "Fenster",
     "TEMPLATE_BALCONY": "Altan",
     "TEMPLATE_DOOR": "Tür",
@@ -270,7 +272,13 @@
     "EXTRA_SASH": "Aktuelle Größe des Flügelfalzdichtung",
     "CHANGE_SIZE": "So speichern Design Größe ändern.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
-    "CALC_PRICE": "Berechnen Sie den Preis"
+    "CALC_PRICE": "Berechnen Sie den Preis",
+
+    "PROFILE_SYSTEM_SELECT":"Das Systemprofil",
+    "GLASS_SELECT":"Verglasung",
+    "GLASS_SELECT_BIG":"Verglasung",
+    "HARDWARE_SELECT":"Zubehör",
+    "LEFT_TEXT_SELECT":"wählen Sie, wenn Sie sparen"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Suche nach Stichwort",

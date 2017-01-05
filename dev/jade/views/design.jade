@@ -87,7 +87,17 @@ section.construction-page
       .construction-scrollbox
         svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.constants.svgTemplateWidth", template-height="designPage.constants.svgTemplateHeight", type-construction="designPage.constants.SVG_ID_EDIT")
 
-
+        .template-elem(ng-if="designPage.P.product.construction_type !== 4 && designPage.D.design.showHint == 1")
+          nobr.clicked(fs-click="designPage.selectProfileFast()") {{::designPage.PROFILE_SYSTEM_SELECT}}
+          |,
+          nobr.clicked(fs-click="designPage.selectGlassFast()")  {{::designPage.GLASS_SELECT}}
+          | &nbsp; {{::designPage.AND}}
+          nobr.clicked(fs-click="designPage.selectWindowsHardwareFast()",ng-if="designPage.G.global.isSashesInTemplate==1") {{::designPage.HARDWARE_SELECT}}
+          nobr(ng-if="designPage.G.global.isSashesInTemplate!==1") {{::designPage.HARDWARE_SELECT}}
+          | &nbsp; {{::designPage.LEFT_TEXT_SELECT}}
+        .template-elem(ng-if="designPage.P.product.construction_type == 4 && designPage.D.design.showHint == 1")
+          nobr.clicked(fs-click="designPage.selectGlassFast()") {{::designPage.GLASS_SELECT_BIG}}
+          | &nbsp; {{::designPage.LEFT_TEXT_SELECT}}
 
     .right-menu-header
       .nav-tool-box(ng-if="designPage.D.design.designSteps.length > 0")

@@ -730,3 +730,17 @@ $door-config-content: $ipad-height - $door-config-header;
     width: rem(160px);
   }
 }
+//* *//
+  .template-elem{
+    @include roboto-rg(2.5rem);
+width: 100%;
+    position: absolute;
+    top: 80%;
+
+  }
+.clicked{
+  color:blue;
+  text-decoration:underline;
+  cursor: pointer;
+
+}

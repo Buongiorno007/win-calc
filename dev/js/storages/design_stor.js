@@ -19,6 +19,7 @@
 
     thisFactory.publicObj = {
       designSource: {
+        showHint : 0,
         templateSourceTEMP: {},
         templateTEMP: {},
         designSteps: [],
