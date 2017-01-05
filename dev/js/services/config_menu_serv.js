@@ -51,7 +51,7 @@
             if (DesignStor.design.showHint >= 0){
             $timeout(function() {
               DesignStor.design.showHint = 1;
-            }, 5000);}
+            }, 90000);}
           } else {
             /** if Door */
             if(ProductStor.product.construction_type === 4) {
