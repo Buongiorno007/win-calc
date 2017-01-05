@@ -14,7 +14,9 @@
     GlobalStor,
     ProductStor,
     UserStor,
-    optionsServ
+    optionsServ,
+    DesignStor,
+    $timeout
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -34,7 +36,10 @@
 
     //---------- Room Select
     function selectRoom(id) {
-
+      if (DesignStor.design.showHint >= 0){
+        $timeout(function() {
+          DesignStor.design.showHint = 1;
+        }, 90000);}
       optionsServ.getTemplateImgIcons(function(results) {
         if (results.status) {
           GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function(data) {
