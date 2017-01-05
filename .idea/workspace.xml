@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="27971cc1-a398-4a02-bb6d-391c6c3f5ef3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/parts/_room-selector.jade" afterPath="$PROJECT_DIR$/dev/jade/views/parts/_room-selector.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" afterPath="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/design.jade" afterPath="$PROJECT_DIR$/dev/jade/views/design.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,11 +27,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gulpfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="564">
+              <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="design.jade" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dev/jade/views/design.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="89" column="106" lean-forward="false" selection-start-line="89" selection-start-column="98" selection-end-line="89" selection-end-column="106" />
+            <state relative-caret-position="428">
+              <caret line="96" column="17" lean-forward="false" selection-start-line="96" selection-start-column="17" selection-end-line="96" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -40,77 +51,7 @@
         <entry file="file://$PROJECT_DIR$/dev/js/services/config_menu_serv.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="112">
-              <caret line="53" column="17" lean-forward="false" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_room-selector.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_room-selector.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_rooms-selector.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="80" column="23" lean-forward="false" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="design_stor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/storages/design_stor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="design.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/controllers/design.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7624">
-              <caret line="516" column="42" lean-forward="false" selection-start-line="516" selection-start-column="42" selection-end-line="516" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="design_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="770" column="0" lean-forward="false" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="templates_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/templates_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="room_selector.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+              <caret line="53" column="16" lean-forward="false" selection-start-line="53" selection-start-column="15" selection-end-line="53" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -149,14 +90,14 @@
       <find>AND</find>
       <find>designSaved</find>
       <find>insertSash</find>
-      <find>selectNewTemplate</find>
       <find>showHint</find>
       <find>ng-show</find>
-      <find>DesignStor.design.show</find>
-      <find>saveSizeCheck</find>
       <find>RoomSelectorCtrl as rooms</find>
       <find>.info-hint</find>
       <find>selectRoom</find>
+      <find>DesignStor.design.show</find>
+      <find>saveSizeCheck</find>
+      <find>selectNewTemplate</find>
     </findStrings>
     <dirStrings>
       <dir>E:\bauvoiceapp</dir>
@@ -193,12 +134,13 @@
         <option value="$PROJECT_DIR$/dev/js/storages/design_stor.js" />
         <option value="$PROJECT_DIR$/dev/js/controllers/panels/templates.js" />
         <option value="$PROJECT_DIR$/dev/js/services/templates_serv.js" />
-        <option value="$PROJECT_DIR$/dev/jade/views/design.jade" />
         <option value="$PROJECT_DIR$/dev/js/services/design_serv.js" />
         <option value="$PROJECT_DIR$/dev/jade/views/parts/_room-selector.jade" />
         <option value="$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss" />
         <option value="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" />
+        <option value="$PROJECT_DIR$/dev/jade/views/design.jade" />
       </list>
     </option>
   </component>
@@ -262,6 +204,126 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="storages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jade" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -359,12 +421,12 @@
       <updated>1483433619525</updated>
       <workItem from="1483433623049" duration="8000" />
       <workItem from="1483434720426" duration="21982000" />
-      <workItem from="1483517644372" duration="39857000" />
+      <workItem from="1483517644372" duration="41544000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61847000" />
+    <option name="totallyTimeSpent" value="63534000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-320" width="1936" height="1066" extended-state="6" />
@@ -376,9 +438,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3129689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -632,22 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/ru.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="276" column="0" lean-forward="false" selection-start-line="276" selection-start-column="0" selection-end-line="280" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/uk.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="267" column="40" lean-forward="false" selection-start-line="267" selection-start-column="40" selection-end-line="273" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/local/de.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
@@ -696,18 +742,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/templates_serv.js">
+    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+        <state relative-caret-position="460">
+          <caret line="80" column="23" lean-forward="false" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/design.jade">
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_room-selector.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="89" column="106" lean-forward="false" selection-start-line="89" selection-start-column="98" selection-end-line="89" selection-end-column="106" />
+        <state relative-caret-position="17">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -736,18 +782,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_room-selector.jade">
+    <entry file="file://$PROJECT_DIR$/dev/js/services/templates_serv.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="80" column="23" lean-forward="false" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
+        <state relative-caret-position="206">
+          <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -760,10 +798,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="564">
+          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/ru.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="280" column="50" lean-forward="true" selection-start-line="280" selection-start-column="50" selection-end-line="280" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/local/uk.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="273" column="44" lean-forward="true" selection-start-line="273" selection-start-column="44" selection-end-line="273" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/design.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="96" column="17" lean-forward="false" selection-start-line="96" selection-start-column="17" selection-end-line="96" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/config_menu_serv.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
-          <caret line="53" column="17" lean-forward="false" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
+          <caret line="53" column="16" lean-forward="false" selection-start-line="53" selection-start-column="15" selection-end-line="53" selection-end-column="16" />
           <folding />
         </state>
       </provider>
