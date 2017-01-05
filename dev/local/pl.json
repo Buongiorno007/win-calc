@@ -110,6 +110,8 @@
     "SELECT_GLASS_WARN": "Kliknij na szybę zespoloną, którą chcesz zmienić"
   },
   "panels": {
+    "INFO_HINT":"Rozpocznij obliczenia wybierając żądany szablon",
+
     "TEMPLATE_WINDOW_HAND": "Wzory okien",
     "TEMPLATE_BALCONY_HAND": "Drzwi balkonowe",
     "TEMPLATE_DOOR_HAND": "Drzwi zewnętrzne",
@@ -266,7 +268,13 @@
     "EXTRA_SASH": "Biezący rozmiar skrzydla na wrębie",
     "CHANGE_SIZE": "Zmień rozmiar, aby zapisać konstrukcję.",
     "DOOR_ERROR": "Systemy drzwi wejściowych nie zostały ustawione",
-    "CALC_PRICE": "Oblicz cenę"
+    "CALC_PRICE": "Oblicz cenę",
+
+    "PROFILE_SYSTEM_SELECT":"System profili",
+    "GLASS_SELECT":"przeszklenia",
+    "GLASS_SELECT_BIG":"Przeszklenia",
+    "HARDWARE_SELECT":"akcesoria",
+    "LEFT_TEXT_SELECT":"wybrać po zapisaniu"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Wyszukiwanie według słów kluczowych",

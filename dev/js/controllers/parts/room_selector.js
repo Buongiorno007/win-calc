@@ -6,6 +6,7 @@
     .controller('RoomSelectorCtrl',
 
   function(
+    $filter,
     $location,
     globalConstants,
     MainServ,
@@ -27,6 +28,8 @@
 
 
 
+    /**============ translates ================*/
+    thisCtrl.INFO_HINT = $filter('translate')('panels.INFO_HINT');
     /**============ METHODS ================*/
 
     //---------- Room Select

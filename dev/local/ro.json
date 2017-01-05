@@ -119,6 +119,8 @@
     "SELECT_GLASS_WARN": "Faceți un clic pe termopanul, pe care doriți să-l modificați."
   },
   "panels": {
+    "INFO_HINT":"Lansați calculul prin selectarea șablonului dorit",
+
     "TEMPLATE_WINDOW": "Fereastră",
     "TEMPLATE_BALCONY": "Balcon",
     "TEMPLATE_DOOR": "Ușă",
@@ -268,7 +270,13 @@
     "EXTRA_SASH": "Dimensiunea curentă a canatului după falț ",
     "CHANGE_SIZE": "Pentru salvarea construcției modificați dimensiunile.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
-    "CALC_PRICE": "Se calculează prețul"
+    "CALC_PRICE": "Se calculează prețul",
+
+    "PROFILE_SYSTEM_SELECT":"Sistemul de profile",
+    "GLASS_SELECT":"geamuri termoizolante",
+    "GLASS_SELECT_BIG":"Geamuri termoizolante",
+    "HARDWARE_SELECT":"accesorii",
+    "LEFT_TEXT_SELECT":"pentru a alege atunci când salvați"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Căutare după cuvinte-cheie",

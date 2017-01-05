@@ -19,7 +19,8 @@
     ProductStor,
     DesignStor,
     UserStor,
-    InfoBoxServ
+    InfoBoxServ,
+    ConfigMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -71,58 +72,7 @@
 
     //------- Select menu item
 
-    function selectConfigPanel(id) {
-      MainServ.laminatFiltering();
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        AddElementMenuServ.finishCalculators();
-      }
-      //---- hide rooms if opened
-      GlobalStor.global.showRoomSelectorDialog = 0;
-      //---- hide tips
-      GlobalStor.global.configMenuTips = 0;
-      //---- hide comment if opened
-      GlobalStor.global.isShowCommentBlock = 0;
-      //---- hide template type menu if opened
-      GlobalStor.global.isTemplateTypeMenu = 0;
-      GeneralServ.stopStartProg();
-      MainServ.setDefaultAuxParam();
-      //------ close Glass Selector Dialogs
-      if(GlobalStor.global.showGlassSelectorDialog) {
-        DesignServ.closeGlassSelectorDialog(1);
-      }
 
-      if(id === 1) {
-        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
-        GlobalStor.global.activePanel = 0;
-        DesignStor.design.isGlassExtra = 0;
-        $location.path('/design');
-      } else {
-        /** if Door */
-        if(ProductStor.product.construction_type === 4) {
-          //--------- show only Glasses and AddElements
-          if(id === 3 || id === 6 || id === 5) {
-            GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
-          } else {
-            GlobalStor.global.activePanel = 0;
-            DesignStor.design.isGlassExtra = 0;
-            $location.path('/design');
-            //console.log('fix2')
-            DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
-              DesignStor.design.steps.isDoorConfig = 1;
-            })
-          }
-        } else {
-          GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
-        }
-      }
-      if(GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {
-        GlobalStor.global.setTimeout = 1;
-        $timeout(function() {
-          InfoBoxServ.autoShow(id);
-        }, 4000);
-      }
-    }
 
     function saveProduct() {
       GlobalStor.global.continued = 0;
@@ -204,11 +154,11 @@
 
     //------ clicking
     thisCtrl.autoShowInfoBox = InfoBoxServ.autoShowInfoBox;
-    thisCtrl.selectConfigPanel = selectConfigPanel;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
     thisCtrl.alert = alert;
     thisCtrl.checkForAddElem = checkForAddElem;
+    thisCtrl.selectConfigPanel = ConfigMenuServ.selectConfigPanel;
 
 
   });

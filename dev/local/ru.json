@@ -114,6 +114,8 @@
     "SELECT_GLASS_WARN": "Кликните на стеклопакет, который хотите изменить"
   },
   "panels": {
+    "INFO_HINT":"Начните расчёт с выбора необходимого шаблона",
+
     "TEMPLATE_WINDOW_HAND": "Шаблоны окна",
     "TEMPLATE_BALCONY_HAND": "Двери балконные",
     "TEMPLATE_DOOR_HAND": "Двери входные",
@@ -270,8 +272,13 @@
     "EXTRA_SASH": "Текущий размер створки по фальцу",
     "CHANGE_SIZE": "Для сохранения конструкции измените размеры.",
     "DOOR_ERROR": "Системы входных дверей не настроены",
-    "CALC_PRICE": "Рассчитать цену"
+    "CALC_PRICE": "Рассчитать цену",
 
+    "PROFILE_SYSTEM_SELECT":"Систему профиля",
+    "GLASS_SELECT":"стеклопакет",
+    "GLASS_SELECT_BIG":"Стеклопакет",
+    "HARDWARE_SELECT":"фурнитуру",
+    "LEFT_TEXT_SELECT":"выбирайте после сохранения"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Поиск по ключевым словам",
