@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="27971cc1-a398-4a02-bb6d-391c6c3f5ef3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/pages/design.scss" afterPath="$PROJECT_DIR$/dev/sass/pages/design.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/cart.jade" afterPath="$PROJECT_DIR$/dev/jade/views/cart.jade" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,6 +24,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="cart.jade" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="36" column="89" lean-forward="false" selection-start-line="36" selection-start-column="89" selection-end-line="36" selection-end-column="89" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gulpfile.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -46,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="design.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="design.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dev/sass/pages/design.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="738" column="20" lean-forward="false" selection-start-line="738" selection-start-column="20" selection-end-line="738" selection-end-column="20" />
+            <state relative-caret-position="556">
+              <caret line="733" column="16" lean-forward="true" selection-start-line="733" selection-start-column="2" selection-end-line="733" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -67,7 +75,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>translate</find>
       <find>mainpage</find>
       <find>construction-block</find>
       <find>construction-scrollbox</find>
@@ -97,13 +104,14 @@
       <find>OkResult</find>
       <find>updateCM</find>
       <find>.template-elem</find>
+      <find>order-item</find>
     </findStrings>
     <dirStrings>
       <dir>E:\bauvoiceapp</dir>
-      <dir>E:\bauvoiceapp\dev\jade</dir>
       <dir>E:\bauvoiceapp\dev</dir>
       <dir>E:\bauvoiceapp\dev\js</dir>
       <dir>E:\bauvoiceapp\dev\sass</dir>
+      <dir>E:\bauvoiceapp\dev\jade</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -141,6 +149,7 @@
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/dev/sass/pages/design.scss" />
+        <option value="$PROJECT_DIR$/dev/jade/views/cart.jade" />
       </list>
     </option>
   </component>
@@ -319,12 +328,12 @@
       <updated>1483433619525</updated>
       <workItem from="1483433623049" duration="8000" />
       <workItem from="1483434720426" duration="21982000" />
-      <workItem from="1483517644372" duration="43852000" />
+      <workItem from="1483517644372" duration="44757000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65842000" />
+    <option name="totallyTimeSpent" value="66747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-320" width="1936" height="1066" extended-state="6" />
@@ -396,14 +405,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="33" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4046">
-          <caret line="238" column="0" lean-forward="false" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -746,8 +747,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/sass/pages/design.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="738" column="20" lean-forward="false" selection-start-line="738" selection-start-column="20" selection-end-line="738" selection-end-column="20" />
+        <state relative-caret-position="556">
+          <caret line="733" column="16" lean-forward="true" selection-start-line="733" selection-start-column="2" selection-end-line="733" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="36" column="89" lean-forward="false" selection-start-line="36" selection-start-column="89" selection-end-line="36" selection-end-column="89" />
           <folding />
         </state>
       </provider>
