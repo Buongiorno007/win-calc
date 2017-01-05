@@ -39,7 +39,7 @@
       if (DesignStor.design.showHint >= 0){
         $timeout(function() {
           DesignStor.design.showHint = 1;
-        }, 90000);}
+        }, 5000);}
       optionsServ.getTemplateImgIcons(function(results) {
         if (results.status) {
           GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function(data) {
