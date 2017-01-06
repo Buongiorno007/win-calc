@@ -14315,7 +14315,7 @@ function ErrorResult(code, message) {
         var onlineMode;
 
         function getOnline() {
-          $.get("http://api.steko.com.ua", function (data) {
+          $.get('http://api.test.windowscalculator.net', function (data) {
             onlineMode = true;
             return true;
           })
@@ -18145,7 +18145,8 @@ function ErrorResult(code, message) {
     ) {
       if(currConsistElem) {
         var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1, tempS = 0, x=1.2;
-
+        console.log(currConsist, 'currConsist') //rounding_type rounding_value
+        console.log(currConsistElem, 'currConsistElem')
         //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
         //console.log('Название: ' + currConsistElem.name);
         //console.log('Цена: ' + currConsistElem.price);
@@ -18153,6 +18154,9 @@ function ErrorResult(code, message) {
         //console.log('Поправка на обрезку : ' + pruning);
         //console.log('Размер: ' + currSize + ' m');
         //console.log('parentValue: ' + parentValue);
+
+
+
 
         /** if glass */
         if (objTmp.element_group_id === 9) {
@@ -19019,7 +19023,7 @@ function ErrorResult(code, message) {
         var thisFactory = this;
         var onlineMode;
         var ISEXT = 0;
-        $.get("http://api.steko.com.ua", function (data) {
+        $.get('http://api.test.windowscalculator.net', function (data) {
           onlineMode = true;
           return true;
         })
@@ -20925,7 +20929,7 @@ function ErrorResult(code, message) {
     var thisFactory = this;
     /**============ METHODS ================*/
       var onlineMode;
-      $.get("http://api.steko.com.ua", function(data) {
+      $.get('http://api.test.windowscalculator.net', function(data) {
         onlineMode = true;
         return true;
       })

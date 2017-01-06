@@ -22,7 +22,7 @@
         var thisFactory = this;
         var onlineMode;
         var ISEXT = ISEXTFLAG;
-        $.get("http://api.steko.com.ua", function (data) {
+        $.get(SERVER_IP, function (data) {
           onlineMode = true;
           return true;
         })

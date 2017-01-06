@@ -2319,7 +2319,8 @@
     ) {
       if(currConsistElem) {
         var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1, tempS = 0, x=1.2;
-
+        console.log(currConsist, 'currConsist') //rounding_type rounding_value
+        console.log(currConsistElem, 'currConsistElem')
         //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
         //console.log('Название: ' + currConsistElem.name);
         //console.log('Цена: ' + currConsistElem.price);
@@ -2327,6 +2328,9 @@
         //console.log('Поправка на обрезку : ' + pruning);
         //console.log('Размер: ' + currSize + ' m');
         //console.log('parentValue: ' + parentValue);
+
+
+
 
         /** if glass */
         if (objTmp.element_group_id === 9) {
