@@ -9774,8 +9774,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.test.windowscalculator.net',
+      printIP: 'http://api.test.windowscalculator.net/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -16190,7 +16190,9 @@ function ErrorResult(code, message) {
             ' rules_type_id INTEGER,' +
             ' direction_id INTEGER,' +
             ' window_hardware_color_id INTEGER,' +
-            ' lamination_type_id INTEGER',
+            ' lamination_type_id INTEGER,' +
+            ' rounding_value NUMERIC,' +
+            ' rounding_type INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_types': {
@@ -16731,7 +16733,7 @@ function ErrorResult(code, message) {
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                //console.log('Error!!! ', error, tableKeys[t], colums, values);
+                console.log('Error!!! ', error, tableKeys[t], colums, values);
                 defer.resolve(0);
               });
 
