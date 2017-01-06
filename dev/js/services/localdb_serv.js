@@ -2318,8 +2318,8 @@
       parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel
     ) {
       if(currConsistElem) {
-        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1, tempS = 0, x=1.2;
-        console.log(currConsist, 'currConsist') //rounding_type rounding_value
+        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, roundVal = 0, qtyReal = 1, tempS = 0, x=1.2;
+        console.log(currConsist, 'currConsist')
         console.log(currConsistElem, 'currConsistElem')
         //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
         //console.log('Название: ' + currConsistElem.name);
@@ -2328,6 +2328,8 @@
         //console.log('Поправка на обрезку : ' + pruning);
         //console.log('Размер: ' + currSize + ' m');
         //console.log('parentValue: ' + parentValue);
+        console.log('Тип округления: ' + currConsist.rounding_type);
+        console.log('Величина округления: ' + currConsist.rounding_value);
 
 
 
@@ -2372,10 +2374,34 @@
             //console.log('Правило else:', currSize, ' + ', pruning, ' = ', (currSize + pruning), sizeReal);
             break;
         }
+        
+        if (sizeReal) {
+          roundVal = angular.copy(sizeReal);
+        } else {
+          roundVal = angular.copy(qtyReal);
+        }
+
+        switch (currConsist.rounding_type) {
+          case 1:
+            roundVal = Math.ceil(currSize/currConsist.rounding_value)*currConsist.rounding_value;
+            //console.log('Кратно заданному числу в большую сторону');
+            break;
+          case 2:
+            roundVal = Math.floor(currSize/currConsist.rounding_value)*currConsist.rounding_value;
+            //console.log('Кратно заданному числу в меньшую сторону');
+            break;
+          case 3:
+            roundVal = Math.round(currSize/currConsist.rounding_value)*currConsist.rounding_value;
+            //console.log('Кратно заданному числу согластно математическим правилам');
+            break;
+        }
+
 
         if (sizeReal) {
+          sizeReal = angular.copy(roundVal);
           priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
         } else {
+          qtyReal = angular.copy(roundVal);
           priceReal = qtyReal * currConsistElem.price * wasteValue;
         }
 
