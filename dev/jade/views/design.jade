@@ -92,8 +92,8 @@ section.construction-page
           |,&nbsp;
           nobr.clicked(fs-click="designPage.selectGlassFast()")  {{::designPage.GLASS_SELECT}}
           |&nbsp;{{::designPage.AND}}&nbsp;
-          nobr.clicked(fs-click="designPage.selectWindowsHardwareFast()",ng-if="designPage.G.global.isSashesInTemplate==1") {{::designPage.HARDWARE_SELECT}}
-          nobr(ng-if="designPage.G.global.isSashesInTemplate!==1") {{::designPage.HARDWARE_SELECT}}
+          nobr.clicked(fs-click="designPage.selectWindowsHardwareFast()",ng-if="designPage.G.global.isSashesInTemplate > 0") {{::designPage.HARDWARE_SELECT}}
+          nobr(ng-if="designPage.G.global.isSashesInTemplate == 0") {{::designPage.HARDWARE_SELECT}}
           |&nbsp;{{::designPage.LEFT_TEXT_SELECT}}
         .template-elem(ng-if="designPage.P.product.construction_type == 4 && designPage.D.design.showHint == 1")
           nobr.clicked(fs-click="designPage.selectGlassFast()") {{::designPage.GLASS_SELECT_BIG}}
