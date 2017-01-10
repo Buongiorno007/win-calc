@@ -46,6 +46,7 @@
         thisCtrl.factories = 0;
         GlobalStor.global.loader = 0;
         thisCtrl.onlineMode = 0;
+        thisCtrl.unexpectedError = 0;
 
 
         /** PING SERVER*/
@@ -85,7 +86,9 @@
         thisCtrl.OFFLINE_IMPORT = $filter('translate')('login.OFFLINE_IMPORT');
         thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')('login.AUTO_SYNCHRONIZE');
         thisCtrl.SYNCHRONIZE_INFO = $filter('translate')('login.SYNCHRONIZE_INFO');
+        thisCtrl.UNEXPECTED_ERROR = $filter('translate')('login.UNEXPECTED_ERROR');
         /** reload room img */
+
         //$("<img />").attr("src", "img/room/1.png");
         //$("<img />").attr("src", "img/room/33.gif");
         //$("<img />").attr("src", "img/room/333.gif");
@@ -559,9 +562,21 @@
           }
         });
 
+        // function enterForm(form) {
+        //   console.log("enter form");
+        //   var now = new Date();
+        //   var curdate = now.getFullYear()+now.getMonth()+now.getDate();
+        //   console.log(curdate);
+        //
+        //   // $(function() {
+        // //   $( ".dialog" ).dialog();
+        // // });
+        // }
+
         function enterForm(form) {
 
           var newUserPassword;
+
           //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
           //------ Trigger validation flag.
           thisCtrl.submitted = 1;

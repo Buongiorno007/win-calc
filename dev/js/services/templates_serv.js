@@ -164,6 +164,11 @@
             ProductStor.product = angular.copy(result);
             SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
               ProductStor.product.template = angular.copy(result);
+
+              console.log("ProductStor.product.template_source",ProductStor.product.template_source);
+              GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product.template_source);
+              console.log(GlobalStor.global.isSashesInTemplate);
+
               MainServ.setCurrentGlass(ProductStor.product);
               DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
                 //culcPriceNewTemplate(templateIndex);

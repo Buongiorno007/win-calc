@@ -60,7 +60,11 @@
     "SELECT_FACTORY": "Producent nie został wybrany",
     "USER_PASSWORD_ERROR": "Błędne hasło!",
     "OFFLINE": "Brak połączenia z Internetem!",
-    "IMPORT_DB": "Importowanie bazy danych zostało rozpoczęte! Prosimy poczekać!"
+    "IMPORT_DB": "Importowanie bazy danych zostało rozpoczęte! Prosimy poczekać!",
+    "AUTO_SYNCHRONIZE" : "Dane Autosynchronizacja podczas uruchamiania aplikacji",
+    "UNEXPECTED_ERROR" : "Niestety, coś poszło nie tak, spróbuj ponownie później",
+    "SYNCHRONIZE_INFO" : "Gdy dane z obsługą funkcji automatycznej synchronizacji, podczas uruchamiania aplikacji jest ładowany aktualne ceny, a także oszczędności przy zamówieniu serwera rekrutowanych wcześniej. Automatyczna synchronizacja tylko wtedy, gdy masz dostęp do internetu"
+
   },
   "natification": {
     "ASKING_PRICE": "Sprawdź ceny",
