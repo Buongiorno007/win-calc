@@ -18145,8 +18145,8 @@ function ErrorResult(code, message) {
     ) {
       if(currConsistElem) {
         var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, roundVal = 0, qtyReal = 1, tempS = 0, x=1.2;
-        console.log(currConsist, 'currConsist')
-        console.log(currConsistElem, 'currConsistElem')
+        //console.log(currConsist, 'currConsist')
+        //console.log(currConsistElem, 'currConsistElem')
         //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
         //console.log('Название: ' + currConsistElem.name);
         //console.log('Цена: ' + currConsistElem.price);
@@ -18154,8 +18154,8 @@ function ErrorResult(code, message) {
         //console.log('Поправка на обрезку : ' + pruning);
         //console.log('Размер: ' + currSize + ' m');
         //console.log('parentValue: ' + parentValue);
-        console.log('Тип округления: ' + currConsist.rounding_type);
-        console.log('Величина округления: ' + currConsist.rounding_value);
+        //console.log('Тип округления: ' + currConsist.rounding_type);
+        //console.log('Величина округления: ' + currConsist.rounding_value);
 
 
 
@@ -18651,52 +18651,77 @@ function ErrorResult(code, message) {
         getDoorElem(priceObj, handleData);
         (function nextRecord() {
             if (list.length) {
-              var kit = {},
-                  firstKit = list.shift(0),
+              var firstKit = list.shift(0),
                   firstKitId = 0;
                   firstKitId = firstKit;
-              selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
-                var element = result;
-                async.eachSeries(element,calculate, function (err, result) {
-                  nextRecord();
-                });
-                function calculate (element, _cb) {
-                  async.waterfall([
-                    function (_callback) {
-                      getElementByListId(0, element.parent_element_id).then(function(lockData) {
-                        if(firstKitId.count) {
-                          kit.value = firstKitId.count;
-                        } else {
-                          kit.value = firstKitId.value;                             
+                  var kit = {};
+            selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
+                console.log(result, 'result')
+                var listArr = [];
+                parseListContent(firstKitId.parent_element_id).then(function(result2) {
+                    if(result2 !== 0) {
+                      listArr = angular.copy(result2);
+                      for(var x=0; x<listArr.length; x+=1) {
+                        listArr[x].parent_element_id = listArr[x].child_id;
+                      }
+                      listArr = listArr.filter(function(item) {
+                        if(item.direction_id == 1 || item.direction_id == firstKitId.openDir) {
+                          return item
                         }
-                        getDoorElem(priceObj, lockData, kit);
                       });
-                      _callback(); 
                     }
-                  ], function (err, result) {
-                    if (err) {
-                      return _cb(err);
-                    }
-                    _cb(null);
+                    result = result.concat(listArr);
+
+                  var element = result;
+                  async.eachSeries(element,calculate, function (err, result) {
+                     nextRecord();
                   });
-                }
-             }); 
-            } else {
-              priceObj.consist = elements;
-              parseConsistElem([priceObj.consist]).then(function(consistElem) {
-                //console.warn('consistElem!!!!!!+', consistElem);
-                priceObj.consistElem = consistElem[0];
-                var elemsQty = priceObj.consist.length;
-                while(--elemsQty > -1) {
-                  getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
-                }
-                priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
-                //console.warn('!!!!!!+', priceObj);
-                deffMain.resolve(priceObj);
-              });
-            }
-          })();
-        });
+
+                  function calculate (element, _cb) {
+                    async.waterfall([
+                        function (_callback) {
+                          if(element.child_type === 'list') {
+                            list.push(element)
+                            _callback(); 
+                          } else {
+                              getElementByListId(0, element.parent_element_id).then(function(lockData) {
+                              if(firstKitId.count) {
+                                kit.value = firstKitId.count;
+                              } else {
+                                kit.value = firstKitId.value;                             
+                              }
+                                getDoorElem(priceObj, lockData, kit);
+                              });
+                              _callback(); 
+                            } 
+                        }
+                      ], function (err, result) {
+                        if (err) {
+                          return _cb(err);
+                        }
+                      _cb(null);
+                    });
+                  }
+                });
+            });
+          } else {
+            priceObj.consist = elements;
+            parseConsistElem([priceObj.consist]).then(function(consistElem) {
+              //console.warn('consistElem!!!!!!+', consistElem);
+              priceObj.consistElem = consistElem[0];
+              var elemsQty = priceObj.consist.length;
+              while(--elemsQty > -1) {
+                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+              }
+              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+              //console.warn('!!!!!!+', priceObj);
+              deffMain.resolve(priceObj);
+            });
+          }
+        })();
+
+      });
+
       return deffMain.promise;
     }
 
