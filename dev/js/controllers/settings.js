@@ -203,7 +203,7 @@
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
 
       $location.path('/login');
-    }z
+    }
 
 
 

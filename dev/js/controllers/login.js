@@ -580,28 +580,10 @@
         localforage.getItem("FirstIn", function (err, value) {
           if (value !== "true") {
             $("#updateDBcheck").prop("checked", true);
+
           }
         });
 
-        function enterForm(form) {
-          var a = [301, 201, 101];
-          var b = [70, 80, 90];
-          var c = [20, "11", 0];
-          console.log("enter form");
-          var settInfo = SettingServ.getSettingFullInfo();
-          var temp = SettingServ.getSettingTempInfo(settInfo);
-          var checkdevice = a[1] + "" + b[0] + "" + c[1];
-          console.log(temp);
-          console.log(checkdevice);
-          if (temp >= checkdevice) {
-            thisCtrl.unexpectedError = 1;
-          }
-
-
-          // $(function() {
-          //   $( ".dialog" ).dialog();
-          // });
-        }
         function enterForm(form) {
           console.log(new Date());
           var a = [301, 201, 101];
