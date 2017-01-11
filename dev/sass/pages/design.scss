@@ -732,10 +732,10 @@ $door-config-content: $ipad-height - $door-config-header;
 }
 //* *//
   .template-elem{
-    @include roboto-rg(2.5rem);
+    @include roboto-rg(1.9rem);
     width: 100%;
     position: absolute;
-    top: 80%;
+    top: 81%;
     margin-top:2rem;
   }
 .clicked{
