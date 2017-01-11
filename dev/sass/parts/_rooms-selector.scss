@@ -80,7 +80,7 @@
     margin-top:1.9rem;
     margin-bottom:1rem;
     text-align: center;
-    @include roboto-bd(3.1rem, 3.5rem);
+    @include roboto-rg(3.1rem, 3.5rem);
     color: $main_orange;
   }
 }
