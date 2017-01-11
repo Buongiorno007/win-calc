@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="27971cc1-a398-4a02-bb6d-391c6c3f5ef3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" afterPath="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_loader.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_loader.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/login.js" afterPath="$PROJECT_DIR$/dev/js/controllers/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/settings.js" afterPath="$PROJECT_DIR$/dev/js/controllers/settings.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,31 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/controllers/login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="130" column="4" lean-forward="false" selection-start-line="130" selection-start-column="7" selection-end-line="131" selection-end-column="22" />
+            <state relative-caret-position="310">
+              <caret line="501" column="36" lean-forward="false" selection-start-line="501" selection-start-column="36" selection-end-line="501" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_slider.jade" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_slider.jade">
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dev/js/controllers/settings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="71" lean-forward="false" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_loader.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/sass/parts/_loader.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+            <state relative-caret-position="298">
+              <caret line="205" column="5" lean-forward="false" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -67,7 +56,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>attantion</find>
       <find>enterF</find>
       <find>isRegistration</find>
       <find>unexpectedError</find>
@@ -94,16 +82,17 @@
       <find>необ</find>
       <find>template-elem</find>
       <find>slider</find>
-      <find>start</find>
       <find>startSlider</find>
       <find>loader</find>
+      <find>function logOut() {</find>
+      <find>start</find>
     </findStrings>
     <dirStrings>
       <dir>E:\bauvoiceapp</dir>
       <dir>E:\bauvoiceapp\dev</dir>
-      <dir>E:\bauvoiceapp\dev\js</dir>
       <dir>E:\bauvoiceapp\dev\jade</dir>
       <dir>E:\bauvoiceapp\dev\sass</dir>
+      <dir>E:\bauvoiceapp\dev\js</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -138,16 +127,16 @@
         <option value="$PROJECT_DIR$/dev/js/services/templates_serv.js" />
         <option value="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" />
         <option value="$PROJECT_DIR$/dev/jade/views/design.jade" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/settings.js" />
         <option value="$PROJECT_DIR$/dev/js/services/settings_serv.js" />
         <option value="$PROJECT_DIR$/dev/local/ru.json" />
         <option value="$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss" />
         <option value="$PROJECT_DIR$/dev/sass/pages/design.scss" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/login.js" />
         <option value="$PROJECT_DIR$/dev/sass/parts/_slider.scss" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/dev/sass/parts/_loader.scss" />
         <option value="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" />
+        <option value="$PROJECT_DIR$/dev/js/controllers/login.js" />
+        <option value="$PROJECT_DIR$/dev/js/controllers/settings.js" />
       </list>
     </option>
   </component>
@@ -214,6 +203,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -318,12 +347,12 @@
       <workItem from="1483434720426" duration="21982000" />
       <workItem from="1483517644372" duration="69092000" />
       <workItem from="1484061440996" duration="3798000" />
-      <workItem from="1484122482194" duration="4208000" />
+      <workItem from="1484122482194" duration="5023000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99088000" />
+    <option name="totallyTimeSpent" value="99903000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-320" width="1936" height="1066" extended-state="0" />
@@ -570,13 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="205" column="6" lean-forward="false" selection-start-line="205" selection-start-column="6" selection-end-line="205" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/settings_serv.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="71">
@@ -612,14 +634,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
           <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -677,14 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="130" column="4" lean-forward="false" selection-start-line="130" selection-start-column="7" selection-end-line="131" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/sass/parts/_loader.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -697,6 +703,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="71" lean-forward="false" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="130" column="4" lean-forward="false" selection-start-line="130" selection-start-column="7" selection-end-line="131" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/controllers/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="501" column="36" lean-forward="false" selection-start-line="501" selection-start-column="36" selection-end-line="501" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/controllers/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="205" column="5" lean-forward="false" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
           <folding />
         </state>
       </provider>
