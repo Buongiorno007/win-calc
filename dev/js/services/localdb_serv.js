@@ -2377,20 +2377,22 @@
         
         if (sizeReal) {
           roundVal = angular.copy(sizeReal);
+          tempS = angular.copy(roundVal);
         } else {
           roundVal = angular.copy(qtyReal);
+          tempS = angular.copy(roundVal);
         }
         switch (currConsist.rounding_type) {
           case 1:
-            roundVal = Math.ceil(currSize/currConsist.rounding_value)*currConsist.rounding_value;
-            //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', currSize, 'кратное число', currConsist.rounding_value);
+            roundVal = Math.ceil(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+            //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', tempS, 'кратное число', currConsist.rounding_value);
             break;
           case 2:
-            roundVal = Math.floor(currSize/currConsist.rounding_value)*currConsist.rounding_value;
+            roundVal = Math.floor(tempS/currConsist.rounding_value)*currConsist.rounding_value;
             //console.log('Кратно заданному числу в меньшую сторону');
             break;
           case 3:
-            roundVal = Math.round(currSize/currConsist.rounding_value)*currConsist.rounding_value;
+            roundVal = Math.round(tempS/currConsist.rounding_value)*currConsist.rounding_value;
             //console.log('Кратно заданному числу согластно математическим правилам');
             break;
         }

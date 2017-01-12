@@ -2346,7 +2346,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     }
 
 
-    console.log(ProductStor.product, 'product')
+
     /**================ EDIT PRODUCT =================*/
     if (GlobalStor.global.productEditNumber && !ProductStor.product.is_addelem_only) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
@@ -9915,8 +9915,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.test.windowscalculator.net',
+      printIP: 'http://api.test.windowscalculator.net/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -14305,8 +14305,7 @@ function ErrorResult(code, message) {
     $filter,
     $q,
     GlobalStor,
-    DesignServ,
-    ProductStor
+    DesignServ
 
   ) {
     /*jshint validthis:true */
@@ -14316,7 +14315,6 @@ function ErrorResult(code, message) {
     /**============ METHODS ================*/
     
     function selectGlass(newId, newName, type) {
-      console.log(ProductStor.product, 'ProductStor');
       GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
       GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
@@ -14461,7 +14459,7 @@ function ErrorResult(code, message) {
         var onlineMode;
 
         function getOnline() {
-          $.get('http://api.steko.com.ua', function (data) {
+          $.get('http://api.test.windowscalculator.net', function (data) {
             onlineMode = true;
             return true;
           })
@@ -15242,7 +15240,6 @@ function ErrorResult(code, message) {
                     if (products.construction_type === 4) {
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
-                        console.log(res, 'resr')
                         OrderStor.order.products.push(res);
                         _callback();
                       });
@@ -18351,20 +18348,22 @@ function ErrorResult(code, message) {
         
         if (sizeReal) {
           roundVal = angular.copy(sizeReal);
+          tempS = angular.copy(roundVal);
         } else {
           roundVal = angular.copy(qtyReal);
+          tempS = angular.copy(roundVal);
         }
         switch (currConsist.rounding_type) {
           case 1:
-            roundVal = Math.ceil(currSize/currConsist.rounding_value)*currConsist.rounding_value;
-            //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', currSize, 'кратное число', currConsist.rounding_value);
+            roundVal = Math.ceil(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+            //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', tempS, 'кратное число', currConsist.rounding_value);
             break;
           case 2:
-            roundVal = Math.floor(currSize/currConsist.rounding_value)*currConsist.rounding_value;
+            roundVal = Math.floor(tempS/currConsist.rounding_value)*currConsist.rounding_value;
             //console.log('Кратно заданному числу в меньшую сторону');
             break;
           case 3:
-            roundVal = Math.round(currSize/currConsist.rounding_value)*currConsist.rounding_value;
+            roundVal = Math.round(tempS/currConsist.rounding_value)*currConsist.rounding_value;
             //console.log('Кратно заданному числу согластно математическим правилам');
             break;
         }
@@ -19275,7 +19274,7 @@ function ErrorResult(code, message) {
         var thisFactory = this;
         var onlineMode;
         var ISEXT = 0;
-        $.get('http://api.steko.com.ua', function (data) {
+        $.get('http://api.test.windowscalculator.net', function (data) {
           onlineMode = true;
           return true;
         })
@@ -21181,7 +21180,7 @@ function ErrorResult(code, message) {
     var thisFactory = this;
     /**============ METHODS ================*/
       var onlineMode;
-      $.get('http://api.steko.com.ua', function(data) {
+      $.get('http://api.test.windowscalculator.net', function(data) {
         onlineMode = true;
         return true;
       })
