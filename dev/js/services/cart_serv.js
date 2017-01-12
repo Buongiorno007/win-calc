@@ -140,6 +140,13 @@
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
       //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
+        if(OrderStor.order.products[productIndex].lamination.id > 0) {
+          OrderStor.order.products[productIndex].profile.impost_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.impost_list_id);
+          OrderStor.order.products[productIndex].profile.rama_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_list_id);
+          OrderStor.order.products[productIndex].profile.rama_still_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_still_list_id);
+          OrderStor.order.products[productIndex].profile.shtulp_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.shtulp_list_id);
+          OrderStor.order.products[productIndex].profile.stvorka_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.stvorka_list_id);
+        }
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
         GlobalStor.global.productEditNumber = ProductStor.product.product_id;
         GlobalStor.global.isCreatedNewProduct = 1;

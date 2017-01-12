@@ -2346,7 +2346,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     }
 
 
-
+    console.log(ProductStor.product, 'product')
     /**================ EDIT PRODUCT =================*/
     if (GlobalStor.global.productEditNumber && !ProductStor.product.is_addelem_only) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
@@ -9580,6 +9580,13 @@ function ErrorResult(code, message) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
       //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
+        if(OrderStor.order.products[productIndex].lamination.id > 0) {
+          OrderStor.order.products[productIndex].profile.impost_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.impost_list_id);
+          OrderStor.order.products[productIndex].profile.rama_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_list_id);
+          OrderStor.order.products[productIndex].profile.rama_still_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_still_list_id);
+          OrderStor.order.products[productIndex].profile.shtulp_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.shtulp_list_id);
+          OrderStor.order.products[productIndex].profile.stvorka_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.stvorka_list_id);
+        }
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
         GlobalStor.global.productEditNumber = ProductStor.product.product_id;
         GlobalStor.global.isCreatedNewProduct = 1;
@@ -9908,8 +9915,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.test.windowscalculator.net',
-      printIP: 'http://api.test.windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -14298,7 +14305,8 @@ function ErrorResult(code, message) {
     $filter,
     $q,
     GlobalStor,
-    DesignServ
+    DesignServ,
+    ProductStor
 
   ) {
     /*jshint validthis:true */
@@ -14308,6 +14316,7 @@ function ErrorResult(code, message) {
     /**============ METHODS ================*/
     
     function selectGlass(newId, newName, type) {
+      console.log(ProductStor.product, 'ProductStor');
       GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
       GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
@@ -14452,7 +14461,7 @@ function ErrorResult(code, message) {
         var onlineMode;
 
         function getOnline() {
-          $.get('http://api.test.windowscalculator.net', function (data) {
+          $.get('http://api.steko.com.ua', function (data) {
             onlineMode = true;
             return true;
           })
@@ -15213,7 +15222,7 @@ function ErrorResult(code, message) {
           delete OrderStor.order.modified;
 
           //------ Download All Products of edited Order
-          downloadProducts().then(function () {
+          downloadProducts().then(function (result1) {
             var products = angular.copy(OrderStor.order.products);
             OrderStor.order.products = [];
             async.eachSeries(products, calculate, function (err, result) {
@@ -15233,10 +15242,12 @@ function ErrorResult(code, message) {
                     if (products.construction_type === 4) {
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                        console.log(res, 'resr')
                         OrderStor.order.products.push(res);
                         _callback();
                       });
                     } else {
+                      OrderStor.order.products.push(products);
                       _callback();
                     }
                   }
@@ -18603,7 +18614,6 @@ function ErrorResult(code, message) {
 
 
 
-
     function culcConsistPrice(priceObj, construction) {
       var groupQty = priceObj.consist.length,
           group;
@@ -19265,7 +19275,7 @@ function ErrorResult(code, message) {
         var thisFactory = this;
         var onlineMode;
         var ISEXT = 0;
-        $.get('http://api.test.windowscalculator.net', function (data) {
+        $.get('http://api.steko.com.ua', function (data) {
           onlineMode = true;
           return true;
         })
@@ -21171,7 +21181,7 @@ function ErrorResult(code, message) {
     var thisFactory = this;
     /**============ METHODS ================*/
       var onlineMode;
-      $.get('http://api.test.windowscalculator.net', function(data) {
+      $.get('http://api.steko.com.ua', function(data) {
         onlineMode = true;
         return true;
       })

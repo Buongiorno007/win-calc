@@ -793,7 +793,7 @@
           delete OrderStor.order.modified;
 
           //------ Download All Products of edited Order
-          downloadProducts().then(function () {
+          downloadProducts().then(function (result1) {
             var products = angular.copy(OrderStor.order.products);
             OrderStor.order.products = [];
             async.eachSeries(products, calculate, function (err, result) {
@@ -817,6 +817,7 @@
                         _callback();
                       });
                     } else {
+                      OrderStor.order.products.push(products);
                       _callback();
                     }
                   }
