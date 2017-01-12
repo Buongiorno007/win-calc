@@ -2384,7 +2384,7 @@
         switch (currConsist.rounding_type) {
           case 1:
             roundVal = Math.ceil(currSize/currConsist.rounding_value)*currConsist.rounding_value;
-            //console.log('Кратно заданному числу в большую сторону');
+            //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', currSize, 'кратное число', currConsist.rounding_value);
             break;
           case 2:
             roundVal = Math.floor(currSize/currConsist.rounding_value)*currConsist.rounding_value;
@@ -2829,9 +2829,10 @@
                   firstKitId = 0;
                   firstKitId = firstKit;
                   var kit = {};
+                  var roundVal = null;
             selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
-                console.log(result, 'result')
                 var listArr = [];
+                //var pruning = result[0].amendment_pruning;
                 parseListContent(firstKitId.parent_element_id).then(function(result2) {
                     if(result2 !== 0) {
                       listArr = angular.copy(result2);
@@ -2848,6 +2849,7 @@
 
                   var element = result;
                   async.eachSeries(element,calculate, function (err, result) {
+                    console.log('done', err, result)
                      nextRecord();
                   });
 
@@ -2858,15 +2860,68 @@
                             list.push(element)
                             _callback(); 
                           } else {
-                              getElementByListId(0, element.parent_element_id).then(function(lockData) {
-                              if(firstKitId.count) {
-                                kit.value = firstKitId.count;
-                              } else {
-                                kit.value = firstKitId.value;                             
-                              }
-                                getDoorElem(priceObj, lockData, kit);
-                              });
-                              _callback(); 
+                              getElementByListId(0, element.parent_element_id).then(function(resultElem) {
+                                if(firstKitId.count) {
+                                  if(element.value) {
+                                    kit.value = firstKitId.count*element.value;
+                                  } else {
+                                    kit.value = firstKitId.count;  
+                                  }
+                                } else {
+                                  kit.value = firstKitId.value*element.value;                             
+                                }
+                                roundVal = angular.copy(kit.value);
+                                
+                                // switch (element.rules_type_id) {
+                                //   case 1:
+                                //   case 21:
+                                //   case 22:
+                                //     roundVal = GeneralServ.roundingValue((firstKitId.count + pruning - element.value), 3);
+                                //     console.log('Правило 1: меньше родителя на ', firstKitId.count, ' + ', pruning, ' - ', element.value, ' = ', (firstKitId.count + pruning - element.value), firstKitId.count);
+                                //     break;
+                                //   case 3:
+                                //     roundVal = (firstKitId.count + pruning) * element.value;
+                                //     console.log('Правило 3 : (', firstKitId.count, ' + ', pruning, ') *', element.value, ' = ', firstKitId.count, ' шт. на метр родителя');
+                                //     break;
+                                //   case 5:
+                                //     roundVal = element.value;
+                                //     console.log('Правило 5 : (', element.value, ') = ', firstKitId.count, ' шт. на 1 метр2 родителя');
+                                //     break;
+                                //   case 6:
+                                //   case 23:
+                                //     roundVal = (firstKitId.count + pruning) * element.value;
+                                //     console.log('Правило 23 : (', firstKitId.count, ' + ', pruning, ') *', element.value, ' = ', (firstKitId.count + pruning) * element.value, firstKitId.count, ' kg. на метр родителя');
+                                //     break;
+                                //   case 2:
+                                //   case 4:
+                                //   case 15:
+                                //     roundVal = firstKitId.count * element.value;
+                                //     console.log('Правило 2: ',  firstKitId.count, ' * ', element.value, ' = ', firstKitId.count * element.value, ' шт. на родителя');
+                                //     break;
+                                //   default:
+                                //     roundVal = GeneralServ.roundingValue((firstKitId.count + pruning), 3);
+                                //     console.log('Правило else:', firstKitId.count, ' + ', pruning, ' = ', (firstKitId.count + pruning), firstKitId.count);
+                                //     break;
+                                // }
+
+                                switch (element.rounding_type) {
+                                  case 1:
+                                    kit.value = Math.ceil(roundVal/element.rounding_value)*element.rounding_value;
+                                    //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', roundVal, 'кратное число', element.rounding_value);
+                                    break;
+                                  case 2:
+                                    kit.value = Math.floor(roundVal/element.rounding_value)*element.rounding_value;
+                                    //console.log('Кратно заданному числу в меньшую сторону');
+                                    break;
+                                  case 3:
+                                    kit.value = Math.round(roundVal/element.rounding_value)*element.rounding_value;
+                                    //console.log('Кратно заданному числу согластно математическим правилам');
+                                    break;
+                                }
+
+                                getDoorElem(priceObj, resultElem, kit);
+                                _callback(); 
+                              });    
                             } 
                         }
                       ], function (err, result) {
