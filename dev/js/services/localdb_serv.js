@@ -2640,7 +2640,6 @@
 
 
 
-
     function culcConsistPrice(priceObj, construction) {
       var groupQty = priceObj.consist.length,
           group;
