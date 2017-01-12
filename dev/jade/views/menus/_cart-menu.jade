@@ -1,7 +1,7 @@
 .right-menu-controller(ng-controller="CartMenuCtrl as cartMenu")
   .cart-menu
     ul.items-list
-      li.item.add-prod(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}",fs-click="cartPage.addNewProductInOrder()")
+      li.add-prod(fs-click="cartPage.addNewProductInOrder()")
         .prod-btn {{ ::cartPage.ADD_ORDER }}
         img.prod-img(ng-src='img/add-img.png')
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
@@ -89,7 +89,6 @@
         price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
       button.order-btn(fs-click="cartMenu.openOrderDialog()") {{ ::cartMenu.ORDER }}
       button.measure-btn(fs-click="cartMenu.openMasterDialog()") {{ ::cartMenu.MEASURE }}
-
   .old-price-inst-tab(ng-class="{'active': cartMenu.O.order.is_old_price && cartMenu.O.order.is_instalment}")
     .name {{ ::cartMenu.FIRST_PAYMENT_LABEL }} {{ cartMenu.O.order.selectedInstalmentPercent }} %
     .name {{ ::cartMenu.DATE_DELIVERY_LABEL }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}

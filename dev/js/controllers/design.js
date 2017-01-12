@@ -14,7 +14,7 @@
     ProductStor,
     MainServ,
     DesignStor,
-    localDB
+    ConfigMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this,
@@ -75,6 +75,16 @@
     thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
     thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
     thisCtrl.CALC_PRICE = $filter('translate')('design.CALC_PRICE');
+
+
+    thisCtrl.PROFILE_SYSTEM_SELECT = $filter('translate')('design.PROFILE_SYSTEM_SELECT');
+    thisCtrl.GLASS_SELECT = $filter('translate')('design.GLASS_SELECT');
+    thisCtrl.GLASS_SELECT_BIG = $filter('translate')('design.GLASS_SELECT_BIG');
+    thisCtrl.HARDWARE_SELECT = $filter('translate')('design.HARDWARE_SELECT');
+    thisCtrl.LEFT_TEXT_SELECT = $filter('translate')('design.LEFT_TEXT_SELECT');
+
+    thisCtrl.AND = $filter('translate')('common_words.AND');
+
 
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);
@@ -137,31 +147,36 @@
       var isPermit = 1,
           glassQty = DesignStor.design.selectedGlass.length,
           i;
-
+      GlobalStor.global.isChangedTemplate = 1;
       if(sashType === 1) {
         deactivMenu();
+        GlobalStor.global.isSashesInTemplate = 0;
         //----- delete sash
         for(i = 0; i < glassQty; i+=1) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
       } else {
+
         if(sashType === 2 || sashType === 6 || sashType === 8) {
           if(DesignStor.design.isDropSubMenu === sashType) {
             DesignStor.design.isDropSubMenu = 0;
           } else {
             DesignStor.design.isDropSubMenu = sashType;
             isPermit = 0;
-          }
+             }
         }
 
         if(isPermit) {
           deactivMenu();
+          GlobalStor.global.isSashesInTemplate = 1;
           //----- insert sash
           for (i = 0; i < glassQty; i+=1) { //TODO download hardare types and create submenu
             DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
           }
+
         }
       }
+
     }
 
 
@@ -294,7 +309,7 @@
       var isPermit = 1,
           impostsQty = DesignStor.design.selectedImpost.length,
           i;
-
+    GlobalStor.global.isChangedTemplate = 1;
       if(impostType === 1) {
         deactivMenu();
         /** delete imposts */
@@ -356,6 +371,7 @@
     /**++++++++++ position by Axises ++++++++*/
 
     function positionAxis() {
+      GlobalStor.global.isChangedTemplate = 1;
       deactivMenu();
       DesignServ.positionAxises();
     }
@@ -364,6 +380,7 @@
     /**++++++++++ position by Glasses ++++++++*/
 
     function positionGlass() {
+      GlobalStor.global.isChangedTemplate = 1;
       deactivMenu();
       DesignServ.positionGlasses();
     }
@@ -463,6 +480,32 @@
       }
     }
 
+    function selectProfileFast(){
+      console.log("профиля");
+      DesignServ.saveSizeCheck();
+      $timeout(function() {
+        ConfigMenuServ.selectConfigPanel(2);
+      }, 2000);
+    }
+
+    function selectWindowsHardwareFast(){
+      console.log("фурнитура");
+      DesignServ.saveSizeCheck();
+      $timeout(function() {
+        ConfigMenuServ.selectConfigPanel(4);
+      }, 2000);
+
+    }
+
+    function selectGlassFast(){
+      console.log("стеклопакет");
+      DesignServ.saveSizeCheck();
+      $timeout(function() {
+        ConfigMenuServ.selectConfigPanel(3);
+      }, 2000);
+
+
+    }
 
     /**----------- close Attantion dialog ----------*/
 
@@ -504,5 +547,8 @@
 
     thisCtrl.stepBack = DesignServ.stepBack;
     thisCtrl.closeAttantion = closeAttantion;
+    thisCtrl.selectGlassFast = selectGlassFast;
+    thisCtrl.selectProfileFast = selectProfileFast;
+    thisCtrl.selectWindowsHardwareFast = selectWindowsHardwareFast;
   });
 })();

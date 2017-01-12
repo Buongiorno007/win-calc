@@ -77,6 +77,7 @@
     "OFFLINE_IMPORT":"Non c'è connessione con l'Internet!",
     "IMPORT_DB": "Il carico di Database ha cominciato! Aspetti, per favore!",
     "AUTO_SYNCHRONIZE" : "Dati Sincronizzazione automatica all'avvio dell'applicazione",
+    "UNEXPECTED_ERROR" : "Siamo spiacenti, qualcosa è andato storto, riprova più tardi",
     "SYNCHRONIZE_INFO" : "Quando i dati funzioni abilitate la sincronizzazione automatica, durante l'avvio dell'applicazione viene caricato prezzi correnti, così come il risparmio sugli ordini del server reclutati in precedenza. Sincronizzazione automatica solo se si ha accesso a Internet"
 
   },
@@ -120,6 +121,8 @@
     "SELECT_GLASS_WARN": "Clicca sul vetro, che si desidera modificare"
   },
   "panels": {
+    "INFO_HINT":"Inizia il calcolo selezionando il modello desiderato",
+
     "TEMPLATE_WINDOW": "Finestra",
     "TEMPLATE_BALCONY": "Balcone",
     "TEMPLATE_DOOR": "Porta",
@@ -269,7 +272,13 @@
     "EXTRA_SASH": "dimensione attuale dello sconto foglia",
     "CHANGE_SIZE": "Per salvare la progettazione di ridimensionamento.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
-    "CALC_PRICE": "Сalcolare il prezzo"
+    "CALC_PRICE": "Сalcolare il prezzo",
+
+    "PROFILE_SYSTEM_SELECT":"Il sistema di profili",
+    "GLASS_SELECT":"vetri",
+    "GLASS_SELECT_BIG":"Vetri",
+    "HARDWARE_SELECT":"accessori",
+    "LEFT_TEXT_SELECT":"scegliere quando si salva"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Ricerca per parole chiave",

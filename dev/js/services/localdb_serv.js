@@ -2380,7 +2380,6 @@
         } else {
           roundVal = angular.copy(qtyReal);
         }
-
         switch (currConsist.rounding_type) {
           case 1:
             roundVal = Math.ceil(currSize/currConsist.rounding_value)*currConsist.rounding_value;

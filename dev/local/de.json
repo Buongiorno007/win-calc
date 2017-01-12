@@ -77,6 +77,7 @@
     "OFFLINE_IMPORT":"Keine Verbindung zum Internet!",
     "IMPORT_DB": "Databases JETZT HERUNTERLADEN! Warten Sie mal!",
     "AUTO_SYNCHRONIZE" : "Auto-Sync-Daten, wenn die Anwendung hat gestartet",
+    "UNEXPECTED_ERROR" : "Sorry, etwas schief gelaufen ist, bitte versuchen Sie es später noch einmal",
     "SYNCHRONIZE_INFO" : "Wenn diese Funktion aktiviert Funktionen Auto-Sync-Daten, beim Start der Anwendung wird der Strompreise belastet, sowie die Einsparung von früher rekrutiert Server Aufträge. Auto-Sync nur, wenn Sie Zugang zum Internet haben"
 
   },
@@ -120,6 +121,8 @@
     "SELECT_GLASS_WARN": "Klicken Sie auf die Verglasung zu ändern, Sie wollen"
   },
   "panels": {
+    "INFO_HINT":"Starten Sie die Berechnung durch die gewünschte Vorlage auswählen",
+
     "TEMPLATE_WINDOW": "Fenster",
     "TEMPLATE_BALCONY": "Altan",
     "TEMPLATE_DOOR": "Tür",
@@ -270,7 +273,13 @@
     "EXTRA_SASH": "Aktuelle Größe des Flügelfalzdichtung",
     "CHANGE_SIZE": "So speichern Design Größe ändern.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
-    "CALC_PRICE": "Berechnen Sie den Preis"
+    "CALC_PRICE": "Berechnen Sie den Preis",
+
+    "PROFILE_SYSTEM_SELECT":"Das Systemprofil",
+    "GLASS_SELECT":"Verglasung",
+    "GLASS_SELECT_BIG":"Verglasung",
+    "HARDWARE_SELECT":"Zubehör",
+    "LEFT_TEXT_SELECT":"wählen Sie, wenn Sie sparen"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Suche nach Stichwort",

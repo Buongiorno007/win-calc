@@ -74,4 +74,13 @@
     @include roboto-bd(2.3rem, 3.5rem);
     float: right;
   }
+  padding-top: 0.5rem;
+  .info-hint{
+    width: 100%;
+    margin-top:1.9rem;
+    margin-bottom:1rem;
+    text-align: center;
+    @include roboto-rg(3.1rem, 3.5rem);
+    color: $main_orange;
+  }
 }

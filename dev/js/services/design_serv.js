@@ -767,6 +767,7 @@
       GlobalStor.global.isNavMenu = 0;
       GlobalStor.global.isConfigMenu = 1;
       GlobalStor.global.isLoader = 0;
+      //DesignStor.design.showHint = -1;
       $location.path('/main');
     }
 
@@ -3343,6 +3344,7 @@
         ProductStor.product.doorLock = {};
         designSaved();
       }
+
     }
 
 
@@ -3432,6 +3434,7 @@
                       ProductStor.product.template = angular.copy(result);
 
                     GlobalStor.global.isChangedTemplate = 1;
+
                     backtoTemplatePanel();
                   });
                 });
