@@ -602,10 +602,8 @@
           }
         });
 
-        console.log(new Date());
-
         function enterForm(form) {
-          console.log(GlobalStor.global.loadDate);
+          //console.log(GlobalStor.global.loadDate);
           var a = [301, 201, 101];
           var b = [73, 83, 93];
           var c = [0, 1, 3];
@@ -626,21 +624,12 @@
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
                 loader();
-
-
                 //------ check Internet
                 //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
                 //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
                 if (thisCtrl.isOnline) {
-                  ////TODO for Steko
-                  //======== IMPORT
-                  //console.log('IMPORT');
-
                   if ($("#updateDBcheck").prop("checked")) {
                     if (onlineMode && navigator.onLine) {
-
-                      GlobalStor.global.isLoader = 1;
-                      GlobalStor.global.startSlider = 1;
                       HistoryServ.synchronizeOrders().then(function () {
                         GlobalStor.global.isLoader = 1;
                         GlobalStor.global.startSlider = 1;
@@ -670,7 +659,6 @@
                               if (newUserPassword === data[0].password) {
                                 //----- checking user activation
                                 if (data[0].locked) {
-                                  console.log('second');
                                   startSlider();
                                   angular.extend(UserStor.userInfo, data[0]);
                                   //------- set User Location
@@ -784,7 +772,10 @@
               }
               else {
                 GlobalStor.global.loadDate = new Date();
-                enterFormSubmit();
+                GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
+                loader();
+                checkingUser();
               }
               //noinspection JSAnnotator
               function getAlert() {

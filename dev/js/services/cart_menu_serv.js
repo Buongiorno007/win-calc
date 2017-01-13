@@ -231,6 +231,7 @@
           OrderStor.order.mountingName = '';
           OrderStor.order.mounting_price = 0;
           OrderStor.order.mounting_user_id = 0;
+          OrderStor.order.mounting_id = 0;
         }
         calculateTotalOrderPrice();
       }

@@ -1504,7 +1504,7 @@
         orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
         orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
         orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
-        orderData.app_load_date = GlobalStor.global.loadDate;
+        orderData.sync_date = GlobalStor.global.loadDate;
         if (GlobalStor.global.ISEXT){
           orderData.app_version = "offline";
         } else {
@@ -1687,7 +1687,7 @@
                 };
 
 
-                //console.log('SEND ADD',addElementsData);
+                console.log('SEND ADD',addElementsData);
                 if(orderType) {
                   localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                   localDB.insertServer(
