@@ -293,6 +293,7 @@
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
             if (result.status) {
               var userTemp = angular.copy(result.user);
+
               startSlider();
               //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
               //---------- check user password
