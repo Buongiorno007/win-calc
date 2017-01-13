@@ -300,6 +300,11 @@
       GlobalStor.global.alertTitle = title || '';
       GlobalStor.global.alertDescr = descript || '';
     }
+    function syncAlert(descript, callback) {
+      GlobalStor.global.isSyncAlert = 1;
+      GlobalStor.global.alertDescr = descript || '';
+      GlobalStor.global.confirmAction = callback;
+    }
     function isErrorProd(title) {
       GlobalStor.global.isErrorProd = 1;
       GlobalStor.global.isErrorProdTitle = title || '';
@@ -334,7 +339,8 @@
       confirmAlert: confirmAlert,
       goToLink: goToLink,
       confirmPath: confirmPath,
-      infoAlert: infoAlert
+      infoAlert: infoAlert,
+      syncAlert: syncAlert
     };
 
     return thisFactory.publicObj;

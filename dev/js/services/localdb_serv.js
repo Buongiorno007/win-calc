@@ -472,6 +472,9 @@
             ' products_price NUMERIC,'+
 
             ' delivery_date TIMESTAMP,' +
+            ' app_load_date TIMESTAMP,' +
+            ' app_version VARCHAR,' +
+
             ' new_delivery_date TIMESTAMP,' +
             ' delivery_price NUMERIC,'+
             ' is_date_price_less INTEGER,' +
@@ -522,7 +525,7 @@
             ' customer_age INTEGER,' +
             ' customer_education INTEGER,' +
             ' customer_occupation INTEGER,' +
-            ' customer_infoSource INTEGER', 
+            ' customer_infoSource INTEGER',
             'foreignKey': ''
           },
           'order_products': {
@@ -1137,7 +1140,7 @@
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          //console.log('send changes to server success:', result);
+          console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {

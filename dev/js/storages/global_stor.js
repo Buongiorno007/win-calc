@@ -18,6 +18,8 @@
     thisFactory.publicObj = {
 
       globalSource: {
+        ISEXT : ISEXTFLAG,
+        loadDate : 0,
         showCurrentTemp : 0,
         getPCPower: 0,
         isDevice: 0,
@@ -148,6 +150,7 @@
         //----- Alert
         isAlert: 0,
         isAlertInfo: 0,
+        isSyncAlert :0,
         alertTitle: '',
         alertDescr: '',
         isBox: 0,

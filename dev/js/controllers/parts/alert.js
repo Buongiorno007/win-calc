@@ -20,20 +20,39 @@
 
     function clickYes() {
       GlobalStor.global.isAlert = 0;
+      GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.confirmAction();
     }
-
     function clickCopy() {
       GlobalStor.global.isAlert = 0;
+      GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.confirmInActivity();
     }
     function isAlert() {
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isBox = 0;
     }
+
+    function syncNow() {
+      console.log("sync");
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.isSyncAlert = 0;
+      GlobalStor.global.confirmAction();
+      $("#updateDBcheck").prop("checked", true);
+    }
+
+    function noSync() {
+      console.log("no sync");
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.isSyncAlert = 0;
+      GlobalStor.global.confirmAction();
+      $("#updateDBcheck").prop("checked", false);
+    }
     /**========== FINISH ==========*/
     thisCtrl.isAlert = isAlert;
     thisCtrl.clickYes = clickYes;
     thisCtrl.clickCopy = clickCopy;
+    thisCtrl.syncNow = syncNow;
+    thisCtrl.noSync = noSync;
   });
 })();

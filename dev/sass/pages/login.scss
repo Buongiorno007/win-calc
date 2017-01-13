@@ -7,6 +7,10 @@ $img_logo: 'login/logo.png';
   height: 100%;
   background: image-url('login/login-bg.jpg') no-repeat;
   background-size: cover;
+
+  #no-visible{
+    display: none;
+  }
 }
 
 .login-container {

@@ -78,6 +78,8 @@
     "IMPORT_DB": "Il carico di Database ha cominciato! Aspetti, per favore!",
     "AUTO_SYNCHRONIZE" : "Dati Sincronizzazione automatica all'avvio dell'applicazione",
     "UNEXPECTED_ERROR" : "Siamo spiacenti, qualcosa è andato storto, riprova più tardi",
+    "SYNC_INFO_P1" : "I dati nell'applicazione sono sincronizzati ",
+    "SYNC_INFO_P2" : "Aggiornare ora?",
     "SYNCHRONIZE_INFO" : "Quando i dati funzioni abilitate la sincronizzazione automatica, durante l'avvio dell'applicazione viene caricato prezzi correnti, così come il risparmio sugli ordini del server reclutati in precedenza. Sincronizzazione automatica solo se si ha accesso a Internet"
 
   },
