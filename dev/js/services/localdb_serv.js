@@ -2154,7 +2154,7 @@
             var temp = angular.copy(priceObj);
             var storeSize = angular.copy(_.where(_.compact(_.flatten(temp)), {child_id:constrElem.id})); 
             if(storeSize[0] && storeSize[0].length) {
-              constrElem.size = angular.copy(storeSize[0].length); 
+              constrElem.size = angular.copy(storeSize[0].length/1000); 
               qtyTemp = kits.count;
               priceTemp = qtyTemp * constrElem.price * waste * (constrElem.size/1000);
             } else {
