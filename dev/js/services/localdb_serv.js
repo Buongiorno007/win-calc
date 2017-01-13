@@ -2156,7 +2156,7 @@
             if(storeSize[0] && storeSize[0].length) {
               constrElem.size = angular.copy(storeSize[0].length/1000); 
               qtyTemp = kits.count;
-              priceTemp = qtyTemp * constrElem.price * waste * (constrElem.size/1000);
+              priceTemp = qtyTemp * constrElem.price * waste * (constrElem.size);
             } else {
               qtyTemp = kits.count;
               priceTemp = qtyTemp * constrElem.price * waste;
