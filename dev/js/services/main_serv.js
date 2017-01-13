@@ -1504,6 +1504,13 @@
         orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
         orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
         orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
+        orderData.app_load_date = GlobalStor.global.loadDate;
+        if (GlobalStor.global.ISEXT){
+          orderData.app_version = "offline";
+        } else {
+          orderData.app_version = "online";
+        }
+
         //----- rates %
         orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
         orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;

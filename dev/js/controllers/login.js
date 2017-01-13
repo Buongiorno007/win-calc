@@ -16,7 +16,9 @@
                 GlobalStor,
                 ProductStor,
                 UserStor,
-                SettingServ) {
+                SettingServ,
+                HistoryServ,
+                GeneralServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.G = GlobalStor;
@@ -85,6 +87,8 @@
         thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')('login.AUTO_SYNCHRONIZE');
         thisCtrl.SYNCHRONIZE_INFO = $filter('translate')('login.SYNCHRONIZE_INFO');
         thisCtrl.UNEXPECTED_ERROR = $filter('translate')('login.UNEXPECTED_ERROR');
+        thisCtrl.SYNC_INFO_P1 = $filter('translate')('login.SYNC_INFO_P1');
+        thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
         /** reload room img */
 
         //$("<img />").attr("src", "img/room/1.png");
@@ -285,12 +289,10 @@
 
 
         function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {
-          });
+          localforage.setItem("FirstIn", "true", function (err, value) {  });
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
             if (result.status) {
               var userTemp = angular.copy(result.user);
-              console.log('first');
               startSlider();
               //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
               //---------- check user password
@@ -298,7 +300,6 @@
               if (newUserPassword === userTemp.password) {
                 importDBProsses(userTemp);
                 GlobalStor.global.startSlider = 1;
-
               } else {
                 GlobalStor.global.isLoader = 0;
                 GlobalStor.global.startSlider = 0;
@@ -311,7 +312,6 @@
               //---- user not exists
               thisCtrl.isUserNotExist = 1;
             }
-
           });
         }
 
@@ -563,6 +563,14 @@
           }
         }
 
+        function formatDate(date) {
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          if (month < 10) month = "0" + month;
+          var day = date.getDate();
+          if (day < 10) day = "0" + day;
+          return "\n" + year + "-" + month + "-" + day + "\n";
+        }
 
         if (window.location.hash.length > 10) {
           loader()
@@ -576,173 +584,220 @@
             UserStor.userInfo.device_code = value;
           });
         }
+        $(".i").hide();
         var FirstIn = "true";
         localforage.getItem("FirstIn", function (err, value) {
           if (value !== "true") {
             $("#updateDBcheck").prop("checked", true);
-
+            GlobalStor.global.loadDate = new Date();
+            localforage.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
+            });
+            /** **/
+          } else {
+            $(".i").show();
+            localforage.getItem("loadDate", function (err, value) {
+              GlobalStor.global.loadDate = new Date(value);
+            });
           }
         });
 
+        console.log(new Date());
+
         function enterForm(form) {
-          console.log(new Date());
+          console.log(GlobalStor.global.loadDate);
           var a = [301, 201, 101];
           var b = [73, 83, 93];
           var c = [0, 1, 3];
-          console.log("enter form");
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
           var checkdevice = a[1] + "" + b[0] + "" + c[1];
-          console.log(temp);
-          console.log(checkdevice);
           if (temp >= checkdevice) {
             thisCtrl.unexpectedError = 1;
           } else {
             var newUserPassword;
-
             //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
             //------ Trigger validation flag.
             thisCtrl.submitted = 1;
             if (form.$valid) {
-              GlobalStor.global.isLoader = 1;
-              GlobalStor.global.startSlider = 1;
-              loader();
+
+              //noinspection JSAnnotator
+              function enterFormSubmit() {
+                GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
+                loader();
 
 
-              //------ check Internet
-              //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-              //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
-              if (thisCtrl.isOnline) {
-                ////TODO for Steko
-                //======== IMPORT
-                //console.log('IMPORT');
+                //------ check Internet
+                //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+                //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
+                if (thisCtrl.isOnline) {
+                  ////TODO for Steko
+                  //======== IMPORT
+                  //console.log('IMPORT');
 
-                if ($("#updateDBcheck").prop("checked")) {
-                  if (onlineMode && navigator.onLine) {
+                  if ($("#updateDBcheck").prop("checked")) {
+                    if (onlineMode && navigator.onLine) {
 
-                    GlobalStor.global.isLoader = 1;
-                    GlobalStor.global.startSlider = 1;
-                    HistoryServ.synchronizeOrders().then(function () {
                       GlobalStor.global.isLoader = 1;
                       GlobalStor.global.startSlider = 1;
-                      checkingUser();
-                    });
-                    //checkingUser();
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    GlobalStor.global.startSlider = 0;
-                    thisCtrl.isOfflineImport = 1;
+                      HistoryServ.synchronizeOrders().then(function () {
+                        GlobalStor.global.isLoader = 1;
+                        GlobalStor.global.startSlider = 1;
+                        checkingUser();
+                      });
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      GlobalStor.global.startSlider = 0;
+                      thisCtrl.isOfflineImport = 1;
+                    }
                   }
-                }
-                else {
-                  //------- check available Local DB
-                  //for offline work
-                  loginServ.isLocalDBExist().then(function (data) {
-                    thisCtrl.isLocalDB = data;
-                    if (thisCtrl.isLocalDB) {
-                      //======== SYNC
-                      console.log('SYNC');
-                      //---- checking user in LocalDB
-                      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-                        .then(function (data) {
-                          //---- user exists
-                          if (data.length) {
-                            //---------- check user password
-                            newUserPassword = localDB.md5(thisCtrl.user.password);
-                            if (newUserPassword === data[0].password) {
-                              //----- checking user activation
-                              if (data[0].locked) {
-                                console.log('second');
-                                startSlider();
-                                angular.extend(UserStor.userInfo, data[0]);
-                                //------- set User Location
-                                loginServ.prepareLocationToUse().then(function () {
-                                  checkingFactory();
-                                });
+                  else {
+                    //------- check available Local DB
+                    //for offline work
+                    loginServ.isLocalDBExist().then(function (data) {
+                      thisCtrl.isLocalDB = data;
+                      if (thisCtrl.isLocalDB) {
+                        //======== SYNC
+                        console.log('SYNC');
+                        //---- checking user in LocalDB
+                        localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                          .then(function (data) {
+                            //---- user exists
+                            if (data.length) {
+                              //---------- check user password
+                              newUserPassword = localDB.md5(thisCtrl.user.password);
+                              if (newUserPassword === data[0].password) {
+                                //----- checking user activation
+                                if (data[0].locked) {
+                                  console.log('second');
+                                  startSlider();
+                                  angular.extend(UserStor.userInfo, data[0]);
+                                  //------- set User Location
+                                  loginServ.prepareLocationToUse().then(function () {
+                                    checkingFactory();
+                                  });
 
+                                } else {
+                                  GlobalStor.global.startSlider = 0;
+                                  GlobalStor.global.isLoader = 0;
+                                  //---- show attantion
+                                  thisCtrl.isUserNotActive = 1;
+                                }
                               } else {
-                                GlobalStor.global.startSlider = 0;
                                 GlobalStor.global.isLoader = 0;
-                                //---- show attantion
-                                thisCtrl.isUserNotActive = 1;
+                                GlobalStor.global.startSlider = 0;
+                                //---- user not exists
+                                thisCtrl.isUserPasswordError = 1;
                               }
                             } else {
-                              GlobalStor.global.isLoader = 0;
-                              GlobalStor.global.startSlider = 0;
-                              //---- user not exists
-                              thisCtrl.isUserPasswordError = 1;
+                              //======== IMPORT
+                              console.log('Sync IMPORT');
+                              checkingUser();
                             }
-                          } else {
-                            //======== IMPORT
-                            console.log('Sync IMPORT');
-                            checkingUser();
-                          }
-                        });
-                    } else {
-                      //======== IMPORT
-                      console.log('IMPORT');
-                      checkingUser();
-                    }
-                  });
-                }
+                          });
+                      } else {
+                        //======== IMPORT
+                        console.log('IMPORT');
+                        checkingUser();
+                      }
+                    });
+                  }
 
 
-                //-------- check LocalDB
-              } else if (thisCtrl.isLocalDB) {
-                console.log('OFFLINE');
-                //---- checking user in LocalDB
-                localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-                  .then(function (data) {
-                    //---- user exists
-                    if (data.length) {
-                      //---------- check user password
-                      var newUserPassword = localDB.md5(thisCtrl.user.password);
-                      if (newUserPassword === data[0].password) {
-                        //----- checking user activation
-                        if (data[0].locked) {
-                          //------- checking user FactoryId
-                          if (data[0].factory_id > 0) {
-                            angular.extend(UserStor.userInfo, data[0]);
-                            //------- set User Location
-                            loginServ.prepareLocationToUse().then(function () {
-                              loginServ.setUserLocation();
-                              /** download all data */
-                              loginServ.downloadAllData().then(function () {
-                                startProgramm();
+                  //-------- check LocalDB
+                } else if (thisCtrl.isLocalDB) {
+                  console.log('OFFLINE');
+                  //---- checking user in LocalDB
+                  localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                    .then(function (data) {
+                      //---- user exists
+                      if (data.length) {
+                        //---------- check user password
+                        var newUserPassword = localDB.md5(thisCtrl.user.password);
+                        if (newUserPassword === data[0].password) {
+                          //----- checking user activation
+                          if (data[0].locked) {
+                            //------- checking user FactoryId
+                            if (data[0].factory_id > 0) {
+                              angular.extend(UserStor.userInfo, data[0]);
+                              //------- set User Location
+                              loginServ.prepareLocationToUse().then(function () {
+                                loginServ.setUserLocation();
+                                /** download all data */
+                                loginServ.downloadAllData().then(function () {
+                                  startProgramm();
+                                });
                               });
-                            });
+                            } else {
+                              GlobalStor.global.startSlider = 0;
+                              GlobalStor.global.isLoader = 0;
+                              thisCtrl.isOffline = 1;
+                            }
                           } else {
                             GlobalStor.global.startSlider = 0;
                             GlobalStor.global.isLoader = 0;
-                            thisCtrl.isOffline = 1;
+                            //---- show attantion
+                            thisCtrl.isUserNotActive = 1;
                           }
                         } else {
                           GlobalStor.global.startSlider = 0;
                           GlobalStor.global.isLoader = 0;
-                          //---- show attantion
-                          thisCtrl.isUserNotActive = 1;
+                          //---- user not exists
+                          thisCtrl.isUserPasswordError = 1;
                         }
                       } else {
                         GlobalStor.global.startSlider = 0;
                         GlobalStor.global.isLoader = 0;
                         //---- user not exists
-                        thisCtrl.isUserPasswordError = 1;
+                        thisCtrl.isUserNotExist = 1;
+                      }
+                    });
+
+                } else {
+                  GlobalStor.global.startSlider = 0;
+                  GlobalStor.global.isLoader = 0;
+                  thisCtrl.isOffline = 1;
+                }
+              }
+
+              if (GlobalStor.global.ISEXT) {
+                if (!$("#updateDBcheck").prop("checked")) {
+                  var curDate = new Date();
+                  if (curDate.getFullYear() == GlobalStor.global.loadDate.getFullYear()) {
+                    if (curDate.getMonth() == GlobalStor.global.loadDate.getMonth()) {
+                      if (curDate.getDate() > GlobalStor.global.loadDate.getDate()) {
+                        getAlert();
+                      } else {
+                        enterFormSubmit();
                       }
                     } else {
-                      GlobalStor.global.startSlider = 0;
-                      GlobalStor.global.isLoader = 0;
-                      //---- user not exists
-                      thisCtrl.isUserNotExist = 1;
+                      getAlert();
                     }
-                  });
 
-              } else {
-                GlobalStor.global.startSlider = 0;
-                GlobalStor.global.isLoader = 0;
-                thisCtrl.isOffline = 1;
+                  } else {
+                    getAlert();
+                  }
+                } else {
+                  enterFormSubmit();
+                }
+              }
+              else {
+                GlobalStor.global.loadDate = new Date();
+                enterFormSubmit();
+              }
+              //noinspection JSAnnotator
+              function getAlert() {
+                GeneralServ.syncAlert(
+                  thisCtrl.SYNC_INFO_P1 + formatDate(GlobalStor.global.loadDate) + thisCtrl.SYNC_INFO_P2,
+                  enterFormSubmit
+                );
+                GeneralServ.confirmPath(
+                  enterFormSubmit
+                );
               }
             }
           }
+
         }
 
 //********************

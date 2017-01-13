@@ -20,5 +20,13 @@
       .thisAlert
        section.cart-page
       button.alert-info(fs-click="alertBox.G.global.isAlertInfo = 0", ng-show="alertBox.G.global.isAlertInfo") {{ ::alertBox.OK }}
-      
+.alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isSyncAlert")
+  .alert-block
+    .alert-descr {{ alertBox.G.global.alertDescr }}
+    .alert-btns
+      .thisAlert
+        section.loginPage
+      button.alert-info(fs-click="alertBox.noSync()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_N }}
+      button.alert-yes(fs-click="alertBox.syncNow()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_Y }}
+
 
