@@ -472,7 +472,7 @@
             ' products_price NUMERIC,'+
 
             ' delivery_date TIMESTAMP,' +
-            ' app_load_date TIMESTAMP,' +
+            ' sync_date TIMESTAMP,' +
             ' app_version VARCHAR,' +
 
             ' new_delivery_date TIMESTAMP,' +
@@ -1140,7 +1140,7 @@
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {
