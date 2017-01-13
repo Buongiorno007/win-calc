@@ -18122,8 +18122,16 @@ function ErrorResult(code, message) {
             }
             /** hardware */
           } else if (group === 7) {
-            qtyTemp = kits.count;
-            priceTemp = qtyTemp * constrElem.price * waste;
+            var temp = angular.copy(priceObj);
+            var storeSize = angular.copy(_.where(_.compact(_.flatten(temp)), {child_id:constrElem.id})); 
+            if(storeSize[0] && storeSize[0].length) {
+              constrElem.size = angular.copy(storeSize[0].length); 
+              qtyTemp = kits.count;
+              priceTemp = qtyTemp * constrElem.price * waste * (constrElem.size/1000);
+            } else {
+              qtyTemp = kits.count;
+              priceTemp = qtyTemp * constrElem.price * waste;
+            }
           } else {
             sizeTemp = (sizes[siz] + kits.amendment_pruning);
             priceTemp = (sizeTemp * constrElem.price) * waste;
@@ -18135,11 +18143,14 @@ function ErrorResult(code, message) {
               priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
             }
             constrElem.qty = angular.copy(qtyTemp);
-            constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
+            if(constrElem.size <= 0) {
+              console.log('size == 0');
+              constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);            
+            }
             constrElem.sizeLabel = sizeLabelTemp;
             constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
             priceObj.priceTotal += priceTemp;
-            //          console.warn(constrElem);
+            console.warn(constrElem);
             constrElements.push(constrElem);
           }
         }
@@ -18353,19 +18364,21 @@ function ErrorResult(code, message) {
           roundVal = angular.copy(qtyReal);
           tempS = angular.copy(roundVal);
         }
-        switch (currConsist.rounding_type) {
-          case 1:
-            roundVal = Math.ceil(tempS/currConsist.rounding_value)*currConsist.rounding_value;
-            //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', tempS, 'кратное число', currConsist.rounding_value);
-            break;
-          case 2:
-            roundVal = Math.floor(tempS/currConsist.rounding_value)*currConsist.rounding_value;
-            //console.log('Кратно заданному числу в меньшую сторону');
-            break;
-          case 3:
-            roundVal = Math.round(tempS/currConsist.rounding_value)*currConsist.rounding_value;
-            //console.log('Кратно заданному числу согластно математическим правилам');
-            break;
+        if(currConsist.rounding_type>0 && currConsist.rounding_value>0) {
+          switch (currConsist.rounding_type) {
+            case 1:
+              roundVal = Math.ceil(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+              //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', tempS, 'кратное число', currConsist.rounding_value);
+              break;
+            case 2:
+              roundVal = Math.floor(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+              //console.log('Кратно заданному числу в меньшую сторону');
+              break;
+            case 3:
+              roundVal = Math.round(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+              //console.log('Кратно заданному числу согластно математическим правилам');
+              break;
+          }
         }
 
 
@@ -18718,19 +18731,20 @@ function ErrorResult(code, message) {
           finishPriceObj = {};
       //console.info('START+++', construction);
 
-      parseMainKit(construction).then(function(kits) {
-        //console.warn('kits!!!!!!+', kits);
+      parseMainKit(construction).then(function(kits){
+        //console.warn('kits!!!!!!+', kits);              
+        //console.warn(_.where(_.compact(_.flatten(kits)), {child_id:409784}), 'kits'); 
         priceObj.kits = kits;
-
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
           //console.warn('consist!!!!!!+', consist);
+          //console.warn(_.where(_.compact(_.flatten(consist)), {id:409784}), 'consist'); 
           priceObj.consist = consist;
-
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-            //console.warn('kitsElem!!!!!!+', kitsElem);
-            priceObj.kitsElem = kitsElem;
 
+            //console.warn('kitsElem!!!!!!+', kitsElem);
+            //console.warn(_.where(_.compact(_.flatten(kitsElem)), {child_id:409784}), 'kitsElem'); 
+            priceObj.kitsElem = kitsElem;
             parseConsistElem(priceObj.consist).then(function(consistElem){
               //console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
