@@ -26,6 +26,7 @@
   ) {
     /*jshint validthis:true */
    var thisCtrl = this;
+    console.log("!!!!!");
 
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
