@@ -17,6 +17,7 @@ console.log("!!!!!");
 console.log("isDevice",isDevice);
   window.onload = function () {
     if (!isDevice) {
+
       location.hash = "#/";
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
@@ -1405,6 +1406,9 @@ console.log("isDevice",isDevice);
         //$("<img />").attr("src", "img/room/333.gif");
 
         function preloadImages(array) {
+          localDB.cleanLocalDB(localDB.tablesLocalDB).then(function (data) {
+            console.log("cleanLocalDB");
+          });
           if (!preloadImages.list) {
             preloadImages.list = [];
           }
@@ -1789,6 +1793,7 @@ console.log("isDevice",isDevice);
 
 
           if (url.access) {
+            console.log("url.access");
 
             while (accessQty > -1) {
               accessQty -= 1;
@@ -1806,12 +1811,15 @@ console.log("isDevice",isDevice);
                 checkingUser();
               }
             } else {
-              localDB.importUser(url.access, 1).then(function (result) {
-                var userTemp = angular.copy(result.user);
-                GlobalStor.global.isLoader = 1;
-                GlobalStor.global.startSlider = 1;
-                importDBProsses(userTemp);
-              });
+              GlobalStor.global.isLoader = 1;
+              GlobalStor.global.startSlider = 1;
+              checkingUser();
+              // localDB.importUser(url.access, 1).then(function (result) {
+              //   var userTemp = angular.copy(result.user);
+              //   GlobalStor.global.isLoader = 1;
+              //   GlobalStor.global.startSlider = 1;
+              //   importDBProsses(userTemp);
+              // });
             }
 
           }
@@ -9971,9 +9979,9 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      localPath: '/local/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://admin.windowscalculator.net/orders/get-order-pdf/',
+      localPath: '/calculator/local/',
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -14335,7 +14343,7 @@ function ErrorResult(code, message) {
     .module('HistoryModule')
     .factory('HardwareServ',
 
-  ['$location', '$filter', '$q', 'ProductStor', 'MainServ', 'DesignStor', 'AnalyticsServ', 'UserStor', 'OrderStor', function(
+  ['$location', '$filter', '$q', 'ProductStor', 'MainServ', 'DesignStor', 'AnalyticsServ', 'UserStor', 'OrderStor', 'GlobalStor', function(
     $location,
     $filter,
     $q,
@@ -14344,7 +14352,8 @@ function ErrorResult(code, message) {
     DesignStor,
     AnalyticsServ,
     UserStor,
-    OrderStor
+    OrderStor,
+    GlobalStor
 
   ) {
     /*jshint validthis:true */
@@ -21194,7 +21203,7 @@ function ErrorResult(code, message) {
     var thisFactory = this;
     /**============ METHODS ================*/
       var onlineMode;
-      $.get('http://api.steko.com.ua', function(data) {
+      $.get('http://api.windowscalculator.net', function(data) {
         onlineMode = true;
         return true;
       })
