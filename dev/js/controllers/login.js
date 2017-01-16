@@ -497,12 +497,15 @@
                 checkingUser();
               }
             } else {
-              localDB.importUser(url.access, 1).then(function (result) {
-                var userTemp = angular.copy(result.user);
-                GlobalStor.global.isLoader = 1;
-                GlobalStor.global.startSlider = 1;
-                importDBProsses(userTemp);
-              });
+              GlobalStor.global.isLoader = 1;
+              GlobalStor.global.startSlider = 1;
+              checkingUser();
+              // localDB.importUser(url.access, 1).then(function (result) {
+              //   var userTemp = angular.copy(result.user);
+              //   GlobalStor.global.isLoader = 1;
+              //   GlobalStor.global.startSlider = 1;
+              //   importDBProsses(userTemp);
+              // });
             }
 
           }
