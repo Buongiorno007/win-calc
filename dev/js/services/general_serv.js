@@ -314,7 +314,7 @@
     }
 
     function goToLink(link) {
-      isDevice = 1;
+      //isDevice = 1;
       if(isDevice) {
         var ref = window.open(link,"_self");
         ref.close();
