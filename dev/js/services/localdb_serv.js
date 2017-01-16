@@ -2178,7 +2178,6 @@
             constrElem.sizeLabel = sizeLabelTemp;
             constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
             priceObj.priceTotal += priceTemp;
-            console.warn(constrElem);
             constrElements.push(constrElem);
           }
         }

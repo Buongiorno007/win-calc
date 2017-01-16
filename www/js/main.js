@@ -10758,85 +10758,6 @@ function ErrorResult(code, message) {
 
     /**---------- Select door shape --------*/
 
-    function idsForNewTemplate(id, product) {
-      var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
-      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
-      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
-      var doorKitsT1 = GlobalStor.global.doorKitsT1;
-      var sash=[], doorSill=[];
-      DesignStor.design.doorShapeList.length = [];
-      DesignStor.designSource.doorShapeList.length = [];
-      for(var z=0; z<doorsGroups.length; z+=1) {
-        for(var i=0; i<doorsLaminations.length; i+=1) {
-          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
-          && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
-            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
-              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
-              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
-              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
-              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
-              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].doorstep_type = 0;
-              doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
-              DesignStor.design.doorsGroups.push(doorsGroups[z].id)
-              for(var x=0; x<doorKitsT1.length; x+=1) {
-                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
-                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              break
-            }
-          }
-        }
-      }
-
-      for(d = 0; d < doorTypeQty; d+=1) {
-        var ch1 = sash = doorsGroups.filter(function(item) {
-                    return item.doorstep_type === 2;
-                  });
-        var ch2 = sash = doorsGroups.filter(function(item) {
-                    return item.doorstep_type === 1;
-                  });
-
-        isExist = 0;
-        if(d === 2 && ch1.length) {
-          isExist = 1;
-        } else if(d === 3 && ch2.length) {
-          isExist = 1;
-        } else if(!d || d === 1){
-          isExist = 1;
-        }
-        if(isExist && d !== 2) {
-          doorSill.push(DesignStor.design.doorShapeData[d]);
-        }
-      }
-
-      sash.length = 0;
-      switch (id) {
-        case 0:
-        case 1:
-          if (doorsGroups.length) {
-            sash = angular.copy(doorsGroups);
-          }
-          break;
-        case 3:
-          if (doorsGroups.length) {
-            sash = doorsGroups.filter(function(item) {
-              return item.doorstep_type === 2;
-            });
-          break;
-        }
-        case 2:
-          if (doorsGroups.length) {
-            sash = doorsGroups.filter(function(item) {
-              return item.doorstep_type === 1;
-            });
-          break;
-        }
-      }
-      return sash[id];
-    }
-
     function selectDoor(id, product) {
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
@@ -10999,6 +10920,8 @@ function ErrorResult(code, message) {
     /**---------- Select handle shape --------*/
 
     function selectHandle(id, product) {
+      console.log(id, '=====id');
+      (id)? id=id: id=DesignStor.design.handleShapeList[0].id;
       var pnt = checkSize(DesignStor.design.templateTEMP, 4);
       var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
       var array = [];
@@ -11014,7 +10937,8 @@ function ErrorResult(code, message) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
         });
         var newLockArr = lockArr.filter(function(doorLocks) {
-          return DesignStor.design.handleShapeList[id].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
+          var temp = _.where(_.compact(_.flatten(DesignStor.design.handleShapeList)), {id:id});
+          return temp[0].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
         });
         var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
         for(var x=0; x<newLockArr.length; x+=1) {
@@ -11145,8 +11069,8 @@ function ErrorResult(code, message) {
       product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
-      product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
-      product.hardware = source.handleShapeList[product.door_handle_shape_id];
+      var doorHandle = _.where(_.compact(_.flatten(source.handleShapeList)), {id:product.door_handle_shape_id});
+      product.doorHandle = doorHandle[0];
       product.doorLock = source.lockShapeList[k];
       product.doorHandle.count = countHandle(source).length;
       for(var e=0; e<source.templateTEMP.details.length; e+=1) {
@@ -13489,7 +13413,6 @@ function ErrorResult(code, message) {
 
       stepBack: stepBack,
       //---- door
-      idsForNewTemplate: idsForNewTemplate,
       setNewDoorParamValue: setNewDoorParamValue,
       setDoorConfigDefault: setDoorConfigDefault,
       saveSizeCheck: saveSizeCheck,
