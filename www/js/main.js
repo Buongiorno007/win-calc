@@ -9,6 +9,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 (function () {
   /** check browser */
+  configurationApp.$inject = ['$routeProvider', '$locationProvider', '$translateProvider', '$httpProvider', '$compileProvider'];
   if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
@@ -186,7 +187,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('CartModule')
     .controller('CartCtrl',
 
-      function ($filter,
+      ['$filter', 'globalConstants', 'GlobalStor', 'OrderStor', 'ProductStor', 'UserStor', 'CartStor', 'CartServ', 'CartMenuServ', 'DesignServ', function ($filter,
                 globalConstants,
                 GlobalStor,
                 OrderStor,
@@ -385,7 +386,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         thisCtrl.pressEnterInDisc = pressEnterInDisc;
         thisCtrl.showCartTemplte = showCartTemplte;
         thisCtrl.initAllGlassXGlass = DesignServ.initAllGlassXGlass;
-      });
+      }]);
 })();
 
 
@@ -399,7 +400,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('SettingsModule')
     .controller('ChangeLangCtrl',
 
-  function(
+  ['$location', '$translate', '$timeout', 'globalConstants', 'GlobalStor', 'UserStor', 'NavMenuServ', 'loginServ', function(
     $location,
     $translate,
     $timeout,
@@ -456,7 +457,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.switchLang = switchLang;
     thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
-  });
+  }]);
 })();
 
 
@@ -469,7 +470,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('SettingsModule')
     .controller('ChangePassCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'SettingServ', 'UserStor', 'localDB', function(
     $filter,
     globalConstants,
     SettingServ,
@@ -545,7 +546,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.checkError = checkError;
     thisCtrl.checkErrorOld = checkErrorOld;
 
-  });
+  }]);
 })();
 
 
@@ -559,7 +560,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('DesignModule')
     .controller('DesignCtrl',
 
-  function(
+  ['$filter', '$timeout', 'globalConstants', 'DesignServ', 'GlobalStor', 'ProductStor', 'MainServ', 'DesignStor', 'ConfigMenuServ', function(
     $filter,
     $timeout,
     globalConstants,
@@ -1104,7 +1105,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.selectGlassFast = selectGlassFast;
     thisCtrl.selectProfileFast = selectProfileFast;
     thisCtrl.selectWindowsHardwareFast = selectWindowsHardwareFast;
-  });
+  }]);
 })();
 
 
@@ -1118,7 +1119,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('HistoryModule')
     .controller('HistoryCtrl',
 
-  function(
+  ['$filter', 'GlobalStor', 'UserStor', 'HistoryStor', 'HistoryServ', 'CartServ', 'PrintServ', 'globalConstants', function(
     $filter,
     GlobalStor,
     UserStor,
@@ -1216,7 +1217,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.sortingInit = HistoryServ.sortingInit;
     thisCtrl.testFunc = HistoryServ.testFunc;
     thisCtrl.synchronizeOrders = HistoryServ.synchronizeOrders;
-  });
+  }]);
 })();
 
 
@@ -1230,7 +1231,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('SettingsModule')
     .controller('LocationCtrl',
 
-  function(
+  ['localDB', 'GeneralServ', 'loginServ', 'SettingServ', 'GlobalStor', 'OrderStor', 'UserStor', function(
     localDB,
     GeneralServ,
     loginServ,
@@ -1310,7 +1311,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.selectCity = selectCity;
 
 
-  });
+  }]);
 })();
 
 
@@ -1323,7 +1324,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('LoginModule')
     .controller('LoginCtrl',
 
-      function ($location,
+      ['$location', '$timeout', '$cordovaNetwork', '$filter', 'globalConstants', 'localDB', 'loginServ', 'MainServ', 'GlobalStor', 'ProductStor', 'UserStor', 'SettingServ', function ($location,
                 $timeout,
                 $cordovaNetwork,
                 $filter,
@@ -2252,7 +2253,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         }
 
 
-      });
+      }]);
 })();
 
 
@@ -2267,7 +2268,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .controller('MainCtrl',
 
     
-  function(
+  ['$location', '$timeout', '$q', 'localDB', 'globalConstants', 'GeneralServ', 'loginServ', 'MainServ', 'SVGServ', 'DesignServ', 'AddElementMenuServ', 'GlobalStor', 'ProductStor', 'DesignStor', 'UserStor', 'AuxStor', function(
     $location,
     $timeout,
     $q,
@@ -2404,7 +2405,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
 
 
-  });
+  }]);
 })();
 
 
@@ -2423,7 +2424,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('addElementMenuCtrl',
 
-  function(
+  ['$timeout', '$filter', 'globalConstants', 'GlobalStor', 'ProductStor', 'UserStor', 'AuxStor', 'MainServ', 'AddElementMenuServ', 'AddElementsServ', 'DesignServ', function(
     $timeout,
     $filter,
     globalConstants,
@@ -2496,7 +2497,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.hideMenu = AddElementsServ.hideMenu;
 
 
-  });
+  }]);
 })();
 
 
@@ -2510,7 +2511,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('CartModule')
     .controller('CartMenuCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'GlobalStor', 'OrderStor', 'UserStor', 'CartStor', 'ProductStor', 'CartMenuServ', function(
     $filter,
     globalConstants,
     GlobalStor,
@@ -2608,7 +2609,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.openOrderDialog = openOrderDialog;
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
 
-  });
+  }]);
 })();
 
 
@@ -2622,7 +2623,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('ConfigMenuCtrl',
 
-  function(
+  ['$location', '$filter', '$timeout', 'globalConstants', 'GeneralServ', 'MainServ', 'AddElementMenuServ', 'DesignServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'DesignStor', 'UserStor', 'InfoBoxServ', 'ConfigMenuServ', function(
     $location,
     $filter,
     $timeout,
@@ -2778,7 +2779,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.selectConfigPanel = ConfigMenuServ.selectConfigPanel;
 
 
-  });
+  }]);
 })();
 
 
@@ -2792,7 +2793,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('NavMenuCtrl',
 
-  function(
+  ['$location', '$window', '$filter', 'globalConstants', 'GeneralServ', 'NavMenuServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'UserStor', function(
     $location,
     $window,
     $filter,
@@ -2895,7 +2896,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.clickNewProject = clickNewProject;
 
 
-  });
+  }]);
 })();
 
 
@@ -2908,7 +2909,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('CartModule')
     .controller('AddElemCartCtrl',
 
-  function(
+  ['globalConstants', 'GeneralServ', 'CartServ', 'CartMenuServ', 'OrderStor', 'CartStor', 'AuxStor', 'GlobalStor', 'EditAddElementCartServ', function(
     globalConstants,
     GeneralServ,
     CartServ,
@@ -3404,7 +3405,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.calcAddElemPrice = EditAddElementCartServ.calcAddElemPrice; 
 
 
-  });
+  }]);
 })();
 
 
@@ -3418,7 +3419,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('AddElementsListCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'GeneralServ', 'AddElementsServ', 'AddElementMenuServ', 'GlobalStor', 'ProductStor', 'UserStor', 'AuxStor', function(
     $filter,
     globalConstants,
     GeneralServ,
@@ -3461,7 +3462,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
-  });
+  }]);
 })();
 
 
@@ -3475,7 +3476,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('AddElementsCtrl',
 
-  function(
+  ['$filter', '$timeout', 'globalConstants', 'GeneralServ', 'AddElementsServ', 'AddElementMenuServ', 'DesignServ', 'GlobalStor', 'AuxStor', 'ProductStor', function(
     $filter,
     $timeout,
     globalConstants,
@@ -3569,7 +3570,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.showWindowScheme = showWindowScheme;
     thisCtrl.closeWindowScheme = closeWindowScheme;
 
-  });
+  }]);
 })();
 
 
@@ -3583,7 +3584,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('GlassesCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'MainServ', 'AnalyticsServ', 'DesignServ', 'SVGServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'DesignStor', 'UserStor', 'GlassesServ', function(
     $filter,
     globalConstants,
     MainServ,
@@ -3738,7 +3739,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-  });
+  }]);
 })();
 
 
@@ -3752,7 +3753,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('HardwaresCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'GlobalStor', 'OrderStor', 'ProductStor', 'DesignStor', 'UserStor', 'MainServ', 'AnalyticsServ', 'HardwareServ', function(
     $filter,
     globalConstants,
     GlobalStor,
@@ -3788,7 +3789,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.selectHardware = HardwareServ.selectHardware;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-  });
+  }]);
 })();
 
 
@@ -3802,7 +3803,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('LaminationsCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'MainServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'UserStor', function(
     $filter,
     globalConstants,
     MainServ,
@@ -3868,7 +3869,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.initLaminatFilter = initLaminatFilter;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-  });
+  }]);
 })();
 
 
@@ -3882,7 +3883,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('ProfilesCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'GlobalStor', 'ProductStor', 'ProfileServ', 'MainServ', function(
     $filter,
     globalConstants,
     GlobalStor,
@@ -3918,7 +3919,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.selectProfile = ProfileServ.selectProfile;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-  });
+  }]);
 })();
 
 
@@ -3932,7 +3933,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('TemplatesCtrl',
 
-  function(
+  ['$location', '$filter', 'globalConstants', 'MainServ', 'GeneralServ', 'TemplatesServ', 'optionsServ', 'GlobalStor', 'DesignStor', 'OrderStor', 'ProductStor', function(
     $location,
     $filter,
     globalConstants,
@@ -4031,7 +4032,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
 
-  });
+  }]);
 })();
 
 
@@ -4045,7 +4046,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('AddElemGroupMenuCtrl',
 
-  function(
+  ['AddElementsServ', 'AddElementMenuServ', 'DesignServ', 'GlobalStor', 'ProductStor', 'AuxStor', function(
     AddElementsServ,
     AddElementMenuServ,
     DesignServ,
@@ -4071,7 +4072,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.takeAddElemMenu = takeAddElemMenu;
     thisCtrl.takeAddElemFilt = AddElementMenuServ.takeAddElemFilt;
 
-  });
+  }]);
 })();
 
 
@@ -4085,7 +4086,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('AlertCtrl',
 
-  function($filter, GlobalStor) {
+  ['$filter', 'GlobalStor', function($filter, GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -4115,7 +4116,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.isAlert = isAlert;
     thisCtrl.clickYes = clickYes;
     thisCtrl.clickCopy = clickCopy;
-  });
+  }]);
 })();
 
 
@@ -4129,7 +4130,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('AttantCtrl',
 
-  function($filter, DesignStor, HistoryStor) {
+  ['$filter', 'DesignStor', 'HistoryStor', function($filter, DesignStor, HistoryStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.D = DesignStor;
@@ -4156,7 +4157,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       //------ clicking
     thisCtrl.closeAttantion = closeAttantion;
 
-  });
+  }]);
 })();
 
 
@@ -4169,7 +4170,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('DoorCheckCtrl',
 
-  function($filter, DesignStor, HistoryStor, GlobalStor, DesignServ) {
+  ['$filter', 'DesignStor', 'HistoryStor', 'GlobalStor', 'DesignServ', function($filter, DesignStor, HistoryStor, GlobalStor, DesignServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.D = DesignStor;
@@ -4188,7 +4189,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.stepBack = DesignServ.stepBack;
     thisCtrl.toggleDoorConfig = DesignServ.toggleDoorConfig;
 
-  });
+  }]);
 })();
 
 
@@ -4201,7 +4202,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('DangerAlertCtrl',
 
-  function($filter,
+  ['$filter', 'GlobalStor', 'HistoryStor', function($filter,
            GlobalStor,
            HistoryStor
            ){
@@ -4231,7 +4232,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.close = close;
     thisCtrl.continued = continued;
 
-  });
+  }]);
 })();
 
 
@@ -4244,7 +4245,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('HistoryModule')
     .controller('EditOrderCtrl',
 
-  function(
+  ['$q', '$filter', 'OrderStor', 'HistoryStor', 'CartStor', 'GlobalStor', 'ProductStor', 'RecOrderServ', 'MainServ', 'localDB', 'UserStor', 'HistoryServ', 'AddElementMenuServ', 'CartMenuServ', function(
     $q,
     $filter,
     OrderStor,
@@ -4437,7 +4438,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       thisCtrl.box = RecOrderServ.box;
       // thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
-  });
+  }]);
 })();
 
 
@@ -4451,7 +4452,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('ErrorProdCtrl',
 
-  function($filter, GlobalStor) {
+  ['$filter', 'GlobalStor', function($filter, GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -4465,7 +4466,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     }
     /**========== FINISH ==========*/
     thisCtrl.close = close;
-  });
+  }]);
 })();
 
 
@@ -4479,7 +4480,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('GridSelectorCtrl',
 
-  function(
+  ['$filter', 'AddElementMenuServ', 'globalConstants', 'ProductStor', 'AuxStor', function(
     $filter,
     AddElementMenuServ,
     globalConstants,
@@ -4506,7 +4507,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
     thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
 
-  });
+  }]);
 })();
 
 
@@ -4519,7 +4520,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('infoBoxCtrl',
 
-  function(GlobalStor, InfoBoxServ, $filter) {
+  ['GlobalStor', 'InfoBoxServ', '$filter', function(GlobalStor, InfoBoxServ, $filter) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -4550,7 +4551,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.isApply = InfoBoxServ.isApply;
 
 
-  });
+  }]);
 })();
 
 
@@ -4563,12 +4564,12 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('LoaderCtrl',
 
-  function(GlobalStor) {
+  ['GlobalStor', function(GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
-  });
+  }]);
 })();
 
 
@@ -4581,7 +4582,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('CartModule')
     .controller('OrderFormCtrl',
 
-  function(
+  ['$filter', 'GlobalStor', 'OrderStor', 'UserStor', 'CartStor', 'CartMenuServ', function(
     $filter,
     GlobalStor,
     OrderStor,
@@ -4684,7 +4685,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.selectCity = CartMenuServ.selectCity;
     thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
-  });
+  }]);
 })();
 
 
@@ -4698,7 +4699,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('qtyCalculatorCtrl',
 
-  function($filter, AddElementMenuServ, EditAddElementCartServ, GlobalStor) {
+  ['$filter', 'AddElementMenuServ', 'EditAddElementCartServ', 'GlobalStor', function($filter, AddElementMenuServ, EditAddElementCartServ, GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
 
@@ -4715,7 +4716,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
       thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
     }
-  });
+  }]);
 })();
 
 
@@ -4728,7 +4729,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('ReportCtrl',
 
-  function(
+  ['$rootScope', '$filter', 'localDB', 'GeneralServ', 'GlobalStor', 'ProductStor', 'UserStor', function(
     $rootScope,
     $filter,
     localDB,
@@ -4842,7 +4843,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
 
-  });
+  }]);
 })();
 
 
@@ -4855,7 +4856,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('RoomInfoCtrl',
 
-  function(
+  ['$filter', 'globalConstants', 'TemplatesServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'UserStor', function(
     $filter,
     globalConstants,
     TemplatesServ,
@@ -4950,7 +4951,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
 
-  });
+  }]);
 })();
 
 
@@ -4964,7 +4965,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('RoomSelectorCtrl',
 
-      function ($filter,
+      ['$filter', '$location', 'globalConstants', 'MainServ', 'TemplatesServ', 'GlobalStor', 'ProductStor', 'UserStor', 'optionsServ', 'DesignStor', '$timeout', function ($filter,
                 $location,
                 globalConstants,
                 MainServ,
@@ -5030,7 +5031,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     //---- hide rooms if opened
     GlobalStor.global.showRoomSelectorDialog = 0;
 
-  });
+  }]);
 })();
 
 
@@ -5044,7 +5045,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('searchCtrl',
 
-  function(
+  ['$filter', 'GlobalStor', 'AuxStor', 'HistoryStor', 'AddElementsServ', 'AddElementMenuServ', function(
     $filter,
     GlobalStor,
     AuxStor,
@@ -5134,7 +5135,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     }
 
 
-  });
+  }]);
 })();
 
 
@@ -5147,7 +5148,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('sizeCalculatorCtrl',
 
-  function(
+  ['$filter', 'GlobalStor', 'DesignStor', 'AddElementMenuServ', 'DesignServ', 'EditAddElementCartServ', function(
     $filter,
     GlobalStor,
     DesignStor,
@@ -5188,7 +5189,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
-  });
+  }]);
 })();
 
 
@@ -5202,7 +5203,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('MainModule')
     .controller('UserInfoCtrl',
 
-  function(globalConstants, GlobalStor, UserStor) {
+  ['globalConstants', 'GlobalStor', 'UserStor', function(globalConstants, GlobalStor, UserStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -5248,7 +5249,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.swipeLeft = swipeLeft;
     thisCtrl.swipeRight = swipeRight;
 
-  });
+  }]);
 })();
 
 
@@ -5261,7 +5262,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('SettingsModule')
     .controller('SettingsCtrl',
 
-  function(
+  ['$location', '$timeout', '$filter', 'globalConstants', 'localDB', 'SettingServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'AuxStor', 'UserStor', function(
     $location,
     $timeout,
     $filter,
@@ -5484,7 +5485,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.logOut = logOut;
 
 
-  });
+  }]);
 })();
 
 
@@ -5497,7 +5498,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('HistoryModule')
     .directive('calendarScroll',
 
-  function($filter, HistoryStor) {
+  ['$filter', 'HistoryStor', function($filter, HistoryStor) {
 
     return {
       restrict: 'E',
@@ -5641,7 +5642,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       }
     };
 
-  });
+  }]);
 })();
 
 
@@ -5654,7 +5655,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('CartModule')
     .directive('calendar',
 
-  function(
+  ['$filter', 'CartMenuServ', 'GlobalStor', 'OrderStor', function(
     $filter,
     CartMenuServ,
     GlobalStor,
@@ -5697,7 +5698,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       }
     };
 
-  });
+  }]);
 })();
 
 
@@ -5711,7 +5712,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('BauVoiceApp')
     .directive('fsClick',
 
-  function(GlobalStor) {
+  ['GlobalStor', function(GlobalStor) {
 
     return function(scope, elem, attrs) {
       var clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'mousedown';
@@ -5720,7 +5721,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       });
     };
 
-  });
+  }]);
 })();
 
 
@@ -5733,7 +5734,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('BauVoiceApp')
     .directive('fileread',
 
-  function(SettingServ, UserStor) {
+  ['SettingServ', 'UserStor', function(SettingServ, UserStor) {
     return {
       scope: {
         fileread: "="
@@ -5757,7 +5758,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       }
     };
 
-  });
+  }]);
 })();
 
 
@@ -5770,7 +5771,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('BauVoiceApp')
     .filter('locationFilter',
 
-  function($filter) {
+  ['$filter', function($filter) {
 
     return function(items, searchWord) {
       var itemsQty = items.length,
@@ -5796,7 +5797,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       return filtered;
     };
 
-  });
+  }]);
 })();
 
 
@@ -5810,7 +5811,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('HistoryModule')
     .directive('orderDate',
 
-  function($filter) {
+  ['$filter', function($filter) {
 
     return {
       restrict: 'A',
@@ -5859,7 +5860,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     };
 
 
-  });
+  }]);
 })();
 
 
@@ -5960,7 +5961,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('BauVoiceApp')
     .directive('price',
 
-  function(globalConstants, SoundPlayServ) {
+  ['globalConstants', 'SoundPlayServ', function(globalConstants, SoundPlayServ) {
 
 
     /**============ METHODS ================*/
@@ -6057,7 +6058,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     };
 
 // event.srcEvent.stopPropagation();
-  });
+  }]);
 })();
 
 
@@ -6107,7 +6108,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('BauVoiceApp')
     .directive('svgTemplate',
 
-  function(
+  ['$location', 'globalConstants', 'GeneralServ', 'ProductStor', 'SVGServ', 'DesignServ', 'PointsServ', 'GlobalStor', function(
     $location,
     globalConstants,
     GeneralServ,
@@ -7063,7 +7064,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       }
     };
 
-  });
+  }]);
 })();
 
 
@@ -7445,7 +7446,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('AddElementMenuServ',
 
-  function(
+  ['$q', '$timeout', 'GlobalStor', 'OrderStor', 'ProductStor', 'CartStor', 'AuxStor', 'DesignStor', 'UserStor', 'localDB', 'GeneralServ', 'loginServ', 'MainServ', 'SVGServ', 'DesignServ', 'AnalyticsServ', 'CartServ', 'CartMenuServ', function(
     $q,
     $timeout,
     GlobalStor,
@@ -8250,7 +8251,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -8264,7 +8265,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('AddElementsServ',
 
-  function(
+  ['$filter', '$timeout', 'globalConstants', 'GeneralServ', 'AddElementMenuServ', 'GlobalStor', 'ProductStor', 'AuxStor', 'DesignServ', 'DesignStor', function(
     $filter,
     $timeout,
     globalConstants,
@@ -8620,7 +8621,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -8634,7 +8635,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('AnalyticsServ',
 
-  function(localDB, UserStor) {
+  ['localDB', 'UserStor', function(localDB, UserStor) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -8735,7 +8736,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -8749,7 +8750,7 @@ function ErrorResult(code, message) {
     .module('CartModule')
     .factory('CartMenuServ',
 
-  function(
+  ['$location', 'GeneralServ', 'MainServ', 'GlobalStor', 'OrderStor', 'CartStor', 'UserStor', function(
     $location,
     GeneralServ,
     MainServ,
@@ -9431,7 +9432,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -9445,7 +9446,7 @@ function ErrorResult(code, message) {
     .module('CartModule')
     .factory('CartServ',
  
-  function(
+  ['$location', '$filter', 'GeneralServ', 'MainServ', 'CartMenuServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'CartStor', 'AuxStor', function(
     $location,
     $filter,
     GeneralServ,
@@ -9801,7 +9802,7 @@ function ErrorResult(code, message) {
     return thisFactory.publicObj;
 
 
-  });
+  }]);
 })();
 
 
@@ -9814,7 +9815,7 @@ function ErrorResult(code, message) {
   angular
     .module('MainModule')
     .factory('ConfigMenuServ',
-      function(
+      ['$location', '$filter', 'GeneralServ', 'MainServ', 'CartMenuServ', 'GlobalStor', 'OrderStor', 'ProductStor', '$timeout', 'InfoBoxServ', 'DesignStor', function(
         $location,
         $filter,
         GeneralServ,
@@ -9901,7 +9902,7 @@ function ErrorResult(code, message) {
         return thisFactory.publicObj;
 
 
-      });
+      }]);
 })();
 
 
@@ -9915,8 +9916,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.test.windowscalculator.net',
-      printIP: 'http://api.test.windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -9980,7 +9981,7 @@ function ErrorResult(code, message) {
     .module('DesignModule')
     .factory('DesignServ',
 
-  function(
+  ['$rootScope', '$location', '$timeout', '$filter', '$q', 'globalConstants', 'GeneralServ', 'localDB', 'loginServ', 'MainServ', 'AnalyticsServ', 'SVGServ', 'GlobalStor', 'DesignStor', 'OrderStor', 'ProductStor', 'UserStor', function(
     $rootScope,
     $location,
     $timeout,
@@ -13507,7 +13508,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -13526,7 +13527,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('EditAddElementCartServ',
 
-  function(
+  ['$q', '$timeout', 'GlobalStor', 'OrderStor', 'CartStor', 'AuxStor', 'DesignStor', 'UserStor', 'localDB', 'GeneralServ', 'MainServ', 'CartServ', 'CartMenuServ', function(
     $q,
     $timeout,
     GlobalStor,
@@ -13935,7 +13936,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -13953,7 +13954,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('GeneralServ',
 
-  function(
+  ['$filter', '$window', '$document', 'globalConstants', 'GlobalStor', function(
     $filter,
     $window,
     $document,
@@ -14286,7 +14287,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -14300,7 +14301,7 @@ function ErrorResult(code, message) {
     .module('HistoryModule')
     .factory('GlassesServ',
 
-  function(
+  ['$location', '$filter', '$q', 'GlobalStor', 'DesignServ', function(
     $location,
     $filter,
     $q,
@@ -14338,7 +14339,7 @@ function ErrorResult(code, message) {
 
 
 
-  });
+  }]);
 })();
 
 
@@ -14352,7 +14353,7 @@ function ErrorResult(code, message) {
     .module('HistoryModule')
     .factory('HardwareServ',
 
-  function(
+  ['$location', '$filter', '$q', 'ProductStor', 'MainServ', 'DesignStor', 'AnalyticsServ', 'UserStor', 'OrderStor', function(
     $location,
     $filter,
     $q,
@@ -14418,7 +14419,7 @@ function ErrorResult(code, message) {
 
 
 
-  });
+  }]);
 })();
 
 
@@ -14432,7 +14433,7 @@ function ErrorResult(code, message) {
     .module('HistoryModule')
     .factory('HistoryServ',
 
-      function ($location,
+      ['$location', '$filter', '$q', '$http', 'globalConstants', 'localDB', '$timeout', 'GeneralServ', 'MainServ', 'RecOrderServ', 'SVGServ', 'DesignServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'UserStor', 'HistoryStor', 'CartStor', 'DesignStor', 'PrintServ', function ($location,
                 $filter,
                 $q,
                 $http,
@@ -14459,7 +14460,7 @@ function ErrorResult(code, message) {
         var onlineMode;
 
         function getOnline() {
-          $.get('http://api.test.windowscalculator.net', function (data) {
+          $.get('http://api.steko.com.ua', function (data) {
             onlineMode = true;
             return true;
           })
@@ -15715,7 +15716,7 @@ function ErrorResult(code, message) {
         return thisFactory.publicObj;
 
 
-      });
+      }]);
 })();
 
 
@@ -15729,7 +15730,7 @@ function ErrorResult(code, message) {
     .module('HistoryModule')
     .factory('InfoBoxServ',
 
-  function(
+  ['$location', '$filter', '$q', 'GlobalStor', 'ProfileServ', 'GlassesServ', 'HardwareServ', 'AddElementsServ', 'ProductStor', 'AddElementMenuServ', 'AuxStor', 'globalConstants', 'localDB', function(
     $location,
     $filter,
     $q,
@@ -15915,7 +15916,7 @@ function ErrorResult(code, message) {
 
 
 
-  });
+  }]);
 })();
 
 
@@ -15929,7 +15930,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('AsyncLoader',
 
-  function($http, $q, globalConstants) {
+  ['$http', '$q', 'globalConstants', function($http, $q, globalConstants) {
 
     return function (options) {
       var def = $q.defer(),
@@ -15962,7 +15963,7 @@ function ErrorResult(code, message) {
       return def.promise;
     };
 
-  });
+  }]);
 })();
 
 
@@ -15976,7 +15977,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('localDB',
 
-  function(
+  ['$http', '$q', '$filter', 'globalConstants', 'GeneralServ', 'UserStor', 'GlobalStor', function(
     $http,
     $q,
     $filter,
@@ -19256,7 +19257,7 @@ function ErrorResult(code, message) {
     return thisFactory.publicObj;
 
 
-  });
+  }]);
 })();
 
 
@@ -19270,7 +19271,7 @@ function ErrorResult(code, message) {
     .module('LoginModule')
     .factory('loginServ',
 
-      function ($q,
+      ['$q', '$cordovaGlobalization', '$cordovaFileTransfer', '$translate', '$filter', 'localDB', 'globalConstants', 'GeneralServ', 'optionsServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'UserStor', function ($q,
                 $cordovaGlobalization,
                 $cordovaFileTransfer,
                 $translate,
@@ -19287,7 +19288,7 @@ function ErrorResult(code, message) {
         var thisFactory = this;
         var onlineMode;
         var ISEXT = 0;
-        $.get('http://api.test.windowscalculator.net', function (data) {
+        $.get('http://api.steko.com.ua', function (data) {
           onlineMode = true;
           return true;
         })
@@ -21155,7 +21156,7 @@ function ErrorResult(code, message) {
         return thisFactory.publicObj;
 
 
-      });
+      }]);
 })();
 
 
@@ -21169,7 +21170,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('MainServ',
 
-  function(
+  ['$location', '$q', '$filter', '$timeout', 'localDB', 'GeneralServ', 'SVGServ', 'loginServ', 'optionsServ', 'AnalyticsServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'UserStor', 'AuxStor', 'CartStor', 'DesignStor', 'HistoryStor', function(
     $location,
     $q,
     $filter,
@@ -21193,7 +21194,7 @@ function ErrorResult(code, message) {
     var thisFactory = this;
     /**============ METHODS ================*/
       var onlineMode;
-      $.get('http://api.test.windowscalculator.net', function(data) {
+      $.get('http://api.steko.com.ua', function(data) {
         onlineMode = true;
         return true;
       })
@@ -22957,7 +22958,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -22971,7 +22972,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('NavMenuServ',
 
-  function(
+  ['$location', '$http', '$filter', '$cordovaGeolocation', 'GeneralServ', 'MainServ', 'CartMenuServ', 'GlobalStor', 'OrderStor', 'ProductStor', function(
     $location,
     $http,
     $filter,
@@ -23152,7 +23153,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -23166,7 +23167,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('optionsServ',
 
-  function($filter) {
+  ['$filter', function($filter) {
 
     return {
 
@@ -25062,7 +25063,7 @@ function ErrorResult(code, message) {
     };
 
 
-  });
+  }]);
 })();
 
 
@@ -25077,7 +25078,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('PointsServ',
 
-  function (DesignStor, ProductStor) {
+  ['DesignStor', 'ProductStor', function (DesignStor, ProductStor) {
 	var thisFactory = this;
 
 	    function templatePoints(template) {
@@ -25174,13 +25175,13 @@ function ErrorResult(code, message) {
 	      templatePoints:templatePoints
 	    };
     	return thisFactory.publicObj;
-  });
+  }]);
 })();
 
 
 // services/print_serv.js
 
-(function () {  'use strict';  /**@ngInject*/  angular    .module('CartModule')    .factory('PrintServ',      function ($location,                $filter,                GeneralServ,                MainServ,                CartMenuServ,                GlobalStor,                HistoryStor) {        /*jshint validthis:true */        var thisFactory = this;        /**============ METHODS ================*/        function getProducts(products, addEl) {          HistoryStor.history.PrintProduct = products;          HistoryStor.history.PrintAddEl = addEl;          console.log(products, 'products=====');          console.log(addEl, 'addEl=====');          setTimeout(function () {            if (GlobalStor.global.isDevice) {              window.print();            } else {              var print = $('#print-conteiner').html();              var prtContent = document.getElementById('print-conteiner');              var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';              var WinPrint = window.open(this.href, '_blank');              WinPrint.document.write('<div class="print-conteiner">');              WinPrint.document.write(prtCSS);              WinPrint.document.write(prtContent.innerHTML);              WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");              WinPrint.document.write('</div>');              WinPrint.document.close();              WinPrint.focus();            }          }, 800);        }        /**========== FINISH ==========*/        thisFactory.publicObj = {          getProducts: getProducts,        };        return thisFactory.publicObj;      });})();
+(function () {  'use strict';  /**@ngInject*/  angular    .module('CartModule')    .factory('PrintServ',      ['$location', '$filter', 'GeneralServ', 'MainServ', 'CartMenuServ', 'GlobalStor', 'HistoryStor', function ($location,                $filter,                GeneralServ,                MainServ,                CartMenuServ,                GlobalStor,                HistoryStor) {        /*jshint validthis:true */        var thisFactory = this;        /**============ METHODS ================*/        function getProducts(products, addEl) {          HistoryStor.history.PrintProduct = products;          HistoryStor.history.PrintAddEl = addEl;          console.log(products, 'products=====');          console.log(addEl, 'addEl=====');          setTimeout(function () {            if (GlobalStor.global.isDevice) {              window.print();            } else {              var print = $('#print-conteiner').html();              var prtContent = document.getElementById('print-conteiner');              var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';              var WinPrint = window.open(this.href, '_blank');              WinPrint.document.write('<div class="print-conteiner">');              WinPrint.document.write(prtCSS);              WinPrint.document.write(prtContent.innerHTML);              WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");              WinPrint.document.write('</div>');              WinPrint.document.close();              WinPrint.focus();            }          }, 800);        }        /**========== FINISH ==========*/        thisFactory.publicObj = {          getProducts: getProducts,        };        return thisFactory.publicObj;      }]);})();
 
 
 // services/profile_serv.js
@@ -25192,7 +25193,7 @@ function ErrorResult(code, message) {
     .module('HistoryModule')
     .factory('ProfileServ',
 
-  function(
+  ['$location', '$filter', '$q', 'GlobalStor', 'ProductStor', 'OrderStor', 'MainServ', 'DesignStor', 'AnalyticsServ', 'UserStor', 'localDB', function(
     $location,
     $filter,
     $q,
@@ -25348,7 +25349,7 @@ function ErrorResult(code, message) {
 
 
 
-  });
+  }]);
 })();
 
 
@@ -25363,7 +25364,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('RecOrderServ',
 
-  function (
+  ['$q', '$filter', 'GlobalStor', 'HistoryStor', 'ProductStor', 'GeneralServ', 'localDB', function (
     $q,
     $filter,
     GlobalStor, 
@@ -25776,7 +25777,7 @@ function ErrorResult(code, message) {
       nameListLaminat:nameListLaminat;
       nameListGlasses:nameListGlasses;
 
-  });
+  }]);
 })();
 
 
@@ -25790,7 +25791,7 @@ function ErrorResult(code, message) {
     .module('SettingsModule')
     .factory('SettingServ',
 
-  function(
+  ['$rootScope', '$location', 'localDB', 'GlobalStor', 'UserStor', function(
     $rootScope,
     $location,
     localDB,
@@ -25890,7 +25891,7 @@ function ErrorResult(code, message) {
     return thisFactory.publicObj;
 
 
-  });
+  }]);
 })();
 
 
@@ -25971,7 +25972,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('SVGServ',
 
-  function(
+  ['$q', 'globalConstants', 'GeneralServ', 'GlobalStor', 'ProductStor', 'DesignStor', 'PointsServ', function(
     $q,
     globalConstants,
     GeneralServ,
@@ -28951,7 +28952,7 @@ function ErrorResult(code, message) {
     return thisFactory.publicObj;
 
 
-  });
+  }]);
 })();
 
 
@@ -28965,7 +28966,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('TemplatesServ',
 
-  function(
+  ['$filter', 'GeneralServ', 'MainServ', 'DesignServ', 'AnalyticsServ', 'GlobalStor', 'OrderStor', 'ProductStor', 'DesignStor', 'UserStor', 'SVGServ', function(
     $filter,
     GeneralServ,
     MainServ,
@@ -29119,7 +29120,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
@@ -29185,7 +29186,7 @@ function ErrorResult(code, message) {
     .module('CartModule')
     .factory('CartStor',
 
-  function(OrderStor) {
+  ['OrderStor', function(OrderStor) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -29288,7 +29289,7 @@ function ErrorResult(code, message) {
     thisFactory.publicObj.cart = setDefaultCart();
     return thisFactory.publicObj;
 
-  });
+  }]);
 })();
 
 
