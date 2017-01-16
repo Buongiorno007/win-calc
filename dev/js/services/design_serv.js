@@ -946,7 +946,6 @@
         /**---------- Select handle shape --------*/
 
         function selectHandle(id, product) {
-          console.log(id, '=====id');
           (id)? id=id: id=DesignStor.design.handleShapeList[0].id;
           var pnt = checkSize(DesignStor.design.templateTEMP, 4);
           var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
@@ -3317,12 +3316,11 @@
 
                   /** rebuild glasses */
                   MainServ.setGlassfilter();
-
-
                   if(ProductStor.product.construction_type !== 4) {
                     MainServ.setCurrentGlass(ProductStor.product, 1);
-                    console.log('window')
+                    MainServ.setCurrentProfile(ProductStor.product);
                   }
+
 
                   /** create template icon */
                   SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
