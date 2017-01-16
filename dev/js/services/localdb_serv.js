@@ -2172,7 +2172,7 @@
               priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
             }
             constrElem.qty = angular.copy(qtyTemp);
-            if(constrElem.size <= 0) {
+            if(constrElem.size <= 0 || constrElem.size === undefined || constrElem.size === null || constrElem.size === NaN) {
               constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);            
             }
             constrElem.sizeLabel = sizeLabelTemp;

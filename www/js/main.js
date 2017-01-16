@@ -2361,7 +2361,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     }
     getPCPower(); 
 
-
     function getPCPower() {
       var iterations = 1000000;
       var s = 0;
@@ -13295,6 +13294,7 @@ function ErrorResult(code, message) {
 
               if(ProductStor.product.construction_type !== 4) {
                 MainServ.setCurrentGlass(ProductStor.product, 1);
+                MainServ.setCurrentProfile(ProductStor.product);
                 console.log('window')
               }
 
@@ -18066,7 +18066,7 @@ function ErrorResult(code, message) {
               priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
             }
             constrElem.qty = angular.copy(qtyTemp);
-            if(constrElem.size <= 0) {
+            if(constrElem.size <= 0 || constrElem.size === undefined || constrElem.size === null || constrElem.size === NaN) {
               constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);            
             }
             constrElem.sizeLabel = sizeLabelTemp;

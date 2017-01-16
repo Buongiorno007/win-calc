@@ -3321,6 +3321,7 @@
 
               if(ProductStor.product.construction_type !== 4) {
                 MainServ.setCurrentGlass(ProductStor.product, 1);
+                MainServ.setCurrentProfile(ProductStor.product);
                 console.log('window')
               }
 
