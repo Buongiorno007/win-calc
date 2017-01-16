@@ -701,8 +701,6 @@
           localDB.selectLocalDB(
             localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}
           ).then(function (result) {
-            console.log("result", result);
-
             var elementsAdd = angular.copy(result),
               addElementsAll = GlobalStor.global.addElementsAll,
               allAddElemQty = elementsAdd.length,
@@ -890,7 +888,6 @@
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
                 entry.modified = entry.modified.substr(0, 10);
-                console.log(" HistoryStor.history.orders", entry);
                 HistoryStor.history.historyID = index;
               }
             });
@@ -904,9 +901,6 @@
                 item.forEach(function (entry) {
 
                   if (!entry.is_addelem_only) {
-                    // console.log("entry", entry);
-                    // console.log("entry.template_square", entry.template_square);
-                    // console.log("entryPerim", (entry.template_height + entry.template_width) * 2);
                     tmpSquare += entry.template_square;
                     tmpPerim += (entry.template_height + entry.template_width) * 2;
                   }
