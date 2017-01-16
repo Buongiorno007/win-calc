@@ -10,7 +10,7 @@ console.log("!!!!!");
   if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
-
+console.log("isDevice",isDevice);
   window.onload = function () {
     if (!isDevice) {
       location.hash = "#/";

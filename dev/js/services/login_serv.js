@@ -534,26 +534,26 @@
             /** check image */
             if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource)) {
               var url = globalConstants.serverIP + '' + urlSource;
-              if (GlobalStor.global.isDevice) {
-                var imgName = urlSource.split('/').pop(),
-                  //targetPath = cordova.file.documentsDirectory + '' + imgName,
-                  targetPath = cordova.file.dataDirectory + '' + imgName,
-                  trustHosts = true,
-                  options = {};
-
-                //console.log('image name ====', imgName);
-                //console.log('image path ====', targetPath);
-                $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-                  console.log('Success!', result);
-                }, function (err) {
-                  console.log('Error!', err);
-                }, function (progress) {
-                  //console.log('progress!', progress);
-                });
-                return targetPath;
-              } else {
-                return url;
-              }
+              // if (GlobalStor.global.isDevice) {
+              //   var imgName = urlSource.split('/').pop(),
+              //     //targetPath = cordova.file.documentsDirectory + '' + imgName,
+              //     targetPath = cordova.file.dataDirectory + '' + imgName,
+              //     trustHosts = true,
+              //     options = {};
+              //
+              //   //console.log('image name ====', imgName);
+              //   //console.log('image path ====', targetPath);
+              //   $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+              //     console.log('Success!', result);
+              //   }, function (err) {
+              //     console.log('Error!', err);
+              //   }, function (progress) {
+              //     //console.log('progress!', progress);
+              //   });
+              //   return targetPath;
+              // } else {
+              //   return url;
+              // }
               return url;
             } else {
               return '';
