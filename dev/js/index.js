@@ -13,6 +13,7 @@ console.log("!!!!!");
 console.log("isDevice",isDevice);
   window.onload = function () {
     if (!isDevice) {
+
       location.hash = "#/";
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),

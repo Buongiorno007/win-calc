@@ -14,7 +14,8 @@
     DesignStor,
     AnalyticsServ,
     UserStor,
-    OrderStor
+    OrderStor,
+    GlobalStor
 
   ) {
     /*jshint validthis:true */

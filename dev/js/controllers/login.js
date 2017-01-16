@@ -480,6 +480,7 @@
 
 
           if (url.access) {
+            console.log("url.access");
 
             while (accessQty > -1) {
               accessQty -= 1;
