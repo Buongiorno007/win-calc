@@ -12,7 +12,6 @@ console.log("!!!!!");
   }
 
   window.onload = function () {
-    console.log("isDevice", isDevice);
     if (!isDevice) {
       location.hash = "#/";
       var obj = document.getElementById('main-frame'),
