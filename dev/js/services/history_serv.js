@@ -32,7 +32,7 @@
         var onlineMode;
 
         function getOnline() {
-          $.get(SERVER_IP, function (data) {
+          $.get("http://api.steko.com.ua", function (data) {
             onlineMode = true;
             return true;
           })
@@ -713,11 +713,14 @@
                 for (var y = 0; y < addElementsAll[elementsAdd[x].element_type].elementsList.length; y += 1) {
                   for (var z = 0; z < addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z += 1) {
                     if (elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
-                      elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
-                      elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
-                      elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
-                      elementsAdd[x].list_type_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_type_id;
-                      break
+                      if (elementsAdd[x].element_type !== 0) {
+                        console.log("GlobalStor.global.addElementsAll", GlobalStor.global.addElementsAll);
+                        elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
+                        elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
+                        elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
+                        elementsAdd[x].list_type_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_type_id;
+                        break
+                      }
                     }
                   }
                 }
@@ -742,7 +745,7 @@
                     }
                   }
                 }
-
+                console.log("OrderStor.order.products", OrderStor.order.products);
               } else {
                 deferred.resolve(1);
               }
@@ -793,11 +796,13 @@
           delete OrderStor.order.modified;
 
           //------ Download All Products of edited Order
-          downloadProducts().then(function (result1) {
-            var products = angular.copy(OrderStor.order.products);
-            OrderStor.order.products = [];
+          downloadProducts().then(function () {
+            var products = OrderStor.order.products;
+
+
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
+              downloadAddElements().then(function () {
                 GlobalStor.global.isConfigMenu = 1;
                 GlobalStor.global.isNavMenu = 0;
                 //------- set previos Page
@@ -805,19 +810,17 @@
                 GlobalStor.global.isLoader = 0;
                 //console.warn('ORDER ====', OrderStor.order);
                 $location.path('/cart');
+              });
             });
 
             function calculate(products, _cb) {
               async.waterfall([
                   function (_callback) {
                     if (products.construction_type === 4) {
-                      ProductStor.product = angular.copy(products);
-                      DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
-                        OrderStor.order.products.push(res);
+                      DesignServ.setDoorConfigDefault(products).then(function (res) {
                         _callback();
                       });
                     } else {
-                      OrderStor.order.products.push(products);
                       _callback();
                     }
                   }
@@ -885,7 +888,6 @@
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
                 entry.modified = entry.modified.substr(0, 10);
-                console.log(" HistoryStor.history.orders", entry);
                 HistoryStor.history.historyID = index;
               }
             });
@@ -899,11 +901,8 @@
                 item.forEach(function (entry) {
 
                   if (!entry.is_addelem_only) {
-                    // console.log("entry", entry);
-                    // console.log("entry.template_square", entry.template_square);
-                    // console.log("entryPerim", (entry.template_height + entry.template_width) * 2);
-                     tmpSquare += entry.template_square;
-                     tmpPerim += (entry.template_height + entry.template_width) * 2;
+                    tmpSquare += entry.template_square;
+                    tmpPerim += (entry.template_height + entry.template_width) * 2;
                   }
 
                 });

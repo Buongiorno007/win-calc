@@ -21,8 +21,7 @@
         /*jshint validthis:true */
         var thisFactory = this;
         var onlineMode;
-        var ISEXT = ISEXTFLAG;
-        $.get(SERVER_IP, function (data) {
+        $.get("http://api.steko.com.ua", function (data) {
           onlineMode = true;
           return true;
         })
@@ -149,11 +148,7 @@
                 }
                 while (--regionQty > -1) {
                   if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                    if(GlobalStor.global.locations.cities[cityQty].areasName) {
-                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
-                    } else {
-                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
-                    }
+                    GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
                     GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
                     GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
                     countryQty = GlobalStor.global.locations.countries.length;
@@ -902,7 +897,7 @@
               //   $("<img />").attr("src", rooms[roomQty].img);
               // }
               rooms.forEach(function (entry) {
-                if (ISEXT) {
+                if (GlobalStor.global.ISEXT) {
                   if ($("#updateDBcheck").prop("checked")) {
                     if (onlineMode && navigator.onLine) {
                       var url = String(globalConstants.serverIP + entry.img);
@@ -1538,7 +1533,7 @@
                             GlobalStor.global.profiles
                           ).then(function (data) {
                             if (data) {
-                              if (ISEXT) {
+                              if (GlobalStor.global.ISEXT) {
                                 GlobalStor.global.profilesType.forEach(function (entry) {
                                   if ($("#updateDBcheck").prop("checked")) {
                                     if (entry.img !== "") {
@@ -1608,7 +1603,7 @@
                                 if (data) {
                                   /** sorting glasses as to Type */
                                   sortingGlasses();
-                                  if (ISEXT) {
+                                  if (GlobalStor.global.ISEXT) {
                                     GlobalStor.global.glassesAll.forEach(function (array) {
                                       array.glassTypes.forEach(function (entry) {
                                         if ($("#updateDBcheck").prop("checked")) {
@@ -1695,7 +1690,7 @@
                                       // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.profilesType));
                                       // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
                                       // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
-                                      if (ISEXT) {
+                                      if (GlobalStor.global.ISEXT) {
                                         GlobalStor.global.hardwares.forEach(function (object) {
                                           object.forEach(function (entry) {
                                             if ($("#updateDBcheck").prop("checked")) {
@@ -1780,7 +1775,7 @@
                                             //console.log("entry.elementType",entry.elementType);
                                             // console.log("entry.elementsList",entry.elementsList);
                                             item.elementType.forEach(function (entry) {
-                                              if (ISEXT) {
+                                              if (GlobalStor.global.ISEXT) {
                                                 if (entry.img !== "") {
                                                   entry.img = globalConstants.serverIP + entry.img;
                                                   if ($("#updateDBcheck").prop("checked")) {
