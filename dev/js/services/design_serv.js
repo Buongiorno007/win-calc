@@ -751,6 +751,7 @@
         }
 
 
+<<<<<<< HEAD
         /**---------------- DOORs--------------*/
 
         /**---------- Show Door Configuration --------*/
@@ -815,6 +816,116 @@
             }
             if (isExist && d !== 2) {
               doorSill.push(DesignStor.design.doorShapeData[d]);
+=======
+    function updateGrids() {
+      var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
+          gridQty = gridsOld.length,
+          blocks = ProductStor.product.template.details,
+          blockQty = blocks.length,
+          isChanged = 0, gridsNew = [],
+          sizeGridX, sizeGridY, sizeTemp, gridTemp, g;
+      if(gridQty) {
+        while(--blockQty > 0) {
+          //------- if grid there is in this block
+          if(blocks[blockQty].gridId) {
+            for(g = 0; g < gridQty; g+= 1) {
+              if(blocks[blockQty].id === gridsOld[g].block_id) {
+                gridTemp = gridsOld[g];
+                sizeTemp = {};
+                //------ defined inner block sizes
+                sizeGridX = blocks[blockQty].pointsLight.map(function(item) {
+                  return item.x;
+                });
+                sizeGridY = blocks[blockQty].pointsLight.map(function(item) {
+                  return item.y;
+                });
+                sizeTemp.width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+                sizeTemp.height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
+                //----- if width or height are defferented - reculculate grid price
+                if(gridTemp.element_width !== sizeTemp.width || gridTemp.element_height !== sizeTemp.height) {
+                  gridTemp.element_width = sizeTemp.width;
+                  gridTemp.element_height = sizeTemp.height;
+                  isChanged = 1;
+                }
+                gridsNew.push(gridTemp);
+              }
+            }
+          }
+        }
+        //------- rewrite grids lists
+        ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+      }
+      return isChanged;
+    }
+
+
+
+
+    function setDefaultTemplate() {
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
+    }
+
+
+    //-------- Back to Template Panel
+    function backtoTemplatePanel() {
+      //------ cleaning DesignStor
+      DesignStor.design = DesignStor.setDefaultDesign();
+      //      delete DesignStor.design.templateSourceTEMP;
+      //      delete DesignStor.design.templateTEMP;
+      GlobalStor.global.activePanel = 0;
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.isLoader = 0;
+      //DesignStor.design.showHint = -1;
+      $location.path('/main');
+    }
+
+
+    /**---------------- DOORs--------------*/
+
+    /**---------- Show Door Configuration --------*/
+
+    function toggleDoorConfig() {
+      GlobalStor.global.checkDoors = 0;
+      DesignStor.design.steps.isDoorConfig = 1;
+      closeSizeCaclulator();
+    }
+
+    /**---------- Select door shape --------*/
+
+    function selectDoor(id, product) {
+      var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
+      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
+      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var temp = [];
+      var doorKitsT1 = GlobalStor.global.doorKitsT1;
+      DesignStor.design.doorShapeList.length = [];
+      DesignStor.designSource.doorShapeList.length = [];
+      for(var z=0; z<doorsGroups.length; z+=1) {
+        for(var i=0; i<doorsLaminations.length; i+=1) {
+          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
+          && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
+              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
+              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
+              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
+              doorsGroups[z].doorstep_type = 0;
+              doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
+              DesignStor.design.doorsGroups.push(doorsGroups[z].id)
+              for(var x=0; x<doorKitsT1.length; x+=1) {
+                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
+                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
+                }
+              }
+              temp.push(doorsGroups[z]);
+              break
+>>>>>>> 627388dcf64e9ee15d504a2e7482b6a8591cda3f
             }
           }
 
@@ -984,6 +1095,7 @@
           DesignStor.design.handleShapeList = filtered;
         }
 
+<<<<<<< HEAD
         /**---------- Select handle shape --------*/
 
         function selectHandle(id, product) {
@@ -1014,6 +1126,37 @@
                         array.push(newLockArr[x])
                       }
                     }
+=======
+    function selectHandle(id, product) {
+      console.log(id, '=====id');
+      (id)? id=id: id=DesignStor.design.handleShapeList[0].id;
+      var pnt = checkSize(DesignStor.design.templateTEMP, 4);
+      var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
+      var array = [];
+      if(!DesignStor.design.steps.selectedStep4) {
+        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
+          DesignStor.design.doorConfig.handleShapeIndex = '';
+          DesignStor.design.steps.selectedStep3 = 0;
+        } else {
+          DesignStor.design.doorConfig.handleShapeIndex = id;
+          DesignStor.design.steps.selectedStep3 = 1;
+        }
+        var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
+          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
+        });
+        var newLockArr = lockArr.filter(function(doorLocks) {
+          var temp = _.where(_.compact(_.flatten(DesignStor.design.handleShapeList)), {id:id});
+          return temp[0].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
+        });
+        var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
+        for(var x=0; x<newLockArr.length; x+=1) {
+          if (pnt.heightT <= newLockArr[x].height_max) {
+            if (pnt.heightT >= newLockArr[x].height_min) {
+              if (pnt.widthT <= newLockArr[x].width_max) {
+                if (pnt.widthT >= newLockArr[x].width_min) {
+                  if(newLockArr[x].hardware_type_id === (template.length)+1) {
+                    array.push(newLockArr[x])
+>>>>>>> 627388dcf64e9ee15d504a2e7482b6a8591cda3f
                   }
                 }
               }
@@ -1089,6 +1232,7 @@
               });
             });
           });
+<<<<<<< HEAD
           DesignStor.design.steps.isDoorConfig = 0;
           return deferred.promise;
         }
@@ -1140,6 +1284,60 @@
                                 source.lockShapeList[k].elem.push(clipboard);
                               }
                             }
+=======
+        });
+      });
+      DesignStor.design.steps.isDoorConfig = 0;
+      return deferred.promise;
+    }
+
+    function setDoorParamValue(product, source) {
+      var w =[900], h = [2000];
+      var k = product.door_lock_shape_id || 0;
+      var widthTEMP, heightTEMP;
+      var clipboard;
+      var doorsItems = angular.copy(GlobalStor.global.doorsItems);
+      (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
+      (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
+
+      function countHandle(source) {
+        var count = source.templateTEMP.details.filter(function(item) {
+          if(item.blockType == 'sash') {
+            if(item.handlePos !== 0) {
+              return item;
+            }
+          }
+        })
+        return count;
+      }
+
+      source.lockShapeList[k].elem = [];
+      product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
+      product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
+      product.doorName = source.doorShapeList[product.door_shape_id].name;
+      product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
+      var doorHandle = _.where(_.compact(_.flatten(source.handleShapeList)), {id:product.door_handle_shape_id});
+      product.doorHandle = doorHandle[0];
+      product.doorLock = source.lockShapeList[k];
+      product.doorHandle.count = countHandle(source).length;
+      for(var e=0; e<source.templateTEMP.details.length; e+=1) {
+        if(source.templateTEMP.details[e].blockType == 'sash') {
+          if(source.templateTEMP.details[e].handlePos !== 0) {
+            if(source.templateTEMP.details[e].openDir[0] === 4) {
+               source.templateTEMP.details[e].openDir[0] = 3;
+            }
+            for(var x=0; x<doorsItems.length; x+=1) {
+              if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
+                if(source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id || doorsItems[x].direction_id === 1) {
+                  if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
+                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) {
+                      if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
+                        if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
+                          if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
+                            doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
+                            clipboard = angular.copy(doorsItems[x]);
+                            source.lockShapeList[k].elem.push(clipboard);
+>>>>>>> 627388dcf64e9ee15d504a2e7482b6a8591cda3f
                           }
                         }
                       }
@@ -3303,9 +3501,17 @@
 
               }
 
+<<<<<<< HEAD
             });
           }
         }
+=======
+      stepBack: stepBack,
+      //---- door
+      setNewDoorParamValue: setNewDoorParamValue,
+      setDoorConfigDefault: setDoorConfigDefault,
+      saveSizeCheck: saveSizeCheck,
+>>>>>>> 627388dcf64e9ee15d504a2e7482b6a8591cda3f
 
 
         //--------- Cancel and Close Construction Page
