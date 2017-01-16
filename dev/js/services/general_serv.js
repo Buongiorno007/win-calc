@@ -314,7 +314,8 @@
     }
 
     function goToLink(link) {
-      if(GlobalStor.global.isDevice) {
+      isDevice = 1;
+      if(isDevice) {
         var ref = window.open(link,"_self");
         ref.close();
       } else {
