@@ -21,7 +21,6 @@
         /*jshint validthis:true */
         var thisFactory = this;
         var onlineMode;
-        var ISEXT = ISEXTFLAG;
         $.get("http://api.steko.com.ua", function (data) {
           onlineMode = true;
           return true;
@@ -535,26 +534,26 @@
             /** check image */
             if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource)) {
               var url = globalConstants.serverIP + '' + urlSource;
-              if (GlobalStor.global.isDevice) {
-                var imgName = urlSource.split('/').pop(),
-                  //targetPath = cordova.file.documentsDirectory + '' + imgName,
-                  targetPath = cordova.file.dataDirectory + '' + imgName,
-                  trustHosts = true,
-                  options = {};
-
-                //console.log('image name ====', imgName);
-                //console.log('image path ====', targetPath);
-                $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-                  console.log('Success!', result);
-                }, function (err) {
-                  console.log('Error!', err);
-                }, function (progress) {
-                  //console.log('progress!', progress);
-                });
-                return targetPath;
-              } else {
-                return url;
-              }
+              // if (GlobalStor.global.isDevice) {
+              //   var imgName = urlSource.split('/').pop(),
+              //     //targetPath = cordova.file.documentsDirectory + '' + imgName,
+              //     targetPath = cordova.file.dataDirectory + '' + imgName,
+              //     trustHosts = true,
+              //     options = {};
+              //
+              //   //console.log('image name ====', imgName);
+              //   //console.log('image path ====', targetPath);
+              //   $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+              //     console.log('Success!', result);
+              //   }, function (err) {
+              //     console.log('Error!', err);
+              //   }, function (progress) {
+              //     //console.log('progress!', progress);
+              //   });
+              //   return targetPath;
+              // } else {
+              //   return url;
+              // }
               return url;
             } else {
               return '';
@@ -898,7 +897,7 @@
               //   $("<img />").attr("src", rooms[roomQty].img);
               // }
               rooms.forEach(function (entry) {
-                if (ISEXT) {
+                if (GlobalStor.global.ISEXT) {
                   if ($("#updateDBcheck").prop("checked")) {
                     if (onlineMode && navigator.onLine) {
                       var url = String(globalConstants.serverIP + entry.img);
@@ -1534,7 +1533,7 @@
                             GlobalStor.global.profiles
                           ).then(function (data) {
                             if (data) {
-                              if (ISEXT) {
+                              if (GlobalStor.global.ISEXT) {
                                 GlobalStor.global.profilesType.forEach(function (entry) {
                                   if ($("#updateDBcheck").prop("checked")) {
                                     if (entry.img !== "") {
@@ -1604,7 +1603,7 @@
                                 if (data) {
                                   /** sorting glasses as to Type */
                                   sortingGlasses();
-                                  if (ISEXT) {
+                                  if (GlobalStor.global.ISEXT) {
                                     GlobalStor.global.glassesAll.forEach(function (array) {
                                       array.glassTypes.forEach(function (entry) {
                                         if ($("#updateDBcheck").prop("checked")) {
@@ -1691,7 +1690,7 @@
                                       // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.profilesType));
                                       // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
                                       // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
-                                      if (ISEXT) {
+                                      if (GlobalStor.global.ISEXT) {
                                         GlobalStor.global.hardwares.forEach(function (object) {
                                           object.forEach(function (entry) {
                                             if ($("#updateDBcheck").prop("checked")) {
@@ -1776,7 +1775,7 @@
                                             //console.log("entry.elementType",entry.elementType);
                                             // console.log("entry.elementsList",entry.elementsList);
                                             item.elementType.forEach(function (entry) {
-                                              if (ISEXT) {
+                                              if (GlobalStor.global.ISEXT) {
                                                 if (entry.img !== "") {
                                                   entry.img = globalConstants.serverIP + entry.img;
                                                   if ($("#updateDBcheck").prop("checked")) {

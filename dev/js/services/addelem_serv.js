@@ -45,7 +45,7 @@
       } else {
         AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
       }
-      console.log(AuxStor.aux.addElementsList);
+      //console.log(AuxStor.aux.addElementsList);
     }
 
 

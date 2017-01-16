@@ -77,6 +77,9 @@
     "OFFLINE_INFO": "Connect to the internet and try again",
     "IMPORT_DB": "DataBase Import was started! Waite please!",
     "AUTO_SYNCHRONIZE" : "Auto-sync data when the application starts",
+    "UNEXPECTED_ERROR" : "Sorry, something went wrong, please try again later",
+    "SYNC_INFO_P1" : "The data in the application are synchronized ",
+    "SYNC_INFO_P2" : "Refresh now?",
     "SYNCHRONIZE_INFO" : "When enabled features auto-sync data, during application startup is loaded current prices, as well as saving on server orders recruited earlier. Auto-sync only if you have access to the Internet"
 
   },
@@ -120,6 +123,8 @@
     "SELECT_GLASS_WARN": "Click on the glazing, you want to change"
   },
   "panels": {
+    "INFO_HINT":"Start the calculation by selecting the desired template",
+
     "TEMPLATE_WINDOW": "Window",
     "TEMPLATE_BALCONY": "Balcony",
     "TEMPLATE_DOOR": "Door",
@@ -270,7 +275,13 @@
     "EXTRA_SASH": "Current size of the leaf rebate",
     "CHANGE_SIZE": "To save design resize.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
-    "CALC_PRICE": "Calculate the price"
+    "CALC_PRICE": "Calculate the price",
+
+    "PROFILE_SYSTEM_SELECT":"The system profile",
+    "GLASS_SELECT":"glazing",
+    "GLASS_SELECT_BIG":"Glazing",
+    "HARDWARE_SELECT":"window hardware",
+    "LEFT_TEXT_SELECT":"choose after save"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Search by keyword",

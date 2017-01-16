@@ -78,6 +78,13 @@
       $location.path(GlobalStor.global.prevOpenPage);
     }
 
+    function getSettingFullInfo(){
+      return new Date();
+    }
+
+    function getSettingTempInfo(tempdata){
+      return tempdata.getFullYear()+""+tempdata.getMonth() +""+ tempdata.getDate();
+    }
 
 
     /**========== FINISH ==========*/
@@ -90,7 +97,9 @@
       gotoPasswordPage: gotoPasswordPage,
       gotoLanguagePage: gotoLanguagePage,
       gotoSettingsPage: gotoSettingsPage,
-      closeSettingsPage: closeSettingsPage
+      closeSettingsPage: closeSettingsPage,
+      getSettingTempInfo: getSettingTempInfo,
+      getSettingFullInfo: getSettingFullInfo
     };
 
     return thisFactory.publicObj;

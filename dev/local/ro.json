@@ -70,6 +70,9 @@
     "OFFLINE_IMPORT":"Nu există conexiune la Internet!",
     "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!",
     "AUTO_SYNCHRONIZE" : "Date de sincronizare automată la pornirea aplicației",
+    "UNEXPECTED_ERROR" : "Ne pare rau, ceva a mers prost, vă rugăm să încercați din nou mai târziu",
+    "SYNC_INFO_P1" : "Datele din aplicație sunt sincronizate ",
+    "SYNC_INFO_P2" : "Actualizați acum?",
     "SYNCHRONIZE_INFO" : "Când datele caracteristici activate sincronizarea automată, în timpul pornirii aplicațiilor este încărcată prețuri curente, precum și de economisire pe ordinele de server recrutați mai devreme. Sincronizarea automată numai dacă aveți acces la Internet"
 
   },
@@ -119,6 +122,8 @@
     "SELECT_GLASS_WARN": "Faceți un clic pe termopanul, pe care doriți să-l modificați."
   },
   "panels": {
+    "INFO_HINT":"Lansați calculul prin selectarea șablonului dorit",
+
     "TEMPLATE_WINDOW": "Fereastră",
     "TEMPLATE_BALCONY": "Balcon",
     "TEMPLATE_DOOR": "Ușă",
@@ -268,7 +273,13 @@
     "EXTRA_SASH": "Dimensiunea curentă a canatului după falț ",
     "CHANGE_SIZE": "Pentru salvarea construcției modificați dimensiunile.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
-    "CALC_PRICE": "Se calculează prețul"
+    "CALC_PRICE": "Se calculează prețul",
+
+    "PROFILE_SYSTEM_SELECT":"Sistemul de profile",
+    "GLASS_SELECT":"geamuri termoizolante",
+    "GLASS_SELECT_BIG":"Geamuri termoizolante",
+    "HARDWARE_SELECT":"accesorii",
+    "LEFT_TEXT_SELECT":"pentru a alege atunci când salvați"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Căutare după cuvinte-cheie",

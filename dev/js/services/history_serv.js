@@ -713,11 +713,14 @@
                 for (var y = 0; y < addElementsAll[elementsAdd[x].element_type].elementsList.length; y += 1) {
                   for (var z = 0; z < addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z += 1) {
                     if (elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
-                      elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
-                      elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
-                      elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
-                      elementsAdd[x].list_type_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_type_id;
-                      break
+                      if (elementsAdd[x].element_type !== 0) {
+                        console.log("GlobalStor.global.addElementsAll", GlobalStor.global.addElementsAll);
+                        elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
+                        elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
+                        elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
+                        elementsAdd[x].list_type_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_type_id;
+                        break
+                      }
                     }
                   }
                 }
@@ -742,7 +745,7 @@
                     }
                   }
                 }
-
+                console.log("OrderStor.order.products", OrderStor.order.products);
               } else {
                 deferred.resolve(1);
               }
@@ -795,6 +798,8 @@
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
             var products = OrderStor.order.products;
+
+
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
               downloadAddElements().then(function () {
@@ -883,7 +888,6 @@
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
                 entry.modified = entry.modified.substr(0, 10);
-                console.log(" HistoryStor.history.orders", entry);
                 HistoryStor.history.historyID = index;
               }
             });
@@ -897,11 +901,8 @@
                 item.forEach(function (entry) {
 
                   if (!entry.is_addelem_only) {
-                    // console.log("entry", entry);
-                    // console.log("entry.template_square", entry.template_square);
-                    // console.log("entryPerim", (entry.template_height + entry.template_width) * 2);
-                     tmpSquare += entry.template_square;
-                     tmpPerim += (entry.template_height + entry.template_width) * 2;
+                    tmpSquare += entry.template_square;
+                    tmpPerim += (entry.template_height + entry.template_width) * 2;
                   }
 
                 });

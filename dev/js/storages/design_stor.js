@@ -19,8 +19,10 @@
 
     thisFactory.publicObj = {
       designSource: {
+        showHint : 0,
         templateSourceTEMP: {},
         templateTEMP: {},
+        template_id: null,
         designSteps: [],
         activeMenuItem: 0,
         activeSubMenuItem: 0,
@@ -107,7 +109,8 @@
           handleShapeIndex: '',
           handleShape: {},
           lockShapeIndex: '',
-          lockShape: {}
+          lockShape: {},
+          glassDepProf: false //соответствие старого и нового профиля. Если нет - стеклопакеты приводятся к default значению.
         }
 
       },

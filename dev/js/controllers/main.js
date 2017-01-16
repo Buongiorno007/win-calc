@@ -26,7 +26,6 @@
   ) {
     /*jshint validthis:true */
    var thisCtrl = this;
-
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
@@ -73,8 +72,6 @@
         $location.path('/design');
       }
     }
-
-
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {

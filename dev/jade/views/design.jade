@@ -87,7 +87,17 @@ section.construction-page
       .construction-scrollbox
         svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.constants.svgTemplateWidth", template-height="designPage.constants.svgTemplateHeight", type-construction="designPage.constants.SVG_ID_EDIT")
 
-
+        .template-elem(ng-if="designPage.P.product.construction_type !== 4 && designPage.D.design.showHint == 1")
+          nobr.clicked(fs-click="designPage.selectProfileFast()") {{::designPage.PROFILE_SYSTEM_SELECT}}
+          |,&nbsp;
+          nobr.clicked(fs-click="designPage.selectGlassFast()")  {{::designPage.GLASS_SELECT}}
+          |&nbsp;{{::designPage.AND}}&nbsp;
+          nobr.clicked(fs-click="designPage.selectWindowsHardwareFast()",ng-if="designPage.G.global.isSashesInTemplate > 0") {{::designPage.HARDWARE_SELECT}}
+          nobr(ng-if="designPage.G.global.isSashesInTemplate == 0") {{::designPage.HARDWARE_SELECT}}
+          |&nbsp;{{::designPage.LEFT_TEXT_SELECT}}
+        .template-elem(ng-if="designPage.P.product.construction_type == 4 && designPage.D.design.showHint == 1")
+          nobr.clicked(fs-click="designPage.selectGlassFast()") {{::designPage.GLASS_SELECT_BIG}}
+          |&nbsp;{{::designPage.LEFT_TEXT_SELECT}}
 
     .right-menu-header
       .nav-tool-box(ng-if="designPage.D.design.designSteps.length > 0")
@@ -155,15 +165,15 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_HANDLE_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep4}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", ng-click="designPage.selectHandle($index, designPage.P.product)")
+            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === handle.id}", ng-click="designPage.selectHandle(handle.id, designPage.P.product)")
               .door-inner
                 .door-option-icon
-                  img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config/lever-handle.png", ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index")
-                  img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config-selected/lever-handle.png", ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index")
-                  img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config/standart-handle.png", ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index")
-                  img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config-selected/standart-handle.png", ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index")
+                  img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config/lever-handle.png", ng-hide="designPage.D.design.doorConfig.handleShapeIndex === handle.id")
+                  img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config-selected/lever-handle.png", ng-show="designPage.D.design.doorConfig.handleShapeIndex ===handle.id")
+                  img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config/standart-handle.png", ng-hide="designPage.D.design.doorConfig.handleShapeIndex === handle.id")
+                  img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config-selected/standart-handle.png", ng-show="designPage.D.design.doorConfig.handleShapeIndex === handle.id")
                 .door-option-label {{ handle.name }}
-              .selected-item-arrow(ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index")
+              .selected-item-arrow(ng-show="designPage.D.design.doorConfig.handleShapeIndex === handle.id")
 
       .door-config-column.step4(ng-class="{'active': designPage.D.design.steps.selectedStep3}")
         .door-config-backfon
