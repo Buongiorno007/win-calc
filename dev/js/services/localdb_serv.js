@@ -1206,7 +1206,7 @@
     function createUserServer(dataJson) {
       $http.post(globalConstants.serverIP+'/api/register', dataJson).then(
         function (result) {
-          console.log(result);
+          //console.log(result);
         },
         function () {
           console.log('Something went wrong when user creating!');
@@ -2864,7 +2864,6 @@
 
                   var element = result;
                   async.eachSeries(element,calculate, function (err, result) {
-                    console.log('done', err, result)
                      nextRecord();
                   });
 

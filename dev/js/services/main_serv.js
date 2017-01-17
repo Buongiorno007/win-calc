@@ -1448,11 +1448,8 @@
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': OrderStor.order.id});
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': OrderStor.order.id});
         localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_products.tableName).then(function(def1) {
-          console.info('delete old products', def1);
           localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_addelements.tableName).then(function(def2) {
-            console.info('delete old addElem', def2);
             save().then(function(res) {
-              console.info('result edit order', res);
               deferred.resolve(1);
             });
           });
@@ -1460,7 +1457,6 @@
         
       } else {
         save().then(function(res) {
-          console.info('result save order', res);
           deferred.resolve(1);
         })
       }

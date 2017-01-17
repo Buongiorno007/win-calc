@@ -780,7 +780,7 @@
                 }
               }
               else {
-                console.log("обновляем");
+                //console.log("обновляем");
                 GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;

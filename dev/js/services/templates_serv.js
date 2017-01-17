@@ -33,27 +33,29 @@
         DesignServ.setDoorConfigDefault(ProductStor.product);
       } else {
         ProductStor.product.template_id = DesignStor.design.template_id;
-        MainServ.saveTemplateInProduct(templateIndex).then(function(result) {
-          MainServ.setCurrentHardware(ProductStor.product);
-          DesignServ.setDefaultConstruction();
-          var hardwareIds = ProductStor.product.hardware.id || 0;
-          //------ define product price
-          MainServ.preparePrice(
-            ProductStor.product.template,
-            ProductStor.product.profile.id,
-            ProductStor.product.glass,
-            hardwareIds,
-            ProductStor.product.lamination.lamination_in_id
-          );
-          /** send analytics data to Server*/
-          AnalyticsServ.sendAnalyticsData(
-            UserStor.userInfo.id,
-            OrderStor.order.id,
-            ProductStor.product.template_id,
-            ProductStor.product.profile.id,
-            1
-          );
-        });
+        MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function() {
+          MainServ.saveTemplateInProduct(templateIndex).then(function(result) {
+            MainServ.setCurrentHardware(ProductStor.product);
+            DesignServ.setDefaultConstruction();
+            var hardwareIds = ProductStor.product.hardware.id || 0;
+            //------ define product price
+            MainServ.preparePrice(
+              ProductStor.product.template,
+              ProductStor.product.profile.id,
+              ProductStor.product.glass,
+              hardwareIds,
+              ProductStor.product.lamination.lamination_in_id
+            );
+            /** send analytics data to Server*/
+            AnalyticsServ.sendAnalyticsData(
+              UserStor.userInfo.id,
+              OrderStor.order.id,
+              ProductStor.product.template_id,
+              ProductStor.product.profile.id,
+              1
+            );
+          });
+        })
       }
     }
 
@@ -76,7 +78,6 @@
           DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
           DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
-            console.log('door FINISH')
             ProductStor.product = angular.copy(result);
           });
         } 
