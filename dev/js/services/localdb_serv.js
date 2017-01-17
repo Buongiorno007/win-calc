@@ -2882,7 +2882,11 @@
                                     kit.value = firstKitId.count;  
                                   }
                                 } else {
-                                  kit.value = firstKitId.value*element.value;                             
+                                  if(element.value) {
+                                    kit.value = firstKitId.value*element.value;    
+                                  } else {
+                                    kit.value = firstKitId.value;
+                                  }                        
                                 }
                                 roundVal = angular.copy(kit.value);
                                 
