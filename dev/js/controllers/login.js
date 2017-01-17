@@ -494,17 +494,17 @@
 
             if (isCustomer) {
               if (thisCtrl.user.phone && thisCtrl.user.password) {
+                GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
-                checkingUser();
-              } else {
-                GlobalStor.global.isLoader = 1;
-                GlobalStor.global.startSlider = 1;
+                loader();
                 checkingUser();
               }
             } else {
+              GlobalStor.global.loadDate = new Date();
               GlobalStor.global.isLoader = 1;
               GlobalStor.global.startSlider = 1;
+              loader();
               checkingUser();
               // localDB.importUser(url.access, 1).then(function (result) {
               //   var userTemp = angular.copy(result.user);

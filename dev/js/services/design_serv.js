@@ -734,13 +734,17 @@
                       gridTemp.element_height = sizeTemp.height;
                       isChanged = 1;
                     }
-                    if (gridsNew.length) {ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);}
+                    if (gridsNew.length) {
+                      ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+                    }
                   }
                 }
               }
             }
             //------- rewrite grids lists
-            ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+            if (gridsNew.length) {
+              ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+            }
           }
           return isChanged;
         }
