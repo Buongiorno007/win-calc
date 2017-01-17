@@ -1593,7 +1593,7 @@
             }
           }
           productData.lamination_id = OrderStor.order.products[p].lamination.id;
-          productData.template_source = JSON.stringify(productData.template_source);
+          productData.template_source = (!productData.is_addelem_only) ? JSON.stringify(productData.template_source): JSON.stringify({});
           productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
           productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
           productData.modified = new Date();
@@ -1671,7 +1671,7 @@
                 };
 
 
-                console.log('SEND ADD',addElementsData);
+                //console.log('SEND ADD',addElementsData);
                 if(orderType) {
                   localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                   localDB.insertServer(
