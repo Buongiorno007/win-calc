@@ -3322,29 +3322,30 @@
                   MainServ.setGlassfilter();
                   if(ProductStor.product.construction_type !== 4) {
                     MainServ.setCurrentGlass(ProductStor.product, 1);
-                    MainServ.setCurrentProfile(ProductStor.product);
-                  }
-
-
-                  /** create template icon */
-                  SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-                    .then(function (result) {
-                      ProductStor.product.templateIcon = angular.copy(result);
+                    MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function() {
+                      next();
                     });
-
-                  /** save new template in templates Array */
-                  GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
-                    ProductStor.product.template_source
-                  );
-
-                  /** check grids */
-                  var isChanged = updateGrids();
-                  if(isChanged) {
-                    //------ get new grids price
-                    loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
+                  } else {
+                    next();
                   }
-                  SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
-                    .then(function (result) {
+
+                  function next() {
+                    /** create template icon */
+                    SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                      .then(function (result) {
+                        ProductStor.product.templateIcon = angular.copy(result);
+                      });
+                    /** save new template in templates Array */
+                    GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
+                      ProductStor.product.template_source
+                    );
+                    /** check grids */
+                    var isChanged = updateGrids();
+                    if(isChanged) {
+                      //------ get new grids price
+                      loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
+                    }
+                    SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                       ProductStor.product.template = angular.copy(result);
                       /** refresh price of new template */
                       MainServ.preparePrice(
@@ -3355,20 +3356,16 @@
                         ProductStor.product.lamination.lamination_in_id
                       ).then(function () {
                         //-------- template was changed
-                        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
-                          .then(function (result) {
-                            ProductStor.product.template = angular.copy(result);
-
-                            GlobalStor.global.isChangedTemplate = 1;
-
-                            backtoTemplatePanel();
-                          });
+                        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+                          ProductStor.product.template = angular.copy(result);
+                          GlobalStor.global.isChangedTemplate = 1;
+                          backtoTemplatePanel();
+                        });
                       });
                     });
+                  } 
                 }
-
               }
-
             });
           }
         }
