@@ -124,6 +124,9 @@
         },
         "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "net.voice_creator.mobile"
+        },
+        "cordova-plugin-printer": {
+            "PACKAGE_NAME": "net.voice_creator.mobile"
         }
     },
     "dependent_plugins": {

@@ -1,5 +1,5 @@
 .slider
-  #featured(ng-class="{ 'visible' : loginPage.G.global.startSlider === 1}")
+  #featured(ng-if="loginPage.G.global.startSlider")
     img(src='./img/orbit/1.png', alt='img')
     img(src='./img/orbit/2.png', alt='img', rel='')
     img(src='./img/orbit/3.png', alt='img', rel='test')  

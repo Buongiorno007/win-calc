@@ -527,41 +527,6 @@
           });
         }
 
-
-        /** change Images Path and save in device */
-        function downloadElemImg(urlSource) {
-          if (urlSource) {
-            /** check image */
-            if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource)) {
-              var url = globalConstants.serverIP + '' + urlSource;
-              // if (GlobalStor.global.isDevice) {
-              //   var imgName = urlSource.split('/').pop(),
-              //     //targetPath = cordova.file.documentsDirectory + '' + imgName,
-              //     targetPath = cordova.file.dataDirectory + '' + imgName,
-              //     trustHosts = true,
-              //     options = {};
-              //
-              //   //console.log('image name ====', imgName);
-              //   //console.log('image path ====', targetPath);
-              //   $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-              //     console.log('Success!', result);
-              //   }, function (err) {
-              //     console.log('Error!', err);
-              //   }, function (progress) {
-              //     //console.log('progress!', progress);
-              //   });
-              //   return targetPath;
-              // } else {
-              //   return url;
-              // }
-              return url;
-            } else {
-              return '';
-            }
-          }
-        }
-
-
         //----------- get all elements as to groups
 
         function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
@@ -874,6 +839,40 @@
         //function downloadAllTemplates() {
         //
         //}
+
+        /** change Images Path and save in device */
+        function downloadElemImg(urlSource) {
+          if (urlSource) {
+            /** check image */
+            if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource)) {
+              var url = globalConstants.serverIP + '' + urlSource;
+              if (GlobalStor.global.isDevice) {
+                var imgName = urlSource.split('/').pop(),
+                  //targetPath = cordova.file.documentsDirectory + '' + imgName,
+                  targetPath = cordova.file.dataDirectory + '' + imgName,
+                  trustHosts = true,
+                  options = {};
+
+                //console.log('image name ====', imgName);
+                //console.log('image path ====', targetPath);
+                $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+                  console.log('Success!', result);
+                }, function (err) {
+                  console.log('Error!', err);
+                }, function (progress) {
+                  //console.log('progress!', progress);
+                });
+                return targetPath;
+              } else {
+                return url;
+              }
+              return url;
+            } else {
+              return '';
+            }
+          }
+        }
+
         localforage.setDriver([localforage.WEBSQL]);
         /** download all Backgrounds */
         function downloadAllBackgrounds() {
@@ -898,58 +897,33 @@
               // }
               rooms.forEach(function (entry) {
                 entry.img = globalConstants.serverIP + entry.img;
-                if (entry.img) {
-                  /** check image */
-                  if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(entry.img)) {
-                    if (GlobalStor.global.isDevice) {
-                      var imgName = entry.img.split('/').pop(),
-                        //targetPath = cordova.file.documentsDirectory + '' + imgName,
-                        targetPath = cordova.file.dataDirectory + '' + imgName,
-                        trustHosts = true,
-                        options = {};
-
-                      //console.log('image name ====', imgName);
-                      //console.log('image path ====', targetPath);
-                      $cordovaFileTransfer.download(entry.img, targetPath, options, trustHosts).then(function (result) {
-                        console.log('Success!', result);
-                      }, function (err) {
-                        console.log('Error!', err);
-                      }, function (progress) {
-                        //console.log('progress!', progress);
-                      });
-                      return targetPath;
+                if (GlobalStor.global.ISEXT) {
+                  if ($("#updateDBcheck").prop("checked")) {
+                    if (onlineMode && navigator.onLine) {
+                      var url = String(entry.img);
+                      var xhr = new XMLHttpRequest();
+                      xhr.responseType = 'blob';
+                      xhr.onload = function () {
+                        var reader = new FileReader();
+                        reader.onloadend = function () {
+                          var key = String(entry.img);
+                          var value = reader.result;
+                          localforage.setItem(key, value, function (err, value) {
+                            entry.img = value;
+                          });
+                        }
+                        reader.readAsDataURL(xhr.response);
+                      };
+                      xhr.open('GET', url, true);
+                      xhr.send();
                     }
+                  } else {
+                    var key = String(entry.img);
+                    localforage.getItem(key, function (err, value) {
+                        entry.img = value;
+                    });
                   }
                 }
-                // if (GlobalStor.global.ISEXT) {
-                //   if ($("#updateDBcheck").prop("checked")) {
-                //     if (onlineMode && navigator.onLine) {
-                //       var url = String(entry.img);
-                //       var xhr = new XMLHttpRequest();
-                //       xhr.responseType = 'blob';
-                //       xhr.onload = function () {
-                //         var reader = new FileReader();
-                //         reader.onloadend = function () {
-                //
-                //           var key = String(entry.img);
-                //           var value = reader.result;
-                //           localforage.setItem(key, value, function (err, value) {
-                //             entry.img = value;
-                //           });
-                //
-                //         }
-                //         reader.readAsDataURL(xhr.response);
-                //       };
-                //       xhr.open('GET', url, true);
-                //       xhr.send();
-                //     }
-                //   } else {
-                //     var key = String(entry.img);
-                //     localforage.getItem(key, function (err, value) {
-                //       entry.img = value;
-                //     });
-                //   }
-                // }
               });
               //console.info('login++++', rooms);
               GlobalStor.global.rooms = rooms;

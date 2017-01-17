@@ -28,10 +28,10 @@
               td(ng-class="result") {{historyPage.H.history.OrderPrintLength}}
             tr
               td(ng-class="title") Общая площадь конструкций
-              td(ng-class="result") {{historyPage.H.history.OrderPrintSquare}}
+              td(ng-class="result") {{historyPage.H.history.OrderPrintSquare | number}}
             tr
               td(ng-class="title") Общий периметр конструкций
-              td(ng-class="result") {{historyPage.H.history.OrderPrintPerimeter}}
+              td(ng-class="result") {{historyPage.H.history.OrderPrintPerimeter | number}}
         br
         br
         table
@@ -59,7 +59,7 @@
             tr
               td(ng-class="title") Итого
               td(ng-class="result")
-              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].order_price}}
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].order_price_dis}}
   .content(ng-repeat="curProd in historyPage.H.history.PrintProduct track by $index")
     .header
       hr

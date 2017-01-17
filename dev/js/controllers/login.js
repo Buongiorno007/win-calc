@@ -172,7 +172,7 @@
 
 
         function importDBfromServer() {
-          thisCtrl.isStartImport = 1;
+          //thisCtrl.isStartImport = 1;
           //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
             if (data) {
@@ -594,7 +594,7 @@
             UserStor.userInfo.device_code = value;
           });
         }
-        $(".i").hide();
+        //$(".i").hide();
         var FirstIn = "true";
         localforage.getItem("FirstIn", function (err, value) {
           if (value !== "true") {
