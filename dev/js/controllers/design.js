@@ -92,10 +92,14 @@
     //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
     //DesignServ.setDefaultTemplate();
-    DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-    DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-    DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+    if(!GlobalStor.global.prohibitCopyingTemplate) {
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+    } else {
+      delete GlobalStor.global.prohibitCopyingTemplate;
+    }
   
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
@@ -143,7 +147,7 @@
       var isPermit = 1,
           glassQty = DesignStor.design.selectedGlass.length,
           i;
-
+      GlobalStor.global.isChangedTemplate = 1;
       if(sashType === 1) {
         deactivMenu();
         GlobalStor.global.isSashesInTemplate = 0;
@@ -305,7 +309,7 @@
       var isPermit = 1,
           impostsQty = DesignStor.design.selectedImpost.length,
           i;
-
+    GlobalStor.global.isChangedTemplate = 1;
       if(impostType === 1) {
         deactivMenu();
         /** delete imposts */
@@ -367,6 +371,7 @@
     /**++++++++++ position by Axises ++++++++*/
 
     function positionAxis() {
+      GlobalStor.global.isChangedTemplate = 1;
       deactivMenu();
       DesignServ.positionAxises();
     }
@@ -375,6 +380,7 @@
     /**++++++++++ position by Glasses ++++++++*/
 
     function positionGlass() {
+      GlobalStor.global.isChangedTemplate = 1;
       deactivMenu();
       DesignServ.positionGlasses();
     }

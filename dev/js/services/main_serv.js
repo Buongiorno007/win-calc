@@ -29,7 +29,7 @@
     var thisFactory = this;
     /**============ METHODS ================*/
       var onlineMode;
-      $.get("http://api.steko.com.ua", function(data) {
+      $.get(SERVER_IP, function(data) {
         onlineMode = true;
         return true;
       })
@@ -351,7 +351,9 @@
       }
     }
 
+    function checkDependGlassTest(sash, product) {
 
+    }
 
     function setCurrentGlass(product, id) {
       //------- cleaning glass in product
@@ -382,6 +384,39 @@
           GlobalStor.global.selectGlassName = product.glass[0].sku;
           /** set Glass to all template blocks without children */
           setGlassToTemplateBlocks(product.glass[0].glass_type, ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
+        }
+      }
+    }
+
+    function setCurrentGlassInTemplate(templateSourceTemp, product, id) {
+      //------- cleaning glass in product
+      product.glass.length = 0;
+      if(id) {
+        //----- get Glass Ids from template and check dublicates
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(templateSourceTemp)),
+            glassIdsQty = glassIds.length;
+        //------- glass filling by new elements
+        while(--glassIdsQty > -1) {
+          product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
+        }
+      } else {
+        //----- set default glass in ProductStor
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
+          } else {
+            return item.profileId === product.profile.id;
+
+          }
+        });
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+          GlobalStor.global.selectGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassName = product.glass[0].sku;
+          /** set Glass to all template blocks without children */
+          setGlassToTemplateBlocks(product.glass[0].glass_type, templateSourceTemp, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
@@ -441,36 +476,6 @@
               defer.resolve(1);
             });
         });     
-      return defer.promise;
-    }
-
-
-    function saveTemplateInProductForOrder(templateIndex) {
-      //-----копия функции создания template для подсчета цены.
-      var defer = $q.defer();
-               //----- set default glass in ProductStor
-        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          return item.profileId === ProductStor.product.profile.id;
-        });
-        if(tempGlassArr.length) {
-          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
-          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-          GlobalStor.global.selectGlassId = ProductStor.product.glass[0].id;
-          GlobalStor.global.selectGlassName = ProductStor.product.glass[0].sku;
-        }
-        ProductStor.product.template_source;
-      //----- create template
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
-        .then(function(result) {
-          ProductStor.product.template = angular.copy(result);
-          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
-          //------ show elements of room
-         
-          //----- console.log('TEMPLATE +++', ProductStor.product.template);
-          //----- create template icon
-        GlobalStor.global.isRoomElements = 1;
-        defer.resolve(1);
-        });    
       return defer.promise;
     }
 
@@ -596,25 +601,11 @@
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
             priceMargin, doorData, tempDoorItems;
-
-        // for(var y=0; y<priceObj.constrElements.length; y+=1) {
-        //   for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
-        //     if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
-        //       ProductStor.product.template_source.doorSill = GlobalStor.global.allDoorSills[x];
-        //       downloadProfileDepth(GlobalStor.global.allDoorSills[x].id)
-        //         .then(function(result) {
-        //         ProductStor.product.profileDepths.sillDepth = result;
-        //       });
-        //     }
-        //   }
-        // }
-
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
-                console.log('doorResult',JSON.stringify( doorResult));
                 doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
@@ -1278,8 +1269,6 @@
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
-      console.log("id",id);
-      console.log("itemArr",itemArr);
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
@@ -1636,7 +1625,6 @@
 
           if(orderType) {
             localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-            console.log("productData",productData);
             localDB.insertServer(
               UserStor.userInfo.phone,
               UserStor.userInfo.device_code,
@@ -1762,6 +1750,8 @@
 
 
     thisFactory.publicObj = {
+      setCurrentGlassInTemplate: setCurrentGlassInTemplate,
+      checkDependGlassTest:checkDependGlassTest,
       setGlassfilter: setGlassfilter,
       setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
@@ -1782,7 +1772,6 @@
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
       downloadProfileDepth: downloadProfileDepth,
-      saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,

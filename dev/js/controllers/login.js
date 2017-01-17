@@ -289,7 +289,8 @@
 
 
         function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {  });
+          localforage.setItem("FirstIn", "true", function (err, value) {
+          });
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
             if (result.status) {
               var userTemp = angular.copy(result.user);
@@ -480,6 +481,7 @@
 
 
           if (url.access) {
+            console.log("url.access");
 
             while (accessQty > -1) {
               accessQty -= 1;
@@ -492,17 +494,24 @@
 
             if (isCustomer) {
               if (thisCtrl.user.phone && thisCtrl.user.password) {
+                GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
+                loader();
                 checkingUser();
               }
             } else {
-              localDB.importUser(url.access, 1).then(function (result) {
-                var userTemp = angular.copy(result.user);
-                GlobalStor.global.isLoader = 1;
-                GlobalStor.global.startSlider = 1;
-                importDBProsses(userTemp);
-              });
+              GlobalStor.global.loadDate = new Date();
+              GlobalStor.global.isLoader = 1;
+              GlobalStor.global.startSlider = 1;
+              loader();
+              checkingUser();
+              // localDB.importUser(url.access, 1).then(function (result) {
+              //   var userTemp = angular.copy(result.user);
+              //   GlobalStor.global.isLoader = 1;
+              //   GlobalStor.global.startSlider = 1;
+              //   importDBProsses(userTemp);
+              // });
             }
 
           }
@@ -771,6 +780,7 @@
                 }
               }
               else {
+                console.log("обновляем");
                 GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;

@@ -25,6 +25,7 @@
 
     /**============ METHODS ================*/
     function selectProfile(newId) {
+      GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.continued = 0;
       profileForAlert(newId);
       var productTEMP;

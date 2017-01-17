@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba610b26-e3e3-48af-9253-0737301353f0" name="Default" comment="">
+    <list default="true" id="78f494f6-6a9a-4304-b1e4-57b045240d8a" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/bauvoiceapp.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/rodion.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/rodion.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/contents.xcworkspacedata" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcshareddata/Voice Creator.xccheckout" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcshareddata/Voice Creator.xccheckout" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/WorkspaceSettings.xcsettings" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/WorkspaceSettings.xcsettings" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Voice Creator.xcscheme" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/Voice Creator.xcscheme" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="$PROJECT_DIR$/app2/platforms/ios/Steko Calculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/index.jade" afterPath="$PROJECT_DIR$/dev/jade/index.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/design.jade" afterPath="$PROJECT_DIR$/dev/jade/views/design.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/panels/_add-elements-cart.jade" afterPath="$PROJECT_DIR$/dev/jade/views/panels/_add-elements-cart.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" afterPath="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/design.js" afterPath="$PROJECT_DIR$/dev/js/controllers/design.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/login.js" afterPath="$PROJECT_DIR$/dev/js/controllers/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/main.js" afterPath="$PROJECT_DIR$/dev/js/controllers/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/panels/add_elements_cart.js" afterPath="$PROJECT_DIR$/dev/js/controllers/panels/add_elements_cart.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/panels/laminations.js" afterPath="$PROJECT_DIR$/dev/js/controllers/panels/laminations.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" afterPath="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/index.js" afterPath="$PROJECT_DIR$/dev/js/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/cart_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/cart_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/design_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/design_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/general_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/general_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/glasses_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/glasses_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/hardware_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/hardware_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/localdb_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/localdb_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/login_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/login_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/main_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/main_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/print_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/print_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/profile_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/profile_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/svg_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/svg_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/templates_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/templates_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/storages/design_stor.js" afterPath="$PROJECT_DIR$/dev/js/storages/design_stor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/panels/add-elements-cart.scss" afterPath="$PROJECT_DIR$/dev/sass/panels/add-elements-cart.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
     </list>
     <ignored path="bauvoiceapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,111 +66,8 @@
   <component name="FavoritesManager">
     <favorites_list name="bauvoiceapp" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/jade/index.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gulpfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="525" column="28" selection-start-line="525" selection-start-column="19" selection-end-line="525" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="general_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/general_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="316" column="8" selection-start-line="316" selection-start-column="8" selection-end-line="316" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="print_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/print_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/product/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1083">
-              <caret line="2215" column="49" selection-start-line="2215" selection-start-column="43" selection-end-line="2215" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/controllers/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/dev/local/pl.json" />
-        <option value="$PROJECT_DIR$/dev/local/ru.json" />
-        <option value="$PROJECT_DIR$/dev/vendor/underscore/underscore-min.js" />
-        <option value="$PROJECT_DIR$/dev/vendor/angular/angular.min.js" />
-        <option value="$PROJECT_DIR$/dev/vendor/angular-route/angular-route.min.js" />
-        <option value="$PROJECT_DIR$/dev/vendor/angular-touch/angular-touch.min.js" />
-        <option value="$PROJECT_DIR$/dev/vendor/async/async.min.js" />
-        <option value="$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss" />
-        <option value="$PROJECT_DIR$/dev/sass/parts/_menu-right-general.scss" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/dev/sass/panels/add-elements.scss" />
-        <option value="$PROJECT_DIR$/dev/js/services/info_box_serv.js" />
-        <option value="$PROJECT_DIR$/dev/jade/views/parts/_info-box.jade" />
-        <option value="$PROJECT_DIR$/dev/jade/views/menus/_cart-menu.jade" />
-        <option value="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" />
-        <option value="$PROJECT_DIR$/app2/platforms/ios/www/views/main.html" />
-        <option value="$PROJECT_DIR$/app2/platforms/ios/www/js/plugins.js" />
-        <option value="$PROJECT_DIR$/dev/jade/index.jade" />
-        <option value="$PROJECT_DIR$/dev/js/index.js" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/main.js" />
-        <option value="$PROJECT_DIR$/gulpfile.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/general_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/print_serv.js" />
-      </list>
-    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -141,6 +81,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/app2/platforms/ios/cordova/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
@@ -157,9 +98,6 @@
     <OptionsSetting value="true" id="Edit" />
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
-  </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="1" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -194,74 +132,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="product" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -269,42 +143,15 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/node_modules/gulp" />
-    <property name="editor.config.accepted" value="true" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="js.buildTools.grunt.grunt-cli.package" value="" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/app2" />
-      <recent name="$PROJECT_DIR$/app2/platforms/ios/www" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Gulp.js.bauvoiceapp">
-    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
-      <method />
-    </configuration>
-    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
-      <config-file value="" />
+  <component name="RunManager">
+    <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
       <node-interpreter value="project" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
-      <method />
-    </configuration>
-    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
-      <option name="cucumberJsArguments" value="" />
-      <option name="executablePath" />
-      <option name="filePath" />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -314,26 +161,6 @@
       <tasks />
       <arguments />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
-      <scripts />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory />
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui />
-      <extra-mocha-options />
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory />
-      <recursive>false</recursive>
       <method />
     </configuration>
     <configuration default="false" name="bauvoiceapp" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -354,41 +181,37 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ba610b26-e3e3-48af-9253-0737301353f0" name="Default" comment="" />
-      <created>1483015660532</created>
+      <changelist id="78f494f6-6a9a-4304-b1e4-57b045240d8a" name="Default" comment="" />
+      <created>1484643258271</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1483015660532</updated>
-      <workItem from="1483015692229" duration="5349000" />
-      <workItem from="1483022123568" duration="1472000" />
-      <workItem from="1484558347427" duration="126000" />
-      <workItem from="1484558496906" duration="2856000" />
-      <workItem from="1484564107600" duration="495000" />
+      <updated>1484643258271</updated>
+      <workItem from="1484643259514" duration="35000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10298000" />
+    <option name="totallyTimeSpent" value="35000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1877" height="1057" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32953367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953367" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -407,347 +230,5 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dev/local/en.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3660">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/it.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3735">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/ro.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3990">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/uk.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3240">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/ru.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="273" column="4" selection-start-line="273" selection-start-column="4" selection-end-line="273" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/panels/profile.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="793">
-          <caret line="58" column="21" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/pages/cart.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/angular/angular.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="297" column="0" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-route/angular-route.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-swipe/angular-swipe.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-touch/angular-touch.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/angular-translate/angular-translate.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-562">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/async/async.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/calendar/jquery.pickmeup.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1012">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/jquery/js/jquery.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7177">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/menus/_navigation-menu.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_menu-right-general.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="49" column="31" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="69" column="8" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/panels/add-elements.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9570">
-          <caret line="638" column="0" selection-start-line="638" selection-start-column="0" selection-end-line="638" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/lang_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/info_box_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="90" column="19" selection-start-line="90" selection-start-column="19" selection-end-line="90" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_info-box.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/menus/_cart-menu.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/orbit/1.jpg" />
-    <entry file="file://$PROJECT_DIR$/dev/js/services/localdb_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19050">
-          <caret line="1270" column="12" selection-start-line="1270" selection-start-column="8" selection-end-line="1270" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/login.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="29" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_slider.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/glasses/glass1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/glasses/glass2.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/glasses/glass3.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/glasses/glass5.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/glasses/glass7.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/glasses/glass4.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/glasses/glass6.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app2/platforms/ios/www/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="0" column="1159" selection-start-line="0" selection-start-column="1159" selection-end-line="0" selection-end-column="1159" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app2/platforms/ios/www/views/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app2/platforms/ios/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app2/platforms/ios/www/js/plugins.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="770" column="0" selection-start-line="770" selection-start-column="0" selection-end-line="770" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/index.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/underscore/underscore-min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-472">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app2/bower_components/chai/chai.js" />
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/general_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="316" column="8" selection-start-line="316" selection-start-column="8" selection-end-line="316" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/print_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="525" column="28" selection-start-line="525" selection-start-column="19" selection-end-line="525" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/product/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1083">
-          <caret line="2215" column="49" selection-start-line="2215" selection-start-column="43" selection-end-line="2215" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

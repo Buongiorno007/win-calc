@@ -14,7 +14,8 @@
     DesignStor,
     AnalyticsServ,
     UserStor,
-    OrderStor
+    OrderStor,
+    GlobalStor
 
   ) {
     /*jshint validthis:true */
@@ -25,6 +26,7 @@
     
     /**----------- Select hardware -------- */
     function selectHardware(newId) {
+      GlobalStor.global.isChangedTemplate = 1;
       if(ProductStor.product.hardware.id !== newId) {
 
         /** check sizes of all hardware in sashes */
