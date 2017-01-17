@@ -289,7 +289,8 @@
 
 
         function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {  });
+          localforage.setItem("FirstIn", "true", function (err, value) {
+          });
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
             if (result.status) {
               var userTemp = angular.copy(result.user);
@@ -493,6 +494,10 @@
 
             if (isCustomer) {
               if (thisCtrl.user.phone && thisCtrl.user.password) {
+                GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
+                checkingUser();
+              } else {
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
                 checkingUser();
