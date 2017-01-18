@@ -3293,7 +3293,7 @@
                 isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
                 if(isSashesInTemplate) {
                   /** set first hardware if sash were not existed before */
-                  if(!GlobalStor.global.isSashesInTemplate && ProductStor.product.construction_type !== 4) {
+                  if((!GlobalStor.global.isSashesInTemplate || !ProductStor.product.hardware.id) && ProductStor.product.construction_type !== 4) {
                     GlobalStor.global.isSashesInTemplate = 1;
                     ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
                   }
