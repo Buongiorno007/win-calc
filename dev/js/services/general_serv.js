@@ -315,7 +315,7 @@
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
-        var ref = window.open(link,"_self");
+        var ref = window.open(link,"_system");
         ref.close();
       } else {
         $window.open(link);
