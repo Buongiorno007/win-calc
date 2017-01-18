@@ -1448,11 +1448,8 @@
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': OrderStor.order.id});
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': OrderStor.order.id});
         localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_products.tableName).then(function(def1) {
-          console.info('delete old products', def1);
           localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_addelements.tableName).then(function(def2) {
-            console.info('delete old addElem', def2);
             save().then(function(res) {
-              console.info('result edit order', res);
               deferred.resolve(1);
             });
           });
@@ -1460,7 +1457,6 @@
         
       } else {
         save().then(function(res) {
-          console.info('result save order', res);
           deferred.resolve(1);
         })
       }
@@ -1597,7 +1593,7 @@
             }
           }
           productData.lamination_id = OrderStor.order.products[p].lamination.id;
-          productData.template_source = JSON.stringify(productData.template_source);
+          productData.template_source = (!productData.is_addelem_only) ? JSON.stringify(productData.template_source): JSON.stringify({});
           productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
           productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
           productData.modified = new Date();
@@ -1675,7 +1671,7 @@
                 };
 
 
-                console.log('SEND ADD',addElementsData);
+                //console.log('SEND ADD',addElementsData);
                 if(orderType) {
                   localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                   localDB.insertServer(

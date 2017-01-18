@@ -210,7 +210,7 @@
                 orders: localDB.tablesLocalDB.orders,
                 order_addelements: localDB.tablesLocalDB.order_addelements
               };
-              var url = 'http://admin.steko.com.ua/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
+              var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
               xhr.open('GET', url, false);
               xhr.send();
               if (xhr.status != 200) {
@@ -226,7 +226,7 @@
                         res.tables.order_products.fields.splice(2, 1);
                         res.tables.order_products.fields.splice(6, 1);
                         res.tables.order_products.fields.splice(27, 1);
-                        res.tables.orders.fields.splice(1, 1);
+                        res.tables.orders.fields.splice(1, 4);
                         for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
                           res.tables.order_products.rows[x].splice(1, 1);
                           res.tables.order_products.rows[x].splice(2, 1);
@@ -235,13 +235,11 @@
                         }
                         ;
                         for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
-                          res.tables.orders.rows[x].splice(1, 1);
-                          (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                          (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                          (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                        }
-                        ;
-                        //noinspection JSAnnotator
+                          res.tables.orders.rows[x].splice(1, 4);
+                          (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                          (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                          (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                        };
                         function test(item) {
                           if (item === "done") {
                             return item = "order";
