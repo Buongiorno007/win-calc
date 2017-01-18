@@ -82,5 +82,13 @@
             "type": "registry",
             "id": "org.apache.cordova.network-information"
         }
+    },
+    "cordova-plugin-printer": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-printer"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
