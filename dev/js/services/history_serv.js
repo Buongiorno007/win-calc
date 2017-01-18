@@ -32,7 +32,7 @@
         var onlineMode;
 
         function getOnline() {
-          $.get("http://api.steko.com.ua", function (data) {
+          $.get(globalConstants.serverIP, function (data) {
             onlineMode = true;
             return true;
           })

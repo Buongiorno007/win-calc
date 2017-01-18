@@ -21,7 +21,7 @@
         /*jshint validthis:true */
         var thisFactory = this;
         var onlineMode;
-        $.get("http://api.steko.com.ua", function (data) {
+        $.get(globalConstants.serverIP, function (data) {
           onlineMode = true;
           return true;
         })
