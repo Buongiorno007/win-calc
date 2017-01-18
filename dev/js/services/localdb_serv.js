@@ -1594,17 +1594,19 @@
               }
             });
             hardware2 = hardware1.filter(function(item) {
+              var widthSashBlocks = Math.round(sashBlocks[s].sizes[0]);
+              var heightSashBlocks = Math.round(sashBlocks[s].sizes[1]);
               if(item.min_width && item.max_width && !item.min_height && !item.max_height) {
-                if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
+                if(widthSashBlocks >= item.min_width && widthSashBlocks <= item.max_width) {
                   return item;
                 }
               } else if (!item.min_width && !item.max_width && item.min_height && item.max_height) {
-                if(sashBlocks[s].sizes[1] >= item.min_height && sashBlocks[s].sizes[1] <= item.max_height) {
+                if(heightSashBlocks >= item.min_height && heightSashBlocks <= item.max_height) {
                   return item;
                 }
               } else if (item.min_width && item.max_width && item.min_height && item.max_height) {
-                if(sashBlocks[s].sizes[1] >= item.min_height && sashBlocks[s].sizes[1] <= item.max_height) {
-                  if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
+                if(heightSashBlocks >= item.min_height && heightSashBlocks <= item.max_height) {
+                  if(widthSashBlocks >= item.min_width && widthSashBlocks <= item.max_width) {
                     return item;
                   }
                 }
