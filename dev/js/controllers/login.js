@@ -595,6 +595,7 @@
           });
         }
         //$(".i").hide();
+        $(".print-conteiner").hide();
         var FirstIn = "true";
         localforage.getItem("FirstIn", function (err, value) {
           if (value !== "true") {
