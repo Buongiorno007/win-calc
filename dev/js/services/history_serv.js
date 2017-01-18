@@ -922,14 +922,20 @@
         //#
         function orderPrint(orderId) {
           /** check internet */
-            if (navigator.onLine && onlineMode) {
-              var domainLink = globalConstants.serverIP.split('api.').join('');
-              var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
-              GeneralServ.goToLink(printLink);
-            } else {
-              offlinePrint(orderId);
-            }
+          if (navigator.onLine && onlineMode) {
+            var domainLink = globalConstants.serverIP.split('api.').join('');
+            var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
+            GeneralServ.goToLink(printLink);
+          } else {
+            offlinePrint(orderId);
+          }
 
+        }
+
+        function closeDeviceReport() {
+          console.log("show clicked");
+          $(".page-container").show();
+          $(".print-conteiner").hide();
         }
 
 
@@ -1284,7 +1290,8 @@
           reqResult: reqResult,
           synchronizeOrders: synchronizeOrders,
           deleteOption: deleteOption,
-          testFunc: testFunc
+          testFunc: testFunc,
+          closeDeviceReport: closeDeviceReport
         };
 
         return thisFactory.publicObj;

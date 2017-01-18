@@ -1,4 +1,5 @@
 .print-conteiner#print-conteiner
+  img.back-button(src="./img/back-img.png", ng-if="historyPage.G.global.isDevice", fs-click="historyPage.closeDeviceReport()")
   .header
     .order-number
       b {{historyPage.H.history.orders[historyPage.H.history.historyID].id}}
