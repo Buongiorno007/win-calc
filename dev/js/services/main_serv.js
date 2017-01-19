@@ -820,7 +820,7 @@
           calculateCoeffs(objXFormedPrice);
 
           /** save analytics data first time */
-          if (GlobalStor.global.startProgramm) {
+          if (GlobalStor.global.startProgramm && ProductStor.product.construction_type !==4) {
             //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
             // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
             /** send analytics data to Server*/
