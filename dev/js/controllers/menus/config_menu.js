@@ -120,30 +120,20 @@
     }
 
     function checkForAddElem() {
-      localStorage.clear();
-      sessionStorage.clear();
-      var cookies = document.cookie.split(";");
-
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      if(!ProductStor.product.is_addelem_only) {
+        alert();
+        if(GlobalStor.global.dangerAlert < 1) {
+         if( ProductStor.product.beadsData.length > 0) {
+          saveProduct();
+        } else {
+            GeneralServ.isErrorProd(
+              $filter('translate')('common_words.ERROR_PROD_BEADS')
+            );
+          }
+        }
+      } else {
+        saveProduct();
       }
-      // if(!ProductStor.product.is_addelem_only) {
-      //   alert();
-      //   if(GlobalStor.global.dangerAlert < 1) {
-      //    if( ProductStor.product.beadsData.length > 0) {
-      //     saveProduct();
-      //   } else {
-      //       GeneralServ.isErrorProd(
-      //         $filter('translate')('common_words.ERROR_PROD_BEADS')
-      //       );
-      //     }
-      //   }
-      // } else {
-      //   saveProduct();
-      // }
     }
 
     function showNextTip() {
