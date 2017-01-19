@@ -27,7 +27,7 @@
           }
         }
       }
-      filtered = $filter('orderBy')(filtered, 'cityName', false);
+      filtered = $filter('orderBy')(filtered, ['cityName', 'areasName'], false);
       return filtered;
     };
 
