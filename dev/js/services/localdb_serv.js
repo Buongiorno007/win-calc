@@ -804,7 +804,6 @@
     /**============ methods ================*/
 
     function cleanLocalDB(tables) {
-      localStorage.clear();
       var tableKeys = Object.keys(tables),
       promises = tableKeys.forEach(function(table){
         var defer = $q.defer();

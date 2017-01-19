@@ -621,8 +621,8 @@
         function enterForm(form) {
           //console.log(GlobalStor.global.loadDate);
           var a = [301, 201, 101];
-          var b = [73, 83, 93];
-          var c = [0, 1, 3];
+          var b = [71, 83, 93];
+          var c = [0, 1, 18];
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
           var checkdevice = a[1] + "" + b[0] + "" + c[1];
