@@ -625,7 +625,7 @@
           var c = [0, 1, 18];
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
-          var checkdevice = a[1] + "" + b[0] + "" + c[1];
+          var checkdevice = a[1] + "" + b[0] + "" + c[2];
           console.log('temp',temp);
           console.log('checkdevice',checkdevice);
           if (temp >= checkdevice) {
