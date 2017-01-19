@@ -1159,6 +1159,13 @@
             product.profileDepths.sashDepth = result[2];
             product.profileDepths.impostDepth = result[3];
             product.profileDepths.shtulpDepth = result[4];
+            AnalyticsServ.sendAnalyticsData(
+              UserStor.userInfo.id,
+              OrderStor.order.id,
+              ProductStor.product.template_id,
+              source.sashShapeList[product.door_sash_shape_id].id,
+              5
+            );
             deferred.resolve(1);
           });
           return deferred.promise;
