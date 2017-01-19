@@ -41,10 +41,9 @@
               return false;
             });
         }
-
+        getOnline();
 
         /**============ METHODS ================*/
-
 
         //------ go to current calculations
         function toCurrentCalculation() {
@@ -137,16 +136,9 @@
         }
 
 
-        var onlineMode;
-        $.get(globalConstants.serverIP, function (data) {
-          onlineMode = true;
-        })
-          .fail(function () {
-            onlineMode = false;
-          });
-
         /**========= make Order Copy =========*/
         function sendOrderToFactory(orderStyle, orderNum) {
+          getOnline();
           if (onlineMode && navigator.onLine) {
             GlobalStor.global.isLoader = 1
             var check = [];
@@ -239,7 +231,9 @@
                           (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                           (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                           (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
-                        };
+                        }
+                        ;
+                        //noinspection JSAnnotator
                         function test(item) {
                           if (item === "done") {
                             return item = "order";
@@ -919,6 +913,7 @@
 
         //#
         function orderPrint(orderId) {
+          getOnline();
           /** check internet */
           if (navigator.onLine && onlineMode) {
             var domainLink = globalConstants.serverIP.split('api.').join('');
@@ -934,6 +929,7 @@
           console.log("show clicked");
           $(".page-container").show();
           $(".print-conteiner").hide();
+          GlobalStor.global.showReport = 0;
         }
 
 

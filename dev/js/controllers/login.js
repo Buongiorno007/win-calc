@@ -56,7 +56,13 @@
           .fail(function () {
             onlineMode = false;
           });
-
+        $(".disc-curr-data").hover(function() {
+          this.focus();
+        }, function() {
+          this.blur();
+        }).keydown(function(e) {
+          alert(e.keyCode);
+        });
         //------- translate
         thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
         thisCtrl.OK = $filter('translate')('common_words.OK');

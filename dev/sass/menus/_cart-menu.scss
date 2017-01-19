@@ -345,7 +345,7 @@
 }
 /***/
 .add-prod{
-  padding: rem(10px) rem($config_menu-side_padding) rem(10px) 0;
+  padding: 2.5rem rem($config_menu-side_padding) 2.5rem 0rem;
   border-bottom: 1px solid $main_gray_btn;
 }
 .add-prod:hover {
@@ -364,11 +364,13 @@
   width:rem(90px);
 }
 .prod-btn{
-  @include roboto-md(rem(40px), 1);
+  @include roboto-rg(rem(36px), 1);
   color: $main_orange;
   margin: 0;
   width:50%;
   float:left;
+  position: relative;
+  top:1rem;
 }
 .hide-block{
   height:250px;
