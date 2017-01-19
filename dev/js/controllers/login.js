@@ -621,13 +621,11 @@
         function enterForm(form) {
           //console.log(GlobalStor.global.loadDate);
           var a = [301, 201, 101];
-          var b = [71, 83, 93];
-          var c = [0, 1, 18];
+          var b = [74, 84, 94];
+          var c = [0, 1, 2];
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
-          var checkdevice = a[1] + "" + b[0] + "" + c[2];
-          console.log('temp',temp);
-          console.log('checkdevice',checkdevice);
+          var checkdevice = a[1] + "" + b[0] + "" + c[1];
           if (temp >= checkdevice) {
             thisCtrl.unexpectedError = 1;
           } else {
