@@ -1106,9 +1106,8 @@
     function importAllDB(login, access) {
       var defer = $q.defer();
       //console.log('Import database begin!');
-      $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access).then(
+      $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access+"&"+Math.random()).then(
         function (result) {
-          //console.log('importAllDB+++', result);
           if(result.data.status) {
             //-------- insert in LocalDB
             insertTablesLocalDB(result.data).then(function() {

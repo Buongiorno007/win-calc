@@ -76,7 +76,6 @@
 
 
     function showReport() {
-      console.log("ProductStor.product.report",ProductStor.product.report);
       GlobalStor.global.isReport = !GlobalStor.global.isReport;
       /** cuclulate Total Price of Report */
       culcReportPriceTotal();
