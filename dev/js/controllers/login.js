@@ -56,7 +56,13 @@
           .fail(function () {
             onlineMode = false;
           });
-
+        $(".disc-curr-data").hover(function() {
+          this.focus();
+        }, function() {
+          this.blur();
+        }).keydown(function(e) {
+          alert(e.keyCode);
+        });
         //------- translate
         thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
         thisCtrl.OK = $filter('translate')('common_words.OK');
@@ -615,8 +621,8 @@
         function enterForm(form) {
           //console.log(GlobalStor.global.loadDate);
           var a = [301, 201, 101];
-          var b = [73, 83, 93];
-          var c = [0, 1, 3];
+          var b = [74, 84, 94];
+          var c = [0, 1, 2];
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
           var checkdevice = a[1] + "" + b[0] + "" + c[1];

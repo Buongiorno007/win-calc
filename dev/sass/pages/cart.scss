@@ -509,7 +509,10 @@
       }
     }
   }
-
+  .disc-curr-data{
+    border : none;
+    width : 10rem;
+  }
   .discount-data {
     @include display-flex();
     @include justify-content(flex-start);
