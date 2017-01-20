@@ -47,7 +47,7 @@
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
             $location.path('/design');
-            console.log(DesignStor.design.showHint);
+            //console.log(DesignStor.design.showHint);
             if (DesignStor.design.showHint >= 0){
             $timeout(function() {
               DesignStor.design.showHint = 1;
@@ -62,7 +62,6 @@
                 GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
                 $location.path('/design');
-                //console.log('fix2')
                 DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
                   DesignStor.design.steps.isDoorConfig = 1;
                 })

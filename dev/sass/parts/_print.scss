@@ -13,6 +13,13 @@
     height: auto;
   }
 }
+
+.back-button {
+  position: relative;
+  left: -6rem;
+  top: 4rem;
+  width: 4rem;
+}
 body, html {
   width : 100%;
   height: auto;
@@ -27,6 +34,7 @@ body, html {
   font-family: 'roboto';
   height: auto;
   width: 80%;
+  overflow-y: auto;
 	.header {
     max-height: 230px;
     min-height: 230px;
@@ -187,4 +195,11 @@ body, html {
     width:100%;
     margin: 0 15px ;
   }
+}
+#print-conteiner {
+  width: 85%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x:hidden;
+  padding-left: 6rem;
 }

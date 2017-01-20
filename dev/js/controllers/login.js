@@ -56,7 +56,13 @@
           .fail(function () {
             onlineMode = false;
           });
-
+        $(".disc-curr-data").hover(function() {
+          this.focus();
+        }, function() {
+          this.blur();
+        }).keydown(function(e) {
+          alert(e.keyCode);
+        });
         //------- translate
         thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
         thisCtrl.OK = $filter('translate')('common_words.OK');
@@ -172,7 +178,7 @@
 
 
         function importDBfromServer() {
-          thisCtrl.isStartImport = 1;
+          //thisCtrl.isStartImport = 1;
           //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
             if (data) {
@@ -289,7 +295,8 @@
 
 
         function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {  });
+          localforage.setItem("FirstIn", "true", function (err, value) {
+          });
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
             if (result.status) {
               var userTemp = angular.copy(result.user);
@@ -480,6 +487,7 @@
 
 
           if (url.access) {
+            console.log("url.access");
 
             while (accessQty > -1) {
               accessQty -= 1;
@@ -492,17 +500,24 @@
 
             if (isCustomer) {
               if (thisCtrl.user.phone && thisCtrl.user.password) {
+                GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
+                loader();
                 checkingUser();
               }
             } else {
-              localDB.importUser(url.access, 1).then(function (result) {
-                var userTemp = angular.copy(result.user);
-                GlobalStor.global.isLoader = 1;
-                GlobalStor.global.startSlider = 1;
-                importDBProsses(userTemp);
-              });
+              GlobalStor.global.loadDate = new Date();
+              GlobalStor.global.isLoader = 1;
+              GlobalStor.global.startSlider = 1;
+              loader();
+              checkingUser();
+              // localDB.importUser(url.access, 1).then(function (result) {
+              //   var userTemp = angular.copy(result.user);
+              //   GlobalStor.global.isLoader = 1;
+              //   GlobalStor.global.startSlider = 1;
+              //   importDBProsses(userTemp);
+              // });
             }
 
           }
@@ -585,7 +600,8 @@
             UserStor.userInfo.device_code = value;
           });
         }
-        $(".i").hide();
+        //$(".i").hide();
+        $(".print-conteiner").hide();
         var FirstIn = "true";
         localforage.getItem("FirstIn", function (err, value) {
           if (value !== "true") {
@@ -605,8 +621,8 @@
         function enterForm(form) {
           //console.log(GlobalStor.global.loadDate);
           var a = [301, 201, 101];
-          var b = [73, 83, 93];
-          var c = [0, 1, 3];
+          var b = [74, 84, 94];
+          var c = [0, 1, 2];
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
           var checkdevice = a[1] + "" + b[0] + "" + c[1];
@@ -771,6 +787,7 @@
                 }
               }
               else {
+                //console.log("обновляем");
                 GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;

@@ -43,6 +43,7 @@
     /**============ METHODS ================*/
 
     function saveOrder() {
+
       CartMenuServ.calculateAllProductsPrice();
       CartMenuServ.calculateOrderPrice();
       HistoryStor.history.price = 0;

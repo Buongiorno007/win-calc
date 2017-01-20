@@ -83,7 +83,8 @@
     }
 
     function getSettingTempInfo(tempdata){
-      return tempdata.getFullYear()+""+tempdata.getMonth() +""+ tempdata.getDate();
+      var month = tempdata.getMonth()+1;
+      return tempdata.getFullYear()+""+month+""+ tempdata.getDate();
     }
 
 

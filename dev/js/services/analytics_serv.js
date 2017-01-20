@@ -76,7 +76,6 @@
             date: new Date()
           },
           tableName = '';
-
       switch(elementType) {
         case 1: //----- profiles
           tableName = 'profile_analytics';
@@ -87,6 +86,9 @@
           tableName = 'hardware_analytics';
           break;
         case 4: //----- lamination
+          break;
+        case 5: //----- doors profiles
+          tableName = 'doors_analytics';
           break;
       }
       //----- send Analytics Data to Server

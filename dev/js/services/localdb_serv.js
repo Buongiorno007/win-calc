@@ -364,7 +364,9 @@
             ' rules_type_id INTEGER,' +
             ' direction_id INTEGER,' +
             ' window_hardware_color_id INTEGER,' +
-            ' lamination_type_id INTEGER',
+            ' lamination_type_id INTEGER,' +
+            ' rounding_value NUMERIC,' +
+            ' rounding_type INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_types': {
@@ -801,22 +803,20 @@
 
     /**============ methods ================*/
 
-
-
     function cleanLocalDB(tables) {
       var tableKeys = Object.keys(tables),
-          promises = tableKeys.map(function(table) {
-            var defer = $q.defer();
-            db.transaction(function (trans) {
-              trans.executeSql("DROP TABLE IF EXISTS " + table, [], function () {
-                defer.resolve(1);
-              }, function () {
-                console.log('not find deleting table');
-                defer.resolve(0);
-              });
-            });
-            return defer.promise;
+      promises = tableKeys.forEach(function(table){
+        var defer = $q.defer();
+        db.transaction(function (trans) {
+          trans.executeSql("DROP TABLE " + table, [], function () {
+            defer.resolve(1);
+          }, function () {
+            console.log('not find deleting table');
+            defer.resolve(0);
           });
+        });
+        return defer.promise;
+      });
       return $q.all(promises);
     }
 
@@ -908,7 +908,7 @@
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                //console.log('Error!!! ', error, tableKeys[t], colums, values);
+                console.log('Error!!! ', error, tableKeys[t], colums, values);
                 defer.resolve(0);
               });
 
@@ -1106,9 +1106,8 @@
     function importAllDB(login, access) {
       var defer = $q.defer();
       //console.log('Import database begin!');
-      $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access).then(
+      $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access+"&"+Math.random()).then(
         function (result) {
-          //console.log('importAllDB+++', result);
           if(result.data.status) {
             //-------- insert in LocalDB
             insertTablesLocalDB(result.data).then(function() {
@@ -1204,7 +1203,7 @@
     function createUserServer(dataJson) {
       $http.post(globalConstants.serverIP+'/api/register', dataJson).then(
         function (result) {
-          console.log(result);
+          //console.log(result);
         },
         function () {
           console.log('Something went wrong when user creating!');
@@ -1592,17 +1591,19 @@
               }
             });
             hardware2 = hardware1.filter(function(item) {
+              var widthSashBlocks = Math.round(sashBlocks[s].sizes[0]);
+              var heightSashBlocks = Math.round(sashBlocks[s].sizes[1]);
               if(item.min_width && item.max_width && !item.min_height && !item.max_height) {
-                if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
+                if(widthSashBlocks >= item.min_width && widthSashBlocks <= item.max_width) {
                   return item;
                 }
               } else if (!item.min_width && !item.max_width && item.min_height && item.max_height) {
-                if(sashBlocks[s].sizes[1] >= item.min_height && sashBlocks[s].sizes[1] <= item.max_height) {
+                if(heightSashBlocks >= item.min_height && heightSashBlocks <= item.max_height) {
                   return item;
                 }
               } else if (item.min_width && item.max_width && item.min_height && item.max_height) {
-                if(sashBlocks[s].sizes[1] >= item.min_height && sashBlocks[s].sizes[1] <= item.max_height) {
-                  if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
+                if(heightSashBlocks >= item.min_height && heightSashBlocks <= item.max_height) {
+                  if(widthSashBlocks >= item.min_width && widthSashBlocks <= item.max_width) {
                     return item;
                   }
                 }
@@ -2152,8 +2153,16 @@
             }
             /** hardware */
           } else if (group === 7) {
-            qtyTemp = kits.count;
-            priceTemp = qtyTemp * constrElem.price * waste;
+            var temp = angular.copy(priceObj);
+            var storeSize = angular.copy(_.where(_.compact(_.flatten(temp)), {child_id:constrElem.id})); 
+            if(storeSize[0] && storeSize[0].length) {
+              constrElem.size = angular.copy(storeSize[0].length/1000); 
+              qtyTemp = kits.count;
+              priceTemp = qtyTemp * constrElem.price * waste * (constrElem.size);
+            } else {
+              qtyTemp = kits.count;
+              priceTemp = qtyTemp * constrElem.price * waste;
+            }
           } else {
             sizeTemp = (sizes[siz] + kits.amendment_pruning);
             priceTemp = (sizeTemp * constrElem.price) * waste;
@@ -2165,11 +2174,12 @@
               priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
             }
             constrElem.qty = angular.copy(qtyTemp);
-            constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
+            if(constrElem.size <= 0 || constrElem.size === undefined || constrElem.size === null || constrElem.size === NaN) {
+              constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);            
+            }
             constrElem.sizeLabel = sizeLabelTemp;
             constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
             priceObj.priceTotal += priceTemp;
-            //          console.warn(constrElem);
             constrElements.push(constrElem);
           }
         }
@@ -2319,8 +2329,9 @@
       parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel
     ) {
       if(currConsistElem) {
-        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1, tempS = 0, x=1.2;
-
+        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, roundVal = 0, qtyReal = 1, tempS = 0, x=1.2;
+        //console.log(currConsist, 'currConsist')
+        //console.log(currConsistElem, 'currConsistElem')
         //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
         //console.log('Название: ' + currConsistElem.name);
         //console.log('Цена: ' + currConsistElem.price);
@@ -2328,6 +2339,11 @@
         //console.log('Поправка на обрезку : ' + pruning);
         //console.log('Размер: ' + currSize + ' m');
         //console.log('parentValue: ' + parentValue);
+        //console.log('Тип округления: ' + currConsist.rounding_type);
+        //console.log('Величина округления: ' + currConsist.rounding_value);
+
+
+
 
         /** if glass */
         if (objTmp.element_group_id === 9) {
@@ -2369,10 +2385,37 @@
             //console.log('Правило else:', currSize, ' + ', pruning, ' = ', (currSize + pruning), sizeReal);
             break;
         }
+        
+        if (sizeReal) {
+          roundVal = angular.copy(sizeReal);
+          tempS = angular.copy(roundVal);
+        } else {
+          roundVal = angular.copy(qtyReal);
+          tempS = angular.copy(roundVal);
+        }
+        if(currConsist.rounding_type>0 && currConsist.rounding_value>0) {
+          switch (currConsist.rounding_type) {
+            case 1:
+              roundVal = Math.ceil(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+              //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', tempS, 'кратное число', currConsist.rounding_value);
+              break;
+            case 2:
+              roundVal = Math.floor(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+              //console.log('Кратно заданному числу в меньшую сторону');
+              break;
+            case 3:
+              roundVal = Math.round(tempS/currConsist.rounding_value)*currConsist.rounding_value;
+              //console.log('Кратно заданному числу согластно математическим правилам');
+              break;
+          }
+        }
+
 
         if (sizeReal) {
+          sizeReal = angular.copy(roundVal);
           priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
         } else {
+          qtyReal = angular.copy(roundVal);
           priceReal = qtyReal * currConsistElem.price * wasteValue;
         }
 
@@ -2612,7 +2655,6 @@
 
 
 
-
     function culcConsistPrice(priceObj, construction) {
       var groupQty = priceObj.consist.length,
           group;
@@ -2718,19 +2760,20 @@
           finishPriceObj = {};
       //console.info('START+++', construction);
 
-      parseMainKit(construction).then(function(kits) {
-        //console.warn('kits!!!!!!+', kits);
+      parseMainKit(construction).then(function(kits){
+        //console.warn('kits!!!!!!+', kits);              
+        //console.warn(_.where(_.compact(_.flatten(kits)), {child_id:409784}), 'kits'); 
         priceObj.kits = kits;
-
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
           //console.warn('consist!!!!!!+', consist);
+          //console.warn(_.where(_.compact(_.flatten(consist)), {id:409784}), 'consist'); 
           priceObj.consist = consist;
-
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-            //console.warn('kitsElem!!!!!!+', kitsElem);
-            priceObj.kitsElem = kitsElem;
 
+            //console.warn('kitsElem!!!!!!+', kitsElem);
+            //console.warn(_.where(_.compact(_.flatten(kitsElem)), {child_id:409784}), 'kitsElem'); 
+            priceObj.kitsElem = kitsElem;
             parseConsistElem(priceObj.consist).then(function(consistElem){
               //console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
@@ -2800,8 +2843,10 @@
                   firstKitId = 0;
                   firstKitId = firstKit;
                   var kit = {};
+                  var roundVal = null;
             selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
                 var listArr = [];
+                //var pruning = result[0].amendment_pruning;
                 parseListContent(firstKitId.parent_element_id).then(function(result2) {
                     if(result2 !== 0) {
                       listArr = angular.copy(result2);
@@ -2828,15 +2873,72 @@
                             list.push(element)
                             _callback(); 
                           } else {
-                              getElementByListId(0, element.parent_element_id).then(function(lockData) {
-                              if(firstKitId.count) {
-                                kit.value = firstKitId.count;
-                              } else {
-                                kit.value = firstKitId.value;                             
-                              }
-                                getDoorElem(priceObj, lockData, kit);
-                              });
-                              _callback(); 
+                              getElementByListId(0, element.parent_element_id).then(function(resultElem) {
+                                if(firstKitId.count) {
+                                  if(element.value) {
+                                    kit.value = firstKitId.count*element.value;
+                                  } else {
+                                    kit.value = firstKitId.count;  
+                                  }
+                                } else {
+                                  if(element.value) {
+                                    kit.value = firstKitId.value*element.value;    
+                                  } else {
+                                    kit.value = firstKitId.value;
+                                  }                        
+                                }
+                                roundVal = angular.copy(kit.value);
+                                
+                                // switch (element.rules_type_id) {
+                                //   case 1:
+                                //   case 21:
+                                //   case 22:
+                                //     roundVal = GeneralServ.roundingValue((firstKitId.count + pruning - element.value), 3);
+                                //     console.log('Правило 1: меньше родителя на ', firstKitId.count, ' + ', pruning, ' - ', element.value, ' = ', (firstKitId.count + pruning - element.value), firstKitId.count);
+                                //     break;
+                                //   case 3:
+                                //     roundVal = (firstKitId.count + pruning) * element.value;
+                                //     console.log('Правило 3 : (', firstKitId.count, ' + ', pruning, ') *', element.value, ' = ', firstKitId.count, ' шт. на метр родителя');
+                                //     break;
+                                //   case 5:
+                                //     roundVal = element.value;
+                                //     console.log('Правило 5 : (', element.value, ') = ', firstKitId.count, ' шт. на 1 метр2 родителя');
+                                //     break;
+                                //   case 6:
+                                //   case 23:
+                                //     roundVal = (firstKitId.count + pruning) * element.value;
+                                //     console.log('Правило 23 : (', firstKitId.count, ' + ', pruning, ') *', element.value, ' = ', (firstKitId.count + pruning) * element.value, firstKitId.count, ' kg. на метр родителя');
+                                //     break;
+                                //   case 2:
+                                //   case 4:
+                                //   case 15:
+                                //     roundVal = firstKitId.count * element.value;
+                                //     console.log('Правило 2: ',  firstKitId.count, ' * ', element.value, ' = ', firstKitId.count * element.value, ' шт. на родителя');
+                                //     break;
+                                //   default:
+                                //     roundVal = GeneralServ.roundingValue((firstKitId.count + pruning), 3);
+                                //     console.log('Правило else:', firstKitId.count, ' + ', pruning, ' = ', (firstKitId.count + pruning), firstKitId.count);
+                                //     break;
+                                // }
+
+                                switch (element.rounding_type) {
+                                  case 1:
+                                    kit.value = Math.ceil(roundVal/element.rounding_value)*element.rounding_value;
+                                    //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', roundVal, 'кратное число', element.rounding_value);
+                                    break;
+                                  case 2:
+                                    kit.value = Math.floor(roundVal/element.rounding_value)*element.rounding_value;
+                                    //console.log('Кратно заданному числу в меньшую сторону');
+                                    break;
+                                  case 3:
+                                    kit.value = Math.round(roundVal/element.rounding_value)*element.rounding_value;
+                                    //console.log('Кратно заданному числу согластно математическим правилам');
+                                    break;
+                                }
+
+                                getDoorElem(priceObj, resultElem, kit);
+                                _callback(); 
+                              });    
                             } 
                         }
                       ], function (err, result) {
@@ -2868,6 +2970,7 @@
 
       return deffMain.promise;
     }
+
 
 
 

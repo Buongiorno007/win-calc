@@ -77,7 +77,7 @@
             namb: 3
         }
         ];
-    
+
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'history';
@@ -103,5 +103,6 @@
     thisCtrl.sortingInit = HistoryServ.sortingInit;
     thisCtrl.testFunc = HistoryServ.testFunc;
     thisCtrl.synchronizeOrders = HistoryServ.synchronizeOrders;
+    thisCtrl.closeDeviceReport = HistoryServ.closeDeviceReport;
   });
 })();

@@ -32,7 +32,7 @@
         var onlineMode;
 
         function getOnline() {
-          $.get("http://api.steko.com.ua", function (data) {
+          $.get(globalConstants.serverIP, function (data) {
             onlineMode = true;
             return true;
           })
@@ -41,10 +41,9 @@
               return false;
             });
         }
-
+        getOnline();
 
         /**============ METHODS ================*/
-
 
         //------ go to current calculations
         function toCurrentCalculation() {
@@ -137,16 +136,9 @@
         }
 
 
-        var onlineMode;
-        $.get(globalConstants.serverIP, function (data) {
-          onlineMode = true;
-        })
-          .fail(function () {
-            onlineMode = false;
-          });
-
         /**========= make Order Copy =========*/
         function sendOrderToFactory(orderStyle, orderNum) {
+          getOnline();
           if (onlineMode && navigator.onLine) {
             GlobalStor.global.isLoader = 1
             var check = [];
@@ -210,7 +202,7 @@
                 orders: localDB.tablesLocalDB.orders,
                 order_addelements: localDB.tablesLocalDB.order_addelements
               };
-              var url = 'http://admin.steko.com.ua/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
+              var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
               xhr.open('GET', url, false);
               xhr.send();
               if (xhr.status != 200) {
@@ -226,7 +218,7 @@
                         res.tables.order_products.fields.splice(2, 1);
                         res.tables.order_products.fields.splice(6, 1);
                         res.tables.order_products.fields.splice(27, 1);
-                        res.tables.orders.fields.splice(1, 1);
+                        res.tables.orders.fields.splice(3, 1);
                         for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
                           res.tables.order_products.rows[x].splice(1, 1);
                           res.tables.order_products.rows[x].splice(2, 1);
@@ -235,10 +227,10 @@
                         }
                         ;
                         for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
-                          res.tables.orders.rows[x].splice(1, 1);
-                          (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                          (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                          (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
+                          res.tables.orders.rows[x].splice(3, 1);
+                          (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                          (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                          (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                         }
                         ;
                         //noinspection JSAnnotator
@@ -875,58 +867,69 @@
           }
         }
 
+        function offlinePrint(orderId) {
+          HistoryStor.history.orders.forEach(function (entry, index) {
+            if (entry.id === orderId) {
+              entry.modified = entry.modified.substr(0, 10);
+              HistoryStor.history.historyID = index;
+            }
+          });
+
+          GlobalStor.global.orderEditNumber = orderId;
+          downloadProducts(1).then(function (result_prod) {
+            var tmpSquare = 0;
+            var tmpPerim = 0;
+            HistoryStor.history.OrderPrintLength = result_prod.length;
+            result_prod.forEach(function (item) {
+              item.forEach(function (entry) {
+
+                if (!entry.is_addelem_only) {
+                  tmpSquare += entry.template_square;
+                  tmpPerim += (entry.template_height + entry.template_width) * 2;
+                }
+
+              });
+            });
+            HistoryStor.history.OrderPrintSquare = tmpSquare;
+            HistoryStor.history.OrderPrintPerimeter = tmpPerim / 1000;
+            downloadAddElements(1).then(function (result_add) {
+              if (result_add !== 0) {
+                result_add.forEach(function (entry) {
+                  if (entry.element_height === 0) {
+                    entry.element_width = "";
+                    entry.element_height = "";
+                  }
+                  else {
+                    entry.element_width = entry.element_width + " x ";
+                    entry.element_height = entry.element_height + ",";
+                  }
+                });
+              }
+              PrintServ.getProducts(result_prod, result_add);
+            });
+
+          })
+        }
+
         //#
         function orderPrint(orderId) {
+          getOnline();
           /** check internet */
           if (navigator.onLine && onlineMode) {
-            var domainLink = globalConstants.serverIP.split('api.').join(''),
-              paramLink = orderId + '?userId=' + UserStor.userInfo.id;
-            //printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+            var domainLink = globalConstants.serverIP.split('api.').join('');
             var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
             GeneralServ.goToLink(printLink);
           } else {
-            HistoryStor.history.orders.forEach(function (entry, index) {
-              if (entry.id === orderId) {
-                entry.modified = entry.modified.substr(0, 10);
-                HistoryStor.history.historyID = index;
-              }
-            });
-
-            GlobalStor.global.orderEditNumber = orderId;
-            downloadProducts(1).then(function (result_prod) {
-              var tmpSquare = 0;
-              var tmpPerim = 0;
-              HistoryStor.history.OrderPrintLength = result_prod.length;
-              result_prod.forEach(function (item) {
-                item.forEach(function (entry) {
-
-                  if (!entry.is_addelem_only) {
-                    tmpSquare += entry.template_square;
-                    tmpPerim += (entry.template_height + entry.template_width) * 2;
-                  }
-
-                });
-              });
-              HistoryStor.history.OrderPrintSquare = tmpSquare;
-              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 1000;
-              downloadAddElements(1).then(function (result_add) {
-                if (result_add !== 0) {
-                  result_add.forEach(function (entry) {
-                    if (entry.element_height === 0) {
-                      entry.element_width = "";
-                      entry.element_height = "";
-                    }
-                    else {
-                      entry.element_width = entry.element_width + " x ";
-                      entry.element_height = entry.element_height + ",";
-                    }
-                  });
-                }
-                PrintServ.getProducts(result_prod, result_add);
-              });
-
-            })
+            offlinePrint(orderId);
           }
+
+        }
+
+        function closeDeviceReport() {
+          console.log("show clicked");
+          $(".page-container").show();
+          $(".print-conteiner").hide();
+          GlobalStor.global.showReport = 0;
         }
 
 
@@ -1281,7 +1284,8 @@
           reqResult: reqResult,
           synchronizeOrders: synchronizeOrders,
           deleteOption: deleteOption,
-          testFunc: testFunc
+          testFunc: testFunc,
+          closeDeviceReport: closeDeviceReport
         };
 
         return thisFactory.publicObj;

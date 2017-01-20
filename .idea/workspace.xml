@@ -1,8 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="27971cc1-a398-4a02-bb6d-391c6c3f5ef3" name="Default" comment="">
+    <list default="true" id="b628b455-33a2-4205-b032-48b2f813ca87" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dev/img/back-img.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/android.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/platform_www/cordova_plugins.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/res/layout/printer_list_item.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/res/layout/select_printer_activity.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/src/de/appplant/cordova/plugin/printer/Printer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/src/de/appplant/cordova/plugin/printer/ext/PrintManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/src/de/appplant/cordova/plugin/printer/ext/PrintServiceInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/src/de/appplant/cordova/plugin/printer/ext/PrinterDiscoverySession.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/src/de/appplant/cordova/plugin/printer/reflect/Meta.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/android/src/de/appplant/cordova/plugin/printer/ui/SelectPrinterActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/ios/Voice Creator/Plugins/cordova-plugin-printer/APPPrinter.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/ios/Voice Creator/Plugins/cordova-plugin-printer/APPPrinter.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/ios/frameworks.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/ios/ios.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/platforms/ios/platform_www/cordova_plugins.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/CHANGELOG.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/plugin.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/res/android/layout/printer_list_item.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/res/android/layout/select_printer_activity.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/android/Printer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/android/ext/PrintManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/android/ext/PrintServiceInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/android/ext/PrinterDiscoverySession.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/android/reflect/Meta.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/android/ui/SelectPrinterActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/ios/APPPrinter.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/ios/APPPrinter.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/plugins/cordova-plugin-printer/src/windows/PrinterProxy.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/terminal.glue" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/bauvoiceapp.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/css/index.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/js/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/platforms/ios/www/audio/soundsPrice.aac" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/12.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/img/logo.png" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/img/logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-hdpi/ic_action_next_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-hdpi/ic_action_next_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-hdpi/ic_action_previous_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-hdpi/ic_action_previous_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-hdpi/ic_action_remove.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-hdpi/ic_action_remove.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-mdpi/ic_action_next_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-mdpi/ic_action_next_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-mdpi/ic_action_previous_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-mdpi/ic_action_previous_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-mdpi/ic_action_remove.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-mdpi/ic_action_remove.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-xhdpi/ic_action_next_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-xhdpi/ic_action_next_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-xhdpi/ic_action_previous_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-xhdpi/ic_action_previous_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-xhdpi/ic_action_remove.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-xhdpi/ic_action_remove.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-xxhdpi/ic_action_next_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-xxhdpi/ic_action_next_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-xxhdpi/ic_action_previous_item.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-xxhdpi/ic_action_previous_item.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/drawable-xxhdpi/ic_action_remove.png" afterPath="$PROJECT_DIR$/app/platforms/android/res/drawable-xxhdpi/ic_action_remove.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/Voice Creator.xcodeproj/project.xcworkspace/xcuserdata/Alexandr.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/app/platforms/ios/Voice Creator.xcodeproj/project.xcworkspace/xcuserdata/Alexandr.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Bold.ttf" afterPath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Bold.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Light.ttf" afterPath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Light.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Medium.ttf" afterPath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Medium.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Regular.ttf" afterPath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Regular.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Thin.ttf" afterPath="$PROJECT_DIR$/app/platforms/ios/www/fonts/roboto/Roboto-Thin.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/balcon-connector.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/balcon-connector.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/fan.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/fan.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/force-connector.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/force-connector.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/grid.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/grid.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/handle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/handle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/inside-slope-left.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/inside-slope-left.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/inside-slope-right.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/inside-slope-right.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/inside-slope-top.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/inside-slope-top.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/louvers-bottom.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/louvers-bottom.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/louvers-middle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/louvers-middle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/louvers-top.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/louvers-top.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/spillway.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/spillway.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/visor.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/visor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/windowsill.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-focused/windowsill.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/balcon-connector.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/balcon-connector.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/fan.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/fan.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/force-connector.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/force-connector.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/grid.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/grid.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/handle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/handle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/inside-slope-left.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/inside-slope-left.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/inside-slope-right.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/inside-slope-right.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/inside-slope-top.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/inside-slope-top.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/louvers-bottom.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/louvers-bottom.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/louvers-middle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/louvers-middle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/louvers-top.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/louvers-top.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/spillway.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/spillway.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/visor.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/visor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/windowsill.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries-selected/windowsill.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/balcon-connector.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/balcon-connector.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/fan.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/fan.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/force-connector.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/force-connector.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/grid.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/grid.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/handle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/handle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/inside-slope-left.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/inside-slope-left.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/inside-slope-right.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/inside-slope-right.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/inside-slope-top.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/inside-slope-top.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/louvers-bottom.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/louvers-bottom.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/louvers-middle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/louvers-middle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/louvers-top.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/louvers-top.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/outside.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/outside.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/spillway.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/spillway.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/visor.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/visor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/windowsill.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/auxiliaries/windowsill.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/config-menu/configMenu_separator.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/config-menu/configMenu_separator.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-arrow.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-arrow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/doorstep-al1.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/doorstep-al1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/doorstep-al2.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/doorstep-al2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/doorstep.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/doorstep.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/lever-handle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/lever-handle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/multilock.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/multilock.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/no-doorstep.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/no-doorstep.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/onelock.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/onelock.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/standart-handle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config-selected/standart-handle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/doorstep-al1.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/doorstep-al1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/doorstep-al2.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/doorstep-al2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/doorstep.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/doorstep.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/lever-handle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/lever-handle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/multilock.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/multilock.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/no-doorstep.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/no-doorstep.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/onelock.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/onelock.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/standart-handle.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/door-config/standart-handle.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/favicon.ico" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/favicon.ico" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/glasses/glass1.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/glasses/glass1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/glasses/glass2.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/glasses/glass2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/1.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/1.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/14.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/14.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/15.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/15.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/16.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/16.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/18.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/18.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/2.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/2.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/3.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/3.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/4.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/4.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/5.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/5.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/6.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/6.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/7.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/7.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/8.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/lamination/8.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/login/login-bg.jpg" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/login/login-bg.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/1.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/10.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/10.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/11.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/11.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/3.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/4.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/5.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/6.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/7.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/8.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/8.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/9.png" afterPath="$PROJECT_DIR$/app/platforms/ios/www/img/templates/9.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/img/add-img.png" afterPath="$PROJECT_DIR$/dev/img/add-img.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/platforms/android/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/cordova_plugins.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/cordova_plugins.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/index.html" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/Camera.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/Camera.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraConstants.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraConstants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer/www/FileTransfer.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer/www/FileTransfer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer/www/FileTransferError.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer/www/FileTransferError.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/DirectoryEntry.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/DirectoryEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/DirectoryReader.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/DirectoryReader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/Entry.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/Entry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/File.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/File.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileEntry.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileError.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileError.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileReader.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileReader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileSystem.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileSystem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileUploadOptions.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileUploadOptions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileUploadResult.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileUploadResult.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileWriter.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/FileWriter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/Flags.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/Flags.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/LocalFileSystem.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/LocalFileSystem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/Metadata.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/Metadata.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/ProgressEvent.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/ProgressEvent.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/android/FileSystem.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/android/FileSystem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/fileSystemPaths.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/fileSystemPaths.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/fileSystems-roots.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/fileSystems-roots.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/fileSystems.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/fileSystems.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/requestFileSystem.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/requestFileSystem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/resolveLocalFileSystemURI.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.file/www/resolveLocalFileSystemURI.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.globalization/www/GlobalizationError.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.globalization/www/GlobalizationError.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.globalization/www/globalization.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.globalization/www/globalization.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureAudioOptions.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureAudioOptions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureError.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureError.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureImageOptions.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureImageOptions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureVideoOptions.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureVideoOptions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/MediaFile.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/MediaFile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/MediaFileData.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/MediaFileData.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/capture.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/capture.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media/www/Media.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media/www/Media.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media/www/MediaError.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.media/www/MediaError.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/Connection.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/Connection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/network.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/network.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.statusbar/www/statusbar.js" afterPath="$PROJECT_DIR$/app/platforms/android/assets/www/plugins/org.apache.cordova.statusbar/www/statusbar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/res/xml/config.xml" afterPath="$PROJECT_DIR$/app/platforms/android/res/xml/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/camera/CameraLauncher.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/camera/CameraLauncher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/camera/ExifHelper.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/camera/ExifHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/camera/FileHelper.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/camera/FileHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/ContentFilesystem.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/ContentFilesystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/DirectoryManager.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/DirectoryManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/EncodingException.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/EncodingException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/FileExistsException.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/FileExistsException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/FileHelper.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/FileHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/FileUtils.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/FileUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/Filesystem.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/Filesystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/InvalidModificationException.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/InvalidModificationException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/LocalFilesystem.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/LocalFilesystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/LocalFilesystemURL.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/LocalFilesystemURL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/NoModificationAllowedException.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/NoModificationAllowedException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/TypeMismatchException.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/file/TypeMismatchException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/filetransfer/FileProgressResult.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/filetransfer/FileProgressResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/filetransfer/FileTransfer.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/filetransfer/FileTransfer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/filetransfer/FileUploadResult.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/filetransfer/FileUploadResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/globalization/Globalization.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/globalization/Globalization.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/globalization/GlobalizationError.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/globalization/GlobalizationError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/inappbrowser/InAppBrowser.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/inappbrowser/InAppBrowser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/inappbrowser/InAppBrowserDialog.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/inappbrowser/InAppBrowserDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/inappbrowser/InAppChromeClient.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/inappbrowser/InAppChromeClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/media/AudioHandler.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/media/AudioHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/media/AudioPlayer.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/media/AudioPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/media/FileHelper.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/media/FileHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/mediacapture/Capture.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/mediacapture/Capture.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/mediacapture/FileHelper.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/mediacapture/FileHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/splashscreen/SplashScreen.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/splashscreen/SplashScreen.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/statusbar/StatusBar.java" afterPath="$PROJECT_DIR$/app/platforms/android/src/org/apache/cordova/statusbar/StatusBar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/Voice Creator.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/app/platforms/ios/Voice Creator.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/Voice Creator/Voice Creator-Info.plist" afterPath="$PROJECT_DIR$/app/platforms/ios/Voice Creator/Voice Creator-Info.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/Voice Creator/config.xml" afterPath="$PROJECT_DIR$/app/platforms/ios/Voice Creator/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/cordova_plugins.js" afterPath="$PROJECT_DIR$/app/platforms/ios/www/cordova_plugins.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/css/main.css" afterPath="$PROJECT_DIR$/app/platforms/ios/www/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/index.html" afterPath="$PROJECT_DIR$/app/platforms/ios/www/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/js/main.js" afterPath="$PROJECT_DIR$/app/platforms/ios/www/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/js/plugins.js" afterPath="$PROJECT_DIR$/app/platforms/ios/www/js/plugins.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/views/cart.html" afterPath="$PROJECT_DIR$/app/platforms/ios/www/views/cart.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/views/design.html" afterPath="$PROJECT_DIR$/app/platforms/ios/www/views/design.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/views/history.html" afterPath="$PROJECT_DIR$/app/platforms/ios/www/views/history.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/views/login.html" afterPath="$PROJECT_DIR$/app/platforms/ios/www/views/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/platforms/ios/www/views/main.html" afterPath="$PROJECT_DIR$/app/platforms/ios/www/views/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/plugins/android.json" afterPath="$PROJECT_DIR$/app/plugins/android.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/plugins/fetch.json" afterPath="$PROJECT_DIR$/app/plugins/fetch.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/plugins/ios.json" afterPath="$PROJECT_DIR$/app/plugins/ios.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/index.jade" afterPath="$PROJECT_DIR$/dev/jade/index.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/cart.jade" afterPath="$PROJECT_DIR$/dev/jade/views/cart.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/design.jade" afterPath="$PROJECT_DIR$/dev/jade/views/design.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/panels/_add-elements-cart.jade" afterPath="$PROJECT_DIR$/dev/jade/views/panels/_add-elements-cart.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade" afterPath="$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" afterPath="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/cart.js" afterPath="$PROJECT_DIR$/dev/js/controllers/cart.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/design.js" afterPath="$PROJECT_DIR$/dev/js/controllers/design.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/history.js" afterPath="$PROJECT_DIR$/dev/js/controllers/history.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/login.js" afterPath="$PROJECT_DIR$/dev/js/controllers/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/main.js" afterPath="$PROJECT_DIR$/dev/js/controllers/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/panels/add_elements_cart.js" afterPath="$PROJECT_DIR$/dev/js/controllers/panels/add_elements_cart.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/panels/laminations.js" afterPath="$PROJECT_DIR$/dev/js/controllers/panels/laminations.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/parts/edit_order.js" afterPath="$PROJECT_DIR$/dev/js/controllers/parts/edit_order.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" afterPath="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/directives/location_filter.js" afterPath="$PROJECT_DIR$/dev/js/directives/location_filter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/index.js" afterPath="$PROJECT_DIR$/dev/js/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/analytics_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/analytics_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/cart_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/cart_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/design_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/design_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/general_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/general_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/glasses_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/glasses_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/hardware_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/hardware_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/history_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/history_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/localdb_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/localdb_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/login_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/login_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/main_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/main_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/print_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/print_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/profile_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/profile_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/settings_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/settings_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/svg_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/svg_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/templates_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/templates_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/storages/design_stor.js" afterPath="$PROJECT_DIR$/dev/js/storages/design_stor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/storages/global_stor.js" afterPath="$PROJECT_DIR$/dev/js/storages/global_stor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss" afterPath="$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/pages/cart.scss" afterPath="$PROJECT_DIR$/dev/sass/pages/cart.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/panels/add-elements-cart.scss" afterPath="$PROJECT_DIR$/dev/sass/panels/add-elements-cart.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_attantions.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_attantions.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_print.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_print.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_slider.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_slider.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,24 +307,32 @@
     <favorites_list name="bauvoiceapp" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="design_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
+    <leaf>
+      <file leaf-file-name="localdb_serv.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/services/localdb_serv.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="519" column="15" lean-forward="true" selection-start-line="519" selection-start-column="15" selection-end-line="519" selection-end-column="15" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="325">
+              <caret line="813" column="31" lean-forward="true" selection-start-line="813" selection-start-column="31" selection-end-line="813" selection-end-column="31" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="design_serv1.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv1.js">
+      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/gulpfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="408">
+              <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="442" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_config-menu.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/jade/views/menus/_config-menu.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="278">
+              <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -47,112 +340,23 @@
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="JavaScript File" />
-      </list>
-    </option>
-  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>//console.log('SEND ADD',addElementsData);</find>
-      <find>console.log(&quot;item.attribut</find>
-      <find>saveOrder</find>
-      <find>order</find>
-      <find>getGridPrice</find>
-      <find>editOrder</find>
-      <find>setPreviosPage</find>
-      <find>add</find>
-      <find>console.log(&quot;</find>
-      <find>console.log(AuxStor.aux.addElementsList);</find>
-      <find>console.log('second');</find>
-      <find>console.log(&quot;ProductSt</find>
-      <find>addElement in addElementGroup</find>
-      <find>addElement</find>
-      <find>ProductStor.product.chosenAddElements[0]</find>
-      <find>designsa</find>
-      <find>confirmGrid</find>
-      <find>updateGrids</find>
-      <find>createSVGTemplate</find>
-      <find>DesignStor.design.showHint</find>
-      <find>console.log(new Date());</find>
-      <find>console.log(&quot;design&quot;,ProductStor.product);</find>
-      <find>console.log(&quot;gridsOld&quot;,gridsOld);</find>
-      <find>update</find>
-      <find>isUserPasswordError</find>
-      <find>console.log(&quot; HistoryStor.hist</find>
-      <find>console.log(products, 'products=====');</find>
-      <find>console.log(&quot;result&quot;, re</find>
-      <find>isDevice</find>
-      <find>isd</find>
+      <find>product-u-coeff</find>
+      <find>globalco</find>
+      <find>cleanLocalDB</find>
     </findStrings>
     <dirStrings>
-      <dir>E:\bauvoiceapp</dir>
-      <dir>E:\bauvoiceapp\dev\sass</dir>
-      <dir>E:\bauvoiceapp\dev</dir>
       <dir>E:\bauvoiceapp\dev\jade</dir>
-      <dir>E:\bauvoiceapp\dev\js</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/dev/sass/parts/_menu-right-general.scss" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/cart.js" />
-        <option value="$PROJECT_DIR$/dev/jade/views/menus/_cart-menu.jade" />
-        <option value="$PROJECT_DIR$/dev/sass/menus/_cart-menu.scss" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/menus/config_menu.js" />
-        <option value="$PROJECT_DIR$/dev/js/storages/design_stor.js" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/panels/templates.js" />
-        <option value="$PROJECT_DIR$/dev/jade/views/parts/_room-selector.jade" />
-        <option value="$PROJECT_DIR$/dev/js/services/config_menu_serv.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/dev/jade/views/cart.jade" />
-        <option value="$PROJECT_DIR$/dev/js/services/templates_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/parts/room_selector.js" />
-        <option value="$PROJECT_DIR$/dev/jade/views/design.jade" />
-        <option value="$PROJECT_DIR$/dev/js/services/settings_serv.js" />
-        <option value="$PROJECT_DIR$/dev/sass/parts/_rooms-selector.scss" />
-        <option value="$PROJECT_DIR$/dev/sass/pages/design.scss" />
-        <option value="$PROJECT_DIR$/dev/sass/parts/_slider.scss" />
-        <option value="$PROJECT_DIR$/dev/sass/parts/_loader.scss" />
-        <option value="$PROJECT_DIR$/dev/jade/views/parts/_slider.jade" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/settings.js" />
-        <option value="$PROJECT_DIR$/dev/sass/pages/login.scss" />
-        <option value="$PROJECT_DIR$/dev/local/ru.json" />
-        <option value="$PROJECT_DIR$/dev/local/uk.json" />
-        <option value="$PROJECT_DIR$/dev/jade/views/parts/_alert.jade" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/parts/alert.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/login_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/storages/global_stor.js" />
-        <option value="$PROJECT_DIR$/dev/local/ro.json" />
-        <option value="$PROJECT_DIR$/dev/local/pl.json" />
-        <option value="$PROJECT_DIR$/dev/local/it.json" />
-        <option value="$PROJECT_DIR$/dev/local/en.json" />
-        <option value="$PROJECT_DIR$/dev/local/de.json" />
-        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/dev/jade/views/history.jade" />
-        <option value="$PROJECT_DIR$/dev/js/services/cart_menu_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/localdb_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/main_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/addelem_menu_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/addelem_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/main.js" />
-        <option value="$PROJECT_DIR$/dev/jade/views/login.jade" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/design.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/design_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/controllers/login.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/dev/js/services/history_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/print_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/general_serv.js" />
-        <option value="$PROJECT_DIR$/dev/js/index.js" />
       </list>
     </option>
   </component>
@@ -171,16 +375,13 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
-  </component>
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
+    <option name="x" value="1358" />
+    <option name="y" value="-320" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Project Files" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -194,6 +395,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -206,77 +408,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="bauvoiceapp">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="bauvoiceapp">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="dev">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="bauvoiceapp">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="dev">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="js">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="bauvoiceapp">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="dev">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="js">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="services">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -286,15 +434,9 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="E:\bauvoiceapp\node_modules\gulp" />
+    <property name="editor.config.accepted" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="editor.config.accepted" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\bauvoiceapp\dev\js\services" />
-      <recent name="E:\bauvoiceapp\dev\vendor" />
-    </key>
   </component>
   <component name="RunManager" selected="Gulp.js.bauvoiceapp">
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
@@ -322,12 +464,6 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -368,55 +504,38 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="27971cc1-a398-4a02-bb6d-391c6c3f5ef3" name="Default" comment="" />
-      <created>1483433619525</created>
+      <changelist id="b628b455-33a2-4205-b032-48b2f813ca87" name="Default" comment="" />
+      <created>1484905138218</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1483433619525</updated>
-      <workItem from="1483433623049" duration="8000" />
-      <workItem from="1483434720426" duration="21982000" />
-      <workItem from="1483517644372" duration="69092000" />
-      <workItem from="1484061440996" duration="3798000" />
-      <workItem from="1484122482194" duration="17338000" />
-      <workItem from="1484204094993" duration="14884000" />
-      <workItem from="1484141602693" duration="9674000" />
-      <workItem from="1484296064336" duration="23086000" />
-      <workItem from="1484554306066" duration="4871000" />
+      <updated>1484905138218</updated>
+      <workItem from="1484905139766" duration="1487000" />
     </task>
-    <task id="LOCAL-00001" summary="fixed bugs | autoupdate for online version">
-      <created>1484321229106</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1484321229106</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="164733000" />
+    <option name="totallyTimeSpent" value="1487000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="false" />
+    <frame x="1358" y="-320" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21205357" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5021075" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44801715" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.49789253" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3268921" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -426,372 +545,31 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed bugs | autoupdate for online version" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bugs | autoupdate for online version" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dev/img/orbit/link.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/orbit/loading.gif">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/orbit/timer-black.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/orbit/rotator-black.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/orbit/5.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/img/orbit/1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_slider.scss">
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/menus/_config-menu.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="55" column="9" lean-forward="false" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_loader.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_slider.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="71" lean-forward="false" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="205" column="5" lean-forward="false" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="240" column="0" lean-forward="false" selection-start-line="240" selection-start-column="0" selection-end-line="240" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/views/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="130" column="26" lean-forward="false" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/pages/login.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/cart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="192" column="33" lean-forward="true" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_alert.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="49" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/parts/alert.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/cart_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3417">
-          <caret line="201" column="8" lean-forward="false" selection-start-line="201" selection-start-column="8" selection-end-line="203" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/ru.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="66" column="81" lean-forward="true" selection-start-line="66" selection-start-column="81" selection-end-line="68" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/uk.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="75" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/ro.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="74" column="39" lean-forward="false" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/pl.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="66" column="36" lean-forward="false" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/it.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="80" column="62" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/en.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="81" column="34" lean-forward="false" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/local/de.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="81" column="42" lean-forward="false" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10932">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/history.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="76" column="17" lean-forward="false" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/menus/cart_menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="99" column="51" lean-forward="false" selection-start-line="99" selection-start-column="51" selection-end-line="99" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/cart_menu_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="233" column="37" lean-forward="false" selection-start-line="233" selection-start-column="26" selection-end-line="233" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/storages/auxiliary_stor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/storages/order_stor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/parts/edit_order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="44" column="26" lean-forward="true" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
+        <state relative-caret-position="278">
+          <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/localdb_serv.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="1140" column="12" lean-forward="false" selection-start-line="1140" selection-start-column="12" selection-end-line="1140" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/login_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="1069" column="38" lean-forward="true" selection-start-line="1069" selection-start-column="38" selection-end-line="1069" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/menus/_config-menu.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="38" column="102" lean-forward="false" selection-start-line="38" selection-start-column="75" selection-end-line="38" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/addelem_menu_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="415" column="23" lean-forward="false" selection-start-line="415" selection-start-column="23" selection-end-line="415" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/svg_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-218">
-          <caret line="2584" column="51" lean-forward="false" selection-start-line="2584" selection-start-column="51" selection-end-line="2584" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/design.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/login.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="66" lean-forward="false" selection-start-line="9" selection-start-column="66" selection-end-line="9" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/addelem_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="91" column="25" lean-forward="false" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/main_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="28" column="12" lean-forward="true" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/print_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="24" column="23" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/storages/global_stor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="24" column="11" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="11" />
+        <state relative-caret-position="325">
+          <caret line="813" column="31" lean-forward="true" selection-start-line="813" selection-start-column="31" selection-end-line="813" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="401" column="29" lean-forward="false" selection-start-line="401" selection-start-column="11" selection-end-line="401" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/history_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="885" column="29" lean-forward="false" selection-start-line="885" selection-start-column="29" selection-end-line="885" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/general_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="320" column="14" lean-forward="true" selection-start-line="320" selection-start-column="14" selection-end-line="320" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="519" column="15" lean-forward="true" selection-start-line="519" selection-start-column="15" selection-end-line="519" selection-end-column="15" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="408">
+          <caret line="441" column="0" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="442" selection-end-column="22" />
           <folding />
         </state>
       </provider>

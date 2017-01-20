@@ -105,7 +105,6 @@
         if (!GlobalStor.global.orderEditNumber) {
           CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
         }
-
         /**============ METHODS ================*/
 
         //============= AddElements detail block

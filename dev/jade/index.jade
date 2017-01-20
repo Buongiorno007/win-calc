@@ -6,6 +6,10 @@ html(ng-app='BauVoiceApp')
     title BauVoice | {{ title }}
     meta(name='description', content='')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+    meta( http-equiv="Pragma" content="no-cache")
+    meta( http-equiv="Cache-control" content="no-cache")
+    meta( http-equiv="Expires" content="-1")
+
     //Touch Icons - iOS and Android 2.1+ , maximum-scale=5
     link(rel="apple-touch-icon-precomposed" href="img/favicon.ico")
     //Firefox, Chrome, Safari, IE 11+ and Opera.
@@ -16,9 +20,8 @@ html(ng-app='BauVoiceApp')
   body
     #main-frame(style='position:relative; background:white; min-width:1024px; min-height:770px; top:0; left : 0; transform: scale(1);')
       section.app-container(ng-view)
-
-      script(src='js/plugins.js')
-      script(src='js/main.js')
+      script(src='js/plugins.js?t=23423423434')
+      script(src='js/main.js?t=RANDOM_FLAG')
 
       audio#sounds
         source(src="audio/soundsPrice.aac", type="audio/mpeg")

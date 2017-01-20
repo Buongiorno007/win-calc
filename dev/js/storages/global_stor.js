@@ -19,6 +19,7 @@
 
       globalSource: {
         ISEXT : ISEXTFLAG,
+        showReport : 0,
         loadDate : 0,
         showCurrentTemp : 0,
         getPCPower: 0,

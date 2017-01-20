@@ -48,13 +48,13 @@
               GlobalStor.global.templatesSource = angular.copy(data);
             }
           });
-          if (GlobalStor.global.selectRoom === 0) {
+          if(GlobalStor.global.selectRoom === 0 && !GlobalStor.global.selectNewTemplate) {
+            GlobalStor.global.prohibitCopyingTemplate = 1;
             $location.path('/design');
-            GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
-            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id + 1);
+            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
             GlobalStor.global.selectRoom = 1;
           } else {
-            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id + 1);
+            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
           }
           if (DesignStor.design.showHint >= 0) {
             $timeout(function () {
@@ -64,13 +64,12 @@
         }
 
 
-        /**========== FINISH ==========*/
-        //------ clicking
-        thisCtrl.selectRoom = selectRoom;
-        thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
-        GlobalStor.global.selectRoom = 0;
-        //---- hide rooms if opened
-        GlobalStor.global.showRoomSelectorDialog = 0;
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.selectRoom = selectRoom;
+    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
+    //---- hide rooms if opened
+    GlobalStor.global.showRoomSelectorDialog = 0;
 
-      });
+  });
 })();

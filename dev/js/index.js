@@ -3,15 +3,17 @@
 /** check first device */
 var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
 
+//console.log("!!!!!");
 
 (function () {
   /** check browser */
   if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
+//console.log("isDevice",isDevice);
   window.onload = function () {
-    console.log("isDevice", isDevice);
     if (!isDevice) {
+
       location.hash = "#/";
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),

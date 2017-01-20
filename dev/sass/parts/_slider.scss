@@ -40,22 +40,18 @@ div.slider-nav span.left { background: url('../img/orbit/left-arrow.png'); left:
 .orbit-bullets li.active { color: #222; background-position: -7px 0; }
 #featured { 
     width: 940px; 
-    height: 0px; 
-    background: #009cff url('../img/orbit/loading.gif') no-repeat center center; 
+    background: #009cff url('../img/orbit/loading.gif') no-repeat center center;
     overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s, visibility 0s linear 1s;     
-    &.visible {
-      opacity: 1;
-      visibility: visible;
-      transition-delay: 0s;
-      height: 450px;
-    }
-}
+    transition: opacity 1s, visibility 0s linear 1s;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+    height: 450px;
+   }
+
 .slider {
 	position: absolute;
     top: 15%;
     left: 4%;
-    z-index: 9999999999999;
+    z-index: 1000;
 }
