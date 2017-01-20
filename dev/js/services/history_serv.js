@@ -712,7 +712,6 @@
                   for (var z = 0; z < addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z += 1) {
                     if (elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
                       if (elementsAdd[x].element_type !== 0) {
-                        console.log("GlobalStor.global.addElementsAll", GlobalStor.global.addElementsAll);
                         elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
                         elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
                         elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
@@ -743,7 +742,6 @@
                     }
                   }
                 }
-                console.log("OrderStor.order.products", OrderStor.order.products);
               } else {
                 deferred.resolve(1);
               }
@@ -795,8 +793,8 @@
 
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
-            var products = OrderStor.order.products;
-
+            var products = angular.copy(OrderStor.order.products);
+            OrderStor.order.products = [];
 
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
@@ -815,10 +813,13 @@
               async.waterfall([
                   function (_callback) {
                     if (products.construction_type === 4) {
-                      DesignServ.setDoorConfigDefault(products).then(function (res) {
+                      ProductStor.product = angular.copy(products);
+                      DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                        OrderStor.order.products.push(res); 
                         _callback();
                       });
                     } else {
+                      OrderStor.order.products.push(products); 
                       _callback();
                     }
                   }

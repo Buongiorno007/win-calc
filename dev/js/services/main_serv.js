@@ -1572,9 +1572,9 @@
           if(!productData.is_addelem_only) {
             productData.template_source['beads'] = angular.copy(productData.beadsData);
           }
-
           if(productData.construction_type === 4) {
             productData.profile_id = 0;
+            productData.door_group_id = OrderStor.order.products[p].door_group_id;
           } else {
             productData.profile_id = OrderStor.order.products[p].profile.id;
             (productData.door_group_id) ? productData.door_group_id = 0: productData.door_group_id = 0;
