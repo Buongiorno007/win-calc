@@ -805,18 +805,18 @@
 
     function cleanLocalDB(tables) {
       var tableKeys = Object.keys(tables),
-      promises = tableKeys.forEach(function(table){
-        var defer = $q.defer();
-        db.transaction(function (trans) {
-          trans.executeSql("DROP TABLE " + table, [], function () {
-            defer.resolve(1);
-          }, function () {
-            console.log('not find deleting table');
-            defer.resolve(0);
+        promises = tableKeys.map(function(table) {
+          var defer = $q.defer();
+          db.transaction(function (trans) {
+            trans.executeSql("DROP TABLE IF EXISTS " + table, [], function () {
+              defer.resolve(1);
+            }, function () {
+              console.log('not find deleting table');
+              defer.resolve(0);
+            });
           });
+          return defer.promise;
         });
-        return defer.promise;
-      });
       return $q.all(promises);
     }
 
