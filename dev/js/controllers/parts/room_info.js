@@ -24,14 +24,26 @@
     thisCtrl.config = {
       DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
       DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
-      typing: 'on'
+      typing: 'on',
+      TOOLTIP: [
+        '',
+        $filter('translate')('mainpage.TEMPLATE_TIP'),
+        $filter('translate')('mainpage.PROFILE_TIP'),
+        $filter('translate')('mainpage.GLASS_TIP')
+      ],
     };
 
     //------- translate
     thisCtrl.CLIMATE_ZONE = $filter('translate')('mainpage.CLIMATE_ZONE');
     thisCtrl.THERMAL_RESISTANCE = $filter('translate')('mainpage.THERMAL_RESISTANCE');
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
+    thisCtrl.WINDOW_DOOR_SELECTION = $filter('translate')('mainpage.WINDOW_DOOR_SELECTION');
+    thisCtrl.POWERED_BY_1 = $filter('translate')('mainpage.POWERED_BY_1');
+    thisCtrl.POWERED_BY_2 = $filter('translate')('mainpage.POWERED_BY_2');
     thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+
 
 
     /**============ METHODS ================*/

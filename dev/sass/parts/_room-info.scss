@@ -26,18 +26,49 @@
     color: #fff;
   }
   .select-rooms {
-    @extend .orange-big-btn;
+    @include roboto-lt(rem(60px));
+    height: rem(110px);
+    color: #fff;
     @extend .splash;
     @extend .truncated;
     height: 5.5rem;
     padding: 0.5rem 1.5rem;
+    position: relative;
+    top : -1rem;
+    cursor: pointer;
+  }
+  .product-u-coeff {
+    @include roboto-lt(rem(55px));
+    display:inline-block;
+    text-align: center;
+    color: #6ed44a;
+
+    &.coeff-low {
+      color: $error_color;
+    }
+  }
+  .select-window-door{
+    @extend .select-rooms;
+    @include roboto-lt(rem(40px));
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    top : -2rem;
+  }
+  .powered-by{
+    width : 100%;
+  }
+  .powered-by a{
+    @include roboto-lt(rem(35px));
+    color : white;
+    text-decoration: none;
+    float:right;
   }
   .coeff-container {
     @include display-flex();
     @include flex-flow(row wrap);
     @include top_left_coord(200px, 0px);
     @include animation(moveCoeff 1s 0 ease 1);
-
     position: absolute;
     width: 100%;
   }
