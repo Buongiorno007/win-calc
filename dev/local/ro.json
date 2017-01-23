@@ -85,7 +85,8 @@
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "zonă climatică",
-    "THERMAL_RESISTANCE": "transfer de căldură",
+    "HEAT_TRANSFER": "теплопередачa",
+    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
     "AIR_CIRCULATION": "coeficientul schimbului de aer",
     "NAVMENU_GEOLOCATION": "Alege amplasarea",
     "NAVMENU_CURRENT_GEOLOCATION": "Amplasarea curentă",

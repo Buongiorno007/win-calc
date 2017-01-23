@@ -35,7 +35,8 @@
 
     //------- translate
     thisCtrl.CLIMATE_ZONE = $filter('translate')('mainpage.CLIMATE_ZONE');
-    thisCtrl.THERMAL_RESISTANCE = $filter('translate')('mainpage.THERMAL_RESISTANCE');
+    thisCtrl.HEAT_TRANSFER_RESISTANCE = $filter('translate')('mainpage.HEAT_TRANSFER_RESISTANCE');
+    thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
     thisCtrl.WINDOW_DOOR_SELECTION = $filter('translate')('mainpage.WINDOW_DOOR_SELECTION');
     thisCtrl.POWERED_BY_1 = $filter('translate')('mainpage.POWERED_BY_1');
@@ -57,7 +58,9 @@
         //playSound('fly');
       }
     }
-
+    function showCoefInfoBlock() {
+      GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
+    }
     //----- Show Comments
     function switchComment() {
       //playSound('swip');
@@ -104,6 +107,7 @@
     //------ clicking
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
     thisCtrl.switchComment = switchComment;
+    thisCtrl.showCoefInfoBlock = showCoefInfoBlock;
     //TODO Alexandr
     //thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     //thisCtrl.toggleTemplateType = toggleTemplateType;

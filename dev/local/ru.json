@@ -80,7 +80,8 @@
   "mainpage": {
     "MM": " мм ",
     "CLIMATE_ZONE": "климатическая зона",
-    "THERMAL_RESISTANCE": "теплопередачa",
+    "HEAT_TRANSFER": "теплопередачa",
+    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
     "AIR_CIRCULATION": "коэффициент воздухообмена",
     "NAVMENU_GEOLOCATION": "Выбрать расположение",
     "NAVMENU_CURRENT_GEOLOCATION": "Текущее расположение",

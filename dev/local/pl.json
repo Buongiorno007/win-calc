@@ -79,7 +79,8 @@
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "Strefa klimatyczna",
-    "THERMAL_RESISTANCE": "przenikania ciepła",
+    "HEAT_TRANSFER": "теплопередачa",
+    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
     "AIR_CIRCULATION": "współczynnik wymiany powietrza",
     "NAVMENU_GEOLOCATION": "Wybierz lokalizację",
     "NAVMENU_CURRENT_GEOLOCATION": "Aktualna lokalizacja",

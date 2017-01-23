@@ -86,7 +86,8 @@
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "Die Klimazone",
-    "THERMAL_RESISTANCE": "Wärmeübertragung",
+    "HEAT_TRANSFER": "теплопередачa",
+    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
     "AIR_CIRCULATION": "Der Koeffizient des Luftwechsels",
     "NAVMENU_GEOLOCATION": "Die Anordnung zu wählen",
     "NAVMENU_CURRENT_GEOLOCATION": "Die laufende Anordnung",

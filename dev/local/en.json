@@ -86,7 +86,8 @@
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "climatic area",
-    "THERMAL_RESISTANCE": "heat transfer",
+    "HEAT_TRANSFER": "теплопередачa",
+    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
     "AIR_CIRCULATION": "coefficient of ventilation",
     "NAVMENU_GEOLOCATION": "To choose a location",
     "NAVMENU_CURRENT_GEOLOCATION": "Current location",

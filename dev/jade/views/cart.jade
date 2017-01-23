@@ -31,7 +31,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                      p.number {{ $index+1+"."+"\u00A0"}}
                     div.R-MInfo {{ product.heat_coef_total +"\u00A0"+"\u00A0"}}
                     div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
-                    div.inner-text {{cartPage.THERMAL_RESISTANCE}}
+                    div.inner-text {{cartPage.HEAT_TRANSFER}}
                   ul.order-list
                     li.order-item
                       .order-value {{ product.template_width }} {{ ::cartPage.MM +"\u00A0 *\u00A0"}}
