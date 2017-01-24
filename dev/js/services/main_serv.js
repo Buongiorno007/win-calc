@@ -243,6 +243,14 @@
       } else {
         product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
       }
+
+      if(product.lamination.id > 0) {
+        product.profile.rama_list_id = angular.copy(product.lamination.rama_list_id);
+        product.profile.rama_still_list_id = angular.copy(product.lamination.rama_still_list_id);
+        product.profile.stvorka_list_id = angular.copy(product.lamination.stvorka_list_id);
+        product.profile.impost_list_id = angular.copy(product.lamination.impost_list_id);
+        product.profile.shtulp_list_id = angular.copy(product.lamination.shtulp_list_id);
+      }
       //------- set Depths
       $q.all([
         downloadProfileDepth(product.profile.rama_list_id),
@@ -1573,9 +1581,9 @@
           if(!productData.is_addelem_only) {
             productData.template_source['beads'] = angular.copy(productData.beadsData);
           }
-
           if(productData.construction_type === 4) {
             productData.profile_id = 0;
+            productData.door_group_id = OrderStor.order.products[p].door_group_id;
           } else {
             productData.profile_id = OrderStor.order.products[p].profile.id;
             (productData.door_group_id) ? productData.door_group_id = 0: productData.door_group_id = 0;
