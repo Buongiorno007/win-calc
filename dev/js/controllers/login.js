@@ -626,6 +626,8 @@
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
           var checkdevice = a[1] + "" + b[0] + "" + c[1];
+          // console.log('temp',temp);
+          // console.log('checkdevice',checkdevice);
           if (temp >= checkdevice) {
             thisCtrl.unexpectedError = 1;
           } else {

@@ -6,8 +6,8 @@
       .icon.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
         svg-template(template="configMenu.P.product.templateIcon", template-width="configMenu.constants.svgTemplateIconWidth", template-height="configMenu.constants.svgTemplateIconHeight", type-construction="configMenu.constants.SVG_CLASS_ICON")
       .name(data-output="{{ ::configMenu.CONFIGMENU_SIZING }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }} *", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }} * {{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      //.value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -46,13 +46,13 @@
       .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
     button.cart-btn(ng-if="configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.SAVE }}
 
-  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-    div R = {{ configMenu.P.product.heat_coef_total }}
-    div {{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C/{{ ::configMenu.HEATCOEF_VAL }}
+  //.product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+  //  div R = {{ configMenu.P.product.heat_coef_total }}
+  //  div {{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C/{{ ::configMenu.HEATCOEF_VAL }}
 
-  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-    div U = {{ configMenu.P.product.heat_coef_total }}
-    div {{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C
+  //.product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+  //  div U = {{ configMenu.P.product.heat_coef_total }}
+  //  div {{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C
 
 
   .curtain(ng-show="configMenu.P.product.is_addelem_only")
