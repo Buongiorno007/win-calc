@@ -44,6 +44,8 @@
     thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
     thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
     thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+    thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
+    thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
 
 
 

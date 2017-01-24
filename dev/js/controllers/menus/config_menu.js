@@ -75,6 +75,7 @@
 
 
     function saveProduct() {
+      GlobalStor.global.showCoefInfoBlock = 0;
       GlobalStor.global.continued = 0;
       if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button

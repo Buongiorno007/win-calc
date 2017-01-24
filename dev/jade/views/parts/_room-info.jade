@@ -8,10 +8,14 @@
     .coeff-block
       .coeff-info-block(ng-if="roomInfo.G.global.showCoefInfoBlock")
         .coeff-max {{ roomInfo.O.order.heat_coef_min }}
-        .coeff.heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id")
-          | {{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
-        .coeff.heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id")
-          | {{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C
+          .heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id")
+            | {{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
+          .heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id")
+            | {{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C
+          .heat-transfer-info_hr
+            | {{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}
+          .heat-transfer-info
+            | {{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}
         .close-dialog(fs-click="roomInfo.G.global.showCoefInfoBlock=0")
       //R
       .coeff.heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id",

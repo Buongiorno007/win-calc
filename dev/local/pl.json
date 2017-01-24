@@ -79,8 +79,11 @@
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "Strefa klimatyczna",
-    "HEAT_TRANSFER": "теплопередачa",
-    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
+    "HEAT_TRANSFER": "przenikania ciepła",
+    "HEAT_TRANSFER_RESISTANCE": "opór przejmowania ciepła",
+    "HEAT_TRANSFER_INFO_1": "Wymagana wartość dla tej strefy klimatycznej.",
+    "HEAT_TRANSFER_INFO_2": "** Aby go poprawić, należy użyć okna z podwójnymi szybami z energooszczędnym szkła i systemów profili z wielu kamer",
+
     "AIR_CIRCULATION": "współczynnik wymiany powietrza",
     "NAVMENU_GEOLOCATION": "Wybierz lokalizację",
     "NAVMENU_CURRENT_GEOLOCATION": "Aktualna lokalizacja",
@@ -108,6 +111,9 @@
     "VOICE_SPEACH": "Proszę mówić...",
     "COMMENT": "Uwagi do zamówienia",
     "ROOM_SELECTION": "Szablonu",
+    "WINDOW_DOOR_SELECTION": "Okna i drzwi",
+    "POWERED_BY_1": "Powered by",
+    "POWERED_BY_2": "windowscalculator.net",
     "CONFIGMENU_NO_ADDELEMENTS": "Dodatkowe elementy nie zostały wybrane",
     "HEATCOEF_VAL": "W",
     "TEMPLATE_TIP": "Aby zmienić rozmiar, kliknij tutaj",

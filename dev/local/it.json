@@ -86,8 +86,11 @@
   "mainpage": {
     "MM": " мм ",
     "CLIMATE_ZONE": "Zona  climatica",
-    "HEAT_TRANSFER": "теплопередачa",
-    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
+    "HEAT_TRANSFER": "trasferimento di calore",
+    "HEAT_TRANSFER_RESISTANCE": "resistenza al trasferimento di calore",
+    "HEAT_TRANSFER_INFO_1": "Il valore richiesto per questa zona climatica.",
+    "HEAT_TRANSFER_INFO_2": "** Per migliorare, utilizzare finestre con doppi vetri con i vetri a risparmio energetico e sistemi di profili con molte fotocamere",
+
     "AIR_CIRCULATION": "Coefficiente della circolazione d’aria",
     "NAVMENU_GEOLOCATION": "Scegliere la disposizione",
     "NAVMENU_CURRENT_GEOLOCATION": "La disposizione corrente",
@@ -115,6 +118,9 @@
     "VOICE_SPEACH": "Parlate...",
     "COMMENT": "Nota per l'ordine",
     "ROOM_SELECTION": "Template",
+    "WINDOW_DOOR_SELECTION": "porte e finestre",
+    "POWERED_BY_1": "Powered by",
+    "POWERED_BY_2": "windowscalculator.net",
     "CONFIGMENU_NO_ADDELEMENTS": "Gli elementi supplementari non sono scelti",
     "HEATCOEF_VAL": "Wt",
     "TEMPLATE_TIP": "Poiché il cambiamento delle dimensioni preme qui",

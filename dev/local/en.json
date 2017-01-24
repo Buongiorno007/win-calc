@@ -86,8 +86,11 @@
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "climatic area",
-    "HEAT_TRANSFER": "теплопередачa",
-    "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",
+    "HEAT_TRANSFER": "heat transfer",
+    "HEAT_TRANSFER_RESISTANCE": "resistance to heat transfer",
+    "HEAT_TRANSFER_INFO_1": "The required value for this climatic zone.",
+    "HEAT_TRANSFER_INFO_2": "** To improve it, use double-glazed windows with energy-saving glasses and profile systems with many cameras",
+
     "AIR_CIRCULATION": "coefficient of ventilation",
     "NAVMENU_GEOLOCATION": "To choose a location",
     "NAVMENU_CURRENT_GEOLOCATION": "Current location",
@@ -115,6 +118,9 @@
     "VOICE_SPEACH": "You talk...",
     "COMMENT": "Note to the order",
     "ROOM_SELECTION": "Templates",
+    "WINDOW_DOOR_SELECTION": "windows and doors",
+    "POWERED_BY_1": "Powered by",
+    "POWERED_BY_2": "windowscalculator.net",
     "CONFIGMENU_NO_ADDELEMENTS": "Add Elements are not choosen",
     "HEATCOEF_VAL": "W",
     "TEMPLATE_TIP": "To change the size, click here",

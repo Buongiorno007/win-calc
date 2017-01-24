@@ -29,6 +29,7 @@
           }
           //---- hide rooms if opened
           GlobalStor.global.showRoomSelectorDialog = 0;
+          GlobalStor.global.showCoefInfoBlock = 0;
           //---- hide tips
           GlobalStor.global.configMenuTips = 0;
           //---- hide comment if opened

@@ -1307,6 +1307,7 @@
       setCurrDiscounts();
       GlobalStor.global.isChangedTemplate = 0;
       GlobalStor.global.isShowCommentBlock = 0;
+      GlobalStor.global.showCoefInfoBlock = 0;
       GlobalStor.global.isCreatedNewProject = 1;
       GlobalStor.global.isCreatedNewProduct = 1;
       //------- set new templates
