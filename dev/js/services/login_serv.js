@@ -20,15 +20,6 @@
                 UserStor) {
         /*jshint validthis:true */
         var thisFactory = this;
-        var onlineMode;
-        $.get(globalConstants.serverIP, function (data) {
-          onlineMode = true;
-          return true;
-        })
-          .fail(function () {
-            onlineMode = false;
-            return false;
-          });
 
         /**============ METHODS ================*/
 
@@ -45,13 +36,6 @@
           }
         }
 
-        var onlineMode;
-        $.get(globalConstants.serverIP, function (data) {
-          onlineMode = true;
-        })
-          .fail(function () {
-            onlineMode = false;
-          });
 
         //------- defined system language
         function getDeviceLanguage() {
@@ -148,7 +132,11 @@
                 }
                 while (--regionQty > -1) {
                   if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                    GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
+                    if(GlobalStor.global.locations.cities[cityQty].areasName) {
+                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
+                    }else {
+                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
+                    }
                     GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
                     GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
                     countryQty = GlobalStor.global.locations.countries.length;
@@ -468,7 +456,7 @@
           //-------- add server url to avatar img
           // var url = globalConstants.serverIP + UserStor.userInfo.avatar
           // UserStor.userInfo.avatar = url;
-          if (onlineMode && navigator.onLine) {
+          if (GlobalStor.global.onlineMode && navigator.onLine) {
             var url = globalConstants.serverIP + UserStor.userInfo.avatar
             UserStor.userInfo.avatar = url;
             //#setBase64Avatar(url, function (base64Img) {
@@ -899,7 +887,7 @@
                 entry.img = globalConstants.serverIP + entry.img;
                 if (GlobalStor.global.ISEXT) {
                   if ($("#updateDBcheck").prop("checked")) {
-                    if (onlineMode && navigator.onLine) {
+                    if (GlobalStor.global.onlineMode && navigator.onLine) {
                       var url = String(entry.img);
                       var xhr = new XMLHttpRequest();
                       xhr.responseType = 'blob';
@@ -1533,7 +1521,7 @@
                                 GlobalStor.global.profilesType.forEach(function (entry) {
                                   if ($("#updateDBcheck").prop("checked")) {
                                     if (entry.img !== "") {
-                                      if (onlineMode && navigator.onLine) {
+                                      if (GlobalStor.global.onlineMode && navigator.onLine) {
                                         var url = String(entry.img);
 
                                         var xhr = new XMLHttpRequest();
@@ -1565,7 +1553,7 @@
                                   object.forEach(function (entry) {
                                     if ($("#updateDBcheck").prop("checked")) {
                                       if (entry.img !== "") {
-                                        if (onlineMode && navigator.onLine) {
+                                        if (GlobalStor.global.onlineMode && navigator.onLine) {
                                           var url = String(entry.img);
                                           var xhr = new XMLHttpRequest();
                                           xhr.responseType = 'blob';
@@ -1604,7 +1592,7 @@
                                       array.glassTypes.forEach(function (entry) {
                                         if ($("#updateDBcheck").prop("checked")) {
                                           if (entry.img !== "") {
-                                            if (onlineMode && navigator.onLine) {
+                                            if (GlobalStor.global.onlineMode && navigator.onLine) {
                                               var url = String(entry.img);
 
                                               var xhr = new XMLHttpRequest();
@@ -1640,7 +1628,7 @@
                                         array.forEach(function (entry) {
                                           if ($("#updateDBcheck").prop("checked")) {
                                             if (entry.img !== "") {
-                                              if (onlineMode && navigator.onLine) {
+                                              if (GlobalStor.global.onlineMode && navigator.onLine) {
                                                 var url = String(entry.img);
 
                                                 var xhr = new XMLHttpRequest();
@@ -1691,7 +1679,7 @@
                                           object.forEach(function (entry) {
                                             if ($("#updateDBcheck").prop("checked")) {
                                               if (entry.img !== "") {
-                                                if (onlineMode && navigator.onLine) {
+                                                if (GlobalStor.global.onlineMode && navigator.onLine) {
                                                   var url = String(entry.img);
                                                   var xhr = new XMLHttpRequest();
                                                   xhr.responseType = 'blob';
@@ -1725,7 +1713,7 @@
                                         GlobalStor.global.hardwareTypes.forEach(function (entry) {
                                           if ($("#updateDBcheck").prop("checked")) {
                                             if (entry.img !== "") {
-                                              if (onlineMode && navigator.onLine) {
+                                              if (GlobalStor.global.onlineMode && navigator.onLine) {
                                                 var url = String(entry.img);
 
                                                 var xhr = new XMLHttpRequest();
@@ -1775,7 +1763,7 @@
                                                 if (entry.img !== "") {
                                                   entry.img = globalConstants.serverIP + entry.img;
                                                   if ($("#updateDBcheck").prop("checked")) {
-                                                    if (onlineMode && navigator.onLine) {
+                                                    if (GlobalStor.global.onlineMode && navigator.onLine) {
                                                       var url = String(entry.img);
                                                       var xhr = new XMLHttpRequest();
                                                       xhr.responseType = 'blob';

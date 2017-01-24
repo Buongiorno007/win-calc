@@ -19,7 +19,10 @@
 
       globalSource: {
         ISEXT : ISEXTFLAG,
+        onlineMode : 0,
+        analitics_storage : [],
         showReport : 0,
+        showCoefInfoBlock : 0,
         loadDate : 0,
         showCurrentTemp : 0,
         getPCPower: 0,

@@ -6,7 +6,6 @@
   width: 100%;
   height: 20.5rem;
   z-index: 11;
-
   &.show-comment {
     height: 95.5rem;
   }
@@ -26,26 +25,99 @@
     color: #fff;
   }
   .select-rooms {
-    @extend .orange-big-btn;
+    @include roboto-lt(rem(60px));
+    height: rem(110px);
+    color: #fff;
     @extend .splash;
     @extend .truncated;
     height: 5.5rem;
     padding: 0.5rem 1.5rem;
+    position: relative;
+    top : -1.3rem;
+    cursor: pointer;
+  }
+  .coeff-info-block{
+    position: absolute;
+    top: -24rem;
+    width: 80rem;
+    height: 22rem;
+    left:8rem;
+    border-radius:2rem;
+    background-color: white;
+    text-align:center;
+    padding: 2rem 0 0 0;
+    text-shadow: none;
+    &:after {
+      position: absolute;
+      right: 50rem;
+      bottom: -2rem;
+      display: block;
+      width: 0;
+      border-width: 1.5625rem 0 1.5625rem 1.5625rem;
+      border-style: solid;
+      border-color: transparent rgba(255, 255, 255, 1);
+      transform: rotate(90deg);
+      content: '';
+    }
+    .coeff-max, .heat-transfer{
+      color : $main_green;
+      @include roboto-rg(rem(80px));
+      position:relative;
+      top:0;
+      display: inline-block;
+    }
+    .heat-transfer-info_hr{
+      position:relative;
+      top:-3rem;
+      @include roboto-rg(rem(30px));
+      color: #000;
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px solid #ccc;
+      width : 90%;
+      display : inline-block;
+    }
+    .heat-transfer-info{
+
+      position:relative;
+      top:-3rem;
+      @include roboto-rg(rem(30px));
+      color: #000;
+      margin: 0;
+      padding: 0;
+      width : 90%;
+      display : inline-block;
+    }
+  }
+  .select-window-door{
+    @extend .select-rooms;
+    @include roboto-lt(rem(40px));
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    top : -2rem;
+  }
+  .powered-by{
+    width : 100%;
+  }
+  .powered-by a{
+    @include roboto-lt(rem(35px));
+    color : white;
+    text-decoration: none;
+    float:right;
   }
   .coeff-container {
     @include display-flex();
     @include flex-flow(row wrap);
     @include top_left_coord(200px, 0px);
     @include animation(moveCoeff 1s 0 ease 1);
-
     position: absolute;
     width: 100%;
   }
   .coeff-block {
-    @include single-text-shadow(1px, 2px, 0px, false, rgba(black, .4));
-
+    //@include single-text-shadow(1px, 2px, 0px, false, rgba(black, .4));
     margin: 0;
-    padding: 0 rem(45px);
+    padding: 0 rem(35px);
     color: #fff;
     border-left: 2px dotted #fff;
     &:first-child {
@@ -58,14 +130,14 @@
   }
   .coeff-max {
     @include roboto-md(rem(36px), 1);
-
     position: absolute;
     top: rem(-50px);
     right: 0;
     color: #fff;
   }
   .coeff {
-    @include roboto-lt(rem(80px), 1);
+    text-align :center;
+    @include roboto-lt(rem(50px), 1);
     position: relative;
     float: left;
     &.coeff-low {
@@ -73,15 +145,21 @@
     }
   }
   .coeff-title {
-    @include roboto-lt(rem(32px), rem(40px));
+    @include roboto-lt(2rem);
+    color : white;
     float: left;
-    width: rem(250px);
+    width: 110%;
+    margin-left:-1rem;
+    margin-right:-1rem;
     max-height: 7rem;
-    margin-left: rem(20px);
-    word-wrap: break-word;
+    word-wrap: normal;
     overflow: auto;
+    display: inline-block;
+    text-align: center;
   }
-
+  .heat-transfer{
+    margin-top:0.2rem;
+  }
   .comment-btn {
     position: absolute;
     bottom: 0;

@@ -29,19 +29,8 @@
         var thisFactory = this,
           orderMasterStyle = 'master',
           orderDoneStyle = 'done';
-        var onlineMode;
 
-        function getOnline() {
-          $.get(globalConstants.serverIP, function (data) {
-            onlineMode = true;
-            return true;
-          })
-            .fail(function () {
-              onlineMode = false;
-              return false;
-            });
-        }
-        getOnline();
+        MainServ.getOnline();
 
         /**============ METHODS ================*/
 
@@ -138,8 +127,8 @@
 
         /**========= make Order Copy =========*/
         function sendOrderToFactory(orderStyle, orderNum) {
-          getOnline();
-          if (onlineMode && navigator.onLine) {
+          MainServ.getOnline();
+          if (GlobalStor.global.onlineMode && navigator.onLine) {
             GlobalStor.global.isLoader = 1
             var check = [];
             check = HistoryStor.history.firstClick.filter(function (item) {
@@ -176,13 +165,7 @@
             }
           } else {
 
-            $.get(globalConstants.serverIP, function (data) {
-              onlineMode = true;
-            })
-              .fail(function () {
-                onlineMode = false;
-                alert("");
-              });
+MainServ.getOnline();
             GeneralServ.infoAlert(
               $filter('translate')('login.OFFLINE'),
               $filter('translate')('login.OFFLINE_INFO')
@@ -192,7 +175,7 @@
 
 
         function reqResult() {
-          if (onlineMode && navigator.onLine) {
+          if (GlobalStor.global.onlineMode && navigator.onLine) {
             synchronizeOrders().then(function () {
               GlobalStor.global.isLoader = 1;
               var xhr = new XMLHttpRequest();
@@ -218,7 +201,7 @@
                         res.tables.order_products.fields.splice(2, 1);
                         res.tables.order_products.fields.splice(6, 1);
                         res.tables.order_products.fields.splice(27, 1);
-                        res.tables.orders.fields.splice(1, 4);
+                        res.tables.orders.fields.splice(3, 1);
                         for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
                           res.tables.order_products.rows[x].splice(1, 1);
                           res.tables.order_products.rows[x].splice(2, 1);
@@ -227,7 +210,7 @@
                         }
                         ;
                         for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
-                          res.tables.orders.rows[x].splice(1, 4);
+                          res.tables.orders.rows[x].splice(3, 1);
                           (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                           (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                           (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
@@ -252,13 +235,7 @@
             });
           } else {
 
-            $.get(globalConstants.serverIP, function (data) {
-              onlineMode = true;
-            })
-              .fail(function () {
-                onlineMode = false;
-                alert("");
-              });
+MainServ.getOnline();
             GeneralServ.infoAlert(
               $filter('translate')('login.OFFLINE'),
               $filter('translate')('login.OFFLINE_INFO')
@@ -275,7 +252,7 @@
           GlobalStor.global.isLoader = 1;
           HistoryStor.history.orderOk = 0;
           /*      GlobalStor.global.isBox = !GlobalStor.global.isBox;*/
-          if (onlineMode && navigator.onLine) {
+          if (GlobalStor.global.onlineMode && navigator.onLine) {
             HistoryStor.history.orderEditNumber = orderNum;
           }
           else {
@@ -706,7 +683,6 @@
                   for (var z = 0; z < addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z += 1) {
                     if (elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
                       if (elementsAdd[x].element_type !== 0) {
-                        console.log("GlobalStor.global.addElementsAll", GlobalStor.global.addElementsAll);
                         elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
                         elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
                         elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
@@ -737,7 +713,6 @@
                     }
                   }
                 }
-                console.log("OrderStor.order.products", OrderStor.order.products);
               } else {
                 deferred.resolve(1);
               }
@@ -789,8 +764,8 @@
 
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
-            var products = OrderStor.order.products;
-
+            var products = angular.copy(OrderStor.order.products);
+            OrderStor.order.products = [];
 
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
@@ -809,10 +784,13 @@
               async.waterfall([
                   function (_callback) {
                     if (products.construction_type === 4) {
-                      DesignServ.setDoorConfigDefault(products).then(function (res) {
+                      ProductStor.product = angular.copy(products);
+                      DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                        OrderStor.order.products.push(res); 
                         _callback();
                       });
                     } else {
+                      OrderStor.order.products.push(products); 
                       _callback();
                     }
                   }
@@ -913,9 +891,9 @@
 
         //#
         function orderPrint(orderId) {
-          getOnline();
+          MainServ.getOnline();
           /** check internet */
-          if (navigator.onLine && onlineMode) {
+          if (navigator.onLine && GlobalStor.global.onlineMode) {
             var domainLink = globalConstants.serverIP.split('api.').join('');
             var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
             GeneralServ.goToLink(printLink);
@@ -1117,8 +1095,8 @@
         }
 
         function synchronizeOrders() {
-          getOnline();
-          if (onlineMode) {
+          MainServ.getOnline();
+          if (GlobalStor.global.onlineMode) {
             var defer = $q.defer();
             var orderData2;
             localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName).then(function (result_orders) {

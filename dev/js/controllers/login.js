@@ -24,7 +24,6 @@
         thisCtrl.G = GlobalStor;
         thisCtrl.consts = globalConstants;
 
-        var onlineMode;
 
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         thisCtrl.isOnline = 1;
@@ -45,24 +44,11 @@
         thisCtrl.user = {};
         thisCtrl.factories = 0;
         GlobalStor.global.loader = 0;
-        thisCtrl.onlineMode = 0;
         thisCtrl.unexpectedError = 0;
 
 
         /** PING SERVER*/
-        $.get(globalConstants.serverIP, function () {
-          onlineMode = true;
-        })
-          .fail(function () {
-            onlineMode = false;
-          });
-        $(".disc-curr-data").hover(function() {
-          this.focus();
-        }, function() {
-          this.blur();
-        }).keydown(function(e) {
-          alert(e.keyCode);
-        });
+        MainServ.getOnline();
         //------- translate
         thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
         thisCtrl.OK = $filter('translate')('common_words.OK');
@@ -591,7 +577,7 @@
         if (window.location.hash.length > 10) {
           loader()
         }
-        if (!onlineMode && !navigator.onLine) {
+        if (!GlobalStor.global.onlineMode && !navigator.onLine) {
           localforage.getItem("UserStor.userInfo.phone", function (err, value) {
             UserStor.userInfo.phone = value;
           });
@@ -621,11 +607,13 @@
         function enterForm(form) {
           //console.log(GlobalStor.global.loadDate);
           var a = [301, 201, 101];
-          var b = [71, 83, 93];
-          var c = [0, 1, 18];
+          var b = [74, 84, 94];
+          var c = [0, 1, 2];
           var settInfo = SettingServ.getSettingFullInfo();
           var temp = SettingServ.getSettingTempInfo(settInfo);
           var checkdevice = a[1] + "" + b[0] + "" + c[1];
+          // console.log('temp',temp);
+          // console.log('checkdevice',checkdevice);
           if (temp >= checkdevice) {
             thisCtrl.unexpectedError = 1;
           } else {
@@ -634,7 +622,13 @@
             //------ Trigger validation flag.
             thisCtrl.submitted = 1;
             if (form.$valid) {
-
+              localforage.getItem("analitics", function (err, value) {
+                if (value) {
+                  GlobalStor.global.analitics_storage.push(value);
+                  console.log(JSON.stringify(GlobalStor.global.analitics_storage));
+                  console.log(GlobalStor.global.analitics_storage);
+                }
+              });
               //noinspection JSAnnotator
               function enterFormSubmit() {
                 GlobalStor.global.isLoader = 1;
@@ -645,7 +639,7 @@
                 //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
                 if (thisCtrl.isOnline) {
                   if ($("#updateDBcheck").prop("checked")) {
-                    if (onlineMode && navigator.onLine) {
+                    if (GlobalStor.global.onlineMode && navigator.onLine) {
                       HistoryServ.synchronizeOrders().then(function () {
                         GlobalStor.global.isLoader = 1;
                         GlobalStor.global.startSlider = 1;

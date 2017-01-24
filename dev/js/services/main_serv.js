@@ -23,20 +23,24 @@
     AuxStor,
     CartStor,
     DesignStor,
-    HistoryStor
+    HistoryStor,
+    globalConstants
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
     /**============ METHODS ================*/
-      var onlineMode;
-      $.get(SERVER_IP, function(data) {
-        onlineMode = true;
+
+    function getOnline() {
+      $.get(globalConstants.serverIP, function (data) {
+        GlobalStor.global.onlineMode = true;
         return true;
       })
-      .fail(function() {
-        onlineMode = false;
-        return false;
-      });
+        .fail(function () {
+          GlobalStor.global.onlineMode = false;
+          return false;
+        });
+    }
+    getOnline();
     /**---------- Close Room Selector Dialog ---------*/
     function closeRoomSelectorDialog() {
       GlobalStor.global.showRoomSelectorDialog = 0;
@@ -242,6 +246,14 @@
         product.profile = angular.copy(fineItemById(id, GlobalStor.global.profiles));
       } else {
         product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
+      }
+
+      if(product.lamination.id > 0) {
+        product.profile.rama_list_id = angular.copy(product.lamination.rama_list_id);
+        product.profile.rama_still_list_id = angular.copy(product.lamination.rama_still_list_id);
+        product.profile.stvorka_list_id = angular.copy(product.lamination.stvorka_list_id);
+        product.profile.impost_list_id = angular.copy(product.lamination.impost_list_id);
+        product.profile.shtulp_list_id = angular.copy(product.lamination.shtulp_list_id);
       }
       //------- set Depths
       $q.all([
@@ -820,7 +832,7 @@
           calculateCoeffs(objXFormedPrice);
 
           /** save analytics data first time */
-          if (GlobalStor.global.startProgramm) {
+          if (GlobalStor.global.startProgramm && ProductStor.product.construction_type !==4) {
             //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
             // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
             /** send analytics data to Server*/
@@ -1307,6 +1319,7 @@
       setCurrDiscounts();
       GlobalStor.global.isChangedTemplate = 0;
       GlobalStor.global.isShowCommentBlock = 0;
+      GlobalStor.global.showCoefInfoBlock = 0;
       GlobalStor.global.isCreatedNewProject = 1;
       GlobalStor.global.isCreatedNewProduct = 1;
       //------- set new templates
@@ -1539,7 +1552,7 @@
             localDB.tablesLocalDB.orders.tableName,
             orderData
           ).then(function(respond) {
-            if (onlineMode && navigator.onLine){
+            if (GlobalStor.global.onlineMode && navigator.onLine){
               if(respond.status) {
                 orderData.order_number = respond.order_number;
               }
@@ -1572,9 +1585,9 @@
           if(!productData.is_addelem_only) {
             productData.template_source['beads'] = angular.copy(productData.beadsData);
           }
-
           if(productData.construction_type === 4) {
             productData.profile_id = 0;
+            productData.door_group_id = OrderStor.order.products[p].door_group_id;
           } else {
             productData.profile_id = OrderStor.order.products[p].profile.id;
             (productData.door_group_id) ? productData.door_group_id = 0: productData.door_group_id = 0;
@@ -1791,7 +1804,8 @@
       saveOrderInDB: saveOrderInDB,
       deleteOrderInDB: deleteOrderInDB, 
 
-      setCurrentGlassForTemplate: setCurrentGlassForTemplate
+      setCurrentGlassForTemplate: setCurrentGlassForTemplate,
+      getOnline:getOnline
     };
 
     return thisFactory.publicObj;

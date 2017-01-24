@@ -15,7 +15,8 @@
         ProductStor,
         $timeout,
         InfoBoxServ,
-        DesignStor
+        DesignStor,
+        DesignServ
       ) {
         var thisFactory = this;
 
@@ -29,6 +30,7 @@
           }
           //---- hide rooms if opened
           GlobalStor.global.showRoomSelectorDialog = 0;
+          GlobalStor.global.showCoefInfoBlock = 0;
           //---- hide tips
           GlobalStor.global.configMenuTips = 0;
           //---- hide comment if opened
@@ -43,7 +45,7 @@
           }
 
           if(id === 1) {
-            GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
+            GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
             $location.path('/design');
@@ -62,6 +64,7 @@
                 GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
                 $location.path('/design');
+                            GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
                 DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
                   DesignStor.design.steps.isDoorConfig = 1;
                 })
