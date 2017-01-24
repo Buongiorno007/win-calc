@@ -243,6 +243,14 @@
       } else {
         product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
       }
+
+      if(product.lamination.id > 0) {
+        product.profile.rama_list_id = angular.copy(product.lamination.rama_list_id);
+        product.profile.rama_still_list_id = angular.copy(product.lamination.rama_still_list_id);
+        product.profile.stvorka_list_id = angular.copy(product.lamination.stvorka_list_id);
+        product.profile.impost_list_id = angular.copy(product.lamination.impost_list_id);
+        product.profile.shtulp_list_id = angular.copy(product.lamination.shtulp_list_id);
+      }
       //------- set Depths
       $q.all([
         downloadProfileDepth(product.profile.rama_list_id),
