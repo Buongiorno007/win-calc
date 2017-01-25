@@ -24,7 +24,7 @@
     }
   }
   .item-header {
-    min-height: rem(300px);
+    min-height: rem(350px);
   }
   .title {
     margin: rem(10px) 0;
@@ -81,11 +81,11 @@
 
   .product-u-coeff {
     @include roboto-lt(rem(42px));
-    width: 40%;
-    top: 15rem;
-    right: 1rem;
+    width:auto;
+    top: 18rem;
+    left: 3rem;
     position: absolute;
-    margin-left: rem(5px);
+    margin-left: 0;
     text-align: center;
     background-color: transparent;
     color: $main_green;
