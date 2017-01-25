@@ -113,7 +113,7 @@
     width: 100%;
   }
   .coeff-block {
-    @include single-text-shadow(1px, 2px, 0px, false, rgba(black, .4));
+    @include single-text-shadow(1px, 2px, 0px, false, rgba(black, .6));
     margin: 0;
     padding: 0 rem(35px);
     color: #fff;
@@ -136,7 +136,7 @@
   }
   .coeff {
     text-align :center;
-    @include roboto-lt(rem(50px), 1);
+    @include roboto-rg(rem(50px), 1);
     position: relative;
     float: left;
     &.coeff-low {

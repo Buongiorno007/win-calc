@@ -1037,7 +1037,7 @@
           }
         }
       }
-      console.log("product.lamination",product.lamination);
+      console.log("product",JSON.stringify(product));
 
     }
 
