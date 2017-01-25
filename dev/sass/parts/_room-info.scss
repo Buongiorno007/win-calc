@@ -158,6 +158,7 @@
   }
   .heat-transfer{
     margin-top:0.2rem;
+    cursor: pointer;
   }
   .comment-btn {
     position: absolute;
@@ -167,7 +168,6 @@
       @include font-icon(5rem, 1);
       content: $coment;
       color: #fff;
-      cursor: pointer;
     }
   }
 
