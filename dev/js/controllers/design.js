@@ -481,7 +481,7 @@
     }
 
     function selectProfileFast(){
-      console.log("профиля");
+      //console.log("профиля");
       DesignServ.saveSizeCheck();
       $timeout(function() {
         ConfigMenuServ.selectConfigPanel(2);
@@ -489,7 +489,7 @@
     }
 
     function selectWindowsHardwareFast(){
-      console.log("фурнитура");
+      //console.log("фурнитура");
       DesignServ.saveSizeCheck();
       $timeout(function() {
         ConfigMenuServ.selectConfigPanel(4);
@@ -498,7 +498,7 @@
     }
 
     function selectGlassFast(){
-      console.log("стеклопакет");
+      //console.log("стеклопакет");
       DesignServ.saveSizeCheck();
       $timeout(function() {
         ConfigMenuServ.selectConfigPanel(3);
