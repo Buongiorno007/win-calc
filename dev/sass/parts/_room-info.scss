@@ -38,9 +38,9 @@
   }
   .coeff-info-block{
     position: absolute;
-    top: -24rem;
+    top: -21rem;
     width: 80rem;
-    height: 22rem;
+    height: 20rem;
     left:8rem;
     border-radius:2rem;
     background-color: white;
@@ -68,7 +68,6 @@
     }
     .heat-transfer-info_hr{
       position:relative;
-      top:-3rem;
       @include roboto-rg(rem(30px));
       color: #000;
       margin: 0;
@@ -80,7 +79,6 @@
     .heat-transfer-info{
 
       position:relative;
-      top:-3rem;
       @include roboto-rg(rem(30px));
       color: #000;
       margin: 0;
@@ -129,6 +127,7 @@
     }
   }
   .coeff-max {
+    @extend .splash;
     @include roboto-md(rem(36px), 1);
     position: absolute;
     top: rem(-50px);
@@ -159,6 +158,7 @@
   }
   .heat-transfer{
     margin-top:0.2rem;
+    cursor: pointer;
   }
   .comment-btn {
     position: absolute;
@@ -168,7 +168,6 @@
       @include font-icon(5rem, 1);
       content: $coment;
       color: #fff;
-      cursor: pointer;
     }
   }
 

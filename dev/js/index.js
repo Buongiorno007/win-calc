@@ -31,7 +31,24 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       obj.style.transform = 'scale(' + scale + ')';
     }
   };
-
+  window.onresize = function () {
+    if (!isDevice) {
+      var obj = document.getElementById('main-frame'),
+        width = $(obj).width(),
+        height = $(obj).height();
+      var scale = 1;
+      if (self.innerWidth / width > self.innerHeight / height) {
+        scale = self.innerHeight / height;
+      }
+      else {
+        scale = self.innerWidth / width;
+      }
+      if (scale > 1) {
+        scale = 1;
+      }
+      obj.style.transform = 'scale(' + scale + ')';
+    }
+  };
   if (isDevice) {
     window.PhonegapApp = {
       initialize: function () {

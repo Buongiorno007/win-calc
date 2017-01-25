@@ -23,20 +23,24 @@
     AuxStor,
     CartStor,
     DesignStor,
-    HistoryStor
+    HistoryStor,
+    globalConstants
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
     /**============ METHODS ================*/
-      var onlineMode;
-      $.get(SERVER_IP, function(data) {
-        onlineMode = true;
+
+    function getOnline() {
+      $.get(globalConstants.serverIP, function (data) {
+        GlobalStor.global.onlineMode = true;
         return true;
       })
-      .fail(function() {
-        onlineMode = false;
-        return false;
-      });
+        .fail(function () {
+          GlobalStor.global.onlineMode = false;
+          return false;
+        });
+    }
+    getOnline();
     /**---------- Close Room Selector Dialog ---------*/
     function closeRoomSelectorDialog() {
       GlobalStor.global.showRoomSelectorDialog = 0;
@@ -1548,7 +1552,7 @@
             localDB.tablesLocalDB.orders.tableName,
             orderData
           ).then(function(respond) {
-            if (onlineMode && navigator.onLine){
+            if (GlobalStor.global.onlineMode && navigator.onLine){
               if(respond.status) {
                 orderData.order_number = respond.order_number;
               }
@@ -1800,7 +1804,8 @@
       saveOrderInDB: saveOrderInDB,
       deleteOrderInDB: deleteOrderInDB, 
 
-      setCurrentGlassForTemplate: setCurrentGlassForTemplate
+      setCurrentGlassForTemplate: setCurrentGlassForTemplate,
+      getOnline:getOnline
     };
 
     return thisFactory.publicObj;
