@@ -21,13 +21,13 @@
       .coeff.heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total < roomInfo.O.order.heat_coef_min}",
                             fs-click="roomInfo.showCoefInfoBlock()")
-        | R = {{ roomInfo.P.product.heat_coef_total }} {{ ::roomInfo.LETTER_M }} &sup2;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
+        | R = {{ roomInfo.P.product.heat_coef_total }} {{ ::roomInfo.LETTER_M}}&sup2;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
         .coeff-title(data-output="{{ ::roomInfo.HEAT_TRANSFER_RESISTANCE }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
       //U
       .coeff.heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total > roomInfo.O.order.heat_coef_min}",
                             fs-click="roomInfo.showCoefInfoBlock()")
-        | U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&deg;C
+        | U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
         .coeff-title(data-output="{{ ::roomInfo.HEAT_TRANSFER }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
 
 
