@@ -1037,7 +1037,7 @@
           }
         }
       }
-      console.log("product",JSON.stringify(product));
+      //console.log("product",JSON.stringify(product));
 
     }
 
