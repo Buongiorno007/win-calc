@@ -1037,6 +1037,8 @@
           }
         }
       }
+      console.log("product.lamination",product.lamination);
+
     }
 
 

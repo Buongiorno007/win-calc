@@ -113,7 +113,7 @@
     width: 100%;
   }
   .coeff-block {
-    //@include single-text-shadow(1px, 2px, 0px, false, rgba(black, .4));
+    @include single-text-shadow(1px, 2px, 0px, false, rgba(black, .4));
     margin: 0;
     padding: 0 rem(35px);
     color: #fff;

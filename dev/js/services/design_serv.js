@@ -405,7 +405,7 @@
               currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
 
             /** Square limits checking */
-            if(currSquare < GlobalStor.global.maxSquareLimit) {
+            if(currSquare <= GlobalStor.global.maxSquareLimit) {
               /** Dimensions limits checking */
 
               if(newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
