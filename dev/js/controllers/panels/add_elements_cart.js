@@ -99,6 +99,7 @@
                       if (addElem[addElemProdQty][addElemQty].element_width === element.element_width) {
                         if (addElem[addElemProdQty][addElemQty].element_height === element.element_height) {
                           addElem[addElemProdQty].splice(addElemQty, 1);
+                          break;
 
                         }
                       }

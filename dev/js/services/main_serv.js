@@ -1037,8 +1037,6 @@
           }
         }
       }
-      console.log("product",product.lamination);
-
     }
 
 
@@ -1047,10 +1045,9 @@
 
     function setProfileByLaminat(lamId) {
       var deff = $q.defer();
-      if(lamId || lamId == 0) {
+      if(lamId || lamId === 0) {
         //------ set profiles parameters
         if(ProductStor.product.construction_type !== 4) {
-          console.log("ProductStor.product.construction_type !== 4");
           ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
           ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
           ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
@@ -1060,7 +1057,8 @@
           ProductStor.product.profile = angular.copy(selectDoor(ProductStor.product.door_shape_id, ProductStor.product));
           ProductStor.product.profile.rama_still_list_id = ProductStor.product.profile.door_sill_list_id;
         }
-      } 
+      }
+
       //------- set Depths
       $q.all([
         downloadProfileDepth(ProductStor.product.profile.rama_list_id),
@@ -1101,8 +1099,6 @@
 
     /**==================temp location for this function!!! =================*/
     function selectDoor(id, product) {
-      console.log("selectDoor");
-
       var doorsLaminations = angular.copy(GlobalStor.global.lamGroupFiltered);
       for(var i=0; i<doorsLaminations.length; i+=1) {
         if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
@@ -1115,7 +1111,6 @@
             break;
         }
       }
-      console.log("product.profile",product.profile);
       return product.profile;
     } 
     /**==================temp location for this function!!! =================*/
