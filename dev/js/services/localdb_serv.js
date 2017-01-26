@@ -2758,7 +2758,7 @@
       var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
-      //console.info('START+++', construction);
+      //console.info('construction', construction);
 
       parseMainKit(construction).then(function(kits){
         //console.warn('kits!!!!!!+', kits);              
