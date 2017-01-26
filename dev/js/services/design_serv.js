@@ -3336,6 +3336,7 @@
                     next();
                   }
 
+                  //noinspection JSAnnotator
                   function next() {
                     /** create template icon */
                     SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)

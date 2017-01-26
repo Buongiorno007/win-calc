@@ -1217,7 +1217,7 @@
       var currTime = new Date();
       $http.get(globalConstants.serverIP+'/api/signed?login='+login+'&access_token='+access+'&date='+currTime).then(
         function () {
-          console.log('Sucsess!');
+          console.log('Success!');
         },
         function () {
           console.log('Something went wrong!');

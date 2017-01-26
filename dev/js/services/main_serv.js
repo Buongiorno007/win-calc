@@ -1037,7 +1037,7 @@
           }
         }
       }
-      //console.log("product",JSON.stringify(product));
+      console.log("product",product.lamination);
 
     }
 
@@ -1050,6 +1050,7 @@
       if(lamId || lamId == 0) {
         //------ set profiles parameters
         if(ProductStor.product.construction_type !== 4) {
+          console.log("ProductStor.product.construction_type !== 4");
           ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
           ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
           ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
@@ -1100,18 +1101,21 @@
 
     /**==================temp location for this function!!! =================*/
     function selectDoor(id, product) {
+      console.log("selectDoor");
+
       var doorsLaminations = angular.copy(GlobalStor.global.lamGroupFiltered);
       for(var i=0; i<doorsLaminations.length; i+=1) {
         if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
         && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
-            product.profile.door_sill_list_id = doorsLaminations[i].door_sill_list_id
-            product.profile.impost_list_id = doorsLaminations[i].impost_list_id 
-            product.profile.rama_list_id = doorsLaminations[i].rama_list_id
-            product.profile.shtulp_list_id = doorsLaminations[i].shtulp_list_id 
-            product.profile.stvorka_list_id = doorsLaminations[i].stvorka_list_id
-            break
+            product.profile.door_sill_list_id = doorsLaminations[i].door_sill_list_id;
+            product.profile.impost_list_id = doorsLaminations[i].impost_list_id;
+            product.profile.rama_list_id = doorsLaminations[i].rama_list_id;
+            product.profile.shtulp_list_id = doorsLaminations[i].shtulp_list_id;
+            product.profile.stvorka_list_id = doorsLaminations[i].stvorka_list_id;
+            break;
         }
-      }       
+      }
+      console.log("product.profile",product.profile);
       return product.profile;
     } 
     /**==================temp location for this function!!! =================*/

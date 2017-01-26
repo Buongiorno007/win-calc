@@ -553,7 +553,7 @@
         discount = 0;
       } else if(discount % 1) {
         //--- float
-        discount = parseFloat(discount.toFixed(1));
+        discount = parseFloat(discount.toFixed(2));
       }
       return discount;
     }

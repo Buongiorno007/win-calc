@@ -24,7 +24,10 @@
     }
   }
   .item-header {
-    min-height: rem(330px);
+    min-height: rem(360px);
+  }
+  .name{
+    padding-top : 5px;
   }
   .title {
     margin: rem(10px) 0;
@@ -85,7 +88,7 @@
     top: 18rem;
     left: 3rem;
     position: absolute;
-    margin-left: 0;
+    margin: 1.3rem 0 1rem 0;
     text-align: center;
     background-color: transparent;
     color: $main_green;
