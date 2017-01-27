@@ -50,7 +50,6 @@
 
     //------------ Select lamination
     function selectLaminat(id) {
-      console.info('select lamin --- ', id);
       GlobalStor.global.isChangedTemplate = 1;
       MainServ.laminatFiltering();
       MainServ.setCurrLamination(ProductStor.product, id);
