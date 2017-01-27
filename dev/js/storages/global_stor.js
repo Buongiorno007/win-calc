@@ -20,6 +20,7 @@
       globalSource: {
         ISEXT : ISEXTFLAG,
         onlineMode : 0,
+        hintTimer :0,
         analitics_storage : [],
         showReport : 0,
         showCoefInfoBlock : 0,

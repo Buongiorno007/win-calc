@@ -68,6 +68,7 @@
           var products = OrderStor.order.products,
             productsQty = products.length,
             addElemProdQty, addElemQty, addElem, details;
+          dance:
           while (--productsQty > -1) {
             addElem = products[productsQty].chosenAddElements;
             details = products[productsQty].template_source.details;

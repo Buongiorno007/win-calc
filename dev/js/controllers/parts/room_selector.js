@@ -58,7 +58,7 @@
             TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
           }
           if (DesignStor.design.showHint >= 0) {
-            $timeout(function () {
+            GlobalStor.global.hintTimer = setTimeout(function () {
               DesignStor.design.showHint = 1;
             }, 90000);
           }
