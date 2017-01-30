@@ -64,54 +64,63 @@
           CartStor.cart.addElemIndex = null;
         }
 
-        function deleteAddElemsInOrder(element) {
+        function deleteAddElemsInOrder(element, prodID) {
+          if (prodID === -1) prodID = +2;
+          else prodID++;
           var products = OrderStor.order.products,
             productsQty = products.length,
-            addElemProdQty, addElemQty, addElem, details;
-          while (--productsQty > -1) {
-            addElem = products[productsQty].chosenAddElements;
-            details = products[productsQty].template_source.details;
-            var blocksQty = details.length;
-            while (--blocksQty > 0) {
-                if (details[blocksQty].gridTxt) {
-                  if (details[blocksQty].gridTxt === element.name) {
+            addElemProdQty, addElemQty, addElem, details, curProdID;
+          dance:
+            while (--productsQty > -1) {
+              addElem = products[productsQty].chosenAddElements;
+              curProdID = products[productsQty].product_id;
+              details = products[productsQty].template_source.details;
+              var blocksQty = details.length;
+              if (curProdID === prodID) {
+                while (--blocksQty > 0) {
+                  if (details[blocksQty].gridTxt) {
+                    if (details[blocksQty].gridTxt === element.name) {
+                      if (details[blocksQty].gridId) {
+                        delete details[blocksQty].gridId;
+                        delete details[blocksQty].gridTxt;
+                        break;
+                      }
+                    }
+                  } else {
                     if (details[blocksQty].gridId) {
                       delete details[blocksQty].gridId;
                       delete details[blocksQty].gridTxt;
-                      break;
                     }
                   }
-              } else {
-                if (details[blocksQty].gridId) {
-                  delete details[blocksQty].gridId;
-                  delete details[blocksQty].gridTxt;
                 }
               }
-            }
-            addElemProdQty = addElem.length;
-            while (--addElemProdQty > -1) {
-              addElemQty = addElem[addElemProdQty].length;
-              if (addElemQty) {
-                //--------- delete one Add Element
-                if (element) {
-                  while (--addElemQty > -1) {
-                    if (addElem[addElemProdQty][addElemQty].id === element.id) {
-                      if (addElem[addElemProdQty][addElemQty].element_width === element.element_width) {
-                        if (addElem[addElemProdQty][addElemQty].element_height === element.element_height) {
-                          addElem[addElemProdQty].splice(addElemQty, 1);
-                          break;
+              addElemProdQty = addElem.length;
+              while (--addElemProdQty > -1) {
+                addElemQty = addElem[addElemProdQty].length;
+                if (addElemQty) {
+                  //--------- delete one Add Element
+                  if (element) {
+                    if (curProdID === prodID) {
+                      while (--addElemQty > -1) {
 
+                        if (addElem[addElemProdQty][addElemQty].id === element.id) {
+                          if (addElem[addElemProdQty][addElemQty].element_width === element.element_width) {
+                            if (addElem[addElemProdQty][addElemQty].element_height === element.element_height) {
+                              addElem[addElemProdQty].splice(addElemQty, 1);
+                              break;
+
+                            }
+                          }
                         }
                       }
                     }
+                  } else {
+                    //--------- delete All Add Element
+                    addElem[addElemProdQty].length = 0;
                   }
-                } else {
-                  //--------- delete All Add Element
-                  addElem[addElemProdQty].length = 0;
                 }
               }
             }
-          }
 
         }
 
@@ -203,8 +212,8 @@
           }
         }
 
-        function deleteAddElemsItem(addElem) {
-          deleteAddElemsInOrder(addElem);
+        function deleteAddElemsItem(addElem, prodID) {
+          deleteAddElemsInOrder(addElem, prodID);
           CartMenuServ.joinAllAddElements();
           //------ if last AddElem was delete
           if (!CartStor.cart.isExistAddElems) {

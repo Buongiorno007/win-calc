@@ -1727,45 +1727,38 @@
             } else {
               if (elemLists.length) {
                 elemLists.forEach(function (entry, index) {
-                  // if (entry.length)
-                  // console.log("elemLists",entry);
                   try {
-
-
-
-
                     //white lamination
                     if (ProductStor.product.lamination.lamination_in_id === 1 && ProductStor.product.lamination.lamination_out_id === 1) {
                       if (entry.lamination_type_id !== 0 &&
                         entry.lamination_type_id !== 4 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 6) {
-                        //noinspection JSAnnotator
-                        elemLists.splice(index,1);
-                        //delete entry.object();
+                        //elemLists.splice(index,1);
+                        console.log("белая");
+                        console.log("elemLists",entry);
                       }
-
                     }
                     //inner lamination
-                    if (ProductStor.product.lamination.lamination_in_id === 1 && ProductStor.product.lamination.lamination_out_id !== 1) {
+                    if (ProductStor.product.lamination.lamination_in_id !== 1 && ProductStor.product.lamination.lamination_out_id === 1) {
                       if (entry.lamination_type_id !== 0 &&
                         entry.lamination_type_id !== 1 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 8) {
-                        //noinspection JSAnnotator
-                        elemLists.splice(index,1);
-                        //delete entry.object();
+                       // elemLists.splice(index,1);
+                        console.log("внутренняя");
+                        console.log("elemLists",entry);
                       }
                     }
                     //outer lamination
-                    if (ProductStor.product.lamination.lamination_in_id !== 1 && ProductStor.product.lamination.lamination_out_id === 1) {
+                    if (ProductStor.product.lamination.lamination_in_id === 1 && ProductStor.product.lamination.lamination_out_id !== 1) {
                       if (entry.lamination_type_id !== 0 &&
                         entry.lamination_type_id !== 2 &&
                         entry.lamination_type_id !== 6 &&
                         entry.lamination_type_id !== 7) {
-                        //noinspection JSAnnotator
-                        elemLists.splice(index,1);
-                        //delete entry.object();
+                        //elemLists.splice(index,1);
+                        console.log("наружная");
+                        console.log("elemLists",entry);
                       }
                     }
                     //double-sided
@@ -1774,9 +1767,9 @@
                         entry.lamination_type_id !== 3 &&
                         entry.lamination_type_id !== 7 &&
                         entry.lamination_type_id !== 8) {
-                        //noinspection JSAnnotator
-                        elemLists.splice(index,1);
-                        //delete entry.object();
+                        //elemLists.splice(index,1);
+                        console.log("двойная");
+                        console.log("elemLists",entry);
                       }
                     }
                   } catch (e) {

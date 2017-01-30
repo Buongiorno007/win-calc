@@ -23,6 +23,7 @@
 
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
+          GlobalStor.global.configMenuTips++;
           MainServ.laminatFiltering();
           if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
             /** calc Price previous parameter and close caclulators */
@@ -51,7 +52,7 @@
             $location.path('/design');
             //console.log(DesignStor.design.showHint);
             if (DesignStor.design.showHint >= 0){
-            $timeout(function() {
+              GlobalStor.global.hintTimer = setTimeout(function() {
               DesignStor.design.showHint = 1;
             }, 90000);}
           } else {
