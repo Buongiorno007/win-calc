@@ -393,6 +393,7 @@
     "CLIENT_OCCUP_BOSS": "Przedsiębiorca",
     "CLIENT_OCCUP_STUD": "Student",
     "CLIENT_OCCUP_PENSION": "Emeryt",
+    "CLIENT_OCCUP_DIRECTOR": "Dyrektor, top menedżerów",
     "CLIENT_INFO_SOURCE": "Źródło informacji",
     "CLIENT_INFO_PRESS": "Prasa",
     "CLIENT_INFO_FRIEND": "Od znajomych",

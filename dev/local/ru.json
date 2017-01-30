@@ -394,6 +394,7 @@
     "CLIENT_OCCUP_BOSS": "Предприниматель",
     "CLIENT_OCCUP_STUD": "Студент",
     "CLIENT_OCCUP_PENSION": "Пенсионер",
+    "CLIENT_OCCUP_DIRECTOR": "Директор, ТОП-Менеджер",
     "CLIENT_INFO_SOURCE": "Источник информации",
     "CLIENT_INFO_PRESS": "Пресса",
     "CLIENT_INFO_FRIEND": "От знакомых",

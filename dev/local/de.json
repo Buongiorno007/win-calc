@@ -393,6 +393,7 @@
     "CLIENT_OCCUP_BOSS": "Entrepreneur",
     "CLIENT_OCCUP_STUD": "Student",
     "CLIENT_OCCUP_PENSION": "Retired",
+    "CLIENT_OCCUP_DIRECTOR": "Director, Top-Manager",
     "CLIENT_INFO_SOURCE": "Source",
     "CLIENT_INFO_PRESS": "Press",
     "CLIENT_INFO_FRIEND": "Von Freunden",

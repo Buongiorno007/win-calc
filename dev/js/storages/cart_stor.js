@@ -91,7 +91,7 @@
         {id: 3, name: 'cart.CLIENT_OCCUP_BOSS'},
         {id: 4, name: 'cart.CLIENT_OCCUP_STUD'},
         {id: 5, name: 'cart.CLIENT_OCCUP_PENSION'},
-        {id: 6, name: 'cart.UNKNOWN'}
+        {id: 5, name: 'cart.CLIENT_OCCUP_DIRECTOR'}
       ],
       optionInfo: [
         {id: 1, name: 'TV'},
