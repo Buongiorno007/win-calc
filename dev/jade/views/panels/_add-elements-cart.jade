@@ -34,7 +34,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
             td.aux-tablecell-price
               .aux-price + {{ addElem.element_qty * addElem.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
             td.aux-tablecell-delete
-              .aux-delete(fs-click="elemCartPanel.deleteAddElemsItem(addElem)")
+              .aux-delete(fs-click="elemCartPanel.deleteAddElemsItem(addElem,cartPage.C.cart.selectedProduct)")
 
 
     //----- TOTAL
