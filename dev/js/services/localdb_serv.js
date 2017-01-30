@@ -1734,9 +1734,7 @@
                         entry.lamination_type_id !== 4 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 6) {
-                        //elemLists.splice(index,1);
-                        console.log("белая");
-                        console.log("elemLists",entry);
+                        elemLists.splice(index,1);
                       }
                     }
                     //inner lamination
@@ -1745,9 +1743,7 @@
                         entry.lamination_type_id !== 1 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 8) {
-                       // elemLists.splice(index,1);
-                        console.log("внутренняя");
-                        console.log("elemLists",entry);
+                        elemLists.splice(index,1);
                       }
                     }
                     //outer lamination
@@ -1756,9 +1752,7 @@
                         entry.lamination_type_id !== 2 &&
                         entry.lamination_type_id !== 6 &&
                         entry.lamination_type_id !== 7) {
-                        //elemLists.splice(index,1);
-                        console.log("наружная");
-                        console.log("elemLists",entry);
+                        elemLists.splice(index,1);
                       }
                     }
                     //double-sided
@@ -1767,9 +1761,7 @@
                         entry.lamination_type_id !== 3 &&
                         entry.lamination_type_id !== 7 &&
                         entry.lamination_type_id !== 8) {
-                        //elemLists.splice(index,1);
-                        console.log("двойная");
-                        console.log("elemLists",entry);
+                        elemLists.splice(index,1);
                       }
                     }
                   } catch (e) {
@@ -1788,6 +1780,7 @@
 
 
         function checkHardwareType(hardvares) {
+          console.log("checkHardwareType",hardvares);
           var newHardArr = [],
             types = [0, 1, 3, 4, 5, 8],
             typesQty = types.length, j,
@@ -1800,6 +1793,8 @@
               }
             }
           }
+          console.log("newHardArr",newHardArr);
+
           return newHardArr;
         }
 
@@ -1819,7 +1814,8 @@
                           var deff3 = $q.defer();
                           parseListContent(item3.child_id).then(function (result4) {
                             if (result4.length) {
-                              deff3.resolve(checkHardwareType(result4));
+                              //deff3.resolve(checkHardwareType(result4));
+                              deff3.resolve(result4);
                             } else {
                               deff3.resolve(0);
                             }
