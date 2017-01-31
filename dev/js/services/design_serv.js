@@ -369,6 +369,7 @@
         }
 
         function size(res) {
+
           var intervalID = setInterval( function() {
             if(ProductStor.product.doorLock.width_min){
               clearInterval(intervalID);
@@ -377,7 +378,7 @@
               var product = ProductStor.product.doorLock;
               for(var x=0; x<res.length; x+=1) {
                 if(GlobalStor.global.checkDoors !== 1) {
-                  widthT = GlobalStor.global.widthTEMP = res[x].sizes[0];
+                  widthT = GlobalStor.global.widthTEMP = res[x].sizes[0];// - (ProductStor.product.);
                   heightT = GlobalStor.global.heightTEMP = res[x].sizes[1];
                   GlobalStor.global.heightLim = '('+product.width_min+' - '+product.width_max+') x ('+product.height_min+' - '+product.height_max+')';
                   if(heightT <= product.height_max && heightT >= product.height_min) {
@@ -963,6 +964,7 @@
               DesignStor.design.doorConfig.handleShapeIndex = id;
               DesignStor.design.steps.selectedStep3 = 1;
             }
+
             var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
               return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
             });
@@ -1080,9 +1082,8 @@
           var widthTEMP, heightTEMP;
           var clipboard;
           var doorsItems = angular.copy(GlobalStor.global.doorsItems);
-          (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
-          (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
-
+          (GlobalStor.global.widthTEMP > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
+          (GlobalStor.global.heightTEMP > 0) ? heightTEMP = GlobalStor.global.heightTEMP : heightTEMP = h;
           function countHandle(source) {
             var count = source.templateTEMP.details.filter(function(item) {
               if(item.blockType == 'sash') {
