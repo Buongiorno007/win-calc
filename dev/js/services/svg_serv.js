@@ -390,7 +390,7 @@
 
 
 
-    function setLines(points) {
+    function setLines(points,depths) {
       var lines = [],
           pointsQty = points.length,
           line, index, i, last;
@@ -404,6 +404,7 @@
         //------- first
         line.from = angular.copy(points[i]);
         line.dir = points[i].dir;
+
         //------- end
         if(i === (pointsQty - 1)) {
           index = 0;
@@ -426,14 +427,29 @@
         if(line.dir === 'line') {
           line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
         }
+        /*
+         id       :         "fp4"
+         type     :         "frame"
+         view     :         1
+         x        :         52.5
+         y        :         1947.5*/
+        /** door_type_index === 0 - рама по периметру
+         *  door_type_index === 1 - без порога
+         *  door_type_index === 3 - алюминиевый порог
+         *  ProductStor.product.door_type_index;*/
         line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y))) );
+          if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 3 && depths) {
+            line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+depths.sashDepth.b);
+          }
+        if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 1 && depths) {
+          line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+19);
+        }
         setLineCoef(line);
         lines.push(line);
       }
       //------ change place last element in array to first
       last = lines.pop();
       lines.unshift(last);
-
       return lines;
     }
 
@@ -1317,6 +1333,9 @@
       var shapeIndex = 0;
       var doorSill = (frameStill)? frameStill:0;
       if(GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
+        /** door_type_index === 0 - рама по периметру
+         *  door_type_index === 1 - без порога
+         *  door_type_index === 3 - алюминиевый порог*/
         shapeIndex = ProductStor.product.door_type_index;
       };
       var newPointsOut = pointsOut.filter(function (item) {
@@ -1361,6 +1380,7 @@
             part.dir = 'curv';
           } else {
             /**----- DOOR -----*/
+            /**без порога */
             if(ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
@@ -1373,6 +1393,7 @@
               }
             } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3 && doorSill) {
               //-------- change points fp2-fp3 frame
+              /**алюминиевый порог. знаения не возвращает*/
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(newPointsOut[0]);
                 tempPoint.y = pointsIn[0].y +doorSill.a;
@@ -1445,7 +1466,8 @@
                 }
               }
             } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3 && doorSill) {
-              /** doorstep Al outer */
+              /** doorstep Al outer
+               * отрисовка порога не прнимает участия в высоте фальца створки*/
               //-------- change fp3-fp4 frame to outer doorstep
               if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {    
                 if(doorSill.a) {
@@ -1475,6 +1497,7 @@
               } else {
                 if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                   if(newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
+                    /** отрисовка*/
                     var item1 = newPointsOut[index];
                     item1.y = newPointsOut[index].y +doorSill.a;
                     var item2 = newPointsOut[index+1];
@@ -1487,6 +1510,7 @@
                       part, item1, item2, item3, item4
                     );
                   } else if(newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
+                    /**влияет только на алюминиевый порог */
                     var item1 = newPointsOut[index];
                     var item2 = newPointsOut[index+1];
                     var item3 = pointsIn[index+1];
@@ -1495,6 +1519,7 @@
                       part, item1, item2, item3, item4
                     );
                   } else if(newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
+                    /** левая сторона двойных входных дверей*/
                     var item1 = newPointsOut[index];
                     item1.y = newPointsOut[index].y +doorSill.a;
                     var item2 = newPointsOut[index+1];
@@ -2658,7 +2683,6 @@
 
           //-------- if block has children and type is sash
           if(thisObj.details[i].children.length) {
-
             if(thisObj.details[i].blockType === 'sash') {
               thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(
                 thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
@@ -2671,7 +2695,7 @@
               thisObj.details[i].sashLinesLight = setLines(thisObj.details[i].sashPointsLight);
               //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints,depths);
 
               $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
                 sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
@@ -2679,6 +2703,7 @@
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
+
               setSashePropertyXPrice(
                 thisObj.details[i].sashType,
                 thisObj.details[i].openDir,
@@ -2712,7 +2737,6 @@
               ));
 
             } else if(thisObj.details[i].blockType === 'sash') {
-              //console.info('-------', i, thisObj.details[i]);
               thisObj.details[i].sashPointsOut = copyPointsOut(
                 setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
               );
@@ -2725,10 +2749,10 @@
               ));
               //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints,depths);
 
               thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
-              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
+              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut,depths);
               thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
               //------ for defined open directions of sash
               thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
@@ -2776,7 +2800,6 @@
 
         }
       }
-
       thisObj.dimension = initDimensions(thisObj.details);
 
       //console.log('TEMPLATE END++++', thisObj);
