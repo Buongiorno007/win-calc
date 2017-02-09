@@ -847,9 +847,14 @@ MainServ.getOnline();
 
         function offlinePrint(orderId) {
           HistoryStor.history.orders.forEach(function (entry, index) {
+            try {
             if (entry.id === orderId) {
+              console.log("entry.modified",entry.modified);
               entry.modified = entry.modified.substr(0, 10);
               HistoryStor.history.historyID = index;
+            }}
+            catch (err) {
+              console.log(err.message);
             }
           });
 

@@ -3382,6 +3382,7 @@
               }
             });
           }
+          console.log("ProductStor.product",ProductStor.product);
         }
 
 

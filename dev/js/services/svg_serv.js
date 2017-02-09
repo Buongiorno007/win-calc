@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  /**@ngInject*/ 
+  /**@ngInject*/
   angular
     .module('MainModule')
     .factory('SVGServ',
@@ -438,12 +438,12 @@
          *  door_type_index === 3 - алюминиевый порог
          *  ProductStor.product.door_type_index;*/
         line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y))) );
-          if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 3 && depths) {
-            line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+depths.sashDepth.b);
-          }
-        if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 1 && depths) {
-          line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+19);
-        }
+        //   if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 3 && depths) {
+        //     line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+depths.sashDepth.b);
+        //   }
+        // if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 1 && depths) {
+        //   line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+19);
+        // }
         setLineCoef(line);
         lines.push(line);
       }
@@ -1422,7 +1422,7 @@
               }
             } else {
               part.points.push(newPointsOut[0], pointsIn[0]);
-              if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {  
+              if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
                 part.type = 'arc-corner';
               }
             }
@@ -1469,7 +1469,7 @@
               /** doorstep Al outer
                * отрисовка порога не прнимает участия в высоте фальца створки*/
               //-------- change fp3-fp4 frame to outer doorstep
-              if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {    
+              if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                 if(doorSill.a) {
                   tempPoint = angular.copy(pointsIn[index]);
                   tempPoint.y = newPointsOut[index].y-doorSill.a;
@@ -1575,7 +1575,7 @@
           part.type = 'sash';
           priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
-          if(part.sill || part.doorstep === 1) {        
+          if(part.sill || part.doorstep === 1) {
             priceElements.frameSillSize.push(sizeValue);
           } else {
             priceElements.framesSize.push(sizeValue);
@@ -2793,13 +2793,101 @@
                 thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y+depths.frameStillDepth.a);
                 thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y+depths.frameStillDepth.a);
               }
-            } 
+            }
               thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
             }
 
 
         }
       }
+      //console.log("depths",depths);
+      try {
+        if (ProductStor.product.construction_type === 4) {
+          thisObj.details.forEach(function (thisObj_detail) {
+            //console.log("thisObj_detail",thisObj_detail);
+            if (thisObj_detail.blockType === "sash") {
+              // entry.pointsOut.x
+              // entry.pointsOut.y
+              var _depth;
+
+              /** door_type_index === 0 - рама по периметру
+               *  door_type_index === 1 - без порога
+               *  door_type_index === 3 - алюминиевый порог*/
+
+              switch (ProductStor.product.door_type_index) {
+                case  0 : {
+                  /** габарит створки - рама-рама*/
+                  //console.log("рама по периметру");
+                  _depth = depths.frameDepth.b * 2;
+                  break;
+                }
+                case  1 :
+                case  2 : {
+                  /** габарит створки - рама-без порога*/
+                  //console.log("рама-без порога");
+                  _depth = depths.frameDepth.b + 12;
+                  break;
+                }
+                case  3 : {
+                  /** габарит створки - рама-алюминиевый порог*/
+                  //console.log("алюминиевый порог");
+
+                  _depth = depths.frameDepth.b + depths.frameStillDepth.b;
+                  break;
+                }
+                default:
+                  _depth = depths.frameDepth.b * 2;
+                  break;
+              }
+              /** записываем расчитаные значения в объект */
+              thisObj_detail.sashLinesOut.forEach(function(sash,index){
+                if (index & 1){
+                  //нечетно
+                  sash.size = thisObj_detail.pointsOut[0].x - _depth;
+                }
+                else{
+                  //четно
+                  sash.size = thisObj_detail.pointsOut[0].y - _depth;
+                }
+              });
+              /**расчитываем фальц створки */
+              thisObj_detail.hardwareLines.forEach(function(hardware,index){
+                //console.log("hardware",hardware);
+                if (index & 1){
+                  //нечетно
+                  ProductStor.product.template_source.hardwareLines[1] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
+                  ProductStor.product.template_source.hardwareLines[3] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
+                  hardware.size = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
+                }
+                else{
+                  //четно
+                  ProductStor.product.template_source.hardwareLines[0] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
+                  ProductStor.product.template_source.hardwareLines[2] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
+                  hardware.size = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
+                }
+              });
+              thisObj_detail.sashLinesOut.forEach(function (item, index) {
+                thisObj.priceElements.sashsSize[index] = GeneralServ.roundingValue(angular.copy(item.size) / 1000, 3);
+              });
+              thisObj.priceElements.sashesBlock.forEach(function (item) {
+                item.sizes[0] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
+                item.sizes[2] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
+
+                item.sizes[1] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
+                item.sizes[2] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
+
+              });
+
+            }
+
+          });
+        }
+      }
+      catch (err) {
+        console.log( err.message );
+      }
+
+
       thisObj.dimension = initDimensions(thisObj.details);
 
       //console.log('TEMPLATE END++++', thisObj);
@@ -2925,7 +3013,7 @@
           x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
           y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
         };
-      } 
+      }
       return position;
     }
 
@@ -2956,7 +3044,7 @@
       if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type === 6) {
         position.x = 242;
         position.y = valueY-72;
-      }       
+      }
       if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type !== 6) {
         position.x = 276;
         position.y = valueY-110;
