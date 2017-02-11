@@ -390,7 +390,7 @@
 
 
 
-    function setLines(points,depths) {
+    function setLines(points) {
       var lines = [],
           pointsQty = points.length,
           line, index, i, last;
@@ -427,23 +427,7 @@
         if(line.dir === 'line') {
           line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
         }
-        /*
-         id       :         "fp4"
-         type     :         "frame"
-         view     :         1
-         x        :         52.5
-         y        :         1947.5*/
-        /** door_type_index === 0 - рама по периметру
-         *  door_type_index === 1 - без порога
-         *  door_type_index === 3 - алюминиевый порог
-         *  ProductStor.product.door_type_index;*/
         line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y))) );
-        //   if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 3 && depths) {
-        //     line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+depths.sashDepth.b);
-        //   }
-        // if(ProductStor.product.construction_type === 4 && ProductStor.product.door_type_index === 1 && depths) {
-        //   line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)))+19);
-        // }
         setLineCoef(line);
         lines.push(line);
       }
@@ -1352,7 +1336,6 @@
             glassId: currGlassId,
             sizes: []
           }, tempPoint, tempPoint2, index;
-
       for(index = 0; index < pointsQty; index+=1) {
         //----- passing if first point is curv
         if(index === 0 && newPointsOut[index].dir === 'curv') {
@@ -1510,7 +1493,7 @@
                       part, item1, item2, item3, item4
                     );
                   } else if(newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
-                    /**влияет только на алюминиевый порог */
+                    console.log("newPointsOut[index]",newPointsOut[index]);
                     var item1 = newPointsOut[index];
                     var item2 = newPointsOut[index+1];
                     var item3 = pointsIn[index+1];
@@ -2800,20 +2783,16 @@
 
         }
       }
-      //console.log("depths",depths);
+      console.log("depths",depths);
       try {
         if (ProductStor.product.construction_type === 4) {
           thisObj.details.forEach(function (thisObj_detail) {
             //console.log("thisObj_detail",thisObj_detail);
             if (thisObj_detail.blockType === "sash") {
-              // entry.pointsOut.x
-              // entry.pointsOut.y
               var _depth;
-
               /** door_type_index === 0 - рама по периметру
                *  door_type_index === 1 - без порога
                *  door_type_index === 3 - алюминиевый порог*/
-
               switch (ProductStor.product.door_type_index) {
                 case  0 : {
                   /** габарит створки - рама-рама*/
@@ -2831,7 +2810,6 @@
                 case  3 : {
                   /** габарит створки - рама-алюминиевый порог*/
                   //console.log("алюминиевый порог");
-
                   _depth = depths.frameDepth.b + depths.frameStillDepth.b;
                   break;
                 }
@@ -2890,7 +2868,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      //console.log('TEMPLATE END++++', thisObj);
+      //console.log('TEMPLATE END++++', depths);
       defer.resolve(thisObj);
       return defer.promise;
     }
