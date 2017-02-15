@@ -1350,6 +1350,7 @@
                   }
                 } else {
                   /** if line */
+                  newPointsOut[index].y+=100;
                   collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
                 }
               }
@@ -1535,6 +1536,8 @@
                     }
                   }
                 } else {
+                  // console.log(shapeIndex);
+                  // console.log( newPointsOut[index]);
                   /** if line */
                   collectPointsInParts(
                     part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
@@ -1931,7 +1934,7 @@
         }
 
 
-        function setSashePropertyXPrice(sashType, openDir, hardwareLines, priceElements) {
+        function setSashePropertyXPrice(sashType, openDir, hardwareLines, priceElements,depths) {
           var tempSashBlock = {
               sizes: [],
               openDir: openDir,
@@ -1939,7 +1942,13 @@
             },
             hardwareQty = hardwareLines.length;
           while (--hardwareQty > -1) {
-            tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);
+            if (ProductStor.product.door_type_index ===3){
+              tempSashBlock.sizes.push(hardwareLines[hardwareQty].size + depths.frameDepth.b- depths.frameStillDepth.b );
+            } else
+            if (ProductStor.product.door_type_index ===1){
+              tempSashBlock.sizes.push(hardwareLines[hardwareQty].size +depths.frameDepth.b- depths.frameStillDepth.b -1);
+            } else {
+            tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);}
           }
           ProductStor.product.template_source.hardwareLines = [];
           ProductStor.product.template_source.hardwareLines.push(tempSashBlock.sizes)
@@ -2621,7 +2630,8 @@
                     thisObj.details[i].sashType,
                     thisObj.details[i].openDir,
                     thisObj.details[i].hardwareLines,
-                    thisObj.priceElements
+                    thisObj.priceElements,
+                    depths
                   );
                 }
 
@@ -2662,7 +2672,7 @@
                   ));
                   //-------- points for Hardware
                   thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-                  thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints, depths);
+                  thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
                   thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
                   thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut, depths);
@@ -2690,7 +2700,8 @@
                     thisObj.details[i].sashType,
                     thisObj.details[i].openDir,
                     thisObj.details[i].hardwareLines,
-                    thisObj.priceElements
+                    thisObj.priceElements,
+                    depths
                   );
                 }
               }
@@ -2713,86 +2724,7 @@
 
             }
           }
-          try {
-            if (ProductStor.product.construction_type === 4) {
-              thisObj.details.forEach(function (thisObj_detail) {
-                //console.log("thisObj_detail",thisObj_detail);
-                if (thisObj_detail.blockType === "sash") {
-                  var _depth;
-                  /** door_type_index === 0 - рама по периметру
-                   *  door_type_index === 1 - без порога
-                   *  door_type_index === 3 - алюминиевый порог*/
-                  switch (ProductStor.product.door_type_index) {
-                    case  0 : {
-                      /** габарит створки - рама-рама*/
-                      //console.log("рама по периметру");
-                      _depth = depths.frameDepth.b * 2;
-                      break;
-                    }
-                    case  1 :
-                    case  2 : {
-                      /** габарит створки - рама-без порога*/
-                      //console.log("рама-без порога");
-                      _depth = depths.frameDepth.b + 12;
-                      break;
-                    }
-                    case  3 : {
-                      /** габарит створки - рама-алюминиевый порог*/
-                      //console.log("алюминиевый порог");
-                      _depth = depths.frameDepth.b + depths.frameStillDepth.b;
-                      break;
-                    }
-                    default:
-                      _depth = depths.frameDepth.b * 2;
-                      break;
-                  }
-                  /** записываем расчитаные значения в объект */
-                  thisObj_detail.sashLinesOut.forEach(function(sash,index){
-                    if (index & 1){
-                      //нечетно
-                      sash.size = thisObj_detail.pointsOut[0].x - _depth;
-                    }
-                    else{
-                      //четно
-                      sash.size = thisObj_detail.pointsOut[0].y - _depth;
-                    }
-                  });
-                  /**расчитываем фальц створки */
-                  thisObj_detail.hardwareLines.forEach(function(hardware,index){
-                    //console.log("hardware",hardware);
-                    if (index & 1){
-                      //нечетно
-                      ProductStor.product.template_source.hardwareLines[1] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
-                      ProductStor.product.template_source.hardwareLines[3] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
-                      hardware.size = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
-                    }
-                    else{
-                      //четно
-                      ProductStor.product.template_source.hardwareLines[0] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
-                      ProductStor.product.template_source.hardwareLines[2] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
-                      hardware.size = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
-                    }
-                  });
-                  thisObj_detail.sashLinesOut.forEach(function (item, index) {
-                    thisObj.priceElements.sashsSize[index] = GeneralServ.roundingValue(angular.copy(item.size) / 1000, 3);
-                  });
-                  thisObj.priceElements.sashesBlock.forEach(function (item) {
-                    item.sizes[0] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
-                    item.sizes[2] = thisObj_detail.pointsOut[0].x - _depth - depths.sashDepth.b*2;
 
-                    item.sizes[1] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
-                    item.sizes[2] = thisObj_detail.pointsOut[0].y - _depth - depths.sashDepth.b*2;
-
-                  });
-
-                }
-
-              });
-            }
-          }
-          catch (err) {
-            console.log( err.message );
-          }
 
 
           thisObj.dimension = initDimensions(thisObj.details);

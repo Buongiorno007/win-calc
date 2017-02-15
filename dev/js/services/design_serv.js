@@ -396,10 +396,12 @@
         function closeSizeCaclulator(prom) {
           var deff = $q.defer();
           if (DesignStor.design.tempSize.length) {
+            console.log("DesignStor.design.tempSize.length",DesignStor.design.tempSize);
+
+
             var newLength = parseInt(DesignStor.design.tempSize.join(''), 10),
               newPointsOut = rebuildPointsOut(newLength),
               currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
-
             /** Square limits checking */
             if (currSquare <= GlobalStor.global.maxSquareLimit) {
               /** Dimensions limits checking */
