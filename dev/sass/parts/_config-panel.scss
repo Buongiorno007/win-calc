@@ -176,6 +176,7 @@
     width: 19%;
     height: rem(25px);
     margin-right: 1%;
+    margin-left: 1%;
     &:first-child {
       border-top-left-radius: rem($radius_coef-index);
       border-bottom-left-radius: rem($radius_coef-index);
@@ -248,6 +249,23 @@
     &:first-child {
       margin-top: 0;
     }
+    &.coef-level-0 {
+      .coef-index {
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4),
+        &:last-child {
+          border: 1px solid #b1b1b1;
+          background-color: white;
+        }
+        &:first-child {
+          border: 1px solid #b1b1b1;
+          background-color: white;
+          //border-top-right-radius: rem($radius_coef-index);
+          //border-bottom-right-radius: rem($radius_coef-index);
+        }
+      }
+    }
     &.coef-level-1 {
       .coef-index {
         &:nth-child(2),
@@ -258,8 +276,8 @@
           background-color: white;
         }
         &:first-child {
-          border-top-right-radius: rem($radius_coef-index);
-          border-bottom-right-radius: rem($radius_coef-index);
+          //border-top-right-radius: rem($radius_coef-index);
+          //border-bottom-right-radius: rem($radius_coef-index);
         }
       }
     }
