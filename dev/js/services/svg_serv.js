@@ -1266,7 +1266,7 @@
              *  door_type_index === 3 - алюминиевый порог*/
             shapeIndex = ProductStor.product.door_type_index;
           }
-          ;
+
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {
               return false;
@@ -1391,7 +1391,6 @@
                       item4.y = pointsIn[index].y   + depths.frameDepth.b - 12;
                     }
                     if (newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
-                      console.log("штапик без порога");
                       try {
                         var item1 = newPointsOut[index];
                         item1.y = newPointsOut[index].y + depths.frameDepth.b- depths.frameStillDepth.a - 12;
@@ -1401,15 +1400,6 @@
                         item3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.a - 12;
                         var item4 = pointsIn[index];
                         item4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.a - 12;
-                        // collectPointsInParts(
-                        //   part, item1, item2, item3, item4
-                        // );
-
-                        // newPointsOut[index].y=newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.a - 12;
-                        // newPointsOut[index+1].y=newPointsOut[index+1].y + depths.frameDepth.b - depths.frameStillDepth.a - 12;
-                        // pointsIn[index+1].y+= depths.frameDepth.b - depths.frameStillDepth.a - 12;
-                        // pointsIn[index].y+= depths.frameDepth.b - depths.frameStillDepth.a - 12;
-
                       } catch (err) {
                         console.log(err.message);
                       }
