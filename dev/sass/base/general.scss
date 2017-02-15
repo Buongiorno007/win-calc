@@ -18,7 +18,7 @@ body {
 //  width: rem($ipad-width);
 //  height: rem($ipad-height);
   width: 100%;
-  height: 100%;
+  height: 100% !important;
   font-family: roboto-regular, icons;
   font-size: 8px;
 }

@@ -19,9 +19,17 @@
     }
     &.hov:hover {
       background-color: rgba(0,0,0,0.07);
-      margin-left: -2.75rem;
-      padding-left: 2.75rem;
+      margin-left: -2.75rem !important;
+      padding-left: 2.75rem !important;
+      padding-right: -2.75rem !important;
     }
+  }
+  .item:hover {
+
+    background-color: rgba(0,0,0,0.07);
+    margin-left: -2.75rem !important;
+    padding-left: 2.75rem !important;
+    padding-right: -2.75rem !important;
   }
   .item-header {
     min-height: rem(360px);

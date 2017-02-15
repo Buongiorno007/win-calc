@@ -26,7 +26,7 @@
                   .coef-index
                   .coef-index
                 .label(data-output="{{ ::glassPanel.HEAT_INSULATION }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-                .coef-level.noise-insulation(ng-class="{'coef-level-1': glass.noise_coeffD == 1, 'coef-level-2': glass.noise_coeffD == 2, 'coef-level-3': glass.noise_coeffD == 3, 'coef-level-4': glass.noise_coeffD == 4}")
+                .coef-level.noise-insulation(ng-class="{'coef-level-0': glass.noise_coeffD === 0,'coef-level-1': glass.noise_coeffD == 1, 'coef-level-2': glass.noise_coeffD == 2, 'coef-level-3': glass.noise_coeffD == 3, 'coef-level-4': glass.noise_coeffD == 4}")
                   .coef-index
                   .coef-index
                   .coef-index
