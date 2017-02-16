@@ -1307,6 +1307,7 @@
                 part.dir = 'curv';
               } else {                /**----- DOOR -----*/
                 /**без порога */
+
                 if (ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
                   //-------- change points fp2-fp3 frame
                   if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
@@ -1317,10 +1318,8 @@
                     /** if line */
                     collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
                   }
-                  if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
-                    /** отрисовка
-                     *  +doorSill.a +doorSill.a - depths.frameDepth.b + depths.frameStillDepth.b; */
-
+                  /******************* */
+                  if (newPointsOut[index].type === 'sash' && (newPointsOut[index].id === 'fp3' ) ) {
                     var item1 = newPointsOut[index];
                     item1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
                     var item2 = newPointsOut[index + 1];
@@ -1348,9 +1347,14 @@
                     /** if line */
                     collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
                   }
-                } else {
+                }
+                // else if (ProductStor.product.construction_type === 4 && shapeIndex === 0) {
+                //   // console.log(shapeIndex);
+                //   // console.log(newPointsOut[index]);
+                // }
+                else {
+
                   /** if line */
-                  newPointsOut[index].y+=100;
                   collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
                 }
               }
@@ -1376,12 +1380,15 @@
                 index += 1;
               } else {
                 /**----- DOOR -----*/
-                if (ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
+
+                  if (ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
 
                   /** without doorstep */
                   //-------- delete fp3-fp4 frame
                   if (shapeIndex === 1) {
-                    if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
+                    console.log(newPointsOut[index]);
+                    if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+                    if (newPointsOut[index].type === 'sash' && (newPointsOut[index].id === 'fp3' && newPointsOut[index+1].id !== 'sht1' )) {
                       var item1 = newPointsOut[index];
                       item1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
                       var item2 = newPointsOut[index + 1];
@@ -1390,7 +1397,17 @@
                       item3.y = pointsIn[index+1].y   + depths.frameDepth.b - 12;
                       var item4 = pointsIn[index];
                       item4.y = pointsIn[index].y   + depths.frameDepth.b - 12;
-                    }
+                    }}
+                    // if (newPointsOut[index].type === 'sash' && ( newPointsOut[index].id === 'sht1')) {
+                    //   var item1 = newPointsOut[index];
+                    //   item1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
+                    //   var item2 = newPointsOut[index + 1];
+                    //   item2.y = newPointsOut[index + 1].y + depths.frameDepth.b - 12;
+                    //   var item3 = pointsIn[index + 1];
+                    //   item3.y = pointsIn[index+1].y   + depths.frameDepth.b - 12;
+                    //   var item4 = pointsIn[index];
+                    //   item4.y = pointsIn[index].y   + depths.frameDepth.b - 12;
+                    // }
                     if (newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
                       try {
                         var item1 = newPointsOut[index];
@@ -1471,8 +1488,7 @@
 
                     if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                       if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
-                        /** отрисовка
-                         *  +doorSill.a +doorSill.a - depths.frameDepth.b + depths.frameStillDepth.b; */
+                        /** правая сторона входных дверей*/
                         var item1 = newPointsOut[index];
                         item1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         var item2 = newPointsOut[index + 1];
@@ -1488,9 +1504,9 @@
                       } else if (newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
                         try {
                           var item1 = newPointsOut[index];
-                          item1.y = newPointsOut[index].y// + depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
+                          //item1.y = newPointsOut[index].y// + depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
                           var item2 = newPointsOut[index + 1];
-                          item2.y = newPointsOut[index + 1].y// + depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
+                          //item2.y = newPointsOut[index + 1].y// + depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
                           var item3 = pointsIn[index + 1];
                           //item3.y+=depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
                           var item4 = pointsIn[index];
@@ -1504,18 +1520,17 @@
                       } else if (newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
                         /** левая сторона двойных входных дверей*/
                         var item1 = newPointsOut[index];
-                        item1.y = newPointsOut[index].y + doorSill.a;
+                        item1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         var item2 = newPointsOut[index + 1];
-                        item2.y = newPointsOut[index + 1].y + doorSill.a;
+                        item2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         var item3 = pointsIn[index + 1];
-                        item3.y = pointsIn[index + 1].y + doorSill.a;
+                        item3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         var item4 = pointsIn[index];
-                        item4.y = pointsIn[index].y + doorSill.a;
+                        item4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         collectPointsInParts(
                           part, item1, item2, item3, item4
                         );
                       } else if (newPointsOut[index].type === 'sash' && newPointsOut[index + 1].type === 'sash' && index === 0) {
-                        console.log("щито 2");
                         var item1 = newPointsOut[index];
                         item1.y = newPointsOut[index].y + doorSill.a;
                         var item2 = newPointsOut[index + 1];
@@ -1536,8 +1551,6 @@
                     }
                   }
                 } else {
-                  // console.log(shapeIndex);
-                  // console.log( newPointsOut[index]);
                   /** if line */
                   collectPointsInParts(
                     part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
