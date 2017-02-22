@@ -357,6 +357,7 @@
     "CALL_ORDER": "Оформление заказа для рассчета",
     "CALL_ORDER_DESCRIP": "Для того, чтобы выполнить заказ, мы должны кое-что о вас знать.",
     "CALL_ORDER_CLIENT_INFO": "Информация о клиенте (заполняйте обязательно):",
+    "CALL_ORDER_CLIENT_INFO_SHORT": "Информация о клиенте:",
     "CLIENT_NAME": "Фамилия Имя Отчество",
     "CALL_ORDER_DELIVERY": "Доставить заказ на",
     "CALL_ORDER_TOTAL_PRICE": "Всего",

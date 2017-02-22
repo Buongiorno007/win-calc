@@ -1780,7 +1780,6 @@
 
 
         function checkHardwareType(hardvares) {
-          console.log("checkHardwareType",hardvares);
           var newHardArr = [],
             types = [0, 1, 3, 4, 5, 8],
             typesQty = types.length, j,

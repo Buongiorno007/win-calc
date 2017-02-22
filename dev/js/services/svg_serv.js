@@ -1282,6 +1282,7 @@
             }, tempPoint, tempPoint2, index;
           for (index = 0; index < pointsQty; index += 1) {
             //----- passing if first point is curv
+
             if (index === 0 && newPointsOut[index].dir === 'curv') {
               continue;
             }
@@ -1290,6 +1291,7 @@
               dir: 'line',
               points: []
             };
+            //collectPointsInParts(part, newPointsOut[0], newPointsOut[index], pointsIn[index], pointsIn[0]);
             /**------ last point ------*/
             if (index === (pointsQty - 1)) {
               /** if curv */
@@ -1309,17 +1311,20 @@
                 /**без порога */
 
                 if (ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
+
                   //-------- change points fp2-fp3 frame
                   if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                     tempPoint = angular.copy(pointsIn[0]);
                     tempPoint.y = newPointsOut[0].y * 1;
                     collectPointsInParts(part, newPointsOut[index], newPointsOut[0], tempPoint, pointsIn[index]);
-                  }  else {
+                  } else {
                     /** if line */
                     collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
                   }
-                  /******************* */
-                  if (newPointsOut[index].type === 'sash' && (newPointsOut[index].id === 'fp3' ) ) {
+                  if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
+                    /** отрисовка
+                     *  +doorSill.a +doorSill.a - depths.frameDepth.b + depths.frameStillDepth.b; */
+
                     var item1 = newPointsOut[index];
                     item1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
                     var item2 = newPointsOut[index + 1];
@@ -1336,7 +1341,7 @@
 
                 } else if (ProductStor.product.construction_type === 4 && shapeIndex === 3 && doorSill) {
                   //-------- change points fp2-fp3 frame
-                  /**алюминиевый порог. знаения не возвращает. отрисовка рамы*/
+                  /**алюминиевый порог. отрисовка рамы*/
                   if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                     tempPoint = angular.copy(newPointsOut[0]);
                     tempPoint.y = pointsIn[0].y + doorSill.a;
@@ -1347,19 +1352,35 @@
                     /** if line */
                     collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
                   }
-                }
-                // else if (ProductStor.product.construction_type === 4 && shapeIndex === 0) {
-                //   // console.log(shapeIndex);
-                //   // console.log(newPointsOut[index]);
-                // }
-                else {
+                } else if (ProductStor.product.construction_type === 4 && shapeIndex === 0 && doorSill) {
+                  /** рама по периметру*/
+                  if (newPointsOut[index].type === 'sash') {
+                    var item1 = angular.copy(newPointsOut[index]);
+                    var item2 = angular.copy(newPointsOut[0]);
+                    var item3 = angular.copy(pointsIn[0]);
+                    var item4 = angular.copy(pointsIn[index]);
 
+                    if (newPointsOut[index].id === 'fp2') {
+                      item3.y = pointsIn[0].y - depths.sashDepth.b;
+                      item3.x = pointsIn[0].x - depths.sashDepth.b;
+
+                      item4.y = pointsIn[index].y + depths.sashDepth.b;
+                      item4.x = pointsIn[index].x - depths.sashDepth.b;
+                    }
+                    collectPointsInParts(
+                      part, item1, item2, item3, item4
+                    );
+                  }
+                  else {
+                    collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
+                  }
+
+                } else {
                   /** if line */
                   collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
                 }
               }
             } else {
-
               /** if curv */
               if (newPointsOut[index].dir === 'curv' || newPointsOut[index + 1].dir === 'curv') {
                 part.type = 'arc';
@@ -1380,50 +1401,31 @@
                 index += 1;
               } else {
                 /**----- DOOR -----*/
-
-                  if (ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
+                if (ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
 
                   /** without doorstep */
                   //-------- delete fp3-fp4 frame
                   if (shapeIndex === 1) {
-                    console.log(newPointsOut[index]);
-                    if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
-                    if (newPointsOut[index].type === 'sash' && (newPointsOut[index].id === 'fp3' && newPointsOut[index+1].id !== 'sht1' )) {
+                    if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
                       var item1 = newPointsOut[index];
                       item1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
                       var item2 = newPointsOut[index + 1];
                       item2.y = newPointsOut[index + 1].y + depths.frameDepth.b - 12;
                       var item3 = pointsIn[index + 1];
-                      item3.y = pointsIn[index+1].y   + depths.frameDepth.b - 12;
+                      item3.y = pointsIn[index + 1].y + depths.frameDepth.b - 12;
                       var item4 = pointsIn[index];
-                      item4.y = pointsIn[index].y   + depths.frameDepth.b - 12;
-                    }}
-                    // if (newPointsOut[index].type === 'sash' && ( newPointsOut[index].id === 'sht1')) {
-                    //   var item1 = newPointsOut[index];
-                    //   item1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
-                    //   var item2 = newPointsOut[index + 1];
-                    //   item2.y = newPointsOut[index + 1].y + depths.frameDepth.b - 12;
-                    //   var item3 = pointsIn[index + 1];
-                    //   item3.y = pointsIn[index+1].y   + depths.frameDepth.b - 12;
-                    //   var item4 = pointsIn[index];
-                    //   item4.y = pointsIn[index].y   + depths.frameDepth.b - 12;
-                    // }
+                      item4.y = pointsIn[index].y + depths.frameDepth.b - 12;
+                    }
                     if (newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
                       try {
                         var item1 = newPointsOut[index];
-                        item1.y = newPointsOut[index].y// + depths.frameDepth.b- depths.frameStillDepth.b - 12;
                         var item2 = newPointsOut[index + 1];
-                        item2.y = newPointsOut[index + 1].y// + depths.frameDepth.b- depths.frameStillDepth.b - 12;
                         var item3 = pointsIn[index + 1];
-                        item3.y = pointsIn[index + 1].y// + depths.frameDepth.b - depths.frameStillDepth.b - 12;
                         var item4 = pointsIn[index];
-                        item4.y = pointsIn[index].y// + depths.frameDepth.b - depths.frameStillDepth.b - 12;
                       } catch (err) {
                         console.log(err.message);
                       }
                     }
-                    //item4.y = pointsIn[index].y  - depths.frameDepth.b - depths.frameStillDepth.b;
-                    //collectPointsInParts(part, newPointsOut[index], newPointsOut[index], pointsIn[index+1], pointsIn[index+1]);
                     if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                       continue;
                     }
@@ -1449,6 +1451,7 @@
                     collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], tempPoint);
                   } else {
                     if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+
                       /** if line */
                       collectPointsInParts(
                         part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
@@ -1488,15 +1491,16 @@
 
                     if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                       if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
-                        /** правая сторона входных дверей*/
+                        /** отрисовка
+                         *  +doorSill.a +doorSill.a - depths.frameDepth.b + depths.frameStillDepth.b; */
                         var item1 = newPointsOut[index];
                         item1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         var item2 = newPointsOut[index + 1];
                         item2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         var item3 = pointsIn[index + 1];
-                        item3.y = pointsIn[index+1].y   + depths.frameDepth.b - depths.frameStillDepth.b;
+                        item3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         var item4 = pointsIn[index];
-                        item4.y = pointsIn[index].y   + depths.frameDepth.b - depths.frameStillDepth.b;
+                        item4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
                         collectPointsInParts(
                           part, item1, item2, item3, item4
                         );
@@ -1504,13 +1508,9 @@
                       } else if (newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
                         try {
                           var item1 = newPointsOut[index];
-                          //item1.y = newPointsOut[index].y// + depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
                           var item2 = newPointsOut[index + 1];
-                          //item2.y = newPointsOut[index + 1].y// + depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
                           var item3 = pointsIn[index + 1];
-                          //item3.y+=depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
                           var item4 = pointsIn[index];
-                          //item4.y+=depths.frameDepth.b- depths.frameStillDepth.a - depths.frameStillDepth.b;
                           collectPointsInParts(
                             part, item1, item2, item3, item4
                           );
@@ -1520,13 +1520,13 @@
                       } else if (newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
                         /** левая сторона двойных входных дверей*/
                         var item1 = newPointsOut[index];
-                        item1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        item1.y = newPointsOut[index].y + doorSill.a;
                         var item2 = newPointsOut[index + 1];
-                        item2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        item2.y = newPointsOut[index + 1].y + doorSill.a;
                         var item3 = pointsIn[index + 1];
-                        item3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        item3.y = pointsIn[index + 1].y + doorSill.a;
                         var item4 = pointsIn[index];
-                        item4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        item4.y = pointsIn[index].y + doorSill.a;
                         collectPointsInParts(
                           part, item1, item2, item3, item4
                         );
@@ -1550,7 +1550,55 @@
                       }
                     }
                   }
-                } else {
+                } else if (ProductStor.product.construction_type === 4 && shapeIndex === 0 && doorSill) {
+
+                  var item3 = angular.copy(pointsIn[index + 1]);
+                  var item4 = angular.copy(pointsIn[index]);
+                  if (ProductStor.product.doorLock.stvorka_type===6)    {
+
+                  if (newPointsOut[index].type === 'sash') {
+
+                    if (newPointsOut[index].id === 'fp1') {
+                      item3.y = pointsIn[index + 1].y + depths.sashDepth.b;
+                      item3.x = pointsIn[index + 1].x - depths.sashDepth.b;
+
+                      item4.y = pointsIn[index].y + depths.sashDepth.b;
+                      item4.x = pointsIn[index].x + depths.sashDepth.b;
+                    }
+
+                    if (newPointsOut[index].id === 'fp4') {
+                      item3.y = pointsIn[index + 1].y - depths.sashDepth.b;
+                      item3.x = pointsIn[index + 1].x + depths.sashDepth.b;
+
+                      item4.y = pointsIn[index].y - depths.sashDepth.b;
+                      item4.x = pointsIn[index].x + depths.sashDepth.b;
+                    }
+
+                    if (newPointsOut[index].id === 'fp3') {
+                      item3.y = pointsIn[index + 1].y - depths.sashDepth.b;
+                      item3.x = pointsIn[index + 1].x - depths.sashDepth.b;
+
+                      item4.y = pointsIn[index].y - depths.sashDepth.b;
+                      item4.x = pointsIn[index].x - depths.sashDepth.b;
+                    }
+
+                    collectPointsInParts(
+                      part, newPointsOut[index], newPointsOut[index + 1], item3, item4
+                    );
+
+                  }
+                  else {
+                    collectPointsInParts(
+                      part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                    );
+                  }
+                  }  else {
+                    collectPointsInParts(
+                      part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                    );
+                  }
+                }
+                else {
                   /** if line */
                   collectPointsInParts(
                     part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
@@ -1559,6 +1607,7 @@
               }
 
             }
+
             //console.info(part.points);
             part.path = assamblingPath(part.points);
             //------- culc length
@@ -1947,7 +1996,7 @@
         }
 
 
-        function setSashePropertyXPrice(sashType, openDir, hardwareLines, priceElements,depths) {
+        function setSashePropertyXPrice(sashType, openDir, hardwareLines, priceElements, depths) {
           var tempSashBlock = {
               sizes: [],
               openDir: openDir,
@@ -1955,13 +2004,13 @@
             },
             hardwareQty = hardwareLines.length;
           while (--hardwareQty > -1) {
-            if (ProductStor.product.door_type_index ===3){
-              tempSashBlock.sizes.push(hardwareLines[hardwareQty].size + depths.frameDepth.b- depths.frameStillDepth.b );
-            } else
-            if (ProductStor.product.door_type_index ===1){
-              tempSashBlock.sizes.push(hardwareLines[hardwareQty].size +depths.frameDepth.b- depths.frameStillDepth.b -1);
+            if (ProductStor.product.door_type_index === 3) {
+              tempSashBlock.sizes.push(hardwareLines[hardwareQty].size + depths.frameDepth.b - depths.frameStillDepth.b);
+            } else if (ProductStor.product.door_type_index === 1) {
+              tempSashBlock.sizes.push(hardwareLines[hardwareQty].size + depths.frameDepth.b - depths.frameStillDepth.b - 1);
             } else {
-            tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);}
+              tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);
+            }
           }
           ProductStor.product.template_source.hardwareLines = [];
           ProductStor.product.template_source.hardwareLines.push(tempSashBlock.sizes)
@@ -2737,7 +2786,6 @@
 
             }
           }
-
 
 
           thisObj.dimension = initDimensions(thisObj.details);
