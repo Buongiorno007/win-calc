@@ -1361,22 +1361,45 @@
                 if (ProductStor.product.construction_type === 4) {
                   // if (ProductStor.product.doorLock.stvorka_type === 6) {
                   //   if (drawpoint1.type === "sash") {
-                  //     if (drawpoint1.id === "fp1") {
-                  //       drawpoint3.y += depths.sashDepth.b;
-                  //       drawpoint3.x -= depths.sashDepth.b;
-                  //     }
-                  //     if (drawpoint1.id === "fp3") {
+                  //     if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
                   //       drawpoint3.y -= depths.sashDepth.b;
                   //       drawpoint3.x += depths.sashDepth.b;
                   //
                   //       drawpoint4.y -= depths.sashDepth.b;
                   //       drawpoint4.x -= depths.sashDepth.b;
                   //     }
+                  //     if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
+                  //       drawpoint3.y -= depths.sashDepth.b;
+                  //       drawpoint3.x += depths.sashDepth.b;
+                  //
+                  //       drawpoint4.y -= depths.sashDepth.b;
+                  //       drawpoint4.x -= depths.sashDepth.b;
+                  //     }
+                  //     if (drawpoint1.id === "fp1") {
+                  //       drawpoint3.y += depths.sashDepth.b;
+                  //       drawpoint3.x -= depths.sashDepth.b;
+                  //     }
                   //     if (drawpoint1.id === "fp4") {
                   //       drawpoint3.y += depths.sashDepth.b;
                   //       drawpoint3.x += depths.sashDepth.b;
                   //     }
+                  //     if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
+                  //       drawpoint3.y += depths.sashDepth.b;
+                  //       drawpoint3.x += depths.sashDepth.b;
+                  //     }
+                  //     if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
+                  //       drawpoint3.y += depths.sashDepth.b;
+                  //       drawpoint3.x -= depths.sashDepth.b;
+                  //     }
                   //   }
+                  //   // if (drawpoint4.type === "impost") {
+                  //   //   if (drawpoint4.y === drawpoint3.y) {
+                  //   //     console.log("drawpoint1", drawpoint1);
+                  //   //     drawpoint1.x+=50;
+                  //   //     drawpoint2.x+=50;
+                  //   //   }
+                  //   //
+                  //   // }
                   // }
                   if (shapeIndex === 1) {
                     if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
@@ -1400,12 +1423,7 @@
                         drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - 12;
                       }
                     }
-                    // if (newPointsOut[index].type === 'sash' && (newPointsOut[index].id === 'fp3') {
-                    //   drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
-                    //   drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - 12;
-                    //   drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - 12;
-                    //   drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - 12;
-                    // }
+
                     if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                       continue;
                     }
@@ -1990,24 +2008,6 @@
 
 
         function setImpostParts(depths, points, priceElements) {
-
-          // if (ProductStor.product.doorLock.stvorka_type === 6) {
-          //   //depths.sashDepth.b;
-          //   if (points[0].dimType===1 && points[0].id==="ip1") {
-          //     points[0].x-=depths.sashDepth.b;
-          //     points[1].x-=depths.sashDepth.b;
-          //     points[2].x+=depths.sashDepth.b;
-          //     points[3].x+=depths.sashDepth.b;
-          //   }
-          //
-          //   if (points[0].dimType===0 && points[0].id==="ip1") {
-          //     points[0].y-=depths.sashDepth.b;
-          //     points[1].y-=depths.sashDepth.b;
-          //     points[2].y+=depths.sashDepth.b;
-          //     points[3].y+=depths.sashDepth.b;
-          //   }
-          // }
-
           var pointsType = points[0].type,
             pointsQty = points.length,
             part = {
@@ -2686,6 +2686,7 @@
                 var temp4 = angular.copy(thisObj.details[i].impost.impostIn[0].x);
                 if (Math.abs(temp1 - temp3) > Math.abs(temp2 - temp4)) {
                   if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && ProductStor.product.door_type_index === 3) {
+
                     thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y + depths.frameStillDepth.a);
                     thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y + depths.frameStillDepth.a);
                   }
