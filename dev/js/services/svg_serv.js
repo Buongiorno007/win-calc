@@ -2008,6 +2008,8 @@
 
 
         function setImpostParts(depths, points, priceElements) {
+
+
           var pointsType = points[0].type,
             pointsQty = points.length,
             part = {
@@ -2686,7 +2688,6 @@
                 var temp4 = angular.copy(thisObj.details[i].impost.impostIn[0].x);
                 if (Math.abs(temp1 - temp3) > Math.abs(temp2 - temp4)) {
                   if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && ProductStor.product.door_type_index === 3) {
-
                     thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y + depths.frameStillDepth.a);
                     thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y + depths.frameStillDepth.a);
                   }
