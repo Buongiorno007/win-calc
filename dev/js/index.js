@@ -49,6 +49,10 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       obj.style.transform = 'scale(' + scale + ')';
     }
   };
+  window.onbeforeunload = function () {
+    console.log("isDevice");
+
+  }
   if (isDevice) {
     window.PhonegapApp = {
       initialize: function () {
@@ -165,7 +169,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         title: 'Design'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/main'
       });
 
 

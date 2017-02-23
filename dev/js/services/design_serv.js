@@ -396,10 +396,13 @@
         function closeSizeCaclulator(prom) {
           var deff = $q.defer();
           if (DesignStor.design.tempSize.length) {
+            console.log("DesignStor.design.tempSize.length",DesignStor.design.tempSize);
+
+
             var newLength = parseInt(DesignStor.design.tempSize.join(''), 10),
               newPointsOut = rebuildPointsOut(newLength),
               currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
-
+            console.log("newLength",newLength);
             /** Square limits checking */
             if (currSquare <= GlobalStor.global.maxSquareLimit) {
               /** Dimensions limits checking */
@@ -1104,7 +1107,7 @@
                                 doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
                                 clipboard = angular.copy(doorsItems[x]);
                                 source.lockShapeList[k].elem.push(clipboard);
-                                //console.log("heightTEMP", heightTEMP);
+                                console.log("heightTEMP", heightTEMP);
                                 //console.log("widthTEMP", widthTEMP);
                               }
                             }

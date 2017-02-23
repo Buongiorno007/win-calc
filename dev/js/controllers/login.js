@@ -280,39 +280,55 @@
         }
 
 
-        function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {
-          });
-          localDB.importUser(thisCtrl.user.phone).then(function (result) {
-            if (result.status) {
-              var userTemp = angular.copy(result.user);
-
-              startSlider();
-              //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
-              //---------- check user password
-              var newUserPassword = localDB.md5(thisCtrl.user.password);
-              if (newUserPassword === userTemp.password) {
-                importDBProsses(userTemp);
+        function checkingUser(user) {
+          if (user) {
+            localforage.setItem("FirstIn", "true", function (err, value) {
+            });
+            localDB.importUser(user).then(function (result) {
+              if (result.status) {
                 GlobalStor.global.startSlider = 1;
+                startSlider();
+                var userTemp = angular.copy(result.user);
+                importDBProsses(userTemp);
               } else {
                 GlobalStor.global.isLoader = 0;
                 GlobalStor.global.startSlider = 0;
                 //---- user not exists
-                thisCtrl.isUserPasswordError = 1;
+                thisCtrl.isUserNotExist = 1;
               }
-            } else {
-              GlobalStor.global.isLoader = 0;
-              GlobalStor.global.startSlider = 0;
-              //---- user not exists
-              thisCtrl.isUserNotExist = 1;
-            }
-          });
+            });
+          }
+          else {
+            localforage.setItem("FirstIn", "true", function (err, value) {
+            });
+            localDB.importUser(thisCtrl.user.phone).then(function (result) {
+              if (result.status) {
+                var userTemp = angular.copy(result.user);
+                startSlider();
+                //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+                //---------- check user password
+                var newUserPassword = localDB.md5(thisCtrl.user.password);
+                if (newUserPassword === userTemp.password) {
+                  importDBProsses(userTemp);
+                  GlobalStor.global.startSlider = 1;
+                } else {
+                  GlobalStor.global.isLoader = 0;
+                  GlobalStor.global.startSlider = 0;
+                  //---- user not exists
+                  thisCtrl.isUserPasswordError = 1;
+                }
+              } else {
+                GlobalStor.global.isLoader = 0;
+                GlobalStor.global.startSlider = 0;
+                //---- user not exists
+                thisCtrl.isUserNotExist = 1;
+              }
+            });
+          }
         }
 
         /**============== ENTRY BY LINK ===============*/
-
-
-        function entriyWithoutLogin() {
+        function entryWithoutLogin() {
           var url = $location.search(),
             accessArr = [
               '7d537b6746f925b1703aefa9b8a9a4bc',
@@ -470,11 +486,8 @@
             ],
             accessQty = accessArr.length,
             isCustomer = 0;
-
-
           if (url.access) {
-            console.log("url.access");
-
+            setTimeout(function () {
             while (accessQty > -1) {
               accessQty -= 1;
               if (accessArr[accessQty] === url.access) {
@@ -498,13 +511,26 @@
               GlobalStor.global.startSlider = 1;
               loader();
               checkingUser();
-              // localDB.importUser(url.access, 1).then(function (result) {
-              //   var userTemp = angular.copy(result.user);
-              //   GlobalStor.global.isLoader = 1;
-              //   GlobalStor.global.startSlider = 1;
-              //   importDBProsses(userTemp);
-              // });
+              localDB.importUser(url.access, 1).then(function (result) {
+                var userTemp = angular.copy(result.user);
+                GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
+                importDBProsses(userTemp);
+              });
             }
+            });
+          }
+          if (url.autologin) {
+            GlobalStor.global.loadDate = new Date();
+            GlobalStor.global.isLoader = 1;
+            GlobalStor.global.startSlider = 1;
+            loader();
+            localDB.importUser(url.autologin, 1).then(function (result) {
+              var userTemp = angular.copy(result.user);
+              GlobalStor.global.isLoader = 1;
+              GlobalStor.global.startSlider = 1;
+              importDBProsses(userTemp);
+            });
 
           }
         }
@@ -988,7 +1014,7 @@
         //------- export data
         if (thisCtrl.isOnline) {
           loginServ.initExport();
-          entriyWithoutLogin();
+          entryWithoutLogin();
         }
 
 
