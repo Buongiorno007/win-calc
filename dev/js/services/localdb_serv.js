@@ -2246,7 +2246,7 @@
 
 
         function getValueByRule(parentValue, childValue, rule) {
-          (rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
+          //(rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
           var value = 0;
           switch (rule) {
             case 1:
