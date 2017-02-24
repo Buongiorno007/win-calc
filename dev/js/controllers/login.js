@@ -487,7 +487,7 @@
             accessQty = accessArr.length,
             isCustomer = 0;
           if (url.access) {
-            setTimeout(function () {
+            //setTimeout(function () {
             while (accessQty > -1) {
               accessQty -= 1;
               if (accessArr[accessQty] === url.access) {
@@ -518,7 +518,7 @@
                 importDBProsses(userTemp);
               });
             }
-            });
+            //},1000);
           }
           if (url.autologin) {
             GlobalStor.global.loadDate = new Date();

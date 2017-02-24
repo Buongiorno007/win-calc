@@ -1359,48 +1359,42 @@
                 var drawpoint3 = pointsIn[index + 1];
                 var drawpoint4 = pointsIn[index];
                 if (ProductStor.product.construction_type === 4) {
-                  // if (ProductStor.product.doorLock.stvorka_type === 6) {
-                  //   if (drawpoint1.type === "sash") {
-                  //     if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
-                  //       drawpoint3.y -= depths.sashDepth.b;
-                  //       drawpoint3.x += depths.sashDepth.b;
-                  //
-                  //       drawpoint4.y -= depths.sashDepth.b;
-                  //       drawpoint4.x -= depths.sashDepth.b;
-                  //     }
-                  //     if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
-                  //       drawpoint3.y -= depths.sashDepth.b;
-                  //       drawpoint3.x += depths.sashDepth.b;
-                  //
-                  //       drawpoint4.y -= depths.sashDepth.b;
-                  //       drawpoint4.x -= depths.sashDepth.b;
-                  //     }
-                  //     if (drawpoint1.id === "fp1") {
-                  //       drawpoint3.y += depths.sashDepth.b;
-                  //       drawpoint3.x -= depths.sashDepth.b;
-                  //     }
-                  //     if (drawpoint1.id === "fp4") {
-                  //       drawpoint3.y += depths.sashDepth.b;
-                  //       drawpoint3.x += depths.sashDepth.b;
-                  //     }
-                  //     if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
-                  //       drawpoint3.y += depths.sashDepth.b;
-                  //       drawpoint3.x += depths.sashDepth.b;
-                  //     }
-                  //     if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
-                  //       drawpoint3.y += depths.sashDepth.b;
-                  //       drawpoint3.x -= depths.sashDepth.b;
-                  //     }
-                  //   }
-                  //   // if (drawpoint4.type === "impost") {
-                  //   //   if (drawpoint4.y === drawpoint3.y) {
-                  //   //     console.log("drawpoint1", drawpoint1);
-                  //   //     drawpoint1.x+=50;
-                  //   //     drawpoint2.x+=50;
-                  //   //   }
-                  //   //
-                  //   // }
-                  // }
+                  //depths.sashDepth.b;
+                  if (ProductStor.product.doorLock.stvorka_type === 6) {
+                  if (drawpoint1.type === "sash") {
+                    if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
+                      drawpoint3.y -= depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+
+                      drawpoint4.y -= depths.sashDepth.b;
+                      drawpoint4.x -= depths.sashDepth.b;
+                    }
+                    if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
+                      drawpoint3.y -= depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+
+                      drawpoint4.y -= depths.sashDepth.b;
+                      drawpoint4.x -= depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "fp1") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x -= depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "fp4") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x -= depths.sashDepth.b;
+                    }
+                  }
+
+                  }
                   if (shapeIndex === 1) {
                     if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                       if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
@@ -1410,6 +1404,10 @@
                         drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - 12;
                         drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - 12;
                         drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - 12;
+                        // console.log("drawpoint1",drawpoint1);
+                        // console.log("drawpoint2",drawpoint2);
+                        // console.log("drawpoint3",drawpoint3);
+                        // console.log("drawpoint4",drawpoint4);
                       } else if (newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
                         /** левая сторона двойных входных дверей*/
                         drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
@@ -1597,28 +1595,41 @@
 
 
         function setGlass(depths, glassType, glassPoints, priceElements, currGlassId) {
-          // if (ProductStor.product.doorLock.stvorka_type === 6) {
-          //   console.log(glassPoints);
-          //
-          //   glassPoints.forEach(function (point) {
-          //     if (point.id === "fp3") {
-          //       point.x -= depths.sashDepth.b;
-          //       point.y -= depths.sashDepth.b;
-          //     }
-          //     if (point.id === "fp4") {
-          //       point.x += depths.sashDepth.b;
-          //       point.y -= depths.sashDepth.b;
-          //     }
-          //     if (point.id === "fp1") {
-          //       point.x += depths.sashDepth.b;
-          //       point.y += depths.sashDepth.b;
-          //     }
-          //     if (point.id === "fp2") {
-          //       point.x -= depths.sashDepth.b;
-          //       point.y += depths.sashDepth.b;
-          //     }
-          //   });
-          // }
+          if (ProductStor.product.doorLock.stvorka_type === 6) {
+            //console.log(glassPoints);
+            //x
+            if ((glassPoints[0].x !== glassPoints[3].x)&&glassPoints[0].id==="fp3"){
+              glassPoints[3].x = glassPoints[0].x;
+            }
+
+            if ((glassPoints[1].x !== glassPoints[2].x)&&glassPoints[1].id==="fp4"){
+              glassPoints[2].x = glassPoints[1].x;
+            }
+
+            if ((glassPoints[0].x !== glassPoints[3].x)&&glassPoints[3].id==="fp2"){
+              glassPoints[0].x = glassPoints[3].x;
+            }
+
+            if ((glassPoints[1].x !== glassPoints[2].x)&&glassPoints[2].id==="fp1"){
+              glassPoints[1].x = glassPoints[2].x;
+            }
+            //y
+            if ((glassPoints[0].y !== glassPoints[1].y)&&glassPoints[1].id==="fp4"){
+              glassPoints[0].y = glassPoints[1].y;
+            }
+            //
+            if ((glassPoints[2].y !== glassPoints[3].y)&&glassPoints[2].id==="fp1"){
+              glassPoints[3].y = glassPoints[2].y;
+            }
+            //
+            if ((glassPoints[0].y !== glassPoints[1].y)&&glassPoints[0].id==="fp3"){
+              glassPoints[1].y = glassPoints[0].y;
+            }
+            //
+            if ((glassPoints[2].y !== glassPoints[3].y)&&glassPoints[3].id==="fp2"){
+              glassPoints[2].y = glassPoints[3].y;
+            }
+          }
           var part = {
               type: 'glass',
               points: glassPoints,
@@ -2687,9 +2698,26 @@
                 var temp3 = angular.copy(thisObj.details[i].impost.impostIn[3].y);
                 var temp4 = angular.copy(thisObj.details[i].impost.impostIn[0].x);
                 if (Math.abs(temp1 - temp3) > Math.abs(temp2 - temp4)) {
-                  if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && ProductStor.product.door_type_index === 3) {
+                  if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && (ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
                     thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y + depths.frameStillDepth.a);
                     thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y + depths.frameStillDepth.a);
+                  }
+                  if (ProductStor.product.doorLock.stvorka_type === 6) {
+                    if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && (ProductStor.product.door_type_index === 0||ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
+                      thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y - depths.sashDepth.b);
+                      thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y - depths.sashDepth.b);
+                      thisObj.details[i].impost.impostIn[2].y = angular.copy(thisObj.details[i].impost.impostIn[2].y + depths.sashDepth.b);
+                      thisObj.details[i].impost.impostIn[3].y = angular.copy(thisObj.details[i].impost.impostIn[3].y + depths.sashDepth.b);
+                    }
+                  }
+                }else {
+                  if (ProductStor.product.doorLock.stvorka_type === 6) {
+                    if (thisObj.details[i].pointsIn[0].x !== thisObj.details[i].impost.impostIn[0].x && (ProductStor.product.door_type_index === 0||ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
+                      thisObj.details[i].impost.impostIn[0].x = angular.copy(thisObj.details[i].impost.impostIn[0].x - depths.sashDepth.b);
+                      thisObj.details[i].impost.impostIn[1].x = angular.copy(thisObj.details[i].impost.impostIn[1].x - depths.sashDepth.b);
+                      thisObj.details[i].impost.impostIn[2].x = angular.copy(thisObj.details[i].impost.impostIn[2].x + depths.sashDepth.b);
+                      thisObj.details[i].impost.impostIn[3].x = angular.copy(thisObj.details[i].impost.impostIn[3].x + depths.sashDepth.b);
+                    }
                   }
                 }
                 thisObj.details[i].parts.push(setImpostParts(depths, thisObj.details[i].impost.impostIn, thisObj.priceElements));
