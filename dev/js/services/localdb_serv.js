@@ -2246,7 +2246,7 @@
 
 
         function getValueByRule(parentValue, childValue, rule) {
-          //console.info('rule++', parentValue, childValue, rule);
+          (rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
           var value = 0;
           switch (rule) {
             case 1:
@@ -2256,6 +2256,9 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
+              var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+              value = childValue;
+              break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
               value = parentValueTemp * childValue;
@@ -2292,6 +2295,9 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
+              var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+              value = childValue;
+              break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
               value = parentValueTemp * childValue;
