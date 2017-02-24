@@ -733,7 +733,7 @@
             }
             //------- rewrite grids lists
             if (gridsNew.length) {
-              //ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+              ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
             }
           }
           return isChanged;
@@ -3297,7 +3297,7 @@
               }
             });
           }
-          console.log("ProductStor.product", ProductStor.product);
+          //console.log("ProductStor.product", ProductStor.product);
         }
 
 
