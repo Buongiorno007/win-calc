@@ -34,7 +34,6 @@
     }
 
     function syncNow() {
-      console.log("sync");
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.confirmAction();
@@ -42,7 +41,6 @@
     }
 
     function noSync() {
-      console.log("no sync");
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.confirmAction();

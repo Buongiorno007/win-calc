@@ -396,13 +396,9 @@
         function closeSizeCaclulator(prom) {
           var deff = $q.defer();
           if (DesignStor.design.tempSize.length) {
-            console.log("DesignStor.design.tempSize.length",DesignStor.design.tempSize);
-
-
             var newLength = parseInt(DesignStor.design.tempSize.join(''), 10),
               newPointsOut = rebuildPointsOut(newLength),
               currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
-            console.log("newLength",newLength);
             /** Square limits checking */
             if (currSquare <= GlobalStor.global.maxSquareLimit) {
               /** Dimensions limits checking */
@@ -696,7 +692,8 @@
         /**--------------- GRIDs --------------*/
 
         function updateGrids() {
-          var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
+          //var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
+          var gridsOld = ProductStor.product.chosenAddElements[0],
             gridQty = gridsOld.length,
             blocks = ProductStor.product.template.details,
             blockQty = blocks.length,
@@ -724,17 +721,19 @@
                       gridTemp.element_width = sizeTemp.width;
                       gridTemp.element_height = sizeTemp.height;
                       isChanged = 1;
+                      gridsNew = gridTemp;
                     }
-                    if (gridsNew.length) {
-                      ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
-                    }
+
+                    // if (gridsNew.length) {
+                    //   ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+                    // }
                   }
                 }
               }
             }
             //------- rewrite grids lists
             if (gridsNew.length) {
-              ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+              //ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
             }
           }
           return isChanged;
@@ -3298,7 +3297,7 @@
               }
             });
           }
-          //console.log("ProductStor.product", ProductStor.product);
+          console.log("ProductStor.product", ProductStor.product);
         }
 
 
