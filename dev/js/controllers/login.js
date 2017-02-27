@@ -281,9 +281,8 @@
 
 
         function checkingUser(user) {
+            localforage.setItem("FirstIn", "true", function (err, value) { });
           if (user) {
-            localforage.setItem("FirstIn", "true", function (err, value) {
-            });
             localDB.importUser(user).then(function (result) {
               if (result.status) {
                 GlobalStor.global.startSlider = 1;
@@ -299,9 +298,8 @@
             });
           }
           else {
-            localforage.setItem("FirstIn", "true", function (err, value) {
-            });
             localDB.importUser(thisCtrl.user.phone).then(function (result) {
+              console.log(result);
               if (result.status) {
                 var userTemp = angular.copy(result.user);
                 startSlider();
