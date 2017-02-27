@@ -1955,9 +1955,19 @@
 
                 for (b = 1; b < blocksQty; b += 1) {
                   if (blocks[b].id === blockID) {
+                    var tmp_gridId = 0;
+                    var tmp_gridTxt = "";
+                    ProductStor.product.template_source.details.forEach(function(entry){
+                      if (entry.id=== blockID){
+                        //console.log(entry);
+                        tmp_gridId = entry.gridId;
+                        tmp_gridTxt = entry.gridTxt;
+
+                      }
+                    });
                     blocks[b].blockType = 'sash';
-                    blocks[b].gridId = 0;
-                    blocks[b].gridTxt = '';
+                    blocks[b].gridId = tmp_gridId;
+                    blocks[b].gridTxt = tmp_gridTxt
 
                     switch (type) {
                       //----- 'left'
