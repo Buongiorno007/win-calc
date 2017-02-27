@@ -156,7 +156,20 @@
         for(i = 0; i < glassQty; i+=1) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
-        ProductStor.product.chosenAddElements[0].splice(0, 1);
+        ProductStor.product.template_source.details.forEach(function(entry){
+          ProductStor.product.chosenAddElements[0].forEach(function(add_elem){
+          if (entry.id === add_elem.block_id){
+            entry.gridId = 0;
+            entry.gridTxt = "";
+
+            add_elem.element_price = 0;
+            add_elem.id = 0;
+            add_elem.name = "";
+          }
+
+          });
+        });
+        //ProductStor.product.chosenAddElements[0].splice(0, 1);
         AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
       } else {
 
