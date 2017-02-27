@@ -155,6 +155,7 @@
         for(i = 0; i < glassQty; i+=1) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
+        ProductStor.product.chosenAddElements[0].splice(0, 1);
       } else {
 
         if(sashType === 2 || sashType === 6 || sashType === 8) {

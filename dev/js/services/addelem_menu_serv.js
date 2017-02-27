@@ -703,7 +703,6 @@
 
             deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
           }
-          console.log("ProductStor.product.chosenAddElements", ProductStor.product.chosenAddElements);
           ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
           //------ Set Total Product Price
           setAddElementsTotalPrice(ProductStor.product);
