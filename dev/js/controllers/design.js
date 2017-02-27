@@ -157,14 +157,12 @@
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
         ProductStor.product.template_source.details.forEach(function(entry){
-          ProductStor.product.chosenAddElements[0].forEach(function(add_elem){
+          ProductStor.product.chosenAddElements[0].forEach(function(add_elem,index){
           if (entry.id === add_elem.block_id){
             entry.gridId = 0;
             entry.gridTxt = "";
 
-            add_elem.element_price = 0;
-            add_elem.id = 0;
-            add_elem.name = "";
+            ProductStor.product.chosenAddElements[0].splice(index,1);
           }
 
           });
