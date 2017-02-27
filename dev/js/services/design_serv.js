@@ -724,9 +724,9 @@
                       gridsNew = gridTemp;
                     }
 
-                    // if (gridsNew.length) {
-                    //   ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
-                    // }
+                    if (gridsNew.length) {
+                      ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
+                    }
                   }
                 }
               }

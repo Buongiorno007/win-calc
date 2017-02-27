@@ -57,6 +57,9 @@
           } else {
             TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
           }
+          ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
+          ProductStor.product.addelem_price = 0;
+          ProductStor.product.addelemPriceDis = 0;
           if (DesignStor.design.showHint >= 0) {
             GlobalStor.global.hintTimer = setTimeout(function () {
               DesignStor.design.showHint = 1;
