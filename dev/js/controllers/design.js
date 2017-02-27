@@ -14,7 +14,8 @@
     ProductStor,
     MainServ,
     DesignStor,
-    ConfigMenuServ
+    ConfigMenuServ,
+    AddElementMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this,
@@ -156,6 +157,7 @@
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
         ProductStor.product.chosenAddElements[0].splice(0, 1);
+        AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
       } else {
 
         if(sashType === 2 || sashType === 6 || sashType === 8) {
@@ -545,6 +547,8 @@
     thisCtrl.initMirror = initMirror;
     thisCtrl.positionAxis = positionAxis;
     thisCtrl.positionGlass = positionGlass;
+
+    //thisCtrl.setAddElementsTotalPrice = AddElementMenuServ.setAddElementsTotalPrice;
 
     thisCtrl.stepBack = DesignServ.stepBack;
     thisCtrl.closeAttantion = closeAttantion;
