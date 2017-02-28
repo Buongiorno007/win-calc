@@ -1312,6 +1312,7 @@
                 var drawpoint3 = pointsIn[0];
                 var drawpoint4 = pointsIn[index];
                 if (ProductStor.product.construction_type === 4) {
+
                   if (shapeIndex === 1) {
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                       drawpoint3 = angular.copy(pointsIn[0]);
@@ -1359,6 +1360,10 @@
                 var drawpoint3 = pointsIn[index + 1];
                 var drawpoint4 = pointsIn[index];
                 if (ProductStor.product.construction_type === 4) {
+                  // console.log("drawpoint1",drawpoint1);
+                  // console.log("drawpoint2",drawpoint2);
+                  // console.log("drawpoint3",drawpoint3);
+                  // console.log("drawpoint4",drawpoint4);
                   //depths.sashDepth.b;
                   if (ProductStor.product.doorLock.stvorka_type === 6) {
                   if (drawpoint1.type === "sash") {
@@ -1393,6 +1398,22 @@
                       drawpoint3.x -= depths.sashDepth.b;
                     }
                   }
+                  if (drawpoint1.type === "bead") {
+                    if (drawpoint1.id === "fp4" && drawpoint2.id === "ip1" ) {
+                      drawpoint2.x += depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+                    }
+
+                    if (drawpoint1.id === "ip1" && drawpoint2.id === "ip1" && newPointsOut[0].id==="fp3" ) {
+                      drawpoint2.x -= depths.sashDepth.b;
+                      drawpoint3.x -= depths.sashDepth.b;
+                    }
+
+                    if (drawpoint1.id === "ip1" && drawpoint2.id === "ip1" && newPointsOut[0].id==="ip1" ) {
+                      drawpoint2.x += depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+                    }
+                  }
 
                   }
                   if (shapeIndex === 1) {
@@ -1404,10 +1425,7 @@
                         drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - 12;
                         drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - 12;
                         drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - 12;
-                        // console.log("drawpoint1",drawpoint1);
-                        // console.log("drawpoint2",drawpoint2);
-                        // console.log("drawpoint3",drawpoint3);
-                        // console.log("drawpoint4",drawpoint4);
+
                       } else if (newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
                         /** левая сторона двойных входных дверей*/
                         drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - 12;
@@ -1454,7 +1472,6 @@
                         drawpoint4.x = newPointsOut[index].x * 1;
                         drawpoint3.x = newPointsOut[index + 1].x * 1;
                       } else {
-                        console.log("else doorsill");
                         drawpoint4 = angular.copy(pointsIn[index]);
                         drawpoint4.x = newPointsOut[index].x * 1;
                         drawpoint3 = angular.copy(pointsIn[index + 1]);
@@ -1678,7 +1695,7 @@
           //------- per Price
           glassObj.square = angular.copy(part.square);
           //----- converting size from mm to m
-          glassObj.sizes = angular.copy(part.sizes).map(function (item) {
+          glassObj.sizes =part.sizes.map(function (item) {
             return GeneralServ.roundingValue(item / 1000, 3);
           });
           priceElements.glassSquares.push(glassObj);
@@ -2591,6 +2608,7 @@
               //-------- if block has children and type is sash
               if (thisObj.details[i].children.length) {
                 if (thisObj.details[i].blockType === 'sash') {
+                  //console.log("ебаный саш");
                   thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(
                     thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
                   );
@@ -2607,9 +2625,16 @@
                   $.merge(thisObj.details[i].parts, setParts(depths,
                     sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
                   ));
+                  /** **/
+                  thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
+                  thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut, depths);
+                  thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
+                  //------ for defined open directions of sash
+                  thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
 
+                  /** **/
                   //----- set openPoints for sash
-                  thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
+                  thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
 
                   setSashePropertyXPrice(
                     thisObj.details[i].sashType,
@@ -2631,7 +2656,7 @@
                   //          thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
 
                   thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
-                  /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
+                            thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
                   thisObj.details[i].parts.push(setGlass(
                     depths, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
                   ));
@@ -2667,7 +2692,7 @@
 
                   thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
                   //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
-
+                  console.log();
                   thisObj.details[i].parts.push(setGlass(
                     depths, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
                   ));
@@ -2722,8 +2747,6 @@
                 }
                 thisObj.details[i].parts.push(setImpostParts(depths, thisObj.details[i].impost.impostIn, thisObj.priceElements));
               }
-
-
             }
           }
 
