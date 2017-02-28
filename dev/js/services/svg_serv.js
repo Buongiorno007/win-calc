@@ -1366,7 +1366,7 @@
                   // console.log("drawpoint2",drawpoint2);
                   // console.log("drawpoint3",drawpoint3);
                   // console.log("drawpoint4",drawpoint4);
-                  depths.sashDepth.b = 75;
+                  //depths.sashDepth.b = 75;
                   if (ProductStor.product.doorLock.stvorka_type === 6) {
                     if (drawpoint1.type === "sash") {
                       if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
@@ -1617,7 +1617,7 @@
 
 
         function setGlass(glassType, glassPoints, priceElements, currGlassId) {
-          // if (ProductStor.product.doorLock.stvorka_type === 6) {
+           if (ProductStor.product.doorLock.stvorka_type === 6) {
           //   //console.log(glassPoints);
           //   //x
           if ((glassPoints[0].x !== glassPoints[3].x) && (glassPoints[0].id === "fp3"||glassPoints[0].id === "sht1")) {
@@ -1652,7 +1652,7 @@
           if ((glassPoints[2].y !== glassPoints[3].y) && glassPoints[3].id === "fp2"||glassPoints[3].id === "sht1") {
             glassPoints[2].y = glassPoints[3].y;
           }
-          // }
+           }
           var part = {
               type: 'glass',
               points: glassPoints,
