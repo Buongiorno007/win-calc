@@ -299,7 +299,7 @@
           }
           else {
             localDB.importUser(thisCtrl.user.phone).then(function (result) {
-              console.log(result);
+              //console.log(result);
               if (result.status) {
                 var userTemp = angular.copy(result.user);
                 startSlider();
