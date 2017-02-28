@@ -868,7 +868,6 @@
           localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function (result) {
             var rooms = angular.copy(result),
               roomQty = rooms.length;
-
             if (roomQty) {
               /** sorting types by position */
               rooms = rooms.sort(function (a, b) {
