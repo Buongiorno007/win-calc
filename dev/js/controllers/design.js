@@ -167,7 +167,6 @@
 
           });
         });
-        //ProductStor.product.chosenAddElements[0].splice(0, 1);
         AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
       } else {
 
