@@ -1368,56 +1368,65 @@
                   // console.log("drawpoint4",drawpoint4);
                   //depths.sashDepth.b = 75;
                   if (ProductStor.product.doorLock.stvorka_type === 6) {
-                    if (drawpoint1.type === "sash") {
-                      if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
-                        drawpoint3.y -= depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
+                  if (drawpoint1.type === "sash") {
+                    if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
+                      drawpoint3.y -= depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
 
-                        drawpoint4.y -= depths.sashDepth.b;
-                        drawpoint4.x -= depths.sashDepth.b;
-                      }
-                      if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
-                        drawpoint3.y -= depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
+                      drawpoint4.y -= depths.sashDepth.b;
+                      drawpoint4.x -= depths.sashDepth.b;
+                    }
+                    if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
+                      drawpoint3.y -= depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
 
-                        drawpoint4.y -= depths.sashDepth.b;
-                        drawpoint4.x -= depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "fp1") {
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x -= depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "fp4") {
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x -= depths.sashDepth.b;
+                      drawpoint4.y -= depths.sashDepth.b;
+                      drawpoint4.x -= depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "fp1") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x -= depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "fp4") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+                    }
+                    if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
+                      drawpoint3.y += depths.sashDepth.b;
+                      drawpoint3.x -= depths.sashDepth.b;
+                    }
+                  }
+                  if (drawpoint1.type === "bead") {
+                    if (index === 1) {
+                      if (drawpoint1.id === "fp4" || drawpoint1.id.includes("ip")) {
+
                       }
                     }
-                    if (drawpoint1.type === "bead") {
-                      if (drawpoint1.id === "fp4" && drawpoint2.id === "ip1") {
-                        drawpoint2.x += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
-                      }
+                    if ((drawpoint1.id === "fp4" || drawpoint1.id.includes("sht")) && drawpoint2.id.includes("ip")) {
 
-                      if (drawpoint1.id === "ip1" && drawpoint2.id === "ip1" && newPointsOut[0].id === "fp3") {
-                        drawpoint2.x -= depths.sashDepth.b;
-                        drawpoint3.x -= depths.sashDepth.b;
-                      }
+                      drawpoint2.x = drawpoint1.x;
+                      drawpoint3.x = drawpoint4.x;
+                    }
 
-                      if (drawpoint1.id === "ip1" && drawpoint2.id === "ip1" && newPointsOut[0].id === "ip1") {
-                        drawpoint2.x += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
+                    if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && (newPointsOut[0].id === "fp3" || newPointsOut[0].id.includes("sht"))) {
 
-                        drawpoint1.x -= depths.sashDepth.b;
-                        drawpoint4.x -= depths.sashDepth.b;
-                      }
+                      drawpoint2.x = newPointsOut[0].x;
+                      drawpoint3.x = pointsIn[0].x;
+                    }
+
+                    if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && newPointsOut[0].id.includes("ip")) {
+                      drawpoint2.x += depths.sashDepth.b;
+                      drawpoint3.x += depths.sashDepth.b;
+
+                      drawpoint1.x -= depths.sashDepth.b;
+                      drawpoint4.x -= depths.sashDepth.b;
+                    }
+
+
                     }
 
                   }
@@ -1617,42 +1626,42 @@
 
 
         function setGlass(glassType, glassPoints, priceElements, currGlassId) {
-           if (ProductStor.product.doorLock.stvorka_type === 6) {
-          //   //console.log(glassPoints);
-          //   //x
-          if ((glassPoints[0].x !== glassPoints[3].x) && (glassPoints[0].id === "fp3"||glassPoints[0].id === "sht1")) {
-            glassPoints[3].x = glassPoints[0].x;
-          }
+          if (ProductStor.product.doorLock.stvorka_type === 6) {
+            //   //console.log(glassPoints);
+            //   //x
+            if ((glassPoints[0].x !== glassPoints[3].x) && (glassPoints[0].id === "fp3" || glassPoints[0].id.includes("sht"))) {
+              glassPoints[3].x = glassPoints[0].x;
+            }
 
 
-          if ((glassPoints[1].x !== glassPoints[2].x) && glassPoints[1].id === "fp4"||glassPoints[1].id === "sht1") {
-            glassPoints[2].x = glassPoints[1].x;
-          }
+            if ((glassPoints[1].x !== glassPoints[2].x) && glassPoints[1].id === "fp4" || glassPoints[1].id.includes("sht")) {
+              glassPoints[2].x = glassPoints[1].x;
+            }
 
-          if ((glassPoints[0].x !== glassPoints[3].x) && (glassPoints[3].id === "fp2"||glassPoints[3].id === "sht1")) {
-            glassPoints[0].x = glassPoints[3].x;
-          }
+            if ((glassPoints[0].x !== glassPoints[3].x) && (glassPoints[3].id === "fp2" || glassPoints[3].id.includes("sht"))) {
+              glassPoints[0].x = glassPoints[3].x;
+            }
 
-          if ((glassPoints[1].x !== glassPoints[2].x) && glassPoints[2].id === "fp1"||glassPoints[2].id === "sht1") {
-            glassPoints[1].x = glassPoints[2].x;
+            if ((glassPoints[1].x !== glassPoints[2].x) && glassPoints[2].id === "fp1" || glassPoints[2].id.includes("sht")) {
+              glassPoints[1].x = glassPoints[2].x;
+            }
+            //y
+            if ((glassPoints[0].y !== glassPoints[1].y) && glassPoints[1].id === "fp4" || glassPoints[1].id.includes("sht")) {
+              glassPoints[0].y = glassPoints[1].y;
+            }
+            //
+            if ((glassPoints[2].y !== glassPoints[3].y) && glassPoints[2].id === "fp1" || glassPoints[2].id.includes("sht")) {
+              glassPoints[3].y = glassPoints[2].y;
+            }
+            //
+            if ((glassPoints[0].y !== glassPoints[1].y) && glassPoints[0].id === "fp3" || glassPoints[0].id.includes("sht")) {
+              glassPoints[1].y = glassPoints[0].y;
+            }
+            //
+            if ((glassPoints[2].y !== glassPoints[3].y) && glassPoints[3].id === "fp2" || glassPoints[3].id.includes("sht")) {
+              glassPoints[2].y = glassPoints[3].y;
+            }
           }
-          //y
-          if ((glassPoints[0].y !== glassPoints[1].y) && glassPoints[1].id === "fp4"||glassPoints[1].id === "sht1") {
-            glassPoints[0].y = glassPoints[1].y;
-          }
-          //
-          if ((glassPoints[2].y !== glassPoints[3].y) && glassPoints[2].id === "fp1"||glassPoints[2].id === "sht1") {
-            glassPoints[3].y = glassPoints[2].y;
-          }
-          //
-          if ((glassPoints[0].y !== glassPoints[1].y) && glassPoints[0].id === "fp3"||glassPoints[0].id === "sht1") {
-            glassPoints[1].y = glassPoints[0].y;
-          }
-          //
-          if ((glassPoints[2].y !== glassPoints[3].y) && glassPoints[3].id === "fp2"||glassPoints[3].id === "sht1") {
-            glassPoints[2].y = glassPoints[3].y;
-          }
-           }
           var part = {
               type: 'glass',
               points: glassPoints,
