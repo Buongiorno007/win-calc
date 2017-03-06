@@ -53,7 +53,7 @@
     /**------- Show Tabs -------*/
 
     function showFrameTabs() {
-      //console.log("ProductStor.product",ProductStor.product);
+      // console.log("ProductStor.product",ProductStor.product);
       //playSound('swip');
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
