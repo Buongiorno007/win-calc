@@ -1,0 +1,29 @@
+section.page-container(ng-class="{ 'swiped': !lightPage.G.global.isNavMenu }")
+  section.left-side
+    include menus/_navigation-menu
+
+  section.right-side(
+  ng-class="{'main-page-bg': lightPage.G.global.currOpenPage === 'light', 'main-room-bg': lightPage.G.global.currOpenPage === 'light'}")
+    section.main-content(tabindex="0")
+      include parts/_user-info
+      include parts/_report
+      include panels/_profiles
+      include panels/_glasses
+      include panels/_hardwares
+      include panels/_laminations
+      include panels/_add-elements
+      include panels/_add-elements-list
+      include parts/_grid-selector
+      include design
+
+      .backDarkView(ng-if="lightPage.G.global.isShowCommentBlock")
+      include panels/_templates
+  section.right-menu
+    include menus/_config-menu
+    include menus/_addelems-menu
+  include parts/_info-box
+  include parts/_attantions
+include parts/_loader
+include parts/_alert
+include parts/_danger-alert
+include parts/_error-product

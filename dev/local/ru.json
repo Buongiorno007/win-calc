@@ -97,6 +97,9 @@
     "NAVMENU_CALCULATIONS": "Расчеты",
     "NAVMENU_APPENDIX": "Приложение",
     "NAVMENU_NEW_CALC": "+Новый расчет",
+
+    "NAVMENU_LIGHT_VER": "Light версия",
+    "NAVMENU_STANDART_VERSION": "Стандартная версия",
     "CONFIGMENU_CONFIGURATION": "Конфигурация и размеры",
     "CONFIGMENU_SIZING": "ширина * высота",
     "CONFIGMENU_PROFILE": "Профиль",

@@ -38,6 +38,8 @@
     thisCtrl.NAVMENU_MORE_INFO = $filter('translate')('mainpage.NAVMENU_MORE_INFO');
     thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
     thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
+    thisCtrl.NAVMENU_LIGHT_VER = $filter('translate')('mainpage.NAVMENU_LIGHT_VER');
+    thisCtrl.NAVMENU_STANDART_VERSION = $filter('translate')('mainpage.NAVMENU_STANDART_VERSION');
 
 
 
@@ -89,6 +91,17 @@
         case 9:
           NavMenuServ.switchVoiceHelper();
           break;
+        case 10: {
+          if (!GlobalStor.global.isLightVersion){
+            $location.path('/light');
+            GlobalStor.global.isLightVersion = 1;
+          }
+          else {
+            $location.path('/main');
+            GlobalStor.global.isLightVersion = 0;
+          }
+          break;
+        }
       }
     }
 

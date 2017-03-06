@@ -15,6 +15,8 @@
                 MainServ,
                 GlobalStor,
                 ProductStor,
+                AuxStor,
+                DesignStor,
                 UserStor,
                 SettingServ,
                 HistoryServ,
@@ -158,6 +160,14 @@
               //console.timeEnd('prog');
               $location.path('/main');
             }
+            /** !!!! **/
+
+            localStorage.setItem('GlobalStor', JSON.stringify(GlobalStor.global));
+            localStorage.setItem('ProductStor', JSON.stringify(ProductStor.product));
+            localStorage.setItem('UserStor', JSON.stringify(UserStor.userInfo));
+
+            localStorage.setItem('AuxStor', JSON.stringify(AuxStor.aux));
+            localStorage.setItem('DesignStor', JSON.stringify(DesignStor.design));
 
           });
         }
