@@ -176,7 +176,12 @@
       setDefaultGlobal: setDefaultGlobal
     };
 
-    thisFactory.publicObj.global = setDefaultGlobal();
+    var data = localStorage.getItem("GlobalStor");
+    if (data){
+      thisFactory.publicObj.global = JSON.parse(data);
+    } else {
+      thisFactory.publicObj.global = setDefaultGlobal();
+    }
 
     return thisFactory.publicObj;
 

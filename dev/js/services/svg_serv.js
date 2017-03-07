@@ -373,7 +373,12 @@
 
 
         function setLines(points) {
-          // console.log(points);
+           console.log(points);
+           points.forEach(function(point,index){
+             if (index!==points.length-1){
+               // if (point.){}
+             }
+           });
 
           var lines = [],
             pointsQty = points.length,

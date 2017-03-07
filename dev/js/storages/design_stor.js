@@ -119,7 +119,12 @@
       setDefaultDoor: setDefaultDoor
     };
 
-    thisFactory.publicObj.design = setDefaultDesign();
+    var data = localStorage.getItem("DesignStor");
+    if (data){
+      thisFactory.publicObj.design = JSON.parse(data);
+    } else {
+      thisFactory.publicObj.design = setDefaultDesign();
+    }
     return thisFactory.publicObj;
 
   });
