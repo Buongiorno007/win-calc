@@ -1,6 +1,6 @@
 .config-menu {
   @extend .menu-right-general;
-
+  height: 100%;
   .item {
     &.active {
       background-color: rgba(0,0,0,0.07);

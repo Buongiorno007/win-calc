@@ -40,8 +40,13 @@
           li.additional-item(ng-repeat="addElement in addElementGroup")
             span.value(data-output="") {{ addElement.name }}
 
-  footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
+  footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.G.global.isLightVersion", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")
+    button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.CONFIGMENU_IN_CART }}
+      .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
+    button.cart-btn(ng-if="configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.SAVE }}
+
+  footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.G.global.isLightVersion", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.CONFIGMENU_IN_CART }}
       .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
     button.cart-btn(ng-if="configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.SAVE }}
