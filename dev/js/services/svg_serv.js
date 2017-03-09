@@ -372,12 +372,29 @@
         }
 
 
-        function setLines(points) {
-           console.log(points);
+        function setLines(points,depths) {
            points.forEach(function(point,index){
-             if (index!==points.length-1){
-               // if (point.){}
-             }
+             //if (index!==points.length-1){
+                if (point.type === "sash"){
+                  if (point.id === "fp3"){
+                    point.x-=depths.sashDepth.b;
+                    point.y-=depths.sashDepth.b;
+                  }
+                  if (point.id === "fp4"){
+                    point.x+=depths.sashDepth.b;
+                    point.y-=depths.sashDepth.b;
+                  }
+
+                  if (point.id === "fp1"){
+                    point.x+=depths.sashDepth.b;
+                    point.y+=depths.sashDepth.b;
+                  }
+                  if (point.id === "fp2"){
+                    point.x-=depths.sashDepth.b;
+                    point.y+=depths.sashDepth.b;
+                  }
+                }
+             //}
            });
 
           var lines = [],
@@ -1370,81 +1387,114 @@
                   //depths.sashDepth.b = 75;
                   if (ProductStor.product.doorLock.stvorka_type === 6) {
 
-                    if (drawpoint1.type === "sash") {
-                      if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
-                        drawpoint3.y -= depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
+                    // if (drawpoint1.type === "sash") {
+                    //   if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
+                    //     drawpoint3.y -= depths.sashDepth.b;
+                    //     drawpoint3.x += depths.sashDepth.b;
+                    //
+                    //     drawpoint4.y -= depths.sashDepth.b;
+                    //     drawpoint4.x -= depths.sashDepth.b;
+                    //   }
+                    //   if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
+                    //     drawpoint3.y -= depths.sashDepth.b;
+                    //     drawpoint3.x += depths.sashDepth.b;
+                    //
+                    //     drawpoint4.y -= depths.sashDepth.b;
+                    //     drawpoint4.x -= depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "fp1") {
+                    //
+                    //     drawpoint3.y += depths.sashDepth.b;
+                    //     drawpoint3.x -= depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "fp4") {
+                    //
+                    //     drawpoint3.y += depths.sashDepth.b;
+                    //     drawpoint3.x += depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
+                    //
+                    //     drawpoint3.y += depths.sashDepth.b;
+                    //     drawpoint3.x += depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
+                    //
+                    //     drawpoint3.y += depths.sashDepth.b;
+                    //     drawpoint3.x -= depths.sashDepth.b;
+                    //   }
+                    //
+                    //
+                    // }
 
-                        drawpoint4.y -= depths.sashDepth.b;
-                        drawpoint4.x -= depths.sashDepth.b;
-                      }
-                      if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
-                        drawpoint3.y -= depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
+                    // if (drawpoint1.type === "sash") {
+                    //   if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
+                    //     drawpoint2.y += depths.sashDepth.b;
+                    //     drawpoint2.x -= depths.sashDepth.b;
+                    //
+                    //     drawpoint1.y += depths.sashDepth.b;
+                    //     drawpoint1.x += depths.sashDepth.b;
+                    //   }
+                    //   if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
+                    //     drawpoint2.y += depths.sashDepth.b;
+                    //     drawpoint2.x -= depths.sashDepth.b;
+                    //
+                    //     drawpoint1.y += depths.sashDepth.b;
+                    //     drawpoint1.x += depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "fp1") {
+                    //
+                    //     drawpoint2.y -= depths.sashDepth.b;
+                    //     drawpoint2.x += depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "fp4") {
+                    //
+                    //     drawpoint2.y -= depths.sashDepth.b;
+                    //     drawpoint2.x -= depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
+                    //
+                    //     drawpoint2.y -= depths.sashDepth.b;
+                    //     drawpoint2.x -= depths.sashDepth.b;
+                    //   }
+                    //   if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
+                    //
+                    //     drawpoint2.y -= depths.sashDepth.b;
+                    //     drawpoint2.x += depths.sashDepth.b;
+                    //   }
+                    //
+                    //
+                    // }
 
-                        drawpoint4.y -= depths.sashDepth.b;
-                        drawpoint4.x -= depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "fp1") {
-
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x -= depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "fp4") {
-
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
-
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
-                      }
-                      if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
-
-                        drawpoint3.y += depths.sashDepth.b;
-                        drawpoint3.x -= depths.sashDepth.b;
-                      }
-
-
-                    }
-
-                    if (drawpoint1.type === "bead") {
-
-                      if ((drawpoint1.id === "fp4" || drawpoint1.id.includes("sht")) && drawpoint2.id.includes("ip")) {
-
-                        drawpoint2.x += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
-                      }
-
-                      if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && (newPointsOut[0].id === "fp3" || newPointsOut[0].id.includes("sht"))) {
-
-                        drawpoint2.x -= depths.sashDepth.b;
-                        drawpoint3.x -= depths.sashDepth.b;
-                      }
-
-                      // if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && newPointsOut[0].id.includes("ip")&& newPointsOut[3].id.includes("fp")) {
-                      //   drawpoint2.x += depths.sashDepth.b;
-                      //   drawpoint3.x += depths.sashDepth.b;
-                      //
-                      //   drawpoint1.x -= depths.sashDepth.b;
-                      //   drawpoint4.x -= depths.sashDepth.b;
-                      // }
-
-                      if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && newPointsOut[0].id.includes("ip")&& ( newPointsOut[3].id.includes("fp")||newPointsOut[3].id.includes("sht"))) {
-                        drawpoint2.x += depths.sashDepth.b;
-                        drawpoint3.x += depths.sashDepth.b;
-
-                        drawpoint1.x -= depths.sashDepth.b;
-                        drawpoint4.x -= depths.sashDepth.b;
-                      }
-
-
-
-
-
-
-                    }
+                    // if (drawpoint1.type === "bead") {
+                    //
+                    //   if ((drawpoint1.id === "fp4" || drawpoint1.id.includes("sht")) && drawpoint2.id.includes("ip")) {
+                    //
+                    //     drawpoint2.x += depths.sashDepth.b;
+                    //     drawpoint3.x += depths.sashDepth.b;
+                    //   }
+                    //
+                    //   if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && (newPointsOut[0].id === "fp3" || newPointsOut[0].id.includes("sht"))) {
+                    //
+                    //     drawpoint2.x -= depths.sashDepth.b;
+                    //     drawpoint3.x -= depths.sashDepth.b;
+                    //   }
+                    //
+                    //   // if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && newPointsOut[0].id.includes("ip")&& newPointsOut[3].id.includes("fp")) {
+                    //   //   drawpoint2.x += depths.sashDepth.b;
+                    //   //   drawpoint3.x += depths.sashDepth.b;
+                    //   //
+                    //   //   drawpoint1.x -= depths.sashDepth.b;
+                    //   //   drawpoint4.x -= depths.sashDepth.b;
+                    //   // }
+                    //
+                    //   if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && newPointsOut[0].id.includes("ip")&& ( newPointsOut[3].id.includes("fp")||newPointsOut[3].id.includes("sht"))) {
+                    //     drawpoint2.x += depths.sashDepth.b;
+                    //     drawpoint3.x += depths.sashDepth.b;
+                    //
+                    //     drawpoint1.x -= depths.sashDepth.b;
+                    //     drawpoint4.x -= depths.sashDepth.b;
+                    //   }
+                    // }
 
                   }
                   if (shapeIndex === 1) {
@@ -1643,27 +1693,27 @@
 
         function setGlass(glassType, glassPoints, priceElements, currGlassId) {
           //horizontal width
-          var line_x1 = Math.sqrt(Math.pow((glassPoints[0].x - glassPoints[1].x), 2) + Math.pow((glassPoints[0].y - glassPoints[1].y), 2));
-          var line_x2 = Math.sqrt(Math.pow((glassPoints[3].x - glassPoints[2].x), 2) + Math.pow((glassPoints[3].y - glassPoints[2].y), 2));
-          if (line_x1 > line_x2) {
-            glassPoints[0].x = glassPoints[3].x;
-            glassPoints[1].x = glassPoints[2].x;
-          } else {
-            glassPoints[3].x = glassPoints[0].x;
-            glassPoints[2].x = glassPoints[1].x;
-
-          }
-
-          var line_y1 = Math.sqrt(Math.pow((glassPoints[0].x - glassPoints[3].x), 2) + Math.pow((glassPoints[0].y - glassPoints[3].y), 2));
-          var line_y2 = Math.sqrt(Math.pow((glassPoints[1].x - glassPoints[2].x), 2) + Math.pow((glassPoints[1].y - glassPoints[2].y), 2));
-          if (line_y1 > line_y2) {
-            glassPoints[0].y = glassPoints[1].y;
-            glassPoints[3].y = glassPoints[2].y;
-          } else {
-            glassPoints[1].y = glassPoints[0].y;
-            glassPoints[2].y = glassPoints[3].y;
-
-          }
+          // var line_x1 = Math.sqrt(Math.pow((glassPoints[0].x - glassPoints[1].x), 2) + Math.pow((glassPoints[0].y - glassPoints[1].y), 2));
+          // var line_x2 = Math.sqrt(Math.pow((glassPoints[3].x - glassPoints[2].x), 2) + Math.pow((glassPoints[3].y - glassPoints[2].y), 2));
+          // if (line_x1 > line_x2) {
+          //   glassPoints[0].x = glassPoints[3].x;
+          //   glassPoints[1].x = glassPoints[2].x;
+          // } else {
+          //   glassPoints[3].x = glassPoints[0].x;
+          //   glassPoints[2].x = glassPoints[1].x;
+          //
+          // }
+          //
+          // var line_y1 = Math.sqrt(Math.pow((glassPoints[0].x - glassPoints[3].x), 2) + Math.pow((glassPoints[0].y - glassPoints[3].y), 2));
+          // var line_y2 = Math.sqrt(Math.pow((glassPoints[1].x - glassPoints[2].x), 2) + Math.pow((glassPoints[1].y - glassPoints[2].y), 2));
+          // if (line_y1 > line_y2) {
+          //   glassPoints[0].y = glassPoints[1].y;
+          //   glassPoints[3].y = glassPoints[2].y;
+          // } else {
+          //   glassPoints[1].y = glassPoints[0].y;
+          //   glassPoints[2].y = glassPoints[3].y;
+          //
+          // }
 
           var part = {
               type: 'glass',
@@ -2607,7 +2657,7 @@
               }
               thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
               thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
-              thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
+              thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut, depths);
 
               if (thisObj.details[i].level === 1) {
                 thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
@@ -2619,8 +2669,8 @@
                 //-------- points for Grid
                 thisObj.details[i].pointsLight = sortingPoints(thisObj.details[i].pointsLight, centerBlock(thisObj.details[i].pointsLight));
               }
-              thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
-              thisObj.details[i].linesLight = setLines(thisObj.details[i].pointsLight);
+              thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn, depths);
+              thisObj.details[i].linesLight = setLines(thisObj.details[i].pointsLight, depths);
 
               if (thisObj.details[i].level === 1) {
                 setCornerProp(thisObj.details);
@@ -2637,12 +2687,12 @@
                   thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(
                     thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
                   );
-                  thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
+                  thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut, depths);
                   thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
-                  thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+                  thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn, depths);
                   //-------- points for Grid
                   thisObj.details[i].sashPointsLight = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-light');
-                  thisObj.details[i].sashLinesLight = setLines(thisObj.details[i].sashPointsLight);
+                  thisObj.details[i].sashLinesLight = setLines(thisObj.details[i].sashPointsLight, depths);
                   //-------- points for Hardware
                   thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
                   thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints, depths);
@@ -2656,10 +2706,10 @@
                   thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut, depths);
                   thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
                   //------ for defined open directions of sash
-                  thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
+                  thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn, depths);
 
                   thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
-                  thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
+                  thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn, depths);
                   // thisObj.details[i].parts.push(setGlass(
                   //   thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
                   // ));
@@ -2686,12 +2736,12 @@
                   //              console.log('+++++++++ block ++++++++++beads');
                   thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].pointsIn, 'bead');
 
-                  thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
+                  thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut, depths);
                   thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-bead');
                   //          thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
 
                   thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
-                  thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
+                  thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn, depths);
 
                   thisObj.details[i].parts.push(setGlass(
                     thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
@@ -2714,22 +2764,22 @@
                   thisObj.details[i].sashPointsOut = copyPointsOut(
                     setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
                   );
-                  thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
+                  thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut, depths);
                   thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
-                  thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+                  thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn, depths);
 
                   $.merge(thisObj.details[i].parts, setParts(depths,
                     sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
                   ));
                   //-------- points for Hardware
                   thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-                  thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
+                  thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints, depths);
 
                   thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
                   thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut, depths);
                   thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
                   //------ for defined open directions of sash
-                  thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
+                  thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn, depths);
 
                   thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
                   //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
@@ -2773,23 +2823,23 @@
                     thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y + depths.frameStillDepth.a);
                     thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y + depths.frameStillDepth.a);
                   }
-                  if (ProductStor.product.doorLock.stvorka_type === 6) {
-                    if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
-                      thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y - depths.sashDepth.b);
-                      thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y - depths.sashDepth.b);
-                      thisObj.details[i].impost.impostIn[2].y = angular.copy(thisObj.details[i].impost.impostIn[2].y + depths.sashDepth.b);
-                      thisObj.details[i].impost.impostIn[3].y = angular.copy(thisObj.details[i].impost.impostIn[3].y + depths.sashDepth.b);
-                    }
-                  }
-                } else {
-                  if (ProductStor.product.doorLock.stvorka_type === 6) {
-                    if (thisObj.details[i].pointsIn[0].x !== thisObj.details[i].impost.impostIn[0].x && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
-                      thisObj.details[i].impost.impostIn[0].x = angular.copy(thisObj.details[i].impost.impostIn[0].x - depths.sashDepth.b);
-                      thisObj.details[i].impost.impostIn[1].x = angular.copy(thisObj.details[i].impost.impostIn[1].x - depths.sashDepth.b);
-                      thisObj.details[i].impost.impostIn[2].x = angular.copy(thisObj.details[i].impost.impostIn[2].x + depths.sashDepth.b);
-                      thisObj.details[i].impost.impostIn[3].x = angular.copy(thisObj.details[i].impost.impostIn[3].x + depths.sashDepth.b);
-                    }
-                  }
+                //   if (ProductStor.product.doorLock.stvorka_type === 6) {
+                //     if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
+                //       thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y - depths.sashDepth.b);
+                //       thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y - depths.sashDepth.b);
+                //       thisObj.details[i].impost.impostIn[2].y = angular.copy(thisObj.details[i].impost.impostIn[2].y + depths.sashDepth.b);
+                //       thisObj.details[i].impost.impostIn[3].y = angular.copy(thisObj.details[i].impost.impostIn[3].y + depths.sashDepth.b);
+                //     }
+                //   }
+                // } else {
+                //   if (ProductStor.product.doorLock.stvorka_type === 6) {
+                //     if (thisObj.details[i].pointsIn[0].x !== thisObj.details[i].impost.impostIn[0].x && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
+                //       thisObj.details[i].impost.impostIn[0].x = angular.copy(thisObj.details[i].impost.impostIn[0].x - depths.sashDepth.b);
+                //       thisObj.details[i].impost.impostIn[1].x = angular.copy(thisObj.details[i].impost.impostIn[1].x - depths.sashDepth.b);
+                //       thisObj.details[i].impost.impostIn[2].x = angular.copy(thisObj.details[i].impost.impostIn[2].x + depths.sashDepth.b);
+                //       thisObj.details[i].impost.impostIn[3].x = angular.copy(thisObj.details[i].impost.impostIn[3].x + depths.sashDepth.b);
+                //     }
+                //   }
                 }
                 thisObj.details[i].parts.push(setImpostParts(depths, thisObj.details[i].impost.impostIn, thisObj.priceElements));
               }

@@ -17,6 +17,7 @@
                 ProductStor,
                 AuxStor,
                 UserStor,
+                DesignStor,
                 SettingServ,
                 HistoryServ,
                 GeneralServ) {
