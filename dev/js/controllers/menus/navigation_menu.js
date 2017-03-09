@@ -13,7 +13,9 @@
     GeneralServ,
     NavMenuServ,
     GlobalStor,
+    DesignStor,
     OrderStor,
+    AuxStor,
     ProductStor,
     UserStor
   ) {

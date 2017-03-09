@@ -6,8 +6,7 @@
     section.right-side(ng-class="{'main-page-bg': lightPage.G.global.currOpenPage === 'light'," +
                                 " 'main-room-bg': lightPage.G.global.currOpenPage === 'light'}")
       section.main-content(tabindex="0")
-        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)")
-          button.nav-menu-btn(ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}", fs-click="userBox.swipeMainPage($event)")
+        include parts/_user-info
         .construction-block(ng-controller="DesignCtrl as designPage")
           .construction-left-menu.light-v
             ul.figure-lists
