@@ -21,17 +21,21 @@
 
 
         function getCoordCrossPoint(line1, line2) {
-          var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-            baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
-            baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
-            crossPoint = {
-              x: GeneralServ.roundingValue(GeneralServ.roundingValue(baseX / base, 3)),
-              y: GeneralServ.roundingValue(GeneralServ.roundingValue(baseY / base, 3))
-            };
-          if (crossPoint.x === -0) {
-            crossPoint.x = 0;
-          } else if (crossPoint.y === -0) {
-            crossPoint.y = 0;
+          try {
+            var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+              baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
+              baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
+              crossPoint = {
+                x: GeneralServ.roundingValue(GeneralServ.roundingValue(baseX / base, 3)),
+                y: GeneralServ.roundingValue(GeneralServ.roundingValue(baseY / base, 3))
+              };
+            if (crossPoint.x === -0) {
+              crossPoint.x = 0;
+            } else if (crossPoint.y === -0) {
+              crossPoint.y = 0;
+            }
+          } catch (err) {
+            console.log(err.message);
           }
           return crossPoint;
         }
@@ -372,30 +376,49 @@
         }
 
 
-        function setLines(points,depths) {
-           points.forEach(function(point,index){
-             //if (index!==points.length-1){
-                if (point.type === "sash"){
-                  if (point.id === "fp3"){
-                    point.x-=depths.sashDepth.b;
-                    point.y-=depths.sashDepth.b;
-                  }
-                  if (point.id === "fp4"){
-                    point.x+=depths.sashDepth.b;
-                    point.y-=depths.sashDepth.b;
-                  }
+        function setLines(points1, depths) {
+          var points = angular.copy(points1);
 
-                  if (point.id === "fp1"){
-                    point.x+=depths.sashDepth.b;
-                    point.y+=depths.sashDepth.b;
-                  }
-                  if (point.id === "fp2"){
-                    point.x-=depths.sashDepth.b;
-                    point.y+=depths.sashDepth.b;
-                  }
-                }
-             //}
-           });
+          points.forEach(function (point, index) {
+            if (point.type === "sash") {
+              if (point.id === "fp3") {
+                point.x -= depths.sashDepth.b;
+                point.y -= depths.sashDepth.b;
+              }
+              if (point.id === "fp4") {
+                point.x += depths.sashDepth.b;
+                point.y -= depths.sashDepth.b;
+              }
+
+              if (point.id === "fp1") {
+                point.x += depths.sashDepth.b;
+                point.y += depths.sashDepth.b;
+              }
+              if (point.id === "fp2") {
+                point.x -= depths.sashDepth.b;
+                point.y += depths.sashDepth.b;
+              }
+              if (point.id === "sht1" && index === 0) {
+                point.x -= depths.sashDepth.b;
+                point.y -= depths.sashDepth.b;
+              }
+
+              if (point.id === "sht1" && index === 3) {
+                point.x -= depths.sashDepth.b;
+                point.y += depths.sashDepth.b;
+              }
+
+              if (point.id === "sht1" && index === 2) {
+                point.x += depths.sashDepth.b;
+                point.y += depths.sashDepth.b;
+              }
+
+              if (point.id === "sht1" && index === 1) {
+                point.x += depths.sashDepth.b;
+                point.y -= depths.sashDepth.b;
+              }
+            }
+          });
 
           var lines = [],
             pointsQty = points.length,
@@ -1014,38 +1037,42 @@
 
 
         function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
-          var impCP = getCoordCrossPoint(linesIn[i], impVector),
-            isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
-            isCross = isInsidePointInLine(isInside);
-          if (isCross) {
-            var ip = angular.copy(impAx);
-            ip.group = group;
-            ip.x = impCP.x;
-            ip.y = impCP.y;
+          try {
+            var impCP = getCoordCrossPoint(linesIn[i], impVector),
+              isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
+              isCross = isInsidePointInLine(isInside);
+            if (isCross) {
+              var ip = angular.copy(impAx);
+              ip.group = group;
+              ip.x = impCP.x;
+              ip.y = impCP.y;
 
-            if (linesIn[i].dir === 'curv') {
-              var impCenterP = findImpostCenter(markAx, impVector);
-              var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
-              if (intersect.length) {
-                ip.x = intersect[0].x;
-                ip.y = intersect[0].y;
-                ip.t = intersect[0].t;
-                //            var noExist = checkEqualPoints(ip, impost);
-                //            if(noExist) {
-                //              if (markAx) {
-                //                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
-                //              }
-                //              impost.push(angular.copy(ip));
-                //            }
+              if (linesIn[i].dir === 'curv') {
+                var impCenterP = findImpostCenter(markAx, impVector);
+                var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
+                if (intersect.length) {
+                  ip.x = intersect[0].x;
+                  ip.y = intersect[0].y;
+                  ip.t = intersect[0].t;
+                  //            var noExist = checkEqualPoints(ip, impost);
+                  //            if(noExist) {
+                  //              if (markAx) {
+                  //                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
+                  //              }
+                  //              impost.push(angular.copy(ip));
+                  //            }
+                }
+              }
+              var noExist = checkEqualPoints(ip, impost);
+              if (noExist) {
+                if (linesIn[i].dir === 'curv' && markAx) {
+                  setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
+                }
+                impost.push(angular.copy(ip));
               }
             }
-            var noExist = checkEqualPoints(ip, impost);
-            if (noExist) {
-              if (linesIn[i].dir === 'curv' && markAx) {
-                setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
-              }
-              impost.push(angular.copy(ip));
-            }
+          } catch (err){
+            console.log(err.message);
           }
         }
 
@@ -2597,15 +2624,7 @@
 
 
         /////////////////////////////////////////////////////////////////////////////////////
-        function checkLines(pointsBead, pointsSash){
-          console.log(pointsSash);
-          // points.forEach(function(node){
-          //     console.log(node);
-          //   if (node.id.includes("ip")){
-          //     node.x+=150;
-          //   }
-          // });
-        }
+
         function createSVGTemplate(sourceObj, depths) {
           var thisObj = {},
             defer = $q.defer(), i, blocksQty;
@@ -2757,7 +2776,6 @@
                   ));
 
 
-
                 } else if (thisObj.details[i].blockType === 'sash') {
                   /** створка без внутренних элементов
                    * выполняется если внутри створки нет импоста*/
@@ -2823,23 +2841,23 @@
                     thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y + depths.frameStillDepth.a);
                     thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y + depths.frameStillDepth.a);
                   }
-                //   if (ProductStor.product.doorLock.stvorka_type === 6) {
-                //     if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
-                //       thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y - depths.sashDepth.b);
-                //       thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y - depths.sashDepth.b);
-                //       thisObj.details[i].impost.impostIn[2].y = angular.copy(thisObj.details[i].impost.impostIn[2].y + depths.sashDepth.b);
-                //       thisObj.details[i].impost.impostIn[3].y = angular.copy(thisObj.details[i].impost.impostIn[3].y + depths.sashDepth.b);
-                //     }
-                //   }
-                // } else {
-                //   if (ProductStor.product.doorLock.stvorka_type === 6) {
-                //     if (thisObj.details[i].pointsIn[0].x !== thisObj.details[i].impost.impostIn[0].x && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
-                //       thisObj.details[i].impost.impostIn[0].x = angular.copy(thisObj.details[i].impost.impostIn[0].x - depths.sashDepth.b);
-                //       thisObj.details[i].impost.impostIn[1].x = angular.copy(thisObj.details[i].impost.impostIn[1].x - depths.sashDepth.b);
-                //       thisObj.details[i].impost.impostIn[2].x = angular.copy(thisObj.details[i].impost.impostIn[2].x + depths.sashDepth.b);
-                //       thisObj.details[i].impost.impostIn[3].x = angular.copy(thisObj.details[i].impost.impostIn[3].x + depths.sashDepth.b);
-                //     }
-                //   }
+                  //   if (ProductStor.product.doorLock.stvorka_type === 6) {
+                  //     if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
+                  //       thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y - depths.sashDepth.b);
+                  //       thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y - depths.sashDepth.b);
+                  //       thisObj.details[i].impost.impostIn[2].y = angular.copy(thisObj.details[i].impost.impostIn[2].y + depths.sashDepth.b);
+                  //       thisObj.details[i].impost.impostIn[3].y = angular.copy(thisObj.details[i].impost.impostIn[3].y + depths.sashDepth.b);
+                  //     }
+                  //   }
+                  // } else {
+                  //   if (ProductStor.product.doorLock.stvorka_type === 6) {
+                  //     if (thisObj.details[i].pointsIn[0].x !== thisObj.details[i].impost.impostIn[0].x && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
+                  //       thisObj.details[i].impost.impostIn[0].x = angular.copy(thisObj.details[i].impost.impostIn[0].x - depths.sashDepth.b);
+                  //       thisObj.details[i].impost.impostIn[1].x = angular.copy(thisObj.details[i].impost.impostIn[1].x - depths.sashDepth.b);
+                  //       thisObj.details[i].impost.impostIn[2].x = angular.copy(thisObj.details[i].impost.impostIn[2].x + depths.sashDepth.b);
+                  //       thisObj.details[i].impost.impostIn[3].x = angular.copy(thisObj.details[i].impost.impostIn[3].x + depths.sashDepth.b);
+                  //     }
+                  //   }
                 }
                 thisObj.details[i].parts.push(setImpostParts(depths, thisObj.details[i].impost.impostIn, thisObj.priceElements));
               }
