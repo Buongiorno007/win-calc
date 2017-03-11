@@ -36,7 +36,12 @@
       setDefaultUser: setDefaultUser
     };
 
-    thisFactory.publicObj.userInfo = setDefaultUser();
+    var data = localStorage.getItem("UserStor");
+    if (data){
+      thisFactory.publicObj.userInfo = JSON.parse(data);
+    } else {
+      thisFactory.publicObj.userInfo = setDefaultUser();
+    }
     return thisFactory.publicObj;
 
   });

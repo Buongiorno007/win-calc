@@ -856,7 +856,7 @@
         function insertTablesLocalDB(result) {
           //console.log('INSERT START', result.tables);
           var regionId = GlobalStor.global.regionCoefs;
-          var regions = [2, 6, 8, 13, 17, 19, 22, 25];
+          var regions = [1, 2, 5, 6, 8, 13, 17, 19, 22, 25];
           for (var x = 0; x < regions.length; x += 1) {
             if (regionId === regions[x]) {
               if (result.tables.elements) {

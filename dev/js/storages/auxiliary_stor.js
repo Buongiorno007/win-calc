@@ -40,7 +40,12 @@
       setDefaultAuxiliary: setDefaultAuxiliary
     };
 
-    thisFactory.publicObj.aux = setDefaultAuxiliary();
+    var data = localStorage.getItem("AuxStor");
+    if (data){
+      thisFactory.publicObj.aux = JSON.parse(data);
+    } else {
+      thisFactory.publicObj.aux = setDefaultAuxiliary();
+    }
     return thisFactory.publicObj;
 
   });
