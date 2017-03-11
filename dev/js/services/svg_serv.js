@@ -378,48 +378,48 @@
 
         function setLines(points1, depths) {
           var points = angular.copy(points1);
+          if (ProductStor.product.doorLock.stvorka_type === 6) {
+            points.forEach(function (point, index) {
+              if (point.type === "sash") {
+                if (point.id === "fp3") {
+                  point.x -= depths.sashDepth.b;
+                  point.y -= depths.sashDepth.b;
+                }
+                if (point.id === "fp4") {
+                  point.x += depths.sashDepth.b;
+                  point.y -= depths.sashDepth.b;
+                }
 
-          points.forEach(function (point, index) {
-            if (point.type === "sash") {
-              if (point.id === "fp3") {
-                point.x -= depths.sashDepth.b;
-                point.y -= depths.sashDepth.b;
-              }
-              if (point.id === "fp4") {
-                point.x += depths.sashDepth.b;
-                point.y -= depths.sashDepth.b;
-              }
+                if (point.id === "fp1") {
+                  point.x += depths.sashDepth.b;
+                  point.y += depths.sashDepth.b;
+                }
+                if (point.id === "fp2") {
+                  point.x -= depths.sashDepth.b;
+                  point.y += depths.sashDepth.b;
+                }
+                if (point.id === "sht1" && index === 0) {
+                  point.x -= depths.sashDepth.b;
+                  point.y -= depths.sashDepth.b;
+                }
 
-              if (point.id === "fp1") {
-                point.x += depths.sashDepth.b;
-                point.y += depths.sashDepth.b;
-              }
-              if (point.id === "fp2") {
-                point.x -= depths.sashDepth.b;
-                point.y += depths.sashDepth.b;
-              }
-              if (point.id === "sht1" && index === 0) {
-                point.x -= depths.sashDepth.b;
-                point.y -= depths.sashDepth.b;
-              }
+                if (point.id === "sht1" && index === 3) {
+                  point.x -= depths.sashDepth.b;
+                  point.y += depths.sashDepth.b;
+                }
 
-              if (point.id === "sht1" && index === 3) {
-                point.x -= depths.sashDepth.b;
-                point.y += depths.sashDepth.b;
-              }
+                if (point.id === "sht1" && index === 2) {
+                  point.x += depths.sashDepth.b;
+                  point.y += depths.sashDepth.b;
+                }
 
-              if (point.id === "sht1" && index === 2) {
-                point.x += depths.sashDepth.b;
-                point.y += depths.sashDepth.b;
+                if (point.id === "sht1" && index === 1) {
+                  point.x += depths.sashDepth.b;
+                  point.y -= depths.sashDepth.b;
+                }
               }
-
-              if (point.id === "sht1" && index === 1) {
-                point.x += depths.sashDepth.b;
-                point.y -= depths.sashDepth.b;
-              }
-            }
-          });
-
+            });
+          }
           var lines = [],
             pointsQty = points.length,
             line, index, i, last;
@@ -1071,7 +1071,7 @@
                 impost.push(angular.copy(ip));
               }
             }
-          } catch (err){
+          } catch (err) {
             console.log(err.message);
           }
         }
