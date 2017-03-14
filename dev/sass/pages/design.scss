@@ -808,10 +808,11 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .config-menu {
     background-color: #f7f8f8;
-    position :absolute;
-    top : 0;
-    right :0;
-    width : 30rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30rem;
+    padding-left : 0px;
   }
   .calculators-box.active {
     bottom: 9rem;
@@ -819,60 +820,107 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .config-buttons {
     width: 100%;
-    height: 13rem;
+    height: 9rem;
     display: inline-block;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.07);
+    background-color: white;
+    padding-top : .5rem;
 
   }
   .configuration-button {
-    width: 50%;
-    height: 13rem;
+    width: 33%;
+    height: 8rem;
     float: left;
     display: inline-block;
     text-align: center;
-    border-bottom: none;
-    background-color: #f7f8f8;
+    background-color: white;
+    border: none;
+    border-bottom: .5px solid $main_gray_btn;
     &.active {
-      background-color: rgba(0, 0, 0, 0.07);
-      border-bottom: 2px solid #b1b1b1;
+      background-color: #f7f8f8;
+      border : .5px solid $main_gray_btn;
+      border-bottom: none;
+      border-radius: 1rem 1rem 0rem 0rem;
     }
   }
 
   .img-configuration {
-    width: 100%;
-    height: 10rem;
-    background: url(../img/config-menu/conf.png) no-repeat;
+    width: 50%;
+    height: 5rem;
+    background: url(../img/config-menu/conf.svg) 50% 50% no-repeat;
     background-size: contain;
     background-position: center;
+    padding: 1rem;
+    display: inline-block;
+    &.active {
+      background: url(../img/config-menu/conf_active.svg) 50% 50% no-repeat;
+    }
   }
   .karkas-button {
-
-    width: 50%;
-    height: 13rem;
-    float: right;
+    width: 33%;
+    height: 8rem;
+    float: left;
     display: inline-block;
     text-align: center;
-    border-bottom: none;
-    background-color: #f7f8f8;
+    border: none;
+    border-bottom: .5px solid $main_gray_btn;
+    background-color: white;
     &.active {
-      background-color: rgba(0, 0, 0, 0.07);
-      border-bottom: 2px solid #b1b1b1;
+      background-color: #f7f8f8;
+      border : .5px solid $main_gray_btn;
+      border-bottom: none;
+      border-radius: 1rem 1rem 0rem 0rem;
     }
   }
   .img-karkas {
-    width: 100%;
-    height: 10rem;
-    background: url(../img/config-menu/karkas.png) no-repeat;
+    width: 50%;
+    height: 5rem;
+    background: url(../img/config-menu/karkas.svg) 50% 50% no-repeat;
     background-size: contain;
     background-position: center;
+    padding: 1rem;
+    display: inline-block;
+    &.active {
+      background: url(../img/config-menu/karkas_active.svg) 50% 50% no-repeat;
+    }
+  }
+  .cart-button {
+    width: 33%;
+    height: 8rem;
+    float: right;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    border-bottom: .5px solid $main_gray_btn;
+    background-color: white;
+    &.active {
+      background-color: #f7f8f8;
+      border : .5px solid $main_gray_btn;
+      border-bottom: none;
+      border-radius: 1rem 1rem 0rem 0rem;
+
+    }
+  }
+  .img-cart {
+    width: 50%;
+    height: 5rem;
+    background: url(../img/config-menu/cart.png) 50% 50% no-repeat;
+    background-size: contain;
+    background-position: center;
+    padding: 1rem;
+    display: inline-block;
+    &.active {
+      background: url(../img/config-menu/cart.png) 50% 50% no-repeat;
+    }
   }
   .configuration {
     height: 100%;
+    padding-left:2.75rem;
   }
   .karkas {
     position: relative;
     height: 100%;
+    padding-left:2rem;
   }
   .construction-left-menu {
     position: relative;
@@ -888,11 +936,11 @@ $door-config-content: $ipad-height - $door-config-header;
   .figure-item-block {
     position: relative;
     width: 13.5rem;
-    height: auto;
+    height: 5rem;
     border: none;
     left: 15rem;
     margin: 0 !important;
-    padding: 2.5rem;
+    padding: 0px;
     background-color: transparent;
     &.selected {
       background-color: transparent !important;
@@ -911,22 +959,28 @@ $door-config-content: $ipad-height - $door-config-header;
     width: 110%;
     display: inline-block;
     border-bottom: 1px solid #b1b1b1;
+    padding-top : 1.5rem;
+    padding-bottom : .5rem;
     &.selected {
       background-color: rgba(0, 0, 0, 0.07);
-      margin-left: -2.75rem !important;
-      padding-left: 2.75rem !important;
+      margin-left: -2rem;
+      padding-left: 2rem;
     }
   }
+
   .figure-item:hover {
-    margin-left: -2.75rem !important;
-    padding-left: 2.75rem !important;
     background-color: rgba(0, 0, 0, 0.07);
+    margin-left: -2rem;
+    padding-left: 2rem;
+    .figure-icon {
+      color: #fff;
+    }
   }
   .figure-label {
     width: 50%;
     margin: 0 !important;
     position: relative;
-    top: -6rem;
+    top: -3rem;
     left: 5rem;
   }
   .edit_submenu {
@@ -947,7 +1001,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   #sash-shape-menu {
-    top: 15.5rem;
+    top: 10.5rem;
     &.active {
       left: -28rem;
     }
@@ -958,24 +1012,24 @@ $door-config-content: $ipad-height - $door-config-header;
   .sash-left-up {
     left: 6rem;
   }
-  .sash-up,  .sash-right,.sash-down  {
+  .sash-up, .sash-right, .sash-down {
     left: 1.2rem;
   }
 
   #angel-shape-menu {
-    top: 28rem;
+    top: 19rem;
     &.active {
       left: -20rem;
     }
   }
   #arc-shape-menu {
-    top: 40rem;
+    top: 28rem;
     &.active {
       left: -16rem;
     }
   }
   #position-menu-for-position {
-    top: 53.5rem;
+    top: 37rem;
     &.active {
       left: -29rem;
     }
@@ -983,8 +1037,18 @@ $door-config-content: $ipad-height - $door-config-header;
   .active_svg, .frame-active, .glass-active, .corner_mark {
     fill: #7d8efb !important;
   }
-  .menu-footer{
-    border-top : 1px solid #b1b1b1;
+  .menu-footer {
+    border-top: 1px solid #b1b1b1;
     padding-top: 1rem;
+  }
+  .figure-icon-top{
+    @include font-icon(rem(88px), 1);
+    color: $main_green;
+  }
+  .figure-icon-bottom{
+    @include font-icon(rem(88px), 1);
+    position : relative;
+    top : -5.5rem;
+    left :0;
   }
 }

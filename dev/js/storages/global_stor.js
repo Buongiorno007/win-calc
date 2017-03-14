@@ -20,6 +20,7 @@
           globalSource: {
             showConfiguration : 1,
             showKarkas : 0,
+            showCart : 0,
             isLightVersion: 0,
             ISEXT: ISEXTFLAG,
             onlineMode: 0,
