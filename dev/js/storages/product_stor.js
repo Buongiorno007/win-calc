@@ -96,12 +96,12 @@
       setDefaultProduct: setDefaultProduct
     };
 
-    var data = localStorage.getItem("ProductStor");
-    if (data){
-      thisFactory.publicObj.product = JSON.parse(data);
-    } else {
+    // var data = localStorage.getItem("ProductStor");
+    // if (data){
+    //   thisFactory.publicObj.product = JSON.parse(data);
+    // } else {
+    // }
       thisFactory.publicObj.product = setDefaultProduct();
-    }
 
     return thisFactory.publicObj;
 

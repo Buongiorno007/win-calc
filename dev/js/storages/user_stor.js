@@ -36,12 +36,12 @@
       setDefaultUser: setDefaultUser
     };
 
-    var data = localStorage.getItem("UserStor");
-    if (data){
-      thisFactory.publicObj.userInfo = JSON.parse(data);
-    } else {
+    // var data = localStorage.getItem("UserStor");
+    // if (data){
+    //   thisFactory.publicObj.userInfo = JSON.parse(data);
+    // } else {
+    // }
       thisFactory.publicObj.userInfo = setDefaultUser();
-    }
     return thisFactory.publicObj;
 
   });
