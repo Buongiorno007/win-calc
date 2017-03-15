@@ -18,6 +18,7 @@
         thisFactory.publicObj = {
 
           globalSource: {
+            product_qty: 1,
             showConfiguration : 1,
             showKarkas : 0,
             showCart : 0,

@@ -2,13 +2,15 @@
   .config-buttons
     .karkas-button(ng-click="configMenu.G.global.showKarkas=1;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
       .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
-      p Каркас
+      p КАРКАС
     .configuration-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=1;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
       .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
-      p Конфиг.
+      p КОНФИГ.
     .cart-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=1", ng-class="{'active': configMenu.G.global.showCart == 1}")
-      .img-cart
-      p Корзина
+      .order-qty(ng-class="{'active': configMenu.G.global.showCart == 1}")
+        p {{ configMenu.O.order.products.length }}
+      .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
+      p КОРЗИНА
   .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
     .construction-left-menu
       ul.figure-lists
@@ -117,15 +119,10 @@
               span.value(data-output="") {{ addElement.name }}
 
 
-  footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
-    button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.CONFIGMENU_IN_CART }}
-      .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
-    button.cart-btn(ng-if="configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.SAVE }}
-
-  //.product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-  //  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
-  //.product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-  //  div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
+  .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+    div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
+  .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+    div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
   ////  div
 
 
