@@ -12,10 +12,10 @@ $door-config-content: $ipad-height - $door-config-header;
   border-radius: 1rem;
   text-align: center;
 }
+
 .construction-container {
   position: relative;
 }
-
 
 // General Menu Properties
 
@@ -44,7 +44,7 @@ $door-config-content: $ipad-height - $door-config-header;
 .construction-left-menu {
   @extend .construction-menu;
   @include top_left_coord(0px, 0px);
-
+  height: auto;
   .figure-lists {
     width: rem(220px);
     list-style: none;
@@ -79,7 +79,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
     &.hov:hover {
       background-color: $main_green;
-        .figure-icon {
+      .figure-icon {
         color: #fff;
       }
     }
@@ -123,7 +123,7 @@ $door-config-content: $ipad-height - $door-config-header;
     &:after {
       content: $impost-shape-icon-a;
     }
-  }  
+  }
   .impost-shape-b {
     position: absolute;
     top: 20px;
@@ -190,8 +190,6 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 }
 
-
-
 // Construction Edit menu
 
 .edit_submenu {
@@ -215,21 +213,27 @@ $door-config-content: $ipad-height - $door-config-header;
 #impost-shape-menu {
   top: 3rem;
 }
+
 #sash-shape-menu {
   top: 17rem;
 }
+
 #angel-shape-menu {
   top: 31rem;
 }
+
 #arc-shape-menu {
   top: 44rem;
 }
+
 #position-menu {
   top: 58rem;
 }
+
 #position-menu-for-position {
   top: 58rem;
 }
+
 .constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
   position: relative;
@@ -270,9 +274,11 @@ $door-config-content: $ipad-height - $door-config-header;
 .clean:after {
   content: $sash-empty-icon;
 }
+
 .sash-left:after {
   content: $sash-left-icon;
 }
+
 .sash-right {
   left: $submenu_left1;
   &:after {
@@ -282,6 +288,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .sash-up {
   left: $submenu_left1;
   &:after {
@@ -291,6 +298,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top2;
   }
 }
+
 .sash-down {
   left: $submenu_left1;
   &:after {
@@ -300,9 +308,11 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top3;
   }
 }
+
 .sash-right-up:after {
   content: $sash-right-up-icon;
 }
+
 .sash-left-up {
   left: $submenu_left2;
   &:after {
@@ -316,6 +326,7 @@ $door-config-content: $ipad-height - $door-config-header;
 .sash-shtulp-left:after {
   content: $sash-shtulp-left-icon;
 }
+
 .sash-shtulp-left-door:after {
   content: $sash-shtulp-left-icon-door;
 }
@@ -329,7 +340,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
   &.left {
-  left: 10.6rem;
+    left: 10.6rem;
   }
 }
 
@@ -342,9 +353,10 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
   &.left {
-  left: 10.6rem;
+    left: 10.6rem;
   }
 }
+
 //----- in Door case
 .door-sash {
   .sash-right {
@@ -364,18 +376,19 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 }
 
-
-
 .impost-vert:after {
   content: $impost-vert-icon;
 }
+
 .impost-hor:after {
   content: $impost-hor-icon;
 }
+
 .impost-inc-hor:after {
   content: $impost-inc-hor-icon;
 }
-.impost-inc-vert{
+
+.impost-inc-vert {
   left: $submenu_left2;
   &:after {
     content: $impost-inc-vert-icon;
@@ -384,6 +397,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .impost-inc-hor2 {
   left: $submenu_left2;
   &:after {
@@ -393,7 +407,8 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top2;
   }
 }
-.impost-inc-vert2{
+
+.impost-inc-vert2 {
   left: $submenu_left2;
   &:after {
     content: $impost-inc-vert2-icon;
@@ -402,9 +417,11 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top3;
   }
 }
+
 .impost-curv-right:after {
   content: $impost-curv-right-icon;
 }
+
 .impost-curv-left {
   left: $submenu_left3;
   &:after {
@@ -414,6 +431,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .impost-curv-up {
   left: $submenu_left3;
   &:after {
@@ -423,6 +441,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top2;
   }
 }
+
 .impost-curv-down {
   left: $submenu_left3;
   &:after {
@@ -432,9 +451,11 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top3;
   }
 }
+
 .impost-curv1:after {
   content: $impost-curv1-icon;
 }
+
 .impost-curv3 {
   left: $submenu_left4;
   &:after {
@@ -444,35 +465,45 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .impost-curv4:after {
   content: $impost-curv4-icon;
 }
+
 .impost-curv2:after {
   content: $impost-curv2-icon;
 }
+
 .arc:after {
   content: $arc-icon;
 }
+
 .corner:after {
   content: $corner-icon;
 }
+
 .corner-curv:after {
   content: $corner-curv-icon;
 }
+
 .mirror:after {
   content: $mirror;
 }
+
 .position-axis:after {
   content: $position-axis;
 }
+
 .position-glass:after {
   content: $position-glass;
 }
+
 // Construction SVG
 
 .construction-block {
   text-align: center;
 }
+
 .construction-scrollbox {
   width: 100%;
   height: 100%;
@@ -481,8 +512,6 @@ $door-config-content: $ipad-height - $door-config-header;
   overflow: auto;
 }
 
-
-
 // Construction Right Menu
 
 .right-menu-header {
@@ -490,11 +519,13 @@ $door-config-content: $ipad-height - $door-config-header;
   right: 0;
   top: 3%;
 }
+
 .nav-tool-box {
   float: left;
   width: 8rem;
   text-align: center;
 }
+
 .construct-tools {
   @extend .cross-btn;
   @extend .splash;
@@ -506,14 +537,16 @@ $door-config-content: $ipad-height - $door-config-header;
     left: 25%;
   }
 }
+
 .save-construction {
   @include font-icon(rem(28px), 1.5);
 
   background-color: $main_green;
-  &:after{
+  &:after {
     content: $select-history-icon;
   }
 }
+
 .close-construction {
   @include font-icon(rem(40px), 1);
   background-color: $main_gray_btn;
@@ -526,14 +559,17 @@ $door-config-content: $ipad-height - $door-config-header;
     content: $step-back;
   }
 }
+
 .nav-tool-label {
   @extend .construction-descrip;
 }
+
 .right-menu-footer {
   position: absolute;
   right: 0;
   width: 32rem;
 }
+
 .door-config-menu {
   position: absolute;
   top: 25%;
@@ -541,6 +577,7 @@ $door-config-content: $ipad-height - $door-config-header;
   width: rem(300px);
   text-align: right;
 }
+
 .door-config-btn {
   @extend .button;
   @extend .splash;
@@ -560,15 +597,15 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
 }
+
 .door-config-label {
   @extend .construction-label;
   margin-bottom: rem(30px);
 }
+
 .door-config-description {
   @extend .construction-descrip;
 }
-
-
 
 // Door Configuration Panel
 
@@ -617,7 +654,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .door-config-backfon {
-    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
+    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
     @include top_left_coord(0px, 0px);
 
     width: rem(452px);
@@ -730,17 +767,470 @@ $door-config-content: $ipad-height - $door-config-header;
     width: rem(160px);
   }
 }
+
 //* *//
-  .template-elem{
-    @include roboto-rg(1.9rem);
-    width: 100%;
-    position: absolute;
-    top: 81%;
-    margin-top:2rem;
-  }
-.clicked{
-  color:blue;
-  text-decoration:underline;
+.template-elem {
+  @include roboto-rg(1.9rem);
+  width: 100%;
+  position: absolute;
+  top: 81%;
+  margin-top: 2rem;
+}
+
+.clicked {
+  color: blue;
+  text-decoration: underline;
   cursor: pointer;
 
+}
+
+.light-v { //*!!!!!!!!!!!!!!!!!!!!!!*//
+  background: url(../img/millim.png);
+  background-size: cover;
+  #tamlateSVG {
+    position: relative;
+    left: -10rem;
+    top: -5rem;
+  }
+  &.active {
+    background: #f7f8f8;
+  }
+  .construction-page {
+    position: relative;
+    top: 2rem;
+    &.active {
+      visibility: hidden;
+      .light-v {
+        background: none;
+      }
+    }
+  }
+  .nav-menu-btn:before {
+    color: black;
+  }
+  .user-info-container {
+    position: relative;
+    left: 5rem;
+  }
+  .nav-menu {
+    height: 768px;
+  }
+  .right-menu {
+    position: relative;
+    height: 766px;
+  }
+  .config-menu {
+    background-color: #f7f8f8;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32rem;
+    padding-left: 0px;
+  }
+  .config-panel {
+    &.active {
+      top: -6rem;
+      left: 0rem;
+      overflow: hidden;
+    }
+  }
+  .calculators-box.active {
+    bottom: 9rem;
+    z-index: 14;
+  }
+  .config-buttons {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    text-align: center;
+    background-color: white;
+    padding-top: .5rem;
+
+    p {
+      @include roboto-lt(rem(20px));
+      color: $main_gray_txt;
+      margin: 0;
+    }
+
+  }
+  .configuration-button {
+    width: 33.3%;
+    height: 10rem;
+    float: left;
+    display: inline-block;
+    text-align: center;
+    background-color: white;
+    border: none;
+    border-bottom: .5px solid $main_gray_btn;
+    &.active {
+      background-color: #f7f8f8;
+      border: .5px solid $main_gray_btn;
+      border-bottom: none;
+      border-radius: 1rem 1rem 0rem 0rem;
+    }
+  }
+
+  .img-configuration {
+    width: 3rem;
+    height: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    background: url(../img/config-menu/conf.svg) 50% 50% no-repeat;
+    background-size: contain;
+    background-position: center;
+    padding: 1rem;
+    display: inline-block;
+    &.active {
+      background: url(../img/config-menu/conf_active.svg) 50% 50% no-repeat;
+    }
+  }
+  .karkas-button {
+    width: 33.3%;
+    height: 10rem;
+    float: left;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    border-bottom: .5px solid $main_gray_btn;
+    background-color: white;
+    &.active {
+      background-color: #f7f8f8;
+      border: .5px solid $main_gray_btn;
+      border-bottom: none;
+      border-radius: 1rem 1rem 0rem 0rem;
+    }
+  }
+  .img-karkas {
+    width: 3rem;
+    height: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    background: url(../img/config-menu/karkas.svg) 50% 50% no-repeat;
+    background-size: contain;
+    background-position: center;
+    padding: 1rem;
+    display: inline-block;
+    color: $main_gray_btn;
+    &.active {
+      background: url(../img/config-menu/karkas_active.svg) 50% 50% no-repeat;
+    }
+  }
+  .cart-button {
+    width: 33.3%;
+    height: 10rem;
+    float: right;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    border-bottom: .5px solid $main_gray_btn;
+    background-color: white;
+    &.active {
+      background-color: #f7f8f8;
+      border: .5px solid $main_gray_btn;
+      border-bottom: none;
+      border-radius: 1rem 1rem 0rem 0rem;
+
+    }
+  }
+  .img-cart {
+    width: 4.5rem;
+    height: 4.5rem;
+    background: url(../img/config-menu/cart-gray.png) 50% 50% no-repeat;
+    background-size: contain;
+    background-position: center;
+    padding: 1rem;
+    margin-top: 2rem;
+
+    display: inline-block;
+
+    &.active {
+      width: 4.5rem;
+      height: 4.5rem;
+      background: url(../img/config-menu/cart-green.png) 50% 50% no-repeat;
+      background-size: contain;
+      background-position: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      display: inline-block;
+    }
+  }
+  .configuration {
+    height: 100%;
+    padding-left: 2.75rem;
+  }
+  .karkas {
+    position: relative;
+    top: 2rem;
+    height: 100%;
+    padding-left: 2rem;
+  }
+  .construction-left-menu {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    background-color: #f7f8f8;
+    width: 100%;
+  }
+  .figure-lists {
+    width: 100%;
+    background-color: #f7f8f8;
+  }
+  .figure-item-block {
+    position: relative;
+    width: 13.5rem;
+    height: 5rem;
+    border: none;
+    left: -3rem;
+    margin: 0 !important;
+    padding: 0px;
+    background-color: transparent;
+    &.selected {
+      background-color: transparent !important;
+    }
+
+  }
+  .figure-item-block:hover {
+    background-color: transparent !important;
+
+  }
+  .figure-icon:hover {
+    color: #000;
+  }
+  .figure-item {
+    height: auto;
+    width: 110%;
+    display: inline-block;
+    border-bottom: 1px solid #b1b1b1;
+    padding-top: 1rem;
+    padding-bottom: .2rem;
+    &.selected {
+      background-color: rgba(0, 0, 0, 0.07);
+      margin-left: -2rem;
+      padding-left: 2rem;
+    }
+  }
+
+  .figure-item:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+    margin-left: -2rem;
+    padding-left: 2rem;
+    .figure-icon {
+      color: #fff;
+    }
+  }
+  .figure-label {
+    @include roboto-bd(rem(30px), rem(24px));
+    color: $main_orange;
+    width: auto;
+    margin: 0 !important;
+    position: relative;
+    top: -3rem;
+    left: 8rem;
+  }
+  .edit_submenu {
+    @include transition(all 0.3s linear);
+    @include roboto-lt(rem(36px), rem(65px));
+    @include display-flex();
+    position: absolute;
+    left: 30rem;
+    padding: 0 rem(20px);
+    border-radius: rem(16px);
+    background-color: #242424;
+    color: #fff;
+    cursor: pointer;
+    z-index: 5;
+    &.active {
+      left: -30rem;
+
+    }
+  }
+  #impost-shape-menu {
+    top: 1rem;
+  }
+  #sash-shape-menu {
+    top: 9.5rem;
+    &.active {
+      left: -28rem;
+    }
+  }
+  .sash-shtulp-right {
+    left: 10.5rem;
+  }
+  .sash-left-up {
+    left: 6rem;
+  }
+  .sash-up, .sash-right, .sash-down {
+    left: 1.2rem;
+  }
+
+  #angel-shape-menu {
+    top: 17.5rem;
+    &.active {
+      left: -20rem;
+    }
+  }
+  #arc-shape-menu {
+    top: 25rem;
+    &.active {
+      left: -16rem;
+    }
+  }
+  #position-menu-for-position {
+    top: 34rem;
+    &.active {
+      left: -29rem;
+    }
+  }
+  .active_svg, .frame-active, .glass-active, .corner_mark {
+    fill: #7d8efb !important;
+  }
+  .menu-footer {
+    border-top: 1px solid #b1b1b1;
+    padding-top: 1rem;
+  }
+  .figure-icon-top {
+    @include font-icon(rem(88px), 1);
+    color: $main_green;
+  }
+  .figure-icon-bottom {
+    @include font-icon(rem(88px), 1);
+    position: relative;
+    top: -5.5rem;
+    left: 0;
+  }
+  .product-u-coeff {
+    font-size: 3rem !important;
+    position: relative;
+    top: 90rem !important;
+  }
+  .size-line {
+    stroke-width: 1.2px !important;
+    stroke: $main_orange !important;
+  }
+  .size-rect {
+    width: 160px;
+    height: 70px;
+    stroke: $main_orange;
+    stroke-width: 0px;
+    fill-opacity: 0;
+    cursor: pointer;
+    &.active {
+      fill: $main_orange;
+      fill-opacity: 1;
+    }
+  }
+  .size-txt {
+    font-size: rem(90px);
+    stroke: #000;
+    stroke-width: 1px;
+    text-anchor: middle;
+    alignment-baseline: middle;
+    cursor: pointer;
+  }
+  .size-txt-edit {
+    @extend .size-txt;
+    stroke: $main_orange;
+    fill: $main_orange;
+
+    &.active {
+      stroke: #fff;
+      fill: #fff;
+    }
+  }
+  .order-qty {
+    @extend .splash;
+    position: absolute;
+    top: 2rem;
+    right: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: #f98000;
+    p {
+      @include roboto-lt(rem(36px), rem(60px));
+      color: white;
+      position: relative;
+      top: -.4rem;
+    }
+  }
+  .configur-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 86rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(#fff, .9);
+    z-index: 12;
+    &.active {
+      top: 70rem;
+      height: 21rem;
+      overflow: hidden;
+    }
+  }
+  .counter-block {
+    width : 12rem;
+    position: relative;
+    top: -22rem;
+    left: 48rem;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input {
+    @include roboto-lt(rem(36px), rem(60px));
+    text-align: center;
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid #b1b1b1;
+  }
+  .input-minus,.input-plus {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    top : 1rem;
+  }
+  .input-minus{
+    float : left;
+    width: 2rem;
+    height: 2rem;
+    float : left;
+    background: url(../img/config-menu/minus.png);
+    background-size: contain;
+  }
+  .input-plus{
+    width: 2rem;
+    height: 2rem;
+    float : right;
+    background: url(../img/config-menu/plus.png);
+    background-size: contain;
+  }
+  .save-block{
+    width: 20rem;
+    height: 5rem;
+    background: $main_orange;
+    border-radius: 1.5rem;
+
+  }
+  .cart-img{
+    float : left;
+    position : relative;
+    top : .5rem;
+    left : .5rem;
+    width: 4rem;
+    height: 4rem;
+    float : left;
+    background: url(../img/config-menu/cart-white.png) no-repeat;
+    background-size: contain;
+
+  }
+  .cart-btn{
+    position:  relative;
+    top : .6rem;
+    @include roboto-lt(rem(36px), rem(60px));
+    color: white;
+  }
 }

@@ -105,6 +105,8 @@
     "NAVMENU_CALCULATIONS": "Die Berechnungen",
     "NAVMENU_APPENDIX": "Anwendung",
     "NAVMENU_NEW_CALC": "+Neue Berechnungs",
+    "NAVMENU_LIGHT_VER": "Abgespeckte Version",
+    "NAVMENU_STANDART_VERSION": "Standard Version",
     "CONFIGMENU_CONFIGURATION": "Die Konfiguration und die Umfänge",
     "CONFIGMENU_SIZING": "Die Breite * die Höhe",
     "CONFIGMENU_PROFILE": "Profil",

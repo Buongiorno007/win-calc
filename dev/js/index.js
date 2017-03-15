@@ -14,7 +14,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   window.onload = function () {
     if (!isDevice) {
 
-      location.hash = "#/";
+      //location.hash = "#/";
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
         height = $(obj).height();
@@ -96,6 +96,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     'DesignModule',
     'CartModule',
     'HistoryModule',
+    'LightModule',
     'SettingsModule'
   ]).config(/*@ngInject*/ configurationApp);
 
@@ -112,6 +113,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('HistoryModule', []);
   angular
     .module('SettingsModule', []);
+  angular
+    .module('LightModule', []);
 
 
   function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider, $compileProvider) {
@@ -127,6 +130,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl as loginPage',
         title: 'Login'
+        //title: 'light'
       })
       .when('/main', {
         templateUrl: 'views/main.html',
@@ -167,6 +171,11 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         templateUrl: 'views/design.html',
         controller: 'DesignCtrl as designPage',
         title: 'Design'
+      })
+      .when('/light', {
+        templateUrl: 'views/light.html',
+        controller: 'LightCtrl as lightPage',
+        title: 'Light Version'
       })
       .otherwise({
         redirectTo: '/main'

@@ -1,189 +1,189 @@
-(function(){
+(function () {
   'use strict';
-    /**@ngInject*/
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('GlobalStor',
 
 
-  function() {
-    /*jshint validthis:true */
-    var thisFactory = this;
+      function () {
+        /*jshint validthis:true */
+        var thisFactory = this;
 
 
-    function setDefaultGlobal() {
-      return angular.copy(thisFactory.publicObj.globalSource);
-    }
+        function setDefaultGlobal() {
+          return angular.copy(thisFactory.publicObj.globalSource);
+        }
 
-    thisFactory.publicObj = {
+        thisFactory.publicObj = {
 
-      globalSource: {
-        ISEXT : ISEXTFLAG,
-        onlineMode : 0,
-        hintTimer :0,
-        analitics_storage : [],
-        showReport : 0,
-        showCoefInfoBlock : 0,
-        loadDate : 0,
-        showCurrentTemp : 0,
-        getPCPower: 0,
-        isDevice: 0,
-        continued: 0,
-        checkAlert: 0,
-        loader: 0,
-        setTimeout: 0,
-        isLoader: 0,
-        isLoader2: 0,
-        isLoader3: 0,
-        inform: [],
-        checkSashInTemplate: 0,
-        dangerAlert: 0,
-        gotoSettingsPage: 0,
-        startProgramm: 1, // for START
-        //------ navigation
-        isNavMenu: 1,
-        isConfigMenu: 0,
-        activePanel: 0,
-        configMenuTips: 0,
-        //isTemplateItemMenu: 0,
-        //isTemplateItemDesign: 1,
+          globalSource: {
+            product_qty: 1,
+            showConfiguration : 1,
+            showKarkas : 0,
+            showCart : 0,
+            isLightVersion: 0,
+            ISEXT: ISEXTFLAG,
+            onlineMode: 0,
+            hintTimer: 0,
+            analitics_storage: [],
+            showReport: 0,
+            showCoefInfoBlock: 0,
+            loadDate: 0,
+            showCurrentTemp: 0,
+            getPCPower: 0,
+            isDevice: 0,
+            continued: 0,
+            checkAlert: 0,
+            loader: 0,
+            setTimeout: 0,
+            isLoader: 0,
+            isLoader2: 0,
+            isLoader3: 0,
+            inform: [],
+            checkSashInTemplate: 0,
+            dangerAlert: 0,
+            gotoSettingsPage: 0,
+            startProgramm: 1, // for START
+            //------ navigation
+            isNavMenu: 1,
+            isConfigMenu: 0,
+            activePanel: 0,
+            configMenuTips: 0,
+            //isTemplateItemMenu: 0,
+            //isTemplateItemDesign: 1,
 
-        isCreatedNewProject: 1,
-        copyGlabalStorGlassesAll: [],
-        
-        isCreatedNewProduct: 1,
-        productEditNumber: 0,
-        orderEditNumber: 0,
+            isCreatedNewProject: 1,
+            copyGlabalStorGlassesAll: [],
 
-        prevOpenPage: '',
-        currOpenPage: 'main',
+            isCreatedNewProduct: 1,
+            productEditNumber: 0,
+            orderEditNumber: 0,
 
-        isChangedTemplate: 0,
-        isVoiceHelper: 0,
-        voiceHelperLanguage: '',
-        showGlassSelectorDialog: 0,
-        isShowCommentBlock: 0,
-        isTemplateTypeMenu: 0,
-        createHandle: [],
-        heightTEMP: [],
-        widthTEMP: [],
+            prevOpenPage: '',
+            currOpenPage: 'main',
 
-        //------ Rooms background
-        showRoomSelectorDialog: 0,
-        rooms: [],
-        isRoomElements: 0,
+            isChangedTemplate: 0,
+            isVoiceHelper: 0,
+            voiceHelperLanguage: '',
+            showGlassSelectorDialog: 0,
+            isShowCommentBlock: 0,
+            isTemplateTypeMenu: 0,
+            createHandle: [],
+            heightTEMP: [],
+            widthTEMP: [],
 
-        //------- Templates
-        imgLink: '',
-        selectRoom: 0,
-        background: 0,
-        heightCheck: 0,
-        widthCheck: 0,
-        templateLabel: '',
-        templatesSource: [],
-        templatesSourceSTORE: [],
-        //TODO templateIcons: [],
-        isSashesInTemplate: 0,
-        templateIndex: -1,
-        templatesType: 1,
+            //------ Rooms background
+            showRoomSelectorDialog: 0,
+            rooms: [],
+            isRoomElements: 0,
 
-        //------ Profiles
-        profiles: [],
-        profilesType: [],
+            //------- Templates
+            imgLink: '',
+            selectRoom: 0,
+            background: 0,
+            heightCheck: 0,
+            widthCheck: 0,
+            templateLabel: '',
+            templatesSource: [],
+            templatesSourceSTORE: [],
+            //TODO templateIcons: [],
+            isSashesInTemplate: 0,
+            templateIndex: -1,
+            templatesType: 1,
 
-        //------- Glasses
-        glassesAll: [],
-        glassTypes: [],
-        glasses: [],
-        selectGlassId: 0,
-        selectGlassName: '',
-        prevGlassId: 0,
-        prevGlassName: '',
+            //------ Profiles
+            profiles: [],
+            profilesType: [],
 
-        //------ Hardwares
-        hardwares: [],
-        hardwareTypes: [],
-        hardwareLimits: [],
+            //------- Glasses
+            glassesAll: [],
+            glassTypes: [],
+            glasses: [],
+            selectGlassId: 0,
+            selectGlassName: '',
+            prevGlassId: 0,
+            prevGlassName: '',
 
-        //------ Lamination
-        laminats: [],
-        laminatCouples: [],
-        lamGroupFiltered: [],
+            //------ Hardwares
+            hardwares: [],
+            hardwareTypes: [],
+            hardwareLimits: [],
 
-        //------ Add Elements
-        typeMenu: 5555,
-        typeMenuID: 5555,
-        addElementsAll: [],
-        tempAddElements: [],
+            //------ Lamination
+            laminats: [],
+            laminatCouples: [],
+            lamGroupFiltered: [],
 
-        //-------- Door
-        noDoorExist: 0,
-        checkDoors: 0,
-        doorKitsT1: [],
-        doorKitsT2: [],
-        type_door: 0,
-        doorHandlers: [],
-        doorLocks: [],
-        doorsGroups: [],
-        doorsLaminations: [],
+            //------ Add Elements
+            typeMenu: 5555,
+            typeMenuID: 5555,
+            addElementsAll: [],
+            tempAddElements: [],
 
-        //------ Cart
-        supplyData: [],
-        assemblingData: [],
-        instalmentsData: [],
+            //-------- Door
+            noDoorExist: 0,
+            checkDoors: 0,
+            doorKitsT1: [],
+            doorKitsT2: [],
+            type_door: 0,
+            doorHandlers: [],
+            doorLocks: [],
+            doorsGroups: [],
+            doorsLaminations: [],
 
-        //------ Info
-        isInfoBox: 0,
-        infoTitle: '',
-        infoImg: '',
-        infoLink: '', 
-        infoDescrip: '',
+            //------ Cart
+            supplyData: [],
+            assemblingData: [],
+            instalmentsData: [],
 
-        //---- report
-        isReport: 0,
+            //------ Info
+            isInfoBox: 0,
+            infoTitle: '',
+            infoImg: '',
+            infoLink: '',
+            infoDescrip: '',
 
-        currencies: [],
-        locations: {
-          countries: [],
-          regions: [],
-          cities: [],
-          areas: []
-        },
-        margins: {},
-        deliveryCoeff: {},
+            //---- report
+            isReport: 0,
 
-        //----- Alert
-        isAlert: 0,
-        isAlertInfo: 0,
-        isSyncAlert :0,
-        alertTitle: '',
-        alertDescr: '',
-        isBox: 0,
-        isAlertHistory: 0,
-        isEditBox: 0,
-        confirmAction: 0,
-        confirmInActivity: 0,
+            currencies: [],
+            locations: {
+              countries: [],
+              regions: [],
+              cities: [],
+              areas: []
+            },
+            margins: {},
+            deliveryCoeff: {},
 
-        //---- Calculators
-        isQtyCalculator: 0,
-        isSizeCalculator: 0,
-        isWidthCalculator: 0,
-        maxSizeLimit: 3200,
-        maxSquareLimit: 6,
-        changeLocation: 1
-      },
+            //----- Alert
+            isAlert: 0,
+            isAlertInfo: 0,
+            isSyncAlert: 0,
+            alertTitle: '',
+            alertDescr: '',
+            isBox: 0,
+            isAlertHistory: 0,
+            isEditBox: 0,
+            confirmAction: 0,
+            confirmInActivity: 0,
 
-      setDefaultGlobal: setDefaultGlobal
-    };
+            //---- Calculators
+            isQtyCalculator: 0,
+            isSizeCalculator: 0,
+            isWidthCalculator: 0,
+            maxSizeLimit: 3200,
+            maxSquareLimit: 6,
+            changeLocation: 1
+          },
 
-    // var data = localStorage.getItem("GlobalStor");
-    // if (data){
-    //   thisFactory.publicObj.global = JSON.parse(data);
-    // } else {
-    // }
-      thisFactory.publicObj.global = setDefaultGlobal();
+          setDefaultGlobal: setDefaultGlobal
+        };
 
-    return thisFactory.publicObj;
 
-  });
+        thisFactory.publicObj.global = setDefaultGlobal();
+        return thisFactory.publicObj;
+
+      });
 })();

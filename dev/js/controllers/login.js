@@ -16,8 +16,8 @@
                 GlobalStor,
                 ProductStor,
                 AuxStor,
-                UserStor,
                 DesignStor,
+                UserStor,
                 SettingServ,
                 HistoryServ,
                 GeneralServ) {
@@ -168,6 +168,7 @@
             //
             // localStorage.setItem('AuxStor', JSON.stringify(AuxStor.aux));
             // localStorage.setItem('DesignStor', JSON.stringify(DesignStor.design));
+
 
           });
         }

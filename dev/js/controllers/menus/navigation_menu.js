@@ -13,7 +13,9 @@
     GeneralServ,
     NavMenuServ,
     GlobalStor,
+    DesignStor,
     OrderStor,
+    AuxStor,
     ProductStor,
     UserStor
   ) {
@@ -38,6 +40,8 @@
     thisCtrl.NAVMENU_MORE_INFO = $filter('translate')('mainpage.NAVMENU_MORE_INFO');
     thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
     thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
+    thisCtrl.NAVMENU_LIGHT_VER = $filter('translate')('mainpage.NAVMENU_LIGHT_VER');
+    thisCtrl.NAVMENU_STANDART_VERSION = $filter('translate')('mainpage.NAVMENU_STANDART_VERSION');
 
 
 
@@ -89,6 +93,25 @@
         case 9:
           NavMenuServ.switchVoiceHelper();
           break;
+        case 10: {
+          if (!GlobalStor.global.isLightVersion){
+            $location.path('/light');
+            GlobalStor.global.isLightVersion = 1;
+            /** !!!! **/
+            //localStorage.clear();
+            localStorage.setItem('GlobalStor', JSON.stringify(GlobalStor.global));
+            localStorage.setItem('ProductStor', JSON.stringify(ProductStor.product));
+            localStorage.setItem('UserStor', JSON.stringify(UserStor.userInfo));
+
+            localStorage.setItem('AuxStor', JSON.stringify(AuxStor.aux));
+            localStorage.setItem('DesignStor', JSON.stringify(DesignStor.design));
+          }
+          else {
+            $location.path('/main');
+            GlobalStor.global.isLightVersion = 0;
+          }
+          break;
+        }
       }
     }
 

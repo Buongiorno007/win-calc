@@ -1,0 +1,132 @@
+.config-menu(ng-controller="ConfigMenuCtrl as configMenu")
+  .config-buttons
+    .karkas-button(ng-click="configMenu.G.global.showKarkas=1;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+      .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+      p КАРКАС
+    .configuration-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=1;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+      .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+      p КОНФИГ.
+    .cart-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=1", ng-class="{'active': configMenu.G.global.showCart == 1}")
+      .order-qty(ng-class="{'active': configMenu.G.global.showCart == 1}")
+        p {{ configMenu.O.order.products.length }}
+      .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
+      p КОРЗИНА
+  .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
+    .construction-left-menu
+      ul.figure-lists
+        li.figure-item(ng-click="designPage.selectMenuItem(3)",ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
+            .figure-icon-top.impost-shape-a
+            .figure-icon-bottom.impost-shape-b
+          .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+        li.figure-item(ng-click="designPage.selectMenuItem(1)",ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
+            .figure-icon-top.sash-shape-a
+            .figure-icon-bottom.sash-shape-b
+          .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+        li.figure-item(ng-click="designPage.selectMenuItem(2)",ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}")
+            .figure-icon-top.angel-shape-a
+            .figure-icon-bottom.angel-shape-b
+          .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+        li.figure-item(ng-click="designPage.selectMenuItem(4)",ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
+            .figure-icon-top.arch-shape-a
+            .figure-icon-bottom.arch-shape-b
+          .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+        li.figure-item(ng-click="designPage.selectMenuItem(5)",ng-class="{'selected': designPage.D.design.activeMenuItem == 5, 'hov': designPage.D.design.activeMenuItem !== 5}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5, 'hov': designPage.D.design.activeMenuItem !== 5}")
+            .figure-icon-top.position-shape-a
+            .figure-icon-bottom.position-shape-b
+          .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+      #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
+        .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
+        .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
+        .constr-shape-icon.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(4)")
+        .drop-shape-icon.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(5)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+        .drop-shape-icon.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(6)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+        .drop-shape-icon.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+        .constr-shape-icon.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(8)")
+        .drop-shape-icon.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(9)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+        .drop-shape-icon.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(10)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+        .drop-shape-icon.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(11)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+        .constr-shape-icon.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(12)")
+        .drop-shape-icon.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(13)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
+        //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(14)")
+        //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(15)")
+        .constr-shape-icon.clean(ng-show="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(1)")
+
+      #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
+        .constr-shape-icon.sash-left(ng-click="designPage.insertSash(2)")
+        .drop-shape-icon.sash-right(ng-click="designPage.insertSash(3)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+        .drop-shape-icon.sash-up(ng-click="designPage.insertSash(4)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+        .drop-shape-icon.sash-down(ng-click="designPage.insertSash(5)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+        .constr-shape-icon.sash-right-up(ng-click="designPage.insertSash(6)", ng-hide="designPage.P.product.construction_type === 4")
+        .drop-shape-icon.sash-left-up(ng-click="designPage.insertSash(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}", ng-hide="designPage.P.product.construction_type === 4")
+        .constr-shape-icon(ng-click="designPage.insertSash(8)", ng-class="(designPage.P.product.construction_type === 4) ? 'sash-shtulp-left-door' : 'sash-shtulp-left'")
+        .drop-shape-icon.sash-shtulp-right(ng-click="designPage.insertSash(9)", ng-class="[ (designPage.P.product.construction_type === 4) ? 'sash-shtulp-right-door' : 'sash-shtulp-right' , {'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}]")
+        .constr-shape-icon.clean(ng-click="designPage.insertSash(1)")
+
+      #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
+        .constr-shape-icon.corner(ng-click="designPage.insertCorner(2)")
+        .constr-shape-icon.corner-curv(ng-click="designPage.insertCorner(3)")
+        .constr-shape-icon.clean(ng-click="designPage.insertCorner(1)")
+
+      #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}")
+        .constr-shape-icon.arc(ng-click="designPage.insertArc(2)")
+        .constr-shape-icon.clean(ng-click="designPage.insertArc(1)")
+
+      #position-menu-for-position.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
+        //- .constr-shape-icon.mirror(ng-click="designPage.initMirror()")
+        .constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
+        .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
+
+  .configuration( ng-if="configMenu.G.global.showConfiguration")
+    ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
+      li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
+        .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
+        .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
+
+      li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")
+        .title(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(ng-if="configMenu.P.product.glass.length > 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku +', '+ configMenu.P.product.glass[2].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+
+      li.item(ng-class="{'active': configMenu.G.global.activePanel == 4, 'hov': configMenu.G.global.activePanel !== 4}", fs-click="configMenu.selectConfigPanel(4)")
+        .title(data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.hardware.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorHandle.name }}
+        .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorLock.name }}
+
+      li.item(ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}", fs-click="configMenu.selectConfigPanel(5)")
+        .title(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .name(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .value(data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+
+      li.item(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", fs-click="configMenu.selectConfigPanel(6)")
+        .title(data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .name(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+        .additional-items-list
+          ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
+            li.additional-item(ng-repeat="addElement in addElementGroup")
+              span.value(data-output="") {{ addElement.name }}
+
+
+  .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+    div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
+  .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+    div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
+  ////  div
+
+
+  .curtain(ng-show="configMenu.P.product.is_addelem_only")
+
+  .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+    .close_menu_tooltip
