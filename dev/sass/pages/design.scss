@@ -1187,25 +1187,21 @@ $door-config-content: $ipad-height - $door-config-header;
     border: 1px solid #b1b1b1;
   }
   .input-minus,.input-plus {
+    color: $main_orange;
     position: relative;
-    width: 4rem;
-    height: 4rem;
-    top : 1rem;
+    width: 2rem;
+    height: 2rem;
+
   }
   .input-minus{
+    @include roboto-lt(8.25rem);
     float : left;
-    width: 2rem;
-    height: 2rem;
-    float : left;
-    background: url(../img/config-menu/minus.png);
-    background-size: contain;
+    top: -4.3rem;
   }
   .input-plus{
-    width: 2rem;
-    height: 2rem;
+    @include roboto-lt(rem(90px));
     float : right;
-    background: url(../img/config-menu/plus.png);
-    background-size: contain;
+    top: -2.5rem;
   }
   .save-block{
     position: relative;
