@@ -935,7 +935,7 @@ $door-config-content: $ipad-height - $door-config-header;
   .img-cart {
     width: 4.5rem;
     height: 4.5rem;
-    background: url(../img/config-menu/cart-gray.png) 50% 50% no-repeat;
+    background: url(../img/config-menu/cart-gray.png) no-repeat;
     background-size: contain;
     background-position: center;
     padding: 1rem;
@@ -946,7 +946,7 @@ $door-config-content: $ipad-height - $door-config-header;
     &.active {
       width: 4.5rem;
       height: 4.5rem;
-      background: url(../img/config-menu/cart-green.png) 50% 50% no-repeat;
+      background: url(../img/config-menu/cart-green.png) no-repeat;
       background-size: contain;
       background-position: center;
       padding: 1rem;
@@ -1172,7 +1172,7 @@ $door-config-content: $ipad-height - $door-config-header;
     width : 12rem;
     position: relative;
     top: -22rem;
-    left: 48rem;
+    left: 49.8rem;
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -1209,6 +1209,9 @@ $door-config-content: $ipad-height - $door-config-header;
     background-size: contain;
   }
   .save-block{
+    position: relative;
+    left: -4rem;
+    top :.5rem;
     width: 20rem;
     height: 5rem;
     background: $main_orange;
