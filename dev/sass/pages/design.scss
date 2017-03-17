@@ -835,7 +835,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .calculators-box.active {
-    bottom: 9rem;
+    bottom: 17rem;
     z-index: 14;
   }
   .config-buttons {
@@ -1137,7 +1137,7 @@ $door-config-content: $ipad-height - $door-config-header;
       fill: #fff;
     }
   }
-  .order-qty {
+  .order-qty-menu {
     @extend .splash;
     position: absolute;
     top: 2rem;
@@ -1169,7 +1169,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .counter-block {
-    width : 12rem;
+    width: 12rem;
     position: relative;
     top: -22rem;
     left: 48rem;
@@ -1187,50 +1187,141 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 4rem;
     border: 1px solid #b1b1b1;
   }
-  .input-minus,.input-plus {
+  .input-minus, .input-plus {
+    color: $main_orange;
     position: relative;
-    width: 4rem;
-    height: 4rem;
-    top : 1rem;
-  }
-  .input-minus{
-    float : left;
     width: 2rem;
     height: 2rem;
-    float : left;
-    background: url(../img/config-menu/minus.png);
-    background-size: contain;
+
   }
-  .input-plus{
-    width: 2rem;
-    height: 2rem;
-    float : right;
-    background: url(../img/config-menu/plus.png);
-    background-size: contain;
+  .input-minus {
+    @include roboto-lt(8.25rem);
+    float: left;
+    top: -4.3rem;
   }
-  .save-block{
+  .input-plus {
+    @include roboto-lt(rem(90px));
+    float: right;
+    top: -2.5rem;
+  }
+  .save-block {
+    position: relative;
+    left: -4rem;
+    top: .5rem;
     width: 20rem;
     height: 5rem;
     background: $main_orange;
     border-radius: 1.5rem;
 
   }
-  .cart-img{
-    float : left;
-    position : relative;
-    top : .5rem;
-    left : .5rem;
+  .cart-img {
+    float: left;
+    position: relative;
+    top: .5rem;
+    left: .5rem;
     width: 4rem;
     height: 4rem;
-    float : left;
     background: url(../img/config-menu/cart-white.png) no-repeat;
     background-size: contain;
 
   }
-  .cart-btn{
-    position:  relative;
-    top : .6rem;
+  .cart-btn {
+    position: relative;
+    top: .6rem;
     @include roboto-lt(rem(36px), rem(60px));
     color: white;
   }
+  .order-block {
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    position: relative;
+    min-height: 45%;
+    z-index: 4;
+    width : 100%;
+    overflow-x : auto;
+  }
+  .order {
+    top : 2rem;
+    width: rem(512px);
+    float: left;
+    border-bottom-right-radius: rem(20px);
+    border-bottom-left-radius: rem(20px);
+  }
+  .order-header {
+    height: rem(320px);
+  }
+  .order-header-fon {
+    width: rem(512px);
+    height: rem(320px);
+    cursor: pointer;
+  }
+  .order-template {
+    text-align: center;
+    position: relative;
+    top: rem(30px);
+  }
+
+  .close-cur-window {
+    @extend .small-cross-btn;
+
+    position: absolute;
+    top: rem(-20px);
+    right: rem(-20px);
+    background-color: #F98000;
+    z-index: 1;
+  }
+  .edit-cur-window {
+    @extend .small-cross-btn;
+    position: absolute;
+    right: 3rem;
+    z-index: 1;
+    top: -1.25rem;
+  }
+  .order-u-coeff {
+    @include roboto-lt(rem(42px));
+    position: relative;
+    color: $main_green;
+    text-align: center;
+    height:auto;
+    border-bottom: 1px solid $main_gray_btn;
+    &.coeff-low {
+      @extend .coeff-low;
+    }
+  }
+  .order-content {
+    padding: 0 rem(40px) 0 rem(50px);
+    background-color: #fff;
+  }
+  .order-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .order-qty {
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    height: rem(100px);
+  }
+  .qty-label {
+    max-width: rem(170px);
+  }
+  .scroll-hor-container {
+    width: 100%;
+    height: 100%;
+    padding-top: 2rem;
+    padding-left: 2rem;
+    position : relative;
+  }
+  .cart-page{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top : 2rem;
+  }
+  .door-configuration {
+    &.active {
+      top : -6rem;
+      left: 0rem;
+    }}
 }

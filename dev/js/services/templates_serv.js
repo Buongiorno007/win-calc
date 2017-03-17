@@ -96,6 +96,7 @@
 
     //---------- select new template and recalculate it price
      function selectNewTemplate(templateIndex, roomInd, whoCalled) {
+      console.log(templateIndex, roomInd, whoCalled);
       function goToNewTemplate() {
         MainServ.setDefaultDoorConfig();
         DesignServ.setDefaultConstruction();

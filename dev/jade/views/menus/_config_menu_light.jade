@@ -7,7 +7,7 @@
       .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
       p КОНФИГ.
     .cart-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=1", ng-class="{'active': configMenu.G.global.showCart == 1}")
-      .order-qty(ng-class="{'active': configMenu.G.global.showCart == 1}")
+      .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
         p {{ configMenu.O.order.products.length }}
       .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
       p КОРЗИНА

@@ -1384,6 +1384,7 @@
         /**------- set click to all Glass for Glass selector ---------- */
 
         function initAllGlassXGlass() {
+
           DesignStor.design.selectedGlass.length = 0;
           d3.selectAll('#' + globalConstants.SVG_ID_GLASS + ' .glass')
             .each(function () {
@@ -1438,9 +1439,7 @@
 
 
         /**------- set click to all Glass for Grid selector ---------- */
-
         function initAllGlassXGrid() {
-
           function test(blocks, blocksQty, parent) {
             if (parent || !parent === 'block_0') {
               var block = blocks.filter(function (item) {
