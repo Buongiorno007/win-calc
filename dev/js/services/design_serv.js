@@ -1350,6 +1350,7 @@
                     blockID = glass[0][0].attributes.block_id.nodeValue;
 
                   if (isGlass) {
+
                     glass.classed('glass-active', true);
                     hideCornerMarks();
                     deselectAllImpost();
@@ -1538,6 +1539,7 @@
                       isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
                       //========= select glass
                       if (isGlass) {
+
                         glass.classed('glass-active', true);
                       } else {
                         glass.classed('glass-active', false);

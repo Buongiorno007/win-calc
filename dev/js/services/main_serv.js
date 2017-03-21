@@ -205,6 +205,15 @@
             }
           });
           break;
+        default :
+          optionsServ.getTemplatesWindow(function (results) {
+            if (results.status) {
+              GlobalStor.global.templateLabel = $filter('translate')('panels.TEMPLATE_WINDOW');
+              deferred.resolve(results.data.windows);
+            } else {
+              console.log(results);
+            }
+          });
       }
       return deferred.promise;
     }
@@ -1402,7 +1411,8 @@
         GlobalStor.global.configMenuTips = 0;
         GlobalStor.global.isShowCommentBlock = 0;
         setDefaultAuxParam();
-
+        ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
+        console.log(ProductStor.product);
         /**============ EDIT Product =======*/
         if (GlobalStor.global.productEditNumber) {
           var productsQty = OrderStor.order.products.length;
@@ -1415,10 +1425,12 @@
 
           /**========== if New Product =========*/
         } else {
-    ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
+
+          ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
           //delete ProductStor.product.template;
           //-------- insert product in order
-          OrderStor.order.products.push(ProductStor.product);
+          //OrderStor.order.products.push(ProductStor.product);
+          OrderStor.order.products.push(angular.copy(ProductStor.product));
         }
         //----- finish working with product
         GlobalStor.global.isCreatedNewProduct = 0;

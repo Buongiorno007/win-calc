@@ -1324,4 +1324,9 @@ $door-config-content: $ipad-height - $door-config-header;
       top : -6rem;
       left: 0rem;
     }}
+  .right-menu-header {
+    position: absolute;
+    right: 4rem;
+    top: -3.5rem;
+  }
 }

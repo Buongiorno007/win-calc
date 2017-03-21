@@ -3,7 +3,7 @@
     .karkas-button(ng-click="configMenu.G.global.showKarkas=1;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
       .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
       p КАРКАС
-    .configuration-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=1;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+    .configuration-button(ng-click="configMenu.G.global.showKarkas=0; configMenu.G.global.showConfiguration=1;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
       .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
       p КОНФИГ.
     .cart-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=1", ng-class="{'active': configMenu.G.global.showCart == 1}")
@@ -11,7 +11,8 @@
         p {{ configMenu.O.order.products.length }}
       .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
       p КОРЗИНА
-  .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
+  //.karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
+  .karkas(ng-controller="DesignCtrl as designPage", ng-show="configMenu.G.global.showKarkas")
     .construction-left-menu
       ul.figure-lists
         li.figure-item(ng-click="designPage.selectMenuItem(3)",ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
@@ -85,7 +86,8 @@
         .constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
         .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
 
-  .configuration( ng-if="configMenu.G.global.showConfiguration")
+  //.configuration( ng-if="configMenu.G.global.showConfiguration")
+  .configuration( ng-show="configMenu.G.global.showConfiguration")
     ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
       li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
         .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")

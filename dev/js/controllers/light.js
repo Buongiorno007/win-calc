@@ -12,7 +12,9 @@
                 GlobalStor,
                 ProductStor,
                 MainServ,
+                CartServ,
                 DesignStor,
+                OrderStor,
                 ConfigMenuServ,
                 AddElementMenuServ) {
         var thisCtrl = this;
@@ -21,15 +23,13 @@
         thisCtrl.G = GlobalStor;
         thisCtrl.P = ProductStor;
         thisCtrl.D = DesignStor;
+        thisCtrl.O = OrderStor;
 
         //------- set current Page
         GlobalStor.global.currOpenPage = 'light';
 
         thisCtrl.config = {
           //---- design menu
-          isDesignError: 0,
-          isTest: 0,
-
           DELAY_SHOW_FIGURE_ITEM: 1000,
           typing: 'on'
         };
@@ -83,6 +83,8 @@
 
 
         /**========== FUNCTIONS ==========*/
+
+
         function addProdQty() {
           GlobalStor.global.product_qty++;
         }
@@ -92,11 +94,27 @@
             GlobalStor.global.product_qty--;
           }
         }
+        function closeAttantion() {
+          GlobalStor.global.isTest = 0;
+          GlobalStor.global.isDesignError = 0;
+          DesignStor.design.isDimExtra = 0;
+          DesignStor.design.isSquareExtra = 0;
+        }
 
+        function saveProduct() {
+          console.log("save");
+        }
 
         /**========== FINISH ==========*/
         thisCtrl.addProdQty = addProdQty;
         thisCtrl.subtractProdQty = subtractProdQty;
+        thisCtrl.closeAttantion = closeAttantion;
+        thisCtrl.saveProduct = saveProduct;
+
+        thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
+        thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
+        thisCtrl.closeDoorConfig = DesignServ.closeDoorConfig;
+        thisCtrl.selectDoor = DesignServ.selectDoor;
 
         thisCtrl.stepBack = DesignServ.stepBack;
         thisCtrl.toggleDoorConfig = DesignServ.toggleDoorConfig;

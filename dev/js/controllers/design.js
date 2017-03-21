@@ -121,10 +121,12 @@
 
         function showDesignError() {
           thisCtrl.config.isDesignError = 1;
+          GlobalStor.global.isDesignError = 1;
           DesignStor.design.activeMenuItem = 0;
           DesignStor.design.activeSubMenuItem = 0;
           $timeout(function () {
             thisCtrl.config.isDesignError = 0;
+            GlobalStor.global.isDesignError = 0;
           }, 800);
         }
 
@@ -221,6 +223,7 @@
           deactivMenu();
           //TODO testing stage
           thisCtrl.config.isTest = 1;
+          GlobalStor.global.isTest = 1;
           DesignServ.hideCornerMarks();
 
           // var cornerQty = DesignStor.design.selectedCorner.length,
@@ -276,6 +279,7 @@
           deactivMenu();
           //TODO testing stage
           thisCtrl.config.isTest = 1;
+          GlobalStor.global.isTest = 1;
           DesignServ.deselectAllArc();
 
           // //---- get quantity of arcs
@@ -356,6 +360,7 @@
             } else {
               deactivMenu();
               thisCtrl.config.isTest = 1;
+              GlobalStor.global.isTest = 1;
               DesignServ.deselectAllGlass();
               DesignServ.deselectAllImpost();
             }
@@ -512,6 +517,7 @@
 
         function closeAttantion() {
           thisCtrl.config.isTest = 0;
+          GlobalStor.global.isTest = 0;
           DesignStor.design.isDimExtra = 0;
           DesignStor.design.isSquareExtra = 0;
         }
