@@ -178,7 +178,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         title: 'Light Version'
       })
       .otherwise({
-        redirectTo: '/main'
+        redirectTo: '/'
       });
 
 
