@@ -169,7 +169,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         title: 'Design'
       })
       .otherwise({
-        redirectTo: '/main'
+        redirectTo: '/'
       });
 
 
