@@ -37,7 +37,7 @@
       colorFilter: 5555,
       typing: 'on'
     };
-
+    thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;
     //------- translate
     thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
     thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');

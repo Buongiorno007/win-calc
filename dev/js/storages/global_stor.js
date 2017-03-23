@@ -175,13 +175,14 @@
 
       setDefaultGlobal: setDefaultGlobal
     };
-
-    // var data = localStorage.getItem("GlobalStor");
-    // if (data){
-    //   thisFactory.publicObj.global = JSON.parse(data);
-    // } else {
-    // }
+    var data = localStorage.getItem("GlobalStor");
+    if (data){
+      thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("GlobalStor restored");
+    } else {
       thisFactory.publicObj.global = setDefaultGlobal();
+      //console.log("GlobalStor created");
+    }
 
     return thisFactory.publicObj;
 

@@ -861,7 +861,7 @@
           }
         }
 
-        localforage.setDriver([localforage.WEBSQL]);
+        localforage.setDriver([localforage.INDEXEDDB]);
         /** download all Backgrounds */
         function downloadAllBackgrounds() {
           var deff = $q.defer();

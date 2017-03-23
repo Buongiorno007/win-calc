@@ -15,6 +15,7 @@
                 MainServ,
                 GlobalStor,
                 ProductStor,
+                OrderStor,
                 AuxStor,
                 UserStor,
                 DesignStor,
@@ -158,16 +159,31 @@
               GlobalStor.global.isLoader = 0;
               GlobalStor.global.startSlider = 0;
               //console.timeEnd('prog');
+
               $location.path('/main');
+              location.hash = "#/main"
             }
+
             /** !!!! **/
-            // localStorage.clear();
-            // localStorage.setItem('GlobalStor', JSON.stringify(GlobalStor.global));
-            // localStorage.setItem('ProductStor', JSON.stringify(ProductStor.product));
-            // //localStorage.setItem('UserStor', JSON.stringify(UserStor.userInfo));
-            //
-            // localStorage.setItem('AuxStor', JSON.stringify(AuxStor.aux));
-            // localStorage.setItem('DesignStor', JSON.stringify(DesignStor.design));
+            var global = LZString.compress(JSON.stringify(GlobalStor.global));
+            var product = LZString.compress(JSON.stringify(ProductStor.product));
+            var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+            var design = LZString.compress(JSON.stringify(DesignStor.design));
+            var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+            var order = LZString.compress(JSON.stringify(OrderStor.order));
+
+            localStorage.clear();
+
+            var date = new Date();
+            GlobalStor.global.loadDate = date.getFullYear()+""+ date.getMonth() +""+date.getDate();
+            localStorage.setItem("loadDate", GlobalStor.global.loadDate);
+
+            localStorage.setItem('GlobalStor', global);
+            localStorage.setItem('ProductStor', product);
+            localStorage.setItem('UserStor', userInfo);
+            localStorage.setItem('AuxStor', aux);
+            localStorage.setItem('DesignStor', design);
+            localStorage.setItem('OrderStor', order);
 
           });
         }
@@ -479,59 +495,62 @@
             ],
             accessQty = accessArr.length,
             isCustomer = 0;
-          if (url.access) {
-            //setTimeout(function () {
-            while (accessQty > -1) {
-              accessQty -= 1;
-              if (accessArr[accessQty] === url.access) {
-                thisCtrl.user.phone = phoneArr[accessQty];
-                thisCtrl.user.password = passwordArr[accessQty];
-                isCustomer = 1;
+          if (checkSavedData()) {
+            fastEnter();
+          } else {
+            if (url.access) {
+              //setTimeout(function () {
+              while (accessQty > -1) {
+                accessQty -= 1;
+                if (accessArr[accessQty] === url.access) {
+                  thisCtrl.user.phone = phoneArr[accessQty];
+                  thisCtrl.user.password = passwordArr[accessQty];
+                  isCustomer = 1;
+                }
               }
-            }
 
-            if (isCustomer) {
-              if (thisCtrl.user.phone && thisCtrl.user.password) {
+              if (isCustomer) {
+                if (thisCtrl.user.phone && thisCtrl.user.password) {
+                  GlobalStor.global.loadDate = new Date();
+                  GlobalStor.global.isLoader = 1;
+                  GlobalStor.global.startSlider = 1;
+                  loader();
+                  checkingUser();
+                }
+              } else {
                 GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
                 loader();
-                checkingUser();
+                localDB.importUser(url.access, 1).then(function (result) {
+                  var userTemp = angular.copy(result.user);
+                  GlobalStor.global.isLoader = 1;
+                  GlobalStor.global.startSlider = 1;
+                  importDBProsses(userTemp);
+                });
               }
-            } else {
+              //},1000);
+            }
+            if (url.autologin) {
               GlobalStor.global.loadDate = new Date();
               GlobalStor.global.isLoader = 1;
               GlobalStor.global.startSlider = 1;
               loader();
-              localDB.importUser(url.access, 1).then(function (result) {
-                var userTemp = angular.copy(result.user);
-                GlobalStor.global.isLoader = 1;
-                GlobalStor.global.startSlider = 1;
-                importDBProsses(userTemp);
+              localDB.importUser(url.autologin, 1).then(function (result) {
+                if (result.status) {
+                  var userTemp = angular.copy(result.user);
+                  GlobalStor.global.isLoader = 1;
+                  GlobalStor.global.startSlider = 1;
+                  importDBProsses(userTemp);
+                } else {
+                  thisCtrl.isUserNotExist = 1;
+                  GlobalStor.global.isLoader = 0;
+                  GlobalStor.global.startSlider = 0;
+                }
               });
             }
-            //},1000);
           }
-          if (url.autologin) {
 
-            GlobalStor.global.loadDate = new Date();
-            GlobalStor.global.isLoader = 1;
-            GlobalStor.global.startSlider = 1;
-            loader();
-            localDB.importUser(url.autologin, 1).then(function (result) {
-              if (result.status) {
-                var userTemp = angular.copy(result.user);
-                GlobalStor.global.isLoader = 1;
-                GlobalStor.global.startSlider = 1;
-                importDBProsses(userTemp);
-              } else {
-                thisCtrl.isUserNotExist = 1;
-                GlobalStor.global.isLoader = 0;
-                GlobalStor.global.startSlider = 0;
-              }
-            });
-
-          }
         }
 
 
@@ -988,6 +1007,32 @@
         setTimeout(function () {
           $('#jssj').trigger('click');
         }, 1000);
+
+        function checkSavedData() {
+          var order = localStorage.getItem("OrderStor");
+          var product = localStorage.getItem("ProductStor");
+          var aux = localStorage.getItem("AuxStor");
+          var design = localStorage.getItem("DesignStor");
+          var user = localStorage.getItem("UserStor");
+          var global = localStorage.getItem("GlobalStor");
+
+          GlobalStor.global.loadDate = localStorage.getItem("loadDate");
+          var curDate = new Date();
+          curDate = new Date().getFullYear()+""+ new Date().getMonth() +""+new Date().getDate();
+
+          console.log("GlobalStor.global.loadDate",GlobalStor.global.loadDate);
+          console.log("curDate",curDate);
+          if (order && product && aux && design && user && global && (curDate === GlobalStor.global.loadDate)) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        function fastEnter() {
+          $location.path('/main');
+          location.hash = "#/main"
+        }
 
         /**========== FINISH ==========*/
 

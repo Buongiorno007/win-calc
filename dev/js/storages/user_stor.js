@@ -36,12 +36,15 @@
       setDefaultUser: setDefaultUser
     };
 
-    // var data = localStorage.getItem("UserStor");
-    // if (data){
-    //   thisFactory.publicObj.userInfo = JSON.parse(data);
-    // } else {
-    // }
+    var data = localStorage.getItem("UserStor");
+    if (data){
+      thisFactory.publicObj.userInfo = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("UserStor restored");
+    } else {
       thisFactory.publicObj.userInfo = setDefaultUser();
+      //console.log("UserStor created");
+    }
+
     return thisFactory.publicObj;
 
   });

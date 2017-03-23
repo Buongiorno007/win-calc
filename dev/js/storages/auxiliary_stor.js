@@ -40,12 +40,15 @@
       setDefaultAuxiliary: setDefaultAuxiliary
     };
 
-    // var data = localStorage.getItem("AuxStor");
-    // if (data){
-    //   thisFactory.publicObj.aux = JSON.parse(data);
-    // } else {
-    // }
+    var data = localStorage.getItem("AuxStor");
+    if (data){
+      thisFactory.publicObj.aux = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("AuxStor restored");
+    } else {
       thisFactory.publicObj.aux = setDefaultAuxiliary();
+      //console.log("AuxStor created");
+    }
+
     return thisFactory.publicObj;
 
   });

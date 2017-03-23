@@ -99,7 +99,16 @@
       setDefaultOrder: setDefaultOrder
     };
 
-    thisFactory.publicObj.order = setDefaultOrder();
+    var data = localStorage.getItem("OrderStor");
+    if (data){
+      thisFactory.publicObj.order = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("OrderStor restored");
+    } else {
+      thisFactory.publicObj.order = setDefaultOrder();
+      //console.log("OrderStor created");
+    }
+
+
 
     return thisFactory.publicObj;
 
