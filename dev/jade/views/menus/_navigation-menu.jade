@@ -53,12 +53,6 @@
           span.nav-icon-information
           span.title {{ ::navMenu.NAVMENU_MORE_INFO }}
 
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 10}", fs-click="navMenu.selectMenuItem(10)")
-        .item-content
-          span.nav-icon-information
-          span.title(ng-if="!navMenu.G.global.isLightVersion") {{ ::navMenu.NAVMENU_LIGHT_VER }}
-          span.title(ng-if="navMenu.G.global.isLightVersion") {{ ::navMenu.NAVMENU_STANDART_VERSION }}
-
       li.item(ng-if="navMenu.G.global.isDevice", ng-class="{'selected': navMenu.activeMenuItem == 9}", fs-click="navMenu.selectMenuItem(9)")
         .item-content
           span.nav-icon-voicehelp

@@ -79,8 +79,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                     .order-comment-content {{ cartPage.O.order.comment }}
             button.view-switch-tab(fs-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
           .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
-            button.close-cur-window(fs-click="cartPage.C.cart.showCurrentTemp=0")
-            img.edit-cur-window(ng-src='img/copy_edit.png', fs-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
+            button.close-cur-window(ng-click="cartPage.C.cart.showCurrentTemp=0")
+            img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
             svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
 
 
@@ -93,7 +93,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 //.disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.C.cart.tempConstructDisc}}%
                 //.disc-input-box(ng-if="cartPage.config.isShowDiscInput")
                 .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
-                input.disc-input.noPreventDefault#disc-input(type="number",min="1",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
+                input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
                 |%
               .discount-txt(ng-click="cartPage.approveNewDisc(0)")
                 .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
@@ -104,7 +104,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 //.disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.C.cart.tempAddelemDisc}}%
                 //.disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
                 .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
-                input.disc-input.noPreventDefault#disc-input-add(type="number",min="1",value="0", ng-model="cartPage.C.cart.tempAddelemDisc")
+                input.disc-input.noPreventDefault#disc-input-add(type="number",value="0", ng-model="cartPage.C.cart.tempAddelemDisc")
                 |%
               .discount-txt(ng-click="cartPage.approveNewDisc(1)")
                 .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
