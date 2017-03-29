@@ -265,7 +265,7 @@ MainServ.getOnline();
           function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
             //------ Download elements of order from localDB
             localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function (result) {
-              //          console.log('result+++++', result);
+                       console.log('result+++++', result);
               if (result.length) {
                 var allElements = angular.copy(result),
                   allElemQty = allElements.length,

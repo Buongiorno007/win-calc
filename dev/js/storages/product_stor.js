@@ -34,42 +34,44 @@
             hardware: {},
             beadsData: [],
 
-            profileDepths: {
-              frameDepth: {},
-              frameStillDepth: {},
-              sashDepth: {},
-              impostDepth: {},
-              shtulpDepth: {}
-            },
-            lamination: {
-              id: 0,
-              lamination_in_id: 1,
-              lamination_out_id: 1,
-              laminat_in_name: 'mainpage.WHITE_LAMINATION',
-              laminat_out_name: 'mainpage.WHITE_LAMINATION',
-              img_in_id: 1,
-              img_out_id: 1
-            },
-            chosenAddElements: [
-              [], // 0 - grids
-              [], // 1 - visors
-              [], // 2 - spillways
-              [], // 3 - outSlope
-              [], // 4 - louvers
-              [], // 5 - inSlope
-              [], // 6 - connectors
-              [], // 7 - fans
-              [], // 8 - windowSill
-              [], // 9 - handles
-              [], // 10 - others
-              [], // 11 - shutters
-              [], // 12 - grating
-              [], // 13 - blind
-              [], // 14 - shut
-              [], // 15 - grat
-              [], // 16 - vis
-              []  // 17 - spil
-            ],
+
+        profileDepths: {
+          frameDepth: {},
+          frameStillDepth: {},
+          sashDepth: {},
+          impostDepth: {},
+          shtulpDepth: {}
+        },
+        lamination: {
+          id: 0,
+          lamination_in_id: 1,
+          lamination_out_id: 1,
+          laminat_in_name: 'mainpage.WHITE_LAMINATION',
+          laminat_out_name: 'mainpage.WHITE_LAMINATION',
+          img_in_id: 1,
+          img_out_id: 1
+        },
+        chosenAddElements: [
+          [], // 0 - grids
+          [], // 1 - visors
+          [], // 2 - spillways
+          [], // 3 - outSlope
+          [], // 4 - louvers
+          [], // 5 - inSlope
+          [], // 6 - connectors
+          [], // 7 - fans
+          [], // 8 - windowSill
+          [], // 9 - handles
+          [], // 10 - others
+          [], // 11 - shutters
+          [], // 12 - grating
+          [], // 13 - blind
+          [], // 14 - shut
+          [], // 15 - grat
+          [], // 16 - vis
+          []  // 17 - spil
+        ],
+
 
             door_type_index: 0,
             door_shape_id: 0,
@@ -95,8 +97,19 @@
 
           setDefaultProduct: setDefaultProduct
         };
-        thisFactory.publicObj.product = setDefaultProduct();
-        return thisFactory.publicObj;
 
-      });
+
+    var data = localStorage.getItem("ProductStor");
+    if (data){
+      thisFactory.publicObj.product = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("ProductStor restored");
+    } else {
+      //console.log("ProductStor created");
+      thisFactory.publicObj.product = setDefaultProduct();
+    }
+
+    return thisFactory.publicObj;
+
+  });
+
 })();
