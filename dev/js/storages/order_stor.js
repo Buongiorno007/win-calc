@@ -102,10 +102,11 @@
     var data = localStorage.getItem("OrderStor");
     if (data){
       thisFactory.publicObj.order = angular.copy(JSON.parse(LZString.decompress(data)));
+      thisFactory.publicObj.order.order_date
       //console.log("OrderStor restored");
     } else {
-      thisFactory.publicObj.order = setDefaultOrder();
       //console.log("OrderStor created");
+      thisFactory.publicObj.order = setDefaultOrder();
     }
 
 

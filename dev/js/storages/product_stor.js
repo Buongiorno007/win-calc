@@ -1,38 +1,39 @@
-(function(){
+(function () {
   'use strict';
-    /**@ngInject*/
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('ProductStor',
 
-  function() {
-    /*jshint validthis:true */
-    var thisFactory = this;
+      function () {
+        /*jshint validthis:true */
+        var thisFactory = this;
 
-    function setDefaultProduct() {
-      return angular.copy(thisFactory.publicObj.productSource);
-    }
+        function setDefaultProduct() {
+          return angular.copy(thisFactory.publicObj.productSource);
+        }
 
-    thisFactory.publicObj = {
-      productSource: {
-        product_id: 0,
-        is_addelem_only: 0,
-        room_id: 0,
-        construction_type: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
-        heat_coef_total: 0,
+        thisFactory.publicObj = {
+          productSource: {
+            product_id: 0,
+            is_addelem_only: 0,
+            room_id: 0,
+            construction_type: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
+            heat_coef_total: 0,
 
-        template_id: 0,
-        template_source: {},
-        template: {},
-        templateIcon: {},
-        template_width: 0,
-        template_height: 0,
-        template_square: 0,
+            template_id: 0,
+            template_source: {},
+            template: {},
+            templateIcon: {},
+            template_width: 0,
+            template_height: 0,
+            template_square: 0,
 
-        profile: {},
-        glass: [],
-        hardware: {},
-        beadsData: [],
+            profile: {},
+            glass: [],
+            hardware: {},
+            beadsData: [],
+
 
         profileDepths: {
           frameDepth: {},
@@ -71,41 +72,44 @@
           []  // 17 - spil
         ],
 
-        door_type_index: 0,
-        door_shape_id: 0,
-        door_sash_shape_id: 0,
-        door_handle_shape_id: 0,
-        door_lock_shape_id: 0,
-        doorName: '',
-        doorSashName: '',
-        doorHandle: {},
-        doorLock: {},
 
-        template_price: 0,
-        addelem_price: 0,
-        addelemPriceDis: 0,
-        product_price: 0,
-        productPriceDis: 0,
+            door_type_index: 0,
+            door_shape_id: 0,
+            door_sash_shape_id: 0,
+            door_handle_shape_id: 0,
+            door_lock_shape_id: 0,
+            doorName: '',
+            doorSashName: '',
+            doorHandle: {},
+            doorLock: {},
 
-        report: [],
-        comment: '',
-        product_qty: 1
+            template_price: 0,
+            addelem_price: 0,
+            addelemPriceDis: 0,
+            product_price: 0,
+            productPriceDis: 0,
 
-      },
+            report: [],
+            comment: '',
+            product_qty: 1
 
-      setDefaultProduct: setDefaultProduct
-    };
+          },
+
+          setDefaultProduct: setDefaultProduct
+        };
+
 
     var data = localStorage.getItem("ProductStor");
     if (data){
       thisFactory.publicObj.product = angular.copy(JSON.parse(LZString.decompress(data)));
       //console.log("ProductStor restored");
     } else {
-      thisFactory.publicObj.product = setDefaultProduct();
       //console.log("ProductStor created");
+      thisFactory.publicObj.product = setDefaultProduct();
     }
 
     return thisFactory.publicObj;
 
   });
+
 })();

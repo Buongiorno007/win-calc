@@ -203,7 +203,7 @@
       ProductStor.product = ProductStor.setDefaultProduct();
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
 
-      $location.path('/login');
+      $location.path('/');
     }
 
 

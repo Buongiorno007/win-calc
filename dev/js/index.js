@@ -14,7 +14,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   window.onload = function () {
     if (!isDevice) {
 
-      //location.hash = "#/";
+      location.hash = "#/";
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
         height = $(obj).height();
@@ -49,10 +49,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       obj.style.transform = 'scale(' + scale + ')';
     }
   };
-  window.onbeforeunload = function () {
-    console.log("isDevice");
 
-  }
   if (isDevice) {
     window.PhonegapApp = {
       initialize: function () {
@@ -96,6 +93,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     'DesignModule',
     'CartModule',
     'HistoryModule',
+    'LightModule',
     'SettingsModule'
   ]).config(/*@ngInject*/ configurationApp);
 
@@ -112,6 +110,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('HistoryModule', []);
   angular
     .module('SettingsModule', []);
+  angular
+    .module('LightModule', []);
 
 
   function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider, $compileProvider) {
@@ -127,6 +127,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl as loginPage',
         title: 'Login'
+        //title: 'light'
       })
       .when('/main', {
         templateUrl: 'views/main.html',

@@ -1,10 +1,9 @@
-(function(){
+(function () {
   'use strict';
-    /**@ngInject*/
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('GlobalStor',
-
 
   function() {
     /*jshint validthis:true */
@@ -180,11 +179,12 @@
       thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
       //console.log("GlobalStor restored");
     } else {
-      thisFactory.publicObj.global = setDefaultGlobal();
       //console.log("GlobalStor created");
+      thisFactory.publicObj.global = setDefaultGlobal();
     }
 
     return thisFactory.publicObj;
 
   });
+
 })();

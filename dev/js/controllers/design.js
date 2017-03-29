@@ -101,7 +101,7 @@
     } else {
       delete GlobalStor.global.prohibitCopyingTemplate;
     }
-  
+
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
       DesignServ.initAllImposts();
