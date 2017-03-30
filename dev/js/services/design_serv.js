@@ -345,7 +345,7 @@
           GlobalStor.global.timeoutFunc = 0;
           try {
             res = res.priceElements.sashesBlock;
-            if (res.length>0) {
+            if (res.length > 0) {
               var heightT = [], widthT = [];
               if (ProductStor.product.construction_type === 4 || construction_type === 4) {
                 widthT = (res[0].sizes) ? res[0].sizes[0] : 0;
@@ -704,7 +704,7 @@
               //------- if grid there is in this block
               if (blocks[blockQty].gridId) {
                 for (g = 0; g < gridQty; g += 1) {
-                  if (blocks[blockQty].id === gridsOld[g].block_id) {
+                  if ((blocks[blockQty].id === gridsOld[g].block_id)||(blocks[blockQty].id === "block_"+gridsOld[g].block_id)) {
                     gridTemp = gridsOld[g];
                     sizeTemp = {};
                     //------ defined inner block sizes
@@ -1957,8 +1957,8 @@
                   if (blocks[b].id === blockID) {
                     var tmp_gridId = 0;
                     var tmp_gridTxt = "";
-                    ProductStor.product.template_source.details.forEach(function(entry){
-                      if (entry.id=== blockID){
+                    ProductStor.product.template_source.details.forEach(function (entry) {
+                      if (entry.id === blockID) {
                         //console.log(entry);
                         tmp_gridId = entry.gridId;
                         tmp_gridTxt = entry.gridTxt;

@@ -74,18 +74,10 @@
     function closeSettingsPage() {
       //      $scope.global.isOpenSettingsPage = false;
       //      $scope.global.isReturnFromDiffPage = true;
-      console.log('prevOpenPage +++', GlobalStor.global.prevOpenPage);
+      //console.log('prevOpenPage +++', GlobalStor.global.prevOpenPage);
       $location.path(GlobalStor.global.prevOpenPage);
     }
 
-    function getSettingFullInfo(){
-      return new Date();
-    }
-
-    function getSettingTempInfo(tempdata){
-      var month = tempdata.getMonth()+1;
-      return tempdata.getFullYear()+""+month+""+ tempdata.getDate();
-    }
 
 
     /**========== FINISH ==========*/
@@ -98,9 +90,7 @@
       gotoPasswordPage: gotoPasswordPage,
       gotoLanguagePage: gotoLanguagePage,
       gotoSettingsPage: gotoSettingsPage,
-      closeSettingsPage: closeSettingsPage,
-      getSettingTempInfo: getSettingTempInfo,
-      getSettingFullInfo: getSettingFullInfo
+      closeSettingsPage: closeSettingsPage
     };
 
     return thisFactory.publicObj;

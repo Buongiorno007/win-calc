@@ -2,9 +2,11 @@
   .coeff-container
     .coeff-block
       .powered-by
-        a(href="http://www.windowscalculator.net" target="_blank") {{roomInfo.POWERED_BY_1}}
+        //a(href="http://www.windowscalculator.net" target="_blank") {{roomInfo.POWERED_BY_1}}
+        a {{roomInfo.POWERED_BY_1}}
       .powered-by
-        a(href="http://www.windowscalculator.net" target="_blank") {{roomInfo.POWERED_BY_2}}
+        //a(href="http://www.windowscalculator.net" target="_blank") {{roomInfo.POWERED_BY_2}}
+        a {{roomInfo.POWERED_BY_2}}
     .coeff-block
       .coeff-info-block(ng-if="roomInfo.G.global.showCoefInfoBlock")
         .coeff-max {{ roomInfo.O.order.heat_coef_min }}

@@ -12,10 +12,10 @@ $door-config-content: $ipad-height - $door-config-header;
   border-radius: 1rem;
   text-align: center;
 }
+
 .construction-container {
   position: relative;
 }
-
 
 // General Menu Properties
 
@@ -44,7 +44,7 @@ $door-config-content: $ipad-height - $door-config-header;
 .construction-left-menu {
   @extend .construction-menu;
   @include top_left_coord(0px, 0px);
-
+  height: auto;
   .figure-lists {
     width: rem(220px);
     list-style: none;
@@ -79,7 +79,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
     &.hov:hover {
       background-color: $main_green;
-        .figure-icon {
+      .figure-icon {
         color: #fff;
       }
     }
@@ -123,7 +123,7 @@ $door-config-content: $ipad-height - $door-config-header;
     &:after {
       content: $impost-shape-icon-a;
     }
-  }  
+  }
   .impost-shape-b {
     position: absolute;
     top: 20px;
@@ -190,8 +190,6 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 }
 
-
-
 // Construction Edit menu
 
 .edit_submenu {
@@ -215,21 +213,27 @@ $door-config-content: $ipad-height - $door-config-header;
 #impost-shape-menu {
   top: 3rem;
 }
+
 #sash-shape-menu {
   top: 17rem;
 }
+
 #angel-shape-menu {
   top: 31rem;
 }
+
 #arc-shape-menu {
   top: 44rem;
 }
+
 #position-menu {
   top: 58rem;
 }
+
 #position-menu-for-position {
   top: 58rem;
 }
+
 .constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
   position: relative;
@@ -270,9 +274,11 @@ $door-config-content: $ipad-height - $door-config-header;
 .clean:after {
   content: $sash-empty-icon;
 }
+
 .sash-left:after {
   content: $sash-left-icon;
 }
+
 .sash-right {
   left: $submenu_left1;
   &:after {
@@ -282,6 +288,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .sash-up {
   left: $submenu_left1;
   &:after {
@@ -291,6 +298,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top2;
   }
 }
+
 .sash-down {
   left: $submenu_left1;
   &:after {
@@ -300,9 +308,11 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top3;
   }
 }
+
 .sash-right-up:after {
   content: $sash-right-up-icon;
 }
+
 .sash-left-up {
   left: $submenu_left2;
   &:after {
@@ -316,6 +326,7 @@ $door-config-content: $ipad-height - $door-config-header;
 .sash-shtulp-left:after {
   content: $sash-shtulp-left-icon;
 }
+
 .sash-shtulp-left-door:after {
   content: $sash-shtulp-left-icon-door;
 }
@@ -329,7 +340,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
   &.left {
-  left: 10.6rem;
+    left: 10.6rem;
   }
 }
 
@@ -342,9 +353,10 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
   &.left {
-  left: 10.6rem;
+    left: 10.6rem;
   }
 }
+
 //----- in Door case
 .door-sash {
   .sash-right {
@@ -364,18 +376,19 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 }
 
-
-
 .impost-vert:after {
   content: $impost-vert-icon;
 }
+
 .impost-hor:after {
   content: $impost-hor-icon;
 }
+
 .impost-inc-hor:after {
   content: $impost-inc-hor-icon;
 }
-.impost-inc-vert{
+
+.impost-inc-vert {
   left: $submenu_left2;
   &:after {
     content: $impost-inc-vert-icon;
@@ -384,6 +397,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .impost-inc-hor2 {
   left: $submenu_left2;
   &:after {
@@ -393,7 +407,8 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top2;
   }
 }
-.impost-inc-vert2{
+
+.impost-inc-vert2 {
   left: $submenu_left2;
   &:after {
     content: $impost-inc-vert2-icon;
@@ -402,9 +417,11 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top3;
   }
 }
+
 .impost-curv-right:after {
   content: $impost-curv-right-icon;
 }
+
 .impost-curv-left {
   left: $submenu_left3;
   &:after {
@@ -414,6 +431,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .impost-curv-up {
   left: $submenu_left3;
   &:after {
@@ -423,6 +441,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top2;
   }
 }
+
 .impost-curv-down {
   left: $submenu_left3;
   &:after {
@@ -432,9 +451,11 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top3;
   }
 }
+
 .impost-curv1:after {
   content: $impost-curv1-icon;
 }
+
 .impost-curv3 {
   left: $submenu_left4;
   &:after {
@@ -444,35 +465,45 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+
 .impost-curv4:after {
   content: $impost-curv4-icon;
 }
+
 .impost-curv2:after {
   content: $impost-curv2-icon;
 }
+
 .arc:after {
   content: $arc-icon;
 }
+
 .corner:after {
   content: $corner-icon;
 }
+
 .corner-curv:after {
   content: $corner-curv-icon;
 }
+
 .mirror:after {
   content: $mirror;
 }
+
 .position-axis:after {
   content: $position-axis;
 }
+
 .position-glass:after {
   content: $position-glass;
 }
+
 // Construction SVG
 
 .construction-block {
   text-align: center;
 }
+
 .construction-scrollbox {
   width: 100%;
   height: 100%;
@@ -481,8 +512,6 @@ $door-config-content: $ipad-height - $door-config-header;
   overflow: auto;
 }
 
-
-
 // Construction Right Menu
 
 .right-menu-header {
@@ -490,11 +519,13 @@ $door-config-content: $ipad-height - $door-config-header;
   right: 0;
   top: 3%;
 }
+
 .nav-tool-box {
   float: left;
   width: 8rem;
   text-align: center;
 }
+
 .construct-tools {
   @extend .cross-btn;
   @extend .splash;
@@ -506,14 +537,16 @@ $door-config-content: $ipad-height - $door-config-header;
     left: 25%;
   }
 }
+
 .save-construction {
   @include font-icon(rem(28px), 1.5);
 
   background-color: $main_green;
-  &:after{
+  &:after {
     content: $select-history-icon;
   }
 }
+
 .close-construction {
   @include font-icon(rem(40px), 1);
   background-color: $main_gray_btn;
@@ -526,14 +559,17 @@ $door-config-content: $ipad-height - $door-config-header;
     content: $step-back;
   }
 }
+
 .nav-tool-label {
   @extend .construction-descrip;
 }
+
 .right-menu-footer {
   position: absolute;
   right: 0;
   width: 32rem;
 }
+
 .door-config-menu {
   position: absolute;
   top: 25%;
@@ -541,6 +577,7 @@ $door-config-content: $ipad-height - $door-config-header;
   width: rem(300px);
   text-align: right;
 }
+
 .door-config-btn {
   @extend .button;
   @extend .splash;
@@ -560,15 +597,15 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
 }
+
 .door-config-label {
   @extend .construction-label;
   margin-bottom: rem(30px);
 }
+
 .door-config-description {
   @extend .construction-descrip;
 }
-
-
 
 // Door Configuration Panel
 
@@ -617,7 +654,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .door-config-backfon {
-    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
+    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
     @include top_left_coord(0px, 0px);
 
     width: rem(452px);
@@ -730,17 +767,20 @@ $door-config-content: $ipad-height - $door-config-header;
     width: rem(160px);
   }
 }
+
 //* *//
-  .template-elem{
-    @include roboto-rg(1.9rem);
-    width: 100%;
-    position: absolute;
-    top: 81%;
-    margin-top:2rem;
-  }
-.clicked{
-  color:blue;
-  text-decoration:underline;
+.template-elem {
+  @include roboto-rg(1.9rem);
+  width: 100%;
+  position: absolute;
+  top: 81%;
+  margin-top: 2rem;
+}
+
+.clicked {
+  color: blue;
+  text-decoration: underline;
   cursor: pointer;
 
 }
+
