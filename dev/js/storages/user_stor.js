@@ -37,14 +37,14 @@
         };
 
 
-        var data = localStorage.getItem("UserStor");
-        if (data){
-          thisFactory.publicObj.userInfo = angular.copy(JSON.parse(LZString.decompress(data)));
-          //console.log("UserStor restored");
-        } else {
-          //console.log("UserStor created");
+        // var data = localStorage.getItem("UserStor");
+        // if (data){
+        //   thisFactory.publicObj.userInfo = angular.copy(JSON.parse(LZString.decompress(data)));
+        //   //console.log("UserStor restored");
+        // } else {
+        //   //console.log("UserStor created");
+        // }
         thisFactory.publicObj.userInfo = setDefaultUser();
-        }
 
         return thisFactory.publicObj;
 

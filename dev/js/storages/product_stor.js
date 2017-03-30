@@ -99,14 +99,14 @@
         };
 
 
-    var data = localStorage.getItem("ProductStor");
-    if (data){
-      thisFactory.publicObj.product = angular.copy(JSON.parse(LZString.decompress(data)));
-      //console.log("ProductStor restored");
-    } else {
-      //console.log("ProductStor created");
+    // var data = localStorage.getItem("ProductStor");
+    // if (data){
+    //   thisFactory.publicObj.product = angular.copy(JSON.parse(LZString.decompress(data)));
+    //   //console.log("ProductStor restored");
+    // } else {
+    //   //console.log("ProductStor created");
+    // }
       thisFactory.publicObj.product = setDefaultProduct();
-    }
 
     return thisFactory.publicObj;
 

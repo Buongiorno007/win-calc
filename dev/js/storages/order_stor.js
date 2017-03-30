@@ -99,15 +99,15 @@
       setDefaultOrder: setDefaultOrder
     };
 
-    var data = localStorage.getItem("OrderStor");
-    if (data){
-      thisFactory.publicObj.order = angular.copy(JSON.parse(LZString.decompress(data)));
-      thisFactory.publicObj.order.order_date
-      //console.log("OrderStor restored");
-    } else {
-      //console.log("OrderStor created");
+    // var data = localStorage.getItem("OrderStor");
+    // if (data){
+    //   thisFactory.publicObj.order = angular.copy(JSON.parse(LZString.decompress(data)));
+    //   thisFactory.publicObj.order.order_date
+    //   //console.log("OrderStor restored");
+    // } else {
+    //   //console.log("OrderStor created");
+    // }
       thisFactory.publicObj.order = setDefaultOrder();
-    }
 
 
 

@@ -161,7 +161,7 @@
               //console.timeEnd('prog');
 
               $location.path('/main');
-              location.hash = "#/main"
+              //location.hash = "#/main"
             }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -1017,8 +1017,8 @@
 
 
         function fastEnter() {
-          $location.path('/main');
-          location.hash = "#/main"
+          // $location.path('/main');
+          // location.hash = "#/main"
         }
 
         function editOrder() {

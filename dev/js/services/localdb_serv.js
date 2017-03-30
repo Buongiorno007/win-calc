@@ -2272,7 +2272,7 @@
             case 2: //------ X шт. на родителя
               var parentValueTemp = (parentValue < 1) ? childValue : parseInt(parentValue);
               value = parentValueTemp;
-              console.log(parentValueTemp,childValue);
+              // console.log(parentValueTemp,childValue);
               break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
