@@ -2270,7 +2270,9 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
-              value = childValue;
+              var parentValueTemp = (parentValue < 1) ? childValue : parseInt(parentValue);
+              value = parentValueTemp;
+              console.log(parentValueTemp,childValue);
               break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
@@ -2310,8 +2312,7 @@
             case 2: //------ X шт. на родителя
             // var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
             // value = childValue;
-              console.log("test 2");
-              break;
+            // break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
               value = parentValueTemp * childValue;
