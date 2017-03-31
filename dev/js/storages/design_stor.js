@@ -16,7 +16,9 @@
         function setDefaultDoor() {
           return angular.copy(thisFactory.publicObj.designSource.doorConfig);
         }
-
+        function restoreDesign(data) {
+          return angular.copy(JSON.parse(LZString.decompress(data)));
+        }
         thisFactory.publicObj = {
           designSource: {
             showHint: 0,
@@ -116,11 +118,12 @@
           },
 
           setDefaultDesign: setDefaultDesign,
-          setDefaultDoor: setDefaultDoor
+          setDefaultDoor: setDefaultDoor,
+          restoreDesign: restoreDesign
         };
         var data = localStorage.getItem("DesignStor");
         if (data){
-          thisFactory.publicObj.design = angular.copy(JSON.parse(LZString.decompress(data)));
+          thisFactory.publicObj.design = restoreDesign(data);
           //console.log("DesignStor restored");
         } else {
           //console.log("DesignStor created");

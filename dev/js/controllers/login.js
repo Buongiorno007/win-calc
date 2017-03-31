@@ -1018,15 +1018,14 @@
 
 
         function fastEnter(url) {
-          // GlobalStor.global.isLoader = 0;
-          // GlobalStor.global.startSlider = 0;
-          // console.log(url.orderEdit);
-          // if (url.orderEdit) {
-          //   $location.path('/main');
-          //   HistoryServ.editOrder(1,url.orderEdit);
-          // }
-          // else {
-          // }
+          GlobalStor.global.isLoader = 0;
+          GlobalStor.global.startSlider = 0;
+          if (url.orderEdit) {
+            $location.path('/main');
+            HistoryServ.editOrder(1,url.orderEdit);
+          }
+          else {
+          }
             $location.path('/main');
         }
 

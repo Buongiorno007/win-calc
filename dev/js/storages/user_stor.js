@@ -13,6 +13,10 @@
           return angular.copy(thisFactory.publicObj.userInfoSource);
         }
 
+        function restoreUser(data) {
+          return angular.copy(JSON.parse(LZString.decompress(data)));
+        }
+
         thisFactory.publicObj = {
           userInfoSource: {
             cityName: '',
@@ -33,17 +37,16 @@
             discAddElemByWeek: [],
             factoryLink: ''
           },
-          setDefaultUser: setDefaultUser
+          setDefaultUser: setDefaultUser,
+          restoreUser: restoreUser
         };
 
 
         var data = localStorage.getItem("UserStor");
-        if (data){
-          thisFactory.publicObj.userInfo = angular.copy(JSON.parse(LZString.decompress(data)));
-          //console.log("UserStor restored");
+        if (data) {
+          thisFactory.publicObj.userInfo = restoreUser(data);
         } else {
-          //console.log("UserStor created");
-        thisFactory.publicObj.userInfo = setDefaultUser();
+          thisFactory.publicObj.userInfo = setDefaultUser();
         }
 
         return thisFactory.publicObj;

@@ -165,7 +165,7 @@
             }
           } else {
 
-MainServ.getOnline();
+            MainServ.getOnline();
             GeneralServ.infoAlert(
               $filter('translate')('login.OFFLINE'),
               $filter('translate')('login.OFFLINE_INFO')
@@ -235,7 +235,7 @@ MainServ.getOnline();
             });
           } else {
 
-MainServ.getOnline();
+            MainServ.getOnline();
             GeneralServ.infoAlert(
               $filter('translate')('login.OFFLINE'),
               $filter('translate')('login.OFFLINE_INFO')
@@ -265,7 +265,7 @@ MainServ.getOnline();
           function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
             //------ Download elements of order from localDB
             localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function (result) {
-                       console.log('result+++++', result);
+              console.log('result+++++', result);
               if (result.length) {
                 var allElements = angular.copy(result),
                   allElemQty = allElements.length,
@@ -786,11 +786,11 @@ MainServ.getOnline();
                     if (products.construction_type === 4) {
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
-                        OrderStor.order.products.push(res); 
+                        OrderStor.order.products.push(res);
                         _callback();
                       });
                     } else {
-                      OrderStor.order.products.push(products); 
+                      OrderStor.order.products.push(products);
                       _callback();
                     }
                   }
@@ -848,11 +848,12 @@ MainServ.getOnline();
         function offlinePrint(orderId) {
           HistoryStor.history.orders.forEach(function (entry, index) {
             try {
-            if (entry.id === orderId) {
-              console.log("entry.modified",entry.modified);
-              entry.modified = entry.modified.substr(0, 10);
-              HistoryStor.history.historyID = index;
-            }}
+              if (entry.id === orderId) {
+                console.log("entry.modified", entry.modified);
+                entry.modified = entry.modified.substr(0, 10);
+                HistoryStor.history.historyID = index;
+              }
+            }
             catch (err) {
               console.log(err.message);
             }
