@@ -2257,7 +2257,9 @@
             return isExist;
           }
         }
-
+        function getDecimal(num) {
+          return num - Math.floor(num);
+        }
 
         function getValueByRule(parentValue, childValue, rule) {
           //(rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
@@ -2270,8 +2272,8 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
-              var parentValueTemp = (parentValue < childValue) ? childValue : parseInt(parentValue);
-              value = parentValueTemp;
+              var parentValueTemp = (getDecimal(parentValue) !== 0) ? 1 : parseInt(parentValue);
+              value = parentValueTemp * childValue;
               break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
