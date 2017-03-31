@@ -78,8 +78,15 @@
       },
       setDefaultHistory: setDefaultHistory
     };
+    var data = localStorage.getItem("HistoryStor");
+    if (data){
+      thisFactory.publicObj.history = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("OrderStor restored");
+    } else {
+      //console.log("OrderStor created");
+      thisFactory.publicObj.history = setDefaultHistory();
+    }
 
-    thisFactory.publicObj.history = setDefaultHistory();
 
     return thisFactory.publicObj;
 

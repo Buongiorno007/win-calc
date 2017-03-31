@@ -2258,7 +2258,9 @@
           }
         }
 
-
+        function getDecimal(num) {
+          return num - Math.floor(num);
+        }
         function getValueByRule(parentValue, childValue, rule) {
           //(rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
           var value = 0;
@@ -2270,8 +2272,8 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
-              var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
-              value = parentValueTemp;
+              var parentValueTemp = (getDecimal(parentValue) !== 0) ? 1 : parseInt(parentValue);
+              value = parentValueTemp * childValue;
               break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
@@ -2514,6 +2516,8 @@
                   currConsist.newValue = getValueByRule(
                     1, currConsist.value, currConsist.rules_type_id
                   );
+
+
                 }
                 if (consistArr[el].rules_type_id === 2) {
                   if (currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
@@ -3223,6 +3227,7 @@
                             priceObj.consist[cons][el].value,
                             priceObj.consist[cons][el].rules_type_id
                           );
+
                           //console.warn('child+44+++', priceObj.kitsElem[cons+1], priceObj.consist[cons][el]);
                           culcPriceAsRule(
                             1,

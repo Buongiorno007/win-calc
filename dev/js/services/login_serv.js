@@ -132,9 +132,9 @@
                 }
                 while (--regionQty > -1) {
                   if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                    if(GlobalStor.global.locations.cities[cityQty].areasName) {
+                    if (GlobalStor.global.locations.cities[cityQty].areasName) {
                       GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
-                    }else {
+                    } else {
                       GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
                     }
                     GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
@@ -907,7 +907,7 @@
                   } else {
                     var key = String(entry.img);
                     localforage.getItem(key, function (err, value) {
-                        entry.img = value;
+                      entry.img = value;
                     });
                   }
                 }
@@ -1062,12 +1062,18 @@
               //-------- get current add element price
               localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
                 if (results) {
+                  //ProductStor.product.addelem_price -= item.element_price;
+
                   item.element_price = angular.copy(GeneralServ.roundingValue(
                     GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
                   ));
+                  //ProductStor.product.addelem_price += item.element_price;
+
+                  //ProductStor.product.addelemPriceDis -= item.elementPriceDis;
                   item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
                     GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
                   ));
+                  //ProductStor.product.addelemPriceDis += item.elementPriceDis;
                   //console.log('GRID objXAddElementPrice====result +++', results);
                   deff2.resolve(item);
                 } else {

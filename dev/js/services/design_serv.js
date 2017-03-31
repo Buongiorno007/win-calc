@@ -725,6 +725,7 @@
                     }
 
                     if (gridsNew.length) {
+                      isChanged = 1;
                       ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
                     }
                   }
@@ -733,6 +734,7 @@
             }
             //------- rewrite grids lists
             if (gridsNew.length) {
+              isChanged = 1;
               ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
             }
           }
@@ -3279,10 +3281,14 @@
                       ProductStor.product.template_source
                     );
                     /** check grids */
+                      console.log(ProductStor.product);
                     var isChanged = updateGrids();
                     if (isChanged) {
                       //------ get new grids price
+                      // ProductStor.product.addelem_price-=ProductStor.product.chosenAddElements[0].element_price;
+                      // ProductStor.product.addelemPriceDis-=ProductStor.product.chosenAddElements[0].elementPriceDis;
                       loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
+                      console.log(ProductStor.product);
                     }
                     SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                       ProductStor.product.template = angular.copy(result);
