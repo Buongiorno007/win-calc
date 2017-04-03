@@ -1108,8 +1108,8 @@
                                 doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
                                 clipboard = angular.copy(doorsItems[x]);
                                 source.lockShapeList[k].elem.push(clipboard);
-                                //console.log("heightTEMP", heightTEMP);
-                                //console.log("widthTEMP", widthTEMP);
+                                console.log("heightTEMP", heightTEMP);
+                                console.log("widthTEMP", widthTEMP);
                               }
                             }
                           }
