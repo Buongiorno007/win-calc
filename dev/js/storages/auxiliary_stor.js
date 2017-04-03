@@ -12,7 +12,9 @@
         function setDefaultAuxiliary() {
           return angular.copy(thisFactory.publicObj.auxiliarySource);
         }
-
+        function restoreAuxiliary(data) {
+          return angular.copy(JSON.parse(LZString.decompress(data)));
+        }
         thisFactory.publicObj = {
           auxiliarySource: {
             addElementsType: [],
@@ -37,17 +39,18 @@
             addElementGroups: [],
             searchingWord: ''
           },
-          setDefaultAuxiliary: setDefaultAuxiliary
+          setDefaultAuxiliary: setDefaultAuxiliary,
+          restoreAuxiliary: restoreAuxiliary
         };
 
-        // var data = localStorage.getItem("AuxStor");
-        // if (data){
-        //   thisFactory.publicObj.aux = angular.copy(JSON.parse(LZString.decompress(data)));
-        //   //console.log("AuxStor restored");
-        // } else {
-        //   //console.log("AuxStor created");
-        // }
+        var data = localStorage.getItem("AuxStor");
+        if (data){
+          thisFactory.publicObj.aux = restoreAuxiliary(data);
+          //console.log("AuxStor restored");
+        } else {
+          //console.log("AuxStor created");
         thisFactory.publicObj.aux = setDefaultAuxiliary();
+        }
 
         return thisFactory.publicObj;
 

@@ -12,6 +12,9 @@
     function setDefaultHistory() {
       return angular.copy(thisFactory.publicObj.historySource);
     }
+    function restoreHistory(data) {
+      return angular.copy(JSON.parse(LZString.decompress(data)));
+    }
 
     thisFactory.publicObj = {
       historySource: {
@@ -76,10 +79,18 @@
         OrderPrintPerimeter : 0
 
       },
-      setDefaultHistory: setDefaultHistory
+      setDefaultHistory: setDefaultHistory,
+      restoreHistory: restoreHistory
     };
+    var data = localStorage.getItem("HistoryStor");
+    if (data){
+      thisFactory.publicObj.history = restoreHistory(data);
+      //console.log("OrderStor restored");
+    } else {
+      //console.log("OrderStor created");
+      thisFactory.publicObj.history = setDefaultHistory();
+    }
 
-    thisFactory.publicObj.history = setDefaultHistory();
 
     return thisFactory.publicObj;
 
