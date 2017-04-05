@@ -1108,8 +1108,8 @@
                                 doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
                                 clipboard = angular.copy(doorsItems[x]);
                                 source.lockShapeList[k].elem.push(clipboard);
-                                console.log("heightTEMP", heightTEMP);
-                                console.log("widthTEMP", widthTEMP);
+                                // console.log("heightTEMP", heightTEMP);
+                                // console.log("widthTEMP", widthTEMP);
                               }
                             }
                           }
@@ -3281,14 +3281,14 @@
                       ProductStor.product.template_source
                     );
                     /** check grids */
-                      console.log(ProductStor.product);
+                      // console.log(ProductStor.product);
                     var isChanged = updateGrids();
                     if (isChanged) {
                       //------ get new grids price
                       // ProductStor.product.addelem_price-=ProductStor.product.chosenAddElements[0].element_price;
                       // ProductStor.product.addelemPriceDis-=ProductStor.product.chosenAddElements[0].elementPriceDis;
                       loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
-                      console.log(ProductStor.product);
+                      // console.log(ProductStor.product);
                     }
                     SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                       ProductStor.product.template = angular.copy(result);

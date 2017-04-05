@@ -1021,12 +1021,15 @@
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
           if (url.orderEdit) {
-            $location.path('/main');
-            HistoryServ.editOrder(1,url.orderEdit);
+            console.log("перед загрузкой");
+            HistoryServ.reqResult().then(function () {
+              HistoryServ.editOrder(1, url.orderEdit);
+              console.log("типа восстановили");
+
+            });
+          } else {
           }
-          else {
-          }
-            $location.path('/main');
+          $location.path('/main');
         }
 
 

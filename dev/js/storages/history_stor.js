@@ -85,9 +85,9 @@
     var data = localStorage.getItem("HistoryStor");
     if (data){
       thisFactory.publicObj.history = restoreHistory(data);
-      //console.log("OrderStor restored");
+      // console.log("HistoryStor restored");
     } else {
-      //console.log("OrderStor created");
+      //console.log("HistoryStor created");
       thisFactory.publicObj.history = setDefaultHistory();
     }
 
