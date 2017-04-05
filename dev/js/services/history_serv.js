@@ -175,6 +175,7 @@
 
         function downloadOrderHistory() {
           var defer = $q.defer();
+          HistoryStor.history = HistoryStor.setDefaultHistory();
           GlobalStor.global.isLoader = 1;
           var xhr = new XMLHttpRequest();
           var res;
@@ -184,59 +185,54 @@
             order_addelements: localDB.tablesLocalDB.order_addelements
           };
           var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
-          xhr.open('GET', url);
-          xhr.onload = function (e) {
-            if (xhr.status !== 200) {
-              GlobalStor.global.isLoader = 0;
-              //console.info(xhr.status + ': ' + xhr.statusText);
-            }
-            else {
-              localDB.cleanLocalDB(obj).then(function (data) {
-                if (data) {
-                  localDB.createTablesLocalDB(obj).then(function (data) {
-                    if (data) {
-                      res = JSON.parse(xhr.response);
-                      res.tables.order_products.fields.splice(1, 1);
-                      res.tables.order_products.fields.splice(2, 1);
-                      res.tables.order_products.fields.splice(6, 1);
-                      res.tables.order_products.fields.splice(27, 1);
-                      res.tables.orders.fields.splice(3, 1);
-                      for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
-                        res.tables.order_products.rows[x].splice(1, 1);
-                        res.tables.order_products.rows[x].splice(2, 1);
-                        res.tables.order_products.rows[x].splice(6, 1);
-                        res.tables.order_products.rows[x].splice(27, 1);
-                      }
-                      ;
-                      for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
-                        res.tables.orders.rows[x].splice(3, 1);
-                        (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
-                        (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
-                        (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
-                      }
-                      ;
-                      //noinspection JSAnnotator
-                      function test(item) {
-                        if (item === "done") {
-                          return item = "order";
-                        } else {
-                          return item;
-                        }
-                      };
-                      localDB.insertTablesLocalDB(res).then(function () {
-                        downloadProducts();
-                      });
+          xhr.open('GET', url, false);
+          xhr.send();
+          if (xhr.status != 200) {
+            defer.resolve(1);
+            console.info(xhr.status + ': ' + xhr.statusText);
+            GlobalStor.global.isLoader = 0;
+          } else {
+            localDB.cleanLocalDB(obj).then(function (data) {
+              if (data) {
+                localDB.createTablesLocalDB(obj).then(function (data) {
+                  if (data) {
+                    res = JSON.parse(xhr.response);
+                    res.tables.order_products.fields.splice(1, 1);
+                    res.tables.order_products.fields.splice(2, 1);
+                    res.tables.order_products.fields.splice(6, 1);
+                    res.tables.order_products.fields.splice(27, 1);
+                    res.tables.orders.fields.splice(3, 1);
+                    for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
+                      res.tables.order_products.rows[x].splice(1, 1);
+                      res.tables.order_products.rows[x].splice(2, 1);
+                      res.tables.order_products.rows[x].splice(6, 1);
+                      res.tables.order_products.rows[x].splice(27, 1);
                     }
-                    defer.resolve(1);
-
-                  });
-                }
-              });
-            }
-          };
-
-
-          xhr.send(null);
+                    ;
+                    for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
+                      res.tables.orders.rows[x].splice(3, 1);
+                      (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                      (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                      (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
+                    }
+                    ;
+                    //noinspection JSAnnotator
+                    function test(item) {
+                      if (item === "done") {
+                        return item = "order";
+                      } else {
+                        return item;
+                      }
+                    };
+                    localDB.insertTablesLocalDB(res).then(function () {
+                      downloadOrders();
+                      defer.resolve(1);
+                    });
+                  }
+                });
+              }
+            });
+          }
 
           return defer.promise;
         }
@@ -263,8 +259,10 @@
             console.log("не рассширение. просто грузим историю заказов");
             downloadOrderHistory().then(function () {
               defer.resolve(1);
+              console.log("ага да");
             });
           }
+          console.log("вернулись");
           return defer.promise;
 
         }

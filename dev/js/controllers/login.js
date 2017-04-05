@@ -1028,8 +1028,9 @@
 
             });
           } else {
+            $location.path('/main');
           }
-          $location.path('/main');
+
         }
 
 
