@@ -13,6 +13,7 @@
     localDB,
     SettingServ,
     GlobalStor,
+    HistoryStor,
     OrderStor,
     ProductStor,
     AuxStor,
@@ -202,7 +203,7 @@
       OrderStor.order = OrderStor.setDefaultOrder();
       ProductStor.product = ProductStor.setDefaultProduct();
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
-
+      HistoryStor.history = HistoryStor.setDefaultHistory();
       $location.path('/');
     }
 

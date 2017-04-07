@@ -1021,12 +1021,13 @@
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
           if (url.orderEdit) {
+            HistoryServ.reqResult().then(function () {
+              HistoryServ.editOrder(1, url.orderEdit);
+            });
+          } else {
             $location.path('/main');
-            HistoryServ.editOrder(1,url.orderEdit);
           }
-          else {
-          }
-            $location.path('/main');
+
         }
 
 
