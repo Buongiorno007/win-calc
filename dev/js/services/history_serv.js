@@ -49,6 +49,7 @@
 
         //------ Download complete Orders from localDB
         function downloadOrders() {
+          var defer = $q.defer();
           localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function (result) {
             var orders = angular.copy(result),
               orderQty = orders.length;
@@ -77,7 +78,9 @@
               HistoryStor.history.isEmptyResult = 1;
               GlobalStor.global.isLoader = 0;
             }
+            defer.resolve(1);
           });
+          return defer.promise;
         }
 
         //------- defind Order MaxDate
@@ -188,8 +191,8 @@
           xhr.open('GET', url, false);
           xhr.send();
           if (xhr.status != 200) {
-            defer.resolve(1);
-            console.info(xhr.status + ': ' + xhr.statusText);
+            // defer.resolve(1);
+            //console.info(xhr.status + ': ' + xhr.statusText);
             GlobalStor.global.isLoader = 0;
           } else {
             localDB.cleanLocalDB(obj).then(function (data) {
@@ -225,8 +228,9 @@
                       }
                     };
                     localDB.insertTablesLocalDB(res).then(function () {
-                      downloadOrders();
-                      defer.resolve(1);
+                      downloadOrders().then(function () {
+                                                defer.resolve(1);
+                      });
                     });
                   }
                 });
@@ -258,6 +262,7 @@
           } else {
             downloadOrderHistory().then(function () {
               defer.resolve(1);
+              console.log("reqResult defer.resolve ");
             });
           }
           return defer.promise;
@@ -752,6 +757,7 @@
 
 
           var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+          console.log(ordersQty);
           while (--ordersQty > -1) {
             if (typeOrder) {
               if ((HistoryStor.history.orders[ordersQty].id === orderNum) || (HistoryStor.history.orders[ordersQty].id === parseInt(orderNum))) {
