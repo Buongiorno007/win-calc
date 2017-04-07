@@ -17,6 +17,7 @@
                 GlobalStor,
                 OrderStor,
                 ProductStor,
+                AuxStor,
                 UserStor) {
         /*jshint validthis:true */
         var thisFactory = this;
@@ -1058,22 +1059,16 @@
                   currencyId: UserStor.userInfo.currencyId,
                   element: item
                 };
-              //console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
+              // console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
               //-------- get current add element price
               localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
                 if (results) {
-                  //ProductStor.product.addelem_price -= item.element_price;
-
                   item.element_price = angular.copy(GeneralServ.roundingValue(
                     GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
                   ));
-                  //ProductStor.product.addelem_price += item.element_price;
-
-                  //ProductStor.product.addelemPriceDis -= item.elementPriceDis;
                   item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
                     GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
                   ));
-                  //ProductStor.product.addelemPriceDis += item.elementPriceDis;
                   //console.log('GRID objXAddElementPrice====result +++', results);
                   deff2.resolve(item);
                 } else {

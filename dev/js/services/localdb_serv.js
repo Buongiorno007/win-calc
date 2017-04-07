@@ -12,6 +12,7 @@
                 GeneralServ,
                 UserStor,
                 GlobalStor,
+                AuxStor,
                 ProductStor) {
         var thisFactory = this,
           db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
@@ -569,7 +570,18 @@
               ' element_price NUMERIC,' +
               ' element_qty INTEGER,' +
               ' block_id INTEGER',
+
+              // ' block_id INTEGER'+
+              // ' top_id INTEGER'+
+              // ' cloth_id INTEGER'+
+              // ' cloth_waste INTEGER'+
+              // ' top_waste INTEGER'+
+              // ' right_waste INTEGER'+
+              // ' bottom_waste INTEGER'+
+              // ' left_waste INTEGER',
+
               'foreignKey': ''
+
             },
             //          'order_elements': {
             //            'tableName': 'order_elements',
@@ -837,7 +849,6 @@
           }
         }
 
-
         function insertRowLocalDB(row, tableName) {
           var keysArr = Object.keys(row),
             colums = keysArr.join(', '),
@@ -845,6 +856,7 @@
               row[key] = checkStringToQuote(row[key]);
               return "'" + row[key] + "'";
             }).join(', ');
+
           db.transaction(function (trans) {
             // trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
             //   console.log('Something went wrong with insert into ' + tableName);

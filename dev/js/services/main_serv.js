@@ -1631,11 +1631,19 @@
                       element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
                       element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
                       block_id: OrderStor.order.products[p].chosenAddElements[add][elem].block_id * 1,
+
+                      // top_id :OrderStor.order.products[p].chosenAddElements[add][elem].top_id,
+                      // cloth_id :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_id,
+                      // cloth_waste :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_waste,
+                      // top_waste :OrderStor.order.products[p].chosenAddElements[add][elem].top_waste,
+                      // right_waste :OrderStor.order.products[p].chosenAddElements[add][elem].right_waste,
+                      // bottom_waste :OrderStor.order.products[p].chosenAddElements[add][elem].bottom_waste,
+                      // left_waste :OrderStor.order.products[p].chosenAddElements[add][elem].left_waste,
                       modified: new Date()
                     };
 
 
-                    //console.log('SEND ADD',addElementsData);
+                    console.log('SEND ADD',addElementsData);
                     if (orderType) {
                       localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                       localDB.insertServer(

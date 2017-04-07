@@ -256,13 +256,10 @@
               );
             }
           } else {
-            console.log("не рассширение. просто грузим историю заказов");
             downloadOrderHistory().then(function () {
               defer.resolve(1);
-              console.log("ага да");
             });
           }
-          console.log("вернулись");
           return defer.promise;
 
         }
@@ -753,11 +750,10 @@
           //----- cleaning order
           OrderStor.order = OrderStor.setDefaultOrder();
 
+
           var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
-          console.log("ordersQty", ordersQty);
           while (--ordersQty > -1) {
             if (typeOrder) {
-              console.log(HistoryStor.history.orders[ordersQty].id, orderNum);
               if ((HistoryStor.history.orders[ordersQty].id === orderNum) || (HistoryStor.history.orders[ordersQty].id === parseInt(orderNum))) {
                 angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
                 CartStor.fillOrderForm();
