@@ -698,23 +698,23 @@
             blockQty = blocks.length,
             isChanged = 0, gridsNew = [],
             sizeGridX, sizeGridY, sizeTemp, gridTemp, g;
-          var extended_mosq = angular.copy(GlobalStor.global.addElementsAll[0].elementsList[0]);
-          gridsOld.forEach(function (oldMosq) {
-            if (!oldMosq.cloth_id) {
-              extended_mosq.forEach(function (entry) {
-                if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id)&& (entry.id === oldMosq.id)){
-                  entry.elementPriceDis = angular.copy(oldMosq.elementPriceDis);
-                  entry.element_price = angular.copy(oldMosq.element_price);
-                  angular.extend(oldMosq, entry);
-                  // oldMosq.cloth_id = entry.cloth_id;
-                  // oldMosq.elementPriceDis = entry.elementPriceDis;
-                  // oldMosq.element_price = entry.element_price;
-                  // oldMosq.top_id = entry.top_id;
-                  return;
-                }
-              });
-            }
-          });
+          // var extended_mosq = angular.copy(GlobalStor.global.addElementsAll[0].elementsList[0]);
+          // gridsOld.forEach(function (oldMosq) {
+          //   if (!oldMosq.cloth_id) {
+          //     extended_mosq.forEach(function (entry) {
+          //       if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id)&& (entry.id === oldMosq.id)){
+          //         entry.elementPriceDis = angular.copy(oldMosq.elementPriceDis);
+          //         entry.element_price = angular.copy(oldMosq.element_price);
+          //         angular.extend(oldMosq, entry);
+          //         // oldMosq.cloth_id = entry.cloth_id;
+          //         // oldMosq.elementPriceDis = entry.elementPriceDis;
+          //         // oldMosq.element_price = entry.element_price;
+          //         // oldMosq.top_id = entry.top_id;
+          //         return;
+          //       }
+          //     });
+          //   }
+          // });
 
           if (gridQty) {
             while (--blockQty > 0) {
