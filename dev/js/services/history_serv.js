@@ -61,12 +61,10 @@
                 orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
                 orders[orderQty].order_date = new Date(orders[orderQty].order_date);
               }
-
               //noinspection JSAnnotator
               function sortNumber(a, b) {
                 return b.order_date.getTime() - a.order_date.getTime();
               }
-
               HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
               HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
