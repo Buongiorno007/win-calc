@@ -169,11 +169,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
-      .when('/light', {
-        templateUrl: 'views/light.html',
-        controller: 'LightCtrl as lightPage',
-        title: 'Light Version'
-      })
       .otherwise({
         redirectTo: '/'
       });
