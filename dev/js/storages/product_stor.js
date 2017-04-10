@@ -12,6 +12,9 @@
         function setDefaultProduct() {
           return angular.copy(thisFactory.publicObj.productSource);
         }
+        function restoreProduct(data) {
+          return angular.copy(JSON.parse(LZString.decompress(data)));
+        }
 
         thisFactory.publicObj = {
           productSource: {
@@ -95,16 +98,15 @@
 
           },
 
-          setDefaultProduct: setDefaultProduct
+          setDefaultProduct: setDefaultProduct,
+          restoreProduct: restoreProduct
         };
 
 
     // var data = localStorage.getItem("ProductStor");
     // if (data){
-    //   thisFactory.publicObj.product = angular.copy(JSON.parse(LZString.decompress(data)));
-    //   //console.log("ProductStor restored");
+    //   thisFactory.publicObj.product = restoreProduct(data);
     // } else {
-    //   //console.log("ProductStor created");
     // }
       thisFactory.publicObj.product = setDefaultProduct();
 

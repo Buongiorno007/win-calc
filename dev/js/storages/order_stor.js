@@ -12,7 +12,9 @@
     function setDefaultOrder() {
       return angular.copy(thisFactory.publicObj.orderSource);
     }
-
+    function restoreOrder(data) {
+      return angular.copy(JSON.parse(LZString.decompress(data)));
+    }
     thisFactory.publicObj = {
       orderSource: {
         id: 0,
@@ -96,20 +98,16 @@
         order_edit:0
       },
 
-      setDefaultOrder: setDefaultOrder
+      setDefaultOrder: setDefaultOrder,
+      restoreOrder: restoreOrder
     };
 
     // var data = localStorage.getItem("OrderStor");
     // if (data){
-    //   thisFactory.publicObj.order = angular.copy(JSON.parse(LZString.decompress(data)));
-    //   thisFactory.publicObj.order.order_date
-    //   //console.log("OrderStor restored");
+    //   thisFactory.publicObj.order = restoreOrder(data);
     // } else {
-    //   //console.log("OrderStor created");
     // }
       thisFactory.publicObj.order = setDefaultOrder();
-
-
 
     return thisFactory.publicObj;
 

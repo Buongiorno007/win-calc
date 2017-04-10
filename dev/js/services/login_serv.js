@@ -17,6 +17,7 @@
                 GlobalStor,
                 OrderStor,
                 ProductStor,
+                AuxStor,
                 UserStor) {
         /*jshint validthis:true */
         var thisFactory = this;
@@ -132,9 +133,9 @@
                 }
                 while (--regionQty > -1) {
                   if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                    if(GlobalStor.global.locations.cities[cityQty].areasName) {
+                    if (GlobalStor.global.locations.cities[cityQty].areasName) {
                       GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
-                    }else {
+                    } else {
                       GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
                     }
                     GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
@@ -907,7 +908,7 @@
                   } else {
                     var key = String(entry.img);
                     localforage.getItem(key, function (err, value) {
-                        entry.img = value;
+                      entry.img = value;
                     });
                   }
                 }
@@ -1058,7 +1059,7 @@
                   currencyId: UserStor.userInfo.currencyId,
                   element: item
                 };
-              //console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
+              // console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
               //-------- get current add element price
               localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
                 if (results) {

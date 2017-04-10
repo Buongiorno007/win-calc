@@ -12,6 +12,7 @@
                 GeneralServ,
                 UserStor,
                 GlobalStor,
+                AuxStor,
                 ProductStor) {
         var thisFactory = this,
           db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
@@ -569,7 +570,18 @@
               ' element_price NUMERIC,' +
               ' element_qty INTEGER,' +
               ' block_id INTEGER',
+
+              // ' block_id INTEGER'+
+              // ' top_id INTEGER'+
+              // ' cloth_id INTEGER'+
+              // ' cloth_waste INTEGER'+
+              // ' top_waste INTEGER'+
+              // ' right_waste INTEGER'+
+              // ' bottom_waste INTEGER'+
+              // ' left_waste INTEGER',
+
               'foreignKey': ''
+
             },
             //          'order_elements': {
             //            'tableName': 'order_elements',
@@ -837,7 +849,6 @@
           }
         }
 
-
         function insertRowLocalDB(row, tableName) {
           var keysArr = Object.keys(row),
             colums = keysArr.join(', '),
@@ -845,6 +856,7 @@
               row[key] = checkStringToQuote(row[key]);
               return "'" + row[key] + "'";
             }).join(', ');
+
           db.transaction(function (trans) {
             // trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
             //   console.log('Something went wrong with insert into ' + tableName);
@@ -2257,10 +2269,10 @@
             return isExist;
           }
         }
+
         function getDecimal(num) {
           return num - Math.floor(num);
         }
-
         function getValueByRule(parentValue, childValue, rule) {
           //(rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
           var value = 0;
@@ -2516,6 +2528,8 @@
                   currConsist.newValue = getValueByRule(
                     1, currConsist.value, currConsist.rules_type_id
                   );
+
+
                 }
                 if (consistArr[el].rules_type_id === 2) {
                   if (currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
@@ -3225,6 +3239,7 @@
                             priceObj.consist[cons][el].value,
                             priceObj.consist[cons][el].rules_type_id
                           );
+
                           //console.warn('child+44+++', priceObj.kitsElem[cons+1], priceObj.consist[cons][el]);
                           culcPriceAsRule(
                             1,

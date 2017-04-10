@@ -22,6 +22,7 @@
                 DesignStor,
                 OrderStor,
                 ProductStor,
+                AuxStor,
                 UserStor) {
         /*jshint validthis:true */
         var thisFactory = this,
@@ -689,22 +690,34 @@
         }
 
 
-        /**--------------- GRIDs --------------*/
-
         function updateGrids() {
-          //var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
+          // var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
           var gridsOld = ProductStor.product.chosenAddElements[0],
             gridQty = gridsOld.length,
             blocks = ProductStor.product.template.details,
             blockQty = blocks.length,
             isChanged = 0, gridsNew = [],
             sizeGridX, sizeGridY, sizeTemp, gridTemp, g;
+          var extended_mosq = angular.copy(GlobalStor.global.addElementsAll[0].elementsList[0]);
+          gridsOld.forEach(function (oldMosq) {
+            if (!oldMosq.cloth_id) {
+              extended_mosq.forEach(function (entry) {
+                if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id)&& (entry.id === oldMosq.id)){
+                  entry.elementPriceDis = angular.copy(oldMosq.elementPriceDis);
+                  entry.element_price = angular.copy(oldMosq.element_price);
+                  angular.extend(oldMosq, entry);
+                  return;
+                }
+              });
+            }
+          });
+
           if (gridQty) {
             while (--blockQty > 0) {
               //------- if grid there is in this block
               if (blocks[blockQty].gridId) {
                 for (g = 0; g < gridQty; g += 1) {
-                  if ((blocks[blockQty].id === gridsOld[g].block_id)||(blocks[blockQty].id === "block_"+gridsOld[g].block_id)) {
+                  if ((blocks[blockQty].id === gridsOld[g].block_id) || (blocks[blockQty].id === "block_" + gridsOld[g].block_id)) {
                     gridTemp = gridsOld[g];
                     sizeTemp = {};
                     //------ defined inner block sizes
@@ -725,6 +738,7 @@
                     }
 
                     if (gridsNew.length) {
+                      isChanged = 1;
                       ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
                     }
                   }
@@ -733,6 +747,7 @@
             }
             //------- rewrite grids lists
             if (gridsNew.length) {
+              isChanged = 1;
               ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
             }
           }
@@ -1106,8 +1121,8 @@
                                 doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
                                 clipboard = angular.copy(doorsItems[x]);
                                 source.lockShapeList[k].elem.push(clipboard);
-                                //console.log("heightTEMP", heightTEMP);
-                                //console.log("widthTEMP", widthTEMP);
+                                // console.log("heightTEMP", heightTEMP);
+                                // console.log("widthTEMP", widthTEMP);
                               }
                             }
                           }
@@ -3279,10 +3294,32 @@
                       ProductStor.product.template_source
                     );
                     /** check grids */
+                      // console.log(ProductStor.product);
                     var isChanged = updateGrids();
                     if (isChanged) {
                       //------ get new grids price
-                      loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
+                      var sumMosq = 0;
+                      var sumMosqDis = 0;
+                      ProductStor.product.chosenAddElements[0].forEach(function (entry) {
+                        sumMosq += entry.element_price;
+                        sumMosqDis += entry.elementPriceDis;
+                      });
+
+                      ProductStor.product.addelem_price -= sumMosq;
+                      ProductStor.product.addelemPriceDis -= sumMosqDis;
+
+                      loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]).then(function () {
+                        sumMosq = 0;
+                        sumMosqDis = 0;
+                        ProductStor.product.chosenAddElements[0].forEach(function (entry) {
+                          sumMosq += entry.element_price;
+                          sumMosqDis += entry.elementPriceDis;
+                        });
+                        ProductStor.product.addelem_price += sumMosq;
+                        ProductStor.product.addelemPriceDis += sumMosqDis;
+                      });
+
+
                     }
                     SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                       ProductStor.product.template = angular.copy(result);
