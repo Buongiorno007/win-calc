@@ -97,7 +97,7 @@
                     });         
                   }); 
                 });
-              } else {z
+              } else {
                 ProductStor.product.glass = [];
                 ProductStor.product.profile = {};
                 ProductStor.product.hardware = {};

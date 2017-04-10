@@ -15,11 +15,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     if (!isDevice) {
 
       location.hash = "/";
-
-
-
-
-
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
         height = $(obj).height();
