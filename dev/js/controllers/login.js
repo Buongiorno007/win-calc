@@ -1003,17 +1003,21 @@
           var global = localStorage.getItem("GlobalStor");
           var history = localStorage.getItem("HistoryStor");
 
-
           if (order && product && aux && design && user && global && history) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
             if ((curDate === checkDate)) {
+              console.log("типа все ок");
               return true;
             } else {
+              console.log("разные даты");
               return false;
             }
-          } else {return false;}
+          } else {
+            console.log("не все данные сохранены");
+            return false;
+          }
         }
 
 

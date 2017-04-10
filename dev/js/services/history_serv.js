@@ -576,12 +576,11 @@
                       }
                     }
                     GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
-                    (tempProd.construction_type !== 4) ? MainServ.setCurrentHardware(tempProd, tempProd.hardware_id) :
-                      MainServ.setCurrentHardware(tempProd, tempProd.template_source.hardware_id);
+                    (tempProd.construction_type !== 4) ? MainServ.setCurrentHardware(tempProd, tempProd.hardware_id) : MainServ.setCurrentHardware(tempProd, tempProd.template_source.hardware_id);
                     MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
-                    delete tempProd.lamination_id;
-                    delete tempProd.lamination_in_id;
-                    delete tempProd.lamination_out_id;
+                    // delete tempProd.lamination_id;
+                    // delete tempProd.lamination_in_id;
+                    // delete tempProd.lamination_out_id;
                     defer1.resolve(tempProd);
                   });
                   if (tempProd.construction_type === 4) {
@@ -682,7 +681,7 @@
             },
             'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_max, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
           ).then(function (result) {
-            //console.log('result' , result)
+            console.log('result' , result)
             deferred.resolve(result);
           });
           return deferred.promise;
@@ -755,7 +754,6 @@
 
 
           var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
-          console.log(ordersQty);
           while (--ordersQty > -1) {
             if (typeOrder) {
               if ((HistoryStor.history.orders[ordersQty].id === orderNum) || (HistoryStor.history.orders[ordersQty].id === parseInt(orderNum))) {
@@ -777,6 +775,7 @@
           setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
           setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
 
+
           delete OrderStor.order.additional_payment;
           delete OrderStor.order.created;
           delete OrderStor.order.sended;
@@ -788,12 +787,12 @@
           delete OrderStor.order.purchase_price;
           delete OrderStor.order.sale_price;
           delete OrderStor.order.modified;
-
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
 
             var products = angular.copy(OrderStor.order.products);
             OrderStor.order.products = [];
+
 
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
@@ -816,6 +815,7 @@
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
                         OrderStor.order.products.push(res);
+
                         _callback();
                       });
                     } else {

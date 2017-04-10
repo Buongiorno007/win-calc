@@ -86,7 +86,6 @@
             },
             function (_callback) {
               if(ProductStor.product.is_addelem_only === 0) {
-                console.log("ProductStor.product.is_addelem_only === 0");
                 MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function(result) {        
                   MainServ.saveTemplateInProductForOrder().then(function(result) {
                     var profileId = ProductStor.product.profile.id,
@@ -98,8 +97,7 @@
                     });         
                   }); 
                 });
-              } else {
-                console.log("ProductStor.product.is_addelem_only !== 0");
+              } else {z
                 ProductStor.product.glass = [];
                 ProductStor.product.profile = {};
                 ProductStor.product.hardware = {};

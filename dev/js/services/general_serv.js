@@ -11,8 +11,15 @@
     $window,
     $document,
     globalConstants,
-    GlobalStor
+    GlobalStor,
+    ProductStor,
+    UserStor,
+    AuxStor,
+    DesignStor,
+    OrderStor,
+    HistoryStor
   ) {
+
     /*jshint validthis:true */
     var thisFactory = this;
       var addElementDATA = [
@@ -215,7 +222,32 @@
 
     //-------- blocking to refresh page
     $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
+
+      // var global = LZString.compress(JSON.stringify(GlobalStor.global));
+      // var product = LZString.compress(JSON.stringify(ProductStor.product));
+      // var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+      // var design = LZString.compress(JSON.stringify(DesignStor.design));
+      // var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+      // var order = LZString.compress(JSON.stringify(OrderStor.order));
+      // var history = LZString.compress(JSON.stringify(HistoryStor.history));
+      //
+      // localStorage.removeItem('GlobalStor');
+      // localStorage.removeItem('ProductStor');
+      // localStorage.removeItem('UserStor');
+      // localStorage.removeItem('AuxStor');
+      // localStorage.removeItem('DesignStor');
+      // localStorage.removeItem('OrderStor');
+      // localStorage.removeItem('HistoryStor');
+      //
+      // localStorage.setItem('GlobalStor', global);
+      // localStorage.setItem('ProductStor', product);
+      // localStorage.setItem('UserStor', userInfo);
+      // localStorage.setItem('AuxStor', aux);
+      // localStorage.setItem('DesignStor', design);
+      // localStorage.setItem('OrderStor', order);
+      // localStorage.setItem('HistoryStor', history);
+
+      //return $filter('translate')('common_words.PAGE_REFRESH');
     };
 
     /** prevent Backspace back to previos Page */
