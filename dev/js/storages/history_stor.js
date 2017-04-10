@@ -82,14 +82,14 @@
       setDefaultHistory: setDefaultHistory,
       restoreHistory: restoreHistory
     };
-    var data = localStorage.getItem("HistoryStor");
-    if (data){
-      thisFactory.publicObj.history = restoreHistory(data);
-      // console.log("HistoryStor restored");
-    } else {
-      //console.log("HistoryStor created");
+    // var data = localStorage.getItem("HistoryStor");
+    // if (data){
+    //   thisFactory.publicObj.history = restoreHistory(data);
+    //   // console.log("HistoryStor restored");
+    // } else {
+    //   //console.log("HistoryStor created");
+    // }
       thisFactory.publicObj.history = setDefaultHistory();
-    }
 
 
     return thisFactory.publicObj;

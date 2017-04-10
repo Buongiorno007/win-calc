@@ -103,12 +103,12 @@
         };
 
 
-    var data = localStorage.getItem("ProductStor");
-    if (data){
-      thisFactory.publicObj.product = restoreProduct(data);
-    } else {
+    // var data = localStorage.getItem("ProductStor");
+    // if (data){
+    //   thisFactory.publicObj.product = restoreProduct(data);
+    // } else {
+    // }
       thisFactory.publicObj.product = setDefaultProduct();
-    }
 
     return thisFactory.publicObj;
 
