@@ -977,7 +977,7 @@
 
         function setCurrLamination(product, newLamId) {
           var selectedLam = [];
-          if (ProductStor.product.construction_type !== 4) {
+          if (product.construction_type !== 4) {
             selectedLam = angular.copy(GlobalStor.global.laminatCouples)
           } else {
             selectedLam = angular.copy(GlobalStor.global.doorsLaminations)
@@ -1581,8 +1581,6 @@
               delete productData.doorSashName;
               delete productData.doorHandle;
               delete productData.doorLock;
-
-              console.log(productData);
 
               if (orderType) {
                 localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);

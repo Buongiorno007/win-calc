@@ -577,10 +577,13 @@
                     }
                     GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                     (tempProd.construction_type !== 4) ? MainServ.setCurrentHardware(tempProd, tempProd.hardware_id) : MainServ.setCurrentHardware(tempProd, tempProd.template_source.hardware_id);
+
                     MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
-                    // delete tempProd.lamination_id;
-                    // delete tempProd.lamination_in_id;
-                    // delete tempProd.lamination_out_id;
+
+                    delete tempProd.lamination_id;
+                    delete tempProd.lamination_in_id;
+                    delete tempProd.lamination_out_id;
+
                     defer1.resolve(tempProd);
                   });
                   if (tempProd.construction_type === 4) {
@@ -596,6 +599,7 @@
                 } else {
                   defer1.resolve(tempProd);
                 }
+
                 return defer1.promise;
               });
 
@@ -745,13 +749,11 @@
           return deferred.promise;
         }
 
-
         function editOrder(typeOrder, orderNum) {
           GlobalStor.global.isLoader = 1;
           GlobalStor.global.orderEditNumber = orderNum;
           //----- cleaning order
           OrderStor.order = OrderStor.setDefaultOrder();
-
 
           var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
           while (--ordersQty > -1) {
