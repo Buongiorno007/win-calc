@@ -13,6 +13,7 @@
     localDB,
     SettingServ,
     GlobalStor,
+    HistoryStor,
     OrderStor,
     ProductStor,
     AuxStor,
@@ -196,13 +197,16 @@
 
 
     function logOut() {
+
+      localStorage.clear();
+
       UserStor.userInfo = UserStor.setDefaultUser();
       GlobalStor.global = GlobalStor.setDefaultGlobal();
       OrderStor.order = OrderStor.setDefaultOrder();
       ProductStor.product = ProductStor.setDefaultProduct();
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
-
-      $location.path('/login');
+      HistoryStor.history = HistoryStor.setDefaultHistory();
+      $location.path('/');
     }
 
 

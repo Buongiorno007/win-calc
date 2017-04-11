@@ -14,9 +14,7 @@
                 MainServ,
                 CartServ,
                 DesignStor,
-                OrderStor,
-                ConfigMenuServ,
-                AddElementMenuServ) {
+                OrderStor) {
         var thisCtrl = this;
 
         thisCtrl.constants = globalConstants;
@@ -79,11 +77,26 @@
         thisCtrl.HARDWARE_SELECT = $filter('translate')('design.HARDWARE_SELECT');
         thisCtrl.LEFT_TEXT_SELECT = $filter('translate')('design.LEFT_TEXT_SELECT');
 
+
+
         thisCtrl.AND = $filter('translate')('common_words.AND');
 
-
+        if (!GlobalStor.global.prohibitCopyingTemplate) {
+          DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+          DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+          DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+          DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+        } else {
+          delete GlobalStor.global.prohibitCopyingTemplate;
+        }
         /**========== FUNCTIONS ==========*/
 
+        $timeout(function () {
+          DesignServ.initAllImposts();
+          DesignServ.initAllGlass();
+          DesignServ.initAllArcs();
+          DesignServ.initAllDimension();
+        }, 50);
 
         function addProdQty() {
           GlobalStor.global.product_qty++;

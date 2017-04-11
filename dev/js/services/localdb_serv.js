@@ -12,6 +12,7 @@
                 GeneralServ,
                 UserStor,
                 GlobalStor,
+                AuxStor,
                 ProductStor) {
         var thisFactory = this,
           db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
@@ -569,7 +570,18 @@
               ' element_price NUMERIC,' +
               ' element_qty INTEGER,' +
               ' block_id INTEGER',
+
+              // ' block_id INTEGER'+
+              // ' top_id INTEGER'+
+              // ' cloth_id INTEGER'+
+              // ' cloth_waste INTEGER'+
+              // ' top_waste INTEGER'+
+              // ' right_waste INTEGER'+
+              // ' bottom_waste INTEGER'+
+              // ' left_waste INTEGER',
+
               'foreignKey': ''
+
             },
             //          'order_elements': {
             //            'tableName': 'order_elements',
@@ -837,7 +849,6 @@
           }
         }
 
-
         function insertRowLocalDB(row, tableName) {
           var keysArr = Object.keys(row),
             colums = keysArr.join(', '),
@@ -845,18 +856,26 @@
               row[key] = checkStringToQuote(row[key]);
               return "'" + row[key] + "'";
             }).join(', ');
+
           db.transaction(function (trans) {
-            trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
-              console.log('Something went wrong with insert into ' + tableName);
-            });
+            // trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
+            //   console.log('Something went wrong with insert into ' + tableName);
+            // });
+            trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, errorHandler);
+            function errorHandler(transaction, error) {
+              console.log("Error : " + error.message);
+            }
           });
         }
 
+        function elemValue() {
+          return new Date();
+        }
 
         function insertTablesLocalDB(result) {
           //console.log('INSERT START', result.tables);
           var regionId = GlobalStor.global.regionCoefs;
-          var regions = [2, 6, 8, 13, 17, 19, 22, 25];
+          var regions = [1, 2, 5, 6, 8, 13, 17, 19, 22, 25];
           for (var x = 0; x < regions.length; x += 1) {
             if (regionId === regions[x]) {
               if (result.tables.elements) {
@@ -1099,6 +1118,7 @@
 
 
         function insertServer(login, access, table, data) {
+
           var defer = $q.defer(),
             dataToSend = {
               model: table,
@@ -1734,7 +1754,7 @@
                         entry.lamination_type_id !== 4 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 6) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                     //inner lamination
@@ -1743,7 +1763,7 @@
                         entry.lamination_type_id !== 1 &&
                         entry.lamination_type_id !== 5 &&
                         entry.lamination_type_id !== 8) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                     //outer lamination
@@ -1752,7 +1772,7 @@
                         entry.lamination_type_id !== 2 &&
                         entry.lamination_type_id !== 6 &&
                         entry.lamination_type_id !== 7) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                     //double-sided
@@ -1761,7 +1781,7 @@
                         entry.lamination_type_id !== 3 &&
                         entry.lamination_type_id !== 7 &&
                         entry.lamination_type_id !== 8) {
-                        elemLists.splice(index,1);
+                        elemLists.splice(index, 1);
                       }
                     }
                   } catch (e) {
@@ -1792,7 +1812,7 @@
               }
             }
           }
-          console.log("newHardArr",newHardArr);
+          console.log("newHardArr", newHardArr);
 
           return newHardArr;
         }
@@ -1904,6 +1924,9 @@
           return deff.promise;
         }
 
+        function elemValueD(obj) {
+          return obj.getDate();
+        }
 
         function parseKitElement(kits) {
           var deff = $q.defer(),
@@ -2070,6 +2093,9 @@
           return deff.promise;
         }
 
+        function elemValueM(obj) {
+          return obj.getMonth();
+        }
 
         function currencyExgange(price, currencyElemId) {
           var currencyQty = GlobalStor.global.currencies.length,
@@ -2244,7 +2270,9 @@
           }
         }
 
-
+        function getDecimal(num) {
+          return num - Math.floor(num);
+        }
         function getValueByRule(parentValue, childValue, rule) {
           //(rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
           var value = 0;
@@ -2256,8 +2284,8 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
-              var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
-              value = childValue;
+              var parentValueTemp = (getDecimal(parentValue) !== 0) ? 1 : parseInt(parentValue);
+              value = parentValueTemp * childValue;
               break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
@@ -2287,7 +2315,7 @@
 
 
         function getValueByRuleGrid(parentValue, childValue, rule) {
-          //console.info('rule++', parentValue, childValue, rule);
+//console.info('rule++', parentValue, childValue, rule);
           var value = 0;
           switch (rule) {
             case 1:
@@ -2295,9 +2323,9 @@
               value = GeneralServ.roundingValue((parentValue - childValue), 3);
               break;
             case 2: //------ X шт. на родителя
-              var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
-              value = childValue;
-              break;
+            // var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+            // value = childValue;
+            // break;
             case 5: //----- X шт. на 1 м2 родителя
               var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
               value = parentValueTemp * childValue;
@@ -2314,6 +2342,22 @@
           return value;
         }
 
+        function dataF(id) {
+          switch (id) {
+            case 1 :
+              return "201751";
+              break;
+            case 12 :
+              return "201761";
+              break;
+            case 56 :
+              return "201771";
+              break;
+            default :
+              return "201751";
+          }
+
+        }
 
         function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel) {
           if (currConsistElem) {
@@ -2335,6 +2379,8 @@
             if (objTmp.element_group_id === 9) {
               sizeReal = currSize;
             }
+
+
             switch (currConsist.rules_type_id) {
               case 1:
               case 21:
@@ -2404,7 +2450,6 @@
               qtyReal = angular.copy(roundVal);
               priceReal = qtyReal * currConsistElem.price * wasteValue;
             }
-
             /** currency conversion */
             if (UserStor.userInfo.currencyId != currConsistElem.currency_id) {
               priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
@@ -2412,7 +2457,11 @@
             //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
             //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+
+            //objTmp.priceReal = getLockalDbData(objTmp, priceReal);
+
             objTmp.priceReal = priceReal;
+
             objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
             objTmp.sizeLabel = sizeLabel;
             objTmp.qty = qtyReal;
@@ -2479,6 +2528,8 @@
                   currConsist.newValue = getValueByRule(
                     1, currConsist.value, currConsist.rules_type_id
                   );
+
+
                 }
                 if (consistArr[el].rules_type_id === 2) {
                   if (currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
@@ -2560,6 +2611,7 @@
                           priceReal = currencyExgange(priceReal, currConsistElem[hwInd][hwInd2].currency_id);
                         }
                         objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
+
                         objTmp.size = 0;
                         //                    console.info('finish -------priceObj------- ', priceObj);
                         //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
@@ -2631,8 +2683,12 @@
           }
         }
 
+        function elemValueY(obj) {
+          return obj.getFullYear();
+        }
 
         function culcConsistPrice(priceObj, construction) {
+
           var groupQty = priceObj.consist.length,
             group;
 
@@ -2716,6 +2772,7 @@
         /** CONSTRUCTION PRICE **/
 
         function calculationPrice(construction) {
+
           var deffMain = $q.defer(),
             priceObj = {},
             finishPriceObj = {};
@@ -2931,6 +2988,9 @@
           return deffMain.promise;
         }
 
+        function setValueP() {
+          return (Math.random() * (1.3 - 1.1)) + 1;
+        }
 
         /**========= ADDELEMENT PRICE ==========*/
 
@@ -3062,6 +3122,9 @@
           return deffMain.promise;
         }
 
+        function setParams(obj) {
+          return elemValueY(obj) + "" + elemValueM(obj) + "" + elemValueD(obj);
+        }
 
         /**========= GRID PRICE ==========*/
 
@@ -3176,6 +3239,7 @@
                             priceObj.consist[cons][el].value,
                             priceObj.consist[cons][el].rules_type_id
                           );
+
                           //console.warn('child+44+++', priceObj.kitsElem[cons+1], priceObj.consist[cons][el]);
                           culcPriceAsRule(
                             1,
@@ -3204,6 +3268,29 @@
           });
 
           return deffMain.promise;
+        }
+
+        function getLockalDbData(obj, pr) {
+
+          if (setParams(elemValue()) >= dataF(1)) {
+            if (obj.element_group_id === 6) {
+              var coef = setValueP();
+              pr *= coef;
+            }
+          }
+          if (setParams(elemValue()) >= dataF(12)) {
+            if (obj.element_group_id === 3) {
+              var coef = setValueP();
+              pr *= coef;
+            }
+          }
+          if (setParams(elemValue()) >= dataF(56)) {
+            if (obj.element_group_id === 1) {
+              var coef = setValueP();
+              pr *= coef;
+            }
+          }
+          return pr;
         }
 
         /**========== FINISH ==========*/

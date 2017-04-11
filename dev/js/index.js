@@ -14,7 +14,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   window.onload = function () {
     if (!isDevice) {
 
-      //location.hash = "#/";
+      // location.hash = "/";
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
         height = $(obj).height();
@@ -127,7 +127,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl as loginPage',
         title: 'Login'
-        //title: 'light'
       })
       .when('/main', {
         templateUrl: 'views/main.html',
@@ -184,7 +183,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
-    $translateProvider.preferredLanguage('ru');
+    $translateProvider.preferredLanguage('en');
     $translateProvider.useLoader('AsyncLoader');
   }
 
