@@ -1352,6 +1352,7 @@
         //------- set click to all Glass for Dimensions
         function initAllGlass() {
           DesignStor.design.selectedGlass.length = 0;
+
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass')
             .each(function () {
               var glass = d3.select(this);
@@ -1363,9 +1364,7 @@
                   //========= select glass
                   var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                     blockID = glass[0][0].attributes.block_id.nodeValue;
-
                   if (isGlass) {
-
                     glass.classed('glass-active', true);
                     hideCornerMarks();
                     deselectAllImpost();
@@ -1409,7 +1408,6 @@
                 //========= select glass
                 var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                   blockID = glass[0][0].attributes.block_id.nodeValue;
-
                 if (isGlass) {
                   glass.classed('glass-active', true);
                   d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.selectGlassName);
@@ -1553,6 +1551,7 @@
                     if (blocks[blocksQty].blockType === "sash") {
                       isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
                       //========= select glass
+
                       if (isGlass) {
 
                         glass.classed('glass-active', true);

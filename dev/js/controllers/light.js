@@ -77,9 +77,16 @@
         thisCtrl.HARDWARE_SELECT = $filter('translate')('design.HARDWARE_SELECT');
         thisCtrl.LEFT_TEXT_SELECT = $filter('translate')('design.LEFT_TEXT_SELECT');
 
-
+        thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+        thisCtrl.KARKAS = $filter('translate')('mainpage.KARKAS');
+        thisCtrl.KONFIG = $filter('translate')('mainpage.KONFIG');
+        thisCtrl.CART = $filter('translate')('mainpage.CART');
 
         thisCtrl.AND = $filter('translate')('common_words.AND');
+
+        // $( "*" ).click(function() {
+        //
+        // });
 
         if (!GlobalStor.global.prohibitCopyingTemplate) {
           DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
@@ -115,7 +122,9 @@
         }
 
         function saveProduct() {
-          console.log("save");
+          ProductStor.product.product_qty = GlobalStor.global.product_qty;
+          MainServ.inputProductInOrder();
+          console.log(ProductStor.product);
         }
 
         /**========== FINISH ==========*/

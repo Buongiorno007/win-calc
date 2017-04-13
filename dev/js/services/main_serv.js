@@ -1412,7 +1412,6 @@
         GlobalStor.global.isShowCommentBlock = 0;
         setDefaultAuxParam();
         ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
-        console.log(ProductStor.product);
         /**============ EDIT Product =======*/
         if (GlobalStor.global.productEditNumber) {
           var productsQty = OrderStor.order.products.length;

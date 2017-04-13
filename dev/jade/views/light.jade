@@ -22,9 +22,9 @@
                     input(type="number", min="1", ng-model="lightPage.G.global.product_qty")
                     .input-plus(ng-click="lightPage.addProdQty()") +
                   //.save-block(ng-click="lightPage.saveProduct()")
-                  .save-block(ng-click="lightPage.inputProductInOrder()")
+                  .save-block(ng-click="lightPage.saveProduct()")
                     .cart-img
-                    .cart-btn Сохранить
+                    .cart-btn {{lightPage.SAVE}}
 
             .right-menu-header
               .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1")
@@ -196,15 +196,15 @@
     .config-buttons
       .karkas-button(ng-click="configMenu.G.global.showKarkas=1;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
         .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
-        p КАРКАС
+        p {{lightPage.KARKAS}}
       .configuration-button(ng-click="configMenu.G.global.showKarkas=0; configMenu.G.global.showConfiguration=1;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
         .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
-        p КОНФИГ.
+        p {{lightPage.KONFIG}}.
       .cart-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=1", ng-class="{'active': configMenu.G.global.showCart == 1}")
         .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
           p {{ configMenu.O.order.products.length }}
         .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
-        p КОРЗИНА
+        p {{lightPage.CART}}
     //.karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
     .karkas(ng-controller="DesignCtrl as designPage", ng-show="configMenu.G.global.showKarkas")
       .construction-left-menu
