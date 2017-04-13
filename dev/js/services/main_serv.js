@@ -1297,6 +1297,7 @@
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
               $location.path('/main');
+              GlobalStor.global.currOpenPage = '/main';
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1322,6 +1323,7 @@
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
               $location.path('/main');
+              GlobalStor.global.currOpenPage = '/main';
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1391,6 +1393,7 @@
             GeneralServ.setPreviosPage();
 
             $location.path('/cart');
+            GlobalStor.global.currOpenPage = '/cart';
           }, 100);
         }
 

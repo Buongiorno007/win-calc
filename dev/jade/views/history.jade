@@ -68,9 +68,12 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
             .history-req-panel(ng-show="!historyPage.H.history.isOrderSearch")
               //#button.req-res(fs-click="historyPage.synchronizeOrders()") {{::historyPage.SYNCHRONIZE_ORDERS}}
               button.req-res(fs-click="historyPage.reqResult()") {{::historyPage.DOWNLOAD_ORDERS}}
-              select.period-of-time(ng-model="historyPage.H.history.resTimeBox", ng-options="time.name for time in historyPage.time",
+              //select.period-of-time(ng-model="historyPage.H.history.resTimeBox", ng-options="time.name for time in historyPage.time",
+              //ng-change ="historyPage.deleteOption()")
+              //  option(id='deleteOption', value='') {{::historyPage.DURING_THE_WEEK}}
+              select.period-of-time(ng-model="historyPage.H.history.resTimeBox",
               ng-change ="historyPage.deleteOption()")
-                option(id='deleteOption', value='') {{::historyPage.DURING_THE_WEEK}}
+                option(ng-repeat="time in historyPage.time", ng-selected="{{time.namb == 2}}", value="{{time.namb}}") {{time.name}}
           .scroll-vert-container
             .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index")
               .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }") 

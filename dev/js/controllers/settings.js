@@ -207,6 +207,7 @@
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
       HistoryStor.history = HistoryStor.setDefaultHistory();
       $location.path('/');
+      GlobalStor.global.currOpenPage = '/';
     }
 
 

@@ -162,6 +162,7 @@
               //console.timeEnd('prog');
 
               $location.path('/main');
+              GlobalStor.global.currOpenPage = '/main';
             }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -1025,11 +1026,12 @@
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
           if (url.orderEdit) {
+            HistoryStor.history.resTimeBox.namb = 3;
             HistoryServ.reqResult().then(function () {
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
-            $location.path('/main');
+            $location.path(GlobalStor.global.currOpenPage);
           }
 
         }

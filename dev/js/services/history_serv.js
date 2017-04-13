@@ -40,6 +40,7 @@
           GeneralServ.setPreviosPage();
           if (GlobalStor.global.isCreatedNewProduct && GlobalStor.global.isCreatedNewProject) {
             $location.path('/main');
+            GlobalStor.global.currOpenPage = '/main';
           } else {
             //-------- CREATE NEW PROJECT
             MainServ.createNewProject();
@@ -185,6 +186,7 @@
             orders: localDB.tablesLocalDB.orders,
             order_addelements: localDB.tablesLocalDB.order_addelements
           };
+          console.log(HistoryStor.history.resTimeBox);
           var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
           xhr.open('GET', url, false);
           xhr.send();
@@ -268,7 +270,10 @@
         }
 
         function deleteOption() {
-          $("#deleteOption").remove();
+          //$("#deleteOption").remove();
+          //$(".period-of-time").val();
+          HistoryStor.history.resTimeBox = $(".period-of-time").val();
+          console.log($(".period-of-time").val());
         }
 
         function makeOrderCopy(orderStyle, orderNum, typeOrder) {
@@ -807,6 +812,7 @@
                 GlobalStor.global.isLoader = 0;
                 //console.warn('ORDER ====', OrderStor.order);
                 $location.path('/cart');
+                GlobalStor.global.currOpenPage = '/cart';
               });
             });
 
