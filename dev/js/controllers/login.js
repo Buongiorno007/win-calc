@@ -162,27 +162,28 @@
               //console.timeEnd('prog');
 
               $location.path('/main');
+              GlobalStor.global.currOpenPage = '/main';
             }
             /** !!!! **/
-            // GlobalStor.global.loadDate = new Date();
-            //
-            // var global = LZString.compress(JSON.stringify(GlobalStor.global));
-            // var product = LZString.compress(JSON.stringify(ProductStor.product));
-            // var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
-            // var design = LZString.compress(JSON.stringify(DesignStor.design));
-            // var aux = LZString.compress(JSON.stringify(AuxStor.aux));
-            // var order = LZString.compress(JSON.stringify(OrderStor.order));
-            // var history = LZString.compress(JSON.stringify(HistoryStor.history));
-            //
-            // localStorage.clear();
-            //
-            // localStorage.setItem('GlobalStor', global);
-            // localStorage.setItem('ProductStor', product);
-            // localStorage.setItem('UserStor', userInfo);
-            // localStorage.setItem('AuxStor', aux);
-            // localStorage.setItem('DesignStor', design);
-            // localStorage.setItem('OrderStor', order);
-            // localStorage.setItem('HistoryStor', history);
+            GlobalStor.global.loadDate = new Date();
+
+            var global = LZString.compress(JSON.stringify(GlobalStor.global));
+            var product = LZString.compress(JSON.stringify(ProductStor.product));
+            var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+            var design = LZString.compress(JSON.stringify(DesignStor.design));
+            var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+            var order = LZString.compress(JSON.stringify(OrderStor.order));
+            var history = LZString.compress(JSON.stringify(HistoryStor.history));
+
+            localStorage.clear();
+
+            localStorage.setItem('GlobalStor', global);
+            localStorage.setItem('ProductStor', product);
+            localStorage.setItem('UserStor', userInfo);
+            localStorage.setItem('AuxStor', aux);
+            localStorage.setItem('DesignStor', design);
+            localStorage.setItem('OrderStor', order);
+            localStorage.setItem('HistoryStor', history);
 
 
           });
@@ -1003,17 +1004,21 @@
           var global = localStorage.getItem("GlobalStor");
           var history = localStorage.getItem("HistoryStor");
 
-
           if (order && product && aux && design && user && global && history) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
             if ((curDate === checkDate)) {
+              console.log("типа все ок");
               return true;
             } else {
+              console.log("разные даты");
               return false;
             }
-          } else {return false;}
+          } else {
+            console.log("не все данные сохранены");
+            return false;
+          }
         }
 
 
@@ -1021,11 +1026,12 @@
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
           if (url.orderEdit) {
+            HistoryStor.history.orderEdit = 2;
             HistoryServ.reqResult().then(function () {
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
-            $location.path('/main');
+            $location.path(GlobalStor.global.currOpenPage);
           }
 
         }

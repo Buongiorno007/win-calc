@@ -1,13 +1,13 @@
-(function () {
+(function(){
   'use strict';
-  /**@ngInject*/
+    /**@ngInject*/
   angular
     .module('MainModule')
     .factory('AuxStor',
 
-      function () {
-        /*jshint validthis:true */
-        var thisFactory = this;
+  function() {
+    /*jshint validthis:true */
+    var thisFactory = this;
 
         function setDefaultAuxiliary() {
           return angular.copy(thisFactory.publicObj.auxiliarySource);

@@ -197,7 +197,9 @@
 
 
     function logOut() {
+
       localStorage.clear();
+
       UserStor.userInfo = UserStor.setDefaultUser();
       GlobalStor.global = GlobalStor.setDefaultGlobal();
       OrderStor.order = OrderStor.setDefaultOrder();
@@ -205,6 +207,7 @@
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
       HistoryStor.history = HistoryStor.setDefaultHistory();
       $location.path('/');
+      GlobalStor.global.currOpenPage = '/';
     }
 
 

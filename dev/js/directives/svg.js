@@ -153,7 +153,6 @@
 
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
-
           if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
             sizeBox.append('rect')
               .classed('size-rect', true)

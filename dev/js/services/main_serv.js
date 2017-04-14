@@ -977,7 +977,7 @@
 
         function setCurrLamination(product, newLamId) {
           var selectedLam = [];
-          if (ProductStor.product.construction_type !== 4) {
+          if (product.construction_type !== 4) {
             selectedLam = angular.copy(GlobalStor.global.laminatCouples)
           } else {
             selectedLam = angular.copy(GlobalStor.global.doorsLaminations)
@@ -1297,6 +1297,7 @@
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
               $location.path('/main');
+              GlobalStor.global.currOpenPage = '/main';
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1322,6 +1323,7 @@
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
               $location.path('/main');
+              GlobalStor.global.currOpenPage = '/main';
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1391,6 +1393,7 @@
             GeneralServ.setPreviosPage();
 
             $location.path('/cart');
+            GlobalStor.global.currOpenPage = '/cart';
           }, 100);
         }
 
@@ -1630,6 +1633,14 @@
                       element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
                       element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
                       block_id: OrderStor.order.products[p].chosenAddElements[add][elem].block_id * 1,
+
+                      // top_id :OrderStor.order.products[p].chosenAddElements[add][elem].top_id,
+                      // cloth_id :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_id,
+                      // cloth_waste :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_waste,
+                      // top_waste :OrderStor.order.products[p].chosenAddElements[add][elem].top_waste,
+                      // right_waste :OrderStor.order.products[p].chosenAddElements[add][elem].right_waste,
+                      // bottom_waste :OrderStor.order.products[p].chosenAddElements[add][elem].bottom_waste,
+                      // left_waste :OrderStor.order.products[p].chosenAddElements[add][elem].left_waste,
                       modified: new Date()
                     };
 

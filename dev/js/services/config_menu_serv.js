@@ -48,6 +48,7 @@
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
             $location.path('/design');
+            GlobalStor.global.currOpenPage = '/design';
             //console.log(DesignStor.design.showHint);
             if (DesignStor.design.showHint >= 0) {
               GlobalStor.global.hintTimer = setTimeout(function () {
@@ -63,7 +64,8 @@
               } else {
                 GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
-                $location.path('/design');
+                $location.path('/design')
+                GlobalStor.global.currOpenPage = '/design';
                 GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
                 DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
                   DesignStor.design.steps.isDoorConfig = 1;

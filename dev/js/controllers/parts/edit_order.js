@@ -86,7 +86,7 @@
             },
             function (_callback) {
               if(ProductStor.product.is_addelem_only === 0) {
-                MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function(result) {
+                MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function(result) {        
                   MainServ.saveTemplateInProductForOrder().then(function(result) {
                     var profileId = ProductStor.product.profile.id,
                         hardwareId = ProductStor.product.hardware_id,

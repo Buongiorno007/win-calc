@@ -777,6 +777,7 @@
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
           $location.path('/main');
+          GlobalStor.global.currOpenPage = '/main';
         }
 
 
@@ -1352,6 +1353,7 @@
         //------- set click to all Glass for Dimensions
         function initAllGlass() {
           DesignStor.design.selectedGlass.length = 0;
+
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass')
             .each(function () {
               var glass = d3.select(this);
@@ -1363,7 +1365,6 @@
                   //========= select glass
                   var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                     blockID = glass[0][0].attributes.block_id.nodeValue;
-
                   if (isGlass) {
                     glass.classed('glass-active', true);
                     hideCornerMarks();
@@ -1399,6 +1400,7 @@
         /**------- set click to all Glass for Glass selector ---------- */
 
         function initAllGlassXGlass() {
+
           DesignStor.design.selectedGlass.length = 0;
           d3.selectAll('#' + globalConstants.SVG_ID_GLASS + ' .glass')
             .each(function () {
@@ -1407,7 +1409,6 @@
                 //========= select glass
                 var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                   blockID = glass[0][0].attributes.block_id.nodeValue;
-
                 if (isGlass) {
                   glass.classed('glass-active', true);
                   d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.selectGlassName);
@@ -1453,9 +1454,7 @@
 
 
         /**------- set click to all Glass for Grid selector ---------- */
-
         function initAllGlassXGrid() {
-
           function test(blocks, blocksQty, parent) {
             if (parent || !parent === 'block_0') {
               var block = blocks.filter(function (item) {
@@ -1553,7 +1552,9 @@
                     if (blocks[blocksQty].blockType === "sash") {
                       isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
                       //========= select glass
+
                       if (isGlass) {
+
                         glass.classed('glass-active', true);
                       } else {
                         glass.classed('glass-active', false);

@@ -40,6 +40,7 @@
           GeneralServ.setPreviosPage();
           if (GlobalStor.global.isCreatedNewProduct && GlobalStor.global.isCreatedNewProject) {
             $location.path('/main');
+            GlobalStor.global.currOpenPage = '/main';
           } else {
             //-------- CREATE NEW PROJECT
             MainServ.createNewProject();
@@ -65,6 +66,7 @@
               function sortNumber(a, b) {
                 return b.order_date.getTime() - a.order_date.getTime();
               }
+
               HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
               HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
@@ -185,6 +187,11 @@
             orders: localDB.tablesLocalDB.orders,
             order_addelements: localDB.tablesLocalDB.order_addelements
           };
+          if (!$(".period-of-time").val()) {
+            HistoryStor.history.resTimeBox.namb = 3;
+          } else {
+            HistoryStor.history.resTimeBox.namb = $(".period-of-time").val()
+          }
           var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
           xhr.open('GET', url, false);
           xhr.send();
@@ -227,7 +234,7 @@
                     };
                     localDB.insertTablesLocalDB(res).then(function () {
                       downloadOrders().then(function () {
-                                                defer.resolve(1);
+                        defer.resolve(1);
                       });
                     });
                   }
@@ -268,7 +275,8 @@
         }
 
         function deleteOption() {
-          $("#deleteOption").remove();
+          //$("#deleteOption").remove();
+          //$(".period-of-time").val();
         }
 
         function makeOrderCopy(orderStyle, orderNum, typeOrder) {
@@ -576,12 +584,14 @@
                       }
                     }
                     GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
-                    (tempProd.construction_type !== 4) ? MainServ.setCurrentHardware(tempProd, tempProd.hardware_id) :
-                      MainServ.setCurrentHardware(tempProd, tempProd.template_source.hardware_id);
+                    (tempProd.construction_type !== 4) ? MainServ.setCurrentHardware(tempProd, tempProd.hardware_id) : MainServ.setCurrentHardware(tempProd, tempProd.template_source.hardware_id);
+
                     MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
+
                     delete tempProd.lamination_id;
                     delete tempProd.lamination_in_id;
                     delete tempProd.lamination_out_id;
+
                     defer1.resolve(tempProd);
                   });
                   if (tempProd.construction_type === 4) {
@@ -597,6 +607,7 @@
                 } else {
                   defer1.resolve(tempProd);
                 }
+
                 return defer1.promise;
               });
 
@@ -682,7 +693,7 @@
             },
             'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_max, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
           ).then(function (result) {
-            //console.log('result' , result)
+            console.log('result', result);
             deferred.resolve(result);
           });
           return deferred.promise;
@@ -746,16 +757,13 @@
           return deferred.promise;
         }
 
-
         function editOrder(typeOrder, orderNum) {
           GlobalStor.global.isLoader = 1;
           GlobalStor.global.orderEditNumber = orderNum;
           //----- cleaning order
           OrderStor.order = OrderStor.setDefaultOrder();
 
-
           var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
-          console.log(ordersQty);
           while (--ordersQty > -1) {
             if (typeOrder) {
               if ((HistoryStor.history.orders[ordersQty].id === orderNum) || (HistoryStor.history.orders[ordersQty].id === parseInt(orderNum))) {
@@ -777,6 +785,7 @@
           setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
           setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
 
+
           delete OrderStor.order.additional_payment;
           delete OrderStor.order.created;
           delete OrderStor.order.sended;
@@ -788,12 +797,12 @@
           delete OrderStor.order.purchase_price;
           delete OrderStor.order.sale_price;
           delete OrderStor.order.modified;
-
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
 
             var products = angular.copy(OrderStor.order.products);
             OrderStor.order.products = [];
+
 
             async.eachSeries(products, calculate, function (err, result) {
               //------ Download All Add Elements from LocalDB
@@ -806,6 +815,7 @@
                 GlobalStor.global.isLoader = 0;
                 //console.warn('ORDER ====', OrderStor.order);
                 $location.path('/cart');
+                GlobalStor.global.currOpenPage = '/cart';
               });
             });
 
@@ -816,6 +826,7 @@
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
                         OrderStor.order.products.push(res);
+
                         _callback();
                       });
                     } else {
