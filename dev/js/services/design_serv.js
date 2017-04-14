@@ -777,6 +777,7 @@
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
           $location.path('/main');
+          GlobalStor.global.currOpenPage = '/main';
         }
 
 

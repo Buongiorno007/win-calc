@@ -37,7 +37,7 @@
         isBox: 0,
         isArr: 0,
         addElem: [],
-    
+
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,

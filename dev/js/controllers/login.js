@@ -162,6 +162,7 @@
               //console.timeEnd('prog');
 
               $location.path('/main');
+              GlobalStor.global.currOpenPage = '/main';
             }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -495,9 +496,9 @@
             ],
             accessQty = accessArr.length,
             isCustomer = 0;
-          if (checkSavedData()) {
-            fastEnter(url);
-          } else {
+          // if (checkSavedData()) {
+          //   fastEnter(url);
+          // } else {
             if (url.access) {
               //setTimeout(function () {
               while (accessQty > -1) {
@@ -549,7 +550,7 @@
                 }
               });
             }
-          }
+          // }
 
         }
 
@@ -1025,11 +1026,12 @@
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
           if (url.orderEdit) {
+            HistoryStor.history.orderEdit = 2;
             HistoryServ.reqResult().then(function () {
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
-            $location.path('/main');
+            $location.path(GlobalStor.global.currOpenPage);
           }
 
         }
