@@ -1,9 +1,10 @@
-(function () {
+(function(){
   'use strict';
-  /**@ngInject*/
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('GlobalStor',
+
 
   function() {
     /*jshint validthis:true */
@@ -16,36 +17,43 @@
 
     thisFactory.publicObj = {
 
-      globalSource: {
-        ISEXT : ISEXTFLAG,
-        onlineMode : 0,
-        hintTimer :0,
-        analitics_storage : [],
-        showReport : 0,
-        showCoefInfoBlock : 0,
-        loadDate : 0,
-        showCurrentTemp : 0,
-        getPCPower: 0,
-        isDevice: 0,
-        continued: 0,
-        checkAlert: 0,
-        loader: 0,
-        setTimeout: 0,
-        isLoader: 0,
-        isLoader2: 0,
-        isLoader3: 0,
-        inform: [],
-        checkSashInTemplate: 0,
-        dangerAlert: 0,
-        gotoSettingsPage: 0,
-        startProgramm: 1, // for START
-        //------ navigation
-        isNavMenu: 1,
-        isConfigMenu: 0,
-        activePanel: 0,
-        configMenuTips: 0,
-        //isTemplateItemMenu: 0,
-        //isTemplateItemDesign: 1,
+          globalSource: {
+            isTest : 0,
+            isDesignError : 0,
+            product_qty: 1,
+            showConfiguration : 0,
+            showKarkas : 1,
+            showCart : 0,
+            isLightVersion: 0,
+            ISEXT: ISEXTFLAG,
+            onlineMode: 0,
+            hintTimer: 0,
+            analitics_storage: [],
+            showReport: 0,
+            showCoefInfoBlock: 0,
+            loadDate: 0,
+            showCurrentTemp: 0,
+            getPCPower: 0,
+            isDevice: 0,
+            continued: 0,
+            checkAlert: 0,
+            loader: 0,
+            setTimeout: 0,
+            isLoader: 0,
+            isLoader2: 0,
+            isLoader3: 0,
+            inform: [],
+            checkSashInTemplate: 0,
+            dangerAlert: 0,
+            gotoSettingsPage: 0,
+            startProgramm: 1, // for START
+            //------ navigation
+            isNavMenu: 1,
+            isConfigMenu: 0,
+            activePanel: 0,
+            configMenuTips: 0,
+            //isTemplateItemMenu: 0,
+            //isTemplateItemDesign: 1,
 
         isCreatedNewProject: 1,
         copyGlabalStorGlassesAll: [],
@@ -174,17 +182,16 @@
 
       setDefaultGlobal: setDefaultGlobal
     };
-    // var data = localStorage.getItem("GlobalStor");
-    // if (data){
-    //   thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
-    //   //console.log("GlobalStor restored");
-    // } else {
-    //   //console.log("GlobalStor created");
-    // }
+    var data = localStorage.getItem("GlobalStor");
+    if (data){
+      thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("GlobalStor restored");
+    } else {
+      //console.log("GlobalStor created");
       thisFactory.publicObj.global = setDefaultGlobal();
+    }
 
     return thisFactory.publicObj;
 
   });
-
 })();

@@ -128,7 +128,10 @@
     "PROFILE_TIP": "Pentru a selecta profilul apăsați aici",
     "GLASS_TIP": "Pentru a selecta termopanul apăsați aici",
     "SELECT_ALL": "Selectează totul",
-    "SELECT_GLASS_WARN": "Faceți un clic pe termopanul, pe care doriți să-l modificați."
+    "SELECT_GLASS_WARN": "Faceți un clic pe termopanul, pe care doriți să-l modificați.",
+    "KARKAS": "FRAME",
+    "KONFIG": "CONFIG.",
+    "CART": "CART"
   },
   "panels": {
     "INFO_HINT":"Lansați calculul prin selectarea șablonului dorit",

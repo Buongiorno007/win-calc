@@ -13,9 +13,7 @@
     GeneralServ,
     NavMenuServ,
     GlobalStor,
-    DesignStor,
     OrderStor,
-    AuxStor,
     ProductStor,
     UserStor
   ) {
@@ -40,12 +38,17 @@
     thisCtrl.NAVMENU_MORE_INFO = $filter('translate')('mainpage.NAVMENU_MORE_INFO');
     thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
     thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
-    thisCtrl.NAVMENU_LIGHT_VER = $filter('translate')('mainpage.NAVMENU_LIGHT_VER');
+
     thisCtrl.NAVMENU_STANDART_VERSION = $filter('translate')('mainpage.NAVMENU_STANDART_VERSION');
+    thisCtrl.NAVMENU_LIGHT_VER = $filter('translate')('mainpage.NAVMENU_LIGHT_VER');
 
 
-
-    /**============ METHODS ================*/
+        /**============ METHODS ================*/
+        if (GlobalStor.global.currOpenPage === "light") {
+          GlobalStor.global.isLightVersion = 1;
+        } else {
+          GlobalStor.global.isLightVersion = 0;
+        }
 
     //------- Select menu item
     function selectMenuItem(id) {

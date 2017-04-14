@@ -1,13 +1,13 @@
-(function () {
+(function(){
   'use strict';
-  /**@ngInject*/
+    /**@ngInject*/
   angular
     .module('MainModule')
     .factory('AuxStor',
 
-      function () {
-        /*jshint validthis:true */
-        var thisFactory = this;
+  function() {
+    /*jshint validthis:true */
+    var thisFactory = this;
 
         function setDefaultAuxiliary() {
           return angular.copy(thisFactory.publicObj.auxiliarySource);
@@ -43,14 +43,14 @@
           restoreAuxiliary: restoreAuxiliary
         };
 
-        // var data = localStorage.getItem("AuxStor");
-        // if (data){
-        //   thisFactory.publicObj.aux = restoreAuxiliary(data);
-        //   //console.log("AuxStor restored");
-        // } else {
-        //   //console.log("AuxStor created");
-        // }
+        var data = localStorage.getItem("AuxStor");
+        if (data){
+          thisFactory.publicObj.aux = restoreAuxiliary(data);
+          //console.log("AuxStor restored");
+        } else {
+          //console.log("AuxStor created");
         thisFactory.publicObj.aux = setDefaultAuxiliary();
+        }
 
         return thisFactory.publicObj;
 

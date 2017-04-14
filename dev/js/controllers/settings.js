@@ -197,7 +197,9 @@
 
 
     function logOut() {
+
       localStorage.clear();
+
       UserStor.userInfo = UserStor.setDefaultUser();
       GlobalStor.global = GlobalStor.setDefaultGlobal();
       OrderStor.order = OrderStor.setDefaultOrder();
