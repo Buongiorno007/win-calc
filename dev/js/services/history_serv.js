@@ -272,8 +272,8 @@
         function deleteOption() {
           //$("#deleteOption").remove();
           //$(".period-of-time").val();
-          HistoryStor.history.resTimeBox = $(".period-of-time").val();
-          console.log($(".period-of-time").val());
+          HistoryStor.history.resTimeBox.namb = $(".period-of-time").val();
+          console.log(HistoryStor.history.resTimeBox.namb);
         }
 
         function makeOrderCopy(orderStyle, orderNum, typeOrder) {
