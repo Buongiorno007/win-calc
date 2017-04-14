@@ -66,6 +66,7 @@
               function sortNumber(a, b) {
                 return b.order_date.getTime() - a.order_date.getTime();
               }
+
               HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
               HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
@@ -186,7 +187,11 @@
             orders: localDB.tablesLocalDB.orders,
             order_addelements: localDB.tablesLocalDB.order_addelements
           };
-          console.log(HistoryStor.history.resTimeBox);
+          if (!$(".period-of-time").val()) {
+            HistoryStor.history.resTimeBox.namb = 3;
+          } else {
+            HistoryStor.history.resTimeBox.namb = $(".period-of-time").val()
+          }
           var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
           xhr.open('GET', url, false);
           xhr.send();
@@ -229,7 +234,7 @@
                     };
                     localDB.insertTablesLocalDB(res).then(function () {
                       downloadOrders().then(function () {
-                                                defer.resolve(1);
+                        defer.resolve(1);
                       });
                     });
                   }
@@ -272,8 +277,6 @@
         function deleteOption() {
           //$("#deleteOption").remove();
           //$(".period-of-time").val();
-          HistoryStor.history.resTimeBox.namb = $(".period-of-time").val();
-          console.log(HistoryStor.history.resTimeBox.namb);
         }
 
         function makeOrderCopy(orderStyle, orderNum, typeOrder) {
@@ -690,7 +693,7 @@
             },
             'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_max, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
           ).then(function (result) {
-            console.log('result' , result);
+            console.log('result', result);
             deferred.resolve(result);
           });
           return deferred.promise;

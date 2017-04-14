@@ -71,8 +71,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               //select.period-of-time(ng-model="historyPage.H.history.resTimeBox", ng-options="time.name for time in historyPage.time",
               //ng-change ="historyPage.deleteOption()")
               //  option(id='deleteOption', value='') {{::historyPage.DURING_THE_WEEK}}
-              select.period-of-time(ng-model="historyPage.H.history.resTimeBox.namb",
-              ng-change ="historyPage.deleteOption()")
+              select.period-of-time
                 option(value='{{1}}') {{historyPage.DURING_THE_WEEK}}
                 option(value='{{2}}') {{historyPage.PER_MOUNTH}}
                 option(value='{{3}}') {{historyPage.IN_A_YEAR}}

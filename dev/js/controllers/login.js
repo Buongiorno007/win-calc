@@ -1026,7 +1026,7 @@
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
           if (url.orderEdit) {
-            HistoryStor.history.resTimeBox.namb = 3;
+            HistoryStor.history.orderEdit = 2;
             HistoryServ.reqResult().then(function () {
               HistoryServ.editOrder(1, url.orderEdit);
             });

@@ -64,10 +64,10 @@
     thisCtrl.ORDER_ERROR = $filter('translate')('history.ORDER_ERROR');
     thisCtrl.SYNCHRONIZE_ORDERS = $filter('translate')('history.SYNCHRONIZE_ORDERS');
     thisCtrl.time = [
-        // {
-        //     name:$filter('translate')('history.DURING_THE_WEEK'),
-        //     namb: 1
-        // },
+        {
+            name:$filter('translate')('history.DURING_THE_WEEK'),
+            namb: 1
+        },
         {
             name:$filter('translate')('history.PER_MOUNTH'),
             namb: 2
