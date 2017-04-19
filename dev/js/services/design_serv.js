@@ -746,10 +746,10 @@
                   }
                 }
               } else {
-                console.log(ProductStor.product.chosenAddElements);
+                isChanged = 1;
+                ProductStor.product.chosenAddElements[0].splice(0,ProductStor.product.chosenAddElements[0].length);
               }
             }
-            console.log(blocks[blockQty]);
             //------- rewrite grids lists
             if (gridsNew.length) {
               isChanged = 1;
