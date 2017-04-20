@@ -19,6 +19,7 @@
     OrderStor,
     HistoryStor
   ) {
+
     /*jshint validthis:true */
     var thisFactory = this;
       var addElementDATA = [

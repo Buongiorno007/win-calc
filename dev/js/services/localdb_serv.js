@@ -33,8 +33,23 @@
             },
             'cities': {
               'tableName': 'cities',
-              'prop': 'region_id INTEGER, name VARCHAR(255), transport VARCHAR(2), lat NUMERIC, long NUMERIC, is_capital INTEGER, code_sync INTEGER, name_sync VARCHAR(255), area_id INTEGER',
+              'prop': 'region_id INTEGER,' +
+              ' name VARCHAR(255),' +
+              ' transport VARCHAR(2),' +
+              ' lat NUMERIC, long NUMERIC,' +
+              ' is_capital INTEGER,' +
+              ' code_sync INTEGER,' +
+              ' name_sync VARCHAR(255),' +
+              ' area_id INTEGER,' +
+              ' price_koef_id INTEGER',
               'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
+            },
+            'price_koefficients': {
+              'tableName': 'price_koefficients',
+              'prop': 'element_id INTEGER,' +
+              'koef_id INTEGER,' +
+              'value NUMERIC',
+              'foreignKey': ''
             },
             'countries': {
               'tableName': 'countries',
@@ -872,18 +887,39 @@
           return new Date();
         }
 
+        var elem_koef_number = 0;
+        var element_list = [];
+
         function insertTablesLocalDB(result) {
           //console.log('INSERT START', result.tables);
-          var regionId = GlobalStor.global.regionCoefs;
-          var regions = [1, 2, 5, 6, 8, 13, 17, 19, 22, 25];
-          for (var x = 0; x < regions.length; x += 1) {
-            if (regionId === regions[x]) {
-              if (result.tables.elements) {
-                for (var x = 0; x < result.tables.elements.rows.length; x += 1) {
-                  if (result.tables.elements.rows[x][28] > 0)
-                    result.tables.elements.rows[x][21] = result.tables.elements.rows[x][21] * result.tables.elements.rows[x][28];
+          if (result.tables.cities) {
+            result.tables.cities.rows.forEach(function (city) {
+              if ((city[11] === UserStor.userInfo.city_id)) {
+                if (city[0]) {
+                  elem_koef_number = city[0];
                 }
               }
+            });
+          }
+          if (elem_koef_number !== 0) {
+            if (result.tables.price_koefficients) {
+              result.tables.price_koefficients.rows.forEach(function (element) {
+                if (element[1] === elem_koef_number) {
+                  element_list.push(element);
+                }
+              });
+            }
+          }
+          if (element_list) {
+            if (result.tables.elements) {
+              result.tables.elements.rows.forEach(function (element) {
+                element_list.forEach(function (entry) {
+                  if (entry[2] === element[0]) {
+                    element[21] *= entry[0];
+                  }
+                });
+              });
+
             }
           }
           var promises = [],
@@ -2273,6 +2309,7 @@
         function getDecimal(num) {
           return num - Math.floor(num);
         }
+
         function getValueByRule(parentValue, childValue, rule) {
           //(rule === 2) ? console.info('rule++', parentValue, childValue, rule) : 0;
           var value = 0;
@@ -2361,7 +2398,8 @@
 
         function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel) {
           if (currConsistElem) {
-            var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, roundVal = 0, qtyReal = 1, tempS = 0, x = 1.2;
+            var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, roundVal = 0, qtyReal = 1,
+              tempS = 0, x = 1.2;
             //console.log(currConsist, 'currConsist')
             //console.log(currConsistElem, 'currConsistElem')
             //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);

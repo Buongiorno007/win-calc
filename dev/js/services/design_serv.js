@@ -705,6 +705,8 @@
                 if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id)&& (entry.id === oldMosq.id)){
                   entry.elementPriceDis = angular.copy(oldMosq.elementPriceDis);
                   entry.element_price = angular.copy(oldMosq.element_price);
+                  entry.element_height = angular.copy(oldMosq.element_height);
+                  entry.element_width = angular.copy(oldMosq.element_width);
                   angular.extend(oldMosq, entry);
                   return;
                 }
@@ -743,6 +745,9 @@
                     }
                   }
                 }
+              } else {
+                isChanged = 1;
+                ProductStor.product.chosenAddElements[0].splice(0,ProductStor.product.chosenAddElements[0].length);
               }
             }
             //------- rewrite grids lists
