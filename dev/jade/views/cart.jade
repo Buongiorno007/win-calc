@@ -6,18 +6,18 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
  
       section.cart-page
 
-        section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}", ng-swipe-up="cartPage.openDiscountBlock()", ng-swipe-down="cartPage.closeDiscountBlock()")
+        section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}")
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", fs-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
+            button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", ng-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
             //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .scroll-hor-container
             .order-block
               .order(ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index")
-                button.order-delete(fs-click="cartPage.clickDeleteProduct($index)")
+                button.order-delete(ng-click="cartPage.clickDeleteProduct($index)")
+                img.imgg(ng-src='img/copy_edit.png', ng-click="cartPage.box($index, 'product')")
                 .order-header(ng-click="cartPage.showCartTemplte($index)")
-                  img.imgg(ng-src='img/copy_edit.png', fs-click="cartPage.box($index, 'product')")
 
                   .order-template
                     svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
@@ -66,9 +66,9 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                         when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
                       .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
                   .order-qty
-                    button.order-tool(fs-click="cartPage.decreaseProductQty($index)") -
+                    button.order-tool(ng-click="cartPage.decreaseProductQty($index)") -
                     .order-value {{ product.product_qty }}
-                    button.order-tool(fs-click="cartPage.increaseProductQty($index)") +
+                    button.order-tool(ng-click="cartPage.increaseProductQty($index)") +
                     .order-label.qty-label {{ ::cartPage.PRODUCT_QTY }}
                 .order-footer
                   .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
@@ -77,7 +77,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
                     .order-comment-content {{ cartPage.O.order.comment }}
-            button.view-switch-tab(fs-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
+            button.view-switch-tab(ng-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
           .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
             button.close-cur-window(ng-click="cartPage.C.cart.showCurrentTemp=0")
             img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
@@ -130,12 +130,12 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
         section.cart-container.light-view(ng-class="{'active': cartPage.config.isCartLightView}")
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(fs-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
+            button.cart-tool.additional-elements(ng-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
             //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .order-block.scroll-vert-container
             .order(ng-repeat="product in cartPage.O.order.products track by $index")
-              button.order-delete(fs-click="cartPage.clickDeleteProduct($index)")
+              button.order-delete(ng-click="cartPage.clickDeleteProduct($index)")
               .order-header
                 .order-template(fs-click="cartPage.editProduct($index, 'product')")
                   svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
