@@ -1,0 +1,334 @@
+.light-v(ng-class="{'active': lightPage.G.global.showCart == 1}")
+  section.page-container(ng-class="{ 'swiped': !lightPage.G.global.isNavMenu }")
+    section.left-side
+      include menus/_navigation-menu
+
+    section.right-side(ng-class="{'main-page-bg': lightPage.G.global.currOpenPage === 'light', 'main-room-bg': lightPage.G.global.currOpenPage === 'light'}")
+      section.main-content(tabindex="0")
+        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)")
+          button.nav-menu-btn(ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedlightPage)}", fs-click="userBox.swipeMainPage($event)")
+
+
+        // section.construction-page(ng-class="{'active': lightPage.G.global.showCart == 1}")
+        section.construction-page(ng-if="lightPage.G.global.showCart == 0")
+          section.construction-container
+            .construction-block
+              .construction-scrollbox
+                svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
+
+                .counter-block
+                  .counter
+                    .input-minus(ng-click="lightPage.subtractProdQty()") -
+                    input(type="number", min="1", ng-model="lightPage.G.global.product_qty")
+                    .input-plus(ng-click="lightPage.addProdQty()") +
+                  //.save-block(ng-click="lightPage.saveProduct()")
+                  .save-block(ng-click="lightPage.saveProduct()")
+                    .cart-img
+                    .cart-btn {{lightPage.SAVE}}
+
+            .right-menu-header
+              .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1")
+                button.construct-tools.step-back(ng-click="lightPage.stepBack()")
+                .nav-tool-label {{ ::lightPage.BACK }}
+
+            .door-config-menu(ng-if="lightPage.P.product.construction_type === 4")
+              button.door-config-btn(ng-class="{'active': lightPage.D.design.steps.isDoorConfig}", ng-click="lightPage.toggleDoorConfig()")
+              .door-config-label {{ ::lightPage.DOOR_CONFIG_LABEL }}
+              .door-config-description {{ ::lightPage.DOOR_CONFIG_DESCTIPT }}: {{ lightPage.P.product.doorName | translate }};
+              .door-config-description {{ ::lightPage.SASH_CONFIG_DESCTIPT }}: {{ lightPage.P.product.doorSashName }};
+              .door-config-description {{ ::lightPage.HANDLE_CONFIG_DESCTIPT }}: {{ lightPage.P.product.doorHandle.name }};
+              .door-config-description {{ ::lightPage.LOCK_CONFIG_DESCTIPT }}: {{ lightPage.P.product.doorLock.name }};
+
+            .right-menu-footer
+              .calculators-box.size-calculator(ng-class="{'active': lightPage.G.global.isSizeCalculator}")
+                include parts/_size-calculator
+
+            include panels/_templates
+            include panels/_profiles
+            include panels/_glasses
+            include panels/_hardwares
+            include panels/_laminations
+            include panels/_add-elements
+            section.door-configuration(ng-class="{'active': lightPage.D.design.steps.isDoorConfig}")
+
+              .door-config-column.step1
+                .door-config-backfon
+                .door-config-header
+                  .door-inner
+                    .door-title 1 {{ ::lightPage.STEP }}
+                    .door-subtitle {{ ::lightPage.LABEL_DOOR_TYPE }}
+                .door-config-content(ng-class="{'scroll-box': !lightPage.D.design.steps.selectedStep2}")
+                  ul.door-config-list
+                    li.door-config-option(ng-repeat="door in lightPage.D.design.doorShapeList track by $index", ng-class="{'selected': lightPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="lightPage.selectDoor($index, lightPage.P.product)")
+                      .door-inner
+                        .door-option-icon
+                          img.door-shape(ng-src="{{ door.icon }}" ng-hide="lightPage.D.design.doorConfig.doorShapeIndex === $index")
+                          img.door-shape(ng-src="{{ door.iconSelect }}", ng-show="lightPage.D.design.doorConfig.doorShapeIndex === $index")
+                        .door-option-label {{ ::door.name | translate }}
+                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.doorShapeIndex === $index")
+
+              .door-config-column.step2(ng-class="{'active': lightPage.D.design.steps.selectedStep1}")
+                .door-config-backfon
+                .door-config-header
+                  .door-inner
+                    .door-title 2 {{ ::lightPage.STEP }}
+                    .door-subtitle {{ ::lightPage.LABEL_SASH_TYPE }}
+                .door-config-content(ng-class="{'scroll-box': !lightPage.D.design.steps.selectedStep3}")
+                  ul.door-config-list
+                    li.door-config-option(ng-repeat="sashShape in lightPage.D.design.sashShapeList track by $index", ng-class="{'selected': lightPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="lightPage.selectSash($index, lightPage.P.product)")
+                      .door-inner
+                        .door-option-label {{ sashShape.name }}
+                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.sashShapeIndex === $index")
+
+              .door-config-column.step3(ng-class="{'active': lightPage.D.design.steps.selectedStep2}")
+                .door-config-backfon
+                .door-config-header
+                  .door-inner
+                    .door-title 3 {{ ::lightPage.STEP }}
+                    .door-subtitle {{ ::lightPage.LABEL_HANDLE_TYPE }}
+                .door-config-content(ng-class="{'scroll-box': !lightPage.D.design.steps.selectedStep4}")
+                  ul.door-config-list
+                    li.door-config-option(ng-repeat="handle in lightPage.D.design.handleShapeList track by $index", ng-class="{'selected': lightPage.D.design.doorConfig.handleShapeIndex === handle.id}", ng-click="lightPage.selectHandle(handle.id, lightPage.P.product)")
+                      .door-inner
+                        .door-option-icon
+                          img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config/lever-handle.png", ng-hide="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
+                          img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config-selected/lever-handle.png", ng-show="lightPage.D.design.doorConfig.handleShapeIndex ===handle.id")
+                          img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config/standart-handle.png", ng-hide="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
+                          img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config-selected/standart-handle.png", ng-show="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
+                        .door-option-label {{ handle.name }}
+                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
+
+              .door-config-column.step4(ng-class="{'active': lightPage.D.design.steps.selectedStep3}")
+                .door-config-backfon
+                .door-config-header
+                  .door-inner
+                    .door-title 4 {{ ::lightPage.STEP }}
+                    .door-subtitle {{ ::lightPage.LABEL_LOCK_TYPE }}
+                .door-config-content(ng-class="{'scroll-box': lightPage.D.design.steps.selectedStep3}")
+                  ul.door-config-list
+                    li.door-config-option(ng-repeat="lock in lightPage.D.design.lockShapeList track by $index", ng-class="{'selected': lightPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="lightPage.selectLock($index, lightPage.P.product)")
+                      .door-inner
+                        .door-option-icon
+                          img.door-hardware(ng-if="lock.type === 1 || lock.type === 2", ng-src="img/door-config/onelock.png" ng-hide="lightPage.D.design.doorConfig.lockShapeIndex === $index")
+                          img.door-hardware(ng-if="lock.type === 1 || lock.type === 2", ng-src="img/door-config-selected/onelock.png", ng-show="lightPage.D.design.doorConfig.lockShapeIndex === $index")
+                          img.door-hardware(ng-if="lock.type === 3 || lock.type === 4", ng-src="img/door-config/multilock.png" ng-hide="lightPage.D.design.doorConfig.lockShapeIndex === $index")
+                          img.door-hardware(ng-if="lock.type === 3 || lock.type === 4", ng-src="img/door-config-selected/multilock.png", ng-show="lightPage.D.design.doorConfig.lockShapeIndex === $index")
+                        .door-option-label {{ lock.name }}
+                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.lockShapeIndex === $index")
+
+              .door-config-tools
+                button.door-config-finish-btn.close-door-config(ng-click="lightPage.closeDoorConfig()")
+                button.door-config-finish-save-btn.save-door-config(ng-show="lightPage.D.design.steps.selectedStep4", ng-click="lightPage.saveDoorConfig()")
+
+            .design-attantion(ng-if="lightPage.G.global.isDesignError") {{ ::lightPage.NOT_AVAILABLE }}
+            .design-attantion(ng-if="lightPage.D.design.isDimExtra") {{ ::lightPage.DIM_EXTRA }}
+              .close-dialog(ng-click="lightPage.closeAttantion()")
+            .design-attantion(ng-if="lightPage.D.design.isSquareExtra") {{ ::lightPage.SQUARE_EXTRA }}
+              .close-dialog(ng-click="lightPage.closeAttantion()")
+            .design-attantion(ng-if="lightPage.G.global.isTest") {{ ::lightPage.TEST_STAGE }}
+              .close-dialog(ng-click="lightPage.closeAttantion()")
+
+        .cart-page(ng-show="lightPage.G.global.showCart === 1")
+          .scroll-hor-container
+            .order-block
+              .order(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
+                button.order-delete(fs-click="lightPage.clickDeleteProduct($index)")
+                .order-header(ng-click="lightPage.showCartTemplte($index)")
+                  img.imgg(ng-src='img/copy_edit.png', fs-click="lightPage.box($index, 'product')")
+                  .order-template
+                    svg-template(template="product.templateIcon", template-width="lightPage.constants.svgTemplateIconWidthCart", template-height="lightPage.constants.svgTemplateIconHeightCart", type-construction="lightPage.constants.SVG_CLASS_ICON")
+                  .order-u-coeff(ng-if="!lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+                    div U = {{ product.heat_coef_total }}
+                    div {{ ::lightPage.HEATCOEF_VAL }}/{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C
+                .order-content
+                  .order-u-coeff(ng-if="lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+                    div.R-MInfo
+                      p.number {{ $index+1+"."+"\u00A0"}}
+                    div.R-MInfo {{ product.heat_coef_total +"\u00A0"+"\u00A0"}}
+                    div.R-MInfo {{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::lightPage.HEATCOEF_VAL +"\u00A0" }}
+                    div.inner-text {{lightPage.HEAT_TRANSFER}}
+                  ul.order-list
+                    li.order-item
+                      .order-value {{ product.template_width }} {{ ::lightPage.MM +"\u00A0 *\u00A0"}}
+                      .order-value {{ product.template_height }} {{ ::lightPage.MM }}
+                      .order-label {{ ::lightPage.CONFIGMENU_SIZING }}
+                    li.order-item
+                      .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
+                      .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
+                      .order-label {{ ::lightPage.CONFIGMENU_PROFILE }}
+                    li.order-item(ng-if="product.glass.length > 1")
+                      .order-value {{ product.glass[0].sku + ', ...' }}
+                      .order-label {{ ::lightPage.CONFIGMENU_GLASS }}
+                    li.order-item(ng-if="product.glass.length <= 1")
+                      .order-value {{ product.glass[0].sku }}
+                      .order-label {{ ::lightPage.CONFIGMENU_GLASS }}
+                    li.order-item
+                      .order-value(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
+                      .order-value(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
+                      .order-label {{ ::lightPage.CONFIGMENU_HARDWARE }}
+                    li.order-item
+                      .order-label {{ ::lightPage.CONFIGMENU_LAMINATION_TYPE }}
+                      .order-value
+                        span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
+                        span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
+                        span /
+                        span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
+                        span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
+                      .order-label {{ ::lightPage.CONFIGMENU_LAMINATION }}
+                    li.order-item.addelements-btn(fs-click="lightPage.showAddElementDetail($index)")
+                      .order-value {{lightPage.C.cart.allAddElements[$index].length}}
+                        ng-pluralize(count="lightPage.C.cart.allAddElements[$index].length",
+                        when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}")
+                      .order-label {{ ::lightPage.CONFIGMENU_ADDITIONAL }}
+                  .order-qty
+                    button.order-tool(fs-click="lightPage.decreaseProductQty($index)") -
+                    .order-value {{ product.product_qty }}
+                    button.order-tool(fs-click="lightPage.increaseProductQty($index)") +
+                    .order-label.qty-label {{ ::lightPage.PRODUCT_QTY }}
+                .order-footer
+                  .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
+                  .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': lightPage.config.isProductComment === $index+1}", fs-click="lightPage.switchProductComment($index)")
+                .order-comment(ng-class="{'active': lightPage.config.isProductComment === $index+1}")
+                  .order-comment-box
+                    .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
+                    .order-comment-content {{ lightPage.O.order.comment }}
+  .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
+    .config-buttons
+      .karkas-button(ng-click="configMenu.G.global.showKarkas=1;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+        .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+        p {{lightPage.KARKAS}}
+      .configuration-button(ng-click="configMenu.G.global.showKarkas=0; configMenu.G.global.showConfiguration=1;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+        .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+        p {{lightPage.KONFIG}}.
+      .cart-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=1", ng-class="{'active': configMenu.G.global.showCart == 1}")
+        .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
+          p {{ configMenu.O.order.products.length }}
+        .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
+        p {{lightPage.CART}}
+    //.karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
+    .karkas(ng-controller="DesignCtrl as designPage", ng-show="configMenu.G.global.showKarkas")
+      .construction-left-menu
+        ul.figure-lists
+          li.figure-item(ng-click="designPage.selectMenuItem(3)",ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
+            .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
+              .figure-icon-top.impost-shape-a
+              .figure-icon-bottom.impost-shape-b
+            .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+          li.figure-item(ng-click="designPage.selectMenuItem(1)",ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
+            .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
+              .figure-icon-top.sash-shape-a
+              .figure-icon-bottom.sash-shape-b
+            .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+          li.figure-item(ng-click="designPage.selectMenuItem(2)",ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}")
+            .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}")
+              .figure-icon-top.angel-shape-a
+              .figure-icon-bottom.angel-shape-b
+            .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+          li.figure-item(ng-click="designPage.selectMenuItem(4)",ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
+            .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
+              .figure-icon-top.arch-shape-a
+              .figure-icon-bottom.arch-shape-b
+            .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+          li.figure-item(ng-click="designPage.selectMenuItem(5)",ng-class="{'selected': designPage.D.design.activeMenuItem == 5, 'hov': designPage.D.design.activeMenuItem !== 5}")
+            .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5, 'hov': designPage.D.design.activeMenuItem !== 5}")
+              .figure-icon-top.position-shape-a
+              .figure-icon-bottom.position-shape-b
+            .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+        #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
+          .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
+          .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
+          .constr-shape-icon.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(4)")
+          .drop-shape-icon.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(5)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+          .drop-shape-icon.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(6)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+          .drop-shape-icon.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+          .constr-shape-icon.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(8)")
+          .drop-shape-icon.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(9)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+          .drop-shape-icon.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(10)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+          .drop-shape-icon.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(11)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+          .constr-shape-icon.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(12)")
+          .drop-shape-icon.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(13)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
+          //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(14)")
+          //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(15)")
+          .constr-shape-icon.clean(ng-show="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(1)")
+
+        #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
+          .constr-shape-icon.sash-left(ng-click="designPage.insertSash(2)")
+          .drop-shape-icon.sash-right(ng-click="designPage.insertSash(3)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+          .drop-shape-icon.sash-up(ng-click="designPage.insertSash(4)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+          .drop-shape-icon.sash-down(ng-click="designPage.insertSash(5)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+          .constr-shape-icon.sash-right-up(ng-click="designPage.insertSash(6)", ng-hide="designPage.P.product.construction_type === 4")
+          .drop-shape-icon.sash-left-up(ng-click="designPage.insertSash(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}", ng-hide="designPage.P.product.construction_type === 4")
+          .constr-shape-icon(ng-click="designPage.insertSash(8)", ng-class="(designPage.P.product.construction_type === 4) ? 'sash-shtulp-left-door' : 'sash-shtulp-left'")
+          .drop-shape-icon.sash-shtulp-right(ng-click="designPage.insertSash(9)", ng-class="[ (designPage.P.product.construction_type === 4) ? 'sash-shtulp-right-door' : 'sash-shtulp-right' , {'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}]")
+          .constr-shape-icon.clean(ng-click="designPage.insertSash(1)")
+
+        #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
+          .constr-shape-icon.corner(ng-click="designPage.insertCorner(2)")
+          .constr-shape-icon.corner-curv(ng-click="designPage.insertCorner(3)")
+          .constr-shape-icon.clean(ng-click="designPage.insertCorner(1)")
+
+        #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}")
+          .constr-shape-icon.arc(ng-click="designPage.insertArc(2)")
+          .constr-shape-icon.clean(ng-click="designPage.insertArc(1)")
+
+        #position-menu-for-position.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
+          //- .constr-shape-icon.mirror(ng-click="designPage.initMirror()")
+          .constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
+          .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
+
+    //.configuration( ng-if="configMenu.G.global.showConfiguration")
+    .configuration(ng-show="configMenu.G.global.showConfiguration")
+      ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
+        li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
+          .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
+          .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
+
+        li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")
+          .title(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(ng-if="configMenu.P.product.glass.length > 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku +', '+ configMenu.P.product.glass[2].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+
+        li.item(ng-class="{'active': configMenu.G.global.activePanel == 4, 'hov': configMenu.G.global.activePanel !== 4}", fs-click="configMenu.selectConfigPanel(4)")
+          .title(data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.hardware.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorHandle.name }}
+          .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorLock.name }}
+
+        li.item(ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}", fs-click="configMenu.selectConfigPanel(5)")
+          .title(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .name(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .value(data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+
+        li.item(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", fs-click="configMenu.selectConfigPanel(6)")
+          .title(data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .name(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+          .additional-items-list
+            ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
+              li.additional-item(ng-repeat="addElement in addElementGroup")
+                span.value(data-output="") {{ addElement.name }}
+
+
+    .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+      div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
+    .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+      div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
+    ////  div
+
+
+    .curtain(ng-show="configMenu.P.product.is_addelem_only")
+
+    .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+      .close_menu_tooltip
+
+
+  include parts/_attantions
+    include parts/_check-doors
+  include parts/_alert
+  include parts/_loader
