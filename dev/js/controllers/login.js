@@ -496,9 +496,9 @@
             ],
             accessQty = accessArr.length,
             isCustomer = 0;
-          // if (checkSavedData()) {
-          //   fastEnter(url);
-          // } else {
+          if (checkSavedData()) {
+            fastEnter(url);
+          } else {
             if (url.access) {
               //setTimeout(function () {
               while (accessQty > -1) {
@@ -550,8 +550,7 @@
                 }
               });
             }
-          // }
-
+          }
         }
 
 

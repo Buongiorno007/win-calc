@@ -31,20 +31,15 @@
   }
 
   .delete-search {
-    @extend .cross-btn;
     @extend .splash;
-    @include font-icon(rem(40px), 1);
 
     position: absolute;
     top: 25%;
     left: rem(1060px);
     width: rem(60px);
     height: rem(60px);
-    background-color: $main_gray_btn;
-    &:after {
-      top: 16%;
-      left: 18%;
-    }
+    background-image: url("../../img/back.png");
+    background-size: contain;
   }
   .cancel-search {
     @extend .middle-button;
