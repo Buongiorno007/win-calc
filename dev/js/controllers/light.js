@@ -14,7 +14,8 @@
                 MainServ,
                 CartServ,
                 DesignStor,
-                OrderStor) {
+                OrderStor,
+                UserStor) {
         var thisCtrl = this;
 
         thisCtrl.constants = globalConstants;
@@ -22,6 +23,7 @@
         thisCtrl.P = ProductStor;
         thisCtrl.D = DesignStor;
         thisCtrl.O = OrderStor;
+        thisCtrl.U = UserStor;
 
         //------- set current Page
         GlobalStor.global.currOpenPage = 'light';
@@ -83,7 +85,18 @@
         thisCtrl.CART = $filter('translate')('mainpage.CART');
 
         thisCtrl.AND = $filter('translate')('common_words.AND');
-
+        thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
+        thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+        thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
+        thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+        thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+        thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
+        thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+        thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
+        thisCtrl.PRODUCT_QTY = $filter('translate')('cart.PRODUCT_QTY');
+        thisCtrl.ORDER_COMMENT = $filter('translate')('cart.ORDER_COMMENT');
+        thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+        thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
         // $( "*" ).click(function() {
         //
         // });
@@ -114,6 +127,7 @@
             GlobalStor.global.product_qty--;
           }
         }
+
         function closeAttantion() {
           GlobalStor.global.isTest = 0;
           GlobalStor.global.isDesignError = 0;

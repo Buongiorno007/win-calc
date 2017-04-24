@@ -1376,7 +1376,8 @@
               ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
               //delete ProductStor.product.template;
               //-------- insert product in order
-              OrderStor.order.products.push(ProductStor.product);
+              // OrderStor.order.products.push(ProductStor.product);
+              OrderStor.order.products.push(angular.copy(ProductStor.product));
             }
             //----- finish working with product
             GlobalStor.global.isCreatedNewProduct = 0;

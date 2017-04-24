@@ -91,15 +91,15 @@
       }
     }
 
-    function resizable (el, factor) {
-      var int = Number(factor);
-      function resize() {el.style.width = ((el.value.length+1) *2* int) + 'px'}
-      var e = 'keyup,keypress,focus,blur,change'.split(',');
-      for (var i in e) el.addEventListener(e[i],resize,false);
-      resize();
-    }
-    resizable(document.getElementById('disc-input'),6);
-    resizable(document.getElementById('disc-input-add'),6);
+    // function resizable (el, factor) {
+    //   var int = Number(factor);
+    //   function resize() {el.style.width = ((el.value.length+1) *2* int) + 'px'}
+    //   var e = 'keyup,keypress,focus,blur,change'.split(',');
+    //   for (var i in e) el.addEventListener(e[i],resize,false);
+    //   resize();
+    // }
+    // resizable(document.getElementById('disc-input'),6);
+    // resizable(document.getElementById('disc-input-add'),6);
 
 
     /**========== FINISH ==========*/
