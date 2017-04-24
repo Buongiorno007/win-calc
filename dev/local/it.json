@@ -129,7 +129,10 @@
     "PROFILE_TIP": "Poiché una scelta di un profilo preme qui",
     "GLASS_TIP": "Poiché una scelta di una finestra doppio invetriata preme qui",
     "SELECT_ALL": "Selezionare tutto",
-    "SELECT_GLASS_WARN": "Clicca sul vetro, che si desidera modificare"
+    "SELECT_GLASS_WARN": "Clicca sul vetro, che si desidera modificare",
+    "KARKAS": "FRAME",
+    "KONFIG": "CONFIG.",
+    "CART": "CART"
   },
   "panels": {
     "INFO_HINT":"Inizia il calcolo selezionando il modello desiderato",

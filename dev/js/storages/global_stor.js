@@ -5,193 +5,188 @@
     .module('BauVoiceApp')
     .factory('GlobalStor',
 
-  function() {
-    /*jshint validthis:true */
-    var thisFactory = this;
 
+      function () {
+        /*jshint validthis:true */
+        var thisFactory = this;
+        function setDefaultGlobal() {
+          return angular.copy(thisFactory.publicObj.globalSource);
+        }
+        thisFactory.publicObj = {
+          globalSource: {
+            isTest: 0,
+            isDesignError: 0,
+            product_qty: 1,
+            showConfiguration: 0,
+            showKarkas: 1,
+            showCart: 0,
+            isLightVersion: 0,
+            ISEXT: ISEXTFLAG,
+            onlineMode: 0,
+            hintTimer: 0,
+            analitics_storage: [],
+            showReport: 0,
+            showCoefInfoBlock: 0,
+            loadDate: 0,
+            showCurrentTemp: 0,
+            getPCPower: 0,
+            isDevice: 0,
+            continued: 0,
+            checkAlert: 0,
+            loader: 0,
+            setTimeout: 0,
+            isLoader: 0,
+            isLoader2: 0,
+            isLoader3: 0,
+            inform: [],
+            checkSashInTemplate: 0,
+            dangerAlert: 0,
+            gotoSettingsPage: 0,
+            startProgramm: 1, // for START
+            //------ navigation
+            isNavMenu: 1,
+            isConfigMenu: 0,
+            activePanel: 0,
+            configMenuTips: 0,
+            //isTemplateItemMenu: 0,
+            //isTemplateItemDesign: 1,
+            isCreatedNewProject: 1,
+            copyGlabalStorGlassesAll: [],
 
-    function setDefaultGlobal() {
-      return angular.copy(thisFactory.publicObj.globalSource);
-    }
+            isCreatedNewProduct: 1,
+            productEditNumber: 0,
+            orderEditNumber: 0,
 
-    thisFactory.publicObj = {
+            prevOpenPage: '',
+            currOpenPage: 'main',
 
-      globalSource: {
-        isTest : 0,
-        isDesignError : 0,
-        product_qty: 1,
-        showConfiguration : 0,
-        showKarkas : 1,
-        showCart : 0,
-        isLightVersion: 0,
-        ISEXT : ISEXTFLAG,
-        onlineMode : 0,
-        hintTimer :0,
-        analitics_storage : [],
-        showReport : 0,
-        showCoefInfoBlock : 0,
-        loadDate : 0,
-        showCurrentTemp : 0,
-        getPCPower: 0,
-        isDevice: 0,
-        continued: 0,
-        checkAlert: 0,
-        loader: 0,
-        setTimeout: 0,
-        isLoader: 0,
-        isLoader2: 0,
-        isLoader3: 0,
-        inform: [],
-        checkSashInTemplate: 0,
-        dangerAlert: 0,
-        gotoSettingsPage: 0,
-        startProgramm: 1, // for START
-        //------ navigation
-        isNavMenu: 1,
-        isConfigMenu: 0,
-        activePanel: 0,
-        configMenuTips: 0,
-        //isTemplateItemMenu: 0,
-        //isTemplateItemDesign: 1,
+            isChangedTemplate: 0,
+            isVoiceHelper: 0,
+            voiceHelperLanguage: '',
+            showGlassSelectorDialog: 0,
+            isShowCommentBlock: 0,
+            isTemplateTypeMenu: 0,
+            createHandle: [],
+            heightTEMP: [],
+            widthTEMP: [],
 
-        isCreatedNewProject: 1,
-        copyGlabalStorGlassesAll: [],
-        
-        isCreatedNewProduct: 1,
-        productEditNumber: 0,
-        orderEditNumber: 0,
+            //------ Rooms background
+            showRoomSelectorDialog: 0,
+            rooms: [],
+            isRoomElements: 0,
 
-        prevOpenPage: '',
-        currOpenPage: 'main',
+            //------- Templates
+            imgLink: '',
+            selectRoom: 0,
+            background: 0,
+            heightCheck: 0,
+            widthCheck: 0,
+            templateLabel: '',
+            templatesSource: [],
+            templatesSourceSTORE: [],
+            //TODO templateIcons: [],
+            isSashesInTemplate: 0,
+            templateIndex: -1,
+            templatesType: 1,
 
-        isChangedTemplate: 0,
-        isVoiceHelper: 0,
-        voiceHelperLanguage: '',
-        showGlassSelectorDialog: 0,
-        isShowCommentBlock: 0,
-        isTemplateTypeMenu: 0,
-        createHandle: [],
-        heightTEMP: [],
-        widthTEMP: [],
+            //------ Profiles
+            profiles: [],
+            profilesType: [],
 
-        //------ Rooms background
-        showRoomSelectorDialog: 0,
-        rooms: [],
-        isRoomElements: 0,
+            //------- Glasses
+            glassesAll: [],
+            glassTypes: [],
+            glasses: [],
+            selectGlassId: 0,
+            selectGlassName: '',
+            prevGlassId: 0,
+            prevGlassName: '',
 
-        //------- Templates
-        imgLink: '',
-        selectRoom: 0,
-        background: 0,
-        heightCheck: 0,
-        widthCheck: 0,
-        templateLabel: '',
-        templatesSource: [],
-        templatesSourceSTORE: [],
-        //TODO templateIcons: [],
-        isSashesInTemplate: 0,
-        templateIndex: -1,
-        templatesType: 1,
+            //------ Hardwares
+            hardwares: [],
+            hardwareTypes: [],
+            hardwareLimits: [],
 
-        //------ Profiles
-        profiles: [],
-        profilesType: [],
+            //------ Lamination
+            laminats: [],
+            laminatCouples: [],
+            lamGroupFiltered: [],
 
-        //------- Glasses
-        glassesAll: [],
-        glassTypes: [],
-        glasses: [],
-        selectGlassId: 0,
-        selectGlassName: '',
-        prevGlassId: 0,
-        prevGlassName: '',
+            //------ Add Elements
+            typeMenu: 5555,
+            typeMenuID: 5555,
+            addElementsAll: [],
+            tempAddElements: [],
 
-        //------ Hardwares
-        hardwares: [],
-        hardwareTypes: [],
-        hardwareLimits: [],
+            //-------- Door
+            noDoorExist: 0,
+            checkDoors: 0,
+            doorKitsT1: [],
+            doorKitsT2: [],
+            type_door: 0,
+            doorHandlers: [],
+            doorLocks: [],
+            doorsGroups: [],
+            doorsLaminations: [],
 
-        //------ Lamination
-        laminats: [],
-        laminatCouples: [],
-        lamGroupFiltered: [],
+            //------ Cart
+            supplyData: [],
+            assemblingData: [],
+            instalmentsData: [],
 
-        //------ Add Elements
-        typeMenu: 5555,
-        typeMenuID: 5555,
-        addElementsAll: [],
-        tempAddElements: [],
+            //------ Info
+            isInfoBox: 0,
+            infoTitle: '',
+            infoImg: '',
+            infoLink: '',
+            infoDescrip: '',
 
-        //-------- Door
-        noDoorExist: 0,
-        checkDoors: 0,
-        doorKitsT1: [],
-        doorKitsT2: [],
-        type_door: 0,
-        doorHandlers: [],
-        doorLocks: [],
-        doorsGroups: [],
-        doorsLaminations: [],
+            //---- report
+            isReport: 0,
 
-        //------ Cart
-        supplyData: [],
-        assemblingData: [],
-        instalmentsData: [],
+            currencies: [],
+            locations: {
+              countries: [],
+              regions: [],
+              cities: [],
+              areas: []
+            },
+            margins: {},
+            deliveryCoeff: {},
 
-        //------ Info
-        isInfoBox: 0,
-        infoTitle: '',
-        infoImg: '',
-        infoLink: '', 
-        infoDescrip: '',
+            //----- Alert
+            isAlert: 0,
+            isAlertInfo: 0,
+            isSyncAlert: 0,
+            alertTitle: '',
+            alertDescr: '',
+            isBox: 0,
+            isAlertHistory: 0,
+            isEditBox: 0,
+            confirmAction: 0,
+            confirmInActivity: 0,
 
-        //---- report
-        isReport: 0,
+            //---- Calculators
+            isQtyCalculator: 0,
+            isSizeCalculator: 0,
+            isWidthCalculator: 0,
+            maxSizeLimit: 3200,
+            maxSquareLimit: 6,
+            changeLocation: 1
+          },
 
-        currencies: [],
-        locations: {
-          countries: [],
-          regions: [],
-          cities: [],
-          areas: []
-        },
-        margins: {},
-        deliveryCoeff: {},
+          setDefaultGlobal: setDefaultGlobal
+        };
+        var data = localStorage.getItem("GlobalStor");
+        if (data) {
+          thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
+          //console.log("GlobalStor restored");
+        } else {
+          //console.log("GlobalStor created");
+          thisFactory.publicObj.global = setDefaultGlobal();
+        }
 
-        //----- Alert
-        isAlert: 0,
-        isAlertInfo: 0,
-        isSyncAlert :0,
-        alertTitle: '',
-        alertDescr: '',
-        isBox: 0,
-        isAlertHistory: 0,
-        isEditBox: 0,
-        confirmAction: 0,
-        confirmInActivity: 0,
+        return thisFactory.publicObj;
 
-        //---- Calculators
-        isQtyCalculator: 0,
-        isSizeCalculator: 0,
-        isWidthCalculator: 0,
-        maxSizeLimit: 3200,
-        maxSquareLimit: 6,
-        changeLocation: 1
-      },
-
-      setDefaultGlobal: setDefaultGlobal
-    };
-    var data = localStorage.getItem("GlobalStor");
-    if (data){
-      thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
-      //console.log("GlobalStor restored");
-    } else {
-      //console.log("GlobalStor created");
-      thisFactory.publicObj.global = setDefaultGlobal();
-    }
-
-    return thisFactory.publicObj;
-
-  });
-
+      });
 })();

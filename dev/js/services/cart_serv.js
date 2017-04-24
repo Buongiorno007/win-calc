@@ -185,7 +185,7 @@
         }
       }
       function addCloneProductInOrder(cloneProduct, lastProductId) {
-        console.log(cloneProduct)
+        // console.log(cloneProduct)
         lastProductId += 1;
         cloneProduct.product_id = lastProductId;
         OrderStor.order.products.push(cloneProduct);

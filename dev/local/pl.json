@@ -122,7 +122,10 @@
     "PROFILE_TIP": "Aby wybrać profil, kliknij tutaj",
     "GLASS_TIP": "Aby wybrać szybę zespoloną, kliknij tutaj",
     "SELECT_ALL": "Zaznacz wszystko",
-    "SELECT_GLASS_WARN": "Kliknij na szybę zespoloną, którą chcesz zmienić"
+    "SELECT_GLASS_WARN": "Kliknij na szybę zespoloną, którą chcesz zmienić",
+    "KARKAS": "FRAME",
+    "KONFIG": "CONFIG.",
+    "CART": "CART"
   },
   "panels": {
     "INFO_HINT":"Rozpocznij obliczenia wybierając żądany szablon",

@@ -129,7 +129,10 @@
     "PROFILE_TIP": "To select a profile, click here",
     "GLASS_TIP": "To select a double-glazed window, click here",
     "SELECT_ALL": "Take all",
-    "SELECT_GLASS_WARN": "Click on the glazing, you want to change"
+    "SELECT_GLASS_WARN": "Click on the glazing, you want to change",
+    "KARKAS": "FRAME",
+    "KONFIG": "CONFIG.",
+    "CART": "CART"
   },
   "panels": {
     "INFO_HINT":"Start the calculation by selecting the desired template",

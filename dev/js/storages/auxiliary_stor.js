@@ -12,9 +12,11 @@
         function setDefaultAuxiliary() {
           return angular.copy(thisFactory.publicObj.auxiliarySource);
         }
+
         function restoreAuxiliary(data) {
           return angular.copy(JSON.parse(LZString.decompress(data)));
         }
+
         thisFactory.publicObj = {
           auxiliarySource: {
             addElementsType: [],
@@ -44,12 +46,12 @@
         };
 
         var data = localStorage.getItem("AuxStor");
-        if (data){
+        if (data) {
           thisFactory.publicObj.aux = restoreAuxiliary(data);
           //console.log("AuxStor restored");
         } else {
           //console.log("AuxStor created");
-        thisFactory.publicObj.aux = setDefaultAuxiliary();
+          thisFactory.publicObj.aux = setDefaultAuxiliary();
         }
 
         return thisFactory.publicObj;
