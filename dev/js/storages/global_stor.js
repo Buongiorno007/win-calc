@@ -17,6 +17,13 @@
     thisFactory.publicObj = {
 
       globalSource: {
+        isTest : 0,
+        isDesignError : 0,
+        product_qty: 1,
+        showConfiguration : 0,
+        showKarkas : 1,
+        showCart : 0,
+        isLightVersion: 0,
         ISEXT : ISEXTFLAG,
         onlineMode : 0,
         hintTimer :0,
