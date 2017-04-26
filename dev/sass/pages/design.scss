@@ -1152,7 +1152,7 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 92rem;
+    top: 87rem;
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(#fff, .9);
@@ -1317,5 +1317,13 @@ $door-config-content: $ipad-height - $door-config-header;
     padding-left: 1rem;
     padding-top: 2rem;
   }
-
+  .size-calc-container{
+    position : relative;
+    top : 2rem;
+  }
+  .config-panel{
+    &.active{
+      top : -8rem;
+    }
+  }
 }

@@ -1371,7 +1371,6 @@
                   //========= select glass
                   var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                     blockID = glass[0][0].attributes.block_id.nodeValue;
-                    console.log(glass[0][0]);
                   if (isGlass) {
                     glass.classed('glass-active', true);
                     hideCornerMarks();

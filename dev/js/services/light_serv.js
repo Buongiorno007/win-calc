@@ -12,7 +12,6 @@
         var thisFactory = this;
 
         function designSaved() {
-
         }
 
 
