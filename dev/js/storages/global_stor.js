@@ -182,14 +182,14 @@
 
       setDefaultGlobal: setDefaultGlobal
     };
-    // var data = localStorage.getItem("GlobalStor");
-    // if (data){
-    //   thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
-    //   //console.log("GlobalStor restored");
-    // } else {
-    //   //console.log("GlobalStor created");
-    // }
+    var data = localStorage.getItem("GlobalStor");
+    if (data){
+      thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
+      //console.log("GlobalStor restored");
+    } else {
+      //console.log("GlobalStor created");
       thisFactory.publicObj.global = setDefaultGlobal();
+    }
 
     return thisFactory.publicObj;
 
