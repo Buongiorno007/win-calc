@@ -1103,6 +1103,9 @@
 
           source.lockShapeList[k].elem = [];
           product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
+          console.log(product.door_group_id);
+          console.log(source);
+          console.log(product);
           product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
           product.doorName = source.doorShapeList[product.door_shape_id].name;
           product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
@@ -3350,7 +3353,7 @@
               }
             });
           }
-          //console.log("ProductStor.product", ProductStor.product);
+          // console.log("ProductStor.product", ProductStor.product);
         }
 
 

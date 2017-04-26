@@ -102,12 +102,12 @@
       restoreOrder: restoreOrder
     };
 
-    // var data = localStorage.getItem("OrderStor");
-    // if (data){
-    //   thisFactory.publicObj.order = restoreOrder(data);
-    // } else {
-    // }
+    var data = localStorage.getItem("OrderStor");
+    if (data){
+      thisFactory.publicObj.order = restoreOrder(data);
+    } else {
       thisFactory.publicObj.order = setDefaultOrder();
+    }
 
     return thisFactory.publicObj;
 
