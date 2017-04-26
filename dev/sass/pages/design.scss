@@ -1085,6 +1085,8 @@ $door-config-content: $ipad-height - $door-config-header;
     fill: #7d8efb !important;
   }
   .menu-footer {
+    position: relative;
+    top : -3rem;
     border-top: 1px solid #b1b1b1;
     padding-top: 1rem;
   }
@@ -1188,6 +1190,7 @@ $door-config-content: $ipad-height - $door-config-header;
     border: 1px solid #b1b1b1;
   }
   .input-minus, .input-plus {
+    cursor: pointer;
     color: $main_orange;
     position: relative;
     width: 2rem;
@@ -1320,5 +1323,8 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 84rem !important;
     padding-left: 1rem;
     padding-top: 2rem;
+  }
+  .config-panel{
+    top : -8rem;
   }
 }

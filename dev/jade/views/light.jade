@@ -49,6 +49,9 @@
             include panels/_hardwares
             include panels/_laminations
             include panels/_add-elements
+            include parts/_grid-selector
+            include panels/_add-elements-list
+
             section.door-configuration(ng-class="{'active': lightPage.D.design.steps.isDoorConfig}")
 
               .door-config-column.step1
@@ -128,6 +131,7 @@
             .design-attantion(ng-if="lightPage.G.global.isTest") {{ ::lightPage.TEST_STAGE }}
               .close-dialog(ng-click="lightPage.closeAttantion()")
 
+
         section.cart-page(ng-show="lightPage.G.global.showCart === 1")
           section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}")
             .scroll-hor-container
@@ -193,7 +197,13 @@
                     .order-comment-box
                       .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
                       .order-comment-content {{ lightPage.O.order.comment }}
+            .template-window(ng-show="lightPage.C.cart.showCurrentTemp")
+              button.close-cur-window(ng-click="lightPage.C.cart.showCurrentTemp=0")
+              img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
+              svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
+
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
+        include menus/_addelems-menu
         .config-buttons
           .karkas-button(ng-click="configMenu.G.global.showKarkas=1;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
             .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
@@ -399,8 +409,8 @@
             .price-block.price-without-instalments(ng-class="{'active': !cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
               .name {{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
-            button.order-btn(fs-click="cartMenu.openOrderDialog()") {{ ::cartMenu.ORDER }}
-            button.measure-btn(fs-click="cartMenu.openMasterDialog()") {{ ::cartMenu.MEASURE }}
+            button.order-btn(ng-click="cartMenu.openMasterDialog()") {{ cartMenu.CALCULATE_PRICE }}
+            button.measure-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
 
         .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
           div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
@@ -410,13 +420,15 @@
 
 
         .curtain(ng-show="configMenu.P.product.is_addelem_only")
-
         .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           .close_menu_tooltip
-
-
-  include parts/_attantions
-  include parts/_check-doors
-  include parts/_alert
-  include parts/_loader
+    section.order-forms(ng-controller="OrderFormCtrl as orderForm")
+      include parts/_form-master
+      include parts/_form-order
+      include parts/_form-credit
+    include parts/_info-box
+    include parts/_attantions
+    include parts/_check-doors
+    include parts/_alert
+    include parts/_loader
 

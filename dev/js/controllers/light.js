@@ -9,12 +9,14 @@
                 $timeout,
                 globalConstants,
                 DesignServ,
+                LightServ,
                 GlobalStor,
                 ProductStor,
                 MainServ,
                 CartServ,
                 DesignStor,
                 OrderStor,
+                CartStor,
                 UserStor) {
         var thisCtrl = this;
 
@@ -24,6 +26,7 @@
         thisCtrl.D = DesignStor;
         thisCtrl.O = OrderStor;
         thisCtrl.U = UserStor;
+        thisCtrl.C = CartStor;
 
         //------- set current Page
         GlobalStor.global.currOpenPage = 'light';
@@ -101,14 +104,6 @@
         //
         // });
 
-        if (!GlobalStor.global.prohibitCopyingTemplate) {
-          DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-          DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-          DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-          DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
-        } else {
-          delete GlobalStor.global.prohibitCopyingTemplate;
-        }
         /**========== FUNCTIONS ==========*/
 
         $timeout(function () {
@@ -116,6 +111,7 @@
           DesignServ.initAllGlass();
           DesignServ.initAllArcs();
           DesignServ.initAllDimension();
+          DesignServ.initAllGlassXGlass();
         }, 50);
 
         function addProdQty() {
@@ -136,9 +132,21 @@
         }
 
         function saveProduct() {
+          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
           ProductStor.product.product_qty = GlobalStor.global.product_qty;
           MainServ.inputProductInOrder();
+
           console.log(ProductStor.product);
+        }
+
+        function showCartTemplte(index) {
+          CartStor.cart.curProd = index;
+          setTimeout(function(){ DesignServ.initAllGlassXGlass(); }, 1000);
+
+          CartStor.cart.showCurrentTemp = 1;
+
         }
 
         /**========== FINISH ==========*/
@@ -146,12 +154,16 @@
         thisCtrl.subtractProdQty = subtractProdQty;
         thisCtrl.closeAttantion = closeAttantion;
         thisCtrl.saveProduct = saveProduct;
+        thisCtrl.showCartTemplte = showCartTemplte;
+
+        thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
 
         thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-        thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
+        thisCtrl.box = CartServ.box;
+        thisCtrl.fastEdit = CartServ.fastEdit;
+
         thisCtrl.closeDoorConfig = DesignServ.closeDoorConfig;
         thisCtrl.selectDoor = DesignServ.selectDoor;
-
         thisCtrl.stepBack = DesignServ.stepBack;
         thisCtrl.toggleDoorConfig = DesignServ.toggleDoorConfig;
         //------ clicking

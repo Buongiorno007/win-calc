@@ -49,6 +49,8 @@
     thisCtrl.MONTHLY_PAYMENT_LABEL = $filter('translate')('cart.MONTHLY_PAYMENT_LABEL');
     thisCtrl.TOTAL_PRICE_LABEL = $filter('translate')('cart.TOTAL_PRICE_LABEL');
     thisCtrl.ORDER = $filter('translate')('cart.ORDER');
+    thisCtrl.ORDER_LV = $filter('translate')('cart.ORDER_LV');
+    thisCtrl.CALCULATE_PRICE = $filter('translate')('cart.CALCULATE_PRICE');
     thisCtrl.MEASURE = $filter('translate')('cart.MEASURE');
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
     thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
@@ -83,6 +85,7 @@
       // console.log(OrderStor.order.products);
       CartStor.cart.showCurrentTemp = 0;
       if(OrderStor.order.products.length) {
+       console.log("openOrderDialog");
         if (OrderStor.order.is_instalment) {
           CartStor.cart.isCreditDialog = 1;
         } else {

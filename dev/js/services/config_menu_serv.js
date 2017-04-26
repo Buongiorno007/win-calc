@@ -15,6 +15,7 @@
                 $timeout,
                 InfoBoxServ,
                 DesignStor,
+                LightServ,
                 DesignServ) {
         var thisFactory = this;
 
@@ -58,9 +59,13 @@
           } else {
             /** if Door */
             if (ProductStor.product.construction_type === 4) {
+              if (GlobalStor.global.currOpenPage === 'light') {
+                LightServ.designSaved();
+              }
               //--------- show only Glasses and AddElements
               if (id === 3 || id === 6 || id === 5) {
                 GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+
               } else {
                 GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
@@ -73,6 +78,10 @@
               }
             } else {
               if (id === 3) {
+                if (GlobalStor.global.currOpenPage === 'light') {
+                  console.log("схоронили");
+                  LightServ.designSaved();
+                }
                 //console.log(GlobalStor.global.glasses);
                 var transcalency_arr = [];
                 var noise_coeff_arr = [];
@@ -91,9 +100,9 @@
                 GlobalStor.global.glasses.forEach(function (glass_arr) {
                   glass_arr.forEach(function (glass) {
                     glass.transcalencyD = 1 + Math.floor(((glass.transcalency - transcalency_min) / (transcalency_max - transcalency_min)) * 4);
-                    if (glass.noise_coeff!==0) {
+                    if (glass.noise_coeff !== 0) {
                       glass.noise_coeffD = 1 + Math.floor(((glass.noise_coeff - noise_coeff_min) / (noise_coeff_max - noise_coeff_min)) * 4);
-                    } else glass.noise_coeffD =  glass.noise_coeff;
+                    } else glass.noise_coeffD = glass.noise_coeff;
                   });
                 });
               }

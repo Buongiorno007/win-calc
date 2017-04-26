@@ -1364,12 +1364,14 @@
               var glass = d3.select(this);
               glass.on(clickEvent, function () {
                 if (DesignStor.design.tempSize.length) {
+                  console.log("залупа");
                   closeSizeCaclulator();
                   cleanTempSize();
                 } else {
                   //========= select glass
                   var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                     blockID = glass[0][0].attributes.block_id.nodeValue;
+                    console.log(glass[0][0]);
                   if (isGlass) {
                     glass.classed('glass-active', true);
                     hideCornerMarks();
@@ -3428,8 +3430,9 @@
           selectHandle: selectHandle,
           selectLock: selectLock,
           closeDoorConfig: closeDoorConfig,
-          saveDoorConfig: saveDoorConfig
+          saveDoorConfig: saveDoorConfig,
 
+          updateGrids : updateGrids
         };
 
         return thisFactory.publicObj;

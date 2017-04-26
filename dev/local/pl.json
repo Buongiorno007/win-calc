@@ -349,6 +349,8 @@
     "DATE_DELIVERY_LABEL": "przy dostawie:",
     "FIRST_PAYMENT_LABEL": "Dokonanie pierwszej płatności",
     "ORDER": "Zamów",
+    "ORDER_LV": "Złożyć zamówienie",
+    "CALCULATE_PRICE": "Obliczać",
     "MEASURE": "Zmierz ",
     "READY": "Gotowe",
     "CALL_MASTER": "Zadzwoń po specjalistę do wymiarów",
