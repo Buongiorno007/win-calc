@@ -123,14 +123,14 @@
           setDefaultDoor: setDefaultDoor,
           restoreDesign: restoreDesign
         };
-        var data = localStorage.getItem("DesignStor");
-        if (data) {
-          thisFactory.publicObj.design = restoreDesign(data);
-          //console.log("DesignStor restored");
-        } else {
-          //console.log("DesignStor created");
+        // var data = localStorage.getItem("DesignStor");
+        // if (data) {
+        //   thisFactory.publicObj.design = restoreDesign(data);
+        //   //console.log("DesignStor restored");
+        // } else {
+        //   //console.log("DesignStor created");
+        // }
           thisFactory.publicObj.design = setDefaultDesign();
-        }
         return thisFactory.publicObj;
 
       });
