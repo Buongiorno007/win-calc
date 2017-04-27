@@ -1004,6 +1004,9 @@
               }
             }
           }
+          SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+            DesignStor.design.templateTEMP = angular.copy(result);
+          });
         }
 
 
@@ -1383,6 +1386,7 @@
             GlobalStor.global.isCreatedNewProduct = 0;
             GeneralServ.stopStartProg();
           }
+          console.log("запихнули");
           return permission;
         }
 

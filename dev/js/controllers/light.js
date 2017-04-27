@@ -14,6 +14,7 @@
                 ProductStor,
                 MainServ,
                 CartServ,
+                SVGServ,
                 DesignStor,
                 OrderStor,
                 CartStor,
@@ -132,31 +133,18 @@
         }
 
         function saveProduct() {
-          GlobalStor.global.templatesSource = angular.copy(DesignStor.design.templateSourceTEMP);
+          LightServ.designSaved();
 
-          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
-          ProductStor.product.template_width = 0;
-          ProductStor.product.template_height = 0;
-          ProductStor.product.template_square = 0;
-          var overallQty = ProductStor.product.template.details[0].overallDim.length;
-          while (--overallQty > -1) {
-            ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-            ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-            ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
-          }
-
-          ProductStor.product.product_qty = GlobalStor.global.product_qty;
-
-          MainServ.inputProductInOrder();
 
           console.log(ProductStor.product);
         }
 
         function showCartTemplte(index) {
           CartStor.cart.curProd = index;
-          setTimeout(function(){ DesignServ.initAllGlassXGlass(); }, 1000);
+          setTimeout(function () {
+            DesignServ.initAllGlassXGlass();
+          }, 1000);
 
           CartStor.cart.showCurrentTemp = 1;
 
