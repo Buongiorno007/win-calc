@@ -15,13 +15,20 @@
                 $timeout,
                 InfoBoxServ,
                 DesignStor,
-                LightServ,
+                SVGServ,
                 DesignServ) {
         var thisFactory = this;
 
 
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
+          if ($location.path() === '/light') {
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+              .then(function (result) {
+                ProductStor.product.template = angular.copy(result);
+              });
+          }
+
           GlobalStor.global.configMenuTips++;
           MainServ.laminatFiltering();
           if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
@@ -59,9 +66,6 @@
           } else {
             /** if Door */
             if (ProductStor.product.construction_type === 4) {
-              if (GlobalStor.global.currOpenPage === 'light') {
-                LightServ.designSaved();
-              }
               //--------- show only Glasses and AddElements
               if (id === 3 || id === 6 || id === 5) {
                 GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
@@ -78,10 +82,6 @@
               }
             } else {
               if (id === 3) {
-                if (GlobalStor.global.currOpenPage === 'light') {
-                  console.log("схоронили");
-                  LightServ.designSaved();
-                }
                 //console.log(GlobalStor.global.glasses);
                 var transcalency_arr = [];
                 var noise_coeff_arr = [];
@@ -106,7 +106,16 @@
                   });
                 });
               }
-              GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+              // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+              if(GlobalStor.global.activePanel === id){
+                GlobalStor.global.activePanel = 0;
+                setTimeout(function () {
+                  DesignServ.rebuildSVGTemplate();
+                }, 250);
+              } else {
+                GlobalStor.global.activePanel = id;
+
+              }
             }
           }
           if (GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {

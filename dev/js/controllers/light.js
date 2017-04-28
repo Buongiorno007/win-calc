@@ -134,10 +134,6 @@
 
         function saveProduct() {
           LightServ.designSaved();
-
-
-
-          console.log(ProductStor.product);
         }
 
         function showCartTemplte(index) {
@@ -145,9 +141,26 @@
           setTimeout(function () {
             DesignServ.initAllGlassXGlass();
           }, 1000);
-
           CartStor.cart.showCurrentTemp = 1;
+        }
 
+        function cartButton() {
+          GlobalStor.global.showKarkas = 0;
+          GlobalStor.global.showConfiguration = 0;
+          GlobalStor.global.showCart = 1
+        }
+
+        function configButton() {
+          GlobalStor.global.showKarkas=0;
+          GlobalStor.global.showConfiguration=1;
+          GlobalStor.global.showCart=0;
+          DesignServ.rebuildSVGTemplate();
+        }
+        function karkasButton() {
+          GlobalStor.global.showKarkas=1;
+          GlobalStor.global.showConfiguration=0;
+          GlobalStor.global.showCart=0
+          DesignServ.rebuildSVGTemplate();
         }
 
         /**========== FINISH ==========*/
@@ -156,6 +169,9 @@
         thisCtrl.closeAttantion = closeAttantion;
         thisCtrl.saveProduct = saveProduct;
         thisCtrl.showCartTemplte = showCartTemplte;
+        thisCtrl.cartButton = cartButton;
+        thisCtrl.configButton = configButton;
+        thisCtrl.karkasButton = karkasButton;
 
         thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
 

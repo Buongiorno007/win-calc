@@ -1004,9 +1004,11 @@
               }
             }
           }
-          SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
-            DesignStor.design.templateTEMP = angular.copy(result);
-          });
+          if ($location.path() === '/light') {
+            SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+            });
+          }
         }
 
 

@@ -847,6 +847,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
   }
   .configuration-button {
+    cursor: pointer;
     width: 33.3%;
     height: 10rem;
     float: left;
@@ -878,6 +879,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .karkas-button {
+    cursor: pointer;
     width: 33.3%;
     height: 10rem;
     float: left;
@@ -909,6 +911,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .cart-button {
+    cursor: pointer;
     width: 33.3%;
     height: 10rem;
     float: right;
@@ -1201,6 +1204,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: -2.5rem;
   }
   .save-block {
+    cursor: pointer;
     position: relative;
     left: -4rem;
     top: .5rem;

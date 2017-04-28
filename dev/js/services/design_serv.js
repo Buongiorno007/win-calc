@@ -702,7 +702,7 @@
           gridsOld.forEach(function (oldMosq) {
             if (!oldMosq.cloth_id) {
               extended_mosq.forEach(function (entry) {
-                if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id)&& (entry.id === oldMosq.id)){
+                if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id) && (entry.id === oldMosq.id)) {
                   entry.elementPriceDis = angular.copy(oldMosq.elementPriceDis);
                   entry.element_price = angular.copy(oldMosq.element_price);
                   entry.element_height = angular.copy(oldMosq.element_height);
@@ -747,7 +747,7 @@
                 }
               } else {
                 isChanged = 1;
-                ProductStor.product.chosenAddElements[0].splice(0,ProductStor.product.chosenAddElements[0].length);
+                ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
               }
             }
             //------- rewrite grids lists
@@ -1358,13 +1358,13 @@
         //------- set click to all Glass for Dimensions
         function initAllGlass() {
           DesignStor.design.selectedGlass.length = 0;
+          console.log(globalConstants.SVG_ID_EDIT);
 
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass')
             .each(function () {
               var glass = d3.select(this);
               glass.on(clickEvent, function () {
                 if (DesignStor.design.tempSize.length) {
-                  console.log("залупа");
                   closeSizeCaclulator();
                   cleanTempSize();
                 } else {
@@ -2906,6 +2906,7 @@
         }
 
         function rebuildSVGTemplate() {
+          console.log("check");
           SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
             .then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
@@ -3432,7 +3433,7 @@
           closeDoorConfig: closeDoorConfig,
           saveDoorConfig: saveDoorConfig,
 
-          updateGrids : updateGrids
+          updateGrids: updateGrids
         };
 
         return thisFactory.publicObj;

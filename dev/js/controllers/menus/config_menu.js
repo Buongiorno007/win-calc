@@ -149,11 +149,36 @@
       }
     }
 
+    function cartButton() {
+      GlobalStor.global.showKarkas = 0;
+      GlobalStor.global.showConfiguration = 0;
+      GlobalStor.global.showCart = 1;
+    }
 
+    function configButton() {
+      GlobalStor.global.showKarkas=0;
+      GlobalStor.global.showConfiguration=1;
+      GlobalStor.global.showCart=0;
+      setTimeout(function () {
+        DesignServ.rebuildSVGTemplate();
+      }, 250);
+    }
+    function karkasButton() {
+      GlobalStor.global.showKarkas=1;
+      GlobalStor.global.showConfiguration=0;
+      GlobalStor.global.showCart=0;
+      setTimeout(function () {
+        DesignServ.rebuildSVGTemplate();
+      }, 250);
+    }
 
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.cartButton = cartButton;
+    thisCtrl.configButton = configButton;
+    thisCtrl.karkasButton = karkasButton;
+
     thisCtrl.autoShowInfoBox = InfoBoxServ.autoShowInfoBox;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;

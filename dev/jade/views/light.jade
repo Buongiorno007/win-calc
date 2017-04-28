@@ -45,12 +45,12 @@
                 include parts/_size-calculator
 
             include panels/_profiles
-            //include panels/_glasses
+            include panels/_glasses
             include panels/_hardwares
             include panels/_laminations
-            //include panels/_add-elements
-            //include parts/_grid-selector
-            //include panels/_add-elements-list
+            include panels/_add-elements
+            include parts/_grid-selector
+            include panels/_add-elements-list
 
             section.door-configuration(ng-class="{'active': lightPage.D.design.steps.isDoorConfig}")
 
@@ -205,13 +205,13 @@
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
         include menus/_addelems-menu
         .config-buttons
-          .karkas-button(ng-click="configMenu.G.global.showKarkas=1;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+          .karkas-button(ng-click="configMenu.karkasButton()", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
             .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
             p {{lightPage.KARKAS}}
-          .configuration-button(ng-click="configMenu.G.global.showKarkas=0; configMenu.G.global.showConfiguration=1;configMenu.G.global.showCart=0", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+          .configuration-button(ng-click="configMenu.configButton()", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
             .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
             p {{lightPage.KONFIG}}.
-          .cart-button(ng-click="configMenu.G.global.showKarkas=0;configMenu.G.global.showConfiguration=0;configMenu.G.global.showCart=1", ng-class="{'active': configMenu.G.global.showCart == 1}")
+          .cart-button(ng-click="configMenu.cartButton()", ng-class="{'active': configMenu.G.global.showCart == 1}")
             .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
               p {{ configMenu.O.order.products.length }}
             .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
@@ -409,8 +409,7 @@
             .price-block.price-without-instalments(ng-class="{'active': !cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
               .name {{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
-            button.order-btn(ng-click="cartMenu.openMasterDialog()") {{ cartMenu.CALCULATE_PRICE }}
-            button.measure-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
+            button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
 
         .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
           div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}

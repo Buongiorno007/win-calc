@@ -1011,11 +1011,23 @@
               console.log("типа все ок");
               return true;
             } else {
+              localStorage.clear();
+
+              UserStor.userInfo = UserStor.setDefaultUser();
+              GlobalStor.global = GlobalStor.setDefaultGlobal();
+              OrderStor.order = OrderStor.setDefaultOrder();
+              ProductStor.product = ProductStor.setDefaultProduct();
+              AuxStor.aux = AuxStor.setDefaultAuxiliary();
+              HistoryStor.history = HistoryStor.setDefaultHistory();
+              $location.path('/');
               console.log("разные даты");
+
               return false;
             }
           } else {
             console.log("не все данные сохранены");
+            localStorage.clear();
+
             return false;
           }
         }

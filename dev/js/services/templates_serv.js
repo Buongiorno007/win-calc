@@ -128,7 +128,9 @@
           } else {
             goToNewTemplate()
           }
-
+          setTimeout(function () {
+            DesignServ.rebuildSVGTemplate();
+          }, 500);
         }
 
 
