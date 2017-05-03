@@ -20,7 +20,8 @@
     DesignStor,
     UserStor,
     InfoBoxServ,
-    ConfigMenuServ
+    ConfigMenuServ,
+    CartMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -153,6 +154,7 @@
       GlobalStor.global.showKarkas = 0;
       GlobalStor.global.showConfiguration = 0;
       GlobalStor.global.showCart = 1;
+      CartMenuServ.calculateOrderPrice();
     }
 
     function configButton() {
