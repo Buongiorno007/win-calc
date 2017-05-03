@@ -31,7 +31,6 @@
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
 
-
     thisCtrl.config = {
       TOOLTIP: [
         '',
