@@ -25,6 +25,7 @@
     /**---------- join all Add Elements for Detials ---------*/
 
     function joinAllAddElements() {
+      console.log('asdasd' );
       var productsQty = OrderStor.order.products.length,
           isExistElem = 0,
           typeElementsQty, elementsQty,

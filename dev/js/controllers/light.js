@@ -37,6 +37,9 @@
           DELAY_SHOW_FIGURE_ITEM: 1000,
           isAddElementDetail: 0,
           detailProductIndex: 0,
+          element: $filter('translate')('add_elements.ELEMENT'),
+          elementa: $filter('translate')('add_elements.ELEMENTA'),
+          elements: $filter('translate')('add_elements.ELEMENTS'),
           typing: 'on'
         };
 
@@ -156,6 +159,7 @@
           LightServ.designSaved();
         }
 
+
         function showCartTemplte(index) {
           CartStor.cart.curProd = index;
           setTimeout(function () {
@@ -164,28 +168,8 @@
           CartStor.cart.showCurrentTemp = 1;
         }
 
-        function cartButton() {
-          GlobalStor.global.showKarkas = 0;
-          GlobalStor.global.showConfiguration = 0;
-          GlobalStor.global.showCart = 1
-        }
-
-        function configButton() {
-          GlobalStor.global.showKarkas=0;
-          GlobalStor.global.showConfiguration=1;
-          GlobalStor.global.showCart=0;
-          DesignServ.rebuildSVGTemplate();
-        }
-        function karkasButton() {
-          GlobalStor.global.showKarkas=1;
-          GlobalStor.global.showConfiguration=0;
-          GlobalStor.global.showCart=0
-          DesignServ.rebuildSVGTemplate();
-        }
         function showAddElementDetail(productIndex) {
-          console.log("1");
           if (CartStor.cart.allAddElements[productIndex].length > 0) {
-            console.log("2");
             thisCtrl.config.detailProductIndex = productIndex;
             thisCtrl.config.isAddElementDetail = true;
           }
@@ -199,9 +183,6 @@
         thisCtrl.closeAttantion = closeAttantion;
         thisCtrl.saveProduct = saveProduct;
         thisCtrl.showCartTemplte = showCartTemplte;
-        thisCtrl.cartButton = cartButton;
-        thisCtrl.configButton = configButton;
-        thisCtrl.karkasButton = karkasButton;
         thisCtrl.showAddElementDetail = showAddElementDetail;
         thisCtrl.closeAddElementDetail = closeAddElementDetail;
 
