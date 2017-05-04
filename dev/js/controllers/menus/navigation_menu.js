@@ -67,12 +67,12 @@
         case 3:
           //------- set previos Page
           GeneralServ.setPreviosPage();
-          $location.path('/main');
-          GlobalStor.global.currOpenPage = '/main';
+          $location.path('main');
+          GlobalStor.global.currOpenPage = 'main';
           break;
         case 4:
           $location.path('/cart');
-          GlobalStor.global.currOpenPage = '/cart';
+          GlobalStor.global.currOpenPage = 'cart';
           break;
         case 5:
           NavMenuServ.createAddElementsProduct();
@@ -101,6 +101,7 @@
         case 10: {
           if (!GlobalStor.global.isLightVersion){
             $location.path('/light');
+            GlobalStor.global.currOpenPage = 'light';
             GlobalStor.global.isLightVersion = 1;
           }
           else {

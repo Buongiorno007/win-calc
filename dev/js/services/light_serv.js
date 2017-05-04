@@ -123,8 +123,6 @@
                           GlobalStor.global.isChangedTemplate = 1;
                           ProductStor.product.product_qty = GlobalStor.global.product_qty;
                           MainServ.inputProductInOrder();
-                          setTimeout(function () {
-                          }, 1000);
                         });
                       });
                     });
@@ -134,7 +132,7 @@
             });
           }
           // console.log("ProductStor.product", ProductStor.product);
-          console.log("схоронили");
+          // console.log("схоронили");
         }
 
 

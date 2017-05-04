@@ -1388,7 +1388,6 @@
             GlobalStor.global.isCreatedNewProduct = 0;
             GeneralServ.stopStartProg();
           }
-          console.log("запихнули");
           return permission;
         }
 
@@ -1400,7 +1399,7 @@
             GeneralServ.setPreviosPage();
 
             $location.path('/cart');
-            GlobalStor.global.currOpenPage = '/cart';
+            GlobalStor.global.currOpenPage = 'cart';
           }, 100);
         }
 
