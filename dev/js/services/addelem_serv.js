@@ -130,6 +130,7 @@
     /**--------- Select additional element group -----------*/
 
     function selectAddElement(id) {
+      console.log(id);
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();

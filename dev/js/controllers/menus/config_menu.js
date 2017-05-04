@@ -154,6 +154,7 @@
       GlobalStor.global.showConfiguration = 0;
       GlobalStor.global.showCart = 1;
       CartMenuServ.calculateOrderPrice();
+      CartMenuServ.joinAllAddElements();
     }
 
     function configButton() {
