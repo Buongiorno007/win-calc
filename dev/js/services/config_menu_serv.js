@@ -23,10 +23,8 @@
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
           if ($location.path() === '/light') {
-            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-              .then(function (result) {
-                ProductStor.product.template = angular.copy(result);
-              });
+            ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+            ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
           }
 
           GlobalStor.global.configMenuTips++;

@@ -1358,7 +1358,6 @@
         //------- set click to all Glass for Dimensions
         function initAllGlass() {
           DesignStor.design.selectedGlass.length = 0;
-          console.log(globalConstants.SVG_ID_EDIT);
 
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass')
             .each(function () {
@@ -2906,7 +2905,6 @@
         }
 
         function rebuildSVGTemplate() {
-          console.log("check");
           SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
             .then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);

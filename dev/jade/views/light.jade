@@ -13,10 +13,8 @@
         section.construction-page(ng-if="lightPage.G.global.showCart == 0")
           section.construction-container
             .construction-block
-              .construction-scrollbox
+              .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
-                include panels/_templates
-
                 .counter-block
                   .counter
                     .input-minus(ng-click="lightPage.subtractProdQty()") -
@@ -26,6 +24,7 @@
                   .save-block(ng-click="lightPage.saveProduct()")
                     .cart-img
                     .cart-btn {{lightPage.SAVE}}
+              include panels/_templates
 
             .right-menu-header
               .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1")
@@ -202,7 +201,63 @@
               img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
               svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
 
+        .addelements-detail(ng-if="lightPage.config.isAddElementDetail")
+          .addelements-detail-header
+            .addelements-detail-tools
+              button.addelements-detail-edit(fs-click="lightPage.editProduct(lightPage.config.detailProductIndex, 'auxiliary')") {{ ::lightPage.ADDELEMENTS_EDIT_LIST }}
+              button.addelements-detail-close(fs-click="lightPage.closeAddElementDetail()")
+            .product-template(ng-hide="lightPage.O.order.products[lightPage.config.detailProductIndex].is_addelem_only")
+              .addelements-detail-row
+                .product-value
+                  .product-icon-thumb
+                    svg-template(template="lightPage.O.order.products[lightPage.config.detailProductIndex].templateIcon", template-width="lightPage.constants.svgTemplateIconWidth", template-height="lightPage.constants.svgTemplateIconHeight", type-construction="lightPage.constants.SVG_CLASS_ICON")
+                  span.product-template-qty X {{ lightPage.O.order.products[lightPage.config.detailProductIndex].product_qty }}
+                .product-icon-label {{ ::lightPage.PRODUCT_QTY }}
+              .addelements-detail-row
+                .product-value {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
+                .product-label {{ ::lightPage.WIDTH_LABEL }}
+              .addelements-detail-row
+                .product-value {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
+                .product-label {{ ::lightPage.HEIGHT_LABEL }}
+          .addelements-detail-content
+            ul.addelements-detail-list
+              li.addelements-detail-item(ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
+                .product-value {{ addelement.name }}
+                .product-value(ng-switch-when="0") {{ ::lightPage.GRID }}
+                .product-value(ng-switch-when="1") {{ ::lightPage.VISOR }}
+                .product-value(ng-switch-when="2") {{ ::lightPage.SPILLWAY }}
+                .product-value(ng-switch-when="3") {{ ::lightPage.OUTSIDE }}
+                .product-value(ng-switch-when="4") {{ ::lightPage.LOUVERS }}
+                .product-value(ng-switch-when="5") {{ ::lightPage.INSIDE }}
+                .product-value(ng-switch-when="6") {{ ::lightPage.CONNECTORS }}
+                .product-value(ng-switch-when="7") {{ ::lightPage.FAN }}
+                .product-value(ng-switch-when="8") {{ ::lightPage.WINDOWSILL }}
+                .product-value(ng-switch-when="9") {{ ::lightPage.HANDLEL }}
+                .product-value(ng-switch-when="10") {{ ::lightPage.OTHERS }}
+                .addelement-parameters
+                  .addelement-parameter(ng-show="addelement.element_width")
+                    .addelement-value {{ addelement.element_width }}
+                    .addelement-label {{ ::lightPage.WIDTH_LABEL }}
+                  .addelement-parameter(ng-show="addelement.element_height")
+                    .addelement-value {{ addelement.element_height }}
+                    .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
+                  .addelement-parameter(ng-show="addelement.element_qty")
+                    .addelement-value {{ addelement.element_qty }}
+                    .addelement-label {{ ::lightPage.QTY_LABEL }}
+                .addelement-parameters
+                  .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ lightPage.U.userInfo.currency }}
+                  .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ lightPage.U.userInfo.currency }})
+            .addelements-detail-row.price-one-product
+              .addelement-price-value(price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
+              .product-label {{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}
+          .addelements-detail-footer
+            div(price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis}}", qty-element="{{lightPage.O.order.products[lightPage.config.detailProductIndex].product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
+            div &#8721;
+        .backDarkView(ng-if="lightPage.config.isAddElementDetail", ng-click="lightPage.closeAddElementDetail()")
 
+
+
+        include panels/_add-elements-cart
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
         include menus/_addelems-menu
         .config-buttons

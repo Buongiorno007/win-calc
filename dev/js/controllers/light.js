@@ -35,8 +35,11 @@
         thisCtrl.config = {
           //---- design menu
           DELAY_SHOW_FIGURE_ITEM: 1000,
+          isAddElementDetail: 0,
+          detailProductIndex: 0,
           typing: 'on'
         };
+
         GlobalStor.global.isNavMenu = 0;
         GlobalStor.global.isConfigMenu = 1;
 
@@ -101,6 +104,23 @@
         thisCtrl.ORDER_COMMENT = $filter('translate')('cart.ORDER_COMMENT');
         thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
         thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+        thisCtrl.ADDELEMENTS_PRODUCT_COST = $filter('translate')('cart.ADDELEMENTS_PRODUCT_COST');
+        thisCtrl.GRID = $filter('translate')('add_elements.GRID');
+        thisCtrl.VISOR = $filter('translate')('add_elements.VISOR');
+        thisCtrl.SPILLWAY = $filter('translate')('add_elements.SPILLWAY');
+        thisCtrl.OUTSIDE = $filter('translate')('add_elements.OUTSIDE');
+        thisCtrl.LOUVERS = $filter('translate')('add_elements.LOUVERS');
+        thisCtrl.INSIDE = $filter('translate')('add_elements.INSIDE');
+        thisCtrl.CONNECTORS = $filter('translate')('add_elements.CONNECTORS');
+        thisCtrl.FAN = $filter('translate')('add_elements.FAN');
+        thisCtrl.WINDOWSILL = $filter('translate')('add_elements.WINDOWSILL');
+        thisCtrl.HANDLEL = $filter('translate')('add_elements.HANDLEL');
+        thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+
+        thisCtrl.ADDELEMENTS_EDIT_LIST = $filter('translate')('cart.ADDELEMENTS_EDIT_LIST');
+        thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+        thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+        thisCtrl.MM = $filter('translate')('mainpage.MM');
         // $( "*" ).click(function() {
         //
         // });
@@ -162,7 +182,17 @@
           GlobalStor.global.showCart=0
           DesignServ.rebuildSVGTemplate();
         }
-
+        function showAddElementDetail(productIndex) {
+          console.log("1");
+          if (CartStor.cart.allAddElements[productIndex].length > 0) {
+            console.log("2");
+            thisCtrl.config.detailProductIndex = productIndex;
+            thisCtrl.config.isAddElementDetail = true;
+          }
+        }
+        function closeAddElementDetail() {
+          thisCtrl.config.isAddElementDetail = false;
+        }
         /**========== FINISH ==========*/
         thisCtrl.addProdQty = addProdQty;
         thisCtrl.subtractProdQty = subtractProdQty;
@@ -172,9 +202,13 @@
         thisCtrl.cartButton = cartButton;
         thisCtrl.configButton = configButton;
         thisCtrl.karkasButton = karkasButton;
+        thisCtrl.showAddElementDetail = showAddElementDetail;
+        thisCtrl.closeAddElementDetail = closeAddElementDetail;
 
         thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
 
+        thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
+        thisCtrl.increaseProductQty = CartServ.increaseProductQty;
         thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
         thisCtrl.box = CartServ.box;
         thisCtrl.fastEdit = CartServ.fastEdit;
