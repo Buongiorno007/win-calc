@@ -3430,6 +3430,7 @@
           selectLock: selectLock,
           closeDoorConfig: closeDoorConfig,
           saveDoorConfig: saveDoorConfig,
+          checkGlassInTemplate: checkGlassInTemplate,
 
           updateGrids: updateGrids
         };

@@ -67,12 +67,17 @@
               //--------- show only Glasses and AddElements
               if (id === 3 || id === 6 || id === 5) {
                 GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
-
               } else {
                 GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
-                $location.path('/design')
-                GlobalStor.global.currOpenPage = '/design';
+                if ($location.path() !== '/light') {
+                  $location.path('/design')
+                  GlobalStor.global.currOpenPage = 'design';
+                } else {
+                  $(".config-menu").hide();
+                  $(".right-side").width("100%");
+                  $(".main-content").width("100%");
+                }
                 GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
                 DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
                   DesignStor.design.steps.isDoorConfig = 1;

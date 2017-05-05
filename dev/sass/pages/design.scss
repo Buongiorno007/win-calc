@@ -1241,6 +1241,7 @@ $door-config-content: $ipad-height - $door-config-header;
     border-bottom-left-radius: rem(20px);
   }
   .order-header {
+    cursor: pointer;
     height: rem(320px);
   }
   .order-header-fon {
@@ -1307,7 +1308,14 @@ $door-config-content: $ipad-height - $door-config-header;
   .door-configuration {
     &.active {
       top: -6rem;
-      left: 0rem;
+      left: 3rem;
+      width : 98%;
+    }
+    .door-config-tools {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 17rem;
     }
   }
   .right-menu-header {
