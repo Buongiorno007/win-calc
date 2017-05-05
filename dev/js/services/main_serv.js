@@ -1375,7 +1375,7 @@
                   OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
                 }
               }
-
+              GlobalStor.global.productEditNumber = 0;
               /**========== if New Product =========*/
             } else {
               ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;

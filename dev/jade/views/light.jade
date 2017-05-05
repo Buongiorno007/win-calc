@@ -132,13 +132,13 @@
 
 
         section.cart-page(ng-show="lightPage.G.global.showCart === 1")
-          section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}")
+          section.cart-container.full-view(ng-class="{'discount': lightPage.C.cart.isShowDiscount}")
             .scroll-hor-container
               .order-block
                 .order(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
                   button.order-delete(fs-click="lightPage.clickDeleteProduct($index)")
+                  img.imgg(ng-src='img/copy_edit.png', fs-click="lightPage.box($index, 'product')")
                   .order-header(ng-click="lightPage.showCartTemplte($index)")
-                    img.imgg(ng-src='img/copy_edit.png', fs-click="lightPage.box($index, 'product')")
                     .order-template
                       svg-template(template="product.templateIcon", template-width="lightPage.constants.svgTemplateIconWidthCart", template-height="lightPage.constants.svgTemplateIconHeightCart", type-construction="lightPage.constants.SVG_CLASS_ICON")
                     .order-u-coeff(ng-if="!lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > lightPage.O.order.heat_coef_min}")
@@ -199,7 +199,38 @@
             .template-window(ng-show="lightPage.C.cart.showCurrentTemp")
               button.close-cur-window(ng-click="lightPage.C.cart.showCurrentTemp=0")
               img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
-              svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
+              svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="lightPage.constants.SVG_ID_GLASS")
+
+            .discount-container
+              .discount-title {{ lightPage.DISCOUNT_SELECT }}
+
+              .discount-box.selected
+                .discount-data(fs-click="lightPage.openDiscInput(0)", ng-keyup="lightPage.enterKeyPrice(event)")
+                  .disc-max(ng-show="lightPage.C.cart.tempConstructDisc > lightPage.U.userInfo.discountConstrMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%
+                  input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="lightPage.C.cart.tempConstructDisc")
+                  |%
+                .discount-txt(ng-click="lightPage.approveNewDisc(0)")
+                  .discounts-label {{ ::lightPage.DISCOUNT_WINDOW }}
+
+              .discount-box.selected
+                .discount-data(fs-click="lightPage.openDiscInput(1)", ng-keyup="lightPage.enterKeyDop(event)")
+                  .disc-max(ng-show="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
+                  input.disc-input.noPreventDefault#disc-input-add(type="number",value="0", ng-model="lightPage.C.cart.tempAddelemDisc")
+                  |%
+                .discount-txt(ng-click="lightPage.approveNewDisc(1)")
+                  .discounts-label {{ ::lightPage.DISCOUNT_ADDELEM }}
+            .discount-container
+              .discount-title {{ ::lightPage.DISCOUNT }}
+              .discount-price-container
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT_WITHOUT }}
+                  .discount-price {{ lightPage.O.order.order_price }} {{lightPage.U.userInfo.currency}}
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT_WITH }}
+                  .discount-price {{ lightPage.O.order.productsPriceDis }} {{lightPage.U.userInfo.currency}}
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT }}
+                  .discount-price {{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}
 
         .addelements-detail(ng-if="lightPage.config.isAddElementDetail")
           .addelements-detail-header

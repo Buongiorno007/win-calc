@@ -8,13 +8,16 @@
       function ($filter,
                 $timeout,
                 globalConstants,
+
                 DesignServ,
                 LightServ,
-                GlobalStor,
-                ProductStor,
                 MainServ,
                 CartServ,
                 SVGServ,
+                CartMenuServ,
+
+                GlobalStor,
+                ProductStor,
                 DesignStor,
                 OrderStor,
                 CartStor,
@@ -81,7 +84,13 @@
         thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
         thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
         thisCtrl.CALC_PRICE = $filter('translate')('design.CALC_PRICE');
-
+        thisCtrl.DISCOUNT_SELECT = $filter('translate')('cart.DISCOUNT_SELECT');
+        thisCtrl.MAX = $filter('translate')('common_words.MAX');
+        thisCtrl.DISCOUNT_WINDOW = $filter('translate')('cart.DISCOUNT_WINDOW');
+        thisCtrl.DISCOUNT_ADDELEM = $filter('translate')('cart.DISCOUNT_ADDELEM');
+        thisCtrl.DISCOUNT = $filter('translate')('cart.DISCOUNT');
+        thisCtrl.DISCOUNT_WITHOUT = $filter('translate')('cart.DISCOUNT_WITHOUT');
+        thisCtrl.DISCOUNT_WITH = $filter('translate')('cart.DISCOUNT_WITH');
 
         thisCtrl.PROFILE_SYSTEM_SELECT = $filter('translate')('design.PROFILE_SYSTEM_SELECT');
         thisCtrl.GLASS_SELECT = $filter('translate')('design.GLASS_SELECT');
@@ -185,19 +194,25 @@
         thisCtrl.showCartTemplte = showCartTemplte;
         thisCtrl.showAddElementDetail = showAddElementDetail;
         thisCtrl.closeAddElementDetail = closeAddElementDetail;
+        thisCtrl.box = LightServ.box;
+        thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;
+        thisCtrl.closeDoorConfig = LightServ.closeDoorConfig;
+        thisCtrl.saveDoorConfig = LightServ.saveDoorConfig;
 
         thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
+
+        thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
         thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
         thisCtrl.increaseProductQty = CartServ.increaseProductQty;
         thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-        thisCtrl.box = CartServ.box;
         thisCtrl.fastEdit = CartServ.fastEdit;
 
-        thisCtrl.closeDoorConfig = DesignServ.closeDoorConfig;
         thisCtrl.selectDoor = DesignServ.selectDoor;
+        thisCtrl.selectSash = DesignServ.selectSash;
+        thisCtrl.selectHandle = DesignServ.selectHandle;
+        thisCtrl.selectLock = DesignServ.selectLock;
         thisCtrl.stepBack = DesignServ.stepBack;
-        thisCtrl.toggleDoorConfig = DesignServ.toggleDoorConfig;
         //------ clicking
 
 

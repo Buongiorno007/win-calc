@@ -194,9 +194,9 @@
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-            // setTimeout(function () {
-            //   DesignServ.rebuildSVGTemplate();
-            // }, 250);
+            setTimeout(function () {
+              DesignServ.rebuildSVGTemplate();
+            }, 1500);
           }
         }
 
