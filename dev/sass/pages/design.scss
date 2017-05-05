@@ -936,8 +936,9 @@ $door-config-content: $ipad-height - $door-config-header;
     padding: 1rem;
     margin-top: 2rem;
     display: inline-block;
+    }
 
-    &.active {
+  .img-cart.active {
       width: 4.5rem;
       height: 4.5rem;
       background: url(../img/config-menu/cart-green.png) no-repeat center;
@@ -945,7 +946,6 @@ $door-config-content: $ipad-height - $door-config-header;
       padding: 1rem;
       margin-top: 2rem;
       display: inline-block;
-    }
   }
   .configuration {
     height: 100%;
