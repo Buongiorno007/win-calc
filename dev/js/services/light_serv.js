@@ -66,7 +66,7 @@
                   /** rebuild glasses */
                   MainServ.setGlassfilter();
                   if (ProductStor.product.construction_type !== 4) {
-                    MainServ.setCurrentGlass(ProductStor.product, 1);
+                    // MainServ.setCurrentGlass(ProductStor.product, 1);
                     MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
                       next();
                     });

@@ -164,6 +164,7 @@
                   entry.gridTxt = "";
 
                   ProductStor.product.chosenAddElements[0].splice(index, 1);
+                  console.log("2");
                 }
 
               });

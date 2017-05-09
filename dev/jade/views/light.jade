@@ -15,15 +15,6 @@
             .construction-block
               .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
-                .counter-block
-                  .counter
-                    .input-minus(ng-click="lightPage.subtractProdQty()") -
-                    input(type="number", min="1", ng-model="lightPage.G.global.product_qty")
-                    .input-plus(ng-click="lightPage.addProdQty()") +
-                  //.save-block(ng-click="lightPage.saveProduct()")
-                  .save-block(ng-click="lightPage.saveProduct()")
-                    .cart-img
-                    .cart-btn {{lightPage.SAVE}}
               include panels/_templates
 
             .right-menu-header
@@ -43,13 +34,14 @@
               .calculators-box.size-calculator(ng-class="{'active': lightPage.G.global.isSizeCalculator}")
                 include parts/_size-calculator
 
+            include parts/_report
             include panels/_profiles
             include panels/_glasses
             include panels/_hardwares
             include panels/_laminations
-            include panels/_add-elements
-            include parts/_grid-selector
-            include panels/_add-elements-list
+        include panels/_add-elements
+        include panels/_add-elements-list
+        include parts/_grid-selector
 
             section.door-configuration(ng-class="{'active': lightPage.D.design.steps.isDoorConfig}")
 
@@ -303,7 +295,6 @@
               p {{ configMenu.O.order.products.length }}
             .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
             p {{lightPage.CART}}
-        //.karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
         .karkas(ng-controller="DesignCtrl as designPage", ng-show="configMenu.G.global.showKarkas")
           .construction-left-menu
             ul.figure-lists
@@ -498,10 +489,18 @@
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
 
-        .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-          div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
-        .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-          div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
+        .counter-block(ng-if="configMenu.G.global.showCart == 0")
+          .counter
+            .input-minus(ng-click="lightPage.subtractProdQty()") -
+            input(type="number", min="1", ng-model="lightPage.G.global.product_qty")
+            .input-plus(ng-click="lightPage.addProdQty()") +
+          .save-block(ng-click="lightPage.checkForAddElem()")
+            .cart-img
+            p {{lightPage.SAVE}}
+        //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+        //  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
+        //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+        //  div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
         ////  div
 
 

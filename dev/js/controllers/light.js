@@ -8,14 +8,12 @@
       function ($filter,
                 $timeout,
                 globalConstants,
-
                 DesignServ,
                 LightServ,
                 MainServ,
                 CartServ,
                 SVGServ,
                 CartMenuServ,
-
                 GlobalStor,
                 ProductStor,
                 DesignStor,
@@ -136,7 +134,9 @@
         // $( "*" ).click(function() {
         //
         // });
-
+        if (!GlobalStor.global.orderEditNumber) {
+          CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
+        }
         /**========== FUNCTIONS ==========*/
 
         $timeout(function () {
@@ -167,6 +167,23 @@
         function saveProduct() {
           LightServ.designSaved();
         }
+        function goToCart(){
+          MainServ.createNewProduct();
+          CartMenuServ.calculateOrderPrice();
+          CartMenuServ.joinAllAddElements();
+          GlobalStor.global.activePanel = 0;
+          GlobalStor.global.showKarkas = 0;
+          GlobalStor.global.showConfiguration = 0;
+          GlobalStor.global.showCart = 1;
+        }
+        function saveAddElems() {
+          GlobalStor.global.showCoefInfoBlock = 0;
+          GlobalStor.global.continued = 0;
+          if(MainServ.inputProductInOrder()){
+            //--------- moving to Cart when click on Cart button
+            goToCart();
+          }
+        }
 
 
         function showCartTemplte(index) {
@@ -183,9 +200,78 @@
             thisCtrl.config.isAddElementDetail = true;
           }
         }
+
         function closeAddElementDetail() {
           thisCtrl.config.isAddElementDetail = false;
         }
+
+        function enterKeyPrice(e) {
+          e = e || window.event;
+          if (e.keyCode === 13) {
+            CartMenuServ.approveNewDisc(0)
+          }
+        }
+
+        function enterKeyDop(e) {
+          e = e || window.event;
+          if (e.keyCode === 13) {
+            CartMenuServ.approveNewDisc(1)
+          }
+        }
+
+        function alert() {
+          GlobalStor.global.nameAddElem = [];
+          var name = '';
+          var product = 0;
+          var tr = '';
+          for (var u = 0; u < ProductStor.product.chosenAddElements.length; u += 1) {
+            for (var f = 0; f < ProductStor.product.chosenAddElements[u].length; f += 1) {
+              var obj = {
+                name: '',
+                product: 0,
+                tr: '',
+                list: 0
+              };
+              for (var y = 0; y < GlobalStor.global.dataProfiles.length; y += 1) {
+                if (ProductStor.product.chosenAddElements[u][f].parent_element_id === GlobalStor.global.dataProfiles[y].element_id) {
+                  obj.tr = ProductStor.product.chosenAddElements[u][f].name;
+                } else {
+                  obj.name = ProductStor.product.chosenAddElements[u][f].name;
+                  obj.list = ProductStor.product.chosenAddElements[u][f].list_group_id;
+                }
+              }
+              GlobalStor.global.nameAddElem.push(obj)
+            }
+          }
+          for (var d = 0; d < GlobalStor.global.nameAddElem.length; d += 1) {
+            if (GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr || GlobalStor.global.nameAddElem[d].list === 20) {
+              delete GlobalStor.global.nameAddElem[d].name;
+            }
+          }
+          for (var d = 0; d < GlobalStor.global.nameAddElem.length; d += 1) {
+            if (GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0 && ProductStor.product.is_addelem_only === 0) {
+              GlobalStor.global.dangerAlert = 1;
+            }
+          }
+        }
+
+        function checkForAddElem() {
+          if (!ProductStor.product.is_addelem_only) {
+            alert();
+            if (GlobalStor.global.dangerAlert < 1) {
+              if (ProductStor.product.beadsData.length > 0) {
+                saveProduct();
+              } else {
+                GeneralServ.isErrorProd(
+                  $filter('translate')('common_words.ERROR_PROD_BEADS')
+                );
+              }
+            }
+          } else {
+            saveAddElems();
+          }
+        }
+
         /**========== FINISH ==========*/
         thisCtrl.addProdQty = addProdQty;
         thisCtrl.subtractProdQty = subtractProdQty;
@@ -194,6 +280,10 @@
         thisCtrl.showCartTemplte = showCartTemplte;
         thisCtrl.showAddElementDetail = showAddElementDetail;
         thisCtrl.closeAddElementDetail = closeAddElementDetail;
+        thisCtrl.enterKeyPrice = enterKeyPrice;
+        thisCtrl.enterKeyDop = enterKeyDop;
+        thisCtrl.checkForAddElem = checkForAddElem;
+
         thisCtrl.box = LightServ.box;
         thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;
         thisCtrl.closeDoorConfig = LightServ.closeDoorConfig;
