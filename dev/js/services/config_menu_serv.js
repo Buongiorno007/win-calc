@@ -112,6 +112,7 @@
               // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               if(GlobalStor.global.activePanel === id){
                 GlobalStor.global.activePanel = 0;
+                GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
                 setTimeout(function () {
                   DesignServ.rebuildSVGTemplate();
                 }, 250);
