@@ -869,12 +869,12 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 3rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
-    background: url(../../img/config-menu/conf.svg) no-repeat center;
+    background: url(../img/config-menu/conf.svg) no-repeat center;
     background-size: contain;
     padding: 1rem;
     display: inline-block;
     &.active {
-      background: url(../../img/config-menu/conf_active.svg)  no-repeat;
+      background: url(../img/config-menu/conf_active.svg)  no-repeat;
     }
   }
   .karkas-button {
@@ -899,13 +899,13 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 3rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
-    background: url(../../img/config-menu/karkas.svg) no-repeat center;
+    background: url(../img/config-menu/karkas.svg) no-repeat center;
     background-size: contain;
     padding: 1rem;
     display: inline-block;
     color: $main_gray_btn;
     &.active {
-      background: url(../../img/config-menu/karkas_active.svg) 50% 50% no-repeat;
+      background: url(../img/config-menu/karkas_active.svg) 50% 50% no-repeat;
     }
   }
   .cart-button {
@@ -929,7 +929,7 @@ $door-config-content: $ipad-height - $door-config-header;
   .img-cart {
     width: 4.5rem;
     height: 4.5rem;
-    background: url(../../img/config-menu/cart-gray.png) no-repeat center;
+    background: url(../img/config-menu/cart-gray.png) no-repeat center;
     background-size: contain;
     padding: 1rem;
     margin-top: 2rem;
@@ -938,7 +938,7 @@ $door-config-content: $ipad-height - $door-config-header;
     .active {
       width: 4.5rem;
       height: 4.5rem;
-      background: url(../../img/config-menu/cart-green.png) no-repeat center;
+      background: url(../img/config-menu/cart-green.png) no-repeat center;
       background-size: contain;
       padding: 1rem;
       margin-top: 2rem;
@@ -1228,7 +1228,7 @@ $door-config-content: $ipad-height - $door-config-header;
     height : 4rem;
     margin : 0;
     padding : 0;
-    background: url(../../img/config-menu/cart-white.png) no-repeat;
+    background: url(../img/config-menu/cart-white.png) no-repeat;
     background-size: contain;
     display : inline-block;
     vertical-align : middle;
