@@ -1356,4 +1356,12 @@ $door-config-content: $ipad-height - $door-config-header;
   .auxiliaries-container{
     top : 0rem !important;
   }
+  .nav-tool-box {
+    position : relative;
+    top : -7.5rem;
+    left : 2rem;
+  }
+  .template-window{
+    top: 6.75rem !important;
+  }
 }
