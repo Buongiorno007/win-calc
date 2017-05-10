@@ -906,7 +906,7 @@ $door-config-content: $ipad-height - $door-config-header;
     display: inline-block;
     color: $main_gray_btn;
     &.active {
-      background: url(../img/config-menu/karkas_active.svg) 50% 50% no-repeat;
+      background: url(../img/config-menu/karkas_active.svg) no-repeat center;
     }
   }
   .cart-button {
@@ -932,19 +932,14 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 3.5rem;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
-    background: url(../img/config-menu/cart-gray.svg) no-repeat center;
+    background: url(../img/config-menu/cart.svg) no-repeat center;
     background-size: contain;
     padding: 1rem;
     display: inline-block;
     color: $main_gray_btn;
     &.active {
-      background: url(../img/config-menu/cart-green.svg) no-repeat center;
-      width: 3.5rem;
-      height: 3.5rem;
-      background-size: contain;
-      padding-top: 1rem;
-      margin-top: 1.5rem;
-      display: inline-block;
+      background: url(../img/config-menu/cart_active.svg) no-repeat center;
+      background-size: contain !important;
     }
   }
   .configuration {
