@@ -351,6 +351,8 @@
     "DATE_DELIVERY_LABEL": "при поставке на",
     "FIRST_PAYMENT_LABEL": "Первый платеж",
     "ORDER": "Заказать",
+    "ORDER_LV": "Оформить заказ",
+    "CALCULATE_PRICE": "Рассчитать",
     "MEASURE": "Замерить",
     "READY": "Готово",
     "CALL_MASTER": "Вызов замерщика для рассчета",

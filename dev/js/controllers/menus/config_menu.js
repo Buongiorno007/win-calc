@@ -19,8 +19,10 @@
     ProductStor,
     DesignStor,
     UserStor,
+    CartStor,
     InfoBoxServ,
-    ConfigMenuServ
+    ConfigMenuServ,
+    CartMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -29,7 +31,6 @@
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
-
 
     thisCtrl.config = {
       TOOLTIP: [
@@ -149,11 +150,45 @@
       }
     }
 
+    function cartButton() {
+      GlobalStor.global.showKarkas = 0;
+      GlobalStor.global.showConfiguration = 0;
+      GlobalStor.global.showCart = 1;
+      GlobalStor.global.activePanel = 0;
+      CartMenuServ.calculateOrderPrice();
+      CartMenuServ.joinAllAddElements();
+    }
 
+    function configButton() {
+      DesignServ.deselectAllDimension();
+      GlobalStor.global.showKarkas=0;
+      GlobalStor.global.showConfiguration=1;
+      GlobalStor.global.showCart=0;
+      GlobalStor.global.isSizeCalculator = 0;
+      CartStor.cart.isShowDiscount = 0;
+      setTimeout(function () {
+        DesignServ.rebuildSVGTemplate();
+      }, 250);
+    }
+    function karkasButton() {
+      DesignServ.deselectAllDimension();
+      GlobalStor.global.showKarkas=1;
+      GlobalStor.global.showConfiguration=0;
+      GlobalStor.global.showCart=0;
+      GlobalStor.global.isSizeCalculator = 0;
+      CartStor.cart.isShowDiscount = 0;
+      setTimeout(function () {
+        DesignServ.rebuildSVGTemplate();
+      }, 250);
+    }
 
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.cartButton = cartButton;
+    thisCtrl.configButton = configButton;
+    thisCtrl.karkasButton = karkasButton;
+
     thisCtrl.autoShowInfoBox = InfoBoxServ.autoShowInfoBox;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;

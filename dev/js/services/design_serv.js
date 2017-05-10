@@ -65,7 +65,6 @@
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass').classed('glass-active', false);
         }
 
-
         function deselectAllDimension() {
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect').classed('active', false);
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit').classed('active', false);
@@ -702,7 +701,7 @@
           gridsOld.forEach(function (oldMosq) {
             if (!oldMosq.cloth_id) {
               extended_mosq.forEach(function (entry) {
-                if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id)&& (entry.id === oldMosq.id)){
+                if ((entry.name === oldMosq.name) && (entry.list_group_id === oldMosq.list_group_id) && (entry.id === oldMosq.id)) {
                   entry.elementPriceDis = angular.copy(oldMosq.elementPriceDis);
                   entry.element_price = angular.copy(oldMosq.element_price);
                   entry.element_height = angular.copy(oldMosq.element_height);
@@ -717,6 +716,7 @@
           if (gridQty) {
             while (--blockQty > 0) {
               //------- if grid there is in this block
+              console.log(angular.copy(blocks[blockQty]));
               if (blocks[blockQty].gridId) {
                 for (g = 0; g < gridQty; g += 1) {
                   if ((blocks[blockQty].id === gridsOld[g].block_id) || (blocks[blockQty].id === "block_" + gridsOld[g].block_id)) {
@@ -747,7 +747,7 @@
                 }
               } else {
                 isChanged = 1;
-                ProductStor.product.chosenAddElements[0].splice(0,ProductStor.product.chosenAddElements[0].length);
+                // ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
               }
             }
             //------- rewrite grids lists
@@ -1986,7 +1986,7 @@
                         //console.log(entry);
                         tmp_gridId = entry.gridId;
                         tmp_gridTxt = entry.gridTxt;
-
+                        console.log("1");
                       }
                     });
                     blocks[b].blockType = 'sash';
@@ -3344,6 +3344,7 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           GlobalStor.global.isChangedTemplate = 1;
+
                           backtoTemplatePanel();
                         });
                       });
@@ -3389,6 +3390,7 @@
           deselectAllArc: deselectAllArc,
           deselectAllGlass: deselectAllGlass,
           rebuildSVGTemplate: rebuildSVGTemplate,
+          deselectAllDimension: deselectAllDimension,
 
           //------- edit sash
           createSash: createSash,
@@ -3431,8 +3433,10 @@
           selectHandle: selectHandle,
           selectLock: selectLock,
           closeDoorConfig: closeDoorConfig,
-          saveDoorConfig: saveDoorConfig
+          saveDoorConfig: saveDoorConfig,
+          checkGlassInTemplate: checkGlassInTemplate,
 
+          updateGrids: updateGrids
         };
 
         return thisFactory.publicObj;

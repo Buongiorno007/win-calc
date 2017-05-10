@@ -12,6 +12,7 @@
     globalConstants,
     GeneralServ,
     NavMenuServ,
+    MainServ,
     GlobalStor,
     OrderStor,
     ProductStor,
@@ -44,12 +45,6 @@
 
 
         /**============ METHODS ================*/
-        if (GlobalStor.global.currOpenPage === "light") {
-          GlobalStor.global.isLightVersion = 1;
-        } else {
-          GlobalStor.global.isLightVersion = 0;
-        }
-
     //------- Select menu item
     function selectMenuItem(id) {
       thisCtrl.activeMenuItem = (thisCtrl.activeMenuItem === id) ? 0 : id;
@@ -67,14 +62,17 @@
         case 3:
           //------- set previos Page
           GeneralServ.setPreviosPage();
-          $location.path('/main');
-          GlobalStor.global.currOpenPage = '/main';
+          $location.path('main');
+          GlobalStor.global.currOpenPage = 'main';
           break;
         case 4:
           $location.path('/cart');
-          GlobalStor.global.currOpenPage = '/cart';
+          GlobalStor.global.currOpenPage = 'cart';
           break;
         case 5:
+          GlobalStor.global.showKarkas=0;
+          GlobalStor.global.showConfiguration=1;
+          GlobalStor.global.showCart=0;
           NavMenuServ.createAddElementsProduct();
           break;
         case 6:
@@ -100,20 +98,31 @@
           break;
         case 10: {
           if (!GlobalStor.global.isLightVersion){
-            $location.path('/light');
+            GlobalStor.global.showKarkas=1;
+            GlobalStor.global.showConfiguration=0;
+            GlobalStor.global.showCart=0;
             GlobalStor.global.isLightVersion = 1;
-            /** !!!! **/
-            //localStorage.clear();
-            // localStorage.setItem('GlobalStor', JSON.stringify(GlobalStor.global));
-            // localStorage.setItem('ProductStor', JSON.stringify(ProductStor.product));
-            // localStorage.setItem('UserStor', JSON.stringify(UserStor.userInfo));
-            //
-            // localStorage.setItem('AuxStor', JSON.stringify(AuxStor.aux));
-            // localStorage.setItem('DesignStor', JSON.stringify(DesignStor.design));
+
+            if ($location.path()==="/cart"){
+              ProductStor.product = ProductStor.setDefaultProduct();
+              GlobalStor.global.isCreatedNewProduct = 1;
+              GlobalStor.global.isChangedTemplate = 0;
+              //------- set new templates
+              MainServ.setCurrTemplate();
+              MainServ.prepareTemplates(ProductStor.product.construction_type).then(function () {
+                /** start lamination filtering */
+                MainServ.cleanLamFilter();
+                MainServ.laminatFiltering();
+                $location.path('/light');
+
+              });
+            } else {
+            $location.path('/light');
+            }
+            GlobalStor.global.currOpenPage = 'light';
           }
           else {
             $location.path('/main');
-
             GlobalStor.global.isLightVersion = 0;
           }
           break;

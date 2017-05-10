@@ -1004,6 +1004,11 @@
               }
             }
           }
+          if ($location.path() === '/light') {
+            SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+            });
+          }
         }
 
 
@@ -1296,8 +1301,13 @@
             laminatFiltering();
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
-              $location.path('/main');
-              GlobalStor.global.currOpenPage = '/main';
+              if (GlobalStor.global.isLightVersion) {
+                $location.path('/light');
+                GlobalStor.global.currOpenPage = 'light';
+              } else {
+                $location.path('/main');
+                GlobalStor.global.currOpenPage = 'main';
+              }
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1322,8 +1332,13 @@
             laminatFiltering();
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
-              $location.path('/main');
-              GlobalStor.global.currOpenPage = '/main';
+              if (GlobalStor.global.isLightVersion) {
+                //$location.path('/light');
+                GlobalStor.global.currOpenPage = 'light';
+              } else {
+                $location.path('/main');
+                GlobalStor.global.currOpenPage = 'main';
+              }
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1370,13 +1385,14 @@
                   OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
                 }
               }
-
+              GlobalStor.global.productEditNumber = 0;
               /**========== if New Product =========*/
             } else {
               ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
               //delete ProductStor.product.template;
               //-------- insert product in order
-              OrderStor.order.products.push(ProductStor.product);
+              // OrderStor.order.products.push(ProductStor.product);
+              OrderStor.order.products.push(angular.copy(ProductStor.product));
             }
             //----- finish working with product
             GlobalStor.global.isCreatedNewProduct = 0;
@@ -1393,7 +1409,7 @@
             GeneralServ.setPreviosPage();
 
             $location.path('/cart');
-            GlobalStor.global.currOpenPage = '/cart';
+            GlobalStor.global.currOpenPage = 'cart';
           }, 100);
         }
 
@@ -1747,6 +1763,7 @@
           showInfoBox: showInfoBox,
           closeRoomSelectorDialog: closeRoomSelectorDialog,
           laminatFiltering: laminatFiltering,
+          cleanLamFilter: cleanLamFilter,
           laminationDoor: laminationDoor,
           setCurrLamination: setCurrLamination,
           setProfileByLaminat: setProfileByLaminat,

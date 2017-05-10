@@ -14,7 +14,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   window.onload = function () {
     if (!isDevice) {
 
-      location.hash = "/";
+      // location.hash = "/";
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
         height = $(obj).height();
@@ -171,7 +171,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       .when('/light', {
         templateUrl: 'views/light.html',
         controller: 'LightCtrl as lightPage',
-        title: 'Light Version'
+        title: 'Light'
       })
       .otherwise({
         redirectTo: '/'

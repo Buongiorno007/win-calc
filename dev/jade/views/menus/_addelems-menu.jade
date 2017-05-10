@@ -45,10 +45,9 @@
 					.aux-price +{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}
 					button.aux-choose-but(fs-click="elementsMenu.chooseAddElementList($parent.$index, $index)") {{ ::elementsMenu.ADD }}
 
-
-
 	//======== Tabs
-	.menu-right-tabs(ng-repeat="addElemTab in elementsMenu.P.product.chosenAddElements track by $index", ng-if="elementsMenu.G.global.currOpenPage === 'main' && elementsMenu.A.aux.isFocusedAddElement === ($index+1)")
+	//.menu-right-tabs(ng-repeat="addElemTab in elementsMenu.P.product.chosenAddElements track by $index", ng-if="elementsMenu.G.global.currOpenPage === 'main' && elementsMenu.A.aux.isFocusedAddElement === ($index+1)")
+	.menu-right-tabs(ng-repeat="addElemTab in elementsMenu.P.product.chosenAddElements track by $index", ng-if="elementsMenu.A.aux.isFocusedAddElement === ($index+1)")
 		.tab-block.simple-frame
 			button.frame-tab(ng-class="{'active': addElemTab.length == 1}") {{ ::elementsMenu.TAB_NAME_SIMPLE_FRAME }}
 		.tab-block.hard-frame(ng-class="{'active': elementsMenu.A.aux.isTabFrame}")

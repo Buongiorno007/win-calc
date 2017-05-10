@@ -39,8 +39,18 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           if (GlobalStor.global.isCreatedNewProduct && GlobalStor.global.isCreatedNewProject) {
-            $location.path('/main');
-            GlobalStor.global.currOpenPage = '/main';
+            if (GlobalStor.global.isLightVersion) {
+              GlobalStor.global.showKarkas=1;
+              GlobalStor.global.showConfiguration=0;
+              GlobalStor.global.showCart=0;
+              GlobalStor.global.isSizeCalculator = 0;
+              CartStor.cart.isShowDiscount = 0;
+              $location.path('/light');
+              GlobalStor.global.currOpenPage = 'light';
+            } else {
+              $location.path('/main');
+              GlobalStor.global.currOpenPage = 'main';
+            }
           } else {
             //-------- CREATE NEW PROJECT
             MainServ.createNewProject();

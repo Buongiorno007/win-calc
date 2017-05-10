@@ -15,12 +15,18 @@
                 $timeout,
                 InfoBoxServ,
                 DesignStor,
+                SVGServ,
                 DesignServ) {
         var thisFactory = this;
 
 
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
+          if ($location.path() === '/light') {
+            ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+            ProductStor.product.template = DesignStor.design.templateTEMP;
+          }
+
           GlobalStor.global.configMenuTips++;
           MainServ.laminatFiltering();
           if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
@@ -64,8 +70,14 @@
               } else {
                 GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
-                $location.path('/design')
-                GlobalStor.global.currOpenPage = '/design';
+                if ($location.path() !== '/light') {
+                  $location.path('/design')
+                  GlobalStor.global.currOpenPage = 'design';
+                } else {
+                  $(".config-menu").hide();
+                  $(".right-side").width("100%");
+                  $(".main-content").width("100%");
+                }
                 GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
                 DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
                   DesignStor.design.steps.isDoorConfig = 1;
@@ -91,13 +103,26 @@
                 GlobalStor.global.glasses.forEach(function (glass_arr) {
                   glass_arr.forEach(function (glass) {
                     glass.transcalencyD = 1 + Math.floor(((glass.transcalency - transcalency_min) / (transcalency_max - transcalency_min)) * 4);
-                    if (glass.noise_coeff!==0) {
+                    if (glass.noise_coeff !== 0) {
                       glass.noise_coeffD = 1 + Math.floor(((glass.noise_coeff - noise_coeff_min) / (noise_coeff_max - noise_coeff_min)) * 4);
-                    } else glass.noise_coeffD =  glass.noise_coeff;
+                    } else glass.noise_coeffD = glass.noise_coeff;
                   });
                 });
               }
-              GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+              // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+              if(GlobalStor.global.activePanel === id){
+                GlobalStor.global.activePanel = 0;
+
+                // DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+                // DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
+                setTimeout(function () {
+                  DesignServ.rebuildSVGTemplate();
+                }, 250);
+              } else {
+                GlobalStor.global.activePanel = id;
+
+              }
             }
           }
           if (GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {

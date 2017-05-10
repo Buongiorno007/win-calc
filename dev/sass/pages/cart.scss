@@ -1,7 +1,7 @@
 #tamlateGlassSVG{
   padding: rem(50px) rem(70px);
 }
-.cart-page {
+.cart-page, .light-v {
   position: relative;
   width: 100%;
   height: 100%;
@@ -323,6 +323,7 @@
       cursor: pointer;
     }
     .order-header {
+      cursor: pointer;
       min-height: 8rem;
       padding-top: 2.5rem;
       background-color: white;
@@ -609,6 +610,7 @@
 }
 
 .imgg {
+  cursor : pointer;
   position: absolute;
   height: 3.1rem;
   right: 3rem;

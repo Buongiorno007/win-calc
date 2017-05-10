@@ -350,6 +350,8 @@
     "DATE_DELIVERY_LABEL": "при постачанні на",
     "FIRST_PAYMENT_LABEL": "Перший платіж",
     "ORDER": "Замовити",
+    "ORDER_LV": "Оформити замовлення",
+    "CALCULATE_PRICE": "Розрахувати",
     "MEASURE": "Заміряти",
     "READY": "Готово",
     "CALL_MASTER": "Виклик замірювача для розрахунку",

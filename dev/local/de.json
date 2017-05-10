@@ -349,6 +349,8 @@
     "DATE_DELIVERY_LABEL": "Geliefert auf",
     "FIRST_PAYMENT_LABEL": "Die erste Zahlung",
     "ORDER": "Bestellen",
+    "ORDER_LV": "Eine Bestellung aufgeben",
+    "CALCULATE_PRICE": "Berechnen",
     "MEASURE": "Maßnahme",
     "READY": "Bereit",
     "CALL_MASTER": "Rufen Gager zu berechnen",
