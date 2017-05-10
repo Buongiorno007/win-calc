@@ -13,19 +13,9 @@
         section.construction-page(ng-if="lightPage.G.global.showCart == 0")
           section.construction-container
             .construction-block
-              .construction-scrollbox
+              .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
-                include panels/_templates
-
-                .counter-block
-                  .counter
-                    .input-minus(ng-click="lightPage.subtractProdQty()") -
-                    input(type="number", min="1", ng-model="lightPage.G.global.product_qty")
-                    .input-plus(ng-click="lightPage.addProdQty()") +
-                  //.save-block(ng-click="lightPage.saveProduct()")
-                  .save-block(ng-click="lightPage.saveProduct()")
-                    .cart-img
-                    .cart-btn {{lightPage.SAVE}}
+              include panels/_templates
 
             .right-menu-header
               .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1")
@@ -44,13 +34,14 @@
               .calculators-box.size-calculator(ng-class="{'active': lightPage.G.global.isSizeCalculator}")
                 include parts/_size-calculator
 
+            include parts/_report
             include panels/_profiles
             include panels/_glasses
             include panels/_hardwares
             include panels/_laminations
-            include panels/_add-elements
-            include parts/_grid-selector
-            include panels/_add-elements-list
+        include panels/_add-elements
+        include panels/_add-elements-list
+        include parts/_grid-selector
 
             section.door-configuration(ng-class="{'active': lightPage.D.design.steps.isDoorConfig}")
 
@@ -133,13 +124,13 @@
 
 
         section.cart-page(ng-show="lightPage.G.global.showCart === 1")
-          section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}")
+          section.cart-container.full-view(ng-class="{'discount': lightPage.C.cart.isShowDiscount}")
             .scroll-hor-container
               .order-block
                 .order(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
                   button.order-delete(fs-click="lightPage.clickDeleteProduct($index)")
+                  img.imgg(ng-src='img/copy_edit.png', fs-click="lightPage.box($index, 'product')")
                   .order-header(ng-click="lightPage.showCartTemplte($index)")
-                    img.imgg(ng-src='img/copy_edit.png', fs-click="lightPage.box($index, 'product')")
                     .order-template
                       svg-template(template="product.templateIcon", template-width="lightPage.constants.svgTemplateIconWidthCart", template-height="lightPage.constants.svgTemplateIconHeightCart", type-construction="lightPage.constants.SVG_CLASS_ICON")
                     .order-u-coeff(ng-if="!lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > lightPage.O.order.heat_coef_min}")
@@ -200,9 +191,96 @@
             .template-window(ng-show="lightPage.C.cart.showCurrentTemp")
               button.close-cur-window(ng-click="lightPage.C.cart.showCurrentTemp=0")
               img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
-              svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
+              svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="lightPage.constants.SVG_ID_GLASS")
+
+            .discount-container
+              .discount-title {{ lightPage.DISCOUNT_SELECT }}
+
+              .discount-box.selected
+                .discount-data(fs-click="lightPage.openDiscInput(0)", ng-keyup="lightPage.enterKeyPrice(event)")
+                  .disc-max(ng-show="lightPage.C.cart.tempConstructDisc > lightPage.U.userInfo.discountConstrMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%
+                  input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="lightPage.C.cart.tempConstructDisc")
+                  |%
+                .discount-txt(ng-click="lightPage.approveNewDisc(0)")
+                  .discounts-label {{ ::lightPage.DISCOUNT_WINDOW }}
+
+              .discount-box.selected
+                .discount-data(fs-click="lightPage.openDiscInput(1)", ng-keyup="lightPage.enterKeyDop(event)")
+                  .disc-max(ng-show="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
+                  input.disc-input.noPreventDefault#disc-input-add(type="number",value="0", ng-model="lightPage.C.cart.tempAddelemDisc")
+                  |%
+                .discount-txt(ng-click="lightPage.approveNewDisc(1)")
+                  .discounts-label {{ ::lightPage.DISCOUNT_ADDELEM }}
+            .discount-container
+              .discount-title {{ ::lightPage.DISCOUNT }}
+              .discount-price-container
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT_WITHOUT }}
+                  .discount-price {{ lightPage.O.order.order_price }} {{lightPage.U.userInfo.currency}}
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT_WITH }}
+                  .discount-price {{ lightPage.O.order.productsPriceDis }} {{lightPage.U.userInfo.currency}}
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT }}
+                  .discount-price {{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}
+
+        .addelements-detail(ng-if="lightPage.config.isAddElementDetail")
+          .addelements-detail-header
+            .addelements-detail-tools
+              button.addelements-detail-edit(fs-click="lightPage.editProduct(lightPage.config.detailProductIndex, 'auxiliary')") {{ ::lightPage.ADDELEMENTS_EDIT_LIST }}
+              button.addelements-detail-close(fs-click="lightPage.closeAddElementDetail()")
+            .product-template(ng-hide="lightPage.O.order.products[lightPage.config.detailProductIndex].is_addelem_only")
+              .addelements-detail-row
+                .product-value
+                  .product-icon-thumb
+                    svg-template(template="lightPage.O.order.products[lightPage.config.detailProductIndex].templateIcon", template-width="lightPage.constants.svgTemplateIconWidth", template-height="lightPage.constants.svgTemplateIconHeight", type-construction="lightPage.constants.SVG_CLASS_ICON")
+                  span.product-template-qty X {{ lightPage.O.order.products[lightPage.config.detailProductIndex].product_qty }}
+                .product-icon-label {{ ::lightPage.PRODUCT_QTY }}
+              .addelements-detail-row
+                .product-value {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
+                .product-label {{ ::lightPage.WIDTH_LABEL }}
+              .addelements-detail-row
+                .product-value {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
+                .product-label {{ ::lightPage.HEIGHT_LABEL }}
+          .addelements-detail-content
+            ul.addelements-detail-list
+              li.addelements-detail-item(ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
+                .product-value {{ addelement.name }}
+                .product-value(ng-switch-when="0") {{ ::lightPage.GRID }}
+                .product-value(ng-switch-when="1") {{ ::lightPage.VISOR }}
+                .product-value(ng-switch-when="2") {{ ::lightPage.SPILLWAY }}
+                .product-value(ng-switch-when="3") {{ ::lightPage.OUTSIDE }}
+                .product-value(ng-switch-when="4") {{ ::lightPage.LOUVERS }}
+                .product-value(ng-switch-when="5") {{ ::lightPage.INSIDE }}
+                .product-value(ng-switch-when="6") {{ ::lightPage.CONNECTORS }}
+                .product-value(ng-switch-when="7") {{ ::lightPage.FAN }}
+                .product-value(ng-switch-when="8") {{ ::lightPage.WINDOWSILL }}
+                .product-value(ng-switch-when="9") {{ ::lightPage.HANDLEL }}
+                .product-value(ng-switch-when="10") {{ ::lightPage.OTHERS }}
+                .addelement-parameters
+                  .addelement-parameter(ng-show="addelement.element_width")
+                    .addelement-value {{ addelement.element_width }}
+                    .addelement-label {{ ::lightPage.WIDTH_LABEL }}
+                  .addelement-parameter(ng-show="addelement.element_height")
+                    .addelement-value {{ addelement.element_height }}
+                    .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
+                  .addelement-parameter(ng-show="addelement.element_qty")
+                    .addelement-value {{ addelement.element_qty }}
+                    .addelement-label {{ ::lightPage.QTY_LABEL }}
+                .addelement-parameters
+                  .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ lightPage.U.userInfo.currency }}
+                  .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ lightPage.U.userInfo.currency }})
+            .addelements-detail-row.price-one-product
+              .addelement-price-value(price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
+              .product-label {{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}
+          .addelements-detail-footer
+            div(price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis}}", qty-element="{{lightPage.O.order.products[lightPage.config.detailProductIndex].product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
+            div &#8721;
+        .backDarkView(ng-if="lightPage.config.isAddElementDetail", ng-click="lightPage.closeAddElementDetail()")
 
 
+
+        include panels/_add-elements-cart
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
         include menus/_addelems-menu
         .config-buttons
@@ -217,7 +295,6 @@
               p {{ configMenu.O.order.products.length }}
             .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
             p {{lightPage.CART}}
-        //.karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
         .karkas(ng-controller="DesignCtrl as designPage", ng-show="configMenu.G.global.showKarkas")
           .construction-left-menu
             ul.figure-lists
@@ -412,10 +489,18 @@
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
 
-        .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-          div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
-        .product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-          div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
+        .counter-block(ng-if="configMenu.G.global.showCart == 0")
+          .counter
+            .input-minus(ng-click="lightPage.subtractProdQty()") -
+            input(type="number", min="1", ng-model="lightPage.G.global.product_qty")
+            .input-plus(ng-click="lightPage.addProdQty()") +
+          .save-block(ng-click="lightPage.checkForAddElem()")
+            .cart-img
+            p {{lightPage.SAVE}}
+        //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+        //  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
+        //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+        //  div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
         ////  div
 
 

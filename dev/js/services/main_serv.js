@@ -1301,8 +1301,13 @@
             laminatFiltering();
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
-              $location.path('/main');
-              GlobalStor.global.currOpenPage = '/main';
+              if (GlobalStor.global.isLightVersion) {
+                $location.path('/light');
+                GlobalStor.global.currOpenPage = 'light';
+              } else {
+                $location.path('/main');
+                GlobalStor.global.currOpenPage = 'main';
+              }
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1327,8 +1332,13 @@
             laminatFiltering();
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
-              $location.path('/main');
-              GlobalStor.global.currOpenPage = '/main';
+              if (GlobalStor.global.isLightVersion) {
+                //$location.path('/light');
+                GlobalStor.global.currOpenPage = 'light';
+              } else {
+                $location.path('/main');
+                GlobalStor.global.currOpenPage = 'main';
+              }
               $timeout(function () {
                 GlobalStor.global.showRoomSelectorDialog = 1;
               }, 1000);
@@ -1375,7 +1385,7 @@
                   OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
                 }
               }
-
+              GlobalStor.global.productEditNumber = 0;
               /**========== if New Product =========*/
             } else {
               ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
@@ -1388,7 +1398,6 @@
             GlobalStor.global.isCreatedNewProduct = 0;
             GeneralServ.stopStartProg();
           }
-          console.log("запихнули");
           return permission;
         }
 
@@ -1400,7 +1409,7 @@
             GeneralServ.setPreviosPage();
 
             $location.path('/cart');
-            GlobalStor.global.currOpenPage = '/cart';
+            GlobalStor.global.currOpenPage = 'cart';
           }, 100);
         }
 
@@ -1754,6 +1763,7 @@
           showInfoBox: showInfoBox,
           closeRoomSelectorDialog: closeRoomSelectorDialog,
           laminatFiltering: laminatFiltering,
+          cleanLamFilter: cleanLamFilter,
           laminationDoor: laminationDoor,
           setCurrLamination: setCurrLamination,
           setProfileByLaminat: setProfileByLaminat,

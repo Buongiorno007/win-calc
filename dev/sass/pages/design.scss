@@ -828,7 +828,7 @@ $door-config-content: $ipad-height - $door-config-header;
     padding-left: 0px;
   }
   .calculators-box.active {
-    bottom: 17rem;
+    bottom: 9rem;
     z-index: 14;
   }
   .config-buttons {
@@ -869,13 +869,12 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 3rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
-    background: url(../img/config-menu/conf.svg) 50% 50% no-repeat;
+    background: url(../img/config-menu/conf.svg) no-repeat center;
     background-size: contain;
-    background-position: center;
     padding: 1rem;
     display: inline-block;
     &.active {
-      background: url(../img/config-menu/conf_active.svg) 50% 50% no-repeat;
+      background: url(../img/config-menu/conf_active.svg)  no-repeat;
     }
   }
   .karkas-button {
@@ -891,6 +890,7 @@ $door-config-content: $ipad-height - $door-config-header;
     &.active {
       background-color: #f7f8f8;
       border: .5px solid $main_gray_btn;
+      border-left: none;
       border-bottom: none;
       border-radius: 1rem 1rem 0rem 0rem;
     }
@@ -900,14 +900,13 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 3rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
-    background: url(../img/config-menu/karkas.svg) 50% 50% no-repeat;
+    background: url(../img/config-menu/karkas.svg) no-repeat center;
     background-size: contain;
-    background-position: center;
     padding: 1rem;
     display: inline-block;
     color: $main_gray_btn;
     &.active {
-      background: url(../img/config-menu/karkas_active.svg) 50% 50% no-repeat;
+      background: url(../img/config-menu/karkas_active.svg) no-repeat center;
     }
   }
   .cart-button {
@@ -929,25 +928,18 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .img-cart {
-    width: 4.5rem;
-    height: 4.5rem;
-    background: url(../img/config-menu/cart-gray.png) 50% 50% no-repeat;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: url(../img/config-menu/cart.svg) no-repeat center;
     background-size: contain;
-    background-position: center;
     padding: 1rem;
-    margin-top: 2rem;
-
     display: inline-block;
-
+    color: $main_gray_btn;
     &.active {
-      width: 4.5rem;
-      height: 4.5rem;
-      background: url(../img/config-menu/cart-green.png) 50% 50% no-repeat;
-      background-size: contain;
-      background-position: center;
-      padding: 1rem;
-      margin-top: 2rem;
-      display: inline-block;
+      background: url(../img/config-menu/cart_active.svg) no-repeat center;
+      background-size: contain !important;
     }
   }
   .configuration {
@@ -1021,7 +1013,7 @@ $door-config-content: $ipad-height - $door-config-header;
     margin: 0 !important;
     position: relative;
     top: -3rem;
-    left: 8rem;
+    left: 12rem;
   }
   .edit_submenu {
     @include transition(all 0.3s linear);
@@ -1155,77 +1147,88 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 87rem;
+    top: 85rem;
+    padding-top : 1rem;
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(#fff, .9);
     z-index: 12;
     &.active {
-      top: 76rem;
+      top: 75rem;
       height: 21rem;
       overflow: hidden;
     }
-  }
-  .counter-block {
-    width: 12rem;
-    position: relative;
-    top: -22rem;
-    left: 48rem;
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+  .counter-block {
+    text-align: center;
+    position: relative;
+    top: -3.5rem;
+  }
 
   .counter {
+    width:40%;
+    height : 5rem;
+    display : inline-block;
     input {
       @include roboto-lt(rem(36px), rem(60px));
       text-align: center;
-      width: 4rem;
-      height: 4rem;
       border: 1px solid #b1b1b1;
+      width : 5rem;
     }
   }
   .input-minus, .input-plus {
     cursor: pointer;
     color: $main_orange;
     position: relative;
-    width: 2rem;
-    height: 2rem;
+    top : -2rem;
 
   }
   .input-minus {
-    @include roboto-lt(8.25rem);
+    @include roboto-lt(rem(90px));
     float: left;
-    top: -4.3rem;
+
   }
   .input-plus {
     @include roboto-lt(rem(90px));
     float: right;
-    top: -2.5rem;
+
   }
   .save-block {
+    @extend .splash;
     cursor: pointer;
     position: relative;
-    left: -4rem;
-    top: .5rem;
-    width: 20rem;
-    height: 5rem;
     background: $main_orange;
-    border-radius: 1.5rem;
-
+    border-radius: 2rem;
+    width : 85%;
+    height: 7rem;
+    display : inline-block;
+    padding-top : 1.5rem;
+    p{
+      color : white;
+      @include roboto-lt(rem(40px));
+      width : 5rem;
+      display : inline-block;
+      margin : 0;
+      padding : 0;
+      width: 10rem;
+      vertical-align : middle;
+    }
   }
   .cart-img {
-    float: left;
     position: relative;
-    top: .5rem;
-    left: .5rem;
-    width: 4rem;
-    height: 4rem;
-    background: url(../img/config-menu/cart-white.png) no-repeat;
+    width : 4rem;
+    height : 4rem;
+    margin : 0;
+    padding : 0;
+    background: url(../img/config-menu/cart-white.svg) no-repeat;
     background-size: contain;
-
+    display : inline-block;
+    vertical-align : middle;
   }
   .cart-btn {
     position: relative;
@@ -1241,6 +1244,7 @@ $door-config-content: $ipad-height - $door-config-header;
     border-bottom-left-radius: rem(20px);
   }
   .order-header {
+    cursor: pointer;
     height: rem(320px);
   }
   .order-header-fon {
@@ -1307,7 +1311,14 @@ $door-config-content: $ipad-height - $door-config-header;
   .door-configuration {
     &.active {
       top: -6rem;
-      left: 0rem;
+      left: 3rem;
+      width : 98%;
+    }
+    .door-config-tools {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 17rem;
     }
   }
   .right-menu-header {
@@ -1330,7 +1341,27 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .config-panel {
     &.active {
-      top: -8rem;
+      top: -6rem;
     }
+  }
+ .grid-selector-dialog {
+    &.active {
+      top: 20rem;
+    }
+  }
+  .curtain {
+    height: 43.5rem !important;
+    z-index : 0 !important;
+  }
+  .auxiliaries-container{
+    top : 0rem !important;
+  }
+  .nav-tool-box {
+    position : relative;
+    top : -7.5rem;
+    left : 2rem;
+  }
+  .template-window{
+    top: 6.75rem !important;
   }
 }

@@ -65,7 +65,6 @@
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass').classed('glass-active', false);
         }
 
-
         function deselectAllDimension() {
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect').classed('active', false);
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit').classed('active', false);
@@ -717,6 +716,7 @@
           if (gridQty) {
             while (--blockQty > 0) {
               //------- if grid there is in this block
+              console.log(angular.copy(blocks[blockQty]));
               if (blocks[blockQty].gridId) {
                 for (g = 0; g < gridQty; g += 1) {
                   if ((blocks[blockQty].id === gridsOld[g].block_id) || (blocks[blockQty].id === "block_" + gridsOld[g].block_id)) {
@@ -747,7 +747,7 @@
                 }
               } else {
                 isChanged = 1;
-                ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
+                // ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
               }
             }
             //------- rewrite grids lists
@@ -1361,7 +1361,6 @@
         //------- set click to all Glass for Dimensions
         function initAllGlass() {
           DesignStor.design.selectedGlass.length = 0;
-          console.log(globalConstants.SVG_ID_EDIT);
 
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass')
             .each(function () {
@@ -1987,7 +1986,7 @@
                         //console.log(entry);
                         tmp_gridId = entry.gridId;
                         tmp_gridTxt = entry.gridTxt;
-
+                        console.log("1");
                       }
                     });
                     blocks[b].blockType = 'sash';
@@ -2909,7 +2908,6 @@
         }
 
         function rebuildSVGTemplate() {
-          console.log("check");
           SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
             .then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
@@ -3392,6 +3390,7 @@
           deselectAllArc: deselectAllArc,
           deselectAllGlass: deselectAllGlass,
           rebuildSVGTemplate: rebuildSVGTemplate,
+          deselectAllDimension: deselectAllDimension,
 
           //------- edit sash
           createSash: createSash,
@@ -3435,6 +3434,7 @@
           selectLock: selectLock,
           closeDoorConfig: closeDoorConfig,
           saveDoorConfig: saveDoorConfig,
+          checkGlassInTemplate: checkGlassInTemplate,
 
           updateGrids: updateGrids
         };

@@ -353,11 +353,15 @@
           //------- insert grid in block
           ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
           ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+
+          ProductStor.product.template.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+          ProductStor.product.template.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
           //-------- add sizes in grid object
           gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
           gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
           gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
           gridTemp.block_id = blockId;
+          console.log(ProductStor.product.template.details[blockIndex]);
           return gridTemp;
         }
 

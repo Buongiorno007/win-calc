@@ -12,6 +12,7 @@
     globalConstants,
     GeneralServ,
     NavMenuServ,
+    MainServ,
     GlobalStor,
     OrderStor,
     ProductStor,
@@ -44,12 +45,6 @@
 
 
         /**============ METHODS ================*/
-        if (GlobalStor.global.currOpenPage === "light") {
-          GlobalStor.global.isLightVersion = 1;
-        } else {
-          GlobalStor.global.isLightVersion = 0;
-        }
-
     //------- Select menu item
     function selectMenuItem(id) {
       thisCtrl.activeMenuItem = (thisCtrl.activeMenuItem === id) ? 0 : id;
@@ -75,6 +70,9 @@
           GlobalStor.global.currOpenPage = 'cart';
           break;
         case 5:
+          GlobalStor.global.showKarkas=0;
+          GlobalStor.global.showConfiguration=1;
+          GlobalStor.global.showCart=0;
           NavMenuServ.createAddElementsProduct();
           break;
         case 6:
@@ -100,9 +98,28 @@
           break;
         case 10: {
           if (!GlobalStor.global.isLightVersion){
-            $location.path('/light');
-            GlobalStor.global.currOpenPage = 'light';
+            GlobalStor.global.showKarkas=1;
+            GlobalStor.global.showConfiguration=0;
+            GlobalStor.global.showCart=0;
             GlobalStor.global.isLightVersion = 1;
+
+            if ($location.path()==="/cart"){
+              ProductStor.product = ProductStor.setDefaultProduct();
+              GlobalStor.global.isCreatedNewProduct = 1;
+              GlobalStor.global.isChangedTemplate = 0;
+              //------- set new templates
+              MainServ.setCurrTemplate();
+              MainServ.prepareTemplates(ProductStor.product.construction_type).then(function () {
+                /** start lamination filtering */
+                MainServ.cleanLamFilter();
+                MainServ.laminatFiltering();
+                $location.path('/light');
+
+              });
+            } else {
+            $location.path('/light');
+            }
+            GlobalStor.global.currOpenPage = 'light';
           }
           else {
             $location.path('/main');

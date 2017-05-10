@@ -7,6 +7,7 @@
 
       function ($filter,
                 $timeout,
+                $location,
                 globalConstants,
                 DesignServ,
                 GlobalStor,
@@ -15,6 +16,7 @@
                 MainServ,
                 DesignStor,
                 ConfigMenuServ,
+                LightServ,
                 AddElementMenuServ) {
         /*jshint validthis:true */
         var thisCtrl = this,
@@ -162,6 +164,7 @@
                   entry.gridTxt = "";
 
                   ProductStor.product.chosenAddElements[0].splice(index, 1);
+                  console.log("2");
                 }
 
               });
@@ -188,7 +191,14 @@
 
             }
           }
-
+          if ($location.path() === '/light') {
+            ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+            ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+            ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+            setTimeout(function () {
+              DesignServ.rebuildSVGTemplate();
+            }, 1500);
+          }
         }
 
 

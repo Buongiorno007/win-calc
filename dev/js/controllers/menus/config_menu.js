@@ -19,6 +19,7 @@
     ProductStor,
     DesignStor,
     UserStor,
+    CartStor,
     InfoBoxServ,
     ConfigMenuServ,
     CartMenuServ
@@ -153,21 +154,29 @@
       GlobalStor.global.showKarkas = 0;
       GlobalStor.global.showConfiguration = 0;
       GlobalStor.global.showCart = 1;
+      GlobalStor.global.activePanel = 0;
       CartMenuServ.calculateOrderPrice();
+      CartMenuServ.joinAllAddElements();
     }
 
     function configButton() {
+      DesignServ.deselectAllDimension();
       GlobalStor.global.showKarkas=0;
       GlobalStor.global.showConfiguration=1;
       GlobalStor.global.showCart=0;
+      GlobalStor.global.isSizeCalculator = 0;
+      CartStor.cart.isShowDiscount = 0;
       setTimeout(function () {
         DesignServ.rebuildSVGTemplate();
       }, 250);
     }
     function karkasButton() {
+      DesignServ.deselectAllDimension();
       GlobalStor.global.showKarkas=1;
       GlobalStor.global.showConfiguration=0;
       GlobalStor.global.showCart=0;
+      GlobalStor.global.isSizeCalculator = 0;
+      CartStor.cart.isShowDiscount = 0;
       setTimeout(function () {
         DesignServ.rebuildSVGTemplate();
       }, 250);

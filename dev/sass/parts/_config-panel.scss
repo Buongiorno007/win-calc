@@ -1,6 +1,6 @@
 .config-panel {
   @include transition(all .2s linear);
-  @include top_left_coord(0px, -2000px);
+  @include top_left_coord(0px, -2500px);
   @include transform(all .2s linear);
   @include transform(translate3d(0,0,0));
   position: absolute;
