@@ -1183,7 +1183,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .input-minus, .input-plus {
     cursor: pointer;
-    color: $main_orange;
+
     position: relative;
     top : -2rem;
 
@@ -1191,11 +1191,13 @@ $door-config-content: $ipad-height - $door-config-header;
   .input-minus {
     @include roboto-lt(rem(90px));
     float: left;
+    color: $main_orange;
 
   }
   .input-plus {
     @include roboto-lt(rem(90px));
     float: right;
+    color: $main_gray_txt;
 
   }
   .save-block {
@@ -1353,8 +1355,8 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 43.5rem !important;
     z-index : 0 !important;
   }
-  .auxiliaries-container{
-    top : 0rem !important;
+  .additional-list-container{
+    top : -5rem !important;
   }
   .nav-tool-box {
     position : relative;
