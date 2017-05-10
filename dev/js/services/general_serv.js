@@ -1,28 +1,26 @@
 /* globals d3 */
-(function(){
+(function () {
   'use strict';
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('GeneralServ',
 
-  function(
-    $filter,
-    $window,
-    $document,
-    globalConstants,
-    GlobalStor,
-    ProductStor,
-    UserStor,
-    AuxStor,
-    DesignStor,
-    OrderStor,
-    HistoryStor
-  ) {
+      function ($filter,
+                $window,
+                $document,
+                globalConstants,
+                GlobalStor,
+                ProductStor,
+                UserStor,
+                AuxStor,
+                DesignStor,
+                OrderStor,
+                HistoryStor) {
 
-    /*jshint validthis:true */
-    var thisFactory = this;
-      var addElementDATA = [
+        /*jshint validthis:true */
+        var thisFactory = this;
+        var addElementDATA = [
 
           /** GRID */
           {
@@ -160,7 +158,7 @@
             typeMenu: 2222,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
-          },          
+          },
           /**SHUTTERS main*/
           {
             id: 999,
@@ -169,7 +167,7 @@
             mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
-          },          
+          },
           /**GRATING main*/
           {
             id: 9999,
@@ -179,7 +177,7 @@
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
-           /**GRATING main*/
+          /**GRATING main*/
           {
             id: 21,
             name: 'add_elements.VISORS',
@@ -188,7 +186,7 @@
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
-           /**GRATING main*/
+          /**GRATING main*/
           {
             id: 9,
             name: 'add_elements.SPILLWAYS',
@@ -209,148 +207,175 @@
           }
 
         ];
-      
+
+        //TODO desktop
+        //------- IMG rooms preload
+        //$document.ready(function() {
+        //  for(var i = 0; i < 16; i++) {
+        //    $("<img />").attr("src", "img/rooms/"+i+".jpg");
+        //  }
+        //});
+
+        //-------- blocking to refresh page
+        $window.onbeforeunload = function () {
+
+          // GlobalStor.global.loadDate = new Date();
+          // var global = LZString.compress(JSON.stringify(GlobalStor.global));
+          // var product = LZString.compress(JSON.stringify(ProductStor.product));
+          // var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+          // var design = LZString.compress(JSON.stringify(DesignStor.design));
+          // var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+          // var order = LZString.compress(JSON.stringify(OrderStor.order));
+          // var history = LZString.compress(JSON.stringify(HistoryStor.history));
+          // localStorage.clear();
+          // localStorage.setItem('GlobalStor', global);
+          // localStorage.setItem('ProductStor', product);
+          // localStorage.setItem('UserStor', userInfo);
+          // localStorage.setItem('AuxStor', aux);
+          // localStorage.setItem('DesignStor', design);
+          // localStorage.setItem('OrderStor', order);
+          // localStorage.setItem('HistoryStor', history);
+
+          return $filter('translate')('common_words.PAGE_REFRESH');
+        };
+
+        /** prevent Backspace back to previos Page */
+        $window.addEventListener('keydown', function (e) {
+          if (e.keyCode === 8 && !$(e.target).is("input, textarea")) {
+            e.preventDefault();
+          }
+        });
 
 
-    //TODO desktop
-    //------- IMG rooms preload
-    //$document.ready(function() {
-    //  for(var i = 0; i < 16; i++) {
-    //    $("<img />").attr("src", "img/rooms/"+i+".jpg");
-    //  }
-    //});
+        /**============ METHODS ================*/
 
-    //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-     return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+        function stopStartProg() {
+          if (GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
+            GlobalStor.global.startProgramm = 0;
+          }
+        }
 
-    /** prevent Backspace back to previos Page */
-    $window.addEventListener('keydown', function(e){
-      if(e.keyCode === 8 && !$(e.target).is("input, textarea")){
-        e.preventDefault();
-      }
-    });
+        function setPreviosPage() {
+          GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
+        }
 
 
+        function roundingValue(nubmer, rad) {
+          var radix = rad || 2,
+            numberType = typeof nubmer,
+            roundRadix = '1', i, newValue;
 
-    /**============ METHODS ================*/
+          for (i = 0; i < radix; i += 1) {
+            roundRadix += '0';
+          }
+          roundRadix *= 1;
 
-    function stopStartProg() {
-      if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
-        GlobalStor.global.startProgramm = 0;
-      }
-    }
+          if (numberType === 'string') {
+            newValue = parseFloat((Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix));
+          } else if (numberType === 'number') {
+            newValue = parseFloat((Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix));
+          }
+          return newValue;
+        }
 
-    function setPreviosPage() {
-      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
-    }
+        /** price Margins of Plant */
+        function addMarginToPrice(price, margin) {
+          return price * margin;
+        }
+
+        function setPriceDis(price, discount) {
+          return roundingValue(price * (1 - discount / 100));
+        }
+
+        function sorting(a, b) {
+          return a - b;
+        }
+
+        function removeDuplicates(arr) {
+          return arr.filter(function (elem, index, self) {
+            return index === self.indexOf(elem);
+          });
+        }
 
 
-    function roundingValue(nubmer, rad) {
-      var radix = rad || 2,
-          numberType = typeof nubmer,
-          roundRadix = '1', i, newValue;
+        function getMaxMinCoord(points) {
+          var overall = {
+            minX: d3.min(points, function (d) {
+              return d.x;
+            }),
+            maxX: d3.max(points, function (d) {
+              return d.x;
+            }),
+            minY: d3.min(points, function (d) {
+              return d.y;
+            }),
+            maxY: d3.max(points, function (d) {
+              return d.y;
+            })
+          };
+          return overall;
+        }
 
-      for(i = 0; i < radix; i+=1) {
-        roundRadix += '0';
-      }
-      roundRadix *= 1;
 
-      if(numberType === 'string') {
-        newValue = parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
-      } else if(numberType === 'number') {
-        newValue = parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
-      }
-      return newValue;
-    }
+        function confirmAlert(title, descript, callback) {
+          GlobalStor.global.isAlert = 1;
+          GlobalStor.global.alertTitle = title || '';
+          GlobalStor.global.alertDescr = descript || '';
+          GlobalStor.global.confirmAction = callback;
+        }
 
-    /** price Margins of Plant */
-    function addMarginToPrice(price, margin) {
-      return price * margin;
-    }
+        function infoAlert(title, descript) {
+          GlobalStor.global.isAlertInfo = 1;
+          GlobalStor.global.alertTitle = title || '';
+          GlobalStor.global.alertDescr = descript || '';
+        }
 
-    function setPriceDis(price, discount) {
-      return roundingValue( price * (1 - discount/100) );
-    }
+        function syncAlert(descript, callback) {
+          GlobalStor.global.isSyncAlert = 1;
+          GlobalStor.global.alertDescr = descript || '';
+          GlobalStor.global.confirmAction = callback;
+        }
 
-    function sorting(a, b) {
-      return a - b;
-    }
+        function isErrorProd(title) {
+          GlobalStor.global.isErrorProd = 1;
+          GlobalStor.global.isErrorProdTitle = title || '';
+        }
 
-    function removeDuplicates(arr) {
-      return arr.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
+        function confirmPath(callback) {
+          GlobalStor.global.confirmInActivity = callback;
+        }
+
+        function goToLink(link) {
+          if (GlobalStor.global.isDevice) {
+            var ref = window.open(link, "_system");
+            ref.close();
+          } else {
+            $window.open(link);
+          }
+        }
+
+
+        /**========== FINISH ==========*/
+
+        thisFactory.publicObj = {
+          isErrorProd: isErrorProd,
+          addElementDATA: addElementDATA,
+          stopStartProg: stopStartProg,
+          setPreviosPage: setPreviosPage,
+          roundingValue: roundingValue,
+          addMarginToPrice: addMarginToPrice,
+          setPriceDis: setPriceDis,
+          sorting: sorting,
+          removeDuplicates: removeDuplicates,
+          getMaxMinCoord: getMaxMinCoord,
+          confirmAlert: confirmAlert,
+          goToLink: goToLink,
+          confirmPath: confirmPath,
+          infoAlert: infoAlert,
+          syncAlert: syncAlert
+        };
+
+        return thisFactory.publicObj;
+
       });
-    }
-
-
-    function getMaxMinCoord(points) {
-      var overall = {
-        minX: d3.min(points, function(d) { return d.x; }),
-        maxX: d3.max(points, function(d) { return d.x; }),
-        minY: d3.min(points, function(d) { return d.y; }),
-        maxY: d3.max(points, function(d) { return d.y; })
-      };
-      return overall;
-    }
-
-
-    function confirmAlert(title, descript, callback) {
-      GlobalStor.global.isAlert = 1;
-      GlobalStor.global.alertTitle = title || '';
-      GlobalStor.global.alertDescr = descript || '';
-      GlobalStor.global.confirmAction = callback;
-    }
-    function infoAlert(title, descript) {
-      GlobalStor.global.isAlertInfo = 1;
-      GlobalStor.global.alertTitle = title || '';
-      GlobalStor.global.alertDescr = descript || '';
-    }
-    function syncAlert(descript, callback) {
-      GlobalStor.global.isSyncAlert = 1;
-      GlobalStor.global.alertDescr = descript || '';
-      GlobalStor.global.confirmAction = callback;
-    }
-    function isErrorProd(title) {
-      GlobalStor.global.isErrorProd = 1;
-      GlobalStor.global.isErrorProdTitle = title || '';
-    }
-    function confirmPath(callback) {
-      GlobalStor.global.confirmInActivity = callback;
-    }
-
-    function goToLink(link) {
-      if(GlobalStor.global.isDevice) {
-        var ref = window.open(link,"_system");
-        ref.close();
-      } else {
-        $window.open(link);
-      }
-    }
-
-
-    /**========== FINISH ==========*/
-
-    thisFactory.publicObj = {
-      isErrorProd: isErrorProd, 
-      addElementDATA: addElementDATA,
-      stopStartProg: stopStartProg,
-      setPreviosPage: setPreviosPage,
-      roundingValue: roundingValue,
-      addMarginToPrice: addMarginToPrice,
-      setPriceDis: setPriceDis,
-      sorting: sorting,
-      removeDuplicates: removeDuplicates,
-      getMaxMinCoord: getMaxMinCoord,
-      confirmAlert: confirmAlert,
-      goToLink: goToLink,
-      confirmPath: confirmPath,
-      infoAlert: infoAlert,
-      syncAlert: syncAlert
-    };
-
-    return thisFactory.publicObj;
-
-  });
 })();
