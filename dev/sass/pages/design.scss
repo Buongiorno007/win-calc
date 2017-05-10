@@ -890,6 +890,7 @@ $door-config-content: $ipad-height - $door-config-header;
     &.active {
       background-color: #f7f8f8;
       border: .5px solid $main_gray_btn;
+      border-left: none;
       border-bottom: none;
       border-radius: 1rem 1rem 0rem 0rem;
     }
@@ -927,21 +928,22 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .img-cart {
-    width: 4.5rem;
-    height: 4.5rem;
-    background: url(../img/config-menu/cart-gray.png) no-repeat center;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: url(../img/config-menu/cart-gray.svg) no-repeat center;
     background-size: contain;
     padding: 1rem;
-    margin-top: 2rem;
     display: inline-block;
-
-    .active {
-      width: 4.5rem;
-      height: 4.5rem;
-      background: url(../img/config-menu/cart-green.png) no-repeat center;
+    color: $main_gray_btn;
+    &.active {
+      background: url(../img/config-menu/cart-green.svg) no-repeat center;
+      width: 3.5rem;
+      height: 3.5rem;
       background-size: contain;
-      padding: 1rem;
-      margin-top: 2rem;
+      padding-top: 1rem;
+      margin-top: 1.5rem;
       display: inline-block;
     }
   }
@@ -1016,7 +1018,7 @@ $door-config-content: $ipad-height - $door-config-header;
     margin: 0 !important;
     position: relative;
     top: -3rem;
-    left: 8rem;
+    left: 12rem;
   }
   .edit_submenu {
     @include transition(all 0.3s linear);
@@ -1228,7 +1230,7 @@ $door-config-content: $ipad-height - $door-config-header;
     height : 4rem;
     margin : 0;
     padding : 0;
-    background: url(../img/config-menu/cart-white.png) no-repeat;
+    background: url(../img/config-menu/cart-white.svg) no-repeat;
     background-size: contain;
     display : inline-block;
     vertical-align : middle;
