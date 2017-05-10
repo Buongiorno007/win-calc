@@ -23,8 +23,8 @@
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
           if ($location.path() === '/light') {
-            ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-            ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+            ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+            ProductStor.product.template = DesignStor.design.templateTEMP;
           }
 
           GlobalStor.global.configMenuTips++;
@@ -112,10 +112,10 @@
               // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               if(GlobalStor.global.activePanel === id){
                 GlobalStor.global.activePanel = 0;
-                DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-                DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-                DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-                DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
+                // DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+                // DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
                 setTimeout(function () {
                   DesignServ.rebuildSVGTemplate();
                 }, 250);
