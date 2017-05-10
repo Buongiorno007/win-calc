@@ -115,6 +115,9 @@
                     culcPriceNewTemplate(templateIndex);
                   }
               }
+              setTimeout(function () {
+                DesignServ.rebuildSVGTemplate();
+              },500);
             });
           }
 
@@ -128,9 +131,7 @@
           } else {
             goToNewTemplate()
           }
-          setTimeout(function () {
-            DesignServ.rebuildSVGTemplate();
-          }, 500);
+
         }
 
 
