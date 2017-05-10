@@ -181,6 +181,7 @@
 
                   /** return previous Product */
                   ProductStor.product = angular.copy(productTEMP);
+                  DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
                   GlobalStor.global.showKarkas=1;
                   GlobalStor.global.showConfiguration=0;
                   GlobalStor.global.showCart=0;

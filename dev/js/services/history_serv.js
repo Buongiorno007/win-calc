@@ -36,7 +36,6 @@
 
         //------ go to current calculations
         function toCurrentCalculation() {
-          console.log(GlobalStor.global.isLightVersion);
           //------- set previos Page
           GeneralServ.setPreviosPage();
           if (GlobalStor.global.isCreatedNewProduct && GlobalStor.global.isCreatedNewProject) {

@@ -125,7 +125,6 @@
             $location.path('/main');
             GlobalStor.global.isLightVersion = 0;
           }
-          console.log(GlobalStor.global.isLightVersion);
           break;
         }
       }
