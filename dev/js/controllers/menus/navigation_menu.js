@@ -67,12 +67,12 @@
         case 3:
           //------- set previos Page
           GeneralServ.setPreviosPage();
-          $location.path('/main');
-          GlobalStor.global.currOpenPage = '/main';
+          $location.path('main');
+          GlobalStor.global.currOpenPage = 'main';
           break;
         case 4:
           $location.path('/cart');
-          GlobalStor.global.currOpenPage = '/cart';
+          GlobalStor.global.currOpenPage = 'cart';
           break;
         case 5:
           NavMenuServ.createAddElementsProduct();
@@ -101,19 +101,11 @@
         case 10: {
           if (!GlobalStor.global.isLightVersion){
             $location.path('/light');
+            GlobalStor.global.currOpenPage = 'light';
             GlobalStor.global.isLightVersion = 1;
-            /** !!!! **/
-            //localStorage.clear();
-            // localStorage.setItem('GlobalStor', JSON.stringify(GlobalStor.global));
-            // localStorage.setItem('ProductStor', JSON.stringify(ProductStor.product));
-            // localStorage.setItem('UserStor', JSON.stringify(UserStor.userInfo));
-            //
-            // localStorage.setItem('AuxStor', JSON.stringify(AuxStor.aux));
-            // localStorage.setItem('DesignStor', JSON.stringify(DesignStor.design));
           }
           else {
             $location.path('/main');
-
             GlobalStor.global.isLightVersion = 0;
           }
           break;

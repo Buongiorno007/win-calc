@@ -348,6 +348,8 @@
     "DATE_DELIVERY_LABEL": "con consegna per ",
     "FIRST_PAYMENT_LABEL": "Nuovo pagamento",
     "ORDER": "Ordinare",
+    "ORDER_LV": "Inserisci un ordine",
+    "CALCULATE_PRICE": "Calcolare",
     "MEASURE": "Misurare",
     "READY": "Pronto",
     "CALL_MASTER": "Chiamata del misuratore per il conteggio",

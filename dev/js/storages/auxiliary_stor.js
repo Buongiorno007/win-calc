@@ -44,16 +44,12 @@
           setDefaultAuxiliary: setDefaultAuxiliary,
           restoreAuxiliary: restoreAuxiliary
         };
-
         var data = localStorage.getItem("AuxStor");
         if (data) {
           thisFactory.publicObj.aux = restoreAuxiliary(data);
-          //console.log("AuxStor restored");
         } else {
-          //console.log("AuxStor created");
           thisFactory.publicObj.aux = setDefaultAuxiliary();
         }
-
         return thisFactory.publicObj;
 
       });

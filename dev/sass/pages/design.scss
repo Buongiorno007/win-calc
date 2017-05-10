@@ -827,13 +827,6 @@ $door-config-content: $ipad-height - $door-config-header;
     width: 32rem;
     padding-left: 0px;
   }
-  .config-panel {
-    &.active {
-      top: -6rem;
-      left: 0rem;
-      overflow: hidden;
-    }
-  }
   .calculators-box.active {
     bottom: 17rem;
     z-index: 14;
@@ -854,6 +847,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
   }
   .configuration-button {
+    cursor: pointer;
     width: 33.3%;
     height: 10rem;
     float: left;
@@ -885,6 +879,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .karkas-button {
+    cursor: pointer;
     width: 33.3%;
     height: 10rem;
     float: left;
@@ -916,6 +911,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .cart-button {
+    cursor: pointer;
     width: 33.3%;
     height: 10rem;
     float: right;
@@ -1085,6 +1081,8 @@ $door-config-content: $ipad-height - $door-config-header;
     fill: #7d8efb !important;
   }
   .menu-footer {
+    position: relative;
+    top: -3rem;
     border-top: 1px solid #b1b1b1;
     padding-top: 1rem;
   }
@@ -1157,13 +1155,13 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 86rem;
+    top: 87rem;
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(#fff, .9);
     z-index: 12;
     &.active {
-      top: 70rem;
+      top: 76rem;
       height: 21rem;
       overflow: hidden;
     }
@@ -1180,14 +1178,17 @@ $door-config-content: $ipad-height - $door-config-header;
     margin: 0;
   }
 
-  input {
-    @include roboto-lt(rem(36px), rem(60px));
-    text-align: center;
-    width: 4rem;
-    height: 4rem;
-    border: 1px solid #b1b1b1;
+  .counter {
+    input {
+      @include roboto-lt(rem(36px), rem(60px));
+      text-align: center;
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid #b1b1b1;
+    }
   }
   .input-minus, .input-plus {
+    cursor: pointer;
     color: $main_orange;
     position: relative;
     width: 2rem;
@@ -1205,6 +1206,7 @@ $door-config-content: $ipad-height - $door-config-header;
     top: -2.5rem;
   }
   .save-block {
+    cursor: pointer;
     position: relative;
     left: -4rem;
     top: .5rem;
@@ -1231,18 +1233,8 @@ $door-config-content: $ipad-height - $door-config-header;
     @include roboto-lt(rem(36px), rem(60px));
     color: white;
   }
-  .order-block {
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    position: relative;
-    min-height: 45%;
-    z-index: 4;
-    width : 100%;
-    overflow-x : auto;
-  }
   .order {
-    top : 2rem;
+    top: 2rem;
     width: rem(512px);
     float: left;
     border-bottom-right-radius: rem(20px);
@@ -1283,7 +1275,7 @@ $door-config-content: $ipad-height - $door-config-header;
     position: relative;
     color: $main_green;
     text-align: center;
-    height:auto;
+    height: auto;
     border-bottom: 1px solid $main_gray_btn;
     &.coeff-low {
       @extend .coeff-low;
@@ -1306,27 +1298,39 @@ $door-config-content: $ipad-height - $door-config-header;
   .qty-label {
     max-width: rem(170px);
   }
-  .scroll-hor-container {
-    width: 100%;
-    height: 100%;
-    padding-top: 2rem;
-    padding-left: 2rem;
-    position : relative;
-  }
-  .cart-page{
+  .cart-page {
     position: relative;
     width: 100%;
     height: 100%;
-    top : 2rem;
+    top: 2rem;
   }
   .door-configuration {
     &.active {
-      top : -6rem;
+      top: -6rem;
       left: 0rem;
-    }}
+    }
+  }
   .right-menu-header {
     position: absolute;
     right: 4rem;
-    top: -3.5rem;
+    top: 3.5rem;
+  }
+  .main-content {
+    height: 96rem !important;
+  }
+  .scroll-hor-container {
+    width: auto;
+    height: 84rem !important;
+    padding-left: 1rem;
+    padding-top: 2rem;
+  }
+  .size-calc-container {
+    position: relative;
+    top: 2rem;
+  }
+  .config-panel {
+    &.active {
+      top: -8rem;
+    }
   }
 }

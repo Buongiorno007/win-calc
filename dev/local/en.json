@@ -349,6 +349,8 @@
     "DATE_DELIVERY_LABEL": "Delivered on",
     "FIRST_PAYMENT_LABEL": "The first payment",
     "ORDER": "To order",
+    "ORDER_LV": "Place an order",
+    "CALCULATE_PRICE": "Calculate",
     "MEASURE": "Measure",
     "READY": "Ready",
     "CALL_MASTER": "Call gager to calculate",

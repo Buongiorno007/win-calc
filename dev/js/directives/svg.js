@@ -271,15 +271,17 @@
             } else {
               GlobalStor.global.background = GlobalStor.global.backgroundH
             }
-            if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
-               GlobalStor.global.imgLink = "44.png";              
+            if (GlobalStor.global.currOpenPage !== 'light') {
+              if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+                GlobalStor.global.imgLink = "44.png";
 
-            } else if (ProductStor.product.doorLock.stvorka_type === 6) {
-              GlobalStor.global.imgLink = "31.jpg";      
-            } else if (ProductStor.product.doorLock.stvorka_type === 7) {
-              GlobalStor.global.imgLink = "inner-wall_glass.png";      
-            }else {
-               GlobalStor.global.imgLink = "3333.png";
+              } else if (ProductStor.product.doorLock.stvorka_type === 6) {
+                GlobalStor.global.imgLink = "31.jpg";
+              } else if (ProductStor.product.doorLock.stvorka_type === 7) {
+                GlobalStor.global.imgLink = "inner-wall_glass.png";
+              } else {
+                GlobalStor.global.imgLink = "3333.png";
+              }
             }
           }
         }

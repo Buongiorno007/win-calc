@@ -1026,6 +1026,8 @@
             }
           } else {
             console.log("не все данные сохранены");
+            localStorage.clear();
+
             return false;
           }
         }

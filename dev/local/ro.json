@@ -347,6 +347,8 @@
     "DATE_DELIVERY_LABEL": "în cazul livrării la",
     "FIRST_PAYMENT_LABEL": "Prima plată",
     "ORDER": "Comandă",
+    "ORDER_LV": "Plasa o comanda",
+    "CALCULATE_PRICE": "Calculati",
     "MEASURE": "Măsoară",
     "READY": "Finalizat",
     "CALL_MASTER": "Chemarea specialistului în măsurări, pentru calcule",

@@ -104,17 +104,16 @@
             DesignStor.design.template_id = templateIndex;
             GlobalStor.global.selectRoom = 1;
             MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function (data) {
+
               if (data) {
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
                 GlobalStor.global.product_qty = 1;
-                if (GlobalStor.global.currOpenPage !== 'light') {
                   if (whoCalled === 'main') {
                     newPriceForNewTemplate(templateIndex, roomInd);
                   } else {
                     culcPriceNewTemplate(templateIndex);
                   }
-                }
               }
             });
           }
@@ -129,6 +128,9 @@
           } else {
             goToNewTemplate()
           }
+          setTimeout(function () {
+            DesignServ.rebuildSVGTemplate();
+          }, 500);
         }
 
 
