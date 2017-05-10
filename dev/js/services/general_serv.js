@@ -219,6 +219,7 @@
 
         //-------- blocking to refresh page
         $window.onbeforeunload = function () {
+
           // GlobalStor.global.loadDate = new Date();
           // var global = LZString.compress(JSON.stringify(GlobalStor.global));
           // var product = LZString.compress(JSON.stringify(ProductStor.product));
@@ -235,6 +236,7 @@
           // localStorage.setItem('DesignStor', design);
           // localStorage.setItem('OrderStor', order);
           // localStorage.setItem('HistoryStor', history);
+
           return $filter('translate')('common_words.PAGE_REFRESH');
         };
 
