@@ -53,9 +53,9 @@ deploy_prod:
       git pull origin $GIT_PROD_BRANCH ;
       npm i ;
       gulp buildWindowSite ; 
-      cp -fr $PROD_BUILD_PATH/* $PROD_WEB_PATH
-      gulp buildStekoSite
-      scp -r _product/steko/site/* bau@185.65.244.137:/var/www/calculator.steko.com.ua/web"
+      cp -fr $PROD_BUILD_PATH/* $PROD_WEB_PATH "
+#      gulp buildStekoSite
+#      scp -r _product/steko/site/* bau@185.65.244.137:/var/www/calculator.steko.com.ua/web"
   only:
     - master    
 clean_up_job:
