@@ -1191,13 +1191,13 @@ $door-config-content: $ipad-height - $door-config-header;
   .input-minus {
     @include roboto-lt(rem(90px));
     float: left;
-    color: $main_orange;
+    color: $main_gray_txt;
 
   }
   .input-plus {
     @include roboto-lt(rem(90px));
     float: right;
-    color: $main_gray_txt;
+    color: $main_green;
 
   }
   .save-block {

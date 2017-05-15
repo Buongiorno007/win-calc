@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('UserInfoCtrl',
 
-  function(globalConstants, GlobalStor, UserStor) {
+  function(globalConstants, GlobalStor, UserStor, $location) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -22,6 +22,12 @@
     /**============ METHODS ================*/
 
     function swipeMainPage() {
+      if ($location.path()==="/light"){
+        GlobalStor.global.isLightVersion = 1;
+      }
+      else {
+        GlobalStor.global.isLightVersion = 0;
+      }
       GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
       GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
       //playSound('swip');
