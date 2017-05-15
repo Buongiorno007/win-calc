@@ -300,7 +300,7 @@
         AddElementMenuServ.finishCalculators();
       }
       /** if grid, show grid selector dialog */
-      if((GlobalStor.global.currOpenPage === 'main') || ($location.path() === '/light') && AuxStor.aux.isFocusedAddElement === 1) {
+      if( (($location.path() === '/main') || ($location.path() === '/light')) && AuxStor.aux.isFocusedAddElement === 1) {
         if(ProductStor.product.is_addelem_only) {
           /** without window */
           AddElementMenuServ.chooseAddElement(typeId, elementId);

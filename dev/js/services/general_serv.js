@@ -208,7 +208,6 @@
 
         ];
 
-
         //TODO desktop
         //------- IMG rooms preload
         //$document.ready(function() {
