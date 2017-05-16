@@ -586,6 +586,15 @@
           if (deliveryCoeff) {
             Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, deliveryCoeff);
           }
+          if (GlobalStor.global.area_price) {
+            Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.area_price * Product.template_square, GlobalStor.global.area_currencies);
+          }
+          if (GlobalStor.global.perimeter_price) {
+            Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.perimeter_price * ( (Product.template_width / 1000 + Product.template_height / 1000) * 2), GlobalStor.global.perimeter_currencies);
+          }
+          if (GlobalStor.global.piece_price) {
+            Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
+          }
           GlobalStor.global.isLoader = 0;
         }
 

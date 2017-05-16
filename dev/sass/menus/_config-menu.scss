@@ -85,8 +85,10 @@
   .product-u-coeff {
     @include roboto-lt(rem(35px));
     width:auto;
-    top: 78rem;
-    left: 9rem;
+    //top: 78rem;
+    //left: 9rem;
+    top: 18rem;
+    left: 3rem;
     position: absolute;
     margin: 1.3rem 0 1rem 0;
     text-align: center;

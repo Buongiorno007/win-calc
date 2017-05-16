@@ -72,7 +72,6 @@
             GlobalStor.global.currOpenPage = '/design';
           }
         }
-
         /**=============== FIRST START =========*/
 
         if (GlobalStor.global.startProgramm) {

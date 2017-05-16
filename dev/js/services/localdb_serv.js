@@ -160,7 +160,13 @@
               ' factory_id INTEGER,' +
               ' plan_production INTEGER,' +
               ' margin NUMERIC(10, 2),' +
-              ' coeff NUMERIC(10, 2)',
+              ' coeff NUMERIC(10, 2),' +
+              ' area_price NUMERIC(10, 2),' +
+              ' area_currencies INTEGER,' +
+              ' perimeter_price NUMERIC(10, 2),' +
+              ' perimeter_currencies INTEGER,' +
+              ' piece_price NUMERIC(10, 2),' +
+              ' piece_currencies NUMERIC(10, 2)',
               'foreignKey': ''
             },
             'options_discounts': {
@@ -2497,6 +2503,7 @@
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
 
             //objTmp.priceReal = getLockalDbData(objTmp, priceReal);
+
 
             objTmp.priceReal = priceReal;
 
