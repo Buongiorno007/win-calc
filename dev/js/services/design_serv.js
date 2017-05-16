@@ -782,7 +782,7 @@
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
           $location.path('/main');
-          GlobalStor.global.currOpenPage = '/main';
+          GlobalStor.global.currOpenPage = 'main';
         }
 
 
@@ -1986,7 +1986,6 @@
                         //console.log(entry);
                         tmp_gridId = entry.gridId;
                         tmp_gridTxt = entry.gridTxt;
-                        console.log("1");
                       }
                     });
                     blocks[b].blockType = 'sash';
