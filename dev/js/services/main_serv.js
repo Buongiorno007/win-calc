@@ -575,8 +575,8 @@
           return deff.promise;
         }
 
-
         function setProductPriceTOTAL(Product) {
+          console.log(GlobalStor.global.currencies);
           var deliveryCoeff = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time],
             priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
           //playSound('price');
