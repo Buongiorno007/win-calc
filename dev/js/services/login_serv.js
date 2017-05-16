@@ -1522,7 +1522,6 @@
                             GlobalStor.global.profilesType,
                             GlobalStor.global.profiles
                           ).then(function (data) {
-
                             downloadOptionsCoefficients().then(function (coef) {
                               GlobalStor.global.area_currencies=coef.area_currencies;
                               GlobalStor.global.area_price=coef[0].area_price;
@@ -1530,7 +1529,6 @@
                               GlobalStor.global.perimeter_price=coef[0].perimeter_price;
                               GlobalStor.global.piece_currencies=coef[0].piece_currencies;
                               GlobalStor.global.piece_price=coef[0].piece_price;
-                              console.log(coef);
                             });
                             if (data) {
                               if (GlobalStor.global.ISEXT) {
