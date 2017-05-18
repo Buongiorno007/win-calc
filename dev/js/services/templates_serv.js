@@ -28,7 +28,9 @@
             ProductStor.product.template_id = DesignStor.design.template_id;
             DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
             DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
-            DesignServ.setDoorConfigDefault(ProductStor.product);
+            DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
+              ProductStor.product = angular.copy(result);
+            });
           } else {
             ProductStor.product.template_id = DesignStor.design.template_id;
             MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
@@ -119,6 +121,7 @@
                 DesignServ.rebuildSVGTemplate();
               },500);
             });
+            GlobalStor.global.activePanel = 0;
           }
 
           if (GlobalStor.global.isChangedTemplate) {

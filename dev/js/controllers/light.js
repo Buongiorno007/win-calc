@@ -148,15 +148,7 @@
           DesignServ.initAllGlassXGlass();
         }, 50);
 
-        function addProdQty() {
-          GlobalStor.global.product_qty++;
-        }
 
-        function subtractProdQty() {
-          if (GlobalStor.global.product_qty > 1) {
-            GlobalStor.global.product_qty--;
-          }
-        }
 
         function closeAttantion() {
           GlobalStor.global.isTest = 0;
@@ -272,10 +264,10 @@
             saveAddElems();
           }
         }
-
+        $( ".prodcounter" ).change(function() {
+          console.log( "Handler for .keypress() called." );
+        });
         /**========== FINISH ==========*/
-        thisCtrl.addProdQty = addProdQty;
-        thisCtrl.subtractProdQty = subtractProdQty;
         thisCtrl.closeAttantion = closeAttantion;
         thisCtrl.saveProduct = saveProduct;
         thisCtrl.showCartTemplte = showCartTemplte;
@@ -289,6 +281,8 @@
         thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;
         thisCtrl.closeDoorConfig = LightServ.closeDoorConfig;
         thisCtrl.saveDoorConfig = LightServ.saveDoorConfig;
+        thisCtrl.addProdQty = LightServ.addProdQty;
+        thisCtrl.subtractProdQty = LightServ.subtractProdQty;
 
         thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
 

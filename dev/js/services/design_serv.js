@@ -782,7 +782,7 @@
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
           $location.path('/main');
-          GlobalStor.global.currOpenPage = 'main';
+          GlobalStor.global.currOpenPage = '/main';
         }
 
 
@@ -1103,9 +1103,6 @@
 
           source.lockShapeList[k].elem = [];
           product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
-          console.log(product.door_group_id);
-          console.log(source);
-          console.log(product);
           product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
           product.doorName = source.doorShapeList[product.door_shape_id].name;
           product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
@@ -1206,7 +1203,7 @@
         function setDoorConfigDefault(product, editOrder) {
           var deferred = $q.defer();
           if (editOrder) {
-            DesignStor.design.templateTEMP = angular.copy(product.tempate);
+            DesignStor.design.templateTEMP = angular.copy(product.tempalte);
             DesignStor.design.templateSourceTEMP = angular.copy(product.template_source);
           }
           DesignStor.design.steps.selectedStep3 = 0;
@@ -1228,6 +1225,10 @@
             selectLock(product.door_lock_shape_id, product);
             saveDoorConfig(product).then(function (res2) {
               SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, product.profileDepths).then(function (result) {
+                SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                  .then(function (result) {
+                    ProductStor.product.templateIcon = angular.copy(result);
+                  });
                 DesignStor.design.templateTEMP = angular.copy(result);
                 DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
                   if (entry.impost) {
