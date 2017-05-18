@@ -186,10 +186,12 @@
       }, 250);
     }
     function setCount() {
-      if ($("#prodCounter").val()==0){
+      if ($("#prodCounter").val()==0 || (typeof(parseInt($("#prodCounter").val())) !== "number")){
         GlobalStor.global.product_qty = 1;
-      }
+      } else {
       GlobalStor.global.product_qty = parseInt($("#prodCounter").val());
+      }
+      console.log(typeof(parseInt($("#prodCounter").val())));
     }
 
     /**========== FINISH ==========*/
