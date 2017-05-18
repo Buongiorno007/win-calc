@@ -9,6 +9,7 @@
     $location,
     $filter,
     $timeout,
+    $scope,
     globalConstants,
     GeneralServ,
     MainServ,
@@ -79,6 +80,7 @@
     function saveProduct() {
       GlobalStor.global.showCoefInfoBlock = 0;
       GlobalStor.global.continued = 0;
+      ProductStor.product.product_qty = GlobalStor.global.product_qty;
       if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button
         // MainServ.goToCart();
@@ -183,15 +185,20 @@
         DesignServ.rebuildSVGTemplate();
       }, 250);
     }
-    $( ".prodcounter" ).change(function() {
-      console.log( "Handler for .keypress() called." );
-    });
+    function setCount() {
+      if ($("#prodCounter").val()==0){
+        GlobalStor.global.product_qty = 1;
+      }
+      GlobalStor.global.product_qty = parseInt($("#prodCounter").val());
+    }
+
     /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.cartButton = cartButton;
     thisCtrl.configButton = configButton;
     thisCtrl.karkasButton = karkasButton;
+    thisCtrl.setCount = setCount;
 
     thisCtrl.addProdQty = LightServ.addProdQty;
     thisCtrl.subtractProdQty = LightServ.subtractProdQty;
