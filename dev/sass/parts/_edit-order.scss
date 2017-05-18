@@ -101,7 +101,7 @@
 
   .value {
     @extend .truncated;
-    @include roboto-lt(rem(36px));
+    @include roboto-lt(rem(34px));
     max-width: 190px;
     margin: rem(5px) 0;
     color: $main_gray_txt;

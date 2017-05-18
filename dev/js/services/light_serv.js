@@ -290,6 +290,15 @@
           $(".main-content").width("96rem");
           return deferred.promise;
         }
+        function addProdQty() {
+          GlobalStor.global.product_qty++;
+        }
+
+        function subtractProdQty() {
+          if (GlobalStor.global.product_qty > 1) {
+            GlobalStor.global.product_qty--;
+          }
+        }
         /**========== FINISH ==========*/
 
         thisFactory.publicObj = {
@@ -297,7 +306,9 @@
           box : box,
           toggleDoorConfig : toggleDoorConfig,
           closeDoorConfig : closeDoorConfig,
-          saveDoorConfig : saveDoorConfig
+          saveDoorConfig : saveDoorConfig,
+          addProdQty : addProdQty,
+          subtractProdQty : subtractProdQty
 
         };
 

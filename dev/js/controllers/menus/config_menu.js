@@ -22,7 +22,8 @@
     CartStor,
     InfoBoxServ,
     ConfigMenuServ,
-    CartMenuServ
+    CartMenuServ,
+    LightServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -80,9 +81,10 @@
       GlobalStor.global.continued = 0;
       if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button
-        MainServ.goToCart();
+        // MainServ.goToCart();
       }
     }
+
 
 
     function alert() {
@@ -181,7 +183,9 @@
         DesignServ.rebuildSVGTemplate();
       }, 250);
     }
-
+    $( ".prodcounter" ).change(function() {
+      console.log( "Handler for .keypress() called." );
+    });
     /**========== FINISH ==========*/
 
     //------ clicking
@@ -189,12 +193,15 @@
     thisCtrl.configButton = configButton;
     thisCtrl.karkasButton = karkasButton;
 
+    thisCtrl.addProdQty = LightServ.addProdQty;
+    thisCtrl.subtractProdQty = LightServ.subtractProdQty;
     thisCtrl.autoShowInfoBox = InfoBoxServ.autoShowInfoBox;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
     thisCtrl.alert = alert;
     thisCtrl.checkForAddElem = checkForAddElem;
     thisCtrl.selectConfigPanel = ConfigMenuServ.selectConfigPanel;
+    thisCtrl.goToCart = MainServ.goToCart;
 
 
   });

@@ -492,7 +492,7 @@
         .counter-block(ng-if="configMenu.G.global.showCart == 0")
           .counter
             .input-minus(ng-click="lightPage.subtractProdQty()") -
-            input(type="number", min="1", ng-model="lightPage.G.global.product_qty")
+            input.prodcounter(type="number", min="1", ng-model="lightPage.G.global.product_qty")
             .input-plus(ng-click="lightPage.addProdQty()") +
           .save-block(ng-click="lightPage.checkForAddElem()")
             .cart-img

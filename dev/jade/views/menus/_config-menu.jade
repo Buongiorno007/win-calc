@@ -1,12 +1,21 @@
 .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
   ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
 
-    li.item.item-header(ng-class="{'active': configMenu.G.global.activePanel == 1, 'hov': configMenu.G.global.activePanel !== 1}", fs-click="configMenu.selectConfigPanel(1)")
-      .title(data-output="{{ ::configMenu.CONFIGMENU_CONFIGURATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .icon.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+    li.item.item-header(ng-class="{'active': configMenu.G.global.activePanel == 1, 'hov': configMenu.G.global.activePanel !== 1}")
+      .title(data-output="{{ ::configMenu.CONFIGMENU_CONFIGURATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}",fs-click="configMenu.selectConfigPanel(1)")
+      .icon.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}",fs-click="configMenu.selectConfigPanel(1)")
         svg-template(template="configMenu.P.product.templateIcon", template-width="configMenu.constants.svgTemplateIconWidth", template-height="configMenu.constants.svgTemplateIconHeight", type-construction="configMenu.constants.SVG_CLASS_ICON")
-      .name(data-output="{{ ::configMenu.CONFIGMENU_SIZING }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }} * {{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      //.right-desc
+      //  .name(data-output="{{ ::configMenu.CONFIGMENU_SIZING }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}",fs-click="configMenu.selectConfigPanel(1)")
+      //  .value(data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }}* ", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}",fs-click="configMenu.selectConfigPanel(1)")
+      //  .value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}",fs-click="configMenu.selectConfigPanel(1)")
+      .counter-main-page
+        .counter-block
+          p  Количество
+          .counter
+            .input-minus(ng-click="configMenu.subtractProdQty()") -
+            input.prodcounter(type="number", min="1", ng-model="configMenu.G.global.product_qty")
+            .input-plus(ng-click="configMenu.addProdQty()") +
       //.value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
@@ -39,16 +48,22 @@
         ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
           li.additional-item(ng-repeat="addElement in addElementGroup")
             span.value(data-output="") {{ addElement.name }}
+      .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+        div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
+      .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+        div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
 
-  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-    div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
-  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-    div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
+
+
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")
-    button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.CONFIGMENU_IN_CART }}
-      .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
-    button.cart-btn(ng-if="configMenu.G.global.productEditNumber", fs-click="configMenu.checkForAddElem()") {{ ::configMenu.SAVE }}
+    .cart-btns(ng-class="{'active': configMenu.O.order.products.length}")
+      .save-to-cart(ng-click="configMenu.checkForAddElem()",ng-class="{'active': configMenu.O.order.products.length}")
+        img(src="./img/config-menu/arrow.svg")
+        p.save-to-cart-p {{configMenu.SAVE}}
+      .go-to-cart(ng-click="configMenu.goToCart()")
+        img(src="./img/config-menu/cart_active.svg")
+      .qty.unvisible(show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}",ng-click="configMenu.goToCart()",ng-class="{'active': configMenu.O.order.products.length}") {{ configMenu.O.order.products.length }}
 
   //  div
 
