@@ -31,7 +31,8 @@
     "OK": "OK",
     "BACK": "Back",
     "PRINT": "To print",
-    "LETTER_M": "m"
+    "LETTER_M": "m",
+    "COUNT": "Amount"
   },
   "natification": {
     "ASKING_PRICE": "Check rates",

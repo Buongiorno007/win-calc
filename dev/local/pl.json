@@ -33,7 +33,8 @@
     "OK": "OK",
     "BACK": "Wstecz",
     "PRINT": "Drukuj",
-    "LETTER_M": "m"
+    "LETTER_M": "m",
+    "COUNT": "liczba"
   },
   "login": {
     "ENTER": "Zaloguj się",
