@@ -1412,13 +1412,16 @@
 
         //--------- moving to Cart when click on Cart button
         function goToCart() {
-          $timeout(function () {
-            //------- set previos Page
-            GeneralServ.setPreviosPage();
+          if (OrderStor.order.products.length ){
+            $timeout(function () {
 
-            $location.path('/cart');
-            GlobalStor.global.currOpenPage = 'cart';
-          }, 100);
+              //------- set previos Page
+              GeneralServ.setPreviosPage();
+
+              $location.path('/cart');
+              GlobalStor.global.currOpenPage = 'cart';
+            }, 100);
+          }
         }
 
 
