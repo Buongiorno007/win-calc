@@ -31,7 +31,8 @@
     "OK": "OK",
     "BACK": "Înapoi",
     "PRINT": "Print View",
-    "LETTER_M": "m"
+    "LETTER_M": "m",
+    "COUNT": "număr"
   },
   "natification": {
     "ASKING_PRICE": " Verificați tarifele",
