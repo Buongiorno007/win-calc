@@ -199,6 +199,10 @@
     img {
       width: 4.5rem;
       height: 4.5rem;
+      padding : .5rem;
+      position : relative;
+      left : .7rem;
+      top : -.2rem !important;
       background-size: contain;
     }
   }

@@ -361,7 +361,6 @@
           gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
           gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
           gridTemp.block_id = blockId;
-          console.log(ProductStor.product.template.details[blockIndex]);
           return gridTemp;
         }
 
