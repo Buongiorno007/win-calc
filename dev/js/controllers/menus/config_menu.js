@@ -127,6 +127,7 @@
     }
 
     function checkForAddElem() {
+      console.log(ProductStor.product.template_source);
       if(!ProductStor.product.is_addelem_only) {
         alert();
         if(GlobalStor.global.dangerAlert < 1) {
