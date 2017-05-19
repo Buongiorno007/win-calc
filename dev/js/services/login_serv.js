@@ -124,27 +124,7 @@
             cityQty = data.length;
             if (cityQty) {
               GlobalStor.global.locations.cities = angular.copy(data);
-
-              GlobalStor.global.loadDate = new Date();
-
-              var global = LZString.compress(JSON.stringify(GlobalStor.global));
-              var product = LZString.compress(JSON.stringify(ProductStor.product));
-              var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
-              var design = LZString.compress(JSON.stringify(DesignStor.design));
-              var aux = LZString.compress(JSON.stringify(AuxStor.aux));
-              var order = LZString.compress(JSON.stringify(OrderStor.order));
-              var history = LZString.compress(JSON.stringify(HistoryStor.history));
-
-              localStorage.clear();
-
-              localStorage.setItem('GlobalStor', global);
-              localStorage.setItem('ProductStor', product);
-              localStorage.setItem('UserStor', userInfo);
-              localStorage.setItem('AuxStor', aux);
-              localStorage.setItem('DesignStor', design);
-              localStorage.setItem('OrderStor', order);
-              localStorage.setItem('HistoryStor', history);
-
+              console.log("сохранили города");
               while (--cityQty > -1) {
                 regionQty = GlobalStor.global.locations.regions.length;
                 areasQty = GlobalStor.global.locations.areas.length;
