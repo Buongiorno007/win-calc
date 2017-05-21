@@ -6,6 +6,7 @@
     .factory('TemplatesServ',
 
       function ($filter,
+                $location,
                 GeneralServ,
                 MainServ,
                 DesignServ,
@@ -93,6 +94,11 @@
 
         //---------- select new template and recalculate it price
         function selectNewTemplate(templateIndex, roomInd, whoCalled) {
+          GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+          ProductStor.product.room_id = templateIndex;
+          if ($location.path()!=="/design"){
+            $location.path("/design");
+          }
           function goToNewTemplate() {
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();

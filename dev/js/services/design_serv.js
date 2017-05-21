@@ -716,7 +716,6 @@
           if (gridQty) {
             while (--blockQty > 0) {
               //------- if grid there is in this block
-              console.log(angular.copy(blocks[blockQty]));
               if (blocks[blockQty].gridId) {
                 for (g = 0; g < gridQty; g += 1) {
                   if ((blocks[blockQty].id === gridsOld[g].block_id) || (blocks[blockQty].id === "block_" + gridsOld[g].block_id)) {

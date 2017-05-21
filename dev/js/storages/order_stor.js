@@ -95,7 +95,9 @@
         customer_occupation: 0,
         customer_infoSource: 0,
 
-        order_edit:0
+        order_edit:0,
+
+        construction_count :  0
       },
 
       setDefaultOrder: setDefaultOrder,

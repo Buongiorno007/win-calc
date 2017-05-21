@@ -14,11 +14,14 @@
                 globalConstants,
                 GeneralServ,
                 optionsServ,
+
                 GlobalStor,
-                OrderStor,
                 ProductStor,
+                OrderStor,
                 AuxStor,
-                UserStor) {
+                UserStor,
+                DesignStor,
+                HistoryStor) {
         /*jshint validthis:true */
         var thisFactory = this;
 

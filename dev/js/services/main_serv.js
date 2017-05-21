@@ -1405,6 +1405,7 @@
             //----- finish working with product
             GlobalStor.global.isCreatedNewProduct = 0;
             GeneralServ.stopStartProg();
+            GlobalStor.global.isChangedTemplate = 0;
           }
           return permission;
         }

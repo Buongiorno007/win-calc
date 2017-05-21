@@ -636,7 +636,7 @@
     }
 
 
-    function changeLocation() {
+    function changeLocation() {z
       GlobalStor.global.changeLocation = 0;
       if(CartStor.cart.customer.customer_location) {
         CartStor.cart.isCityBox = 1;

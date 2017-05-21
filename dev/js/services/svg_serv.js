@@ -2829,7 +2829,6 @@
                   );
                 } else if (thisObj.details[i].blockType === 'impost') {
                   thisObj.details[i].impost.impostIn = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
-                  console.log("sadad");
                 }
               }
               setPointsXChildren(thisObj.details[i], thisObj.details, depths);

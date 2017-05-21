@@ -7,6 +7,7 @@
 
   function(
     $filter,
+    $location,
     globalConstants,
     MainServ,
     GlobalStor,
@@ -59,9 +60,11 @@
         /** send analytics data to Server*/
 //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id,OrderStor.order.id,ProductStor.product.template_id, id, 4);
       });
-      setTimeout(function () {
-        DesignServ.rebuildSVGTemplate();
-      }, 500);
+      if ($location.path() !== '/light') {
+        setTimeout(function () {
+          DesignServ.rebuildSVGTemplate();
+        }, 500);
+      }
     }
 
 

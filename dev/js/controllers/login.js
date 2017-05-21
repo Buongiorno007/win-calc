@@ -173,7 +173,6 @@
             var design = LZString.compress(JSON.stringify(DesignStor.design));
             var aux = LZString.compress(JSON.stringify(AuxStor.aux));
             var order = LZString.compress(JSON.stringify(OrderStor.order));
-            var history = LZString.compress(JSON.stringify(HistoryStor.history));
 
             localStorage.clear();
 
@@ -183,8 +182,6 @@
             localStorage.setItem('AuxStor', aux);
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
-            localStorage.setItem('HistoryStor', history);
-
 
           });
         }
