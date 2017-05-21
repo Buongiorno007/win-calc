@@ -25,6 +25,9 @@
 
 
         function culcPriceNewTemplate(templateIndex) {
+          ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
+          ProductStor.product.addelem_price = 0;
+          ProductStor.product.addelemPriceDis = 0;
           if (ProductStor.product.construction_type === 4) {
             ProductStor.product.template_id = DesignStor.design.template_id;
             DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
