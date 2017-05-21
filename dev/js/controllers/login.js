@@ -992,15 +992,14 @@
         }, 1000);
 
         function checkSavedData() {
-          var order = localStorage.getItem("OrderStor");
+          // var order = localStorage.getItem("OrderStor");
           var product = localStorage.getItem("ProductStor");
-          var aux = localStorage.getItem("AuxStor");
-          var design = localStorage.getItem("DesignStor");
+          // var aux = localStorage.getItem("AuxStor");
+          // var design = localStorage.getItem("DesignStor");
           var user = localStorage.getItem("UserStor");
           var global = localStorage.getItem("GlobalStor");
-          var history = localStorage.getItem("HistoryStor");
 
-          if (order && product && aux && design && user && global && history) {
+          if (product && user && global) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
