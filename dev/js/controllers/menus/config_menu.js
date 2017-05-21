@@ -134,7 +134,6 @@
                 } else if (GlobalStor.global.isChangedTemplate === 0) {
                   //  ALERT
                   GlobalStor.global.isNoChangedProduct = 1;
-                  console.log("ALERT");
                 } else {
                   saveProduct();
                 }

@@ -129,6 +129,11 @@
                           DesignStor.design.templateTEMP = angular.copy(result);
                           ProductStor.product.product_qty = GlobalStor.global.product_qty;
                           MainServ.inputProductInOrder();
+                          OrderStor.order.construction_count = 0;
+                          OrderStor.order.products.forEach(function (product) {
+                            OrderStor.order.construction_count += product.product_qty;
+
+                          });
                           DesignStor.design.designSteps = [];
                         });
                       });

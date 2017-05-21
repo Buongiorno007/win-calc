@@ -253,7 +253,14 @@
             alert();
             if (GlobalStor.global.dangerAlert < 1) {
               if (ProductStor.product.beadsData.length > 0) {
-                saveProduct();
+                if (OrderStor.order.products.length === 0) {
+                  saveProduct();
+                } else if (GlobalStor.global.isChangedTemplate === 0) {
+                  //  ALERT
+                  GlobalStor.global.isNoChangedProduct = 1;
+                } else {
+                  saveProduct();
+                }
               } else {
                 GeneralServ.isErrorProd(
                   $filter('translate')('common_words.ERROR_PROD_BEADS')
@@ -263,7 +270,10 @@
           } else {
             saveAddElems();
           }
+
         }
+
+
         $( ".prodcounter" ).change(function() {
           console.log( "Handler for .keypress() called." );
         });
