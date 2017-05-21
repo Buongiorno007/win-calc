@@ -7,6 +7,7 @@
 
   function(
     $filter,
+    $location,
     globalConstants,
     MainServ,
     GlobalStor,
