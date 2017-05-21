@@ -124,7 +124,6 @@
             cityQty = data.length;
             if (cityQty) {
               GlobalStor.global.locations.cities = angular.copy(data);
-              console.log("сохранили города");
               while (--cityQty > -1) {
                 regionQty = GlobalStor.global.locations.regions.length;
                 areasQty = GlobalStor.global.locations.areas.length;
