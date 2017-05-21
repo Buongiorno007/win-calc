@@ -127,7 +127,6 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
-                          GlobalStor.global.isChangedTemplate = 1;
                           ProductStor.product.product_qty = GlobalStor.global.product_qty;
                           MainServ.inputProductInOrder();
                           DesignStor.design.designSteps = [];
