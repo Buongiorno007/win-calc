@@ -93,7 +93,7 @@
         form.location.$modelValue = "";
         form.location.$valid = false;
         $('.cart-dialogs').animate({scrollTop: 0},500);
-      } 
+      }
       else {
         $('.cart-dialogs').animate({scrollTop: 0},500);
       }
