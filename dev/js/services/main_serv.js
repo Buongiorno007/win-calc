@@ -594,6 +594,7 @@
           if (GlobalStor.global.piece_price) {
             Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
           }
+          GlobalStor.global.tempPrice = Product.productPriceDis * GlobalStor.global.product_qty;
           GlobalStor.global.isLoader = 0;
         }
 

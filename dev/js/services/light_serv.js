@@ -302,7 +302,6 @@
         function subtractProdQty() {
           if (GlobalStor.global.product_qty > 1) {
             GlobalStor.global.product_qty--;
-            MainServ.setProductPriceTOTAL(ProductStor.product);
           }
         }
         /**========== FINISH ==========*/

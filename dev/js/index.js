@@ -11,6 +11,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     isDevice = 0;
   }
 //console.log("isDevice",isDevice);
+  // Test via a getter in the options object to see if the passive property is accessed
+
   window.onload = function () {
     if (!isDevice) {
 

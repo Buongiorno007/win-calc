@@ -3238,6 +3238,7 @@
 
 
         function designSaved() {
+
           if (GlobalStor.global.checkDoors === 0) {
             var doorConfig = DesignStor.design.doorConfig,
               isSashesInTemplate;
