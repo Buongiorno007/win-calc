@@ -174,7 +174,8 @@
             maxSizeLimit: 3200,
             maxSquareLimit: 6,
             changeLocation: 1,
-            tempPrice : 0
+            tempPrice : 0,
+            isNewTemplate : 0
           },
 
           setDefaultGlobal: setDefaultGlobal

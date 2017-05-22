@@ -134,6 +134,7 @@
                             OrderStor.order.construction_count += product.product_qty;
 
                           });
+                          GlobalStor.global.isNewTemplate = 0;
                           DesignStor.design.designSteps = [];
                         });
                       });
