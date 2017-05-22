@@ -191,7 +191,7 @@
 
             }
           }
-          if ($location.path() === '/light') {
+          if ($location.path() === "/light") {
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];

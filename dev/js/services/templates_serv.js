@@ -109,8 +109,8 @@
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();
             //-------- check changes in current template
-            // GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-            GlobalStor.global.isChangedTemplate = 1;
+            GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+            // GlobalStor.global.isChangedTemplate = 1;
 
             if (!whoCalled) {
               ProductStor.product.construction_type = GlobalStor.global.templatesType;

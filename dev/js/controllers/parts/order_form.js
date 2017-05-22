@@ -89,6 +89,8 @@
       } else if(GlobalStor.global.changeLocation === 0) {
         CartStor.cart.customer.customer_location = undefined;
         $('#impLocation').val('');
+        console.log("1");
+
         form.location.$viewValue = "";
         form.location.$modelValue = "";
         form.location.$valid = false;

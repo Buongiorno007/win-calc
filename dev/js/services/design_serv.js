@@ -780,7 +780,7 @@
           GlobalStor.global.isLoader = 0;
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
-          $location.path('/main');
+          $location.path("/main");
           GlobalStor.global.currOpenPage = '/main';
         }
 

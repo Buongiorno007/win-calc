@@ -112,21 +112,21 @@
         }
 
         preloadImages([
-          "img/room/1.png",
-          "img/room/4.png",
-          "img/room/6.png",
-          "img/room/7.png",
-          "img/room/8.png",
-          "img/room/9.png",
-          "img/room/10.png",
-          "img/room/11.png",
-          "img/room/12.png",
-          "img/room/26.png",
-          "img/room/121.png",
-          "img/room/122.png",
-          "img/room/123.png",
-          "img/room/fon.jpg",
-          "img/room/3333.png"
+          "./img/room/1.png",
+          "./img/room/4.png",
+          "./img/room/6.png",
+          "./img/room/7.png",
+          "./img/room/8.png",
+          "./img/room/9.png",
+          "./img/room/10.png",
+          "./img/room/11.png",
+          "./img/room/12.png",
+          "./img/room/26.png",
+          "./img/room/121.png",
+          "./img/room/122.png",
+          "./img/room/123.png",
+          "./img/room/fon.jpg",
+          "./img/room/3333.png"
         ]);
 
         /**============ METHODS ================*/
@@ -161,8 +161,8 @@
               GlobalStor.global.startSlider = 0;
               //console.timeEnd('prog');
 
-              $location.path('/main');
-              GlobalStor.global.currOpenPage = '/main';
+              $location.path("/main");
+              GlobalStor.global.currOpenPage = 'main';
             }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -978,7 +978,7 @@
                 $location.path('/change-lang');
               }, 1);
               $timeout(function () {
-                $location.path('/');
+                $location.path("/");
               }, 1);
               GlobalStor.global.gotoSettingsPage = 1;
             }
