@@ -108,6 +108,7 @@
           function goToNewTemplate() {
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();
+            GlobalStor.global.isNewTemplate = 1;
             //-------- check changes in current template
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
             // GlobalStor.global.isChangedTemplate = 1;

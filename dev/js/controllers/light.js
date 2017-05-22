@@ -149,7 +149,6 @@
         }, 50);
 
 
-
         function closeAttantion() {
           GlobalStor.global.isTest = 0;
           GlobalStor.global.isDesignError = 0;
@@ -160,7 +159,8 @@
         function saveProduct() {
           LightServ.designSaved();
         }
-        function goToCart(){
+
+        function goToCart() {
           MainServ.createNewProduct();
           CartMenuServ.calculateOrderPrice();
           CartMenuServ.joinAllAddElements();
@@ -169,10 +169,11 @@
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 1;
         }
+
         function saveAddElems() {
           GlobalStor.global.showCoefInfoBlock = 0;
           GlobalStor.global.continued = 0;
-          if(MainServ.inputProductInOrder()){
+          if (MainServ.inputProductInOrder()) {
             //--------- moving to Cart when click on Cart button
             goToCart();
           }
@@ -255,6 +256,8 @@
               if (ProductStor.product.beadsData.length > 0) {
                 if (OrderStor.order.products.length === 0) {
                   saveProduct();
+                } else if (GlobalStor.global.isNewTemplate === 1) {
+                  saveProduct();
                 } else if (GlobalStor.global.isChangedTemplate === 0) {
                   //  ALERT
                   GlobalStor.global.isNoChangedProduct = 1;
@@ -273,8 +276,8 @@
         }
 
 
-        $( ".prodcounter" ).change(function() {
-          console.log( "Handler for .keypress() called." );
+        $(".prodcounter").change(function () {
+          console.log("Handler for .keypress() called.");
         });
         /**========== FINISH ==========*/
         thisCtrl.closeAttantion = closeAttantion;
