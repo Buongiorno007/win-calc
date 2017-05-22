@@ -594,6 +594,7 @@
           if (GlobalStor.global.piece_price) {
             Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
           }
+          // GlobalStor.global.tempPrice = Product.productPriceDis * GlobalStor.global.product_qty;
           GlobalStor.global.isLoader = 0;
         }
 
@@ -1012,7 +1013,7 @@
               }
             }
           }
-          if ($location.path() === '/light') {
+          if ($location.path() === "/light") {
             SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
             });
@@ -1310,10 +1311,10 @@
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
               if (GlobalStor.global.isLightVersion) {
-                $location.path('/light');
+                $location.path("/light");
                 GlobalStor.global.currOpenPage = 'light';
               } else {
-                $location.path('/main');
+                $location.path("/main");
                 GlobalStor.global.currOpenPage = 'main';
               }
               $timeout(function () {
@@ -1344,7 +1345,7 @@
                 //$location.path('/light');
                 GlobalStor.global.currOpenPage = 'light';
               } else {
-                $location.path('/main');
+                $location.path("/main");
                 GlobalStor.global.currOpenPage = 'main';
               }
               $timeout(function () {
@@ -1422,7 +1423,7 @@
               //------- set previos Page
               GeneralServ.setPreviosPage();
 
-              $location.path('/cart');
+              $location.path("/cart");
               GlobalStor.global.currOpenPage = 'cart';
             }, 100);
           }

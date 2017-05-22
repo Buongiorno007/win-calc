@@ -50,8 +50,8 @@
           });
           if(GlobalStor.global.selectRoom === 0 && !GlobalStor.global.selectNewTemplate) {
             GlobalStor.global.prohibitCopyingTemplate = 1;
-            $location.path('/design');
-            GlobalStor.global.currOpenPage = '/design';
+            $location.path("/design");
+            GlobalStor.global.currOpenPage = 'design';
             GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
             TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
             GlobalStor.global.selectRoom = 1;

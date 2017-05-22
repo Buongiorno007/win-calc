@@ -78,8 +78,8 @@
               {
                 id: 0,
                 name: 'panels.DOOR_TYPE1',
-                icon: 'img/door-config/doorstep.png',
-                iconSelect: 'img/door-config-selected/doorstep.png'
+                icon: './img/door-config/doorstep.png',
+                iconSelect: './img/door-config-selected/doorstep.png'
               },
               {
                 id: 1,

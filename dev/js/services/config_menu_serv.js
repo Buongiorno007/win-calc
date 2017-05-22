@@ -22,7 +22,7 @@
 
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
-          if ($location.path() === '/light') {
+          if ($location.path() === "/light") {
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
           }
@@ -53,8 +53,8 @@
             GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
-            $location.path('/design');
-            GlobalStor.global.currOpenPage = '/design';
+            $location.path("/design");
+            GlobalStor.global.currOpenPage = 'design';
             //console.log(DesignStor.design.showHint);
             if (DesignStor.design.showHint >= 0) {
               GlobalStor.global.hintTimer = setTimeout(function () {
@@ -71,7 +71,7 @@
                 GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
                 if ($location.path() !== '/light') {
-                  $location.path('/design')
+                  $location.path("/design")
                   GlobalStor.global.currOpenPage = 'design';
                 } else {
                   $(".config-menu").hide();

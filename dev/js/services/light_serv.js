@@ -296,11 +296,13 @@
         }
         function addProdQty() {
           GlobalStor.global.product_qty++;
+          // MainServ.setProductPriceTOTAL(ProductStor.product);
         }
 
         function subtractProdQty() {
           if (GlobalStor.global.product_qty > 1) {
             GlobalStor.global.product_qty--;
+            // MainServ.setProductPriceTOTAL(ProductStor.product);
           }
         }
         /**========== FINISH ==========*/
