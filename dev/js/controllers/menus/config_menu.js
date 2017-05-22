@@ -82,7 +82,6 @@
             OrderStor.order.construction_count = 0;
             OrderStor.order.products.forEach(function (product) {
               OrderStor.order.construction_count += product.product_qty;
-
             });
           }
         }
