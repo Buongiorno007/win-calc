@@ -25,7 +25,9 @@
 
 
         function culcPriceNewTemplate(templateIndex) {
-          ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
+          ProductStor.product.chosenAddElements.forEach(function (addElem) {
+            addElem.splice(0, addElem.length);
+          });
           ProductStor.product.addelem_price = 0;
           ProductStor.product.addelemPriceDis = 0;
           if (ProductStor.product.construction_type === 4) {
@@ -37,7 +39,7 @@
             });
           } else {
             ProductStor.product.template_id = DesignStor.design.template_id;
-            MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
+            MainServ.setCurrentProfile(ProductStor.product, 0).then(function () {
               MainServ.saveTemplateInProduct(templateIndex).then(function (result) {
                 MainServ.setCurrentHardware(ProductStor.product);
                 DesignServ.setDefaultConstruction();

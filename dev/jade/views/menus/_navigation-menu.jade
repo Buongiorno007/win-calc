@@ -24,7 +24,7 @@
           span.nav-icon-calculation
           span.title {{ ::navMenu.NAVMENU_CURRENT_CALCULATION }}
 
-      li.item(ng-show="navMenu.O.order.products.length && navMenu.G.global.currOpenPage === 'main'", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", fs-click="navMenu.selectMenuItem(4)")
+      li.item(ng-if="navMenu.O.order.products.length && navMenu.G.global.currOpenPage === 'main'", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", fs-click="navMenu.selectMenuItem(4)")
         .item-content
           span.nav-icon-basketOfCalculation
           span.title {{ ::navMenu.NAVMENU_CART }}

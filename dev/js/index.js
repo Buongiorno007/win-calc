@@ -123,7 +123,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     //  enabled: true,
     //  requireBase: false
     //});
-
+    // $locationProvider.html5Mode(true).hashPrefix('!');
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
@@ -178,7 +178,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       .otherwise({
         redirectTo: '/'
       });
-
+    $locationProvider.hashPrefix('');
 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
     $httpProvider.defaults.useXDomain = true;

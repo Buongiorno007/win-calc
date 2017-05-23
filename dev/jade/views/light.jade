@@ -57,9 +57,9 @@
                       .door-inner
                         .door-option-icon
                           img.door-shape(ng-src="{{ door.icon }}" ng-hide="lightPage.D.design.doorConfig.doorShapeIndex === $index")
-                          img.door-shape(ng-src="{{ door.iconSelect }}", ng-show="lightPage.D.design.doorConfig.doorShapeIndex === $index")
+                          img.door-shape(ng-src="{{ door.iconSelect }}", ng-if="lightPage.D.design.doorConfig.doorShapeIndex === $index")
                         .door-option-label {{ ::door.name | translate }}
-                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.doorShapeIndex === $index")
+                      .selected-item-arrow(ng-if="lightPage.D.design.doorConfig.doorShapeIndex === $index")
 
               .door-config-column.step2(ng-class="{'active': lightPage.D.design.steps.selectedStep1}")
                 .door-config-backfon
@@ -72,7 +72,7 @@
                     li.door-config-option(ng-repeat="sashShape in lightPage.D.design.sashShapeList track by $index", ng-class="{'selected': lightPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="lightPage.selectSash($index, lightPage.P.product)")
                       .door-inner
                         .door-option-label {{ sashShape.name }}
-                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.sashShapeIndex === $index")
+                      .selected-item-arrow(ng-if="lightPage.D.design.doorConfig.sashShapeIndex === $index")
 
               .door-config-column.step3(ng-class="{'active': lightPage.D.design.steps.selectedStep2}")
                 .door-config-backfon
@@ -90,7 +90,7 @@
                           img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config/standart-handle.png", ng-hide="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
                           img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config-selected/standart-handle.png", ng-show="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
                         .door-option-label {{ handle.name }}
-                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
+                      .selected-item-arrow(ng-if="lightPage.D.design.doorConfig.handleShapeIndex === handle.id")
 
               .door-config-column.step4(ng-class="{'active': lightPage.D.design.steps.selectedStep3}")
                 .door-config-backfon
@@ -108,11 +108,11 @@
                           img.door-hardware(ng-if="lock.type === 3 || lock.type === 4", ng-src="img/door-config/multilock.png" ng-hide="lightPage.D.design.doorConfig.lockShapeIndex === $index")
                           img.door-hardware(ng-if="lock.type === 3 || lock.type === 4", ng-src="img/door-config-selected/multilock.png", ng-show="lightPage.D.design.doorConfig.lockShapeIndex === $index")
                         .door-option-label {{ lock.name }}
-                      .selected-item-arrow(ng-show="lightPage.D.design.doorConfig.lockShapeIndex === $index")
+                      .selected-item-arrow(ng-if="lightPage.D.design.doorConfig.lockShapeIndex === $index")
 
               .door-config-tools
                 button.door-config-finish-btn.close-door-config(ng-click="lightPage.closeDoorConfig()")
-                button.door-config-finish-save-btn.save-door-config(ng-show="lightPage.D.design.steps.selectedStep4", ng-click="lightPage.saveDoorConfig()")
+                button.door-config-finish-save-btn.save-door-config(ng-if="lightPage.D.design.steps.selectedStep4", ng-click="lightPage.saveDoorConfig()")
 
             .design-attantion(ng-if="lightPage.G.global.isDesignError") {{ ::lightPage.NOT_AVAILABLE }}
             .design-attantion(ng-if="lightPage.D.design.isDimExtra") {{ ::lightPage.DIM_EXTRA }}
@@ -123,7 +123,7 @@
               .close-dialog(ng-click="lightPage.closeAttantion()")
 
 
-        section.cart-page(ng-show="lightPage.G.global.showCart === 1")
+        section.cart-page(ng-if="lightPage.G.global.showCart === 1")
           section.cart-container.full-view(ng-class="{'discount': lightPage.C.cart.isShowDiscount}")
             .scroll-hor-container
               .order-block
@@ -183,12 +183,12 @@
                       .order-label.qty-label {{ ::lightPage.PRODUCT_QTY }}
                   .order-footer
                     .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
-                    .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': lightPage.config.isProductComment === $index+1}", fs-click="lightPage.switchProductComment($index)")
+                    .order-comment-btn(ng-if="product.comment.length", ng-class="{'active': lightPage.config.isProductComment === $index+1}", fs-click="lightPage.switchProductComment($index)")
                   .order-comment(ng-class="{'active': lightPage.config.isProductComment === $index+1}")
                     .order-comment-box
                       .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
                       .order-comment-content {{ lightPage.O.order.comment }}
-            .template-window(ng-show="lightPage.C.cart.showCurrentTemp")
+            .template-window(ng-if="lightPage.C.cart.showCurrentTemp")
               button.close-cur-window(ng-click="lightPage.C.cart.showCurrentTemp=0")
               img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
               svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="lightPage.constants.SVG_ID_GLASS")
@@ -198,7 +198,7 @@
 
               .discount-box.selected
                 .discount-data(fs-click="lightPage.openDiscInput(0)", ng-keyup="lightPage.enterKeyPrice(event)")
-                  .disc-max(ng-show="lightPage.C.cart.tempConstructDisc > lightPage.U.userInfo.discountConstrMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%
+                  .disc-max(ng-if="lightPage.C.cart.tempConstructDisc > lightPage.U.userInfo.discountConstrMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%
                   input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="lightPage.C.cart.tempConstructDisc")
                   |%
                 .discount-txt(ng-click="lightPage.approveNewDisc(0)")
@@ -206,7 +206,7 @@
 
               .discount-box.selected
                 .discount-data(fs-click="lightPage.openDiscInput(1)", ng-keyup="lightPage.enterKeyDop(event)")
-                  .disc-max(ng-show="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
+                  .disc-max(ng-if="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
                   input.disc-input.noPreventDefault#disc-input-add(type="number",value="0", ng-model="lightPage.C.cart.tempAddelemDisc")
                   |%
                 .discount-txt(ng-click="lightPage.approveNewDisc(1)")
@@ -258,13 +258,13 @@
                 .product-value(ng-switch-when="9") {{ ::lightPage.HANDLEL }}
                 .product-value(ng-switch-when="10") {{ ::lightPage.OTHERS }}
                 .addelement-parameters
-                  .addelement-parameter(ng-show="addelement.element_width")
+                  .addelement-parameter(ng-if="addelement.element_width")
                     .addelement-value {{ addelement.element_width }}
                     .addelement-label {{ ::lightPage.WIDTH_LABEL }}
-                  .addelement-parameter(ng-show="addelement.element_height")
+                  .addelement-parameter(ng-if="addelement.element_height")
                     .addelement-value {{ addelement.element_height }}
                     .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
-                  .addelement-parameter(ng-show="addelement.element_qty")
+                  .addelement-parameter(ng-if="addelement.element_qty")
                     .addelement-value {{ addelement.element_qty }}
                     .addelement-label {{ ::lightPage.QTY_LABEL }}
                 .addelement-parameters
@@ -295,7 +295,7 @@
               p {{ configMenu.O.order.construction_count }}
             .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
             p {{lightPage.CART}}
-        .karkas(ng-controller="DesignCtrl as designPage", ng-show="configMenu.G.global.showKarkas")
+        .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
           .construction-left-menu
             ul.figure-lists
               li.figure-item(ng-click="designPage.selectMenuItem(3)",ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
@@ -342,7 +342,7 @@
               .drop-shape-icon.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(13)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
               //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(14)")
               //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(15)")
-              .constr-shape-icon.clean(ng-show="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(1)")
+              .constr-shape-icon.clean(ng-if="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(1)")
 
             #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
               .constr-shape-icon.sash-left(ng-click="designPage.insertSash(2)")
@@ -370,7 +370,7 @@
               .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
 
         //.configuration( ng-if="configMenu.G.global.showConfiguration")
-        .configuration(ng-show="configMenu.G.global.showConfiguration")
+        .configuration(ng-if="configMenu.G.global.showConfiguration")
           ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
               .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -402,14 +402,14 @@
                 ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
                   li.additional-item(ng-repeat="addElement in addElementGroup")
                     span.value(data-output="") {{ addElement.name }}
-        .cart-menu(ng-show="configMenu.G.global.showCart", ng-controller="CartMenuCtrl as cartMenu")
+        .cart-menu(ng-if="configMenu.G.global.showCart", ng-controller="CartMenuCtrl as cartMenu")
           ul.items-list
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
               .title(data-output="{{ ::cartMenu.DELIVERY }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
               .cart-item-data
-                .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value(ng-show="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floorName }} {{ ::cartMenu.FLOOR }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                span.name.aside(ng-show="cartMenu.O.order.floor_id", data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-if="!cartMenu.O.order.floor_id", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-if="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floorName }} {{ ::cartMenu.FLOOR }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                span.name.aside(ng-if="cartMenu.O.order.floor_id", data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length}")
               ul.dropdown-items-list
                 li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(0)")
@@ -424,9 +424,9 @@
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}", fs-click="cartMenu.selectMenuItem(2)")
               .title(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
               .cart-item-data
-                .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                span.name.aside(ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-if="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-if="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                span.name.aside(ng-if="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")
               ul.dropdown-items-list
                 li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(0)")
@@ -467,8 +467,8 @@
             .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 4}")
               calendar.calendar-box
             .calendar-prices
-              .calendar-price.up(ng-show="cartMenu.O.order.is_date_price_more") + {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
-              .calendar-price.down(ng-show="cartMenu.O.order.is_date_price_less") - {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
+              .calendar-price.up(ng-if="cartMenu.O.order.is_date_price_more") + {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
+              .calendar-price.down(ng-if="cartMenu.O.order.is_date_price_less") - {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
 
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}", fs-click="cartMenu.selectMenuItem(5)")
               .title(data-output="{{ ::cartMenu.COMMENT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -504,9 +504,9 @@
         ////  div
 
 
-        .curtain(ng-show="configMenu.P.product.is_addelem_only")
+        .curtain(ng-if="configMenu.P.product.is_addelem_only")
 
-        .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+        .menu_tooltip(ng-if="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           .close_menu_tooltip
     section.order-forms(ng-controller="OrderFormCtrl as orderForm")
       include parts/_form-master
