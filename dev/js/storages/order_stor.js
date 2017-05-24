@@ -12,9 +12,6 @@
     function setDefaultOrder() {
       return angular.copy(thisFactory.publicObj.orderSource);
     }
-    function restoreOrder(data) {
-      return angular.copy(JSON.parse(LZString.decompress(data)));
-    }
     thisFactory.publicObj = {
       orderSource: {
         id: 0,
@@ -98,16 +95,10 @@
         order_edit:0
       },
 
-      setDefaultOrder: setDefaultOrder,
-      restoreOrder: restoreOrder
+      setDefaultOrder: setDefaultOrder
     };
 
-    var data = localStorage.getItem("OrderStor");
-    if (data){
-      thisFactory.publicObj.order = restoreOrder(data);
-    } else {
       thisFactory.publicObj.order = setDefaultOrder();
-    }
 
     return thisFactory.publicObj;
 
