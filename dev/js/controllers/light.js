@@ -7,6 +7,7 @@
 
       function ($filter,
                 $timeout,
+                loginServ,
                 globalConstants,
                 DesignServ,
                 LightServ,
@@ -249,7 +250,12 @@
           }
         }
 
+
+
         function checkForAddElem() {
+          if (GlobalStor.global.locations.cities.length === 1) {
+            loginServ.downloadAllCities(1);
+          }
           if (!ProductStor.product.is_addelem_only) {
             alert();
             if (GlobalStor.global.dangerAlert < 1) {

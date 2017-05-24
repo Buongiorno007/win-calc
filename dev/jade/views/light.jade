@@ -292,7 +292,7 @@
             p {{lightPage.KONFIG}}.
           .cart-button(ng-click="configMenu.cartButton()", ng-class="{'active': configMenu.G.global.showCart == 1}")
             .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
-              p {{ configMenu.O.order.construction_count }}
+              p {{ configMenu.G.global.construction_count }}
             .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
             p {{lightPage.CART}}
         .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
