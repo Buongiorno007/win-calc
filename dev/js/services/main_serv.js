@@ -125,7 +125,6 @@
 
         function createOrderID() {
           var currTime = new Date().getTime().toString();
-          console.log(UserStor.userInfo.id);
           return (UserStor.userInfo.id + '' + currTime.slice(4, currTime.length)) * 1;
         }
 

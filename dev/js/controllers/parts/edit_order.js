@@ -69,7 +69,6 @@
           async.waterfall([
             function (_callback) {
               OrderStor.order.id = angular.copy(product.order_id);
-              console.log(OrderStor.order.id);
               ProductStor.product.chosenAddElements = angular.copy(product.addElementDATA);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
