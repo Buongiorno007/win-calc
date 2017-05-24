@@ -12,7 +12,6 @@
     function setDefaultOrder() {
       return angular.copy(thisFactory.publicObj.orderSource);
     }
-
     thisFactory.publicObj = {
       orderSource: {
         id: 0,
@@ -96,9 +95,8 @@
         order_edit:0
       },
 
-      setDefaultOrder: setDefaultOrder,
+      setDefaultOrder: setDefaultOrder
     };
-
 
       thisFactory.publicObj.order = setDefaultOrder();
 
