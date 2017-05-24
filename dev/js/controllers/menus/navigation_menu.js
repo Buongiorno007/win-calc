@@ -87,7 +87,9 @@
         case 8:
           //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
-          if(UserStor.userInfo.factoryLink) {
+          if (location.href.includes('steko')) {
+            GeneralServ.goToLink('http://www.steko.com.ua/help/dealer/index.php');
+          } else if (UserStor.userInfo.factoryLink) {
             if (UserStor.userInfo.factoryLink.length) {
               GeneralServ.goToLink(UserStor.userInfo.factoryLink);
             }
