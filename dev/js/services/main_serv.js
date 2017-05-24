@@ -594,8 +594,22 @@
           if (GlobalStor.global.piece_price) {
             Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
           }
-          // GlobalStor.global.tempPrice = Product.productPriceDis * GlobalStor.global.product_qty;
+          GlobalStor.global.tempPrice = Product.productPriceDis * GlobalStor.global.product_qty;
           GlobalStor.global.isLoader = 0;
+          if ($location.path() === '/light') {
+            setTimeout(function () {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                .then(function (result) {
+                  DesignStor.design.templateTEMP = angular.copy(result);
+                  DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
+                    if (entry.impost) {
+                      DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+                      DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+                    }
+                  });
+                });
+            }, 250);
+          }
         }
 
 
@@ -1415,9 +1429,6 @@
         //--------- moving to Cart when click on Cart button
         function goToCart() {
           if (OrderStor.order.products.length ){
-            if (GlobalStor.global.locations.cities.length === 1) {
-              loginServ.downloadAllCities(1);
-            }
             $timeout(function () {
 
               //------- set previos Page

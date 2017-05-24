@@ -129,9 +129,9 @@
                           DesignStor.design.templateTEMP = angular.copy(result);
                           ProductStor.product.product_qty = GlobalStor.global.product_qty;
                           MainServ.inputProductInOrder();
-                          OrderStor.order.construction_count = 0;
+                          GlobalStor.global.construction_count = 0;
                           OrderStor.order.products.forEach(function (product) {
-                            OrderStor.order.construction_count += product.product_qty;
+                            GlobalStor.global.construction_count += product.product_qty;
 
                           });
                           GlobalStor.global.isNewTemplate = 0;
@@ -297,13 +297,13 @@
         }
         function addProdQty() {
           GlobalStor.global.product_qty++;
-          // MainServ.setProductPriceTOTAL(ProductStor.product);
+          MainServ.setProductPriceTOTAL(ProductStor.product);
         }
 
         function subtractProdQty() {
           if (GlobalStor.global.product_qty > 1) {
             GlobalStor.global.product_qty--;
-            // MainServ.setProductPriceTOTAL(ProductStor.product);
+            MainServ.setProductPriceTOTAL(ProductStor.product);
           }
         }
         /**========== FINISH ==========*/

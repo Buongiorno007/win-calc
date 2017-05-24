@@ -517,9 +517,9 @@
       }
       //----- join together product prices and order option
       calculateTotalOrderPrice();
-      OrderStor.order.construction_count = 0;
+      GlobalStor.global.construction_count = 0;
       OrderStor.order.products.forEach(function (product) {
-        OrderStor.order.construction_count += product.product_qty;
+        GlobalStor.global.construction_count += product.product_qty;
       });
       /** set Supply & Mounting Price for submenu items*/
       setMenuItemPriceReal(GlobalStor.global.supplyData);

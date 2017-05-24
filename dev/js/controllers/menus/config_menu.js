@@ -11,6 +11,7 @@
                 $scope,
                 globalConstants,
                 GeneralServ,
+                loginServ,
                 MainServ,
                 AddElementMenuServ,
                 DesignServ,
@@ -79,9 +80,9 @@
           if (MainServ.inputProductInOrder()) {
             //--------- moving to Cart when click on Cart button
             // MainServ.goToCart();
-            OrderStor.order.construction_count = 0;
+            GlobalStor.global.construction_count = 0;
             OrderStor.order.products.forEach(function (product) {
-              OrderStor.order.construction_count += product.product_qty;
+              GlobalStor.global.construction_count += product.product_qty;
             });
           }
         }
@@ -124,7 +125,9 @@
         }
 
         function checkForAddElem() {
-          console.log(ProductStor.product.template_source);
+          if (GlobalStor.global.locations.cities.length === 1) {
+            loginServ.downloadAllCities(1);
+          }
           if (!ProductStor.product.is_addelem_only) {
             alert();
             if (GlobalStor.global.dangerAlert < 1) {

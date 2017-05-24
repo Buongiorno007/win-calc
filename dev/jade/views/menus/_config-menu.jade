@@ -56,15 +56,15 @@
 
 
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
-    //price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency")
-    price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")
+    price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency")
+    //price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")
     .cart-btns(ng-class="{'active': configMenu.O.order.products.length}")
       .save-to-cart(ng-click="configMenu.checkForAddElem()",ng-class="{'active': configMenu.O.order.products.length}")
         img(src="./img/config-menu/arrow.svg")
         p.save-to-cart-p {{configMenu.SAVE}}
       .go-to-cart(ng-click="configMenu.goToCart()")
         img(src="./img/config-menu/cart_active.svg")
-      .qty.unvisible(show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}",ng-click="configMenu.goToCart()",ng-class="{'active': configMenu.O.order.products.length}") {{ configMenu.O.order.construction_count }}
+      .qty.unvisible(show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}",ng-click="configMenu.goToCart()",ng-class="{'active': configMenu.O.order.products.length}") {{ configMenu.G.global.construction_count }}
 
   //  div
 

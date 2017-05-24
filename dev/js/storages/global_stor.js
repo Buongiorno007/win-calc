@@ -175,7 +175,9 @@
             maxSquareLimit: 6,
             changeLocation: 1,
             tempPrice : 0,
-            isNewTemplate : 0
+            isNewTemplate : 0,
+
+            construction_count :  0
           },
 
           setDefaultGlobal: setDefaultGlobal
