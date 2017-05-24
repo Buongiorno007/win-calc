@@ -172,6 +172,7 @@
             var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
             var design = LZString.compress(JSON.stringify(DesignStor.design));
             var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+            var order = LZString.compress(JSON.stringify(OrderStor.order));
 
             localStorage.clear();
 
@@ -180,6 +181,7 @@
             localStorage.setItem('UserStor', userInfo);
             localStorage.setItem('AuxStor', aux);
             localStorage.setItem('DesignStor', design);
+            localStorage.setItem('OrderStor', order);
 
           });
         }
@@ -990,19 +992,20 @@
         }, 1000);
 
         function checkSavedData() {
-          // var order = localStorage.getItem("OrderStor");
+          var order = localStorage.getItem("OrderStor");
           var product = localStorage.getItem("ProductStor");
-          // var aux = localStorage.getItem("AuxStor");
+          var aux = localStorage.getItem("AuxStor");
           var design = localStorage.getItem("DesignStor");
           var user = localStorage.getItem("UserStor");
           var global = localStorage.getItem("GlobalStor");
 
-          if (product && user && global && design) {
+          if (product && user && global && design && order && aux) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
             if ((curDate === checkDate)) {
               console.log("типа все ок");
+              MainServ.createOrderData();
               return true;
             } else {
               localStorage.clear();
@@ -1015,7 +1018,6 @@
               HistoryStor.history = HistoryStor.setDefaultHistory();
               $location.path('/');
               console.log("разные даты");
-
               return false;
             }
           } else {
