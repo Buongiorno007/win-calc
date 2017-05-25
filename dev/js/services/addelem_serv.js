@@ -320,6 +320,7 @@
           AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
+      GlobalStor.global.isChangedTemplate = 1;
     }
     /**----------- Select Add Element when open List View ------------*/
 
