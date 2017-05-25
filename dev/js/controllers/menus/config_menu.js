@@ -128,7 +128,6 @@
         function checkForAddElem() {
           // console.log(ProductStor.product.report);
           ProductStor.product.template_source.report = ProductStor.product.report;
-          console.log(ProductStor.product.template_source);
           if (GlobalStor.global.locations.cities.length === 1) {
             loginServ.downloadAllCities(1);
           }

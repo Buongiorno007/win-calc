@@ -188,6 +188,7 @@
                   /** return previous Product */
                   ProductStor.product = angular.copy(productTEMP);
                   $location.path('/main');
+                  MainServ.setProductPriceTOTAL(ProductStor.product);
                 });
               });
               GlobalStor.global.isBox = 0;
