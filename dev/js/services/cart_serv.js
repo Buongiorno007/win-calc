@@ -163,6 +163,7 @@
             GlobalStor.global.productEditNumber = ProductStor.product.product_id;
             GlobalStor.global.isCreatedNewProduct = 1;
             GlobalStor.global.isChangedTemplate = 1;
+            GlobalStor.global.product_qty = ProductStor.product.product_qty;
             MainServ.prepareMainPage();
             if (type === 'auxiliary') {
               //------ open AddElements Panel
