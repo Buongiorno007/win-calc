@@ -77,6 +77,7 @@
           GlobalStor.global.showCoefInfoBlock = 0;
           GlobalStor.global.continued = 0;
           ProductStor.product.product_qty = GlobalStor.global.product_qty;
+
           if (MainServ.inputProductInOrder()) {
             //--------- moving to Cart when click on Cart button
             // MainServ.goToCart();
@@ -125,6 +126,9 @@
         }
 
         function checkForAddElem() {
+          // console.log(ProductStor.product.report);
+          ProductStor.product.template_source.report = ProductStor.product.report;
+          console.log(ProductStor.product.template_source);
           if (GlobalStor.global.locations.cities.length === 1) {
             loginServ.downloadAllCities(1);
           }
