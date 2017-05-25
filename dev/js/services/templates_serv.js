@@ -101,13 +101,14 @@
         function selectNewTemplate(templateIndex, roomInd, whoCalled) {
           GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
           ProductStor.product.room_id = templateIndex;
-          if (!GlobalStor.global.isLightVersion) {
 
-            if ($location.path() !== "/design") {
-              $location.path("/design");
-            }
-          }
           function goToNewTemplate() {
+            if (!GlobalStor.global.isLightVersion) {
+
+              if ($location.path() !== "/design") {
+                $location.path("/design");
+              }
+            }
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();
             GlobalStor.global.isNewTemplate = 1;
