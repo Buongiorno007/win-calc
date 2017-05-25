@@ -251,12 +251,13 @@
         }
 
 
-
         function checkForAddElem() {
           if (GlobalStor.global.locations.cities.length === 1) {
             loginServ.downloadAllCities(1);
           }
-          GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+          if (!GlobalStor.global.isChangedTemplate) {
+            GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+          }
           console.log('sdassadsad');
           if (!ProductStor.product.is_addelem_only) {
             alert();

@@ -40,9 +40,9 @@
           GeneralServ.setPreviosPage();
           if (GlobalStor.global.isCreatedNewProduct && GlobalStor.global.isCreatedNewProject) {
             if (GlobalStor.global.isLightVersion) {
-              GlobalStor.global.showKarkas=1;
-              GlobalStor.global.showConfiguration=0;
-              GlobalStor.global.showCart=0;
+              GlobalStor.global.showKarkas = 1;
+              GlobalStor.global.showConfiguration = 0;
+              GlobalStor.global.showCart = 0;
               GlobalStor.global.isSizeCalculator = 0;
               CartStor.cart.isShowDiscount = 0;
               $location.path('/light');
@@ -828,6 +828,17 @@
                 GlobalStor.global.currOpenPage = '/cart';
               });
             });
+            function calculateWork(product) {
+              if (GlobalStor.global.area_price) {
+                product.productPriceDis += localDB.currencyExgange(GlobalStor.global.area_price * product.template_square, GlobalStor.global.area_currencies);
+              }
+              if (GlobalStor.global.perimeter_price) {
+                product.productPriceDis += localDB.currencyExgange(GlobalStor.global.perimeter_price * ( (product.template_width / 1000 + product.template_height / 1000) * 2), GlobalStor.global.perimeter_currencies);
+              }
+              if (GlobalStor.global.piece_price) {
+                product.productPriceDis += localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
+              }
+            }
 
             function calculate(products, _cb) {
               async.waterfall([
@@ -835,12 +846,15 @@
                     if (products.construction_type === 4) {
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                        calculateWork(res);
                         OrderStor.order.products.push(res);
 
                         _callback();
                       });
                     } else {
+                      calculateWork(products);
                       OrderStor.order.products.push(products);
+                      console.log(products);
                       _callback();
                     }
                   }
