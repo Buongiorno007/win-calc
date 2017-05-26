@@ -174,11 +174,11 @@
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
 
           newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
-          // if (newElementSize === 0) {
-          //   newElementSize = 1;
-          //   AuxStor.aux.tempSize.splice(0,AuxStor.aux.tempSize.length);
-          //   AuxStor.aux.tempSize.push(newElementSize);
-          // }
+          if (newElementSize === 0) {
+            newElementSize = 1;
+            AuxStor.aux.tempSize.splice(0,AuxStor.aux.tempSize.length);
+            AuxStor.aux.tempSize.push(newElementSize);
+          }
           if (GlobalStor.global.isQtyCalculator) {
             ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
           } else if (GlobalStor.global.isSizeCalculator) {
