@@ -511,6 +511,12 @@
               return margins;
             });
         }
+        function downloadOptionsCoefficients() {
+          return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'area_price, area_currencies,perimeter_price,perimeter_currencies,piece_price,piece_currencies')
+            .then(function (coeffs) {
+              return coeffs;
+            });
+        }
 
         /** delivery Coeff of Plant */
         function downloadDeliveryCoeff() {
@@ -1500,7 +1506,7 @@
                   downloadPriceMargin().then(function (margins) {
                     if (margins && margins.length) {
                       GlobalStor.global.margins = angular.copy(margins[0]);
-                      //console.warn('Margins!!', margins);
+                      // console.warn('Margins!!', margins);
                       /** download delivery Coeff of Plant */
                       downloadDeliveryCoeff().then(function (coeff) {
                         if (coeff && coeff.length) {
@@ -1519,6 +1525,14 @@
                             GlobalStor.global.profilesType,
                             GlobalStor.global.profiles
                           ).then(function (data) {
+                            downloadOptionsCoefficients().then(function (coef) {
+                              GlobalStor.global.area_currencies=coef[0].area_currencies;
+                              GlobalStor.global.area_price=coef[0].area_price;
+                              GlobalStor.global.perimeter_currencies=coef[0].perimeter_currencies;
+                              GlobalStor.global.perimeter_price=coef[0].perimeter_price;
+                              GlobalStor.global.piece_currencies=coef[0].piece_currencies;
+                              GlobalStor.global.piece_price=coef[0].piece_price;
+                            });
                             if (data) {
                               if (GlobalStor.global.ISEXT) {
                                 GlobalStor.global.profilesType.forEach(function (entry) {

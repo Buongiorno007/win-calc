@@ -7,6 +7,7 @@
 
       function ($location,
                 $filter,
+                $timeout,
                 GeneralServ,
                 MainServ,
                 CartMenuServ,
@@ -26,6 +27,7 @@
         function addNewProductInOrder() {
           //------- set previos Page
           CartStor.cart.showCurrentTemp = 0;
+          GlobalStor.global.product_qty = 1;
           GeneralServ.setPreviosPage();
           //=============== CREATE NEW PRODUCT =========//
           MainServ.createNewProduct();
@@ -84,6 +86,7 @@
 
         /*** FASTEDIT*/
         function fastEdit(productIndex, type) {
+          GlobalStor.global.isBox = 0;
           function edit() {
             CartStor.cart.showCurrentTemp = !CartStor.cart.showCurrentTemp;
             ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
@@ -124,10 +127,8 @@
                   }
                 });
               });
-              GlobalStor.global.isBox = !GlobalStor.global.isBox;
             } else {
               GlobalStor.global.activePanel = 6;
-              GlobalStor.global.isBox = !GlobalStor.global.isBox;
               if (GlobalStor.global.isLightVersion) {
                 GlobalStor.global.showKarkas=1;
                 GlobalStor.global.showConfiguration=0;
@@ -145,7 +146,30 @@
             edit
           );
         }
+        function setAddElementsTotalPrice(currProduct) {
+          var elemTypeQty = currProduct.chosenAddElements.length,
+            elemQty;
+          currProduct.addelem_price = 0;
+          currProduct.addelemPriceDis = 0;
+          while (--elemTypeQty > -1) {
+            elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+            if (elemQty > 0) {
+              while (--elemQty > -1) {
+                currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
 
+              }
+            }
+          }
+          currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
+          currProduct.addelemPriceDis = GeneralServ.setPriceDis(
+            currProduct.addelem_price, OrderStor.order.discount_addelem
+          );
+          $timeout(function () {
+            if (GlobalStor.global.currOpenPage !== 'history') {
+              MainServ.setProductPriceTOTAL(currProduct);
+            }
+          }, 50);
+        }
 
         //----- Edit Produtct in main page
         function box(productIndex, type) {
@@ -163,6 +187,7 @@
             GlobalStor.global.productEditNumber = ProductStor.product.product_id;
             GlobalStor.global.isCreatedNewProduct = 1;
             GlobalStor.global.isChangedTemplate = 1;
+            GlobalStor.global.product_qty = ProductStor.product.product_qty;
             MainServ.prepareMainPage();
             if (type === 'auxiliary') {
               //------ open AddElements Panel
@@ -187,12 +212,13 @@
                   /** return previous Product */
                   ProductStor.product = angular.copy(productTEMP);
                   $location.path('/main');
+                  setAddElementsTotalPrice(ProductStor.product)
                 });
               });
-              GlobalStor.global.isBox = !GlobalStor.global.isBox;
+              GlobalStor.global.isBox = 0;
             } else {
               GlobalStor.global.activePanel = 6;
-              GlobalStor.global.isBox = !GlobalStor.global.isBox;
+              GlobalStor.global.isBox = 0;
               $location.path('/main');
             }
           }

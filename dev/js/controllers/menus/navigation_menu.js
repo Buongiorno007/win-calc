@@ -52,7 +52,7 @@
       switch(id) {
         case 1:
           GeneralServ.stopStartProg();
-          $location.path('/location');
+          $location.path("/location");
           break;
         case 2:
           NavMenuServ.getCurrentGeolocation();
@@ -62,11 +62,11 @@
         case 3:
           //------- set previos Page
           GeneralServ.setPreviosPage();
-          $location.path('main');
+          $location.path("main");
           GlobalStor.global.currOpenPage = 'main';
           break;
         case 4:
-          $location.path('/cart');
+          $location.path("/cart");
           GlobalStor.global.currOpenPage = 'cart';
           break;
         case 5:
@@ -82,12 +82,14 @@
         case 7:
           //------- set previos Page
           GeneralServ.setPreviosPage();
-          $location.path('/settings');
+          $location.path("/settings");
           break;
         case 8:
           //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
-          if(UserStor.userInfo.factoryLink) {
+          if (location.href.includes('steko')) {
+            GeneralServ.goToLink('http://www.steko.com.ua/help/dealer/index.php');
+          } else if (UserStor.userInfo.factoryLink) {
             if (UserStor.userInfo.factoryLink.length) {
               GeneralServ.goToLink(UserStor.userInfo.factoryLink);
             }
@@ -113,16 +115,16 @@
                 /** start lamination filtering */
                 MainServ.cleanLamFilter();
                 MainServ.laminatFiltering();
-                $location.path('/light');
+                $location.path("/light");
 
               });
             } else {
-            $location.path('/light');
+            $location.path("/light");
             }
             GlobalStor.global.currOpenPage = 'light';
           }
           else {
-            $location.path('/main');
+            $location.path("/main");
             GlobalStor.global.isLightVersion = 0;
           }
           break;

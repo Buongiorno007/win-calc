@@ -36,7 +36,7 @@
 
     position: absolute;
     width: 100%;
-    padding: rem(50px);
+    padding: rem(50px) 0;
     padding-left: rem(100px);
     &.full-view {
       @include top_left_coord(0px, 0px);

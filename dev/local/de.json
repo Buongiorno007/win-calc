@@ -31,7 +31,8 @@
     "OK": "OK",
     "PRINT": "Druckansicht",
     "BACK": "Back",
-    "LETTER_M": "m"
+    "LETTER_M": "m",
+    "COUNT": "Anzahl"
   },
   "natification": {
     "ASKING_PRICE": "Preise überprüfen",

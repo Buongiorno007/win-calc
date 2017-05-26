@@ -127,9 +127,14 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
-                          GlobalStor.global.isChangedTemplate = 1;
                           ProductStor.product.product_qty = GlobalStor.global.product_qty;
                           MainServ.inputProductInOrder();
+                          GlobalStor.global.construction_count = 0;
+                          OrderStor.order.products.forEach(function (product) {
+                            GlobalStor.global.construction_count += product.product_qty;
+
+                          });
+                          GlobalStor.global.isNewTemplate = 0;
                           DesignStor.design.designSteps = [];
                         });
                       });
@@ -290,6 +295,17 @@
           $(".main-content").width("96rem");
           return deferred.promise;
         }
+        function addProdQty() {
+          GlobalStor.global.product_qty++;
+          MainServ.setProductPriceTOTAL(ProductStor.product);
+        }
+
+        function subtractProdQty() {
+          if (GlobalStor.global.product_qty > 1) {
+            GlobalStor.global.product_qty--;
+            MainServ.setProductPriceTOTAL(ProductStor.product);
+          }
+        }
         /**========== FINISH ==========*/
 
         thisFactory.publicObj = {
@@ -297,7 +313,9 @@
           box : box,
           toggleDoorConfig : toggleDoorConfig,
           closeDoorConfig : closeDoorConfig,
-          saveDoorConfig : saveDoorConfig
+          saveDoorConfig : saveDoorConfig,
+          addProdQty : addProdQty,
+          subtractProdQty : subtractProdQty
 
         };
 

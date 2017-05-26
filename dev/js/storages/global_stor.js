@@ -14,6 +14,7 @@
         }
         thisFactory.publicObj = {
           globalSource: {
+            isNoChangedProduct : 0,
             isTest: 0,
             isDesignError: 0,
             product_qty: 1,
@@ -172,7 +173,11 @@
             isWidthCalculator: 0,
             maxSizeLimit: 3200,
             maxSquareLimit: 6,
-            changeLocation: 1
+            changeLocation: 1,
+            tempPrice : 0,
+            isNewTemplate : 0,
+
+            construction_count :  0
           },
 
           setDefaultGlobal: setDefaultGlobal

@@ -32,7 +32,8 @@
     "OK": "OK",
     "BACK": "Back",
     "PRINT": "Visualizzazione",
-    "LETTER_M": "m"
+    "LETTER_M": "m",
+    "COUNT": "Numero"
   },
   "natification": {
     "ASKING_PRICE": "Controlla i prezzi",

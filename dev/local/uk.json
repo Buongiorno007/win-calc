@@ -32,7 +32,8 @@
     "OK": "OK",
     "BACK": "Назад",
     "PRINT": "На друк",
-    "LETTER_M": "м"
+    "LETTER_M": "м",
+    "COUNT": "Кількість"
   },
   "natification": {
     "ASKING_PRICE": "Дізнатись ціну",

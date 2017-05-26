@@ -22,7 +22,7 @@
 
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
-          if ($location.path() === '/light') {
+          if ($location.path() === "/light") {
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
           }
@@ -53,8 +53,8 @@
             GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
-            $location.path('/design');
-            GlobalStor.global.currOpenPage = '/design';
+            $location.path("/design");
+            GlobalStor.global.currOpenPage = 'design';
             //console.log(DesignStor.design.showHint);
             if (DesignStor.design.showHint >= 0) {
               GlobalStor.global.hintTimer = setTimeout(function () {
@@ -68,10 +68,10 @@
               if (id === 3 || id === 6 || id === 5) {
                 GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               } else {
-                GlobalStor.global.activePanel = 0;
+                // GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
                 if ($location.path() !== '/light') {
-                  $location.path('/design')
+                  $location.path("/design")
                   GlobalStor.global.currOpenPage = 'design';
                 } else {
                   $(".config-menu").hide();
@@ -112,10 +112,10 @@
               // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               if (GlobalStor.global.activePanel === id) {
                 GlobalStor.global.activePanel = 0;
-                if ($location.path() !== '/light') {
+                if ($location.path() === '/light') {
                   setTimeout(function () {
                     DesignServ.rebuildSVGTemplate();
-                  }, 250);
+                  }, 1000);
                 }
               } else {
                 GlobalStor.global.activePanel = id;

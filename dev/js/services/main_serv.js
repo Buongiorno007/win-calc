@@ -575,7 +575,6 @@
           return deff.promise;
         }
 
-
         function setProductPriceTOTAL(Product) {
           var deliveryCoeff = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time],
             priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
@@ -586,7 +585,31 @@
           if (deliveryCoeff) {
             Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, deliveryCoeff);
           }
+          if (GlobalStor.global.area_price) {
+            Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.area_price * Product.template_square, GlobalStor.global.area_currencies);
+          }
+          if (GlobalStor.global.perimeter_price) {
+            Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.perimeter_price * ( (Product.template_width / 1000 + Product.template_height / 1000) * 2), GlobalStor.global.perimeter_currencies);
+          }
+          if (GlobalStor.global.piece_price) {
+            Product.productPriceDis += localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
+          }
+          GlobalStor.global.tempPrice = Product.productPriceDis * GlobalStor.global.product_qty;
           GlobalStor.global.isLoader = 0;
+          if ($location.path() === '/light') {
+            setTimeout(function () {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                .then(function (result) {
+                  DesignStor.design.templateTEMP = angular.copy(result);
+                  DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
+                    if (entry.impost) {
+                      DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+                      DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+                    }
+                  });
+                });
+            }, 250);
+          }
         }
 
 
@@ -1004,7 +1027,7 @@
               }
             }
           }
-          if ($location.path() === '/light') {
+          if ($location.path() === "/light") {
             SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
             });
@@ -1302,10 +1325,10 @@
             if (GlobalStor.global.currOpenPage !== 'main') {
               GlobalStor.global.showRoomSelectorDialog = 0;
               if (GlobalStor.global.isLightVersion) {
-                $location.path('/light');
+                $location.path("/light");
                 GlobalStor.global.currOpenPage = 'light';
               } else {
-                $location.path('/main');
+                $location.path("/main");
                 GlobalStor.global.currOpenPage = 'main';
               }
               $timeout(function () {
@@ -1336,7 +1359,7 @@
                 //$location.path('/light');
                 GlobalStor.global.currOpenPage = 'light';
               } else {
-                $location.path('/main');
+                $location.path("/main");
                 GlobalStor.global.currOpenPage = 'main';
               }
               $timeout(function () {
@@ -1397,6 +1420,7 @@
             //----- finish working with product
             GlobalStor.global.isCreatedNewProduct = 0;
             GeneralServ.stopStartProg();
+            GlobalStor.global.isChangedTemplate = 0;
           }
           return permission;
         }
@@ -1404,13 +1428,16 @@
 
         //--------- moving to Cart when click on Cart button
         function goToCart() {
-          $timeout(function () {
-            //------- set previos Page
-            GeneralServ.setPreviosPage();
+          if (OrderStor.order.products.length ){
+            $timeout(function () {
 
-            $location.path('/cart');
-            GlobalStor.global.currOpenPage = 'cart';
-          }, 100);
+              //------- set previos Page
+              GeneralServ.setPreviosPage();
+
+              $location.path("/cart");
+              GlobalStor.global.currOpenPage = 'cart';
+            }, 100);
+          }
         }
 
 

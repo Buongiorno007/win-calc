@@ -7,6 +7,7 @@
 
       function ($filter,
                 $timeout,
+                loginServ,
                 globalConstants,
                 DesignServ,
                 LightServ,
@@ -148,15 +149,6 @@
           DesignServ.initAllGlassXGlass();
         }, 50);
 
-        function addProdQty() {
-          GlobalStor.global.product_qty++;
-        }
-
-        function subtractProdQty() {
-          if (GlobalStor.global.product_qty > 1) {
-            GlobalStor.global.product_qty--;
-          }
-        }
 
         function closeAttantion() {
           GlobalStor.global.isTest = 0;
@@ -168,7 +160,8 @@
         function saveProduct() {
           LightServ.designSaved();
         }
-        function goToCart(){
+
+        function goToCart() {
           MainServ.createNewProduct();
           CartMenuServ.calculateOrderPrice();
           CartMenuServ.joinAllAddElements();
@@ -177,10 +170,11 @@
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 1;
         }
+
         function saveAddElems() {
           GlobalStor.global.showCoefInfoBlock = 0;
           GlobalStor.global.continued = 0;
-          if(MainServ.inputProductInOrder()){
+          if (MainServ.inputProductInOrder()) {
             //--------- moving to Cart when click on Cart button
             goToCart();
           }
@@ -256,12 +250,29 @@
           }
         }
 
+
         function checkForAddElem() {
+          if (GlobalStor.global.locations.cities.length === 1) {
+            loginServ.downloadAllCities(1);
+          }
+          if (!GlobalStor.global.isChangedTemplate) {
+            GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+          }
+          console.log('sdassadsad');
           if (!ProductStor.product.is_addelem_only) {
             alert();
             if (GlobalStor.global.dangerAlert < 1) {
               if (ProductStor.product.beadsData.length > 0) {
-                saveProduct();
+                if (OrderStor.order.products.length === 0) {
+                  saveProduct();
+                } else if (GlobalStor.global.isNewTemplate === 1) {
+                  saveProduct();
+                } else if (GlobalStor.global.isChangedTemplate === 0) {
+                  //  ALERT
+                  GlobalStor.global.isNoChangedProduct = 1;
+                } else {
+                  saveProduct();
+                }
               } else {
                 GeneralServ.isErrorProd(
                   $filter('translate')('common_words.ERROR_PROD_BEADS')
@@ -273,9 +284,11 @@
           }
         }
 
+
+        $(".prodcounter").change(function () {
+          console.log("Handler for .keypress() called.");
+        });
         /**========== FINISH ==========*/
-        thisCtrl.addProdQty = addProdQty;
-        thisCtrl.subtractProdQty = subtractProdQty;
         thisCtrl.closeAttantion = closeAttantion;
         thisCtrl.saveProduct = saveProduct;
         thisCtrl.showCartTemplte = showCartTemplte;
@@ -289,6 +302,8 @@
         thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;
         thisCtrl.closeDoorConfig = LightServ.closeDoorConfig;
         thisCtrl.saveDoorConfig = LightServ.saveDoorConfig;
+        thisCtrl.addProdQty = LightServ.addProdQty;
+        thisCtrl.subtractProdQty = LightServ.subtractProdQty;
 
         thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
 

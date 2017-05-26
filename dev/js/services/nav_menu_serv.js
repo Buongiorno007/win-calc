@@ -110,7 +110,7 @@
        }*/
       //------- set previos Page
       GeneralServ.setPreviosPage();
-      $location.path('/history');
+      $location.path("/history");
     }
 
 

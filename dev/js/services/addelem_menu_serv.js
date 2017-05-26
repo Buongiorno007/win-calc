@@ -174,6 +174,11 @@
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
 
           newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
+          if (newElementSize === 0) {
+            newElementSize = 1;
+            AuxStor.aux.tempSize.splice(0,AuxStor.aux.tempSize.length);
+            AuxStor.aux.tempSize.push(newElementSize);
+          }
           if (GlobalStor.global.isQtyCalculator) {
             ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
           } else if (GlobalStor.global.isSizeCalculator) {
@@ -361,7 +366,6 @@
           gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
           gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
           gridTemp.block_id = blockId;
-          console.log(ProductStor.product.template.details[blockIndex]);
           return gridTemp;
         }
 

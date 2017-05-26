@@ -112,21 +112,21 @@
         }
 
         preloadImages([
-          "img/room/1.png",
-          "img/room/4.png",
-          "img/room/6.png",
-          "img/room/7.png",
-          "img/room/8.png",
-          "img/room/9.png",
-          "img/room/10.png",
-          "img/room/11.png",
-          "img/room/12.png",
-          "img/room/26.png",
-          "img/room/121.png",
-          "img/room/122.png",
-          "img/room/123.png",
-          "img/room/fon.jpg",
-          "img/room/3333.png"
+          "./img/room/1.png",
+          "./img/room/4.png",
+          "./img/room/6.png",
+          "./img/room/7.png",
+          "./img/room/8.png",
+          "./img/room/9.png",
+          "./img/room/10.png",
+          "./img/room/11.png",
+          "./img/room/12.png",
+          "./img/room/26.png",
+          "./img/room/121.png",
+          "./img/room/122.png",
+          "./img/room/123.png",
+          "./img/room/fon.jpg",
+          "./img/room/3333.png"
         ]);
 
         /**============ METHODS ================*/
@@ -161,29 +161,27 @@
               GlobalStor.global.startSlider = 0;
               //console.timeEnd('prog');
 
-              $location.path('/main');
-              GlobalStor.global.currOpenPage = '/main';
+              $location.path("/main");
+              GlobalStor.global.currOpenPage = 'main';
             }
             /** !!!! **/
-            // GlobalStor.global.loadDate = new Date();
-            //
-            // var global = LZString.compress(JSON.stringify(GlobalStor.global));
-            // var product = LZString.compress(JSON.stringify(ProductStor.product));
-            // var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
-            // var design = LZString.compress(JSON.stringify(DesignStor.design));
-            // var aux = LZString.compress(JSON.stringify(AuxStor.aux));
-            // var order = LZString.compress(JSON.stringify(OrderStor.order));
-            // var history = LZString.compress(JSON.stringify(HistoryStor.history));
-            //
-            // localStorage.clear();
-            //
-            // localStorage.setItem('GlobalStor', global);
-            // localStorage.setItem('ProductStor', product);
-            // localStorage.setItem('UserStor', userInfo);
-            // localStorage.setItem('AuxStor', aux);
-            // localStorage.setItem('DesignStor', design);
-            // localStorage.setItem('OrderStor', order);
-            // localStorage.setItem('HistoryStor', history);
+            GlobalStor.global.loadDate = new Date();
+
+            var global = LZString.compress(JSON.stringify(GlobalStor.global));
+            var product = LZString.compress(JSON.stringify(ProductStor.product));
+            var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+            var design = LZString.compress(JSON.stringify(DesignStor.design));
+            var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+            var order = LZString.compress(JSON.stringify(OrderStor.order));
+
+            localStorage.clear();
+
+            localStorage.setItem('GlobalStor', global);
+            localStorage.setItem('ProductStor', product);
+            localStorage.setItem('UserStor', userInfo);
+            localStorage.setItem('AuxStor', aux);
+            localStorage.setItem('DesignStor', design);
+            localStorage.setItem('OrderStor', order);
 
           });
         }
@@ -495,9 +493,9 @@
             ],
             accessQty = accessArr.length,
             isCustomer = 0;
-          // if (checkSavedData()) {
-          //   fastEnter(url);
-          // } else {
+          if (checkSavedData()) {
+            fastEnter(url);
+          } else {
             if (url.access) {
               //setTimeout(function () {
               while (accessQty > -1) {
@@ -549,7 +547,7 @@
                 }
               });
             }
-          // }
+          }
         }
 
 
@@ -980,7 +978,7 @@
                 $location.path('/change-lang');
               }, 1);
               $timeout(function () {
-                $location.path('/');
+                $location.path("/");
               }, 1);
               GlobalStor.global.gotoSettingsPage = 1;
             }
@@ -1000,18 +998,17 @@
           var design = localStorage.getItem("DesignStor");
           var user = localStorage.getItem("UserStor");
           var global = localStorage.getItem("GlobalStor");
-          var history = localStorage.getItem("HistoryStor");
 
-          if (order && product && aux && design && user && global && history) {
+          if (product && user && global && design && order && aux) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
             if ((curDate === checkDate)) {
               console.log("типа все ок");
+              MainServ.createOrderData();
               return true;
             } else {
               localStorage.clear();
-
               UserStor.userInfo = UserStor.setDefaultUser();
               GlobalStor.global = GlobalStor.setDefaultGlobal();
               OrderStor.order = OrderStor.setDefaultOrder();
@@ -1020,7 +1017,6 @@
               HistoryStor.history = HistoryStor.setDefaultHistory();
               $location.path('/');
               console.log("разные даты");
-
               return false;
             }
           } else {

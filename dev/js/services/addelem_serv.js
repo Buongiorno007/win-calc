@@ -157,6 +157,7 @@
     /**------------- Select Add Element Parameter --------------*/
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
+      console.log(groupId, toolsId, elementIndex);
       var currElem;
       DesignStor.design.minSizeLimit = 0;
       if(ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size) {
@@ -319,6 +320,7 @@
           AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
+      GlobalStor.global.isChangedTemplate = 1;
     }
     /**----------- Select Add Element when open List View ------------*/
 

@@ -2,8 +2,9 @@
   @extend .menu-right-general;
   height: 100%;
   .item {
+    padding: 0 2.75rem 0 0;
     &.active {
-      background-color: rgba(0,0,0,0.07);
+      background-color: rgba(0, 0, 0, 0.07);
       &:before {
         @extend .icon-setting;
         @include font-icon(rem(84px), 1);
@@ -18,31 +19,41 @@
       }
     }
     &.hov:hover {
-      background-color: rgba(0,0,0,0.07);
+      background-color: rgba(0, 0, 0, 0.07);
       margin-left: -2.75rem !important;
       padding-left: 2.75rem !important;
     }
   }
   .item-header {
-    min-height: rem(360px);
+    min-height: rem(300px);
   }
-  .name{
-    padding-top : 5px;
+  .name {
+    padding-top: 1px;
+    width: auto;
   }
   .title {
-    margin: rem(10px) 0;
+    margin: rem(5px) 0;
     color: $main_orange;
   }
   .icon {
     @extend .splash;
-
     height: rem(120px);
     margin: rem(20px) 0;
     img {
       max-height: 100%;
     }
   }
-
+  .value {
+    padding-top: 1px;
+    margin: 0;
+    width: auto;
+    display: inline-block;
+  }
+  .right-desc {
+    display: inline-block;
+    float: right;
+    width: 40%;
+  }
   .additional-items-list {
     @include overflow-scroll();
     max-height: 18rem;
@@ -62,14 +73,19 @@
     @extend .splash;
     @include roboto-lt(rem(36px), rem(60px));
 
-    position: absolute;
-    top: rem(-20px);
-    right: rem(-10px);
+    position: relative;
+    top: -2rem;
+    left: 1rem;
+    z-index: 1;
     width: rem(60px);
     height: rem(60px);
-    color: #8c8c8c;
+    color: white;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: $main_orange;
+    display: inline-block;
+    &.active{
+      left: -3.5rem;
+    }
   }
   //---- for Add Elements only
   .curtain {
@@ -83,12 +99,14 @@
   }
 
   .product-u-coeff {
-    @include roboto-lt(rem(32px));
-    width:auto;
-    top: 18rem;
-    left: 3rem;
+    @include roboto-lt(rem(35px));
+    width: auto;
+    //top: 18rem;
+    //left: 3rem;
     position: absolute;
-    margin: 1.3rem 0 1rem 0;
+    top: 79rem;
+    left: 10rem;
+    margin: 0;
     text-align: center;
     background-color: transparent;
     color: $main_green;
@@ -97,6 +115,120 @@
     &.coeff-low {
       @extend .coeff-low;
     }
+  }
+  .counter-main-page {
+    position: relative;
+    top: 1rem;
+    width: 100%;
+    height: auto;
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      border-radius: 5px;
+    }
+    .counter-block {
+      text-align: center;
+      position: relative;
+      top: 0rem;
+      p {
+        @include roboto-lt(rem(36px));
+        color: $main_gray_txt;
+        width: auto;
+        margin: .6rem 0 0 0;
+        float: left;
+        display: inline-block;
+      }
+    }
+
+    .counter {
+      width: 45%;
+      height: 5rem;
+      display: inline-block;
+      float: right;
+      input {
+        @include roboto-lt(rem(36px), rem(60px));
+        text-align: center;
+        border: 1px solid #b1b1b1;
+        width: 5rem;
+      }
+    }
+    .input-minus, .input-plus {
+      cursor: pointer;
+      position: relative;
+      top: -2rem;
+      //margin-left: .1rem;
+      //margin-right: .1rem;
+    }
+    .input-minus {
+      @include roboto-lt(rem(90px));
+      float: left;
+      color: $main_gray_btn;
+
+    }
+    .input-plus {
+      @include roboto-lt(rem(90px));
+      float: right;
+      color: $main_green;
+    }
+  }
+  .prodCounter {
+    border-radius: 5px !important;
+    box-shadow: inset 1px 1px 1px 0px $main_gray_btn;
+  }
+  .cart-btns{
+    width: 130%;
+    display: inline-flex;
+    margin: 2rem 0 1rem 0;
+    position : relative;
+    left : 4rem;
+    &.active{
+      transition: all 1s ease;
+      left : 0;
+    }
+  ;
+  }
+  .go-to-cart, .save-to-cart {
+    cursor: pointer;
+    border-radius: 1rem;
+    display: inline-block;
+    position: relative;
+    top : 0;
+    height : 5rem;
+    img {
+      width: 4.5rem;
+      height: 4.5rem;
+      padding : .5rem;
+      position : relative;
+      left : .7rem;
+      top : -.2rem !important;
+      background-size: contain;
+    }
+  }
+
+  .save-to-cart {
+    background-color: $main_orange;
+    display: inline-flex;
+    width : 20rem;
+    .save-to-cart-p {
+      display: inline-block;
+      width: 100%;
+      color: white;
+      @include roboto-lt(rem(35px));
+      position: relative;
+      margin : 1rem
+    }
+    img {
+      float : left;
+      margin : .5rem;
+      position : relative;
+      top : -.1rem;
+
+    }
+
+  }
+  .go-to-cart {
+    width: 25%;
   }
 
   /** Tooltip */

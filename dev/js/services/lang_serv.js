@@ -14,8 +14,8 @@
       //console.info('language', query);
       if(isDevice) {
         path = window.location.href.replace('/index.html', '');
-        if(path.indexOf('#/change-lang')+1) {
-          path = path.replace('#/change-lang', '');
+        if(path.indexOf('/change-lang')+1) {
+          path = path.replace('/change-lang', '');
         }
         //console.log('query', path, query);
         //alert(path + query);

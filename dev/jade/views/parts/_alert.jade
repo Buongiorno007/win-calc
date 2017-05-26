@@ -28,5 +28,12 @@
         section.loginPage
       button.alert-no(ng-click="alertBox.noSync()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_N }}
       button.alert-yes(ng-click="alertBox.syncNow()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_Y }}
-
+.alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isNoChangedProduct")
+  .alert-block
+    .alert-descr Вы уже сохранили данную конструкцию.
+    .alert-btns
+      .thisAlert
+        section.loginPage
+      //button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}
+      button.alert-yes(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.OK }}
 

@@ -98,6 +98,7 @@
     }
 
     function findInput(idElement) {
+      console.log("2");
       $timeout(function() {
         $('#'+idElement).find('input').focus();
       }, 100);
@@ -206,7 +207,7 @@
       ProductStor.product = ProductStor.setDefaultProduct();
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
       HistoryStor.history = HistoryStor.setDefaultHistory();
-      $location.path('/');
+      $location.path("/");
       GlobalStor.global.currOpenPage = '/';
     }
 

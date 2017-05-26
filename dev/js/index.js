@@ -11,11 +11,13 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     isDevice = 0;
   }
 //console.log("isDevice",isDevice);
+  // Test via a getter in the options object to see if the passive property is accessed
+
   window.onload = function () {
     if (!isDevice) {
-
-      location.hash = "/";
-      var obj = document.getElementById('main-frame'),
+      // location.hash = "/";
+      // var obj = document.getElementById('main-frame'),
+      var obj = $('#main-frame')[0],
         width = $(obj).width(),
         height = $(obj).height();
       var scale = 1;
@@ -121,7 +123,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     //  enabled: true,
     //  requireBase: false
     //});
-
+    // $locationProvider.html5Mode(true).hashPrefix('!');
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
@@ -176,7 +178,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       .otherwise({
         redirectTo: '/'
       });
-
+    $locationProvider.hashPrefix('');
 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
     $httpProvider.defaults.useXDomain = true;

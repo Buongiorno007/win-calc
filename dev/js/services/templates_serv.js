@@ -6,6 +6,7 @@
     .factory('TemplatesServ',
 
       function ($filter,
+                $location,
                 GeneralServ,
                 MainServ,
                 DesignServ,
@@ -24,14 +25,21 @@
 
 
         function culcPriceNewTemplate(templateIndex) {
+          ProductStor.product.chosenAddElements.forEach(function (addElem) {
+            addElem.splice(0, addElem.length);
+          });
+          ProductStor.product.addelem_price = 0;
+          ProductStor.product.addelemPriceDis = 0;
           if (ProductStor.product.construction_type === 4) {
             ProductStor.product.template_id = DesignStor.design.template_id;
             DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
             DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
-            DesignServ.setDoorConfigDefault(ProductStor.product);
+            DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
+              ProductStor.product = angular.copy(result);
+            });
           } else {
             ProductStor.product.template_id = DesignStor.design.template_id;
-            MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
+            MainServ.setCurrentProfile(ProductStor.product, 0).then(function () {
               MainServ.saveTemplateInProduct(templateIndex).then(function (result) {
                 MainServ.setCurrentHardware(ProductStor.product);
                 DesignServ.setDefaultConstruction();
@@ -91,11 +99,23 @@
 
         //---------- select new template and recalculate it price
         function selectNewTemplate(templateIndex, roomInd, whoCalled) {
+          GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+          ProductStor.product.room_id = templateIndex;
+
           function goToNewTemplate() {
+            if (!GlobalStor.global.isLightVersion) {
+
+              if ($location.path() !== "/design") {
+                $location.path("/design");
+              }
+            }
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();
+            GlobalStor.global.isNewTemplate = 1;
             //-------- check changes in current template
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+            // GlobalStor.global.isChangedTemplate = 1;
+
             if (!whoCalled) {
               ProductStor.product.construction_type = GlobalStor.global.templatesType;
             } else {
@@ -109,16 +129,17 @@
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
                 GlobalStor.global.product_qty = 1;
-                  if (whoCalled === 'main') {
-                    newPriceForNewTemplate(templateIndex, roomInd);
-                  } else {
-                    culcPriceNewTemplate(templateIndex);
-                  }
+                if (whoCalled === 'main') {
+                  newPriceForNewTemplate(templateIndex, roomInd);
+                } else {
+                  culcPriceNewTemplate(templateIndex);
+                }
               }
               setTimeout(function () {
                 DesignServ.rebuildSVGTemplate();
-              },500);
+              }, 500);
             });
+            GlobalStor.global.activePanel = 0;
           }
 
           if (GlobalStor.global.isChangedTemplate) {
