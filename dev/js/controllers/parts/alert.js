@@ -14,14 +14,24 @@
     thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
     thisCtrl.BUTTON_E = $filter('translate')('common_words.BUTTON_E');
     thisCtrl.OK       = $filter('translate')('common_words.OK');
+    thisCtrl.SAVED_KONSTRUCTION  = $filter('translate')('common_words.SAVED_KONSTRUCTION');
 
 
     /**============ METHODS ================*/
 
     function clickYes() {
+      console.log("clickYes");
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isSyncAlert = 0;
+      GlobalStor.global.isSavingAlert = 0;
       GlobalStor.global.confirmAction();
+    }
+    function clickNo() {
+      console.log("clickNo");
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.isSyncAlert = 0;
+      GlobalStor.global.isSavingAlert = 0;
+      GlobalStor.global.confirmInActivity();
     }
     function clickCopy() {
       GlobalStor.global.isAlert = 0;
@@ -49,6 +59,7 @@
     /**========== FINISH ==========*/
     thisCtrl.isAlert = isAlert;
     thisCtrl.clickYes = clickYes;
+    thisCtrl.clickNo = clickNo;
     thisCtrl.clickCopy = clickCopy;
     thisCtrl.syncNow = syncNow;
     thisCtrl.noSync = noSync;

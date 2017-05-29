@@ -62,9 +62,9 @@
       .save-to-cart(ng-click="configMenu.checkForAddElem()",ng-class="{'active': configMenu.O.order.products.length}")
         img(src="./img/config-menu/arrow.svg")
         p.save-to-cart-p {{configMenu.SAVE}}
-      .go-to-cart(ng-click="configMenu.goToCart()")
+      .go-to-cart(ng-click="configMenu.checkSavingProduct()")
         img(src="./img/config-menu/cart_active.svg")
-      .qty.unvisible(show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}",ng-click="configMenu.goToCart()",ng-class="{'active': configMenu.O.order.products.length}") {{ configMenu.G.global.construction_count }}
+      .qty#qty.unvisible(show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}",ng-click="configMenu.goToCart()",ng-class="{'active': configMenu.O.order.products.length}") {{ configMenu.G.global.construction_count }}
 
   //  div
 

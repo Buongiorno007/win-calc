@@ -34,7 +34,9 @@
     "BACK": "Wstecz",
     "PRINT": "Drukuj",
     "LETTER_M": "m",
-    "COUNT": "liczba"
+    "COUNT": "liczba",
+    "SAVED_KONSTRUCTION" : "Konstrukcja z danego zestawu parametrów jest przechowywany.",
+    "SAVE_OR_NO" : "Aby utrzymać obecną strukturę?"
   },
   "login": {
     "ENTER": "Zaloguj się",

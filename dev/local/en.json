@@ -32,7 +32,9 @@
     "BACK": "Back",
     "PRINT": "To print",
     "LETTER_M": "m",
-    "COUNT": "Amount"
+    "COUNT": "Amount",
+    "SAVED_KONSTRUCTION" : "The construction with this set of parameters is saved.",
+    "SAVE_OR_NO" : "Do you want to save the current construction?"
   },
   "natification": {
     "ASKING_PRICE": "Check rates",
