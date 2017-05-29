@@ -14,7 +14,6 @@
                 globalConstants,
                 GeneralServ,
                 optionsServ,
-
                 GlobalStor,
                 ProductStor,
                 OrderStor,
@@ -511,6 +510,7 @@
               return margins;
             });
         }
+
         function downloadOptionsCoefficients() {
           return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'area_price, area_currencies,perimeter_price,perimeter_currencies,piece_price,piece_currencies')
             .then(function (coeffs) {
@@ -985,7 +985,11 @@
             });
           $q.all(promises).then(function (result) {
             if (result[18]) {
-              result[6] = result[6].concat(result[18])
+              if (Array.isArray(result[6])) {
+                result[6] = result[6].concat(result[18])
+              } else {
+                result[6] = result[18];
+              }
             }
             var addKits = angular.copy(result),
               resultQty = addKits.length,
@@ -1526,12 +1530,12 @@
                             GlobalStor.global.profiles
                           ).then(function (data) {
                             downloadOptionsCoefficients().then(function (coef) {
-                              GlobalStor.global.area_currencies=coef[0].area_currencies;
-                              GlobalStor.global.area_price=coef[0].area_price;
-                              GlobalStor.global.perimeter_currencies=coef[0].perimeter_currencies;
-                              GlobalStor.global.perimeter_price=coef[0].perimeter_price;
-                              GlobalStor.global.piece_currencies=coef[0].piece_currencies;
-                              GlobalStor.global.piece_price=coef[0].piece_price;
+                              GlobalStor.global.area_currencies = coef[0].area_currencies;
+                              GlobalStor.global.area_price = coef[0].area_price;
+                              GlobalStor.global.perimeter_currencies = coef[0].perimeter_currencies;
+                              GlobalStor.global.perimeter_price = coef[0].perimeter_price;
+                              GlobalStor.global.piece_currencies = coef[0].piece_currencies;
+                              GlobalStor.global.piece_price = coef[0].piece_price;
                             });
                             if (data) {
                               if (GlobalStor.global.ISEXT) {

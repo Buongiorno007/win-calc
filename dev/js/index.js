@@ -15,7 +15,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
   window.onload = function () {
     if (!isDevice) {
-      // location.hash = "/";
+      location.hash = "/";
       // var obj = document.getElementById('main-frame'),
       var obj = $('#main-frame')[0],
         width = $(obj).width(),

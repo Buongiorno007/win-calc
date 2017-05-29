@@ -128,6 +128,7 @@
         function checkForAddElem() {
           // console.log(ProductStor.product.report);
           // ProductStor.product.template_source.report = ProductStor.product.report;
+
           if (GlobalStor.global.locations.cities.length === 1) {
             loginServ.downloadAllCities(1);
           }
@@ -136,11 +137,13 @@
             if (GlobalStor.global.dangerAlert < 1) {
               if (ProductStor.product.beadsData.length > 0) {
                 if (OrderStor.order.products.length === 0) {
+                  $('#qty').hide().show(0);
                   saveProduct();
                 } else if (GlobalStor.global.isChangedTemplate === 0) {
                   //  ALERT
                   GlobalStor.global.isNoChangedProduct = 1;
                 } else {
+                  $('#qty').hide().show(0);
                   saveProduct();
                 }
               } else {
@@ -207,6 +210,30 @@
           }
         }
 
+        function saveProdAndGoToCart() {
+          checkForAddElem();
+          MainServ.goToCart();
+        }
+        function saveAlert(){
+          GeneralServ.confirmAlert(
+            $filter('translate')('common_words.SAVE_OR_NO'),
+            $filter('translate')('  '),
+            saveProdAndGoToCart
+          );
+          GeneralServ.confirmPath(
+            MainServ.goToCart
+          );
+        }
+        function checkSavingProduct() {
+          GlobalStor.global.isBox = 0;
+          if (GlobalStor.global.isChangedTemplate) {
+            GlobalStor.global.isSavingAlert = 1;
+            saveAlert();
+          } else {
+            MainServ.goToCart();
+          }
+        }
+
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -214,14 +241,15 @@
         thisCtrl.configButton = configButton;
         thisCtrl.karkasButton = karkasButton;
         thisCtrl.setCount = setCount;
-
-        thisCtrl.addProdQty = LightServ.addProdQty;
-        thisCtrl.subtractProdQty = LightServ.subtractProdQty;
-        thisCtrl.autoShowInfoBox = InfoBoxServ.autoShowInfoBox;
         thisCtrl.inputProductInOrder = saveProduct;
         thisCtrl.showNextTip = showNextTip;
         thisCtrl.alert = alert;
         thisCtrl.checkForAddElem = checkForAddElem;
+        thisCtrl.checkSavingProduct = checkSavingProduct;
+
+        thisCtrl.addProdQty = LightServ.addProdQty;
+        thisCtrl.subtractProdQty = LightServ.subtractProdQty;
+        thisCtrl.autoShowInfoBox = InfoBoxServ.autoShowInfoBox;
         thisCtrl.selectConfigPanel = ConfigMenuServ.selectConfigPanel;
         thisCtrl.goToCart = MainServ.goToCart;
 

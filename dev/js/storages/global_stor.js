@@ -14,6 +14,7 @@
         }
         thisFactory.publicObj = {
           globalSource: {
+            isSavingAlert : 0,
             isNoChangedProduct : 0,
             isTest: 0,
             isDesignError: 0,

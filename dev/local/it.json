@@ -33,7 +33,9 @@
     "BACK": "Back",
     "PRINT": "Visualizzazione",
     "LETTER_M": "m",
-    "COUNT": "Numero"
+    "COUNT": "Numero",
+    "SAVED_KONSTRUCTION" : "Il design con un dato insieme di parametri viene memorizzato.",
+    "SAVE_OR_NO" : "Per mantenere l'attuale struttura?"
   },
   "natification": {
     "ASKING_PRICE": "Controlla i prezzi",

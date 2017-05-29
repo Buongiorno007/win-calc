@@ -27,6 +27,7 @@
         function addNewProductInOrder() {
           //------- set previos Page
           CartStor.cart.showCurrentTemp = 0;
+          GlobalStor.global.isNewTemplate = 1;
           GlobalStor.global.product_qty = 1;
           GeneralServ.setPreviosPage();
           //=============== CREATE NEW PRODUCT =========//

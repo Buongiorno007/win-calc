@@ -32,7 +32,9 @@
     "BACK": "Înapoi",
     "PRINT": "Print View",
     "LETTER_M": "m",
-    "COUNT": "număr"
+    "COUNT": "număr",
+    "SAVED_KONSTRUCTION" : "Design-ul cu un anumit set de parametri este stocat.",
+    "SAVE_OR_NO" : "Pentru a păstra structura actuală?"
   },
   "natification": {
     "ASKING_PRICE": " Verificați tarifele",

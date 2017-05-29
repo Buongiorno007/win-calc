@@ -32,7 +32,9 @@
     "PRINT": "Druckansicht",
     "BACK": "Back",
     "LETTER_M": "m",
-    "COUNT": "Anzahl"
+    "COUNT": "Anzahl",
+    "SAVED_KONSTRUCTION" : "Das Design mit einem bestimmten Satz von Parametern gespeichert.",
+    "SAVE_OR_NO" : "Um die aktuelle Struktur zu behalten? "
   },
   "natification": {
     "ASKING_PRICE": "Preise überprüfen",

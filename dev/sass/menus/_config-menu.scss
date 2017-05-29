@@ -189,6 +189,7 @@
   ;
   }
   .go-to-cart, .save-to-cart {
+    @extend .splash;
     cursor: pointer;
     border-radius: 1rem;
     display: inline-block;
@@ -229,6 +230,9 @@
   }
   .go-to-cart {
     width: 25%;
+  }
+  #qty{
+    @extend .splash;
   }
 
   /** Tooltip */
