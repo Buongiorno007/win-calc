@@ -62,6 +62,7 @@
 
         function deselectAllGlass() {
           DesignStor.design.selectedGlass.length = 0;
+          GlobalStor.global.showAllGlass = 0;
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass').classed('glass-active', false);
         }
 
@@ -1370,6 +1371,9 @@
                   closeSizeCaclulator();
                   cleanTempSize();
                 } else {
+                  // if (GlobalStor.global.showAllGlass) {
+                  //   deselectAllGlass();
+                  // }
                   //========= select glass
                   var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                     blockID = glass[0][0].attributes.block_id.nodeValue;

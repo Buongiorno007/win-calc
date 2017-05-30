@@ -135,6 +135,8 @@
         /**++++++++++ Edit Sash ++++++++++*/
 
         function showAllAvailableGlass(menuId) {
+          console.log("showAllAvailableGlass");
+          GlobalStor.global.showAllGlass = 1;
           DesignStor.design.activeSubMenuItem = menuId;
           if (!DesignStor.design.selectedGlass.length) {
             //----- show all glasses
