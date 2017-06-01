@@ -1321,8 +1321,8 @@
             /** door_type_index === 0 - рама по периметру
              *  door_type_index === 1 - без порога
              *  door_type_index === 3 - алюминиевый порог*/
-            shapeIndex = ProductStor.product.door_type_index;
           }
+            shapeIndex = ProductStor.product.door_type_index;
 
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {

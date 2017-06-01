@@ -135,7 +135,6 @@
         /**++++++++++ Edit Sash ++++++++++*/
 
         function showAllAvailableGlass(menuId) {
-          console.log("showAllAvailableGlass");
           GlobalStor.global.showAllGlass = 1;
           DesignStor.design.activeSubMenuItem = menuId;
           if (!DesignStor.design.selectedGlass.length) {
@@ -410,7 +409,7 @@
         /**-------- Select menu item ---------*/
 
         function selectMenuItem(id) {
-          GlobalStor.global.activePanel = 0;
+          // GlobalStor.global.activePanel = 0;
           if (DesignStor.design.tempSize.length) {
             //----- finish size culculation
             DesignServ.closeSizeCaclulator();
@@ -488,7 +487,7 @@
 
         function showTemplates() {
           if (GlobalStor.global.activePanel) {
-            GlobalStor.global.activePanel = 0;
+            // GlobalStor.global.activePanel = 0;
             DesignServ.initAllImposts();
             DesignServ.initAllGlass();
             DesignServ.initAllArcs();

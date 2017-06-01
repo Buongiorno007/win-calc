@@ -20,14 +20,12 @@
     /**============ METHODS ================*/
 
     function clickYes() {
-      console.log("clickYes");
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.isSavingAlert = 0;
       GlobalStor.global.confirmAction();
     }
     function clickNo() {
-      console.log("clickNo");
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.isSavingAlert = 0;
