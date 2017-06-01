@@ -73,14 +73,16 @@
         //------- Select menu item
 
 
-        function saveProduct() {
+        function saveProduct(go_to_cart) {
           GlobalStor.global.showCoefInfoBlock = 0;
           GlobalStor.global.continued = 0;
           ProductStor.product.product_qty = GlobalStor.global.product_qty;
 
           if (MainServ.inputProductInOrder()) {
             //--------- moving to Cart when click on Cart button
-            // MainServ.goToCart();
+            if(go_to_cart){
+            MainServ.goToCart();
+            }
             GlobalStor.global.construction_count = 0;
             OrderStor.order.products.forEach(function (product) {
               GlobalStor.global.construction_count += product.product_qty;
@@ -125,7 +127,7 @@
           }
         }
 
-        function checkForAddElem() {
+        function checkForAddElem(go_to_cart) {
           // console.log(ProductStor.product.report);
           // ProductStor.product.template_source.report = ProductStor.product.report;
 
@@ -138,13 +140,13 @@
               if (ProductStor.product.beadsData.length > 0) {
                 if (OrderStor.order.products.length === 0) {
                   $('#qty').hide().show(0);
-                  saveProduct();
+                  saveProduct(go_to_cart);
                 } else if (GlobalStor.global.isChangedTemplate === 0) {
                   //  ALERT
                   GlobalStor.global.isNoChangedProduct = 1;
                 } else {
                   $('#qty').hide().show(0);
-                  saveProduct();
+                  saveProduct(go_to_cart);
                 }
               } else {
                 GeneralServ.isErrorProd(
@@ -210,9 +212,8 @@
           }
         }
 
-        function saveProdAndGoToCart() {
+        function saveProdAndGoToCart(go_to_cart) {
           checkForAddElem();
-          MainServ.goToCart();
         }
         function saveAlert(){
           GeneralServ.confirmAlert(

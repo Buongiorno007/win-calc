@@ -110,7 +110,6 @@
         /**========== Send Order to Factory ========*/
 
         function orderToFactory(orderStyle, orderNum) {
-          function sendOrder() {
             var ordersQty = HistoryStor.history.orders.length, ord;
             for (ord = 0; ord < ordersQty; ord += 1) {
               if (HistoryStor.history.orders[ord].id === orderNum) {
@@ -124,17 +123,6 @@
               }
             }
             GlobalStor.global.isLoader = 0;
-          }
-
-          /** check user */
-          if (orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
-            GeneralServ.confirmAlert(
-              $filter('translate')('common_words.SEND_ORDER_TITLE'),
-              $filter('translate')('common_words.SEND_ORDER_TXT'),
-              sendOrder
-            );
-          }
-          GlobalStor.global.isLoader = 0;
         }
 
 
@@ -142,39 +130,50 @@
         function sendOrderToFactory(orderStyle, orderNum) {
           MainServ.getOnline();
           if (GlobalStor.global.onlineMode && navigator.onLine) {
-            GlobalStor.global.isLoader = 1
-            var check = [];
-            check = HistoryStor.history.firstClick.filter(function (item) {
-              return item === orderNum
-            });
-            if (check.length !== 0) {
-              //console.info('second click')
-              GlobalStor.global.isLoader = 0;
-              for (var x = 0; x < check.length; x += 1) {
-                if (check[x] !== orderNum) {
-                  HistoryStor.history.firstClick.push(orderNum);
+            //noinspection JSAnnotator
+            function sendOrder (){
+              GlobalStor.global.isLoader = 1
+              var check = [];
+              check = HistoryStor.history.firstClick.filter(function (item) {
+                return item === orderNum
+              });
+              if (check.length !== 0) {
+                //console.info('second click')
+                GlobalStor.global.isLoader = 0;
+                for (var x = 0; x < check.length; x += 1) {
+                  if (check[x] !== orderNum) {
+                    HistoryStor.history.firstClick.push(orderNum);
+                  }
                 }
-              }
-            } else {
-              //console.info('first click')
-              HistoryStor.history.firstClick.push(orderNum);
-              var xhr = new XMLHttpRequest();
-              xhr.open('GET', globalConstants.serverIP + '/api/export?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&orderId=' + orderNum, false);
-              xhr.send();
-              if (xhr.status === 200) {
-                if (JSON.parse(xhr.response).status === true) {
-                  orderToFactory(orderStyle, orderNum);
-                  HistoryStor.history.resAPI = orderNum + 'doneOrder';
-                  GlobalStor.global.isLoader = 0;
+              } else {
+                //console.info('first click')
+                HistoryStor.history.firstClick.push(orderNum);
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', globalConstants.serverIP + '/api/export?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&orderId=' + orderNum, false);
+                xhr.send();
+                if (xhr.status === 200) {
+                  if (JSON.parse(xhr.response).status === true) {
+                    orderToFactory(orderStyle, orderNum);
+                    HistoryStor.history.resAPI = orderNum + 'doneOrder';
+                    GlobalStor.global.isLoader = 0;
+                  } else {
+                    GlobalStor.global.textErrorOrder = JSON.parse(xhr.response).error;
+                    GlobalStor.global.isLoader = 0;
+                    HistoryStor.history.resAPI = orderNum + 'errorOrder';
+                  }
                 } else {
-                  GlobalStor.global.textErrorOrder = JSON.parse(xhr.response).error;
                   GlobalStor.global.isLoader = 0;
                   HistoryStor.history.resAPI = orderNum + 'errorOrder';
                 }
-              } else {
-                GlobalStor.global.isLoader = 0
-                HistoryStor.history.resAPI = orderNum + 'errorOrder';
               }
+            }
+            /** check user */
+            if (orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
+              GeneralServ.confirmAlert(
+                $filter('translate')('common_words.SEND_ORDER_TITLE'),
+                $filter('translate')('common_words.SEND_ORDER_TXT'),
+                sendOrder
+              );
             }
           } else {
 
@@ -277,7 +276,6 @@
           } else {
             downloadOrderHistory().then(function () {
               defer.resolve(1);
-              console.log("reqResult defer.resolve ");
             });
           }
           return defer.promise;
@@ -558,7 +556,6 @@
           localDB.selectLocalDB(
             localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
           ).then(function (result) {
-            //console.log(result);
             var products = angular.copy(result);
             if (products.length) {
               //------------- parsing All Templates Source and Icons for Order
@@ -703,7 +700,6 @@
             },
             'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_max, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
           ).then(function (result) {
-            console.log('result', result);
             deferred.resolve(result);
           });
           return deferred.promise;
@@ -825,7 +821,7 @@
                 GlobalStor.global.isLoader = 0;
                 //console.warn('ORDER ====', OrderStor.order);
                 $location.path('/cart');
-                GlobalStor.global.currOpenPage = '/cart';
+                GlobalStor.global.currOpenPage = 'cart';
               });
             });
             function calculateWork(product) {
@@ -848,13 +844,11 @@
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
                         calculateWork(res);
                         OrderStor.order.products.push(res);
-
                         _callback();
                       });
                     } else {
                       calculateWork(products);
                       OrderStor.order.products.push(products);
-                      console.log(products);
                       _callback();
                     }
                   }
@@ -913,7 +907,6 @@
           HistoryStor.history.orders.forEach(function (entry, index) {
             try {
               if (entry.id === orderId) {
-                console.log("entry.modified", entry.modified);
                 entry.modified = entry.modified.substr(0, 10);
                 HistoryStor.history.historyID = index;
               }

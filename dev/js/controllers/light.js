@@ -165,7 +165,7 @@
           MainServ.createNewProduct();
           CartMenuServ.calculateOrderPrice();
           CartMenuServ.joinAllAddElements();
-          GlobalStor.global.activePanel = 0;
+          // GlobalStor.global.activePanel = 0;
           GlobalStor.global.showKarkas = 0;
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 1;

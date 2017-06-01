@@ -62,6 +62,7 @@
 
         function deselectAllGlass() {
           DesignStor.design.selectedGlass.length = 0;
+          GlobalStor.global.showAllGlass = 0;
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .glass').classed('glass-active', false);
         }
 
@@ -639,7 +640,7 @@
 
         //------- set click to all Dimensions
         function initAllDimension() {
-          GlobalStor.global.activePanel = 0;
+          // GlobalStor.global.activePanel = 0;
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
             .each(function () {
               var size = d3.select(this);
@@ -1202,8 +1203,9 @@
         function setDoorConfigDefault(product, editOrder) {
           var deferred = $q.defer();
           if (editOrder) {
-            DesignStor.design.templateTEMP = angular.copy(product.tempalte);
+            DesignStor.design.templateTEMP = angular.copy(product.template);
             DesignStor.design.templateSourceTEMP = angular.copy(product.template_source);
+            rebuildSVGTemplate();
           }
           DesignStor.design.steps.selectedStep3 = 0;
           DesignStor.design.steps.selectedStep4 = 0;
@@ -1216,6 +1218,7 @@
           //------ close door config
           DesignStor.design.steps.isDoorConfig = 0;
           //------ set Default indexes
+
           DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
 
           selectDoor(product.door_shape_id, product);
@@ -1224,7 +1227,7 @@
             selectLock(product.door_lock_shape_id, product);
             saveDoorConfig(product).then(function (res2) {
               SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, product.profileDepths).then(function (result) {
-                SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, product.profileDepths)
                   .then(function (result) {
                     ProductStor.product.templateIcon = angular.copy(result);
                   });
@@ -1370,6 +1373,9 @@
                   closeSizeCaclulator();
                   cleanTempSize();
                 } else {
+                  if (GlobalStor.global.showAllGlass) {
+                    deselectAllGlass();
+                  }
                   //========= select glass
                   var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                     blockID = glass[0][0].attributes.block_id.nodeValue;
