@@ -77,7 +77,10 @@
     "TEXT2": "Nieprawidłowy format, jest poza dopuszczalnym zakresem: ",
     "TEXT3": "Aby zapisać konstrukcję, proszę zmienić rozmiary.",
     "EDIT_HARDWARE": "Inne okucia",
-    "EDIT_SIZE": "Wróć do poprzedniego rozmiaru."
+    "EDIT_SIZE": "Wróć do poprzedniego rozmiaru.",
+    "ATENTION" : "UWAGA!",
+    "ATENTION_MSG1" : "To wyliczenie nie jest możliwe z powodu braku cen ",
+    "ATENTION_MSG2" : "Proszę wybrać inną konfigurację."
     },
   "mainpage": {
     "MM": " mm ",

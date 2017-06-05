@@ -66,6 +66,14 @@
     color: $main_yellow;
     content: $clocks-icon;
   }
+  .nav-icon-light:before {
+    color: $main_yellow;
+    content: $light-icon;
+  }
+  .nav-icon-logOut:before {
+    color: $main_gray_btn;
+    content: $logOut-icon;
+  }
   .nav-icon-geoLocation:before {
     color: $main_orange;
     content: $geolocation-icon;

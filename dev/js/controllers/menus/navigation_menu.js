@@ -13,10 +13,13 @@
     GeneralServ,
     NavMenuServ,
     MainServ,
+
+    UserStor,
     GlobalStor,
     OrderStor,
     ProductStor,
-    UserStor
+    AuxStor,
+    HistoryStor
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -42,6 +45,7 @@
 
     thisCtrl.NAVMENU_STANDART_VERSION = $filter('translate')('mainpage.NAVMENU_STANDART_VERSION');
     thisCtrl.NAVMENU_LIGHT_VER = $filter('translate')('mainpage.NAVMENU_LIGHT_VER');
+    thisCtrl.LOGOUT = $filter('translate')('settings.LOGOUT');
 
 
         /**============ METHODS ================*/
@@ -138,12 +142,24 @@
       NavMenuServ.clickNewProject();
     }
 
+    function logOut() {
+      localStorage.clear();
 
+      UserStor.userInfo = UserStor.setDefaultUser();
+      GlobalStor.global = GlobalStor.setDefaultGlobal();
+      OrderStor.order = OrderStor.setDefaultOrder();
+      ProductStor.product = ProductStor.setDefaultProduct();
+      AuxStor.aux = AuxStor.setDefaultAuxiliary();
+      HistoryStor.history = HistoryStor.setDefaultHistory();
+      $location.path("/");
+      GlobalStor.global.currOpenPage = '/';
+    }
 
 
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.logOut = logOut;
     thisCtrl.selectMenuItem = selectMenuItem;
     thisCtrl.clickNewProject = clickNewProject;
 

@@ -43,7 +43,10 @@
     "TEXT2": " al di là del campo ammesso: ",
     "TEXT3": ". Per salvare la progettazione di ridimensionamento.",
     "EDIT_HARDWARE": "Altri accessor",
-    "EDIT_SIZE": " Ritorna la dimensione del"
+    "EDIT_SIZE": " Ritorna la dimensione del",
+    "ATENTION" : "ATTENZIONE!",
+    "ATENTION_MSG1" : "Il calcolo non è possibile a causa della mancanza di prezzi ",
+    "ATENTION_MSG2" : "Si prega di selezionare una diversa configurazione."
   },
   "danger-alert": {
     "PRODUCT": "progetto",
