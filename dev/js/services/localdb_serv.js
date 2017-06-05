@@ -2417,7 +2417,6 @@
             //console.log('Тип округления: ' + currConsist.rounding_type);
             //console.log('Величина округления: ' + currConsist.rounding_value);
 
-
             /** if glass */
             if (objTmp.element_group_id === 9) {
               sizeReal = currSize;
@@ -2500,10 +2499,7 @@
             //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
             //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-
             //objTmp.priceReal = getLockalDbData(objTmp, priceReal);
-
-
             objTmp.priceReal = priceReal;
 
             objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
@@ -3244,7 +3240,7 @@
                   priceObj.kitsElem[k].priceReal = priceTemp;
                   priceObj.priceTotal += priceTemp;
                   priceObj.constrElements.push(priceObj.kitsElem[k]);
-                  //console.warn('constrElem!!!!!!+', priceObj.kitsElem[k]);
+                  // console.warn('constrElem!!!!!!+', priceObj.kitsElem[k]);
                 }
 
               }
@@ -3300,7 +3296,7 @@
                   }
                 }
                 priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-                //console.info('FINISH ADD ====:', priceObj);
+                // console.info('FINISH ADD ====:', priceObj);
                 //console.info('FINISH ADD ====:', JSON.stringify(priceObj.constrElements));
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
                 finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);

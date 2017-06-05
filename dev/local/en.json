@@ -42,7 +42,10 @@
     "TEXT2": " beyond the permitted range: ",
     "TEXT3": ". To save design resize.",
     "EDIT_HARDWARE": "Gibt die Größe des",
-    "EDIT_SIZE": "Return the size of the"
+    "EDIT_SIZE": "Return the size of the",
+    "ATENTION" : "ATTENTION!",
+    "ATENTION_MSG1" : "Calculation is not possible due to lack of price for ",
+    "ATENTION_MSG2" : "Please choose another configuration."
   },
   "danger-alert": {
     "PRODUCT": "construction",

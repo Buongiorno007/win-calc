@@ -65,6 +65,9 @@
         thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
         thisCtrl.COUNT = $filter('translate')('common_words.COUNT');
         thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+        thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
+        thisCtrl.ATENTION_MSG1 = $filter('translate')('natification.ATENTION_MSG1');
+        thisCtrl.ATENTION_MSG2 = $filter('translate')('natification.ATENTION_MSG2');
 
 
         /**============ METHODS ================*/
@@ -80,8 +83,8 @@
 
           if (MainServ.inputProductInOrder()) {
             //--------- moving to Cart when click on Cart button
-            if(go_to_cart){
-            MainServ.goToCart();
+            if (go_to_cart) {
+              MainServ.goToCart();
             }
             GlobalStor.global.construction_count = 0;
             OrderStor.order.products.forEach(function (product) {
@@ -130,33 +133,47 @@
         function checkForAddElem(go_to_cart) {
           // console.log(ProductStor.product.report);
           // ProductStor.product.template_source.report = ProductStor.product.report;
+          // if (!GlobalStor.global.isZeroPriceList.length) {
 
-          if (GlobalStor.global.locations.cities.length === 1) {
-            loginServ.downloadAllCities(1);
-          }
-          if (!ProductStor.product.is_addelem_only) {
-            alert();
-            if (GlobalStor.global.dangerAlert < 1) {
-              if (ProductStor.product.beadsData.length > 0) {
-                if (OrderStor.order.products.length === 0) {
-                  $('#qty').hide().show(0);
-                  saveProduct(go_to_cart);
-                } else if (GlobalStor.global.isChangedTemplate === 0) {
-                  //  ALERT
-                  GlobalStor.global.isNoChangedProduct = 1;
-                } else {
-                  $('#qty').hide().show(0);
-                  saveProduct(go_to_cart);
-                }
-              } else {
-                GeneralServ.isErrorProd(
-                  $filter('translate')('common_words.ERROR_PROD_BEADS')
-                );
-              }
+            if (GlobalStor.global.locations.cities.length === 1) {
+              loginServ.downloadAllCities(1);
             }
-          } else {
-            saveProduct();
-          }
+            if (!ProductStor.product.is_addelem_only) {
+              alert();
+              if (GlobalStor.global.dangerAlert < 1) {
+                if (ProductStor.product.beadsData.length > 0) {
+                  if (OrderStor.order.products.length === 0) {
+                    $('#qty').hide().show(0);
+                    saveProduct(go_to_cart);
+                  } else if (GlobalStor.global.isChangedTemplate === 0) {
+                    //  ALERT
+                    GlobalStor.global.isNoChangedProduct = 1;
+                  } else {
+                    $('#qty').hide().show(0);
+                    saveProduct(go_to_cart);
+                  }
+                } else {
+                  GeneralServ.isErrorProd(
+                    $filter('translate')('common_words.ERROR_PROD_BEADS')
+                  );
+                }
+              }
+            } else {
+              saveProduct();
+            }
+          // } else {
+          //   var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+          //   console.log(GlobalStor.global.isZeroPriceList);
+          //   GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+          //     msg += " "+ZeroElem+"\n";
+          //   });
+          //   msg += " \n"+thisCtrl.ATENTION_MSG2;
+          //   GeneralServ.infoAlert(
+          //     thisCtrl.ATENTION,
+          //     msg
+          //   );
+          // }
+
         }
 
         function showNextTip() {
@@ -215,7 +232,8 @@
         function saveProdAndGoToCart(go_to_cart) {
           checkForAddElem();
         }
-        function saveAlert(){
+
+        function saveAlert() {
           GeneralServ.confirmAlert(
             $filter('translate')('common_words.SAVE_OR_NO'),
             $filter('translate')('  '),
@@ -225,6 +243,7 @@
             MainServ.goToCart
           );
         }
+
         function checkSavingProduct() {
           GlobalStor.global.isBox = 0;
           if (GlobalStor.global.isChangedTemplate) {

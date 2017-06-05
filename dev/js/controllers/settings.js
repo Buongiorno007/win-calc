@@ -52,7 +52,6 @@
     thisCtrl.INSERT_PHONE = $filter('translate')('settings.INSERT_PHONE');
     thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
     thisCtrl.CLIENT_SUPPORT = $filter('translate')('settings.CLIENT_SUPPORT');
-    thisCtrl.LOGOUT = $filter('translate')('settings.LOGOUT');
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'settings';
@@ -197,19 +196,7 @@
 
 
 
-    function logOut() {
 
-      localStorage.clear();
-
-      UserStor.userInfo = UserStor.setDefaultUser();
-      GlobalStor.global = GlobalStor.setDefaultGlobal();
-      OrderStor.order = OrderStor.setDefaultOrder();
-      ProductStor.product = ProductStor.setDefaultProduct();
-      AuxStor.aux = AuxStor.setDefaultAuxiliary();
-      HistoryStor.history = HistoryStor.setDefaultHistory();
-      $location.path("/");
-      GlobalStor.global.currOpenPage = '/';
-    }
 
 
 
