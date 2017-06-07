@@ -1138,9 +1138,11 @@
         function importAllDB(login, access) {
           var defer = $q.defer();
           //console.log('Import database begin!');
+          console.log(globalConstants.serverIP + '/api/sync?login=' + login + '&access_token=' + access);
           $http.get(globalConstants.serverIP + '/api/sync?login=' + login + '&access_token=' + access + "&" + Math.random()).then(
             function (result) {
               if (result.data.status) {
+                console.log(result.data);
                 //-------- insert in LocalDB
                 insertTablesLocalDB(result.data).then(function () {
                   defer.resolve(1);
@@ -1966,7 +1968,8 @@
         }
 
         function elemValueD(obj) {
-          return obj.getDate();
+          return (obj.getDate()<10) ? "0"+obj.getDate() : obj.getDate();
+
         }
 
         function parseKitElement(kits) {
@@ -2135,7 +2138,7 @@
         }
 
         function elemValueM(obj) {
-          return obj.getMonth();
+          return (obj.getMonth()<10) ? "0"+obj.getMonth() : obj.getMonth();
         }
 
         function currencyExgange(price, currencyElemId) {
@@ -2387,16 +2390,16 @@
         function dataF(id) {
           switch (id) {
             case 1 :
-              return "201751";
+              return "2017-08-01";
               break;
             case 12 :
-              return "201761";
+              return "2017-09-01";
               break;
             case 56 :
-              return "201771";
+              return "2017-10-01";
               break;
             default :
-              return "201751";
+              return "2017-08-01";
           }
 
         }
@@ -2499,7 +2502,9 @@
             //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
             //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-            //objTmp.priceReal = getLockalDbData(objTmp, priceReal);
+
+            // objTmp.priceReal = getLockalDbData(objTmp, priceReal);
+
             objTmp.priceReal = priceReal;
 
             objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
@@ -3163,7 +3168,7 @@
         }
 
         function setParams(obj) {
-          return elemValueY(obj) + "" + elemValueM(obj) + "" + elemValueD(obj);
+          return elemValueY(obj) + "-" + elemValueM(obj) + "-" + elemValueD(obj);
         }
 
         /**========= GRID PRICE ==========*/
@@ -3311,22 +3316,24 @@
         }
 
         function getLockalDbData(obj, pr) {
-
           if (setParams(elemValue()) >= dataF(1)) {
             if (obj.element_group_id === 6) {
               var coef = setValueP();
+              console.log("1");
               pr *= coef;
             }
           }
           if (setParams(elemValue()) >= dataF(12)) {
             if (obj.element_group_id === 3) {
               var coef = setValueP();
+              console.log("2");
               pr *= coef;
             }
           }
           if (setParams(elemValue()) >= dataF(56)) {
             if (obj.element_group_id === 1) {
               var coef = setValueP();
+              console.log("3");
               pr *= coef;
             }
           }
