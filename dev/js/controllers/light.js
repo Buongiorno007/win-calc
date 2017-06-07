@@ -165,7 +165,7 @@
           MainServ.createNewProduct();
           CartMenuServ.calculateOrderPrice();
           CartMenuServ.joinAllAddElements();
-          GlobalStor.global.activePanel = 0;
+          // GlobalStor.global.activePanel = 0;
           GlobalStor.global.showKarkas = 0;
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 1;
@@ -258,7 +258,6 @@
           if (!GlobalStor.global.isChangedTemplate) {
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
           }
-          console.log('sdassadsad');
           if (!ProductStor.product.is_addelem_only) {
             alert();
             if (GlobalStor.global.dangerAlert < 1) {

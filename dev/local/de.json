@@ -32,7 +32,9 @@
     "PRINT": "Druckansicht",
     "BACK": "Back",
     "LETTER_M": "m",
-    "COUNT": "Anzahl"
+    "COUNT": "Anzahl",
+    "SAVED_KONSTRUCTION" : "Das Design mit einem bestimmten Satz von Parametern gespeichert.",
+    "SAVE_OR_NO" : "Um die aktuelle Struktur zu behalten? "
   },
   "natification": {
     "ASKING_PRICE": "Preise überprüfen",
@@ -40,7 +42,10 @@
     "TEXT2": " außerhalb des zulässigen Bereichs: ",
     "TEXT3": ". So speichern Design Größe ändern.",
     "EDIT_HARDWARE": "Sonstiges Zubehör",
-    "EDIT_SIZE": "Gibt die Größe des"
+    "EDIT_SIZE": "Gibt die Größe des",
+    "ATENTION" : "ACHTUNG!!",
+    "ATENTION_MSG1" : "Die Berechnung ist nicht möglich, weil der Mangel an Preise ",
+    "ATENTION_MSG2" : "Bitte wählen Sie eine andere Konfiguration."
   },
   "danger-alert": {
     "PRODUCT": "Konstruktion",

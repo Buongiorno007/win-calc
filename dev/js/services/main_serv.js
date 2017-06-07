@@ -612,11 +612,18 @@
           }
         }
 
-
         //---------- Price define
         function calculationPrice(obj) {
           var deferred = $q.defer();
+          GlobalStor.global.isZeroPriceList = [];
           localDB.calculationPrice(obj).then(function (result) {
+            result.constrElements.forEach(function (entry) {
+              if (entry.element_group_id !== 8) {
+                if (entry.priceReal === 0 || entry.price === 0) {
+                  GlobalStor.global.isZeroPriceList.push(entry.name);
+                }
+              }
+            });
             var priceObj = angular.copy(result),
               priceMargin, doorData, tempDoorItems;
             if (priceObj.priceTotal) {
@@ -1428,7 +1435,7 @@
 
         //--------- moving to Cart when click on Cart button
         function goToCart() {
-          if (OrderStor.order.products.length ){
+          if (OrderStor.order.products.length) {
             $timeout(function () {
 
               //------- set previos Page

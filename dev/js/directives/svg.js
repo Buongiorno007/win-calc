@@ -294,182 +294,184 @@
             }
 
             function elementsRoom(heightT, widthT) {
-              if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                var sunH = (((0.18 * heightT) - 252) + 520), /*height sun rays*/
-                  hD = 755;
-                /*height display*/
-                if (ProductStor.product.construction_type === 1) {
-                  var sunW = (((0.18 * widthT) - 234) + 520), /*width sun rays*/
-                    hsrof = 90, /*the height of the sun's rays on the floor*/
-                    upLim = 720;
-                  /*upper limit 15 block*/
+              if ($location.path() !== '/light') {
+                if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                  var sunH = (((0.18 * heightT) - 252) + 520), /*height sun rays*/
+                    hD = 755;
+                  /*height display*/
+                  if (ProductStor.product.construction_type === 1) {
+                    var sunW = (((0.18 * widthT) - 234) + 520), /*width sun rays*/
+                      hsrof = 90, /*the height of the sun's rays on the floor*/
+                      upLim = 720;
+                    /*upper limit 15 block*/
 
-                  if (heightT < 1648) {
-                    var upl = 456, /*upper limit for window sill */
-                      dnl = 100;
-                    /*upper limit for window sill */
-                  }
-                  if (1648 < heightT && heightT < 1848) {
-                    var upl = 526,
-                      dnl = 60;
-                  }
-                  if (1848 <= heightT && heightT < 2148) {
-                    var upl = 576,
-                      dnl = 0;
-                  }
-                  if (2148 <= heightT) {
-                    var upl = 637,
-                      dnl = -30;
+                    if (heightT < 1648) {
+                      var upl = 456, /*upper limit for window sill */
+                        dnl = 100;
+                      /*upper limit for window sill */
+                    }
+                    if (1648 < heightT && heightT < 1848) {
+                      var upl = 526,
+                        dnl = 60;
+                    }
+                    if (1848 <= heightT && heightT < 2148) {
+                      var upl = 576,
+                        dnl = 0;
+                    }
+                    if (2148 <= heightT) {
+                      var upl = 637,
+                        dnl = -30;
+                    }
+
+                    if (widthT > 900 && heightT < 1648) {
+                      $('.elem5').css('left', (109 + (0.48 * ((widthT / 2) - 700 * 0.32)) / 2) + 'px');
+                    } else {
+                      $('.elem5').css('left', 5000 + 'px');
+                    }
+
+                    $('.elem15').css({
+                      'width': ((0.48 * (widthT / 2)) + 30) + 'px',
+                      'height': hsrof + 'px',
+                      'top': upLim + 'px'
+                    });
+                    $('.elem11').css('left', 5000 + 'px');
+                    $('.elem16').css('left', 9 + 'px');
+                    $('.elem8').css('left', 5000 + 'px');
+                    $('.elem7').css('opacity', 0);
+                    $('.elem9').css('opacity', 1);
+                    $('.elem23').css('left', 5000 + 'px');
+                    $('.elem10').css('opacity', 0);
+                    $('.elem17').css({
+                      'width': (0.4 * ((widthT / 2) * 2 + 350)) + 'px',
+                      'height': 41 + 'px',
+                      'left': 215 + 'px',
+                      'top': upl + 'px'
+                    });
+                    $('.elem18').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 3 + 'px',
+                      'top': (hD - sunH - dnl) + 'px'
+                    });
+                    $('.elem19').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 3 + 'px',
+                      'top': (hD - sunH - dnl) + 'px'
+                    });
+                    $('.elem20').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 3 + 'px',
+                      'top': (hD - sunH - dnl) + 'px'
+                    });
+                    $('.elem21').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 3 + 'px',
+                      'top': (hD - sunH - dnl) + 'px'
+                    });
+                    $('.elem24').css({
+                      'width': widthT / 4.1 + 108 + 'px'
+                    });
                   }
 
-                  if (widthT > 900 && heightT < 1648) {
-                    $('.elem5').css('left', (109 + (0.48 * ((widthT / 2) - 700 * 0.32)) / 2) + 'px');
-                  } else {
+                  if (ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
+                    var sunW = (((0.18 * widthT) - 234) + 420);
+                    $('.elem23').css({
+                      'width': (1000 * 0.5 + (0.7 * (widthT - 700))) + 'px',
+                      'top': 665 + 'px',
+                      'left': 100 - (2.5 * (0.1 * widthT - 70)) + 'px'
+                    });
+                    $('.elem15').css({
+                      'top': 5000 + 'px'
+                    });
+                    $('.elem17').css({
+                      'width': 0 + 'px',
+                      'height': 0 + 'px',
+                      'left': 0 + 'px'
+                    });
+                    $('.elem18').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 130 + 'px',
+                      'top': (hD - sunH + 30) + 'px'
+                    });
+                    $('.elem19').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 130 + 'px',
+                      'top': (hD - sunH + 30) + 'px'
+                    });
+                    $('.elem20').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 130 + 'px',
+                      'top': (hD - sunH + 30) + 'px'
+                    });
+                    $('.elem21').css({
+                      'width': sunW + 'px',
+                      'height': sunH + 'px',
+                      'left': 130 + 'px',
+                      'top': (hD - sunH + 50) + 'px'
+                    });
+                    $('.elem32').css({
+                      'left': (381 + (0.48 * ((widthT / 2) - 700 * 0.32))) + 'px'
+                    });
+                    $('.elem34').css({
+                      'left': (0.23 * widthT + (190 - 19)) + 'px',
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
+                    });
+                    $('.elem38').css({
+                      'width': (0.23 * widthT - 135) + 'px',
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
+                    });
+                    $('.elem39').css({
+                      'left': (0.23 * widthT + (261 - 18)) + 'px',
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 468 + 'px',
+                      'height': 0.23 * (heightT - 2000) + 134 + 'px',
+                    });
+                    $('.elem40').css({
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 468 + 'px',
+                      'height': 0.23 * (heightT - 2000) + 140 + 'px',
+                    });
+
+                    $('.elem33').css({
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
+                    });
+                    $('.elem35').css('left', (0.23 * widthT + (217 - 12.1)) + 'px');
+
+                    $('.elem11').css('left', (0.23 * (0.991 * widthT) + 280) + 'px');
+                    $('.elem8').css('left', (0.23 * widthT + 275) + 'px');
                     $('.elem5').css('left', 5000 + 'px');
+                    $('.elem10').css('opacity', 1);
+                    $('.elem7').css('opacity', 1);
+                    $('.elem16').css('left', 5000 + 'px');
+                    $('.elem9').css('opacity', 0);
+                    $('.elem51').css('left', (0.23 * widthT - 443) + 'px');
+                    $('.elem52').css('left', (0.23 * widthT - 571) + 'px');
+                    $('.elem56').css('left', (0.23 * widthT + 215.42) + 'px');
+                    $('.elem59').css({
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 417 + 'px',
+                      'height': 0.23 * (heightT - 2000) + 27 + 'px',
+                    });
+                    $('.elem60').css({
+                      'left': (0.23 * widthT + (262)) + 'px',
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 412.8 + 'px',
+                      'height': 0.23 * (heightT - 2000) + 32 + 'px',
+                    });
+                    $('.elem55').css({
+                      'left': (0.23 * widthT + 177.9) + 'px',
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 172 + 'px',
+                    });
+                    $('.elem58').css({
+                      'width': (0.23 * widthT - 186.7) + 'px',
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 172.8 + 'px',
+                    });
+                    $('.elem54').css({
+                      'top': 0.23 * ((heightT - 2000) * (-1)) + 173 + 'px',
+                    });
                   }
-
-                  $('.elem15').css({
-                    'width': ((0.48 * (widthT / 2)) + 30) + 'px',
-                    'height': hsrof + 'px',
-                    'top': upLim + 'px'
-                  });
-                  $('.elem11').css('left', 5000 + 'px');
-                  $('.elem16').css('left', 9 + 'px');
-                  $('.elem8').css('left', 5000 + 'px');
-                  $('.elem7').css('opacity', 0);
-                  $('.elem9').css('opacity', 1);
-                  $('.elem23').css('left', 5000 + 'px');
-                  $('.elem10').css('opacity', 0);
-                  $('.elem17').css({
-                    'width': (0.4 * ((widthT / 2) * 2 + 350)) + 'px',
-                    'height': 41 + 'px',
-                    'left': 215 + 'px',
-                    'top': upl + 'px'
-                  });
-                  $('.elem18').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 3 + 'px',
-                    'top': (hD - sunH - dnl) + 'px'
-                  });
-                  $('.elem19').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 3 + 'px',
-                    'top': (hD - sunH - dnl) + 'px'
-                  });
-                  $('.elem20').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 3 + 'px',
-                    'top': (hD - sunH - dnl) + 'px'
-                  });
-                  $('.elem21').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 3 + 'px',
-                    'top': (hD - sunH - dnl) + 'px'
-                  });
-                  $('.elem24').css({
-                    'width': widthT / 4.1 + 108 + 'px'
-                  });
-                }
-
-                if (ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
-                  var sunW = (((0.18 * widthT) - 234) + 420);
-                  $('.elem23').css({
-                    'width': (1000 * 0.5 + (0.7 * (widthT - 700))) + 'px',
-                    'top': 665 + 'px',
-                    'left': 100 - (2.5 * (0.1 * widthT - 70)) + 'px'
-                  });
-                  $('.elem15').css({
-                    'top': 5000 + 'px'
-                  });
-                  $('.elem17').css({
-                    'width': 0 + 'px',
-                    'height': 0 + 'px',
-                    'left': 0 + 'px'
-                  });
-                  $('.elem18').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 130 + 'px',
-                    'top': (hD - sunH + 30) + 'px'
-                  });
-                  $('.elem19').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 130 + 'px',
-                    'top': (hD - sunH + 30) + 'px'
-                  });
-                  $('.elem20').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 130 + 'px',
-                    'top': (hD - sunH + 30) + 'px'
-                  });
-                  $('.elem21').css({
-                    'width': sunW + 'px',
-                    'height': sunH + 'px',
-                    'left': 130 + 'px',
-                    'top': (hD - sunH + 50) + 'px'
-                  });
-                  $('.elem32').css({
-                    'left': (381 + (0.48 * ((widthT / 2) - 700 * 0.32))) + 'px'
-                  });
-                  $('.elem34').css({
-                    'left': (0.23 * widthT + (190 - 19)) + 'px',
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
-                  });
-                  $('.elem38').css({
-                    'width': (0.23 * widthT - 135) + 'px',
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
-                  });
-                  $('.elem39').css({
-                    'left': (0.23 * widthT + (261 - 18)) + 'px',
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 468 + 'px',
-                    'height': 0.23 * (heightT - 2000) + 134 + 'px',
-                  });
-                  $('.elem40').css({
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 468 + 'px',
-                    'height': 0.23 * (heightT - 2000) + 140 + 'px',
-                  });
-
-                  $('.elem33').css({
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
-                  });
-                  $('.elem35').css('left', (0.23 * widthT + (217 - 12.1)) + 'px');
-
-                  $('.elem11').css('left', (0.23 * (0.991 * widthT) + 280) + 'px');
-                  $('.elem8').css('left', (0.23 * widthT + 275) + 'px');
-                  $('.elem5').css('left', 5000 + 'px');
-                  $('.elem10').css('opacity', 1);
-                  $('.elem7').css('opacity', 1);
-                  $('.elem16').css('left', 5000 + 'px');
-                  $('.elem9').css('opacity', 0);
-                  $('.elem51').css('left', (0.23 * widthT - 443) + 'px');
-                  $('.elem52').css('left', (0.23 * widthT - 571) + 'px');
-                  $('.elem56').css('left', (0.23 * widthT + 215.42) + 'px');
-                  $('.elem59').css({
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 417 + 'px',
-                    'height': 0.23 * (heightT - 2000) + 27 + 'px',
-                  });
-                  $('.elem60').css({
-                    'left': (0.23 * widthT + (262)) + 'px',
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 412.8 + 'px',
-                    'height': 0.23 * (heightT - 2000) + 32 + 'px',
-                  });
-                  $('.elem55').css({
-                    'left': (0.23 * widthT + 177.9) + 'px',
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 172 + 'px',
-                  });
-                  $('.elem58').css({
-                    'width': (0.23 * widthT - 186.7) + 'px',
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 172.8 + 'px',
-                  });
-                  $('.elem54').css({
-                    'top': 0.23 * ((heightT - 2000) * (-1)) + 173 + 'px',
-                  });
                 }
               }
             }
@@ -609,16 +611,16 @@
                       .attr('width', 150)
                       .attr('height', 100);
                   }
-                  if (GlobalStor.global.imgLink){
-                  defs.append('pattern')
-                    .attr('id', 'background')
-                    .attr('patternUnits', 'userSpaceOnUse')
-                    .attr('width', 2202.92 * GlobalStor.global.background)
-                    .attr('height', 1661.3 * GlobalStor.global.background)
-                    .append("image")
-                    .attr("xlink:href", "./img/room/" + GlobalStor.global.imgLink)
-                    .attr('width', 2202.92 * GlobalStor.global.background)
-                    .attr('height', 1661.3 * GlobalStor.global.background);
+                  if (GlobalStor.global.imgLink) {
+                    defs.append('pattern')
+                      .attr('id', 'background')
+                      .attr('patternUnits', 'userSpaceOnUse')
+                      .attr('width', 2202.92 * GlobalStor.global.background)
+                      .attr('height', 1661.3 * GlobalStor.global.background)
+                      .append("image")
+                      .attr("xlink:href", "./img/room/" + GlobalStor.global.imgLink)
+                      .attr('width', 2202.92 * GlobalStor.global.background)
+                      .attr('height', 1661.3 * GlobalStor.global.background);
                   }
                   var pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119," +
                       "3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z" +

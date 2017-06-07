@@ -32,7 +32,9 @@
     "BACK": "Înapoi",
     "PRINT": "Print View",
     "LETTER_M": "m",
-    "COUNT": "număr"
+    "COUNT": "număr",
+    "SAVED_KONSTRUCTION" : "Design-ul cu un anumit set de parametri este stocat.",
+    "SAVE_OR_NO" : "Pentru a păstra structura actuală?"
   },
   "natification": {
     "ASKING_PRICE": " Verificați tarifele",
@@ -40,7 +42,10 @@
     "TEXT2": " dincolo de intervalul permis: ",
     "TEXT3": ". Pentru a salva un design de redimensionare.",
     "EDIT_HARDWARE": "Alte accesorii",
-    "EDIT_SIZE": "Întoarcere dimensiunea"
+    "EDIT_SIZE": "Întoarcere dimensiunea",
+    "ATENTION" : "ATENȚIE!",
+    "ATENTION_MSG1" : "Calculul nu este posibilă din cauza lipsei de prețuri ",
+    "ATENTION_MSG2" : "Vă rugăm să selectați o configurație diferită."
   },
   "login": {
     "ENTER": "Intră",

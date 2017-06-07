@@ -6,11 +6,23 @@
     .alert-btns
       .thisAlert
        section.cart-page
-        .order-delete(fs-click="alertBox.isAlert()", ng-show="alertBox.G.global.isBox")
+        .order-delete(fs-click="alertBox.isAlert()")
       button.alert-yes(fs-click="alertBox.clickCopy()", ng-show="alertBox.G.global.isBox") {{ ::alertBox.BUTTON_C }}
       button.alert-yes(fs-click="alertBox.clickYes()", ng-show="alertBox.G.global.isBox") {{ ::alertBox.BUTTON_E }}
-      button.alert-no(ng-click="alertBox.G.global.isAlert = 0", ng-show="!alertBox.G.global.isBox") {{ ::alertBox.BUTTON_N }}
+      button.alert-no(ng-click="alertBox.isAlert()", ng-show="!alertBox.G.global.isBox") {{ ::alertBox.BUTTON_N }}
       button.alert-yes(ng-click="alertBox.clickYes()", ng-show="!alertBox.G.global.isBox") {{ ::alertBox.BUTTON_Y }}
+
+.alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isSavingAlert")
+  .alert-block
+    .alert-sign
+    .alert-title {{ alertBox.G.global.alertTitle }}
+    .alert-descr {{ alertBox.G.global.alertDescr }}
+    .alert-btns
+      .thisAlert
+        section.main-page
+      button.alert-no(ng-click="alertBox.clickNo()", ng-show="alertBox.G.global.isSavingAlert") {{ ::alertBox.BUTTON_N }}
+      button.alert-yes(ng-click="alertBox.clickYes()", ng-show="alertBox.G.global.isSavingAlert") {{ ::alertBox.BUTTON_Y }}
+
 .alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isAlertInfo")
   .alert-block
     .alert-sign
@@ -30,7 +42,7 @@
       button.alert-yes(ng-click="alertBox.syncNow()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_Y }}
 .alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isNoChangedProduct")
   .alert-block
-    .alert-descr Вы уже сохранили данную конструкцию.
+    .alert-descr {{ alertBox.SAVED_KONSTRUCTION }}
     .alert-btns
       .thisAlert
         section.loginPage
