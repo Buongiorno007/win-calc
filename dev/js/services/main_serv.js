@@ -1741,7 +1741,7 @@
               return item.profileId === product.profile.id;
             }
           });
-
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
         }
 
