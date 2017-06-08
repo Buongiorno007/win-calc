@@ -63,7 +63,15 @@
             }
           } else {
             if (id === 3) {
-              //console.log(GlobalStor.global.glasses);
+              var temp = [];
+              GlobalStor.global.glasses.forEach(function (glass) {
+                glass.forEach(function (glass_img) {
+                  temp.push(glass_img.glass_image);
+                });
+
+              });
+                  console.log(GlobalStor.global.glasses);
+                  console.log(GlobalStor.global.glassTypes);
               var transcalency_arr = [];
               var noise_coeff_arr = [];
               GlobalStor.global.glasses.forEach(function (glass_arr) {
