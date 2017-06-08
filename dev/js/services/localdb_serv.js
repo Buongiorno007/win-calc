@@ -2501,9 +2501,9 @@
             //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
 
-            objTmp.priceReal = getLockalDbData(objTmp, priceReal);
+            // objTmp.priceReal = getLockalDbData(objTmp, priceReal);
 
-            // objTmp.priceReal = priceReal;
+            objTmp.priceReal = priceReal;
 
             objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
             objTmp.sizeLabel = sizeLabel;
