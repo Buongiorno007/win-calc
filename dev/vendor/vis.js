@@ -33,7 +33,7 @@
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
 
-<!-- /Yandex.Metrika counter --> 
+<!-- /Yandex.Metrika counter -->
 <!-- Yandex.Metrika counter -->
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {

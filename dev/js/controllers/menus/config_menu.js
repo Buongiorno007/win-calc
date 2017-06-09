@@ -204,6 +204,10 @@
           GlobalStor.global.showCart = 0;
           GlobalStor.global.isSizeCalculator = 0;
           CartStor.cart.isShowDiscount = 0;
+          if ($location.path() === "/light") {
+            ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+            ProductStor.product.template = DesignStor.design.templateTEMP;
+          }
           setTimeout(function () {
             DesignServ.rebuildSVGTemplate();
           }, 250);
@@ -216,6 +220,10 @@
           GlobalStor.global.showCart = 0;
           GlobalStor.global.isSizeCalculator = 0;
           CartStor.cart.isShowDiscount = 0;
+          if ($location.path() === "/light") {
+            ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+            ProductStor.product.template = DesignStor.design.templateTEMP;
+          }
           setTimeout(function () {
             DesignServ.rebuildSVGTemplate();
           }, 250);

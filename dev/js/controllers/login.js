@@ -7,6 +7,7 @@
 
       function ($location,
                 $timeout,
+                $rootScope,
                 $cordovaNetwork,
                 $filter,
                 globalConstants,
@@ -90,7 +91,7 @@
         //$("<img />").attr("src", "img/room/1.png");
         //$("<img />").attr("src", "img/room/33.gif");
         //$("<img />").attr("src", "img/room/333.gif");
-
+        $rootScope.start = Date.now();
         function preloadImages(array) {
           if (!preloadImages.list) {
             preloadImages.list = [];
@@ -150,7 +151,9 @@
           /** set first Template */
           MainServ.setCurrTemplate();
           /** set Templates */
+          console.time('prepareTemplates');
           MainServ.prepareTemplates(ProductStor.product.construction_type).then(function () {
+          console.timeEnd('prepareTemplates');
             MainServ.prepareMainPage();
             /** start lamination filtering */
             MainServ.laminatFiltering();
@@ -190,10 +193,14 @@
         function importDBfromServer() {
           //thisCtrl.isStartImport = 1;
           //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+          console.time('importAllDB');
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
+            console.timeEnd('importAllDB');
             if (data) {
               /** download all data */
+              console.time('downloadAllData');
               loginServ.downloadAllData().then(function () {
+                console.timeEnd('downloadAllData');
                 startProgramm();
               });
               thisCtrl.isStartImport = 0;
@@ -223,13 +230,17 @@
           //------- set User Location
           loginServ.setUserLocation();
           if ((+UserStor.userInfo.factory_id) > 0) {
+            console.time('isLocalDBExist');
             loginServ.isLocalDBExist().then(function (data) {
+              console.timeEnd('isLocalDBExist');
               thisCtrl.isLocalDB = data;
               if (thisCtrl.isLocalDB) {
                 //------- current FactoryId matches to user FactoryId, go to main page without importDB
                 //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
                 /** download all data */
+                console.time('downloadAllData');
                 loginServ.downloadAllData().then(function () {
+                  console.timeEnd('downloadAllData');
                   startProgramm();
                 });
                 //});
@@ -264,20 +275,30 @@
           //----- checking user activation
           if (user.locked) {
             //------- clean all tables in LocalDB
+            console.time('cleanLocalDB');
             localDB.cleanLocalDB(localDB.tablesLocalDB).then(function (data) {
+              console.timeEnd('cleanLocalDB');
               if (data) {
                 //------- creates all tables in LocalDB
+                console.time('createTablesLocalDB');
                 localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function (data) {
+                  console.timeEnd('createTablesLocalDB');
                   if (data) {
                     //------- save user in LocalDB
+                    console.time('insertRowLocalDB');
                     localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
+                    console.timeEnd('insertRowLocalDB');
                     //------- save user in Stor
                     angular.extend(UserStor.userInfo, user);
                     //------- import Location
+                    console.time('importLocation');
                     localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
+                      console.timeEnd('importLocation');
                       if (data) {
                         //------ save Location Data in local obj
+                        console.time('prepareLocationToUse');
                         loginServ.prepareLocationToUse().then(function () {
+                          console.timeEnd('prepareLocationToUse');
                           checkingFactory();
                         });
                         var key = "UserStor.userInfo.phone";
@@ -307,7 +328,9 @@
         function checkingUser() {
           localforage.setItem("FirstIn", "true", function (err, value) {
           });
+          console.time('importUser');
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
+            console.timeEnd('importUser');
             //console.log(result);
             if (result.status) {
               var userTemp = angular.copy(result.user);
@@ -810,7 +833,6 @@
               }
             }
             else {
-              //console.log("обновляем");
               GlobalStor.global.loadDate = new Date();
               GlobalStor.global.isLoader = 1;
               GlobalStor.global.startSlider = 1;
