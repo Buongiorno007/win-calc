@@ -1355,7 +1355,9 @@
           GlobalStor.global.isChangedTemplate = 0;
           //------- set new templates
           setCurrTemplate();
+          console.time('prepareTemplates');
           prepareTemplates(ProductStor.product.construction_type).then(function () {
+          console.timeEnd('prepareTemplates');
             prepareMainPage();
             /** start lamination filtering */
             cleanLamFilter();

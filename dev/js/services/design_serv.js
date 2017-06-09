@@ -2913,6 +2913,7 @@
         }
 
         function rebuildSVGTemplate() {
+          console.log("rebuildSVGTemplate");
           SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
             .then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
