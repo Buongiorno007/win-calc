@@ -217,7 +217,9 @@
 
         function downloadProfileDepth(elementId) {
           var defer = $q.defer();
+          console.time("selectLocalDB");
           localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function (result) {
+          console.timeEnd("selectLocalDB");
             var resultObj = {};
             if (result.length) {
               resultObj.a = result[0].a;
@@ -499,7 +501,7 @@
         /** set Bead Id */
         function setBeadId(profileId, laminatId) {
           var deff = $q.defer(),
-            promisBeads = ProductStor.product.glass.map(function (item) {
+            promisBeads = ProductStor.product.glass.fastMap(function (item) {
               var deff2 = $q.defer();
               if (item.glass_width) {
                 localDB.selectLocalDB(
@@ -518,7 +520,7 @@
                     //----- if beads more one
                     if (beadsQty > 1) {
                       //----- go to kits and find bead width required laminat Id
-                      var pomisList = beadIds.map(function (item2) {
+                      var pomisList = beadIds.fastMap(function (item2) {
                         var deff3 = $q.defer();
                         localDB.selectLocalDB(
                           localDB.tablesLocalDB.lists.tableName,
@@ -656,6 +658,7 @@
 
 
         function prepareReport(elementList) {
+          console.time("prepareReport");
           var report = [],
             elementListQty = elementList.length,
             ind, tempObj, reportQty, exist, priceMarg;
@@ -696,6 +699,7 @@
               report[reportQty].priceReal = GeneralServ.roundingValue(priceMarg, 2);
             }
           }
+          console.timeEnd("prepareReport");
           return report;
         }
 
@@ -772,9 +776,12 @@
         function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
           var deferred = $q.defer();
           GlobalStor.global.isLoader = 1;
+          console.time("setBeadId");
           setBeadId(profileId, laminatId).then(function (beadResult) {
+          console.timeEnd("setBeadId");
+
             if (beadResult.length && beadResult[0]) {
-              var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+              var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).fastMap(function (item) {
                 var beadQty = template.priceElements.beadsSize.length;
                 while (--beadQty > -1) {
                   if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
@@ -790,7 +797,7 @@
                   ProductStor.product.profile.stvorka_list_id,
                   ProductStor.product.profile.impost_list_id,
                   ProductStor.product.profile.shtulp_list_id,
-                  (glassIds.length > 1) ? glassIds.map(function (item) {
+                  (glassIds.length > 1) ? glassIds.fastMap(function (item) {
                     return item.id;
                   }) : glassIds[0].id,
                   (beadIds.length > 1) ? beadIds : beadIds[0],
@@ -823,7 +830,9 @@
               //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
               //--------- get product price
+              console.time("calculationPrice");
               calculationPrice(objXFormedPrice).then(function (result) {
+              console.timeEnd("calculationPrice");
                 deferred.resolve(1);
                 /** set Report */
                 if (result) {
@@ -1600,7 +1609,7 @@
                 productData.profile_id = OrderStor.order.products[p].profile.id;
                 (productData.door_group_id) ? productData.door_group_id = 0 : productData.door_group_id = 0;
               }
-              productData.glass_id = OrderStor.order.products[p].glass.map(function (item) {
+              productData.glass_id = OrderStor.order.products[p].glass.fastMap(function (item) {
                 return item.id;
               }).join(', ');
 

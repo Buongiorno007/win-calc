@@ -723,10 +723,10 @@
                     gridTemp = gridsOld[g];
                     sizeTemp = {};
                     //------ defined inner block sizes
-                    sizeGridX = blocks[blockQty].pointsLight.map(function (item) {
+                    sizeGridX = blocks[blockQty].pointsLight.fastMap(function (item) {
                       return item.x;
                     });
-                    sizeGridY = blocks[blockQty].pointsLight.map(function (item) {
+                    sizeGridY = blocks[blockQty].pointsLight.fastMap(function (item) {
                       return item.y;
                     });
                     sizeTemp.width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
@@ -2913,7 +2913,6 @@
         }
 
         function rebuildSVGTemplate() {
-          console.log("rebuildSVGTemplate");
           SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
             .then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
@@ -2944,7 +2943,7 @@
           //----- find dimensions of block Level 1
           for (b = 1; b < blocksQty; b += 1) {
             if (blocksSource[b].level === 1) {
-              parentBlocs.push(blocksSource[b].pointsOut.map(function (point) {
+              parentBlocs.push(blocksSource[b].pointsOut.fastMap(function (point) {
                 return point.x;
               }));
             }
@@ -3053,7 +3052,7 @@
           }
 
           if (selectedBlock.imps.length) {
-            glassXArr = currBlock.glassPoints.map(function (item) {
+            glassXArr = currBlock.glassPoints.fastMap(function (item) {
               return item.x;
             });
             selectedBlock.minX = d3.min(glassXArr);

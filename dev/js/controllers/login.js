@@ -91,7 +91,6 @@
         //$("<img />").attr("src", "img/room/1.png");
         //$("<img />").attr("src", "img/room/33.gif");
         //$("<img />").attr("src", "img/room/333.gif");
-        $rootScope.start = Date.now();
         function preloadImages(array) {
           if (!preloadImages.list) {
             preloadImages.list = [];
@@ -166,6 +165,7 @@
 
               $location.path("/main");
               GlobalStor.global.currOpenPage = 'main';
+
             }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -185,7 +185,7 @@
             localStorage.setItem('AuxStor', aux);
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
-
+            window.location.reload();
           });
         }
 
@@ -669,6 +669,13 @@
         });
 
         function enterForm(form) {
+          var unbindWatch = $rootScope.$watch("GlobalStor", function() {
+            //...
+          });
+
+          setTimeout(function() {
+            unbindWatch();
+          }, 1000);
           var newUserPassword;
           //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
           //------ Trigger validation flag.

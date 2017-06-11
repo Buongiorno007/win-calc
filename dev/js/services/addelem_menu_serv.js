@@ -348,10 +348,10 @@
 
 
         function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
-          var sizeGridX = ProductStor.product.template.details[blockIndex].pointsLight.map(function (item) {
+          var sizeGridX = ProductStor.product.template.details[blockIndex].pointsLight.fastMap(function (item) {
               return item.x;
             }),
-            sizeGridY = ProductStor.product.template.details[blockIndex].pointsLight.map(function (item) {
+            sizeGridY = ProductStor.product.template.details[blockIndex].pointsLight.fastMap(function (item) {
               return item.y;
             }),
             gridTemp;
@@ -504,13 +504,13 @@
         function confirmGrid() {
           var gridsT = [], grids = [];
           if (GlobalStor.global.sashTypeBlock.length > 0) {
-            gridsT = GlobalStor.global.sashTypeBlock.map(function (item) {
+            gridsT = GlobalStor.global.sashTypeBlock.fastMap(function (item) {
               var blockId = item;
               return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
             });
           }
           if (DesignStor.design.selectedGlass.length) {
-            grids = DesignStor.design.selectedGlass.map(function (item) {
+            grids = DesignStor.design.selectedGlass.fastMap(function (item) {
               var blockId = item.attributes.block_id.nodeValue;
               return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
             });
