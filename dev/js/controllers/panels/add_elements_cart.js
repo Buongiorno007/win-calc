@@ -400,7 +400,7 @@
 
         /**-------- Explode by Products ------*/
         function explodeUnitToProduct(addElemUnit, isAllProducts) {
-          var lastProductId = d3.max(OrderStor.order.products.map(function (item) {
+          var lastProductId = d3.max(OrderStor.order.products.fastMap(function (item) {
               return item.product_id;
             })),
             cloneProduct = angular.copy(OrderStor.order.products[addElemUnit[0].productIndex]),

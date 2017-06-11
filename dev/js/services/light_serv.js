@@ -211,7 +211,7 @@
             OrderStor.order.products.push(cloneProduct);
           }
           function createProductCopy() {
-            var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
+            var lastProductId = d3.max(OrderStor.order.products.fastMap(function(item) {
                 return item.product_id;
               })),
 

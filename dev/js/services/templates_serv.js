@@ -34,24 +34,36 @@
             ProductStor.product.template_id = DesignStor.design.template_id;
             DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
             DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+            console.time("setDoorConfigDefault");
             DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
+              console.timeEnd("setDoorConfigDefault");
               ProductStor.product = angular.copy(result);
             });
           } else {
             ProductStor.product.template_id = DesignStor.design.template_id;
+            console.time("setCurrentProfile");
             MainServ.setCurrentProfile(ProductStor.product, 0).then(function () {
+              console.timeEnd("setCurrentProfile");
+              console.time("saveTemplateInProduct");
               MainServ.saveTemplateInProduct(templateIndex).then(function (result) {
+                console.timeEnd("saveTemplateInProduct");
+
                 MainServ.setCurrentHardware(ProductStor.product);
                 DesignServ.setDefaultConstruction();
                 var hardwareIds = ProductStor.product.hardware.id || 0;
                 //------ define product price
+
+                console.time("preparePrice");
                 MainServ.preparePrice(
                   ProductStor.product.template,
                   ProductStor.product.profile.id,
                   ProductStor.product.glass,
                   hardwareIds,
                   ProductStor.product.lamination.lamination_in_id
-                );
+                ).then(function () {
+                  console.timeEnd("preparePrice");
+
+                });
                 /** send analytics data to Server*/
                 AnalyticsServ.sendAnalyticsData(
                   UserStor.userInfo.id,

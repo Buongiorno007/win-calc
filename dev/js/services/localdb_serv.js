@@ -821,7 +821,19 @@
 
         function cleanLocalDB(tables) {
           var tableKeys = Object.keys(tables),
-            promises = tableKeys.map(function (table) {
+            // promises = tableKeys.map(function (table) {
+            //   var defer = $q.defer();
+            //   db.transaction(function (trans) {
+            //     trans.executeSql("DROP TABLE IF EXISTS " + table, [], function () {
+            //       defer.resolve(1);
+            //     }, function () {
+            //       console.log('not find deleting table');
+            //       defer.resolve(0);
+            //     });
+            //   });
+            //   return defer.promise;
+            // });
+            promises = tableKeys.forEach(function (table) {
               var defer = $q.defer();
               db.transaction(function (trans) {
                 trans.executeSql("DROP TABLE IF EXISTS " + table, [], function () {
@@ -839,7 +851,19 @@
 
         function createTablesLocalDB(tables) {
           var tableKeys = Object.keys(tables),
-            promises = tableKeys.map(function (table) {
+            // promises = tableKeys.map(function (table) {
+            //   var defer = $q.defer();
+            //   db.transaction(function (trans) {
+            //     trans.executeSql("CREATE TABLE IF NOT EXISTS " + tablesLocalDB[table].tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " + tablesLocalDB[table].prop + ", modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + tablesLocalDB[table].foreignKey + ")", [], function () {
+            //       defer.resolve(1);
+            //     }, function () {
+            //       console.log('Something went wrong with creating table ' + tablesLocalDB[table].tableName);
+            //       defer.resolve(0);
+            //     });
+            //   });
+            //   return defer.promise;
+            // });
+            promises = tableKeys.forEach(function (table) {
               var defer = $q.defer();
               db.transaction(function (trans) {
                 trans.executeSql("CREATE TABLE IF NOT EXISTS " + tablesLocalDB[table].tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " + tablesLocalDB[table].prop + ", modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + tablesLocalDB[table].foreignKey + ")", [], function () {
@@ -873,7 +897,7 @@
         function insertRowLocalDB(row, tableName) {
           var keysArr = Object.keys(row),
             colums = keysArr.join(', '),
-            values = keysArr.map(function (key) {
+            values = keysArr.fastMap(function (key) {
               row[key] = checkStringToQuote(row[key]);
               return "'" + row[key] + "'";
             }).join(', ');
@@ -942,7 +966,7 @@
               if (rowsQty) {
                 for (r = 0; r < rowsQty; r += 1) {
                   var defer = $q.defer(),
-                    values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
+                    values = result.tables[tableKeys[t]].rows[r].fastMap(function (elem) {
                       elem = checkStringToQuote(elem);
                       return "'" + elem + "'";
                     }).join(', ');
@@ -964,6 +988,7 @@
 
 
         function selectLocalDB(tableName, options, columns) {
+          // console.time("selectLocalDB");
           var defer = $q.defer(),
             properties = columns || '*',
             vhereOptions = "";
@@ -998,6 +1023,7 @@
                 }
               });
           });
+          // console.timeEnd("selectLocalDB");
           return defer.promise;
         }
 
@@ -1209,7 +1235,7 @@
 
 
         function updateServer(login, access, data) {
-          var promises = data.map(function (item) {
+          var promises = data.fastMap(function (item) {
             var defer = $q.defer();
             $http.post(globalConstants.serverIP + '/api/update?login=' + login + '&access_token=' + access, item).then(
               function (result) {
@@ -1651,7 +1677,7 @@
         function parseMainKit(construction) {
           //AH928206
           var deff = $q.defer(),
-            promisesKit = construction.sizes.map(function (item, index, arr) {
+            promisesKit = construction.sizes.fastMap(function (item, index, arr) {
               var deff1 = $q.defer();
               //----- chekh is sizes and id
               if (item.length && construction.ids[index]) {
@@ -1666,7 +1692,7 @@
                   });
                 } else {
                   if (angular.isArray(construction.ids[index])) {
-                    var promisKits = construction.ids[index].map(function (item2) {
+                    var promisKits = construction.ids[index].fastMap(function (item2) {
                       var deff2 = $q.defer();
                       selectLocalDB(
                         tablesLocalDB.lists.tableName,
@@ -1861,16 +1887,16 @@
 
         function parseKitConsist(kits) {
           var deff = $q.defer(),
-            promKits = kits.map(function (item, index, arr) {
+            promKits = kits.fastMap(function (item, index, arr) {
               var deff1 = $q.defer();
               if (item) {
                 if (angular.isArray(item)) {
-                  var promisElem = item.map(function (item2) {
+                  var promisElem = item.fastMap(function (item2) {
                     var deff2 = $q.defer();
                     /** if hardware */
                     if (index === arr.length - 1) {
                       if (angular.isArray(item2)) {
-                        var promisHW = item2.map(function (item3) {
+                        var promisHW = item2.fastMap(function (item3) {
                           var deff3 = $q.defer();
                           parseListContent(item3.child_id).then(function (result4) {
                             if (result4.length) {
@@ -1972,17 +1998,17 @@
 
         function parseKitElement(kits) {
           var deff = $q.defer(),
-            promisesKitElem = kits.map(function (item, index, arr) {
+            promisesKitElem = kits.fastMap(function (item, index, arr) {
               var deff1 = $q.defer();
               if (item) {
                 if (angular.isArray(item)) {
-                  var promisElem = item.map(function (item2) {
+                  var promisElem = item.fastMap(function (item2) {
                     var deff2 = $q.defer();
 
                     /** if hardware */
                     if (index === arr.length - 1) {
                       if (angular.isArray(item2)) {
-                        var promisHW = item2.map(function (item3) {
+                        var promisHW = item2.fastMap(function (item3) {
                           var deff3 = $q.defer();
                           if (item3.child_type === 'element') {
                             deff3.resolve(getElementByListId(1, item3.child_id));
@@ -2063,17 +2089,17 @@
         function parseConsistElem(consists) {
           var deff = $q.defer();
           if (consists.length) {
-            var promConsist = consists.map(function (item) {
+            var promConsist = consists.fastMap(function (item) {
               var deff1 = $q.defer();
               if (item && item.length) {
-                var promConsistElem = item.map(function (item2) {
+                var promConsistElem = item.fastMap(function (item2) {
                   var deff2 = $q.defer();
                   if (angular.isArray(item2)) {
-                    var promConsistElem2 = item2.map(function (item3) {
+                    var promConsistElem2 = item2.fastMap(function (item3) {
                       var deff3 = $q.defer();
                       if (item3) {
                         if (angular.isArray(item3)) {
-                          var promConsistElem3 = item3.map(function (item4) {
+                          var promConsistElem3 = item3.fastMap(function (item4) {
                             var deff4 = $q.defer();
                             if (item4) {
                               if (item4.child_type === 'element') {
@@ -2820,22 +2846,28 @@
             priceObj = {},
             finishPriceObj = {};
           //console.info('START+++', construction);
-
+          console.time("parseMainKit");
           parseMainKit(construction).then(function (kits) {
+          console.timeEnd("parseMainKit");
             //console.warn('kits!!!!!!+', kits);
             //console.warn(_.where(_.compact(_.flatten(kits)), {child_id:409784}), 'kits');
             priceObj.kits = kits;
             /** collect Kit Children Elements*/
+            console.time("parseKitConsist");
             parseKitConsist(priceObj.kits).then(function (consist) {
+              console.timeEnd("parseKitConsist");
               //console.warn('consist!!!!!!+', consist);
               //console.warn(_.where(_.compact(_.flatten(consist)), {id:409784}), 'consist');
               priceObj.consist = consist;
+              console.time("parseKitElement");
               parseKitElement(priceObj.kits).then(function (kitsElem) {
-
+                console.timeEnd("parseKitElement");
                 //console.warn('kitsElem!!!!!!+', kitsElem);
                 //console.warn(_.where(_.compact(_.flatten(kitsElem)), {child_id:409784}), 'kitsElem');
                 priceObj.kitsElem = kitsElem;
+                console.time("parseConsistElem");
                 parseConsistElem(priceObj.consist).then(function (consistElem) {
+                  console.timeEnd("parseConsistElem");
                   //console.warn('consistElem!!!!!!+', consistElem);
                   priceObj.consistElem = consistElem;
                   priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);

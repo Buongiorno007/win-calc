@@ -559,7 +559,7 @@
             var products = angular.copy(result);
             if (products.length) {
               //------------- parsing All Templates Source and Icons for Order
-              var productPromises = products.map(function (prod) {
+              var productPromises = products.fastMap(function (prod) {
                 var defer1 = $q.defer(),
                   tempProd = ProductStor.setDefaultProduct(),
                   tempProfileId;
@@ -620,7 +620,7 @@
 
               $q.all(productPromises).then(function (data) {
 
-                var iconPromise = data.map(function (item) {
+                var iconPromise = data.fastMap(function (item) {
                   var deferIcon = $q.defer();
                   //----- checking product with design or only addElements
                   if (item.is_addelem_only) {
