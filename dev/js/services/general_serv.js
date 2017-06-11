@@ -232,7 +232,7 @@
           // localStorage.setItem('DesignStor', design);
           // localStorage.setItem('OrderStor', order);
 
-          return $filter('translate')('common_words.PAGE_REFRESH');
+          // return $filter('translate')('common_words.PAGE_REFRESH');
         };
 
         /** prevent Backspace back to previos Page */
