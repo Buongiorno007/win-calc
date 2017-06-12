@@ -189,6 +189,9 @@
         }
 
         function cartButton() {
+          if (GlobalStor.global.locations.cities.length === 1) {
+            loginServ.downloadAllCities(1);
+          }
           GlobalStor.global.showKarkas = 0;
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 1;

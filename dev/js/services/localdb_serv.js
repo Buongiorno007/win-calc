@@ -1126,6 +1126,7 @@
           var defer = $q.defer();
           $http.get(globalConstants.serverIP + '/api/get/locations?login=' + login + '&access_token=' + access).then(
             function (result) {
+              console.log(result);
               if (result.data.status) {
                 //-------- insert in LocalDB
                 //console.warn(result.data);

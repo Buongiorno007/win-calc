@@ -12,12 +12,9 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   }
 //console.log("isDevice",isDevice);
   // Test via a getter in the options object to see if the passive property is accessed
-
-  window.onload = function () {
+  $( document ).ready(function() {
     if (!isDevice) {
-      location.hash = "/";
-      // var obj = document.getElementById('main-frame'),
-      var obj = $('#main-frame')[0],
+      var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
         height = $(obj).height();
       var scale = 1;
@@ -32,7 +29,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       }
       obj.style.transform = 'scale(' + scale + ')';
     }
-  };
+  });
   window.onresize = function () {
     if (!isDevice) {
       var obj = document.getElementById('main-frame'),
