@@ -218,7 +218,6 @@
     thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
     thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
     thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
-    thisCtrl.logOut = logOut;
 
 
   });

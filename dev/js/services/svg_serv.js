@@ -1795,7 +1795,7 @@
           //------- per Price
           glassObj.square = angular.copy(part.square);
           //----- converting size from mm to m
-          glassObj.sizes = part.sizes.fastMap(function (item) {
+          glassObj.sizes = _.map(part.sizes,function (item) {
             return GeneralServ.roundingValue(item / 1000, 3);
           });
           priceElements.glassSquares.push(glassObj);

@@ -501,7 +501,7 @@
         /** set Bead Id */
         function setBeadId(profileId, laminatId) {
           var deff = $q.defer(),
-            promisBeads = ProductStor.product.glass.fastMap(function (item) {
+            promisBeads = _.map(ProductStor.product.glass,function (item) {
               var deff2 = $q.defer();
               if (item.glass_width) {
                 localDB.selectLocalDB(
@@ -520,7 +520,7 @@
                     //----- if beads more one
                     if (beadsQty > 1) {
                       //----- go to kits and find bead width required laminat Id
-                      var pomisList = beadIds.fastMap(function (item2) {
+                      var pomisList = _.map(beadIds,function (item2) {
                         var deff3 = $q.defer();
                         localDB.selectLocalDB(
                           localDB.tablesLocalDB.lists.tableName,
@@ -781,7 +781,7 @@
           console.timeEnd("setBeadId");
 
             if (beadResult.length && beadResult[0]) {
-              var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).fastMap(function (item) {
+              var beadIds = GeneralServ.removeDuplicates(_.map(angular.copy(beadResult),function (item) {
                 var beadQty = template.priceElements.beadsSize.length;
                 while (--beadQty > -1) {
                   if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
@@ -797,7 +797,7 @@
                   ProductStor.product.profile.stvorka_list_id,
                   ProductStor.product.profile.impost_list_id,
                   ProductStor.product.profile.shtulp_list_id,
-                  (glassIds.length > 1) ? glassIds.fastMap(function (item) {
+                  (glassIds.length > 1) ? _.map(glassIds,function (item) {
                     return item.id;
                   }) : glassIds[0].id,
                   (beadIds.length > 1) ? beadIds : beadIds[0],
@@ -1609,7 +1609,7 @@
                 productData.profile_id = OrderStor.order.products[p].profile.id;
                 (productData.door_group_id) ? productData.door_group_id = 0 : productData.door_group_id = 0;
               }
-              productData.glass_id = OrderStor.order.products[p].glass.fastMap(function (item) {
+              productData.glass_id = _.map(OrderStor.order.products[p].glass,function (item) {
                 return item.id;
               }).join(', ');
 

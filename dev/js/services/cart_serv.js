@@ -232,7 +232,7 @@
           }
 
           function createProductCopy() {
-            var lastProductId = d3.max(OrderStor.order.products.fastMap(function (item) {
+            var lastProductId = d3.max(_.map(OrderStor.order.products,function (item) {
                 return item.product_id;
               })),
 
@@ -309,7 +309,7 @@
 
         function initSelectedProductsArr() {
           CartStor.cart.selectedProducts.length = 0;
-          CartStor.cart.selectedProducts = OrderStor.order.products.fastMap(function () {
+          CartStor.cart.selectedProducts = _.map(OrderStor.order.products,function () {
             return [];
           });
         }
@@ -365,7 +365,7 @@
 
 
         function createProductCopy(currProdInd) {
-          var lastProductId = d3.max(OrderStor.order.products.fastMap(function (item) {
+          var lastProductId = d3.max(_.map(OrderStor.order.products,function (item) {
               return item.product_id;
             })),
             cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
