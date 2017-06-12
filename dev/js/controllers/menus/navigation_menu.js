@@ -130,6 +130,8 @@
           else {
             $location.path("/main");
             GlobalStor.global.isLightVersion = 0;
+            GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
+            GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
           }
           break;
         }
