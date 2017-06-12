@@ -897,7 +897,7 @@
         function insertRowLocalDB(row, tableName) {
           var keysArr = Object.keys(row),
             colums = keysArr.join(', '),
-            values = keysArr.fastMap(function (key) {
+            values = _.map(keysArr,function (key) {
               row[key] = checkStringToQuote(row[key]);
               return "'" + row[key] + "'";
             }).join(', ');
@@ -966,7 +966,7 @@
               if (rowsQty) {
                 for (r = 0; r < rowsQty; r += 1) {
                   var defer = $q.defer(),
-                    values = result.tables[tableKeys[t]].rows[r].fastMap(function (elem) {
+                    values = _.map(result.tables[tableKeys[t]].rows[r],function (elem) {
                       elem = checkStringToQuote(elem);
                       return "'" + elem + "'";
                     }).join(', ');
@@ -1235,7 +1235,7 @@
 
 
         function updateServer(login, access, data) {
-          var promises = data.fastMap(function (item) {
+          var promises = _.map(data,function (item) {
             var defer = $q.defer();
             $http.post(globalConstants.serverIP + '/api/update?login=' + login + '&access_token=' + access, item).then(
               function (result) {
@@ -1677,7 +1677,7 @@
         function parseMainKit(construction) {
           //AH928206
           var deff = $q.defer(),
-            promisesKit = construction.sizes.fastMap(function (item, index, arr) {
+            promisesKit = _.map(construction.sizes,function (item, index, arr) {
               var deff1 = $q.defer();
               //----- chekh is sizes and id
               if (item.length && construction.ids[index]) {
@@ -1692,7 +1692,7 @@
                   });
                 } else {
                   if (angular.isArray(construction.ids[index])) {
-                    var promisKits = construction.ids[index].fastMap(function (item2) {
+                    var promisKits = _.map(construction.ids[index],function (item2) {
                       var deff2 = $q.defer();
                       selectLocalDB(
                         tablesLocalDB.lists.tableName,
@@ -1887,16 +1887,16 @@
 
         function parseKitConsist(kits) {
           var deff = $q.defer(),
-            promKits = kits.fastMap(function (item, index, arr) {
+            promKits = _.map(kits,function (item, index, arr) {
               var deff1 = $q.defer();
               if (item) {
                 if (angular.isArray(item)) {
-                  var promisElem = item.fastMap(function (item2) {
+                  var promisElem = _.map(item,function (item2) {
                     var deff2 = $q.defer();
                     /** if hardware */
                     if (index === arr.length - 1) {
                       if (angular.isArray(item2)) {
-                        var promisHW = item2.fastMap(function (item3) {
+                        var promisHW = _.map(item2,function (item3) {
                           var deff3 = $q.defer();
                           parseListContent(item3.child_id).then(function (result4) {
                             if (result4.length) {
@@ -1998,17 +1998,17 @@
 
         function parseKitElement(kits) {
           var deff = $q.defer(),
-            promisesKitElem = kits.fastMap(function (item, index, arr) {
+            promisesKitElem = _.map(kits,function (item, index, arr) {
               var deff1 = $q.defer();
               if (item) {
                 if (angular.isArray(item)) {
-                  var promisElem = item.fastMap(function (item2) {
+                  var promisElem = _.map(item,function (item2) {
                     var deff2 = $q.defer();
 
                     /** if hardware */
                     if (index === arr.length - 1) {
                       if (angular.isArray(item2)) {
-                        var promisHW = item2.fastMap(function (item3) {
+                        var promisHW = _.map(item2,function (item3) {
                           var deff3 = $q.defer();
                           if (item3.child_type === 'element') {
                             deff3.resolve(getElementByListId(1, item3.child_id));
@@ -2089,17 +2089,17 @@
         function parseConsistElem(consists) {
           var deff = $q.defer();
           if (consists.length) {
-            var promConsist = consists.fastMap(function (item) {
+            var promConsist = _.map(consists,function (item) {
               var deff1 = $q.defer();
               if (item && item.length) {
-                var promConsistElem = item.fastMap(function (item2) {
+                var promConsistElem = _.map(item,function (item2) {
                   var deff2 = $q.defer();
                   if (angular.isArray(item2)) {
-                    var promConsistElem2 = item2.fastMap(function (item3) {
+                    var promConsistElem2 = _.map(item2,function (item3) {
                       var deff3 = $q.defer();
                       if (item3) {
                         if (angular.isArray(item3)) {
-                          var promConsistElem3 = item3.fastMap(function (item4) {
+                          var promConsistElem3 = _.map(item3,function (item4) {
                             var deff4 = $q.defer();
                             if (item4) {
                               if (item4.child_type === 'element') {

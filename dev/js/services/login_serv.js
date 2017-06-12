@@ -226,7 +226,7 @@
 
         function collectCityIdsAsCountry() {
           var defer = $q.defer(),
-            cityIds = GlobalStor.global.locations.cities.fastMap(function (item) {
+            cityIds = _.map(GlobalStor.global.locations.cities,function (item) {
               if (item.countryId === UserStor.userInfo.countryId) {
                 return item.cityId;
               }
@@ -538,7 +538,7 @@
             if (typesQty) {
               groups.length = 0;
               angular.extend(groups, types);
-              var promises = types.fastMap(function (type) {
+              var promises = _.map(types,function (type) {
                 var defer2 = $q.defer();
 
                 /** change Images Path and save in device */
@@ -613,7 +613,7 @@
 
           //------ create structure of GlobalStor.global.glassesAll
           //------ insert profile Id and glass Types
-          var promises2 = profileIds.fastMap(function (item) {
+          var promises2 = _.map(profileIds,function (item) {
             var defer2 = $q.defer(),
               glassObj = {profileId: item, glassTypes: [], glasses: []};
             localDB.selectLocalDB(localDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
@@ -632,7 +632,7 @@
             //        console.log('data!!!!', data);
             if (data) {
               //-------- select all glass Ids as to profile Id
-              var promises3 = GlobalStor.global.glassesAll.fastMap(function (item) {
+              var promises3 = _.map(GlobalStor.global.glassesAll,function (item) {
                 var defer3 = $q.defer();
                 localDB.selectLocalDB(
                   localDB.tablesLocalDB.elements_profile_systems.tableName,
@@ -659,7 +659,7 @@
                 for (j = 0; j < glassIdsQty; j += 1) {
                   var defer6 = $q.defer();
                   //console.warn(glassIds[j]);//TODO error
-                  var promises7 = glassIds[j].fastMap(function (item) {
+                  var promises7 = _.map(glassIds[j],function (item) {
                     var defer7 = $q.defer();
                     localDB.selectLocalDB(
                       localDB.tablesLocalDB.lists.tableName,
@@ -695,7 +695,7 @@
                       });
 
                       /** find Glass Elements */
-                      var promises5 = GlobalStor.global.glassesAll[i].glassLists.fastMap(function (item) {
+                      var promises5 = _.map(GlobalStor.global.glassesAll[i].glassLists,function (item) {
                         var defer5 = $q.defer();
                         localDB.selectLocalDB(
                           localDB.tablesLocalDB.elements.tableName,
@@ -974,7 +974,7 @@
 
         function getAllAddKits() {
           var defer = $q.defer(),
-            promises = GeneralServ.addElementDATA.fastMap(function (item, index) {
+            promises = _.map(GeneralServ.addElementDATA,function (item, index) {
               if (index) {
                 return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
               } else {
@@ -1031,11 +1031,11 @@
 
         function getAllAddElems() {
           var deff = $q.defer(),
-            promGroup = GlobalStor.global.addElementsAll.fastMap(function (group, index) {
+            promGroup = _.map(GlobalStor.global.addElementsAll,function (group, index) {
               var deff1 = $q.defer();
               //------- without Grids
               if (index && group.elementsList && group.elementsList.length) {
-                var promElems = group.elementsList.fastMap(function (item) {
+                var promElems = _.map(group.elementsList,function (item) {
                   var deff2 = $q.defer();
 
                   /** change Images Path and save in device */
@@ -1065,7 +1065,7 @@
 
         function getGridPrice(grids) {
           var deff = $q.defer(),
-            proms = grids.fastMap(function (item) {
+            proms = _.map(grids,function (item) {
               var deff2 = $q.defer(),
                 objXAddElementPrice = {
                   currencyId: UserStor.userInfo.currencyId,
@@ -1392,7 +1392,7 @@
               accessoryHandles();
               downloadDoorsItems();
               //------- get link between handler and profile
-              var promises = GlobalStor.global.doorHandlers.fastMap(function (item) {
+              var promises = _.map(GlobalStor.global.doorHandlers,function (item) {
                 var deff = $q.defer();
                 localDB.selectLocalDB(
                   localDB.tablesLocalDB.lock_lists.tableName,
@@ -1515,7 +1515,7 @@
                         if (coeff && coeff.length) {
                           //console.warn('delivery Coeff!!', coeff);
                           GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
-                          GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').fastMap(function (item) {
+                          GlobalStor.global.deliveryCoeff.percents = _.map(coeff[0].percents.split(','),function (item) {
                             return +item;
                           });
                           /** download factory data */
@@ -1820,7 +1820,7 @@
                                           downloadAllLamination().then(function (result) {
                                             //console.log('LAMINATION++++', result);
                                             if (result && result.length) {
-                                              GlobalStor.global.laminats = angular.copy(result).fastMap(function (item) {
+                                              GlobalStor.global.laminats = _.map(angular.copy(result),function (item) {
                                                 item.isActive = 0;
                                                 return item;
                                               });
