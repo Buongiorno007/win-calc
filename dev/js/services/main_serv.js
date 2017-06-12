@@ -776,9 +776,7 @@
         function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
           var deferred = $q.defer();
           GlobalStor.global.isLoader = 1;
-          console.time("setBeadId");
           setBeadId(profileId, laminatId).then(function (beadResult) {
-          console.timeEnd("setBeadId");
 
             if (beadResult.length && beadResult[0]) {
               var beadIds = GeneralServ.removeDuplicates(_.map(angular.copy(beadResult),function (item) {
@@ -1827,7 +1825,10 @@
           deleteOrderInDB: deleteOrderInDB,
 
           setCurrentGlassForTemplate: setCurrentGlassForTemplate,
-          getOnline: getOnline
+          getOnline: getOnline,
+          calculationPrice : calculationPrice,
+          calculateCoeffs : calculateCoeffs,
+          setBeadId : setBeadId
         };
 
         return thisFactory.publicObj;
