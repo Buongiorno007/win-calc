@@ -87,12 +87,12 @@
           GlobalStor.global.isConfigMenu = 1;
           GlobalStor.global.activePanel = 0;
           setDefaultAuxParam();
-          if (GlobalStor.global.startProgramm) {
-            $timeout(function () {
-              GlobalStor.global.showRoomSelectorDialog = 1;
-            }, 2000);
-            // $timeout(closeRoomSelectorDialog, 5000);
-          }
+          // if (GlobalStor.global.startProgramm) {
+          //   $timeout(function () {
+          //     GlobalStor.global.showRoomSelectorDialog = 1;
+          //   }, 2000);
+          //   // $timeout(closeRoomSelectorDialog, 5000);
+          // }
         }
 
 
@@ -219,7 +219,7 @@
           var defer = $q.defer();
           console.time("selectLocalDB");
           localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function (result) {
-          console.timeEnd("selectLocalDB");
+            console.timeEnd("selectLocalDB");
             var resultObj = {};
             if (result.length) {
               resultObj.a = result[0].a;
@@ -501,7 +501,7 @@
         /** set Bead Id */
         function setBeadId(profileId, laminatId) {
           var deff = $q.defer(),
-            promisBeads = _.map(ProductStor.product.glass,function (item) {
+            promisBeads = _.map(ProductStor.product.glass, function (item) {
               var deff2 = $q.defer();
               if (item.glass_width) {
                 localDB.selectLocalDB(
@@ -520,7 +520,7 @@
                     //----- if beads more one
                     if (beadsQty > 1) {
                       //----- go to kits and find bead width required laminat Id
-                      var pomisList = _.map(beadIds,function (item2) {
+                      var pomisList = _.map(beadIds, function (item2) {
                         var deff3 = $q.defer();
                         localDB.selectLocalDB(
                           localDB.tablesLocalDB.lists.tableName,
@@ -779,7 +779,7 @@
           setBeadId(profileId, laminatId).then(function (beadResult) {
 
             if (beadResult.length && beadResult[0]) {
-              var beadIds = GeneralServ.removeDuplicates(_.map(angular.copy(beadResult),function (item) {
+              var beadIds = GeneralServ.removeDuplicates(_.map(angular.copy(beadResult), function (item) {
                 var beadQty = template.priceElements.beadsSize.length;
                 while (--beadQty > -1) {
                   if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
@@ -795,7 +795,7 @@
                   ProductStor.product.profile.stvorka_list_id,
                   ProductStor.product.profile.impost_list_id,
                   ProductStor.product.profile.shtulp_list_id,
-                  (glassIds.length > 1) ? _.map(glassIds,function (item) {
+                  (glassIds.length > 1) ? _.map(glassIds, function (item) {
                     return item.id;
                   }) : glassIds[0].id,
                   (beadIds.length > 1) ? beadIds : beadIds[0],
@@ -830,7 +830,7 @@
               //--------- get product price
               console.time("calculationPrice");
               calculationPrice(objXFormedPrice).then(function (result) {
-              console.timeEnd("calculationPrice");
+                console.timeEnd("calculationPrice");
                 deferred.resolve(1);
                 /** set Report */
                 if (result) {
@@ -1345,9 +1345,6 @@
                 $location.path("/main");
                 GlobalStor.global.currOpenPage = 'main';
               }
-              $timeout(function () {
-                GlobalStor.global.showRoomSelectorDialog = 1;
-              }, 1000);
             }
           });
         }
@@ -1356,33 +1353,31 @@
         /**========== CREATE PRODUCT ==========*/
 
         function createNewProduct() {
+          console.time('createNewProduct');
           //------- cleaning product
           ProductStor.product = ProductStor.setDefaultProduct();
           GlobalStor.global.isCreatedNewProduct = 1;
           GlobalStor.global.isChangedTemplate = 0;
           //------- set new templates
           setCurrTemplate();
-          console.time('prepareTemplates');
           prepareTemplates(ProductStor.product.construction_type).then(function () {
-          console.timeEnd('prepareTemplates');
-            prepareMainPage();
             /** start lamination filtering */
             cleanLamFilter();
             laminatFiltering();
-            if (GlobalStor.global.currOpenPage !== 'main') {
-              GlobalStor.global.showRoomSelectorDialog = 0;
-              if (GlobalStor.global.isLightVersion) {
-                //$location.path('/light');
-                GlobalStor.global.currOpenPage = 'light';
-              } else {
-                $location.path("/main");
-                GlobalStor.global.currOpenPage = 'main';
-              }
-              $timeout(function () {
-                GlobalStor.global.showRoomSelectorDialog = 1;
-              }, 1000);
-            }
+
+            console.timeEnd('createNewProduct');
           });
+          if (GlobalStor.global.currOpenPage !== 'main') {
+            GlobalStor.global.showRoomSelectorDialog = 0;
+            if (GlobalStor.global.isLightVersion) {
+              //$location.path('/light');
+              GlobalStor.global.currOpenPage = 'light';
+            } else {
+              $location.path("/main");
+              GlobalStor.global.currOpenPage = 'main';
+            }
+          }
+          prepareMainPage();
         }
 
 
@@ -1607,7 +1602,7 @@
                 productData.profile_id = OrderStor.order.products[p].profile.id;
                 (productData.door_group_id) ? productData.door_group_id = 0 : productData.door_group_id = 0;
               }
-              productData.glass_id = _.map(OrderStor.order.products[p].glass,function (item) {
+              productData.glass_id = _.map(OrderStor.order.products[p].glass, function (item) {
                 return item.id;
               }).join(', ');
 
@@ -1826,9 +1821,10 @@
 
           setCurrentGlassForTemplate: setCurrentGlassForTemplate,
           getOnline: getOnline,
-          calculationPrice : calculationPrice,
-          calculateCoeffs : calculateCoeffs,
-          setBeadId : setBeadId
+          calculationPrice: calculationPrice,
+          calculateCoeffs: calculateCoeffs,
+          setBeadId: setBeadId,
+          prepareReport: prepareReport
         };
 
         return thisFactory.publicObj;

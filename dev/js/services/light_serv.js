@@ -84,7 +84,7 @@
                 if (result) {
                   //---- only for this type of user
                   if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-                    ProductStor.product.report = prepareReport(result.constrElements);
+                    ProductStor.product.report = MainServ.prepareReport(result.constrElements);
                     //console.log('REPORT', ProductStor.product.report);
                     //console.timeEnd('price');
                   }
