@@ -490,7 +490,7 @@
 
         //-------- Get number from calculator
         function setValueSize(newValue) {
-          GlobalStor.global.activePanel = 0;
+          // GlobalStor.global.activePanel = 0;
           var sizeLength = DesignStor.design.tempSize.length;
           //console.log('take new value = ', newValue);
           if (GlobalStor.global.isVoiceHelper) {

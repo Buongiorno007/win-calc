@@ -24,7 +24,7 @@
 
     //------ clicking
     //------ for Add Elements Panel
-    if(GlobalStor.global.currOpenPage === 'main') {
+    if((GlobalStor.global.currOpenPage === 'main') || GlobalStor.global.currOpenPage === 'light') {
       thisCtrl.isDesignPage = true;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;

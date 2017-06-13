@@ -33,6 +33,7 @@
 
         //------- set current Page
         GlobalStor.global.currOpenPage = 'light';
+        GlobalStor.global.isLightVersion = 1;
 
         thisCtrl.config = {
           //---- design menu

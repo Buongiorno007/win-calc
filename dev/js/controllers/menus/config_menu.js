@@ -206,6 +206,7 @@
           GlobalStor.global.showConfiguration = 1;
           GlobalStor.global.showCart = 0;
           GlobalStor.global.isSizeCalculator = 0;
+          GlobalStor.global.activePanel = 0;
           CartStor.cart.isShowDiscount = 0;
           if ($location.path() === "/light") {
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
@@ -222,6 +223,7 @@
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 0;
           GlobalStor.global.isSizeCalculator = 0;
+          GlobalStor.global.activePanel = 0;
           CartStor.cart.isShowDiscount = 0;
           if ($location.path() === "/light") {
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
