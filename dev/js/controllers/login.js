@@ -185,7 +185,8 @@
             localStorage.setItem('AuxStor', aux);
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
-            window.location.reload();
+
+            location.hash = "#/";
           });
         }
 
