@@ -186,7 +186,7 @@
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
 
-            location.hash = "#/";
+            window.location.reload();
           });
         }
 
