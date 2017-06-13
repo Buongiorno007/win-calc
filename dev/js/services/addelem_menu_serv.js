@@ -197,7 +197,8 @@
           var sizeLength = AuxStor.aux.tempSize.length;
           //---- clean tempSize if indicate only one 0
           if (sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
-            AuxStor.aux.tempSize.length = 0;
+            console.log("asdsa");
+            // AuxStor.aux.tempSize.length = 0;
           }
           if (newValue === '0') {
             if (sizeLength && AuxStor.aux.tempSize[0]) {
