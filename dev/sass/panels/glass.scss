@@ -40,6 +40,18 @@
         @include top_left_coord(40px, 30px);
       }
     }
+    .label {
+      display: inline-block;
+      margin-left: 4.5rem;
+      width: 100%;
+      margin-top : .6rem;
+      span {
+        @include roboto-lt(rem(30px));
+        float:  left;
+        width: auto;
+        display: inline-block;
+      }
+    }
   }
   .glass-box-view {
     @include display-flex();
