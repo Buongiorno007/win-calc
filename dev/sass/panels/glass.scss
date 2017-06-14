@@ -63,15 +63,13 @@
   .glass-box-data {
     float: right;
     width: rem(225px);
-    margin-top : 1.5rem;
+    margin-top: 1.5rem;
   }
   .glass-descr {
     @extend .truncated;
     @include roboto-md(rem(36px));
     color: $main_gray_txt;
-    width : 100%;
-    display : inline-block;
-    text-align : center;
+    margin-left: 2rem;
   }
   .label {
     @include roboto-lt(rem(22px));
@@ -117,7 +115,7 @@
       background-color: $main_green;
       text-align: center;
 
-      &:after{
+      &:after {
         color: #fff;
         content: $select-history-icon;
       }
