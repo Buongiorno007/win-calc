@@ -11,14 +11,11 @@
         .footer-inner
           .box.glass-box.unvisible(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
             .box_inner(ng-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
+              .glass-descr(data-output="{{ ::glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
               .glass-box-view
                 .glass-img
                   img(ng-src="img/glasses/glass{{ glass.glass_image }}.png")
-                .label
-                  span {{ glassPanel.config.glassLabels[glass.glass_image-1] | translate }}
-                  span(ng-if="glass.glass_image === 3 || glass.glass_image === 6 || glass.glass_image === 7") {{ ::glassPanel.ENERGY_SAVE }}
               .glass-box-data
-                .glass-descr(data-output="{{ ::glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
                 .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.transcalencyD === 1, 'coef-level-2': glass.transcalencyD === 2, 'coef-level-3': glass.transcalencyD === 3, 'coef-level-4': glass.transcalencyD === 4}")
                   .coef-index
                   .coef-index
