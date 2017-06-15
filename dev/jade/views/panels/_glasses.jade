@@ -34,7 +34,7 @@
             .label
               span {{ glassPanel.config.glassLabels[glass.glass_image-1] | translate }}
               span(ng-if="glass.glass_image === 3 || glass.glass_image === 6 || glass.glass_image === 7") {{ ::glassPanel.ENERGY_SAVE }}
-            .full-name(ng-if="glass.sku.length > 20") {{ glass.sku }}
+            .full-name(ng-if="glass.sku.length > 21") {{ glass.sku }}
   .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
     .dialog-inner
       svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="glassPanel.constants.SVG_ID_GLASS")

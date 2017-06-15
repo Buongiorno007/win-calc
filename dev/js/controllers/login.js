@@ -188,7 +188,10 @@
             localStorage.setItem('OrderStor', order);
 
             // window.location.reload();
-            document.location.reload(true);
+            $timeout(function() {
+              document.location.reload(true);
+            }, 500);
+
           });
         }
 
