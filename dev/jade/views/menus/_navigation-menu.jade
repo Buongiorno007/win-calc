@@ -53,11 +53,11 @@
           span.nav-icon-information
           span.title {{ ::navMenu.NAVMENU_MORE_INFO }}
 
-      li.item(fs-click="navMenu.selectMenuItem(10)")
-        .item-content
-          span.nav-icon-light
-          span.title(ng-if="navMenu.G.global.isLightVersion === 0") {{ ::navMenu.NAVMENU_LIGHT_VER }}
-          span.title(ng-if="navMenu.G.global.isLightVersion !== 0") {{ ::navMenu.NAVMENU_STANDART_VERSION }}
+      //li.item(fs-click="navMenu.selectMenuItem(10)")
+      //  .item-content
+      //    span.nav-icon-light
+      //    span.title(ng-if="navMenu.G.global.isLightVersion === 0") {{ ::navMenu.NAVMENU_LIGHT_VER }}
+      //    span.title(ng-if="navMenu.G.global.isLightVersion !== 0") {{ ::navMenu.NAVMENU_STANDART_VERSION }}
       li.item(fs-click="navMenu.logOut()")
         .item-content
           span.nav-icon-logOut
@@ -66,6 +66,7 @@
         .item-content
           span.nav-icon-voicehelp
           span.title {{ ::navMenu.NAVMENU_VOICE_HELPER }}
-
-  footer.nav-menu-footer
-button.new-calc(ng-if="!navMenu.G.global.orderEditNumber", fs-click="navMenu.clickNewProject()") {{ ::navMenu.NAVMENU_NEW_CALC }}
+      li.item(fs-click="navMenu.clickNewProject()")
+        .item-content
+          span.nav-icon-plus
+          span.title {{ ::navMenu.NAVMENU_NEW_CALC }}

@@ -12,6 +12,7 @@
                 DesignStor,
                 ProductStor,
                 OrderStor,
+                UserStor,
 
                 MainServ,
                 GeneralServ,
@@ -21,6 +22,83 @@
                 SVGServ) {
         /*jshint validthis:true */
         var thisFactory = this;
+
+        function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
+          var deferred = $q.defer();
+          GlobalStor.global.isLoader = 1;
+          MainServ.setBeadId(profileId, laminatId).then(function (beadResult) {
+
+            if (beadResult.length && beadResult[0]) {
+              var beadIds = GeneralServ.removeDuplicates(_.map(angular.copy(beadResult),function (item) {
+                var beadQty = template.priceElements.beadsSize.length;
+                while (--beadQty > -1) {
+                  if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                    template.priceElements.beadsSize[beadQty].elemId = item.beadId;
+                  }
+                }
+                return item.beadId;
+              })), objXFormedPrice = {
+                laminationId: laminatId,
+                ids: [
+                  ProductStor.product.profile.rama_list_id,
+                  ProductStor.product.profile.rama_still_list_id,
+                  ProductStor.product.profile.stvorka_list_id,
+                  ProductStor.product.profile.impost_list_id,
+                  ProductStor.product.profile.shtulp_list_id,
+                  (glassIds.length > 1) ? _.map(glassIds,function (item) {
+                    return item.id;
+                  }) : glassIds[0].id,
+                  (beadIds.length > 1) ? beadIds : beadIds[0],
+                  (ProductStor.product.construction_type === 4) ? 0 : hardwareId
+                ],
+                sizes: []
+              };
+              //-------- beads data for analysis
+              ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
+              //------- fill objXFormedPrice for sizes
+              for (var size in template.priceElements) {
+                /** for door elements */
+                objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+              }
+
+              //------- set Overall Dimensions
+              ProductStor.product.template_width = 0;
+              ProductStor.product.template_height = 0;
+              ProductStor.product.template_square = 0;
+              var overallQty = ProductStor.product.template.details[0].overallDim.length;
+              while (--overallQty > -1) {
+                ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+                ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+                ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
+              }
+
+              //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+              //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+
+              //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+              //--------- get product price
+              MainServ.calculationPrice(objXFormedPrice).then(function (result) {
+                deferred.resolve(1);
+                /** set Report */
+                if (result) {
+                  //---- only for this type of user
+                  if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                    ProductStor.product.report = MainServ.prepareReport(result.constrElements);
+                    //console.log('REPORT', ProductStor.product.report);
+                    //console.timeEnd('price');
+                  }
+                }
+              });
+
+              /** calculate coeffs */
+              MainServ.calculateCoeffs(objXFormedPrice);
+            } else {
+              deferred.resolve(1);
+            }
+          });
+          return deferred.promise;
+        }
 
         function designSaved() {
           if (GlobalStor.global.checkDoors === 0) {
@@ -116,7 +194,7 @@
                     SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                       ProductStor.product.template = angular.copy(result);
                       /** refresh price of new template */
-                      MainServ.preparePrice(
+                      preparePrice(
                         ProductStor.product.template,
                         ProductStor.product.profile.id,
                         ProductStor.product.glass,
@@ -211,7 +289,7 @@
             OrderStor.order.products.push(cloneProduct);
           }
           function createProductCopy() {
-            var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
+            var lastProductId = d3.max(_.map(OrderStor.order.products,function(item) {
                 return item.product_id;
               })),
 

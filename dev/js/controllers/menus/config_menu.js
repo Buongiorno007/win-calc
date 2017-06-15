@@ -133,7 +133,7 @@
         function checkForAddElem(go_to_cart) {
           // console.log(ProductStor.product.report);
           // ProductStor.product.template_source.report = ProductStor.product.report;
-          // if (!GlobalStor.global.isZeroPriceList.length) {
+          if (!GlobalStor.global.isZeroPriceList.length) {
 
             if (GlobalStor.global.locations.cities.length === 1) {
               loginServ.downloadAllCities(1);
@@ -161,18 +161,18 @@
             } else {
               saveProduct();
             }
-          // } else {
-          //   var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
-          //   console.log(GlobalStor.global.isZeroPriceList);
-          //   GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
-          //     msg += " "+ZeroElem+"\n";
-          //   });
-          //   msg += " \n"+thisCtrl.ATENTION_MSG2;
-          //   GeneralServ.infoAlert(
-          //     thisCtrl.ATENTION,
-          //     msg
-          //   );
-          // }
+          } else {
+            var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+            console.log(GlobalStor.global.isZeroPriceList);
+            GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+              msg += " "+ZeroElem+"\n";
+            });
+            msg += " \n"+thisCtrl.ATENTION_MSG2;
+            GeneralServ.infoAlert(
+              thisCtrl.ATENTION,
+              msg
+            );
+          }
 
         }
 
@@ -189,6 +189,9 @@
         }
 
         function cartButton() {
+          if (GlobalStor.global.locations.cities.length === 1) {
+            loginServ.downloadAllCities(1);
+          }
           GlobalStor.global.showKarkas = 0;
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 1;
@@ -203,7 +206,12 @@
           GlobalStor.global.showConfiguration = 1;
           GlobalStor.global.showCart = 0;
           GlobalStor.global.isSizeCalculator = 0;
+          GlobalStor.global.activePanel = 0;
           CartStor.cart.isShowDiscount = 0;
+          if ($location.path() === "/light") {
+            ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+            ProductStor.product.template = DesignStor.design.templateTEMP;
+          }
           setTimeout(function () {
             DesignServ.rebuildSVGTemplate();
           }, 250);
@@ -215,7 +223,12 @@
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 0;
           GlobalStor.global.isSizeCalculator = 0;
+          GlobalStor.global.activePanel = 0;
           CartStor.cart.isShowDiscount = 0;
+          if ($location.path() === "/light") {
+            ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+            ProductStor.product.template = DesignStor.design.templateTEMP;
+          }
           setTimeout(function () {
             DesignServ.rebuildSVGTemplate();
           }, 250);

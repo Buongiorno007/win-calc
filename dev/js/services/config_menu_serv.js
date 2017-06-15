@@ -16,7 +16,8 @@
                 InfoBoxServ,
                 DesignStor,
                 SVGServ,
-                DesignServ) {
+                DesignServ,
+                AddElementMenuServ) {
         var thisFactory = this;
 
 

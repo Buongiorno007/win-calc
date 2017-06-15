@@ -40,6 +40,18 @@
         @include top_left_coord(40px, 30px);
       }
     }
+    .label {
+      display: inline-block;
+      margin-left: 4.5rem;
+      width: 100%;
+      margin-top : .3srem;
+      span {
+        @include roboto-lt(rem(30px));
+        float:  left;
+        width: auto;
+        display: inline-block;
+      }
+    }
   }
   .glass-box-view {
     @include display-flex();
@@ -63,13 +75,13 @@
   .glass-box-data {
     float: right;
     width: rem(225px);
+    margin-top: 1.5rem;
   }
   .glass-descr {
     @extend .truncated;
     @include roboto-md(rem(36px));
-
-    margin-bottom: rem(50px);
     color: $main_gray_txt;
+    margin-left: 2rem;
   }
   .label {
     @include roboto-lt(rem(22px));
@@ -115,7 +127,7 @@
       background-color: $main_green;
       text-align: center;
 
-      &:after{
+      &:after {
         color: #fff;
         content: $select-history-icon;
       }

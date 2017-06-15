@@ -197,7 +197,8 @@
           var sizeLength = AuxStor.aux.tempSize.length;
           //---- clean tempSize if indicate only one 0
           if (sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
-            AuxStor.aux.tempSize.length = 0;
+            console.log("asdsa");
+            // AuxStor.aux.tempSize.length = 0;
           }
           if (newValue === '0') {
             if (sizeLength && AuxStor.aux.tempSize[0]) {
@@ -348,10 +349,10 @@
 
 
         function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
-          var sizeGridX = ProductStor.product.template.details[blockIndex].pointsLight.map(function (item) {
+          var sizeGridX = _.map(ProductStor.product.template.details[blockIndex].pointsLight,function (item) {
               return item.x;
             }),
-            sizeGridY = ProductStor.product.template.details[blockIndex].pointsLight.map(function (item) {
+            sizeGridY = _.map(ProductStor.product.template.details[blockIndex].pointsLight,function (item) {
               return item.y;
             }),
             gridTemp;
@@ -504,13 +505,13 @@
         function confirmGrid() {
           var gridsT = [], grids = [];
           if (GlobalStor.global.sashTypeBlock.length > 0) {
-            gridsT = GlobalStor.global.sashTypeBlock.map(function (item) {
+            gridsT = _.map(GlobalStor.global.sashTypeBlock,function (item) {
               var blockId = item;
               return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
             });
           }
           if (DesignStor.design.selectedGlass.length) {
-            grids = DesignStor.design.selectedGlass.map(function (item) {
+            grids = _.map(DesignStor.design.selectedGlass,function (item) {
               var blockId = item.attributes.block_id.nodeValue;
               return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
             });

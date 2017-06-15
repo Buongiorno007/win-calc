@@ -490,7 +490,7 @@
 
         //-------- Get number from calculator
         function setValueSize(newValue) {
-          GlobalStor.global.activePanel = 0;
+          // GlobalStor.global.activePanel = 0;
           var sizeLength = DesignStor.design.tempSize.length;
           //console.log('take new value = ', newValue);
           if (GlobalStor.global.isVoiceHelper) {
@@ -723,10 +723,10 @@
                     gridTemp = gridsOld[g];
                     sizeTemp = {};
                     //------ defined inner block sizes
-                    sizeGridX = blocks[blockQty].pointsLight.map(function (item) {
+                    sizeGridX = _.map(blocks[blockQty].pointsLight,function (item) {
                       return item.x;
                     });
-                    sizeGridY = blocks[blockQty].pointsLight.map(function (item) {
+                    sizeGridY = _.map(blocks[blockQty].pointsLight,function (item) {
                       return item.y;
                     });
                     sizeTemp.width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
@@ -2943,7 +2943,7 @@
           //----- find dimensions of block Level 1
           for (b = 1; b < blocksQty; b += 1) {
             if (blocksSource[b].level === 1) {
-              parentBlocs.push(blocksSource[b].pointsOut.map(function (point) {
+              _.map(parentBlocs.push(blocksSource[b].pointsOut,function (point) {
                 return point.x;
               }));
             }
@@ -3052,7 +3052,7 @@
           }
 
           if (selectedBlock.imps.length) {
-            glassXArr = currBlock.glassPoints.map(function (item) {
+            glassXArr = _.map(currBlock.glassPoints,function (item) {
               return item.x;
             });
             selectedBlock.minX = d3.min(glassXArr);

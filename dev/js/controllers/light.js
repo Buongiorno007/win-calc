@@ -33,6 +33,7 @@
 
         //------- set current Page
         GlobalStor.global.currOpenPage = 'light';
+        GlobalStor.global.isLightVersion = 1;
 
         thisCtrl.config = {
           //---- design menu
@@ -252,9 +253,7 @@
 
 
         function checkForAddElem() {
-          if (GlobalStor.global.locations.cities.length === 1) {
-            loginServ.downloadAllCities(1);
-          }
+
           if (!GlobalStor.global.isChangedTemplate) {
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
           }
