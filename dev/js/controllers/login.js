@@ -186,7 +186,8 @@
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
 
-            window.location.reload();
+            // window.location.reload();
+            document.location.reload(true);
           });
         }
 
