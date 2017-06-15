@@ -10,6 +10,7 @@
                 $rootScope,
                 $cordovaNetwork,
                 $filter,
+                $translate,
                 globalConstants,
                 localDB,
                 loginServ,
