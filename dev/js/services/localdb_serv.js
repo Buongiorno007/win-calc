@@ -2846,28 +2846,28 @@
             priceObj = {},
             finishPriceObj = {};
           //console.info('START+++', construction);
-          console.time("parseMainKit");
+          // console.time("parseMainKit");
           parseMainKit(construction).then(function (kits) {
-          console.timeEnd("parseMainKit");
+          // console.timeEnd("parseMainKit");
             //console.warn('kits!!!!!!+', kits);
             //console.warn(_.where(_.compact(_.flatten(kits)), {child_id:409784}), 'kits');
             priceObj.kits = kits;
             /** collect Kit Children Elements*/
-            console.time("parseKitConsist");
+            // console.time("parseKitConsist");
             parseKitConsist(priceObj.kits).then(function (consist) {
-              console.timeEnd("parseKitConsist");
+              // console.timeEnd("parseKitConsist");
               //console.warn('consist!!!!!!+', consist);
               //console.warn(_.where(_.compact(_.flatten(consist)), {id:409784}), 'consist');
               priceObj.consist = consist;
-              console.time("parseKitElement");
+              // console.time("parseKitElement");
               parseKitElement(priceObj.kits).then(function (kitsElem) {
-                console.timeEnd("parseKitElement");
+                // console.timeEnd("parseKitElement");
                 //console.warn('kitsElem!!!!!!+', kitsElem);
                 //console.warn(_.where(_.compact(_.flatten(kitsElem)), {child_id:409784}), 'kitsElem');
                 priceObj.kitsElem = kitsElem;
-                console.time("parseConsistElem");
+                // console.time("parseConsistElem");
                 parseConsistElem(priceObj.consist).then(function (consistElem) {
-                  console.timeEnd("parseConsistElem");
+                  // console.timeEnd("parseConsistElem");
                   //console.warn('consistElem!!!!!!+', consistElem);
                   priceObj.consistElem = consistElem;
                   priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);

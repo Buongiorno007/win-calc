@@ -31,6 +31,7 @@
           },
           function () {
             console.log('Something went wrong with language json');
+            console.log(options.key);
             def.reject(options.key);
           }
         );

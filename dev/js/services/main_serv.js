@@ -217,9 +217,9 @@
 
         function downloadProfileDepth(elementId) {
           var defer = $q.defer();
-          console.time("selectLocalDB");
+          // console.time("selectLocalDB");
           localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function (result) {
-            console.timeEnd("selectLocalDB");
+            // console.timeEnd("selectLocalDB");
             var resultObj = {};
             if (result.length) {
               resultObj.a = result[0].a;
@@ -658,7 +658,7 @@
 
 
         function prepareReport(elementList) {
-          console.time("prepareReport");
+          // console.time("prepareReport");
           var report = [],
             elementListQty = elementList.length,
             ind, tempObj, reportQty, exist, priceMarg;
@@ -699,7 +699,7 @@
               report[reportQty].priceReal = GeneralServ.roundingValue(priceMarg, 2);
             }
           }
-          console.timeEnd("prepareReport");
+          // console.timeEnd("prepareReport");
           return report;
         }
 
@@ -828,9 +828,9 @@
               //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
               //--------- get product price
-              console.time("calculationPrice");
+              // console.time("calculationPrice");
               calculationPrice(objXFormedPrice).then(function (result) {
-                console.timeEnd("calculationPrice");
+                // console.timeEnd("calculationPrice");
                 deferred.resolve(1);
                 /** set Report */
                 if (result) {
@@ -1353,7 +1353,7 @@
         /**========== CREATE PRODUCT ==========*/
 
         function createNewProduct() {
-          console.time('createNewProduct');
+          // console.time('createNewProduct');
           //------- cleaning product
           ProductStor.product = ProductStor.setDefaultProduct();
           GlobalStor.global.isCreatedNewProduct = 1;
@@ -1365,7 +1365,7 @@
             cleanLamFilter();
             laminatFiltering();
 
-            console.timeEnd('createNewProduct');
+            // console.timeEnd('createNewProduct');
           });
           if (GlobalStor.global.currOpenPage !== 'main') {
             GlobalStor.global.showRoomSelectorDialog = 0;
