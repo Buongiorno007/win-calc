@@ -124,7 +124,7 @@
               });
             } else {
             $location.path("/light");
-            document.location.reload();
+            location.reload();
             }
             GlobalStor.global.currOpenPage = 'light';
           }
