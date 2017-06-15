@@ -187,6 +187,8 @@
             localStorage.setItem('AuxStor', aux);
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
+
+            location.reload();
           });
         }
 
