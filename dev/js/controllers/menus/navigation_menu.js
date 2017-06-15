@@ -120,11 +120,9 @@
                 MainServ.cleanLamFilter();
                 MainServ.laminatFiltering();
                 $location.path("/light");
-
               });
             } else {
             $location.path("/light");
-
             }
             GlobalStor.global.currOpenPage = 'light';
           }

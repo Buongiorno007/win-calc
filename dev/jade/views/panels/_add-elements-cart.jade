@@ -14,7 +14,8 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
         .aux-list-block-title {{ elemCartPanel.config.addElementDATA[$index].name | translate }}
 
         table.aux-list-addellement
-          tr.aux-list-row(ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index")
+          tr.aux-list-row(ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index"
+                          ng-if="addElem.list_group_id === elemType.id")
             td.aux-tablecell-name
               .aux-name
                 button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", fs-click="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}

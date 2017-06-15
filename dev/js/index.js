@@ -185,9 +185,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     $translateProvider.preferredLanguage('ru');
 
     $translateProvider.useLoader('AsyncLoader');
-    if(!$translateProvider.useLoader('AsyncLoader')){
-      $translateProvider.useLoader('AsyncLoader')
-    }
   }
 
 })();

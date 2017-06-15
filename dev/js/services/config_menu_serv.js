@@ -71,8 +71,6 @@
                 });
 
               });
-                  console.log(GlobalStor.global.glasses);
-                  console.log(GlobalStor.global.glassTypes);
               var transcalency_arr = [];
               var noise_coeff_arr = [];
               GlobalStor.global.glasses.forEach(function (glass_arr) {

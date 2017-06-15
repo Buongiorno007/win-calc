@@ -317,6 +317,15 @@
 
         /** show All Add Elements Panel */
         function showAllAddElements() {
+          console.log(GeneralServ.addElementDATA);
+          console.log(CartStor.cart.allAddElemsOrder);
+          GeneralServ.addElementDATA.forEach(function (elemType) {
+            CartStor.cart.allAddElemsOrder.forEach(function (allAddElemsOrder) {
+              if (elemType.id === allAddElemsOrder.list_group_id){
+                console.log(elemType.id);
+              }
+            })
+          })
           collectAllAddElems();
           getAddElemsPriceTotal();
           initSelectedProductsArr();
@@ -373,7 +382,16 @@
           CartMenuServ.joinAllAddElements();
           CartMenuServ.calculateOrderPrice();
         }
+        function collectAddElem() {
+          CartStor.cart.addedAddElem = [];
+          GeneralServ.addElementDATA.forEach(function (elemType) {
+            CartStor.cart.allAddElemsOrder.forEach(function (allAddElemsOrder) {
+              if (elemType.id===allAddElemsOrder.list_group_id){
 
+              }
+            })
+          })
+        }
 
         /**========== FINISH ==========*/
 
