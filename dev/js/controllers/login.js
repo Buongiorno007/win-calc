@@ -187,9 +187,9 @@
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
 
-            $timeout(function() {
-              document.location.reload(true);
-            }, 1000);
+            // $timeout(function() {
+            //   document.location.reload(true);
+            // }, 1000);
           });
         }
 
@@ -1062,9 +1062,6 @@
 
 
         function fastEnter(url) {
-          $translate.use(globalConstants.languages[1].label);
-          UserStor.userInfo.langLabel = globalConstants.languages[1].label;
-          UserStor.userInfo.langName = globalConstants.languages[1].name;
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
           if (url.orderEdit) {
