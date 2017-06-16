@@ -183,6 +183,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
     $translateProvider.preferredLanguage('ru');
+
     $translateProvider.useLoader('AsyncLoader');
   }
 

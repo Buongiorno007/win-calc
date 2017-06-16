@@ -120,7 +120,6 @@
                 MainServ.cleanLamFilter();
                 MainServ.laminatFiltering();
                 $location.path("/light");
-
               });
             } else {
             $location.path("/light");

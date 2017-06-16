@@ -508,10 +508,7 @@
 
         .menu_tooltip(ng-if="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           .close_menu_tooltip
-    section.order-forms(ng-controller="OrderFormCtrl as orderForm")
-      include parts/_form-master
-      include parts/_form-order
-      include parts/_form-credit
+    include parts/_form_order_light
   include parts/_info-box
   include parts/_attantions
   include parts/_check-doors
