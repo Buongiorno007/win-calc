@@ -16,7 +16,7 @@
                 AuxStor,
                 DesignStor,
                 OrderStor,
-                HistoryStor) {
+                CartStor) {
 
         /*jshint validthis:true */
         var thisFactory = this;
@@ -218,9 +218,7 @@
 
         //-------- blocking to refresh page
         $window.onbeforeunload = function () {
-
           GlobalStor.global.loadDate = new Date();
-
           var main_store = [];
           main_store.global = GlobalStor.global;
           main_store.product = ProductStor.product;
@@ -229,14 +227,8 @@
           main_store.aux = AuxStor.aux;
           main_store.order = OrderStor.order;
           main_store.cart = CartStor.cart;
-          GlobalStor.global.isLoader = 1;
-          localforage.setItem("main_store", main_store, function (err, value) {
-            console.log("save succeeded");
-            GlobalStor.global.isLoader = 0;
-          });
-
+          localforage.setItem('main_store', main_store);
           return $filter('translate')('common_words.PAGE_REFRESH');
-
         };
 
         /** prevent Backspace back to previos Page */
