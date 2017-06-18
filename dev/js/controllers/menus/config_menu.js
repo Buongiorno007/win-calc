@@ -145,6 +145,9 @@
                   if (OrderStor.order.products.length === 0) {
                     $('#qty').hide().show(0);
                     saveProduct(go_to_cart);
+                  } else if (GlobalStor.global.isNewTemplate === 1) {
+                    $('#qty').hide().show(0);
+                    saveProduct();
                   } else if (GlobalStor.global.isChangedTemplate === 0) {
                     //  ALERT
                     GlobalStor.global.isNoChangedProduct = 1;
@@ -165,9 +168,9 @@
             var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
             console.log(GlobalStor.global.isZeroPriceList);
             GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
-              msg += " "+ZeroElem+"\n";
+              msg += " " + ZeroElem + "\n";
             });
-            msg += " \n"+thisCtrl.ATENTION_MSG2;
+            msg += " \n" + thisCtrl.ATENTION_MSG2;
             GeneralServ.infoAlert(
               thisCtrl.ATENTION,
               msg

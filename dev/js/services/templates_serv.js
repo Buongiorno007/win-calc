@@ -38,6 +38,11 @@
             DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
               // console.timeEnd("setDoorConfigDefault");
               ProductStor.product = angular.copy(result);
+              if ($location.path() === "/main") {
+                if ($location.path() !== "/design") {
+                  $location.path("/design");
+                }
+              }
             });
           } else {
             ProductStor.product.template_id = DesignStor.design.template_id;
@@ -50,20 +55,8 @@
 
                 MainServ.setCurrentHardware(ProductStor.product);
                 DesignServ.setDefaultConstruction();
-                var hardwareIds = ProductStor.product.hardware.id || 0;
                 //------ define product price
 
-                // console.time("preparePrice");
-                MainServ.preparePrice(
-                  ProductStor.product.template,
-                  ProductStor.product.profile.id,
-                  ProductStor.product.glass,
-                  hardwareIds,
-                  ProductStor.product.lamination.lamination_in_id
-                ).then(function () {
-                  // console.timeEnd("preparePrice");
-
-                });
                 /** send analytics data to Server*/
                 AnalyticsServ.sendAnalyticsData(
                   UserStor.userInfo.id,
@@ -72,6 +65,11 @@
                   ProductStor.product.profile.id,
                   1
                 );
+                if ($location.path() === "/main") {
+                  if ($location.path() !== "/design") {
+                    $location.path("/design");
+                  }
+                }
               });
             })
           }
@@ -115,24 +113,17 @@
           ProductStor.product.room_id = templateIndex;
 
           function goToNewTemplate() {
-            if (!GlobalStor.global.isLightVersion) {
 
-              if ($location.path() !== "/design") {
-                $location.path("/design");
-              }
-            }
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();
             GlobalStor.global.isNewTemplate = 1;
             //-------- check changes in current template
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-            // GlobalStor.global.isChangedTemplate = 1;
-
-            if (!whoCalled) {
-              ProductStor.product.construction_type = GlobalStor.global.templatesType;
-            } else {
-              ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd - 1].group_id;
-            }
+            // if (!whoCalled) {
+            //   ProductStor.product.construction_type = GlobalStor.global.templatesType;
+            // } else {
+            // }
+            ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd - 1].group_id;
             DesignStor.design.template_id = templateIndex;
             GlobalStor.global.selectRoom = 1;
             MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function (data) {

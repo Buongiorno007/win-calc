@@ -9,15 +9,17 @@
       function () {
         /*jshint validthis:true */
         var thisFactory = this;
+
         function setDefaultGlobal() {
           return angular.copy(thisFactory.publicObj.globalSource);
         }
+
         thisFactory.publicObj = {
           globalSource: {
-            isZeroPriceList : [],
-            showAllGlass : 0,
-            isSavingAlert : 0,
-            isNoChangedProduct : 0,
+            isZeroPriceList: [],
+            showAllGlass: 0,
+            isSavingAlert: 0,
+            isNoChangedProduct: 0,
             isTest: 0,
             isDesignError: 0,
             product_qty: 1,
@@ -177,22 +179,22 @@
             maxSizeLimit: 3200,
             maxSquareLimit: 6,
             changeLocation: 1,
-            tempPrice : 0,
-            isNewTemplate : 0,
+            tempPrice: 0,
+            isNewTemplate: 0,
 
-            construction_count :  0
+            construction_count: 0
           },
 
           setDefaultGlobal: setDefaultGlobal
         };
-        var data = localStorage.getItem("GlobalStor");
-        if (data) {
-          thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(data)));
-          //console.log("GlobalStor restored");
-        } else {
-          //console.log("GlobalStor created");
-          thisFactory.publicObj.global = setDefaultGlobal();
-        }
+        // var data = localStorage.getItem("GlobalStor");
+        // if (data) {
+        //   thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(LZString.decompress(data))));
+        //   //console.log("GlobalStor restored");
+        // } else {
+        //   //console.log("GlobalStor created");
+        // }
+        thisFactory.publicObj.global = setDefaultGlobal();
 
         return thisFactory.publicObj;
 
