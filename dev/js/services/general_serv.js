@@ -219,20 +219,24 @@
         //-------- blocking to refresh page
         $window.onbeforeunload = function () {
 
-          // GlobalStor.global.loadDate = new Date();
-          // var global = LZString.compress(JSON.stringify(GlobalStor.global));
-          // var product = LZString.compress(JSON.stringify(ProductStor.product));
-          // var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
-          // var design = LZString.compress(JSON.stringify(DesignStor.design));
-          // var order = LZString.compress(JSON.stringify(OrderStor.order));
-          // localStorage.clear();
-          // localStorage.setItem('GlobalStor', global);
-          // localStorage.setItem('ProductStor', product);
-          // localStorage.setItem('UserStor', userInfo);
-          // localStorage.setItem('DesignStor', design);
-          // localStorage.setItem('OrderStor', order);
+          GlobalStor.global.loadDate = new Date();
 
-          // return $filter('translate')('common_words.PAGE_REFRESH');
+          var main_store = [];
+          main_store.global = GlobalStor.global;
+          main_store.product = ProductStor.product;
+          main_store.user = UserStor.userInfo;
+          main_store.design = DesignStor.design;
+          main_store.aux = AuxStor.aux;
+          main_store.order = OrderStor.order;
+          main_store.cart = CartStor.cart;
+          GlobalStor.global.isLoader = 1;
+          localforage.setItem("main_store", main_store, function (err, value) {
+            console.log("save succeeded");
+            GlobalStor.global.isLoader = 0;
+          });
+
+          return $filter('translate')('common_words.PAGE_REFRESH');
+
         };
 
         /** prevent Backspace back to previos Page */

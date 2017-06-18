@@ -12,10 +12,8 @@
                 $cordovaNetwork,
                 $filter,
                 $translate,
-                globalConstants,
-                localDB,
-                loginServ,
-                MainServ,
+                $q,
+
                 GlobalStor,
                 ProductStor,
                 OrderStor,
@@ -23,6 +21,12 @@
                 DesignStor,
                 UserStor,
                 HistoryStor,
+                CartStor,
+
+                globalConstants,
+                localDB,
+                loginServ,
+                MainServ,
                 SettingServ,
                 HistoryServ,
                 GeneralServ) {
@@ -154,7 +158,7 @@
           /** set Templates */
           // console.time('prepareTemplates');
           MainServ.prepareTemplates(ProductStor.product.construction_type).then(function () {
-          // console.timeEnd('prepareTemplates');
+            // console.timeEnd('prepareTemplates');
             MainServ.prepareMainPage();
             /** start lamination filtering */
             MainServ.laminatFiltering();
@@ -172,21 +176,18 @@
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
 
-            var global = LZString.compress(JSON.stringify(GlobalStor.global));
-            var product = LZString.compress(JSON.stringify(ProductStor.product));
-            var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
-            var design = LZString.compress(JSON.stringify(DesignStor.design));
-            var aux = LZString.compress(JSON.stringify(AuxStor.aux));
-            var order = LZString.compress(JSON.stringify(OrderStor.order));
+            var main_store = [];
+            main_store.global = GlobalStor.global;
+            main_store.product = ProductStor.product;
+            main_store.user = UserStor.userInfo;
+            main_store.design = DesignStor.design;
+            main_store.aux = AuxStor.aux;
+            main_store.order = OrderStor.order;
 
-            localStorage.clear();
+            localforage.setItem("main_store", main_store, function (err, value) {
+              console.log("save succeeded");
+            });
 
-            localStorage.setItem('GlobalStor', global);
-            localStorage.setItem('ProductStor', product);
-            localStorage.setItem('UserStor', userInfo);
-            localStorage.setItem('AuxStor', aux);
-            localStorage.setItem('DesignStor', design);
-            localStorage.setItem('OrderStor', order);
           });
         }
 
@@ -517,61 +518,63 @@
             ],
             accessQty = accessArr.length,
             isCustomer = 0;
-          if (checkSavedData()) {
-            fastEnter(url);
-          } else {
-            if (url.access) {
-              //setTimeout(function () {
-              while (accessQty > -1) {
-                accessQty -= 1;
-                if (accessArr[accessQty] === url.access) {
-                  thisCtrl.user.phone = phoneArr[accessQty];
-                  thisCtrl.user.password = passwordArr[accessQty];
-                  isCustomer = 1;
+          checkSavedDataModern().then(function (result) {
+            if (result) {
+              fastEnter(url);
+            } else {
+              if (url.access) {
+                //setTimeout(function () {
+                while (accessQty > -1) {
+                  accessQty -= 1;
+                  if (accessArr[accessQty] === url.access) {
+                    thisCtrl.user.phone = phoneArr[accessQty];
+                    thisCtrl.user.password = passwordArr[accessQty];
+                    isCustomer = 1;
+                  }
                 }
-              }
 
-              if (isCustomer) {
-                if (thisCtrl.user.phone && thisCtrl.user.password) {
+                if (isCustomer) {
+                  if (thisCtrl.user.phone && thisCtrl.user.password) {
+                    GlobalStor.global.loadDate = new Date();
+                    GlobalStor.global.isLoader = 1;
+                    GlobalStor.global.startSlider = 1;
+                    loader();
+                    checkingUser();
+                  }
+                } else {
                   GlobalStor.global.loadDate = new Date();
                   GlobalStor.global.isLoader = 1;
                   GlobalStor.global.startSlider = 1;
                   loader();
-                  checkingUser();
+                  localDB.importUser(url.access, 1).then(function (result) {
+                    var userTemp = angular.copy(result.user);
+                    GlobalStor.global.isLoader = 1;
+                    GlobalStor.global.startSlider = 1;
+                    importDBProsses(userTemp);
+                  });
                 }
-              } else {
+                //},1000);
+              }
+              if (url.autologin) {
                 GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
                 loader();
-                localDB.importUser(url.access, 1).then(function (result) {
-                  var userTemp = angular.copy(result.user);
-                  GlobalStor.global.isLoader = 1;
-                  GlobalStor.global.startSlider = 1;
-                  importDBProsses(userTemp);
+                localDB.importUser(url.autologin, 1).then(function (result) {
+                  if (result.status) {
+                    var userTemp = angular.copy(result.user);
+                    GlobalStor.global.isLoader = 1;
+                    GlobalStor.global.startSlider = 1;
+                    importDBProsses(userTemp);
+                  } else {
+                    thisCtrl.isUserNotExist = 1;
+                    GlobalStor.global.isLoader = 0;
+                    GlobalStor.global.startSlider = 0;
+                  }
                 });
               }
-              //},1000);
             }
-            if (url.autologin) {
-              GlobalStor.global.loadDate = new Date();
-              GlobalStor.global.isLoader = 1;
-              GlobalStor.global.startSlider = 1;
-              loader();
-              localDB.importUser(url.autologin, 1).then(function (result) {
-                if (result.status) {
-                  var userTemp = angular.copy(result.user);
-                  GlobalStor.global.isLoader = 1;
-                  GlobalStor.global.startSlider = 1;
-                  importDBProsses(userTemp);
-                } else {
-                  thisCtrl.isUserNotExist = 1;
-                  GlobalStor.global.isLoader = 0;
-                  GlobalStor.global.startSlider = 0;
-                }
-              });
-            }
-          }
+          });
         }
 
 
@@ -670,13 +673,6 @@
         });
 
         function enterForm(form) {
-          var unbindWatch = $rootScope.$watch("GlobalStor", function() {
-            //...
-          });
-
-          setTimeout(function() {
-            unbindWatch();
-          }, 1000);
           var newUserPassword;
           //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
           //------ Trigger validation flag.
@@ -1057,6 +1053,51 @@
           }
         }
 
+        function dataExecuting() {
+          var defer = $q.defer();
+          var main_store = [];
+          localforage.getItem("main_store", function (err, value) {
+            if (value) {
+              UserStor.userInfo = value.user;
+              GlobalStor.global = value.global;
+              OrderStor.order = value.order;
+              ProductStor.product = value.product;
+              AuxStor.aux = value.aux;
+              HistoryStor.history = value.history;
+              CartStor.cart  = value.cart;
+              defer.resolve(value);
+            }
+            else {
+              console.log("не все данные сохранены");
+              defer.resolve(0);
+            }
+          });
+          return defer.promise;
+        }
+
+        function checkSavedDataModern() {
+          var defer = $q.defer();
+          //      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
+          dataExecuting().then(function (data) {
+            if (data) {
+              var loadDate = new Date(data.global.loadDate);
+              var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
+              var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
+              if ((curDate === checkDate)) {
+                console.log("типа все ок");
+                MainServ.createOrderData();
+                defer.resolve(1);
+              } else {
+                $location.path('/');
+                console.log("разные даты");
+                defer.resolve(0);
+              }
+            } else {
+              defer.resolve(0);
+            }
+          });
+          return defer.promise;
+        }
 
         function fastEnter(url) {
           GlobalStor.global.isLoader = 0;
@@ -1067,7 +1108,7 @@
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
-            $location.path(GlobalStor.global.currOpenPage);
+            $location.path("/" + GlobalStor.global.currOpenPage);
           }
 
         }

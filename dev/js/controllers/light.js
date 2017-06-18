@@ -34,7 +34,7 @@
         //------- set current Page
         GlobalStor.global.currOpenPage = 'light';
         GlobalStor.global.isLightVersion = 1;
-
+        console.log(GlobalStor.global.currOpenPage);
         thisCtrl.config = {
           //---- design menu
           DELAY_SHOW_FIGURE_ITEM: 1000,
