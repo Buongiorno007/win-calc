@@ -2520,7 +2520,7 @@
               priceReal = qtyReal * currConsistElem.price * wasteValue;
             }
             /** currency conversion */
-            if (UserStor.userInfo.currencyId != currConsistElem.currency_id) {
+            if (UserStor.userInfo.currencyId !== currConsistElem.currency_id) {
               priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
             }
             //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
@@ -3349,21 +3349,18 @@
           if (setParams(elemValue()) >= dataF(1)) {
             if (obj.element_group_id === 6) {
               var coef = setValueP();
-              console.log("1");
               pr *= coef;
             }
           }
           if (setParams(elemValue()) >= dataF(12)) {
             if (obj.element_group_id === 3) {
               var coef = setValueP();
-              console.log("2");
               pr *= coef;
             }
           }
           if (setParams(elemValue()) >= dataF(56)) {
             if (obj.element_group_id === 1) {
               var coef = setValueP();
-              console.log("3");
               pr *= coef;
             }
           }
