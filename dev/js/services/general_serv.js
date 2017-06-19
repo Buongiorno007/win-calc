@@ -218,16 +218,16 @@
 
         //-------- blocking to refresh page
         $window.onbeforeunload = function () {
-          // GlobalStor.global.loadDate = new Date();
-          // var main_store = [];
-          // main_store.global = GlobalStor.global;
-          // main_store.product = ProductStor.product;
-          // main_store.user = UserStor.userInfo;
-          // main_store.design = DesignStor.design;
-          // main_store.aux = AuxStor.aux;
-          // main_store.order = OrderStor.order;
-          // main_store.cart = CartStor.cart;
-          // localforage.setItem('main_store', main_store);
+          GlobalStor.global.loadDate = new Date();
+          var main_store = [];
+          main_store.global = GlobalStor.global;
+          main_store.product = ProductStor.product;
+          main_store.user = UserStor.userInfo;
+          main_store.design = DesignStor.design;
+          main_store.aux = AuxStor.aux;
+          main_store.order = OrderStor.order;
+          main_store.cart = CartStor.cart;
+          localforage.setItem('main_store', main_store);
           return $filter('translate')('common_words.PAGE_REFRESH');
         };
 
