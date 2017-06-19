@@ -1088,8 +1088,13 @@
                 MainServ.createOrderData();
                 defer.resolve(1);
               } else {
+                localforage.removeItem('main_store', function(err,value) {
+                  console.log(err,value);
+                  // location.reload();
+                });
                 $location.path('/');
                 console.log("разные даты");
+
                 defer.resolve(0);
               }
             } else {

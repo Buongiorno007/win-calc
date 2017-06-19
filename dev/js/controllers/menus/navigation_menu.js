@@ -142,10 +142,8 @@
         }
 
         function logOut() {
-          localforage.removeItem('main_store', function(err,value) {
-            console.log(err,value);
-            location.reload();
-          });
+          $location.path("/");
+          localforage.removeItem('main_store');
         }
 
 
