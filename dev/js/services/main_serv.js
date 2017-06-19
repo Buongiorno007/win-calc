@@ -1440,6 +1440,9 @@
         //--------- moving to Cart when click on Cart button
         function goToCart() {
           if (OrderStor.order.products.length) {
+            if (GlobalStor.global.locations.cities.length === 1) {
+              loginServ.downloadAllCities(1);
+            }
             $timeout(function () {
 
               //------- set previos Page

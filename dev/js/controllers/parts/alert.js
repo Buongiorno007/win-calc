@@ -42,10 +42,10 @@
     }
 
     function syncNow() {
+      $("#updateDBcheck").prop("checked", true);
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.confirmAction();
-      $("#updateDBcheck").prop("checked", true);
     }
 
     function noSync() {

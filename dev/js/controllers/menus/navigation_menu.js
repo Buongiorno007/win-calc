@@ -142,8 +142,18 @@
         }
 
         function logOut() {
-          $location.path("/");
-          localforage.removeItem('main_store');
+          localStorage.setItem("logout","true");
+          localforage.removeItem('main_store').then(function () {
+            // Run this code once the key has been removed.
+            window.location.hash = "#/";
+            window.location.pathname = "/";
+            console.log('Key is cleared!');
+          }).catch(function (err) {
+            // This code runs if there were any errors
+            window.location.hash = "#/";
+            location.pathname = "/";
+            console.log(err);
+          });
         }
 
 

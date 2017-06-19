@@ -119,11 +119,11 @@
             GlobalStor.global.isNewTemplate = 1;
             //-------- check changes in current template
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+              ProductStor.product.construction_type = GlobalStor.global.templatesType;
             // if (!whoCalled) {
-            //   ProductStor.product.construction_type = GlobalStor.global.templatesType;
             // } else {
+            // ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd - 1].group_id;
             // }
-            ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd - 1].group_id;
             DesignStor.design.template_id = templateIndex;
             GlobalStor.global.selectRoom = 1;
             MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function (data) {

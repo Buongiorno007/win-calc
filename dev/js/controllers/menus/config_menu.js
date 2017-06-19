@@ -135,9 +135,7 @@
           // ProductStor.product.template_source.report = ProductStor.product.report;
           if (!GlobalStor.global.isZeroPriceList.length) {
 
-            if (GlobalStor.global.locations.cities.length === 1) {
-              loginServ.downloadAllCities(1);
-            }
+
             if (!ProductStor.product.is_addelem_only) {
               alert();
               if (GlobalStor.global.dangerAlert < 1) {
