@@ -57,6 +57,14 @@
         GlobalStor.global.loader = 0;
         thisCtrl.unexpectedError = 0;
 
+        localforage.config({
+          driver      : localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+          name        : 'bauvoiceapp',
+          version     : 1.0,
+          size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
+          storeName   : 'bauvoiceapp', // Should be alphanumeric, with underscores.
+          description : 'bauvoiceapp description'
+        });
 
         /** PING SERVER*/
         MainServ.getOnline();
@@ -174,6 +182,7 @@
 
             }
             /** !!!! **/
+            localStorage.setItem("logout","false")
             GlobalStor.global.loadDate = new Date();
 
             var main_store = [];
@@ -1056,8 +1065,9 @@
         function dataExecuting() {
           var defer = $q.defer();
           var main_store = [];
-          localforage.getItem("main_store", function (err, value) {
-            if (value) {
+          localforage.getItem('main_store').then(function(value) {
+            console.log(value);
+            if (value && value!=="null") {
               UserStor.userInfo = value.user;
               GlobalStor.global = value.global;
               OrderStor.order = value.order;
@@ -1071,13 +1081,17 @@
               console.log("не все данные сохранены");
               defer.resolve(0);
             }
+          }).catch(function(err) {
+            // This code runs if there were any errors
+            console.log(err);
+              defer.resolve(0);
           });
+
           return defer.promise;
         }
 
         function checkSavedDataModern() {
           var defer = $q.defer();
-          //      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
           dataExecuting().then(function (data) {
             if (data) {
               var loadDate = new Date(data.global.loadDate);
@@ -1088,13 +1102,8 @@
                 MainServ.createOrderData();
                 defer.resolve(1);
               } else {
-                localforage.removeItem('main_store', function(err,value) {
-                  console.log(err,value);
-                  // location.reload();
-                });
-                $location.path('/');
                 console.log("разные даты");
-
+                // $location.path("/");
                 defer.resolve(0);
               }
             } else {
