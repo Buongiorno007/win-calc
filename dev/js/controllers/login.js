@@ -13,7 +13,6 @@
                 $filter,
                 $translate,
                 $q,
-
                 GlobalStor,
                 ProductStor,
                 OrderStor,
@@ -22,7 +21,6 @@
                 UserStor,
                 HistoryStor,
                 CartStor,
-
                 globalConstants,
                 localDB,
                 loginServ,
@@ -58,12 +56,12 @@
         thisCtrl.unexpectedError = 0;
 
         localforage.config({
-          driver      : localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
-          name        : 'bauvoiceapp',
-          version     : 1.0,
-          size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
-          storeName   : 'bauvoiceapp', // Should be alphanumeric, with underscores.
-          description : 'bauvoiceapp description'
+          driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+          name: 'bauvoiceapp',
+          version: 1.0,
+          size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+          storeName: 'bauvoiceapp', // Should be alphanumeric, with underscores.
+          description: 'bauvoiceapp description'
         });
 
         /** PING SERVER*/
@@ -182,20 +180,22 @@
 
             }
             /** !!!! **/
-            localStorage.setItem("logout","false")
             GlobalStor.global.loadDate = new Date();
+            var global = LZString.compress(JSON.stringify(GlobalStor.global));
+            var product = LZString.compress(JSON.stringify(ProductStor.product));
+            var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+            var design = LZString.compress(JSON.stringify(DesignStor.design));
+            var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+            var order = LZString.compress(JSON.stringify(OrderStor.order));
 
-            var main_store = [];
-            main_store.global = GlobalStor.global;
-            main_store.product = ProductStor.product;
-            main_store.user = UserStor.userInfo;
-            main_store.design = DesignStor.design;
-            main_store.aux = AuxStor.aux;
-            main_store.order = OrderStor.order;
+            localStorage.clear();
 
-            localforage.setItem("main_store", main_store, function (err, value) {
-              console.log("save succeeded");
-            });
+            localStorage.setItem('GlobalStor', global);
+            localStorage.setItem('ProductStor', product);
+            localStorage.setItem('UserStor', userInfo);
+            localStorage.setItem('AuxStor', aux);
+            localStorage.setItem('DesignStor', design);
+            localStorage.setItem('OrderStor', order);
 
           });
         }
@@ -527,63 +527,61 @@
             ],
             accessQty = accessArr.length,
             isCustomer = 0;
-          checkSavedDataModern().then(function (result) {
-            if (result) {
-              fastEnter(url);
-            } else {
-              if (url.access) {
-                //setTimeout(function () {
-                while (accessQty > -1) {
-                  accessQty -= 1;
-                  if (accessArr[accessQty] === url.access) {
-                    thisCtrl.user.phone = phoneArr[accessQty];
-                    thisCtrl.user.password = passwordArr[accessQty];
-                    isCustomer = 1;
-                  }
+          if (checkSavedData()) {
+            fastEnter(url);
+          } else {
+            if (url.access) {
+              //setTimeout(function () {
+              while (accessQty > -1) {
+                accessQty -= 1;
+                if (accessArr[accessQty] === url.access) {
+                  thisCtrl.user.phone = phoneArr[accessQty];
+                  thisCtrl.user.password = passwordArr[accessQty];
+                  isCustomer = 1;
                 }
+              }
 
-                if (isCustomer) {
-                  if (thisCtrl.user.phone && thisCtrl.user.password) {
-                    GlobalStor.global.loadDate = new Date();
-                    GlobalStor.global.isLoader = 1;
-                    GlobalStor.global.startSlider = 1;
-                    loader();
-                    checkingUser();
-                  }
-                } else {
+              if (isCustomer) {
+                if (thisCtrl.user.phone && thisCtrl.user.password) {
                   GlobalStor.global.loadDate = new Date();
                   GlobalStor.global.isLoader = 1;
                   GlobalStor.global.startSlider = 1;
                   loader();
-                  localDB.importUser(url.access, 1).then(function (result) {
-                    var userTemp = angular.copy(result.user);
-                    GlobalStor.global.isLoader = 1;
-                    GlobalStor.global.startSlider = 1;
-                    importDBProsses(userTemp);
-                  });
+                  checkingUser();
                 }
-                //},1000);
-              }
-              if (url.autologin) {
+              } else {
                 GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
                 loader();
-                localDB.importUser(url.autologin, 1).then(function (result) {
-                  if (result.status) {
-                    var userTemp = angular.copy(result.user);
-                    GlobalStor.global.isLoader = 1;
-                    GlobalStor.global.startSlider = 1;
-                    importDBProsses(userTemp);
-                  } else {
-                    thisCtrl.isUserNotExist = 1;
-                    GlobalStor.global.isLoader = 0;
-                    GlobalStor.global.startSlider = 0;
-                  }
+                localDB.importUser(url.access, 1).then(function (result) {
+                  var userTemp = angular.copy(result.user);
+                  GlobalStor.global.isLoader = 1;
+                  GlobalStor.global.startSlider = 1;
+                  importDBProsses(userTemp);
                 });
               }
+              //},1000);
             }
-          });
+            if (url.autologin) {
+              GlobalStor.global.loadDate = new Date();
+              GlobalStor.global.isLoader = 1;
+              GlobalStor.global.startSlider = 1;
+              loader();
+              localDB.importUser(url.autologin, 1).then(function (result) {
+                if (result.status) {
+                  var userTemp = angular.copy(result.user);
+                  GlobalStor.global.isLoader = 1;
+                  GlobalStor.global.startSlider = 1;
+                  importDBProsses(userTemp);
+                } else {
+                  thisCtrl.isUserNotExist = 1;
+                  GlobalStor.global.isLoader = 0;
+                  GlobalStor.global.startSlider = 0;
+                }
+              });
+            }
+          }
         }
 
 
@@ -1033,12 +1031,16 @@
           var design = localStorage.getItem("DesignStor");
           var user = localStorage.getItem("UserStor");
           var global = localStorage.getItem("GlobalStor");
-
           if (product && user && global && design && order && aux) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
             if ((curDate === checkDate)) {
+              UserStor.userInfo = JSON.parse(LZString.decompress(user));
+              GlobalStor.global = JSON.parse(LZString.decompress(global));
+              OrderStor.order = JSON.parse(LZString.decompress(order));
+              ProductStor.product = JSON.parse(LZString.decompress(product));
+              AuxStor.aux = JSON.parse(LZString.decompress(aux));
               console.log("типа все ок");
               MainServ.createOrderData();
               return true;
@@ -1065,26 +1067,26 @@
         function dataExecuting() {
           var defer = $q.defer();
           var main_store = [];
-          localforage.getItem('main_store').then(function(value) {
-            console.log(value);
-            if (value && value!=="null") {
+          localforage.getItem('main_store').then(function (value) {
+            // console.log(value);
+            if (value && value !== "null") {
               UserStor.userInfo = value.user;
               GlobalStor.global = value.global;
               OrderStor.order = value.order;
               ProductStor.product = value.product;
               AuxStor.aux = value.aux;
               HistoryStor.history = value.history;
-              CartStor.cart  = value.cart;
+              CartStor.cart = value.cart;
               defer.resolve(value);
             }
             else {
               console.log("не все данные сохранены");
               defer.resolve(0);
             }
-          }).catch(function(err) {
+          }).catch(function (err) {
             // This code runs if there were any errors
             console.log(err);
-              defer.resolve(0);
+            defer.resolve(0);
           });
 
           return defer.promise;

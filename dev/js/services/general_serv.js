@@ -216,22 +216,31 @@
         //  }
         //});
 
-        //-------- blocking to refresh page
+
         $window.onbeforeunload = function () {
-          var logout = localStorage.getItem("logout");
-          console.log(logout);
-          if (!logout) {
-            GlobalStor.global.loadDate = new Date();
-            var main_store = [];
-            main_store.global = GlobalStor.global;
-            main_store.product = ProductStor.product;
-            main_store.user = UserStor.userInfo;
-            main_store.design = DesignStor.design;
-            main_store.aux = AuxStor.aux;
-            main_store.order = OrderStor.order;
-            main_store.cart = CartStor.cart;
-            localforage.setItem('main_store', main_store);
-          }
+          // var order = localStorage.getItem("OrderStor");
+          // var product = localStorage.getItem("ProductStor");
+          // var aux = localStorage.getItem("AuxStor");
+          // var design = localStorage.getItem("DesignStor");
+          // var user = localStorage.getItem("UserStor");
+          // var global = localStorage.getItem("GlobalStor");
+          // if (product && user && global && design && order && aux) {
+          //   var global = LZString.compress(JSON.stringify(GlobalStor.global));
+          //   var product = LZString.compress(JSON.stringify(ProductStor.product));
+          //   var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+          //   var design = LZString.compress(JSON.stringify(DesignStor.design));
+          //   var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+          //   var order = LZString.compress(JSON.stringify(OrderStor.order));
+          //
+          //   localStorage.clear();
+          //
+          //   localStorage.setItem('GlobalStor', global);
+          //   localStorage.setItem('ProductStor', product);
+          //   localStorage.setItem('UserStor', userInfo);
+          //   localStorage.setItem('AuxStor', aux);
+          //   localStorage.setItem('DesignStor', design);
+          //   localStorage.setItem('OrderStor', order);
+          // }
           return $filter('translate')('common_words.PAGE_REFRESH');
         };
 
