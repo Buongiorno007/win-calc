@@ -13,6 +13,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 //console.log("isDevice",isDevice);
   // Test via a getter in the options object to see if the passive property is accessed
   $( document ).ready(function() {
+    location.hash = "#/";
     if (!isDevice) {
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),

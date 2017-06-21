@@ -44,12 +44,12 @@
           setDefaultAuxiliary: setDefaultAuxiliary,
           restoreAuxiliary: restoreAuxiliary
         };
-        var data = localStorage.getItem("AuxStor");
-        if (data) {
-          thisFactory.publicObj.aux = restoreAuxiliary(data);
-        } else {
+        // var data = localStorage.getItem("AuxStor");
+        // if (data) {
+        //   thisFactory.publicObj.aux = restoreAuxiliary(data);
+        // } else {
+        // }
           thisFactory.publicObj.aux = setDefaultAuxiliary();
-        }
         return thisFactory.publicObj;
 
       });

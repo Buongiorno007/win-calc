@@ -1439,6 +1439,7 @@
 
         //--------- moving to Cart when click on Cart button
         function goToCart() {
+
           if (OrderStor.order.products.length) {
             $timeout(function () {
 

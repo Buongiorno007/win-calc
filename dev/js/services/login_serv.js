@@ -435,23 +435,6 @@
           return defer.promise;
         }
 
-        function setBase64Avatar(url, callback) {
-          var xhr = new XMLHttpRequest();
-          xhr.responseType = 'blob';
-          xhr.onload = function () {
-            var reader = new FileReader();
-            reader.onloadend = function () {
-              var key = "userAvatar";
-              var value = reader.result;
-              localforage.setItem(key, value, function (err, value) {
-              });
-              callback(reader.result);
-            }
-            reader.readAsDataURL(xhr.response);
-          };
-          xhr.open('GET', url, true);
-          xhr.send();
-        }
 
         function setUserDiscounts() {
           var defer = $q.defer();
@@ -882,7 +865,6 @@
               rooms = rooms.sort(function (a, b) {
                 return GeneralServ.sorting(a.position, b.position);
               });
-
               //download images for rooms
 
               // while (--roomQty > -1) {
@@ -893,33 +875,6 @@
               // }
               rooms.forEach(function (entry) {
                 entry.img = globalConstants.serverIP + entry.img;
-                if (GlobalStor.global.ISEXT) {
-                  if ($("#updateDBcheck").prop("checked")) {
-                    if (GlobalStor.global.onlineMode && navigator.onLine) {
-                      var url = String(entry.img);
-                      var xhr = new XMLHttpRequest();
-                      xhr.responseType = 'blob';
-                      xhr.onload = function () {
-                        var reader = new FileReader();
-                        reader.onloadend = function () {
-                          var key = String(entry.img);
-                          var value = reader.result;
-                          localforage.setItem(key, value, function (err, value) {
-                            entry.img = value;
-                          });
-                        }
-                        reader.readAsDataURL(xhr.response);
-                      };
-                      xhr.open('GET', url, true);
-                      xhr.send();
-                    }
-                  } else {
-                    var key = String(entry.img);
-                    localforage.getItem(key, function (err, value) {
-                      entry.img = value;
-                    });
-                  }
-                }
               });
               //console.info('login++++', rooms);
               GlobalStor.global.rooms = rooms;

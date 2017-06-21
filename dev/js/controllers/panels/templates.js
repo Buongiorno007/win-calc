@@ -72,7 +72,7 @@
       GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;
-      marker = (marker==3)? 4:marker;
+      marker = (marker===3)? 4:marker;
 
       GlobalStor.global.templatesType = marker;
 

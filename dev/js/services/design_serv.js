@@ -963,6 +963,7 @@
         function selectHandle(id, product) {
           (id) ? id = id : id = DesignStor.design.handleShapeList[0].id;
           var pnt = checkSize(DesignStor.design.templateTEMP, 4);
+          console.log(pnt);
           var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
           var array = [];
           if (!DesignStor.design.steps.selectedStep4) {
@@ -2943,7 +2944,7 @@
           //----- find dimensions of block Level 1
           for (b = 1; b < blocksQty; b += 1) {
             if (blocksSource[b].level === 1) {
-              _.map(parentBlocs.push(blocksSource[b].pointsOut,function (point) {
+              parentBlocs.push(blocksSource[b].pointsOut.map(function (point) {
                 return point.x;
               }));
             }
