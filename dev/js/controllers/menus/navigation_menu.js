@@ -8,6 +8,7 @@
       function ($location,
                 $window,
                 $filter,
+                $timeout,
                 globalConstants,
                 GeneralServ,
                 NavMenuServ,
@@ -142,14 +143,8 @@
         }
 
         function logOut() {
-          localStorage.removeItem("OrderStor");
-          localStorage.removeItem("ProductStor");
-          localStorage.removeItem("AuxStor");
-          localStorage.removeItem("DesignStor");
-          localStorage.removeItem("UserStor");
-          localStorage.removeItem("GlobalStor");
-
-          $location.path("/");
+          localStorage.clear();
+          location.reload();
         }
 
 
