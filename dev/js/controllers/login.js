@@ -1043,6 +1043,9 @@
               AuxStor.aux = JSON.parse(LZString.decompress(aux));
               console.log("типа все ок");
               MainServ.createOrderData();
+              if (GlobalStor.global.locations.cities.length === 1) {
+                loginServ.downloadAllCities(1);
+              }
               return true;
             } else {
               localStorage.clear();
