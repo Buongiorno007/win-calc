@@ -232,8 +232,6 @@
           //   var aux = LZString.compress(JSON.stringify(AuxStor.aux));
           //   var order = LZString.compress(JSON.stringify(OrderStor.order));
           //
-          //   localStorage.clear();
-          //
           //   localStorage.setItem('GlobalStor', global);
           //   localStorage.setItem('ProductStor', product);
           //   localStorage.setItem('UserStor', userInfo);
@@ -241,7 +239,7 @@
           //   localStorage.setItem('DesignStor', design);
           //   localStorage.setItem('OrderStor', order);
           // }
-          return $filter('translate')('common_words.PAGE_REFRESH');
+          // return $filter('translate')('common_words.PAGE_REFRESH');
         };
 
         /** prevent Backspace back to previos Page */
