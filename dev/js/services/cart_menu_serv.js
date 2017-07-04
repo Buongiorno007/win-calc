@@ -621,6 +621,9 @@
     function sendOrder() {
       var orderStyle;
       GlobalStor.global.isLoader = 1;
+      CartStor.cart.tempConstructDisc = 0;
+      CartStor.cart.tempAddelemDisc = 0;
+      CartStor.cart.isShowDiscount = 0;
       //------- set order style
       if(CartStor.cart.isMasterDialog) {
         orderStyle = 'master';

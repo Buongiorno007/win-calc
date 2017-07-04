@@ -52,6 +52,7 @@
 
     //-------- close Location Page
     function closeLocationPage() {
+      console.log(GlobalStor.global.currOpenPage);
       $location.path('/' + GlobalStor.global.currOpenPage);
     }
 

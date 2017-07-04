@@ -1439,6 +1439,7 @@
 
         //--------- moving to Cart when click on Cart button
         function goToCart() {
+
           if (OrderStor.order.products.length) {
             $timeout(function () {
 
@@ -1562,9 +1563,11 @@
                 localDB.tablesLocalDB.orders.tableName,
                 orderData
               ).then(function (respond) {
-                if (GlobalStor.global.onlineMode && navigator.onLine) {
+                if (GlobalStor.global.onlineMode && navigator.onLine && respond) {
                   if (respond.status) {
                     orderData.order_number = respond.order_number;
+                  } else {
+                    orderData.order_number = 0;
                   }
 
                 } else {

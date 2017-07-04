@@ -12,10 +12,7 @@
                 $cordovaNetwork,
                 $filter,
                 $translate,
-                globalConstants,
-                localDB,
-                loginServ,
-                MainServ,
+                $q,
                 GlobalStor,
                 ProductStor,
                 OrderStor,
@@ -23,6 +20,11 @@
                 DesignStor,
                 UserStor,
                 HistoryStor,
+                CartStor,
+                globalConstants,
+                localDB,
+                loginServ,
+                MainServ,
                 SettingServ,
                 HistoryServ,
                 GeneralServ) {
@@ -53,6 +55,14 @@
         GlobalStor.global.loader = 0;
         thisCtrl.unexpectedError = 0;
 
+        localforage.config({
+          driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+          name: 'bauvoiceapp',
+          version: 1.0,
+          size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+          storeName: 'bauvoiceapp', // Should be alphanumeric, with underscores.
+          description: 'bauvoiceapp description'
+        });
 
         /** PING SERVER*/
         MainServ.getOnline();
@@ -154,7 +164,7 @@
           /** set Templates */
           // console.time('prepareTemplates');
           MainServ.prepareTemplates(ProductStor.product.construction_type).then(function () {
-          // console.timeEnd('prepareTemplates');
+            // console.timeEnd('prepareTemplates');
             MainServ.prepareMainPage();
             /** start lamination filtering */
             MainServ.laminatFiltering();
@@ -171,7 +181,6 @@
             }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
-
             var global = LZString.compress(JSON.stringify(GlobalStor.global));
             var product = LZString.compress(JSON.stringify(ProductStor.product));
             var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
@@ -187,6 +196,7 @@
             localStorage.setItem('AuxStor', aux);
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
+
           });
         }
 
@@ -670,13 +680,6 @@
         });
 
         function enterForm(form) {
-          var unbindWatch = $rootScope.$watch("GlobalStor", function() {
-            //...
-          });
-
-          setTimeout(function() {
-            unbindWatch();
-          }, 1000);
           var newUserPassword;
           //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
           //------ Trigger validation flag.
@@ -1028,14 +1031,21 @@
           var design = localStorage.getItem("DesignStor");
           var user = localStorage.getItem("UserStor");
           var global = localStorage.getItem("GlobalStor");
-
           if (product && user && global && design && order && aux) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
             if ((curDate === checkDate)) {
+              UserStor.userInfo = JSON.parse(LZString.decompress(user));
+              GlobalStor.global = JSON.parse(LZString.decompress(global));
+              OrderStor.order = JSON.parse(LZString.decompress(order));
+              ProductStor.product = JSON.parse(LZString.decompress(product));
+              AuxStor.aux = JSON.parse(LZString.decompress(aux));
               console.log("типа все ок");
               MainServ.createOrderData();
+              if (GlobalStor.global.locations.cities.length === 1) {
+                loginServ.downloadAllCities(1);
+              }
               return true;
             } else {
               localStorage.clear();
@@ -1057,6 +1067,56 @@
           }
         }
 
+        function dataExecuting() {
+          var defer = $q.defer();
+          var main_store = [];
+          localforage.getItem('main_store').then(function (value) {
+            // console.log(value);
+            if (value && value !== "null") {
+              UserStor.userInfo = value.user;
+              GlobalStor.global = value.global;
+              OrderStor.order = value.order;
+              ProductStor.product = value.product;
+              AuxStor.aux = value.aux;
+              HistoryStor.history = value.history;
+              CartStor.cart = value.cart;
+              defer.resolve(value);
+            }
+            else {
+              console.log("не все данные сохранены");
+              defer.resolve(0);
+            }
+          }).catch(function (err) {
+            // This code runs if there were any errors
+            console.log(err);
+            defer.resolve(0);
+          });
+
+          return defer.promise;
+        }
+
+        function checkSavedDataModern() {
+          var defer = $q.defer();
+          dataExecuting().then(function (data) {
+            if (data) {
+              var loadDate = new Date(data.global.loadDate);
+              var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
+              var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
+              if ((curDate === checkDate)) {
+                console.log("типа все ок");
+                MainServ.createOrderData();
+                defer.resolve(1);
+              } else {
+                console.log("разные даты");
+                // $location.path("/");
+                defer.resolve(0);
+              }
+            } else {
+              defer.resolve(0);
+            }
+          });
+          return defer.promise;
+        }
 
         function fastEnter(url) {
           GlobalStor.global.isLoader = 0;
@@ -1067,7 +1127,7 @@
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
-            $location.path(GlobalStor.global.currOpenPage);
+            $location.path("/" + GlobalStor.global.currOpenPage);
           }
 
         }

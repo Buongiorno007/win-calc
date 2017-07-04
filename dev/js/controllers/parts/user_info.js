@@ -23,6 +23,7 @@
 
     function swipeMainPage() {
       if ($location.path()==="/light"){
+        GlobalStor.global.currOpenPage = "light";
         GlobalStor.global.isLightVersion = 1;
       }
       else {
