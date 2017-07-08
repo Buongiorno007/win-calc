@@ -1,0 +1,71 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-geolocation": {
+            "GEOLOCATION_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-media": {
+            "MICROPHONE_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-media-capture": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "MICROPHONE_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-printer": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-secure-storage": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-speechrecognition": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "ru.csokna.calc"
+        }
+    }
+}
