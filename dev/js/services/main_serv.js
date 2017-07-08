@@ -875,6 +875,7 @@
           saveTemplateInProduct(ProductStor.product.template_id).then(function () {
             setCurrentHardware(ProductStor.product);
             var hardwareIds = ProductStor.product.hardware.id || 0;
+            if ($location.path() !== "/light") {
             preparePrice(
               ProductStor.product.template,
               ProductStor.product.profile.id,
@@ -883,7 +884,10 @@
               ProductStor.product.lamination.lamination_in_id
             ).then(function () {
               deferred.resolve(1);
-            });
+            });}
+            else {
+              deferred.resolve(1);
+            }
           });
           return deferred.promise;
         }
@@ -1083,19 +1087,22 @@
               .then(function (result) {
                 ProductStor.product.template = angular.copy(result);
                 var hardwareIds = ProductStor.product.hardware.id || 0;
-                preparePrice(
-                  ProductStor.product.template,
-                  profile,
-                  ProductStor.product.glass,
-                  hardwareIds,
-                  ProductStor.product.lamination.lamination_in_id
-                ).then(function () {
-                  deff.resolve(1);
-                });
+                if ($location.path() !== "/light") {
+                  preparePrice(
+                    ProductStor.product.template,
+                    profile,
+                    ProductStor.product.glass,
+                    hardwareIds,
+                    ProductStor.product.lamination.lamination_in_id
+                  ).then(function () {
+                    deff.resolve(1);
+                  });
+                }
                 //----- create template icon
                 SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
                   .then(function (result) {
                     ProductStor.product.templateIcon = angular.copy(result);
+                    deff.resolve(1);
                   });
               });
 

@@ -342,7 +342,6 @@
           // console.time('importUser');
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
             // console.timeEnd('importUser');
-            //console.log(result);
             if (result.status) {
               var userTemp = angular.copy(result.user);
               startSlider();
@@ -876,6 +875,7 @@
               GlobalStor.global.isLoader = 1;
               //-------- send selected Factory Id in Server
               UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
+              console.log(UserStor.userInfo.factory_id );
 //                  console.log(UserStor.userInfo.factory_id);
               //----- update factoryId in LocalDB & Server
               localDB.updateLocalServerDBs(
