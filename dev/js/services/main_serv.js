@@ -500,6 +500,7 @@
 
         /** set Bead Id */
         function setBeadId(profileId, laminatId) {
+          console.log(profileId, laminatId);
           var deff = $q.defer(),
             promisBeads = _.map(ProductStor.product.glass, function (item) {
               var deff2 = $q.defer();

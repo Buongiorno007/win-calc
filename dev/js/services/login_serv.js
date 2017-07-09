@@ -60,7 +60,6 @@
 
           } else {
             /** if browser */
-            console.log("is no device")
             var browserLang = navigator.language || navigator.userLanguage;
             //console.info(window.navigator);
             //console.info(window.navigator.language);

@@ -723,10 +723,10 @@
                     gridTemp = gridsOld[g];
                     sizeTemp = {};
                     //------ defined inner block sizes
-                    sizeGridX = _.map(blocks[blockQty].pointsLight,function (item) {
+                    sizeGridX = _.map(blocks[blockQty].pointsLight, function (item) {
                       return item.x;
                     });
-                    sizeGridY = _.map(blocks[blockQty].pointsLight,function (item) {
+                    sizeGridY = _.map(blocks[blockQty].pointsLight, function (item) {
                       return item.y;
                     });
                     sizeTemp.width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
@@ -806,6 +806,7 @@
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
+
           for (var z = 0; z < doorsGroups.length; z += 1) {
             for (var i = 0; i < doorsLaminations.length; i += 1) {
               if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
@@ -830,15 +831,17 @@
               }
             }
           }
-          doorsGroups = angular.copy(temp);
+          if (GlobalStor.global.orderEditNumber === 0) {
+            doorsGroups = angular.copy(temp);
+          }
           for (d = 0; d < doorTypeQty; d += 1) {
             var ch1 = DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
               return item.doorstep_type === 2;
             });
+
             var ch2 = DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
               return item.doorstep_type === 1;
             });
-
             isExist = 0;
             if (d === 2 && ch1.length) {
               isExist = 1;
@@ -895,6 +898,7 @@
           var deferred = $q.defer();
           ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
           var ids = DesignStor.design.sashShapeList[id];
+          // console.log("sashShapeList",DesignStor.design.sashShapeList,id);
           var profileDepths = {
             frameDepth: null,
             frameStillDepth: null,
@@ -902,7 +906,7 @@
             impostDepth: null,
             shtulpDepth: null
           };
-          DesignStor.design.doorConfig.glassDepProf = (ids.profile_id === product.profile.id) ? true : false;
+          DesignStor.design.doorConfig.glassDepProf = (ids.profile_id === product.profile.id);
           $q.all([
             MainServ.downloadProfileDepth(ids.rama_list_id),
             MainServ.downloadProfileDepth(ids.door_sill_list_id),
@@ -3053,7 +3057,7 @@
           }
 
           if (selectedBlock.imps.length) {
-            glassXArr = _.map(currBlock.glassPoints,function (item) {
+            glassXArr = _.map(currBlock.glassPoints, function (item) {
               return item.x;
             });
             selectedBlock.minX = d3.min(glassXArr);
