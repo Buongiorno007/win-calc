@@ -22,7 +22,6 @@
     /*jshint validthis:true */
     var thisFactory = this;
 
-
     /**============ METHODS ================*/
     function selectProfile(newId) {
       GlobalStor.global.isChangedTemplate = 1;
@@ -63,7 +62,7 @@
                 DesignStor.design.isHardwareExtra = 1;
               } else {
                 /** set default white lamination */
-                MainServ.setCurrLamination(ProductStor.product);
+                MainServ.setCurzrLamination(ProductStor.product);
                 /** set new Profile */
                 MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
                   MainServ.parseTemplate().then(function () {

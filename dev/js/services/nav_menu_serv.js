@@ -136,15 +136,12 @@
 
     //----------- Create new Project
     function clickNewProject() {
-
       //------- Start programm, without draft, for Main Page
       if(GlobalStor.global.startProgramm) {
         GeneralServ.stopStartProg();
         MainServ.prepareMainPage();
-
       } else {
         GlobalStor.global.isLoader = 1;
-
         //------- Create New Project with Draft saving in Main Page
         if(GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
           //------ save product
@@ -159,7 +156,6 @@
           //-------- save order as Draft
           MainServ.saveOrderInDB({}, 0, '');
         }
-
         //------- set previos Page
         GeneralServ.setPreviosPage();
         //=============== CREATE NEW PROJECT =========//
