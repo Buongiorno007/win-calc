@@ -137,17 +137,16 @@
           }
         }
 
-
         function clickNewProject() {
           thisCtrl.activeMenuItem = 0;
-          NavMenuServ.clickNewProject();
+          GlobalStor.global.isLoader = 1;
+          MainServ.createNewProject();
         }
 
         function logOut() {
           localStorage.clear();
           location.reload();
         }
-
 
         /**========== FINISH ==========*/
 
