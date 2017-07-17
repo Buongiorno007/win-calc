@@ -1395,14 +1395,14 @@
       function importAllDB(login, access) {
         var defer = $q.defer();
         //console.log('Import database begin!');
-        console.log(globalConstants.serverIP +"/api/sync?login=" +login +"&access_token=" +access);
+        // console.log(globalConstants.serverIP +"/api/sync?login=" +login +"&access_token=" +access);
         $http
           .get(globalConstants.serverIP +"/api/sync?login=" +login +"&access_token=" +access +"&" +Math.random())
           .then(function(result) {
               if (result.data.status) {
                 //-------- insert in LocalDB
                 insertTablesLocalDB(result.data).then(function(result) {
-                  console.log("insertTablesLocalDB", result);
+                  // console.log("insertTablesLocalDB", result);
                   defer.resolve(1);
                 });
               } else {

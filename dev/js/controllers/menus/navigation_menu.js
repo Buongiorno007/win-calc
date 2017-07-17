@@ -53,7 +53,6 @@
           //-------- go to...
           switch (id) {
             case 1:
-              console.log(GlobalStor.global.currOpenPage);
               GeneralServ.stopStartProg();
               $location.path("/location");
               break;

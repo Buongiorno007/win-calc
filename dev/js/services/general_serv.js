@@ -253,7 +253,7 @@
         /**============ METHODS ================*/
 
         function stopStartProg() {
-          if (GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
+          if (GlobalStor.global.startProgramm && (GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'light')) {
             GlobalStor.global.startProgramm = 0;
           }
         }
