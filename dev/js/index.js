@@ -62,7 +62,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         //      alert('onDeviceReady');
         doInit();
         angular.element(document).ready(function () {
-          angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
+          // angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
 
           //$(document).bind('touchmove', false);
           //$cordovaDialogs

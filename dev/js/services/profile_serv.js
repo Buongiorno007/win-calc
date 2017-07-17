@@ -22,7 +22,6 @@
     /*jshint validthis:true */
     var thisFactory = this;
 
-
     /**============ METHODS ================*/
     function selectProfile(newId) {
       GlobalStor.global.isChangedTemplate = 1;
@@ -134,8 +133,8 @@
     function checkForAddElem(newId) {
       var  deferred = $q.defer();
       profileForAlert(newId).then(function() {
-        alert().then(function() {
-        });
+        alert();
+        // .then(function() {});
         if(GlobalStor.global.dangerAlert < 1 || GlobalStor.global.continued === 1) {
           selectProfile(newId);
         }
