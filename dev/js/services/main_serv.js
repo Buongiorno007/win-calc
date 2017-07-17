@@ -557,8 +557,8 @@
           ProductStor.product.template_source,
           ProductStor.product.profileDepths
         ).then(function (result) {
-          // DesignStor.design.templateSourceTEMP = ProductStor.product.template_source;
-          // DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.design.templateSourceTEMP = ProductStor.product.template_source;
+          DesignStor.design.templateTEMP = angular.copy(result);
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(
             ProductStor.product.template_source
