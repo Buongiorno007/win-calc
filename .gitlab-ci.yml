@@ -15,7 +15,7 @@ before_script:
 
 
 stages:
-  - test
+#  - test
   - build
   - deploy
   - clean_up
