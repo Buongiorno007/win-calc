@@ -143,6 +143,5 @@
     };
 
     return thisFactory.publicObj;
-
   });
 })();
