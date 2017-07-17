@@ -26,7 +26,6 @@ var gulp = require('gulp'),                       // Собственно Gulp J
   args = require('yargs').argv,                   //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
   removeLogs = require('gulp-removelogs'),       //Strip console statements from JavaScript
   jsonminify = require('gulp-jsonminify');
-
 // Очистка результирующей папки
 gulp.task('clean', function () {
   del('www/**', function () {
