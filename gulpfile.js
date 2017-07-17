@@ -51,7 +51,6 @@ var server_env = {
   },
   path_env = {
     "windowSiteTest": "'/calculator/local/'",
-    // "windowSiteTest": "'/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
     "orange": "'/local/'",
