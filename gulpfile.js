@@ -93,7 +93,6 @@ gulp.task('compass', function () {
     .pipe(reload({stream: true}));
 });
 
-
 // Собираем html из Jade
 gulp.task('jade', function () {
   return gulp.src(config.build.src.html)
@@ -601,7 +600,6 @@ gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', '
 
 
 function makeApp(id) {
-
   var path = ""
   if (id==="steko") {
     path = "steko"
@@ -611,7 +609,6 @@ function makeApp(id) {
     path = "Cornerstone/platforms/ios/www"
   }
 }
-
 
 /** PRODUCTION css and js min */
 gulp.task('prod', function () {

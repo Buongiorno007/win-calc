@@ -120,8 +120,10 @@
                     $location.path("/light");
                   });
                 } else {
+
                   $location.path("/light");
                 }
+                GlobalStor.global.startProgramm = 0;
                 GlobalStor.global.currOpenPage = 'light';
               }
               else {
