@@ -22,7 +22,6 @@
     /*jshint validthis:true */
     var thisFactory = this;
 
-
     /**============ METHODS ================*/
     function selectProfile(newId) {
       GlobalStor.global.isChangedTemplate = 1;

@@ -119,7 +119,7 @@
             GlobalStor.global.isNewTemplate = 1;
             //-------- check changes in current template
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-              ProductStor.product.construction_type = GlobalStor.global.templatesType;
+            ProductStor.product.construction_type = GlobalStor.global.templatesType;
             // if (!whoCalled) {
             // } else {
             // ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd - 1].group_id;
