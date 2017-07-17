@@ -705,8 +705,6 @@ gulp.task('localApp', function () {
     .pipe(gulp.dest(appPath + config.buildApp.dest.local))
     .pipe(reload({stream: true}));
 });
-
-
 // Запуск buildApp
 gulp.task('buildapp', function () {
   gulp.start(['htmlApp', 'cssApp', 'jsApp', 'imagesApp', 'fontsApp', 'localApp']);
