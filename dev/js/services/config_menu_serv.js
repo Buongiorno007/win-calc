@@ -24,6 +24,9 @@
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
           if ($location.path() === "/light") {
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+            });
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
           }
