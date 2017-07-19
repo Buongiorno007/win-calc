@@ -68,6 +68,29 @@
     .numberMenu(fs-click="elementsPanel.click(2222)", ng-class="{'green': elementsPanel.config.colorFilter===2222}", id="2222") {{::elementsPanel.OUTSIDES}}
     .numberMenu(fs-click="elementsPanel.click(3333)", ng-class="{'green': elementsPanel.config.colorFilter===3333}", id="3333") {{::elementsPanel.COMPONENTS}}
     .numberMenu(fs-click="elementsPanel.click(4444)", ng-class="{'green': elementsPanel.config.colorFilter===4444}", id="4444") {{::elementsPanel.OTHER}}
+    //- .numberMenu(fs-click="elementsPanel.click(6666)", ng-class="{'green': elementsPanel.config.colorFilter===6666}", id="6666") {{::elementsPanel.SERVICES}}
+
+    //- .servises(ng-if="elementsPanel.G.global.typeMenuID === 6666")
+    //-   .servise-block
+    //-     .servise-type
+    //-       |Заделка внешнего шва
+    //-     input.servise-input(type="number",  min="0", value="0", ng-model="elementsPanel.G.global.servisesPrice[0]", ng-class="{'green': elementsPanel.G.global.servisesPrice[0].length}")
+    //-   .servise-block
+    //-     .servise-type
+    //-       |Заделка шва под подоконником
+    //-     input.servise-input(type="number", min="0",  value="0", ng-class="{'green': elementsPanel.G.global.servisesPrice[1].length}")
+    //-   .servise-block
+    //-     .servise-type
+    //-       |Подготовительне работы
+    //-     input.servise-input(type="number", min="0", value="0",  ng-class="{'green': elementsPanel.G.global.servisesPrice[2].length}")
+    //-   .servise-block
+    //-     .servise-type
+    //-       |Отделка внутренних откосов
+    //-     input.servise-input(type="number", min="0", value="0",   ng-class="{'green': elementsPanel.G.global.servisesPrice[3].length}")
+    //-   .servise-block
+    //-     .servise-type
+    //-       |Прочее
+    //-     input.servise-input(type="number" min="0" value="0" ng-class="{'green': elementsPanel.G.global.servisesPrice[4].length}")
 
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", fs-click="elementsPanel.showWindowScheme()")
 

@@ -131,7 +131,34 @@
       }
     }
 
+function clickNewProject() {
+      //------- Start programm, without draft, for Main Page
+      if(GlobalStor.global.startProgramm) {
+        GeneralServ.stopStartProg();
+        MainServ.prepareMainPage();
+      } else {
+        GlobalStor.global.isLoader = 1;
+        //------- Create New Project with Draft saving in Main Page
+        if(GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
+          //------ save product
+          if(MainServ.inputProductInOrder()) {
+            //------- define order Price
+            CartMenuServ.calculateOrderPrice();
+            //-------- save order as Draft
+            MainServ.saveOrderInDB({}, 0, '');
+          }
+          //------- Create New Project with Draft saving in Cart Page
+        } else if(GlobalStor.global.isCreatedNewProject && !GlobalStor.global.isCreatedNewProduct) {
+          //-------- save order as Draft
+          MainServ.saveOrderInDB({}, 0, '');
+        }
+        //------- set previos Page
+        GeneralServ.setPreviosPage();
+        //=============== CREATE NEW PROJECT =========//
+        MainServ.createNewProject();
 
+      }
+    }
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -139,7 +166,8 @@
       setLanguageVoiceHelper: setLanguageVoiceHelper,
       switchVoiceHelper: switchVoiceHelper,
       gotoHistoryPage: gotoHistoryPage,
-      createAddElementsProduct: createAddElementsProduct
+      createAddElementsProduct: createAddElementsProduct,
+      clickNewProject: clickNewProject
     };
 
     return thisFactory.publicObj;

@@ -182,7 +182,8 @@
             tempPrice: 0,
             isNewTemplate: 0,
 
-            construction_count: 0
+            construction_count: 0,
+            servisesPrice : [0]
           },
 
           setDefaultGlobal: setDefaultGlobal

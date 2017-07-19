@@ -140,6 +140,7 @@
               InfoBoxServ.autoShow(id);
             }, 4000);
           }
+          console.log(GlobalStor.global.activePanel);
         }
 
 

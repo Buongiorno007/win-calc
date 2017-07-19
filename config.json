@@ -73,6 +73,17 @@
         "audio": "_product/steko/ext/audio",
         "local": "_product/steko/ext/local",
         "product": "_product/steko/ext/product"
+      },
+      "app": {
+        "root":"_product/steko/app/steko/www/",
+        "css": "_product/steko/app/steko/www/css",
+        "html": "_product/steko/app/steko/www/",
+        "js": "_product/steko/app/steko/www/js",
+        "img": "_product/steko/app/steko/www/img",
+        "fonts": "_product/steko/app/steko/www/fonts",
+        "audio": "_product/steko/app/steko/www/audio",
+        "local": "_product/steko/app/steko/www/local",
+        "product": "_product/steko/app/steko/www/product"
       }
     },
     "window": {
