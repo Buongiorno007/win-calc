@@ -546,11 +546,11 @@
 
       function saveTemplateInProduct(templateIndex) {
         var defer = $q.defer();
-        // if (!GlobalStor.global.isChangedTemplate) {
+        if (!GlobalStor.global.isChangedTemplate) {
           ProductStor.product.template_source = angular.copy(
             GlobalStor.global.templatesSource[templateIndex]
           );
-        // }
+        }
         setCurrentGlass(ProductStor.product);
         //----- create template
         SVGServ.createSVGTemplate(
@@ -1111,7 +1111,7 @@
         saveTemplateInProduct(ProductStor.product.template_id).then(function () {
           setCurrentHardware(ProductStor.product);
           var hardwareIds = ProductStor.product.hardware.id || 0;
-          if ($location.path() !== "/light") {
+          // if ($location.path() !== "/light") {
             preparePrice(
               ProductStor.product.template,
               ProductStor.product.profile.id,
@@ -1121,9 +1121,9 @@
             ).then(function () {
               deferred.resolve(1);
             });
-          } else {
-            deferred.resolve(1);
-          }
+          // } else {
+          //   deferred.resolve(1);
+          // }
         });
         return deferred.promise;
       }
@@ -1727,6 +1727,7 @@
           ProductStor.product.construction_type
         ).then(function () {
           GlobalStor.global.isLoader = 0;
+          GlobalStor.global.construction_count = 0;
           prepareMainPage();
           /** start lamination filtering */
           cleanLamFilter();

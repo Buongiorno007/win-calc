@@ -167,12 +167,12 @@
           }
         }
 
-
         function changeElementSize() {
+          console.log("123",AuxStor.aux.auxParameter);
           var newElementSize = '',
             elementIndex = AuxStor.aux.currentAddElementId,
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
-
+            console.log(index);
           newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
           if (newElementSize === 0) {
             newElementSize = 1;

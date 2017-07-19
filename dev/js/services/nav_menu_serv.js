@@ -131,11 +131,7 @@
       }
     }
 
-
-
-
-    //----------- Create new Project
-    function clickNewProject() {
+function clickNewProject() {
       //------- Start programm, without draft, for Main Page
       if(GlobalStor.global.startProgramm) {
         GeneralServ.stopStartProg();
@@ -163,13 +159,7 @@
 
       }
     }
-
-
-
-
-
     /**========== FINISH ==========*/
-
 
     thisFactory.publicObj = {
       getCurrentGeolocation: getCurrentGeolocation,
@@ -181,6 +171,5 @@
     };
 
     return thisFactory.publicObj;
-
   });
 })();

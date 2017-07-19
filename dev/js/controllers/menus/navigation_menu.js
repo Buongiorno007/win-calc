@@ -120,8 +120,10 @@
                     $location.path("/light");
                   });
                 } else {
+
                   $location.path("/light");
                 }
+                GlobalStor.global.startProgramm = 0;
                 GlobalStor.global.currOpenPage = 'light';
               }
               else {
@@ -135,7 +137,6 @@
           }
         }
 
-
         function clickNewProject() {
           thisCtrl.activeMenuItem = 0;
           NavMenuServ.clickNewProject();
@@ -145,7 +146,6 @@
           localStorage.clear();
           location.reload();
         }
-
 
         /**========== FINISH ==========*/
 
