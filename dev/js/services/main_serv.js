@@ -1111,7 +1111,7 @@
         saveTemplateInProduct(ProductStor.product.template_id).then(function () {
           setCurrentHardware(ProductStor.product);
           var hardwareIds = ProductStor.product.hardware.id || 0;
-          if ($location.path() !== "/light") {
+          // if ($location.path() !== "/light") {
             preparePrice(
               ProductStor.product.template,
               ProductStor.product.profile.id,
@@ -1121,9 +1121,9 @@
             ).then(function () {
               deferred.resolve(1);
             });
-          } else {
-            deferred.resolve(1);
-          }
+          // } else {
+          //   deferred.resolve(1);
+          // }
         });
         return deferred.promise;
       }

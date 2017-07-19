@@ -30,9 +30,7 @@
               .door-config-description {{ ::lightPage.HANDLE_CONFIG_DESCTIPT }}: {{ lightPage.P.product.doorHandle.name }};
               .door-config-description {{ ::lightPage.LOCK_CONFIG_DESCTIPT }}: {{ lightPage.P.product.doorLock.name }};
 
-            .right-menu-footer
-              .calculators-box.size-calculator(ng-class="{'active': lightPage.G.global.isSizeCalculator}")
-                include parts/_size-calculator
+
 
             include parts/_report
             include panels/_profiles
@@ -508,10 +506,16 @@
 
         .menu_tooltip(ng-if="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           .close_menu_tooltip
+        .right-menu-footer
+          .calculators-box.size-calculator(ng-class="{'active': lightPage.G.global.isSizeCalculator}" ng-if="lightPage.G.global.isSizeCalculator")
+            include parts/_size-calculator
+          .calculators-box.qty-calculator(ng-class="{'active': lightPage.G.global.isQtyCalculator}")
+            include parts/_qty-calculator
     include parts/_form_order_light
-  include parts/_info-box
-  include parts/_attantions
-  include parts/_check-doors
-  include parts/_alert
-  include parts/_loader
+include parts/_info-box
+include parts/_attantions
+include parts/_check-doors
+include parts/_alert
+include parts/_loader
+include parts/_error-product
 
