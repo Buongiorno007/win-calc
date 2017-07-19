@@ -557,8 +557,8 @@
           ProductStor.product.template_source,
           ProductStor.product.profileDepths
         ).then(function (result) {
-          // DesignStor.design.templateSourceTEMP = ProductStor.product.template_source;
-          // DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.design.templateSourceTEMP = ProductStor.product.template_source;
+          DesignStor.design.templateTEMP = angular.copy(result);
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(
             ProductStor.product.template_source
@@ -1727,6 +1727,7 @@
           ProductStor.product.construction_type
         ).then(function () {
           GlobalStor.global.isLoader = 0;
+          GlobalStor.global.construction_count = 0;
           prepareMainPage();
           /** start lamination filtering */
           cleanLamFilter();

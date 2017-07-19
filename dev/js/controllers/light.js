@@ -14,6 +14,7 @@
                 MainServ,
                 CartServ,
                 SVGServ,
+                GeneralServ,
                 CartMenuServ,
                 GlobalStor,
                 ProductStor,
@@ -176,7 +177,7 @@
           GlobalStor.global.continued = 0;
           if (MainServ.inputProductInOrder()) {
             //--------- moving to Cart when click on Cart button
-            goToCart();
+            // goToCart();
           }
         }
 
@@ -252,7 +253,6 @@
 
 
         function checkForAddElem() {
-
           if (!GlobalStor.global.isChangedTemplate) {
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
           }

@@ -167,8 +167,8 @@
           }
         }
 
-
         function changeElementSize() {
+          console.log("123",AuxStor.aux.auxParameter);
           var newElementSize = '',
             elementIndex = AuxStor.aux.currentAddElementId,
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);

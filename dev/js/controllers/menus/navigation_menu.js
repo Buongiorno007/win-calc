@@ -139,8 +139,7 @@
 
         function clickNewProject() {
           thisCtrl.activeMenuItem = 0;
-          GlobalStor.global.isLoader = 1;
-          MainServ.createNewProject();
+          NavMenuServ.clickNewProject();
         }
 
         function logOut() {
