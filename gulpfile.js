@@ -490,8 +490,8 @@ function buildSite(id) {
     .pipe(replace('ISEXTFLAG', "0"))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate())
-    // .pipe(removeLogs())
-    // .pipe(js_obfuscator())
+    .pipe(removeLogs())
+    .pipe(js_obfuscator())
     // .pipe(uglify())
     .pipe(gulp.dest("_product/" + id + "/site/js"))
     .on('end', function () {
