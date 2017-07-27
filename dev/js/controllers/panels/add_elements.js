@@ -6,6 +6,7 @@
     .controller("AddElementsCtrl", function(
       $filter,
       $timeout,
+      $scope,
       globalConstants,
       GeneralServ,
       AddElementsServ,
@@ -55,7 +56,8 @@
         "add_elements.OTHER_ELEMENTS2"
       );
       thisCtrl.LIST_VIEW = $filter("translate")("add_elements.LIST_VIEW");
-
+      thisCtrl.variable = 10;
+      $scope.servisesPrice = [0, 0, 0, 0, 0];
       /**============ METHODS ================*/
       // Show Window Scheme Dialog
       function showWindowScheme() {
@@ -89,6 +91,7 @@
           }
         }, 100);
       }
+
       function positiveVal(val) {
         if (val < 0) {
           return 0;
@@ -96,25 +99,19 @@
           return val;
         }
       }
-      function changeServicePice(id) {
-        console.log("GlobalStor.global.servisesPrice");
-        switch (id) {
-          case 0: {
-            break;
-          }
-          case 1: {
-            break;
-          }
-          case 2: {
-            break;
-          }
-          case 3: {
-            break;
-          }
-          case 4: {
-            break;
-          }
-        }
+
+      function openServiceCalculator(id) {
+        GlobalStor.global.isServiceCalculator = 0;
+        GlobalStor.global.servisesPriceIndex = id;
+        GlobalStor.global.isServiceCalculator = 1;
+        setTimeout(function() {
+          $('#calculatorDisplay').focus();
+        }, 1000);
+      }
+
+
+      function changeServicePrice() {
+        console.log('changeServicePrice');
       }
       /**========== FINISH ==========*/
 
@@ -126,5 +123,7 @@
       thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
       thisCtrl.showWindowScheme = showWindowScheme;
       thisCtrl.closeWindowScheme = closeWindowScheme;
+      thisCtrl.openServiceCalculator = openServiceCalculator;
+      thisCtrl.changeServicePrice = changeServicePrice;
     });
 })();

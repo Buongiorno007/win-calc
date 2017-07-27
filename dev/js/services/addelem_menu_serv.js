@@ -516,7 +516,7 @@
               return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
             });
           }
-
+          
           grids = _.union(_.compact(grids), gridsT);
           if (grids.length > 0) {
             insertGrids(grids);

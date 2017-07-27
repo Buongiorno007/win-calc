@@ -800,33 +800,33 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-color: #6ed44a;
   }
 }
-.servises {
+.services {
   margin-left: 8rem;
   padding-top: 20rem;
 
-  .servise-block {
+  .service-block {
     width: 90%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
   }
-  .servise-type {
+  .service-type {
     width: 70%;
     height: 6rem;
     font: normal 3rem/2 roboto-light, sans-serif, icons;
     margin: 1.25rem 0.5rem;
     border-radius: 1rem;
-    color: white;
-    background-color: orange;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    color: black;
+    padding-left : 1rem;
     &.green {
       transition: 0.5s;
       background-color: #6ed44a;
     }
   }
-
+  .service-input{
+    border-radius: 5px !important;
+    box-shadow: inset 1px 1px 1px 0px $main_gray_btn;
+  }
   input {
     width: 100px;
     font-size: 25px;

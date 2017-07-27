@@ -46,6 +46,9 @@
           GlobalStor.global.isShowCommentBlock = 0;
           //---- hide template type menu if opened
           GlobalStor.global.isTemplateTypeMenu = 0;
+
+          GlobalStor.global.isServiceCalculator = 0;
+
           GeneralServ.stopStartProg();
           MainServ.setDefaultAuxParam();
           //------ close Glass Selector Dialogs
@@ -123,6 +126,8 @@
               // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               if (GlobalStor.global.activePanel === id) {
                 GlobalStor.global.activePanel = 0;
+                GlobalStor.global.isServiceCalculator = 0;
+
                 if ($location.path() === '/light') {
                   setTimeout(function () {
                     DesignServ.rebuildSVGTemplate();
@@ -140,7 +145,6 @@
               InfoBoxServ.autoShow(id);
             }, 4000);
           }
-          console.log(GlobalStor.global.activePanel);
         }
 
 

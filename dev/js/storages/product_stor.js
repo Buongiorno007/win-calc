@@ -65,13 +65,13 @@
           [], // 8 - windowSill
           [], // 9 - handles
           [], // 10 - others
-          [], // 11 - shutters 
-          [], // 12 - grating 
-          [], // 13 - blind 
-          [], // 14 - shut 
-          [], // 15 - grat 
-          [], // 16 - vis 
-          []  // 17 - spil 
+          [], // 11 - shutters
+          [], // 12 - grating
+          [], // 13 - blind
+          [], // 14 - shut
+          [], // 15 - grat
+          [], // 16 - vis
+          []  // 17 - spil
         ],
 
         door_type_index: 0,
@@ -85,6 +85,8 @@
         doorLock: {},
 
         template_price: 0,
+        service_price: 0,
+        service_price_dis: 0,
         addelem_price: 0,
         addelemPriceDis: 0,
         product_price: 0,

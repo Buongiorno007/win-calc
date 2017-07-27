@@ -37,13 +37,11 @@
         //------ for Design Page
       } else {
         if (GlobalStor.global.activePanel === 6) {
-          console.log("add");
           thisCtrl.isDesignPage = true;
           thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
           thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
           thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
         } else {
-          console.log("dess");
           thisCtrl.isDesignPage = true;
           thisCtrl.setValueSize = DesignServ.setValueSize;
           thisCtrl.deleteLastNumber = DesignServ.deleteLastNumber;

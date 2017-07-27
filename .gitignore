@@ -11,3 +11,5 @@ Cornerstone/
 _product/
 _iosApp/
 .idea/
+.editorconfig
+.DS_Store

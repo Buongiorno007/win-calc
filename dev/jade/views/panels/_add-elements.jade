@@ -1,6 +1,6 @@
 .config-panel.auxiliaries-container(ng-controller="AddElementsCtrl as elementsPanel", ng-class="{'active': elementsPanel.G.global.activePanel == 6}")
   .auxiliaries-inner(ng-if="elementsPanel.G.global.activePanel == 6")
-   
+
     .auxiliary-item.aux-outside.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}")
       .aux-template2-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 2222")
       .aux-template1-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 1111 || elementsPanel.G.global.typeMenu === 3333 || elementsPanel.G.global.typeMenu === 5555")
@@ -63,34 +63,34 @@
               .aux-label(data-output="{{ ::elementsPanel.HEIGHT_LABEL }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
           .aux-more(ng-show="addElemGroup.length>1") {{ ::elementsPanel.OTHER_ELEMENTS1 }} {{ addElemGroup.length - 1 }} {{ ::elementsPanel.OTHER_ELEMENTS2 }}
 
-    .numberMenu(fs-click="elementsPanel.click(5555)", ng-class="{'green': elementsPanel.config.colorFilter===5555}", id="5555") {{::elementsPanel.ALL}}
-    .numberMenu(fs-click="elementsPanel.click(1111)", ng-class="{'green': elementsPanel.config.colorFilter===1111}", id="1111") {{::elementsPanel.INSIDES}}
-    .numberMenu(fs-click="elementsPanel.click(2222)", ng-class="{'green': elementsPanel.config.colorFilter===2222}", id="2222") {{::elementsPanel.OUTSIDES}}
-    .numberMenu(fs-click="elementsPanel.click(3333)", ng-class="{'green': elementsPanel.config.colorFilter===3333}", id="3333") {{::elementsPanel.COMPONENTS}}
-    .numberMenu(fs-click="elementsPanel.click(4444)", ng-class="{'green': elementsPanel.config.colorFilter===4444}", id="4444") {{::elementsPanel.OTHER}}
-    //- .numberMenu(fs-click="elementsPanel.click(6666)", ng-class="{'green': elementsPanel.config.colorFilter===6666}", id="6666") {{::elementsPanel.SERVICES}}
+    .numberMenu(fs-click="elementsPanel.click(5555); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===5555}", id="5555") {{::elementsPanel.ALL}}
+    .numberMenu(fs-click="elementsPanel.click(1111); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===1111}", id="1111") {{::elementsPanel.INSIDES}}
+    .numberMenu(fs-click="elementsPanel.click(2222); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===2222}", id="2222") {{::elementsPanel.OUTSIDES}}
+    .numberMenu(fs-click="elementsPanel.click(3333); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===3333}", id="3333") {{::elementsPanel.COMPONENTS}}
+    .numberMenu(fs-click="elementsPanel.click(4444); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===4444}", id="4444") {{::elementsPanel.OTHER}}
+    .numberMenu(fs-click="elementsPanel.click(6666)", ng-class="{'green': elementsPanel.config.colorFilter===6666}", id="6666") {{::elementsPanel.SERVICES}}
 
-    //- .servises(ng-if="elementsPanel.G.global.typeMenuID === 6666")
-    //-   .servise-block
-    //-     .servise-type
-    //-       |Заделка внешнего шва
-    //-     input.servise-input(type="number",  min="0", value="0", ng-model="elementsPanel.G.global.servisesPrice[0]", ng-class="{'green': elementsPanel.G.global.servisesPrice[0].length}")
-    //-   .servise-block
-    //-     .servise-type
-    //-       |Заделка шва под подоконником
-    //-     input.servise-input(type="number", min="0",  value="0", ng-class="{'green': elementsPanel.G.global.servisesPrice[1].length}")
-    //-   .servise-block
-    //-     .servise-type
-    //-       |Подготовительне работы
-    //-     input.servise-input(type="number", min="0", value="0",  ng-class="{'green': elementsPanel.G.global.servisesPrice[2].length}")
-    //-   .servise-block
-    //-     .servise-type
-    //-       |Отделка внутренних откосов
-    //-     input.servise-input(type="number", min="0", value="0",   ng-class="{'green': elementsPanel.G.global.servisesPrice[3].length}")
-    //-   .servise-block
-    //-     .servise-type
-    //-       |Прочее
-    //-     input.servise-input(type="number" min="0" value="0" ng-class="{'green': elementsPanel.G.global.servisesPrice[4].length}")
+    .services(ng-if="elementsPanel.G.global.typeMenuID === 6666")
+      .service-block
+        .service-type(ng-class="{'green':  elementsPanel.G.global.servisesPrice[0]>0}")
+          |Заделка внешнего шва
+        input.service-input(readonly type="number"  min="0" ng-model="elementsPanel.G.global.servisesPrice["+0+"]" ng-click="elementsPanel.openServiceCalculator(0)"  data-bind="click: function() {clearDisplay();}" )
+      .service-block
+        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPrice[1]>0}")
+          |Заделка шва под подоконником
+        input.service-input(readonly type="number", min="0" ng-model="elementsPanel.G.global.servisesPrice["+1+"]" ng-click="elementsPanel.openServiceCalculator(1)"  data-bind="click: function() {clearDisplay();}")
+      .service-block
+        .service-type( ng-class="{'green': elementsPanel.G.global.servisesPrice[2]>0}")
+          |Подготовительне работы
+        input.service-input(readonly type="number", min="0" ng-model="elementsPanel.G.global.servisesPrice["+2+"]" ng-click="elementsPanel.openServiceCalculator(2)"  data-bind="click: function() {clearDisplay();}")
+      .service-block
+        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPrice[3]>0}")
+          |Отделка внутренних откосов
+        input.service-input(readonly type="number", min="0" ng-model="elementsPanel.G.global.servisesPrice["+3+"]" ng-click="elementsPanel.openServiceCalculator(3)"  data-bind="click: function() {clearDisplay();}")
+      .service-block
+        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPrice[4]>0}")
+          |Прочее
+        input.service-input(readonly type="number" min="0" ng-model="elementsPanel.G.global.servisesPrice["+4+"]" ng-click="elementsPanel.openServiceCalculator(4)"  data-bind="click: function() {clearDisplay();}")
 
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", fs-click="elementsPanel.showWindowScheme()")
 
