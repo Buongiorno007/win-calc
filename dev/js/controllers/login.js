@@ -1117,7 +1117,6 @@
           });
           return defer.promise;
         }
-
         function fastEnter(url) {
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;

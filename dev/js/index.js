@@ -1,18 +1,18 @@
 'use strict';
 /** global variable defined Browser or Device */
 /** check first device */
-var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
+var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent)) ? 1 : 0;
 
 //console.log("!!!!!");
 
-(function () {
+(function() {
   /** check browser */
   if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
-//console.log("isDevice",isDevice);
+  //console.log("isDevice",isDevice);
   // Test via a getter in the options object to see if the passive property is accessed
-  $( document ).ready(function() {
+  $(document).ready(function() {
     location.hash = "#/";
     if (!isDevice) {
       var obj = document.getElementById('main-frame'),
@@ -21,8 +21,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       var scale = 1;
       if (self.innerWidth / width > self.innerHeight / height) {
         scale = self.innerHeight / height;
-      }
-      else {
+      } else {
         scale = self.innerWidth / width;
       }
       if (scale > 1) {
@@ -31,7 +30,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       obj.style.transform = 'scale(' + scale + ')';
     }
   });
-  window.onresize = function () {
+  window.onresize = function() {
     if (!isDevice) {
       var obj = document.getElementById('main-frame'),
         width = $(obj).width(),
@@ -39,8 +38,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       var scale = 1;
       if (self.innerWidth / width > self.innerHeight / height) {
         scale = self.innerHeight / height;
-      }
-      else {
+      } else {
         scale = self.innerWidth / width;
       }
       if (scale > 1) {
@@ -52,16 +50,16 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
   if (isDevice) {
     window.PhonegapApp = {
-      initialize: function () {
+      initialize: function() {
         this.bindEvents();
       },
-      bindEvents: function () {
+      bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
       },
-      onDeviceReady: function () {
+      onDeviceReady: function() {
         //      alert('onDeviceReady');
         doInit();
-        angular.element(document).ready(function () {
+        angular.element(document).ready(function() {
           // angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
 
           //$(document).bind('touchmove', false);
@@ -95,7 +93,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     'HistoryModule',
     'LightModule',
     'SettingsModule'
-  ]).config(/*@ngInject*/ configurationApp);
+  ]).config( /*@ngInject*/ configurationApp);
 
   //============== Modules ============//
   angular
@@ -176,9 +174,11 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       .otherwise({
         redirectTo: '/'
       });
-    $locationProvider.hashPrefix('');
+    // $locationProvider.hashPrefix('');
+    $locationProvider.html5Mode(false).hashPrefix('');
 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
+
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
