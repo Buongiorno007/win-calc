@@ -85,7 +85,6 @@
         doorLock: {},
 
         template_price: 0,
-        service_price: 0,
         service_price_dis: 0,
         addelem_price: 0,
         addelemPriceDis: 0,
@@ -95,7 +94,8 @@
         report: [],
         comment: '',
         product_qty: 1,
-        servicesPrice: [0, 0, 0, 0, 0]
+        servicesPrice: [0, 0, 0, 0, 0],
+        service_price: 0
 
       },
 

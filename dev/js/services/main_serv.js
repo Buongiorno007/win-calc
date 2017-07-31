@@ -13,6 +13,7 @@
       loginServ,
       optionsServ,
       AnalyticsServ,
+
       GlobalStor,
       OrderStor,
       ProductStor,
@@ -689,7 +690,7 @@
         );
         Product.service_price_dis = GeneralServ.setPriceDis(
           Product.service_price,
-          OrderStor.order.discount_service
+          UserStor.userInfo.discount_service
         );
 
         Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;

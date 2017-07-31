@@ -30,7 +30,6 @@
 
             discount_construct: 0,
             discount_addelem: 0,
-            discount_service: 0,
             discount_construct_max: 0,
             discount_addelem_max: 0,
             delivery_user_id: 0,

@@ -45,7 +45,7 @@
         height: 83rem;
       }
       &.discount {
-        @include top_left_coord(-1200px, 0px);
+        @include top_left_coord(-1400px, 0px);
       }
     }
     &.light-view {
