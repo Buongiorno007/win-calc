@@ -94,20 +94,14 @@
 
         report: [],
         comment: '',
-        product_qty: 1
+        product_qty: 1,
+        servicesPrice: [0, 0, 0, 0, 0]
 
       },
 
           setDefaultProduct: setDefaultProduct,
           restoreProduct: restoreProduct
         };
-
-
-    // var data = localStorage.getItem("ProductStor");
-    // if (data){
-    //   thisFactory.publicObj.product = restoreProduct(data);
-    // } else {
-    // }
       thisFactory.publicObj.product = setDefaultProduct();
 
     return thisFactory.publicObj;

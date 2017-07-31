@@ -102,7 +102,7 @@
 
       function openServiceCalculator(id) {
         GlobalStor.global.isServiceCalculator = 0;
-        GlobalStor.global.servisesPriceIndex = id;
+        GlobalStor.global.servicesPriceIndex = id;
         GlobalStor.global.isServiceCalculator = 1;
         setTimeout(function() {
           $('#calculatorDisplay').focus();

@@ -1,6 +1,5 @@
 (function() {
   "use strict";
-  var Glob;
   /**@ngInject*/
   angular
     .module("MainModule")
@@ -72,13 +71,13 @@
         }
       });
       function calculateServicePrice(){
-        return GlobalStor.global.servisesPrice.reduce((a, b) => a + b, 0);
+        return ProductStor.product.servicesPrice.reduce((a, b) => a + b, 0);
       }
 
       function evaluate() {
-        GlobalStor.global.servisesPrice[GlobalStor.global.servisesPriceIndex] = parseInt($('#calculatorDisplay').val());
+        ProductStor.product.servicesPrice[GlobalStor.global.servicesPriceIndex] = parseInt($('#calculatorDisplay').val());
         ProductStor.product.service_price = calculateServicePrice();
-        document.getElementsByClassName('service-input')[GlobalStor.global.servisesPriceIndex].innerHTML = $('#calculatorDisplay').val();
+        document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
         MainServ.setProductPriceTOTAL(ProductStor.product);
       }
 
