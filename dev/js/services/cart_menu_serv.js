@@ -525,11 +525,6 @@
       setMenuItemPriceReal(GlobalStor.global.supplyData);
       setMenuItemPriceReal(GlobalStor.global.assemblingData);
     }
-
-
-
-
-
     /**-------- open/close discount block --------*/
 
     function openDiscountBlock() {

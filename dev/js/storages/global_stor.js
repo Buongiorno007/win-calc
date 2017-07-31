@@ -181,10 +181,9 @@
                         changeLocation: 1,
                         tempPrice: 0,
                         isNewTemplate: 0,
-
                         construction_count: 0,
-                        servisesPrice: [0, 0, 0, 0, 0],
-                        isServiceCalculator: 0
+                        isServiceCalculator: 0,
+                        servicesPriceIndex : -1
                     },
 
                     setDefaultGlobal: setDefaultGlobal

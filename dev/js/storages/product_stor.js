@@ -85,7 +85,6 @@
         doorLock: {},
 
         template_price: 0,
-        service_price: 0,
         service_price_dis: 0,
         addelem_price: 0,
         addelemPriceDis: 0,
@@ -94,20 +93,15 @@
 
         report: [],
         comment: '',
-        product_qty: 1
+        product_qty: 1,
+        servicesPrice: [0, 0, 0, 0, 0],
+        service_price: 0
 
       },
 
           setDefaultProduct: setDefaultProduct,
           restoreProduct: restoreProduct
         };
-
-
-    // var data = localStorage.getItem("ProductStor");
-    // if (data){
-    //   thisFactory.publicObj.product = restoreProduct(data);
-    // } else {
-    // }
       thisFactory.publicObj.product = setDefaultProduct();
 
     return thisFactory.publicObj;

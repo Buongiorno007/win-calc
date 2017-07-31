@@ -32,6 +32,7 @@
             discountConstr: 0,
             discountAddElem: 0,
             discountConstrMax: 0,
+            discount_service: 0,
             discountAddElemMax: 0,
             discConstrByWeek: [],
             discAddElemByWeek: [],

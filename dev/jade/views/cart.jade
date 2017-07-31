@@ -108,6 +108,17 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 |%
               .discount-txt(ng-click="cartPage.approveNewDisc(1)")
                 .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
+                
+            .discount-box.selected
+              .discount-data(fs-click="cartPage.openDiscInput(1)", ng-keyup="cartPage.enterKeyDop(event)")
+                //.disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.C.cart.tempAddelemDisc}}%
+                //.disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
+                .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                input.disc-input.noPreventDefault#disc-input-service(type="number",value="0", ng-model="cartPage.U.userInfo.discount_service")
+                |%
+              .discount-txt(ng-click="cartPage.approveNewDisc(2)")
+                .discounts-label 
+                  | Скидка на дополнительные услуги
 
 
           .discount-container

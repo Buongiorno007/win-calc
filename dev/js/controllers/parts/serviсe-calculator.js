@@ -1,6 +1,5 @@
 (function() {
   "use strict";
-  var Glob;
   /**@ngInject*/
   angular
     .module("MainModule")
@@ -12,8 +11,7 @@
       /*jshint validthis:true */
       var thisCtrl = this;
       thisCtrl.G = GlobalStor;
-
-      var CalculatorViewModel = function(GlobalStor) {
+      var CalculatorViewModel = function() {
         this.calculatorDisplay = ko.observable("");
         this.calculatorHistory = ko.observable("");
         var number = "";
@@ -55,6 +53,7 @@
             number = "";
             this.calculatorDisplay(((eval(this.calculatorDisplay()).toFixed(2)).toString()));
           } catch (err) {
+            this.calculatorDisplay(0);
             console.log("somethings went wrong", err);
           }
         }
@@ -66,21 +65,19 @@
       });
 
       $('#calculatorDisplay').keypress(function(e) {
-        if (e.which == 13) {
+        if (e.which === 13) {
           $('#equallyClick').click();
-          // GlobalStor.global.isServiceCalculator = 0;
           return false; //<---- Add this line
         }
       });
       function calculateServicePrice(){
-        return GlobalStor.global.servisesPrice.reduce((a, b) => a + b, 0);
+        return ProductStor.product.servicesPrice.reduce((a, b) => a + b, 0);
       }
 
       function evaluate() {
-        GlobalStor.global.servisesPrice[GlobalStor.global.servisesPriceIndex] = parseInt($('#calculatorDisplay').val());
-
+        ProductStor.product.servicesPrice[GlobalStor.global.servicesPriceIndex] = parseInt($('#calculatorDisplay').val());
         ProductStor.product.service_price = calculateServicePrice();
-
+        document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
         MainServ.setProductPriceTOTAL(ProductStor.product);
       }
 

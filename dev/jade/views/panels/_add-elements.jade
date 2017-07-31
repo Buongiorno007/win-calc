@@ -72,25 +72,25 @@
 
     .services(ng-if="elementsPanel.G.global.typeMenuID === 6666")
       .service-block
-        .service-type(ng-class="{'green':  elementsPanel.G.global.servisesPrice[0]>0}")
+        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPriceIndex===0}")
           |Заделка внешнего шва
-        input.service-input(readonly type="number"  min="0" ng-model="elementsPanel.G.global.servisesPrice["+0+"]" ng-click="elementsPanel.openServiceCalculator(0)"  data-bind="click: function() {clearDisplay();}" )
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(0)"  data-bind="click: function() {clearDisplay();}" )
       .service-block
-        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPrice[1]>0}")
+        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPriceIndex===1}")
           |Заделка шва под подоконником
-        input.service-input(readonly type="number", min="0" ng-model="elementsPanel.G.global.servisesPrice["+1+"]" ng-click="elementsPanel.openServiceCalculator(1)"  data-bind="click: function() {clearDisplay();}")
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(1)"  data-bind="click: function() {clearDisplay();}")
       .service-block
-        .service-type( ng-class="{'green': elementsPanel.G.global.servisesPrice[2]>0}")
+        .service-type( ng-class="{'green': elementsPanel.G.global.servisesPriceIndex===2}")
           |Подготовительне работы
-        input.service-input(readonly type="number", min="0" ng-model="elementsPanel.G.global.servisesPrice["+2+"]" ng-click="elementsPanel.openServiceCalculator(2)"  data-bind="click: function() {clearDisplay();}")
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(2)"  data-bind="click: function() {clearDisplay();}")
       .service-block
-        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPrice[3]>0}")
+        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPriceIndex===3}")
           |Отделка внутренних откосов
-        input.service-input(readonly type="number", min="0" ng-model="elementsPanel.G.global.servisesPrice["+3+"]" ng-click="elementsPanel.openServiceCalculator(3)"  data-bind="click: function() {clearDisplay();}")
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(3)"  data-bind="click: function() {clearDisplay();}")
       .service-block
-        .service-type(ng-class="{'green': elementsPanel.G.global.servisesPrice[4]>0}")
+        .service-type(ng-class="{ 'green': elementsPanel.G.global.servisesPriceIndex===4}")
           |Прочее
-        input.service-input(readonly type="number" min="0" ng-model="elementsPanel.G.global.servisesPrice["+4+"]" ng-click="elementsPanel.openServiceCalculator(4)"  data-bind="click: function() {clearDisplay();}")
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(4)"  data-bind="click: function() {clearDisplay();}")
 
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", fs-click="elementsPanel.showWindowScheme()")
 
