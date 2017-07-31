@@ -23,8 +23,6 @@ run_tests:
   stage: test
   script:
     - echo "hello"
-  only:
-    - develop
 
 build_dev:
   stage: build
