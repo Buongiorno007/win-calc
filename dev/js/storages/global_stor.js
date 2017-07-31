@@ -184,7 +184,8 @@
 
                         construction_count: 0,
                         servisesPrice: [0, 0, 0, 0, 0],
-                        isServiceCalculator: 0
+                        isServiceCalculator: 0,
+                        servisesPriceIndex : -1
                     },
 
                     setDefaultGlobal: setDefaultGlobal

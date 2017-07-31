@@ -1,6 +1,6 @@
 .service-calculator(ng-controller="ServiсeCalclulatorCtrl as servCalc")
     .close-container
-        .close#close(ng-click="servCalc.G.global.isServiceCalculator = 0" data-bind="click: function() {clearDisplay();}")
+        .close#close(ng-click="servCalc.G.global.isServiceCalculator = 0; servCalc.G.global.servisesPriceIndex = -1;" data-bind="click: function() {clearDisplay();}")
         .calculation-history(data-bind="text: calculatorHistory")
     .clear-container
         .AC-button(data-bind="click: clearDisplay")
