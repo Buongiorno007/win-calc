@@ -583,6 +583,11 @@
     @include roboto-md(2.25rem, 5rem);
     color: $main_gray_txt;
   }
+  .no-after {
+    .discounts-label:after {
+      content:  none;
+    }
+  }
   .discount-price-container {
     @include display-flex();
     width: 100%;
