@@ -37,7 +37,7 @@ deploy_dev:
   - ssh $SSH_TEST_USERNAME@$SSH_TEST_SERVER "
       cd $PROJECT_TEST_PATH ;
       git checkout . ;
-      git fetch origin $GIT_TEST_BRANCH ;
+      git pull origin $GIT_TEST_BRANCH ;
       npm i ;
       gulp buildWindowSiteTest ;
       cp -fr $TEST_BUILD_PATH/* $TEST_WEB_PATH "

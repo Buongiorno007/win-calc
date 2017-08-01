@@ -85,37 +85,39 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
 
           .discount-container
-            .discount-box.selected.no-after
+            .discount-box.selected
               .discount-data
                 input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
-              .discount-txt(ng-click="cartPage.toggleDiscount()")
+              .discount-txt-arrow(ng-click="cartPage.toggleDiscount()")
                 .discounts-label
                   |Усредненная скидка
+                .discounts-icon-down(ng-if="!cartPage.G.global.toggleDiscount")
+                .discounts-icon-up(ng-if="cartPage.G.global.toggleDiscount")
+            .disc(ng-if="cartPage.G.global.toggleDiscount")
+              .discount-box.selected
+                .discount-data(ng-keyup="cartPage.enterKeyPrice(event)")
+                  .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
+                  input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
+                  |%
+                .discount-txt(ng-click="cartPage.approveNewDisc(0)")
+                  .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
+              
+              .discount-box.selected
+                .discount-data(ng-keyup="cartPage.enterKeyDop(event)")
+                  .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                  input.disc-input.noPreventDefault#disc-input-add(type="number",value="0", ng-model="cartPage.C.cart.tempAddelemDisc")
+                  |%
+                .discount-txt(ng-click="cartPage.approveNewDisc(1)")
+                  .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
                   
-            //- .discount-box.selected
-            //-   .discount-data(ng-keyup="cartPage.enterKeyPrice(event)")
-            //-     .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
-            //-     input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
-            //-     |%
-            //-   .discount-txt(ng-click="cartPage.approveNewDisc(0)")
-            //-     .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
-            //- 
-            //- .discount-box.selected
-            //-   .discount-data(ng-keyup="cartPage.enterKeyDop(event)")
-            //-     .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
-            //-     input.disc-input.noPreventDefault#disc-input-add(type="number",value="0", ng-model="cartPage.C.cart.tempAddelemDisc")
-            //-     |%
-            //-   .discount-txt(ng-click="cartPage.approveNewDisc(1)")
-            //-     .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
-            //-     
-            //- .discount-box.selected
-            //-   .discount-data(ng-keyup="cartPage.enterKeyDopService(event)")
-            //-     .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
-            //-     input.disc-input.noPreventDefault#disc-input-service(type="number",value="0", ng-model="cartPage.U.userInfo.discount_service")
-            //-     |%
-            //-   .discount-txt(ng-click="cartPage.approveNewDisc(2)")
-            //-     .discounts-label 
-            //-       | Скидка на дополнительные услуги
+              .discount-box.selected
+                .discount-data(ng-keyup="cartPage.enterKeyDopService(event)")
+                  .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                  input.disc-input.noPreventDefault#disc-input-service(type="number",value="0", ng-model="cartPage.U.userInfo.discount_service")
+                  |%
+                .discount-txt(ng-click="cartPage.approveNewDisc(2)")
+                  .discounts-label 
+                    | Скидка на дополнительные услуги
 
 
           .discount-container
