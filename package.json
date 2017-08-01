@@ -27,9 +27,7 @@
     "gulp-replace": "^0.5.4",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
-    "gulp-wrapper": "^1.0.0"
-  },
-  "dependencies": {
+    "gulp-wrapper": "^1.0.0",
     "yargs": "^6.5.0"
   }
 }
