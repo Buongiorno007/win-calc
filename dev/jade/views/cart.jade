@@ -80,7 +80,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .add-img
                   |+
                 .title
-                  |Новый заказ
+                  |Новое изделие
                 .order-footer
 
             button.view-switch-tab(ng-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
@@ -93,10 +93,10 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .discount-container
             .discount-box.selected
               .discount-data
-                input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
+                input.disc-input.noPreventDefault#disc-input-main(type="number",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
               .discount-txt-arrow(ng-click="cartPage.toggleDiscount()")
                 .discounts-label
-                  |Усредненная скидка
+                  |СКИДКА
                 .discounts-icon-down(ng-if="!cartPage.G.global.toggleDiscount")
                 .discounts-icon-up(ng-if="cartPage.G.global.toggleDiscount")
             .disc(ng-if="cartPage.G.global.toggleDiscount")

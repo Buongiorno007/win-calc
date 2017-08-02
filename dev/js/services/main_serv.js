@@ -1837,7 +1837,6 @@
           GeneralServ.stopStartProg();
           GlobalStor.global.isChangedTemplate = 0;
         }
-        console.log(OrderStor.order.products);
         return permission;
       }
 
@@ -2238,7 +2237,6 @@
             UserStor.userInfo.heatTransfer,
             UserStor.userInfo.fullLocation
           );
-          console.log("orderstor", OrderStor);
           //----- finish working with order
           GlobalStor.global.isCreatedNewProject = 0;
           return defer.promise;

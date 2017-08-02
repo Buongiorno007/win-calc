@@ -75,27 +75,27 @@
         .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===0}")
           |Заделка внешнего шва
         label.service-input(ng-click="elementsPanel.openServiceCalculator(0)"  data-bind="click: function() {clearDisplay();}" )
-         | {{elementsPanel.P.product.servicesPrice[0] | number : 2}}
+         | {{elementsPanel.P.product.services_price_arr[0] | number : 2}}
       .service-block
         .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===1}")
           |Заделка шва под подоконником
         label.service-input(ng-click="elementsPanel.openServiceCalculator(1)"  data-bind="click: function() {clearDisplay();}")
-          | {{elementsPanel.P.product.servicesPrice[1] | number : 2}}
+          | {{elementsPanel.P.product.services_price_arr[1] | number : 2}}
       .service-block
         .service-type( ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===2}")
           |Подготовительне работы
         label.service-input(ng-click="elementsPanel.openServiceCalculator(2)"  data-bind="click: function() {clearDisplay();}")
-          | {{elementsPanel.P.product.servicesPrice[2] | number : 2}}
+          | {{elementsPanel.P.product.services_price_arr[2] | number : 2}}
       .service-block
         .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===3}")
           |Отделка внутренних откосов
         label.service-input(ng-click="elementsPanel.openServiceCalculator(3)"  data-bind="click: function() {clearDisplay();}")
-          | {{elementsPanel.P.product.servicesPrice[3] | number : 2}}
+          | {{elementsPanel.P.product.services_price_arr[3] | number : 2}}
       .service-block
         .service-type(ng-class="{ 'green': elementsPanel.G.global.servicesPriceIndex===4}")
           |Прочее
         label.service-input(ng-click="elementsPanel.openServiceCalculator(4)"  data-bind="click: function() {clearDisplay();}")
-          | {{elementsPanel.P.product.servicesPrice[4] | number : 2}}
+          | {{elementsPanel.P.product.services_price_arr[4] | number : 2}}
 
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", fs-click="elementsPanel.showWindowScheme()")
 

@@ -70,11 +70,12 @@
         }
       });
       function calculateServicePrice(){
-        return ProductStor.product.servicesPrice.reduce((a, b) => a + b, 0);
+        return ProductStor.product.services_price_arr.reduce(function(a,b){return(a+b)});
+        // return ProductStor.product.services_price_arr.reduce((a, b) => a + b, 0);
       }
 
       function evaluate() {
-        ProductStor.product.servicesPrice[GlobalStor.global.servicesPriceIndex] = parseFloat($('#calculatorDisplay').val());
+        ProductStor.product.services_price_arr[GlobalStor.global.servicesPriceIndex] = parseFloat($('#calculatorDisplay').val());
         ProductStor.product.service_price = calculateServicePrice();
         // document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
         MainServ.setProductPriceTOTAL(ProductStor.product);

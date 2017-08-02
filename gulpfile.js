@@ -34,7 +34,7 @@ gulp.task('clean', function () {
   });
 });
 var random = Math.random();
-var env = args.env || 'steko';
+var env = args.env || 'windowSiteTest';
 var server_env = {
     "windowSiteTest": "'http://api.test.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
@@ -50,7 +50,7 @@ var server_env = {
     "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
-    "windowSiteTest": "'/calculator/local/'",
+    "windowSiteTest": "'/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
     "orange": "'/local/'",
@@ -490,8 +490,8 @@ function buildSite(id) {
     .pipe(replace('ISEXTFLAG', "0"))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate())
-    // .pipe(removeLogs())
-    // .pipe(js_obfuscator())
+    .pipe(removeLogs())
+    .pipe(js_obfuscator())
     // .pipe(uglify())
     .pipe(gulp.dest("_product/" + id + "/site/js"))
     .on('end', function () {

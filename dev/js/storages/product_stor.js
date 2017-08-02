@@ -94,7 +94,7 @@
         report: [],
         comment: '',
         product_qty: 1,
-        servicesPrice: [0, 0, 0, 0, 0],
+        services_price_arr: [0, 0, 0, 0, 0],
         service_price: 0
 
       },

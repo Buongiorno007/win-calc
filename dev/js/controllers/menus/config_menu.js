@@ -78,6 +78,7 @@
 
         function saveProduct(go_to_cart) {
           GlobalStor.global.showCoefInfoBlock = 0;
+          GlobalStor.global.servicesPriceIndex = -1;
           GlobalStor.global.continued = 0;
           ProductStor.product.product_qty = GlobalStor.global.product_qty;
 

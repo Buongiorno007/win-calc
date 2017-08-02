@@ -600,7 +600,10 @@
               " addelem_price NUMERIC," +
               " product_price NUMERIC," +
               " comment TEXT," +
-              " product_qty INTEGER",
+              " product_qty INTEGER,"+
+              " services_price_arr NUMERIC[],"+
+              " service_price_dis NUMERIC,"+
+              " service_price NUMERIC",
             foreignKey: ""
           },
           order_addelements: {
