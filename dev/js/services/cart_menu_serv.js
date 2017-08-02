@@ -560,6 +560,14 @@
 
     function approveNewDisc(type) {
       if (type===0) {
+        //------- discount x construction
+        CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
+        if (CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
+          CartStor.cart.tempConstructDisc = +UserStor.userInfo.discountConstrMax;
+        }
+        OrderStor.order.discount_construct = +CartStor.cart.tempConstructDisc;
+        changeProductPriceAsDiscount(OrderStor.order.discount_construct);
+      } else   if (type===1 ) {
         //------- discount x add element
         CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
         if (CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
@@ -568,14 +576,6 @@
         OrderStor.order.discount_addelem = +CartStor.cart.tempAddelemDisc;
         changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
 
-      } else   if (type===1 ) {
-        //------- discount x construction
-        CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
-        if (CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
-          CartStor.cart.tempConstructDisc = +UserStor.userInfo.discountConstrMax;
-        }
-        OrderStor.order.discount_construct = +CartStor.cart.tempConstructDisc;
-        changeProductPriceAsDiscount(OrderStor.order.discount_construct);
       } else {
         console.log("service disc");
       }

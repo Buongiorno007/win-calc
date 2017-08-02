@@ -77,6 +77,13 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
                     .order-comment-content {{ cartPage.O.order.comment }}
+              .add-new-product.order
+                .add-img
+                  |+
+                .title
+                  |Новый заказ
+                .order-footer
+
             button.view-switch-tab(ng-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
           .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
             button.close-cur-window(ng-click="cartPage.C.cart.showCurrentTemp=0")
