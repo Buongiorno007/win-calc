@@ -183,18 +183,12 @@
                         isNewTemplate: 0,
                         construction_count: 0,
                         isServiceCalculator: 0,
-                        servicesPriceIndex : -1
+                        servicesPriceIndex : -1,
+                        toggleDiscount : 0
                     },
 
                     setDefaultGlobal: setDefaultGlobal
                 };
-                // var data = localStorage.getItem("GlobalStor");
-                // if (data) {
-                //   thisFactory.publicObj.global = angular.copy(JSON.parse(LZString.decompress(LZString.decompress(data))));
-                //   //console.log("GlobalStor restored");
-                // } else {
-                //   //console.log("GlobalStor created");
-                // }
                 thisFactory.publicObj.global = setDefaultGlobal();
 
                 return thisFactory.publicObj;

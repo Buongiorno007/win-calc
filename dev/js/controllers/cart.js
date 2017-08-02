@@ -28,8 +28,6 @@
           isAddElementDetail: 0,
           isCartLightView: 0,
           detailProductIndex: 0,
-          isShowDiscInput: 0,
-          isShowDiscInputAdd: 0,
           isProductComment: 0,
 
           element: $filter('translate')('add_elements.ELEMENT'),
@@ -147,16 +145,10 @@
             CartMenuServ.approveNewDisc(1)
           }
         }
-
-        function openDiscInput(type) {
-          //------- discount x add element
-          if (type) {
-            thisCtrl.config.isShowDiscInput = 0;
-            thisCtrl.config.isShowDiscInputAdd = 1;
-          } else {
-            //------- discount x construction
-            thisCtrl.config.isShowDiscInput = 1;
-            thisCtrl.config.isShowDiscInputAdd = 0;
+        function enterKeyDopService(e) {
+          e = e || window.event;
+          if (e.keyCode === 13) {
+            CartMenuServ.approveNewDisc(1)
           }
         }
 
@@ -174,7 +166,17 @@
           CartStor.cart.showCurrentTemp = 1;
 
         }
+        function toggleDiscount(){
+          GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
+        }
 
+
+        $( ".scroll-hor-container" ).resize(function() {
+          console.log(".scroll-hor-container");
+        });
+        $( ".order-block" ).resize(function() {
+          console.log(".order-block");
+        });
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -193,15 +195,17 @@
         thisCtrl.fastEdit = CartServ.fastEdit;
         thisCtrl.enterKeyPrice = enterKeyPrice;
         thisCtrl.enterKeyDop = enterKeyDop;
+        thisCtrl.enterKeyDopService = enterKeyDopService;
+        thisCtrl.toggleDiscount = toggleDiscount;
 
         thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 
         thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
         thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
         thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
-        thisCtrl.openDiscInput = openDiscInput;
         thisCtrl.pressEnterInDisc = pressEnterInDisc;
         thisCtrl.showCartTemplte = showCartTemplte;
         thisCtrl.initAllGlassXGlass = DesignServ.initAllGlassXGlass;
+
       });
 })();

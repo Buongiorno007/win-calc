@@ -1,9 +1,9 @@
 .right-menu-controller(ng-controller="CartMenuCtrl as cartMenu")
   .cart-menu
     ul.items-list
-      li.add-prod(fs-click="cartPage.addNewProductInOrder()")
-        .prod-btn {{ ::cartPage.ADD_ORDER }}
-        img.prod-img(ng-src='img/add-img.png')
+      //li.add-prod(fs-click="cartPage.addNewProductInOrder()")
+      //  .prod-btn {{ ::cartPage.ADD_ORDER }}
+      //  img.prod-img(ng-src='img/add-img.png')
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
         .title(data-output="{{ ::cartMenu.DELIVERY }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
@@ -38,27 +38,44 @@
               .value.drop-txt {{ assemb.name }}
               .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
 
-
-      li.item.switcher(ng-class="{'active': cartMenu.config.activeMenuItem == 3, 'hov': cartMenu.config.activeMenuItem !== 3}", fs-click="cartMenu.selectMenuItem(3)")
-        .title(data-output="{{ ::cartMenu.PAYMENT_BY_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 3, 'hov': cartMenu.config.activeMenuItem !== 3}", fs-click="")
+        .title(data-output="{{'Демонтаж' }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-          .value(ng-if="!cartMenu.O.order.is_instalment", data-output="{{ ::cartMenu.WITHOUT_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          .value(ng-if="cartMenu.O.order.is_instalment") {{ cartMenu.O.order.selectedInstalmentPeriod }}
-            ng-pluralize(count="cartMenu.O.order.selectedInstalmentPeriod",
-            when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}")
-          span.name.aside(ng-if="cartMenu.O.order.is_instalment", data-output="{{ cartMenu.O.order.selectedInstalmentPercent }} %", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-        .check-switcher(ng-class="{'active': cartMenu.O.order.is_instalment }", fs-click="cartMenu.closeInstalment()")
-          .check-bg-active
-          .check-bg-passive
-        .check-handle(ng-class="{'active': cartMenu.O.order.is_instalment }", fs-click="cartMenu.closeInstalment()")
-      .dropdown-cart-menu.drop-instalment(ng-class="{'active': cartMenu.config.activeMenuItem == 3}")
+          .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          span.name.aside(ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")
         ul.dropdown-items-list
-          li.dropdown-item(ng-repeat="payment in cartMenu.G.global.instalmentsData", ng-class="{'selected': payment.id == cartMenu.O.order.instalment_id}", fs-click="cartMenu.selectInstalment(payment.id, payment.name, payment.value)")
+          li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(0)")
             .dropdown-item-inner
-              .value {{ payment.name }}
-                ng-pluralize(count="payment.name",
-                when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}")
-              .value.value-percent {{ payment.value }} %
+              .value.drop-txt {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+              .name.drop-txt {{ ::cartMenu.FREE }}
+          li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(assemb)")
+            .dropdown-item-inner
+              .value.drop-txt {{ assemb.name }}
+              .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
+
+
+      //li.item.switcher(ng-class="{'active': cartMenu.config.activeMenuItem == 3, 'hov': cartMenu.config.activeMenuItem !== 3}", fs-click="cartMenu.selectMenuItem(3)")
+      //  .title(data-output="{{ ::cartMenu.PAYMENT_BY_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      //  .cart-item-data
+      //    .value(ng-if="!cartMenu.O.order.is_instalment", data-output="{{ ::cartMenu.WITHOUT_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      //    .value(ng-if="cartMenu.O.order.is_instalment") {{ cartMenu.O.order.selectedInstalmentPeriod }}
+      //      ng-pluralize(count="cartMenu.O.order.selectedInstalmentPeriod",
+      //      when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}")
+      //    span.name.aside(ng-if="cartMenu.O.order.is_instalment", data-output="{{ cartMenu.O.order.selectedInstalmentPercent }} %", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      //  .check-switcher(ng-class="{'active': cartMenu.O.order.is_instalment }", fs-click="cartMenu.closeInstalment()")
+      //    .check-bg-active
+      //    .check-bg-passive
+      //  .check-handle(ng-class="{'active': cartMenu.O.order.is_instalment }", fs-click="cartMenu.closeInstalment()")
+      //.dropdown-cart-menu.drop-instalment(ng-class="{'active': cartMenu.config.activeMenuItem == 3}")
+      //  ul.dropdown-items-list
+      //    li.dropdown-item(ng-repeat="payment in cartMenu.G.global.instalmentsData", ng-class="{'selected': payment.id == cartMenu.O.order.instalment_id}", fs-click="cartMenu.selectInstalment(payment.id, payment.name, payment.value)")
+      //      .dropdown-item-inner
+      //        .value {{ payment.name }}
+      //          ng-pluralize(count="payment.name",
+      //          when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}")
+      //        .value.value-percent {{ payment.value }} %
 
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 4, 'hov': cartMenu.config.activeMenuItem !== 4}", fs-click="cartMenu.selectMenuItem(4)")
