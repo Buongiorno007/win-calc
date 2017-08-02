@@ -42,12 +42,6 @@
           restoreUser: restoreUser
         };
 
-        //
-        // var data = localStorage.getItem("UserStor");
-        // if (data) {
-        //   thisFactory.publicObj.userInfo = restoreUser(data);
-        // } else {
-        // }
           thisFactory.publicObj.userInfo = setDefaultUser();
 
         return thisFactory.publicObj;

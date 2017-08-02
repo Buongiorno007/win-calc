@@ -177,6 +177,11 @@
         $( ".order-block" ).resize(function() {
           console.log(".order-block");
         });
+        function calculateAverageDisc() {
+          CartStor.cart.averageDisc = 100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price)*100;
+          //УСРЕДНЁННАЯ СКИДКА (%) = 100 - (СТОИМОСТЬ ЗАКАЗА СО СКИДКОЙ / СТОИМОСТЬ ЗАКАЗА БЕЗ СКИДКИ)Х100
+        }
+        calculateAverageDisc();
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -197,6 +202,7 @@
         thisCtrl.enterKeyDop = enterKeyDop;
         thisCtrl.enterKeyDopService = enterKeyDopService;
         thisCtrl.toggleDiscount = toggleDiscount;
+        thisCtrl.calculateAverageDisc = calculateAverageDisc;
 
         thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 

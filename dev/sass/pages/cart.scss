@@ -153,6 +153,7 @@
     position: relative;
     margin-right: rem(50px);
     float: right;
+    height : 79rem;
   }
 
   .order-header {
@@ -763,6 +764,7 @@
     //border-top : solid 1px #bebebe
   }
   .add-img{
+    height : 79rem;
     color : $main_gray_btn;
     font-size: 60px;
     display : inline-flex;

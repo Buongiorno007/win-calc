@@ -66,6 +66,7 @@
         isCreditDialog: 0,
         submitted: 0,
         isCityBox: 0,
+        averageDisc: 0,
         customer: {
           customer_sex: 0 //1-m, 2-f
         }
