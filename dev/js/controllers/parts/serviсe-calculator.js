@@ -46,9 +46,7 @@
 
         this.evaluateDisplay = function() {
           try {
-            if (!this.calculatorDisplay()) {
-              this.calculatorDisplay($("#calculatorDisplay").val());
-            }
+            this.calculatorDisplay($("#calculatorDisplay").val().toString());
             this.calculatorHistory(this.calculatorDisplay());
             number = "";
             this.calculatorDisplay(((eval(this.calculatorDisplay()).toFixed(2)).toString()));
@@ -58,7 +56,7 @@
           }
         }
       }
-      ko.applyBindings(new CalculatorViewModel(GlobalStor));
+      ko.applyBindings(new CalculatorViewModel());
 
       $('#calculatorDisplay').keyup(function() {
         this.value = this.value.replace(/[^0-9\-\+\*\/\.]/g, '');
@@ -66,7 +64,8 @@
 
       $('#calculatorDisplay').keypress(function(e) {
         if (e.which === 13) {
-          $('#equallyClick').click();
+          document.getElementById('equallyClick').click();
+          // $('#equallyClick').click();
           return false; //<---- Add this line
         }
       });
@@ -75,9 +74,9 @@
       }
 
       function evaluate() {
-        ProductStor.product.servicesPrice[GlobalStor.global.servicesPriceIndex] = parseInt($('#calculatorDisplay').val());
+        ProductStor.product.servicesPrice[GlobalStor.global.servicesPriceIndex] = parseFloat($('#calculatorDisplay').val());
         ProductStor.product.service_price = calculateServicePrice();
-        document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
+        // document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
         MainServ.setProductPriceTOTAL(ProductStor.product);
       }
 

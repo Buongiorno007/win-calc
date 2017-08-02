@@ -169,6 +169,14 @@
         function toggleDiscount(){
           GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
         }
+
+
+        $( ".scroll-hor-container" ).resize(function() {
+          console.log(".scroll-hor-container");
+        });
+        $( ".order-block" ).resize(function() {
+          console.log(".order-block");
+        });
         /**========== FINISH ==========*/
 
         //------ clicking

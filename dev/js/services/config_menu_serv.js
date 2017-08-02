@@ -127,7 +127,6 @@
               if (GlobalStor.global.activePanel === id) {
                 GlobalStor.global.activePanel = 0;
                 GlobalStor.global.isServiceCalculator = 0;
-
                 if ($location.path() === '/light') {
                   setTimeout(function () {
                     DesignServ.rebuildSVGTemplate();
@@ -135,7 +134,6 @@
                 }
               } else {
                 GlobalStor.global.activePanel = id;
-
               }
             }
           }

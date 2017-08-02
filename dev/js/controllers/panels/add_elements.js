@@ -92,14 +92,6 @@
         }, 100);
       }
 
-      function positiveVal(val) {
-        if (val < 0) {
-          return 0;
-        } else {
-          return val;
-        }
-      }
-
       function openServiceCalculator(id) {
         GlobalStor.global.isServiceCalculator = 0;
         GlobalStor.global.servicesPriceIndex = id;

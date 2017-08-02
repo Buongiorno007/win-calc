@@ -152,6 +152,7 @@
     @include box-shadow(rgba(black, .3) rem(15px) rem(10px) rem(30px) 0);
     position: relative;
     margin-right: rem(50px);
+    float: right;
   }
 
   .order-header {
@@ -748,7 +749,32 @@
 }
 .add-new-product{
   background: white;
+  flex-direction : column;
+  display : inline-flex;
+  align-items : center;
+  justify-content : center;
+  cursor : pointer;
   .order-footer{
-    background: red;
+    background: #f0f0f0;
+    width: rem(512px);
+    height : 6.3rem;
+    position : absolute;
+    bottom : 0;
+    //border-top : solid 1px #bebebe
+  }
+  .add-img{
+    color : $main_gray_btn;
+    font-size: 60px;
+    display : inline-flex;
+    width : 10rem;
+    height : 10rem;
+    border: 2px solid $main_gray_btn;
+    align-items : center;
+    justify-content : center;
+    border-radius:5rem;
+  }
+  .title{
+    color : $main_gray_btn;
+    font-size: 20px;
   }
 }

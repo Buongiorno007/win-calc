@@ -11,7 +11,6 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             include parts/_user-info
             button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", ng-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
             //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
-
           .scroll-hor-container
             .order-block
               .order(ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index")
@@ -77,7 +76,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
                     .order-comment-content {{ cartPage.O.order.comment }}
-              .add-new-product.order
+              .add-new-product.order(ng-click="cartPage.addNewProductInOrder()")
                 .add-img
                   |+
                 .title
