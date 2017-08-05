@@ -628,7 +628,7 @@
                     item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
                     item.productPriceDis = (GeneralServ.setPriceDis(
                       item.template_price, OrderStor.order.discount_construct
-                    ) + item.addelemPriceDis);
+                    ) + item.addelemPriceDis + item.service_price_dis );
 
                     OrderStor.order.products.push(item);
                     deferIcon.resolve(1);

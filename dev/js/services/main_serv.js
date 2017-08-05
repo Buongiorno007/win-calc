@@ -686,14 +686,14 @@
           );
         //playSound('price');
         Product.product_price = GeneralServ.roundingValue(
-          Product.template_price + Product.addelem_price + Product.service_price
+          Product.template_price + Product.addelem_price
         );
         Product.service_price_dis = GeneralServ.setPriceDis(
           Product.service_price,
           UserStor.userInfo.discount_service
         );
 
-        Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
+        Product.productPriceDis = priceDis + Product.addelemPriceDis;
         //------ add Discount of standart delivery day of Plant
         if (deliveryCoeff) {
           Product.productPriceDis = GeneralServ.setPriceDis(
@@ -702,25 +702,31 @@
           );
         }
         if (GlobalStor.global.area_price) {
-          Product.productPriceDis += localDB.currencyExgange(
+          var tmp = localDB.currencyExgange(
             GlobalStor.global.area_price * Product.template_square,
             GlobalStor.global.area_currencies
           );
+          Product.product_price += tmp;
+          Product.productPriceDis += tmp;
         }
         if (GlobalStor.global.perimeter_price) {
-          Product.productPriceDis += localDB.currencyExgange(
+          var tmp = localDB.currencyExgange(
             GlobalStor.global.perimeter_price *
             ((Product.template_width / 1000 +
-                Product.template_height / 1000) *
+              Product.template_height / 1000) *
               2),
             GlobalStor.global.perimeter_currencies
           );
+          Product.product_price += tmp;
+          Product.productPriceDis += tmp;
         }
         if (GlobalStor.global.piece_price) {
-          Product.productPriceDis += localDB.currencyExgange(
+          var tmp = localDB.currencyExgange(
             GlobalStor.global.piece_price,
             GlobalStor.global.piece_currencies
           );
+          Product.product_price += tmp;
+          Product.productPriceDis += tmp;
         }
         GlobalStor.global.tempPrice =
           Product.productPriceDis * GlobalStor.global.product_qty;

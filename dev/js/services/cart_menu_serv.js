@@ -577,11 +577,18 @@
         changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
 
       } else {
+        if (UserStor.userInfo.discount_service > 100){
+          UserStor.userInfo.discount_service = 100;
+        }
+        OrderStor.order.discount_addelem = +CartStor.cart.tempAddelemDisc;
+        changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
         console.log("service disc");
       }
       //----------- start order price total calculation
       calculateOrderPrice();
+      calculateAverageDisc()
     }
+    calculateOrderPrice();
 
 
 
@@ -647,7 +654,10 @@
         CartStor.cart.isCityBox = 0;
       }
     }
-
+    function calculateAverageDisc() {
+      CartStor.cart.averageDisc = 100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price)*100;
+      //УСРЕДНЁННАЯ СКИДКА (%) = 100 - (СТОИМОСТЬ ЗАКАЗА СО СКИДКОЙ / СТОИМОСТЬ ЗАКАЗА БЕЗ СКИДКИ)Х100
+    }
     /**------------ Select City in Order Dialogs -------------*/
 
     function selectCity(location) {
@@ -686,7 +696,8 @@
       closeOrderDialog: closeOrderDialog,
       changeLocation: changeLocation,
       selectCity: selectCity,
-      sendOrder: sendOrder
+      sendOrder: sendOrder,
+      calculateAverageDisc: calculateAverageDisc
     };
 
     return thisFactory.publicObj;
