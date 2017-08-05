@@ -258,7 +258,7 @@
           tempPrice;
       while(--productQty > -1) {
         tempPrice = GeneralServ.setPriceDis(
-            OrderStor.order.products[productQty].template_price, discount
+            OrderStor.order.products[productQty].product_price, discount
           ) + OrderStor.order.products[productQty].addelemPriceDis;
         OrderStor.order.products[productQty].productPriceDis = angular.copy( GeneralServ.roundingValue(tempPrice));
       }
