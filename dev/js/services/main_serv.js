@@ -686,14 +686,15 @@
           );
         //playSound('price');
         Product.product_price = GeneralServ.roundingValue(
-          Product.template_price + Product.addelem_price
+          Product.template_price + Product.addelem_price + Product.service_price
         );
         Product.service_price_dis = GeneralServ.setPriceDis(
           Product.service_price,
-          UserStor.userInfo.discount_service
+          CartStor.cart.discount_service
         );
-
-        Product.productPriceDis = priceDis + Product.addelemPriceDis;
+        console.log(Product.service_price);
+        console.log(Product.service_price_dis);
+        Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
         //------ add Discount of standart delivery day of Plant
         if (deliveryCoeff) {
           Product.productPriceDis = GeneralServ.setPriceDis(
@@ -1843,6 +1844,7 @@
           GeneralServ.stopStartProg();
           GlobalStor.global.isChangedTemplate = 0;
         }
+        console.log(OrderStor.order);
         return permission;
       }
 

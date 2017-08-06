@@ -120,7 +120,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
               .discount-box.selected
                 .discount-data(ng-keyup="cartPage.enterKeyDopService(event)")
                   .disc-max(ng-show="cartPage.U.userInfo.discount_service > 100") {{ ::cartPage.MAX }} {{'100'}}%
-                  input.disc-input.noPreventDefault#disc-input-service(type="number" value="0" ng-model="cartPage.U.userInfo.discount_service")
+                  input.disc-input.noPreventDefault#disc-input-service(type="number" ng-model="cartPage.C.cart.discount_service")
                   |%
                 .discount-txt(ng-click="cartPage.approveNewDisc(2)")
                   .discounts-label 
