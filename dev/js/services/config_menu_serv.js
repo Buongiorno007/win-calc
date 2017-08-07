@@ -48,6 +48,9 @@
           GlobalStor.global.isTemplateTypeMenu = 0;
 
           GlobalStor.global.isServiceCalculator = 0;
+          GlobalStor.global.typeMenu = 5555;
+          GlobalStor.global.typeMenuID = 5555;
+          GlobalStor.global.servicesPriceIndex = -1;
 
           GeneralServ.stopStartProg();
           MainServ.setDefaultAuxParam();

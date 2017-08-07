@@ -688,11 +688,7 @@
         Product.product_price = GeneralServ.roundingValue(
           Product.template_price + Product.addelem_price + Product.service_price
         );
-        Product.service_price_dis = GeneralServ.setPriceDis(
-          Product.service_price,
-          CartStor.cart.discount_service
-        );
-        console.log("Product.service_price_dis",Product.service_price_dis);
+
         Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
         //------ add Discount of standart delivery day of Plant
         if (deliveryCoeff) {
@@ -701,36 +697,38 @@
             deliveryCoeff
           );
         }
-        if (GlobalStor.global.area_price) {
-          var tmp = localDB.currencyExgange(
-            GlobalStor.global.area_price * Product.template_square,
-            GlobalStor.global.area_currencies
-          );
-          Product.product_price += tmp;
-          Product.productPriceDis += tmp;
-        }
-        if (GlobalStor.global.perimeter_price) {
-          var tmp = localDB.currencyExgange(
-            GlobalStor.global.perimeter_price *
-            ((Product.template_width / 1000 +
-              Product.template_height / 1000) *
-              2),
-            GlobalStor.global.perimeter_currencies
-          );
-          Product.product_price += tmp;
-          Product.productPriceDis += tmp;
-        }
-        if (GlobalStor.global.piece_price) {
-          var tmp = localDB.currencyExgange(
-            GlobalStor.global.piece_price,
-            GlobalStor.global.piece_currencies
-          );
-          Product.product_price += tmp;
-          Product.productPriceDis += tmp;
-        }
+
+        // if (GlobalStor.global.area_price) {
+        //   var tmp = localDB.currencyExgange(
+        //     GlobalStor.global.area_price * Product.template_square,
+        //     GlobalStor.global.area_currencies
+        //   );
+        //   Product.product_price += tmp;
+        //   Product.productPriceDis += tmp;
+        // }
+        // if (GlobalStor.global.perimeter_price) {
+        //   var tmp = localDB.currencyExgange(
+        //     GlobalStor.global.perimeter_price *
+        //     ((Product.template_width / 1000 +
+        //       Product.template_height / 1000) *
+        //       2),
+        //     GlobalStor.global.perimeter_currencies
+        //   );
+        //   Product.product_price += tmp;
+        //   Product.productPriceDis += tmp;
+        // }
+        // if (GlobalStor.global.piece_price) {
+        //   var tmp = localDB.currencyExgange(
+        //     GlobalStor.global.piece_price,
+        //     GlobalStor.global.piece_currencies
+        //   );
+        //   Product.product_price += tmp;
+        //   Product.productPriceDis += tmp;
+        // }
         GlobalStor.global.tempPrice =
           Product.productPriceDis * GlobalStor.global.product_qty;
         GlobalStor.global.isLoader = 0;
+
         if ($location.path() === "/light") {
           setTimeout(function() {
             SVGServ.createSVGTemplate(
@@ -1843,7 +1841,7 @@
           GeneralServ.stopStartProg();
           GlobalStor.global.isChangedTemplate = 0;
         }
-        console.log(OrderStor.order);
+        // console.log(OrderStor.order);
         return permission;
       }
 

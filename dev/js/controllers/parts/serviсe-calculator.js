@@ -6,7 +6,9 @@
     .controller("ServiсeCalclulatorCtrl", function(
       GlobalStor,
       ProductStor,
+      CartStor,
 
+      GeneralServ,
       MainServ) {
       /*jshint validthis:true */
       var thisCtrl = this;
@@ -77,6 +79,11 @@
       function evaluate() {
         ProductStor.product.services_price_arr[GlobalStor.global.servicesPriceIndex] = parseFloat($('#calculatorDisplay').val());
         ProductStor.product.service_price = calculateServicePrice();
+
+        ProductStor.product.service_price_dis = GeneralServ.setPriceDis(
+          ProductStor.product.service_price,
+          CartStor.cart.discount_service
+        );
         // document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
         MainServ.setProductPriceTOTAL(ProductStor.product);
       }

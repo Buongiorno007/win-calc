@@ -245,7 +245,7 @@
             templatePriceDis, addElemsQty, elemQty,
             prod, elem, item;
           for (prod = 0; prod < productQty; prod++) {
-            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
+            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis;
             OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
               OrderStor.order.products[prod].addelem_price, discount
             );
@@ -273,25 +273,23 @@
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
-            tempPrice = GeneralServ.setPriceDis(
-              OrderStor.order.products[productQty].product_price, discount
-            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis;
-
-            console.log("product_price",OrderStor.order.products[productQty].product_price);
-            console.log("tempPrice",tempPrice);
-            console.log("addelemPriceDis",OrderStor.order.products[productQty].addelemPriceDis);
-            console.log("service_price_dis",OrderStor.order.products[productQty].service_price_dis);
-
-            OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
+            // tempPrice = GeneralServ.setPriceDis(
+            //   OrderStor.order.products[productQty].product_price, discount
+            // ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis;
+            // OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
+            console.log(OrderStor.order.products[productQty].product_price);
+            console.log(OrderStor.order.products[productQty].addelemPriceDis);
+            console.log(OrderStor.order.products[productQty].service_price_dis);
           }
         }
+
         function changeProductPriceAsService(discount) {
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
             tempPrice = GeneralServ.setPriceDis(
               OrderStor.order.products[productQty].service_price, discount
-            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].productsPriceDis;
+            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].productPriceDis;
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
         }
@@ -324,6 +322,7 @@
           CartStor.cart.perimeterTotal = GeneralServ.roundingValue(CartStor.cart.perimeterTotal);
           CartStor.cart.qtyTotal = GeneralServ.roundingValue(CartStor.cart.qtyTotal);
 
+          console.log(OrderStor.order.productsPriceDis);
           /** if default user discount = 0 */
           if (OrderStor.order.productsPriceDis) {
             OrderStor.order.productsPriceDis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis);
@@ -578,17 +577,15 @@
             if (CartStor.cart.discount_service > 100) {
               CartStor.cart.discount_service = 100;
             }
-            OrderStor.order.discount_service = +CartStor.cart.discount_service;
-            changeProductPriceAsService(CartStor.cart.discount_service);
-
-            console.log("service disc");
+            OrderStor.order.purchase_price = CartStor.cart.discount_service;
+            changeProductPriceAsService(OrderStor.order.purchase_price);
           }
+          console.log(OrderStor.order);
           //----------- start order price total calculation
           calculateOrderPrice();
           calculateAverageDisc()
         }
-        console.log(OrderStor.order);
-        calculateOrderPrice();
+        // console.log(OrderStor.order);
 
 
         /** ========== Orders Dialogs ====== */

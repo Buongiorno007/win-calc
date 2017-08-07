@@ -1,6 +1,5 @@
 .config-panel.auxiliaries-container(ng-controller="AddElementsCtrl as elementsPanel", ng-class="{'active': elementsPanel.G.global.activePanel == 6}")
-  .auxiliaries-inner(ng-if="elementsPanel.G.global.activePanel == 6")
-
+  .auxiliaries-inner
     .auxiliary-item.aux-outside.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}")
       .aux-template2-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 2222")
       .aux-template1-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 1111 || elementsPanel.G.global.typeMenu === 3333 || elementsPanel.G.global.typeMenu === 5555")

@@ -102,9 +102,6 @@
       }
 
 
-      function changeServicePrice() {
-        console.log('changeServicePrice');
-      }
       /**========== FINISH ==========*/
 
       //------ clicking
@@ -116,6 +113,5 @@
       thisCtrl.showWindowScheme = showWindowScheme;
       thisCtrl.closeWindowScheme = closeWindowScheme;
       thisCtrl.openServiceCalculator = openServiceCalculator;
-      thisCtrl.changeServicePrice = changeServicePrice;
     });
 })();
