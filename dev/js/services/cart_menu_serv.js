@@ -240,6 +240,34 @@
           }
         }
 
+        function changeAddElemPriceAsDiscount(discount) {
+          var productQty = OrderStor.order.products.length,
+            templatePriceDis, addElemsQty, elemQty,
+            prod, elem, item;
+          for (prod = 0; prod < productQty; prod++) {
+            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
+            OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
+              OrderStor.order.products[prod].addelem_price, discount
+            );
+            OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
+              templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis
+            );
+
+            addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
+            for (elem = 0; elem < addElemsQty; elem++) {
+              elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
+              if (elemQty > 0) {
+                for (item = 0; item < elemQty; item++) {
+                  OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(
+                    OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount
+                  );
+                }
+              }
+            }
+          }
+          /** recollect AllAddElements for Details */
+          joinAllAddElements();
+        }
 
         function changeProductPriceAsDiscount(discount) {
           var productQty = OrderStor.order.products.length,
@@ -248,6 +276,12 @@
             tempPrice = GeneralServ.setPriceDis(
               OrderStor.order.products[productQty].product_price, discount
             ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis;
+
+            console.log("product_price",OrderStor.order.products[productQty].product_price);
+            console.log("tempPrice",tempPrice);
+            console.log("addelemPriceDis",OrderStor.order.products[productQty].addelemPriceDis);
+            console.log("service_price_dis",OrderStor.order.products[productQty].service_price_dis);
+
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
         }
@@ -299,34 +333,7 @@
         }
 
 
-        function changeAddElemPriceAsDiscount(discount) {
-          var productQty = OrderStor.order.products.length,
-            templatePriceDis, addElemsQty, elemQty,
-            prod, elem, item;
-          for (prod = 0; prod < productQty; prod++) {
-            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
-            OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
-              OrderStor.order.products[prod].addelem_price, discount
-            );
-            OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
-              templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis
-            );
 
-            addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
-            for (elem = 0; elem < addElemsQty; elem++) {
-              elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
-              if (elemQty > 0) {
-                for (item = 0; item < elemQty; item++) {
-                  OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(
-                    OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount
-                  );
-                }
-              }
-            }
-          }
-          /** recollect AllAddElements for Details */
-          joinAllAddElements();
-        }
 
 
         function culcDeliveyPriceByDiscPlant() {
@@ -571,6 +578,7 @@
             if (CartStor.cart.discount_service > 100) {
               CartStor.cart.discount_service = 100;
             }
+            OrderStor.order.discount_service = +CartStor.cart.discount_service;
             changeProductPriceAsService(CartStor.cart.discount_service);
 
             console.log("service disc");

@@ -692,8 +692,7 @@
           Product.service_price,
           CartStor.cart.discount_service
         );
-        console.log(Product.service_price);
-        console.log(Product.service_price_dis);
+        console.log("Product.service_price_dis",Product.service_price_dis);
         Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
         //------ add Discount of standart delivery day of Plant
         if (deliveryCoeff) {
