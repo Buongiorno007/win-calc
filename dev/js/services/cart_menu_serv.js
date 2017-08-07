@@ -273,13 +273,10 @@
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
-            // tempPrice = GeneralServ.setPriceDis(
-            //   OrderStor.order.products[productQty].product_price, discount
-            // ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis;
-            // OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
-            console.log(OrderStor.order.products[productQty].product_price);
-            console.log(OrderStor.order.products[productQty].addelemPriceDis);
-            console.log(OrderStor.order.products[productQty].service_price_dis);
+            tempPrice = GeneralServ.setPriceDis(
+              OrderStor.order.products[productQty].template_price, discount
+            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis;
+            OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
         }
 
@@ -287,9 +284,10 @@
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
-            tempPrice = GeneralServ.setPriceDis(
-              OrderStor.order.products[productQty].service_price, discount
-            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].productPriceDis;
+            tempPrice =
+              GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount) +
+              OrderStor.order.products[productQty].addelemPriceDis +
+              GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, OrderStor.order.discount_construct);
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
         }
@@ -322,7 +320,6 @@
           CartStor.cart.perimeterTotal = GeneralServ.roundingValue(CartStor.cart.perimeterTotal);
           CartStor.cart.qtyTotal = GeneralServ.roundingValue(CartStor.cart.qtyTotal);
 
-          console.log(OrderStor.order.productsPriceDis);
           /** if default user discount = 0 */
           if (OrderStor.order.productsPriceDis) {
             OrderStor.order.productsPriceDis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis);
@@ -580,7 +577,6 @@
             OrderStor.order.purchase_price = CartStor.cart.discount_service;
             changeProductPriceAsService(OrderStor.order.purchase_price);
           }
-          console.log(OrderStor.order);
           //----------- start order price total calculation
           calculateOrderPrice();
           calculateAverageDisc()
