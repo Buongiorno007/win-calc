@@ -1,4 +1,6 @@
 'use strict';
+
+/**   TEEEEEST*/
 // Инициализируем плагины
 var gulp = require('gulp'),                       // Собственно Gulp JS
   config = require('./config.json'),              // Конфиг для проектов
