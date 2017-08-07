@@ -148,7 +148,7 @@
         function enterKeyDopService(e) {
           e = e || window.event;
           if (e.keyCode === 13) {
-            CartMenuServ.approveNewDisc(1)
+            CartMenuServ.approveNewDisc(2)
           }
         }
 

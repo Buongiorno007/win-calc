@@ -619,6 +619,8 @@
     border-bottom-left-radius: rem($radius_profile-box);
     background-color: #fff;
     color: $main_gray_txt;
+    justify-content : space-between;
+    padding-right : 1rem;
   }
 
   .disc-input-box {

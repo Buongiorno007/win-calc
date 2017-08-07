@@ -284,6 +284,7 @@
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
+            OrderStor.order.products[productQty].service_price_dis = GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount);
             tempPrice =
               GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount) +
               OrderStor.order.products[productQty].addelemPriceDis +
@@ -327,9 +328,6 @@
             OrderStor.order.productsPriceDis = angular.copy(OrderStor.order.products_price);
           }
         }
-
-
-
 
 
         function culcDeliveyPriceByDiscPlant() {
@@ -579,8 +577,9 @@
           }
           //----------- start order price total calculation
           calculateOrderPrice();
-          calculateAverageDisc()
+          calculateAverageDisc();
         }
+
         // console.log(OrderStor.order);
 
 
@@ -646,7 +645,8 @@
         }
 
         function calculateAverageDisc() {
-          CartStor.cart.averageDisc = parseFloat(100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100);
+          CartStor.cart.averageDisc = parseFloat(100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100).toFixed(2);
+          // CartStor.cart.averageDisc = Math.round(100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100);
         }
 
         /**------------ Select City in Order Dialogs -------------*/
