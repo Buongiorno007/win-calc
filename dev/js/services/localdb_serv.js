@@ -1556,7 +1556,7 @@
           )
           .then(
             function(result) {
-              //console.log(result.data);
+              // console.log(result.data);
             },
             function() {
               console.log("Something went wrong with order delete!");

@@ -569,10 +569,12 @@
             changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
 
           } else {
+            CartStor.cart.discount_service = checkNewDiscount(CartStor.cart.discount_service);
             if (CartStor.cart.discount_service > 100) {
               CartStor.cart.discount_service = 100;
             }
             OrderStor.order.purchase_price = CartStor.cart.discount_service;
+            /**OrderStor.order.purchase_price - в этом поле хранится скидка на доп услуги */
             changeProductPriceAsService(OrderStor.order.purchase_price);
           }
           //----------- start order price total calculation

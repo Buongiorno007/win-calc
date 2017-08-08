@@ -1840,6 +1840,7 @@
           GlobalStor.global.isCreatedNewProduct = 0;
           GeneralServ.stopStartProg();
           GlobalStor.global.isChangedTemplate = 0;
+          GlobalStor.global.isNewTemplate = 0;
         }
         // console.log(OrderStor.order);
         return permission;

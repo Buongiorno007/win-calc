@@ -57,7 +57,7 @@
             console.log("somethings went wrong", err);
           }
         }
-      }
+      };
       ko.applyBindings(new CalculatorViewModel());
 
       $('#calculatorDisplay').keyup(function() {
@@ -84,6 +84,7 @@
           ProductStor.product.service_price,
           CartStor.cart.discount_service
         );
+        GlobalStor.global.isChangedTemplate = 1;
         // document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
         MainServ.setProductPriceTOTAL(ProductStor.product);
       }

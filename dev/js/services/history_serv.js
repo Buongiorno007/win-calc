@@ -645,7 +645,7 @@
                         item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
                         item.productPriceDis = (GeneralServ.setPriceDis(
                           item.template_price, OrderStor.order.discount_construct
-                        ) + item.addelemPriceDis);
+                        ) + item.addelemPriceDis + item.service_price_dis);
                         if (print) {
                           printProd.push(item);
                           deferIcon.resolve(printProd);
@@ -653,6 +653,7 @@
                           OrderStor.order.products.push(item);
                           deferIcon.resolve(1);
                         }
+                        item.services_price_arr = item.services_price_arr.split(",");
                         //console.log(item, 'item')
                       });
                     });
@@ -800,7 +801,7 @@
           delete OrderStor.order.batch;
           delete OrderStor.order.base_price;
           delete OrderStor.order.factory_margin;
-          delete OrderStor.order.purchase_price;
+          // delete OrderStor.order.purchase_price;
           delete OrderStor.order.sale_price;
           delete OrderStor.order.modified;
           //------ Download All Products of edited Order
@@ -842,12 +843,12 @@
                     if (products.construction_type === 4) {
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
-                        calculateWork(res);
+                        // calculateWork(res);
                         OrderStor.order.products.push(res);
                         _callback();
                       });
                     } else {
-                      calculateWork(products);
+                      // calculateWork(products);
                       OrderStor.order.products.push(products);
                       _callback();
                     }
@@ -862,7 +863,7 @@
                 });
             }
           });
-
+          console.log(OrderStor.order);
         }
 
 
