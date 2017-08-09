@@ -96,7 +96,6 @@
         CartMenuServ.calculateAverageDisc();
 
         // console.log('cart +++++', JSON.stringify(OrderStor.order));
-        console.log('cart +++++', OrderStor.order);
         //-------- return from Main Page
         if (GlobalStor.global.prevOpenPage === 'main') {
           //----- cleaning product

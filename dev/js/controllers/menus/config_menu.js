@@ -132,7 +132,7 @@
         }
 
         function checkForAddElem(go_to_cart) {
-          console.log(ProductStor.product);
+          // console.log(ProductStor.product);
           // ProductStor.product.template_source.report = ProductStor.product.report;
           if (!GlobalStor.global.isZeroPriceList.length) {
             if (!ProductStor.product.is_addelem_only) {
@@ -140,18 +140,15 @@
               if (GlobalStor.global.dangerAlert < 1) {
                 if (ProductStor.product.beadsData.length > 0) {
                   if (!OrderStor.order.products.length) {
-                    console.log("1");
                     $('#qty').hide().show(0);
                     saveProduct(go_to_cart);
                   } else if (GlobalStor.global.isNewTemplate) {
-                    console.log("2");
                     $('#qty').hide().show(0);
                     saveProduct();
                   } else if (!GlobalStor.global.isChangedTemplate) {
                     //  ALERT
                     GlobalStor.global.isNoChangedProduct = 1;
                   } else {
-                    console.log("3");
                     $('#qty').hide().show(0);
                     saveProduct(go_to_cart);
                   }

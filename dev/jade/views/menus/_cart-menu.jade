@@ -69,11 +69,13 @@
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 6, 'hov': cartMenu.config.activeMenuItem !== 6}", fs-click="cartMenu.selectMenuItem(6)")
         .title(data-output="{{ 'ДОП УСЛУГИ' }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-        .value(data-output="{{ cartMenu.O.order.comment }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+        .dismounting
+          .value(data-output="{{ cartMenu.O.order.sale_price }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          label {{cartMenu.U.userInfo.currency}}
       .dismounting
         .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 6}")
           input.comment-field.noPreventDefault(type="number" ng-model="cartMenu.O.order.sale_price" ng-change="cartMenu.calculateOrderPrice()")
-          label {{cartMenu.U.userInfo.currency}}
+          //label {{cartMenu.U.userInfo.currency}}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}", fs-click="cartMenu.selectMenuItem(5)")
         .title(data-output="{{ ::cartMenu.COMMENT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")

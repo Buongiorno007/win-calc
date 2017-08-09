@@ -146,11 +146,9 @@
           //OrderStor.order.order_price = GeneralServ.roundingValue(
           // OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
           OrderStor.order.order_price = OrderStor.order.products_price;
-          console.log(OrderStor.order.productsPriceDis , OrderStor.order.floor_price , OrderStor.order.mounting_price, OrderStor.order.sale_price);
           OrderStor.order.order_price_dis = GeneralServ.roundingValue(
             OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price + OrderStor.order.sale_price
           );
-          console.log(OrderStor.order.order_price_dis);
           //----- save primary total price
           OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
           OrderStor.order.orderPricePrimaryDis = angular.copy(OrderStor.order.order_price_dis);
@@ -500,8 +498,6 @@
         /**------------- Calculate Order Price --------------*/
 
         function calculateOrderPrice() {
-          console.log("wefrfrfrf");
-          console.log(OrderStor.order.sale_price);
           calculateAllProductsPrice();
           //------ reculculate delivery price
           if (CartStor.cart.discountDeliveyPlant) {
