@@ -69,7 +69,7 @@
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 6, 'hov': cartMenu.config.activeMenuItem !== 6}", fs-click="cartMenu.selectMenuItem(6)")
         .title(data-output="{{ 'ДОП УСЛУГИ' }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-        .dismounting
+        .dismounting(ng-if="cartMenu.O.order.sale_price")
           .value(data-output="{{ cartMenu.O.order.sale_price }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           label {{cartMenu.U.userInfo.currency}}
       .dismounting
