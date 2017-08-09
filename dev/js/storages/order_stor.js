@@ -95,7 +95,7 @@
             customer_education: 0,
             customer_occupation: 0,
             customer_infoSource: 0,
-
+            sale_price: 0,
             order_edit: 0
           },
 

@@ -116,6 +116,7 @@
     thisCtrl.openMasterDialog = openMasterDialog;
     thisCtrl.openOrderDialog = openOrderDialog;
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
+    thisCtrl.calculateOrderPrice = CartMenuServ.calculateOrderPrice;
 
   });
 })();

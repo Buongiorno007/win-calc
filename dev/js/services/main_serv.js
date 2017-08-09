@@ -1990,7 +1990,7 @@
             orderData.base_price = 0;
             orderData.factory_margin = 0;
             orderData.purchase_price = 0;
-            orderData.sale_price = 0;
+            // orderData.sale_price = 0;
             orderData.modified = new Date();
           }
 

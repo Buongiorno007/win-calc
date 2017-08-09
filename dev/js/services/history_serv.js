@@ -132,7 +132,7 @@
           if (GlobalStor.global.onlineMode && navigator.onLine) {
             //noinspection JSAnnotator
             function sendOrder (){
-              GlobalStor.global.isLoader = 1
+              GlobalStor.global.isLoader = 1;
               var check = [];
               check = HistoryStor.history.firstClick.filter(function (item) {
                 return item === orderNum
@@ -802,7 +802,7 @@
           delete OrderStor.order.base_price;
           delete OrderStor.order.factory_margin;
           // delete OrderStor.order.purchase_price;
-          delete OrderStor.order.sale_price;
+          // delete OrderStor.order.sale_price;
           delete OrderStor.order.modified;
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
