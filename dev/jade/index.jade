@@ -14,10 +14,12 @@ html(ng-app='BauVoiceApp')
     link(rel='stylesheet', href='css/main.css?t=RANDOM_FLAG')
     link(rel='visor', href='vendor/vis.js')
   body
-    #main-frame(style='position:relative; background:white; min-width:1024px; min-height:770px; top:0; left : 0; transform: scale(1);')
+
+    #main-frame(style="position : relative; width: 128rem; height : 96rem")
       section.app-container(ng-view)
       script(src='js/plugins.js?t=RANDOM_FLAG')
       script(src='js/main.js?t=RANDOM_FLAG')
+      script(src="")
 
       audio#sounds
         source(src="audio/soundsPrice.aac", type="audio/mpeg")

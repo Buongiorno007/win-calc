@@ -1,6 +1,5 @@
 'use strict';
 
-/**   TEEEEEST*/
 // Инициализируем плагины
 var gulp = require('gulp'),                       // Собственно Gulp JS
   config = require('./config.json'),              // Конфиг для проектов
@@ -28,7 +27,6 @@ var gulp = require('gulp'),                       // Собственно Gulp J
   args = require('yargs').argv,                   //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
   removeLogs = require('gulp-removelogs'),       //Strip console statements from JavaScript
   jsonminify = require('gulp-jsonminify');       //Strip console statements from JavaScript
-
 // Очистка результирующей папки
 gulp.task('clean', function () {
   del('www/**', function () {
@@ -258,43 +256,7 @@ gulp.task('build', ['clean'], function () {
 
 gulp.task('default', ['watch']);
 
-// Сборка минимизированного проекта
-//gulp.task('production', ['clean'], function() {
-//  // css
-//  compassTask()
-//    .pipe(csso())
-//    .pipe(gulp.dest(config.build.dest.css));
-//
-//  // jade
-//  gulp.src(config.build.src.html)
-//    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
-//    .pipe(jade())
-//    .pipe(gulp.dest(config.build.dest.html));
-//
-//  // js
-//  gulp.src(config.build.src.js)
-//    .pipe(concat('main.js'))
-//    .pipe(uglify())
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  gulp.src(config.build.src.js_vendor)
-//    .pipe(order(config.build.src.js_order))
-//    .pipe(concat('plugins.js'))
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  gulp.src(config.build.src.js_other)
-//    .pipe(uglify())
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  // image
-//  gulp.src(config.build.src.img)
-//    .pipe(imagemin())
-//    .pipe(gulp.dest(config.build.dest.img));
-//
-//  // fonts
-//  gulp.src(config.build.src.fonts)
-//    .pipe(gulp.dest(config.build.dest.fonts));
-//});
+
 /** extension
  * функция для сборки расширения в указанную папку.
  * id - параметр для указания пути, в какую папку сбирать расширение
@@ -686,6 +648,7 @@ gulp.task('stekoAndroid', function () {
       }))
       .pipe(replace('RANDOM_FLAG', random))
       .pipe(replace('orbit', "steko"))
+      .pipe(replace('<script src=""></script>', '<script type="text/javascript" src="cordova.js"></script>'))
       .pipe(gulp.dest(config.build.steko.app.root))
       .on('end', function () {
         gutil.log('html!');
@@ -765,7 +728,13 @@ gulp.task('stekoAndroid', function () {
       gutil.log('local!');
     });
 });
+gulp.task('cleanSteko', function () {
+  del(config.build.steko.app.root+'/**', function () {
+    console.log('cleanSteko deleted');
+  });
+});
 gulp.task('buildStekoAndroid', function () {
+  // gulp.start('stekoAndroid',['cleanSteko']);
   gulp.start(['stekoAndroid']);
-}); 
+});
 

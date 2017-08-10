@@ -5,61 +5,69 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 //console.log("!!!!!");
 
-(function() {
+(function () {
   /** check browser */
   if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
+
   //console.log("isDevice",isDevice);
   // Test via a getter in the options object to see if the passive property is accessed
-  $(document).ready(function() {
+  $(window).load(function () {
     location.hash = "#/";
     if (!isDevice) {
-      var obj = document.getElementById('main-frame'),
-        width = $(obj).width(),
-        height = $(obj).height();
-      var scale = 1;
+      var obj = $("#main-frame");
+      var width = obj.width();
+      var height = obj.height();
+      var scale = 1, left = 0, top = 0;
       if (self.innerWidth / width > self.innerHeight / height) {
         scale = self.innerHeight / height;
+        left = Math.round(Math.abs(self.innerWidth - width*scale)/2);
       } else {
         scale = self.innerWidth / width;
+        top = Math.round(Math.abs(self.innerHeight - height*scale)/2);
       }
       if (scale > 1) {
         scale = 1;
       }
-      obj.style.transform = 'scale(' + scale + ')';
+      var left =
+      obj.css({"transform" : "scale(" + scale + ")","left": left+"px","top": top+"px"});
     }
   });
-  window.onresize = function() {
+
+  window.onresize = function () {
     if (!isDevice) {
-      var obj = document.getElementById('main-frame'),
-        width = $(obj).width(),
-        height = $(obj).height();
-      var scale = 1;
+      var obj = $("#main-frame");
+      var width = obj.width();
+      var height = obj.height();
+      var scale = 1, left = 0, top = 0;
       if (self.innerWidth / width > self.innerHeight / height) {
         scale = self.innerHeight / height;
+        left = Math.round(Math.abs(self.innerWidth - width*scale)/2);
       } else {
         scale = self.innerWidth / width;
+        top = Math.round(Math.abs(self.innerHeight - height*scale)/2);
       }
       if (scale > 1) {
         scale = 1;
       }
-      obj.style.transform = 'scale(' + scale + ')';
+      var left =
+        obj.css({"transform" : "scale(" + scale + ")","left": left+"px","top": top+"px"});
     }
   };
 
   if (isDevice) {
     window.PhonegapApp = {
-      initialize: function() {
+      initialize: function () {
         this.bindEvents();
       },
-      bindEvents: function() {
+      bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
       },
-      onDeviceReady: function() {
+      onDeviceReady: function () {
         //      alert('onDeviceReady');
         doInit();
-        angular.element(document).ready(function() {
+        angular.element(document).ready(function () {
           // angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
 
           //$(document).bind('touchmove', false);
@@ -93,7 +101,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     'HistoryModule',
     'LightModule',
     'SettingsModule'
-  ]).config( /*@ngInject*/ configurationApp);
+  ]).config(/*@ngInject*/ configurationApp);
 
   //============== Modules ============//
   angular
