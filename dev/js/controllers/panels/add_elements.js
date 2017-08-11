@@ -98,7 +98,7 @@
         GlobalStor.global.isServiceCalculator = 1;
         setTimeout(function() {
           $('#calculatorDisplay').focus();
-        }, 1000);
+        }, 500);
       }
 
 

@@ -676,6 +676,7 @@
       }
 
       function setProductPriceTOTAL(Product) {
+        console.log(Product);
         var deliveryCoeff =
           GlobalStor.global.deliveryCoeff.percents[
             GlobalStor.global.deliveryCoeff.standart_time
@@ -698,33 +699,36 @@
           );
         }
 
-        // if (GlobalStor.global.area_price) {
-        //   var tmp = localDB.currencyExgange(
-        //     GlobalStor.global.area_price * Product.template_square,
-        //     GlobalStor.global.area_currencies
-        //   );
-        //   Product.product_price += tmp;
-        //   Product.productPriceDis += tmp;
-        // }
-        // if (GlobalStor.global.perimeter_price) {
-        //   var tmp = localDB.currencyExgange(
-        //     GlobalStor.global.perimeter_price *
-        //     ((Product.template_width / 1000 +
-        //       Product.template_height / 1000) *
-        //       2),
-        //     GlobalStor.global.perimeter_currencies
-        //   );
-        //   Product.product_price += tmp;
-        //   Product.productPriceDis += tmp;
-        // }
-        // if (GlobalStor.global.piece_price) {
-        //   var tmp = localDB.currencyExgange(
-        //     GlobalStor.global.piece_price,
-        //     GlobalStor.global.piece_currencies
-        //   );
-        //   Product.product_price += tmp;
-        //   Product.productPriceDis += tmp;
-        // }
+        if (GlobalStor.global.area_price) {
+          var tmp = localDB.currencyExgange(
+            GlobalStor.global.area_price * Product.template_square,
+            GlobalStor.global.area_currencies
+          );
+          Product.product_price += tmp;
+          Product.productPriceDis += tmp;
+          Product.template_price += tmp;
+        }
+        if (GlobalStor.global.perimeter_price) {
+          var tmp = localDB.currencyExgange(
+            GlobalStor.global.perimeter_price *
+            ((Product.template_width / 1000 +
+              Product.template_height / 1000) *
+              2),
+            GlobalStor.global.perimeter_currencies
+          );
+          Product.product_price += tmp;
+          Product.productPriceDis += tmp;
+          Product.template_price += tmp;
+        }
+        if (GlobalStor.global.piece_price) {
+          var tmp = localDB.currencyExgange(
+            GlobalStor.global.piece_price,
+            GlobalStor.global.piece_currencies
+          );
+          Product.product_price += tmp;
+          Product.productPriceDis += tmp;
+          Product.template_price += tmp;
+        }
         GlobalStor.global.tempPrice =
           Product.productPriceDis * GlobalStor.global.product_qty;
         GlobalStor.global.isLoader = 0;

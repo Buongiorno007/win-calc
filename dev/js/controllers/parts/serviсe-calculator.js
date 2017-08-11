@@ -87,6 +87,7 @@
         GlobalStor.global.isChangedTemplate = 1;
         // document.getElementsByClassName('service-input')[GlobalStor.global.servicesPriceIndex].innerHTML = $('#calculatorDisplay').val();
         MainServ.setProductPriceTOTAL(ProductStor.product);
+        $('#calculatorDisplay').focus();
       }
       thisCtrl.evaluate = evaluate;
     });
