@@ -706,7 +706,6 @@
           );
           Product.product_price += tmp;
           Product.productPriceDis += tmp;
-          Product.template_price += tmp;
         }
         if (GlobalStor.global.perimeter_price) {
           var tmp = localDB.currencyExgange(
@@ -718,7 +717,6 @@
           );
           Product.product_price += tmp;
           Product.productPriceDis += tmp;
-          Product.template_price += tmp;
         }
         if (GlobalStor.global.piece_price) {
           var tmp = localDB.currencyExgange(
@@ -727,7 +725,6 @@
           );
           Product.product_price += tmp;
           Product.productPriceDis += tmp;
-          Product.template_price += tmp;
         }
         GlobalStor.global.tempPrice =
           Product.productPriceDis * GlobalStor.global.product_qty;

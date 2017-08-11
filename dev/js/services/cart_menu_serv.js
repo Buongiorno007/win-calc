@@ -245,12 +245,37 @@
             templatePriceDis, addElemsQty, elemQty,
             prod, elem, item;
           for (prod = 0; prod < productQty; prod++) {
-            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis;
+            var works = 0;
+            if (GlobalStor.global.area_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.area_price * OrderStor.order.products[prod].template_square,
+                GlobalStor.global.area_currencies
+              );
+              works += tmp;
+            }
+            if (GlobalStor.global.perimeter_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.perimeter_price *
+                ((OrderStor.order.products[prod].template_width / 1000 +
+                  OrderStor.order.products[prod].template_height / 1000) *
+                  2),
+                GlobalStor.global.perimeter_currencies
+              );
+              works += tmp;
+            }
+            if (GlobalStor.global.piece_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.piece_price,
+                GlobalStor.global.piece_currencies
+              );
+              works += tmp;
+            }
+            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis - works;
             OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
               OrderStor.order.products[prod].addelem_price, discount
             );
             OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
-              templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis
+              templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis + works
             );
 
             addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
@@ -273,9 +298,34 @@
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
+            var works = 0;
+            if (GlobalStor.global.area_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.area_price * OrderStor.order.products[productQty].template_square,
+                GlobalStor.global.area_currencies
+              );
+              works += tmp;
+            }
+            if (GlobalStor.global.perimeter_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.perimeter_price *
+                ((OrderStor.order.products[productQty].template_width / 1000 +
+                  OrderStor.order.products[productQty].template_height / 1000) *
+                  2),
+                GlobalStor.global.perimeter_currencies
+              );
+              works += tmp;
+            }
+            if (GlobalStor.global.piece_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.piece_price,
+                GlobalStor.global.piece_currencies
+              );
+              works += tmp;
+            }
             tempPrice = GeneralServ.setPriceDis(
               OrderStor.order.products[productQty].template_price, discount
-            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis;
+            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis + works;
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
         }
@@ -284,10 +334,35 @@
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
+            var works = 0;
+            if (GlobalStor.global.area_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.area_price * OrderStor.order.products[productQty].template_square,
+                GlobalStor.global.area_currencies
+              );
+              works += tmp;
+            }
+            if (GlobalStor.global.perimeter_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.perimeter_price *
+                ((OrderStor.order.products[productQty].template_width / 1000 +
+                  OrderStor.order.products[productQty].template_height / 1000) *
+                  2),
+                GlobalStor.global.perimeter_currencies
+              );
+              works += tmp;
+            }
+            if (GlobalStor.global.piece_price) {
+              var tmp = localDB.currencyExgange(
+                GlobalStor.global.piece_price,
+                GlobalStor.global.piece_currencies
+              );
+              works += tmp;
+            }
             OrderStor.order.products[productQty].service_price_dis = GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount);
             tempPrice =
               GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount) +
-              OrderStor.order.products[productQty].addelemPriceDis +
+              OrderStor.order.products[productQty].addelemPriceDis + works +
               GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, OrderStor.order.discount_construct);
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
@@ -305,36 +380,6 @@
           CartStor.cart.perimeterTotal = 0;
           CartStor.cart.qtyTotal = 0;
           while (--productsQty > -1) {
-
-            // if (GlobalStor.global.area_price) {
-            //   var tmp = localDB.currencyExgange(
-            //     GlobalStor.global.area_price * OrderStor.order.products[productsQty].template_square,
-            //     GlobalStor.global.area_currencies
-            //   );
-            //   OrderStor.order.products_price = tmp;
-            //   OrderStor.order.productsPriceDis = tmp;
-            // }
-            // if (GlobalStor.global.perimeter_price) {
-            //   var tmp = localDB.currencyExgange(
-            //     GlobalStor.global.perimeter_price *
-            //     ((OrderStor.order.products[productsQty].template_width / 1000 +
-            //       OrderStor.order.products[productsQty].template_height / 1000) *
-            //       2),
-            //     GlobalStor.global.perimeter_currencies
-            //   );
-            //   OrderStor.order.products_price = tmp;
-            //   OrderStor.order.productsPriceDis = tmp;
-            // }
-            // if (GlobalStor.global.piece_price) {
-            //   var tmp = localDB.currencyExgange(
-            //     GlobalStor.global.piece_price,
-            //     GlobalStor.global.piece_currencies
-            //   );
-            //   OrderStor.order.products_price = tmp;
-            //   OrderStor.order.productsPriceDis = tmp;
-            // }
-
-
             OrderStor.order.addelems_price += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
             OrderStor.order.templates_price += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
             OrderStor.order.products_price += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
