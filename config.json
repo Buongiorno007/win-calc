@@ -132,6 +132,17 @@
         "audio": "_product/orange/ext/audio",
         "local": "_product/orange/ext/local",
         "product": "_product/orange/ext/product"
+      },
+      "app": {
+        "root":"_product/orange/app/cornerstone/www/",
+        "css": "_product/orange/app/cornerstone/www/css",
+        "html": "_product/orange/app/cornerstone/www/",
+        "js": "_product/orange/app/cornerstone/www/js",
+        "img": "_product/orange/app/cornerstone/www/img",
+        "fonts": "_product/orange/app/cornerstone/www/fonts",
+        "audio": "_product/orange/app/cornerstone/www/audio",
+        "local": "_product/orange/app/cornerstone/www/local",
+        "product": "_product/orange/app/cornerstone/www/product"
       }
     }
   },

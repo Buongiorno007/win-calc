@@ -10,7 +10,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
-
+  console.log(window.navigator.userAgent);
   //console.log("isDevice",isDevice);
   // Test via a getter in the options object to see if the passive property is accessed
   $(window).load(function () {

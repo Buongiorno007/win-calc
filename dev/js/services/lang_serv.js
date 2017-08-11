@@ -1,5 +1,7 @@
 (function(){
   'use strict';
+
+  var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent)) ? 1 : 0;
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
@@ -11,7 +13,6 @@
       var def = $q.defer(),
           query = globalConstants.localPath+options.key+'.json',
           path;
-      //console.info('language', query);
       if(isDevice) {
         path = window.location.href.replace('/index.html', '');
         if(path.indexOf('/change-lang')+1) {
