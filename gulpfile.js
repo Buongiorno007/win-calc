@@ -187,7 +187,7 @@ gulp.task('audio', function () {
 gulp.task('json', function () {
   return gulp.src(config.build.src.local)
     .pipe(newer(config.build.dest.local))
-    .pipe(jsonminify())
+    // .pipe(jsonminify())
     .pipe(gulp.dest(config.build.dest.local))
     .pipe(reload({stream: true}));
 });
@@ -737,7 +737,7 @@ gulp.task('cleanSteko', function () {
 });
 
 gulp.task('buildStekoAndroid', function () {
-  gulp.start(stekoAndroid,['cleanSteko']);
+  gulp.start("stekoAndroid",['cleanSteko']);
 });
 
 /**!!!!!!!!!!!!!!!!!! CORNERSTONE */

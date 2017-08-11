@@ -804,7 +804,9 @@ $aux-img-select-path: 'auxiliaries-selected';
   margin: 1.25rem 0.5rem;
   border-radius: 1rem;
   background-color: orange;
-
+  display : inline-flex;
+  align-items : center;
+  justify-content: center;
   &.green {
     transition: 0.5s;
     background-color: #6ed44a;
@@ -825,15 +827,18 @@ $aux-img-select-path: 'auxiliaries-selected';
   .service-type {
     width: 70%;
     height: 6rem;
-    font: normal 3rem/2 roboto-light, sans-serif, icons;
+    @include roboto-th(26px);
     margin: 1.25rem 0.5rem;
     border-radius: 1rem;
-    color: black;
     padding-left: 1rem;
+    display : inline-flex;
+    align-items : center;
 
     &.green {
       transition: 0.5s;
+      @include roboto-rg(26px);
       background-color: #6ed44a;
+      color : white;
     }
   }
 
@@ -844,10 +849,10 @@ $aux-img-select-path: 'auxiliaries-selected';
     height: 5rem;
     background-color: white;
     border: 1px solid gray;
+    @include roboto-th(25px);
   }
 
   label {
-    font-size: 25px;
     display: flex;
     align-items: center;
     justify-content: flex-end;

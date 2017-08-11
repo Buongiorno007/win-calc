@@ -11,7 +11,7 @@
         .multiply(data-bind="click: function() {updateCalculatorDisplay('*'); }")
         .substract(data-bind="click: function() {updateCalculatorDisplay('-'); }")
         .add(data-bind="click: function() {updateCalculatorDisplay('+'); }")
-        .backspace(data-bind="click: backspace")
+        //.backspace(data-bind="click: backspace")
     .digits
         input.seven(type="button" value="7" data-bind="click: function() {updateCalculatorDisplay('7'); }")
         input.eight(type="button" value="8" data-bind="click: function() {updateCalculatorDisplay('8'); }")
@@ -27,4 +27,4 @@
     .digits
         input.point(type="button" value="." data-bind="click: function() {updateCalculatorDisplay('.'); }")
         input.zero(type="button" value="0" data-bind="click: function() { updateCalculatorDisplay('0'); }")
-        input.equally#equallyClick(type="button" value="=" data-bind="click: evaluateDisplay" ng-click="servCalc.evaluate()")
+        input.equally#equallyClick(type="button" data-bind="click: evaluateDisplay" ng-click="servCalc.evaluate()")

@@ -57,14 +57,14 @@
               .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
 
 
-      li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 4, 'hov': cartMenu.config.activeMenuItem !== 4}", fs-click="cartMenu.selectMenuItem(4)")
-        .title(data-output="{{ ::cartMenu.DELIVERY_DATE }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-        .value(data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-      .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 4}")
-        calendar.calendar-box
-      .calendar-prices
-        .calendar-price.up(ng-show="cartMenu.O.order.is_date_price_more") + {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
-        .calendar-price.down(ng-show="cartMenu.O.order.is_date_price_less") - {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
+      //li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 4, 'hov': cartMenu.config.activeMenuItem !== 4}", fs-click="cartMenu.selectMenuItem(4)")
+      //  .title(data-output="{{ ::cartMenu.DELIVERY_DATE }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      //  .value(data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+      //.dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 4}")
+      //  calendar.calendar-box
+      //.calendar-prices
+      //  .calendar-price.up(ng-show="cartMenu.O.order.is_date_price_more") + {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
+      //  .calendar-price.down(ng-show="cartMenu.O.order.is_date_price_less") - {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 6, 'hov': cartMenu.config.activeMenuItem !== 6}", fs-click="cartMenu.selectMenuItem(6)")
         .title(data-output="{{ 'ДОП УСЛУГИ' }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
