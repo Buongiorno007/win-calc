@@ -666,10 +666,10 @@ gulp.task('stekoAndroid', function () {
     .pipe(replace('LOCAL_PATH', path_env["steko"]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    // .pipe(removeLogs())
+    .pipe(removeLogs())
     .pipe(ngAnnotate({add: true}))
-    // .pipe(js_obfuscator())
-    // .pipe(uglify())
+    .pipe(js_obfuscator())
+    .pipe(uglify())
     .pipe(gulp.dest(config.build.steko.app.js))
     .on('end', function () {
       gutil.log('js!');
@@ -842,6 +842,3 @@ gulp.task('cleanCorner', function () {
 gulp.task('buildCornerdtoneAndroid', function () {
   gulp.start("cornerstoneAndroid",['cleanCorner']);
 });
-
-
-
