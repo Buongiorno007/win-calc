@@ -717,6 +717,9 @@
     @include roboto-lt(rem(22px));
     color: #8c8c8c;
   }
+  .service-block{
+    @include roboto-lt(20px);
+  }
 }
 
 .imgg {

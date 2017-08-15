@@ -676,7 +676,6 @@
       }
 
       function setProductPriceTOTAL(Product) {
-        console.log(Product);
         var deliveryCoeff =
           GlobalStor.global.deliveryCoeff.percents[
             GlobalStor.global.deliveryCoeff.standart_time

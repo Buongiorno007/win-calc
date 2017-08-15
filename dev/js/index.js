@@ -29,7 +29,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       if (scale > 1) {
         scale = 1;
       }
-      var left =
       obj.css({"transform" : "scale(" + scale + ")","left": left+"px","top": top+"px"});
     }
   });
@@ -50,7 +49,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       if (scale > 1) {
         scale = 1;
       }
-      var left =
         obj.css({"transform" : "scale(" + scale + ")","left": left+"px","top": top+"px"});
     }
   };
@@ -190,6 +188,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
+    $translateProvider.useSanitizeValueStrategy(null);
     $translateProvider.preferredLanguage('ru');
 
     $translateProvider.useLoader('AsyncLoader');

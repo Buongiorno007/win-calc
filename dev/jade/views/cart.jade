@@ -60,7 +60,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                         span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
                     li.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
-                      .order-value {{cartPage.C.cart.allAddElements[$index].length}}
+                      .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}
                         ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
                         when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
                       .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
@@ -228,11 +228,22 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .addelement-parameters
                   .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
                   .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currency }})
+            .service-block
+              .sb-1(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]")
+                | Заделка внешнего шва - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]}} {{cartPage.U.userInfo.currency}}
+              .sb-2(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]")
+                | Заделка шва под подоконником - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]}} {{cartPage.U.userInfo.currency}}
+              .sb-3(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]")
+                | Подготовительне работы - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]}} {{cartPage.U.userInfo.currency}}
+              .sb-4(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]")
+                | Отделка внутренних откосов - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]}} {{cartPage.U.userInfo.currency}}
+              .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]")
+                | Прочее - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}
             .addelements-detail-row.price-one-product
-              .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")
+              .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")
               .product-label {{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}
           .addelements-detail-footer
-            div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+            div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis + cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
             div &#8721;
 
         .backDarkView(ng-if="cartPage.config.isAddElementDetail", fs-click="cartPage.closeAddElementDetail()")

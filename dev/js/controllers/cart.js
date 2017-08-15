@@ -110,7 +110,7 @@
         //============= AddElements detail block
         //------- Show AddElements detail block for product
         function showAddElementDetail(productIndex) {
-          if (CartStor.cart.allAddElements[productIndex].length > 0) {
+          if ((CartStor.cart.allAddElements[productIndex].length > 0) || (coutNull(OrderStor.order.products[productIndex].services_price_arr))) {
             //playSound('switching');
             thisCtrl.config.detailProductIndex = productIndex;
             thisCtrl.config.isAddElementDetail = true;
@@ -180,6 +180,14 @@
           console.log(".order-block");
         });
 
+
+        function coutNull(arr){
+          var tmp = 0;
+          arr.forEach(function (entry) {
+            (entry !==0 ) ? tmp++ : 0;
+          });
+          return tmp;
+        }
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -190,25 +198,27 @@
         thisCtrl.createProductCopy = CartServ.createProductCopy;
         thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
         thisCtrl.openBox = CartServ.openBox;
-        thisCtrl.showAddElementDetail = showAddElementDetail;
-        thisCtrl.closeAddElementDetail = closeAddElementDetail;
-        thisCtrl.viewSwitching = viewSwitching;
-        thisCtrl.switchProductComment = switchProductComment;
-        thisCtrl.box = CartServ.box;
-        thisCtrl.fastEdit = CartServ.fastEdit;
+
+
         thisCtrl.enterKeyPrice = enterKeyPrice;
         thisCtrl.enterKeyDop = enterKeyDop;
         thisCtrl.enterKeyDopService = enterKeyDopService;
         thisCtrl.toggleDiscount = toggleDiscount;
+        thisCtrl.showAddElementDetail = showAddElementDetail;
+        thisCtrl.closeAddElementDetail = closeAddElementDetail;
+        thisCtrl.viewSwitching = viewSwitching;
+        thisCtrl.switchProductComment = switchProductComment;
+        thisCtrl.pressEnterInDisc = pressEnterInDisc;
+        thisCtrl.showCartTemplte = showCartTemplte;
+        thisCtrl.coutNull = coutNull;
+
+        thisCtrl.box = CartServ.box;
+        thisCtrl.fastEdit = CartServ.fastEdit;
         thisCtrl.calculateAverageDisc = CartMenuServ.calculateAverageDisc;
-
         thisCtrl.showAllAddElements = CartServ.showAllAddElements;
-
         thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
         thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
         thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
-        thisCtrl.pressEnterInDisc = pressEnterInDisc;
-        thisCtrl.showCartTemplte = showCartTemplte;
         thisCtrl.initAllGlassXGlass = DesignServ.initAllGlassXGlass;
 
       });

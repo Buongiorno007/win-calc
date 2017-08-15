@@ -648,7 +648,7 @@ gulp.task('stekoAndroid', function () {
       }))
       .pipe(replace('RANDOM_FLAG', random))
       .pipe(replace('orbit', "steko"))
-      .pipe(replace('<script src=""></script>', '<script type="text/javascript" src="cordova.js"></script>'))
+      .pipe(replace('<script src=""></script>', '<script src="cordova.js"></script>'))
       .pipe(gulp.dest(config.build.steko.app.root))
       .on('end', function () {
         gutil.log('html!');
@@ -666,10 +666,10 @@ gulp.task('stekoAndroid', function () {
     .pipe(replace('LOCAL_PATH', path_env["steko"]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    .pipe(removeLogs())
+    // .pipe(removeLogs())
     .pipe(ngAnnotate({add: true}))
-    .pipe(js_obfuscator())
-    .pipe(uglify())
+    // .pipe(js_obfuscator())
+    // .pipe(uglify())
     .pipe(gulp.dest(config.build.steko.app.js))
     .on('end', function () {
       gutil.log('js!');
