@@ -2,6 +2,7 @@
   'use strict';
   /**@ngInject*/
   angular
+  
     .module('CartModule')
     .controller('CartCtrl',
 

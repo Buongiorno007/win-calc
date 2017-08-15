@@ -9,7 +9,7 @@
                 $timeout,
                 $rootScope,
                 $route,
-                $cordovaNetwork,
+                // $cordovaNetwork,
                 $filter,
                 $translate,
                 $q,
