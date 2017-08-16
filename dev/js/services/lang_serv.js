@@ -6,24 +6,18 @@
   angular
     .module('BauVoiceApp')
     .factory('AsyncLoader',
-
   function($http, $q, globalConstants) {
-
     return function (options) {
       var def = $q.defer(),
           query = globalConstants.localPath+options.key+'.json',
           path;
       if(isDevice) {
         path = window.location.href.replace('/index.html', '');
-        if(path.indexOf('/change-lang')+1) {
-          path = path.replace('/change-lang', '');
-        }
-        //alert(path + query);
+        path = path.replace('#/', '');
+        path = path.replace('change-lang', '');
         $.getJSON(path + query, function(data){
-          //console.log('data', data);
           def.resolve(data);
         });
-
       } else {
         $http.get(query).then(
           function(result) {
@@ -37,6 +31,5 @@
       }
       return def.promise;
     };
-
   });
 })();

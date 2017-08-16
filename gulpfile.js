@@ -636,7 +636,7 @@ gulp.task('buildapp', function () {
   gulp.start(['htmlApp', 'cssApp', 'jsApp', 'imagesApp', 'fontsApp', 'localApp']);
 });
 
-gulp.task('stekoAndroid', function () {
+gulp.task('stekoApp', function () {
 //html
     gulp.src(config.build.src.html)
       .pipe(newer(config.build.steko.app.root, '.html'))
@@ -736,12 +736,12 @@ gulp.task('cleanSteko', function () {
   });
 });
 
-gulp.task('buildStekoAndroid', function () {
-  gulp.start("stekoAndroid",['cleanSteko']);
+gulp.task('buildSteko', function () {
+  gulp.start("stekoApp",['cleanSteko']);
 });
 
 /**!!!!!!!!!!!!!!!!!! CORNERSTONE */
-gulp.task('cornerstoneAndroid', function () {
+gulp.task('cornerstoneApp', function () {
 //html
   gulp.src(config.build.src.html)
     .pipe(newer(config.build.orange.app.root, '.html'))
@@ -770,10 +770,10 @@ gulp.task('cornerstoneAndroid', function () {
     .pipe(replace('LOCAL_PATH', path_env["orange"]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    .pipe(removeLogs())
+    // .pipe(removeLogs())
     .pipe(ngAnnotate({add: true}))
-    .pipe(js_obfuscator())
-    .pipe(uglify())
+    // .pipe(js_obfuscator())
+    // .pipe(uglify())
     .pipe(gulp.dest(config.build.orange.app.js))
     .on('end', function () {
       gutil.log('js!');
@@ -839,6 +839,6 @@ gulp.task('cleanCorner', function () {
   });
 });
 
-gulp.task('buildCornerdtoneAndroid', function () {
-  gulp.start("cornerstoneAndroid",['cleanCorner']);
+gulp.task('buildCornerstone', function () {
+  gulp.start("cornerstoneApp",['cleanCorner']);
 });

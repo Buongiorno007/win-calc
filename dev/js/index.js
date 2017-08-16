@@ -53,35 +53,35 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     }
   };
 
-  if (isDevice) {
-    window.PhonegapApp = {
-      initialize: function () {
-        this.bindEvents();
-      },
-      bindEvents: function () {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-      },
-      onDeviceReady: function () {
-        //      alert('onDeviceReady');
-        doInit();
-        angular.element(document).ready(function () {
-          // angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
-
-          //$(document).bind('touchmove', false);
-          //$cordovaDialogs
-          //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
-          //        console.log("InAppBrowser opened http://ngcordova.com successfully");
-          //      }, function (error) {
-          //        console.log("Error: " + error);
-          //      });
-
-        });
-
-      }
-    };
-
-    PhonegapApp.initialize();
-  }
+  // if (isDevice) {
+  //   window.PhonegapApp = {
+  //     initialize: function () {
+  //       this.bindEvents();
+  //     },
+  //     bindEvents: function () {
+  //       document.addEventListener('deviceready', this.onDeviceReady, false);
+  //     },
+  //     onDeviceReady: function () {
+  //            console.log('onDeviceReady');
+  //       doInit();
+  //       angular.element(document).ready(function () {
+  //         // angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
+  //
+  //         //$(document).bind('touchmove', false);
+  //         //$cordovaDialogs
+  //         //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
+  //         //        console.log("InAppBrowser opened http://ngcordova.com successfully");
+  //         //      }, function (error) {
+  //         //        console.log("Error: " + error);
+  //         //      });
+  //
+  //       });
+  //
+  //     }
+  //   };
+  //
+  //   PhonegapApp.initialize();
+  // }
 
 
   angular.module('BauVoiceApp', [
@@ -179,7 +179,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       .otherwise({
         redirectTo: '/'
       });
-    // $locationProvider.hashPrefix('');
     $locationProvider.html5Mode(false).hashPrefix('');
 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
@@ -190,8 +189,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
 
     $translateProvider.useSanitizeValueStrategy(null);
-    $translateProvider.preferredLanguage('ru');
-
     $translateProvider.useLoader('AsyncLoader');
 
     // window.resolveLocalFileSystemURL();

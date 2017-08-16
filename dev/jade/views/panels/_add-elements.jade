@@ -71,23 +71,23 @@
 
     .services(ng-if="elementsPanel.G.global.typeMenuID === 6666")
       .service-block
-        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===0}"){{elementsPanel.SERV1}}
+        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===0}") {{elementsPanel.SERV1}}
         label.service-input(ng-click="elementsPanel.openServiceCalculator(0)"  data-bind="click: function() {clearDisplay();}" )
          | {{elementsPanel.P.product.services_price_arr[0] | number : 2}}
       .service-block
-        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===1}"){{elementsPanel.SERV2}}
+        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===1}") {{elementsPanel.SERV2}}
         label.service-input(ng-click="elementsPanel.openServiceCalculator(1)"  data-bind="click: function() {clearDisplay();}")
           | {{elementsPanel.P.product.services_price_arr[1] | number : 2}}
       .service-block
-        .service-type( ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===2}"){{elementsPanel.SERV3}}
+        .service-type( ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===2}") {{elementsPanel.SERV3}}
         label.service-input(ng-click="elementsPanel.openServiceCalculator(2)"  data-bind="click: function() {clearDisplay();}")
           | {{elementsPanel.P.product.services_price_arr[2] | number : 2}}
       .service-block
-        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===3}"){{elementsPanel.SERV4}}
+        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===3}") {{elementsPanel.SERV4}}
         label.service-input(ng-click="elementsPanel.openServiceCalculator(3)"  data-bind="click: function() {clearDisplay();}")
           | {{elementsPanel.P.product.services_price_arr[3] | number : 2}}
       .service-block
-        .service-type(ng-class="{ 'green': elementsPanel.G.global.servicesPriceIndex===4}"){{elementsPanel.OTHER}}
+        .service-type(ng-class="{ 'green': elementsPanel.G.global.servicesPriceIndex===4}") {{elementsPanel.OTHER}}
         label.service-input(ng-click="elementsPanel.openServiceCalculator(4)"  data-bind="click: function() {clearDisplay();}")
           | {{elementsPanel.P.product.services_price_arr[4] | number : 2}}
 
