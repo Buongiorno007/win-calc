@@ -39,7 +39,10 @@
     thisCtrl.SELF_EXPORT = $filter('translate')('cart.SELF_EXPORT');
     thisCtrl.FLOOR = $filter('translate')('cart.FLOOR');
     thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
+    thisCtrl.DIS_ASSEMBLING = $filter('translate')('cart.DIS_ASSEMBLING');
     thisCtrl.WITHOUT_ASSEMBLING = $filter('translate')('cart.WITHOUT_ASSEMBLING');
+    thisCtrl.WITHOUT_DIS_ASSEMBLING = $filter('translate')('cart.WITHOUT_DIS_ASSEMBLING');
+    thisCtrl.ADD_SERVICES = $filter('translate')('cart.ADD_SERVICES');
     thisCtrl.FREE = $filter('translate')('cart.FREE');
     thisCtrl.PAYMENT_BY_INSTALMENTS = $filter('translate')('cart.PAYMENT_BY_INSTALMENTS');
     thisCtrl.WITHOUT_INSTALMENTS = $filter('translate')('cart.WITHOUT_INSTALMENTS');
@@ -112,6 +115,7 @@
     thisCtrl.closeInstalment = closeInstalment;
     thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
     thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
+    thisCtrl.selectDisAssembling = CartMenuServ.selectDisAssembling;
     thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
     thisCtrl.openMasterDialog = openMasterDialog;
     thisCtrl.openOrderDialog = openOrderDialog;

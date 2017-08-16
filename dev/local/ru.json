@@ -216,6 +216,11 @@
     "COMPONENTS": "Компоненты",
     "OTHER": "Прочее",
     "SERVICES": "Услуги",
+    "SERV1": "Заделка внешнего шва",
+    "SERV2": "Заделка шва под подоконником",
+    "SERV3": "Подготовительне работы",
+    "SERV4": "Отделка внутренних откосов",
+
     "ALL": "Все",
     "BLIND": "роллеты",
     "GRATING": "наружный переплёт",
@@ -349,6 +354,11 @@
     "FLOOR": "этаж",
     "ASSEMBLING": "Монтаж",
     "WITHOUT_ASSEMBLING": "без монтажа",
+
+    "DIS_ASSEMBLING": "Демонтаж",
+    "WITHOUT_DIS_ASSEMBLING": "без демонтажа",
+    "ADD_SERVICES": "дополнительные услуги",
+
     "FREE": "бесплатно",
     "PAYMENT_BY_INSTALMENTS": "Рассрочка",
     "WITHOUT_INSTALMENTS": "без рассрочки",
@@ -425,6 +435,7 @@
     "DISCOUNT_WITHOUT": "Без учета скидки",
     "DISCOUNT_WINDOW": "Скидка на изделие",
     "DISCOUNT_ADDELEM": "Скидка на дополнительные элементы",
+    "DISCOUNT_SERVICE": "Скидка на дополнительные услуги",
     "ORDER_COMMENT": "Заметка о заказе",
     "UNKNOWN": "Неизвестно"
   },

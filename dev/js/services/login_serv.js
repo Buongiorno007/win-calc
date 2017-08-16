@@ -1215,7 +1215,14 @@
           localDB.selectLocalDB(localDB.tablesLocalDB.users_mountings.tableName).then(function (mounting) {
             if (mounting.length) {
               GlobalStor.global.assemblingData = angular.copy(mounting);
-              //console.warn('assemblingData=', GlobalStor.global.assemblingData);
+              // console.warn('assemblingData=', GlobalStor.global.assemblingData);
+            }
+          });
+          /** download Disassembly Data */
+          localDB.selectLocalDB(localDB.tablesLocalDB.users_dismantlings.tableName).then(function (mounting) {
+            if (mounting.length) {
+              GlobalStor.global.disassemblyData = angular.copy(mounting);
+              // console.warn('Disassembly=', GlobalStor.global.disassemblyData);
             }
           });
           /** download Instalment Data */

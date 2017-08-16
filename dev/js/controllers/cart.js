@@ -2,7 +2,7 @@
   'use strict';
   /**@ngInject*/
   angular
-  
+
     .module('CartModule')
     .controller('CartCtrl',
 
@@ -58,6 +58,7 @@
         thisCtrl.MAX = $filter('translate')('common_words.MAX');
         thisCtrl.DISCOUNT_WINDOW = $filter('translate')('cart.DISCOUNT_WINDOW');
         thisCtrl.DISCOUNT_ADDELEM = $filter('translate')('cart.DISCOUNT_ADDELEM');
+        thisCtrl.DISCOUNT_SERVICE = $filter('translate')('cart.DISCOUNT_SERVICE');
         thisCtrl.DISCOUNT = $filter('translate')('cart.DISCOUNT');
         thisCtrl.DISCOUNT_WITHOUT = $filter('translate')('cart.DISCOUNT_WITHOUT');
         thisCtrl.DISCOUNT_WITH = $filter('translate')('cart.DISCOUNT_WITH');

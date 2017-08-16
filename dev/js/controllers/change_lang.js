@@ -38,17 +38,21 @@
       if(GlobalStor.global.isVoiceHelper) {
         GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
-        if ( GlobalStor.global.isRoomElements === 1) {
-          $timeout(function() {
-            $location.path("/main");
-            GlobalStor.global.currOpenPage = "main";
-          }, 200);
-        } else {
-          $timeout(function() {
-            $location.path("/");
-            GlobalStor.global.currOpenPage = "/";
-          }, 200);
-        }
+      $timeout(function() {
+        $location.path("/"+GlobalStor.global.currOpenPage);
+        // GlobalStor.global.currOpenPage = "main";
+      }, 500);
+        // if ( GlobalStor.global.isRoomElements === 1) {
+        //   $timeout(function() {
+        //     $location.path("/main");
+        //     GlobalStor.global.currOpenPage = "main";
+        //   }, 200);
+        // } else {
+        //   $timeout(function() {
+        //     $location.path("/");
+        //     GlobalStor.global.currOpenPage = "/";
+        //   }, 200);
+        // }
       }
 
     function gotoSettingsPage() {

@@ -139,6 +139,7 @@
     "KARKAS": "FRAME",
     "KONFIG": "CONFIG.",
     "CART": "CART"
+
   },
   "panels": {
     "INFO_HINT":"Starten Sie die Berechnung durch die gewünschte Vorlage auswählen",
@@ -218,6 +219,13 @@
     "HANDLEL": "Griff",
     "OTHERS": "Übrige",
     "OTHER": "Übrige",
+
+    "SERVICES": "Dienstleistungen",
+    "SERV1": "Einbau von externem Schweiß",
+    "SERV2": "Schließen der Naht unter dem Schweller",
+    "SERV3": "Vorarbeit",
+    "SERV4": "Beenden Sie die internen Pisten",
+
     "GRIDS": "Moskitonetze",
     "VISORS": "Visiere",
     "ALL": "Andere",
@@ -346,6 +354,11 @@
     "FLOOR": "Etage",
     "ASSEMBLING": "Montage",
     "WITHOUT_ASSEMBLING": "ohne Montage",
+
+    "DIS_ASSEMBLING": "Demontage",
+    "WITHOUT_DIS_ASSEMBLING": "ohne Demontage",
+    "ADD_SERVICES": "Zusatzleistungen",
+
     "FREE": "kostenlos",
     "PAYMENT_BY_INSTALMENTS": "Ratenzahlung",
     "WITHOUT_INSTALMENTS": "losen Raten",
@@ -421,6 +434,7 @@
     "DISCOUNT_WITHOUT": "Ohne Rabatte",
     "DISCOUNT_WINDOW": "Rabatt auf ein Produkt",
     "DISCOUNT_ADDELEM": "Discount auf zusätzliche Elemente",
+    "DISCOUNT_SERVICE": "Rabatt für zusätzliche Dienstleistungen",
     "ORDER_COMMENT": "Anmerkung Bestellen",
     "UNKNOWN": "unbekannt"
   },

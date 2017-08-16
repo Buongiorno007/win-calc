@@ -226,6 +226,13 @@
     "HANDLEL": "handle",
     "OTHERS": "other",
     "OTHER": "Other",
+
+    "SERVICES": "Services",
+    "SERV1": "Sealing of the outer seam",
+    "SERV2": "Sealing under the windowsil",
+    "SERV3": "Preparation of work",
+    "SERV4": "Finishing of internal slopes",
+
     "GRIDS": "mosquito grids",
     "VISORS": "peaks",
     "WINDOWSILLS": "sills",
@@ -246,6 +253,7 @@
     "ELEMENTS": "components",
     "ELEMENT": "component",
     "ELEMENTA": "component"
+
   },
   "add_elements_menu": {
     "TIP": "Select an item from the list",
@@ -346,6 +354,9 @@
     "FLOOR": "floor",
     "ASSEMBLING": "mounting",
     "WITHOUT_ASSEMBLING": "without mounting",
+    "DIS_ASSEMBLING": "Dismantling",
+    "WITHOUT_DIS_ASSEMBLING": "without dismantling",
+    "ADD_SERVICES": "additional services",
     "FREE": "free",
     "PAYMENT_BY_INSTALMENTS": "Payment by installments",
     "WITHOUT_INSTALMENTS": "free installments",
@@ -421,6 +432,7 @@
     "DISCOUNT_WITHOUT": "Excluding discounts",
     "DISCOUNT_WINDOW": "Discount on a product",
     "DISCOUNT_ADDELEM": "Discount on additional elements",
+    "DISCOUNT_SERVICE": "Discount for additional services",
     "ORDER_COMMENT": "Order note",
     "UNKNOWN": "Unknown"
   },

@@ -367,6 +367,16 @@
               " price NUMERIC(6,1)",
             foreignKey: ""
           },
+          users_dismantlings: {
+            tableName: "users_dismantlings",
+            prop:
+              "user_id INTEGER," +
+              " active INTEGER," +
+              " name VARCHAR," +
+              " type INTEGER," +
+              " price NUMERIC(6,1)",
+            foreignKey: ""
+          },
           lists: {
             tableName: "lists",
             prop:
@@ -957,7 +967,7 @@
               "id INTEGER",
             foreignKey: ""
           }
-         
+
         };
 
       /**============ methods ================*/

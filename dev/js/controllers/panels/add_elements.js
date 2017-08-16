@@ -44,6 +44,10 @@
       thisCtrl.OTHERS = $filter("translate")("add_elements.OTHERS");
       thisCtrl.OTHER = $filter("translate")("add_elements.OTHER");
       thisCtrl.SERVICES = $filter("translate")("add_elements.SERVICES");
+      thisCtrl.SERV1 = $filter("translate")("add_elements.SERV1");
+      thisCtrl.SERV2 = $filter("translate")("add_elements.SERV2");
+      thisCtrl.SERV3 = $filter("translate")("add_elements.SERV3");
+      thisCtrl.SERV4 = $filter("translate")("add_elements.SERV4");
       thisCtrl.ALL = $filter("translate")("add_elements.ALL");
       thisCtrl.CHOOSE = $filter("translate")("add_elements.CHOOSE");
       thisCtrl.QTY_LABEL = $filter("translate")("add_elements.QTY_LABEL");

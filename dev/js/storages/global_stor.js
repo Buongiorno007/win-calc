@@ -138,6 +138,7 @@
                         //------ Cart
                         supplyData: [],
                         assemblingData: [],
+                        disassemblyData: [],
                         instalmentsData: [],
 
                         //------ Info

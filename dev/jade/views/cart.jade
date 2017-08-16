@@ -96,8 +96,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 label.disc-input.noPreventDefault#disc-input-main {{cartPage.C.cart.averageDisc}}
                 label %
               .discount-txt-arrow(ng-click="cartPage.toggleDiscount()")
-                .discounts-label
-                  |СКИДКА
+                .discounts-label {{cartPage.DISCOUNT}}
                 .discounts-icon-down(ng-if="!cartPage.G.global.toggleDiscount")
                 .discounts-icon-up(ng-if="cartPage.G.global.toggleDiscount")
             .disc(ng-if="cartPage.G.global.toggleDiscount")
@@ -123,8 +122,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   input.disc-input.noPreventDefault#disc-input-service(type="number" ng-model="cartPage.C.cart.discount_service")
                   |%
                 .discount-txt(ng-click="cartPage.approveNewDisc(2)")
-                  .discounts-label 
-                    | Скидка на дополнительные услуги
+                  .discounts-label {{cartPage.DISCOUNT_SERVICE}}
 
 
           .discount-container

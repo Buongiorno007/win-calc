@@ -1,22 +1,17 @@
-(function () {
+(function() {
   'use strict';
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('UserStor',
 
-      function () {
+      function() {
         /*jshint validthis:true */
         var thisFactory = this;
 
         function setDefaultUser() {
           return angular.copy(thisFactory.publicObj.userInfoSource);
         }
-
-        function restoreUser(data) {
-          return angular.copy(JSON.parse(LZString.decompress(data)));
-        }
-
         thisFactory.publicObj = {
           userInfoSource: {
             cityName: '',
@@ -37,11 +32,10 @@
             discAddElemByWeek: [],
             factoryLink: ''
           },
-          setDefaultUser: setDefaultUser,
-          restoreUser: restoreUser
+          setDefaultUser: setDefaultUser
         };
 
-          thisFactory.publicObj.userInfo = setDefaultUser();
+        thisFactory.publicObj.userInfo = setDefaultUser();
 
         return thisFactory.publicObj;
 

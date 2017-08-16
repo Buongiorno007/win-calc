@@ -148,7 +148,7 @@
           // OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
           OrderStor.order.order_price = OrderStor.order.products_price;
           OrderStor.order.order_price_dis = GeneralServ.roundingValue(
-            OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price + OrderStor.order.sale_price
+            OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price + OrderStor.order.dismounting_price + OrderStor.order.sale_price
           );
           //----- save primary total price
           OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
@@ -224,7 +224,22 @@
             calculateTotalOrderPrice();
           }
         }
-
+        function selectDisAssembling(currAssemb) {
+          if (OrderStor.order.dismounting_id !== currAssemb.id) {
+            OrderStor.order.dismounting_id = currAssemb.id;
+            if (currAssemb.id) {
+              OrderStor.order.dismountingName = currAssemb.name;
+              OrderStor.order.dismounting_price = currAssemb.priceReal;
+              OrderStor.order.dismounting_user_id = currAssemb.user_id;
+            } else {
+              OrderStor.order.dismountingName = '';
+              OrderStor.order.dismounting_price = 0;
+              OrderStor.order.dismounting_user_id = 0;
+              OrderStor.order.dismounting_id = 0;
+            }
+            calculateTotalOrderPrice();
+          }
+        }
         function selectInstalment(id, period, percent) {
           if (OrderStor.order.instalment_id !== id) {
             OrderStor.order.is_instalment = 1;
@@ -591,6 +606,7 @@
           /** set Supply & Mounting Price for submenu items*/
           setMenuItemPriceReal(GlobalStor.global.supplyData);
           setMenuItemPriceReal(GlobalStor.global.assemblingData);
+          setMenuItemPriceReal(GlobalStor.global.disassemblyData);
         }
 
         /**-------- open/close discount block --------*/
@@ -742,6 +758,7 @@
           //---- menu
           selectFloorPrice: selectFloorPrice,
           selectAssembling: selectAssembling,
+          selectDisAssembling: selectDisAssembling,
           selectInstalment: selectInstalment,
           checkDifferentDate: checkDifferentDate,
           //---- price

@@ -224,6 +224,13 @@
     "HANDLEL": "maniglia",
     "OTHERS": "altro",
     "OTHER": "Аltro",
+
+    "SERVICES": "Servizi",
+    "SERV1": "Incorporazione di saldatura esterni",
+    "SERV2": "Chiusura della cucitura sotto il davanzale",
+    "SERV3": "lavoro preliminare",
+    "SERV4": "Finite le piste interne",
+
     "GRIDS": "le zanzariere",
     "VISORS": "le tettoie",
     "SPILLWAYS": "gli scoli d’acqua",
@@ -345,6 +352,10 @@
     "FLOOR": "piano",
     "ASSEMBLING": "Montaggio",
     "WITHOUT_ASSEMBLING": "senza montaggio",
+    "DIS_ASSEMBLING": "Demolizione",
+    "WITHOUT_DIS_ASSEMBLING": "Senza smontaggio",
+    "ADD_SERVICES": "servizi aggiuntivi",
+
     "FREE": "gratuitamente",
     "PAYMENT_BY_INSTALMENTS": "Rateazione",
     "WITHOUT_INSTALMENTS": "senza rateazione",
@@ -420,6 +431,7 @@
     "DISCOUNT_WITHOUT": "Senza uno sconto",
     "DISCOUNT_WINDOW": "Sconto a un prodotto",
     "DISCOUNT_ADDELEM": "Sconto a elementi supplementari",
+    "DISCOUNT_SERVICE": "Sconto per servizi aggiuntivi",
     "ORDER_COMMENT": "Nota Order",
     "UNKNOWN": "Sconosciuto"
   },
