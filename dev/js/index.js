@@ -67,7 +67,57 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       "top": top + "px"
     });
   };
+  if (isDevice) {
+    document.addEventListener('deviceready', function () {
+      //      alert('onDeviceReady');
+      angular.element(document).ready(function () {
+        angular.bootstrap(document, ['BauVoiceApp', [
+          'ngRoute',
+          'pascalprecht.translate',
+          'ngTouch',
+          'ngCordova',
+          'swipe',
 
+          'LoginModule',
+          'MainModule',
+          'DesignModule',
+          'CartModule',
+          'HistoryModule',
+          'LightModule',
+          'SettingsModule'
+        ]]);
+      });
+
+    }, false);
+
+      // window.PhonegapApp = {
+      //   initialize: function () {
+      //     this.bindEvents();
+      //   },
+      //   bindEvents: function () {
+      //     document.addEventListener('deviceready', this.onDeviceReady, false);
+      //   },
+      //   onDeviceReady: function () {
+      //     //      alert('onDeviceReady');
+      //     doInit();
+      //     angular.element(document).ready(function () {
+      //       angular.bootstrap(document, ['BauVoiceApp', [] ]);
+      //
+      //       //$(document).bind('touchmove', false);
+      //       //$cordovaDialogs
+      //       //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
+      //       //        console.log("InAppBrowser opened http://ngcordova.com successfully");
+      //       //      }, function (error) {
+      //       //        console.log("Error: " + error);
+      //       //      });
+      //
+      //     });
+      //
+      //   }
+      // };
+      //
+      // PhonegapApp.initialize();
+    }
   angular.module('BauVoiceApp', [
     'ngRoute',
     'pascalprecht.translate',
@@ -171,6 +221,10 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
+    var browserLang = navigator.language;
+    var label = browserLang.substr(0, 2);
+    $translateProvider.preferredLanguage(label);
 
     $translateProvider.useSanitizeValueStrategy(null);
     $translateProvider.useLoader('AsyncLoader');

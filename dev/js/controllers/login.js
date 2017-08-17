@@ -1025,6 +1025,7 @@
         }, 1000);
 
         function checkSavedData() {
+          loginServ.getDeviceLanguage();
           var order = localStorage.getItem("OrderStor");
           var product = localStorage.getItem("ProductStor");
           var aux = localStorage.getItem("AuxStor");
@@ -1105,9 +1106,6 @@
 
         //------- defined system language
         loginServ.getDeviceLanguage();
-        $timeout(function () {
-          loginServ.getDeviceLanguage();
-        }, 2000);
 
         //------- export data
         if (thisCtrl.isOnline) {
