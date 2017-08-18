@@ -21,6 +21,7 @@
     //------ translate
     thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
     thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
+    thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
 
 
     /**============ METHODS ================*/

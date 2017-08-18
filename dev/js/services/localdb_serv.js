@@ -538,6 +538,9 @@
               " floor_price NUMERIC," +
               " mounting_id INTEGER," +
               " mounting_price NUMERIC," +
+              " dismantling_user_id INTEGER," +
+              " dismounting_id INTEGER," +
+              " dismantling_price NUMERIC," +
               " is_instalment INTEGER," +
               " instalment_id INTEGER," +
               " is_old_price INTEGER," +

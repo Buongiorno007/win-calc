@@ -46,7 +46,9 @@
       .scroll-hor-container {
         height: 83rem;
       }
-
+      .left-position{
+        justify-content: flex-end;
+      }
       &.discount {
         @include top_left_coord(-1550px, 0px);
       }

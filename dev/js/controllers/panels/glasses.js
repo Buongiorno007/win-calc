@@ -46,7 +46,7 @@
         thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
         thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
         thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
-
+        thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
 
         /**============ METHODS ================*/
 

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   /**@ngInject*/
   angular
@@ -6,16 +6,16 @@
     .module('CartModule')
     .controller('CartCtrl',
 
-      function ($filter,
-                globalConstants,
-                GlobalStor,
-                OrderStor,
-                ProductStor,
-                UserStor,
-                CartStor,
-                CartServ,
-                CartMenuServ,
-                DesignServ) {
+      function($filter,
+        globalConstants,
+        GlobalStor,
+        OrderStor,
+        ProductStor,
+        UserStor,
+        CartStor,
+        CartServ,
+        CartMenuServ,
+        DesignServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.constants = globalConstants;
@@ -86,6 +86,11 @@
         thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
         thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
 
+        thisCtrl.OTHER = $filter("translate")("add_elements.OTHER");
+        thisCtrl.SERV1 = $filter("translate")("add_elements.SERV1");
+        thisCtrl.SERV2 = $filter("translate")("add_elements.SERV2");
+        thisCtrl.SERV3 = $filter("translate")("add_elements.SERV3");
+        thisCtrl.SERV4 = $filter("translate")("add_elements.SERV4");
         //------- set current Page
         GlobalStor.global.currOpenPage = 'cart';
         OrderStor.order.products = _.sortBy(OrderStor.order.products, 'product_id', '0');
@@ -149,6 +154,7 @@
             CartMenuServ.approveNewDisc(1)
           }
         }
+
         function enterKeyDopService(e) {
           e = e || window.event;
           if (e.keyCode === 13) {
@@ -165,28 +171,31 @@
 
         function showCartTemplte(index) {
           CartStor.cart.curProd = index;
-          setTimeout(function(){ DesignServ.initAllGlassXGlass(); }, 1000);
+          setTimeout(function() {
+            DesignServ.initAllGlassXGlass();
+          }, 1000);
 
           CartStor.cart.showCurrentTemp = 1;
 
         }
-        function toggleDiscount(){
+
+        function toggleDiscount() {
           GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
         }
 
 
-        $( ".scroll-hor-container" ).resize(function() {
+        $(".scroll-hor-container").resize(function() {
           console.log(".scroll-hor-container");
         });
-        $( ".order-block" ).resize(function() {
+        $(".order-block").resize(function() {
           console.log(".order-block");
         });
 
 
-        function coutNull(arr){
+        function coutNull(arr) {
           var tmp = 0;
-          arr.forEach(function (entry) {
-            (entry !==0 ) ? tmp++ : 0;
+          arr.forEach(function(entry) {
+            (entry !== 0) ? tmp++ : 0;
           });
           return tmp;
         }

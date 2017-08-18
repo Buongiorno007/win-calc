@@ -48,7 +48,7 @@
 
       GlobalStor.global.isNavMenu = 0;
       GlobalStor.global.isConfigMenu = 1;
-
+      GlobalStor.global.activePanel = 0;
       //------- translate
       thisCtrl.TEXT1 = $filter("translate")("natification.TEXT1");
       thisCtrl.TEXT2 = $filter("translate")("natification.TEXT2");
@@ -105,6 +105,13 @@
       thisCtrl.DISCOUNT = $filter("translate")("cart.DISCOUNT");
       thisCtrl.DISCOUNT_WITHOUT = $filter("translate")("cart.DISCOUNT_WITHOUT");
       thisCtrl.DISCOUNT_WITH = $filter("translate")("cart.DISCOUNT_WITH");
+      thisCtrl.DISCOUNT_SERVICE = $filter('translate')('cart.DISCOUNT_SERVICE');
+
+      thisCtrl.OTHER = $filter("translate")("add_elements.OTHER");
+      thisCtrl.SERV1 = $filter("translate")("add_elements.SERV1");
+      thisCtrl.SERV2 = $filter("translate")("add_elements.SERV2");
+      thisCtrl.SERV3 = $filter("translate")("add_elements.SERV3");
+      thisCtrl.SERV4 = $filter("translate")("add_elements.SERV4");
 
       thisCtrl.PROFILE_SYSTEM_SELECT = $filter("translate")(
         "design.PROFILE_SYSTEM_SELECT"
@@ -176,8 +183,7 @@
       // });
 
       if (!GlobalStor.global.orderEditNumber) {
-        CartStor.cart.customer.customer_location =
-          OrderStor.order.customer_location;
+        CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
       }
       /**========== FUNCTIONS ==========*/
 
@@ -228,7 +234,7 @@
       }
 
       function showAddElementDetail(productIndex) {
-        if (CartStor.cart.allAddElements[productIndex].length > 0) {
+        if ((CartStor.cart.allAddElements[productIndex].length > 0) || (coutNull(OrderStor.order.products[productIndex].services_price_arr))) {
           thisCtrl.config.detailProductIndex = productIndex;
           thisCtrl.config.isAddElementDetail = true;
         }
@@ -241,14 +247,20 @@
       function enterKeyPrice(e) {
         e = e || window.event;
         if (e.keyCode === 13) {
-          CartMenuServ.approveNewDisc(0);
+          CartMenuServ.approveNewDisc(0)
         }
       }
 
       function enterKeyDop(e) {
         e = e || window.event;
         if (e.keyCode === 13) {
-          CartMenuServ.approveNewDisc(1);
+          CartMenuServ.approveNewDisc(1)
+        }
+      }
+      function enterKeyDopService(e) {
+        e = e || window.event;
+        if (e.keyCode === 13) {
+          CartMenuServ.approveNewDisc(2)
         }
       }
 
@@ -347,8 +359,16 @@
           GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
         }
       }
-
-
+      function coutNull(arr){
+        var tmp = 0;
+        arr.forEach(function (entry) {
+          (entry !==0 ) ? tmp++ : 0;
+        });
+        return tmp;
+      }
+      function toggleDiscount(){
+        GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
+      }
       $(".prodcounter").change(function() {
         console.log("Handler for .keypress() called.");
       });
@@ -361,6 +381,9 @@
       thisCtrl.enterKeyPrice = enterKeyPrice;
       thisCtrl.enterKeyDop = enterKeyDop;
       thisCtrl.checkForAddElem = checkForAddElem;
+      thisCtrl.coutNull = coutNull;
+      thisCtrl.toggleDiscount = toggleDiscount;
+      thisCtrl.enterKeyDopService = enterKeyDopService;
 
       thisCtrl.box = LightServ.box;
       thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;
