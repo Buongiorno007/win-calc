@@ -842,3 +842,105 @@ gulp.task('cleanCorner', function () {
 gulp.task('buildCornerstone', function () {
   gulp.start("cornerstoneApp",['cleanCorner']);
 });
+/**!!!!!!!!!!!!!!!!!! WINDOWSCALCULATOR */
+gulp.task('wincalcApp', function () {
+//html
+  gulp.src(config.build.src.html)
+    .pipe(newer(config.build.window.app.root, '.html'))
+    .pipe(replace('//#', ""))
+    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+    .pipe(jade({
+      doctype: 'html',
+      pretty: true
+    }))
+    .pipe(replace('RANDOM_FLAG', random))
+    .pipe(replace('<script src=""></script>', '<script type="text/javascript" src="cordova.js"></script>'))
+    .pipe(gulp.dest(config.build.window.app.root))
+    .on('end', function () {
+      gutil.log('html!');
+    });
+
+//js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(replace('SERVER_IP', server_env["window"]))
+    .pipe(replace('PRINT_IP', print_env["window"]))
+    .pipe(replace('LOCAL_PATH', path_env["window"]))
+    .pipe(replace('ISEXTFLAG', "1"))
+    .pipe(concat('main.js'))
+    // .pipe(removeLogs())
+    .pipe(ngAnnotate({add: true}))
+    // .pipe(js_obfuscator())
+    // .pipe(uglify())
+    .pipe(gulp.dest(config.build.window.app.js))
+    .on('end', function () {
+      gutil.log('js!');
+    });
+
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest(config.build.window.app.js));
+
+  gulp.src(config.build.src.js_other)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(gulp.dest(config.build.window.app.js));
+
+// Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(gulp.dest(config.build.window.app.img))
+    .on('end', function () {
+      //css
+      gulp.src(config.build.src.css)
+        .pipe(compass({
+          css: config.build.window.app.css,
+          image: config.build.window.app.img,
+          sass: "dev/sass",
+          font: config.build.window.app.fonts,
+        }))
+        .pipe(csso())
+        .pipe(gulp.dest(config.build.window.app.css))
+        .on('end', function () {
+          gutil.log('css!');
+        });
+      gutil.log('img!');
+    });
+
+// Копируем шрифты
+  gulp.src(config.build.src.fonts)
+    .pipe(gulp.dest(config.build.window.app.fonts))
+    .on('end', function () {
+      gutil.log('font!');
+    });
+
+// Копируем audio
+  gulp.src(config.build.src.audio)
+    .pipe(gulp.dest(config.build.window.app.audio))
+    .on('end', function () {
+      gutil.log('audio!')
+    });
+
+// copy translate jsons
+  gulp.src(config.build.src.local)
+    .pipe(gulp.dest(config.build.window.app.local))
+    .on('end', function () {
+      gutil.log('local!');
+    });
+});
+
+gulp.task('cleanWincalcApp', function () {
+  del(config.build.window.app.root+'/www/**', function () {
+    console.log('Files deleted');
+  });
+});
+
+gulp.task('buildWincalc', function () {
+  gulp.start("wincalcApp",['cleanWincalcApp']);
+});

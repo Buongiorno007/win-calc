@@ -98,6 +98,17 @@
         "local": "_product/window/site/local",
         "product": "_product/window/site/product"
       },
+      "app": {
+        "root":"_product/window/app/windowscalculator/www/",
+        "css": "_product/window/app/windowscalculator/www/css",
+        "html": "_product/window/app/windowscalculator/www/",
+        "js": "_product/window/app/windowscalculator/www/js",
+        "img": "_product/window/app/windowscalculator/www/img",
+        "fonts": "_product/window/app/windowscalculator/www/fonts",
+        "audio": "_product/window/app/windowscalculator/www/audio",
+        "local": "_product/window/app/windowscalculator/www/local",
+        "product": "_product/window/app/windowscalculator/www/product"
+      },
       "ext": {
         "root":"_product/window/ext",
         "css": "_product/window/ext/css",

@@ -794,7 +794,7 @@
           setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
           setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
           setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
-          setOrderOptions(4, OrderStor.order.dismounting_id, GlobalStor.global.disassemblyData);
+          setOrderOptions(4, OrderStor.order.dismantling_id, GlobalStor.global.disassemblyData);
 
 
           delete OrderStor.order.additional_payment;

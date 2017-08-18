@@ -539,7 +539,7 @@
               " mounting_id INTEGER," +
               " mounting_price NUMERIC," +
               " dismantling_user_id INTEGER," +
-              " dismounting_id INTEGER," +
+              " dismantling_id INTEGER," +
               " dismantling_price NUMERIC," +
               " is_instalment INTEGER," +
               " instalment_id INTEGER," +

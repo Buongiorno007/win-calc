@@ -148,7 +148,7 @@
           // OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
           OrderStor.order.order_price = OrderStor.order.products_price;
           OrderStor.order.order_price_dis = GeneralServ.roundingValue(
-            OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price + OrderStor.order.dismounting_price + OrderStor.order.sale_price
+            OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price + OrderStor.order.dismantling_price + OrderStor.order.sale_price
           );
           //----- save primary total price
           OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
@@ -225,17 +225,17 @@
           }
         }
         function selectDisAssembling(currAssemb) {
-          if (OrderStor.order.dismounting_id !== currAssemb.id) {
-            OrderStor.order.dismounting_id = currAssemb.id;
+          if (OrderStor.order.dismantling_id !== currAssemb.id) {
+            OrderStor.order.dismantling_id = currAssemb.id;
             if (currAssemb.id) {
               OrderStor.order.dismountingName = currAssemb.name;
-              OrderStor.order.dismounting_price = currAssemb.priceReal;
-              OrderStor.order.dismounting_user_id = currAssemb.user_id;
+              OrderStor.order.dismantling_price = currAssemb.priceReal;
+              OrderStor.order.dismantling_user_id = currAssemb.user_id;
             } else {
               OrderStor.order.dismountingName = '';
-              OrderStor.order.dismounting_price = 0;
-              OrderStor.order.dismounting_user_id = 0;
-              OrderStor.order.dismounting_id = 0;
+              OrderStor.order.dismantling_price = 0;
+              OrderStor.order.dismantling_user_id = 0;
+              OrderStor.order.dismantling_id = 0;
             }
             calculateTotalOrderPrice();
           }
