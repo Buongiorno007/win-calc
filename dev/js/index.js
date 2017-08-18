@@ -1,85 +1,90 @@
 'use strict';
 /** global variable defined Browser or Device */
 /** check first device */
-var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
-
+var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent)) ? 1 : 0;
 //console.log("!!!!!");
 
-(function () {
+(function() {
   /** check browser */
-  if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
-    isDevice = 0;
-  }
-//console.log("isDevice",isDevice);
+  // if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
+  //   isDevice = 0;
+  // }
+  //console.log("isDevice",isDevice);
   // Test via a getter in the options object to see if the passive property is accessed
-  $( document ).ready(function() {
-    location.hash = "#/";
-    if (!isDevice) {
-      var obj = document.getElementById('main-frame'),
-        width = $(obj).width(),
-        height = $(obj).height();
-      var scale = 1;
-      if (self.innerWidth / width > self.innerHeight / height) {
-        scale = self.innerHeight / height;
-      }
-      else {
-        scale = self.innerWidth / width;
-      }
-      if (scale > 1) {
-        scale = 1;
-      }
-      obj.style.transform = 'scale(' + scale + ')';
-    }
-  });
-  window.onresize = function () {
-    if (!isDevice) {
-      var obj = document.getElementById('main-frame'),
-        width = $(obj).width(),
-        height = $(obj).height();
-      var scale = 1;
-      if (self.innerWidth / width > self.innerHeight / height) {
-        scale = self.innerHeight / height;
-      }
-      else {
-        scale = self.innerWidth / width;
-      }
-      if (scale > 1) {
-        scale = 1;
-      }
-      obj.style.transform = 'scale(' + scale + ')';
-    }
-  };
-
-  if (isDevice) {
-    window.PhonegapApp = {
-      initialize: function () {
-        this.bindEvents();
-      },
-      bindEvents: function () {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-      },
-      onDeviceReady: function () {
-        //      alert('onDeviceReady');
-        doInit();
-        angular.element(document).ready(function () {
-          // angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
-
-          //$(document).bind('touchmove', false);
-          //$cordovaDialogs
-          //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
-          //        console.log("InAppBrowser opened http://ngcordova.com successfully");
-          //      }, function (error) {
-          //        console.log("Error: " + error);
-          //      });
-
-        });
-
-      }
-    };
-
-    PhonegapApp.initialize();
+  var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+  if (app) {
+    isDevice = 1;
+    // console.log("PhoneGap application");
+  } else {
+    isDevice = 0;
+    // console.log("Web page");
   }
+  $(window).load(function() {
+    location.hash = "#/";
+    var obj = $("#main-frame");
+    var width = obj.width();
+    var height = obj.height();
+    var scale = 1,
+      left = 0,
+      top = 0;
+    if (self.innerWidth / width > self.innerHeight / height) {
+      scale = self.innerHeight / height;
+      left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
+    } else {
+      scale = self.innerWidth / width;
+      top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
+    }
+    if (scale > 1) {
+      scale = 1;
+    }
+    obj.css({
+      "transform": "scale(" + scale + ")",
+      "left": left + "px",
+      "top": top + "px"
+    });
+  });
 
+  window.onresize = function() {
+    var obj = $("#main-frame");
+    var width = obj.width();
+    var height = obj.height();
+    var scale = 1,
+      left = 0,
+      top = 0;
+    if (self.innerWidth / width > self.innerHeight / height) {
+      scale = self.innerHeight / height;
+      left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
+    } else {
+      scale = self.innerWidth / width;
+      top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
+    }
+    if (scale > 1) {
+      scale = 1;
+    }
+    obj.css({
+      "transform": "scale(" + scale + ")",
+      "left": left + "px",
+      "top": top + "px"
+    });
+  };
+  // if (isDevice) {
+  //   var app = window.PhonegapApp = {
+  //     initialize: function() {
+  //       this.bindEvents();
+  //     },
+  //     bindEvents: function() {
+  //       document.addEventListener('deviceready', this.onDeviceReady, false);
+  //     },
+  //     onDeviceReady: function() {
+  //       //      alert('onDeviceReady');
+  //       angular.element(document).ready(function() {
+  //         angular.bootstrap(document, ['BauVoiceApp', []]);
+  //       });
+  //
+  //     }
+  //   };
+  //   app.initialize();
+  // }
 
   angular.module('BauVoiceApp', [
     'ngRoute',
@@ -95,7 +100,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     'HistoryModule',
     'LightModule',
     'SettingsModule'
-  ]).config(/*@ngInject*/ configurationApp);
+  ]).config( /*@ngInject*/ configurationApp);
 
   //============== Modules ============//
   angular
@@ -176,16 +181,23 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       .otherwise({
         redirectTo: '/'
       });
-    $locationProvider.hashPrefix('');
+    $locationProvider.html5Mode(false).hashPrefix('');
 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
+
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
-    $translateProvider.preferredLanguage('ru');
 
+    var browserLang = navigator.language;
+    var label = browserLang.substr(0, 2);
+    $translateProvider.preferredLanguage(label);
+
+    $translateProvider.useSanitizeValueStrategy(null);
     $translateProvider.useLoader('AsyncLoader');
+
+    // window.resolveLocalFileSystemURL();
   }
 
 })();

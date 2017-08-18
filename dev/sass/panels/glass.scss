@@ -118,19 +118,24 @@
     .set-glass-btn {
       @extend .button;
       @extend .splash;
-      @include font-icon(1.5rem, 2);
+      @include roboto-rg(15px);
       position: absolute;
       top: 1.875rem;
       right: 6rem;
-      border-radius: 50%;
-      width: 3.2rem;
+      border-radius: 5rem;
+      width: 15rem;
+      height : 3rem;
       background-color: $main_green;
       text-align: center;
-
-      &:after {
-        color: #fff;
-        content: $select-history-icon;
-      }
+      color: #fff;
+      text-transform : uppercase;
+      display : inline-flex;
+      justify-content : center;
+      align-items : center;
+      // &:after {
+      //   color: #fff;
+      //   content: $select-history-icon;
+      // }
     }
   }
 }

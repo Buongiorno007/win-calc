@@ -1,11 +1,12 @@
-#tamlateGlassSVG{
+#tamlateGlassSVG {
   padding: rem(50px) rem(70px);
 }
-.cart-page, .light-v {
+
+.cart-page,
+.light-v {
   position: relative;
   width: 100%;
   height: 100%;
-
   //======== common Class
   .product-light-container {
     width: rem(420px);
@@ -15,6 +16,7 @@
     background-color: #fff;
     text-align: center;
   }
+
   .template-window {
     @extend .splash;
     @extend .modal-dialog;
@@ -29,46 +31,89 @@
     z-index: 10;
     border-radius: rem($radius_order);
   }
-
   //======== main Cart Page
   .cart-container {
     @include background-image(linear-gradient(color-stops(#f7f7f7), #d7dbd8));
-
     position: absolute;
     width: 100%;
-    padding: rem(50px) 0;
-    padding-left: rem(100px);
+    padding: rem(50px) 0 rem(50px) rem(100px);
+    bottom: 0;
+
     &.full-view {
       @include top_left_coord(0px, 0px);
       @include transition(all 0.5s linear);
+
       .scroll-hor-container {
         height: 83rem;
       }
+      .left-position{
+        justify-content: flex-end;
+      }
       &.discount {
-        @include top_left_coord(-1200px, 0px);
+        @include top_left_coord(-1550px, 0px);
       }
     }
+
     &.light-view {
       @include top_left_coord(0px, -2500px);
       @include transition(all 0.5s linear);
       height: 100%;
       z-index: 5;
     }
+
     &.alladdelements-view {
       @include top_left_coord(0px, -2500px);
       @include transition(all 0.5s linear);
       height: 100%;
       z-index: 6;
     }
+
     &.addelement-view {
       @include top_left_coord(0px, -2500px);
       @include transition(all 0.5s linear);
       height: 100%;
       z-index: 7;
     }
+
     &.active {
       @include top_left_coord(0px, 0px);
     }
+  }
+
+  .disc {
+    @extend .truncated;
+    @include transition(top 0.3s linear);
+  }
+
+  .discount-txt-arrow {
+    @include flex-grow(2);
+    @include transition(all .5s linear);
+    padding: rem(35px);
+    border-top-right-radius: rem($radius_profile-box);
+    border-bottom-right-radius: rem($radius_profile-box);
+    cursor: pointer;
+    background-color: $main_green;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .discounts-icon-down {
+    width: 5rem;
+    height: 5rem;
+    background: url("../img/cart/toggleDisc.svg") no-repeat;
+    background-size: contain;
+    display: inline-block;
+  }
+
+  .discounts-icon-up {
+    width: 5rem;
+    height: 5rem;
+    background: url("../img/cart/toggleDisc.svg") no-repeat;
+    background-size: contain;
+    display: inline-block;
+    transform: rotate(180deg);
+
   }
 
   .cart-header {
@@ -76,27 +121,29 @@
     @include flex-flow(row nowrap);
     @include justify-content(flex-end);
     @include align-items(center);
-
     position: relative;
     width: 100%;
     height: rem(150px);
   }
+
   .user-info-container {
     top: 0;
   }
+
   .cart-tool {
     @extend .middle-button;
     @extend .splash;
-
     position: relative;
     padding: rem(18px) rem(30px);
     z-index: 2;
   }
+
   .additional-elements {
     margin-right: rem(20px);
     background-color: #dcdcdc;
     color: $main_gray_txt;
   }
+
   .new-order {
     background-color: $main_green;
     color: #fff;
@@ -105,17 +152,19 @@
   .order {
     @extend .splash;
     @include box-shadow(rgba(black, .3) rem(15px) rem(10px) rem(30px) 0);
-
     position: relative;
     margin-right: rem(50px);
+    float: right;
+    height : 79rem;
   }
+
   .order-header {
     position: relative;
     background-color: white;
   }
+
   .order-delete {
     @extend .small-cross-btn;
-
     position: absolute;
     top: rem(-20px);
     right: rem(-20px);
@@ -127,22 +176,25 @@
     width: auto;
     display: inline-block;
   }
+
   .inner-text {
     position: relative;
     top: rem(-6px);
     width: 100%;
     @include roboto-lt(rem(22px));
     color: #8c8c8c;
-    margin:0;
+    margin: 0;
   }
-  .number{
+
+  .number {
     color: $main_gray_txt;
     @include roboto-lt(rem(36px));
     position: absolute;
     left: 0;
-    top:0.3rem;
-    margin:0;
+    top: 0.3rem;
+    margin: 0;
   }
+
   .order-value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
@@ -151,17 +203,21 @@
     display: inline-block;
     overflow: hidden;
   }
+
   .addelements-btn {
     cursor: pointer;
   }
+
   .order-label {
     @include roboto-lt(rem(22px));
     color: #8c8c8c;
   }
+
   .order-qty {
     @include display-flex();
     @include align-items(center);
   }
+
   .order-tool {
     @extend .small-button;
     width: rem(65px);
@@ -170,6 +226,7 @@
     background-color: $main_green;
     color: #fff;
   }
+
   .order-footer {
     @include display-flex();
     @include flex-flow(row nowrap);
@@ -181,22 +238,24 @@
     background-color: #f0f0f0;
     color: $main_gray_txt;
   }
-
   //------- order comment
   .order-comment-btn {
     @extend .icon-setting;
     @include font-icon(3.5rem, 1.75);
     cursor: pointer;
+
     &:after {
       content: $report;
       color: $main_gray_txt;
       border-left: 1px dotted $main_gray_btn;
       padding-left: 1rem;
     }
+
     &.active:after {
       color: $main_orange;
     }
   }
+
   .order-comment {
     @include transition(height 2s ease);
     position: absolute;
@@ -211,27 +270,29 @@
     border-top-right-radius: 10%;
     background-color: #fff;
     overflow: hidden;
+
     &.active {
       height: 35rem;
     }
+
     .order-comment-box {
       width: 100%;
       height: 100%;
       padding: 2rem;
       overflow-y: auto;
     }
+
     .order-comment-title {
       @include roboto-md(rem(36px), 1.7);
       text-align: center;
     }
+
     .order-comment-content {
       @include roboto-lt(rem(36px));
       text-align: justify;
     }
   }
-
   //======== FULL VIEW main Cart Page
-
   .full-view {
     .order-block {
       display: -webkit-inline-flex;
@@ -241,20 +302,24 @@
       min-height: 45%;
       z-index: 4;
     }
+
     .order {
       width: rem(512px);
       float: left;
       border-bottom-right-radius: rem(20px);
       border-bottom-left-radius: rem(20px);
     }
+
     .order-header {
       height: rem(320px);
     }
+
     .order-header-fon {
       width: rem(512px);
       height: rem(320px);
       cursor: pointer;
     }
+
     .order-template {
       text-align: center;
       position: relative;
@@ -263,13 +328,13 @@
 
     .close-cur-window {
       @extend .small-cross-btn;
-
       position: absolute;
       top: rem(-20px);
       right: rem(-20px);
       background-color: #F98000;
       z-index: 1;
     }
+
     .edit-cur-window {
       @extend .small-cross-btn;
       position: absolute;
@@ -277,81 +342,90 @@
       z-index: 1;
       top: -1.25rem;
     }
+
     .order-u-coeff {
       @include roboto-lt(rem(42px));
       position: relative;
       color: $main_green;
       text-align: center;
-      height:auto;
+      height: auto;
       border-bottom: 1px solid $main_gray_btn;
+
       &.coeff-low {
         @extend .coeff-low;
       }
     }
+
     .order-content {
       padding: 0 rem(40px) 0 rem(50px);
       background-color: #fff;
     }
+
     .order-list {
       list-style: none;
       margin: 0;
       padding: 0;
     }
+
     .order-qty {
       @include flex-flow(row nowrap);
       @include justify-content(space-between);
       height: rem(100px);
     }
+
     .qty-label {
       max-width: rem(170px);
     }
-
   }
-
   //======== LIGHT VIEW main Cart Page
-
   .light-view {
     .order-block {
       @include display-flex();
       @include flex-flow(row wrap);
     }
+
     .order {
       @extend .product-light-container;
       max-height: 41.5rem;
     }
+
     .order-template {
       cursor: pointer;
     }
+
     .order-header {
       cursor: pointer;
       min-height: 8rem;
       padding-top: 2.5rem;
       background-color: white;
     }
+
     .order-content {
       padding: rem(40px) rem(20px);
     }
+
     .order-value {
       @extend .truncated;
     }
+
     .addelements-btn {
       margin-top: rem(10px);
       padding: rem(10px) 0;
       border-top: 1px solid $main_gray_btn;
       border-bottom: 1px solid $main_gray_btn;
     }
+
     .order-qty {
       @include flex-flow(row wrap);
       @include justify-content(space-around);
       padding-top: rem(40px);
     }
+
     .order-label {
       padding-top: rem(10px);
     }
   }
-
   //=========== AddElements Detail Block
-
   .addelements-detail {
     position: absolute;
     //TODO ipad     top: 17rem;
@@ -363,12 +437,13 @@
     border-bottom-right-radius: rem($radius_order);
     z-index: 10;
   }
+
   .addelements-detail-tools {
     @include display-flex();
     @include flex-flow(row nowrap);
-
     height: rem(100px);
   }
+
   .addelements-detail-edit {
     @extend .button;
     @extend .icon-setting;
@@ -376,51 +451,62 @@
     @include roboto-lt(rem(28px), rem(100px));
     background-color: $main_green;
     color: #fff;
+
     &:after {
       @include font-icon(1.5rem, 6.25rem);
       content: $pencil;
     }
   }
+
   .addelements-detail-close {
     @extend .button;
     @extend .icon-setting;
     @include flex-grow(1);
     background-color: $main_gray_btn;
+
     &:after {
       @include font-icon(rem(40px), 1);
       color: #fff;
       content: $cross-icon;
     }
   }
+
   .product-template {
     padding: 2.125rem;
     border-bottom: 1px solid $main_gray_btn;
   }
+
   .product-template-icon {
     margin-bottom: rem(20px);
   }
+
   .product-icon-thumb {
     display: inline-block;
     width: rem(200px);
     margin-right: rem(10px);
   }
+
   .product-value {
     @extend .order-value;
   }
+
   .product-icon-label,
   .product-label {
     @extend .order-label;
   }
+
   .product-icon-label {
     max-width: rem(115px);
     text-align: right;
   }
+
   .addelements-detail-row {
     @include display-flex();
     @include flex-flow(row wrap);
     @include justify-content(space-between);
     @include align-items(center);
   }
+
   .addelements-detail-content {
     @extend .scrolling-container;
     height: rem(740px);
@@ -428,15 +514,18 @@
     overflow-y: auto;
     padding: rem(30px) rem(50px);
   }
+
   .addelements-detail-list {
     list-style: none;
     margin: 0;
     padding: 0;
   }
+
   .addelements-detail-item {
     padding-top: rem(20px);
     border-bottom: 1px solid $main_gray_btn;
   }
+
   .addelement-parameters {
     @include display-flex();
     @include flex-flow(row wrap);
@@ -444,9 +533,11 @@
     @include align-items(center);
     margin: rem(20px) 0;
   }
+
   .addelement-parameter {
     margin-right: 1rem;
   }
+
   .addelement-value {
     @extend .order-value;
     margin-right: rem(20px);
@@ -455,18 +546,21 @@
       width: rem(45px);
     }
   }
+
   .addelement-label {
     @extend .order-label;
   }
+
   .addelement-price-value {
     @include roboto-bd(rem(36px));
-
     color: $main_gray_txt;
     margin-right: rem(20px);
   }
+
   .price-one-product {
     margin-top: rem(30px);
   }
+
   .addelements-detail-footer {
     @extend .order-footer;
   }
@@ -474,22 +568,21 @@
   .order-item {
     padding: rem(7px) 0;
     border-bottom: 1px solid $main_gray_btn;
-    overflow:hidden;
+    overflow: hidden;
   }
-
   //======== DISCOUNT ========//
-
   .discount-container {
     width: 90%;
-    margin: auto;
-    margin-top: 5rem;
+    margin: 5rem auto auto;
     padding: 5rem 3.75rem 3rem;
     border-top: 1px solid $main_gray_btn;
   }
+
   .discount-title {
     @include roboto-bd(rem(40px));
     color: $main_gray_txt;
   }
+
   .discount-box {
     @include display-flex();
     position: relative;
@@ -499,6 +592,7 @@
     &.selected {
       .discount-txt {
         background-color: $main_green;
+
         &:after {
           @include font-icon(7rem, 9rem);
           position: absolute;
@@ -510,10 +604,12 @@
       }
     }
   }
-  .disc-curr-data{
-    border : none;
-    width : 10rem;
+
+  .disc-curr-data {
+    border: none;
+    width: 10rem;
   }
+
   .discount-data {
     @include display-flex();
     @include justify-content(flex-start);
@@ -525,31 +621,38 @@
     border-bottom-left-radius: rem($radius_profile-box);
     background-color: #fff;
     color: $main_gray_txt;
+    justify-content : space-between;
+    padding-right : 1rem;
   }
+
   .disc-input-box {
     @include display-flex();
     @include flex-flow(column nowrap);
     @include justify-content(center);
   }
+
   .disc-max {
-    position:absolute;
+    position: absolute;
     @include roboto-lt(2rem, 2rem);
     color: $error_color;
   }
 
   .disc-input {
-    min-width:20px;
-    max-width:90px;
-    padding: 0 0 5px 0;
+    min-width: 20px;
+    max-width: 90px;
+    padding: 0 0 5px;
     margin: 0;
     outline: none;
     border: none;
   }
+
   .disc-input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
   }
+
   .discounts-list {
     @include top_left_coord(-80px, 0px);
     @include roboto-lt(2.25rem, 5.4375rem);
@@ -563,6 +666,7 @@
     border-radius: rem($radius_profile-box);
     z-index: 5;
   }
+
   .discounts-item {
     &.active {
       border-top: 1px solid $main_gray_btn;
@@ -570,6 +674,7 @@
       color: $main_orange;
     }
   }
+
   .discount-txt {
     @include flex-grow(2);
     @include transition(all .5s linear);
@@ -579,10 +684,14 @@
     background-color: #fff;
     cursor: pointer;
   }
+
   .discounts-label {
     @include roboto-md(2.25rem, 5rem);
     color: $main_gray_txt;
+    width: auto;
+    display: inline-block;
   }
+
   .discount-price-container {
     @include display-flex();
     width: 100%;
@@ -591,32 +700,39 @@
     border-radius: rem($radius_profile-box);
     background-color: #fff;
   }
+
   .discount-price-box {
     padding: 0 3rem;
     @include flex-grow(1);
+
     &:last-child {
       border-left: 1px dashed $main_gray_txt;
     }
   }
+
   .discount-price {
     @include roboto-md(rem(48px), rem(100px));
     color: $main_gray_txt;
   }
+
   .discount-price-label {
     @include roboto-lt(rem(22px));
     color: #8c8c8c;
   }
-
+  .service-block{
+    @include roboto-lt(20px);
+  }
 }
 
 .imgg {
-  cursor : pointer;
+  cursor: pointer;
   position: absolute;
   height: 3.1rem;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
 }
@@ -638,4 +754,36 @@
 ::-webkit-scrollbar-track {
   border-radius: 10px;
   //background-color: #ffffff;
+}
+.add-new-product{
+  background: white;
+  flex-direction : column;
+  display : inline-flex;
+  align-items : center;
+  justify-content : center;
+  cursor : pointer;
+  .order-footer{
+    background: #f0f0f0;
+    width: rem(512px);
+    height : 6.3rem;
+    position : absolute;
+    bottom : 0;
+    //border-top : solid 1px #bebebe
+  }
+  .add-img{
+    height : 79rem;
+    color : $main_gray_btn;
+    font-size: 60px;
+    display : inline-flex;
+    width : 10rem;
+    height : 10rem;
+    border: 2px solid $main_gray_btn;
+    align-items : center;
+    justify-content : center;
+    border-radius:5rem;
+  }
+  .title{
+    color : $main_gray_btn;
+    font-size: 20px;
+  }
 }

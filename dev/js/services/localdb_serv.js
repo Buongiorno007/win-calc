@@ -367,6 +367,16 @@
               " price NUMERIC(6,1)",
             foreignKey: ""
           },
+          users_dismantlings: {
+            tableName: "users_dismantlings",
+            prop:
+              "user_id INTEGER," +
+              " active INTEGER," +
+              " name VARCHAR," +
+              " type INTEGER," +
+              " price NUMERIC(6,1)",
+            foreignKey: ""
+          },
           lists: {
             tableName: "lists",
             prop:
@@ -528,6 +538,9 @@
               " floor_price NUMERIC," +
               " mounting_id INTEGER," +
               " mounting_price NUMERIC," +
+              " dismantling_user_id INTEGER," +
+              " dismantling_id INTEGER," +
+              " dismantling_price NUMERIC," +
               " is_instalment INTEGER," +
               " instalment_id INTEGER," +
               " is_old_price INTEGER," +
@@ -600,7 +613,10 @@
               " addelem_price NUMERIC," +
               " product_price NUMERIC," +
               " comment TEXT," +
-              " product_qty INTEGER",
+              " product_qty INTEGER,"+
+              " services_price_arr NUMERIC[],"+
+              " service_price_dis NUMERIC,"+
+              " service_price NUMERIC",
             foreignKey: ""
           },
           order_addelements: {
@@ -954,7 +970,7 @@
               "id INTEGER",
             foreignKey: ""
           }
-         
+
         };
 
       /**============ methods ================*/
@@ -1395,7 +1411,7 @@
       function importAllDB(login, access) {
         var defer = $q.defer();
         //console.log('Import database begin!');
-        // console.log(globalConstants.serverIP +"/api/sync?login=" +login +"&access_token=" +access);
+        console.log(globalConstants.serverIP +"/api/sync?login=" +login +"&access_token=" +access);
         $http
           .get(globalConstants.serverIP +"/api/sync?login=" +login +"&access_token=" +access +"&" +Math.random())
           .then(function(result) {
@@ -1553,7 +1569,7 @@
           )
           .then(
             function(result) {
-              //console.log(result.data);
+              // console.log(result.data);
             },
             function() {
               console.log("Something went wrong with order delete!");

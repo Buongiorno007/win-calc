@@ -24,6 +24,9 @@
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
           if ($location.path() === "/light") {
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+            });
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
           }
@@ -43,6 +46,12 @@
           GlobalStor.global.isShowCommentBlock = 0;
           //---- hide template type menu if opened
           GlobalStor.global.isTemplateTypeMenu = 0;
+
+          GlobalStor.global.isServiceCalculator = 0;
+          GlobalStor.global.typeMenu = 5555;
+          GlobalStor.global.typeMenuID = 5555;
+          GlobalStor.global.servicesPriceIndex = -1;
+
           GeneralServ.stopStartProg();
           MainServ.setDefaultAuxParam();
           //------ close Glass Selector Dialogs
@@ -120,6 +129,7 @@
               // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               if (GlobalStor.global.activePanel === id) {
                 GlobalStor.global.activePanel = 0;
+                GlobalStor.global.isServiceCalculator = 0;
                 if ($location.path() === '/light') {
                   setTimeout(function () {
                     DesignServ.rebuildSVGTemplate();
@@ -127,7 +137,6 @@
                 }
               } else {
                 GlobalStor.global.activePanel = id;
-
               }
             }
           }

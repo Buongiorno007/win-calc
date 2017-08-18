@@ -28,6 +28,13 @@
           ProductStor.product.chosenAddElements.forEach(function (addElem) {
             addElem.splice(0, addElem.length);
           });
+
+          GlobalStor.global.servicesPriceIndex = -1;
+          GlobalStor.global.typeMenuID = 5555;
+          GlobalStor.global.typeMenu = 5555;
+          ProductStor.product.services_price_arr = [0,0,0,0,0]
+          ProductStor.product.service_price = 0;
+          ProductStor.product.service_price_dis = 0;
           ProductStor.product.addelem_price = 0;
           ProductStor.product.addelemPriceDis = 0;
           if (ProductStor.product.construction_type === 4) {

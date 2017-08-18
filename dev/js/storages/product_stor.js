@@ -65,13 +65,13 @@
           [], // 8 - windowSill
           [], // 9 - handles
           [], // 10 - others
-          [], // 11 - shutters 
-          [], // 12 - grating 
-          [], // 13 - blind 
-          [], // 14 - shut 
-          [], // 15 - grat 
-          [], // 16 - vis 
-          []  // 17 - spil 
+          [], // 11 - shutters
+          [], // 12 - grating
+          [], // 13 - blind
+          [], // 14 - shut
+          [], // 15 - grat
+          [], // 16 - vis
+          []  // 17 - spil
         ],
 
         door_type_index: 0,
@@ -92,20 +92,16 @@
 
         report: [],
         comment: '',
-        product_qty: 1
+        product_qty: 1,
+        services_price_arr: [0, 0, 0, 0, 0],
+        service_price: 0,
+        service_price_dis: 0
 
       },
 
           setDefaultProduct: setDefaultProduct,
           restoreProduct: restoreProduct
         };
-
-
-    // var data = localStorage.getItem("ProductStor");
-    // if (data){
-    //   thisFactory.publicObj.product = restoreProduct(data);
-    // } else {
-    // }
       thisFactory.publicObj.product = setDefaultProduct();
 
     return thisFactory.publicObj;

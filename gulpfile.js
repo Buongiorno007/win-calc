@@ -1,4 +1,5 @@
 'use strict';
+
 // Инициализируем плагины
 var gulp = require('gulp'),                       // Собственно Gulp JS
   config = require('./config.json'),              // Конфиг для проектов
@@ -25,8 +26,7 @@ var gulp = require('gulp'),                       // Собственно Gulp J
   replace = require('gulp-replace'),              //плагин для замены данных в файлах (в нашем случае заменяется метка server_ip на конкретный адрес формата "http://...")
   args = require('yargs').argv,                   //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
   removeLogs = require('gulp-removelogs'),       //Strip console statements from JavaScript
-  jsonminify = require('gulp-jsonminify');
-
+  jsonminify = require('gulp-jsonminify');       //Strip console statements from JavaScript
 // Очистка результирующей папки
 gulp.task('clean', function () {
   del('www/**', function () {
@@ -34,9 +34,10 @@ gulp.task('clean', function () {
   });
 });
 var random = Math.random();
-var env = args.env || 'steko';
+var env = args.env || 'windowSiteLocal';
 var server_env = {
     "windowSiteTest": "'http://api.test.windowscalculator.net'",
+    "windowSiteLocal": "'http://api.test.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
     "steko": "'http://api.steko.com.ua'",
     "orange": "'http://api.calc.csokna.ru'",
@@ -44,6 +45,7 @@ var server_env = {
   },
   print_env = {
     "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSiteLocal": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
@@ -51,6 +53,7 @@ var server_env = {
   },
   path_env = {
     "windowSiteTest": "'/calculator/local/'",
+    "windowSiteLocal": "'/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
     "orange": "'/local/'",
@@ -184,7 +187,7 @@ gulp.task('audio', function () {
 gulp.task('json', function () {
   return gulp.src(config.build.src.local)
     .pipe(newer(config.build.dest.local))
-    .pipe(jsonminify())
+    // .pipe(jsonminify())
     .pipe(gulp.dest(config.build.dest.local))
     .pipe(reload({stream: true}));
 });
@@ -253,43 +256,7 @@ gulp.task('build', ['clean'], function () {
 
 gulp.task('default', ['watch']);
 
-// Сборка минимизированного проекта
-//gulp.task('production', ['clean'], function() {
-//  // css
-//  compassTask()
-//    .pipe(csso())
-//    .pipe(gulp.dest(config.build.dest.css));
-//
-//  // jade
-//  gulp.src(config.build.src.html)
-//    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
-//    .pipe(jade())
-//    .pipe(gulp.dest(config.build.dest.html));
-//
-//  // js
-//  gulp.src(config.build.src.js)
-//    .pipe(concat('main.js'))
-//    .pipe(uglify())
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  gulp.src(config.build.src.js_vendor)
-//    .pipe(order(config.build.src.js_order))
-//    .pipe(concat('plugins.js'))
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  gulp.src(config.build.src.js_other)
-//    .pipe(uglify())
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  // image
-//  gulp.src(config.build.src.img)
-//    .pipe(imagemin())
-//    .pipe(gulp.dest(config.build.dest.img));
-//
-//  // fonts
-//  gulp.src(config.build.src.fonts)
-//    .pipe(gulp.dest(config.build.dest.fonts));
-//});
+
 /** extension
  * функция для сборки расширения в указанную папку.
  * id - параметр для указания пути, в какую папку сбирать расширение
@@ -297,7 +264,7 @@ gulp.task('default', ['watch']);
  **/
 function buildExt(id) {
   //html
-  if (id==="steko") {
+  if (id === "steko") {
     gulp.src(config.build.src.html)
       .pipe(newer("_product/" + id + "/ext", '.html'))
       .pipe(replace('//#', ""))
@@ -309,9 +276,11 @@ function buildExt(id) {
       .pipe(replace('RANDOM_FLAG', random))
       .pipe(replace('orbit', "steko"))
       .pipe(gulp.dest("_product/" + id + "/ext"))
-      .on('end', function(){ gutil.log('html!'); });
+      .on('end', function () {
+        gutil.log('html!');
+      });
 
-  }else {
+  } else {
     gulp.src(config.build.src.html)
       .pipe(newer("_product/" + id + "/ext", '.html'))
       .pipe(replace('//#', ""))
@@ -322,7 +291,9 @@ function buildExt(id) {
       }))
       .pipe(replace('RANDOM_FLAG', random))
       .pipe(gulp.dest("_product/" + id + "/ext"))
-      .on('end', function(){ gutil.log('html!'); });
+      .on('end', function () {
+        gutil.log('html!');
+      });
   }
 
 
@@ -343,7 +314,9 @@ function buildExt(id) {
     .pipe(js_obfuscator())
     .pipe(uglify())
     .pipe(gulp.dest("_product/" + id + "/ext/js"))
-    .on('end', function(){ gutil.log('js!'); });
+    .on('end', function () {
+      gutil.log('js!');
+    });
 
   gulp.src(config.build.src.js_vendor)
     .pipe(order(config.build.src.js_vendor_order))
@@ -361,7 +334,7 @@ function buildExt(id) {
   gulp.src(config.build.src.img)
     .pipe(newer("_product/" + id + "/ext/img"))
     .pipe(gulp.dest("_product/" + id + "/ext/img"))
-    .on('end', function(){
+    .on('end', function () {
       //css
       gulp.src(config.build.src.css)
         .pipe(compass({
@@ -372,26 +345,35 @@ function buildExt(id) {
         }))
         .pipe(csso())
         .pipe(gulp.dest("_product/" + id + "/ext/css"))
-        .on('end', function(){ gutil.log('css!'); });
-      gutil.log('img!'); });
+        .on('end', function () {
+          gutil.log('css!');
+        });
+      gutil.log('img!');
+    });
 
   // Копируем шрифты
   gulp.src(config.build.src.fonts)
     .pipe(newer("_product/" + id + "/ext/fonts"))
     .pipe(gulp.dest("_product/" + id + "/ext/fonts"))
-    .on('end', function(){ gutil.log('font!'); });
+    .on('end', function () {
+      gutil.log('font!');
+    });
 
   // Копируем audio
   gulp.src(config.build.src.audio)
     .pipe(newer("_product/" + id + "/ext/audio"))
     .pipe(gulp.dest("_product/" + id + "/ext/audio"))
-    .on('end', function(){ gutil.log('audio!'); });
+    .on('end', function () {
+      gutil.log('audio!');
+    });
 
   // copy translate jsons
   gulp.src(config.build.src.local)
     .pipe(newer("_product/" + id + "/ext/local"))
     .pipe(gulp.dest("_product/" + id + "/ext/local"))
-    .on('end', function(){ gutil.log('local!'); });
+    .on('end', function () {
+      gutil.log('local!');
+    });
 
 
   gulp.src("../offline/" + id + "/manifest.json")
@@ -434,7 +416,7 @@ gulp.task('buildExt', function () {
 
 function buildSite(id) {
   //html
-  if (id==="steko") {
+  if (id === "steko") {
     gulp.src(config.build.src.html)
       .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
       .pipe(jade({
@@ -448,7 +430,7 @@ function buildSite(id) {
       .on('end', function () {
         gutil.log('html!');
       });
-  }else {
+  } else {
     gulp.src(config.build.src.html)
       .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
       .pipe(jade({
@@ -468,7 +450,6 @@ function buildSite(id) {
       header: '\n// ${filename}\n\n',
       footer: '\n'
     }))
-    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
     .pipe(order(config.build.src.js_order))
     .pipe(replace('SERVER_IP', server_env[id]))
     .pipe(replace('PRINT_IP', print_env[id]))
@@ -478,15 +459,19 @@ function buildSite(id) {
     .pipe(ngAnnotate())
     .pipe(removeLogs())
     .pipe(js_obfuscator())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest("_product/" + id + "/site/js"))
-    .on('end', function(){ gutil.log('main!'); });
+    .on('end', function () {
+      gutil.log('main!');
+    });
 
   gulp.src(config.build.src.js_vendor)
     .pipe(order(config.build.src.js_vendor_order))
     .pipe(concat('plugins.js'))
     .pipe(gulp.dest("_product/" + id + "/site/js"))
-    .on('end', function(){ gutil.log('plugins!'); });
+    .on('end', function () {
+      gutil.log('plugins!');
+    });
   gulp.src(config.build.src.js_other)
     .pipe(wrapper({
       header: '\n// ${filename}\n\n',
@@ -497,7 +482,7 @@ function buildSite(id) {
   // Копируем изображения
   gulp.src(config.build.src.img)
     .pipe(gulp.dest("_product/" + id + "/site/img"))
-    .on('end', function(){
+    .on('end', function () {
       //css
       gulp.src(config.build.src.css)
         .pipe(compass({
@@ -537,74 +522,19 @@ gulp.task('buildWindowSite', function () {
   buildSite("windowSite");
 });
 
-gulp.task('buildOrangeSite',function () {
+gulp.task('buildOrangeSite', function () {
   buildSite("orange");
 });
 
-gulp.task('buildSite',  function () {
-  gulp.start(['buildStekoSite', 'buildWindowSiteTest', 'buildWindowSite','buildOrangeSite']);
+gulp.task('buildSite', function () {
+  gulp.start(['buildStekoSite', 'buildWindowSiteTest', 'buildWindowSite', 'buildOrangeSite']);
 });
-
-/**========= Загрузка на удаленный сервер =========*/
-
-
-var server = config.serverWindows;
-//var server = config.serverOrange;
-//var server = config.serverSteko;
-
-/** upload index */
-gulp.task('upload-index', function () {
-  gulp.src(config.build.dest.html + 'index.html')
-    .pipe(ftp(server));
-});
-/** upload html */
-gulp.task('upload-html', function () {
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/views';
-  gulp.src(config.build.dest.product + '/views/*.html')
-    .pipe(ftp(settings));
-});
-
-/** upload js */
-gulp.task('upload-js', function () {
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/js';
-  gulp.src(config.build.dest.product + '/*.js')
-    .pipe(ftp(settings));
-});
-
-/** upload css */
-gulp.task('upload-css', function () {
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/css';
-  gulp.src(config.build.dest.product + '/*.css')
-    .pipe(ftp(settings));
-});
-
-/** upload fonts */
-gulp.task('upload-fonts', function () {
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/fonts/icons';
-  gulp.src(config.build.dest.fonts + '/icons/*.ttf')
-    .pipe(ftp(settings));
-});
-
-/** upload translate */
-gulp.task('upload-json', function () {
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/local';
-  gulp.src(config.build.dest.local + '/*.json')
-    .pipe(ftp(settings));
-});
-
-gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', 'upload-fonts', 'upload-json']);
-
 
 function makeApp(id) {
   var path = ""
-  if (id==="steko") {
+  if (id === "steko") {
     path = "steko"
-  } else if (id ==="window"){
+  } else if (id === "window") {
     path = "steko"
   } else {
     path = "Cornerstone/platforms/ios/www"
@@ -704,4 +634,313 @@ gulp.task('localApp', function () {
 // Запуск buildApp
 gulp.task('buildapp', function () {
   gulp.start(['htmlApp', 'cssApp', 'jsApp', 'imagesApp', 'fontsApp', 'localApp']);
+});
+
+gulp.task('stekoApp', function () {
+//html
+    gulp.src(config.build.src.html)
+      .pipe(newer(config.build.steko.app.root, '.html'))
+      .pipe(replace('//#', ""))
+      .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+      .pipe(jade({
+        doctype: 'html',
+        pretty: true
+      }))
+      .pipe(replace('RANDOM_FLAG', random))
+      .pipe(replace('orbit', "steko"))
+      .pipe(replace('<script src=""></script>', '<script src="cordova.js"></script>'))
+      .pipe(gulp.dest(config.build.steko.app.root))
+      .on('end', function () {
+        gutil.log('html!');
+      });
+
+//js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(replace('SERVER_IP', server_env["steko"]))
+    .pipe(replace('PRINT_IP', print_env["steko"]))
+    .pipe(replace('LOCAL_PATH', path_env["steko"]))
+    .pipe(replace('ISEXTFLAG', "1"))
+    .pipe(concat('main.js'))
+    .pipe(removeLogs())
+    .pipe(ngAnnotate({add: true}))
+    .pipe(js_obfuscator())
+    .pipe(uglify())
+    .pipe(gulp.dest(config.build.steko.app.js))
+    .on('end', function () {
+      gutil.log('js!');
+    });
+
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest(config.build.steko.app.js));
+
+  gulp.src(config.build.src.js_other)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(gulp.dest(config.build.steko.app.js));
+
+// Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(gulp.dest(config.build.steko.app.img))
+    .on('end', function () {
+      //css
+      gulp.src(config.build.src.css)
+        .pipe(compass({
+          css: config.build.steko.app.css,
+          image: config.build.steko.app.img,
+          sass: "dev/sass",
+          font: config.build.steko.app.fonts,
+        }))
+        .pipe(csso())
+        .pipe(gulp.dest(config.build.steko.app.css))
+        .on('end', function () {
+          gutil.log('css!');
+        });
+      gutil.log('img!');
+    });
+
+// Копируем шрифты
+  gulp.src(config.build.src.fonts)
+    .pipe(gulp.dest(config.build.steko.app.fonts))
+    .on('end', function () {
+      gutil.log('font!');
+    });
+
+// Копируем audio
+  gulp.src(config.build.src.audio)
+    .pipe(gulp.dest(config.build.steko.app.audio))
+    .on('end', function () {
+      gutil.log('audio!')
+    });
+
+// copy translate jsons
+  gulp.src(config.build.src.local)
+    .pipe(gulp.dest(config.build.steko.app.local))
+    .on('end', function () {
+      gutil.log('local!');
+    });
+});
+
+
+gulp.task('cleanSteko', function () {
+  del(config.build.steko.app.root+'/www/**', function () {
+    console.log('Files deleted');
+  });
+});
+
+gulp.task('buildSteko', function () {
+  gulp.start("stekoApp",['cleanSteko']);
+});
+
+/**!!!!!!!!!!!!!!!!!! CORNERSTONE */
+gulp.task('cornerstoneApp', function () {
+//html
+  gulp.src(config.build.src.html)
+    .pipe(newer(config.build.orange.app.root, '.html'))
+    .pipe(replace('//#', ""))
+    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+    .pipe(jade({
+      doctype: 'html',
+      pretty: true
+    }))
+    .pipe(replace('RANDOM_FLAG', random))
+    .pipe(replace('<script src=""></script>', '<script type="text/javascript" src="cordova.js"></script>'))
+    .pipe(gulp.dest(config.build.orange.app.root))
+    .on('end', function () {
+      gutil.log('html!');
+    });
+
+//js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(replace('SERVER_IP', server_env["orange"]))
+    .pipe(replace('PRINT_IP', print_env["orange"]))
+    .pipe(replace('LOCAL_PATH', path_env["orange"]))
+    .pipe(replace('ISEXTFLAG', "1"))
+    .pipe(concat('main.js'))
+    // .pipe(removeLogs())
+    .pipe(ngAnnotate({add: true}))
+    // .pipe(js_obfuscator())
+    // .pipe(uglify())
+    .pipe(gulp.dest(config.build.orange.app.js))
+    .on('end', function () {
+      gutil.log('js!');
+    });
+
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest(config.build.orange.app.js));
+
+  gulp.src(config.build.src.js_other)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(gulp.dest(config.build.orange.app.js));
+
+// Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(gulp.dest(config.build.orange.app.img))
+    .on('end', function () {
+      //css
+      gulp.src(config.build.src.css)
+        .pipe(compass({
+          css: config.build.orange.app.css,
+          image: config.build.orange.app.img,
+          sass: "dev/sass",
+          font: config.build.orange.app.fonts,
+        }))
+        .pipe(csso())
+        .pipe(gulp.dest(config.build.orange.app.css))
+        .on('end', function () {
+          gutil.log('css!');
+        });
+      gutil.log('img!');
+    });
+
+// Копируем шрифты
+  gulp.src(config.build.src.fonts)
+    .pipe(gulp.dest(config.build.orange.app.fonts))
+    .on('end', function () {
+      gutil.log('font!');
+    });
+
+// Копируем audio
+  gulp.src(config.build.src.audio)
+    .pipe(gulp.dest(config.build.orange.app.audio))
+    .on('end', function () {
+      gutil.log('audio!')
+    });
+
+// copy translate jsons
+  gulp.src(config.build.src.local)
+    .pipe(gulp.dest(config.build.orange.app.local))
+    .on('end', function () {
+      gutil.log('local!');
+    });
+});
+
+gulp.task('cleanCorner', function () {
+  del(config.build.orange.app.root+'/www/**', function () {
+    console.log('Files deleted');
+  });
+});
+
+gulp.task('buildCornerstone', function () {
+  gulp.start("cornerstoneApp",['cleanCorner']);
+});
+/**!!!!!!!!!!!!!!!!!! WINDOWSCALCULATOR */
+gulp.task('wincalcApp', function () {
+//html
+  gulp.src(config.build.src.html)
+    .pipe(newer(config.build.window.app.root, '.html'))
+    .pipe(replace('//#', ""))
+    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+    .pipe(jade({
+      doctype: 'html',
+      pretty: true
+    }))
+    .pipe(replace('RANDOM_FLAG', random))
+    .pipe(replace('<script src=""></script>', '<script type="text/javascript" src="cordova.js"></script>'))
+    .pipe(gulp.dest(config.build.window.app.root))
+    .on('end', function () {
+      gutil.log('html!');
+    });
+
+//js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(replace('SERVER_IP', server_env["window"]))
+    .pipe(replace('PRINT_IP', print_env["window"]))
+    .pipe(replace('LOCAL_PATH', path_env["window"]))
+    .pipe(replace('ISEXTFLAG', "1"))
+    .pipe(concat('main.js'))
+    // .pipe(removeLogs())
+    .pipe(ngAnnotate({add: true}))
+    // .pipe(js_obfuscator())
+    // .pipe(uglify())
+    .pipe(gulp.dest(config.build.window.app.js))
+    .on('end', function () {
+      gutil.log('js!');
+    });
+
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest(config.build.window.app.js));
+
+  gulp.src(config.build.src.js_other)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(gulp.dest(config.build.window.app.js));
+
+// Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(gulp.dest(config.build.window.app.img))
+    .on('end', function () {
+      //css
+      gulp.src(config.build.src.css)
+        .pipe(compass({
+          css: config.build.window.app.css,
+          image: config.build.window.app.img,
+          sass: "dev/sass",
+          font: config.build.window.app.fonts,
+        }))
+        .pipe(csso())
+        .pipe(gulp.dest(config.build.window.app.css))
+        .on('end', function () {
+          gutil.log('css!');
+        });
+      gutil.log('img!');
+    });
+
+// Копируем шрифты
+  gulp.src(config.build.src.fonts)
+    .pipe(gulp.dest(config.build.window.app.fonts))
+    .on('end', function () {
+      gutil.log('font!');
+    });
+
+// Копируем audio
+  gulp.src(config.build.src.audio)
+    .pipe(gulp.dest(config.build.window.app.audio))
+    .on('end', function () {
+      gutil.log('audio!')
+    });
+
+// copy translate jsons
+  gulp.src(config.build.src.local)
+    .pipe(gulp.dest(config.build.window.app.local))
+    .on('end', function () {
+      gutil.log('local!');
+    });
+});
+
+gulp.task('cleanWincalcApp', function () {
+  del(config.build.window.app.root+'/www/**', function () {
+    console.log('Files deleted');
+  });
+});
+
+gulp.task('buildWincalc', function () {
+  gulp.start("wincalcApp",['cleanWincalcApp']);
 });

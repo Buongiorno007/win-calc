@@ -9,7 +9,7 @@
                 $timeout,
                 $rootScope,
                 $route,
-                $cordovaNetwork,
+                // $cordovaNetwork,
                 $filter,
                 $translate,
                 $q,
@@ -1025,6 +1025,7 @@
         }, 1000);
 
         function checkSavedData() {
+          loginServ.getDeviceLanguage();
           var order = localStorage.getItem("OrderStor");
           var product = localStorage.getItem("ProductStor");
           var aux = localStorage.getItem("AuxStor");
@@ -1067,56 +1068,9 @@
           }
         }
 
-        function dataExecuting() {
-          var defer = $q.defer();
-          var main_store = [];
-          localforage.getItem('main_store').then(function (value) {
-            // console.log(value);
-            if (value && value !== "null") {
-              UserStor.userInfo = value.user;
-              GlobalStor.global = value.global;
-              OrderStor.order = value.order;
-              ProductStor.product = value.product;
-              AuxStor.aux = value.aux;
-              HistoryStor.history = value.history;
-              CartStor.cart = value.cart;
-              defer.resolve(value);
-            }
-            else {
-              console.log("не все данные сохранены");
-              defer.resolve(0);
-            }
-          }).catch(function (err) {
-            // This code runs if there were any errors
-            console.log(err);
-            defer.resolve(0);
-          });
 
-          return defer.promise;
-        }
 
-        function checkSavedDataModern() {
-          var defer = $q.defer();
-          dataExecuting().then(function (data) {
-            if (data) {
-              var loadDate = new Date(data.global.loadDate);
-              var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
-              var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
-              if ((curDate === checkDate)) {
-                console.log("типа все ок");
-                MainServ.createOrderData();
-                defer.resolve(1);
-              } else {
-                console.log("разные даты");
-                // $location.path("/");
-                defer.resolve(0);
-              }
-            } else {
-              defer.resolve(0);
-            }
-          });
-          return defer.promise;
-        }
+
 
         function fastEnter(url) {
           GlobalStor.global.isLoader = 0;
@@ -1152,7 +1106,6 @@
 
         //------- defined system language
         loginServ.getDeviceLanguage();
-
 
         //------- export data
         if (thisCtrl.isOnline) {

@@ -137,7 +137,6 @@
           }
         }
 
-
         function clickNewProject() {
           thisCtrl.activeMenuItem = 0;
           NavMenuServ.clickNewProject();
@@ -147,7 +146,6 @@
           localStorage.clear();
           location.reload();
         }
-
 
         /**========== FINISH ==========*/
 

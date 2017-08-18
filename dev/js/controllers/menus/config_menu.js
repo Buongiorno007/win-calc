@@ -78,6 +78,7 @@
 
         function saveProduct(go_to_cart) {
           GlobalStor.global.showCoefInfoBlock = 0;
+          GlobalStor.global.servicesPriceIndex = -1;
           GlobalStor.global.continued = 0;
           ProductStor.product.product_qty = GlobalStor.global.product_qty;
 
@@ -131,22 +132,20 @@
         }
 
         function checkForAddElem(go_to_cart) {
-          // console.log(ProductStor.product.report);
+          // console.log(ProductStor.product);
           // ProductStor.product.template_source.report = ProductStor.product.report;
           if (!GlobalStor.global.isZeroPriceList.length) {
-
-
             if (!ProductStor.product.is_addelem_only) {
               alert();
               if (GlobalStor.global.dangerAlert < 1) {
                 if (ProductStor.product.beadsData.length > 0) {
-                  if (OrderStor.order.products.length === 0) {
+                  if (!OrderStor.order.products.length) {
                     $('#qty').hide().show(0);
                     saveProduct(go_to_cart);
-                  } else if (GlobalStor.global.isNewTemplate === 1) {
+                  } else if (GlobalStor.global.isNewTemplate) {
                     $('#qty').hide().show(0);
                     saveProduct();
-                  } else if (GlobalStor.global.isChangedTemplate === 0) {
+                  } else if (!GlobalStor.global.isChangedTemplate) {
                     //  ALERT
                     GlobalStor.global.isNoChangedProduct = 1;
                   } else {

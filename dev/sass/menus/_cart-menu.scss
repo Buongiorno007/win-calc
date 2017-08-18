@@ -142,6 +142,39 @@
       height: 26rem;
     }
   }
+  .dismounting{
+    display : inline-flex;
+    align-items : center;
+    justify-content : space-between;
+    .drop-calendar {
+      &.active {
+        height: 5.5rem;
+      }
+      input {
+        width: 85%;
+        height : 5rem;
+        font-size : 24px;
+        border : none;
+        outline : none;
+      }
+      label {
+        font-size : 20px;
+      }
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    label {
+      font-size : 15px;
+    }
+    .value {
+      min-width: 5rem;
+      width : auto;
+      margin-right: 1rem;
+    }
+  }
   .dropdown-items-list {
     margin: 0;
     padding: 0;

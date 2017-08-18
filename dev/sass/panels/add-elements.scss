@@ -14,112 +14,132 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-grating-img {
         background-image: image-url($aux-img-focus-path+'/grating.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-grat-img {
         background-image: image-url($aux-img-focus-path+'/grating2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-shutters-img {
         background-image: image-url($aux-img-focus-path+'/shutters.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-shut-img {
         background-image: image-url($aux-img-focus-path+'/shutters2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-visor-img {
         background-image: image-url($aux-img-focus-path+'/visor.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-vis-img {
         background-image: image-url($aux-img-focus-path+'/visor2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-spillway-img {
         background-image: image-url($aux-img-focus-path+'/spillway.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-spil-img {
         background-image: image-url($aux-img-focus-path+'/spillway2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-windowsill-img {
         background-image: image-url($aux-img-focus-path+'/windowsill.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-louver-top {
         background-image: image-url($aux-img-focus-path+'/louvers-top.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-louver-midle {
         background-image: image-url($aux-img-focus-path+'/louvers-middle.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-louver-bottom {
         background-image: image-url($aux-img-focus-path+'/louvers-bottom.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-inside-top {
-        background-image: image-url($aux-img-focus-path+'/inside-slope-top.png');
+        background-image: image-url( $aux-img-focus-path+'/inside-slope-top.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-inside-right {
-        background-image: image-url($aux-img-focus-path+'/inside-slope-right.png');
+        background-image: image-url( $aux-img-focus-path+'/inside-slope-right.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-inside-left {
-        background-image: image-url($aux-img-focus-path+'/inside-slope-left.png');
+        background-image: image-url( $aux-img-focus-path+'/inside-slope-left.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-outside-img {
         background-image: image-url($aux-img-focus-path+'/outside.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-fan-img {
         background-image: image-url($aux-img-focus-path+'/fan.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-force-connect {
         background-image: image-url($aux-img-focus-path+'/force-connector.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-balcon-connect {
-        background-image: image-url($aux-img-focus-path+'/balcon-connector.png');
+        background-image: image-url( $aux-img-focus-path+'/balcon-connector.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-handle-img {
         background-image: image-url($aux-img-focus-path+'/handle.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-blind-img {
         background-image: image-url($aux-img-focus-path+'/blind.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
-
       //Buttons Colors
       .aux-choose-but {
         color: #fff;
@@ -132,106 +152,127 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-visor-img {
         background-image: image-url($aux-img-select-path+'/visor.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-vis-img {
         background-image: image-url($aux-img-select-path+'/visor2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-grating-img {
         background-image: image-url($aux-img-select-path+'/grating.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-grat-img {
         background-image: image-url($aux-img-select-path+'/grating2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-shutters-img {
         background-image: image-url($aux-img-select-path+'/shutters.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-shut-img {
         background-image: image-url($aux-img-select-path+'/shutters2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-spillway-img {
         background-image: image-url($aux-img-select-path+'/spillway.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-spil-img {
         background-image: image-url($aux-img-select-path+'/spillway2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-windowsill-img {
         background-image: image-url($aux-img-select-path+'/windowsill.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-louver-top {
         background-image: image-url($aux-img-select-path+'/louvers-top.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-louver-midle {
         background-image: image-url($aux-img-select-path+'/louvers-middle.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-louver-bottom {
         background-image: image-url($aux-img-select-path+'/louvers-bottom.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-inside-top {
-        background-image: image-url($aux-img-select-path+'/inside-slope-top.png');
+        background-image: image-url( $aux-img-select-path+'/inside-slope-top.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-inside-right {
-        background-image: image-url($aux-img-select-path+'/inside-slope-right.png');
+        background-image: image-url( $aux-img-select-path+'/inside-slope-right.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-inside-left {
-        background-image: image-url($aux-img-select-path+'/inside-slope-left.png');
+        background-image: image-url( $aux-img-select-path+'/inside-slope-left.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-outside-left {
         background-image: image-url($aux-img-select-path+'/outside.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-fan-img {
         background-image: image-url($aux-img-select-path+'/fan.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-force-connect {
-        background-image: image-url($aux-img-select-path+'/force-connector.png');
+        background-image: image-url( $aux-img-select-path+'/force-connector.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-balcon-connect {
-        background-image: image-url($aux-img-select-path+'/balcon-connector.png');
+        background-image: image-url( $aux-img-select-path+'/balcon-connector.png' );
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-handle-img {
         background-image: image-url($aux-img-select-path+'/handle.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
+
       .aux-blind-img {
         background-image: image-url($aux-img-focus-path+'/blind.png');
         background-repeat: no-repeat;
@@ -241,12 +282,11 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-grid.focused,
-  .aux-spillway.focused,
+  .aux-outside.focused,
   .aux-spil.focused,
-  .aux-outside.focused {
+  .aux-spillway.focused {
     z-index: 20;
   }
-
   //------Grid
   .aux-grid {
     @include top_left_coord(380px, 880px);
@@ -255,7 +295,6 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   .aux-grid-img {
     @include top_left_coord(0px, 0px);
-
     position: absolute;
     width: rem(220px);
     height: rem(390px);
@@ -263,7 +302,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //------Visor
   .aux-visor {
     @include top_left_coord(140px, 540px);
@@ -294,7 +332,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
- 
   //------Grating
   .aux-grating {
     @include top_left_coord(140px, 540px);
@@ -310,7 +347,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //------Grat
   .aux-grat {
     @include top_left_coord(-250px, 330px);
@@ -341,7 +377,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //------Shutters main
   .aux-shut {
     @include top_left_coord(140px, 540px);
@@ -357,7 +392,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //------Spillway
   .aux-spillway {
     @include top_left_coord(690px, 540px);
@@ -373,7 +407,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //------Spil
   .aux-spil {
     @include top_left_coord(786px, 396px);
@@ -389,7 +422,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //-------Outside
   .aux-outside {
     @include top_left_coord(380px, 440px);
@@ -405,7 +437,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //-----Windowsill
   .aux-windowsill {
     @include top_left_coord(1116px, 88px);
@@ -421,12 +452,12 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-  
   //-----blind
   .aux-blind {
     @include top_left_coord(1160px, 100px);
     z-index: 7;
   }
+
   .aux-blind-img {
     @include top_left_coord(370px, -46px);
     position: absolute;
@@ -436,12 +467,12 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //-----Template
   .aux-template1 {
     @include top_left_coord(1160px, 100px);
     z-index: 7;
   }
+
   .aux-template1-img {
     @include top_left_coord(160px, 96px);
     position: absolute;
@@ -456,6 +487,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(1160px, 100px);
     z-index: 7;
   }
+
   .aux-template2-img {
     @include top_left_coord(140px, 40px);
     position: absolute;
@@ -465,9 +497,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //-----Louvers
-
   .aux-louver {
     @include top_left_coord(750px, 530px);
     z-index: 8;
@@ -524,7 +554,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //-----Inside-slope
   .aux-inside {
     @include top_left_coord(410px, 350px);
@@ -565,7 +594,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //------Fun
   .aux-fan {
     @include top_left_coord(900px, 370px);
@@ -581,7 +609,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //-----Connectors
   .aux-connectors {
     @include top_left_coord(990px, 1010px);
@@ -614,7 +641,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
   //-----Handle
   .aux-handle {
     @include top_left_coord(1325px, 230px);
@@ -630,15 +656,11 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-repeat: no-repeat;
     background-size: contain;
   }
-
-
   //-----Others
   .aux-others {
-
     @include top_left_coord(1275px, 1212px);
     z-index: 13;
   }
-
 
   .aux-txt-box {
     position: absolute;
@@ -660,18 +682,18 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(920px, -480px);
   }
 
-    .aux-grat-txt {
+  .aux-grat-txt {
     @include top_left_coord(600px, -280px);
   }
 
   .aux-blind-txt {
     @include top_left_coord(-500px, 150px);
   }
-  
+
   .aux-shutters-txt {
     @include top_left_coord(140px, 530px);
   }
- 
+
   .aux-shut-txt {
     @include top_left_coord(121.5px, 234px);
   }
@@ -723,6 +745,7 @@ $aux-img-select-path: 'auxiliaries-selected';
       @include align-items(center);
       min-width: rem(520px);
     }
+
     &.vertival {
       @include flex-flow(column wrap);
       width: 25rem;
@@ -737,12 +760,12 @@ $aux-img-select-path: 'auxiliaries-selected';
     color: $main_gray_txt;
     cursor: pointer;
   }
+
   .scheme-info {
     @extend .button;
     @extend .splash;
     @include top_left_coord(420px, 520px);
     @include font-icon(rem(30px), 1);
-
     position: absolute;
     display: none;
     width: rem(50px);
@@ -750,14 +773,15 @@ $aux-img-select-path: 'auxiliaries-selected';
     border-radius: 50%;
     background-color: $main_orange;
     z-index: 21;
+
     &:after {
       color: #fff;
       content: $info-i-icon;
     }
   }
+
   .scheme-view-dialog {
     @extend .modal-dialog;
-
     height: 60rem;
     padding-top: 2rem;
     overflow: hidden;
@@ -766,22 +790,81 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 }
 
-  .numberMenu {
-    position: relative;
-    width: 17.7%;
-    left: 4%;
-    top: 1rem;
-    text-align: center;
-    color: white;
-    float: left;
-    height: 5rem;
-    line-height: 5rem;
-    font: normal 2.5rem/2 roboto-light, sans-serif, icons;
+.numberMenu {
+  position: relative;
+  width: 14.7%;
+  left: 4%;
+  top: 1rem;
+  text-align: center;
+  color: white;
+  float: left;
+  height: 5rem;
+  line-height: 5rem;
+  font: normal 2.3rem/2 roboto-light, sans-serif, icons;
+  margin: 1.25rem 0.5rem;
+  border-radius: 1rem;
+  background-color: orange;
+  display : inline-flex;
+  align-items : center;
+  justify-content: center;
+  &.green {
+    transition: 0.5s;
+    background-color: #6ed44a;
+  }
+}
+
+.services {
+  margin-left: 8rem;
+  padding-top: 20rem;
+
+  .service-block {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .service-type {
+    width: 70%;
+    height: 6rem;
+    @include roboto-th(26px);
     margin: 1.25rem 0.5rem;
     border-radius: 1rem;
-    background-color: orange;
+    padding-left: 1rem;
+    display : inline-flex;
+    align-items : center;
+
     &.green {
       transition: 0.5s;
-      background-color: #6ED44A;
+      @include roboto-rg(26px);
+      background-color: #6ed44a;
+      color : white;
     }
   }
+
+  .service-input {
+    border-radius: 5px !important;
+    box-shadow: inset 1px 1px 1px 0 $main_gray_btn;
+    width: 15rem;
+    height: 5rem;
+    background-color: white;
+    border: 1px solid gray;
+    @include roboto-th(25px);
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 5px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+}

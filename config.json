@@ -73,6 +73,17 @@
         "audio": "_product/steko/ext/audio",
         "local": "_product/steko/ext/local",
         "product": "_product/steko/ext/product"
+      },
+      "app": {
+        "root":"_product/steko/app/steko/www/",
+        "css": "_product/steko/app/steko/www/css",
+        "html": "_product/steko/app/steko/www/",
+        "js": "_product/steko/app/steko/www/js",
+        "img": "_product/steko/app/steko/www/img",
+        "fonts": "_product/steko/app/steko/www/fonts",
+        "audio": "_product/steko/app/steko/www/audio",
+        "local": "_product/steko/app/steko/www/local",
+        "product": "_product/steko/app/steko/www/product"
       }
     },
     "window": {
@@ -86,6 +97,17 @@
         "audio": "_product/window/site/audio",
         "local": "_product/window/site/local",
         "product": "_product/window/site/product"
+      },
+      "app": {
+        "root":"_product/window/app/windowscalculator/www/",
+        "css": "_product/window/app/windowscalculator/www/css",
+        "html": "_product/window/app/windowscalculator/www/",
+        "js": "_product/window/app/windowscalculator/www/js",
+        "img": "_product/window/app/windowscalculator/www/img",
+        "fonts": "_product/window/app/windowscalculator/www/fonts",
+        "audio": "_product/window/app/windowscalculator/www/audio",
+        "local": "_product/window/app/windowscalculator/www/local",
+        "product": "_product/window/app/windowscalculator/www/product"
       },
       "ext": {
         "root":"_product/window/ext",
@@ -121,6 +143,17 @@
         "audio": "_product/orange/ext/audio",
         "local": "_product/orange/ext/local",
         "product": "_product/orange/ext/product"
+      },
+      "app": {
+        "root":"_product/orange/app/cornerstone/www/",
+        "css": "_product/orange/app/cornerstone/www/css",
+        "html": "_product/orange/app/cornerstone/www/",
+        "js": "_product/orange/app/cornerstone/www/js",
+        "img": "_product/orange/app/cornerstone/www/img",
+        "fonts": "_product/orange/app/cornerstone/www/fonts",
+        "audio": "_product/orange/app/cornerstone/www/audio",
+        "local": "_product/orange/app/cornerstone/www/local",
+        "product": "_product/orange/app/cornerstone/www/product"
       }
     }
   },

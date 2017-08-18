@@ -26,3 +26,7 @@
           input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.MOBILE }}", required)
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.phone.$error.required") {{ ::orderForm.EMPTY_FIELD }}
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.phone.$error.pattern || callMasterForm.phone.$dirty && callMasterForm.phone.$error.pattern") {{ ::orderForm.WRONG_NUMBER }}
+        
+        .input-field
+          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.mail.$error.email") {{ ::orderForm.WRONG_EMAIL }}

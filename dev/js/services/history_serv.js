@@ -132,7 +132,7 @@
           if (GlobalStor.global.onlineMode && navigator.onLine) {
             //noinspection JSAnnotator
             function sendOrder (){
-              GlobalStor.global.isLoader = 1
+              GlobalStor.global.isLoader = 1;
               var check = [];
               check = HistoryStor.history.firstClick.filter(function (item) {
                 return item === orderNum
@@ -529,6 +529,9 @@
                     OrderStor.order.selectedInstalmentPeriod = angular.copy(data[dataQty].name);
                     OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
                     break;
+                  case 4:
+                    OrderStor.order.dismountingName = angular.copy(data[dataQty].name);
+                    break;
                 }
               }
             }
@@ -628,7 +631,7 @@
                     item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
                     item.productPriceDis = (GeneralServ.setPriceDis(
                       item.template_price, OrderStor.order.discount_construct
-                    ) + item.addelemPriceDis);
+                    ) + item.addelemPriceDis + item.service_price_dis );
 
                     OrderStor.order.products.push(item);
                     deferIcon.resolve(1);
@@ -645,7 +648,7 @@
                         item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
                         item.productPriceDis = (GeneralServ.setPriceDis(
                           item.template_price, OrderStor.order.discount_construct
-                        ) + item.addelemPriceDis);
+                        ) + item.addelemPriceDis + item.service_price_dis);
                         if (print) {
                           printProd.push(item);
                           deferIcon.resolve(printProd);
@@ -653,6 +656,7 @@
                           OrderStor.order.products.push(item);
                           deferIcon.resolve(1);
                         }
+                        item.services_price_arr = item.services_price_arr.split(",");
                         //console.log(item, 'item')
                       });
                     });
@@ -790,6 +794,7 @@
           setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
           setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
           setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
+          setOrderOptions(4, OrderStor.order.dismantling_id, GlobalStor.global.disassemblyData);
 
 
           delete OrderStor.order.additional_payment;
@@ -800,8 +805,8 @@
           delete OrderStor.order.batch;
           delete OrderStor.order.base_price;
           delete OrderStor.order.factory_margin;
-          delete OrderStor.order.purchase_price;
-          delete OrderStor.order.sale_price;
+          // delete OrderStor.order.purchase_price;
+          // delete OrderStor.order.sale_price;
           delete OrderStor.order.modified;
           //------ Download All Products of edited Order
           downloadProducts().then(function () {
@@ -842,12 +847,12 @@
                     if (products.construction_type === 4) {
                       ProductStor.product = angular.copy(products);
                       DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
-                        calculateWork(res);
+                        // calculateWork(res);
                         OrderStor.order.products.push(res);
                         _callback();
                       });
                     } else {
-                      calculateWork(products);
+                      // calculateWork(products);
                       OrderStor.order.products.push(products);
                       _callback();
                     }
@@ -862,7 +867,7 @@
                 });
             }
           });
-
+          console.log(OrderStor.order);
         }
 
 

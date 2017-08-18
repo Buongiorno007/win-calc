@@ -11,7 +11,6 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             include parts/_user-info
             button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", ng-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
             //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
-
           .scroll-hor-container
             .order-block
               .order(ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index")
@@ -61,7 +60,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                         span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
                     li.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
-                      .order-value {{cartPage.C.cart.allAddElements[$index].length}}
+                      .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}
                         ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
                         when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
                       .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
@@ -77,6 +76,13 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
                     .order-comment-content {{ cartPage.O.order.comment }}
+              .add-new-product.order(ng-click="cartPage.addNewProductInOrder()")
+                .add-img
+                  |+
+                .title
+                  |Новое изделие
+                .order-footer
+
             button.view-switch-tab(ng-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
           .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
             button.close-cur-window(ng-click="cartPage.C.cart.showCurrentTemp=0")
@@ -85,29 +91,38 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
 
           .discount-container
-            .discount-title {{ ::cartPage.DISCOUNT_SELECT }}
-
-            //.discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")
             .discount-box.selected
-              .discount-data(fs-click="cartPage.openDiscInput(0)", ng-keyup="cartPage.enterKeyPrice(event)")
-                //.disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.C.cart.tempConstructDisc}}%
-                //.disc-input-box(ng-if="cartPage.config.isShowDiscInput")
-                .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
-                input.disc-input.noPreventDefault#disc-input(type="number",value="0", ng-model="cartPage.C.cart.tempConstructDisc")
-                |%
-              .discount-txt(ng-click="cartPage.approveNewDisc(0)")
-                .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
-
-            //.discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
-            .discount-box.selected
-              .discount-data(fs-click="cartPage.openDiscInput(1)", ng-keyup="cartPage.enterKeyDop(event)")
-                //.disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.C.cart.tempAddelemDisc}}%
-                //.disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
-                .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
-                input.disc-input.noPreventDefault#disc-input-add(type="number",value="0", ng-model="cartPage.C.cart.tempAddelemDisc")
-                |%
-              .discount-txt(ng-click="cartPage.approveNewDisc(1)")
-                .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
+              .discount-data
+                label.disc-input.noPreventDefault#disc-input-main {{cartPage.C.cart.averageDisc}}
+                label %
+              .discount-txt-arrow(ng-click="cartPage.toggleDiscount()")
+                .discounts-label {{cartPage.DISCOUNT}}
+                .discounts-icon-down(ng-if="!cartPage.G.global.toggleDiscount")
+                .discounts-icon-up(ng-if="cartPage.G.global.toggleDiscount")
+            .disc(ng-if="cartPage.G.global.toggleDiscount")
+              .discount-box.selected
+                .discount-data(ng-keyup="cartPage.enterKeyPrice(event)")
+                  .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
+                  input.disc-input.noPreventDefault#disc-input(type="number" value="0" ng-model="cartPage.C.cart.tempConstructDisc")
+                  |%
+                .discount-txt(ng-click="cartPage.approveNewDisc(0)")
+                  .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
+              
+              .discount-box.selected
+                .discount-data(ng-keyup="cartPage.enterKeyDop(event)")
+                  .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                  input.disc-input.noPreventDefault#disc-input-add(type="number" value="0" ng-model="cartPage.C.cart.tempAddelemDisc")
+                  |%
+                .discount-txt(ng-click="cartPage.approveNewDisc(1)")
+                  .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
+                  
+              .discount-box.selected
+                .discount-data(ng-keyup="cartPage.enterKeyDopService(event)")
+                  .disc-max(ng-show="cartPage.U.userInfo.discount_service > 100") {{ ::cartPage.MAX }} {{'100'}}%
+                  input.disc-input.noPreventDefault#disc-input-service(type="number" ng-model="cartPage.C.cart.discount_service")
+                  |%
+                .discount-txt(ng-click="cartPage.approveNewDisc(2)")
+                  .discounts-label {{cartPage.DISCOUNT_SERVICE}}
 
 
           .discount-container
@@ -211,11 +226,22 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .addelement-parameters
                   .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
                   .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currency }})
+            .service-block
+              .sb-1(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]")
+                | {{cartPage.SERV1}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]}} {{cartPage.U.userInfo.currency}}
+              .sb-2(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]")
+                | {{cartPage.SERV2}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]}} {{cartPage.U.userInfo.currency}}
+              .sb-3(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]")
+                | {{cartPage.SERV3}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]}} {{cartPage.U.userInfo.currency}}
+              .sb-4(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]")
+                | {{cartPage.SERV4}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]}} {{cartPage.U.userInfo.currency}}
+              .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]")
+                | {{cartPage.OTHER }}- {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}
             .addelements-detail-row.price-one-product
-              .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")
+              .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")
               .product-label {{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}
           .addelements-detail-footer
-            div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+            div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis + cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
             div &#8721;
 
         .backDarkView(ng-if="cartPage.config.isAddElementDetail", fs-click="cartPage.closeAddElementDetail()")

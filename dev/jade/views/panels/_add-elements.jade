@@ -1,6 +1,5 @@
 .config-panel.auxiliaries-container(ng-controller="AddElementsCtrl as elementsPanel", ng-class="{'active': elementsPanel.G.global.activePanel == 6}")
-  .auxiliaries-inner(ng-if="elementsPanel.G.global.activePanel == 6")
-   
+  .auxiliaries-inner
     .auxiliary-item.aux-outside.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}")
       .aux-template2-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 2222")
       .aux-template1-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 1111 || elementsPanel.G.global.typeMenu === 3333 || elementsPanel.G.global.typeMenu === 5555")
@@ -63,11 +62,34 @@
               .aux-label(data-output="{{ ::elementsPanel.HEIGHT_LABEL }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
           .aux-more(ng-show="addElemGroup.length>1") {{ ::elementsPanel.OTHER_ELEMENTS1 }} {{ addElemGroup.length - 1 }} {{ ::elementsPanel.OTHER_ELEMENTS2 }}
 
-    .numberMenu(fs-click="elementsPanel.click(5555)", ng-class="{'green': elementsPanel.config.colorFilter===5555}", id="5555") {{::elementsPanel.ALL}}
-    .numberMenu(fs-click="elementsPanel.click(1111)", ng-class="{'green': elementsPanel.config.colorFilter===1111}", id="1111") {{::elementsPanel.INSIDES}}
-    .numberMenu(fs-click="elementsPanel.click(2222)", ng-class="{'green': elementsPanel.config.colorFilter===2222}", id="2222") {{::elementsPanel.OUTSIDES}}
-    .numberMenu(fs-click="elementsPanel.click(3333)", ng-class="{'green': elementsPanel.config.colorFilter===3333}", id="3333") {{::elementsPanel.COMPONENTS}}
-    .numberMenu(fs-click="elementsPanel.click(4444)", ng-class="{'green': elementsPanel.config.colorFilter===4444}", id="4444") {{::elementsPanel.OTHER}}
+    .numberMenu(fs-click="elementsPanel.click(5555); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===5555}", id="5555") {{::elementsPanel.ALL}}
+    .numberMenu(fs-click="elementsPanel.click(1111); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===1111}", id="1111") {{::elementsPanel.INSIDES}}
+    .numberMenu(fs-click="elementsPanel.click(2222); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===2222}", id="2222") {{::elementsPanel.OUTSIDES}}
+    .numberMenu(fs-click="elementsPanel.click(3333); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===3333}", id="3333") {{::elementsPanel.COMPONENTS}}
+    .numberMenu(fs-click="elementsPanel.click(4444); elementsPanel.G.global.isServiceCalculator = 0; ", ng-class="{'green': elementsPanel.config.colorFilter===4444}", id="4444") {{::elementsPanel.OTHER}}
+    .numberMenu(fs-click="elementsPanel.click(6666)", ng-class="{'green': elementsPanel.config.colorFilter===6666}", id="6666") {{::elementsPanel.SERVICES}}
+
+    .services(ng-if="elementsPanel.G.global.typeMenuID === 6666")
+      .service-block
+        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===0}") {{elementsPanel.SERV1}}
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(0)"  data-bind="click: function() {clearDisplay();}" )
+         | {{elementsPanel.P.product.services_price_arr[0] | number : 2}}
+      .service-block
+        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===1}") {{elementsPanel.SERV2}}
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(1)"  data-bind="click: function() {clearDisplay();}")
+          | {{elementsPanel.P.product.services_price_arr[1] | number : 2}}
+      .service-block
+        .service-type( ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===2}") {{elementsPanel.SERV3}}
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(2)"  data-bind="click: function() {clearDisplay();}")
+          | {{elementsPanel.P.product.services_price_arr[2] | number : 2}}
+      .service-block
+        .service-type(ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===3}") {{elementsPanel.SERV4}}
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(3)"  data-bind="click: function() {clearDisplay();}")
+          | {{elementsPanel.P.product.services_price_arr[3] | number : 2}}
+      .service-block
+        .service-type(ng-class="{ 'green': elementsPanel.G.global.servicesPriceIndex===4}") {{elementsPanel.OTHER}}
+        label.service-input(ng-click="elementsPanel.openServiceCalculator(4)"  data-bind="click: function() {clearDisplay();}")
+          | {{elementsPanel.P.product.services_price_arr[4] | number : 2}}
 
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", fs-click="elementsPanel.showWindowScheme()")
 

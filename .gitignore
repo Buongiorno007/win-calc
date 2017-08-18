@@ -3,11 +3,11 @@ node_modules/
 docs/
 bower_components/
 adminka/
-.sass-cache
+.sass-cache/
 www/
 app/
 app2/
-Cornerstone/
-_product/
-_iosApp/
 .idea/
+.editorconfig
+.DS_Store
+_product/

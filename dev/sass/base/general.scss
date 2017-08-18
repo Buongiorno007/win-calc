@@ -396,6 +396,8 @@ body {
   padding-top: 2rem;
   @extend .scroll-hor;
   @extend .scrolling-container;
+  display : flex;
+  flex-direction : row-reverse
 }
 
 

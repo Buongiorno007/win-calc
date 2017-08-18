@@ -13,7 +13,6 @@ before_script:
 - mkdir -p ~/.ssh
 - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
-
 stages:
   - test
   - build
@@ -37,10 +36,9 @@ deploy_dev:
   script:
   - ssh $SSH_TEST_USERNAME@$SSH_TEST_SERVER "
       cd $PROJECT_TEST_PATH ;
-      git checkout . ;
-      git pull origin $GIT_TEST_BRANCH ;
+      git pull ;
       npm i ;
-      gulp buildWindowSiteTest ; 
+      gulp buildWindowSiteTest ;
       cp -fr $TEST_BUILD_PATH/* $TEST_WEB_PATH "
   only:
     - develop
@@ -52,12 +50,12 @@ deploy_prod:
       git checkout . ;
       git pull origin $GIT_PROD_BRANCH ;
       npm i ;
-      gulp buildWindowSite ; 
+      gulp buildWindowSite ;
       cp -fr $PROD_BUILD_PATH/* $PROD_WEB_PATH "
 #      gulp buildStekoSite ;
 #      scp -r _product/steko/site/* bau@185.65.244.137:/var/www/calculator.steko.com.ua/web "
   only:
-    - master    
+    - master
 clean_up_job:
   stage: clean_up
   script:

@@ -1,20 +1,21 @@
-(function () {
+(function() {
   'use strict';
   /**@ngInject*/
   angular
+
     .module('CartModule')
     .controller('CartCtrl',
 
-      function ($filter,
-                globalConstants,
-                GlobalStor,
-                OrderStor,
-                ProductStor,
-                UserStor,
-                CartStor,
-                CartServ,
-                CartMenuServ,
-                DesignServ) {
+      function($filter,
+        globalConstants,
+        GlobalStor,
+        OrderStor,
+        ProductStor,
+        UserStor,
+        CartStor,
+        CartServ,
+        CartMenuServ,
+        DesignServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.constants = globalConstants;
@@ -28,8 +29,6 @@
           isAddElementDetail: 0,
           isCartLightView: 0,
           detailProductIndex: 0,
-          isShowDiscInput: 0,
-          isShowDiscInputAdd: 0,
           isProductComment: 0,
 
           element: $filter('translate')('add_elements.ELEMENT'),
@@ -59,6 +58,7 @@
         thisCtrl.MAX = $filter('translate')('common_words.MAX');
         thisCtrl.DISCOUNT_WINDOW = $filter('translate')('cart.DISCOUNT_WINDOW');
         thisCtrl.DISCOUNT_ADDELEM = $filter('translate')('cart.DISCOUNT_ADDELEM');
+        thisCtrl.DISCOUNT_SERVICE = $filter('translate')('cart.DISCOUNT_SERVICE');
         thisCtrl.DISCOUNT = $filter('translate')('cart.DISCOUNT');
         thisCtrl.DISCOUNT_WITHOUT = $filter('translate')('cart.DISCOUNT_WITHOUT');
         thisCtrl.DISCOUNT_WITH = $filter('translate')('cart.DISCOUNT_WITH');
@@ -86,6 +86,11 @@
         thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
         thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
 
+        thisCtrl.OTHER = $filter("translate")("add_elements.OTHER");
+        thisCtrl.SERV1 = $filter("translate")("add_elements.SERV1");
+        thisCtrl.SERV2 = $filter("translate")("add_elements.SERV2");
+        thisCtrl.SERV3 = $filter("translate")("add_elements.SERV3");
+        thisCtrl.SERV4 = $filter("translate")("add_elements.SERV4");
         //------- set current Page
         GlobalStor.global.currOpenPage = 'cart';
         OrderStor.order.products = _.sortBy(OrderStor.order.products, 'product_id', '0');
@@ -95,7 +100,9 @@
         //----------- start order price total calculation
         CartMenuServ.calculateOrderPrice();
 
-        //console.log('cart +++++', JSON.stringify(OrderStor.order));
+        CartMenuServ.calculateAverageDisc();
+
+        // console.log('cart +++++', JSON.stringify(OrderStor.order));
         //-------- return from Main Page
         if (GlobalStor.global.prevOpenPage === 'main') {
           //----- cleaning product
@@ -110,7 +117,7 @@
         //============= AddElements detail block
         //------- Show AddElements detail block for product
         function showAddElementDetail(productIndex) {
-          if (CartStor.cart.allAddElements[productIndex].length > 0) {
+          if ((CartStor.cart.allAddElements[productIndex].length > 0) || (coutNull(OrderStor.order.products[productIndex].services_price_arr))) {
             //playSound('switching');
             thisCtrl.config.detailProductIndex = productIndex;
             thisCtrl.config.isAddElementDetail = true;
@@ -148,15 +155,10 @@
           }
         }
 
-        function openDiscInput(type) {
-          //------- discount x add element
-          if (type) {
-            thisCtrl.config.isShowDiscInput = 0;
-            thisCtrl.config.isShowDiscInputAdd = 1;
-          } else {
-            //------- discount x construction
-            thisCtrl.config.isShowDiscInput = 1;
-            thisCtrl.config.isShowDiscInputAdd = 0;
+        function enterKeyDopService(e) {
+          e = e || window.event;
+          if (e.keyCode === 13) {
+            CartMenuServ.approveNewDisc(2)
           }
         }
 
@@ -169,12 +171,34 @@
 
         function showCartTemplte(index) {
           CartStor.cart.curProd = index;
-          setTimeout(function(){ DesignServ.initAllGlassXGlass(); }, 1000);
+          setTimeout(function() {
+            DesignServ.initAllGlassXGlass();
+          }, 1000);
 
           CartStor.cart.showCurrentTemp = 1;
 
         }
 
+        function toggleDiscount() {
+          GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
+        }
+
+
+        $(".scroll-hor-container").resize(function() {
+          console.log(".scroll-hor-container");
+        });
+        $(".order-block").resize(function() {
+          console.log(".order-block");
+        });
+
+
+        function coutNull(arr) {
+          var tmp = 0;
+          arr.forEach(function(entry) {
+            (entry !== 0) ? tmp++ : 0;
+          });
+          return tmp;
+        }
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -185,23 +209,28 @@
         thisCtrl.createProductCopy = CartServ.createProductCopy;
         thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
         thisCtrl.openBox = CartServ.openBox;
+
+
+        thisCtrl.enterKeyPrice = enterKeyPrice;
+        thisCtrl.enterKeyDop = enterKeyDop;
+        thisCtrl.enterKeyDopService = enterKeyDopService;
+        thisCtrl.toggleDiscount = toggleDiscount;
         thisCtrl.showAddElementDetail = showAddElementDetail;
         thisCtrl.closeAddElementDetail = closeAddElementDetail;
         thisCtrl.viewSwitching = viewSwitching;
         thisCtrl.switchProductComment = switchProductComment;
+        thisCtrl.pressEnterInDisc = pressEnterInDisc;
+        thisCtrl.showCartTemplte = showCartTemplte;
+        thisCtrl.coutNull = coutNull;
+
         thisCtrl.box = CartServ.box;
         thisCtrl.fastEdit = CartServ.fastEdit;
-        thisCtrl.enterKeyPrice = enterKeyPrice;
-        thisCtrl.enterKeyDop = enterKeyDop;
-
+        thisCtrl.calculateAverageDisc = CartMenuServ.calculateAverageDisc;
         thisCtrl.showAllAddElements = CartServ.showAllAddElements;
-
         thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
         thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
         thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
-        thisCtrl.openDiscInput = openDiscInput;
-        thisCtrl.pressEnterInDisc = pressEnterInDisc;
-        thisCtrl.showCartTemplte = showCartTemplte;
         thisCtrl.initAllGlassXGlass = DesignServ.initAllGlassXGlass;
+
       });
 })();

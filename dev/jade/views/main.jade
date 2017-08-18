@@ -16,7 +16,8 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
       include panels/_glasses
       include panels/_hardwares
       include panels/_laminations
-      include panels/_add-elements
+      .add-elements-container(ng-if="mainPage.G.global.activePanel == 6")
+        include panels/_add-elements
       include panels/_add-elements-list
       include parts/_grid-selector
       .backDarkView(ng-if="mainPage.G.global.isShowCommentBlock")
@@ -27,6 +28,9 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
         include parts/_size-calculator
       .calculators-box.qty-calculator(ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]")
         include parts/_qty-calculator
+      .calculators-box.serv-calculator(ng-class="{'active': mainPage.G.global.isServiceCalculator}" ng-if="mainPage.G.global.isServiceCalculator")
+        include parts/_serviсe-calculator
+
   include parts/_info-box
   include parts/_attantions
 include parts/_loader
