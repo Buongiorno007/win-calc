@@ -697,6 +697,11 @@
             GlobalStor.global.piece_currencies
           );
         }
+        var works = works_area+works_perimeter+works_piece;
+        var works_dis = GeneralServ.setPriceDis(
+          works,
+          OrderStor.order.discount_construct
+        );
         var deliveryCoeff =
           GlobalStor.global.deliveryCoeff.percents[
             GlobalStor.global.deliveryCoeff.standart_time
@@ -707,10 +712,10 @@
           );
         //playSound('price');
         Product.product_price = GeneralServ.roundingValue(
-          Product.template_price + Product.addelem_price + Product.service_price + works_area + works_perimeter + works_piece
+          Product.template_price + Product.addelem_price + Product.service_price + works
         );
 
-        Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis  + works_area + works_perimeter + works_piece;
+        Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis  + works_dis;
         //------ add Discount of standart delivery day of Plant
         if (deliveryCoeff) {
           Product.productPriceDis = GeneralServ.setPriceDis(
