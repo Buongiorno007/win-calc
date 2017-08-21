@@ -285,6 +285,10 @@
               );
               works += tmp;
             }
+            if (!(GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price)) {
+              var works = 0;
+              var works_dis = 0;
+            }
             templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis - GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
             OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
               OrderStor.order.products[prod].addelem_price, discount
@@ -338,6 +342,16 @@
                 GlobalStor.global.piece_currencies
               );
               works += tmp;
+            }
+            if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
+              var works = works_area + works_perimeter + works_piece;
+              var works_dis = GeneralServ.setPriceDis(
+                works,
+                OrderStor.order.discount_construct
+              );
+            } else {
+              var works = 0;
+              var works_dis = 0;
             }
             tempPrice =
               GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, discount) +
