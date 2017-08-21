@@ -285,12 +285,13 @@
               );
               works += tmp;
             }
-            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis - works;
+            templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis - GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
             OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
               OrderStor.order.products[prod].addelem_price, discount
             );
             OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
-              templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis + works
+              templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis +
+              GeneralServ.setPriceDis(works, OrderStor.order.discount_construct)
             );
 
             addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
@@ -338,10 +339,12 @@
               );
               works += tmp;
             }
-            tempPrice = GeneralServ.setPriceDis(
-              OrderStor.order.products[productQty].template_price, discount
-            ) + OrderStor.order.products[productQty].addelemPriceDis + OrderStor.order.products[productQty].service_price_dis + works;
-            OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
+            tempPrice =
+              GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, discount) +
+              OrderStor.order.products[productQty].addelemPriceDis +
+              OrderStor.order.products[productQty].service_price_dis +
+              GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
+              OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
         }
 
@@ -377,7 +380,8 @@
             OrderStor.order.products[productQty].service_price_dis = GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount);
             tempPrice =
               GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount) +
-              OrderStor.order.products[productQty].addelemPriceDis + works +
+              OrderStor.order.products[productQty].addelemPriceDis +
+              GeneralServ.setPriceDis(works, OrderStor.order.discount_construct) +
               GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, OrderStor.order.discount_construct);
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }

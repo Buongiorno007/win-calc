@@ -14,6 +14,7 @@
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.name.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.phone.$error.required }")
+
           input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.MOBILE }}")
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.phone.$error.required") {{ ::orderForm.EMPTY_FIELD }}
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty && callOrderForm.phone.$error.pattern") {{ ::orderForm.WRONG_NUMBER }}
@@ -23,4 +24,3 @@
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.mail.$error.email") {{ ::orderForm.WRONG_EMAIL }}
 
         button.save.save-order(type="submit") {{ ::orderForm.READY }}
-
