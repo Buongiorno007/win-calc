@@ -93,6 +93,7 @@
           CartStor.cart.isCreditDialog = 1;
         } else {
           CartStor.cart.isOrderDialog = 1;
+            console.log("openOrderDialog");
         }
       }
     }

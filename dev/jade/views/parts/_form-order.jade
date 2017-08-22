@@ -1,4 +1,4 @@
-.cart-dialogs.order-dialog(ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }")
+.cart-dialogs.order-dialog(ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }" ng-if="orderForm.C.cart.isOrderDialog")
   .cart-dialogs-container
     form(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
       .cart-dialog-header

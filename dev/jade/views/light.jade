@@ -534,7 +534,10 @@
             include parts/_qty-calculator
           .calculators-box.serv-calculator(ng-class="{'active': lightPage.G.global.isServiceCalculator}" ng-if="lightPage.G.global.isServiceCalculator")
             include parts/_serviсe-calculator
-    include parts/_form_order_light
+    section.order-forms(ng-controller="OrderFormCtrl as orderForm")
+      include parts/_form-master
+      include parts/_form-order
+      include parts/_form-credit
 include parts/_info-box
 include parts/_attantions
 include parts/_check-doors
