@@ -318,30 +318,27 @@
           var productQty = OrderStor.order.products.length,
             tempPrice;
           while (--productQty > -1) {
-            var works = 0;
+            var works = 0, works_dis = 0, works_area = 0, works_perimeter = 0, works_piece = 0;
             if (GlobalStor.global.area_price) {
-              var tmp = localDB.currencyExgange(
+              var works_area = localDB.currencyExgange(
                 GlobalStor.global.area_price * OrderStor.order.products[productQty].template_square,
                 GlobalStor.global.area_currencies
               );
-              works += tmp;
             }
             if (GlobalStor.global.perimeter_price) {
-              var tmp = localDB.currencyExgange(
+              var works_perimeter = localDB.currencyExgange(
                 GlobalStor.global.perimeter_price *
                 ((OrderStor.order.products[productQty].template_width / 1000 +
                   OrderStor.order.products[productQty].template_height / 1000) *
                   2),
                 GlobalStor.global.perimeter_currencies
               );
-              works += tmp;
             }
             if (GlobalStor.global.piece_price) {
-              var tmp = localDB.currencyExgange(
+              var works_piece = localDB.currencyExgange(
                 GlobalStor.global.piece_price,
                 GlobalStor.global.piece_currencies
               );
-              works += tmp;
             }
             if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
               var works = works_area + works_perimeter + works_piece;
