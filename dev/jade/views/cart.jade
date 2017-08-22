@@ -79,8 +79,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
               .add-new-product.order(ng-click="cartPage.addNewProductInOrder()")
                 .add-img
                   |+
-                .title
-                  |Новое изделие
+                .title {{cartPage.ADD_ORDER}}
                 .order-footer
 
             button.view-switch-tab(ng-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
