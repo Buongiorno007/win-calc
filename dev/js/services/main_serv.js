@@ -676,14 +676,15 @@
       }
 
       function setProductPriceTOTAL(Product) {
+        var works = 0, works_dis = 0, works_area = 0, works_perimeter = 0, works_piece = 0;
         if (GlobalStor.global.area_price) {
-          var works_area = localDB.currencyExgange(
+          works_area = localDB.currencyExgange(
             GlobalStor.global.area_price * Product.template_square,
             GlobalStor.global.area_currencies
           );
         }
         if (GlobalStor.global.perimeter_price) {
-          var works_perimeter = localDB.currencyExgange(
+          works_perimeter = localDB.currencyExgange(
             GlobalStor.global.perimeter_price *
             ((Product.template_width / 1000 +
                 Product.template_height / 1000) *
@@ -692,20 +693,17 @@
           );
         }
         if (GlobalStor.global.piece_price) {
-          var works_piece = localDB.currencyExgange(
+          works_piece = localDB.currencyExgange(
             GlobalStor.global.piece_price,
             GlobalStor.global.piece_currencies
           );
         }
         if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
-          var works = works_area + works_perimeter + works_piece;
-          var works_dis = GeneralServ.setPriceDis(
+          works = works_area + works_perimeter + works_piece;
+          works_dis = GeneralServ.setPriceDis(
             works,
             OrderStor.order.discount_construct
           );
-        } else {
-          var works = 0;
-          var works_dis = 0;
         }
         var deliveryCoeff =
           GlobalStor.global.deliveryCoeff.percents[
