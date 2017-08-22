@@ -717,7 +717,6 @@
         Product.product_price = GeneralServ.roundingValue(
           Product.template_price + Product.addelem_price + Product.service_price + works
         );
-        console.log(works , works_dis , works_area , works_perimeter , works_piece);
         Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis + works_dis;
         //------ add Discount of standart delivery day of Plant
         if (deliveryCoeff) {
