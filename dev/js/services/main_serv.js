@@ -686,7 +686,7 @@
           var works_perimeter = localDB.currencyExgange(
             GlobalStor.global.perimeter_price *
             ((Product.template_width / 1000 +
-              Product.template_height / 1000) *
+                Product.template_height / 1000) *
               2),
             GlobalStor.global.perimeter_currencies
           );
@@ -696,6 +696,16 @@
             GlobalStor.global.piece_price,
             GlobalStor.global.piece_currencies
           );
+        }
+        if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
+          var works = works_area + works_perimeter + works_piece;
+          var works_dis = GeneralServ.setPriceDis(
+            works,
+            OrderStor.order.discount_construct
+          );
+        } else {
+          var works = 0;
+          var works_dis = 0;
         }
         var deliveryCoeff =
           GlobalStor.global.deliveryCoeff.percents[
@@ -707,10 +717,10 @@
           );
         //playSound('price');
         Product.product_price = GeneralServ.roundingValue(
-          Product.template_price + Product.addelem_price + Product.service_price + works_area + works_perimeter + works_piece
+          Product.template_price + Product.addelem_price + Product.service_price + works
         );
 
-        Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis  + works_area + works_perimeter + works_piece;
+        Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis + works_dis;
         //------ add Discount of standart delivery day of Plant
         if (deliveryCoeff) {
           Product.productPriceDis = GeneralServ.setPriceDis(
@@ -718,7 +728,6 @@
             deliveryCoeff
           );
         }
-
 
         GlobalStor.global.tempPrice =
           Product.productPriceDis * GlobalStor.global.product_qty;
@@ -755,12 +764,14 @@
         GlobalStor.global.isZeroPriceList = [];
         localDB.calculationPrice(obj).then(function(result) {
           result.constrElements.forEach(function(entry) {
+            // console.log(entry);
             if (entry.element_group_id !== 8) {
               if (entry.priceReal === 0 || entry.price === 0) {
                 GlobalStor.global.isZeroPriceList.push(entry.name);
               }
             }
           });
+
           var priceObj = angular.copy(result),
             priceMargin,
             doorData,
@@ -774,6 +785,24 @@
                   ProductStor.product.doorLock.elem
                 )
                 .then(function(doorResult) {
+                  GlobalStor.global.isZeroPriceList = [];
+                  console.log(doorResult);
+                  doorResult.consistElem.forEach(function(entry) {
+                    // console.log(entry);
+                    if (entry.element_group_id !== 8) {
+                      if (entry.priceReal === 0 || entry.price === 0) {
+                        GlobalStor.global.isZeroPriceList.push(entry.name);
+                      }
+                    }
+                  });
+                  doorResult.elements.forEach(function(entry) {
+                    // console.log(entry);
+                    if (entry.element_group_id !== 8) {
+                      if (entry.priceReal === 0 || entry.price === 0) {
+                        GlobalStor.global.isZeroPriceList.push(entry.name);
+                      }
+                    }
+                  });
                   doorData = angular.copy(doorResult);
                   priceObj.priceTotal += doorData.priceTot;
                   priceObj.constrElements = priceObj.constrElements.concat(

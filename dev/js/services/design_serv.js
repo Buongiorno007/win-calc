@@ -967,7 +967,7 @@
         function selectHandle(id, product) {
           (id) ? id = id : id = DesignStor.design.handleShapeList[0].id;
           var pnt = checkSize(DesignStor.design.templateTEMP, 4);
-          console.log(pnt);
+          // console.log(pnt);
           var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
           var array = [];
           if (!DesignStor.design.steps.selectedStep4) {
