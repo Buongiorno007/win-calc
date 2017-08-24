@@ -678,7 +678,6 @@
 
             function setProductPriceTOTAL(Product) {
                 var works = 0, works_dis = 0, works_area = 0, works_perimeter = 0, works_piece = 0;
-                console.log(GlobalStor.global.screw);
                 if (GlobalStor.global.area_price) {
                     works_area = localDB.currencyExgange(
                         GlobalStor.global.area_price * Product.template_square,

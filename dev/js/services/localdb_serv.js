@@ -3435,7 +3435,7 @@
                 var deffMain = $q.defer(),
                     priceObj = {},
                     finishPriceObj = {};
-                var tmp;
+                var tmp = 0;
                 GlobalStor.global.screw = 0;
                 if (!ProductStor.product.hardware.id) {
                     if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
@@ -3445,32 +3445,34 @@
                                 {id: 416611},
                                 "id, sku, currency_id, price, name, element_group_id"
                             ).then(function (result) {
-                                tmp = result;
-                                tmp[0].qty = 1;
-                                /**
-                                 от 2 до 2,99 кв.м. - 1 шуруп (lists_id: 314229)
-                                 от 3 до 3,99 кв.м. - 1,5 шурупа (lists_id: 314294)
-                                 от 4 до 4,99 кв.м. - 2 шурупа (lists_id: 314295)
-                                 от 5 до 10000 кв.м. - 2,5 шурупа (lists_id: 314296)*/
-                                if (ProductStor.product.template_square >= 2 && ProductStor.product.template_square < 3) {
+                                if (result) {
+                                    tmp = result;
                                     tmp[0].qty = 1;
+                                    /**
+                                     от 2 до 2,99 кв.м. - 1 шуруп (lists_id: 314229)
+                                     от 3 до 3,99 кв.м. - 1,5 шурупа (lists_id: 314294)
+                                     от 4 до 4,99 кв.м. - 2 шурупа (lists_id: 314295)
+                                     от 5 до 10000 кв.м. - 2,5 шурупа (lists_id: 314296)*/
+                                    if (ProductStor.product.template_square >= 2 && ProductStor.product.template_square < 3) {
+                                        tmp[0].qty = 1;
+                                    }
+                                    if (ProductStor.product.template_square >= 3 && ProductStor.product.template_square < 4) {
+                                        tmp[0].qty = 1.5;
+                                    }
+                                    if (ProductStor.product.template_square >= 4 && ProductStor.product.template_square < 5) {
+                                        tmp[0].qty = 2;
+                                    }
+                                    if (ProductStor.product.template_square >= 5) {
+                                        tmp[0].qty = 2.5;
+                                    }
+                                    tmp[0].size = 0;
+                                    tmp[0].sizeLabel = 0;
+                                    tmp[0].priceReal = currencyExgange(
+                                        tmp[0].price,
+                                        tmp[0].currency_id
+                                    ) * tmp[0].qty;
+                                    GlobalStor.global.screw = tmp[0].priceReal;
                                 }
-                                if (ProductStor.product.template_square >= 3 && ProductStor.product.template_square < 4) {
-                                    tmp[0].qty = 1.5;
-                                }
-                                if (ProductStor.product.template_square >= 4 && ProductStor.product.template_square < 5) {
-                                    tmp[0].qty = 2;
-                                }
-                                if (ProductStor.product.template_square >= 5) {
-                                    tmp[0].qty = 2.5;
-                                }
-                                tmp[0].size = 0;
-                                tmp[0].sizeLabel = 0;
-                                tmp[0].priceReal = currencyExgange(
-                                    tmp[0].price,
-                                    tmp[0].currency_id
-                                ) * tmp[0].qty;
-                                GlobalStor.global.screw = tmp[0].priceReal;
                             });
                         }
                     }
@@ -3507,7 +3509,9 @@
                                 if (!ProductStor.product.hardware.id) {
                                     if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
                                         if (ProductStor.product.template_square >= 2) {
-                                            priceObj.constrElements.push(tmp[0]);
+                                            if (tmp[0]) {
+                                                priceObj.constrElements.push(tmp[0]);
+                                            }
                                         }
                                     }
                                 }
