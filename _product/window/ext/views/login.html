@@ -1,0 +1,181 @@
+
+<section class="login-page">
+  <div id="login-container" ng-hide="loginPage.isRegistration" fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0" class="login-container">
+    <div ng-hide="loginPage.isOnline || !loginPage.isOffline" class="attantion">{{ ::loginPage.OFFLINE }}
+      <button fs-click="loginPage.closeOfflineAlert()" class="inet_ok">{{ ::loginPage.OK }}</button>
+    </div>
+    <div ng-if="loginPage.isSendEmail" class="attantion">        {{ ::loginPage.USER_CHECK_EMAIL }}</div>
+    <div ng-if="loginPage.isUserNotExist" class="attantion">     {{ ::loginPage.USER_NOT_EXIST }}</div>
+    <div ng-if="loginPage.isUserNotActive" class="attantion">    {{ ::loginPage.USER_NOT_ACTIVE }}</div>
+    <div ng-if="loginPage.isUserPasswordError" class="attantion">{{ ::loginPage.USER_PASSWORD_ERROR }}</div>
+    <div ng-if="loginPage.isStartImport" class="attantion">      {{ ::loginPage.IMPORT_DB }}</div>
+    <div ng-if="loginPage.isOfflineImport" class="attantion">    {{ ::loginPage.OFFLINE_IMPORT }}</div>
+    <div ng-if="loginPage.unexpectedError" class="attantion unexpectedError">    {{ ::loginPage.UNEXPECTED_ERROR }}</div>
+    <div class="logo"></div>
+    <div ng-click="loginPage.gotoSettingsPage()" id="jssj" class="lang"></div>
+    <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
+        <input type="text" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.LOGIN }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
+      </div>
+      <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; loginForm.password.$error.required }" class="input-field">
+        <input type="password" name="password" ng-model="loginPage.user.password" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.PASSWORD }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.pattern || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
+      </div>
+      <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
+    </form>
+    <div class="i">
+      <label fs-click="loginPage.isAutoSyncInfo = 0;" class="updateDB">
+        <input id="updateDBcheck" type="checkbox" name="updateDB" value="val">{{ ::loginPage.AUTO_SYNCHRONIZE }}
+      </label>
+      <div ng-if="loginPage.isAutoSyncInfo" fs-click="loginPage.isAutoSyncInfo = 0;" class="attantion">    {{ loginPage.SYNCHRONIZE_INFO }}</div>
+      <div fs-click="loginPage.isAutoSyncInfo = 1;" class="i-info">i</div>
+    </div>
+    <!--button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}-->
+    <div ng-show="loginPage.isFactoryId" fs-click="loginPage.isFactoryNotSelect = 0;" class="factory_box">
+      <div ng-show="loginPage.isFactoryNotSelect" class="attantion">{{ ::loginPage.SELECT_FACTORY }}</div>
+      <button type="button" fs-click="loginPage.closeFactoryDialog()" class="close_dialog"></button>
+      <div class="factory_title">{{ ::loginPage.SELECT_PRODUCER }}</div>
+      <div class="factory_list">
+        <table class="factory_table">
+          <tr ng-repeat="factory in loginPage.factories track by $index" class="factory_item">
+            <td class="factory_select">
+              <input type="radio" name="factory" ng-model="loginPage.user.factoryId" ng-value="factory.id" class="radio-field">
+            </td>
+            <td class="factory_name">{{ factory.name }}</td>
+            <td class="factory_place">{{ factory.location }}</td>
+          </tr>
+        </table>
+      </div>
+      <button fs-click="loginPage.selectFactory()" class="login-submit">{{ ::loginPage.SELECT }}</button>
+    </div>
+  </div>
+  <div ng-show="loginPage.isRegistration" fs-click="loginPage.isUserExist = 0;" class="login-container">
+    <button type="button" fs-click="loginPage.closeRegistration()" class="close_dialog"></button>
+    <div ng-show="loginPage.isUserExist" class="attantion">{{ ::loginPage.USER_EXIST }}</div>
+    <div class="logo"></div>
+    <form name="registrForm" novalidate ng-submit="loginPage.registrForm(registrForm)">
+      <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.name.$error.required }" class="input-field">
+        <input type="text" name="name" ng-model="loginPage.user.name" ng-pattern="loginPage.consts.REG_NAME" ng-minlength="3" placeholder="{{ ::loginPage.CLIENT_NAME }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.pattern || registrForm.name.$dirty &amp;&amp; registrForm.name.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_NAME }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.minlength || registrForm.name.$dirty &amp;&amp; registrForm.name.$error.minlength" class="error-tooltip">{{ ::loginPage.SHORT_NAME }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.phone.$error.required }" class="input-field">
+        <input type="text" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.LOGIN }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.pattern || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }" class="input-field">
+        <select name="country" ng-model="loginPage.user.country" ng-options="country.name for country in loginPage.G.global.locations.countries | orderBy:'name'" ng-change="loginPage.selectLocation()" required class="user-select-field">
+          <option value="">{{ ::loginPage.SELECT_COUNTRY }}</option>
+        </select>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.country.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.region.$error.required, 'placeholder-select': !loginPage.user.region }" class="input-field">
+        <select name="region" ng-model="loginPage.user.region" ng-options="region.name for region in loginPage.G.global.locations.regions | filter: {countryId: loginPage.user.country.id}:true | orderBy:'name'" ng-change="loginPage.selectLocation()" ng-disabled="!loginPage.user.country" required class="user-select-field">
+          <option value="">{{ ::loginPage.SELECT_REGION }}</option>
+        </select>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.region.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.city.$error.required, 'placeholder-select': !loginPage.user.city }" class="input-field">
+        <select name="city" ng-model="loginPage.user.city" ng-options="city.cityName for city in loginPage.G.global.locations.cities | filter: {regionId: loginPage.user.region.id}:true | orderBy:'cityName'" ng-change="loginPage.selectLocation()" ng-disabled="!loginPage.user.region" required class="user-select-field">
+          <option value="">{{ ::loginPage.SELECT_CITY }}</option>
+        </select>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.city.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+      </div>
+      <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.mail.$error.required }" class="input-field">
+        <input type="email" name="mail" ng-model="loginPage.user.mail" ng-pattern="loginPage.consts.REG_MAIL" placeholder="{{ ::loginPage.CLIENT_EMAIL }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.email" class="error-tooltip">{{ ::loginPage.WRONG_EMAIL }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.pattern || registrForm.mail.$dirty &amp;&amp; registrForm.mail.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_EMAIL }}</div>
+      </div>
+      <button type="submit" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
+    </form>
+  </div>
+  <div ng-if="loginPage.isFactoryId" class="backDarkView"></div>
+  <div ng-if="loginPage.isOffline" class="backDarkView"></div>
+</section>
+<div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
+  <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  <div ng-show="loadBox.G.global.loader !== 2" class="loader-counter">{{loadBox.G.global.isLoader2 + '%'}}</div>
+</div>
+<div class="slider">
+  <div id="featured" ng-if="loginPage.G.global.startSlider"><img src="./img/orbit/1.png" alt="img"><img src="./img/orbit/2.png" alt="img" rel=""><img src="./img/orbit/3.png" alt="img" rel="test"><img src="./img/orbit/4.png" alt="img" rel=""><img src="./img/orbit/5.png" alt="img" rel=""></div>
+</div>
+<!---->
+<!--  span#test.orbit-caption-->
+<!--    | Информация про акции-->
+<!--    |  уже на сайте -->
+<!--    a(href='http://windowscalculator.net/help/ru/', target='_blank', style='color: #fff') link-->
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page">
+          <div fs-click="alertBox.isAlert()" class="order-delete"></div>
+        </section>
+      </div>
+      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
+      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
+      <button ng-click="alertBox.isAlert()" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="main-page"></section>
+      </div>
+      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page"></section>
+      </div>
+      <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <button ng-click="alertBox.noSync()" ng-show="loginPage.G.global.isSyncAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.syncNow()" ng-show="loginPage.G.global.isSyncAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <!--button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}-->
+      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>

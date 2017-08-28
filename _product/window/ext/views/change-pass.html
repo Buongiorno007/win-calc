@@ -1,0 +1,32 @@
+
+<section class="settings password-page">
+  <div class="header">
+    <button fs-click="passwordPage.gotoSettingsPage()" class="back"></button>
+    <div data-output="{{ ::passwordPage.CHANGE_PASSWORD }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="title"></div>
+    <button fs-click="passwordPage.saveNewPassword()" class="save">{{ ::passwordPage.SAVE }}</button>
+  </div>
+  <div class="psw-container">
+    <div class="lists">
+      <form name="passForm">
+        <ul class="list">
+          <li class="item">
+            <div data-output="{{ ::passwordPage.CURRENT_PASSWORD }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="psw-label"></div>
+            <input type="password" name="oldPassword" ng-model="passwordPage.config.oldPassword" ng-change="passwordPage.checkErrorOld()" class="set-input-txt">
+            <div ng-show="passwordPage.config.isErrorOldPassword" class="error-tooltip">{{ ::passwordPage.NO_CONFIRM_PASS }}</div>
+          </li>
+          <li class="item">
+            <div data-output="{{ ::passwordPage.NEW_PASSWORD }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="psw-label"></div>
+            <input type="password" name="newPassword" ng-model="passwordPage.config.newPassword" ng-pattern="passwordPage.consts.REG_LOGIN" class="set-input-txt">
+            <div ng-show="passwordPage.newPassword.$error.pattern || passwordPage.newPassword.$dirty &amp;&amp; passwordPage.newPassword.$error.pattern" class="error-tooltip">{{ ::passwordPage.WRONG_LOGIN }}</div>
+          </li>
+          <li class="item">
+            <div data-output="{{ ::passwordPage.CONFIRM_PASSWORD }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="psw-label"></div>
+            <input type="password" name="confirmPassword" ng-model="passwordPage.config.confirmPassword" ng-pattern="passwordPage.consts.REG_LOGIN" ng-change="passwordPage.checkError()" class="set-input-txt">
+            <div ng-show="passwordPage.config.isErrorPassword" class="error-tooltip">{{ ::passwordPage.NO_CONFIRM_PASS }}</div>
+            <div ng-show="passwordPage.confirmPassword.$error.pattern || passwordPage.confirmPassword.$dirty &amp;&amp; passwordPage.confirmPassword.$error.pattern" class="error-tooltip">{{ ::passwordPage.WRONG_LOGIN }}</div>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+</section>
