@@ -286,11 +286,6 @@
 
         }
 
-        function deleteOption() {
-          //$("#deleteOption").remove();
-          //$(".period-of-time").val();
-        }
-
         function makeOrderCopy(orderStyle, orderNum, typeOrder) {
           GlobalStor.global.isLoader = 1;
           HistoryStor.history.orderOk = 0;
@@ -1358,7 +1353,6 @@
           sortingInit: sortingInit,
           reqResult: reqResult,
           synchronizeOrders: synchronizeOrders,
-          deleteOption: deleteOption,
           testFunc: testFunc,
           closeDeviceReport: closeDeviceReport
         };

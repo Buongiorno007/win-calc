@@ -94,7 +94,6 @@
     thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
     thisCtrl.editOrder = HistoryServ.editOrder;
     thisCtrl.orderPrint = HistoryServ.orderPrint;
-    thisCtrl.deleteOption = HistoryServ.deleteOption;
     thisCtrl.viewSwitching = HistoryServ.viewSwitching;
     thisCtrl.orderSearching = HistoryServ.orderSearching;
     thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
