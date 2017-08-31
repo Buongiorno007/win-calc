@@ -38,7 +38,7 @@
         .title(data-output="{{::cartMenu.DIS_ASSEMBLING}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
           .value(ng-show="!cartMenu.O.order.dismantling_id", data-output="{{ ::cartMenu.WITHOUT_DIS_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          .value(ng-show="cartMenu.O.order.dismantling_id", data-output="{{ ::cartMenu.O.order.dismantling_name }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="cartMenu.O.order.dismantling_id", data-output="{{ cartMenu.O.order.dismantling_name }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-show="cartMenu.O.order.dismantling_id", data-output=" + {{ cartMenu.O.order.dismantling_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 7 && cartMenu.G.global.disassemblyData.length}")
         ul.dropdown-items-list
