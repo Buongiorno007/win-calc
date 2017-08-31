@@ -53,6 +53,10 @@
     @include display-flex();
     @include flex-flow(row wrap);
     @include align-items(center);
+    .value {
+      display : inline;
+      width : 25rem;
+    }
   }
   .check-switcher {
     @include display-flex();
