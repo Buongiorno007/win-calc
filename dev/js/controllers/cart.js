@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
   /**@ngInject*/
   angular
@@ -6,16 +6,16 @@
     .module('CartModule')
     .controller('CartCtrl',
 
-      function($filter,
-        globalConstants,
-        GlobalStor,
-        OrderStor,
-        ProductStor,
-        UserStor,
-        CartStor,
-        CartServ,
-        CartMenuServ,
-        DesignServ) {
+      function ($filter,
+                globalConstants,
+                GlobalStor,
+                OrderStor,
+                ProductStor,
+                UserStor,
+                CartStor,
+                CartServ,
+                CartMenuServ,
+                DesignServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.constants = globalConstants;
@@ -112,6 +112,7 @@
         if (!GlobalStor.global.orderEditNumber) {
           CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
         }
+
         /**============ METHODS ================*/
 
         //============= AddElements detail block
@@ -171,7 +172,7 @@
 
         function showCartTemplte(index) {
           CartStor.cart.curProd = index;
-          setTimeout(function() {
+          setTimeout(function () {
             DesignServ.initAllGlassXGlass();
           }, 1000);
 
@@ -184,21 +185,24 @@
         }
 
 
-        $(".scroll-hor-container").resize(function() {
+        $(".scroll-hor-container").resize(function () {
           console.log(".scroll-hor-container");
         });
-        $(".order-block").resize(function() {
+        $(".order-block").resize(function () {
           console.log(".order-block");
         });
 
 
         function coutNull(arr) {
           var tmp = 0;
-          arr.forEach(function(entry) {
-            (entry !== 0) ? tmp++ : 0;
-          });
+          if (arr) {
+            arr.forEach(function (entry) {
+              (entry !== 0) ? tmp++ : 0;
+            });
+          }
           return tmp;
         }
+
         /**========== FINISH ==========*/
 
         //------ clicking

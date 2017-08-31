@@ -519,6 +519,8 @@
                         " factory_id INTEGER," +
                         " purchase_price NUMERIC(10, 2)," +
                         " sale_price NUMERIC(10, 2)," +
+                        " delivery_add NUMERIC(10, 2)," +
+                        " delivery_garbage_removal NUMERIC(10, 2)," +
                         " climatic_zone INTEGER," +
                         " heat_coef_min NUMERIC," +
                         " products_qty INTEGER," +

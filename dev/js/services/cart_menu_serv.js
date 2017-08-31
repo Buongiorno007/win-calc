@@ -147,8 +147,16 @@
           //OrderStor.order.order_price = GeneralServ.roundingValue(
           // OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
           OrderStor.order.order_price = OrderStor.order.products_price;
+
+
           OrderStor.order.order_price_dis = GeneralServ.roundingValue(
-            OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price + OrderStor.order.dismantling_price + OrderStor.order.sale_price
+            OrderStor.order.productsPriceDis +
+            OrderStor.order.floor_price +
+            OrderStor.order.mounting_price +
+            OrderStor.order.dismantling_price +
+            OrderStor.order.sale_price +
+            OrderStor.order.delivery_garbage_removal +
+            OrderStor.order.delivery_add
           );
           //----- save primary total price
           OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
@@ -204,6 +212,7 @@
               OrderStor.order.floor_price = 0;
               OrderStor.order.delivery_user_id = 0;
             }
+
             calculateTotalOrderPrice();
           }
         }

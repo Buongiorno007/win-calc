@@ -17,6 +17,16 @@
             .dropdown-item-inner
               .value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
               .name.drop-txt + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
+          li.dropdown-item
+            .dropdown-item-inner
+              .value.drop-txt Доставка
+              input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.calculateOrderPrice()")
+              .name.drop-txt {{ cartMenu.U.userInfo.currency }}
+          li.dropdown-item
+            .dropdown-item-inner
+              .value.drop-txt Вывоз мусора
+              input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()")
+              .name.drop-txt {{ cartMenu.U.userInfo.currency }}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 7, 'hov': cartMenu.config.activeMenuItem !== 7}", fs-click="cartMenu.selectMenuItem(7)")
         .title(data-output="{{::cartMenu.DIS_ASSEMBLING}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -53,15 +63,6 @@
               .value.drop-txt {{ assemb.name }}
               .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
 
-
-      //li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 4, 'hov': cartMenu.config.activeMenuItem !== 4}", fs-click="cartMenu.selectMenuItem(4)")
-      //  .title(data-output="{{ ::cartMenu.DELIVERY_DATE }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-      //  .value(data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-      //.dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 4}")
-      //  calendar.calendar-box
-      //.calendar-prices
-      //  .calendar-price.up(ng-show="cartMenu.O.order.is_date_price_more") + {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
-      //  .calendar-price.down(ng-show="cartMenu.O.order.is_date_price_less") - {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 6, 'hov': cartMenu.config.activeMenuItem !== 6}", fs-click="cartMenu.selectMenuItem(6)")
         .title(data-output="{{ cartMenu.ADD_SERVICES }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
