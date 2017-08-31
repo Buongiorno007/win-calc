@@ -98,6 +98,8 @@
             customer_occupation: 0,
             customer_infoSource: 0,
             sale_price: 0,
+            delivery_add : 0,
+            delivery_garbage_removal : 0,
             order_edit: 0
           },
 
