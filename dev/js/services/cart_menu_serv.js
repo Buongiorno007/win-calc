@@ -233,15 +233,16 @@
             calculateTotalOrderPrice();
           }
         }
+
         function selectDisAssembling(currAssemb) {
           if (OrderStor.order.dismantling_id !== currAssemb.id) {
             OrderStor.order.dismantling_id = currAssemb.id;
             if (currAssemb.id) {
-              OrderStor.order.dismountingName = currAssemb.name;
+              OrderStor.order.dismantling_name = currAssemb.name;
               OrderStor.order.dismantling_price = currAssemb.priceReal;
               OrderStor.order.dismantling_user_id = currAssemb.user_id;
             } else {
-              OrderStor.order.dismountingName = '';
+              OrderStor.order.dismantling_name = '';
               OrderStor.order.dismantling_price = 0;
               OrderStor.order.dismantling_user_id = 0;
               OrderStor.order.dismantling_id = 0;
@@ -249,6 +250,7 @@
             calculateTotalOrderPrice();
           }
         }
+
         function selectInstalment(id, period, percent) {
           if (OrderStor.order.instalment_id !== id) {
             OrderStor.order.is_instalment = 1;
@@ -364,7 +366,7 @@
               OrderStor.order.products[productQty].addelemPriceDis +
               OrderStor.order.products[productQty].service_price_dis +
               GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
-              OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
+            OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
           }
         }
 
