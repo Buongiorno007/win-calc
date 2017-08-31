@@ -36,6 +36,7 @@
 
     //------- translate
     thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.GARBAGE_REMOVE = $filter('translate')('cart.GARBAGE_REMOVE');
     thisCtrl.SELF_EXPORT = $filter('translate')('cart.SELF_EXPORT');
     thisCtrl.FLOOR = $filter('translate')('cart.FLOOR');
     thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');

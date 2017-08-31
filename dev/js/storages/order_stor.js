@@ -58,6 +58,7 @@
             mountingName: '',
             mounting_price: 0,
             dismantling_id: 0,
+            dismantling_name: '',
             dismantling_price: 0,
             is_instalment: 0,
             instalment_id: 0,

@@ -2020,7 +2020,7 @@
                     delete orderData.products;
                     delete orderData.floorName;
                     delete orderData.mountingName;
-                    delete orderData.dismountingName;
+                    delete orderData.dismantling_name;
                     delete orderData.selectedInstalmentPeriod;
                     delete orderData.selectedInstalmentPercent;
                     delete orderData.productsPriceDis;
