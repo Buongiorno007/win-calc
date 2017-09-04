@@ -7,6 +7,7 @@
       $filter,
       GlobalStor,
       DesignStor,
+      UserStor,
       AddElementMenuServ,
       DesignServ,
       EditAddElementCartServ
@@ -15,6 +16,7 @@
       var thisCtrl = this;
       thisCtrl.isDesignPage = false;
       thisCtrl.D = DesignStor;
+      thisCtrl.U = UserStor;
 
       //------- translate
       thisCtrl.MIN = $filter("translate")("common_words.MIN");
