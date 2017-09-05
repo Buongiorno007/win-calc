@@ -178,6 +178,7 @@
       thisCtrl.WIDTH_LABEL = $filter("translate")("add_elements.WIDTH_LABEL");
       thisCtrl.HEIGHT_LABEL = $filter("translate")("add_elements.HEIGHT_LABEL");
       thisCtrl.MM = $filter("translate")("mainpage.MM");
+      thisCtrl.INCH = $filter('translate')('mainpage.INCH');
       // $( "*" ).click(function() {
       //
       // });
