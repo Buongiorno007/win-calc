@@ -85,6 +85,7 @@
     },
   "mainpage": {
     "MM": " мм ",
+    "INCH": " дюйм ",
     "CLIMATE_ZONE": "климатическая зона",
     "HEAT_TRANSFER": "теплопередачa",
     "HEAT_TRANSFER_RESISTANCE": "сопротивление теплопередаче",

@@ -92,6 +92,7 @@
   },
   "mainpage": {
     "MM": " mm ",
+    "INCH": " '' ",
     "CLIMATE_ZONE": "climatic area",
     "HEAT_TRANSFER": "heat transfer",
     "HEAT_TRANSFER_RESISTANCE": "resistance to heat transfer",

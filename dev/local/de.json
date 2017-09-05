@@ -91,6 +91,7 @@
   },
   "mainpage": {
     "MM": " mm ",
+    "INCH": " '' ",
     "CLIMATE_ZONE": "Die Klimazone",
     "HEAT_TRANSFER": "Wärmeübertragung",
     "HEAT_TRANSFER_RESISTANCE": "Wärmeübergangswiderstand",

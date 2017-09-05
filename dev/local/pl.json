@@ -84,6 +84,7 @@
     },
   "mainpage": {
     "MM": " mm ",
+    "INCH": " '' ",
     "CLIMATE_ZONE": "Strefa klimatyczna",
     "HEAT_TRANSFER": "przenikania ciepła",
     "HEAT_TRANSFER_RESISTANCE": "opór przejmowania ciepła",
