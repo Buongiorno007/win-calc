@@ -133,7 +133,7 @@
 
         function checkForAddElem(go_to_cart) {
           //console.log(ProductStor.product);
-          // ProductStor.product.template_source.report = ProductStor.product.report;
+          ProductStor.product.template_source.report = ProductStor.product.report;
           if (!GlobalStor.global.isZeroPriceList.length) {
             if (!ProductStor.product.is_addelem_only) {
               alert();

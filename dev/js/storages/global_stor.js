@@ -192,7 +192,6 @@
                     setDefaultGlobal: setDefaultGlobal
                 };
                 thisFactory.publicObj.global = setDefaultGlobal();
-
                 return thisFactory.publicObj;
 
             });
