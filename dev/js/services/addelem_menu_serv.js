@@ -707,9 +707,9 @@
             /** calc Price previous parameter and close caclulators */
             finishCalculators();
           }
+          console.log(typeId, elementId);
           /**------- if grid delete --------*/
-          if (AuxStor.aux.isFocusedAddElement === 1 || AuxStor.aux.isAddElementListView) {
-
+          if (!typeId && AuxStor.aux.isAddElementListView) {
             deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
           }
           ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
