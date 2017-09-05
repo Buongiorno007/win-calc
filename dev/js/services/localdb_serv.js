@@ -3428,7 +3428,7 @@
                 GlobalStor.global.screw = 0;
                 if (!ProductStor.product.hardware.id) {
                     if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
-                        if (ProductStor.product.template_square >= 2) {
+                        if (ProductStor.product.template_square >= 1) {
                             selectLocalDB(
                                 tablesLocalDB.elements.tableName,
                                 {id: 416611},
@@ -3437,11 +3437,9 @@
                                 if (result) {
                                     tmp = result;
                                     tmp[0].qty = 1;
-                                    /**
-                                     от 2 до 2,99 кв.м. - 1 шуруп (lists_id: 314229)
-                                     от 3 до 3,99 кв.м. - 1,5 шурупа (lists_id: 314294)
-                                     от 4 до 4,99 кв.м. - 2 шурупа (lists_id: 314295)
-                                     от 5 до 10000 кв.м. - 2,5 шурупа (lists_id: 314296)*/
+                                    if (ProductStor.product.template_square >= 1 && ProductStor.product.template_square < 2) {
+                                        tmp[0].qty = 0.5;
+                                    }
                                     if (ProductStor.product.template_square >= 2 && ProductStor.product.template_square < 3) {
                                         tmp[0].qty = 1;
                                     }
@@ -3460,6 +3458,7 @@
                                         tmp[0].price,
                                         tmp[0].currency_id
                                     ) * tmp[0].qty;
+                                    console.log(tmp[0].priceReal);
                                     GlobalStor.global.screw = tmp[0].priceReal;
                                 }
                             });
@@ -3497,7 +3496,7 @@
                                 );
                                 if (!ProductStor.product.hardware.id) {
                                     if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
-                                        if (ProductStor.product.template_square >= 2) {
+                                        if (ProductStor.product.template_square >= 1) {
                                             if (tmp[0]) {
                                                 priceObj.constrElements.push(tmp[0]);
                                             }
