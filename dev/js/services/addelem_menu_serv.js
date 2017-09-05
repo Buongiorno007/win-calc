@@ -707,7 +707,7 @@
             /** calc Price previous parameter and close caclulators */
             finishCalculators();
           }
-          console.log(typeId, elementId);
+          console.log(GlobalStor.global.isFocusedAddElement);
           /**------- if grid delete --------*/
           if (!typeId) {
             deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
