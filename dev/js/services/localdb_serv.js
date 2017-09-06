@@ -3458,7 +3458,6 @@
                                         tmp[0].price,
                                         tmp[0].currency_id
                                     ) * tmp[0].qty;
-                                    console.log(tmp[0].priceReal);
                                     GlobalStor.global.screw = tmp[0].priceReal;
                                 }
                             });

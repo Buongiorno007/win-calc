@@ -90,6 +90,7 @@
   },
   "mainpage": {
     "MM": " mm ",
+    "INCH": " '' ",
     "CLIMATE_ZONE": "zonă climatică",
     "HEAT_TRANSFER": "transfer de căldură",
     "HEAT_TRANSFER_RESISTANCE": "rezistență la transfer de căldură",

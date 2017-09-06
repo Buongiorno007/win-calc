@@ -44,6 +44,7 @@
         thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
         thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
         thisCtrl.MM = $filter('translate')('mainpage.MM');
+        thisCtrl.INCH = $filter('translate')('mainpage.INCH');
         thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
         thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
         thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
