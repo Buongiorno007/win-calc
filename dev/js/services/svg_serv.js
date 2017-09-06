@@ -486,8 +486,9 @@
               depth = beadDepth;
               break;
             case 'frame-glass':
+
               if (line.type === 'frame') {
-                depth = depths.frameDepth.d - depths.frameDepth.c;
+                depth = depths.frameDepth.d*2 - depths.frameDepth.c;
               } else if (line.type === 'impost') {
                 depth = depths.impostDepth.b - depths.impostDepth.c / 2;
               }
@@ -2845,23 +2846,6 @@
                     thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y + depths.frameStillDepth.a);
                     thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y + depths.frameStillDepth.a);
                   }
-                  //   if (ProductStor.product.doorLock.stvorka_type === 6) {
-                  //     if (thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
-                  //       thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y - depths.sashDepth.b);
-                  //       thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y - depths.sashDepth.b);
-                  //       thisObj.details[i].impost.impostIn[2].y = angular.copy(thisObj.details[i].impost.impostIn[2].y + depths.sashDepth.b);
-                  //       thisObj.details[i].impost.impostIn[3].y = angular.copy(thisObj.details[i].impost.impostIn[3].y + depths.sashDepth.b);
-                  //     }
-                  //   }
-                  // } else {
-                  //   if (ProductStor.product.doorLock.stvorka_type === 6) {
-                  //     if (thisObj.details[i].pointsIn[0].x !== thisObj.details[i].impost.impostIn[0].x && (ProductStor.product.door_type_index === 0 || ProductStor.product.door_type_index === 3 || ProductStor.product.door_type_index === 1)) {
-                  //       thisObj.details[i].impost.impostIn[0].x = angular.copy(thisObj.details[i].impost.impostIn[0].x - depths.sashDepth.b);
-                  //       thisObj.details[i].impost.impostIn[1].x = angular.copy(thisObj.details[i].impost.impostIn[1].x - depths.sashDepth.b);
-                  //       thisObj.details[i].impost.impostIn[2].x = angular.copy(thisObj.details[i].impost.impostIn[2].x + depths.sashDepth.b);
-                  //       thisObj.details[i].impost.impostIn[3].x = angular.copy(thisObj.details[i].impost.impostIn[3].x + depths.sashDepth.b);
-                  //     }
-                  //   }
                 }
                 thisObj.details[i].parts.push(setImpostParts(depths, thisObj.details[i].impost.impostIn, thisObj.priceElements));
               }

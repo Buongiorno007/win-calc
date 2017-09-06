@@ -785,7 +785,6 @@
                                 )
                                 .then(function (doorResult) {
                                     GlobalStor.global.isZeroPriceList = [];
-                                    console.log(doorResult);
                                     doorResult.consistElem.forEach(function (entry) {
                                         // console.log(entry);
                                         if (entry.element_group_id !== 8) {
