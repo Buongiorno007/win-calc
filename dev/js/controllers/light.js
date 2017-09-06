@@ -160,6 +160,7 @@
       thisCtrl.ADDELEMENTS_PRODUCT_COST = $filter("translate")(
         "cart.ADDELEMENTS_PRODUCT_COST"
       );
+      thisCtrl.INCH = $filter('translate')('mainpage.INCH');
       thisCtrl.GRID = $filter("translate")("add_elements.GRID");
       thisCtrl.VISOR = $filter("translate")("add_elements.VISOR");
       thisCtrl.SPILLWAY = $filter("translate")("add_elements.SPILLWAY");

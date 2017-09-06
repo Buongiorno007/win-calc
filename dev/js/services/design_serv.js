@@ -397,7 +397,7 @@
                 function closeSizeCaclulator(prom) {
                     var deff = $q.defer();
                     if (DesignStor.design.tempSize.length) {
-                        if (UserStor.userInfo.factory_id === 14422) {
+                        if (UserStor.userInfo.factory_id === 897) {
                             var newLength = parseInt(DesignStor.design.tempSize.join(''), 10) / 0.0393701;
                         } else {
                             var newLength = parseInt(DesignStor.design.tempSize.join(''), 10);

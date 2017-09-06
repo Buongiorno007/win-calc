@@ -174,9 +174,9 @@
                                         });
                                 }
 
-                                if (UserStor.userInfo.factory_id === 14422) {
+                                if (UserStor.userInfo.factory_id === 897) {
                                     sizeBox.append('text')
-                                        .text(Math.floor(dim.text * 0.0393701))
+                                        .text((dim.text * 0.0393701).toFixed(1))
                                         .attr({
                                             'class': function () {
                                                 return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
