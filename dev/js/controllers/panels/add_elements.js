@@ -13,6 +13,7 @@
       AddElementMenuServ,
       DesignServ,
       GlobalStor,
+      UserStor,
       AuxStor,
       ProductStor
     ) {
@@ -22,6 +23,7 @@
       thisCtrl.G = GlobalStor;
       thisCtrl.P = ProductStor;
       thisCtrl.A = AuxStor;
+      thisCtrl.U = UserStor;
 
       thisCtrl.config = {
         DELAY_START: globalConstants.STEP,
