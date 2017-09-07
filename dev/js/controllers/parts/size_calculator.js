@@ -51,6 +51,10 @@
         }
       }
       // GlobalStor.global.activePanel = 0;
+        function displayData(value) {
+            return angular.copy(value) * 0.0393701;
+        }
+      thisCtrl.displayData = displayData;
       thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
     });
 })();

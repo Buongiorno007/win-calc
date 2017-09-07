@@ -7,11 +7,11 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 0
           .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id!==897" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.D.design.minSizeLimit }}
-          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===897" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.D.design.minSizeLimit*0.0393701 | number : 0 }}
+          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===897" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.displayData(sizeCalc.D.design.minSizeLimit) | number : 0 }}
           .calc-label-limit {{ ::sizeCalc.MIN }}
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 5000
-          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===897" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit*0.0393701 | number : 0 }}
+          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===897" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.displayData(sizeCalc.D.design.maxSizeLimit) | number : 0 }}
           .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id!==897" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit }}
           .calc-label-limit {{ ::sizeCalc.MAX }}
   tr
