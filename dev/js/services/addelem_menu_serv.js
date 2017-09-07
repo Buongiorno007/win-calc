@@ -172,7 +172,8 @@
             elementIndex = AuxStor.aux.currentAddElementId,
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
             if (UserStor.userInfo.factory_id === 897) {
-                newElementSize = parseFloat(AuxStor.aux.tempSize.join(''), 10) / 0.0393701;
+                newElementSize = parseFloat(AuxStor.aux.tempSize.join('')) / 0.0393701;
+                console.log(AuxStor.aux.tempSize.join(''));
             } else {
             newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);}
           if (newElementSize === 0) {
@@ -198,7 +199,6 @@
           var sizeLength = AuxStor.aux.tempSize.length;
           //---- clean tempSize if indicate only one 0
           if (sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
-            console.log("asdsa");
             // AuxStor.aux.tempSize.length = 0;
           }
           if (newValue === '0') {
