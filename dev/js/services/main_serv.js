@@ -2308,10 +2308,13 @@
                     template.details[x].glass_type = product.glass[0].glass_type;
                 }
             }
-
+            function displayData(value) {
+                return angular.copy(value) * 0.0393701;
+            }
             /**========== FINISH ==========*/
 
             thisFactory.publicObj = {
+                displayData : displayData,
                 setCurrentGlassInTemplate: setCurrentGlassInTemplate,
                 checkDependGlassTest: checkDependGlassTest,
                 setGlassfilter: setGlassfilter,
