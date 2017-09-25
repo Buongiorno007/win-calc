@@ -1759,14 +1759,12 @@
                                             level: 1,
                                             blockType: "sash",
                                             parent: "block_0",
-                                            children: [
-
-                                            ],
+                                            children: [],
                                             pointsOut: [
                                                 {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
                                                 {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
-                                                {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
-                                                {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
+                                                {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1, sill: 1},
+                                                {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1, sill: 1}
                                             ],
                                             pointsIn: [
 
@@ -1785,29 +1783,29 @@
                                             handlePos: 4,
                                             sashType: 6,
                                             glass_type: 1
-                                        },
-                                        {
-                                            type: 'skylight',
-                                            id: 'block_3',
-                                            level: 1,
-                                            blockType: 'frame',
-                                            //blockType:'sash',
-                                            parent: 'block_0',
-                                            children: [],
-                                            pointsOut: [
-                                                {type: 'frame', id: 'fp9', x: 2000, y: 0, dir: 'line', view: 1},
-                                                {type: 'frame', id: 'fp10', x: 3100, y: 0, dir: 'line', view: 1},
-                                                {type: 'frame', id: 'fp11', x: 3100, y: 1400, dir: 'line', view: 1, sill: 1},
-                                                {type: 'frame', id: 'fp12', x: 2000, y: 1400, dir: 'line', view: 1, sill: 1}
-                                            ],
-                                            pointsIn: [],
-                                            pointsLight: [],
-                                            parts: [],
-                                            glassId: 0,
-                                            glassTxt: ''//,
-                                            //sashType: 2,
-                                            //openDir: [1]
                                         }
+                                        // ,
+                                        // {
+                                        //     type: 'skylight',
+                                        //     id: 'block_3',
+                                        //     level: 1,
+                                        //     blockType: 'frame',
+                                        //     parent: 'block_0',
+                                        //     children: [],
+                                        //     pointsOut: [
+                                        //         {type: 'frame', id: 'fp9', x: 2000, y: 0, dir: 'line', view: 1},
+                                        //         {type: 'frame', id: 'fp10', x: 3100, y: 0, dir: 'line', view: 1},
+                                        //         {type: 'frame', id: 'fp11', x: 3100, y: 1400, dir: 'line', view: 1, sill: 1},
+                                        //         {type: 'frame', id: 'fp12', x: 2000, y: 1400, dir: 'line', view: 1, sill: 1}
+                                        //     ],
+                                        //     pointsIn: [],
+                                        //     pointsLight: [],
+                                        //     parts: [],
+                                        //     glassId: 0,
+                                        //     glassTxt: ''//,
+                                        //     //sashType: 2,
+                                        //     //openDir: [1]
+                                        // }
                                     ],
                                     hardwareLines: [[497, 1890, 497, 1890]]
                                 },
