@@ -174,7 +174,7 @@
                                         });
                                 }
 
-                                if (UserStor.userInfo.factory_id === 897) {
+                                if (UserStor.userInfo.factory_id === 1966) {
                                     sizeBox.append('text')
                                         .text((dim.text * 0.0393701).toFixed(1))
                                         .attr({

@@ -144,10 +144,10 @@
                       div.inner-text {{lightPage.HEAT_TRANSFER}}
                     ul.order-list
                       li.order-item
-                        .order-value(ng-if='lightPage.U.userInfo.factory_id!==897') {{ product.template_width }} {{ ::lightPage.MM +"\u00A0 *\u00A0"}}
-                        .order-value(ng-if='lightPage.U.userInfo.factory_id===897') {{ product.template_width *0.0393701 | number : 0}} {{ ::lightPage.INCH +"\u00A0 *\u00A0"}}
-                        .order-value(ng-if='lightPage.U.userInfo.factory_id!==897') {{ product.template_height }} {{ ::lightPage.MM }}
-                        .order-value(ng-if='lightPage.U.userInfo.factory_id===897') {{ product.template_height *0.0393701 | number : 0}} {{ ::lightPage.INCH }}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::lightPage.MM +"\u00A0 *\u00A0"}}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::lightPage.INCH +"\u00A0 *\u00A0"}}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ product.template_height }} {{ ::lightPage.MM }}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ product.template_height *0.0393701 | number : 0}} {{ ::lightPage.INCH }}
                         .order-label {{ ::lightPage.CONFIGMENU_SIZING }}
                       li.order-item
                         .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
@@ -254,12 +254,12 @@
                   span.product-template-qty X {{ lightPage.O.order.products[lightPage.config.detailProductIndex].product_qty }}
                 .product-icon-label {{ ::lightPage.PRODUCT_QTY }}
               .addelements-detail-row
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==897') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id===897') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::lightPage.INCH }} *
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::lightPage.INCH }} *
                   .product-label {{ ::lightPage.WIDTH_LABEL }}
               .addelements-detail-row
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==897') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id===897') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::lightPage.INCH }}
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::lightPage.INCH }}
                   .product-label {{ ::lightPage.HEIGHT_LABEL }}
           .addelements-detail-content
             ul.addelements-detail-list
@@ -278,12 +278,12 @@
                 .product-value(ng-switch-when="10") {{ ::lightPage.OTHERS }}
                 .addelement-parameters
                   .addelement-parameter(ng-if="addelement.element_width")
-                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id===897') {{ addelement.element_width*0.0393701 | number : 0  }}
-                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==897') {{ addelement.element_width }}
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
                   .addelement-label {{ ::lightPage.WIDTH_LABEL }}
                 .addelement-parameter(ng-show="addelement.element_height")
-                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id===897') {{ addelement.element_height*0.0393701 | number : 0  }}
-                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==897') {{ addelement.element_height }}
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
                   .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
                 .addelement-parameter(ng-if="addelement.element_qty")
                   .addelement-value {{ addelement.element_qty }}

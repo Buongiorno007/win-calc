@@ -26,13 +26,13 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
                 .aux-label {{ ::cartPage.QTY_LABEL }}
             td.aux-tablecell-width
               .aux-params(ng-class="{'selected': cartPage.C.cart.indexParam === 'width' && cartPage.C.cart.indexElem === $index && cartPage.C.cart.indexType === elemType.id}", ng-show="addElem.element_width", ng-click="elemCartPanel.editWidth(elemType.id, $index, addElem, cartPage.C.cart.allAddElemsOrder)")
-                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id===897') {{ addElem.element_width*0.0393701 | number : 0  }}
-                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id!==897') {{ addElem.element_width }}
+                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addElem.element_width*0.0393701 | number : 0  }}
+                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addElem.element_width }}
                 .aux-label {{ ::cartPage.WIDTH_LABEL }}
             td.aux-tablecell-height
               .aux-params(ng-class="{'selected': cartPage.C.cart.indexParam === 'height' && cartPage.C.cart.indexElem === $index && cartPage.C.cart.indexType === elemType.id}", ng-show="addElem.element_height", ng-click="elemCartPanel.editHeight(elemType.id, $index, addElem, cartPage.C.cart.allAddElemsOrder)")
-                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id===897') {{ addElem.element_height*0.0393701 | number : 0  }}
-                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id!==897') {{ addElem.element_height }}
+                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addElem.element_height*0.0393701 | number : 0  }}
+                .aux-params-but(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addElem.element_height }}
                 .aux-label {{ ::cartPage.HEIGHT_LABEL }}
             td.aux-tablecell-price
               .aux-price + {{ addElem.element_qty * addElem.elementPriceDis }} {{ cartPage.U.userInfo.currency }}

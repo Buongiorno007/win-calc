@@ -171,7 +171,7 @@
           var newElementSize = '',
             elementIndex = AuxStor.aux.currentAddElementId,
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
-            if (UserStor.userInfo.factory_id === 897) {
+            if (UserStor.userInfo.factory_id === 1966) {
                 newElementSize = parseFloat(AuxStor.aux.tempSize.join('')) / 0.0393701;
                 console.log(AuxStor.aux.tempSize.join(''));
             } else {
