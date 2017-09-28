@@ -144,8 +144,10 @@
                       div.inner-text {{lightPage.HEAT_TRANSFER}}
                     ul.order-list
                       li.order-item
-                        .order-value {{ product.template_width }} {{ ::lightPage.MM +"\u00A0 *\u00A0"}}
-                        .order-value {{ product.template_height }} {{ ::lightPage.MM }}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::lightPage.MM +"\u00A0 *\u00A0"}}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::lightPage.INCH +"\u00A0 *\u00A0"}}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ product.template_height }} {{ ::lightPage.MM }}
+                        .order-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ product.template_height *0.0393701 | number : 0}} {{ ::lightPage.INCH }}
                         .order-label {{ ::lightPage.CONFIGMENU_SIZING }}
                       li.order-item
                         .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
@@ -252,11 +254,13 @@
                   span.product-template-qty X {{ lightPage.O.order.products[lightPage.config.detailProductIndex].product_qty }}
                 .product-icon-label {{ ::lightPage.PRODUCT_QTY }}
               .addelements-detail-row
-                .product-value {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
-                .product-label {{ ::lightPage.WIDTH_LABEL }}
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::lightPage.INCH }} *
+                  .product-label {{ ::lightPage.WIDTH_LABEL }}
               .addelements-detail-row
-                .product-value {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
-                .product-label {{ ::lightPage.HEIGHT_LABEL }}
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
+                  .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::lightPage.INCH }}
+                  .product-label {{ ::lightPage.HEIGHT_LABEL }}
           .addelements-detail-content
             ul.addelements-detail-list
               li.addelements-detail-item(ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
@@ -274,14 +278,16 @@
                 .product-value(ng-switch-when="10") {{ ::lightPage.OTHERS }}
                 .addelement-parameters
                   .addelement-parameter(ng-if="addelement.element_width")
-                    .addelement-value {{ addelement.element_width }}
-                    .addelement-label {{ ::lightPage.WIDTH_LABEL }}
-                  .addelement-parameter(ng-if="addelement.element_height")
-                    .addelement-value {{ addelement.element_height }}
-                    .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
-                  .addelement-parameter(ng-if="addelement.element_qty")
-                    .addelement-value {{ addelement.element_qty }}
-                    .addelement-label {{ ::lightPage.QTY_LABEL }}
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
+                  .addelement-label {{ ::lightPage.WIDTH_LABEL }}
+                .addelement-parameter(ng-show="addelement.element_height")
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
+                  .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
+                  .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
+                .addelement-parameter(ng-if="addelement.element_qty")
+                  .addelement-value {{ addelement.element_qty }}
+                  .addelement-label {{ ::lightPage.QTY_LABEL }}
             .service-block
               .sb-1(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]")
                 | {{lightPage.SERV1}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]}} {{lightPage.U.userInfo.currency}}
@@ -431,9 +437,15 @@
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
               .title(data-output="{{ ::cartMenu.DELIVERY }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
               .cart-item-data
-                .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value(ng-show="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floorName }} {{ ::cartMenu.FLOOR }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                span.name.aside(ng-show="cartMenu.O.order.floor_id", data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-show="!cartMenu.O.order.floor_id && !cartMenu.O.order.delivery_garbage_removal && !cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-show="cartMenu.O.order.floor_id", data-output="{{cartMenu.O.order.floorName}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-show="cartMenu.O.order.delivery_garbage_removal", data-output="{{ ::cartMenu.GARBAGE_REMOVE  }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-show="cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.DELIVERY}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+
+                span.name.aside(ng-show="cartMenu.O.order.floor_id", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                span.name.aside(ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add",
+                data-output=" + {{ cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add}} {{ cartMenu.U.userInfo.currency }}",
+                typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length}")
               ul.dropdown-items-list
                 li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(0)")
@@ -444,20 +456,31 @@
                   .dropdown-item-inner
                     .value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
                     .name.drop-txt + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
+                li.dropdown-item
+                  .dropdown-item-inner
+                    .value.drop-txt {{ ::cartMenu.DELIVERY }}
+                    input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.calculateOrderPrice()")
+                    .name.drop-txt {{ cartMenu.U.userInfo.currency }}
+                li.dropdown-item
+                  .dropdown-item-inner
+                    .value.drop-txt {{ ::cartMenu.GARBAGE_REMOVE }}
+                    input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()")
+                    .name.drop-txt {{ cartMenu.U.userInfo.currency }}
+
 
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 7, 'hov': cartMenu.config.activeMenuItem !== 7}", fs-click="cartMenu.selectMenuItem(7)")
               .title(data-output="{{::cartMenu.DIS_ASSEMBLING}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
               .cart-item-data
-                .value(ng-show="!cartMenu.O.order.dismounting_id", data-output="{{ ::cartMenu.WITHOUT_DIS_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value(ng-show="cartMenu.O.order.dismounting_id", data-output="{{ cartMenu.O.order.dismountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                span.name.aside(ng-show="cartMenu.O.order.dismounting_id", data-output=" + {{ cartMenu.O.order.dismounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-show="!cartMenu.O.order.dismantling_id", data-output="{{ ::cartMenu.WITHOUT_DIS_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-show="cartMenu.O.order.dismantling_id", data-output="{{ cartMenu.O.order.dismantling_name }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                span.name.aside(ng-show="cartMenu.O.order.dismantling_id", data-output=" + {{ cartMenu.O.order.dismantling_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 7 && cartMenu.G.global.disassemblyData.length}")
               ul.dropdown-items-list
-                li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.dismounting_id}", fs-click="cartMenu.selectDisAssembling(0)")
+                li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.dismantling_id}", fs-click="cartMenu.selectDisAssembling(0)")
                   .dropdown-item-inner
                     .value.drop-txt {{ ::cartMenu.WITHOUT_ASSEMBLING }}
                     .name.drop-txt {{ ::cartMenu.FREE }}
-                li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.disassemblyData", ng-class="{'selected': assemb.id == cartMenu.O.order.dismounting_id}", fs-click="cartMenu.selectDisAssembling(assemb)")
+                li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.disassemblyData", ng-class="{'selected': assemb.id == cartMenu.O.order.dismantling_id}", fs-click="cartMenu.selectDisAssembling(assemb)")
                   .dropdown-item-inner
                     .value.drop-txt {{ assemb.name }}
                     .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
@@ -534,7 +557,10 @@
             include parts/_qty-calculator
           .calculators-box.serv-calculator(ng-class="{'active': lightPage.G.global.isServiceCalculator}" ng-if="lightPage.G.global.isServiceCalculator")
             include parts/_serviсe-calculator
-    include parts/_form_order_light
+    section.order-forms(ng-controller="OrderFormCtrl as orderForm")
+      include parts/_form-master
+      include parts/_form-order
+      include parts/_form-credit
 include parts/_info-box
 include parts/_attantions
 include parts/_check-doors

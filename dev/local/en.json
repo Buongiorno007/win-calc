@@ -92,6 +92,7 @@
   },
   "mainpage": {
     "MM": " mm ",
+    "INCH": " '' ",
     "CLIMATE_ZONE": "climatic area",
     "HEAT_TRANSFER": "heat transfer",
     "HEAT_TRANSFER_RESISTANCE": "resistance to heat transfer",
@@ -350,7 +351,8 @@
     "PRODUCT_QTY": "number of products",
     "LIGHT_VIEW": "Short view",
     "FULL_VIEW": "Full view",
-    "DELIVERY": "Delivery",
+    "DELIVERY": "Delivery ",
+    "GARBAGE_REMOVE": "Garbage removal ",
     "SELF_EXPORT": "Pickup",
     "FLOOR": "floor",
     "ASSEMBLING": "mounting",

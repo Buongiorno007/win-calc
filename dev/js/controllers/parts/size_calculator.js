@@ -7,14 +7,17 @@
       $filter,
       GlobalStor,
       DesignStor,
+      UserStor,
       AddElementMenuServ,
       DesignServ,
+      MainServ,
       EditAddElementCartServ
     ) {
       /*jshint validthis:true */
       var thisCtrl = this;
       thisCtrl.isDesignPage = false;
       thisCtrl.D = DesignStor;
+      thisCtrl.U = UserStor;
 
       //------- translate
       thisCtrl.MIN = $filter("translate")("common_words.MIN");
@@ -49,6 +52,8 @@
         }
       }
       // GlobalStor.global.activePanel = 0;
+
+      thisCtrl.displayData = MainServ.displayData;
       thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
     });
 })();

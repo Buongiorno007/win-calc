@@ -1131,6 +1131,7 @@
                           case 8: // 8 - windowSill
                           case 19: // 3 - outSlope & inSlope
                           case 12: // 6 - connectors
+                          case 13: // 6 - расширители
                             widthTemp = 1000;
                             break;
                           case 26: // 4 - louvers

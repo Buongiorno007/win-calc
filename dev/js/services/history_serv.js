@@ -286,11 +286,6 @@
 
         }
 
-        function deleteOption() {
-          //$("#deleteOption").remove();
-          //$(".period-of-time").val();
-        }
-
         function makeOrderCopy(orderStyle, orderNum, typeOrder) {
           GlobalStor.global.isLoader = 1;
           HistoryStor.history.orderOk = 0;
@@ -536,7 +531,7 @@
                     OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
                     break;
                   case 4:
-                    OrderStor.order.dismountingName = angular.copy(data[dataQty].name);
+                    OrderStor.order.dismantling_name = angular.copy(data[dataQty].name);
                     break;
                 }
               }
@@ -1358,7 +1353,6 @@
           sortingInit: sortingInit,
           reqResult: reqResult,
           synchronizeOrders: synchronizeOrders,
-          deleteOption: deleteOption,
           testFunc: testFunc,
           closeDeviceReport: closeDeviceReport
         };

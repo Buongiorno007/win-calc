@@ -17,6 +17,7 @@
                 thisFactory.publicObj = {
                     globalSource: {
                         isZeroPriceList: [],
+                        screw : 0,
                         showAllGlass: 0,
                         isSavingAlert: 0,
                         isNoChangedProduct: 0,
@@ -191,7 +192,6 @@
                     setDefaultGlobal: setDefaultGlobal
                 };
                 thisFactory.publicObj.global = setDefaultGlobal();
-
                 return thisFactory.publicObj;
 
             });

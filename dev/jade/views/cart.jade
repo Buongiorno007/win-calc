@@ -24,19 +24,21 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .order-content
                                     .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
                                         div.R-MInfo
-                                            p.number {{ $index+1+"."+"\u00A0"}}
-                                        div.R-MInfo {{ product.heat_coef_total | number : 2}} {{ +"\u00A0"+"\u00A0"}}
+                                            p.number {{ $index+1+"."+"\u00A0" }}
+                                        div.R-MInfo {{ product.heat_coef_total | number : 2 }} {{"\u00A0"+"\u00A0"}}
                                         div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
                                         div.inner-text {{cartPage.HEAT_TRANSFER}}
                                     .order-u-coeff(ng-if="!cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > cartPage.O.order.heat_coef_min}")
                                         div.R-MInfo
                                             p.number {{ $index+1+"."+"\u00A0"}}
-                                        div.R-MInfo U = {{ product.heat_coef_total | number : 2}}
-                                        div.R-MInfo {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
+                                        div U = {{ product.heat_coef_total | number : 2}}
+                                        div {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
                                     ul.order-list
                                         li.order-item
-                                            .order-value {{ product.template_width }} {{ ::cartPage.MM +"\u00A0 *\u00A0"}}
-                                            .order-value {{ product.template_height }} {{ ::cartPage.MM }}
+                                            .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"\u00A0 *\u00A0"}}
+                                            .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}}
+                                            .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_height }} {{ ::cartPage.MM }}
+                                            .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
                                             .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                                         li.order-item
                                             .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
@@ -80,7 +82,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                         .order-comment-content {{ cartPage.O.order.comment }}
                             .add-new-product.order(ng-click="cartPage.addNewProductInOrder()")
                                 .add-img
-                                    | +
+                                    |+
                                 .title {{cartPage.ADD_ORDER}}
                                 .order-footer
 
@@ -105,7 +107,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .discount-data(ng-keyup="cartPage.enterKeyPrice(event)")
                                     .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
                                     input.disc-input.noPreventDefault#disc-input(type="number" value="0" ng-model="cartPage.C.cart.tempConstructDisc")
-                                    | %
+                                    |%
                                 .discount-txt(ng-click="cartPage.approveNewDisc(0)")
                                     .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
 
@@ -113,7 +115,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .discount-data(ng-keyup="cartPage.enterKeyDop(event)")
                                     .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
                                     input.disc-input.noPreventDefault#disc-input-add(type="number" value="0" ng-model="cartPage.C.cart.tempAddelemDisc")
-                                    | %
+                                    |%
                                 .discount-txt(ng-click="cartPage.approveNewDisc(1)")
                                     .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
 
@@ -121,7 +123,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .discount-data(ng-keyup="cartPage.enterKeyDopService(event)")
                                     .disc-max(ng-show="cartPage.U.userInfo.discount_service > 100") {{ ::cartPage.MAX }} {{'100'}}%
                                     input.disc-input.noPreventDefault#disc-input-service(type="number" ng-model="cartPage.C.cart.discount_service")
-                                    | %
+                                    |%
                                 .discount-txt(ng-click="cartPage.approveNewDisc(2)")
                                     .discounts-label {{cartPage.DISCOUNT_SERVICE}}
 
@@ -140,9 +142,6 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .discount-price {{ cartPage.C.cart.discountPriceDiff }} {{cartPage.U.userInfo.currency}}
 
 
-
-
-
                 section.cart-container.light-view(ng-class="{'active': cartPage.config.isCartLightView}")
                     .cart-header
                         include parts/_user-info
@@ -156,7 +155,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .order-template(ng-click="cartPage.editProduct($index, 'product')")
                                     svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
                             .order-content
-                                .order-value {{ product.template_width }} * {{ product.template_height }} {{ ::cartPage.MM }}
+                                .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} * {{ product.template_height }} {{ ::cartPage.MM }}
+                                .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} * {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
 
                                 .order-item.addelements-btn(ng-click="cartPage.showAddElementDetail($index)")
                                     .order-value {{cartPage.C.cart.allAddElements[$index].length}}
@@ -194,10 +194,12 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                     span.product-template-qty X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}
                                 .product-icon-label {{ ::cartPage.PRODUCT_QTY }}
                             .addelements-detail-row
-                                .product-value {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ ::cartPage.MM }} *
+                                .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ ::cartPage.MM }} *
+                                .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::cartPage.INCH }} *
                                 .product-label {{ ::cartPage.WIDTH_LABEL }}
                             .addelements-detail-row
-                                .product-value {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}
+                                .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}
+                                .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::cartPage.INCH }}
                                 .product-label {{ ::cartPage.HEIGHT_LABEL }}
                     .addelements-detail-content
                         ul.addelements-detail-list
@@ -216,10 +218,12 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .product-value(ng-switch-when="10") {{ ::cartPage.OTHERS }}
                                 .addelement-parameters
                                     .addelement-parameter(ng-show="addelement.element_width")
-                                        .addelement-value {{ addelement.element_width }}
+                                        .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
+                                        .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
                                         .addelement-label {{ ::cartPage.WIDTH_LABEL }}
                                     .addelement-parameter(ng-show="addelement.element_height")
-                                        .addelement-value {{ addelement.element_height }}
+                                        .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
+                                        .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
                                         .addelement-label {{ ::cartPage.HEIGHT_LABEL }}
                                     .addelement-parameter(ng-show="addelement.element_qty")
                                         .addelement-value {{ addelement.element_qty }}

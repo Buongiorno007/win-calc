@@ -53,6 +53,10 @@
     @include display-flex();
     @include flex-flow(row wrap);
     @include align-items(center);
+    .value {
+      display : inline;
+      width : 25rem;
+    }
   }
   .check-switcher {
     @include display-flex();
@@ -193,6 +197,17 @@
       .drop-txt {
         color: #fff;
       }
+    }
+    input {
+      width: 10rem;
+      border : none;
+      outline : none;
+      text-align : right;
+      padding-right : .5rem;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
     }
   }
   .dropdown-item-inner {

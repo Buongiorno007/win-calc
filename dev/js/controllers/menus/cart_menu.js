@@ -36,6 +36,7 @@
 
     //------- translate
     thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.GARBAGE_REMOVE = $filter('translate')('cart.GARBAGE_REMOVE');
     thisCtrl.SELF_EXPORT = $filter('translate')('cart.SELF_EXPORT');
     thisCtrl.FLOOR = $filter('translate')('cart.FLOOR');
     thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
@@ -85,14 +86,14 @@
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
-      // console.log(OrderStor.order.products);
-      CartStor.cart.showCurrentTemp = 0;
+        CartStor.cart.showCurrentTemp = 0;
       if(OrderStor.order.products.length) {
        // console.log("openOrderDialog");
         if (OrderStor.order.is_instalment) {
           CartStor.cart.isCreditDialog = 1;
         } else {
           CartStor.cart.isOrderDialog = 1;
+            console.log("openOrderDialog");
         }
       }
     }

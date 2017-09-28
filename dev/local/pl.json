@@ -84,6 +84,7 @@
     },
   "mainpage": {
     "MM": " mm ",
+    "INCH": " '' ",
     "CLIMATE_ZONE": "Strefa klimatyczna",
     "HEAT_TRANSFER": "przenikania ciepła",
     "HEAT_TRANSFER_RESISTANCE": "opór przejmowania ciepła",
@@ -348,6 +349,7 @@
     "LIGHT_VIEW": "Krótki widok",
     "FULL_VIEW": "Pełny widok",
     "DELIVERY": "Dostawa",
+    "GARBAGE_REMOVE": "Вывоз мусора",
     "SELF_EXPORT": "odbiór osobisty",
     "FLOOR": "piętro",
     "ASSEMBLING": "Montaż",

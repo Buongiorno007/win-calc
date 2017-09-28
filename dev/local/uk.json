@@ -86,6 +86,7 @@
   },
   "mainpage": {
     "MM": " мм ",
+    "INCH": " дюйм ",
     "CLIMATE_ZONE": "кліматична зона",
     "HEAT_TRANSFER": "теплопередачa",
     "HEAT_TRANSFER_RESISTANCE": "опір теплопередачі",
@@ -350,7 +351,8 @@
     "PRODUCT_QTY": "кількість виробів",
     "LIGHT_VIEW": "Скорочений вид",
     "FULL_VIEW": "Повний вид",
-    "DELIVERY": "Доставка",
+    "DELIVERY": "Доставка ",
+    "GARBAGE_REMOVE": "Вивезення сміття ",
     "SELF_EXPORT": "самовивезення",
     "FLOOR": "поверх",
     "ASSEMBLING": "Монтаж",

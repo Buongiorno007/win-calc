@@ -168,12 +168,14 @@
         }
 
         function changeElementSize() {
-          console.log("123",AuxStor.aux.auxParameter);
           var newElementSize = '',
             elementIndex = AuxStor.aux.currentAddElementId,
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
-            console.log(index);
-          newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
+            if (UserStor.userInfo.factory_id === 1966) {
+                newElementSize = parseFloat(AuxStor.aux.tempSize.join('')) / 0.0393701;
+                console.log(AuxStor.aux.tempSize.join(''));
+            } else {
+            newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);}
           if (newElementSize === 0) {
             newElementSize = 1;
             AuxStor.aux.tempSize.splice(0,AuxStor.aux.tempSize.length);
@@ -197,7 +199,6 @@
           var sizeLength = AuxStor.aux.tempSize.length;
           //---- clean tempSize if indicate only one 0
           if (sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
-            console.log("asdsa");
             // AuxStor.aux.tempSize.length = 0;
           }
           if (newValue === '0') {
@@ -708,8 +709,7 @@
             finishCalculators();
           }
           /**------- if grid delete --------*/
-          if (AuxStor.aux.isFocusedAddElement === 1 || AuxStor.aux.isAddElementListView) {
-
+          if (!typeId) {
             deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
           }
           ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);

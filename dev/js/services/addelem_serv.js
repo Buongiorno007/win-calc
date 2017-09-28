@@ -47,7 +47,7 @@
           } else {
             AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
           }
-          //console.log(AuxStor.aux.addElementsList);
+          // console.log(AuxStor.aux.addElementsList);
         }
 
 
@@ -158,7 +158,7 @@
         /**------------- Select Add Element Parameter --------------*/
 
         function initAddElementTools(groupId, toolsId, elementIndex) {
-          console.log(groupId, toolsId, elementIndex);
+            console.log(groupId, toolsId, elementIndex);
           var currElem;
           DesignStor.design.minSizeLimit = 0;
           if (ProductStor.product.chosenAddElements[groupId - 1][elementIndex].max_size) {

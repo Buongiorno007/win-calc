@@ -33,6 +33,7 @@
       font-size: large;
       overflow: hidden;
       text-transform: uppercase;
+      cursor : pointer;
       &.selected {
         color: #4bd963;
         text-decoration: underline;
@@ -99,11 +100,12 @@
       position: relative;
       height: 100%;
       width: auto;
-      margin: 0rem 5rem 0rem 0rem;
+      margin: 0rem 2rem 0rem 0rem;
       float: left;
       font-size: large;
       overflow: hidden;
       text-transform: uppercase;
+      cursor : pointer;
       &.selected {
         color: #4bd963;
         text-decoration: underline;

@@ -530,17 +530,6 @@ gulp.task('buildSite', function () {
   gulp.start(['buildStekoSite', 'buildWindowSiteTest', 'buildWindowSite', 'buildOrangeSite']);
 });
 
-function makeApp(id) {
-  var path = ""
-  if (id === "steko") {
-    path = "steko"
-  } else if (id === "window") {
-    path = "steko"
-  } else {
-    path = "Cornerstone/platforms/ios/www"
-  }
-}
-
 /** PRODUCTION css and js min */
 gulp.task('prod', function () {
   // css

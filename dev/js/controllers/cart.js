@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
   /**@ngInject*/
   angular
@@ -6,16 +6,16 @@
     .module('CartModule')
     .controller('CartCtrl',
 
-      function($filter,
-        globalConstants,
-        GlobalStor,
-        OrderStor,
-        ProductStor,
-        UserStor,
-        CartStor,
-        CartServ,
-        CartMenuServ,
-        DesignServ) {
+      function ($filter,
+                globalConstants,
+                GlobalStor,
+                OrderStor,
+                ProductStor,
+                UserStor,
+                CartStor,
+                CartServ,
+                CartMenuServ,
+                DesignServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.constants = globalConstants;
@@ -44,6 +44,7 @@
         thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
         thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
         thisCtrl.MM = $filter('translate')('mainpage.MM');
+        thisCtrl.INCH = $filter('translate')('mainpage.INCH');
         thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
         thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
         thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
@@ -112,6 +113,7 @@
         if (!GlobalStor.global.orderEditNumber) {
           CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
         }
+
         /**============ METHODS ================*/
 
         //============= AddElements detail block
@@ -171,7 +173,7 @@
 
         function showCartTemplte(index) {
           CartStor.cart.curProd = index;
-          setTimeout(function() {
+          setTimeout(function () {
             DesignServ.initAllGlassXGlass();
           }, 1000);
 
@@ -184,21 +186,24 @@
         }
 
 
-        $(".scroll-hor-container").resize(function() {
+        $(".scroll-hor-container").resize(function () {
           console.log(".scroll-hor-container");
         });
-        $(".order-block").resize(function() {
+        $(".order-block").resize(function () {
           console.log(".order-block");
         });
 
 
         function coutNull(arr) {
           var tmp = 0;
-          arr.forEach(function(entry) {
-            (entry !== 0) ? tmp++ : 0;
-          });
+          if (arr) {
+            arr.forEach(function (entry) {
+              (entry !== 0) ? tmp++ : 0;
+            });
+          }
           return tmp;
         }
+
         /**========== FINISH ==========*/
 
         //------ clicking
