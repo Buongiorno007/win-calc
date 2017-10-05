@@ -663,6 +663,7 @@
                                         DesignStor.design.prevSize = dim[0][0].textContent;
                                         DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
                                         DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                                        console.log(dim[0][0]);
                                         //------- show caclulator or voice helper
                                         if (GlobalStor.global.isVoiceHelper) {
                                             DesignStor.design.openVoiceHelper = 1;
