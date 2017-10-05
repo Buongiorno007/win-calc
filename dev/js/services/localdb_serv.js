@@ -1079,7 +1079,7 @@
                     // trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
                     //   console.log('Something went wrong with insert into ' + tableName);
                     // });
-                    trans.executeSql("INSERT INTO " + tableName + " (" + colums + ") VALUES (" + values + ")", [], null, errorHandler );
+                    trans.executeSql("INSERT INTO " + tableName + " (" + colums + ") VALUES (" + values + ")", [], null, errorHandler);
 
                     function errorHandler(transaction, error) {
                         console.log("Error : " + error.message);
@@ -3244,8 +3244,7 @@
                                         //console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
                                         if (priceReal) {
                                             /** currency conversion */
-                                            if (UserStor.userInfo.currencyId !=currConsistElem[hwInd][hwInd2].currency_id)
-                                            {
+                                            if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
                                                 priceReal = currencyExgange(
                                                     priceReal,
                                                     currConsistElem[hwInd][hwInd2].currency_id
@@ -3425,13 +3424,32 @@
                     priceObj = {},
                     finishPriceObj = {};
                 var tmp = 0;
+                var temp_profile_id = 0;
                 GlobalStor.global.screw = 0;
                 if (!ProductStor.product.hardware.id) {
                     if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
+                        temp_profile_id = 416611;
+                    }
+                    if (ProductStor.product.profile.id === 25 ||
+                        ProductStor.product.profile.id === 528 ||
+                        ProductStor.product.profile.id === 26 ||
+                        ProductStor.product.profile.id === 529) {
+                        temp_profile_id = 416727;
+                    }
+                    if (ProductStor.product.profile.id === 538 ||
+                        ProductStor.product.profile.id === 539 ||
+                        ProductStor.product.profile.id === 532 ||
+                        ProductStor.product.profile.id === 533 ||
+                        ProductStor.product.profile.id === 534 ||
+                        ProductStor.product.profile.id === 535 ||
+                        ProductStor.product.profile.id === 526) {
+                        temp_profile_id = 416727;
+                    }
+                    if (temp_profile_id) {
                         if (ProductStor.product.template_square >= 1) {
                             selectLocalDB(
                                 tablesLocalDB.elements.tableName,
-                                {id: 416611},
+                                {id: temp_profile_id},
                                 "id, sku, currency_id, price, name, element_group_id"
                             ).then(function (result) {
                                 if (result) {
@@ -3494,7 +3512,7 @@
                                     construction.sizes
                                 );
                                 if (!ProductStor.product.hardware.id) {
-                                    if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
+                                    if (temp_profile_id) {
                                         if (ProductStor.product.template_square >= 1) {
                                             if (tmp[0]) {
                                                 priceObj.constrElements.push(tmp[0]);

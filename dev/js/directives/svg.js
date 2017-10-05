@@ -174,34 +174,7 @@
                                         });
                                 }
 
-                                if (UserStor.userInfo.factory_id === 897) {
-                                    sizeBox.append('text')
-                                        .text((dim.text * 0.0393701).toFixed(1))
-                                        .attr({
-                                            'class': function () {
-                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
-                                            },
-                                            'x': function () {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            },
-                                            'y': function () {
-                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                            },
-                                            'dx': 80,
-                                            'dy': 40,
-                                            'type': 'line',
-                                            'block_id': dim.blockId,
-                                            'size_val': dim.text,
-                                            'min_val': dim.minLimit,
-                                            'max_val': dim.maxLimit,
-                                            'dim_id': dim.dimId,
-                                            'from_point': dim.from,
-                                            'to_point': dim.to,
-                                            'axis': dim.axis,
-                                            'level': dim.level
-                                        });
-                                }
-                                else {
+
                                     sizeBox.append('text')
                                         .text(dim.text)
                                         .attr({
@@ -227,7 +200,6 @@
                                             'axis': dim.axis,
                                             'level': dim.level
                                         });
-                                }
                             }
                         }
 
@@ -308,7 +280,7 @@
                                     } else {
                                         GlobalStor.global.background = GlobalStor.global.backgroundH
                                     }
-                                    if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+                                    if (ProductStor.product.construction_type === 1) {
                                         GlobalStor.global.imgLink = "44.png";
 
                                     } else if (ProductStor.product.doorLock.stvorka_type === 6) {
