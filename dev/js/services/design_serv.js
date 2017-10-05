@@ -661,7 +661,7 @@
                                         dim.classed('active', true);
                                         DesignStor.design.oldSize = dim[0][0];
                                         DesignStor.design.prevSize = dim[0][0].textContent;
-                                        DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue-dim[0][0].attributes[11].nodeValue;
+                                        DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
                                         DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
                                         //------- show caclulator or voice helper
                                         if (GlobalStor.global.isVoiceHelper) {
