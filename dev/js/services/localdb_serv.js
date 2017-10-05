@@ -1079,7 +1079,7 @@
                     // trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
                     //   console.log('Something went wrong with insert into ' + tableName);
                     // });
-                    trans.executeSql("INSERT INTO " + tableName + " (" + colums + ") VALUES (" + values + ")", [], null, errorHandler );
+                    trans.executeSql("INSERT INTO " + tableName + " (" + colums + ") VALUES (" + values + ")", [], null, errorHandler);
 
                     function errorHandler(transaction, error) {
                         console.log("Error : " + error.message);
@@ -3244,8 +3244,7 @@
                                         //console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
                                         if (priceReal) {
                                             /** currency conversion */
-                                            if (UserStor.userInfo.currencyId !=currConsistElem[hwInd][hwInd2].currency_id)
-                                            {
+                                            if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
                                                 priceReal = currencyExgange(
                                                     priceReal,
                                                     currConsistElem[hwInd][hwInd2].currency_id
