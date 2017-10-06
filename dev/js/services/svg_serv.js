@@ -2293,31 +2293,54 @@
                     var dimLimit = {},
                         limitsQty = limits.length,
                         i;
-                    console.log(dim, limits);
+                    // console.log(dim, limits);
                     for (i = 0; i < limitsQty; i += 1) {
                         if (dim.axis === 'x') {
                             /**1*/
-
                             if (limits[i].x === dim.to) {
-                                dimLimit.minL = (limits[i - 1]) ? GeneralServ.roundingValue(
-                                    (limits[i - 1].x + globalConstants.minSizeLimit - dim.from), 1
-                                ) : globalConstants.minSizeLimit;
+                                if ((limits[i - 1])) {
+                                    dimLimit.minL = GeneralServ.roundingValue(
+                                        (limits[i - 1].x + globalConstants.minSizeLimit - dim.from), 1
+                                    );
+                                } else {
+                                    dimLimit.minL =  globalConstants.minSizeLimit;
+                                }
+                                if ((limits[i + 1])) {
+                                    dimLimit.maxL = GeneralServ.roundingValue(
+                                        (limits[i + 1].x - dim.from - globalConstants.minSizeLimit), 1
+                                    );
+                                } else {
+                                    dimLimit.maxL = maxSizeLimit
+                                }
 
-                                dimLimit.maxL = (limits[i + 1]) ? GeneralServ.roundingValue(
-                                    (limits[i + 1].x - dim.from - globalConstants.minSizeLimit), 1
-                                ) : maxSizeLimit;
+                                // dimLimit.minL = (limits[i - 1]) ? GeneralServ.roundingValue(
+                                //     (limits[i - 1].x + globalConstants.minSizeLimit - dim.from), 1
+                                // ) : globalConstants.minSizeLimit;
+                                // dimLimit.maxL = (limits[i + 1]) ? GeneralServ.roundingValue(
+                                //     (limits[i + 1].x - dim.from - globalConstants.minSizeLimit), 1
+                                // ) : maxSizeLimit;
 
                             }
                             /**1*/
                         } else {
                             /**2*/
                             if (limits[i].y === dim.to) {
+
                                 dimLimit.minL = (limits[i - 1]) ? GeneralServ.roundingValue(
                                     (limits[i - 1].y + globalConstants.minSizeLimit- dim.from), 1
                                 ) : globalConstants.minSizeLimit;
-                                dimLimit.maxL = (limits[i + 1]) ? GeneralServ.roundingValue(
-                                    (limits[i + 1].y - dim.from - globalConstants.minSizeLimit), 1
-                                ) : maxSizeLimit;
+                                if (limits[i + 1]) {
+                                    dimLimit.maxL = GeneralServ.roundingValue(
+                                        (limits[i + 1].y - dim.from - globalConstants.minSizeLimit), 1
+                                    );
+                                } else {
+                                    dimLimit.maxL = maxSizeLimit;
+
+                                }
+                                // dimLimit.maxL = (limits[i + 1]) ? GeneralServ.roundingValue(
+                                //     (limits[i + 1].y - dim.from - globalConstants.minSizeLimit), 1
+                                // ) : maxSizeLimit;
+
                             }
                             /**2*/
                         }

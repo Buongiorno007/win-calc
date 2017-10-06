@@ -103,6 +103,7 @@
                                         x: dir ? dimLineHeight : dim.to,
                                         y: dir ? dim.to : dimLineHeight
                                     },
+
                                     pointC1 = {
                                         x: dir ? dimLineHeight + dimEdger : dim.from,
                                         y: dir ? dim.from : dimLineHeight + dimEdger
@@ -111,6 +112,44 @@
                                         x: dir ? dimLineHeight + dimEdger : dim.to,
                                         y: dir ? dim.to : dimLineHeight + dimEdger
                                     };
+                                console.log(dim);
+                                if (dim.dimId === "fp7") {
+                                    pointL2 = {
+                                        x: dir ? dimLineHeight - 200 : dim.from,
+                                        y: dir ? dim.from : dimLineHeight
+                                    };
+                                    pointR2 = {
+                                        x: dir ? dimLineHeight - 200 : dim.to,
+                                        y: dir ? dim.to : dimLineHeight
+                                    };
+                                    pointC1 = {
+                                        x: dir ? dimLineHeight + dimEdger - 200 : dim.from,
+                                        y: dir ? dim.from : dimLineHeight + dimEdger
+                                    };
+                                    pointC2 = {
+                                        x: dir ? dimLineHeight + dimEdger - 200 : dim.to,
+                                        y: dir ? dim.to : dimLineHeight + dimEdger
+                                    };
+                                }
+                                if (dim.dimId === "fp11" ) {
+                                    pointL2 = {
+                                        x: dir ? dimLineHeight - 400 : dim.from,
+                                        y: dir ? dim.from : dimLineHeight
+                                    };
+                                    pointR2 = {
+                                        x: dir ? dimLineHeight - 400 : dim.to,
+                                        y: dir ? dim.to : dimLineHeight
+                                    };
+                                    pointC1 = {
+                                        x: dir ? dimLineHeight + dimEdger - 400 : dim.from,
+                                        y: dir ? dim.from : dimLineHeight + dimEdger
+                                    };
+                                    pointC2 = {
+                                        x: dir ? dimLineHeight + dimEdger - 400 : dim.to,
+                                        y: dir ? dim.to : dimLineHeight + dimEdger
+                                    };
+                                }
+
                                 lineSideL.push(pointL1, pointL2);
                                 lineSideR.push(pointR1, pointR2);
                                 lineCenter.push(pointC1, pointC2);
@@ -164,6 +203,12 @@
                                         .classed('size-rect', true)
                                         .attr({
                                             'x': function () {
+                                                if (dim.dimId === "fp7" ) {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                }
+                                                if (dim.dimId === "fp11" ) {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                }
                                                 return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                             },
                                             'y': function () {
@@ -175,31 +220,37 @@
                                 }
 
 
-                                    sizeBox.append('text')
-                                        .text(dim.text)
-                                        .attr({
-                                            'class': function () {
-                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
-                                            },
-                                            'x': function () {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            },
-                                            'y': function () {
-                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                            },
-                                            'dx': 80,
-                                            'dy': 40,
-                                            'type': 'line',
-                                            'block_id': dim.blockId,
-                                            'size_val': dim.text,
-                                            'min_val': dim.minLimit,
-                                            'max_val': dim.maxLimit,
-                                            'dim_id': dim.dimId,
-                                            'from_point': dim.from,
-                                            'to_point': dim.to,
-                                            'axis': dim.axis,
-                                            'level': dim.level
-                                        });
+                                sizeBox.append('text')
+                                    .text(dim.text)
+                                    .attr({
+                                        'class': function () {
+                                            return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+                                        },
+                                        'x': function () {
+                                            if (dim.dimId === "fp7") {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 ) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            }
+                                            if (dim.dimId === "fp11") {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            }
+                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                        },
+                                        'y': function () {
+                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                        },
+                                        'dx': 80,
+                                        'dy': 40,
+                                        'type': 'line',
+                                        'block_id': dim.blockId,
+                                        'size_val': dim.text,
+                                        'min_val': dim.minLimit,
+                                        'max_val': dim.maxLimit,
+                                        'dim_id': dim.dimId,
+                                        'from_point': dim.from,
+                                        'to_point': dim.to,
+                                        'axis': dim.axis,
+                                        'level': dim.level
+                                    });
                             }
                         }
 
@@ -951,7 +1002,9 @@
                                         dimYQty = template.dimension.dimY.length,
                                         dimQQty = template.dimension.dimQ.length,
                                         dx, dy, dq;
+                                    console.log(template.dimension);
                                     for (dx = 0; dx < dimXQty; dx += 1) {
+                                        createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
                                         createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
                                     }
                                     for (dy = 0; dy < dimYQty; dy += 1) {
