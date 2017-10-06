@@ -256,18 +256,26 @@
                                     //------ if not last dimension
                                     if (!isLastDim) {
                                         if (axis === 'x') {
+                                            console.log("startSize", startSize);
+                                            console.log("finishSize", finishSize);
+                                            console.log("newCoord", newCoord);
+                                            console.log("newCoordLast", newCoordLast);
                                             if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
                                                 blocks[b].pointsOut[pointsOutQty].x = newCoord;
-                                            } else {
-                                                console.log(blocks[b].pointsOut[pointsOutQty]);
-                                                if (blocks[b].pointsOut[pointsOutQty].id === "fp6" ||
-                                                    blocks[b].pointsOut[pointsOutQty].id === "fp7" ||
-                                                    blocks[b].pointsOut[pointsOutQty].id === "fp9" ||
-                                                    blocks[b].pointsOut[pointsOutQty].id === "fp10" ||
-                                                    blocks[b].pointsOut[pointsOutQty].id === "fp11" ||
-                                                    blocks[b].pointsOut[pointsOutQty].id === "fp12"
-                                                ) {
-                                                    blocks[b].pointsOut[pointsOutQty].x = blocks[b].pointsOut[pointsOutQty].x - ( finishSize - newCoord);
+                                            }
+                                            else {
+                                                console.log("blocks[b].pointsOut[pointsOutQty]", blocks[b].pointsOut[pointsOutQty]);
+                                                if (blocks[b].pointsOut[pointsOutQty].x !== startSize) {
+
+                                                    if (blocks[b].pointsOut[pointsOutQty].id === "fp6" ||
+                                                        blocks[b].pointsOut[pointsOutQty].id === "fp7" ||
+                                                        blocks[b].pointsOut[pointsOutQty].id === "fp9" ||
+                                                        blocks[b].pointsOut[pointsOutQty].id === "fp10" ||
+                                                        blocks[b].pointsOut[pointsOutQty].id === "fp11" ||
+                                                        blocks[b].pointsOut[pointsOutQty].id === "fp12"
+                                                    ) {
+                                                        blocks[b].pointsOut[pointsOutQty].x = blocks[b].pointsOut[pointsOutQty].x - ( finishSize - newCoord);
+                                                    }
                                                 }
                                             }
                                         } else if (axis === 'y') {
