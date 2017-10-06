@@ -258,6 +258,11 @@
                                         if (axis === 'x') {
                                             if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
                                                 blocks[b].pointsOut[pointsOutQty].x = newCoord;
+                                            } else {
+                                                console.log(blocks[b].pointsOut[pointsOutQty])
+                                                if (blocks[b].pointsOut[pointsOutQty].id === "fp6" || blocks[b].pointsOut[pointsOutQty].id === "fp7") {
+                                                    blocks[b].pointsOut[pointsOutQty].x = blocks[b].pointsOut[pointsOutQty].x - ( finishSize - newCoord);
+                                                }
                                             }
                                         } else if (axis === 'y') {
                                             if (blocks[b].pointsOut[pointsOutQty].y === finishSize) {
@@ -322,11 +327,15 @@
                                     }
                                 });
                                 if (isRealBlock) {
-                                    newPointsOut = angular.copy(blocks[b].pointsOut);
+                                    newPointsOut = blocks[b].pointsOut;
                                     while (--pointsOutQty > -1) {
                                         if (axis === 'x') {
                                             if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
                                                 newPointsOut[pointsOutQty].x = startSize + newLength;
+                                            } else {
+                                                if (blocks[b].pointsOut[pointsOutQty].id === "fp6" || blocks[b].pointsOut[pointsOutQty].id === "fp7") {
+                                                    newPointsOut[pointsOutQty].x = newPointsOut[pointsOutQty].x - (oldSizeValue - newLength);
+                                                }
                                             }
                                         } else if (axis === 'y') {
                                             if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {

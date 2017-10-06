@@ -112,7 +112,6 @@
                                         x: dir ? dimLineHeight + dimEdger : dim.to,
                                         y: dir ? dim.to : dimLineHeight + dimEdger
                                     };
-                                console.log(dim);
                                 if (dim.dimId === "fp7") {
                                     pointL2 = {
                                         x: dir ? dimLineHeight - 200 : dim.from,
@@ -1002,7 +1001,6 @@
                                         dimYQty = template.dimension.dimY.length,
                                         dimQQty = template.dimension.dimQ.length,
                                         dx, dy, dq;
-                                    console.log(template.dimension);
                                     for (dx = 0; dx < dimXQty; dx += 1) {
                                         createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
                                         createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
