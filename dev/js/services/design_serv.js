@@ -256,15 +256,10 @@
                                     //------ if not last dimension
                                     if (!isLastDim) {
                                         if (axis === 'x') {
-                                            console.log("startSize", startSize);
-                                            console.log("finishSize", finishSize);
-                                            console.log("newCoord", newCoord);
-                                            console.log("newCoordLast", newCoordLast);
                                             if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
                                                 blocks[b].pointsOut[pointsOutQty].x = newCoord;
                                             }
                                             else {
-                                                console.log("blocks[b].pointsOut[pointsOutQty]", blocks[b].pointsOut[pointsOutQty]);
                                                 if (blocks[b].pointsOut[pointsOutQty].x !== startSize) {
 
                                                     if (blocks[b].pointsOut[pointsOutQty].id === "fp6" ||
@@ -686,7 +681,6 @@
                                         DesignStor.design.prevSize = dim[0][0].textContent;
                                         DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
                                         DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
-                                        console.log(dim[0][0]);
                                         //------- show caclulator or voice helper
                                         if (GlobalStor.global.isVoiceHelper) {
                                             DesignStor.design.openVoiceHelper = 1;
