@@ -2246,7 +2246,6 @@
                     return dimX;
                 }
 
-
                 function setLimitsGlobalDim(dim, limits, maxSizeLimit) {
                     console.log(dim);
                     var dimLimit = {},
