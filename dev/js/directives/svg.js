@@ -130,24 +130,24 @@
                                         y: dir ? dim.to : dimLineHeight + dimEdger
                                     };
                                 }
-                                if (dim.dimId === "fp11" ) {
-                                    pointL2 = {
-                                        x: dir ? dimLineHeight - 400 : dim.from,
-                                        y: dir ? dim.from : dimLineHeight
-                                    };
-                                    pointR2 = {
-                                        x: dir ? dimLineHeight - 400 : dim.to,
-                                        y: dir ? dim.to : dimLineHeight
-                                    };
-                                    pointC1 = {
-                                        x: dir ? dimLineHeight + dimEdger - 400 : dim.from,
-                                        y: dir ? dim.from : dimLineHeight + dimEdger
-                                    };
-                                    pointC2 = {
-                                        x: dir ? dimLineHeight + dimEdger - 400 : dim.to,
-                                        y: dir ? dim.to : dimLineHeight + dimEdger
-                                    };
-                                }
+                                // if (dim.dimId === "fp11" ) {
+                                //     pointL2 = {
+                                //         x: dir ? dimLineHeight - 400 : dim.from,
+                                //         y: dir ? dim.from : dimLineHeight
+                                //     };
+                                //     pointR2 = {
+                                //         x: dir ? dimLineHeight - 400 : dim.to,
+                                //         y: dir ? dim.to : dimLineHeight
+                                //     };
+                                //     pointC1 = {
+                                //         x: dir ? dimLineHeight + dimEdger - 400 : dim.from,
+                                //         y: dir ? dim.from : dimLineHeight + dimEdger
+                                //     };
+                                //     pointC2 = {
+                                //         x: dir ? dimLineHeight + dimEdger - 400 : dim.to,
+                                //         y: dir ? dim.to : dimLineHeight + dimEdger
+                                //     };
+                                // }
 
                                 lineSideL.push(pointL1, pointL2);
                                 lineSideR.push(pointR1, pointR2);
@@ -205,9 +205,9 @@
                                                 if (dim.dimId === "fp7" ) {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                 }
-                                                if (dim.dimId === "fp11" ) {
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                                }
+                                                // if (dim.dimId === "fp11" ) {
+                                                //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                // }
                                                 return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                             },
                                             'y': function () {
@@ -229,9 +229,9 @@
                                             if (dim.dimId === "fp7") {
                                                 return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 ) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                             }
-                                            if (dim.dimId === "fp11") {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            }
+                                            // if (dim.dimId === "fp11") {
+                                            //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            // }
                                             return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                         },
                                         'y': function () {
