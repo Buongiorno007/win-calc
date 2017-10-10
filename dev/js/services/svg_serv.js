@@ -2248,6 +2248,7 @@
 
 
                 function setLimitsGlobalDim(dim, limits, maxSizeLimit) {
+                    console.log(dim);
                     var dimLimit = {},
                         limitsQty = limits.length,
                         i;
@@ -2260,7 +2261,7 @@
                                     dimLimit.minL = globalConstants.minSizeLimit;
                                 }
 
-                                if (limits[i + 1] && limits[i + 2]) {
+                                if (limits[i + 1] && limits[i + 2] ) {
                                     dimLimit.maxL = GeneralServ.roundingValue((limits[i + 1].x - dim.from - globalConstants.minSizeLimit), 1);
                                 } else {
                                     dimLimit.maxL = maxSizeLimit;
