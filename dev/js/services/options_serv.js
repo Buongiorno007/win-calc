@@ -112,8 +112,22 @@
                                 },
                                 {
                                     id: 1,
-                                    name: $filter('translate')('panels.32_TYPE'),
+                                    name: $filter('translate')('panels.TEMPLATE_BALCONY_ENTER'),
                                     src: 'img/templates/balcony1.png',
+                                    type: 3
+                                }
+                                ,
+                                {
+                                    id: 2,
+                                    name: $filter('translate')('panels.TEMPLATE_BALCONY_ENTER'),
+                                    src: 'img/templates/balcony2.png',
+                                    type: 3
+                                }
+                                ,
+                                {
+                                    id: 3,
+                                    name: $filter('translate')('panels.TEMPLATE_BALCONY_ENTER'),
+                                    src: 'img/templates/balcony3.png',
                                     type: 3
                                 }
                             ]
@@ -1731,6 +1745,134 @@
                                             id: 'block_0',
                                             level: 0,
                                             blockType: 'frame',
+                                            children: ['block_1', 'block_2'],
+                                            maxSizeLimit: 5000
+                                        },
+                                        //------- Level 1
+                                        {
+                                            type:'skylight',
+                                            id:'block_1',
+                                            level: 1,
+                                            blockType:'frame',
+                                            parent: 'block_0',
+                                            children: [],
+                                            pointsOut: [
+                                                {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp2', x:1300, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp3', x:1300, y:1400, dir:'line', view:1, sill:1},
+                                                {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
+                                            ],
+                                            pointsIn: [],
+                                            parts: [],
+                                            glassId: 0,
+                                            glassTxt: ''
+                                        },
+                                        {
+                                            type: "skylight",
+                                            id: "block_2",
+                                            level: 1,
+                                            blockType: "sash",
+                                            parent: "block_0",
+                                            children: [],
+                                            pointsOut: [
+                                                {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1, sill: 1},
+                                                {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1, sill: 1}
+                                            ],
+                                            pointsIn: [
+
+                                            ],
+                                            parts: [
+
+                                            ],
+                                            glassId: 338643,
+                                            glassTxt: "(24)4-16-4/проз.",
+                                            gridId: 0,
+                                            gridTxt: "",
+                                            openDir: [
+                                                1,
+                                                4
+                                            ],
+                                            handlePos: 4,
+                                            sashType: 6,
+                                            glass_type: 1
+                                        }
+                                    ],
+                                    hardwareLines: [[497, 1890, 497, 1890]]
+                                },
+                                {
+                                    name: 'Выход на балкон',
+                                    details: [
+                                        {
+                                            type: 'skylight',
+                                            id: 'block_0',
+                                            level: 0,
+                                            blockType: 'frame',
+                                            children: ['block_1', 'block_2'],
+                                            maxSizeLimit: 5000
+                                        },
+                                        //------- Level 1
+                                        {
+                                            type: "skylight",
+                                            id: "block_1",
+                                            level: 1,
+                                            blockType: "sash",
+                                            parent: "block_0",
+                                            children: [],
+                                            pointsOut: [
+                                                {type:'frame', id:'fp5', x:0, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp6', x:700, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp7', x:700, y:2100, dir:'line', view:1, sill: 1},
+                                                {type:'frame', id:'fp8', x:0, y:2100, dir:'line', view:1, sill: 1}
+                                            ],
+                                            pointsIn: [
+
+                                            ],
+                                            parts: [
+
+                                            ],
+                                            glassId: 338643,
+                                            glassTxt: "(24)4-16-4/проз.",
+                                            gridId: 0,
+                                            gridTxt: "",
+                                            openDir: [
+                                                1,
+                                                4
+                                            ],
+                                            handlePos: 4,
+                                            sashType: 6,
+                                            glass_type: 1
+                                        },
+                                        {
+                                            type:'skylight',
+                                            id:'block_2',
+                                            level: 1,
+                                            blockType:'frame',
+                                            parent: 'block_0',
+                                            children: [],
+                                            pointsOut: [
+                                                {type:'frame', id:'fp1', x:700, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp2', x:2000, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp3', x:2000, y:1400, dir:'line', view:1, sill:1},
+                                                {type:'frame', id:'fp4', x:700, y:1400, dir:'line', view:1, sill:1}
+                                            ],
+                                            pointsIn: [],
+                                            parts: [],
+                                            glassId: 0,
+                                            glassTxt: ''
+                                        }
+                                    ],
+                                    hardwareLines: [[497, 1890, 497, 1890]]
+                                },
+                                {
+                                    name: 'Выход на балкон',
+                                    details: [
+                                        {
+                                            type: 'skylight',
+                                            id: 'block_0',
+                                            level: 0,
+                                            blockType: 'frame',
                                             children: ['block_1', 'block_2','block_3'],
                                             maxSizeLimit: 5000
                                         },
@@ -1759,14 +1901,12 @@
                                             level: 1,
                                             blockType: "sash",
                                             parent: "block_0",
-                                            children: [
-
-                                            ],
+                                            children: [],
                                             pointsOut: [
                                                 {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
                                                 {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
-                                                {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
-                                                {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
+                                                {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1, sill: 1},
+                                                {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1, sill: 1}
                                             ],
                                             pointsIn: [
 
@@ -1785,13 +1925,13 @@
                                             handlePos: 4,
                                             sashType: 6,
                                             glass_type: 1
-                                        },
+                                        }
+                                        ,
                                         {
                                             type: 'skylight',
                                             id: 'block_3',
                                             level: 1,
                                             blockType: 'frame',
-                                            //blockType:'sash',
                                             parent: 'block_0',
                                             children: [],
                                             pointsOut: [
@@ -1809,113 +1949,6 @@
                                             //openDir: [1]
                                         }
                                     ],
-                                    hardwareLines: [[497, 1890, 497, 1890]]
-                                },
-                                {
-                                    name: "Штульповые",
-                                    details: [{
-                                        type: "skylight",
-                                        id: "block_0",
-                                        level: 0,
-                                        blockType: "frame",
-                                        children: ["block_1", "block_1"],
-                                        maxSizeLimit: 5000
-                                    }, {
-                                        type: "skylight",
-                                        id: "block_2",
-                                        level: 1,
-                                        blockType: "frame",
-                                        parent: "block_0",
-                                        children: ["block_3", "block_4"],
-                                        pointsOut: [{
-                                            type: "frame",
-                                            id: "fp1",
-                                            x: 0,
-                                            y: 0,
-                                            dir: "line",
-                                            view: 1
-                                        }, {
-                                            type: "frame",
-                                            id: "fp2",
-                                            x: 1300,
-                                            y: 0,
-                                            dir: "line",
-                                            view: 1
-                                        }, {
-                                            type: "frame",
-                                            id: "fp3",
-                                            x: 1300,
-                                            y: 2100,
-                                            dir: "line",
-                                            view: 1
-                                        }, {
-                                            type: "frame",
-                                            id: "fp4",
-                                            x: 0,
-                                            y: 2100,
-                                            dir: "line",
-                                            view: 1
-                                        }],
-                                        pointsIn: [],
-                                        pointsLight: [],
-                                        parts: [],
-                                        glassId: 311891,
-                                        glassTxt: "4-16-4",
-                                        impost: {
-                                            impostAxis: [{
-                                                type: "shtulp",
-                                                id: "sht2",
-                                                x: 650,
-                                                y: 0,
-                                                dir: "line",
-                                                dimType: 0
-                                            }, {
-                                                type: "shtulp",
-                                                id: "sht2",
-                                                x: 650,
-                                                y: 2100,
-                                                dir: "line",
-                                                dimType: 0
-                                            }],
-                                            impostOut: [],
-                                            impostIn: [],
-                                            impostLight: []
-                                        }
-                                    }, {
-                                        type: "skylight",
-                                        id: "block_3",
-                                        level: 2,
-                                        blockType: "sash",
-                                        parent: "block_2",
-                                        children: [],
-                                        pointsOut: [],
-                                        pointsIn: [],
-                                        pointsLight: [],
-                                        parts: [],
-                                        glassId: 311891,
-                                        glassTxt: "4-16-4",
-                                        openDir: [1, 2],
-                                        handlePos: 2,
-                                        sashType: 6,
-                                        gridId: 0,
-                                        gridTxt: ""
-                                    }, {
-                                        type: "skylight",
-                                        id: "block_4",
-                                        level: 2,
-                                        blockType: "sash",
-                                        parent: "block_2",
-                                        children: [],
-                                        pointsOut: [],
-                                        pointsIn: [],
-                                        pointsLight: [],
-                                        parts: [],
-                                        glassId: 311891,
-                                        glassTxt: "4-16-4",
-                                        openDir: [4],
-                                        handlePos: 0,
-                                        sashType: 4
-                                    }],
                                     hardwareLines: [[497, 1890, 497, 1890]]
                                 }
 

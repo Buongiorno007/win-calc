@@ -103,6 +103,7 @@
                                         x: dir ? dimLineHeight : dim.to,
                                         y: dir ? dim.to : dimLineHeight
                                     },
+
                                     pointC1 = {
                                         x: dir ? dimLineHeight + dimEdger : dim.from,
                                         y: dir ? dim.from : dimLineHeight + dimEdger
@@ -111,6 +112,43 @@
                                         x: dir ? dimLineHeight + dimEdger : dim.to,
                                         y: dir ? dim.to : dimLineHeight + dimEdger
                                     };
+                                if (dim.dimId === "fp7") {
+                                    pointL2 = {
+                                        x: dir ? dimLineHeight - 200 : dim.from,
+                                        y: dir ? dim.from : dimLineHeight
+                                    };
+                                    pointR2 = {
+                                        x: dir ? dimLineHeight - 200 : dim.to,
+                                        y: dir ? dim.to : dimLineHeight
+                                    };
+                                    pointC1 = {
+                                        x: dir ? dimLineHeight + dimEdger - 200 : dim.from,
+                                        y: dir ? dim.from : dimLineHeight + dimEdger
+                                    };
+                                    pointC2 = {
+                                        x: dir ? dimLineHeight + dimEdger - 200 : dim.to,
+                                        y: dir ? dim.to : dimLineHeight + dimEdger
+                                    };
+                                }
+                                // if (dim.dimId === "fp11" ) {
+                                //     pointL2 = {
+                                //         x: dir ? dimLineHeight - 400 : dim.from,
+                                //         y: dir ? dim.from : dimLineHeight
+                                //     };
+                                //     pointR2 = {
+                                //         x: dir ? dimLineHeight - 400 : dim.to,
+                                //         y: dir ? dim.to : dimLineHeight
+                                //     };
+                                //     pointC1 = {
+                                //         x: dir ? dimLineHeight + dimEdger - 400 : dim.from,
+                                //         y: dir ? dim.from : dimLineHeight + dimEdger
+                                //     };
+                                //     pointC2 = {
+                                //         x: dir ? dimLineHeight + dimEdger - 400 : dim.to,
+                                //         y: dir ? dim.to : dimLineHeight + dimEdger
+                                //     };
+                                // }
+
                                 lineSideL.push(pointL1, pointL2);
                                 lineSideR.push(pointR1, pointR2);
                                 lineCenter.push(pointC1, pointC2);
@@ -164,6 +202,12 @@
                                         .classed('size-rect', true)
                                         .attr({
                                             'x': function () {
+                                                if (dim.dimId === "fp7" ) {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                }
+                                                // if (dim.dimId === "fp11" ) {
+                                                //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                // }
                                                 return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                             },
                                             'y': function () {
@@ -228,6 +272,7 @@
                                             'level': dim.level
                                         });
                                 }
+
                             }
                         }
 
@@ -308,7 +353,7 @@
                                     } else {
                                         GlobalStor.global.background = GlobalStor.global.backgroundH
                                     }
-                                    if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+                                    if (ProductStor.product.construction_type === 1) {
                                         GlobalStor.global.imgLink = "44.png";
 
                                     } else if (ProductStor.product.doorLock.stvorka_type === 6) {
@@ -980,6 +1025,7 @@
                                         dimQQty = template.dimension.dimQ.length,
                                         dx, dy, dq;
                                     for (dx = 0; dx < dimXQty; dx += 1) {
+                                        createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
                                         createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
                                     }
                                     for (dy = 0; dy < dimYQty; dy += 1) {

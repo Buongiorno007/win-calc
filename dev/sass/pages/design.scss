@@ -783,13 +783,17 @@ $door-config-content: $ipad-height - $door-config-header;
   cursor: pointer;
 
 }
-
+#tamlateSVG {
+  position: relative;
+  left: 10rem;
+  top: 0rem;
+}
 .light-v { //*!!!!!!!!!!!!!!!!!!!!!!*//
   background: url(../img/millim.png);
   background-size: cover;
   #tamlateSVG {
     position: relative;
-    left: -10rem;
+    left: 0rem;
     top: -5rem;
   }
   &.active {

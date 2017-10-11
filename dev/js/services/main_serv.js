@@ -989,13 +989,13 @@
                 if (UserStor.userInfo.therm_coeff_id) {
                     /** R */
                     ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
-                        ProductStor.product.template_square / heatCoeffTotal
+                        ProductStor.product.template_square / heatCoeffTotal ,2
                     );
                 } else {
                     /** U */
                     ProductStor.product.heat_coef_total =
                         GeneralServ.roundingValue(
-                            ProductStor.product.template_square / heatCoeffTotal
+                            ProductStor.product.template_square / heatCoeffTotal,2
                         ) * 1.03;
                 }
             }
