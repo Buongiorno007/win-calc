@@ -297,6 +297,8 @@ function buildExt(id) {
   }
 
 
+  
+
   //js
   gulp.src(config.build.src.js)
     .pipe(wrapper({
