@@ -9,4 +9,5 @@ app/
 app2/
 .idea/
 .editorconfig
+./_product
 .DS_Store
