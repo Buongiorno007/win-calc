@@ -7392,38 +7392,61 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                                         });
                                 }
 
+                                if (UserStor.userInfo.factory_id === 1966) {
+                                    sizeBox.append('text')
+                                        .text((dim.text * 0.0393701).toFixed(1))
+                                        .attr({
+                                            'class': function () {
+                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+                                            },
+                                            'x': function () {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
+                                            'y': function () {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'dx': 80,
+                                            'dy': 40,
+                                            'type': 'line',
+                                            'block_id': dim.blockId,
+                                            'size_val': dim.text,
+                                            'min_val': dim.minLimit,
+                                            'max_val': dim.maxLimit,
+                                            'dim_id': dim.dimId,
+                                            'from_point': dim.from,
+                                            'to_point': dim.to,
+                                            'axis': dim.axis,
+                                            'level': dim.level
+                                        });
+                                }
+                                else {
+                                    sizeBox.append('text')
+                                        .text(dim.text)
+                                        .attr({
+                                            'class': function () {
+                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+                                            },
+                                            'x': function () {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
+                                            'y': function () {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'dx': 80,
+                                            'dy': 40,
+                                            'type': 'line',
+                                            'block_id': dim.blockId,
+                                            'size_val': dim.text,
+                                            'min_val': dim.minLimit,
+                                            'max_val': dim.maxLimit,
+                                            'dim_id': dim.dimId,
+                                            'from_point': dim.from,
+                                            'to_point': dim.to,
+                                            'axis': dim.axis,
+                                            'level': dim.level
+                                        });
+                                }
 
-                                sizeBox.append('text')
-                                    .text(dim.text)
-                                    .attr({
-                                        'class': function () {
-                                            return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
-                                        },
-                                        'x': function () {
-                                            if (dim.dimId === "fp7") {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 ) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            }
-                                            // if (dim.dimId === "fp11") {
-                                            //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            // }
-                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                        },
-                                        'y': function () {
-                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                        },
-                                        'dx': 80,
-                                        'dy': 40,
-                                        'type': 'line',
-                                        'block_id': dim.blockId,
-                                        'size_val': dim.text,
-                                        'min_val': dim.minLimit,
-                                        'max_val': dim.maxLimit,
-                                        'dim_id': dim.dimId,
-                                        'from_point': dim.from,
-                                        'to_point': dim.to,
-                                        'axis': dim.axis,
-                                        'level': dim.level
-                                    });
                             }
                         }
 
@@ -8756,7 +8779,11 @@ function ErrorResult(code, message) {
           var newElementSize = '',
             elementIndex = AuxStor.aux.currentAddElementId,
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
-            newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
+            if (UserStor.userInfo.factory_id === 1966) {
+                newElementSize = parseFloat(AuxStor.aux.tempSize.join('')) / 0.0393701;
+                
+            } else {
+            newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);}
           if (newElementSize === 0) {
             newElementSize = 1;
             AuxStor.aux.tempSize.splice(0,AuxStor.aux.tempSize.length);
@@ -11755,7 +11782,11 @@ function ErrorResult(code, message) {
                 function closeSizeCaclulator(prom) {
                     var deff = $q.defer();
                     if (DesignStor.design.tempSize.length) {
-                        var newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
+                        if (UserStor.userInfo.factory_id === 1966) {
+                            var newLength = parseFloat(DesignStor.design.tempSize.join(''), 10) / 0.0393701;
+                        } else {
+                            var newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
+                        }
                         var newPointsOut = rebuildPointsOut(newLength),
                             currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
                         /** Square limits checking */
