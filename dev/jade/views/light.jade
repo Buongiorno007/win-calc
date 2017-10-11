@@ -8,7 +8,6 @@
         .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)")
           button.nav-menu-btn(ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedlightPage)}", fs-click="userBox.swipeMainPage($event)")
 
-
         // section.construction-page(ng-class="{'active': lightPage.G.global.showCart == 1}")
         section.construction-page(ng-if="lightPage.G.global.showCart == 0")
           section.construction-container
