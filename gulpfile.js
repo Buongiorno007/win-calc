@@ -458,12 +458,14 @@ function buildSite(id) {
     .pipe(concat('main.js'))
     .pipe(ngAnnotate())
     .pipe(removeLogs())
-    .pipe(js_obfuscator())
+    // .pipe(js_obfuscator())
     // .pipe(uglify())
     .pipe(gulp.dest("_product/" + id + "/site/js"))
     .on('end', function () {
       gutil.log('main!');
     });
+
+
 
   gulp.src(config.build.src.js_vendor)
     .pipe(order(config.build.src.js_vendor_order))
