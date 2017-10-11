@@ -2247,7 +2247,7 @@
                 }
 
                 function setLimitsGlobalDim(dim, limits, maxSizeLimit) {
-                    console.log(dim);
+                    // console.log(dim);
                     var dimLimit = {},
                         limitsQty = limits.length,
                         i;
@@ -2259,9 +2259,10 @@
                                 } else {
                                     dimLimit.minL = globalConstants.minSizeLimit;
                                 }
-
-                                if (limits[i + 1] && limits[i + 2] ) {
+                                if (limits[i + 1] && !limits[i + 2]) {
                                     dimLimit.maxL = GeneralServ.roundingValue((limits[i + 1].x - dim.from - globalConstants.minSizeLimit), 1);
+                                    console.log("3", dim.to, limits[i + 1].x, dim.from , globalConstants.minSizeLimit ,limits[i + 1].x - dim.from - globalConstants.minSizeLimit);
+                                    console.log("3", limits);
                                 } else {
                                     dimLimit.maxL = maxSizeLimit;
                                 }
@@ -2269,6 +2270,7 @@
                                 // dimLimit.maxL = (limits[i + 1]) ? GeneralServ.roundingValue((limits[i + 1].x - dim.from - globalConstants.minSizeLimit), 1) : maxSizeLimit;
 
                             }
+
                         } else {
                             if (limits[i].y === dim.to) {
                                 if (limits[i - 1] && !limits[i - 2]) {
@@ -2288,7 +2290,7 @@
                             }
                         }
                     }
-                    console.log("dimLimit", dimLimit);
+                    // console.log("dimLimit", dimLimit);
                     return dimLimit;
                 }
 
