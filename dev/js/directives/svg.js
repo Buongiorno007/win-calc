@@ -331,14 +331,17 @@
                                         GlobalStor.global.background = GlobalStor.global.backgroundH
                                     }
                                     if (ProductStor.product.construction_type === 1) {
-                                        GlobalStor.global.imgLink = "44.png";
+                                        GlobalStor.global.imgLink = "";
+                                        // GlobalStor.global.imgLink = "44.png";
 
                                     } else if (ProductStor.product.doorLock.stvorka_type === 6) {
-                                        GlobalStor.global.imgLink = "31.jpg";
+                                        // GlobalStor.global.imgLink = "31.jpg";
+                                        GlobalStor.global.imgLink = "";
                                     } else if (ProductStor.product.doorLock.stvorka_type === 7) {
                                         GlobalStor.global.imgLink = "inner-wall_glass.png";
                                     } else {
-                                        GlobalStor.global.imgLink = "3333.png";
+                                        // GlobalStor.global.imgLink = "3333.png";
+                                        GlobalStor.global.imgLink = "";
                                     }
                                 }
                             }

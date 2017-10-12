@@ -2261,8 +2261,6 @@
                                 }
                                 if (limits[i + 1] && !limits[i + 2]) {
                                     dimLimit.maxL = GeneralServ.roundingValue((limits[i + 1].x - dim.from - globalConstants.minSizeLimit), 1);
-                                    console.log("3", dim.to, limits[i + 1].x, dim.from , globalConstants.minSizeLimit ,limits[i + 1].x - dim.from - globalConstants.minSizeLimit);
-                                    console.log("3", limits);
                                 } else {
                                     dimLimit.maxL = maxSizeLimit;
                                 }
