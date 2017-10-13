@@ -21,27 +21,27 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   }
   $(window).load(function() {
     location.hash = "#/";
-    // var obj = $("#main-frame");
-    // var width = obj.width();
-    // var height = obj.height();
-    // var scale = 1,
-    //   left = 0,
-    //   top = 0;
-    // if (self.innerWidth / width > self.innerHeight / height) {
-    //   scale = self.innerHeight / height;
-    //   left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
-    // } else {
-    //   scale = self.innerWidth / width;
-    //   top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
-    // }
-    // if (scale > 1) {
-    //   scale = 1;
-    // }
-    // obj.css({
-    //   "transform": "scale(" + scale + ")",
-    //   "left": left + "px",
-    //   "top": top + "px"
-    // });
+    var obj = $("#main-frame");
+    var width = obj.width();
+    var height = obj.height();
+    var scale = 1,
+      left = 0,
+      top = 0;
+    if (self.innerWidth / width > self.innerHeight / height) {
+      scale = self.innerHeight / height;
+      left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
+    } else {
+      scale = self.innerWidth / width;
+      top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
+    }
+    if (scale > 1) {
+      scale = 1;
+    }
+    obj.css({
+      "transform": "scale(" + scale + ")",
+      "left": left + "px",
+      "top": top + "px"
+    });
   });
 
   window.onresize = function() {

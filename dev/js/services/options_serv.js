@@ -1738,7 +1738,7 @@
                         callback(new OkResult({
                             balconies: [
                                 {
-                                    name: 'Выход на балкон',
+                                    name: 'Окно слева',
                                     details: [
                                         {
                                             type: 'skylight',
@@ -1802,7 +1802,7 @@
                                     hardwareLines: [[497, 1890, 497, 1890]]
                                 },
                                 {
-                                    name: 'Выход на балкон',
+                                    name: 'окно справа',
                                     details: [
                                         {
                                             type: 'skylight',
@@ -1866,7 +1866,7 @@
                                     hardwareLines: [[497, 1890, 497, 1890]]
                                 },
                                 {
-                                    name: 'Выход на балкон',
+                                    name: 'чебурашка',
                                     details: [
                                         {
                                             type: 'skylight',
@@ -1886,8 +1886,8 @@
                                             children: [],
                                             pointsOut: [
                                                 {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
-                                                {type:'frame', id:'fp2', x:1300, y:0, dir:'line', view:1},
-                                                {type:'frame', id:'fp3', x:1300, y:1400, dir:'line', view:1, sill:1},
+                                                {type:'frame', id:'fp2', x:500, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp3', x:500, y:1400, dir:'line', view:1, sill:1},
                                                 {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                                             ],
                                             pointsIn: [],
@@ -1903,10 +1903,10 @@
                                             parent: "block_0",
                                             children: [],
                                             pointsOut: [
-                                                {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
-                                                {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
-                                                {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1, sill: 1},
-                                                {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1, sill: 1}
+                                                {type:'frame', id:'fp5', x:500, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp6', x:1200, y:0, dir:'line', view:1},
+                                                {type:'frame', id:'fp7', x:1200, y:2100, dir:'line', view:1, sill: 1},
+                                                {type:'frame', id:'fp8', x:500, y:2100, dir:'line', view:1, sill: 1}
                                             ],
                                             pointsIn: [
 
@@ -1935,10 +1935,10 @@
                                             parent: 'block_0',
                                             children: [],
                                             pointsOut: [
-                                                {type: 'frame', id: 'fp9', x: 2000, y: 0, dir: 'line', view: 1},
-                                                {type: 'frame', id: 'fp10', x: 3100, y: 0, dir: 'line', view: 1},
-                                                {type: 'frame', id: 'fp11', x: 3100, y: 1400, dir: 'line', view: 1, sill: 1},
-                                                {type: 'frame', id: 'fp12', x: 2000, y: 1400, dir: 'line', view: 1, sill: 1}
+                                                {type: 'frame', id: 'fp9', x: 1200, y: 0, dir: 'line', view: 1},
+                                                {type: 'frame', id: 'fp10', x: 1800, y: 0, dir: 'line', view: 1},
+                                                {type: 'frame', id: 'fp11', x: 1800, y: 1400, dir: 'line', view: 1, sill: 1},
+                                                {type: 'frame', id: 'fp12', x: 1200, y: 1400, dir: 'line', view: 1, sill: 1}
                                             ],
                                             pointsIn: [],
                                             pointsLight: [],

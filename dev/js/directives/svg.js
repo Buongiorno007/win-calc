@@ -340,8 +340,8 @@
                                     } else if (ProductStor.product.doorLock.stvorka_type === 7) {
                                         GlobalStor.global.imgLink = "inner-wall_glass.png";
                                     } else {
-                                        // GlobalStor.global.imgLink = "3333.png";
-                                        GlobalStor.global.imgLink = "";
+                                        GlobalStor.global.imgLink = "3333.png";
+                                        // GlobalStor.global.imgLink = "";
                                     }
                                 }
                             }

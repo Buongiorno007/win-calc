@@ -24,55 +24,55 @@
                                 var pointsOutQty = template.details[blockQty].pointsOut.length;
                                 while (--pointsOutQty > -1) {
                                     if (template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
-                                        // noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                                        // if(!pointsOutQty) {
-                                        //   noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
-                                        // } else {
-                                        //   noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
-                                        // }
-                                        if (template.details[blockQty].pointsOut[pointsOutQty].id === "fp6" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp1" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp5" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp2" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp4" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp3" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp8" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp9" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp10" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp11" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp12" ||
-                                            template.details[blockQty].pointsOut[pointsOutQty].id === "fp7"
-
-                                        ) {
-                                            noVvPath += template.details[blockQty].pointsOut[pointsOutQty].x + " " + template.details[blockQty].pointsOut[pointsOutQty].y + ",";
-                                            if (template.details[blockQty].pointsOut[pointsOutQty].id === "fp7" ||
-                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp3" ||
-                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp11"
-                                            ) {
-                                                noVvPath += template.details[blockQty].pointsOut[pointsOutQty+3].x + " " + template.details[blockQty].pointsOut[pointsOutQty+3].y + ",";
+                                        if (ProductStor.product.construction_type !== 3) {
+                                            noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                                            if (!pointsOutQty) {
+                                                noVvPath += ' ' + (template.details[blockQty].pointsOut[pointsOutQty].y);
+                                            } else {
+                                                noVvPath += ' ' + (template.details[blockQty].pointsOut[pointsOutQty].y) + ',';
                                             }
-                                            console.log(template.details[blockQty].pointsOut[pointsOutQty].id);
-                                        }
-                                        // noVvPath = "1000 0 , 0 0 , 0 2100 , 1500 2500";
-                                    }
+                                        } else {
+                                            if (template.details[blockQty].pointsOut[pointsOutQty].id === "fp6" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp1" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp5" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp2" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp4" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp3" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp8" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp9" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp10" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp11" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp12" ||
+                                                template.details[blockQty].pointsOut[pointsOutQty].id === "fp7"
 
+                                            ) {
+                                                noVvPath += template.details[blockQty].pointsOut[pointsOutQty].x + " " + template.details[blockQty].pointsOut[pointsOutQty].y + ",";
+                                                if (template.details[blockQty].pointsOut[pointsOutQty].id === "fp7" ||
+                                                    template.details[blockQty].pointsOut[pointsOutQty].id === "fp3" ||
+                                                    template.details[blockQty].pointsOut[pointsOutQty].id === "fp11"
+                                                ) {
+                                                    noVvPath += template.details[blockQty].pointsOut[pointsOutQty + 3].x + " " + template.details[blockQty].pointsOut[pointsOutQty + 3].y + ",";
+                                                }
+                                            }
+                                        }
+                                    }
                                     if ((template.details[blockQty].pointsOut[pointsOutQty].id === 'fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3')) {
-                                        // fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                                        // if(!pointsOutQty) {
-                                        //   fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                                        // } else {
-                                        //   fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                                        // }
+                                        fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                                        if (!pointsOutQty) {
+                                            fpDgLR += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y));
+                                        } else {
+                                            fpDgLR += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y)) + ',';
+                                        }
                                         //console.log('fpDgLR', fpDgLR)
                                     }
 
                                     if ((template.details[blockQty].pointsOut[pointsOutQty].id === 'fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp4')) {
-                                        // fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                                        // if(!pointsOutQty) {
-                                        //   fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                                        // } else {
-                                        //   fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                                        // }
+                                        fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                                        if (!pointsOutQty) {
+                                            fpDgRL += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y));
+                                        } else {
+                                            fpDgRL += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y)) + ',';
+                                        }
                                     }
 
 
@@ -99,14 +99,18 @@
                                 }
                             }
                         }
-                        // template.details.forEach(function (templateDetails) {
-                        //     if (templateDetails.level === 1) {
-                        //         //     var pointsOutQty = template.details[blockQty].pointsOut.length;
-                        //             templateDetails.pointsOut.forEach(function (templateDetailsPointsOut) {
-                        //                 console.log(templateDetailsPointsOut);
-                        //             });
-                        //     }
-                        // });
+                        var arrX = [];
+                        var arrY = [];
+                        template.details.forEach(function (templateDetails) {
+                            if (templateDetails.level === 1) {
+                                templateDetails.pointsOut.forEach(function (templateDetailsPointsOut) {
+                                    arrX.push(templateDetailsPointsOut.x);
+                                    arrY.push(templateDetailsPointsOut.y);
+                                });
+                            }
+                        });
+                        heightWmd = Math.max.apply(null, arrY);
+                        widthWmd = Math.max.apply(null, arrX);
                         var widthT = widthWmd,
                             heightT = heightWmd;
 
@@ -118,7 +122,14 @@
                             heightT = heightWmd;
                         }
                     }
-                    noVvPath = noVvPath.substring(0, noVvPath.length - 1)
+
+
+                    console.log("heightWmd",heightWmd);
+                    console.log("widthWmd",widthWmd);
+                    if (ProductStor.product.construction_type === 3)
+                    {
+                        noVvPath = noVvPath.substring(0, noVvPath.length - 1);
+                    }
                     return {
                         path: path,
                         noVvPath: noVvPath,
