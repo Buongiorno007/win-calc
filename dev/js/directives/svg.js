@@ -202,7 +202,7 @@
                                         .classed('size-rect', true)
                                         .attr({
                                             'x': function () {
-                                                if (dim.dimId === "fp7" ) {
+                                                if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                 }
                                                 // if (dim.dimId === "fp11" ) {
@@ -349,6 +349,9 @@
                                 if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                                     var sunH = (((0.18 * heightT) - 252) + 520), /*height sun rays*/
                                         hD = 755;
+                                    $('.elem17_1').css({
+                                        "display": "none"
+                                    });
                                     /*height display*/
                                     if (ProductStor.product.construction_type === 1) {
                                         var sunW = (((0.18 * widthT) - 234) + 520), /*width sun rays*/
@@ -494,6 +497,242 @@
 
                                         $('.elem11').css('left', (0.23 * (0.991 * widthT) + 280) + 'px');
                                         $('.elem8').css('left', (0.23 * widthT + 275) + 'px');
+                                        $('.elem5').css('left', 5000 + 'px');
+                                        $('.elem10').css('opacity', 1);
+                                        $('.elem7').css('opacity', 1);
+                                        $('.elem16').css('left', 5000 + 'px');
+                                        $('.elem9').css('opacity', 0);
+                                        $('.elem51').css('left', (0.23 * widthT - 443) + 'px');
+                                        $('.elem52').css('left', (0.23 * widthT - 571) + 'px');
+                                        $('.elem56').css('left', (0.23 * widthT + 215.42) + 'px');
+                                        $('.elem59').css({
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 417 + 'px',
+                                            'height': 0.23 * (heightT - 2000) + 27 + 'px',
+                                        });
+                                        $('.elem60').css({
+                                            'left': (0.23 * widthT + (262)) + 'px',
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 412.8 + 'px',
+                                            'height': 0.23 * (heightT - 2000) + 32 + 'px',
+                                        });
+                                        $('.elem55').css({
+                                            'left': (0.23 * widthT + 177.9) + 'px',
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 172 + 'px',
+                                        });
+                                        $('.elem58').css({
+                                            'width': (0.23 * widthT - 186.7) + 'px',
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 172.8 + 'px',
+                                        });
+                                        $('.elem54').css({
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 173 + 'px',
+                                        });
+                                    }
+
+                                    if (ProductStor.product.construction_type === 3) {
+                                        var sunW = (((0.18 * widthT) - 234) + 420);
+                                        $('.elem23').css({
+                                            'width': (1000 * 0.5 + (0.7 * (widthT - 700))) + 'px',
+                                            'top': 665 + 'px',
+                                            'left': 100 - (2.5 * (0.1 * widthT - 70)) + 'px',
+                                            'z-index': -15
+                                        });
+                                        $('.elem15').css({
+                                            'top': 5000 + 'px'
+                                        });
+                                        $('.elem17').css({
+                                            'width': 0 + 'px',
+                                            'height': 0 + 'px',
+                                            'left': 0 + 'px'
+                                        });
+                                        $('.elem8').css('left', (0.23 * widthT + 275) + 'px');
+
+
+                                        var windowWidth = 0;
+                                        var windowHeight = 0;
+                                        var doorHeight = 0;
+                                        var doorWidth = 0;
+                                        if (ProductStor.product.template_source.name === "balconies1") {
+                                            //правый откос для двери
+                                            $('.elem11').css('left', (0.23 * (0.991 * widthT) + 280) + 'px');
+                                            ProductStor.product.template_source.details.forEach(function (detail) {
+                                                if (detail.id === "block_1") {
+                                                    // console.log(detail.pointsOut);
+                                                    windowWidth = detail.pointsOut[2].x;
+                                                    windowHeight = detail.pointsOut[2].y;
+                                                    return;
+                                                }
+                                                if (detail.id === "block_2") {
+                                                    doorHeight = detail.pointsOut[2].y;
+                                                    return;
+                                                }
+                                            });
+
+                                            //Левый откос для двери
+                                            $('.elem10').css({
+                                                'left': 267 + windowWidth * SVGServ.setTemplateScaleMAIN(0.6) + 'px'
+                                            });
+
+                                            var tmp = windowWidth * SVGServ.setTemplateScaleMAIN(1) + 55;
+                                            var tmp2 = windowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180;
+
+                                            //подоконник
+                                            $('.elem17').css({
+                                                'width': tmp + 'px',
+                                                'height': 41 + 'px',
+                                                'left': 257 + 'px',
+                                                'top': tmp2 + 'px'
+                                            });
+                                            setTimeout(function () {
+                                                $('.elem8_1').width(windowWidth * SVGServ.setTemplateScaleMAIN(0.6)+66+"px")
+                                            }, 100);
+
+
+                                        }
+
+
+                                        if (ProductStor.product.template_source.name === "balconies2") {
+                                            ProductStor.product.template_source.details.forEach(function (detail) {
+                                                if (detail.id === "block_2") {
+                                                    doorWidth = detail.pointsOut[0].x;
+                                                    windowHeight = detail.pointsOut[2].y;
+                                                    windowWidth = detail.pointsOut[2].x - doorWidth;
+                                                    doorHeight = detail.pointsOut[2].y;
+                                                    return;
+                                                }
+
+                                            });
+                                            //правый откос для двери
+                                            $('.elem11').css({
+                                                'left': 279 + doorWidth * SVGServ.setTemplateScaleMAIN(0.6) + 'px'
+                                            });
+                                            $('.elem8').css({
+                                                'left': 282 + doorWidth * SVGServ.setTemplateScaleMAIN(0.6) + 'px',
+                                                "z-index": -12
+                                            });
+                                            //Левый откос для двери
+                                            $('.elem10').css('left', 266 + 'px');
+                                            //Левый откос для двери
+
+                                            var tmp = windowWidth * SVGServ.setTemplateScaleMAIN(1) + 55;
+                                            var tmp2 = windowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180;
+
+                                            //подоконник
+                                            $('.elem17').css({
+                                                'width': tmp + 'px',
+                                                'height': 41 + 'px',
+                                                'left': 290 + doorWidth * SVGServ.setTemplateScaleMAIN(0.6) + 'px',
+                                                'top': tmp2 + 'px'
+                                            });
+                                            $('.elem7_1').css({
+                                                'width': 85 + 'px',
+                                            });
+                                            setTimeout(function () {
+                                                $('.elem8_1').width(66+"px")
+                                            }, 100);
+                                        }
+
+                                        if (ProductStor.product.template_source.name === "balconies3") {
+                                            var leftWindowWidth = 0;
+                                            var leftWindowHeight = 0;
+                                            var rightWindowWidth = 0;
+                                            var rightWindowHeight = 0;
+                                            var rightSill = 0;
+                                            doorWidth = 0;
+                                            doorHeight = 0;
+
+                                            ProductStor.product.template_source.details.forEach(function (detail) {
+                                                if (detail.id === "block_1") {
+                                                    leftWindowWidth = detail.pointsOut[1].x;
+                                                    leftWindowHeight = detail.pointsOut[2].y;
+                                                }
+                                                if (detail.id === "block_3") {
+                                                    rightWindowWidth = detail.pointsOut[1].x - detail.pointsOut[0].x;
+                                                    rightSill = detail.pointsOut[0].x;
+                                                    rightWindowHeight = detail.pointsOut[2].y;
+                                                }
+                                            });
+                                            $('.elem10').css({
+                                                'left': 267 + leftWindowWidth * SVGServ.setTemplateScaleMAIN(0.6) + 'px'
+                                            });
+                                            $('.elem11').css({
+                                                'left': 267 + rightSill * SVGServ.setTemplateScaleMAIN(0.6) + 11 + 'px'
+                                            });
+
+
+                                            $('.elem17_1').css({
+                                                "display": "inline-block",
+                                                'width': rightWindowWidth * SVGServ.setTemplateScaleMAIN(1) + 45 + 'px',
+                                                'height': 41 + 'px',
+                                                'left': 290 + rightSill * SVGServ.setTemplateScaleMAIN(0.6) + 'px',
+                                                'top': rightWindowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180 + 'px'
+                                            });
+
+                                            $('.elem8').css({
+                                                'left': 282 + rightSill * SVGServ.setTemplateScaleMAIN(0.6) + 'px',
+                                                "z-index": -12
+                                            });
+                                            //подоконник
+                                            $('.elem17').css({
+                                                'width': leftWindowWidth * SVGServ.setTemplateScaleMAIN(1) + 45 + 'px',
+                                                'height': 41 + 'px',
+                                                'left': 257 + 'px',
+                                                'top': leftWindowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180 + 'px'
+                                            });
+                                            setTimeout(function () {
+                                                $('.elem8_1').width(leftWindowWidth * SVGServ.setTemplateScaleMAIN(0.6)+66+"px")
+                                            }, 100);
+                                        }
+
+
+                                        $('.elem18').css({
+                                            'width': sunW + 'px',
+                                            'height': sunH + 'px',
+                                            'left': 130 + 'px',
+                                            'top': (hD - sunH + 30) + 'px'
+                                        });
+                                        $('.elem19').css({
+                                            'width': sunW + 'px',
+                                            'height': sunH + 'px',
+                                            'left': 130 + 'px',
+                                            'top': (hD - sunH + 30) + 'px'
+                                        });
+                                        $('.elem20').css({
+                                            'width': sunW + 'px',
+                                            'height': sunH + 'px',
+                                            'left': 130 + 'px',
+                                            'top': (hD - sunH + 30) + 'px'
+                                        });
+                                        $('.elem21').css({
+                                            'width': sunW + 'px',
+                                            'height': sunH + 'px',
+                                            'left': 130 + 'px',
+                                            'top': (hD - sunH + 50) + 'px'
+                                        });
+                                        $('.elem32').css({
+                                            'left': (381 + (0.48 * ((widthT / 2) - 700 * 0.32))) + 'px'
+                                        });
+                                        $('.elem34').css({
+                                            'left': (0.23 * widthT + (190 - 19)) + 'px',
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
+                                        });
+                                        $('.elem38').css({
+                                            'width': (0.23 * widthT - 135) + 'px',
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
+                                        });
+                                        $('.elem39').css({
+                                            'left': (0.23 * widthT + (261 - 18)) + 'px',
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 468 + 'px',
+                                            'height': 0.23 * (heightT - 2000) + 134 + 'px',
+                                        });
+                                        $('.elem40').css({
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 468 + 'px',
+                                            'height': 0.23 * (heightT - 2000) + 140 + 'px',
+                                        });
+
+                                        $('.elem33').css({
+                                            'top': 0.23 * ((heightT - 2000) * (-1)) + 189 + 'px',
+                                        });
+                                        $('.elem35').css('left', (0.23 * widthT + (217 - 12.1)) + 'px');
+
                                         $('.elem5').css('left', 5000 + 'px');
                                         $('.elem10').css('opacity', 1);
                                         $('.elem7').css('opacity', 1);
@@ -712,7 +951,7 @@
 
                                 if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                                     var scl = scale * 4.4;
-                                    if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+                                    if (ProductStor.product.construction_type === 1) {
                                         var positionX1 = position.x - 160,
                                             positionY1 = 18,
                                             positionX2 = position.x - 340,
