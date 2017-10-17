@@ -46,7 +46,16 @@
                                                 template.details[blockQty].pointsOut[pointsOutQty].id === "fp7"
 
                                             ) {
-                                                noVvPath += template.details[blockQty].pointsOut[pointsOutQty].x + " " + template.details[blockQty].pointsOut[pointsOutQty].y + ",";
+                                                if (template.details[blockQty].pointsOut[pointsOutQty].id === "fp4" ||
+                                                    template.details[blockQty].pointsOut[pointsOutQty].id === "fp3"||
+                                                    template.details[blockQty].pointsOut[pointsOutQty].id === "fp11" ||
+                                                    template.details[blockQty].pointsOut[pointsOutQty].id === "fp12" ) {
+                                                    noVvPath += template.details[blockQty].pointsOut[pointsOutQty].x + " " + (template.details[blockQty].pointsOut[pointsOutQty].y+130) + ",";
+
+                                                } else {
+                                                    noVvPath += template.details[blockQty].pointsOut[pointsOutQty].x + " " + template.details[blockQty].pointsOut[pointsOutQty].y + ",";
+
+                                                }
                                                 if (template.details[blockQty].pointsOut[pointsOutQty].id === "fp7" ||
                                                     template.details[blockQty].pointsOut[pointsOutQty].id === "fp3" ||
                                                     template.details[blockQty].pointsOut[pointsOutQty].id === "fp11"
@@ -56,24 +65,23 @@
                                             }
                                         }
                                     }
-                                    if ((template.details[blockQty].pointsOut[pointsOutQty].id === 'fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3')) {
-                                        fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                                        if (!pointsOutQty) {
-                                            fpDgLR += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y));
-                                        } else {
-                                            fpDgLR += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y)) + ',';
-                                        }
-                                        //console.log('fpDgLR', fpDgLR)
-                                    }
-
-                                    if ((template.details[blockQty].pointsOut[pointsOutQty].id === 'fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp4')) {
-                                        fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                                        if (!pointsOutQty) {
-                                            fpDgRL += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y));
-                                        } else {
-                                            fpDgRL += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y)) + ',';
-                                        }
-                                    }
+                                    // if ((template.details[blockQty].pointsOut[pointsOutQty].id === 'fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3')) {
+                                    //     fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                                    //     if (!pointsOutQty) {
+                                    //         fpDgLR += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y));
+                                    //     } else {
+                                    //         fpDgLR += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y)) + ',';
+                                    //     }
+                                    // }
+                                    //
+                                    // if ((template.details[blockQty].pointsOut[pointsOutQty].id === 'fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp4')) {
+                                    //     fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                                    //     if (!pointsOutQty) {
+                                    //         fpDgRL += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y));
+                                    //     } else {
+                                    //         fpDgRL += ' ' + ((template.details[blockQty].pointsOut[pointsOutQty].y)) + ',';
+                                    //     }
+                                    // }
 
 
                                     if (template.details[blockQty].pointsOut[pointsOutQty]) {
@@ -85,17 +93,17 @@
                                         }
                                     }
 
-                                    if (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3') {
-                                        if (!pointsOutQty) {
-                                            heightWmd += ' ' + (template.details[blockQty].pointsOut[pointsOutQty].y);
-                                        } else {
-                                            heightWmd += ' ' + (template.details[blockQty].pointsOut[pointsOutQty].y) + ',';
-                                        }
-                                    }
-
-                                    if (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3') {
-                                        widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                                    }
+                                    // if (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3') {
+                                    //     if (!pointsOutQty) {
+                                    //         heightWmd += ' ' + (template.details[blockQty].pointsOut[pointsOutQty].y);
+                                    //     } else {
+                                    //         heightWmd += ' ' + (template.details[blockQty].pointsOut[pointsOutQty].y) + ',';
+                                    //     }
+                                    // }
+                                    //
+                                    // if (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3') {
+                                    //     widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                                    // }
                                 }
                             }
                         }
@@ -111,6 +119,8 @@
                         });
                         heightWmd = Math.max.apply(null, arrY);
                         widthWmd = Math.max.apply(null, arrX);
+                        fpDgLR = "0 0," + widthWmd + " " + heightWmd;
+                        fpDgRL = widthWmd + " 0,0 " + heightWmd;
                         var widthT = widthWmd,
                             heightT = heightWmd;
 
@@ -124,10 +134,7 @@
                     }
 
 
-                    console.log("heightWmd",heightWmd);
-                    console.log("widthWmd",widthWmd);
-                    if (ProductStor.product.construction_type === 3)
-                    {
+                    if (ProductStor.product.construction_type === 3) {
                         noVvPath = noVvPath.substring(0, noVvPath.length - 1);
                     }
                     return {

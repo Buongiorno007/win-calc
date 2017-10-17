@@ -1738,7 +1738,7 @@
                         callback(new OkResult({
                             balconies: [
                                 {
-                                    name: 'Окно слева',
+                                    name: 'balconies1',
                                     details: [
                                         {
                                             type: 'skylight',
@@ -1802,7 +1802,7 @@
                                     hardwareLines: [[497, 1890, 497, 1890]]
                                 },
                                 {
-                                    name: 'окно справа',
+                                    name: 'balconies2',
                                     details: [
                                         {
                                             type: 'skylight',
@@ -1866,7 +1866,7 @@
                                     hardwareLines: [[497, 1890, 497, 1890]]
                                 },
                                 {
-                                    name: 'чебурашка',
+                                    name: 'balconies3',
                                     details: [
                                         {
                                             type: 'skylight',
