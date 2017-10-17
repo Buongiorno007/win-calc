@@ -10,4 +10,5 @@ app2/
 .idea/
 .editorconfig
 ./_product
+_product
 .DS_Store
