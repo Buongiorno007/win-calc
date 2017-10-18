@@ -1375,119 +1375,6 @@
                                 var drawpoint3 = pointsIn[index + 1];
                                 var drawpoint4 = pointsIn[index];
                                 if (ProductStor.product.construction_type === 4) {
-                                    //depths.sashDepth.b = 75;
-                                    if (ProductStor.product.doorLock.stvorka_type === 6) {
-
-                                        // if (drawpoint1.type === "sash") {
-                                        //   if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
-                                        //     drawpoint3.y -= depths.sashDepth.b;
-                                        //     drawpoint3.x += depths.sashDepth.b;
-                                        //
-                                        //     drawpoint4.y -= depths.sashDepth.b;
-                                        //     drawpoint4.x -= depths.sashDepth.b;
-                                        //   }
-                                        //   if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
-                                        //     drawpoint3.y -= depths.sashDepth.b;
-                                        //     drawpoint3.x += depths.sashDepth.b;
-                                        //
-                                        //     drawpoint4.y -= depths.sashDepth.b;
-                                        //     drawpoint4.x -= depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "fp1") {
-                                        //
-                                        //     drawpoint3.y += depths.sashDepth.b;
-                                        //     drawpoint3.x -= depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "fp4") {
-                                        //
-                                        //     drawpoint3.y += depths.sashDepth.b;
-                                        //     drawpoint3.x += depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
-                                        //
-                                        //     drawpoint3.y += depths.sashDepth.b;
-                                        //     drawpoint3.x += depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
-                                        //
-                                        //     drawpoint3.y += depths.sashDepth.b;
-                                        //     drawpoint3.x -= depths.sashDepth.b;
-                                        //   }
-                                        //
-                                        //
-                                        // }
-
-                                        // if (drawpoint1.type === "sash") {
-                                        //   if ((drawpoint1.id === "fp3" || drawpoint1.id === "sht1") && drawpoint2.id === "fp4") {
-                                        //     drawpoint2.y += depths.sashDepth.b;
-                                        //     drawpoint2.x -= depths.sashDepth.b;
-                                        //
-                                        //     drawpoint1.y += depths.sashDepth.b;
-                                        //     drawpoint1.x += depths.sashDepth.b;
-                                        //   }
-                                        //   if ((drawpoint1.id === "fp3" ) && drawpoint2.id === "sht1") {
-                                        //     drawpoint2.y += depths.sashDepth.b;
-                                        //     drawpoint2.x -= depths.sashDepth.b;
-                                        //
-                                        //     drawpoint1.y += depths.sashDepth.b;
-                                        //     drawpoint1.x += depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "fp1") {
-                                        //
-                                        //     drawpoint2.y -= depths.sashDepth.b;
-                                        //     drawpoint2.x += depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "fp4") {
-                                        //
-                                        //     drawpoint2.y -= depths.sashDepth.b;
-                                        //     drawpoint2.x -= depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "sht1" && drawpoint2.id === "sht1") {
-                                        //
-                                        //     drawpoint2.y -= depths.sashDepth.b;
-                                        //     drawpoint2.x -= depths.sashDepth.b;
-                                        //   }
-                                        //   if (drawpoint1.id === "sht1" && drawpoint2.id === "fp2") {
-                                        //
-                                        //     drawpoint2.y -= depths.sashDepth.b;
-                                        //     drawpoint2.x += depths.sashDepth.b;
-                                        //   }
-                                        //
-                                        //
-                                        // }
-
-                                        // if (drawpoint1.type === "bead") {
-                                        //
-                                        //   if ((drawpoint1.id === "fp4" || drawpoint1.id.includes("sht")) && drawpoint2.id.includes("ip")) {
-                                        //
-                                        //     drawpoint2.x += depths.sashDepth.b;
-                                        //     drawpoint3.x += depths.sashDepth.b;
-                                        //   }
-                                        //
-                                        //   if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && (newPointsOut[0].id === "fp3" || newPointsOut[0].id.includes("sht"))) {
-                                        //
-                                        //     drawpoint2.x -= depths.sashDepth.b;
-                                        //     drawpoint3.x -= depths.sashDepth.b;
-                                        //   }
-                                        //
-                                        //   // if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && newPointsOut[0].id.includes("ip")&& newPointsOut[3].id.includes("fp")) {
-                                        //   //   drawpoint2.x += depths.sashDepth.b;
-                                        //   //   drawpoint3.x += depths.sashDepth.b;
-                                        //   //
-                                        //   //   drawpoint1.x -= depths.sashDepth.b;
-                                        //   //   drawpoint4.x -= depths.sashDepth.b;
-                                        //   // }
-                                        //
-                                        //   if (drawpoint1.id.includes("ip") && drawpoint2.id.includes("ip") && newPointsOut[0].id.includes("ip")&& ( newPointsOut[3].id.includes("fp")||newPointsOut[3].id.includes("sht"))) {
-                                        //     drawpoint2.x += depths.sashDepth.b;
-                                        //     drawpoint3.x += depths.sashDepth.b;
-                                        //
-                                        //     drawpoint1.x -= depths.sashDepth.b;
-                                        //     drawpoint4.x -= depths.sashDepth.b;
-                                        //   }
-                                        // }
-
-                                    }
                                     if (shapeIndex === 1) {
                                         if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                                             if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
@@ -1683,29 +1570,6 @@
                 }
 
                 function setGlass(glassType, glassPoints, priceElements, currGlassId) {
-                    //horizontal width
-                    // var line_x1 = Math.sqrt(Math.pow((glassPoints[0].x - glassPoints[1].x), 2) + Math.pow((glassPoints[0].y - glassPoints[1].y), 2));
-                    // var line_x2 = Math.sqrt(Math.pow((glassPoints[3].x - glassPoints[2].x), 2) + Math.pow((glassPoints[3].y - glassPoints[2].y), 2));
-                    // if (line_x1 > line_x2) {
-                    //   glassPoints[0].x = glassPoints[3].x;
-                    //   glassPoints[1].x = glassPoints[2].x;
-                    // } else {
-                    //   glassPoints[3].x = glassPoints[0].x;
-                    //   glassPoints[2].x = glassPoints[1].x;
-                    //
-                    // }
-                    //
-                    // var line_y1 = Math.sqrt(Math.pow((glassPoints[0].x - glassPoints[3].x), 2) + Math.pow((glassPoints[0].y - glassPoints[3].y), 2));
-                    // var line_y2 = Math.sqrt(Math.pow((glassPoints[1].x - glassPoints[2].x), 2) + Math.pow((glassPoints[1].y - glassPoints[2].y), 2));
-                    // if (line_y1 > line_y2) {
-                    //   glassPoints[0].y = glassPoints[1].y;
-                    //   glassPoints[3].y = glassPoints[2].y;
-                    // } else {
-                    //   glassPoints[1].y = glassPoints[0].y;
-                    //   glassPoints[2].y = glassPoints[3].y;
-                    //
-                    // }
-
                     var part = {
                             type: 'glass',
                             points: glassPoints,
@@ -2481,7 +2345,6 @@
                     //console.log('``````````allPoints``````', allPoints);
                     //console.log('``````````globalLimitsX``````', globalLimitsX);
                     //console.log('``````````globalLimitsY``````', globalLimitsY);
-
                     /**-------- on eah block --------*/
                     for (b = 1; b < blocksQty; b += 1) {
                         var pointsOutQty = blocks[b].pointsOut.length;
@@ -2498,6 +2361,7 @@
 
                             for (i = 0; i < pointsOutQty; i += 1) {
                                 if (blocks[b].pointsOut[i].id.indexOf('fp') + 1) {
+                                    console.log(blocks[b].pointsOut[i]);
                                     globalDimX.push(blocks[b].pointsOut[i]);
                                 } else if (blocks[b].pointsOut[i].id.indexOf('qa') + 1) {
                                     arcHeights.push(blocks[b].pointsOut[i]);
@@ -2511,7 +2375,6 @@
                             globalDimX.sort(sortByX);
                             globalDimY.sort(sortByY);
 
-                            //console.log('``````````globalDimX ``````', globalDimX);
                             //console.log('``````````globalDimY ``````', globalDimY);
                             //console.log('``````````heightArcX ``````', arcHeights);
                             collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
@@ -2532,7 +2395,7 @@
                             //--------- get Overall Dimension
                             //          console.log('for overall------', dimension.dimX, dimension.dimY);
                             collectOverallDim(overallDim, dimension);
-                            //          console.log('for overall finish ------', overallDim);
+                            // console.log('for overall finish ------', overallDim);
 
                             overallDim.square = calcSquare(blocks[b].pointsOut);
                             //--------- push Overall Dimension
@@ -2826,7 +2689,6 @@
                             }
                         }
                     }
-
 
                     thisObj.dimension = initDimensions(thisObj.details);
 
