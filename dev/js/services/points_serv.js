@@ -13,7 +13,7 @@
                     if (template && !$.isEmptyObject(template)) {
                         var blockQty = template.details.length,
                             path = '',
-                            noVvPath = '',          //без  Viev = 0
+                            noVvPath = '',          //без  View = 0
                             fpDgLR = '',             //диагональ с лево на право
                             fpDgRL = '',             //диагональ с право на лево
                             heightWmd = '',         //Высота окна

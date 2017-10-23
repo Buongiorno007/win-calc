@@ -3,7 +3,9 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
     td
       button.cell.calc-delete(fs-click="sizeCalc.deleteLastNumber()")
     td(colspan= "2")
-      .calc-interval
+      .calc-interval-hide(ng-if="sizeCalc.P.product.construction_type === 3")
+        |{{ sizeCalc.D.design.tempSize.join('')}}
+      .calc-interval(ng-if="sizeCalc.P.product.construction_type !== 3")
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 0
           .calc-value-limit(  ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.D.design.minSizeLimit }}
