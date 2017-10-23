@@ -8,6 +8,7 @@
       GlobalStor,
       DesignStor,
       UserStor,
+      ProductStor,
       AddElementMenuServ,
       DesignServ,
       MainServ,
@@ -18,6 +19,7 @@
       thisCtrl.isDesignPage = false;
       thisCtrl.D = DesignStor;
       thisCtrl.U = UserStor;
+      thisCtrl.P = ProductStor;
 
       //------- translate
       thisCtrl.MIN = $filter("translate")("common_words.MIN");

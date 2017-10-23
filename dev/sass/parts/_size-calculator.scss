@@ -48,7 +48,16 @@
       content: $calc-more-icon;
     }
   }
+  .calc-interval-hide {
+    @include font-icon(rem(40px), 0);
 
+    @extend .icon-setting;
+    top: 45%;
+    left: 40%;
+    color: $main_gray_txt;
+    position: relative;
+
+  }
   .calc-value-limit {
     @include roboto-lt(rem(36px));
     max-width: 7rem;
