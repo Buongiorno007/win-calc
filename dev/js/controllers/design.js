@@ -213,7 +213,7 @@
             DesignStor.design.activeSubMenuItem = menuId;
             corners.transition().duration(300).ease("linear").attr('r', 50);
             DesignStor.design.selectedCorner = corners[0];
-//        corners.on('touchstart', function () {
+            //        corners.on('touchstart', function () {
             corners.on('click', function () {
               //----- hide all cornerMark
               DesignServ.hideCornerMarks();
@@ -273,7 +273,7 @@
           //----- if not corners
           if (arcs.length) {
             DesignStor.design.activeSubMenuItem = menuId;
-//        console.log('Arcs++++++', DesignStor.design.selectedArc);
+            //        console.log('Arcs++++++', DesignStor.design.selectedArc);
             if (!DesignStor.design.selectedArc.length) {
               //----- show all frames and arc
               var arcsD3 = d3.selectAll(arcs);
@@ -293,7 +293,7 @@
           GlobalStor.global.isTest = 1;
           DesignServ.deselectAllArc();
 
-          //---- get quantity of arcs
+          // //---- get quantity of arcs
           // var arcQty = DesignStor.design.selectedArc.length;
           //
           // /** delete arc */

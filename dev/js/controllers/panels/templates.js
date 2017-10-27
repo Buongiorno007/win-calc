@@ -34,7 +34,7 @@
     thisCtrl.templateName = [
       'panels.TEMPLATE_WINDOW_HAND',
       'panels.TEMPLATE_BALCONY_HAND',
-      // 'panels.TEMPLATE_BALCONY_ENTER',
+      'panels.TEMPLATE_BALCONY_ENTER',
       'panels.TEMPLATE_DOOR_HAND'
     ]
     thisCtrl.selected = ProductStor.product.construction_type;
@@ -73,8 +73,7 @@
       GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;
-      marker = (marker===3)? 4:marker;
-
+      // marker = (marker===3)? 4:marker;
       GlobalStor.global.templatesType = marker;
 
       optionsServ.getTemplateImgIcons(function (results) {

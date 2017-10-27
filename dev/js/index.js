@@ -67,24 +67,24 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       "top": top + "px"
     });
   };
-  // if (isDevice) {
-  //   var app = window.PhonegapApp = {
-  //     initialize: function() {
-  //       this.bindEvents();
-  //     },
-  //     bindEvents: function() {
-  //       document.addEventListener('deviceready', this.onDeviceReady, false);
-  //     },
-  //     onDeviceReady: function() {
-  //       //      alert('onDeviceReady');
-  //       angular.element(document).ready(function() {
-  //         angular.bootstrap(document, ['BauVoiceApp', []]);
-  //       });
-  //
-  //     }
-  //   };
-  //   app.initialize();
-  // }
+  if (isDevice) {
+    var app = window.PhonegapApp = {
+      initialize: function() {
+        this.bindEvents();
+      },
+      bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+      },
+      onDeviceReady: function() {
+        //      alert('onDeviceReady');
+        angular.element(document).ready(function() {
+          angular.bootstrap(document, ['BauVoiceApp', []]);
+        });
+
+      }
+    };
+    app.initialize();
+  }
 
   angular.module('BauVoiceApp', [
     'ngRoute',
