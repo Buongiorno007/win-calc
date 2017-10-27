@@ -230,6 +230,11 @@
   }
   .go-to-cart {
     width: 25%;
+    margin-left: 2rem;
+    &.active{
+      transition: all 1s ease;
+      margin-left: 0rem;
+    }
   }
   #qty{
     @extend .splash;
