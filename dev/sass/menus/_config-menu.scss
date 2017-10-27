@@ -233,7 +233,7 @@
     margin-left: 2rem;
     &.active{
       transition: all 1s ease;
-      margin-left: 0rem;
+      margin-left: 0;
     }
   }
   #qty{
