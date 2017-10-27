@@ -5,12 +5,13 @@ $door-config-content: $ipad-height - $door-config-header;
   width: 26rem;
   position: absolute;
   left: 49rem;
-  TOP: 84rem;
+  top: 84rem;
   color: #fff;
   background-color: #f98000;
   font: normal 3rem/1.5 roboto-light, sans-serif, icons;
   border-radius: 1rem;
   text-align: center;
+  z-index: 99;
 }
 
 .construction-container {

@@ -244,76 +244,78 @@
         }
 
 
-        function setCurrency() {
-          var defer = $q.defer();
-          /** download All Currencies */
-          localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
-            .then(function(currencies) {
-              var currencQty = currencies.length;
-              if (currencies && currencQty) {
-                GlobalStor.global.currencies = currencies;
-                /** set current currency */
-                while (--currencQty > -1) {
-                  if (currencies[currencQty].is_base === 1) {
-                    UserStor.userInfo.currencyId = currencies[currencQty].id;
-                    if (/uah/i.test(currencies[currencQty].name)) {
-                      UserStor.userInfo.currency = '\u20b4'; //'₴';
-                    } else if (/rub/i.test(currencies[currencQty].name)) {
-                      UserStor.userInfo.currency = '\ue906'; // '\u20BD';//'₽';
-                    } else if (/(usd|\$)/i.test(currencies[currencQty].name)) {
-                      UserStor.userInfo.currency = '$';
-                    } else if (/eur/i.test(currencies[currencQty].name)) {
-                      UserStor.userInfo.currency = '\u20AC'; //'€';
-                    } else {
-                      UserStor.userInfo.currency = '\xA4'; //Generic Currency Symbol
-                    }
-                  }
-                }
-                defer.resolve(1);
-              } else {
-                console.error('not find currencies!');
-                defer.resolve(0);
-              }
-            });
-          return defer.promise;
-        }
-
-        function setUserDiscounts() {
-          console.log(setUserDiscounts);
-
-          var defer = $q.defer();
-          //-------- add server url to avatar img
-          if (navigator.onLine) {
-            var url = globalConstants.serverIP + UserStor.userInfo.avatar
-            UserStor.userInfo.avatar = url;
-          }
-
-          localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-            //    console.log('DISCTOUN=====', result);
-            var discounts = angular.copy(result[0]);
-            if (discounts) {
-              UserStor.userInfo.discountConstr = +discounts.default_construct;
-              UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
-              UserStor.userInfo.discountConstrMax = +discounts.max_construct;
-              UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
-
-              var disKeys = Object.keys(discounts),
-                disQty = disKeys.length,
-                dis;
-              for (dis = 0; dis < disQty; dis += 1) {
-                if (disKeys[dis].indexOf('week') + 1) {
-                  if (disKeys[dis].indexOf('construct') + 1) {
-                    UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
-                  } else if (disKeys[dis].indexOf('add_elem') + 1) {
-                    UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
-                  }
-                }
-              }
-            }
-          }).join(',');
-          defer.resolve(cityIds);
-          return defer.promise;
-        }
+        // function setCurrency() {
+        //   var defer = $q.defer();
+        //   /** download All Currencies */
+        //   localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
+        //     .then(function(currencies) {
+        //       var currencQty = currencies.length;
+        //       if (currencies && currencQty) {
+        //         GlobalStor.global.currencies = currencies;
+        //         /** set current currency */
+        //         while (--currencQty > -1) {
+        //           if (currencies[currencQty].is_base === 1) {
+        //             UserStor.userInfo.currencyId = currencies[currencQty].id;
+        //             if (/uah/i.test(currencies[currencQty].name)) {
+        //               UserStor.userInfo.currency = '\u20b4'; //'₴';
+        //             } else if (/rub/i.test(currencies[currencQty].name)) {
+        //               UserStor.userInfo.currency = '\ue906'; // '\u20BD';//'₽';
+        //             } else if (/(usd|\$)/i.test(currencies[currencQty].name)) {
+        //               UserStor.userInfo.currency = '$';
+        //             } else if (/eur/i.test(currencies[currencQty].name)) {
+        //               UserStor.userInfo.currency = '\u20AC'; //'€';
+        //             } else if (/kzt/i.test(currencies[currencQty].name)) {
+        //               UserStor.userInfo.currency = '\u20B8'; //'TENGE';
+        //             } {
+        //               UserStor.userInfo.currency = '\xA4'; //Generic Currency Symbol
+        //             }
+        //           }
+        //         }
+        //         defer.resolve(1);
+        //       } else {
+        //         console.error('not find currencies!');
+        //         defer.resolve(0);
+        //       }
+        //     });
+        //   return defer.promise;
+        // }
+        //
+        // function setUserDiscounts() {
+        //   console.log(setUserDiscounts);
+        //
+        //   var defer = $q.defer();
+        //   //-------- add server url to avatar img
+        //   if (navigator.onLine) {
+        //     var url = globalConstants.serverIP + UserStor.userInfo.avatar
+        //     UserStor.userInfo.avatar = url;
+        //   }
+        //
+        //   localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
+        //     //    console.log('DISCTOUN=====', result);
+        //     var discounts = angular.copy(result[0]);
+        //     if (discounts) {
+        //       UserStor.userInfo.discountConstr = +discounts.default_construct;
+        //       UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
+        //       UserStor.userInfo.discountConstrMax = +discounts.max_construct;
+        //       UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
+        //
+        //       var disKeys = Object.keys(discounts),
+        //         disQty = disKeys.length,
+        //         dis;
+        //       for (dis = 0; dis < disQty; dis += 1) {
+        //         if (disKeys[dis].indexOf('week') + 1) {
+        //           if (disKeys[dis].indexOf('construct') + 1) {
+        //             UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
+        //           } else if (disKeys[dis].indexOf('add_elem') + 1) {
+        //             UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }).join(',');
+        //   defer.resolve(cityIds);
+        //   return defer.promise;
+        // }
 
 
         /**--------- set current user geolocation ---------*/
@@ -410,6 +412,8 @@
                       UserStor.userInfo.currency = '$';
                     } else if (/eur/i.test(currencies[currencQty].name)) {
                       UserStor.userInfo.currency = '\u20AC'; //'€';
+                    } else if (/kzt/i.test(currencies[currencQty].name)) {
+                      UserStor.userInfo.currency = '\u20B8'; //'TENGE';
                     } else {
                       UserStor.userInfo.currency = '\xA4'; //Generic Currency Symbol
                     }
