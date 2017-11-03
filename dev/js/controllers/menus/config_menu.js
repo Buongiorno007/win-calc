@@ -81,17 +81,26 @@
           GlobalStor.global.servicesPriceIndex = -1;
           GlobalStor.global.continued = 0;
           ProductStor.product.product_qty = GlobalStor.global.product_qty;
-
-          if (MainServ.inputProductInOrder()) {
-            //--------- moving to Cart when click on Cart button
-            if (go_to_cart) {
-              MainServ.goToCart();
-            }
-            GlobalStor.global.construction_count = 0;
-            OrderStor.order.products.forEach(function (product) {
-              GlobalStor.global.construction_count += product.product_qty;
-            });
+          if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
           }
+          var profileId = ProductStor.product.profile.id,
+            hardwareId = ProductStor.product.hardware_id,
+            laminatId = ProductStor.product.lamination.lamination_in_id,
+            glassIds = ProductStor.product.glass;
+          //--------- moving to Cart when click on Cart button
+          MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function () {
+            ProductStor.product.template_source.report = ProductStor.product.report;
+            console.log(ProductStor.product.report);
+            if (MainServ.inputProductInOrder()) {
+              if (go_to_cart) {
+                MainServ.goToCart();
+              }
+              GlobalStor.global.construction_count = 0;
+              OrderStor.order.products.forEach(function (product) {
+                GlobalStor.global.construction_count += product.product_qty;
+              });
+            }
+          });
         }
 
 
@@ -132,9 +141,7 @@
         }
 
         function checkForAddElem(go_to_cart) {
-          console.log(ProductStor.product);
-          console.log(JSON.stringify(ProductStor.product.template_source));
-          ProductStor.product.template_source.report = ProductStor.product.report;
+
           if (!GlobalStor.global.isZeroPriceList.length) {
             if (!ProductStor.product.is_addelem_only) {
               alert();

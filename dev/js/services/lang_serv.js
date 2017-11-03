@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent)) ? 1 : 0;
+  var isDevice =  !!window.cordova;
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
