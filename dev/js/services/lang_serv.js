@@ -18,6 +18,7 @@
         $.getJSON(path + query, function(data){
           def.resolve(data);
         });
+        console.log(path + query);
       } else {
         $http.get(query).then(
           function(result) {

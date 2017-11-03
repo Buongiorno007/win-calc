@@ -52,7 +52,7 @@ var server_env = {
     "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
-    "windowSiteTest": "'/calculator/local/'",
+    "windowSiteTest": "'/local/'",
     "windowSiteLocal": "'/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
