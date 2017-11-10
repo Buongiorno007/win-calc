@@ -1290,7 +1290,7 @@
                             }
                         }
 
-                        scope.$watch('template', function () {
+                        scope.$watchCollection('template', function () {
                             buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
                         });
 

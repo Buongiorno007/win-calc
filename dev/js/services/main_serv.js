@@ -28,7 +28,7 @@
             /**============ METHODS ================*/
 
             function getOnline() {
-                $.get(globalConstants.serverIP, function (data) {
+                $.get(globalConstants.serverIP, function () {
                     GlobalStor.global.onlineMode = true;
                     return true;
                 }).fail(function () {
