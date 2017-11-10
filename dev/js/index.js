@@ -68,6 +68,10 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     });
   };
   if (isDevice) {
+    console.log("device");
+    var configuration = {
+      apiKey: 'ea987e48-f1a0-4c94-82c0-ef3b67e76f92'
+    };
     var app = window.PhonegapApp = {
       initialize: function() {
         this.bindEvents();
@@ -77,6 +81,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       },
       onDeviceReady: function() {
         //      alert('onDeviceReady');
+        window.appMetrica.activate(configuration);
         angular.element(document).ready(function() {
           angular.bootstrap(document, ['BauVoiceApp', []]);
         });

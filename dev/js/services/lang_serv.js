@@ -1,7 +1,14 @@
 (function(){
   'use strict';
 
-  var isDevice =  !!window.cordova;
+  var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+  if (app) {
+    isDevice = 1;
+    // console.log("PhoneGap application");
+  } else {
+    isDevice = 0;
+    // console.log("Web page");
+  }
   /**@ngInject*/
   angular
     .module('BauVoiceApp')

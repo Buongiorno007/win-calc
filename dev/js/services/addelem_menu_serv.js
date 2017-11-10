@@ -171,7 +171,11 @@
           var newElementSize = '',
             elementIndex = AuxStor.aux.currentAddElementId,
             index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
-            newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
+            if (UserStor.userInfo.factory_id === 1966) {
+                newElementSize = parseFloat(AuxStor.aux.tempSize.join('')) / 0.0393701;
+                console.log(AuxStor.aux.tempSize.join(''));
+            } else {
+            newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);}
           if (newElementSize === 0) {
             newElementSize = 1;
             AuxStor.aux.tempSize.splice(0,AuxStor.aux.tempSize.length);

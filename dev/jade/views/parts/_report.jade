@@ -1,6 +1,6 @@
-.report-container(ng-controller="ReportCtrl as reportBox", ng-show="reportBox.G.global.isReport")
+.report-container(ng-controller="ReportCtrl as reportBox", ng-show="reportBox.G.global.isReport" )
   .close_report(fs-click="reportBox.G.global.isReport = 0")
-  .report-menu
+  .report-menu(ng-if="reportBox.G.global.isReport")
     .report-menu-item(ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position track by $index", fs-click="reportBox.sortReport(reportMenu.id)", ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}") {{ ::reportMenu.name }}
   .report-box
     table

@@ -415,7 +415,11 @@
                 function closeSizeCaclulator(prom) {
                     var deff = $q.defer();
                     if (DesignStor.design.tempSize.length) {
-                        var newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
+                        if (UserStor.userInfo.factory_id === 1966) {
+                            var newLength = parseFloat(DesignStor.design.tempSize.join(''), 10) / 0.0393701;
+                        } else {
+                            var newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
+                        }
                         var newPointsOut = rebuildPointsOut(newLength),
                             currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
                         /** Square limits checking */

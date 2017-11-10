@@ -95,7 +95,7 @@
           '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
         '</div>',
       link: function (scope, elem, attrs) {
-        scope.$watch(attrs.output, function (price) {
+        scope.$watchCollection(attrs.output, function (price) {
           changePrice(price, elem);
         });
       }

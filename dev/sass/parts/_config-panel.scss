@@ -33,6 +33,7 @@
       font-size: large;
       overflow: hidden;
       text-transform: uppercase;
+      cursor : pointer;
       &.selected {
         color: #4bd963;
         text-decoration: underline;
@@ -104,6 +105,7 @@
       font-size: large;
       overflow: hidden;
       text-transform: uppercase;
+      cursor : pointer;
       &.selected {
         color: #4bd963;
         text-decoration: underline;

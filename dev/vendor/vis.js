@@ -6,8 +6,6 @@
 
   ga('create', 'UA-67872052-1', 'auto');
   ga('send', 'pageview');
-
-
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
@@ -60,4 +58,3 @@
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
 //*/
-<!-- /Yandex.Metrika counter -->

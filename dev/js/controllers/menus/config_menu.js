@@ -81,16 +81,17 @@
           GlobalStor.global.servicesPriceIndex = -1;
           GlobalStor.global.continued = 0;
           ProductStor.product.product_qty = GlobalStor.global.product_qty;
-          if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
-          }
-          var profileId = ProductStor.product.profile.id,
-            hardwareId = ProductStor.product.hardware_id,
-            laminatId = ProductStor.product.lamination.lamination_in_id,
-            glassIds = ProductStor.product.glass;
-          //--------- moving to Cart when click on Cart button
-          MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function () {
-            ProductStor.product.template_source.report = ProductStor.product.report;
-            console.log(ProductStor.product.report);
+
+          MainServ.preparePrice(
+            ProductStor.product.template,
+            ProductStor.product.profile.id,
+            ProductStor.product.glass,
+            ProductStor.product.hardware.id,
+            ProductStor.product.lamination.lamination_in_id
+          ).then(function () {
+            if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
+              ProductStor.product.template_source.report = ProductStor.product.report;
+            }
             if (MainServ.inputProductInOrder()) {
               if (go_to_cart) {
                 MainServ.goToCart();
@@ -101,6 +102,7 @@
               });
             }
           });
+
         }
 
 

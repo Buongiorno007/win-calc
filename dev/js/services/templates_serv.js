@@ -72,11 +72,11 @@
                   ProductStor.product.profile.id,
                   1
                 );
-                // if ($location.path() === "/main") {
-                //   if ($location.path() !== "/design") {
-                //     $location.path("/design");
-                //   }
-                // }
+                if ($location.path() === "/main") {
+                  if ($location.path() !== "/design") {
+                    $location.path("/design");
+                  }
+                }
               });
             })
           }

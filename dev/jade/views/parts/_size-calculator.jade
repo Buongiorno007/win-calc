@@ -8,11 +8,13 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
       .calc-interval(ng-if="sizeCalc.P.product.construction_type !== 3")
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 0
-          .calc-value-limit(  ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.D.design.minSizeLimit }}
+          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.D.design.minSizeLimit }}
+          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.displayData(sizeCalc.D.design.minSizeLimit) | number : 0 }}
           .calc-label-limit {{ ::sizeCalc.MIN }}
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 5000
-          .calc-value-limit( ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit }}
+          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.displayData(sizeCalc.D.design.maxSizeLimit) | number : 0 }}
+          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit }}
           .calc-label-limit {{ ::sizeCalc.MAX }}
   tr
     - for (var cell = 1; cell < 4; ++cell) {
@@ -32,8 +34,10 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
   tr
     td
       button.cell.calc-digit(fs-click="sizeCalc.setValueSize(0)") 0
-    td
+    td(ng-if="sizeCalc.U.userInfo.factory_id!==1966")
       button.cell.calc-digit(fs-click="sizeCalc.setValueSize('00')") 00
+    td(ng-if="sizeCalc.U.userInfo.factory_id==1966")
+      button.cell.calc-digit(fs-click="sizeCalc.setValueSize('.')") .
     td
       button.cell.calc-equal(fs-click="sizeCalc.closeSizeCaclulator()") =
 

@@ -218,38 +218,61 @@
                                         });
                                 }
 
+                                if (UserStor.userInfo.factory_id === 1966) {
+                                    sizeBox.append('text')
+                                        .text((dim.text * 0.0393701).toFixed(1))
+                                        .attr({
+                                            'class': function () {
+                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+                                            },
+                                            'x': function () {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
+                                            'y': function () {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'dx': 80,
+                                            'dy': 40,
+                                            'type': 'line',
+                                            'block_id': dim.blockId,
+                                            'size_val': dim.text,
+                                            'min_val': dim.minLimit,
+                                            'max_val': dim.maxLimit,
+                                            'dim_id': dim.dimId,
+                                            'from_point': dim.from,
+                                            'to_point': dim.to,
+                                            'axis': dim.axis,
+                                            'level': dim.level
+                                        });
+                                }
+                                else {
+                                    sizeBox.append('text')
+                                        .text(dim.text)
+                                        .attr({
+                                            'class': function () {
+                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+                                            },
+                                            'x': function () {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
+                                            'y': function () {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'dx': 80,
+                                            'dy': 40,
+                                            'type': 'line',
+                                            'block_id': dim.blockId,
+                                            'size_val': dim.text,
+                                            'min_val': dim.minLimit,
+                                            'max_val': dim.maxLimit,
+                                            'dim_id': dim.dimId,
+                                            'from_point': dim.from,
+                                            'to_point': dim.to,
+                                            'axis': dim.axis,
+                                            'level': dim.level
+                                        });
+                                }
 
-                                sizeBox.append('text')
-                                    .text(dim.text)
-                                    .attr({
-                                        'class': function () {
-                                            return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
-                                        },
-                                        'x': function () {
-                                            if (dim.dimId === "fp7") {
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 ) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            }
-                                            // if (dim.dimId === "fp11") {
-                                            //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            // }
-                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                        },
-                                        'y': function () {
-                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                        },
-                                        'dx': 80,
-                                        'dy': 40,
-                                        'type': 'line',
-                                        'block_id': dim.blockId,
-                                        'size_val': dim.text,
-                                        'min_val': dim.minLimit,
-                                        'max_val': dim.maxLimit,
-                                        'dim_id': dim.dimId,
-                                        'from_point': dim.from,
-                                        'to_point': dim.to,
-                                        'axis': dim.axis,
-                                        'level': dim.level
-                                    });
                             }
                         }
 
@@ -1267,7 +1290,7 @@
                             }
                         }
 
-                        scope.$watch('template', function () {
+                        scope.$watchCollection('template', function () {
                             buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
                         });
 

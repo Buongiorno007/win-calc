@@ -61,10 +61,13 @@
 						button.aux-params-but(fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_qty }}
 						.aux-label {{ ::elementsMenu.QTY_LABEL }}
 					.aux-params(ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
-						button.aux-params-but( fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_width }}
+						button.aux-params-but(ng-if='elementsMenu.U.userInfo.factory_id===1966' fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_width*0.0393701 | number : 0    }}
+						button.aux-params-but(ng-if='elementsMenu.U.userInfo.factory_id!==1966' fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_width }}
 						.aux-label {{ ::elementsMenu.WIDTH_LABEL }}
 					.aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
-						button.aux-params-but(fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_height }}
+						button.aux-params-but(ng-if='elementsMenu.U.userInfo.factory_id===1966' fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_height*0.0393701 | number : 0    }}
+						button.aux-params-but(ng-if='elementsMenu.U.userInfo.factory_id!==1966' fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_height }}
+
 						.aux-label {{ ::elementsMenu.HEIGHT_LABEL }}
 					.tab-aux-price(price-fixed="{{addElement.elementPriceDis}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsMenu.U.userInfo.currency}}")
 					.aux-delete(fs-click="elementsMenu.deleteAddElement($parent.$index, $index)")

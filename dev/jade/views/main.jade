@@ -12,21 +12,25 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
       include parts/_user-info
       include parts/_report
       include panels/_templates
-      include panels/_profiles
-      include panels/_glasses
-      include panels/_hardwares
-      include panels/_laminations
+      .panel-inner(ng-if="mainPage.G.global.activePanel == 2")
+        include panels/_profiles
+      .panel-inner(ng-if="mainPage.G.global.activePanel == 3")
+        include panels/_glasses
+      .panel-inner(ng-if="mainPage.G.global.activePanel == 4")
+        include panels/_hardwares
+      .panel-inner(ng-if="mainPage.G.global.activePanel == 5")
+        include panels/_laminations
       .add-elements-container(ng-if="mainPage.G.global.activePanel == 6")
         include panels/_add-elements
-      include panels/_add-elements-list
-      include parts/_grid-selector
+        include panels/_add-elements-list
+        include parts/_grid-selector
       .backDarkView(ng-if="mainPage.G.global.isShowCommentBlock")
     section.right-menu
       include menus/_config-menu
       include menus/_addelems-menu
-      .calculators-box.size-calculator(ng-class="[{'active': mainPage.G.global.isSizeCalculator}, mainPage.A.aux.calculatorStyle]")
+      .calculators-box.size-calculator(ng-class="[{'active': mainPage.G.global.isSizeCalculator}, mainPage.A.aux.calculatorStyle]" ng-if="mainPage.G.global.isSizeCalculator")
         include parts/_size-calculator
-      .calculators-box.qty-calculator(ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]")
+      .calculators-box.qty-calculator(ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]" ng-if="mainPage.G.global.isQtyCalculator")
         include parts/_qty-calculator
       .calculators-box.serv-calculator(ng-class="{'active': mainPage.G.global.isServiceCalculator}" ng-if="mainPage.G.global.isServiceCalculator")
         include parts/_serviсe-calculator
@@ -34,6 +38,7 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
   include parts/_info-box
   include parts/_attantions
 include parts/_loader
-include parts/_alert
+.alert-overlay(ng-if="mainPage.G.global.isAlert")
+  include parts/_alert
 include parts/_danger-alert
 include parts/_error-product
