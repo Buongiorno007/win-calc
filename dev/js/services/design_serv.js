@@ -383,7 +383,6 @@
                 }
 
                 function size(res) {
-
                     var intervalID = setInterval(function () {
                         if (ProductStor.product.doorLock.width_min) {
                             clearInterval(intervalID);
