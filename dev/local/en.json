@@ -372,6 +372,7 @@
     "ORDER_LV": "Place an order",
     "CALCULATE_PRICE": "Calculate",
     "MEASURE": "Measure",
+    "MEASURE_RU": "Measure",
     "READY": "Ready",
     "CALL_MASTER": "Call gager to calculate",
     "CALL_MASTER_DESCRIP": "To call gager we need something for you to know. Both fields are required.",

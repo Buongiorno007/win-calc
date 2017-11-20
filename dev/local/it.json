@@ -370,6 +370,7 @@
     "ORDER_LV": "Inserisci un ordine",
     "CALCULATE_PRICE": "Calcolare",
     "MEASURE": "Misurare",
+    "MEASURE_RU": "Misurare",
     "READY": "Pronto",
     "CALL_MASTER": "Chiamata del misuratore per il conteggio",
     "CALL_MASTER_DESCRIP": "Per la telefonata del measurer abbiamo bisogno di sapere qualcosa su Lei. Entrambi i campi sono obbligatori per riempitura.",
