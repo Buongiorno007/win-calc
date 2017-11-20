@@ -218,28 +218,28 @@
 
 
         $window.onbeforeunload = function () {
-          var order = localStorage.getItem("OrderStor");
-          var product = localStorage.getItem("ProductStor");
-          var aux = localStorage.getItem("AuxStor");
-          var design = localStorage.getItem("DesignStor");
-          var user = localStorage.getItem("UserStor");
-          var global = localStorage.getItem("GlobalStor");
-          if (product && user && global && design && order && aux) {
-            var global = LZString.compress(JSON.stringify(GlobalStor.global));
-            var product = LZString.compress(JSON.stringify(ProductStor.product));
-            var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
-            var design = LZString.compress(JSON.stringify(DesignStor.design));
-            var aux = LZString.compress(JSON.stringify(AuxStor.aux));
-            var order = LZString.compress(JSON.stringify(OrderStor.order));
-
-            localStorage.setItem('GlobalStor', global);
-            localStorage.setItem('ProductStor', product);
-            localStorage.setItem('UserStor', userInfo);
-            localStorage.setItem('AuxStor', aux);
-            localStorage.setItem('DesignStor', design);
-            localStorage.setItem('OrderStor', order);
-          }
-          return $filter('translate')('common_words.PAGE_REFRESH');
+          // var order = localStorage.getItem("OrderStor");
+          // var product = localStorage.getItem("ProductStor");
+          // var aux = localStorage.getItem("AuxStor");
+          // var design = localStorage.getItem("DesignStor");
+          // var user = localStorage.getItem("UserStor");
+          // var global = localStorage.getItem("GlobalStor");
+          // if (product && user && global && design && order && aux) {
+          //   var global = LZString.compress(JSON.stringify(GlobalStor.global));
+          //   var product = LZString.compress(JSON.stringify(ProductStor.product));
+          //   var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
+          //   var design = LZString.compress(JSON.stringify(DesignStor.design));
+          //   var aux = LZString.compress(JSON.stringify(AuxStor.aux));
+          //   var order = LZString.compress(JSON.stringify(OrderStor.order));
+          //
+          //   localStorage.setItem('GlobalStor', global);
+          //   localStorage.setItem('ProductStor', product);
+          //   localStorage.setItem('UserStor', userInfo);
+          //   localStorage.setItem('AuxStor', aux);
+          //   localStorage.setItem('DesignStor', design);
+          //   localStorage.setItem('OrderStor', order);
+          // }
+          // return $filter('translate')('common_words.PAGE_REFRESH');
         };
 
         /** prevent Backspace back to previos Page */
