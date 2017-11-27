@@ -200,54 +200,54 @@
                 .attr("y1", "0%")
                 .attr("x2", "0%")
                 .attr("y2", "0%");
-
               bead_fp4.append("stop")
                 .attr("offset", "0")
-                .attr("stop-color", "#000000");
-
+                .attr("stop-color", "#8EDFD4"); //<stop  offset="0" style="stop-color:#8EDFD4"/>
+              bead_fp4.append("stop")
+                .attr("offset", "2.231633e-02")
+                .attr("stop-color", "#8EDFD4"); // <stop  offset="2.231633e-02" style="stop-color:#8EDFD4"/>
+              bead_fp4.append("stop")
+                .attr("offset", "2.447930e-02")
+                .attr("stop-color", "#82CBC1"); //  <stop  offset="2.447930e-02" style="stop-color:#82CBC1"/>
+              bead_fp4.append("stop")
+                .attr("offset", "3.288487e-02")
+                .attr("stop-color", "#54847D"); //  <stop  offset="3.288487e-02" style="stop-color:#54847D"/>
+              bead_fp4.append("stop")
+                .attr("offset", "4.043980e-02")
+                .attr("stop-color", "#304B47"); // <stop  offset="4.043980e-02" style="stop-color:#304B47"/>
+              bead_fp4.append("stop")
+                .attr("offset", "4.687349e-02")
+                .attr("stop-color", "#162221"); // <stop  offset="4.687349e-02" style="stop-color:#162221"/>
+              bead_fp4.append("stop")
+                .attr("offset", "5.193689e-02")
+                .attr("stop-color", "#060909"); // <stop  offset="5.193689e-02" style="stop-color:#060909"/>
+              bead_fp4.append("stop")
+                .attr("offset", "5.500000e-02")
+                .attr("stop-color", "#000000"); // <stop  offset="5.500000e-02" style="stop-color:#000000"/>
               bead_fp4.append("stop")
                 .attr("offset", "0.1216")
-                .attr("stop-color", "#000000");
-
+                .attr("stop-color", "#000000"); // <stop  offset="0.1216" style="stop-color:#000000"/>
               bead_fp4.append("stop")
                 .attr("offset", "0.1261")
-                .attr("stop-color", "#68696A");
-
+                .attr("stop-color", "#68696A"); // <stop  offset="0.1261" style="stop-color:#68696A"/>
               bead_fp4.append("stop")
                 .attr("offset", "0.3224")
-                .attr("stop-color", "#919395");
-
+                .attr("stop-color", "#919395"); // <stop  offset="0.3224" style="stop-color:#919395"/>
               bead_fp4.append("stop")
                 .attr("offset", "0.499")
-                .attr("stop-color", "#AFB2B3");
-
+                .attr("stop-color", "#AFB2B3"); // <stop  offset="0.499" style="stop-color:#AFB2B3"/>
               bead_fp4.append("stop")
                 .attr("offset", "0.6488")
-                .attr("stop-color", "#C1C4C6");
-
+                .attr("stop-color", "#C1C4C6"); //  <stop  offset="0.6488" style="stop-color:#C1C4C6"/>
               bead_fp4.append("stop")
                 .attr("offset", "0.7537")
-                .attr("stop-color", "#C7CBCD");
-
+                .attr("stop-color", "#C7CBCD"); // <stop  offset="0.7537" style="stop-color:#C7CBCD"/>
               bead_fp4.append("stop")
                 .attr("offset", "0.8036")
-                .attr("stop-color", "#CDD1D3");
-
+                .attr("stop-color", "#CDD1D3"); // <stop  offset="0.8036" style="stop-color:#CDD1D3"/>
               bead_fp4.append("stop")
                 .attr("offset", "1")
-                .attr("stop-color", "#DEE2E4");
-              /*
-              <linearGradient id="bead_fp4" x1="100%" y1="0%" x2="0%" y2="0%">
-                <stop offset="0" style="stop-color:#000000"/>
-                <stop offset="0.1216" style="stop-color:#000000"/>
-                <stop offset="0.1261" style="stop-color:#68696A"/>
-                <stop offset="0.3224" style="stop-color:#919395"/>
-                <stop offset="0.499" style="stop-color:#AFB2B3"/>
-                <stop offset="0.6488" style="stop-color:#C1C4C6"/>
-                <stop offset="0.7537" style="stop-color:#C7CBCD"/>
-                <stop offset="0.8036" style="stop-color:#CDD1D3"/>
-                <stop offset="1" style="stop-color:#DEE2E4"/>
-              </linearGradient>*/
+                .attr("stop-color", "#DEE2E4"); // <stop  offset="1" style="stop-color:#DEE2E4"/>
 
               var bead_fp1 = defs.append("linearGradient")
                 .attr("id", "bead_fp1")
@@ -258,40 +258,52 @@
 
               bead_fp1.append("stop")
                 .attr("offset", "0")
-                .attr("stop-color", "#000000");
-
+                .attr("stop-color", "#8EDFD4"); //<stop  offset="0" style="stop-color:#8EDFD4"/>
+              bead_fp1.append("stop")
+                .attr("offset", "2.231633e-02")
+                .attr("stop-color", "#8EDFD4"); // <stop  offset="2.231633e-02" style="stop-color:#8EDFD4"/>
+              bead_fp1.append("stop")
+                .attr("offset", "2.447930e-02")
+                .attr("stop-color", "#82CBC1"); //  <stop  offset="2.447930e-02" style="stop-color:#82CBC1"/>
+              bead_fp1.append("stop")
+                .attr("offset", "3.288487e-02")
+                .attr("stop-color", "#54847D"); //  <stop  offset="3.288487e-02" style="stop-color:#54847D"/>
+              bead_fp1.append("stop")
+                .attr("offset", "4.043980e-02")
+                .attr("stop-color", "#304B47"); // <stop  offset="4.043980e-02" style="stop-color:#304B47"/>
+              bead_fp1.append("stop")
+                .attr("offset", "4.687349e-02")
+                .attr("stop-color", "#162221"); // <stop  offset="4.687349e-02" style="stop-color:#162221"/>
+              bead_fp1.append("stop")
+                .attr("offset", "5.193689e-02")
+                .attr("stop-color", "#060909"); // <stop  offset="5.193689e-02" style="stop-color:#060909"/>
+              bead_fp1.append("stop")
+                .attr("offset", "5.500000e-02")
+                .attr("stop-color", "#000000"); // <stop  offset="5.500000e-02" style="stop-color:#000000"/>
               bead_fp1.append("stop")
                 .attr("offset", "0.1216")
-                .attr("stop-color", "#000000");
-
+                .attr("stop-color", "#000000"); // <stop  offset="0.1216" style="stop-color:#000000"/>
               bead_fp1.append("stop")
                 .attr("offset", "0.1261")
-                .attr("stop-color", "#68696A");
-
+                .attr("stop-color", "#68696A"); // <stop  offset="0.1261" style="stop-color:#68696A"/>
               bead_fp1.append("stop")
                 .attr("offset", "0.3224")
-                .attr("stop-color", "#919395");
-
+                .attr("stop-color", "#919395"); // <stop  offset="0.3224" style="stop-color:#919395"/>
               bead_fp1.append("stop")
                 .attr("offset", "0.499")
-                .attr("stop-color", "#AFB2B3");
-
+                .attr("stop-color", "#AFB2B3"); // <stop  offset="0.499" style="stop-color:#AFB2B3"/>
               bead_fp1.append("stop")
                 .attr("offset", "0.6488")
-                .attr("stop-color", "#C1C4C6");
-
+                .attr("stop-color", "#C1C4C6"); //  <stop  offset="0.6488" style="stop-color:#C1C4C6"/>
               bead_fp1.append("stop")
                 .attr("offset", "0.7537")
-                .attr("stop-color", "#C7CBCD");
-
+                .attr("stop-color", "#C7CBCD"); // <stop  offset="0.7537" style="stop-color:#C7CBCD"/>
               bead_fp1.append("stop")
                 .attr("offset", "0.8036")
-                .attr("stop-color", "#CDD1D3");
-
+                .attr("stop-color", "#CDD1D3"); // <stop  offset="0.8036" style="stop-color:#CDD1D3"/>
               bead_fp1.append("stop")
                 .attr("offset", "1")
-                .attr("stop-color", "#DEE2E4");
-
+                .attr("stop-color", "#DEE2E4"); // <stop  offset="1" style="stop-color:#DEE2E4"/>
               /*
               <linearGradient id="bead_fp1" x1="0%" y1="100%" x2="0%" y2="0%">
                 <stop offset="0" style="stop-color:#000000"/>
@@ -313,58 +325,42 @@
                 .attr("y2", "0%");
 
               bead_fp2.append("stop")
-                .attr("offset", "0")
-                .attr("stop-color", "#000000");
-
+                .attr("offset", "1.040365e-02")
+                .attr("stop-color", "#769C97"); //<stop  offset="1.040365e-02" style="stop-color:#769C97"/>
+              bead_fp2.append("stop")
+                .attr("offset", "3.798177e-02")
+                .attr("stop-color", "#000000"); // <stop  offset="3.798177e-02" style="stop-color:#000000"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.12")
-                .attr("stop-color", "#000000");
-
+                .attr("stop-color", "#000000"); // <stop  offset="0.12" style="stop-color:#000000"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.12")
-                .attr("stop-color", "#FFFFFF");
-
+                .attr("stop-color", "#FFFFFF"); // <stop  offset="0.12" style="stop-color:#FFFFFF"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.5977")
-                .attr("stop-color", "#FFFFFF");
-
+                .attr("stop-color", "#FFFFFF"); // <stop  offset="0.5977" style="stop-color:#FFFFFF"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.6944")
-                .attr("stop-color", "#F7F8F9");
-
+                .attr("stop-color", "#F7F8F9"); // <stop  offset="0.6944" style="stop-color:#F7F8F9"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.8376")
-                .attr("stop-color", "#E2E6E8");
-
+                .attr("stop-color", "#E2E6E8"); // <stop  offset="0.8376" style="stop-color:#E2E6E8"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.8986")
                 .attr("stop-color", "#D7DBDD")
-                .attr("stop-opacity", "0.8737");
-
+                .attr("stop-opacity", "0.8737"); //  <stop  offset="0.8986" style="stop-color:#D7DBDD; stop-opacity:0.8737"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.9825")
                 .attr("stop-color", "#C2C6C7")
-                .attr("stop-opacity", "0.7");
-
+                .attr("stop-opacity", "0.7"); // <stop  offset="0.9825" style="stop-color:#C2C6C7;stop-opacity:0.7"/>
               bead_fp2.append("stop")
                 .attr("offset", "0.9851")
-                .attr("stop-color", "#808384");
-
+                .attr("stop-color", "#808384"); // <stop  offset="0.9851" style="stop-color:#808384"/>
               bead_fp2.append("stop")
                 .attr("offset", "1")
-                .attr("stop-color", "#808384");
-              /*<linearGradient id="bead_fp2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0" style="stop-color:#000000"/>
-                  <stop offset="0.12" style="stop-color:#000000"/>
-                  <stop offset="0.12" style="stop-color:#FFFFFF"/>
-                  <stop offset="0.5977" style="stop-color:#FFFFFF"/>
-                  <stop offset="0.6944" style="stop-color:#F7F8F9"/>
-                  <stop offset="0.8376" style="stop-color:#E2E6E8"/>
-                  <stop offset="0.8986" style="stop-color:#D7DBDD;stop-opacity:0.8737"/>
-                  <stop offset="0.9825" style="stop-color:#C2C6C7;stop-opacity:0.7"/>
-                  <stop offset="0.9851" style="stop-color:#808384"/>
-                  <stop offset="1" style="stop-color:#808384"/>
-                </linearGradient>*/
+                .attr("stop-color", "#808384"); // <stop  offset="1" style="stop-color:#808384"/>
+
+
               var bead_fp3 = defs.append("linearGradient")
                 .attr("id", "bead_fp3")
                 .attr("x1", "0%")
@@ -373,46 +369,41 @@
                 .attr("y2", "100%");
 
               bead_fp3.append("stop")
-                .attr("offset", "0")
-                .attr("stop-color", "#000000");
-
+                .attr("offset", "1.040365e-02")
+                .attr("stop-color", "#769C97"); //<stop  offset="1.040365e-02" style="stop-color:#769C97"/>
+              bead_fp3.append("stop")
+                .attr("offset", "3.798177e-02")
+                .attr("stop-color", "#000000"); // <stop  offset="3.798177e-02" style="stop-color:#000000"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.12")
-                .attr("stop-color", "#000000");
-
+                .attr("stop-color", "#000000"); // <stop  offset="0.12" style="stop-color:#000000"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.12")
-                .attr("stop-color", "#FFFFFF");
-
+                .attr("stop-color", "#FFFFFF"); // <stop  offset="0.12" style="stop-color:#FFFFFF"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.5977")
-                .attr("stop-color", "#FFFFFF");
-
+                .attr("stop-color", "#FFFFFF"); // <stop  offset="0.5977" style="stop-color:#FFFFFF"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.6944")
-                .attr("stop-color", "#F7F8F9");
-
+                .attr("stop-color", "#F7F8F9"); // <stop  offset="0.6944" style="stop-color:#F7F8F9"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.8376")
-                .attr("stop-color", "#E2E6E8");
-
+                .attr("stop-color", "#E2E6E8"); // <stop  offset="0.8376" style="stop-color:#E2E6E8"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.8986")
                 .attr("stop-color", "#D7DBDD")
-                .attr("stop-opacity", "0.8737");
-
+                .attr("stop-opacity", "0.8737"); //  <stop  offset="0.8986" style="stop-color:#D7DBDD; stop-opacity:0.8737"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.9825")
                 .attr("stop-color", "#C2C6C7")
-                .attr("stop-opacity", "0.7");
-
+                .attr("stop-opacity", "0.7"); // <stop  offset="0.9825" style="stop-color:#C2C6C7;stop-opacity:0.7"/>
               bead_fp3.append("stop")
                 .attr("offset", "0.9851")
-                .attr("stop-color", "#808384");
-
+                .attr("stop-color", "#808384"); // <stop  offset="0.9851" style="stop-color:#808384"/>
               bead_fp3.append("stop")
                 .attr("offset", "1")
-                .attr("stop-color", "#808384"); //
+                .attr("stop-color", "#808384"); // <stop  offset="1" style="stop-color:#808384"/>
+
 
               var sash_fp1 = defs.append("linearGradient")
                 .attr("id", "sash_fp1")
@@ -423,136 +414,79 @@
 
               sash_fp1.append("stop")
                 .attr("offset", "0")
-                .attr("stop-color", "#808384"); // <stop offset="0" style="stop-color:#808384"/>
+                .attr("stop-color", "#808384"); // 		<stop  offset="0" style="stop-color:#808384"/>
               sash_fp1.append("stop")
-                .attr("offset", "1.250005e-02")
-                .attr("stop-color", "#808384"); // <stop offset="1.250005e-02" style="stop-color:#808384"/>
+                .attr("offset", "1.403468e-02")
+                .attr("stop-color", "#808384"); // <stop  offset="1.403468e-02" style="stop-color:#808384"/>
               sash_fp1.append("stop")
-                .attr("offset", "1.481144e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="1.481144e-02" style="stop-color:#C2C6C7"/>
-              sash_fp1.append("stop")
-                .attr("offset", "2.071145e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="2.071145e-02" style="stop-color:#C2C6C7"/>
+                .attr("offset", "1.750650e-02")
+                .attr("stop-color", "#C2C6C7"); //   <stop  offset="1.750650e-02" style="stop-color:#C2C6C7"/>
               sash_fp1.append("stop")
                 .attr("offset", "2.527444e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="2.527444e-02" style="stop-color:#C2C6C7"/>
+                .attr("stop-color", "#C2C6C7"); //  <stop  offset="2.527444e-02" style="stop-color:#C2C6C7"/>
               sash_fp1.append("stop")
                 .attr("offset", "2.893414e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="2.893414e-02" style="stop-color:#C2C6C7"/>
+                .attr("stop-color", "#C2C6C7"); //   <stop  offset="2.893414e-02" style="stop-color:#C2C6C7"/>
               sash_fp1.append("stop")
-                .attr("offset", "3.007973e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="3.007973e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "3.200000e-02")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="3.200000e-02" style="stop-color:#E0E4E6"/>
               sash_fp1.append("stop")
-                .attr("offset", "8.302721e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="8.302721e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.101")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.101" style="stop-color:#E0E4E6"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.5975")
-                .attr("stop-color", "#E0E4E6"); // <stop offset="0.5975" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.73")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.73" style="stop-color:#E0E4E6"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6015")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="0.6015" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.7313")
+                .attr("stop-color", "#E0E4E6"); //   <stop  offset="0.7313" style="stop-color:#E0E4E6"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.603")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="0.603" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7363")
+                .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7363" style="stop-color:#F1F5F7"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6052")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="0.6052" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7506")
+                .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7506" style="stop-color:#F1F5F7"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6119")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="0.6119" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7519")
+                .attr("stop-color", "#FFFFFF"); //  <stop  offset="0.7519" style="stop-color:#FFFFFF"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6149")
-                .attr("stop-color", "#F1F5F7"); //   <stop offset="0.6149" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7523")
+                .attr("stop-color", "#F3F6F8"); //  <stop  offset="0.7523" style="stop-color:#F3F6F8"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6166")
-                .attr("stop-color", "#F1F5F7"); //    <stop offset="0.6166" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7523")
+                .attr("stop-color", "#F1F5F7"); //   <stop  offset="0.7523" style="stop-color:#F1F5F7"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6168")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6168" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.77")
+                .attr("stop-color", "#E2E6E8"); //  <stop  offset="0.77" style="stop-color:#E2E6E8"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6191")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.6191" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.7732")
+                .attr("stop-color", "#E4E8EA"); //   <stop  offset="0.7732" style="stop-color:#E4E8EA"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.623")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.623" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.7918")
+                .attr("stop-color", "#ECF0F2"); //   <stop  offset="0.7918" style="stop-color:#ECF0F2"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6251")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6251" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.83")
+                .attr("stop-color", "#EEF2F4"); //   <stop  offset="0.83" style="stop-color:#EEF2F4"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6258")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6258" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.8474")
+                .attr("stop-color", "#F5F9FB"); //  <stop  offset="0.8474" style="stop-color:#F5F9FB"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6275")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.6275" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.93")
+                .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.93" style="stop-color:#FFFFFF"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6295")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.6295" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.975")
+                .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.975" style="stop-color:#FFFFFF"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.6319")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6319" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.6383")
-                .attr("stop-color", "#E2E6E8"); //  <stop offset="0.6383" style="stop-color:#E2E6E8"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.659")
-                .attr("stop-color", "#E5E9EB"); //  <stop offset="0.659" style="stop-color:#E5E9EB"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.6744")
-                .attr("stop-color", "#EEF2F4"); //  <stop offset="0.6744" style="stop-color:#EEF2F4"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.6808")
-                .attr("stop-color", "#F5F9FB"); //  <stop offset="0.6808" style="stop-color:#F5F9FB"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.765")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.765" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.7923")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.7923" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.7959")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.7959" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.8004")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.8004" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.8081")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.8081" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "10.8115")
+                .attr("offset", "0.9816")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9033"); //   <stop offset="0.8115" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
+                .attr("stop-opacity", "0.9033");  //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.813")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.813" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.8136")
+                .attr("offset", "0.988")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9862"); //   <stop offset="0.8136" style="stop-color:#FFFFFF;stop-opacity:0.9862"/>
+                .attr("stop-opacity", "0.9487");  //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
               sash_fp1.append("stop")
-                .attr("offset", "0.8173")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.8173" style="stop-color:#FFFFFF"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.820")
-                .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9487"); //   <stop offset="0.8203" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.8236")
-                .attr("stop-color", "#949698")
-                .attr("stop-opacity", "0.8423"); //  <stop offset="0.8236" style="stop-color:#949698;stop-opacity:0.8423"/>
+                .attr("offset", "1")
+                .attr("stop-color", "#96989A"); //  <stop  offset="1" style="stop-color:#96989A"/>
 
-              sash_fp1.append("stop")
-                .attr("offset", "0.829")
-                .attr("stop-color", "#96989A")
-                .attr("stop-opacity", "0.7"); //    <stop offset="0.829" style="stop-color:#96989A;stop-opacity:0.7"/>
-
-              sash_fp1.append("stop")
-                .attr("offset", "0.9715")
-                .attr("stop-color", "#A3A5A7")
-                .attr("stop-opacity", "0");    //   <stop offset="0.9715" style="stop-color:#A3A5A7;stop-opacity:0"/>
-              sash_fp1.append("stop")
-                .attr("offset", "0.9841")
-                .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0");     //   <stop offset="0.9841" style="stop-color:#FFFFFF;stop-opacity:0"/>
 
               var sash_fp4 = defs.append("linearGradient")
                 .attr("id", "sash_fp4")
@@ -563,136 +497,78 @@
 
               sash_fp4.append("stop")
                 .attr("offset", "0")
-                .attr("stop-color", "#808384"); // <stop offset="0" style="stop-color:#808384"/>
+                .attr("stop-color", "#808384"); // 		<stop  offset="0" style="stop-color:#808384"/>
               sash_fp4.append("stop")
-                .attr("offset", "1.250005e-02")
-                .attr("stop-color", "#808384"); // <stop offset="1.250005e-02" style="stop-color:#808384"/>
+                .attr("offset", "1.403468e-02")
+                .attr("stop-color", "#808384"); // <stop  offset="1.403468e-02" style="stop-color:#808384"/>
               sash_fp4.append("stop")
-                .attr("offset", "1.481144e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="1.481144e-02" style="stop-color:#C2C6C7"/>
-              sash_fp4.append("stop")
-                .attr("offset", "2.071145e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="2.071145e-02" style="stop-color:#C2C6C7"/>
+                .attr("offset", "1.750650e-02")
+                .attr("stop-color", "#C2C6C7"); //   <stop  offset="1.750650e-02" style="stop-color:#C2C6C7"/>
               sash_fp4.append("stop")
                 .attr("offset", "2.527444e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="2.527444e-02" style="stop-color:#C2C6C7"/>
+                .attr("stop-color", "#C2C6C7"); //  <stop  offset="2.527444e-02" style="stop-color:#C2C6C7"/>
               sash_fp4.append("stop")
                 .attr("offset", "2.893414e-02")
-                .attr("stop-color", "#C2C6C7"); // <stop offset="2.893414e-02" style="stop-color:#C2C6C7"/>
+                .attr("stop-color", "#C2C6C7"); //   <stop  offset="2.893414e-02" style="stop-color:#C2C6C7"/>
               sash_fp4.append("stop")
-                .attr("offset", "3.007973e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="3.007973e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "3.200000e-02")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="3.200000e-02" style="stop-color:#E0E4E6"/>
               sash_fp4.append("stop")
-                .attr("offset", "8.302721e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="8.302721e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.101")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.101" style="stop-color:#E0E4E6"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.5975")
-                .attr("stop-color", "#E0E4E6"); // <stop offset="0.5975" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.73")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.73" style="stop-color:#E0E4E6"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6015")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="0.6015" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.7313")
+                .attr("stop-color", "#E0E4E6"); //   <stop  offset="0.7313" style="stop-color:#E0E4E6"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.603")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="0.603" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7363")
+                .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7363" style="stop-color:#F1F5F7"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6052")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="0.6052" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7506")
+                .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7506" style="stop-color:#F1F5F7"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6119")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="0.6119" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7519")
+                .attr("stop-color", "#FFFFFF"); //  <stop  offset="0.7519" style="stop-color:#FFFFFF"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6149")
-                .attr("stop-color", "#F1F5F7"); //   <stop offset="0.6149" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7523")
+                .attr("stop-color", "#F3F6F8"); //  <stop  offset="0.7523" style="stop-color:#F3F6F8"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6166")
-                .attr("stop-color", "#F1F5F7"); //    <stop offset="0.6166" style="stop-color:#F1F5F7"/>
+                .attr("offset", "0.7523")
+                .attr("stop-color", "#F1F5F7"); //   <stop  offset="0.7523" style="stop-color:#F1F5F7"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6168")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6168" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.77")
+                .attr("stop-color", "#E2E6E8"); //  <stop  offset="0.77" style="stop-color:#E2E6E8"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6191")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.6191" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.7732")
+                .attr("stop-color", "#E4E8EA"); //   <stop  offset="0.7732" style="stop-color:#E4E8EA"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.623")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.623" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.7918")
+                .attr("stop-color", "#ECF0F2"); //   <stop  offset="0.7918" style="stop-color:#ECF0F2"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6251")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6251" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.83")
+                .attr("stop-color", "#EEF2F4"); //   <stop  offset="0.83" style="stop-color:#EEF2F4"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6258")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6258" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.8474")
+                .attr("stop-color", "#F5F9FB"); //  <stop  offset="0.8474" style="stop-color:#F5F9FB"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6275")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.6275" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.93")
+                .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.93" style="stop-color:#FFFFFF"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6295")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.6295" style="stop-color:#FFFFFF"/>
+                .attr("offset", "0.975")
+                .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.975" style="stop-color:#FFFFFF"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.6319")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.6319" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.6383")
-                .attr("stop-color", "#E2E6E8"); //  <stop offset="0.6383" style="stop-color:#E2E6E8"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.659")
-                .attr("stop-color", "#E5E9EB"); //  <stop offset="0.659" style="stop-color:#E5E9EB"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.6744")
-                .attr("stop-color", "#EEF2F4"); //  <stop offset="0.6744" style="stop-color:#EEF2F4"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.6808")
-                .attr("stop-color", "#F5F9FB"); //  <stop offset="0.6808" style="stop-color:#F5F9FB"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.765")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.765" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.7923")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.7923" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.7959")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.7959" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.8004")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0.8004" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.8081")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.8081" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "10.8115")
+                .attr("offset", "0.9816")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9033"); //   <stop offset="0.8115" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
+                .attr("stop-opacity", "0.9033");  //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.813")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.813" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.8136")
+                .attr("offset", "0.988")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9862"); //   <stop offset="0.8136" style="stop-color:#FFFFFF;stop-opacity:0.9862"/>
+                .attr("stop-opacity", "0.9487");  //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
               sash_fp4.append("stop")
-                .attr("offset", "0.8173")
-                .attr("stop-color", "#FFFFFF"); //   <stop offset="0.8173" style="stop-color:#FFFFFF"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.820")
-                .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9487"); //   <stop offset="0.8203" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.8236")
-                .attr("stop-color", "#949698")
-                .attr("stop-opacity", "0.8423"); //  <stop offset="0.8236" style="stop-color:#949698;stop-opacity:0.8423"/>
-
-              sash_fp4.append("stop")
-                .attr("offset", "0.829")
-                .attr("stop-color", "#96989A")
-                .attr("stop-opacity", "0.7"); //    <stop offset="0.829" style="stop-color:#96989A;stop-opacity:0.7"/>
-
-              sash_fp4.append("stop")
-                .attr("offset", "0.9715")
-                .attr("stop-color", "#A3A5A7")
-                .attr("stop-opacity", "0");    //   <stop offset="0.9715" style="stop-color:#A3A5A7;stop-opacity:0"/>
-              sash_fp4.append("stop")
-                .attr("offset", "0.9841")
-                .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0");     //   <stop offset="0.9841" style="stop-color:#FFFFFF;stop-opacity:0"/>
+                .attr("offset", "1")
+                .attr("stop-color", "#96989A"); //  <stop  offset="1" style="stop-color:#96989A"/>
 
 
               var sash_fp2 = defs.append("linearGradient")
@@ -702,131 +578,69 @@
                 .attr("x2", "100%")
                 .attr("y2", "0%");
 
-
               sash_fp2.append("stop")
                 .attr("offset", "0")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0" style="stop-color:#FFFFFF"/>
+                .attr("stop-color", "#FFFFFF"); //  	<stop  offset="0" style="stop-color:#FFFFFF"/>
               sash_fp2.append("stop")
-                .attr("offset", "1.250005e-02")
-                .attr("stop-color", "#FFFFFF"); //     <stop offset="1.250005e-02" style="stop-color:#FFFFFF"/>
+                .attr("offset", "1.539045e-02")
+                .attr("stop-color", "#FFFFFF"); // <stop  offset="1.539045e-02" style="stop-color:#FFFFFF"/>
               sash_fp2.append("stop")
-                .attr("offset", "1.297712e-02")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="1.297712e-02" style="stop-color:#F1F5F7"/>
+                .attr("offset", "1.724665e-02")
+                .attr("stop-color", "#F1F5F7"); //  <stop  offset="1.724665e-02" style="stop-color:#F1F5F7"/>
               sash_fp2.append("stop")
-                .attr("offset", "2.579140e-02")
-                .attr("stop-color", "#F1F5F7"); // <stop offset="2.579140e-02" style="stop-color:#F1F5F7"/>
+                .attr("offset", "2.110961e-02")
+                .attr("stop-color", "#F1F5F7"); //   <stop  offset="2.110961e-02" style="stop-color:#F1F5F7"/>
               sash_fp2.append("stop")
-                .attr("offset", "2.579306e-02")
-                .attr("stop-color", "#EDF1F3"); // <stop offset="2.579306e-02" style="stop-color:#EDF1F3"/>
+                .attr("offset", "3.266179e-02")
+                .attr("stop-color", "#E3E7E9"); //  <stop  offset="3.266179e-02" style="stop-color:#E3E7E9"/>
               sash_fp2.append("stop")
-                .attr("offset", "2.580034e-02")
-                .attr("stop-color", "#E3E7E9"); //  <stop offset="2.580034e-02" style="stop-color:#E3E7E9"/>
+                .attr("offset", "3.370352e-02")
+                .attr("stop-color", "#EDF1F3"); //   <stop  offset="3.370352e-02" style="stop-color:#EDF1F3"/>
               sash_fp2.append("stop")
-                .attr("offset", "2.580915e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="2.580915e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.1106")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.1106" style="stop-color:#E0E4E6"/>
               sash_fp2.append("stop")
-                .attr("offset", "8.302721e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="8.302721e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.7301")
+                .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.7301" style="stop-color:#E0E4E6"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.5975")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="0.5975" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.7353")
+                .attr("stop-color", "#CCD0D1"); //  <stop  offset="0.7353" style="stop-color:#CCD0D1"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.5986")
-                .attr("stop-color", "#D9DDDF"); //  <stop offset="0.5986" style="stop-color:#D9DDDF"/>
+                .attr("offset", "0.7447")
+                .attr("stop-color", "#989B9D"); //  <stop  offset="0.7447" style="stop-color:#989B9D"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6015")
-                .attr("stop-color", "#CCD0D1"); //  <stop offset="0.6015" style="stop-color:#CCD0D1"/>
+                .attr("offset", "0.7524")
+                .attr("stop-color", "#8A8D8F"); //   <stop  offset="0.7524" style="stop-color:#8A8D8F"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6052")
-                .attr("stop-color", "#C4C8C9"); //  <stop offset="0.6052" style="stop-color:#C4C8C9"/>
+                .attr("offset", "0.7562")
+                .attr("stop-color", "#808284"); //   <stop  offset="0.7562" style="stop-color:#808284"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6119")
-                .attr("stop-color", "#C2C6C7"); //   <stop offset="0.6119" style="stop-color:#C2C6C7"/>
+                .attr("offset", "0.7728")
+                .attr("stop-color", "#D3D7D9"); //   <stop  offset="0.7728" style="stop-color:#D3D7D9"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6133")
-                .attr("stop-color", "#ACAFB0"); //  <stop offset="0.6133" style="stop-color:#ACAFB0"/>
+                .attr("offset", "0.8529")
+                .attr("stop-color", "#D0D4D6"); //  <stop  offset="0.8529" style="stop-color:#D0D4D6"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6149")
-                .attr("stop-color", "#989B9D"); //  <stop offset="0.6149" style="stop-color:#989B9D"/>
+                .attr("offset", "0.93")
+                .attr("stop-color", "#ADB0B1"); //   <stop  offset="0.93" style="stop-color:#ADB0B1"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6168")
-                .attr("stop-color", "#8A8D8F"); //  <stop offset="0.6168" style="stop-color:#8A8D8F"/>
+                .attr("offset", "0.9704")
+                .attr("stop-color", "#A0A3A4"); //   <stop  offset="0.9704" style="stop-color:#A0A3A4"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6191")
-                .attr("stop-color", "#828486"); //  <stop offset="0.6191" style="stop-color:#828486"/>
+                .attr("offset", "0.975")
+                .attr("stop-color", "#969899"); //   <stop  offset="0.975" style="stop-color:#969899"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.623")
-                .attr("stop-color", "#808284"); //  <stop offset="0.623" style="stop-color:#808284"/>
+                .attr("offset", "0.9806")
+                .attr("stop-color", "#8E9091"); //   <stop  offset="0.9806" style="stop-color:#8E9091"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6242")
-                .attr("stop-color", "#999B9D"); //  <stop offset="0.6242" style="stop-color:#999B9D"/>
+                .attr("offset", "0.988")
+                .attr("stop-color", "#8E9091"); //   <stop  offset="0.988" style="stop-color:#8E9091"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6258")
-                .attr("stop-color", "#B2B5B7"); //  <stop offset="0.6258" style="stop-color:#B2B5B7"/>
+                .attr("offset", "0.9915")
+                .attr("stop-color", "#67696A"); //   <stop  offset="0.9915" style="stop-color:#67696A"/>
               sash_fp2.append("stop")
-                .attr("offset", "0.6275")
-                .attr("stop-color", "#C6C9CB"); //  <stop offset="0.6275" style="stop-color:#C6C9CB"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.6295")
-                .attr("stop-color", "#D3D7D9"); // <stop offset="0.6295" style="stop-color:#D3D7D9"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.6319")
-                .attr("stop-color", "#DCE0E2"); // <stop offset="0.6319" style="stop-color:#DCE0E2"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.636")
-                .attr("stop-color", "#DEE2E4"); //  <stop offset="0.636" style="stop-color:#DEE2E4"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.6808")
-                .attr("stop-color", "#D0D4D6"); // <stop offset="0.6808" style="stop-color:#D0D4D6"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.765")
-                .attr("stop-color", "#ADB0B1"); // <stop offset="0.765" style="stop-color:#ADB0B1"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.7923")
-                .attr("stop-color", "#A0A3A4"); // <stop offset="0.7923" style="stop-color:#A0A3A4"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.7959")
-                .attr("stop-color", "#969899"); //  <stop offset="0.7959" style="stop-color:#969899"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8004")
-                .attr("stop-color", "#8E9091"); //   <stop offset="0.8004" style="stop-color:#8E9091"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8081")
-                .attr("stop-color", "#8E9091"); //  <stop offset="0.8081" style="stop-color:#8E9091"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8153")
-                .attr("stop-color", "#67696A"); //  <stop offset="0.8153" style="stop-color:#67696A"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.819")
-                .attr("stop-color", "#67696A"); //  <stop offset="0.819" style="stop-color:#67696A"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8192")
-                .attr("stop-color", "#6F7173")
-                .attr("stop-opacity", "0.9862"); //  <stop offset="0.8192" style="stop-color:#6F7173;stop-opacity:0.9862"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8197")
-                .attr("stop-color", "#818384")
-                .attr("stop-opacity", "0.9487"); //  <stop offset="0.8197" style="stop-color:#818384;stop-opacity:0.9487"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8204")
-                .attr("stop-color", "#8D8F91")
-                .attr("stop-opacity", "0.9033"); //  <stop offset="0.8204" style="stop-color:#8D8F91;stop-opacity:0.9033"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8213")
-                .attr("stop-color", "#949698")
-                .attr("stop-opacity", "0.8423"); //  <stop offset="0.8213" style="stop-color:#949698;stop-opacity:0.8423"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.8233")
-                .attr("stop-color", "#96989A")
-                .attr("stop-opacity", "0.7"); //  <stop offset="0.8233" style="stop-color:#96989A;stop-opacity:0.7"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.9715")
-                .attr("stop-color", "#A3A5A7")
-                .attr("stop-opacity", "0"); //  <stop offset="0.9715" style="stop-color:#A3A5A7;stop-opacity:0"/>
-              sash_fp2.append("stop")
-                .attr("offset", "0.9841")
-                .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0"); //  <stop offset="0.9841" style="stop-color:#FFFFFF;stop-opacity:0"/>
+                .attr("offset", "1")
+                .attr("stop-color", "#67696A"); //  <stop  offset="1" style="stop-color:#67696A"/>
 
 
               var sash_fp3 = defs.append("linearGradient")
@@ -839,128 +653,68 @@
 
               sash_fp3.append("stop")
                 .attr("offset", "0")
-                .attr("stop-color", "#FFFFFF"); //  <stop offset="0" style="stop-color:#FFFFFF"/>
+                .attr("stop-color", "#FFFFFF"); //<stop  offset="0" style="stop-color:#FFFFFF"/>
               sash_fp3.append("stop")
-                .attr("offset", "1.250005e-02")
-                .attr("stop-color", "#FFFFFF"); //     <stop offset="1.250005e-02" style="stop-color:#FFFFFF"/>
+                .attr("offset", "1.539045e-02")
+                .attr("stop-color", "#FFFFFF"); //<stop  offset="1.539045e-02" style="stop-color:#FFFFFF"/>
               sash_fp3.append("stop")
-                .attr("offset", "1.297712e-02")
-                .attr("stop-color", "#F1F5F7"); //  <stop offset="1.297712e-02" style="stop-color:#F1F5F7"/>
+                .attr("offset", "1.724665e-02")
+                .attr("stop-color", "#F1F5F7"); //<stop  offset="1.724665e-02" style="stop-color:#F1F5F7"/>
               sash_fp3.append("stop")
-                .attr("offset", "2.579140e-02")
-                .attr("stop-color", "#F1F5F7"); // <stop offset="2.579140e-02" style="stop-color:#F1F5F7"/>
+                .attr("offset", "2.110961e-02")
+                .attr("stop-color", "#F1F5F7"); //<stop  offset="2.110961e-02" style="stop-color:#F1F5F7"/>
               sash_fp3.append("stop")
-                .attr("offset", "2.579306e-02")
-                .attr("stop-color", "#EDF1F3"); // <stop offset="2.579306e-02" style="stop-color:#EDF1F3"/>
+                .attr("offset", "3.266179e-02")
+                .attr("stop-color", "#E3E7E9"); //<stop  offset="3.266179e-02" style="stop-color:#E3E7E9"/>
               sash_fp3.append("stop")
-                .attr("offset", "2.580034e-02")
-                .attr("stop-color", "#E3E7E9"); //  <stop offset="2.580034e-02" style="stop-color:#E3E7E9"/>
+                .attr("offset", "3.370352e-02")
+                .attr("stop-color", "#EDF1F3"); //<stop  offset="3.370352e-02" style="stop-color:#EDF1F3"/>
               sash_fp3.append("stop")
-                .attr("offset", "2.580915e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="2.580915e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.1106")
+                .attr("stop-color", "#E0E4E6"); //<stop  offset="0.1106" style="stop-color:#E0E4E6"/>
               sash_fp3.append("stop")
-                .attr("offset", "8.302721e-02")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="8.302721e-02" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.7301")
+                .attr("stop-color", "#E0E4E6"); //<stop  offset="0.7301" style="stop-color:#E0E4E6"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.5975")
-                .attr("stop-color", "#E0E4E6"); //  <stop offset="0.5975" style="stop-color:#E0E4E6"/>
+                .attr("offset", "0.7353")
+                .attr("stop-color", "#CCD0D1"); //<stop  offset="0.7353" style="stop-color:#CCD0D1"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.5986")
-                .attr("stop-color", "#D9DDDF"); //  <stop offset="0.5986" style="stop-color:#D9DDDF"/>
+                .attr("offset", "0.7447")
+                .attr("stop-color", "#989B9D"); //<stop  offset="0.7447" style="stop-color:#989B9D"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6015")
-                .attr("stop-color", "#CCD0D1"); //  <stop offset="0.6015" style="stop-color:#CCD0D1"/>
+                .attr("offset", "0.7524")
+                .attr("stop-color", "#8A8D8F"); //<stop  offset="0.7524" style="stop-color:#8A8D8F"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6052")
-                .attr("stop-color", "#C4C8C9"); //  <stop offset="0.6052" style="stop-color:#C4C8C9"/>
+                .attr("offset", "0.7562")
+                .attr("stop-color", "#808284"); //<stop  offset="0.7562" style="stop-color:#808284"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6119")
-                .attr("stop-color", "#C2C6C7"); //   <stop offset="0.6119" style="stop-color:#C2C6C7"/>
+                .attr("offset", "0.7728")
+                .attr("stop-color", "#D3D7D9"); //<stop  offset="0.7728" style="stop-color:#D3D7D9"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6133")
-                .attr("stop-color", "#ACAFB0"); //  <stop offset="0.6133" style="stop-color:#ACAFB0"/>
+                .attr("offset", "0.8529")
+                .attr("stop-color", "#D0D4D6"); //<stop  offset="0.8529" style="stop-color:#D0D4D6"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6149")
-                .attr("stop-color", "#989B9D"); //  <stop offset="0.6149" style="stop-color:#989B9D"/>
+                .attr("offset", "0.93")
+                .attr("stop-color", "#ADB0B1"); //<stop  offset="0.93" style="stop-color:#ADB0B1"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6168")
-                .attr("stop-color", "#8A8D8F"); //  <stop offset="0.6168" style="stop-color:#8A8D8F"/>
+                .attr("offset", "0.9704")
+                .attr("stop-color", "#A0A3A4"); // <stop  offset="0.9704" style="stop-color:#A0A3A4"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6191")
-                .attr("stop-color", "#828486"); //  <stop offset="0.6191" style="stop-color:#828486"/>
+                .attr("offset", "0.975")
+                .attr("stop-color", "#969899"); // <stop  offset="0.975" style="stop-color:#969899"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.623")
-                .attr("stop-color", "#808284"); //  <stop offset="0.623" style="stop-color:#808284"/>
+                .attr("offset", "0.9806")
+                .attr("stop-color", "#8E9091"); //<stop  offset="0.9806" style="stop-color:#8E9091"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6242")
-                .attr("stop-color", "#999B9D"); //  <stop offset="0.6242" style="stop-color:#999B9D"/>
+                .attr("offset", "0.988")
+                .attr("stop-color", "#8E9091"); // <stop  offset="0.988" style="stop-color:#8E9091"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6258")
-                .attr("stop-color", "#B2B5B7"); //  <stop offset="0.6258" style="stop-color:#B2B5B7"/>
+                .attr("offset", "0.9915")
+                .attr("stop-color", "#67696A"); // <stop  offset="0.9915" style="stop-color:#67696A"/>
               sash_fp3.append("stop")
-                .attr("offset", "0.6275")
-                .attr("stop-color", "#C6C9CB"); //  <stop offset="0.6275" style="stop-color:#C6C9CB"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.6295")
-                .attr("stop-color", "#D3D7D9"); // <stop offset="0.6295" style="stop-color:#D3D7D9"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.6319")
-                .attr("stop-color", "#DCE0E2"); // <stop offset="0.6319" style="stop-color:#DCE0E2"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.636")
-                .attr("stop-color", "#DEE2E4"); //  <stop offset="0.636" style="stop-color:#DEE2E4"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.6808")
-                .attr("stop-color", "#D0D4D6"); // <stop offset="0.6808" style="stop-color:#D0D4D6"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.765")
-                .attr("stop-color", "#ADB0B1"); // <stop offset="0.765" style="stop-color:#ADB0B1"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.7923")
-                .attr("stop-color", "#A0A3A4"); // <stop offset="0.7923" style="stop-color:#A0A3A4"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.7959")
-                .attr("stop-color", "#969899"); //  <stop offset="0.7959" style="stop-color:#969899"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8004")
-                .attr("stop-color", "#8E9091"); //   <stop offset="0.8004" style="stop-color:#8E9091"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8081")
-                .attr("stop-color", "#8E9091"); //  <stop offset="0.8081" style="stop-color:#8E9091"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8153")
-                .attr("stop-color", "#67696A"); //  <stop offset="0.8153" style="stop-color:#67696A"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.819")
-                .attr("stop-color", "#67696A"); //  <stop offset="0.819" style="stop-color:#67696A"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8192")
-                .attr("stop-color", "#6F7173")
-                .attr("stop-opacity", "0.9862"); //  <stop offset="0.8192" style="stop-color:#6F7173;stop-opacity:0.9862"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8197")
-                .attr("stop-color", "#818384")
-                .attr("stop-opacity", "0.9487"); //  <stop offset="0.8197" style="stop-color:#818384;stop-opacity:0.9487"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8204")
-                .attr("stop-color", "#8D8F91")
-                .attr("stop-opacity", "0.9033"); //  <stop offset="0.8204" style="stop-color:#8D8F91;stop-opacity:0.9033"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8213")
-                .attr("stop-color", "#949698")
-                .attr("stop-opacity", "0.8423"); //  <stop offset="0.8213" style="stop-color:#949698;stop-opacity:0.8423"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.8233")
-                .attr("stop-color", "#96989A")
-                .attr("stop-opacity", "0.7"); //  <stop offset="0.8233" style="stop-color:#96989A;stop-opacity:0.7"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.9715")
-                .attr("stop-color", "#A3A5A7")
-                .attr("stop-opacity", "0"); //  <stop offset="0.9715" style="stop-color:#A3A5A7;stop-opacity:0"/>
-              sash_fp3.append("stop")
-                .attr("offset", "0.9841")
-                .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0"); //  <stop offset="0.9841" style="stop-color:#FFFFFF;stop-opacity:0"/>
+                .attr("offset", "1")
+                .attr("stop-color", "#67696A"); //  <stop  offset="1" style="stop-color:#67696A"/>
+
 
               var impost = defs.append("linearGradient")
                 .attr("id", "impost")
@@ -1313,20 +1067,20 @@
                     /*upper limit 15 block*/
 
                     if (heightT < 1648) {
-                      var upl = 456, /*upper limit for window sill */
+                      var upl = 454, /*upper limit for window sill */
                         dnl = 100;
                       /*upper limit for window sill */
                     }
                     if (1648 < heightT && heightT < 1848) {
-                      var upl = 526,
+                      var upl = 524,
                         dnl = 60;
                     }
                     if (1848 <= heightT && heightT < 2148) {
-                      var upl = 576,
+                      var upl = 574,
                         dnl = 0;
                     }
                     if (2148 <= heightT) {
-                      var upl = 637,
+                      var upl = 635,
                         dnl = -30;
                     }
 
@@ -1381,8 +1135,137 @@
                     $('.elem24').css({
                       'width': widthT / 4.1 + 108 + 'px'
                     });
+
+                    /** ОТКОСЫ SLOPES */
+
+                    let windowHeight = 0;
+                    let windowWidth = 0;
+                    ProductStor.product.template_source.details.forEach(function (detail) {
+                      if (detail.id === "block_1") {
+                        windowWidth = detail.pointsOut[2].x;
+                        windowHeight = detail.pointsOut[2].y;
+                        return;
+                      }
+                    });
+
+                    let top = upl - windowHeight * SVGServ.setTemplateScaleMAIN(0.6) - 16;
+                    $('.left-up').css({
+                      'position': 'absolute',
+                      'display': 'inline-block',
+                      'width': '85px',
+                      'height': '85px',
+                      'left': '222px',
+                      'top': top + 'px'
+                    });
+
+                    let left_right_up = 208 + windowWidth * SVGServ.setTemplateScaleMAIN(0.6);
+                    $('.right-up').css({
+                      'position': 'absolute',
+                      'display': 'inline-block',
+                      'width': '58px',
+                      'left': left_right_up + 'px',
+                      'top': top + 'px'
+                    });
+                    // let slope_up_left = $('.left-up').offset().left +  $('.left-up').width();
+                    // let slope_up_left = $('.left_right_up').position().left;
+                    console.log(windowWidth);
+                    let amendment_height = 0;
+                    let amendment_top = 0;
+                    let slope_up_width = windowWidth * SVGServ.setTemplateScaleMAIN(0.6) - 60;
+                    if (windowWidth <= 515) {
+                      amendment_height = 2;
+                      amendment_top = 1;
+                    } else {
+                      amendment_height = 0;
+                      amendment_top = 0;
+                    }
+                    $('.slope-up').css({
+                      'position': 'absolute',
+                      'display': 'inline-block',
+                      'width': slope_up_width + 'px',
+                      'height': 19 + amendment_height + 'px',
+                      'left': '285px',
+                      'top': top - amendment_top + 'px'
+                    });
+                    if (windowWidth > 1500) {
+                      $('.slope-up').css({
+                        'background-size': 'contain',
+
+                      });
+                    }
+                    $('.right-down').css({
+                      'position': 'absolute',
+                      'display': 'inline-block',
+                      'width': '17.5px',
+                      'left': left_right_up + 41 + 'px',
+                      'top': upl - 77 + 'px'
+                    });
+
+                    $('.left-down').css({
+                      'position': 'absolute',
+                      'display': 'inline-block',
+                      'width': '20px',
+                      'left': '230px',
+                      'top': upl - 41 + 'px'
+                    });
+
+                    $('.left').css({
+                      'position': 'absolute',
+                      'display': 'inline-block',
+                      'background-size': 'contain',
+                      'width': '20px',
+                      'height': upl - top * 1.5 + 'px',
+                      'left': '230px',
+                      'top': top + 70 + 'px'
+                    });
+
+                    if (windowHeight < 1400) {
+                      $('.left').css({
+                        'background-size': 'cover',
+                        'height': upl - top * 1.3 + 'px'
+                      });
+                    }
+
+
+                    $('.right').css({
+                      'position': 'absolute',
+                      'display': 'inline-block',
+                      'background-size': 'cover',
+                      'height': upl - top * 1.3 + 'px',
+                      'width': '17.5px',
+                      'left': left_right_up + 41 + 'px',
+                      'top': top + 50 + 'px'
+                    });
+
+                    if (windowHeight <= 800) {
+                      $('.right').css({
+                        'height': upl - top * 1.2 + 'px',
+                      });
+                      $('.left').css({
+                        'background-size': 'cover',
+                        'height': upl - top * 1.3 + 'px'
+                      });
+                    }
+
+                    /** ОТКОСЫ SLOPES */
+
                   }
 
+                  setTimeout(() => {
+                     console.log(  $('.sash_mark') );
+
+                    }
+                    , 1000);
+                  // console.log($("#tamlateMainSVG").node().getBBox().width);
+                  //  var svgel = document.getElementById('tamlateMainSVG');
+                  //  var svg;
+                  //  if (typeof svgel.getSVGDocument !== 'undefined') {
+                  //    svg = svgel.getSVGDocument();
+                  //  } else {
+                  //    svg = svgel.contentDocument;
+                  //  }
+                  //  var rect = svg.getElementById('lot1a');
+                  // console.log('x:' + rect.getAttribute('x') + ' y:' + rect.getAttribute('y'));
                   if (ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                     var sunW = (((0.18 * widthT) - 234) + 420);
                     $('.elem23').css({
@@ -1478,6 +1361,7 @@
                     $('.elem54').css({
                       'top': 0.23 * ((heightT - 2000) * (-1)) + 173 + 'px',
                     });
+
                   }
 
                   if (ProductStor.product.construction_type === 3) {
@@ -1871,19 +1755,19 @@
                     "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z",
                     pathHinge = "M0,0L5,0L5,15L0,15z";
                   /** dimension */
-                  if (ProductStor.product.doorLock.stvorka_type !== 6) {
-                    /** handle window and balkony door */
-                    setMarker(defs, 'handleR', '0 -1 9 32', -4.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
-                    setMarker(defs, 'handleL', '0 -1 9 32', 13.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
-                    setMarker(defs, 'handleU', '0 -1 9 32', -4.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
-                    setMarker(defs, 'handleD', '0 -1 9 32', 13.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
-                  } else {
-                    /** handle entrance door*/
-                    setMarker(defs, 'handleR', '0 -1 9 32', -5, 17, 90, 8, 80, pathHandle, 'handle-mark');
-                    setMarker(defs, 'handleL', '0 -1 9 32', 14, 17, 270, 8, 80, pathHandle, 'handle-mark');
-                    setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
-                    setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
-                  }
+                  // if (ProductStor.product.doorLock.stvorka_type !== 6) {
+                  //   /** handle window and balkony door */
+                  setMarker(defs, 'handleR', '0 -1 9 32', -4.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleL', '0 -1 9 32', 13.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleU', '0 -1 9 32', -4.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleD', '0 -1 9 32', 13.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
+                  // } else {
+                  //   /** handle entrance door*/
+                  //   setMarker(defs, 'handleR', '0 -1 9 32', -5, 17, 90, 8, 80, pathHandle, 'handle-mark');
+                  //   setMarker(defs, 'handleL', '0 -1 9 32', 14, 17, 270, 8, 80, pathHandle, 'handle-mark');
+                  //   setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
+                  //   setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
+                  // }
                   /** hinge */
                   setMarker(defs, 'hingeR', '-1 0 9 4', -17, 5, 0, 7, 80, pathHinge, 'hinge-mark');
                   setMarker(defs, 'hingeL', '-1 0 9 4', 22, 5, 0, 7, 80, pathHinge, 'hinge-mark');
@@ -2118,7 +2002,7 @@
                                 }
                               }
                             }
-                            if (d.type === "impost") {
+                            if (d.type === "impost" || d.type === "impost") {
                               fillName = 'url(#impost)';
                             }
                             if (indexFrame >= 3) {
@@ -2224,7 +2108,8 @@
                             },
                             'marker-end': function (d) {
                               return setSashFittings(0, d, template.details[h[z]]);
-                            }
+                            },
+                            "xlink:href": "./img/handle.svg"
                           });
                       }
                     }

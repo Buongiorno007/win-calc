@@ -137,6 +137,9 @@
                     if (ProductStor.product.construction_type === 3) {
                         noVvPath = noVvPath.substring(0, noVvPath.length - 1);
                     }
+                  if (ProductStor.product.construction_type === 1) {
+                    noVvPath = "";
+                  }
                     return {
                         path: path,
                         noVvPath: noVvPath,
