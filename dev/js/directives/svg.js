@@ -80,15 +80,6 @@
                 .attr("stop-color", "#888A8C")
                 .attr("stop-opacity", 0.8);
 
-              /* <linearGradient id="frame_fp3" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0" style="     stop-color:#FFFFFF"/>
-                <stop offset="2.024708e-02" style="     stop-color:#F1F5F6"/>
-                <stop offset="3.927802e-02" style="     stop-color:#E0E4E5"/>
-                <stop offset="0.9894" style="     stop-color:#E0E4E5"/>
-                <stop offset="0.9982" style="     stop-color:#888A8C;   stop-opacity:0.8"/>
-                </linearGradient>*/
-
-
               var frame_fp2 = defs.append("linearGradient")
                 .attr("id", "frame_fp2")
                 .attr("x1", "0%")
@@ -118,14 +109,6 @@
                 .attr("stop-color", "#888A8C")
                 .attr("stop-opacity", 0.8);
 
-              /*<linearGradient id="frame_fp2" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0" style="stop-color:#FFFFFF"/>
-                <stop offset="2.024708e-02" style="stop-color:#F1F5F6"/>
-                <stop offset="3.927802e-02" style="stop-color:#E0E4E5"/>
-                <stop offset="0.9894" style="stop-color:#E0E4E5"/>
-                <stop offset="0.9982" style="stop-color:#888A8C;stop-opacity:0.8"/>
-                </linearGradient>*/
-
               var frame_fp1 = defs.append("linearGradient")
                 .attr("id", "frame_fp1")
                 .attr("x1", "0%")
@@ -151,14 +134,6 @@
               frame_fp1.append("stop")
                 .attr("offset", "0.9982")
                 .attr("stop-color", "#F2F6F8");
-              /*
-               <linearGradient id="frame_fp1" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0" style="stop-color:#808284"/>
-                <stop offset="2.024708e-02" style="stop-color:#C2C6C7"/>
-                <stop offset="3.927802e-02" style="stop-color:#E0E4E6"/>
-                <stop offset="0.9894" style="stop-color:#E0E4E6"/>
-                <stop offset="0.9982" style="stop-color:#F2F6F8"/>
-                </linearGradient>*/
 
               var frame_fp4 = defs.append("linearGradient")
                 .attr("id", "frame_fp4")
@@ -185,14 +160,6 @@
               frame_fp4.append("stop")
                 .attr("offset", "0.9982")
                 .attr("stop-color", "#F2F6F8");
-
-              /*<linearGradient id="frame_fp4" x1="100%" y1="0%" x2="0%" y2="0%">
-                <stop offset="0" style="stop-color:#808284"/>
-                <stop offset="2.024708e-02" style="stop-color:#C2C6C7"/>
-                <stop offset="3.927802e-02" style="stop-color:#E0E4E6"/>
-                <stop offset="0.9894" style="stop-color:#E0E4E6"/>
-                <stop offset="0.9982" style="stop-color:#F2F6F8"/>
-                </linearGradient>*/
 
               var bead_fp4 = defs.append("linearGradient")
                 .attr("id", "bead_fp4")
@@ -304,18 +271,6 @@
               bead_fp1.append("stop")
                 .attr("offset", "1")
                 .attr("stop-color", "#DEE2E4"); // <stop  offset="1" style="stop-color:#DEE2E4"/>
-              /*
-              <linearGradient id="bead_fp1" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0" style="stop-color:#000000"/>
-                <stop offset="0.1216" style="stop-color:#000000"/>
-                <stop offset="0.1261" style="stop-color:#68696A"/>
-                <stop offset="0.3224" style="stop-color:#919395"/>
-                <stop offset="0.499" style="stop-color:#AFB2B3"/>
-                <stop offset="0.6488" style="stop-color:#C1C4C6"/>
-                <stop offset="0.7537" style="stop-color:#C7CBCD"/>
-                <stop offset="0.8036" style="stop-color:#CDD1D3"/>
-                <stop offset="1" style="stop-color:#DEE2E4"/>
-              </linearGradient>*/
 
               var bead_fp2 = defs.append("linearGradient")
                 .attr("id", "bead_fp2")
@@ -732,6 +687,30 @@
                 .attr("stop-color", "#E0E4E6");
               /*<stop offset="1" style="stop-color:#E0E4E6"/>*/
 
+            }
+
+            function setHandle(defs, id, angel, refX, refY, classMarker, url, size) {
+              let marker = defs.append("marker");
+              marker.classed(classMarker, true)
+                .attr({
+                  'id': id,
+                  'viewBox': '0 0 80 160',
+                  'refX': refX,
+                  'refY': refY,
+                  'markerWidth': size,
+                  'markerHeight': size,
+                  'orient': angel || 0
+                })
+
+              marker.append("image")
+                .attr({
+                  'href': './img/' + url + '.svg',
+                  // 'href':'./img/add-img.png',
+                  'x': 0,
+                  "y": 0,
+                  'width': '110px',
+                  'height': '110px',
+                });
             }
 
             function setSashFittings(param, data, block) {
@@ -1162,13 +1141,13 @@
                     $('.right-up').css({
                       'position': 'absolute',
                       'display': 'inline-block',
-                      'width': '58px',
+                      'width': '58.5px',
                       'left': left_right_up + 'px',
                       'top': top + 'px'
                     });
                     // let slope_up_left = $('.left-up').offset().left +  $('.left-up').width();
                     // let slope_up_left = $('.left_right_up').position().left;
-                    console.log(windowWidth);
+                    // console.log(windowWidth);
                     let amendment_height = 0;
                     let amendment_top = 0;
                     let slope_up_width = windowWidth * SVGServ.setTemplateScaleMAIN(0.6) - 60;
@@ -1193,79 +1172,33 @@
 
                       });
                     }
-                    $('.right-down').css({
-                      'position': 'absolute',
-                      'display': 'inline-block',
-                      'width': '17.5px',
-                      'left': left_right_up + 41 + 'px',
-                      'top': upl - 77 + 'px'
-                    });
 
-                    $('.left-down').css({
-                      'position': 'absolute',
-                      'display': 'inline-block',
-                      'width': '20px',
-                      'left': '230px',
-                      'top': upl - 41 + 'px'
-                    });
-
+                    let left_height = ((windowHeight) * SVGServ.setTemplateScaleMAIN(0.6)) - 30;
+                    let right_height = ((windowHeight) * SVGServ.setTemplateScaleMAIN(0.6)) - 25;
                     $('.left').css({
                       'position': 'absolute',
                       'display': 'inline-block',
                       'background-size': 'contain',
                       'width': '20px',
-                      'height': upl - top * 1.5 + 'px',
+                      'height': left_height + 'px',
                       'left': '230px',
-                      'top': top + 70 + 'px'
+                      'top': top + 60 + 'px'
                     });
-
-                    if (windowHeight < 1400) {
-                      $('.left').css({
-                        'background-size': 'cover',
-                        'height': upl - top * 1.3 + 'px'
-                      });
-                    }
-
 
                     $('.right').css({
                       'position': 'absolute',
                       'display': 'inline-block',
-                      'background-size': 'cover',
-                      'height': upl - top * 1.3 + 'px',
-                      'width': '17.5px',
-                      'left': left_right_up + 41 + 'px',
+                      'background-size': 'contain',
+                      'height': right_height + 'px',
+                      'width': '16.5px',
+                      'left': left_right_up + 42 + 'px',
                       'top': top + 50 + 'px'
                     });
-
-                    if (windowHeight <= 800) {
-                      $('.right').css({
-                        'height': upl - top * 1.2 + 'px',
-                      });
-                      $('.left').css({
-                        'background-size': 'cover',
-                        'height': upl - top * 1.3 + 'px'
-                      });
-                    }
 
                     /** ОТКОСЫ SLOPES */
 
                   }
 
-                  setTimeout(() => {
-                     console.log(  $('.sash_mark') );
-
-                    }
-                    , 1000);
-                  // console.log($("#tamlateMainSVG").node().getBBox().width);
-                  //  var svgel = document.getElementById('tamlateMainSVG');
-                  //  var svg;
-                  //  if (typeof svgel.getSVGDocument !== 'undefined') {
-                  //    svg = svgel.getSVGDocument();
-                  //  } else {
-                  //    svg = svgel.contentDocument;
-                  //  }
-                  //  var rect = svg.getElementById('lot1a');
-                  // console.log('x:' + rect.getAttribute('x') + ' y:' + rect.getAttribute('y'));
                   if (ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                     var sunW = (((0.18 * widthT) - 234) + 420);
                     $('.elem23').css({
@@ -1603,6 +1536,16 @@
               }
             }
 
+            function getOffsetSum(elem) {
+              var top = 0, left = 0
+              while (elem) {
+                top = top + parseFloat(elem.offsetTop)
+                left = left + parseFloat(elem.offsetLeft)
+                elem = elem.offsetParent
+              }
+              return {top: Math.round(top), left: Math.round(left)}
+            }
+
             function buildSVG(template, widthSVG, heightSVG) {
               if (template && !$.isEmptyObject(template)) {
                 var container = document.createElement('div'),
@@ -1749,30 +1692,32 @@
                       .attr('width', 2202.92 * GlobalStor.global.background)
                       .attr('height', 1661.3 * GlobalStor.global.background);
                   }
-                  var pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119," +
-                    "3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z" +
-                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2," +
-                    "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z",
-                    pathHinge = "M0,0L5,0L5,15L0,15z";
+
                   /** dimension */
-                  // if (ProductStor.product.doorLock.stvorka_type !== 6) {
-                  //   /** handle window and balkony door */
-                  setMarker(defs, 'handleR', '0 -1 9 32', -4.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleL', '0 -1 9 32', 13.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleU', '0 -1 9 32', -4.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleD', '0 -1 9 32', 13.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
-                  // } else {
-                  //   /** handle entrance door*/
-                  //   setMarker(defs, 'handleR', '0 -1 9 32', -5, 17, 90, 8, 80, pathHandle, 'handle-mark');
-                  //   setMarker(defs, 'handleL', '0 -1 9 32', 14, 17, 270, 8, 80, pathHandle, 'handle-mark');
-                  //   setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
-                  //   setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
-                  // }
-                  /** hinge */
-                  setMarker(defs, 'hingeR', '-1 0 9 4', -17, 5, 0, 7, 80, pathHinge, 'hinge-mark');
-                  setMarker(defs, 'hingeL', '-1 0 9 4', 22, 5, 0, 7, 80, pathHinge, 'hinge-mark');
-                  setMarker(defs, 'hingeU', '-1 0 9 4', -16.5, 5, 270, 7, 80, pathHinge, 'hinge-mark');
-                  setMarker(defs, 'hingeD', '-1 0 9 4', 21.5, 5, 270, 7, 80, pathHinge, 'hinge-mark');
+                  if (ProductStor.product.doorLock.stvorka_type !== 6) {
+                    /** handle window and balkony door */
+                    setHandle(defs, 'handleR', 0, 39, 48, 'handle-mark', 'handles/handle_right', 100);
+                    setHandle(defs, 'handleL', 0, 69, 48, 'handle-mark', 'handles/handle_left', 100);
+                    setHandle(defs, 'handleU', 270, 46, 40, 'handle-mark', 'handles/handle_right', 100);
+                    setHandle(defs, 'handleD', 270, 68, 40, 'handle-mark', 'handles/handle_left', 100);
+
+                    setHandle(defs, 'hingeR', 0, 30, 54, 'hinge-mark', 'hinge/hinge_down', 100);
+                    setHandle(defs, 'hingeL', 0, 77, 54, 'hinge-mark', 'hinge/hinge_down', 100);
+                    setHandle(defs, 'hingeU', 270, 30, 56, 'hinge-mark', 'hinge/hinge_down', 100);
+                    setHandle(defs, 'hingeD', 270, 77, 56, 'hinge-mark', 'hinge/hinge_down', 100);
+                  } else {
+                    /** handle entrance door*/
+                    setHandle(defs, 'handleR', 0, 34, 49, 'handle-mark', 'handles/handle_door_right', 130);
+                    setHandle(defs, 'handleL', 0, 57, 49, 'handle-mark', 'handles/handle_door_right', 130);
+                    /** hinge */
+                    setHandle(defs, 'hingeR', 0, 19, 54, 'hinge-mark', 'hinge/hinge_down', 100);
+                    setHandle(defs, 'hingeL', 0, 88, 54, 'hinge-mark', 'hinge/hinge_down', 100);
+                  }
+
+                  // setMarker(defs, 'hingeR', '-1 0 9 4', -17,    5, 0,   7,  80, pathHinge, 'hinge-mark');
+                  // setMarker(defs, 'hingeL', '-1 0 9 4', 22,     5, 0,   7,  80, pathHinge, 'hinge-mark');
+                  // setMarker(defs, 'hingeU', '-1 0 9 4', -16.5,  5, 270, 7,  80, pathHinge, 'hinge-mark');
+                  // setMarker(defs, 'hingeD', '-1 0 9 4', 21.5,   5, 270, 7,  80, pathHinge, 'hinge-mark');
                   //----- horizontal marker arrow
                   setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
                   setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -1782,6 +1727,7 @@
 
                   setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
                   setGradient(defs);
+
                 }
 
 

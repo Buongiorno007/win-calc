@@ -94,6 +94,7 @@
     width: 90%;
   }
 }
+
 .elem8_1 {
   position: absolute;
   z-index: -13;
@@ -586,6 +587,7 @@
     background-size: contain;
   }
 }
+
 .left-up {
   display: none;
 
@@ -596,31 +598,49 @@
   height: 500px;
   position: absolute;
 }
+
 .right-up {
   display: none;
 }
+
 .right-down {
   display: none;
 }
+
 .left-up {
   display: none;
 }
+
 .left-down {
   display: none;
 }
+
 .slope-up {
   display: none;
   //background: linear-gradient(bottom,#b0aeae,#c7c4c4);
   background: url('../img/slopes/up.svg') repeat-x;
   background-size: cover;
+
 }
+
 .right {
   display: none;
   background: url('../img/slopes/right.svg') repeat-y;
   background-size: cover;
 }
+
 .left {
   display: none;
   background: url('../img/slopes/left.svg') repeat-y;
   background-size: cover;
+}
+
+.handle {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background : red;
+  //background: url('../img/slopes/handle.svg') no-repeat;
+  //background-size: contain;
+  //background-position: top left;
 }
