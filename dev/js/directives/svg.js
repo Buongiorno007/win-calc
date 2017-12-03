@@ -71,14 +71,19 @@
                 .attr("stop-color", "#E0E4E5");
 
               frame_fp3.append("stop")
-                .attr("offset", "0.9894")
+                .attr("offset", "0.94")
                 .attr("stop-color", "#E0E4E5");
 
 
               frame_fp3.append("stop")
-                .attr("offset", "0.9982")
+                .attr("offset", "0.98")
                 .attr("stop-color", "#888A8C")
                 .attr("stop-opacity", 0.8);
+
+              frame_fp3.append("stop")
+                .attr("offset", "1")
+                .attr("stop-color", "#000B2A");
+
 
               var frame_fp2 = defs.append("linearGradient")
                 .attr("id", "frame_fp2")
@@ -100,14 +105,18 @@
                 .attr("stop-color", "#E0E4E5");
 
               frame_fp2.append("stop")
-                .attr("offset", "0.9894")
+                .attr("offset", "0.94")
                 .attr("stop-color", "#E0E4E5");
 
 
               frame_fp2.append("stop")
-                .attr("offset", "0.9982")
+                .attr("offset", "0.98")
                 .attr("stop-color", "#888A8C")
                 .attr("stop-opacity", 0.8);
+
+              frame_fp2.append("stop")
+                .attr("offset", "1")
+                .attr("stop-color", "#000B2A");
 
               var frame_fp1 = defs.append("linearGradient")
                 .attr("id", "frame_fp1")
@@ -129,11 +138,15 @@
                 .attr("stop-color", "#E0E4E6");
 
               frame_fp1.append("stop")
-                .attr("offset", "0.9894")
+                .attr("offset", "0.94")
                 .attr("stop-color", "#E0E4E6");
               frame_fp1.append("stop")
-                .attr("offset", "0.9982")
+                .attr("offset", "0.95")
                 .attr("stop-color", "#F2F6F8");
+
+              frame_fp1.append("stop")
+                .attr("offset", "1")
+                .attr("stop-color", "#FFFFFF");
 
               var frame_fp4 = defs.append("linearGradient")
                 .attr("id", "frame_fp4")
@@ -155,11 +168,16 @@
                 .attr("stop-color", "#E0E4E6");
 
               frame_fp4.append("stop")
-                .attr("offset", "0.9894")
+                .attr("offset", "0.94")
                 .attr("stop-color", "#E0E4E6");
+
               frame_fp4.append("stop")
-                .attr("offset", "0.9982")
+                .attr("offset", "0.95")
                 .attr("stop-color", "#F2F6F8");
+
+              frame_fp4.append("stop")
+                .attr("offset", "1")
+                .attr("stop-color", "#FFFFFF");
 
               var bead_fp4 = defs.append("linearGradient")
                 .attr("id", "bead_fp4")
@@ -687,6 +705,193 @@
                 .attr("stop-color", "#E0E4E6");
               /*<stop offset="1" style="stop-color:#E0E4E6"/>*/
 
+
+              var filter = defs.append("filter")
+                .attr({
+                  "id": "rama_shadow",
+                  "x": "-100%",
+                  "y": "-100%",
+                  "width": "400%",
+                  "height": "400%",
+                  "filterUnits": "objectBoundingBox"
+                });
+              filter.append('feOffset')
+                .attr({
+                  "dx": "0",
+                  "dy": "0",
+                  "in": "SourceAlpha",
+                  "result": "shadowOffsetOuter1"
+                });
+              filter.append('feGaussianBlur')
+                .attr({
+                  "stdDeviation": "40",
+                  "in": "shadowOffsetOuter1",
+                  "result": "shadowBlurOuter1"
+                });
+              filter.append('feComponentTransfer').append('feFuncA')
+                .attr({
+                  "type": "linear",
+                  "slope": "0.3"
+                });
+              let feMerge = filter.append('feMerge');
+              feMerge.append('feMergeNode')
+                .attr({
+                  "in": "shadowMatrixOuter1"
+                });
+              feMerge.append('feMergeNode')
+                .attr({
+                  "in": "SourceGraphic"
+                });
+
+              var sash_fp1_shadow = defs.append("filter")
+                .attr({
+                  "id": "sash_fp1_shadow",
+                  "x": "-100%",
+                  "y": "-100%",
+                  "width": "300%",
+                  "height": "300%"
+                });
+              sash_fp1_shadow.append("feGaussianBlur")
+                .attr({
+                  "in": "SourceAlpha",
+                  "stdDeviation": "6"
+                });
+              sash_fp1_shadow.append("feOffset")
+                .attr({
+                  "dx": "3",
+                  "dy": "-4",
+                  "result": "offsetblur"
+                });
+              sash_fp1_shadow.append("feFlood")
+                .attr({
+                  "flood-color": "#8E8C8C"
+                });
+              sash_fp1_shadow.append("feComposite")
+                .attr({
+                  "in2": "offsetblur",
+                  "operator": "in"
+                });
+              let feMerge_fp1 = sash_fp1_shadow.append("feMerge");
+              feMerge_fp1.append("feMergeNode");
+              feMerge_fp1.append("feMergeNode")
+                .attr({
+                  "in": "SourceGraphic"
+                });
+
+
+             /**
+              <feComposite in2="offsetblur" operator="in"/>
+              <feMerge>
+              <feMergeNode/>
+              <feMergeNode in="SourceGraphic"/>
+              </feMerge> */
+
+             var sash_fp2_shadow = defs.append("filter")
+               .attr({
+                 "id": "sash_fp2_shadow",
+                 "x": "-100%",
+                 "y": "-100%",
+                 "width": "300%",
+                 "height": "300%"
+               });
+              sash_fp2_shadow.append("feGaussianBlur")
+                .attr({
+                  "in": "SourceAlpha",
+                  "stdDeviation": "6"
+                });
+              sash_fp2_shadow.append("feOffset")
+                .attr({
+                  "dx": "4",
+                  "dy": "-3",
+                  "result": "offsetblur"
+                });
+              sash_fp2_shadow.append("feFlood")
+                .attr({
+                  "flood-color": "#8E8C8C"
+                });
+              sash_fp2_shadow.append("feComposite")
+                .attr({
+                  "in2": "offsetblur",
+                  "operator": "in"
+                });
+              let feMerge_fp2 = sash_fp2_shadow.append("feMerge");
+              feMerge_fp2.append("feMergeNode");
+              feMerge_fp2.append("feMergeNode")
+                .attr({
+                  "in": "SourceGraphic"
+                });
+
+              var sash_fp3_shadow = defs.append("filter")
+                .attr({
+                  "id": "sash_fp3_shadow",
+                  "x": "-100%",
+                  "y": "-100%",
+                  "width": "300%",
+                  "height": "300%"
+                });
+              sash_fp3_shadow.append("feGaussianBlur")
+                .attr({
+                  "in": "SourceAlpha",
+                  "stdDeviation": "6"
+                });
+              sash_fp3_shadow.append("feOffset")
+                .attr({
+                  "dx": "-3",
+                  "dy": "4",
+                  "result": "offsetblur"
+                });
+              sash_fp3_shadow.append("feFlood")
+                .attr({
+                  "flood-color": "#8E8C8C"
+                });
+              sash_fp3_shadow.append("feComposite")
+                .attr({
+                  "in2": "offsetblur",
+                  "operator": "in"
+                });
+              let feMerge_fp3 = sash_fp3_shadow.append("feMerge");
+              feMerge_fp3.append("feMergeNode");
+              feMerge_fp3.append("feMergeNode")
+                .attr({
+                  "in": "SourceGraphic"
+                });
+
+
+              var sash_fp4_shadow = defs.append("filter")
+                .attr({
+                  "id": "sash_fp4_shadow",
+                  "x": "-100%",
+                  "y": "-100%",
+                  "width": "300%",
+                  "height": "300%"
+                });
+              sash_fp4_shadow.append("feGaussianBlur")
+                .attr({
+                  "in": "SourceAlpha",
+                  "stdDeviation": "6"
+                });
+              sash_fp4_shadow.append("feOffset")
+                .attr({
+                  "dx": "-3",
+                  "dy": "-4",
+                  "result": "offsetblur"
+                });
+              sash_fp4_shadow.append("feFlood")
+                .attr({
+                  "flood-color": "#8E8C8C"
+                });
+              sash_fp4_shadow.append("feComposite")
+                .attr({
+                  "in2": "offsetblur",
+                  "operator": "in"
+                });
+              let feMerge_fp4 = sash_fp4_shadow.append("feMerge");
+              feMerge_fp4.append("feMergeNode");
+              feMerge_fp4.append("feMergeNode")
+                .attr({
+                  "in": "SourceGraphic"
+                });
+
             }
 
             function setHandle(defs, id, angel, refX, refY, classMarker, url, size) {
@@ -705,7 +910,6 @@
               marker.append("image")
                 .attr({
                   'href': './img/' + url + '.svg',
-                  // 'href':'./img/add-img.png',
                   'x': 0,
                   "y": 0,
                   'width': '110px',
@@ -1017,7 +1221,7 @@
                     GlobalStor.global.background = GlobalStor.global.backgroundH
                   }
                   if (ProductStor.product.construction_type === 1) {
-                    GlobalStor.global.imgLink = "44.png";
+                    GlobalStor.global.imgLink = "1765.jpg";
 
                   } else if (ProductStor.product.doorLock.stvorka_type === 6) {
                     GlobalStor.global.imgLink = "31.jpg";
@@ -1162,7 +1366,7 @@
                       'position': 'absolute',
                       'display': 'inline-block',
                       'width': slope_up_width + 'px',
-                      'height': 19 + amendment_height + 'px',
+                      'height': 19.3 + amendment_height + 'px',
                       'left': '285px',
                       'top': top - amendment_top + 'px'
                     });
@@ -1696,22 +1900,22 @@
                   /** dimension */
                   if (ProductStor.product.doorLock.stvorka_type !== 6) {
                     /** handle window and balkony door */
-                    setHandle(defs, 'handleR', 0, 39, 48, 'handle-mark', 'handles/handle_right', 100);
-                    setHandle(defs, 'handleL', 0, 69, 48, 'handle-mark', 'handles/handle_left', 100);
-                    setHandle(defs, 'handleU', 270, 46, 40, 'handle-mark', 'handles/handle_right', 100);
-                    setHandle(defs, 'handleD', 270, 68, 40, 'handle-mark', 'handles/handle_left', 100);
+                    setHandle(defs, 'handleR', 0, 41, 48, 'handle-mark', 'handles/handle_left', 100);
+                    setHandle(defs, 'handleL', 0, 69, 48, 'handle-mark', 'handles/handle_right', 100);
+                    setHandle(defs, 'handleU', 270, 41, 40, 'handle-mark', 'handles/handle_left', 100);
+                    setHandle(defs, 'handleD', 270, 68, 40, 'handle-mark', 'handles/handle_right', 100);
 
-                    setHandle(defs, 'hingeR', 0, 30, 54, 'hinge-mark', 'hinge/hinge_down', 100);
-                    setHandle(defs, 'hingeL', 0, 77, 54, 'hinge-mark', 'hinge/hinge_down', 100);
-                    setHandle(defs, 'hingeU', 270, 30, 56, 'hinge-mark', 'hinge/hinge_down', 100);
-                    setHandle(defs, 'hingeD', 270, 77, 56, 'hinge-mark', 'hinge/hinge_down', 100);
+                    setHandle(defs, 'hingeR', 0, 29, 56, 'hinge-mark', 'handles/hinge', 120);
+                    setHandle(defs, 'hingeL', 0, 68, 56, 'hinge-mark', 'handles/hinge', 120);
+                    setHandle(defs, 'hingeU', 270, 30, 56, 'hinge-mark', 'handles/hinge', 120);
+                    setHandle(defs, 'hingeD', 270, 68, 56, 'hinge-mark', 'handles/hinge', 120);
                   } else {
                     /** handle entrance door*/
                     setHandle(defs, 'handleR', 0, 34, 49, 'handle-mark', 'handles/handle_door_right', 130);
                     setHandle(defs, 'handleL', 0, 57, 49, 'handle-mark', 'handles/handle_door_right', 130);
                     /** hinge */
-                    setHandle(defs, 'hingeR', 0, 19, 54, 'hinge-mark', 'hinge/hinge_down', 100);
-                    setHandle(defs, 'hingeL', 0, 88, 54, 'hinge-mark', 'hinge/hinge_down', 100);
+                    setHandle(defs, 'hingeR', 0, 15, 54, 'hinge-mark', 'handles/hinge', 120);
+                    setHandle(defs, 'hingeL', 0, 84, 54, 'hinge-mark', 'handles/hinge', 120);
                   }
 
                   // setMarker(defs, 'hingeR', '-1 0 9 4', -17,    5, 0,   7,  80, pathHinge, 'hinge-mark');
@@ -1791,9 +1995,17 @@
                   }
                 }
 
-                elementsGroup = mainGroup.append("g").attr({
-                  'id': 'elem_group'
-                });
+                if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+                  elementsGroup = mainGroup.append("g").attr({
+                    'id': 'elem_group',
+                    'filter': "url(#rama_shadow)"
+                  });
+                } else {
+                  elementsGroup = mainGroup.append("g").attr({
+                    'id': 'elem_group'
+                  });
+                }
+
                 dimGroup = mainGroup.append("g").attr({
                   'id': 'dim_group'
                 });
@@ -1803,6 +2015,7 @@
                   let indexFrame = 0;
                   let indexBead = 0;
                   let indexSash = 0;
+                  let indexSashFilter = 0;
                   elementsGroup.selectAll('path.' + template.details[i].id)
                     .data(template.details[i].parts)
                     .enter().append('path')
@@ -1985,6 +2198,36 @@
                           // }
                         }
                         return fillName;
+                      },
+                      'filter': function (d) {
+                        let filterName;
+                        if (d.type === "sash") {
+                          switch (indexSashFilter) {
+                            case 0 : {
+                              filterName = 'url(#sash_fp3_shadow)';
+                              break;
+                            }
+                            case 1 : {
+                              filterName = 'url(#sash_fp4_shadow)';
+                              break;
+                            }
+                            case 2 : {
+                              filterName = 'url(#sash_fp1_shadow)';
+                              break;
+                            }
+                            case 3 : {
+                              filterName = 'url(#sash_fp2_shadow)';
+                              indexSashFilter = 0;
+                              break;
+                            }
+                          }
+                        }
+                        if (indexSashFilter >= 3) {
+                          indexSashFilter = 0
+                        } else {
+                          indexSashFilter++;
+                        }
+                        return filterName;
                       },
                       'fill-opacity': function (d) {
                         var fillName;

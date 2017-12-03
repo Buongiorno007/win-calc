@@ -1,8 +1,6 @@
 .frame {
   @include transition(all 0.2s linear);
-  stroke: $main_gray_txt;
   opasity: 0.6;
-  stroke-width: 1;
   cursor: pointer;
 }
 .frame-icon {
@@ -21,7 +19,9 @@
   fill: url(#background);
   cursor: pointer;
 }
-
+.fp2 {
+  filter: alpha(opacity=50);
+}
 .glass-icon {
   fill: #94DEEE;
 }
