@@ -1957,8 +1957,6 @@
 
 
         //---------- for impost
-
-
         function setImpostParts(depths, points, priceElements) {
 
 
