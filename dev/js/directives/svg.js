@@ -1366,7 +1366,7 @@
                       'position': 'absolute',
                       'display': 'inline-block',
                       'width': slope_up_width + 'px',
-                      'height': 19.3 + amendment_height + 'px',
+                      'height': 19.7 + amendment_height + 'px',
                       'left': '285px',
                       'top': top - amendment_top + 'px'
                     });
@@ -1900,8 +1900,8 @@
                   /** dimension */
                   if (ProductStor.product.doorLock.stvorka_type !== 6) {
                     /** handle window and balkony door */
-                    setHandle(defs, 'handleR', 0, 41, 48, 'handle-mark', 'handles/handle_left', 100);
-                    setHandle(defs, 'handleL', 0, 69, 48, 'handle-mark', 'handles/handle_right', 100);
+                    setHandle(defs, 'handleR', 0, 41, 45, 'handle-mark', 'handles/handle_left', 100);
+                    setHandle(defs, 'handleL', 0, 69, 45, 'handle-mark', 'handles/handle_right', 100);
                     setHandle(defs, 'handleU', 270, 41, 40, 'handle-mark', 'handles/handle_left', 100);
                     setHandle(defs, 'handleD', 270, 68, 40, 'handle-mark', 'handles/handle_right', 100);
 
@@ -1911,8 +1911,8 @@
                     setHandle(defs, 'hingeD', 270, 68, 56, 'hinge-mark', 'handles/hinge', 120);
                   } else {
                     /** handle entrance door*/
-                    setHandle(defs, 'handleR', 0, 34, 49, 'handle-mark', 'handles/handle_door_right', 130);
-                    setHandle(defs, 'handleL', 0, 57, 49, 'handle-mark', 'handles/handle_door_right', 130);
+                    setHandle(defs, 'handleR', 0, 34, 45, 'handle-mark', 'handles/handle_door_right', 130);
+                    setHandle(defs, 'handleL', 0, 57, 45, 'handle-mark', 'handles/handle_door_right', 130);
                     /** hinge */
                     setHandle(defs, 'hingeR', 0, 15, 54, 'hinge-mark', 'handles/hinge', 120);
                     setHandle(defs, 'hingeL', 0, 84, 54, 'hinge-mark', 'handles/hinge', 120);
@@ -2234,7 +2234,7 @@
                         if (d.type === 'glass') {
                           if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                             if (d.glass_type === 2) {
-                              fillName = 0.5;
+                              fillName = 1;
                             } else {
                               fillName = 1;
                             }

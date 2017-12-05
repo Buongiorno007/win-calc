@@ -1958,8 +1958,6 @@
 
         //---------- for impost
         function setImpostParts(depths, points, priceElements) {
-
-
           var pointsType = points[0].type,
             pointsQty = points.length,
             part = {
