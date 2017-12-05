@@ -1222,7 +1222,6 @@
                   }
                   if (ProductStor.product.construction_type === 1) {
                     GlobalStor.global.imgLink = "1765.jpg";
-
                   } else if (ProductStor.product.doorLock.stvorka_type === 6) {
                     GlobalStor.global.imgLink = "31.jpg";
                   } else if (ProductStor.product.doorLock.stvorka_type === 7) {
@@ -1901,8 +1900,8 @@
                   /** dimension */
                   if (ProductStor.product.doorLock.stvorka_type !== 6) {
                     /** handle window and balkony door */
-                    setHandle(defs, 'handleR', 0, 41, 45, 'handle-mark', 'handles/handle_left', 100);
-                    setHandle(defs, 'handleL', 0, 69, 45, 'handle-mark', 'handles/handle_right', 100);
+                    setHandle(defs, 'handleR', 0, 41, 42, 'handle-mark', 'handles/handle_left', 100);
+                    setHandle(defs, 'handleL', 0, 69, 42, 'handle-mark', 'handles/handle_right', 100);
                     setHandle(defs, 'handleU', 270, 41, 40, 'handle-mark', 'handles/handle_left', 100);
                     setHandle(defs, 'handleD', 270, 68, 40, 'handle-mark', 'handles/handle_right', 100);
 
