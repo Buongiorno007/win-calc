@@ -4,17 +4,17 @@
 	 viewBox="0 0 16.9 16.2" style="enable-background:new 0 0 16.9 16.2;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#низ_прям_слева_2_);}
-	.st1{fill:url(#белый_низ_слева_2_);}
+	.st1{fill:url(#SVGID_1_);}
 </style>
-<linearGradient id="низ_прям_слева_2_" gradientUnits="userSpaceOnUse" x1="4.4694" y1="99.5927" x2="16.8694" y2="99.5927" gradientTransform="matrix(1 0 0 -1 0 107.6725)">
+<linearGradient id="низ_прям_слева_2_" gradientUnits="userSpaceOnUse" x1="4.4694" y1="495.7075" x2="16.8694" y2="495.7075" gradientTransform="matrix(1 0 0 1 0 -487.6075)">
 	<stop  offset="0" style="stop-color:#D1D6D5"/>
 	<stop  offset="0.7563" style="stop-color:#959797"/>
 	<stop  offset="1" style="stop-color:#959797"/>
 </linearGradient>
 <polygon id="низ_прям_слева_1_" class="st0" points="4.5,16.2 16.9,16.2 16.9,0 4.5,0 "/>
-<linearGradient id="белый_низ_слева_2_" gradientUnits="userSpaceOnUse" x1="-2.9181" y1="104.7331" x2="7.3841" y2="94.4309" gradientTransform="matrix(1 0 0 -1 0 107.6725)">
-	<stop  offset="0" style="stop-color:#FFFFFF"/>
-	<stop  offset="1" style="stop-color:#FFFFFF"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="2.325638e-02" y1="400.6597" x2="4.4707" y2="400.6597" gradientTransform="matrix(1 0 0 1 0 -392.56)">
+	<stop  offset="0" style="stop-color:#A3A1A1"/>
+	<stop  offset="1" style="stop-color:#D1D6D5"/>
 </linearGradient>
-<polygon id="белый_низ_слева_1_" class="st1" points="4.5,16.2 0,16.2 0,0 4.5,0 "/>
+<polygon class="st1" points="4.5,16.2 0,16.2 0,0 4.5,0 "/>
 </svg>
