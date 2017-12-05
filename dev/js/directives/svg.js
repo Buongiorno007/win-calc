@@ -1221,7 +1221,7 @@
                     GlobalStor.global.background = GlobalStor.global.backgroundH
                   }
                   if (ProductStor.product.construction_type === 1) {
-                    GlobalStor.global.imgLink = "1765.jpg";
+                    GlobalStor.global.imgLink = "night.jpg";
                   } else if (ProductStor.product.doorLock.stvorka_type === 6) {
                     GlobalStor.global.imgLink = "31.jpg";
                   } else if (ProductStor.product.doorLock.stvorka_type === 7) {
