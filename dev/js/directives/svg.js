@@ -1279,7 +1279,7 @@
                       'top': upLim + 'px'
                     });
                     $('.elem11').css('left', 5000 + 'px');
-                    $('.elem16').css('left', 9 + 'px');
+                    // $('.elem16').css('left', 9 + 'px');
                     $('.elem8').css('left', 5000 + 'px');
                     $('.elem7').css('opacity', 0);
                     $('.elem9').css('opacity', 1);
@@ -1368,7 +1368,8 @@
                       'width': slope_up_width + 'px',
                       'height': 19.7 + amendment_height + 'px',
                       'left': '285px',
-                      'top': top - amendment_top + 'px'
+                      'top': top - amendment_top + 'px',
+                      'background-size': 'contain'
                     });
                     if (windowWidth > 1500) {
                       $('.slope-up').css({
@@ -1473,7 +1474,7 @@
                     $('.elem5').css('left', 5000 + 'px');
                     $('.elem10').css('opacity', 1);
                     $('.elem7').css('opacity', 1);
-                    $('.elem16').css('left', 5000 + 'px');
+                    // $('.elem16').css('left', 5000 + 'px');
                     $('.elem9').css('opacity', 0);
                     $('.elem51').css('left', (0.23 * widthT - 443) + 'px');
                     $('.elem52').css('left', (0.23 * widthT - 571) + 'px');
@@ -1710,7 +1711,7 @@
                     $('.elem5').css('left', 5000 + 'px');
                     $('.elem10').css('opacity', 1);
                     $('.elem7').css('opacity', 1);
-                    $('.elem16').css('left', 5000 + 'px');
+                    // $('.elem16').css('left', 5000 + 'px');
                     $('.elem9').css('opacity', 0);
                     $('.elem51').css('left', (0.23 * widthT - 443) + 'px');
                     $('.elem52').css('left', (0.23 * widthT - 571) + 'px');
