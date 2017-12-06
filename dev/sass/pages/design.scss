@@ -44,6 +44,7 @@ $door-config-content: $ipad-height - $door-config-header;
 // Construction Left Menu
 
 .construction-left-menu {
+  z-index: 999;
   @extend .construction-menu;
   @include top_left_coord(0px, 0px);
   height: auto;
@@ -846,11 +847,13 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .cart-menu {
     background: white;
+    box-shadow: none !important;
   }
   .price-block {
     background-color: white !important;
   }
   .config-buttons {
+    margin-top: 2rem;
     width: 100%;
     height: auto;
     display: inline-block;
@@ -1068,9 +1071,11 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   #impost-shape-menu {
     top: 1rem;
+    z-index: -1;
   }
   #sash-shape-menu {
     top: 9.5rem;
+    z-index: -1;
     &.active {
       left: -28rem;
     }
@@ -1087,17 +1092,20 @@ $door-config-content: $ipad-height - $door-config-header;
 
   #angel-shape-menu {
     top: 17.5rem;
+    z-index: -1;
     &.active {
       left: -20rem;
     }
   }
   #arc-shape-menu {
+    z-index: -1;
     top: 25rem;
     &.active {
       left: -16rem;
     }
   }
   #position-menu-for-position {
+    z-index: -1;
     top: 34rem;
     &.active {
       left: -29rem;
@@ -1164,7 +1172,7 @@ $door-config-content: $ipad-height - $door-config-header;
   .order-qty-menu {
     @extend .splash;
     position: absolute;
-    top: 2.1rem;
+    top: .5rem;
     right: 1.5rem;
     width: 3rem;
     height: 3rem;
@@ -1209,6 +1217,7 @@ $door-config-content: $ipad-height - $door-config-header;
     width: 40%;
     height: 5rem;
     display: inline-block;
+    margin-bottom: 2rem;
     input {
       @include roboto-lt(rem(36px), rem(60px));
       text-align: center;
