@@ -142,10 +142,9 @@
     }
 
     .counter {
-      width: 45%;
       height: 5rem;
       display: inline-block;
-      float: right;
+      float: left;
       input {
         @include roboto-lt(rem(36px), rem(60px));
         text-align: center;
@@ -230,11 +229,6 @@
   }
   .go-to-cart {
     width: 25%;
-    margin-left: 2rem;
-    &.active{
-      transition: all 1s ease;
-      margin-left: 0;
-    }
   }
   #qty{
     @extend .splash;
