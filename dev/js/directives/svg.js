@@ -1394,7 +1394,7 @@
                       'display': 'inline-block',
                       'background-size': 'contain',
                       'height': right_height + 'px',
-                      'width': '18px',
+                      'width': '17px',
                       'left': Math.floor(left_right_up) + 42 + 'px',
                       'top': top + 50 + 'px'
                     });

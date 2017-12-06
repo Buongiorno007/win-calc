@@ -791,11 +791,12 @@ $door-config-content: $ipad-height - $door-config-header;
   top: 0rem;
 }
 .light-v { //*!!!!!!!!!!!!!!!!!!!!!!*//
-  background: url(../img/millim.png);
+  //background: url(../img/millim.png);
+  background: white;
   background-size: cover;
   #tamlateSVG {
     position: relative;
-    left: 0rem;
+    left: -10rem;
     top: -5rem;
   }
   &.active {
@@ -826,7 +827,7 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 766px;
   }
   .config-menu {
-    background-color: #f7f8f8;
+    background-color: white;
     position: absolute;
     top: 0;
     right: 0;
@@ -836,6 +837,12 @@ $door-config-content: $ipad-height - $door-config-header;
   .calculators-box.active {
     bottom: -94rem;
     z-index: 14;
+  }
+  .cart-menu{
+    background: white;
+  }
+  .price-block  {
+    background-color: white !important;
   }
   .config-buttons {
     width: 100%;
@@ -863,13 +870,27 @@ $door-config-content: $ipad-height - $door-config-header;
     border: none;
     border-bottom: .5px solid $main_gray_btn;
     &.active {
-      background-color: #f7f8f8;
-      border: .5px solid $main_gray_btn;
-      border-bottom: none;
-      border-radius: 1rem 1rem 0rem 0rem;
+      background-color: white;
+
     }
   }
+  .img-border{
+    display: inline-block;
+    width: 7rem;
+    height: 7rem;
+    border: 1px solid gray;
+    border-radius: 50px;
+    &.active {
+      border: 1px solid $main_orange;
+    }
+  }
+  .cart-page {
+    background-color: white;
+  }
+  .main-content {
 
+    background-color: white;
+  }
   .img-configuration {
     width: 3rem;
     height: 3rem;
@@ -879,6 +900,7 @@ $door-config-content: $ipad-height - $door-config-header;
     background-size: contain;
     padding: 1rem;
     display: inline-block;
+
     &.active {
       background: url(../img/config-menu/conf_active.svg)  no-repeat;
     }
@@ -894,11 +916,8 @@ $door-config-content: $ipad-height - $door-config-header;
     border-bottom: .5px solid $main_gray_btn;
     background-color: white;
     &.active {
-      background-color: #f7f8f8;
-      border: .5px solid $main_gray_btn;
-      border-left: none;
-      border-bottom: none;
-      border-radius: 1rem 1rem 0rem 0rem;
+      background-color: white;
+
     }
   }
   .img-karkas {
@@ -926,10 +945,7 @@ $door-config-content: $ipad-height - $door-config-header;
     border-bottom: .5px solid $main_gray_btn;
     background-color: white;
     &.active {
-      background-color: #f7f8f8;
-      border: .5px solid $main_gray_btn;
-      border-bottom: none;
-      border-radius: 1rem 1rem 0rem 0rem;
+      background-color: white;
 
     }
   }
@@ -962,12 +978,12 @@ $door-config-content: $ipad-height - $door-config-header;
     position: relative;
     top: 0;
     display: inline-block;
-    background-color: #f7f8f8;
+    background-color: white;
     width: 100%;
   }
   .figure-lists {
     width: 100%;
-    background-color: #f7f8f8;
+    background-color: white;
   }
   .figure-item-block {
     position: relative;
@@ -990,11 +1006,14 @@ $door-config-content: $ipad-height - $door-config-header;
   .figure-icon:hover {
     color: #000;
   }
+  .separator{
+    margin: 0;
+  }
   .figure-item {
     height: auto;
     width: 110%;
     display: inline-block;
-    border-bottom: 1px solid #b1b1b1;
+    //border-bottom: 1px solid #b1b1b1;
     padding-top: 1rem;
     padding-bottom: .2rem;
     &.selected {
@@ -1136,7 +1155,7 @@ $door-config-content: $ipad-height - $door-config-header;
   .order-qty-menu {
     @extend .splash;
     position: absolute;
-    top: 2rem;
+    top: 2.1rem;
     right: 1.5rem;
     width: 3rem;
     height: 3rem;
@@ -1146,7 +1165,8 @@ $door-config-content: $ipad-height - $door-config-header;
       @include roboto-lt(rem(36px), rem(60px));
       color: white;
       position: relative;
-      top: -.4rem;
+      top: -.2rem;
+      left: .1rem;
     }
   }
   .configur-panel {

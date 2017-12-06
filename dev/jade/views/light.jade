@@ -313,15 +313,18 @@
         include menus/_addelems-menu
         .config-buttons
           .karkas-button(ng-click="configMenu.karkasButton()", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
-            .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+            .img-border(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+              .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
             p {{lightPage.KARKAS}}
           .configuration-button(ng-click="configMenu.configButton()", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
-            .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+            .img-border(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+              .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
             p {{lightPage.KONFIG}}.
           .cart-button(ng-click="configMenu.cartButton()", ng-class="{'active': configMenu.G.global.showCart == 1}")
             .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
               p {{ configMenu.G.global.construction_count }}
-            .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
+            .img-border(ng-class="{'active': configMenu.G.global.showCart == 1}")
+              .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
             p {{lightPage.CART}}
         .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
           .construction-left-menu
@@ -331,25 +334,25 @@
                   .figure-icon-top.impost-shape-a
                   .figure-icon-bottom.impost-shape-b
                 .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-
+              hr.separator
               li.figure-item(ng-click="designPage.selectMenuItem(1)",ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
                 .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
                   .figure-icon-top.sash-shape-a
                   .figure-icon-bottom.sash-shape-b
                 .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-
+              hr.separator
               li.figure-item(ng-click="designPage.selectMenuItem(2)",ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}")
                 .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}")
                   .figure-icon-top.angel-shape-a
                   .figure-icon-bottom.angel-shape-b
                 .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-
+              hr.separator
               li.figure-item(ng-click="designPage.selectMenuItem(4)",ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
                 .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
                   .figure-icon-top.arch-shape-a
                   .figure-icon-bottom.arch-shape-b
                 .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-
+              hr.separator
               li.figure-item(ng-click="designPage.selectMenuItem(5)",ng-class="{'selected': designPage.D.design.activeMenuItem == 5, 'hov': designPage.D.design.activeMenuItem !== 5}")
                 .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5, 'hov': designPage.D.design.activeMenuItem !== 5}")
                   .figure-icon-top.position-shape-a

@@ -156,9 +156,9 @@
 
             function setCurrTemplate() {
                 ProductStor.product.construction_type =
-                    GlobalStor.global.rooms[0].group_id;
+                    GlobalStor.global.rooms[7].group_id;
                 ProductStor.product.template_id =
-                    GlobalStor.global.rooms[0].template_id - 1;
+                    GlobalStor.global.rooms[7].template_id - 1;
             }
 
             //-------- get default json template
