@@ -785,11 +785,13 @@ $door-config-content: $ipad-height - $door-config-header;
   cursor: pointer;
 
 }
+
 #tamlateSVG {
   position: relative;
   left: 2rem;
   top: 0rem;
 }
+
 .light-v { //*!!!!!!!!!!!!!!!!!!!!!!*//
   //background: url(../img/millim.png);
   background: white;
@@ -838,10 +840,14 @@ $door-config-content: $ipad-height - $door-config-header;
     bottom: -94rem;
     z-index: 14;
   }
-  .cart-menu{
+  .cart-container.full-view {
+    background: white;
+
+  }
+  .cart-menu {
     background: white;
   }
-  .price-block  {
+  .price-block {
     background-color: white !important;
   }
   .config-buttons {
@@ -874,7 +880,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
     }
   }
-  .img-border{
+  .img-border {
     display: inline-block;
     width: 7rem;
     height: 7rem;
@@ -902,7 +908,7 @@ $door-config-content: $ipad-height - $door-config-header;
     display: inline-block;
 
     &.active {
-      background: url(../img/config-menu/conf_active.svg)  no-repeat;
+      background: url(../img/config-menu/conf_active.svg) no-repeat;
     }
   }
   .karkas-button {
@@ -919,6 +925,9 @@ $door-config-content: $ipad-height - $door-config-header;
       background-color: white;
 
     }
+  }
+  .item {
+    border : none;
   }
   .img-karkas {
     width: 3rem;
@@ -1006,7 +1015,7 @@ $door-config-content: $ipad-height - $door-config-header;
   .figure-icon:hover {
     color: #000;
   }
-  .separator{
+  .separator {
     margin: 0;
   }
   .figure-item {
@@ -1174,7 +1183,7 @@ $door-config-content: $ipad-height - $door-config-header;
     width: 100%;
     height: 100%;
     top: 85rem;
-    padding-top : 1rem;
+    padding-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(#fff, .9);
@@ -1197,21 +1206,21 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 
   .counter {
-    width:40%;
-    height : 5rem;
-    display : inline-block;
+    width: 40%;
+    height: 5rem;
+    display: inline-block;
     input {
       @include roboto-lt(rem(36px), rem(60px));
       text-align: center;
       border: 1px solid #b1b1b1;
-      width : 5rem;
+      width: 5rem;
     }
   }
   .input-minus, .input-plus {
     cursor: pointer;
 
     position: relative;
-    top : -2rem;
+    top: -2rem;
 
   }
   .input-minus {
@@ -1232,31 +1241,31 @@ $door-config-content: $ipad-height - $door-config-header;
     position: relative;
     background: $main_orange;
     border-radius: 2rem;
-    width : 85%;
+    width: 85%;
     height: 7rem;
-    display : inline-block;
-    padding-top : 1.5rem;
-    p{
-      color : white;
+    display: inline-block;
+    padding-top: 1.5rem;
+    p {
+      color: white;
       @include roboto-lt(rem(40px));
-      width : 5rem;
-      display : inline-block;
-      margin : 0;
-      padding : 0;
+      width: 5rem;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
       width: 10rem;
-      vertical-align : middle;
+      vertical-align: middle;
     }
   }
   .cart-img {
     position: relative;
-    width : 4rem;
-    height : 4rem;
-    margin : 0;
-    padding : 0;
+    width: 4rem;
+    height: 4rem;
+    margin: 0;
+    padding: 0;
     background: url(../img/config-menu/cart-white.svg) no-repeat;
     background-size: contain;
-    display : inline-block;
-    vertical-align : middle;
+    display: inline-block;
+    vertical-align: middle;
   }
   .cart-btn {
     position: relative;
@@ -1270,6 +1279,8 @@ $door-config-content: $ipad-height - $door-config-header;
     float: left;
     border-bottom-right-radius: rem(20px);
     border-bottom-left-radius: rem(20px);
+
+    border: 1px solid $main_gray_btn;
   }
   .order-header {
     cursor: pointer;
@@ -1340,7 +1351,7 @@ $door-config-content: $ipad-height - $door-config-header;
     &.active {
       top: -6rem;
       left: 3rem;
-      width : 98%;
+      width: 98%;
     }
     .door-config-tools {
       position: absolute;
@@ -1372,24 +1383,24 @@ $door-config-content: $ipad-height - $door-config-header;
       top: -6rem;
     }
   }
- .grid-selector-dialog {
+  .grid-selector-dialog {
     &.active {
       top: 10rem;
     }
   }
   .curtain {
     height: 43.5rem !important;
-    z-index : 0 !important;
+    z-index: 0 !important;
   }
-  .additional-list-container{
-    top : -5rem !important;
+  .additional-list-container {
+    top: -5rem !important;
   }
   .nav-tool-box {
-    position : relative;
-    top : -7.5rem;
-    left : 2rem;
+    position: relative;
+    top: -7.5rem;
+    left: 2rem;
   }
-  .template-window{
+  .template-window {
     top: 6.75rem !important;
   }
 }

@@ -408,24 +408,24 @@
               .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
-
+            hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")
               .title(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length > 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku +', '+ configMenu.P.product.glass[2].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-
+            hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 4, 'hov': configMenu.G.global.activePanel !== 4}", fs-click="configMenu.selectConfigPanel(4)")
               .title(data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.hardware.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorHandle.name }}
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorLock.name }}
-
+            hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}", fs-click="configMenu.selectConfigPanel(5)")
               .title(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .name(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-
+            hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", fs-click="configMenu.selectConfigPanel(6)")
               .title(data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .name(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -468,7 +468,7 @@
                     .value.drop-txt {{ ::cartMenu.GARBAGE_REMOVE }}
                     input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()")
                     .name.drop-txt {{ cartMenu.U.userInfo.currency }}
-
+            hr.separator
 
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 7, 'hov': cartMenu.config.activeMenuItem !== 7}", fs-click="cartMenu.selectMenuItem(7)")
               .title(data-output="{{::cartMenu.DIS_ASSEMBLING}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -487,7 +487,7 @@
                     .value.drop-txt {{ assemb.name }}
                     .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
 
-
+            hr.separator
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}", fs-click="cartMenu.selectMenuItem(2)")
               .title(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
               .cart-item-data
@@ -504,6 +504,7 @@
                   .dropdown-item-inner
                     .value.drop-txt {{ assemb.name }}
                     .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
+            hr.separator
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 6, 'hov': cartMenu.config.activeMenuItem !== 6}", fs-click="cartMenu.selectMenuItem(6)")
               .title(data-output="{{ cartMenu.ADD_SERVICES }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
               .cart-item-data
@@ -514,7 +515,7 @@
               .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 6}")
                 input.comment-field.noPreventDefault(type="number" ng-model="cartMenu.O.order.sale_price" ng-change="cartMenu.calculateOrderPrice()")
                 //label {{cartMenu.U.userInfo.currency}}
-
+            hr.separator
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}", fs-click="cartMenu.selectMenuItem(5)")
               .title(data-output="{{ ::cartMenu.COMMENT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
               .cart-item-data
