@@ -932,9 +932,11 @@ $door-config-content: $ipad-height - $door-config-header;
 
     }
   }
-  .item {
-    border : none;
-    margin-top: 1rem;
+  .light-v {
+    .item {
+      border: none;
+      margin-top: 1rem;
+    }
   }
   .img-karkas {
     width: 3rem;
@@ -1222,6 +1224,7 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 5rem;
     display: inline-block;
     margin-bottom: 2rem;
+    margin-left: 2rem;
     input {
       @include roboto-lt(rem(36px), rem(60px));
       text-align: center;
