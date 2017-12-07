@@ -235,6 +235,12 @@
   }
   .go-to-cart {
     width: 25%;
+    position: relative;
+    left: 4rem;
+    &.active {
+      left: 0;
+    }
+
   }
   #qty{
     @extend .splash;
