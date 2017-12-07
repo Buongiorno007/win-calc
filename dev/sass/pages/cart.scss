@@ -237,6 +237,10 @@
     border-bottom-right-radius: rem($radius_order);
     background-color: #f0f0f0;
     color: $main_gray_txt;
+    position: absolute;
+    bottom: 0;
+    width: 255px;
+    text-align: center;
   }
   //------- order comment
   .order-comment-btn {
@@ -766,8 +770,9 @@
     background: #f0f0f0;
     width: rem(512px);
     height : 6.3rem;
-    position : absolute;
-    bottom : 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
     //border-top : solid 1px #bebebe
   }
   .add-img{

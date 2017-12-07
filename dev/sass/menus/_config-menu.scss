@@ -131,6 +131,10 @@
       text-align: center;
       position: relative;
       top: 0rem;
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
       p {
         @include roboto-lt(rem(36px));
         color: $main_gray_txt;
@@ -142,10 +146,11 @@
     }
 
     .counter {
-      width: 45%;
       height: 5rem;
-      display: inline-block;
-      float: right;
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
       input {
         @include roboto-lt(rem(36px), rem(60px));
         text-align: center;
@@ -156,9 +161,9 @@
     .input-minus, .input-plus {
       cursor: pointer;
       position: relative;
-      top: -2rem;
-      //margin-left: .1rem;
-      //margin-right: .1rem;
+      top: 0rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
     .input-minus {
       @include roboto-lt(rem(90px));
@@ -230,11 +235,6 @@
   }
   .go-to-cart {
     width: 25%;
-    margin-left: 2rem;
-    &.active{
-      transition: all 1s ease;
-      margin-left: 0;
-    }
   }
   #qty{
     @extend .splash;

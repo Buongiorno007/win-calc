@@ -715,33 +715,44 @@
                   "height": "400%",
                   "filterUnits": "objectBoundingBox"
                 });
-              filter.append('feOffset')
+              filter.append("feGaussianBlur")
+                .attr({
+                  "in": "SourceAlpha",
+                  "stdDeviation": "40"
+                });
+              filter.append("feOffset")
                 .attr({
                   "dx": "0",
                   "dy": "0",
-                  "in": "SourceAlpha",
-                  "result": "shadowOffsetOuter1"
+                  "result": "offsetblur"
                 });
-              filter.append('feGaussianBlur')
+              filter.append("feFlood")
                 .attr({
-                  "stdDeviation": "40",
-                  "in": "shadowOffsetOuter1",
-                  "result": "shadowBlurOuter1"
+                  "flood-color": "#8E8C8C"
                 });
-              filter.append('feComponentTransfer').append('feFuncA')
+              filter.append("feComposite")
                 .attr({
-                  "type": "linear",
-                  "slope": "0.3"
+                  "in2": "offsetblur",
+                  "operator": "in"
                 });
-              let feMerge = filter.append('feMerge');
-              feMerge.append('feMergeNode')
-                .attr({
-                  "in": "shadowMatrixOuter1"
-                });
-              feMerge.append('feMergeNode')
+              let feMerge_filter = filter.append("feMerge");
+              feMerge_filter.append("feMergeNode");
+              feMerge_filter.append("feMergeNode")
                 .attr({
                   "in": "SourceGraphic"
                 });
+                /**<feGaussianBlur in="SourceAlpha" stdDeviation="40"></feGaussianBlur>
+                 <feOffset dx="0" dy="0" result="offsetblur"></feOffset>
+                 <feFlood flood-color="#8E8C8C"></feFlood>
+                 <feComposite in2="offsetblur" operator="in"></feComposite>
+                 <feMerge>
+                 <feMergeNode></feMergeNode>
+                 <feMergeNode in="SourceGraphic"></feMergeNode>
+                 </feMerge> */
+
+
+
+
 
               var sash_fp1_shadow = defs.append("filter")
                 .attr({
@@ -909,7 +920,7 @@
 
               marker.append("image")
                 .attr({
-                  'href': './img/' + url + '.svg',
+                  'xlink:href': './img/' + url + '.svg',
                   'x': 0,
                   "y": 0,
                   'width': '110px',
@@ -1394,7 +1405,7 @@
                       'display': 'inline-block',
                       'background-size': 'contain',
                       'height': right_height + 'px',
-                      'width': '18px',
+                      'width': '17px',
                       'left': Math.floor(left_right_up) + 42 + 'px',
                       'top': top + 50 + 'px'
                     });

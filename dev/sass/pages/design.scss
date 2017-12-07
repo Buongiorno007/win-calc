@@ -44,6 +44,7 @@ $door-config-content: $ipad-height - $door-config-header;
 // Construction Left Menu
 
 .construction-left-menu {
+  z-index: 999;
   @extend .construction-menu;
   @include top_left_coord(0px, 0px);
   height: auto;
@@ -785,17 +786,20 @@ $door-config-content: $ipad-height - $door-config-header;
   cursor: pointer;
 
 }
+
 #tamlateSVG {
   position: relative;
   left: 2rem;
   top: 0rem;
 }
+
 .light-v { //*!!!!!!!!!!!!!!!!!!!!!!*//
-  background: url(../img/millim.png);
+  //background: url(../img/millim.png);
+  background: white;
   background-size: cover;
   #tamlateSVG {
     position: relative;
-    left: 0rem;
+    left: -10rem;
     top: -5rem;
   }
   &.active {
@@ -826,7 +830,7 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 766px;
   }
   .config-menu {
-    background-color: #f7f8f8;
+    background-color: white;
     position: absolute;
     top: 0;
     right: 0;
@@ -837,7 +841,19 @@ $door-config-content: $ipad-height - $door-config-header;
     bottom: -94rem;
     z-index: 14;
   }
+  .cart-container.full-view {
+    background: white;
+
+  }
+  .cart-menu {
+    background: white;
+    box-shadow: none !important;
+  }
+  .price-block {
+    background-color: white !important;
+  }
   .config-buttons {
+    margin-top: 2rem;
     width: 100%;
     height: auto;
     display: inline-block;
@@ -863,13 +879,28 @@ $door-config-content: $ipad-height - $door-config-header;
     border: none;
     border-bottom: .5px solid $main_gray_btn;
     &.active {
-      background-color: #f7f8f8;
-      border: .5px solid $main_gray_btn;
-      border-bottom: none;
-      border-radius: 1rem 1rem 0rem 0rem;
+      background-color: white;
+
     }
   }
+  .img-border {
+    display: inline-block;
+    width: 7rem;
+    height: 7rem;
+    border: 1px solid gray;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    &.active {
+      border: 1px solid $main_orange;
+    }
+  }
+  .cart-page {
+    background-color: white;
+  }
+  .main-content {
 
+    background-color: white;
+  }
   .img-configuration {
     width: 3rem;
     height: 3rem;
@@ -879,8 +910,9 @@ $door-config-content: $ipad-height - $door-config-header;
     background-size: contain;
     padding: 1rem;
     display: inline-block;
+
     &.active {
-      background: url(../img/config-menu/conf_active.svg)  no-repeat;
+      background: url(../img/config-menu/conf_active.svg) no-repeat;
     }
   }
   .karkas-button {
@@ -894,12 +926,13 @@ $door-config-content: $ipad-height - $door-config-header;
     border-bottom: .5px solid $main_gray_btn;
     background-color: white;
     &.active {
-      background-color: #f7f8f8;
-      border: .5px solid $main_gray_btn;
-      border-left: none;
-      border-bottom: none;
-      border-radius: 1rem 1rem 0rem 0rem;
+      background-color: white;
+
     }
+  }
+  .item {
+    border : none;
+    margin-top: 1rem;
   }
   .img-karkas {
     width: 3rem;
@@ -926,10 +959,7 @@ $door-config-content: $ipad-height - $door-config-header;
     border-bottom: .5px solid $main_gray_btn;
     background-color: white;
     &.active {
-      background-color: #f7f8f8;
-      border: .5px solid $main_gray_btn;
-      border-bottom: none;
-      border-radius: 1rem 1rem 0rem 0rem;
+      background-color: white;
 
     }
   }
@@ -955,19 +985,19 @@ $door-config-content: $ipad-height - $door-config-header;
   .karkas {
     position: relative;
     top: 2rem;
-    height: 100%;
+    height: 70%;
     padding-left: 2rem;
   }
   .construction-left-menu {
     position: relative;
     top: 0;
     display: inline-block;
-    background-color: #f7f8f8;
+    background-color: white;
     width: 100%;
   }
   .figure-lists {
     width: 100%;
-    background-color: #f7f8f8;
+    background-color: white;
   }
   .figure-item-block {
     position: relative;
@@ -990,11 +1020,14 @@ $door-config-content: $ipad-height - $door-config-header;
   .figure-icon:hover {
     color: #000;
   }
+  .separator {
+    margin: 0;
+  }
   .figure-item {
     height: auto;
     width: 110%;
     display: inline-block;
-    border-bottom: 1px solid #b1b1b1;
+    //border-bottom: 1px solid #b1b1b1;
     padding-top: 1rem;
     padding-bottom: .2rem;
     &.selected {
@@ -1026,7 +1059,7 @@ $door-config-content: $ipad-height - $door-config-header;
     @include roboto-lt(rem(36px), rem(65px));
     @include display-flex();
     position: absolute;
-    left: 30rem;
+    left: 40rem;
     padding: 0 rem(20px);
     border-radius: rem(16px);
     background-color: #242424;
@@ -1040,9 +1073,11 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   #impost-shape-menu {
     top: 1rem;
+    z-index: -1;
   }
   #sash-shape-menu {
     top: 9.5rem;
+    z-index: -1;
     &.active {
       left: -28rem;
     }
@@ -1059,17 +1094,20 @@ $door-config-content: $ipad-height - $door-config-header;
 
   #angel-shape-menu {
     top: 17.5rem;
+    z-index: -1;
     &.active {
       left: -20rem;
     }
   }
   #arc-shape-menu {
+    z-index: -1;
     top: 25rem;
     &.active {
       left: -16rem;
     }
   }
   #position-menu-for-position {
+    z-index: -1;
     top: 34rem;
     &.active {
       left: -29rem;
@@ -1136,7 +1174,7 @@ $door-config-content: $ipad-height - $door-config-header;
   .order-qty-menu {
     @extend .splash;
     position: absolute;
-    top: 2rem;
+    top: .5rem;
     right: 1.5rem;
     width: 3rem;
     height: 3rem;
@@ -1146,7 +1184,8 @@ $door-config-content: $ipad-height - $door-config-header;
       @include roboto-lt(rem(36px), rem(60px));
       color: white;
       position: relative;
-      top: -.4rem;
+      top: -.2rem;
+      left: .1rem;
     }
   }
   .configur-panel {
@@ -1154,7 +1193,7 @@ $door-config-content: $ipad-height - $door-config-header;
     width: 100%;
     height: 100%;
     top: 85rem;
-    padding-top : 1rem;
+    padding-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(#fff, .9);
@@ -1177,21 +1216,22 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 
   .counter {
-    width:40%;
-    height : 5rem;
-    display : inline-block;
+    width: 40%;
+    height: 5rem;
+    display: inline-block;
+    margin-bottom: 2rem;
     input {
       @include roboto-lt(rem(36px), rem(60px));
       text-align: center;
       border: 1px solid #b1b1b1;
-      width : 5rem;
+      width: 5rem;
     }
   }
   .input-minus, .input-plus {
     cursor: pointer;
 
     position: relative;
-    top : -2rem;
+    top: -2rem;
 
   }
   .input-minus {
@@ -1212,31 +1252,31 @@ $door-config-content: $ipad-height - $door-config-header;
     position: relative;
     background: $main_orange;
     border-radius: 2rem;
-    width : 85%;
+    width: 85%;
     height: 7rem;
-    display : inline-block;
-    padding-top : 1.5rem;
-    p{
-      color : white;
+    display: inline-block;
+    padding-top: 1.5rem;
+    p {
+      color: white;
       @include roboto-lt(rem(40px));
-      width : 5rem;
-      display : inline-block;
-      margin : 0;
-      padding : 0;
+      width: 5rem;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
       width: 10rem;
-      vertical-align : middle;
+      vertical-align: middle;
     }
   }
   .cart-img {
     position: relative;
-    width : 4rem;
-    height : 4rem;
-    margin : 0;
-    padding : 0;
+    width: 4rem;
+    height: 4rem;
+    margin: 0;
+    padding: 0;
     background: url(../img/config-menu/cart-white.svg) no-repeat;
     background-size: contain;
-    display : inline-block;
-    vertical-align : middle;
+    display: inline-block;
+    vertical-align: middle;
   }
   .cart-btn {
     position: relative;
@@ -1250,6 +1290,8 @@ $door-config-content: $ipad-height - $door-config-header;
     float: left;
     border-bottom-right-radius: rem(20px);
     border-bottom-left-radius: rem(20px);
+
+    border: 1px solid $main_gray_btn;
   }
   .order-header {
     cursor: pointer;
@@ -1320,7 +1362,7 @@ $door-config-content: $ipad-height - $door-config-header;
     &.active {
       top: -6rem;
       left: 3rem;
-      width : 98%;
+      width: 98%;
     }
     .door-config-tools {
       position: absolute;
@@ -1352,24 +1394,24 @@ $door-config-content: $ipad-height - $door-config-header;
       top: -6rem;
     }
   }
- .grid-selector-dialog {
+  .grid-selector-dialog {
     &.active {
       top: 10rem;
     }
   }
   .curtain {
     height: 43.5rem !important;
-    z-index : 0 !important;
+    z-index: 0 !important;
   }
-  .additional-list-container{
-    top : -5rem !important;
+  .additional-list-container {
+    top: -5rem !important;
   }
   .nav-tool-box {
-    position : relative;
-    top : -7.5rem;
-    left : 2rem;
+    position: relative;
+    top: -7.5rem;
+    left: 2rem;
   }
-  .template-window{
+  .template-window {
     top: 6.75rem !important;
   }
 }
