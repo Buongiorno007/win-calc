@@ -79,15 +79,15 @@ section.construction-page
       //-   .footer-description(data-output="{{ ::designPage.UNITS_DESCRIP }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
       //-   .project-default(ng-click="designPage.setDefaultConstruction()") {{ ::designPage.PROJECT_DEFAULT }}
       //-   //.project-default(ng-click="designPage.showTemplates()") {{ ::designPage.ROOM_SELECTION }}
-      .call-price(ng-click="designPage.designSaved()") {{::designPage.CALC_PRICE}}
 
 
 
     .construction-block
       .construction-scrollbox
         svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.constants.svgTemplateWidth", template-height="designPage.constants.svgTemplateHeight", type-construction="designPage.constants.SVG_ID_EDIT")
+    .call-price(ng-click="designPage.designSaved()") {{::designPage.CALC_PRICE}}
 
-        .template-elem(ng-if="designPage.P.product.construction_type !== 4 && designPage.D.design.showHint == 1")
+      .template-elem(ng-if="designPage.P.product.construction_type !== 4 && designPage.D.design.showHint == 1")
           nobr.clicked(fs-click="designPage.selectProfileFast()") {{::designPage.PROFILE_SYSTEM_SELECT}}
           |,&nbsp;
           nobr.clicked(fs-click="designPage.selectGlassFast()")  {{::designPage.GLASS_SELECT}}
