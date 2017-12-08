@@ -35,10 +35,9 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
       .calculators-box.serv-calculator(ng-class="{'active': mainPage.G.global.isServiceCalculator}" ng-if="mainPage.G.global.isServiceCalculator")
         include parts/_serviсe-calculator
 
-  include parts/_info-box
-  include parts/_attantions
-include parts/_loader
-.alert-overlay(ng-if="mainPage.G.global.isAlert")
-  include parts/_alert
+include parts/_alert
+include parts/_info-box
+include parts/_attantions
 include parts/_danger-alert
 include parts/_error-product
+include parts/_loader
