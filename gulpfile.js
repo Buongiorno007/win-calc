@@ -847,7 +847,7 @@ gulp.task('wincalcApp', function () {
       pretty: true
     }))
     .pipe(replace('RANDOM_FLAG', random))
-    .pipe(replace('<script src=""></script>', analitics))
+    .pipe(replace('<script src=""></script>', '<script type="text/javascript" src="cordova.js"></script>'))
     .pipe(gulp.dest(config.build.window.app.root))
     .on('end', function () {
       gutil.log('html!');
