@@ -155,10 +155,15 @@
             }
 
             function setCurrTemplate() {
+              let room = 6;
+              if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
+                room = 0;
+              }
+
                 ProductStor.product.construction_type =
-                    GlobalStor.global.rooms[6].group_id;
+                  GlobalStor.global.rooms[room].group_id;
                 ProductStor.product.template_id =
-                    GlobalStor.global.rooms[6].template_id - 1;
+                  GlobalStor.global.rooms[room].template_id - 1;
             }
 
             //-------- get default json template
