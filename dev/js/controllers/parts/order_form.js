@@ -7,6 +7,7 @@
 
   function(
     $filter,
+    globalConstants,
     GlobalStor,
     OrderStor,
     UserStor,
@@ -18,6 +19,7 @@
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
     thisCtrl.U = UserStor;
+    thisCtrl.globalConstants = globalConstants;
 
     thisCtrl.config = {
       month: $filter('translate')('common_words.MONTH_LABEL'),

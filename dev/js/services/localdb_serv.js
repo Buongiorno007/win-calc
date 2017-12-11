@@ -977,18 +977,6 @@
 
             function cleanLocalDB(tables) {
                 var tableKeys = Object.keys(tables),
-                    // promises = tableKeys.map(function (table) {
-                    //   var defer = $q.defer();
-                    //   db.transaction(function (trans) {
-                    //     trans.executeSql("DROP TABLE IF EXISTS " + table, [], function () {
-                    //       defer.resolve(1);
-                    //     }, function () {
-                    //       console.log('not find deleting table');
-                    //       defer.resolve(0);
-                    //     });
-                    //   });
-                    //   return defer.promise;
-                    // });
                     promises = tableKeys.forEach(function (table) {
                         var defer = $q.defer();
                         db.transaction(function (trans) {
@@ -1011,18 +999,6 @@
 
             function createTablesLocalDB(tables) {
                 var tableKeys = Object.keys(tables),
-                    // promises = tableKeys.map(function (table) {
-                    //   var defer = $q.defer();
-                    //   db.transaction(function (trans) {
-                    //     trans.executeSql("CREATE TABLE IF NOT EXISTS " + tablesLocalDB[table].tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " + tablesLocalDB[table].prop + ", modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + tablesLocalDB[table].foreignKey + ")", [], function () {
-                    //       defer.resolve(1);
-                    //     }, function () {
-                    //       console.log('Something went wrong with creating table ' + tablesLocalDB[table].tableName);
-                    //       defer.resolve(0);
-                    //     });
-                    //   });
-                    //   return defer.promise;
-                    // });
                     promises = tableKeys.forEach(function (table) {
                         var defer = $q.defer();
                         db.transaction(function (trans) {
@@ -1085,10 +1061,6 @@
                         console.log("Error : " + error.message);
                     }
                 });
-            }
-
-            function elemValue() {
-                return new Date();
             }
 
             var elem_koef_number = 0;
