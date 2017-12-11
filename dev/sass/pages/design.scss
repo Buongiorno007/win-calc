@@ -1217,6 +1217,7 @@ $door-config-content: $ipad-height - $door-config-header;
     text-align: center;
     position: relative;
     top: -3.5rem;
+    width: 80%;
   }
 
   .counter {
@@ -1224,7 +1225,6 @@ $door-config-content: $ipad-height - $door-config-header;
     height: 5rem;
     display: inline-block;
     margin-bottom: 2rem;
-    margin-left: 2rem;
     input {
       @include roboto-lt(rem(36px), rem(60px));
       text-align: center;
