@@ -155,7 +155,7 @@
             }
 
             function setCurrTemplate() {
-              let room = 6;
+              let room = 0;
               if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
                 room = 0;
               }
