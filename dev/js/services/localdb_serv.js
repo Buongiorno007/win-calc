@@ -1326,9 +1326,7 @@
                             if (result.data.status) {
                                 //-------- insert in LocalDB
                                 //console.warn(result.data);
-                                insertTablesLocalDB(result.data).then(function () {
-                                    defer.resolve(1);
-                                });
+                              defer.resolve(convert(result.data));
                             } else {
                                 console.log("Error!");
                                 defer.resolve(0);
@@ -4096,6 +4094,27 @@
                 }
                 return pr;
             }
+            function convert(input) {
+              let output = [];
+              let keys = Object.keys(input.tables);
+              let tables = input.tables;
+              let curr_row = {};
+              let new_table = {};
+              keys.forEach((key)=>{
+                new_table = [];
+                tables[key].rows.forEach((row)=>{
+                  curr_row = {};
+                  row.forEach((item,index)=>{
+                    curr_row[tables[key].fields[index]] = item;
+                  });
+                  new_table.push(curr_row);
+                });
+
+                output[key] = new_table;
+              });
+
+              return output;
+            }
 
             /**========== FINISH ==========*/
 
@@ -4103,6 +4122,7 @@
                 tablesLocalDB: tablesLocalDB,
                 tablesLocationLocalDB: tablesLocationLocalDB,
 
+                convert : convert,
                 cleanLocalDB: cleanLocalDB,
                 createTablesLocalDB: createTablesLocalDB,
                 insertRowLocalDB: insertRowLocalDB,

@@ -285,33 +285,21 @@
         function importDBProsses(user) {
           //----- checking user activation
           if (user.locked) {
-            //------- clean all tables in LocalDB
-            // console.time('cleanLocalDB');
-            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function (data) {
-              // console.timeEnd('cleanLocalDB');
-              if (data) {
-                //------- creates all tables in LocalDB
-                // console.time('createTablesLocalDB');
-                localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function (data) {
-                  // console.timeEnd('createTablesLocalDB');
-                  if (data) {
-                    //------- save user in LocalDB
-                    // console.time('insertRowLocalDB');
-                    localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
-                    // console.timeEnd('insertRowLocalDB');
-                    //------- save user in Stor
                     angular.extend(UserStor.userInfo, user);
                     //------- import Location
                     // console.time('importLocation');
                     localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
                       // console.timeEnd('importLocation');
                       if (data) {
+                        console.log(data)
                         //------ save Location Data in local obj
                         // console.time('prepareLocationToUse');
                         loginServ.prepareLocationToUse().then(function () {
                           // console.timeEnd('prepareLocationToUse');
                           checkingFactory();
                         });
+
+
                         var key = "UserStor.userInfo.phone";
                         var value = UserStor.userInfo.phone;
                         localforage.setItem(key, value, function (err, value) {
@@ -322,10 +310,6 @@
                         });
                       }
                     });
-                  }
-                });
-              }
-            });
           } else {
             GlobalStor.global.isLoader = 0;
             GlobalStor.global.startSlider = 0;
