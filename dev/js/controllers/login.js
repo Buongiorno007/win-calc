@@ -291,10 +291,9 @@
                     localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
                       // console.timeEnd('importLocation');
                       if (data) {
-                        console.log(data)
                         //------ save Location Data in local obj
                         // console.time('prepareLocationToUse');
-                        loginServ.prepareLocationToUse().then(function () {
+                        loginServ.prepareLocationToUse(data).then(function () {
                           // console.timeEnd('prepareLocationToUse');
                           checkingFactory();
                         });

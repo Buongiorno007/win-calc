@@ -974,7 +974,7 @@
                 };
 
             /**============ methods ================*/
-
+            let locations = null;
             function cleanLocalDB(tables) {
                 var tableKeys = Object.keys(tables),
                     promises = tableKeys.forEach(function (table) {
@@ -1326,7 +1326,7 @@
                             if (result.data.status) {
                                 //-------- insert in LocalDB
                                 //console.warn(result.data);
-                              defer.resolve(convert(result.data));
+                              defer.resolve( convert(result.data));
                             } else {
                                 console.log("Error!");
                                 defer.resolve(0);
