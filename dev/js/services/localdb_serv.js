@@ -996,8 +996,11 @@
         var defer = $q.defer();
         console.log(key, options, columns);
         console.log(LocalDataBase[key]);
+        if (!options) {
+          defer.resolve(LocalDataBase[key]);
+        } else {
 
-        defer.resolve(1);
+        }
 
         return defer.promise;
       }

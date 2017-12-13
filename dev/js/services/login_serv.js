@@ -1460,9 +1460,11 @@
                       // console.warn('Margins!!', margins);
                       /** download delivery Coeff of Plant */
                       downloadDeliveryCoeff().then(function (coeff) {
+                        console.log();
                         if (coeff && coeff.length) {
                           //console.warn('delivery Coeff!!', coeff);
                           GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
+                          console.log(coeff[0].percents)
                           GlobalStor.global.deliveryCoeff.percents = _.map(coeff[0].percents.split(','), function (item) {
                             return +item;
                           });
