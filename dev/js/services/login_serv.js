@@ -299,7 +299,7 @@
                   UserStor.userInfo.heatTransfer = GeneralServ.roundingValue(1 / heatTransfer);
                 }
                 //-------- check factory Link
-                if (result[0].link.length && result[0].link !== 'null') {
+                if ( result[0].link !== 'null') {
                   UserStor.userInfo.factoryLink = angular.copy(result[0].link);
                 }
                 //-------- sizes limits
@@ -477,6 +477,7 @@
                 localDB.selectLocalDB(tableElem, {
                   'folder_id': type.id
                 }).then(function (result2) {
+
                   if (result2.length) {
                     var elem = angular.copy(result2).sort(function (a, b) {
                       return GeneralServ.sorting(a.position, b.position);
@@ -488,6 +489,8 @@
                 });
                 return defer2.promise;
               });
+
+
               $q.all(promises).then(function (result3) {
                 var resQty = result3.length,
                   existType = [],
@@ -543,6 +546,8 @@
           localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {
             'list_type_id': 2
           }).then(function (sill) {
+            console.log("downloadAllGlasses start", sill);
+
             GlobalStor.global.allDoorSills = angular.copy(sill);
           });
 
@@ -1457,21 +1462,20 @@
                   downloadPriceMargin().then(function (margins) {
                     if (margins && margins.length) {
                       GlobalStor.global.margins = angular.copy(margins[0]);
-                      // console.warn('Margins!!', margins);
+                      console.warn('Margins!!', margins);
                       /** download delivery Coeff of Plant */
                       downloadDeliveryCoeff().then(function (coeff) {
                         console.log();
                         if (coeff && coeff.length) {
-                          //console.warn('delivery Coeff!!', coeff);
+                          console.warn('delivery Coeff!!', coeff);
                           GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
-                          console.log(coeff[0].percents)
-                          GlobalStor.global.deliveryCoeff.percents = _.map(coeff[0].percents.split(','), function (item) {
+                          GlobalStor.global.deliveryCoeff.percents = _.map(coeff[0].percents, function (item) {
                             return +item;
                           });
                           /** download factory data */
                           downloadFactoryData();
                           /** download All Profiles */
-                          //console.log('download All Profiles');
+                          console.log('download All Profiles');
                           downloadAllElemAsGroup(
                             localDB.tablesLocalDB.profile_system_folders.tableName,
                             localDB.tablesLocalDB.profile_systems.tableName,
@@ -1552,11 +1556,13 @@
                               }
                               /** download All Glasses */
                               downloadAllGlasses().then(function (data) {
+                                console.log("downloadAllGlasses finished")
+
                                 if (data) {
                                   /** sorting glasses as to Type */
                                   sortingGlasses();
                                   /** download All Hardwares */
-                                  //console.log('download All Hardwares');
+                                  console.log('download All Hardwares');
 
                                   downloadAllElemAsGroup(
                                     localDB.tablesLocalDB.window_hardware_folders.tableName,
@@ -1635,7 +1641,7 @@
 
                                         });
                                       }
-                                      //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                      console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
                                       /** download Door Kits */
                                       downloadDoorKits();
                                       /** download Hardware Limits */

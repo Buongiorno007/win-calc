@@ -994,12 +994,20 @@
 
       function selectLocalDB(key, options, columns) {
         var defer = $q.defer();
-        console.log(key, options, columns);
-        console.log(LocalDataBase[key]);
         if (!options) {
           defer.resolve(LocalDataBase[key]);
         } else {
+          let options_key = Object.keys(options);
+          let value = options[options_key];
+          // console.log(options_key, value);
+          let result = '';
+            LocalDataBase[key].forEach((item) =>{
+            if (item[options_key] === value) {
+              result = value;
+            }
+          });
 
+          defer.resolve(result);
         }
 
         return defer.promise;

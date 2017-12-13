@@ -208,11 +208,10 @@
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
             // console.timeEnd('importAllDB');
             if (data) {
-              console.log(data);
               /** download all data */
               // console.time('downloadAllData');
               loginServ.downloadAllData().then(function () {
-                // console.timeEnd('downloadAllData');
+                console.log('downloadAllData');
                 startProgramm();
               });
               thisCtrl.isStartImport = 0;
