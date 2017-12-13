@@ -90,11 +90,11 @@
               ProductStor.product.template = data;
             });
         }
-        if (!ProductStor.product.is_addelem_only) {
-          profile();
-          MainServ.doorProfile();
-          MainServ.laminationDoor();
-        }
+        // if (!ProductStor.product.is_addelem_only) {
+        //   profile();
+        //   MainServ.doorProfile();
+        //   MainServ.laminationDoor();
+        // }
         getPCPower();
 
 

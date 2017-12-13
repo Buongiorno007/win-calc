@@ -54,32 +54,32 @@
         }
 
 
-        function initExport() {
-          var defer = $q.defer();
-          //console.log('EXPORT');
-          //------- check Export Table
-          localDB.selectLocalDB(localDB.tablesLocalDB.export.tableName).then(function (data) {
-            //        console.log('data ===', data);
-            if (data.length) {
-              //----- get last user
-              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function (user) {
-                if (user.length) {
-                  localDB.updateServer(user[0].phone, user[0].device_code, data).then(function (result) {
-                    //console.log('FINISH export',result);
-                    //----- if update Server is success, clean Export in LocalDB
-                    if (result) {
-                      localDB.cleanLocalDB({
-                        export: 1
-                      });
-                      defer.resolve(1);
-                    }
-                  });
-                }
-              });
-            }
-          });
-          return defer.promise;
-        }
+        // function initExport() {
+        //   var defer = $q.defer();
+        //   //console.log('EXPORT');
+        //   //------- check Export Table
+        //   localDB.selectLocalDB(localDB.tablesLocalDB.export.tableName).then(function (data) {
+        //     //        console.log('data ===', data);
+        //     if (data.length) {
+        //       //----- get last user
+        //       localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function (user) {
+        //         if (user.length) {
+        //           localDB.updateServer(user[0].phone, user[0].device_code, data).then(function (result) {
+        //             //console.log('FINISH export',result);
+        //             //----- if update Server is success, clean Export in LocalDB
+        //             if (result) {
+        //               localDB.cleanLocalDB({
+        //                 export: 1
+        //               });
+        //               defer.resolve(1);
+        //             }
+        //           });
+        //         }
+        //       });
+        //     }
+        //   });
+        //   return defer.promise;
+        // }
 
 
         function isLocalDBExist() {
@@ -99,13 +99,17 @@
 
         function downloadAllCities(locations) {
           var deff = $q.defer(),
-            cityOption =  {
-              'id': UserStor.userInfo.city_id
-            },
-            countryQty, regionQty, cityQty, areasQty;
+            countryQty, regionQty, cityQty = 1, areasQty,
+          city;
 
+          for (let index = 0; index < locations.cities.length; index++ ){
+            if (locations.cities[index].id === UserStor.userInfo.city_id){
+              city = angular.copy(locations.cities[index]);
+            }
+          }
+          cityQty = city.length;
           if (cityQty) {
-            GlobalStor.global.locations.cities = angular.copy(data);
+            GlobalStor.global.locations.cities = angular.copy(city);
             while (--cityQty > -1) {
               regionQty = GlobalStor.global.locations.regions.length;
               areasQty = GlobalStor.global.locations.areas.length;
@@ -148,8 +152,6 @@
 
         //------- collecting cities, regions and countries in one object for registration form
         function prepareLocationToUse(locations) {
-          console.log(locations);
-          return;
           var deferred = $q.defer();
 
           GlobalStor.global.locations.countries = angular.copy(locations.countries);
@@ -1742,7 +1744,6 @@
 
         thisFactory.publicObj = {
           getDeviceLanguage: getDeviceLanguage,
-          initExport: initExport,
           isLocalDBExist: isLocalDBExist,
           prepareLocationToUse: prepareLocationToUse,
           downloadAllCities: downloadAllCities,

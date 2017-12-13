@@ -208,6 +208,7 @@
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
             // console.timeEnd('importAllDB');
             if (data) {
+              console.log(data);
               /** download all data */
               // console.time('downloadAllData');
               loginServ.downloadAllData().then(function () {
@@ -242,9 +243,7 @@
           loginServ.setUserLocation();
           if ((+UserStor.userInfo.factory_id) > 0) {
             // console.time('isLocalDBExist');
-            loginServ.isLocalDBExist().then(function (data) {
               // console.timeEnd('isLocalDBExist');
-              thisCtrl.isLocalDB = data;
               if (thisCtrl.isLocalDB) {
                 //------- current FactoryId matches to user FactoryId, go to main page without importDB
                 //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
@@ -257,9 +256,8 @@
                 //});
               } else {
                 //------ LocalDB is empty
-                importDBfromServer(UserStor.userInfo.factory_id);
               }
-            });
+                importDBfromServer(UserStor.userInfo.factory_id);
           } else {
             //---- show Factory List
             //----- collect city Ids regarding to user country
@@ -294,7 +292,7 @@
                         //------ save Location Data in local obj
                         // console.time('prepareLocationToUse');
                         loginServ.prepareLocationToUse(data).then(function () {
-                          // console.timeEnd('prepareLocationToUse');
+                          console.log('prepareLocationToUse');
                           checkingFactory();
                         });
 
@@ -906,25 +904,25 @@
               } else {
                 GlobalStor.global.isLoader = 1;
                 //------- clean all tables in LocalDB
-                localDB.cleanLocalDB(localDB.tablesLocalDB).then(function (data) {
-                  if (data) {
-                    //------- creates all tables in LocalDB
-                    localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
-                      if (data) {
-                        //------- import Location
-                        localDB.importLocation().then(function (data) {
-                          if (data) {
-                            //------ save Location Data in local obj
-                            loginServ.prepareLocationToUse(1).then(function () {
-                              GlobalStor.global.isLoader = 0;
-                              thisCtrl.isRegistration = 1;
-                            });
-                          }
-                        });
-                      }
-                    });
-                  }
-                });
+                // localDB.cleanLocalDB(localDB.tablesLocalDB).then(function (data) {
+                //   if (data) {
+                //     //------- creates all tables in LocalDB
+                //     localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
+                //       if (data) {
+                //         //------- import Location
+                //         localDB.importLocation().then(function (data) {
+                //           if (data) {
+                //             //------ save Location Data in local obj
+                //             loginServ.prepareLocationToUse(1).then(function () {
+                //               GlobalStor.global.isLoader = 0;
+                //               thisCtrl.isRegistration = 1;
+                //             });
+                //           }
+                //         });
+                //       }
+                //     });
+                //   }
+                // });
               }
               thisCtrl.user = {};
               //angular.element('#first_input').focus();
@@ -1092,7 +1090,7 @@
 
         //------- export data
         if (thisCtrl.isOnline) {
-          loginServ.initExport();
+          // loginServ.initExport();
           entryWithoutLogin();
 
         }
