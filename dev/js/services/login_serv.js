@@ -97,55 +97,53 @@
         }
 
 
-        function downloadAllCities(locations) {
+        function downloadAllCities(allCityParam,location) {
           var deff = $q.defer(),
-            countryQty, regionQty, cityQty = 1, areasQty,
-          city;
+            cityOption = allCityParam ? null : {
+              'id': UserStor.userInfo.city_id
+            },
+            countryQty, regionQty, cityQty, areasQty;
+          let data = _.where(location.cities, cityOption);
 
-          for (let index = 0; index < locations.cities.length; index++ ){
-            if (locations.cities[index].id === UserStor.userInfo.city_id){
-              city = angular.copy(locations.cities[index]);
-            }
-          }
-          cityQty = city.length;
-          if (cityQty) {
-            GlobalStor.global.locations.cities = angular.copy(city);
-            while (--cityQty > -1) {
-              regionQty = GlobalStor.global.locations.regions.length;
-              areasQty = GlobalStor.global.locations.areas.length;
-              while (--areasQty > -1) {
-                if (GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
-                  if (GlobalStor.global.locations.areas[areasQty].name) {
-                    GlobalStor.global.locations.cities[cityQty].areasName = GlobalStor.global.locations.areas[areasQty].name;
+            cityQty = data.length;
+            if (cityQty) {
+              GlobalStor.global.locations.cities = angular.copy(data);
+              while (--cityQty > -1) {
+                regionQty = GlobalStor.global.locations.regions.length;
+                areasQty = GlobalStor.global.locations.areas.length;
+                while (--areasQty > -1) {
+                  if (GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
+                    if (GlobalStor.global.locations.areas[areasQty].name) {
+                      GlobalStor.global.locations.cities[cityQty].areasName = GlobalStor.global.locations.areas[areasQty].name;
+                    }
                   }
                 }
-              }
-              while (--regionQty > -1) {
-                if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                  if (GlobalStor.global.locations.cities[cityQty].areasName) {
-                    GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
-                  } else {
-                    GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
-                  }
-                  GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
-                  GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
-                  countryQty = GlobalStor.global.locations.countries.length;
-                  while (--countryQty > -1) {
-                    if (GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
-                      GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
-                      GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
+                while (--regionQty > -1) {
+                  if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                    if (GlobalStor.global.locations.cities[cityQty].areasName) {
+                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
+                    } else {
+                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
+                    }
+                    GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
+                    GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
+                    countryQty = GlobalStor.global.locations.countries.length;
+                    while (--countryQty > -1) {
+                      if (GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
+                        GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
+                        GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
 
+                      }
                     }
                   }
                 }
               }
+              //console.info('generalLocations', GlobalStor.global.locations);
+              //console.info('finish time+++', new Date(), new Date().getMilliseconds());
+              deff.resolve(1);
+            } else {
+              deff.resolve(0);
             }
-            //console.info('generalLocations', GlobalStor.global.locations);
-            //console.info('finish time+++', new Date(), new Date().getMilliseconds());
-            deff.resolve(1);
-          } else {
-            deff.resolve(0);
-          }
           return deff.promise;
         }
 
@@ -158,7 +156,7 @@
           GlobalStor.global.locations.regions = angular.copy(locations.regions);
           GlobalStor.global.locations.areas = angular.copy(locations.areas);
 
-          downloadAllCities(locations).then(function () {
+          downloadAllCities(null,locations).then(function () {
             deferred.resolve(1);
           });
           return deferred.promise;
@@ -499,6 +497,7 @@
                   var elemsQty = result3[r].length;
                   if (result3[r] && elemsQty) {
                     /** change Images Path and save in device */
+                    // console.log(result3);
                     while (--elemsQty > -1) {
                       result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
                     }
@@ -546,8 +545,7 @@
           localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {
             'list_type_id': 2
           }).then(function (sill) {
-            console.log("downloadAllGlasses start", sill);
-
+            // console.log("downloadAllGlasses start", sill);
             GlobalStor.global.allDoorSills = angular.copy(sill);
           });
 
@@ -1462,12 +1460,12 @@
                   downloadPriceMargin().then(function (margins) {
                     if (margins && margins.length) {
                       GlobalStor.global.margins = angular.copy(margins[0]);
-                      console.warn('Margins!!', margins);
+                      // console.warn('Margins!!', margins);
                       /** download delivery Coeff of Plant */
                       downloadDeliveryCoeff().then(function (coeff) {
                         console.log();
                         if (coeff && coeff.length) {
-                          console.warn('delivery Coeff!!', coeff);
+                          // console.warn('delivery Coeff!!', coeff);
                           GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                           GlobalStor.global.deliveryCoeff.percents = _.map(coeff[0].percents, function (item) {
                             return +item;
@@ -1475,7 +1473,7 @@
                           /** download factory data */
                           downloadFactoryData();
                           /** download All Profiles */
-                          console.log('download All Profiles');
+                          // console.log('download All Profiles');
                           downloadAllElemAsGroup(
                             localDB.tablesLocalDB.profile_system_folders.tableName,
                             localDB.tablesLocalDB.profile_systems.tableName,
@@ -1556,13 +1554,11 @@
                               }
                               /** download All Glasses */
                               downloadAllGlasses().then(function (data) {
-                                console.log("downloadAllGlasses finished")
 
                                 if (data) {
                                   /** sorting glasses as to Type */
                                   sortingGlasses();
                                   /** download All Hardwares */
-                                  console.log('download All Hardwares');
 
                                   downloadAllElemAsGroup(
                                     localDB.tablesLocalDB.window_hardware_folders.tableName,
@@ -1641,7 +1637,7 @@
 
                                         });
                                       }
-                                      console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                      // console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
                                       /** download Door Kits */
                                       downloadDoorKits();
                                       /** download Hardware Limits */

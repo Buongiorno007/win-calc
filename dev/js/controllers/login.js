@@ -170,14 +170,14 @@
             MainServ.laminatFiltering();
             /** download all cities */
             if (GlobalStor.global.locations.cities.length === 1) {
-              loginServ.downloadAllCities(1);
+            //   loginServ.downloadAllCities(1);
               GlobalStor.global.isLoader = 0;
               GlobalStor.global.startSlider = 0;
               //console.timeEnd('prog');
 
               $location.path("/main");
               GlobalStor.global.currOpenPage = 'main';
-
+            //
             }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -211,7 +211,6 @@
               /** download all data */
               // console.time('downloadAllData');
               loginServ.downloadAllData().then(function () {
-                console.log('downloadAllData');
                 startProgramm();
               });
               thisCtrl.isStartImport = 0;
@@ -286,12 +285,10 @@
                     //------- import Location
                     // console.time('importLocation');
                     localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
-                      // console.timeEnd('importLocation');
                       if (data) {
                         //------ save Location Data in local obj
                         // console.time('prepareLocationToUse');
                         loginServ.prepareLocationToUse(data).then(function () {
-                          console.log('prepareLocationToUse');
                           checkingFactory();
                         });
 

@@ -635,9 +635,9 @@
                             "beed_lamination_id as id"
                           )
                           .then(function (lamId) {
-                            //console.log('lamId++++', lamId);
+                            // console.log('lamId++++', lamId);
                             if (lamId) {
-                              if (lamId[0].id === laminatId) {
+                              if (lamId[0].beed_lamination_id === laminatId) {
                                 deff3.resolve(1);
                               } else {
                                 deff3.resolve(0);

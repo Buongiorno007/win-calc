@@ -974,6 +974,7 @@
 
       /**============ methods ================*/
       let LocalDataBase = null;
+      var LocalLocationBase = null;
 
 
       /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
@@ -994,22 +995,20 @@
 
       function selectLocalDB(key, options, columns) {
         var defer = $q.defer();
+        let result = [];
         if (!options) {
           defer.resolve(LocalDataBase[key]);
         } else {
-          let options_key = Object.keys(options);
-          let value = options[options_key];
-          // console.log(options_key, value);
-          let result = '';
-            LocalDataBase[key].forEach((item) =>{
-            if (item[options_key] === value) {
-              result = value;
-            }
-          });
 
-          defer.resolve(result);
+          // console.log("options ", options, key)
+          result = _.where(LocalDataBase[key], options);
+          // console.log(result);
+          if (result) {
+            defer.resolve(result);
+          } else {
+            defer.resolve(0);
+          }
         }
-
         return defer.promise;
       }
 
@@ -1148,7 +1147,8 @@
               if (result.data.status) {
                 //-------- insert in LocalDB
                 //console.warn(result.data);
-                defer.resolve(convert(result.data));
+                LocalLocationBase = convert(result.data);
+                defer.resolve(LocalLocationBase);
               } else {
                 console.log("Error!");
                 defer.resolve(0);
@@ -1196,6 +1196,7 @@
               if (result.data.status) {
                 //-------- insert in LocalDB
                 LocalDataBase = convert(result.data);
+                LocalDataBase.push(LocalLocationBase);
                 defer.resolve(1);
               } else {
                 console.log("importAllDB Error!");
@@ -3824,7 +3825,6 @@
 
           output[key] = new_table;
         });
-
         return output;
       }
 
@@ -3858,7 +3858,8 @@
         calculationGridPrice: calculationGridPrice,
         calcDoorElemPrice: calcDoorElemPrice,
         currencyExgange: currencyExgange,
-        deleteProductServer: deleteProductServer
+        deleteProductServer: deleteProductServer,
+        LocalLocationBase : LocalLocationBase
       };
 
       return thisFactory.publicObj;
