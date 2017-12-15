@@ -391,9 +391,9 @@
             //#setBase64Avatar(url, function (base64Img) {
             //#});
           } else {
-            localforage.getItem("userAvatar", function (err, value) {
-              UserStor.userInfo.avatar = value;
-            });
+            // localforage.getItem("userAvatar", function (err, value) {
+            //   UserStor.userInfo.avatar = value;
+            // });
           }
           //USER AVATAR
           //console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
@@ -819,7 +819,7 @@
           }
         }
 
-        localforage.setDriver([localforage.INDEXEDDB]);
+        // localforage.setDriver([localforage.INDEXEDDB]);
 
         /** download all Backgrounds */
         function downloadAllBackgrounds() {
@@ -1503,8 +1503,8 @@
                                           reader.onloadend = function () {
                                             var key = String(entry.img);
                                             var value = reader.result;
-                                            localforage.setItem(key, value, function (err, value) {
-                                            });
+                                            // localforage.setItem(key, value, function (err, value) {
+                                            // });
                                             entry.img = value;
                                           }
                                           reader.readAsDataURL(xhr.response);
@@ -1515,9 +1515,9 @@
                                     }
                                   } else {
                                     var key = String(entry.img);
-                                    localforage.getItem(key, function (err, value) {
-                                      entry.img = value;
-                                    });
+                                    // localforage.getItem(key, function (err, value) {
+                                    //   entry.img = value;
+                                    // });
                                   }
                                 });
                                 GlobalStor.global.profiles.forEach(function (object) {
@@ -1533,8 +1533,8 @@
                                             reader.onloadend = function () {
                                               var key = String(entry.img);
                                               var value = reader.result;
-                                              localforage.setItem(key, value, function (err, value) {
-                                              });
+                                              // localforage.setItem(key, value, function (err, value) {
+                                              // });
                                               entry.img = value;
                                             }
                                             reader.readAsDataURL(xhr.response);
@@ -1545,9 +1545,9 @@
                                       }
                                     } else {
                                       var key = String(entry.img);
-                                      localforage.getItem(key, function (err, value) {
-                                        entry.img = value;
-                                      });
+                                      // localforage.getItem(key, function (err, value) {
+                                      //   entry.img = value;
+                                      // });
                                     }
                                   });
                                 });
@@ -1584,8 +1584,8 @@
                                                     reader.onloadend = function () {
                                                       var key = String(entry.img);
                                                       var value = reader.result;
-                                                      localforage.setItem(key, value, function (err, value) {
-                                                      });
+                                                      // localforage.setItem(key, value, function (err, value) {
+                                                      // });
                                                       entry.img = value;
                                                     }
                                                     reader.readAsDataURL(xhr.response);
@@ -1596,9 +1596,9 @@
                                               }
                                             } else {
                                               var key = String(entry.img);
-                                              localforage.getItem(key, function (err, value) {
-                                                entry.img = value;
-                                              });
+                                              // localforage.getItem(key, function (err, value) {
+                                              //   entry.img = value;
+                                              // });
                                             }
 
 
@@ -1618,8 +1618,8 @@
                                                   reader.onloadend = function () {
                                                     var key = String(entry.img);
                                                     var value = reader.result;
-                                                    localforage.setItem(key, value, function (err, value) {
-                                                    });
+                                                    // localforage.setItem(key, value, function (err, value) {
+                                                    // });
                                                     entry.img = value;
                                                   }
                                                   reader.readAsDataURL(xhr.response);
@@ -1630,9 +1630,9 @@
                                             }
                                           } else {
                                             var key = String(entry.img);
-                                            localforage.getItem(key, function (err, value) {
-                                              entry.img = value;
-                                            });
+                                            // localforage.getItem(key, function (err, value) {
+                                            //   entry.img = value;
+                                            // });
                                           }
 
                                         });
@@ -1666,8 +1666,8 @@
                                                         reader.onloadend = function () {
                                                           var key = String(entry.img);
                                                           var value = reader.result;
-                                                          localforage.setItem(key, value, function (err, value) {
-                                                          });
+                                                          // localforage.setItem(key, value, function (err, value) {
+                                                          // });
                                                           entry.img = value;
                                                         }
                                                         reader.readAsDataURL(xhr.response);
@@ -1677,9 +1677,9 @@
                                                     }
                                                   } else {
                                                     var key = String(entry.img);
-                                                    localforage.getItem(key, function (err, value) {
-                                                      entry.img = value;
-                                                    });
+                                                    // localforage.getItem(key, function (err, value) {
+                                                    //   entry.img = value;
+                                                    // });
                                                   }
                                                 }
                                               } else {

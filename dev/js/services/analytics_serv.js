@@ -102,7 +102,7 @@
               analyticsObj: analyticsObj
             };
             GlobalStor.global.analitics_storage.push(analitics);
-            localforage.setItem("analitics", GlobalStor.global.analitics_storage, function (err, value) { });
+            // localforage.setItem("analitics", GlobalStor.global.analitics_storage, function (err, value) { });
             //console.log("analitics",GlobalStor.global.analitics_storage);
 
           }

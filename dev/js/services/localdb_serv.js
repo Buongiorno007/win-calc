@@ -3811,20 +3811,37 @@
         let output = [];
         let keys = Object.keys(input.tables);
         let tables = input.tables;
-        let curr_row = {};
+        let new_row = {};
         let new_table = {};
-        keys.forEach((key) => {
+        let key_length = keys.length;
+        for (let index = 0; index < key_length; index++) {
           new_table = [];
-          tables[key].rows.forEach((row) => {
-            curr_row = {};
-            row.forEach((item, index) => {
-              curr_row[tables[key].fields[index]] = item;
-            });
-            new_table.push(curr_row);
-          });
-
-          output[key] = new_table;
-        });
+          let curr_table = tables[keys[index]];
+          let rows_length = curr_table.rows.length;
+          for (let jndex = 0; jndex < rows_length; jndex++) {
+            new_row = {};
+            let curr_row = curr_table.rows[jndex];
+            let curr_row_length = curr_table.rows[jndex].length;
+            for (let kndex = 0; kndex < curr_row_length; kndex++) {
+              new_row[curr_table.fields[kndex]] = curr_row[kndex];
+            }
+            new_table.push(new_row);
+          }
+          output[keys[index]] = new_table;
+        }
+        // console.log(output);
+        // keys.forEach((key) => {
+        //   new_table = [];
+        //   tables[key].rows.forEach((row) => {
+        //     curr_row = {};
+        //     row.forEach((item, index) => {
+        //       curr_row[tables[key].fields[index]] = item;
+        //     });
+        //     new_table.push(curr_row);
+        //   });
+        //
+        //   output[key] = new_table;
+        // });
         return output;
       }
 
@@ -3859,7 +3876,7 @@
         calcDoorElemPrice: calcDoorElemPrice,
         currencyExgange: currencyExgange,
         deleteProductServer: deleteProductServer,
-        LocalLocationBase : LocalLocationBase
+        LocalLocationBase: LocalLocationBase
       };
 
       return thisFactory.publicObj;

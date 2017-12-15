@@ -55,15 +55,6 @@
         GlobalStor.global.loader = 0;
         thisCtrl.unexpectedError = 0;
 
-        localforage.config({
-          driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
-          name: 'bauvoiceapp',
-          version: 1.0,
-          size: 4980736, // Size of database, in bytes. WebSQL-only for now.
-          storeName: 'bauvoiceapp', // Should be alphanumeric, with underscores.
-          description: 'bauvoiceapp description'
-        });
-
         /** PING SERVER*/
         MainServ.getOnline();
         //------- translate
@@ -295,12 +286,12 @@
 
                         var key = "UserStor.userInfo.phone";
                         var value = UserStor.userInfo.phone;
-                        localforage.setItem(key, value, function (err, value) {
-                        });
+                        // localforage.setItem(key, value, function (err, value) {
+                        // });
                         var key = "UserStor.userInfo.device_code";
                         var value = UserStor.userInfo.device_code;
-                        localforage.setItem(key, value, function (err, value) {
-                        });
+                        // localforage.setItem(key, value, function (err, value) {
+                        // });
                       }
                     });
           } else {
@@ -314,8 +305,8 @@
 
 
         function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {
-          });
+          // localforage.setItem("FirstIn", "true", function (err, value) {
+          // });
           // console.time('importUser');
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
             // console.timeEnd('importUser');
@@ -629,31 +620,31 @@
           loader()
         }
         if (!GlobalStor.global.onlineMode && !navigator.onLine) {
-          localforage.getItem("UserStor.userInfo.phone", function (err, value) {
-            UserStor.userInfo.phone = value;
-          });
+          // localforage.getItem("UserStor.userInfo.phone", function (err, value) {
+          //   UserStor.userInfo.phone = value;
+          // });
 
-          localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
-            UserStor.userInfo.device_code = value;
-          });
+          // localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
+          //   UserStor.userInfo.device_code = value;
+          // });
         }
         //$(".i").hide();
         $(".print-conteiner").hide();
         var FirstIn = "true";
-        localforage.getItem("FirstIn", function (err, value) {
-          if (value !== "true") {
-            $("#updateDBcheck").prop("checked", true);
-            GlobalStor.global.loadDate = new Date();
-            localforage.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
-            });
-            /** **/
-          } else {
-            $(".i").show();
-            localforage.getItem("loadDate", function (err, value) {
-              GlobalStor.global.loadDate = new Date(value);
-            });
-          }
-        });
+        // localforage.getItem("FirstIn", function (err, value) {
+        //   if (value !== "true") {
+        //     $("#updateDBcheck").prop("checked", true);
+        //     GlobalStor.global.loadDate = new Date();
+        //     localforage.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
+        //     });
+        //     /** **/
+        //   } else {
+        //     $(".i").show();
+        //     localforage.getItem("loadDate", function (err, value) {
+        //       GlobalStor.global.loadDate = new Date(value);
+        //     });
+        //   }
+        // });
 
         function enterForm(form) {
           var newUserPassword;
@@ -661,13 +652,13 @@
           //------ Trigger validation flag.
           thisCtrl.submitted = 1;
           if (form.$valid) {
-            localforage.getItem("analitics", function (err, value) {
-              if (value) {
-                GlobalStor.global.analitics_storage.push(value);
-                // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
-                // console.log(GlobalStor.global.analitics_storage);
-              }
-            });
+            // localforage.getItem("analitics", function (err, value) {
+            //   if (value) {
+            //     GlobalStor.global.analitics_storage.push(value);
+            //     // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
+            //     // console.log(GlobalStor.global.analitics_storage);
+            //   }
+            // });
             //noinspection JSAnnotator
             function enterFormSubmit() {
               GlobalStor.global.isLoader = 1;
