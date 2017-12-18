@@ -89,9 +89,7 @@
             ProductStor.product.hardware.id,
             ProductStor.product.lamination.lamination_in_id
           ).then(function () {
-            if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
-              ProductStor.product.template_source.report = ProductStor.product.report;
-            }
+            ProductStor.product.template_source.report = ProductStor.product.report;
             if (MainServ.inputProductInOrder()) {
               if (go_to_cart) {
                 MainServ.goToCart();
