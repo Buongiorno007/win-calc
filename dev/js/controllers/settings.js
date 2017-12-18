@@ -92,7 +92,7 @@
       }
       if(!$.isEmptyObject(updateData)) {
         //----- update factoryId in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, updateData);
+        localDB.updateLocalServerDBs("users", UserStor.userInfo.id, updateData);
       }
     }
 
@@ -138,7 +138,7 @@
       var phonesString = phones.join(',');
       UserStor.userInfo.city_phone = phonesString;
       localDB.updateLocalServerDBs(
-        localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString}
+        "users", UserStor.userInfo.id, {"city_phone": phonesString}
       );
       thisCtrl.config.tempAddPhone = '';
     }

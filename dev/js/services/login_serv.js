@@ -97,17 +97,13 @@
         }
 
 
-        function downloadAllCities(allCityParam,location) {
+        function downloadAllCities() {
           var deff = $q.defer(),
-            cityOption = allCityParam ? null : {
-              'id': UserStor.userInfo.city_id
-            },
             countryQty, regionQty, cityQty, areasQty;
-          let data = _.where(location.cities, cityOption);
-
-            cityQty = data.length;
+          localDB.checkLocalStorLocation().then((location) => {
+            cityQty = location.cities.length;
+            GlobalStor.global.locations.cities = angular.copy(location.cities);
             if (cityQty) {
-              GlobalStor.global.locations.cities = angular.copy(data);
               while (--cityQty > -1) {
                 regionQty = GlobalStor.global.locations.regions.length;
                 areasQty = GlobalStor.global.locations.areas.length;
@@ -119,44 +115,64 @@
                   }
                 }
                 while (--regionQty > -1) {
-                  if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                  if (GlobalStor.global.locations.cities[cityQty].region_id === GlobalStor.global.locations.regions[regionQty].id) {
                     if (GlobalStor.global.locations.cities[cityQty].areasName) {
-                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
+                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].name + ', ' + GlobalStor.global.locations.cities[cityQty].areasName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
                     } else {
-                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].cityName + ', ' + GlobalStor.global.locations.regions[regionQty].name;
+                      GlobalStor.global.locations.cities[cityQty].fullLocation = '' + GlobalStor.global.locations.cities[cityQty].name + ', ' + GlobalStor.global.locations.regions[regionQty].name;
                     }
-                    GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
-                    GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
-                    countryQty = GlobalStor.global.locations.countries.length;
+                    GlobalStor.global.locations.cities[cityQty].climatic_zone = GlobalStor.global.locations.regions[regionQty].climatic_zone;
+                    GlobalStor.global.locations.cities[cityQty].heat_transfer = GlobalStor.global.locations.regions[regionQty].heat_transfer;
+                    countryQty = location.countries.length;
                     while (--countryQty > -1) {
-                      if (GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
-                        GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
-                        GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
+                      if (location.regions[regionQty].country_id === GlobalStor.global.locations.countries[countryQty].id) {
+                        GlobalStor.global.locations.cities[cityQty].country_id = GlobalStor.global.locations.countries[countryQty].id;
+                        GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency_id;
 
                       }
                     }
                   }
                 }
               }
-              //console.info('generalLocations', GlobalStor.global.locations);
+              // console.info('generalLocations', GlobalStor.global.locations);
               //console.info('finish time+++', new Date(), new Date().getMilliseconds());
               deff.resolve(1);
             } else {
               deff.resolve(0);
             }
+          });
+
           return deff.promise;
         }
 
+        /**--------- set user location -------*/
+        function setUserLocation() {
+          var cityQty = GlobalStor.global.locations.cities.length;
+          var regionQty = GlobalStor.global.locations.regions.length;
+          while (--cityQty > -1) {
+            if (GlobalStor.global.locations.cities[cityQty].id === UserStor.userInfo.city_id) {
+              UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].name;
+              UserStor.userInfo.country_id = GlobalStor.global.locations.cities[cityQty].country_id;
+              UserStor.userInfo.climatic_zone = GlobalStor.global.locations.cities[cityQty].climatic_zone;
+              UserStor.userInfo.heat_transfer = +GlobalStor.global.locations.cities[cityQty].heat_transfer;
+              UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
+              while (--regionQty > -1) {
+                if (GlobalStor.global.locations.cities[cityQty].region_id === GlobalStor.global.locations.regions[regionQty].id) {
+                  GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
+                }
+              }
+            }
+          }
+        }
 
         //------- collecting cities, regions and countries in one object for registration form
         function prepareLocationToUse(locations) {
           var deferred = $q.defer();
-
           GlobalStor.global.locations.countries = angular.copy(locations.countries);
           GlobalStor.global.locations.regions = angular.copy(locations.regions);
           GlobalStor.global.locations.areas = angular.copy(locations.areas);
-
-          downloadAllCities(null,locations).then(function () {
+          // GlobalStor.global.locations.cities = angular.copy(locations.cities);
+          downloadAllCities().then(function () {
             deferred.resolve(1);
           });
           return deferred.promise;
@@ -166,7 +182,7 @@
         function collectCityIdsAsCountry() {
           var defer = $q.defer(),
             cityIds = _.map(GlobalStor.global.locations.cities, function (item) {
-              if (item.countryId === UserStor.userInfo.countryId) {
+              if (item.country_id === UserStor.userInfo.country_id) {
                 return item.cityId;
               }
 
@@ -175,98 +191,6 @@
 
 
         /**--------- set user location -------*/
-        function setUserLocation() {
-          var cityQty = GlobalStor.global.locations.cities.length;
-          var regionQty = GlobalStor.global.locations.regions.length;
-          while (--cityQty > -1) {
-            if (GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
-              UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
-              UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
-              UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
-              UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
-              UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
-              while (--regionQty > -1) {
-                if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                  GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
-                }
-              }
-            }
-          }
-        }
-
-
-        // function setCurrency() {
-        //   var defer = $q.defer();
-        //   /** download All Currencies */
-        //   localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
-        //     .then(function(currencies) {
-        //       var currencQty = currencies.length;
-        //       if (currencies && currencQty) {
-        //         GlobalStor.global.currencies = currencies;
-        //         /** set current currency */
-        //         while (--currencQty > -1) {
-        //           if (currencies[currencQty].is_base === 1) {
-        //             UserStor.userInfo.currencyId = currencies[currencQty].id;
-        //             if (/uah/i.test(currencies[currencQty].name)) {
-        //               UserStor.userInfo.currency = '\u20b4'; //'₴';
-        //             } else if (/rub/i.test(currencies[currencQty].name)) {
-        //               UserStor.userInfo.currency = '\ue906'; // '\u20BD';//'₽';
-        //             } else if (/(usd|\$)/i.test(currencies[currencQty].name)) {
-        //               UserStor.userInfo.currency = '$';
-        //             } else if (/eur/i.test(currencies[currencQty].name)) {
-        //               UserStor.userInfo.currency = '\u20AC'; //'€';
-        //             } else if (/kzt/i.test(currencies[currencQty].name)) {
-        //               UserStor.userInfo.currency = '\u20B8'; //'TENGE';
-        //             } {
-        //               UserStor.userInfo.currency = '\xA4'; //Generic Currency Symbol
-        //             }
-        //           }
-        //         }
-        //         defer.resolve(1);
-        //       } else {
-        //         console.error('not find currencies!');
-        //         defer.resolve(0);
-        //       }
-        //     });
-        //   return defer.promise;
-        // }
-        //
-        // function setUserDiscounts() {
-        //   console.log(setUserDiscounts);
-        //
-        //   var defer = $q.defer();
-        //   //-------- add server url to avatar img
-        //   if (navigator.onLine) {
-        //     var url = globalConstants.serverIP + UserStor.userInfo.avatar
-        //     UserStor.userInfo.avatar = url;
-        //   }
-        //
-        //   localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-        //     //    console.log('DISCTOUN=====', result);
-        //     var discounts = angular.copy(result[0]);
-        //     if (discounts) {
-        //       UserStor.userInfo.discountConstr = +discounts.default_construct;
-        //       UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
-        //       UserStor.userInfo.discountConstrMax = +discounts.max_construct;
-        //       UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
-        //
-        //       var disKeys = Object.keys(discounts),
-        //         disQty = disKeys.length,
-        //         dis;
-        //       for (dis = 0; dis < disQty; dis += 1) {
-        //         if (disKeys[dis].indexOf('week') + 1) {
-        //           if (disKeys[dis].indexOf('construct') + 1) {
-        //             UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
-        //           } else if (disKeys[dis].indexOf('add_elem') + 1) {
-        //             UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }).join(',');
-        //   defer.resolve(cityIds);
-        //   return defer.promise;
-        // }
 
 
         /**--------- set current user geolocation ---------*/
@@ -286,7 +210,7 @@
             null,
             'therm_coeff_id, link, max_construct_size, max_construct_square'
           ).then(function (result) {
-            var heatTransfer = UserStor.userInfo.heatTransfer,
+            var heat_transfer = UserStor.userInfo.heat_transfer,
               resQty;
             if (result) {
               resQty = result.length;
@@ -294,10 +218,10 @@
                 //------- Heat Coeff
                 UserStor.userInfo.therm_coeff_id = angular.copy(result[0].therm_coeff_id);
                 if (UserStor.userInfo.therm_coeff_id) {
-                  UserStor.userInfo.heatTransfer = GeneralServ.roundingValue(1 / heatTransfer);
+                  UserStor.userInfo.heat_transfer = GeneralServ.roundingValue(1 / heat_transfer);
                 }
                 //-------- check factory Link
-                if ( result[0].link !== 'null') {
+                if (result[0].link !== 'null') {
                   UserStor.userInfo.factoryLink = angular.copy(result[0].link);
                 }
                 //-------- sizes limits
@@ -314,34 +238,14 @@
             setUserGeoLocation(
               UserStor.userInfo.city_id,
               UserStor.userInfo.cityName,
-              UserStor.userInfo.climaticZone,
-              UserStor.userInfo.heatTransfer,
+              UserStor.userInfo.climatic_zone,
+              UserStor.userInfo.heat_transfer,
               UserStor.userInfo.fullLocation
             );
 
           });
         }
 
-
-        /**--------- set user location -------*/
-        function setUserLocation() {
-          var cityQty = GlobalStor.global.locations.cities.length;
-          var regionQty = GlobalStor.global.locations.regions.length;
-          while (--cityQty > -1) {
-            if (GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
-              UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
-              UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
-              UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
-              UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
-              UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
-              while (--regionQty > -1) {
-                if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                  GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
-                }
-              }
-            }
-          }
-        }
 
         function setCurrency() {
           var defer = $q.defer();
@@ -391,9 +295,9 @@
             //#setBase64Avatar(url, function (base64Img) {
             //#});
           } else {
-            // localforage.getItem("userAvatar", function (err, value) {
-            //   UserStor.userInfo.avatar = value;
-            // });
+            localforage.getItem("userAvatar", function (err, value) {
+              UserStor.userInfo.avatar = value;
+            });
           }
           //USER AVATAR
           //console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
@@ -819,7 +723,6 @@
           }
         }
 
-        // localforage.setDriver([localforage.INDEXEDDB]);
 
         /** download all Backgrounds */
         function downloadAllBackgrounds() {
@@ -1197,9 +1100,9 @@
             }
           });
           /** download Disassembly Data */
-          localDB.selectLocalDB(localDB.tablesLocalDB.users_dismantlings.tableName).then(function (mounting) {
-            if (mounting.length) {
-              GlobalStor.global.disassemblyData = angular.copy(mounting);
+          localDB.selectLocalDB(localDB.tablesLocalDB.users_dismantlings.tableName).then(function (dismounting) {
+            if (dismounting) {
+              GlobalStor.global.disassemblyData = angular.copy(dismounting);
               // console.warn('Disassembly=', GlobalStor.global.disassemblyData);
             }
           });
@@ -1503,8 +1406,8 @@
                                           reader.onloadend = function () {
                                             var key = String(entry.img);
                                             var value = reader.result;
-                                            // localforage.setItem(key, value, function (err, value) {
-                                            // });
+                                            localforage.setItem(key, value, function (err, value) {
+                                            });
                                             entry.img = value;
                                           }
                                           reader.readAsDataURL(xhr.response);
@@ -1515,9 +1418,9 @@
                                     }
                                   } else {
                                     var key = String(entry.img);
-                                    // localforage.getItem(key, function (err, value) {
-                                    //   entry.img = value;
-                                    // });
+                                    localforage.getItem(key, function (err, value) {
+                                      entry.img = value;
+                                    });
                                   }
                                 });
                                 GlobalStor.global.profiles.forEach(function (object) {
@@ -1533,8 +1436,8 @@
                                             reader.onloadend = function () {
                                               var key = String(entry.img);
                                               var value = reader.result;
-                                              // localforage.setItem(key, value, function (err, value) {
-                                              // });
+                                              localforage.setItem(key, value, function (err, value) {
+                                              });
                                               entry.img = value;
                                             }
                                             reader.readAsDataURL(xhr.response);
@@ -1545,9 +1448,9 @@
                                       }
                                     } else {
                                       var key = String(entry.img);
-                                      // localforage.getItem(key, function (err, value) {
-                                      //   entry.img = value;
-                                      // });
+                                      localforage.getItem(key, function (err, value) {
+                                        entry.img = value;
+                                      });
                                     }
                                   });
                                 });
@@ -1584,8 +1487,8 @@
                                                     reader.onloadend = function () {
                                                       var key = String(entry.img);
                                                       var value = reader.result;
-                                                      // localforage.setItem(key, value, function (err, value) {
-                                                      // });
+                                                      localforage.setItem(key, value, function (err, value) {
+                                                      });
                                                       entry.img = value;
                                                     }
                                                     reader.readAsDataURL(xhr.response);
@@ -1596,9 +1499,9 @@
                                               }
                                             } else {
                                               var key = String(entry.img);
-                                              // localforage.getItem(key, function (err, value) {
-                                              //   entry.img = value;
-                                              // });
+                                              localforage.getItem(key, function (err, value) {
+                                                entry.img = value;
+                                              });
                                             }
 
 
@@ -1618,8 +1521,8 @@
                                                   reader.onloadend = function () {
                                                     var key = String(entry.img);
                                                     var value = reader.result;
-                                                    // localforage.setItem(key, value, function (err, value) {
-                                                    // });
+                                                    localforage.setItem(key, value, function (err, value) {
+                                                    });
                                                     entry.img = value;
                                                   }
                                                   reader.readAsDataURL(xhr.response);
@@ -1630,9 +1533,9 @@
                                             }
                                           } else {
                                             var key = String(entry.img);
-                                            // localforage.getItem(key, function (err, value) {
-                                            //   entry.img = value;
-                                            // });
+                                            localforage.getItem(key, function (err, value) {
+                                              entry.img = value;
+                                            });
                                           }
 
                                         });
@@ -1666,8 +1569,8 @@
                                                         reader.onloadend = function () {
                                                           var key = String(entry.img);
                                                           var value = reader.result;
-                                                          // localforage.setItem(key, value, function (err, value) {
-                                                          // });
+                                                          localforage.setItem(key, value, function (err, value) {
+                                                          });
                                                           entry.img = value;
                                                         }
                                                         reader.readAsDataURL(xhr.response);
@@ -1677,9 +1580,9 @@
                                                     }
                                                   } else {
                                                     var key = String(entry.img);
-                                                    // localforage.getItem(key, function (err, value) {
-                                                    //   entry.img = value;
-                                                    // });
+                                                    localforage.getItem(key, function (err, value) {
+                                                      entry.img = value;
+                                                    });
                                                   }
                                                 }
                                               } else {

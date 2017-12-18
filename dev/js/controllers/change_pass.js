@@ -46,7 +46,7 @@
         //console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
         //----- update password in LocalDB & Server
         localDB.updateLocalServerDBs(
-          localDB.tablesLocalDB.users.tableName,
+          "users",
           UserStor.userInfo.id,
           {'password': UserStor.userInfo.password}
         ).then(function() {

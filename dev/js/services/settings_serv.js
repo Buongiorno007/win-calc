@@ -26,7 +26,7 @@
       //------- send avatar to Server
       localDB.sendIMGServer(form);
       //------- save avatar in LocalDB
-      localDB.updateLocalDB(localDB.tablesLocalDB.users.tableName, {avatar: newAvatar}, {'id': UserStor.userInfo.id});
+      localDB.updateLocalDB("users", {avatar: newAvatar}, {'id': UserStor.userInfo.id});
 
 //TODO ipad
 //      navigator.camera.getPicture( function( data ) {

@@ -89,6 +89,7 @@
         thisCtrl.UNEXPECTED_ERROR = $filter('translate')('login.UNEXPECTED_ERROR');
         thisCtrl.SYNC_INFO_P1 = $filter('translate')('login.SYNC_INFO_P1');
         thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
+
         /** reload room img */
 
         //$("<img />").attr("src", "img/room/1.png");
@@ -160,16 +161,13 @@
             /** start lamination filtering */
             MainServ.laminatFiltering();
             /** download all cities */
-            if (GlobalStor.global.locations.cities.length === 1) {
             //   loginServ.downloadAllCities(1);
-              GlobalStor.global.isLoader = 0;
-              GlobalStor.global.startSlider = 0;
-              //console.timeEnd('prog');
+            GlobalStor.global.isLoader = 0;
+            GlobalStor.global.startSlider = 0;
+            //console.timeEnd('prog');
 
-              $location.path("/main");
-              GlobalStor.global.currOpenPage = 'main';
+
             //
-            }
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
             var global = LZString.compress(JSON.stringify(GlobalStor.global));
@@ -187,7 +185,8 @@
             localStorage.setItem('AuxStor', aux);
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
-
+            $location.path("/main");
+            GlobalStor.global.currOpenPage = 'main';
           });
         }
 
@@ -232,21 +231,21 @@
           loginServ.setUserLocation();
           if ((+UserStor.userInfo.factory_id) > 0) {
             // console.time('isLocalDBExist');
-              // console.timeEnd('isLocalDBExist');
-              if (thisCtrl.isLocalDB) {
-                //------- current FactoryId matches to user FactoryId, go to main page without importDB
-                //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-                /** download all data */
-                // console.time('downloadAllData');
-                loginServ.downloadAllData().then(function () {
-                  // console.timeEnd('downloadAllData');
-                  startProgramm();
-                });
-                //});
-              } else {
-                //------ LocalDB is empty
-              }
-                importDBfromServer(UserStor.userInfo.factory_id);
+            // console.timeEnd('isLocalDBExist');
+            if (thisCtrl.isLocalDB) {
+              //------- current FactoryId matches to user FactoryId, go to main page without importDB
+              //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+              /** download all data */
+              // console.time('downloadAllData');
+              loginServ.downloadAllData().then(function () {
+                // console.timeEnd('downloadAllData');
+                startProgramm();
+              });
+              //});
+            } else {
+              //------ LocalDB is empty
+            }
+            importDBfromServer(UserStor.userInfo.factory_id);
           } else {
             //---- show Factory List
             //----- collect city Ids regarding to user country
@@ -272,28 +271,28 @@
         function importDBProsses(user) {
           //----- checking user activation
           if (user.locked) {
-                    angular.extend(UserStor.userInfo, user);
-                    //------- import Location
-                    // console.time('importLocation');
-                    localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
-                      if (data) {
-                        //------ save Location Data in local obj
-                        // console.time('prepareLocationToUse');
-                        loginServ.prepareLocationToUse(data).then(function () {
-                          checkingFactory();
-                        });
+            angular.extend(UserStor.userInfo, user);
+            //------- import Location
+            // console.time('importLocation');
+            localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
+              if (data) {
+                //------ save Location Data in local obj
+                // console.time('prepareLocationToUse');
+                loginServ.prepareLocationToUse(data).then(function () {
+                  checkingFactory();
+                });
 
 
-                        var key = "UserStor.userInfo.phone";
-                        var value = UserStor.userInfo.phone;
-                        // localforage.setItem(key, value, function (err, value) {
-                        // });
-                        var key = "UserStor.userInfo.device_code";
-                        var value = UserStor.userInfo.device_code;
-                        // localforage.setItem(key, value, function (err, value) {
-                        // });
-                      }
-                    });
+                var key = "UserStor.userInfo.phone";
+                var value = UserStor.userInfo.phone;
+                localforage.setItem(key, value, function (err, value) {
+                });
+                var key = "UserStor.userInfo.device_code";
+                var value = UserStor.userInfo.device_code;
+                localforage.setItem(key, value, function (err, value) {
+                });
+              }
+            });
           } else {
             GlobalStor.global.isLoader = 0;
             GlobalStor.global.startSlider = 0;
@@ -305,11 +304,10 @@
 
 
         function checkingUser() {
-          // localforage.setItem("FirstIn", "true", function (err, value) {
-          // });
+          localforage.setItem("FirstIn", "true", function (err, value) {
+          });
           // console.time('importUser');
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
-            // console.timeEnd('importUser');
             if (result.status) {
               var userTemp = angular.copy(result.user);
               startSlider();
@@ -620,31 +618,31 @@
           loader()
         }
         if (!GlobalStor.global.onlineMode && !navigator.onLine) {
-          // localforage.getItem("UserStor.userInfo.phone", function (err, value) {
-          //   UserStor.userInfo.phone = value;
-          // });
+          localforage.getItem("UserStor.userInfo.phone", function (err, value) {
+            UserStor.userInfo.phone = value;
+          });
 
-          // localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
-          //   UserStor.userInfo.device_code = value;
-          // });
+          localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
+            UserStor.userInfo.device_code = value;
+          });
         }
         //$(".i").hide();
         $(".print-conteiner").hide();
         var FirstIn = "true";
-        // localforage.getItem("FirstIn", function (err, value) {
-        //   if (value !== "true") {
-        //     $("#updateDBcheck").prop("checked", true);
-        //     GlobalStor.global.loadDate = new Date();
-        //     localforage.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
-        //     });
-        //     /** **/
-        //   } else {
-        //     $(".i").show();
-        //     localforage.getItem("loadDate", function (err, value) {
-        //       GlobalStor.global.loadDate = new Date(value);
-        //     });
-        //   }
-        // });
+        localforage.getItem("FirstIn", function (err, value) {
+          if (value !== "true") {
+            $("#updateDBcheck").prop("checked", true);
+            GlobalStor.global.loadDate = new Date();
+            localforage.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
+            });
+            /** **/
+          } else {
+            $(".i").show();
+            localforage.getItem("loadDate", function (err, value) {
+              GlobalStor.global.loadDate = new Date(value);
+            });
+          }
+        });
 
         function enterForm(form) {
           var newUserPassword;
@@ -690,7 +688,7 @@
                       //======== SYNC
                       console.log('SYNC');
                       //---- checking user in LocalDB
-                      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                      localDB.selectLocalDB("users", {'phone': thisCtrl.user.phone})
                         .then(function (data) {
                           //---- user exists
                           if (data.length) {
@@ -737,7 +735,7 @@
               } else if (thisCtrl.isLocalDB) {
                 console.log('OFFLINE');
                 //---- checking user in LocalDB
-                localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                localDB.selectLocalDB("users", {'phone': thisCtrl.user.phone})
                   .then(function (data) {
                     //---- user exists
                     if (data.length) {
@@ -817,6 +815,7 @@
               loader();
               checkingUser();
             }
+
             //noinspection JSAnnotator
             function getAlert() {
               GeneralServ.syncAlert(
@@ -843,11 +842,11 @@
               GlobalStor.global.isLoader = 1;
               //-------- send selected Factory Id in Server
               UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-              console.log(UserStor.userInfo.factory_id );
+              console.log(UserStor.userInfo.factory_id);
 //                  console.log(UserStor.userInfo.factory_id);
               //----- update factoryId in LocalDB & Server
               localDB.updateLocalServerDBs(
-                localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
+                "users", UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
               ).then(function () {
                 //-------- close Factory Dialog
                 thisCtrl.isFactoryId = 0;
@@ -1012,9 +1011,9 @@
               AuxStor.aux = JSON.parse(LZString.decompress(aux));
               console.log("типа все ок");
               MainServ.createOrderData();
-              if (GlobalStor.global.locations.cities.length === 1) {
-                loginServ.downloadAllCities(1);
-              }
+              // if (GlobalStor.global.locations.cities.length === 1) {
+              //   loginServ.downloadAllCities(1);
+              // }
               return true;
             } else {
               localStorage.clear();
@@ -1035,9 +1034,6 @@
             return false;
           }
         }
-
-
-
 
 
         function fastEnter(url) {

@@ -160,6 +160,7 @@
                     GlobalStor.global.isNoChangedProduct = 1;
                   } else {
                     $('#qty').hide().show(0);
+
                     saveProduct(go_to_cart);
                   }
                 } else {
@@ -200,7 +201,7 @@
 
         function cartButton() {
           if (GlobalStor.global.locations.cities.length === 1) {
-            loginServ.downloadAllCities(1);
+            // loginServ.downloadAllCities(1);
           }
           GlobalStor.global.showKarkas = 0;
           GlobalStor.global.showConfiguration = 0;
@@ -273,7 +274,9 @@
             GlobalStor.global.isSavingAlert = 1;
             saveAlert();
           } else {
-            MainServ.goToCart();
+            loginServ.downloadAllCities(1).then(() => {
+              MainServ.goToCart();
+            });
           }
         }
 

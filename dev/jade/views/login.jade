@@ -74,7 +74,7 @@ section.login-page
         .error-tooltip(ng-show="loginPage.submitted && registrForm.country.$error.required") {{ ::loginPage.EMPTY_FIELD }}
 
       .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.region.$error.required, 'placeholder-select': !loginPage.user.region }")
-        select.user-select-field(name="region", ng-model="loginPage.user.region", ng-options="region.name for region in loginPage.G.global.locations.regions | filter: {countryId: loginPage.user.country.id}:true | orderBy:'name'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.country", required)
+        select.user-select-field(name="region", ng-model="loginPage.user.region", ng-options="region.name for region in loginPage.G.global.locations.regions | filter: {country_id: loginPage.user.country.id}:true | orderBy:'name'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.country", required)
           option(value='') {{ ::loginPage.SELECT_REGION }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.region.$error.required") {{ ::loginPage.EMPTY_FIELD }}
 

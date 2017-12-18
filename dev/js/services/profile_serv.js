@@ -87,7 +87,7 @@
       GlobalStor.global.dataProfiles = [];
      var deferred = $q.defer();
        localDB.selectLocalDB(
-         localDB.tablesLocalDB.elements_profile_systems.tableName, {
+         "elements_profile_systems", {
           'profile_system_id': newId
         }).then(function(result) {
           GlobalStor.global.dataProfiles = angular.copy(result);

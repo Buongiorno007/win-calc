@@ -26,7 +26,7 @@
     //});
     /** база городов и регионов долны быть только одной страны завода */
     thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
-      return item.countryId === UserStor.userInfo.countryId;
+      return item.country_id === UserStor.userInfo.country_id;
     });
 
 
@@ -39,22 +39,22 @@
       thisCtrl.userNewLocation = location.fullLocation;
       
 
-      //----- change heatTransfer
+      //----- change heat_transfer
       if (UserStor.userInfo.therm_coeff_id) {
-        UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/location.heatTransfer );
+        UserStor.userInfo.heat_transfer = GeneralServ.roundingValue( 1/location.heat_transfer );
       } else {
-        UserStor.userInfo.heatTransfer = location.heatTransfer;
+        UserStor.userInfo.heat_transfer = location.heat_transfer;
       }
 
       //----- if user settings changing
       if(GlobalStor.global.currOpenPage === 'settings') {
         UserStor.userInfo.city_id = location.cityId;
         UserStor.userInfo.cityName = location.cityName;
-        UserStor.userInfo.countryId = location.countryId;
+        UserStor.userInfo.country_id = location.country_id;
         //UserStor.userInfo.countryName = location.countryName;
         UserStor.userInfo.fullLocation = location.fullLocation;
-        UserStor.userInfo.climaticZone = location.climaticZone;
-        //UserStor.userInfo.heatTransfer = location.heatTransfer;
+        UserStor.userInfo.climatic_zone = location.climatic_zone;
+        //UserStor.userInfo.heat_transfer = location.heat_transfer;
         //----- save new City Id in LocalDB & Server
         //----- update password in LocalDB & Server
         localDB.updateLocalServerDBs(
@@ -67,8 +67,8 @@
         loginServ.setUserGeoLocation(
           location.cityId,
           location.cityName,
-          location.climaticZone,
-          UserStor.userInfo.heatTransfer,
+          location.climatic_zone,
+          UserStor.userInfo.heat_transfer,
           location.fullLocation
         );
       }

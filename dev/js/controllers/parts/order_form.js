@@ -74,10 +74,10 @@
     //    thisCtrl.locations = data;
     //});
     /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
-      return item.countryId === UserStor.userInfo.countryId;
-    });
-
+    // thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
+    //   return item.country_id === UserStor.userInfo.country_id;
+    // });
+    thisCtrl.locations = _.where(GlobalStor.global.locations.cities, {country_id : UserStor.userInfo.country_id});
 
 
     /**============ METHODS ================*/

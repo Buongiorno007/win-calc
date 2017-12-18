@@ -242,7 +242,7 @@
         var defer = $q.defer();
         // console.time("selectLocalDB");
         localDB
-          .selectLocalDB(localDB.tablesLocalDB.lists.tableName, {
+          .selectLocalDB("lists", {
             id: elementId
           })
           .then(function (result) {
@@ -345,7 +345,7 @@
               function (_callback) {
                 localDB
                   .selectLocalDB(
-                    localDB.tablesLocalDB.lists.tableName, {
+                    "lists", {
                       id: product.rama_list_id
                     },
                     "parent_element_id"
@@ -357,7 +357,7 @@
               function (result, _callback) {
                 localDB
                   .selectLocalDB(
-                    localDB.tablesLocalDB.elements_profile_systems.tableName, {
+                    "elements_profile_systems", {
                       element_id: result[0].parent_element_id
                     },
                     "profile_system_id"
@@ -607,7 +607,7 @@
             if (item.glass_width) {
               localDB
                 .selectLocalDB(
-                  localDB.tablesLocalDB.beed_profile_systems.tableName, {
+                  "beed_profile_systems", {
                     profile_system_id: profileId,
                     glass_width: item.glass_width
                   },
@@ -629,10 +629,10 @@
                         var deff3 = $q.defer();
                         localDB
                           .selectLocalDB(
-                            localDB.tablesLocalDB.lists.tableName, {
+                            "lists", {
                               id: item2.list_id
                             },
-                            "beed_lamination_id as id"
+                            "beed_lamination_id"
                           )
                           .then(function (lamId) {
                             // console.log('lamId++++', lamId);
@@ -1881,7 +1881,6 @@
           $timeout(function () {
             //------- set previos Page
             GeneralServ.setPreviosPage();
-
             $location.path("/cart");
             GlobalStor.global.currOpenPage = "cart";
           }, 100);
@@ -1892,16 +1891,16 @@
 
       //-------- delete order from LocalDB
       function deleteOrderInDB(orderNum) {
-        localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {
+        localDB.deleteRowLocalDB("orders", {
           id: orderNum
         });
         localDB.deleteRowLocalDB(
-          localDB.tablesLocalDB.order_products.tableName, {
+          "order_products", {
             order_id: orderNum
           }
         );
         localDB.deleteRowLocalDB(
-          localDB.tablesLocalDB.order_addelements.tableName, {
+          "order_addelements", {
             order_id: orderNum
           }
         );
@@ -1913,12 +1912,12 @@
         angular.extend(OrderStor.order, newOptions);
         if (OrderStor.order.order_edit === 1) {
           localDB.deleteRowLocalDB(
-            localDB.tablesLocalDB.order_products.tableName, {
+            "order_products", {
               order_id: OrderStor.order.id
             }
           );
           localDB.deleteRowLocalDB(
-            localDB.tablesLocalDB.order_addelements.tableName, {
+            "order_addelements", {
               order_id: OrderStor.order.id
             }
           );
@@ -1927,7 +1926,7 @@
               UserStor.userInfo.phone,
               UserStor.userInfo.device_code,
               OrderStor.order.id,
-              localDB.tablesLocalDB.order_products.tableName
+              "order_products"
             )
             .then(function (def1) {
               localDB
@@ -1935,7 +1934,7 @@
                   UserStor.userInfo.phone,
                   UserStor.userInfo.device_code,
                   OrderStor.order.id,
-                  localDB.tablesLocalDB.order_addelements.tableName
+                  "order_addelements"
                 )
                 .then(function (def2) {
                   save().then(function (res) {
@@ -2043,7 +2042,7 @@
               .insertServer(
                 UserStor.userInfo.phone,
                 UserStor.userInfo.device_code,
-                localDB.tablesLocalDB.orders.tableName,
+                "orders",
                 orderData
               )
               .then(function (respond) {
@@ -2062,7 +2061,7 @@
                 }
                 localDB.insertRowLocalDB(
                   orderData,
-                  localDB.tablesLocalDB.orders.tableName
+                  "orders"
                 );
                 defer.resolve(1);
               });
@@ -2073,14 +2072,14 @@
               .updateOrderServer(
                 UserStor.userInfo.phone,
                 UserStor.userInfo.device_code,
-                localDB.tablesLocalDB.orders.tableName,
+                "orders",
                 orderData,
                 orderId
               )
               .then(function (res) {
                 //------- save draft
                 localDB.updateLocalDB(
-                  localDB.tablesLocalDB.orders.tableName,
+                 "orders",
                   orderData, {
                     id: orderId
                   }
@@ -2155,12 +2154,12 @@
             if (orderType) {
               localDB.insertRowLocalDB(
                 productData,
-                localDB.tablesLocalDB.order_products.tableName
+                "order_products"
               );
               localDB.insertServer(
                 UserStor.userInfo.phone,
                 UserStor.userInfo.device_code,
-                localDB.tablesLocalDB.order_products.tableName,
+                "order_products",
                 productData
               );
             }
@@ -2245,7 +2244,7 @@
                   if (orderType) {
                     localDB.insertRowLocalDB(
                       addElementsData,
-                      localDB.tablesLocalDB.order_addelements.tableName
+                      ""
                     );
                     localDB.insertServer(
                       UserStor.userInfo.phone,
@@ -2269,8 +2268,8 @@
           loginServ.setUserGeoLocation(
             UserStor.userInfo.city_id,
             UserStor.userInfo.cityName,
-            UserStor.userInfo.climaticZone,
-            UserStor.userInfo.heatTransfer,
+            UserStor.userInfo.climatic_zone,
+            UserStor.userInfo.heat_transfer,
             UserStor.userInfo.fullLocation
           );
           //----- finish working with order

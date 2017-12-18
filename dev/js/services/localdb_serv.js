@@ -971,7 +971,10 @@
           }
 
         };
-
+      localforage.setDriver([localforage.INDEXEDDB]);
+      var db = localforage.createInstance({
+        name: "bauvoice"
+      });
       /**============ methods ================*/
       let LocalDataBase = null;
       var LocalLocationBase = null;
@@ -992,17 +995,13 @@
         }
       }
 
-
       function selectLocalDB(key, options, columns) {
         var defer = $q.defer();
         let result = [];
         if (!options) {
           defer.resolve(LocalDataBase[key]);
         } else {
-
-          // console.log("options ", options, key)
-          result = _.where(LocalDataBase[key], options);
-          // console.log(result);
+          result = angular.copy(_.where(LocalDataBase[key], options));
           if (result) {
             defer.resolve(result);
           } else {
@@ -1146,9 +1145,15 @@
             function (result) {
               if (result.data.status) {
                 //-------- insert in LocalDB
-                //console.warn(result.data);
+                // console.warn(result.data);
                 LocalLocationBase = convert(result.data);
-                defer.resolve(LocalLocationBase);
+                db.setItem('location', LocalLocationBase).then(function (value) {
+                  // Do other things once the value has been saved.
+                  defer.resolve(LocalLocationBase);
+                }).catch(function (err) {
+                  // This code runs if there were any errors
+                  console.log(err);
+                });
               } else {
                 console.log("Error!");
                 defer.resolve(0);
@@ -1196,8 +1201,13 @@
               if (result.data.status) {
                 //-------- insert in LocalDB
                 LocalDataBase = convert(result.data);
-                LocalDataBase.push(LocalLocationBase);
-                defer.resolve(1);
+                db.setItem('tables', LocalDataBase).then(function (value) {
+                  // Do other things once the value has been saved.
+                  defer.resolve(1);
+                }).catch(function (err) {
+                  // This code runs if there were any errors
+                  console.log(err);
+                });
               } else {
                 console.log("importAllDB Error!");
                 defer.resolve(0);
@@ -3785,27 +3795,8 @@
         return deffMain.promise;
       }
 
-      function getLockalDbData(obj, pr) {
-        if (setParams(elemValue()) >= dataF(1)) {
-          if (obj.element_group_id === 6) {
-            var coef = setValueP();
-            pr *= coef;
-          }
-        }
-        if (setParams(elemValue()) >= dataF(12)) {
-          if (obj.element_group_id === 3) {
-            var coef = setValueP();
-            pr *= coef;
-          }
-        }
-        if (setParams(elemValue()) >= dataF(56)) {
-          if (obj.element_group_id === 1) {
-            var coef = setValueP();
-            pr *= coef;
-          }
-        }
-        return pr;
-      }
+      var elem_koef_number = 0;
+      var element_list = [];
 
       function convert(input) {
         let output = [];
@@ -3818,31 +3809,72 @@
           new_table = [];
           let curr_table = tables[keys[index]];
           let rows_length = curr_table.rows.length;
+
+          if (keys[index] === "cities") {
+            input.tables.cities.rows.forEach(function (city) {
+              if (city[11] === UserStor.userInfo.city_id) {
+                if (city[0]) {
+                  elem_koef_number = city[0];
+                }
+              }
+            });
+          }
+          if (elem_koef_number !== 0) {
+            if (keys[index] === "price_koefficients") {
+              input.tables.price_koefficients.rows.forEach(function (element) {
+                if (element[1] === elem_koef_number) {
+                  element_list.push(element);
+                }
+              });
+              if (element_list) {
+                tables.elements.rows.forEach(function (element) {
+                  element_list.forEach(function (entry) {
+                    if (entry[2] === element[0]) {
+                      element[21] *= entry[0];
+                    }
+                  });
+                });
+              }
+            }
+
+          }
+
+
           for (let jndex = 0; jndex < rows_length; jndex++) {
             new_row = {};
             let curr_row = curr_table.rows[jndex];
             let curr_row_length = curr_table.rows[jndex].length;
             for (let kndex = 0; kndex < curr_row_length; kndex++) {
-              new_row[curr_table.fields[kndex]] = curr_row[kndex];
+              new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
             }
             new_table.push(new_row);
           }
           output[keys[index]] = new_table;
         }
-        // console.log(output);
-        // keys.forEach((key) => {
-        //   new_table = [];
-        //   tables[key].rows.forEach((row) => {
-        //     curr_row = {};
-        //     row.forEach((item, index) => {
-        //       curr_row[tables[key].fields[index]] = item;
-        //     });
-        //     new_table.push(curr_row);
-        //   });
-        //
-        //   output[key] = new_table;
-        // });
         return output;
+      }
+
+      function checkLocalStor() {
+        var defer = $q.defer();
+        db.getItem('tables').then(function (value) {
+          LocalDataBase = value;
+        }).catch(function (err) {
+          console.log(err);
+          defer.resolve(0);
+        });
+        return defer.promise;
+      }
+
+      function checkLocalStorLocation() {
+        var defer = $q.defer();
+        db.getItem('location').then(function (value) {
+          LocalLocationBase = value;
+          defer.resolve(LocalLocationBase);
+        }).catch(function (err) {
+          console.log(err);
+          defer.resolve(0);
+        });
+        return defer.promise;
       }
 
       /**========== FINISH ==========*/
@@ -3852,6 +3884,8 @@
         tablesLocationLocalDB: tablesLocationLocalDB,
 
         convert: convert,
+        checkLocalStor: checkLocalStor,
+        checkLocalStorLocation: checkLocalStorLocation,
         selectLocalDB: selectLocalDB,
         updateLocalDB: updateLocalDB,
         deleteRowLocalDB: deleteRowLocalDB,
