@@ -996,19 +996,58 @@
       }
 
       function selectLocalDB(key, options, columns) {
+        // console.log("selectLocalDB",key);
         var defer = $q.defer();
         let result = [];
-        if (!options) {
-          defer.resolve(LocalDataBase[key]);
-        } else {
-          result = angular.copy(_.where(LocalDataBase[key], options));
+        if (key in LocalDataBase) {
+          if (!options) {
+            result = angular.copy(LocalDataBase[key]);
+          } else {
+            result = angular.copy(_.where(LocalDataBase[key], options));
+          }
+          if (columns) {
+            let new_res = [];
+            let col_list = columns.split(",");
+            let result_length = result.length;
+            for (let index = 0; index < result_length; index++) {
+              let item = result[index];
+              let row = {};
+              let col_list_length = col_list.length;
+              for (let jndex = 0; jndex < col_list_length; jndex++) {
+                let col = col_list[jndex];
+                col = col.replace(/ /g, '');
+                row[col] = item[col];
+              }
+              new_res.push(row);
+            }
+            result = angular.copy(new_res);
+          }
           if (result) {
             defer.resolve(result);
           } else {
             defer.resolve(0);
           }
+        } else {
+          defer.resolve(0);
         }
         return defer.promise;
+      }
+
+      function insertRowLocalDB(row, tableName) {
+        if (!LocalDataBase[tableName]) {
+          LocalDataBase[tableName] = [row];
+        }
+        else {
+          LocalDataBase[tableName].push(row);
+        }
+        db.setItem('tables', LocalDataBase).then(function (value) {
+          // Do other things once the value has been saved.
+          console.log("uprated");
+        }).catch(function (err) {
+          // This code runs if there were any errors
+          console.log(err);
+        });
+
       }
 
       function updateLocalDB(tableName, elem, options) {
@@ -1060,30 +1099,14 @@
       }
 
       function deleteRowLocalDB(tableName, options) {
-        var vhereOptions = "";
-        if (options) {
-          var optionKeys = Object.keys(options),
-            optionQty = optionKeys.length,
-            k;
-          vhereOptions =
-            " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-          if (optionQty > 1) {
-            for (k = 1; k < optionQty; k += 1) {
-              vhereOptions +=
-                " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
-            }
-          }
-        }
-        // db.transaction(function (trans) {
-        //   trans.executeSql(
-        //     "DELETE FROM " + tableName + vhereOptions,
-        //     [],
-        //     null,
-        //     function () {
-        //       console.log("Something went wrong with insert into " + tableName);
-        //     }
-        //   );
-        // });
+        LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.findWhere(LocalDataBase[tableName], options));
+        db.setItem('tables', LocalDataBase).then(function (value) {
+          // Do other things once the value has been saved.
+          console.log("updated");
+        }).catch(function (err) {
+          // This code runs if there were any errors
+          console.log(err);
+        });
       }
 
       function deleteProductServer(login, access, orderNumber, table) {
@@ -1786,8 +1809,8 @@
                 if (angular.isArray(construction.ids[index])) {
                   var promisKits = _.map(construction.ids[index], function (item2) {
                     var deff2 = $q.defer();
-                    selectLocalDB(
-                      tablesLocalDB.lists.tableName,
+                    console.log("promisKits", item2);
+                    selectLocalDB(tablesLocalDB.lists.tableName,
                       {id: item2},
                       "id, parent_element_id, name, waste, amendment_pruning"
                     ).then(function (result2) {
@@ -3141,10 +3164,9 @@
             if (ProductStor.product.template_square >= 1) {
               selectLocalDB(
                 tablesLocalDB.elements.tableName,
-                {id: temp_profile_id},
-                "id, sku, currency_id, price, name, element_group_id"
+                {id: temp_profile_id}
               ).then(function (result) {
-                if (result) {
+                if (result && result.length) {
                   tmp = result;
                   tmp[0].qty = 1;
                   if (ProductStor.product.template_square >= 1 && ProductStor.product.template_square < 2) {
@@ -3174,30 +3196,31 @@
             }
           }
         }
-        //console.info('START+++', construction);
+        // console.info('START+++', construction);
         // console.time("parseMainKit");
         parseMainKit(construction).then(function (kits) {
           // console.timeEnd("parseMainKit");
           // console.log('kits!!!!!!+', kits);
-          //console.warn(_.where(_.compact(_.flatten(kits)), {child_id:409784}), 'kits');
+          // console.warn(_.where(_.compact(_.flatten(kits)), {child_id:314270}), 'kits');
           priceObj.kits = kits;
           /** collect Kit Children Elements*/
           // console.time("parseKitConsist");
           parseKitConsist(priceObj.kits).then(function (consist) {
             // console.timeEnd("parseKitConsist");
             // console.log('consist!!!!!!+', consist);
-            //console.warn(_.where(_.compact(_.flatten(consist)), {id:409784}), 'consist');
+            // console.warn(_.where(_.compact(_.flatten(consist)), {id:314270}), 'consist');
             priceObj.consist = consist;
             // console.time("parseKitElement");
             parseKitElement(priceObj.kits).then(function (kitsElem) {
               // console.timeEnd("parseKitElement");
               // console.log('kitsElem!!!!!!+', kitsElem);
-              //console.warn(_.where(_.compact(_.flatten(kitsElem)), {child_id:409784}), 'kitsElem');
+              // console.warn(_.where(_.compact(_.flatten(kitsElem)), {child_id:314270}), 'kitsElem');
               priceObj.kitsElem = kitsElem;
               // console.time("parseConsistElem");
               parseConsistElem(priceObj.consist).then(function (consistElem) {
                 // console.timeEnd("parseConsistElem");
                 // console.log('consistElem!!!!!!+', consistElem);
+                // console.warn(_.where(_.compact(_.flatten(kitsElem)), {child_id:314270}), 'consistElem');
                 priceObj.consistElem = consistElem;
                 priceObj.constrElements = culcKitPrice(
                   priceObj,
@@ -3820,7 +3843,7 @@
             });
           }
           if (elem_koef_number !== 0) {
-            if (keys[index] === "price_koefficients") {
+            if (keys[index] === "elements") {
               input.tables.price_koefficients.rows.forEach(function (element) {
                 if (element[1] === elem_koef_number) {
                   element_list.push(element);
@@ -3854,7 +3877,7 @@
         return output;
       }
 
-      function checkLocalStor() {
+      function getLocalStor() {
         var defer = $q.defer();
         db.getItem('tables').then(function (value) {
           LocalDataBase = value;
@@ -3865,7 +3888,7 @@
         return defer.promise;
       }
 
-      function checkLocalStorLocation() {
+      function getSavedLocation() {
         var defer = $q.defer();
         db.getItem('location').then(function (value) {
           LocalLocationBase = value;
@@ -3884,9 +3907,10 @@
         tablesLocationLocalDB: tablesLocationLocalDB,
 
         convert: convert,
-        checkLocalStor: checkLocalStor,
-        checkLocalStorLocation: checkLocalStorLocation,
+        getLocalStor: getLocalStor,
+        getSavedLocation: getSavedLocation,
         selectLocalDB: selectLocalDB,
+        insertRowLocalDB: insertRowLocalDB,
         updateLocalDB: updateLocalDB,
         deleteRowLocalDB: deleteRowLocalDB,
 
@@ -3910,7 +3934,7 @@
         calcDoorElemPrice: calcDoorElemPrice,
         currencyExgange: currencyExgange,
         deleteProductServer: deleteProductServer,
-        LocalLocationBase: LocalLocationBase
+        db: db
       };
 
       return thisFactory.publicObj;

@@ -285,11 +285,11 @@
 
                 var key = "UserStor.userInfo.phone";
                 var value = UserStor.userInfo.phone;
-                localforage.setItem(key, value, function (err, value) {
+                localDB.db.setItem(key, value, function (err, value) {
                 });
                 var key = "UserStor.userInfo.device_code";
                 var value = UserStor.userInfo.device_code;
-                localforage.setItem(key, value, function (err, value) {
+                localDB.db.setItem(key, value, function (err, value) {
                 });
               }
             });
@@ -304,7 +304,8 @@
 
 
         function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {
+          loader();
+          localDB.db.setItem("FirstIn", "true", function (err, value) {
           });
           // console.time('importUser');
           localDB.importUser(thisCtrl.user.phone).then(function (result) {
@@ -618,27 +619,27 @@
           loader()
         }
         if (!GlobalStor.global.onlineMode && !navigator.onLine) {
-          localforage.getItem("UserStor.userInfo.phone", function (err, value) {
+          localDB.db.getItem("UserStor.userInfo.phone", function (err, value) {
             UserStor.userInfo.phone = value;
           });
 
-          localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
+          localDB.db.getItem("UserStor.userInfo.device_code", function (err, value) {
             UserStor.userInfo.device_code = value;
           });
         }
         //$(".i").hide();
         $(".print-conteiner").hide();
         var FirstIn = "true";
-        localforage.getItem("FirstIn", function (err, value) {
+        localDB.db.getItem("FirstIn", function (err, value) {
           if (value !== "true") {
             $("#updateDBcheck").prop("checked", true);
             GlobalStor.global.loadDate = new Date();
-            localforage.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
+            localDB.db.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
             });
             /** **/
           } else {
             $(".i").show();
-            localforage.getItem("loadDate", function (err, value) {
+            localDB.db.getItem("loadDate", function (err, value) {
               GlobalStor.global.loadDate = new Date(value);
             });
           }
@@ -657,135 +658,7 @@
             //     // console.log(GlobalStor.global.analitics_storage);
             //   }
             // });
-            //noinspection JSAnnotator
-            function enterFormSubmit() {
-              GlobalStor.global.isLoader = 1;
-              GlobalStor.global.startSlider = 1;
-              loader();
-              //------ check Internet
-              //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-              //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
-              if (thisCtrl.isOnline) {
-                if ($("#updateDBcheck").prop("checked")) {
-                  if (GlobalStor.global.onlineMode && navigator.onLine) {
-                    HistoryServ.synchronizeOrders().then(function () {
-                      GlobalStor.global.isLoader = 1;
-                      GlobalStor.global.startSlider = 1;
-                      checkingUser();
-                    });
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    GlobalStor.global.startSlider = 0;
-                    thisCtrl.isOfflineImport = 1;
-                  }
-                }
-                else {
-                  //------- check available Local DB
-                  //for offline work
-                  loginServ.isLocalDBExist().then(function (data) {
-                    thisCtrl.isLocalDB = data;
-                    if (thisCtrl.isLocalDB) {
-                      //======== SYNC
-                      console.log('SYNC');
-                      //---- checking user in LocalDB
-                      localDB.selectLocalDB("users", {'phone': thisCtrl.user.phone})
-                        .then(function (data) {
-                          //---- user exists
-                          if (data.length) {
-                            //---------- check user password
-                            newUserPassword = localDB.md5(thisCtrl.user.password);
-                            if (newUserPassword === data[0].password) {
-                              //----- checking user activation
-                              if (data[0].locked) {
-                                startSlider();
-                                angular.extend(UserStor.userInfo, data[0]);
-                                //------- set User Location
-                                loginServ.prepareLocationToUse().then(function () {
-                                  checkingFactory();
-                                });
 
-                              } else {
-                                GlobalStor.global.startSlider = 0;
-                                GlobalStor.global.isLoader = 0;
-                                //---- show attantion
-                                thisCtrl.isUserNotActive = 1;
-                              }
-                            } else {
-                              GlobalStor.global.isLoader = 0;
-                              GlobalStor.global.startSlider = 0;
-                              //---- user not exists
-                              thisCtrl.isUserPasswordError = 1;
-                            }
-                          } else {
-                            //======== IMPORT
-                            console.log('Sync IMPORT');
-                            checkingUser();
-                          }
-                        });
-                    } else {
-                      //======== IMPORT
-                      console.log('IMPORT');
-                      checkingUser();
-                    }
-                  });
-                }
-
-
-                //-------- check LocalDB
-              } else if (thisCtrl.isLocalDB) {
-                console.log('OFFLINE');
-                //---- checking user in LocalDB
-                localDB.selectLocalDB("users", {'phone': thisCtrl.user.phone})
-                  .then(function (data) {
-                    //---- user exists
-                    if (data.length) {
-                      //---------- check user password
-                      var newUserPassword = localDB.md5(thisCtrl.user.password);
-                      if (newUserPassword === data[0].password) {
-                        //----- checking user activation
-                        if (data[0].locked) {
-                          //------- checking user FactoryId
-                          if (data[0].factory_id > 0) {
-                            angular.extend(UserStor.userInfo, data[0]);
-                            //------- set User Location
-                            loginServ.prepareLocationToUse().then(function () {
-                              loginServ.setUserLocation();
-                              /** download all data */
-                              loginServ.downloadAllData().then(function () {
-                                startProgramm();
-                              });
-                            });
-                          } else {
-                            GlobalStor.global.startSlider = 0;
-                            GlobalStor.global.isLoader = 0;
-                            thisCtrl.isOffline = 1;
-                          }
-                        } else {
-                          GlobalStor.global.startSlider = 0;
-                          GlobalStor.global.isLoader = 0;
-                          //---- show attantion
-                          thisCtrl.isUserNotActive = 1;
-                        }
-                      } else {
-                        GlobalStor.global.startSlider = 0;
-                        GlobalStor.global.isLoader = 0;
-                        //---- user not exists
-                        thisCtrl.isUserPasswordError = 1;
-                      }
-                    } else {
-                      GlobalStor.global.startSlider = 0;
-                      GlobalStor.global.isLoader = 0;
-                      //---- user not exists
-                      thisCtrl.isUserNotExist = 1;
-                    }
-                  });
-
-              } else {
-                GlobalStor.global.startSlider = 0;
-                GlobalStor.global.isLoader = 0;
-                thisCtrl.isOffline = 1;
-              }
-            }
 
             if (GlobalStor.global.ISEXT) {
               if (!$("#updateDBcheck").prop("checked")) {
@@ -795,7 +668,7 @@
                     if (curDate.getDate() > GlobalStor.global.loadDate.getDate()) {
                       getAlert();
                     } else {
-                      enterFormSubmit();
+                      checkingUser();
                     }
                   } else {
                     getAlert();
@@ -805,14 +678,13 @@
                   getAlert();
                 }
               } else {
-                enterFormSubmit();
+                checkingUser();
               }
             }
             else {
               GlobalStor.global.loadDate = new Date();
               GlobalStor.global.isLoader = 1;
               GlobalStor.global.startSlider = 1;
-              loader();
               checkingUser();
             }
 
@@ -820,11 +692,9 @@
             function getAlert() {
               GeneralServ.syncAlert(
                 thisCtrl.SYNC_INFO_P1 + formatDate(GlobalStor.global.loadDate) + thisCtrl.SYNC_INFO_P2,
-                enterFormSubmit
+                checkingUser
               );
-              GeneralServ.confirmPath(
-                enterFormSubmit
-              );
+              GeneralServ.confirmPath(checkingUser);
             }
           }
         }
@@ -999,6 +869,8 @@
           var design = localStorage.getItem("DesignStor");
           var user = localStorage.getItem("UserStor");
           var global = localStorage.getItem("GlobalStor");
+          localDB.getSavedLocation();
+          localDB.getLocalStor();
           if (product && user && global && design && order && aux) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
@@ -1017,6 +889,13 @@
               return true;
             } else {
               localStorage.clear();
+              localDB.db.clear().then(function () {
+                // Run this code once the database has been entirely deleted.
+                console.log('Database is now empty.');
+              }).catch(function (err) {
+                // This code runs if there were any errors
+                console.log(err);
+              });
               UserStor.userInfo = UserStor.setDefaultUser();
               GlobalStor.global = GlobalStor.setDefaultGlobal();
               OrderStor.order = OrderStor.setDefaultOrder();

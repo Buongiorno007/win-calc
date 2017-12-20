@@ -40,7 +40,7 @@
       //console.info('init filter --- ', typeId);
       var laminatQty = GlobalStor.global.laminats.length;
       while(--laminatQty > -1) {
-        if(GlobalStor.global.laminats[laminatQty].type_id === typeId) {
+        if(GlobalStor.global.laminats[laminatQty].lamination_type_id === typeId) {
           GlobalStor.global.laminats[laminatQty].isActive = !GlobalStor.global.laminats[laminatQty].isActive;
           //console.info('init filter --- ', GlobalStor.global.laminats[laminatQty]);
           MainServ.laminatFiltering();

@@ -969,6 +969,7 @@
               ProductStor.product.glass[g].id
             ) {
               //$.isNumeric
+              ProductStor.product.glass[g].transcalency = parseFloat(ProductStor.product.glass[g].transcalency);
               if (!angular.isNumber(ProductStor.product.glass[g].transcalency)) {
                 ProductStor.product.glass[g].transcalency = 1;
               }
@@ -984,6 +985,7 @@
         glassSqT = GeneralServ.roundingValue(glassSqT, 3);
 
         /** culculate profile Heat Coeff Total */
+        ProductStor.product.profile.heat_coeff_value = parseFloat(ProductStor.product.profile.heat_coeff_value);
         if (!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
           ProductStor.product.profile.heat_coeff_value = 1;
         }
@@ -1208,7 +1210,7 @@
               GlobalStor.global.doorsLaminations[coupleQty].laminat_in_name =
                 GlobalStor.global.laminats[lam].name;
               GlobalStor.global.doorsLaminations[coupleQty].img_in_id =
-                GlobalStor.global.laminats[lam].type_id;
+                GlobalStor.global.laminats[lam].lamination_type_id;
               GlobalStor.global.doorsLaminations[coupleQty].lamination_in_id =
                 GlobalStor.global.doorsLaminations[coupleQty].lamination_in;
               delete GlobalStor.global.doorsLaminations[coupleQty]
@@ -1221,7 +1223,7 @@
               GlobalStor.global.doorsLaminations[coupleQty].laminat_out_name =
                 GlobalStor.global.laminats[lam].name;
               GlobalStor.global.doorsLaminations[coupleQty].img_out_id =
-                GlobalStor.global.laminats[lam].type_id;
+                GlobalStor.global.laminats[lam].lamination_type_id;
               GlobalStor.global.doorsLaminations[coupleQty].lamination_out_id =
                 GlobalStor.global.doorsLaminations[coupleQty].lamination_out;
               delete GlobalStor.global.doorsLaminations[coupleQty]
@@ -1268,7 +1270,7 @@
             while (--lamGroupsTempQty > -1) {
               if (
                 lamGroupsTemp[lamGroupsTempQty].img_in_id ===
-                GlobalStor.global.laminats[laminatQty].type_id
+                GlobalStor.global.laminats[laminatQty].lamination_type_id
               ) {
                 if (checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
                   GlobalStor.global.lamGroupFiltered.push(
@@ -1277,7 +1279,7 @@
                 }
               } else if (
                 lamGroupsTemp[lamGroupsTempQty].img_out_id ===
-                GlobalStor.global.laminats[laminatQty].type_id
+                GlobalStor.global.laminats[laminatQty].lamination_type_id
               ) {
                 if (checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
                   GlobalStor.global.lamGroupFiltered.push(
@@ -1469,6 +1471,13 @@
           //item.max_sq = 0.2;
           //item.max_width = 0.50;
           //item.max_height = 0.50;
+
+          item.max_sq = parseFloat(item.max_sq);
+          item.max_width = parseFloat(item.max_width);
+          item.max_height = parseFloat(item.max_height);
+          item.min_width = parseFloat(item.min_width);
+          item.min_height = parseFloat(item.min_height);
+
           /** check available max_sq and max/min sizes */
           if (
             item.max_sq ||
@@ -2079,7 +2088,7 @@
               .then(function (res) {
                 //------- save draft
                 localDB.updateLocalDB(
-                 "orders",
+                  "orders",
                   orderData, {
                     id: orderId
                   }

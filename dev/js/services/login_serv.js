@@ -100,7 +100,7 @@
         function downloadAllCities() {
           var deff = $q.defer(),
             countryQty, regionQty, cityQty, areasQty;
-          localDB.checkLocalStorLocation().then((location) => {
+          localDB.getSavedLocation().then((location) => {
             cityQty = location.cities.length;
             GlobalStor.global.locations.cities = angular.copy(location.cities);
             if (cityQty) {
@@ -517,7 +517,7 @@
                       'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, ' +
                       'img, link, glass_image, glass_type, glass_color'
                     ).then(function (result2) {
-                      //console.log('list +++++', result2);
+                      // console.log('list +++++', result2);
                       var list = angular.copy(result2),
                         listQty = list.length;
                       if (listQty) {
@@ -596,7 +596,6 @@
         function sortingGlasses() {
           var glassAllQty = GlobalStor.global.glassesAll.length,
             g;
-
           for (g = 0; g < glassAllQty; g += 1) {
             //------- merge glassList to glasses
             var listQty = GlobalStor.global.glassesAll[g].glassLists.length,
@@ -757,7 +756,7 @@
         /** download all lamination */
         function downloadAllLamination() {
           return localDB.selectLocalDB(
-            localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id')
+            localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id')
             .then(function (lamin) {
               return lamin;
             });
@@ -780,11 +779,11 @@
                 for (lam = 0; lam < laminatQty; lam += 1) {
                   if (GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
                     GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
-                    GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+                    GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].lamination_type_id;
                   }
                   if (GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
                     GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
-                    GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+                    GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].lamination_type_id;
                   }
                 }
               }
@@ -1600,10 +1599,11 @@
                                                 item.isActive = 0;
                                                 return item;
                                               });
+
                                               /** add white color */
                                               GlobalStor.global.laminats.push({
                                                 id: 1,
-                                                type_id: 1,
+                                                lamination_type_id: 1,
                                                 isActive: 0,
                                                 name: 'mainpage.WHITE_LAMINATION'
                                               });

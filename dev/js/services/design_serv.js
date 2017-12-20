@@ -927,6 +927,7 @@
                         impostDepth: null,
                         shtulpDepth: null
                     };
+
                     DesignStor.design.doorConfig.glassDepProf = (ids.profile_id === product.profile.id);
                     $q.all([
                         MainServ.downloadProfileDepth(ids.rama_list_id),
