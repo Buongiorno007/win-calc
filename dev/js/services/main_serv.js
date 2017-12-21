@@ -614,7 +614,6 @@
                   "list_id"
                 )
                 .then(function (beadIds) {
-                  //console.log('beadIds', beadIds);
                   var beadsQty = beadIds.length,
                     beadObj = {
                       glassId: item.id,

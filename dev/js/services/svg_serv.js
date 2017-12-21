@@ -2677,7 +2677,7 @@
               setPointsXChildren(thisObj.details[i], thisObj.details, depths);
               //----- create impost parts
               if (thisObj.details[i].children.length) {
-                //thisObj.details[i].impost.impostIn = copyPointsOut(thisObj.details[i].pointsIn, 'impost');
+                // thisObj.details[i].impost.impostIn = copyPointsOut(thisObj.details[i].pointsIn, 'impost');
 
                 var temp1 = angular.copy(thisObj.details[i].impost.impostIn[0].y);
                 var temp2 = angular.copy(thisObj.details[i].impost.impostIn[3].x);
@@ -2696,7 +2696,7 @@
 
           thisObj.dimension = initDimensions(thisObj.details);
 
-          //console.log('TEMPLATE END++++', depths);
+          // console.log('TEMPLATE END++++', depths);
           defer.resolve(thisObj);
           return defer.promise;
         }

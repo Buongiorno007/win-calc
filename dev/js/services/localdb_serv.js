@@ -984,16 +984,21 @@
 
       function checkStringToQuote(str) {
         if (angular.isString(str)) {
+          // if (!isNaN(parseFloat(str)) && !str.includes("-")) {
+          //   return parseFloat(str);
+          // } else {
           if (str.indexOf("'") + 1) {
             //console.warn(str);
             return str.replace(/'/g, "''");
           } else {
             return str;
           }
+          // }
         } else {
           return str;
         }
       }
+
 
       function selectLocalDB(key, options, columns) {
         // console.log("selectLocalDB",key);
@@ -1003,7 +1008,7 @@
           if (!options) {
             result = angular.copy(LocalDataBase[key]);
           } else {
-            result = angular.copy(_.where(LocalDataBase[key], options));
+            result = angular.copy(_.filter(LocalDataBase[key], options));
           }
           if (columns) {
             let new_res = [];
@@ -1157,13 +1162,7 @@
       function importLocation(login, access) {
         var defer = $q.defer();
         $http
-          .get(
-            globalConstants.serverIP +
-            "/api/get/locations?login=" +
-            login +
-            "&access_token=" +
-            access
-          )
+          .get(globalConstants.serverIP + "/api/get/locations?login=" + login + "&access_token=" + access)
           .then(
             function (result) {
               if (result.data.status) {
@@ -3818,8 +3817,10 @@
         return deffMain.promise;
       }
 
+
       var elem_koef_number = 0;
       var element_list = [];
+
 
       function convert(input) {
         let output = [];
@@ -3843,6 +3844,7 @@
             });
           }
           if (elem_koef_number !== 0) {
+            element_list = [];
             if (keys[index] === "elements") {
               input.tables.price_koefficients.rows.forEach(function (element) {
                 if (element[1] === elem_koef_number) {
@@ -3859,22 +3861,37 @@
                 });
               }
             }
-
           }
-
 
           for (let jndex = 0; jndex < rows_length; jndex++) {
             new_row = {};
             let curr_row = curr_table.rows[jndex];
             let curr_row_length = curr_table.rows[jndex].length;
             for (let kndex = 0; kndex < curr_row_length; kndex++) {
-              new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
+              let key_list = "lists list_contents options_coefficients price_koefficients profile_systems users_deliveries users_discounts users_mountings window_hardware_handles";
+              if (key_list.includes(keys[index])) {
+                if (curr_table.fields[kndex] !== "name") {
+                  new_row[curr_table.fields[kndex]] = chechFloat(curr_row[kndex]);
+                } else {
+                  new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
+                }
+              } else {
+                new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
+              }
             }
             new_table.push(new_row);
           }
           output[keys[index]] = new_table;
         }
         return output;
+      }
+
+      function chechFloat(item) {
+        if (!isNaN(parseFloat(item))) {
+          return parseFloat(item);
+        } else {
+          return item;
+        }
       }
 
       function getLocalStor() {

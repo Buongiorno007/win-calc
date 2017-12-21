@@ -196,7 +196,7 @@
           //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
           // console.time('importAllDB');
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
-            // console.timeEnd('importAllDB');
+            console.log('importAllDB');
             if (data) {
               /** download all data */
               // console.time('downloadAllData');
@@ -244,8 +244,8 @@
               //});
             } else {
               //------ LocalDB is empty
+              importDBfromServer(UserStor.userInfo.factory_id);
             }
-            importDBfromServer(UserStor.userInfo.factory_id);
           } else {
             //---- show Factory List
             //----- collect city Ids regarding to user country
