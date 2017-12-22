@@ -16,6 +16,7 @@
 
                 thisFactory.publicObj = {
                     globalSource: {
+                        ISLOGIN : 0,
                         isZeroPriceList: [],
                         screw : 0,
                         showAllGlass: 0,

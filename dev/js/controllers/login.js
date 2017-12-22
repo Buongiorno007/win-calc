@@ -186,6 +186,7 @@
             localStorage.setItem('DesignStor', design);
             localStorage.setItem('OrderStor', order);
             $location.path("/main");
+            GlobalStor.global.ISLOGIN = 0;
             GlobalStor.global.currOpenPage = 'main';
           });
         }
@@ -304,6 +305,7 @@
 
         function checkingUser() {
           loader();
+          GlobalStor.global.ISLOGIN = 1;
           localDB.db.setItem("FirstIn", "true", function (err, value) {
           });
           // console.time('importUser');

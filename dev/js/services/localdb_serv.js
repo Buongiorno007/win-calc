@@ -1041,11 +1041,22 @@
             }
             result = angular.copy(new_res);
           }
-          if (result) {
-            defer.resolve(result);
+          if (GlobalStor.global.ISLOGIN) {
+            setTimeout(() => {
+              if (result) {
+                defer.resolve(result);
+              } else {
+                defer.resolve(0);
+              }
+            }, 100);
           } else {
-            defer.resolve(0);
+            if (result) {
+              defer.resolve(result);
+            } else {
+              defer.resolve(0);
+            }
           }
+
         } else {
           defer.resolve(0);
         }
@@ -3803,30 +3814,39 @@
           let rows_length = curr_table.rows.length;
 
           if (keys[index] === "cities") {
-            input.tables.cities.rows.forEach(function (city) {
+            let cities_length = input.tables.cities.rows.length;
+            for (let index = 0; index < cities_length; index++) {
+              let city = input.tables.cities.rows[index];
               if (city[11] === UserStor.userInfo.city_id) {
                 if (city[0]) {
                   elem_koef_number = city[0];
                 }
               }
-            });
+            }
           }
           if (elem_koef_number !== 0) {
             element_list = [];
             if (keys[index] === "elements") {
-              input.tables.price_koefficients.rows.forEach(function (element) {
+              let price_koefficients_length = input.tables.price_koefficients.rows.length;
+              for (let index = 0; index < price_koefficients_length; index++) {
+                let element = input.tables.price_koefficients.rows[index];
                 if (element[1] === elem_koef_number) {
                   element_list.push(element);
                 }
-              });
+              }
               if (element_list) {
-                tables.elements.rows.forEach(function (element) {
-                  element_list.forEach(function (entry) {
+                let elements_length = tables.elements.rows.length;
+                for (let index = 0; index < elements_length; index++) {
+                  let element = tables.elements.rows[index];
+                  let element_list_length = element_list.length;
+                  for (let index = 0; index < element_list_length; index++) {
+                    let entry = element_list[index];
                     if (entry[2] === element[0]) {
                       element[21] *= entry[0];
                     }
-                  });
-                });
+                  }
+                }
+
               }
             }
           }
