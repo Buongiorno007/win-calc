@@ -1009,10 +1009,6 @@
               var temp = _.where(_.compact(_.flatten(DesignStor.design.handleShapeList)), {id: id});
               return temp[0].profIds.indexOf('hel' + doorLocks.id + 'lo') + 1;
             });
-            console.log(" DesignStor.design.handleShapeList", DesignStor.design.handleShapeList);
-            console.log(" GlobalStor.global.doorLocks", GlobalStor.global.doorLocks);
-            console.log("lockArr",lockArr);
-            console.log("newLockArr",newLockArr);
             var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
             for (var x = 0; x < newLockArr.length; x += 1) {
               if (pnt.heightT <= newLockArr[x].height_max) {
@@ -1027,7 +1023,6 @@
                 }
               }
             }
-            console.log("array",array);
             DesignStor.design.lockShapeList = array;
           }
         }
@@ -1116,7 +1111,6 @@
         }
 
         function setDoorParamValue(product, source) {
-          console.log("setDoorParamValue",product, source);
           var w = 900, h = 2000;
           var k = product.door_lock_shape_id || 0;
           var widthTEMP, heightTEMP;

@@ -196,7 +196,6 @@
           //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
           // console.time('importAllDB');
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
-            console.log('importAllDB');
             if (data) {
               /** download all data */
               // console.time('downloadAllData');
@@ -908,6 +907,7 @@
             }
           } else {
             console.log("не все данные сохранены");
+            ProductStor.product = ProductStor.setDefaultProduct();
             localStorage.clear();
 
             return false;

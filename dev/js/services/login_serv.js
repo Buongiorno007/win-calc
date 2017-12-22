@@ -1355,21 +1355,21 @@
           //console.time('start')
           /** download All Currencies and set currency symbol */
           setCurrency().then(function (data) {
-            console.log("setCurrency");
+            // console.log("setCurrency");
             if (data) {
               /** download user discounts */
               setUserDiscounts().then(function (data) {
-                console.log("setUserDiscounts");
+                // console.log("setUserDiscounts");
                 if (data) {
                   /** download price Margins of Plant */
                   downloadPriceMargin().then(function (margins) {
-                    console.log("downloadPriceMargin");
+                    // console.log("downloadPriceMargin");
                     if (margins && margins.length) {
                       GlobalStor.global.margins = angular.copy(margins[0]);
                       // console.warn('Margins!!', margins);
                       /** download delivery Coeff of Plant */
                       downloadDeliveryCoeff().then(function (coeff) {
-                        console.log("downloadDeliveryCoeff");
+                        // console.log("downloadDeliveryCoeff");
                         if (coeff && coeff.length) {
                           // console.warn('delivery Coeff!!', coeff);
                           GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
@@ -1386,9 +1386,9 @@
                             GlobalStor.global.profilesType,
                             GlobalStor.global.profiles
                           ).then(function (data) {
-                            console.log("downloadAllElemAsGroup");
+                            // console.log("downloadAllElemAsGroup");
                             downloadOptionsCoefficients().then(function (coef) {
-                              console.log("downloadOptionsCoefficients");
+                              // console.log("downloadOptionsCoefficients");
                               GlobalStor.global.area_currencies = coef[0].area_currencies;
                               GlobalStor.global.area_price = coef[0].area_price;
                               GlobalStor.global.perimeter_currencies = coef[0].perimeter_currencies;
@@ -1462,7 +1462,7 @@
                               }
                               /** download All Glasses */
                               downloadAllGlasses().then(function (data) {
-                                console.log("downloadAllGlasses");
+                                // console.log("downloadAllGlasses");
                                 if (data) {
                                   /** sorting glasses as to Type */
                                   sortingGlasses();
@@ -1552,10 +1552,10 @@
                                       downloadHardwareLimits();
                                       /** download All Templates and Backgrounds */
                                       downloadAllBackgrounds().then(function () {
-                                        console.log("downloadAllBackgrounds");
+                                        // console.log("downloadAllBackgrounds");
                                         /** download All AddElements */
                                         downloadAllAddElements().then(function () {
-                                        console.log("downloadAllAddElements");
+                                        // console.log("downloadAllAddElements");
 
                                           GlobalStor.global.addElementsAll.forEach(function (item) {
                                             //globalConstants.serverIP +
@@ -1600,7 +1600,7 @@
                                           //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
                                           /** download All Lamination */
                                           downloadAllLamination().then(function (result) {
-                                            console.log('LAMINATION++++', result);
+                                            // console.log('LAMINATION++++', result);
                                             if (result && result.length) {
                                               GlobalStor.global.laminats = _.map(angular.copy(result), function (item) {
                                                 item.isActive = 0;
