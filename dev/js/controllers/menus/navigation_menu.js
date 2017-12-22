@@ -153,13 +153,6 @@
             // This code runs if there were any errors
             console.log(err);
           });
-          delete UserStor.userInfo;
-          delete GlobalStor.global;
-          delete OrderStor.order;
-          delete ProductStor.product;
-          delete AuxStor.aux;
-          delete HistoryStor.history;
-          delete DesignStor.design;
           // $location.path("/");
           location.reload();
         }

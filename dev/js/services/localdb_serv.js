@@ -971,6 +971,7 @@
           }
 
         };
+
       localforage.setDriver([localforage.INDEXEDDB]);
       var db = localforage.createInstance({
         name: "bauvoice"
@@ -999,6 +1000,17 @@
         }
       }
 
+      function where(collection, options) {
+        var arr = [];
+        let length = collection.length
+        for (let index = 0; index < length; index++) {
+          let el = collection[index];
+          if (_.isMatch(el, options)) {
+            arr.push(el);
+          }
+        }
+        return arr;
+      };
 
       function selectLocalDB(key, options, columns) {
         // console.log("selectLocalDB",key);
@@ -1006,11 +1018,11 @@
         let result = [];
         if (key in LocalDataBase) {
           if (!options) {
-            console.log("no option");
+            // console.log("no option");
             result = angular.copy(LocalDataBase[key]);
           } else {
-            console.log("option");
-            result = angular.copy(_.filter(LocalDataBase[key], options));
+            // console.log("option");
+            result = angular.copy(where(LocalDataBase[key], options));
           }
           if (columns) {
             let new_res = [];
@@ -3424,9 +3436,6 @@
         return deffMain.promise;
       }
 
-      function setValueP() {
-        return Math.random() * (1.3 - 1.1) + 1;
-      }
 
       /**========= ADDELEMENT PRICE ==========*/
 
@@ -3599,10 +3608,6 @@
           });
         });
         return deffMain.promise;
-      }
-
-      function setParams(obj) {
-        return elemValueY(obj) + "-" + elemValueM(obj) + "-" + elemValueD(obj);
       }
 
       /**========= GRID PRICE ==========*/

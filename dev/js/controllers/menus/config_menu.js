@@ -143,7 +143,44 @@
         }
 
         function checkForAddElem(go_to_cart) {
-
+          let data = [{
+            name: "name",
+            age: 22,
+            data: "data"
+          }, {
+            name: "name2",
+            age: 222,
+            data: "data2"
+          }, {
+            name: "name3",
+            age: 222,
+            data: "data3"
+          }, {
+            name: "name4",
+            age: 224,
+            data: "data4"
+          }];
+          let options = {name: "name", data: "data"};
+          let data_length = data.length;
+          let result = [];
+          let keys = Object.keys(options);
+          for (let index = 0; index < data_length; index++) {
+            let count = 0;
+            let item = data[index];
+            console.log("keys", keys);
+            console.log("item", item);
+            keys.forEach((key) => {
+              console.log(item[key], options[key])
+              if (item[key] === options[key]) {
+                count++
+              }
+            });
+            if (count === keys.length) {
+              result.push(item);
+            }
+          }
+          console.log(result);
+          return;
           if (!GlobalStor.global.isZeroPriceList.length) {
             if (!ProductStor.product.is_addelem_only) {
               alert();
