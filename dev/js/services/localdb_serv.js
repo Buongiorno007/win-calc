@@ -1006,8 +1006,10 @@
         let result = [];
         if (key in LocalDataBase) {
           if (!options) {
+            console.log("no option");
             result = angular.copy(LocalDataBase[key]);
           } else {
+            console.log("option");
             result = angular.copy(_.filter(LocalDataBase[key], options));
           }
           if (columns) {
@@ -1047,7 +1049,6 @@
         }
         db.setItem('tables', LocalDataBase).then(function (value) {
           // Do other things once the value has been saved.
-          console.log("uprated");
         }).catch(function (err) {
           // This code runs if there were any errors
           console.log(err);
@@ -1056,58 +1057,20 @@
       }
 
       function updateLocalDB(tableName, elem, options) {
-        var vhereOptions = "",
-          keysArr = Object.keys(elem),
-          keysQty = keysArr.length,
-          optionKeys = Object.keys(options),
-          optionQty = optionKeys.length,
-          elements = "",
-          k,
-          op;
-
-        if (keysQty) {
-          for (k = 0; k < keysQty; k += 1) {
-            if (!k) {
-              elements += keysArr[k] + " = '" + elem[keysArr[k]] + "'";
-            } else {
-              elements += ", " + keysArr[k] + " = '" + elem[keysArr[k]] + "'";
-            }
-          }
-        }
-        if (optionQty) {
-          vhereOptions = " WHERE ";
-          vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-          if (optionQty > 1) {
-            for (op = 1; op < optionQty; op += 1) {
-              vhereOptions +=
-                " AND " +
-                optionKeys[op] +
-                " = '" +
-                options[optionKeys[op]] +
-                "'";
-            }
-          }
-        }
-        // db.transaction(function (trans) {
-        //   trans.executeSql(
-        //     "UPDATE " + tableName + " SET " + elements + vhereOptions,
-        //     [],
-        //     function () {
-        //     },
-        //     function () {
-        //       console.log(
-        //         "Something went wrong with updating " + tableName + " record"
-        //       );
-        //     }
-        //   );
-        // });
+        LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.findWhere(LocalDataBase[tableName], options));
+        LocalDataBase[tableName].push(elem);
+        db.setItem('tables', LocalDataBase).then(function (value) {
+          // Do other things once the value has been saved.
+        }).catch(function (err) {
+          // This code runs if there were any errors
+          console.log(err);
+        });
       }
 
       function deleteRowLocalDB(tableName, options) {
         LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.findWhere(LocalDataBase[tableName], options));
         db.setItem('tables', LocalDataBase).then(function (value) {
           // Do other things once the value has been saved.
-          console.log("updated");
         }).catch(function (err) {
           // This code runs if there were any errors
           console.log(err);

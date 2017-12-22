@@ -16,6 +16,7 @@
                 UserStor,
                 GlobalStor,
                 OrderStor,
+                DesignStor,
                 ProductStor,
                 localDB,
                 AuxStor,
@@ -152,8 +153,15 @@
             // This code runs if there were any errors
             console.log(err);
           });
-          $location.path("/");
-          // location.reload();
+          delete UserStor.userInfo;
+          delete GlobalStor.global;
+          delete OrderStor.order;
+          delete ProductStor.product;
+          delete AuxStor.aux;
+          delete HistoryStor.history;
+          delete DesignStor.design;
+          // $location.path("/");
+          location.reload();
         }
 
         /**========== FINISH ==========*/
