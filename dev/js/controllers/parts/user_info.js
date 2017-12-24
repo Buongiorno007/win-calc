@@ -5,18 +5,22 @@
     .module('MainModule')
     .controller('UserInfoCtrl',
 
-  function(globalConstants, GlobalStor, UserStor, $location) {
+  function(globalConstants, GlobalStor, UserStor, $location, localDB, GeneralServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
+    var global = localStorage.getItem("GlobalStor");
+    if (global){
+    var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
+      thisCtrl.loadDate = loadDate.getDate()+ "."  + loadDate.getMonth()+ "." + loadDate.getFullYear() ;
+    }
 
     thisCtrl.config = {
       DELAY_SHOW_USER_INFO: 40 * globalConstants.STEP,
       typing: 'on',
       checked: false
     };
-
 
 
     /**============ METHODS ================*/
@@ -49,14 +53,34 @@
         //playSound('swip');
       }
     }
+    function update() {
+      localStorage.clear();
+      localDB.db.clear().then(function () {
+        // Run this code once the database has been entirely deleted.
+        console.log('Database is now empty.');
+      }).catch(function (err) {
+        // This code runs if there were any errors
+        console.log(err);
+      });
+      // $location.path("/");
+      location.reload();
 
+    }
+    function getAlert() {
+      GeneralServ.confirmAlert(
+        "Действительно обновить?",
+        "",
+        update
+      );
 
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.swipeMainPage = swipeMainPage;
     thisCtrl.swipeLeft = swipeLeft;
     thisCtrl.swipeRight = swipeRight;
+    thisCtrl.getAlert = getAlert;
 
   });
 })();

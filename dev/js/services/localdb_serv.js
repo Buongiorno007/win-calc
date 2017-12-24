@@ -1041,21 +1041,21 @@
             }
             result = angular.copy(new_res);
           }
-          if (GlobalStor.global.ISLOGIN) {
-            setTimeout(() => {
-              if (result) {
-                defer.resolve(result);
-              } else {
-                defer.resolve(0);
-              }
-            }, 100);
+          if (result) {
+            defer.resolve(result);
           } else {
-            if (result) {
-              defer.resolve(result);
-            } else {
-              defer.resolve(0);
-            }
+            defer.resolve(0);
           }
+          // if (GlobalStor.global.ISLOGIN) {
+          //   setTimeout(() => {
+          //   }, 100);
+          // } else {
+          //   if (result) {
+          //     defer.resolve(result);
+          //   } else {
+          //     defer.resolve(0);
+          //   }
+          // }
 
         } else {
           defer.resolve(0);

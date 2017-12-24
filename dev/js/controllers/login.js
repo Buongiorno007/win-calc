@@ -647,11 +647,17 @@
         });
 
         function enterForm(form) {
-          var newUserPassword;
-          //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
-          //------ Trigger validation flag.
           thisCtrl.submitted = 1;
           if (form.$valid) {
+            if (navigator.onLine) {
+              GlobalStor.global.loadDate = new Date();
+              GlobalStor.global.isLoader = 1;
+              GlobalStor.global.startSlider = 1;
+              checkingUser();
+            } else {
+              // thisCtrl.isOffline = 1;
+              thisCtrl.isOfflineImport = 1;
+            }
             // localforage.getItem("analitics", function (err, value) {
             //   if (value) {
             //     GlobalStor.global.analitics_storage.push(value);
@@ -660,43 +666,6 @@
             //   }
             // });
 
-
-            if (GlobalStor.global.ISEXT) {
-              if (!$("#updateDBcheck").prop("checked")) {
-                var curDate = new Date();
-                if (curDate.getFullYear() == GlobalStor.global.loadDate.getFullYear()) {
-                  if (curDate.getMonth() == GlobalStor.global.loadDate.getMonth()) {
-                    if (curDate.getDate() > GlobalStor.global.loadDate.getDate()) {
-                      getAlert();
-                    } else {
-                      checkingUser();
-                    }
-                  } else {
-                    getAlert();
-                  }
-
-                } else {
-                  getAlert();
-                }
-              } else {
-                checkingUser();
-              }
-            }
-            else {
-              GlobalStor.global.loadDate = new Date();
-              GlobalStor.global.isLoader = 1;
-              GlobalStor.global.startSlider = 1;
-              checkingUser();
-            }
-
-            //noinspection JSAnnotator
-            function getAlert() {
-              GeneralServ.syncAlert(
-                thisCtrl.SYNC_INFO_P1 + formatDate(GlobalStor.global.loadDate) + thisCtrl.SYNC_INFO_P2,
-                checkingUser
-              );
-              GeneralServ.confirmPath(checkingUser);
-            }
           }
         }
 
@@ -858,9 +827,9 @@
           }
         }
 
-        setTimeout(function () {
-          $('#jssj').trigger('click');
-        }, 1000);
+        // setTimeout(function () {
+        //   $('#jssj').trigger('click');
+        // }, 1000);
 
         function checkSavedData() {
           loginServ.getDeviceLanguage();
@@ -889,31 +858,26 @@
               // }
               return true;
             } else {
-              localStorage.clear();
-              localDB.db.clear().then(function () {
-                // Run this code once the database has been entirely deleted.
-                console.log('Database is now empty.');
-              }).catch(function (err) {
-                // This code runs if there were any errors
-                console.log(err);
-              });
-              UserStor.userInfo = UserStor.setDefaultUser();
-              GlobalStor.global = GlobalStor.setDefaultGlobal();
-              OrderStor.order = OrderStor.setDefaultOrder();
-              ProductStor.product = ProductStor.setDefaultProduct();
-              AuxStor.aux = AuxStor.setDefaultAuxiliary();
-              HistoryStor.history = HistoryStor.setDefaultHistory();
-              $location.path('/');
+              if (!GlobalStor.global.ISEXT) {
+                localStorage.clear();
+                localDB.db.clear().then(function () {
+                  // Run this code once the database has been entirely deleted.
+                  console.log('Database is now empty.');
+                }).catch(function (err) {
+                  // This code runs if there were any errors
+                  console.log(err);
+                });
+                $location.path('/');
+              }
               console.log("разные даты");
               return false;
             }
           } else {
             console.log("не все данные сохранены");
-            ProductStor.product = ProductStor.setDefaultProduct();
             localStorage.clear();
-
             return false;
           }
+
         }
 
 

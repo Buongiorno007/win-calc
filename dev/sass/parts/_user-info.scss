@@ -47,7 +47,22 @@
   }
   .user-name {
     @include roboto-lt(rem(24px), rem(40px));
-
     color: $main_gray_txt;
+  }
+
+  .db-block {
+    display: inline-flex;
+    flex-direction: row;
+    position: absolute;
+    left: 16.5rem;
+    top: 8rem;
+    @include roboto-md(rem(31px), rem(54px));
+    color: red;
+    .update {
+      text-decoration: underline;
+      &:hover{
+        color : white;
+      }
+    }
   }
 }

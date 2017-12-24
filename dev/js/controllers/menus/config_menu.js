@@ -159,7 +159,6 @@
                     GlobalStor.global.isNoChangedProduct = 1;
                   } else {
                     $('#qty').hide().show(0);
-
                     saveProduct(go_to_cart);
                   }
                 } else {

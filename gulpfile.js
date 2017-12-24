@@ -267,7 +267,6 @@ function buildExt(id) {
   if (id === "steko") {
     gulp.src(config.build.src.html)
       .pipe(newer("_product/" + id + "/ext", '.html'))
-      .pipe(replace('//#', ""))
       .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
       .pipe(jade({
         doctype: 'html',
@@ -311,10 +310,10 @@ function buildExt(id) {
     .pipe(replace('LOCAL_PATH', path_env[id]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    .pipe(removeLogs())
-    .pipe(ngAnnotate({add: true}))
-    .pipe(js_obfuscator())
-    .pipe(uglify())
+    // .pipe(removeLogs())
+    // .pipe(ngAnnotate({add: true}))
+    // .pipe(js_obfuscator())
+    // .pipe(uglify())
     .pipe(gulp.dest("_product/" + id + "/ext/js"))
     .on('end', function () {
       gutil.log('js!');
@@ -446,41 +445,28 @@ function buildSite(id) {
         gutil.log('html!');
       });
   }
-  //js
+  // main.js
   gulp.src(config.build.src.js)
-    .pipe(wrapper({
-      header: '\n// ${filename}\n\n',
-      footer: '\n'
-    }))
-    .pipe(order(config.build.src.js_order))
-    .pipe(replace('SERVER_IP', server_env[id]))
-    .pipe(replace('PRINT_IP', print_env[id]))
-    .pipe(replace('LOCAL_PATH', path_env[id]))
+    .pipe(ngAnnotate({add: true}))
+    .pipe(replace('SERVER_IP', server_env[env]))
+    .pipe(replace('PRINT_IP', print_env[env]))
+    .pipe(replace('LOCAL_PATH', path_env[env]))
     .pipe(replace('ISEXTFLAG', "0"))
     .pipe(concat('main.js'))
-    .pipe(ngAnnotate())
-    .pipe(removeLogs())
-    // .pipe(js_obfuscator())
-    // .pipe(uglify())
+    //.pipe(uglify({mangle: true}).on('error', gutil.log))
     .pipe(gulp.dest("_product/" + id + "/site/js"))
     .on('end', function () {
-      gutil.log('main!');
+      gutil.log('js!');
     });
 
 
-
   gulp.src(config.build.src.js_vendor)
-    .pipe(order(config.build.src.js_vendor_order))
     .pipe(concat('plugins.js'))
     .pipe(gulp.dest("_product/" + id + "/site/js"))
     .on('end', function () {
       gutil.log('plugins!');
     });
   gulp.src(config.build.src.js_other)
-    .pipe(wrapper({
-      header: '\n// ${filename}\n\n',
-      footer: '\n'
-    }))
     .pipe(gulp.dest("_product/" + id + "/site/js"));
 
   // Копируем изображения
