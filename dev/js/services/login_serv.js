@@ -50,6 +50,7 @@
         //------- defined system language
         function getDeviceLanguage() {
           var browserLang = navigator.language || navigator.userLanguage;
+          console.log(browserLang);
           checkLangDictionary(browserLang);
           $translate.use(UserStor.userInfo.langLabel);
         }

@@ -46,7 +46,7 @@
             fullLocation: '',
             climatic_zone: 0,
             heat_transfer: 0,
-            langLabel: label,
+            langLabel: label || 'ru',
             langName: name,
             currencyId: 0,
             currency: '',

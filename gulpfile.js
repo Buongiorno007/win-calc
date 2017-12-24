@@ -282,7 +282,6 @@ function buildExt(id) {
   } else {
     gulp.src(config.build.src.html)
       .pipe(newer("_product/" + id + "/ext", '.html'))
-      .pipe(replace('//#', ""))
       .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
       .pipe(jade({
         doctype: 'html',
@@ -294,9 +293,6 @@ function buildExt(id) {
         gutil.log('html!');
       });
   }
-
-
-  
 
   //js
   gulp.src(config.build.src.js)
@@ -625,7 +621,6 @@ gulp.task('stekoApp', function () {
         doctype: 'html',
         pretty: true
       }))
-      .pipe(replace('RANDOM_FLAG', random))
       .pipe(replace('orbit', "steko"))
       .pipe(replace('<script src=""></script>', '<script src="cordova.js"></script>'))
       .pipe(gulp.dest(config.build.steko.app.root))
@@ -723,7 +718,6 @@ gulp.task('cornerstoneApp', function () {
 //html
   gulp.src(config.build.src.html)
     .pipe(newer(config.build.orange.app.root, '.html'))
-    .pipe(replace('//#', ""))
     .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
     .pipe(jade({
       doctype: 'html',
@@ -826,7 +820,6 @@ gulp.task('wincalcApp', function () {
 //html
   gulp.src(config.build.src.html)
     .pipe(newer(config.build.window.app.root, '.html'))
-    .pipe(replace('//#', ""))
     .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
     .pipe(jade({
       doctype: 'html',

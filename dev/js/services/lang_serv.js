@@ -3,8 +3,8 @@
 
   var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
   if (app) {
-    isDevice = 1;
     // console.log("PhoneGap application");
+    isDevice = 1;
   } else {
     isDevice = 0;
     // console.log("Web page");
@@ -21,7 +21,11 @@
       if(isDevice) {
         path = window.location.href.replace('/index.html', '');
         path = path.replace('#/', '');
+        path = path.replace('main','');
+        path = path.replace('light','');
         path = path.replace('change-lang', '');
+        console.log("query", query)
+        console.log("path", path)
         $.getJSON(path + query, function(data){
           def.resolve(data);
         });
