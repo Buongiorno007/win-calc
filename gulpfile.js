@@ -441,6 +441,15 @@ function buildSite(id) {
         gutil.log('html!');
       });
   }
+  gulp.src(config.build.src.js_other)
+    .pipe(gulp.dest("_product/" + id + "/site/js"));
+  gulp.src(config.build.src.js_vendor)
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest("_product/" + id + "/site/js"))
+    .on('end', function () {
+      gutil.log('plugins!');
+    });
+
   // main.js
   gulp.src(config.build.src.js)
     .pipe(ngAnnotate({add: true}))
@@ -454,16 +463,6 @@ function buildSite(id) {
     .on('end', function () {
       gutil.log('js!');
     });
-
-
-  gulp.src(config.build.src.js_vendor)
-    .pipe(concat('plugins.js'))
-    .pipe(gulp.dest("_product/" + id + "/site/js"))
-    .on('end', function () {
-      gutil.log('plugins!');
-    });
-  gulp.src(config.build.src.js_other)
-    .pipe(gulp.dest("_product/" + id + "/site/js"));
 
   // Копируем изображения
   gulp.src(config.build.src.img)
