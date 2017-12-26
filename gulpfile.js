@@ -443,12 +443,15 @@ function buildSite(id) {
   }
   gulp.src(config.build.src.js_other)
     .pipe(gulp.dest("_product/" + id + "/site/js"));
+
   gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
     .pipe(concat('plugins.js'))
     .pipe(gulp.dest("_product/" + id + "/site/js"))
     .on('end', function () {
       gutil.log('plugins!');
     });
+
 
   // main.js
   gulp.src(config.build.src.js)
