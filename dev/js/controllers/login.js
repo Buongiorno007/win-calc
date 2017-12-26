@@ -176,7 +176,7 @@
             var design = LZString.compress(JSON.stringify(DesignStor.design));
             var aux = LZString.compress(JSON.stringify(AuxStor.aux));
             var order = LZString.compress(JSON.stringify(OrderStor.order));
-
+            console.log("save");
             localStorage.clear();
 
             localStorage.setItem('GlobalStor', global);
@@ -845,7 +845,8 @@
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
-            if ((curDate === checkDate)) {
+            console.log(curDate);
+            if ((curDate === checkDate) || GlobalStor.global.ISEXT) {
               UserStor.userInfo = JSON.parse(LZString.decompress(user));
               GlobalStor.global = JSON.parse(LZString.decompress(global));
               OrderStor.order = JSON.parse(LZString.decompress(order));
@@ -853,22 +854,17 @@
               AuxStor.aux = JSON.parse(LZString.decompress(aux));
               console.log("типа все ок");
               MainServ.createOrderData();
-              // if (GlobalStor.global.locations.cities.length === 1) {
-              //   loginServ.downloadAllCities(1);
-              // }
               return true;
             } else {
-              if (!GlobalStor.global.ISEXT) {
-                localStorage.clear();
-                localDB.db.clear().then(function () {
-                  // Run this code once the database has been entirely deleted.
-                  console.log('Database is now empty.');
-                }).catch(function (err) {
-                  // This code runs if there were any errors
-                  console.log(err);
-                });
-                $location.path('/');
-              }
+              localStorage.clear();
+              localDB.db.clear().then(function () {
+                // Run this code once the database has been entirely deleted.
+                console.log('Database is now empty.');
+              }).catch(function (err) {
+                // This code runs if there were any errors
+                console.log(err);
+              });
+              $location.path('/');
               console.log("разные даты");
               return false;
             }
@@ -922,7 +918,5 @@
           entryWithoutLogin();
 
         }
-
-
       });
 })();

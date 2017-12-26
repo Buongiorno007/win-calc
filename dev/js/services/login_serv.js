@@ -50,7 +50,6 @@
         //------- defined system language
         function getDeviceLanguage() {
           var browserLang = navigator.language || navigator.userLanguage;
-          console.log(browserLang);
           checkLangDictionary(browserLang);
           $translate.use(UserStor.userInfo.langLabel);
         }
@@ -375,7 +374,7 @@
                 var defer2 = $q.defer();
 
                 /** change Images Path and save in device */
-                type.img = downloadElemImg(type.img);
+                // type.img = downloadElemImg(type.img);
 
                 localDB.selectLocalDB(tableElem, {
                   'folder_id': type.id
@@ -403,9 +402,9 @@
                   if (result3[r] && elemsQty) {
                     /** change Images Path and save in device */
                     // console.log(result3);
-                    while (--elemsQty > -1) {
-                      result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
-                    }
+                    // while (--elemsQty > -1) {
+                    //   result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
+                    // }
                     elements.push(result3[r]);
                     existType.push(result3[r][0].folder_id);
                   }
@@ -624,7 +623,7 @@
                 );
                 GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
                 /** change Images Path and save in device */
-                GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+                // GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
 
                 GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
                 GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
@@ -644,9 +643,9 @@
             /** sorting glasses by type */
             while (--glassTypeQty > -1) {
               /** change Images Path and save in device */
-              GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
-                GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
-              );
+              // GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
+              //   GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
+              // );
 
               var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function (elem) {
                 return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
@@ -695,7 +694,7 @@
           if (urlSource) {
             /** check image */
             if (/^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource)) {
-              var url = globalConstants.serverIP + '' + urlSource;
+              // var url = globalConstants.serverIP + '' + urlSource;
               if (GlobalStor.global.isDevice) {
                 var imgName = urlSource.split('/').pop(),
                   //targetPath = cordova.file.documentsDirectory + '' + imgName,
@@ -875,7 +874,7 @@
                   var deff2 = $q.defer();
 
                   /** change Images Path and save in device */
-                  item.img = downloadElemImg(item.img);
+                  // item.img = downloadElemImg(item.img);
 
                   localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {
                     'id': item.parent_element_id
@@ -1301,7 +1300,9 @@
           localDB.selectLocalDB(
             localDB.tablesLocalDB.doors_groups.tableName
           ).then(function (doorData) {
-            doorData = doorData.sort(function(a, b){return a.id - b.id});
+            doorData = doorData.sort(function (a, b) {
+              return a.id - b.id
+            });
             localDB.selectLocalDB(
               localDB.tablesLocalDB.lists.tableName
             ).then(function (items) {
@@ -1349,6 +1350,8 @@
             GlobalStor.global.doorsItems = angular.copy(items);
           });
         }
+
+
 
         /** =========== DOWNLOAD ALL DATA =========== */
         function downloadAllData() {
@@ -1398,69 +1401,6 @@
                               GlobalStor.global.piece_price = coef[0].piece_price;
                             });
                             if (data) {
-                              if (GlobalStor.global.ISEXT) {
-                                GlobalStor.global.profilesType.forEach(function (entry) {
-                                  if ($("#updateDBcheck").prop("checked")) {
-                                    if (entry.img !== "") {
-                                      if (GlobalStor.global.onlineMode && navigator.onLine) {
-                                        var url = String(entry.img);
-
-                                        var xhr = new XMLHttpRequest();
-                                        xhr.responseType = 'blob';
-                                        xhr.onload = function () {
-                                          var reader = new FileReader();
-                                          reader.onloadend = function () {
-                                            var key = String(entry.img);
-                                            var value = reader.result;
-                                            localforage.setItem(key, value, function (err, value) {
-                                            });
-                                            entry.img = value;
-                                          }
-                                          reader.readAsDataURL(xhr.response);
-                                        };
-                                        xhr.open('GET', url, true);
-                                        xhr.send();
-                                      }
-                                    }
-                                  } else {
-                                    var key = String(entry.img);
-                                    localforage.getItem(key, function (err, value) {
-                                      entry.img = value;
-                                    });
-                                  }
-                                });
-                                GlobalStor.global.profiles.forEach(function (object) {
-                                  object.forEach(function (entry) {
-                                    if ($("#updateDBcheck").prop("checked")) {
-                                      if (entry.img !== "") {
-                                        if (GlobalStor.global.onlineMode && navigator.onLine) {
-                                          var url = String(entry.img);
-                                          var xhr = new XMLHttpRequest();
-                                          xhr.responseType = 'blob';
-                                          xhr.onload = function () {
-                                            var reader = new FileReader();
-                                            reader.onloadend = function () {
-                                              var key = String(entry.img);
-                                              var value = reader.result;
-                                              localforage.setItem(key, value, function (err, value) {
-                                              });
-                                              entry.img = value;
-                                            }
-                                            reader.readAsDataURL(xhr.response);
-                                          };
-                                          xhr.open('GET', url, true);
-                                          xhr.send();
-                                        }
-                                      }
-                                    } else {
-                                      var key = String(entry.img);
-                                      localforage.getItem(key, function (err, value) {
-                                        entry.img = value;
-                                      });
-                                    }
-                                  });
-                                });
-                              }
                               /** download All Glasses */
                               downloadAllGlasses().then(function (data) {
                                 // console.log("downloadAllGlasses");
@@ -1468,7 +1408,6 @@
                                   /** sorting glasses as to Type */
                                   sortingGlasses();
                                   /** download All Hardwares */
-
                                   downloadAllElemAsGroup(
                                     localDB.tablesLocalDB.window_hardware_folders.tableName,
                                     localDB.tablesLocalDB.window_hardware_groups.tableName,
@@ -1476,76 +1415,7 @@
                                     GlobalStor.global.hardwares
                                   ).then(function (data) {
                                     if (data) {
-                                      // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.profilesType));
-                                      // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
-                                      // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
-                                      if (GlobalStor.global.ISEXT) {
-                                        GlobalStor.global.hardwares.forEach(function (object) {
-                                          object.forEach(function (entry) {
-                                            if ($("#updateDBcheck").prop("checked")) {
-                                              if (entry.img !== "") {
-                                                if (GlobalStor.global.onlineMode && navigator.onLine) {
-                                                  var url = String(entry.img);
-                                                  var xhr = new XMLHttpRequest();
-                                                  xhr.responseType = 'blob';
-                                                  xhr.onload = function () {
-                                                    var reader = new FileReader();
-                                                    reader.onloadend = function () {
-                                                      var key = String(entry.img);
-                                                      var value = reader.result;
-                                                      localforage.setItem(key, value, function (err, value) {
-                                                      });
-                                                      entry.img = value;
-                                                    }
-                                                    reader.readAsDataURL(xhr.response);
-                                                  };
-                                                  xhr.open('GET', url, true);
-                                                  xhr.send();
-                                                }
-                                              }
-                                            } else {
-                                              var key = String(entry.img);
-                                              localforage.getItem(key, function (err, value) {
-                                                entry.img = value;
-                                              });
-                                            }
 
-
-                                          });
-                                        });
-
-                                        GlobalStor.global.hardwareTypes.forEach(function (entry) {
-                                          if ($("#updateDBcheck").prop("checked")) {
-                                            if (entry.img !== "") {
-                                              if (GlobalStor.global.onlineMode && navigator.onLine) {
-                                                var url = String(entry.img);
-
-                                                var xhr = new XMLHttpRequest();
-                                                xhr.responseType = 'blob';
-                                                xhr.onload = function () {
-                                                  var reader = new FileReader();
-                                                  reader.onloadend = function () {
-                                                    var key = String(entry.img);
-                                                    var value = reader.result;
-                                                    localforage.setItem(key, value, function (err, value) {
-                                                    });
-                                                    entry.img = value;
-                                                  }
-                                                  reader.readAsDataURL(xhr.response);
-                                                };
-                                                xhr.open('GET', url, true);
-                                                xhr.send();
-                                              }
-                                            }
-                                          } else {
-                                            var key = String(entry.img);
-                                            localforage.getItem(key, function (err, value) {
-                                              entry.img = value;
-                                            });
-                                          }
-
-                                        });
-                                      }
                                       // console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
                                       /** download Door Kits */
                                       downloadDoorKits();
@@ -1556,47 +1426,6 @@
                                         // console.log("downloadAllBackgrounds");
                                         /** download All AddElements */
                                         downloadAllAddElements().then(function () {
-                                        // console.log("downloadAllAddElements");
-
-                                          GlobalStor.global.addElementsAll.forEach(function (item) {
-                                            //globalConstants.serverIP +
-                                            //console.log("entry.elementType",entry.elementType);
-                                            // console.log("entry.elementsList",entry.elementsList);
-                                            item.elementType.forEach(function (entry) {
-                                              if (GlobalStor.global.ISEXT) {
-                                                if (entry.img !== "") {
-                                                  entry.img = globalConstants.serverIP + entry.img;
-                                                  if ($("#updateDBcheck").prop("checked")) {
-                                                    if (GlobalStor.global.onlineMode && navigator.onLine) {
-                                                      var url = String(entry.img);
-                                                      var xhr = new XMLHttpRequest();
-                                                      xhr.responseType = 'blob';
-                                                      xhr.onload = function () {
-                                                        var reader = new FileReader();
-                                                        reader.onloadend = function () {
-                                                          var key = String(entry.img);
-                                                          var value = reader.result;
-                                                          localforage.setItem(key, value, function (err, value) {
-                                                          });
-                                                          entry.img = value;
-                                                        }
-                                                        reader.readAsDataURL(xhr.response);
-                                                      };
-                                                      xhr.open('GET', url, true);
-                                                      xhr.send();
-                                                    }
-                                                  } else {
-                                                    var key = String(entry.img);
-                                                    localforage.getItem(key, function (err, value) {
-                                                      entry.img = value;
-                                                    });
-                                                  }
-                                                }
-                                              } else {
-                                                entry.img = globalConstants.serverIP + entry.img;
-                                              }
-                                            });
-                                          });
 
                                           //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
                                           /** download All Lamination */

@@ -24,8 +24,6 @@
         path = path.replace('main','');
         path = path.replace('light','');
         path = path.replace('change-lang', '');
-        console.log("query", query)
-        console.log("path", path)
         $.getJSON(path + query, function(data){
           def.resolve(data);
         });

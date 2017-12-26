@@ -3800,8 +3800,62 @@
       var elem_koef_number = 0;
       var element_list = [];
 
+      function getBase64(url) {
+        let defer = $q.defer();
+        let xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+          let reader = new FileReader();
+          reader.onloadend = function () {
+            let value = reader.result;
+            defer.resolve(value);
+          };
+          reader.readAsDataURL(xhr.response);
+        };
+        try {
+          xhr.open('GET', url, true);
+          xhr.send();
+        } catch (e) {
+          defer.resolve(0);
+        }
+        return defer.promise;
+      }
+
+
+      function is_url(str) {
+        let regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+        if (regexp.test(str)) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+
+      function getDataUri(url, callback) {
+        var image = new Image();
+        image.onload = function () {
+          var canvas = document.createElement('canvas');
+          canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+          canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+
+          canvas.getContext('2d').drawImage(this, 0, 0);
+
+          // Get raw image data
+          callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+
+          // ... or get as Data URI
+          callback(canvas.toDataURL('image/png'));
+        };
+        image.setAttribute('crossOrigin', 'anonymous');
+        try {
+          image.src = url;
+        } catch (e) {
+        }
+      }
 
       function convert(input) {
+        var p1 = Promise.resolve(5);
         let output = [];
         let keys = Object.keys(input.tables);
         let tables = input.tables;
@@ -3812,7 +3866,6 @@
           new_table = [];
           let curr_table = tables[keys[index]];
           let rows_length = curr_table.rows.length;
-
           if (keys[index] === "cities") {
             let cities_length = input.tables.cities.rows.length;
             for (let index = 0; index < cities_length; index++) {
@@ -3846,11 +3899,9 @@
                     }
                   }
                 }
-
               }
             }
           }
-
           for (let jndex = 0; jndex < rows_length; jndex++) {
             new_row = {};
             let curr_row = curr_table.rows[jndex];
@@ -3866,11 +3917,33 @@
               } else {
                 new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
               }
+              if (curr_table.fields[kndex] === "img" || curr_table.fields[kndex] === "link") {
+                if (is_url(curr_row[kndex])) {
+                  // getBase64(curr_row[kndex]).then((base64) => {
+                  //   new_row[curr_table.fields[kndex]] = base64;
+                  // });
+                  // getDataUri(curr_row[kndex], function (base64) {
+                  //   new_row[curr_table.fields[kndex]] = base64;
+                  //   console.log("getDataUri");
+                  // });
+                  new_row[curr_table.fields[kndex]] =  globalConstants.serverIP + curr_row[kndex];
+                } else {
+                  // getBase64(globalConstants.serverIP + curr_row[kndex]).then((base64) => {
+                  //   new_row[curr_table.fields[kndex]] = base64;
+                  // });
+                  // getDataUri(globalConstants.serverIP + curr_row[kndex], function (base64) {
+                  //   new_row[curr_table.fields[kndex]] = base64;
+                  //   console.log("getDataUri");
+                  // });
+                  new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
+                }
+              }
             }
             new_table.push(new_row);
           }
           output[keys[index]] = new_table;
         }
+        console.log("return");
         return output;
       }
 
@@ -3904,6 +3977,7 @@
         });
         return defer.promise;
       }
+
 
       /**========== FINISH ==========*/
 
