@@ -52,7 +52,7 @@ var server_env = {
     "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
-    "windowSiteTest": "'/calculator/local/'",
+    "windowSiteTest": "'/local/'",
     "windowSiteLocal": "'/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
@@ -492,7 +492,11 @@ function buildSite(id) {
 
   // copy translate jsons
   gulp.src(config.build.src.local)
-    .pipe(gulp.dest("_product/" + id + "/site/local"));
+    .pipe(newer("_product/" + id + "/site/local"))
+    .pipe(gulp.dest("_product/" + id + "/site/local"))
+    .on('end', function () {
+      gutil.log('local!');
+    });
 
 }
 
