@@ -14,7 +14,15 @@
             .construction-block
               .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
-              include panels/_templates
+              include panels/_templatesLight
+              img.infoIcon(ng-src='img/calc/info-button.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+              img.infoIconGreen(ng-src='img/calc/info-buttonGreen.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+            .product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+              div R = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::lightPage.HEATCOEF_VAL }}
+              img.infoIcon(ng-src='img/calc/info-button.svg', ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+              img.infoIconGreen(ng-src='img/calc/info-buttonGreen.svg', ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+            .product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+              div U = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::lightPage.HEATCOEF_VAL}}/{{::lightPage.LETTER_M}}&sup2;&deg;C
 
             .right-menu-header
               .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1")
@@ -210,7 +218,7 @@
                     |%
                   .discount-txt(ng-click="lightPage.approveNewDisc(0)")
                     .discounts-label {{ ::lightPage.DISCOUNT_WINDOW }}
-                
+
                 .discount-box.selected
                   .discount-data(ng-keyup="lightPage.enterKeyDop(event)")
                     .disc-max(ng-show="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
@@ -218,7 +226,7 @@
                     |%
                   .discount-txt(ng-click="lightPage.approveNewDisc(1)")
                     .discounts-label {{ ::lightPage.DISCOUNT_ADDELEM }}
-                    
+
                 .discount-box.selected
                   .discount-data(ng-keyup="lightPage.enterKeyDopService(event)")
                     .disc-max(ng-show="lightPage.U.userInfo.discount_service > 100") {{ ::lightPage.MAX }} {{'100'}}%
@@ -226,7 +234,7 @@
                     |%
                   .discount-txt(ng-click="lightPage.approveNewDisc(2)")
                     .discounts-label {{lightPage.DISCOUNT_SERVICE}}
-                  
+
             .discount-container
               .discount-title {{ ::lightPage.DISCOUNT }}
               .discount-price-container
@@ -253,13 +261,13 @@
                   span.product-template-qty X {{ lightPage.O.order.products[lightPage.config.detailProductIndex].product_qty }}
                 .product-icon-label {{ ::lightPage.PRODUCT_QTY }}
               .addelements-detail-row
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::lightPage.INCH }} *
-                  .product-label {{ ::lightPage.WIDTH_LABEL }}
+                .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width }} {{ ::lightPage.MM }} *
+                .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::lightPage.INCH }} *
+                .product-label {{ ::lightPage.WIDTH_LABEL }}
               .addelements-detail-row
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
-                  .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::lightPage.INCH }}
-                  .product-label {{ ::lightPage.HEIGHT_LABEL }}
+                .product-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height }} {{ ::lightPage.MM }}
+                .product-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ lightPage.O.order.products[lightPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::lightPage.INCH }}
+                .product-label {{ ::lightPage.HEIGHT_LABEL }}
           .addelements-detail-content
             ul.addelements-detail-list
               li.addelements-detail-item(ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
@@ -358,6 +366,11 @@
                   .figure-icon-top.position-shape-a
                   .figure-icon-bottom.position-shape-b
                 .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+              hr.separator
+              li.figure-item.temp-fig(ng-click="designPage.selectMenuItem(6)",ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
+                .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
+                  img.template-icon(src="img/config-menu/template.svg")
+                  .figure-label(data-output="{{ ::designPage.ROOM_SELECTION }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
             #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
               .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
               .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
@@ -404,36 +417,36 @@
         .configuration(ng-if="configMenu.G.global.showConfiguration")
           ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
-              .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .titleLight(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
             hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")
-              .title(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .titleLight(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length > 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku +', '+ configMenu.P.product.glass[2].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
             hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 4, 'hov': configMenu.G.global.activePanel !== 4}", fs-click="configMenu.selectConfigPanel(4)")
-              .title(data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .titleLight(data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.hardware.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorHandle.name }}
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorLock.name }}
             hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}", fs-click="configMenu.selectConfigPanel(5)")
-              .title(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .titleLight(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .name(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
             hr.separator
             li.item(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", fs-click="configMenu.selectConfigPanel(6)")
-              .title(data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .titleLight(data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .name(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .additional-items-list
                 ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
                   li.additional-item(ng-repeat="addElement in addElementGroup")
                     span.value(data-output="") {{ addElement.name }}
-                    
+
         .cart-menu(ng-if="configMenu.G.global.showCart", ng-controller="CartMenuCtrl as cartMenu")
           ul.items-list
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
@@ -534,15 +547,16 @@
               .name {{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
-
+        .discount-block(ng-if="configMenu.G.global.showCart == 0")
+          .discount-priceRed {{ lightPage.G.global.tempPrice | number : 2}} {{lightPage.U.userInfo.currency}}
+          .discount-price {{ lightPage.P.product.product_price * lightPage.G.global.product_qty}} {{lightPage.U.userInfo.currency}}
         .counter-block(ng-if="configMenu.G.global.showCart == 0")
           .counter
-            .input-minus(ng-click="lightPage.subtractProdQty()") -
-            input.prodcounter(type="number", min="1", ng-model="lightPage.G.global.product_qty")
-            .input-plus(ng-click="lightPage.addProdQty()") +
+            //.input-minus(ng-click="lightPage.subtractProdQty()") -
+            input.prodcounter(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
+            //.input-plus(ng-click="lightPage.addProdQty()") +
           .save-block(ng-click="lightPage.checkForAddElem()")
-            .cart-img
-            p {{lightPage.SAVE}}
+            p {{lightPage.CONFIGMENU_IN_CART}}
         //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
         //  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
         //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")

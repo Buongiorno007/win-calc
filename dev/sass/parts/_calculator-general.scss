@@ -43,6 +43,12 @@
     background-color: transparent;
     color: $main_gray_txt;
   }
+  .calc-digitLight{
+    @extend .button;
+    width: 100%;
+    background-color: transparent;
+    color: $main_gray_txt;
+  }
   .calc-equal {
     color: #fff;
   }

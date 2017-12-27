@@ -67,6 +67,7 @@
       thisCtrl.BACK = $filter("translate")("common_words.BACK");
       thisCtrl.SAVE = $filter("translate")("settings.SAVE");
       thisCtrl.CANCEL = $filter("translate")("add_elements.CANCEL");
+      thisCtrl.CONFIGMENU_IN_CART = $filter("translate")("mainpage.CONFIGMENU_IN_CART");
       thisCtrl.DOOR_CONFIG_LABEL = $filter("translate")(
         "design.DOOR_CONFIG_LABEL"
       );
@@ -172,6 +173,7 @@
       thisCtrl.WINDOWSILL = $filter("translate")("add_elements.WINDOWSILL");
       thisCtrl.HANDLEL = $filter("translate")("add_elements.HANDLEL");
       thisCtrl.OTHERS = $filter("translate")("add_elements.OTHERS");
+      thisCtrl.ROOM_SELECTION = $filter("translate")("mainpage.ROOM_SELECTION");
 
       thisCtrl.ADDELEMENTS_EDIT_LIST = $filter("translate")(
         "cart.ADDELEMENTS_EDIT_LIST"
@@ -265,8 +267,12 @@
           CartMenuServ.approveNewDisc(2)
         }
       }
-
+      function showCalck() {
+        GlobalStor.global.enterCount = 1;
+        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+      }
       function alert() {
+        console.log("alert");
         GlobalStor.global.nameAddElem = [];
         var name = "";
         var product = 0;
@@ -306,7 +312,7 @@
         for (var d = 0; d < GlobalStor.global.nameAddElem.length; d += 1) {
           if (
             GlobalStor.global.nameAddElem[d].name ===
-              GlobalStor.global.nameAddElem[d].tr ||
+            GlobalStor.global.nameAddElem[d].tr ||
             GlobalStor.global.nameAddElem[d].list === 20
           ) {
             delete GlobalStor.global.nameAddElem[d].name;
@@ -385,6 +391,7 @@
       thisCtrl.coutNull = coutNull;
       thisCtrl.toggleDiscount = toggleDiscount;
       thisCtrl.enterKeyDopService = enterKeyDopService;
+      thisCtrl.showCalck = showCalck;
 
       thisCtrl.box = LightServ.box;
       thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;

@@ -124,7 +124,6 @@
         }
 
 
-
         function removeGlassEventsInSVG() {
           //--------- delete click on glasses
           d3.selectAll('#' + globalConstants.SVG_ID_GLASS + ' .glass')
@@ -803,8 +802,10 @@
           GlobalStor.global.isLoader = 0;
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
+          if ($location.path() !== "/light") {
           $location.path("/main");
-          GlobalStor.global.currOpenPage = '/main';
+            GlobalStor.global.currOpenPage = '/main';
+          }
         }
 
 
@@ -3379,6 +3380,7 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           GlobalStor.global.isChangedTemplate = 1;
+
                           backtoTemplatePanel();
                         });
                       });

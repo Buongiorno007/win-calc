@@ -89,7 +89,9 @@
             ProductStor.product.hardware.id,
             ProductStor.product.lamination.lamination_in_id
           ).then(function () {
-            ProductStor.product.template_source.report = ProductStor.product.report;
+            if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
+              ProductStor.product.template_source.report = ProductStor.product.report;
+            }
             if (MainServ.inputProductInOrder()) {
               if (go_to_cart) {
                 MainServ.goToCart();
@@ -141,6 +143,7 @@
         }
 
         function checkForAddElem(go_to_cart) {
+
           if (!GlobalStor.global.isZeroPriceList.length) {
             if (!ProductStor.product.is_addelem_only) {
               alert();
@@ -197,7 +200,7 @@
 
         function cartButton() {
           if (GlobalStor.global.locations.cities.length === 1) {
-            // loginServ.downloadAllCities(1);
+            loginServ.downloadAllCities(1);
           }
           GlobalStor.global.showKarkas = 0;
           GlobalStor.global.showConfiguration = 0;
@@ -215,6 +218,8 @@
           GlobalStor.global.isSizeCalculator = 0;
           GlobalStor.global.activePanel = 0;
           CartStor.cart.isShowDiscount = 0;
+            GlobalStor.global.showTemplates = false;
+            GlobalStor.global.goLeft = false;
           if ($location.path() === "/light") {
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
@@ -270,9 +275,7 @@
             GlobalStor.global.isSavingAlert = 1;
             saveAlert();
           } else {
-            loginServ.downloadAllCities(1).then(() => {
-              MainServ.goToCart();
-            });
+            MainServ.goToCart();
           }
         }
 

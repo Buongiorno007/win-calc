@@ -1399,7 +1399,6 @@
             ).then(function (result) {
               ProductStor.product.template = angular.copy(result);
               var hardwareIds = ProductStor.product.hardware.id || 0;
-              if ($location.path() !== "/light") {
                 preparePrice(
                   ProductStor.product.template,
                   profile,
@@ -1409,7 +1408,6 @@
                 ).then(function () {
                   deff.resolve(1);
                 });
-              }
               //----- create template icon
               SVGServ.createSVGTemplateIcon(
                 ProductStor.product.template_source,

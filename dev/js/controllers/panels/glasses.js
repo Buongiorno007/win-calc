@@ -132,9 +132,7 @@
                   blockId
                 );
               }
-              if ($location.path() !== "/light") {
                 changePriceAsNewGlass();
-              }
               DesignServ.closeGlassSelectorDialog();
             } else {
               /** apply current glass to all skylights */

@@ -22,7 +22,7 @@
       top: rem(16px);
       right: rem(20px);
       display: block;
-      color: $main_orange;
+      color: $main_red;
       content: $config_menu-arrow-icon;
     }
     &.active {
@@ -110,7 +110,7 @@
 
   .title {
     margin: rem(10px) 0;
-    color: $main_orange;
+    color: $main_red;
   }
 
 
@@ -193,7 +193,7 @@
       }
     }
     &.selected {
-      background-color: $main_orange;
+      background-color: $main_red;
       .drop-txt {
         color: #fff;
       }

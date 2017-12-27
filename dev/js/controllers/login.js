@@ -886,7 +886,8 @@
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
-            $location.path("/" + GlobalStor.global.currOpenPage);
+            // $location.path("/" + GlobalStor.global.currOpenPage);
+            $location.path("/light");
           }
 
         }

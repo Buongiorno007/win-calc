@@ -7,13 +7,11 @@
 
       function ($filter,
                 $q,
-
                 GlobalStor,
                 DesignStor,
                 ProductStor,
                 OrderStor,
                 UserStor,
-
                 MainServ,
                 GeneralServ,
                 CartMenuServ,
@@ -29,7 +27,7 @@
           MainServ.setBeadId(profileId, laminatId).then(function (beadResult) {
 
             if (beadResult.length && beadResult[0]) {
-              var beadIds = GeneralServ.removeDuplicates(_.map(angular.copy(beadResult),function (item) {
+              var beadIds = GeneralServ.removeDuplicates(_.map(angular.copy(beadResult), function (item) {
                 var beadQty = template.priceElements.beadsSize.length;
                 while (--beadQty > -1) {
                   if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
@@ -45,7 +43,7 @@
                   ProductStor.product.profile.stvorka_list_id,
                   ProductStor.product.profile.impost_list_id,
                   ProductStor.product.profile.shtulp_list_id,
-                  (glassIds.length > 1) ? _.map(glassIds,function (item) {
+                  (glassIds.length > 1) ? _.map(glassIds, function (item) {
                     return item.id;
                   }) : glassIds[0].id,
                   (beadIds.length > 1) ? beadIds : beadIds[0],
@@ -229,9 +227,10 @@
         //----- Edit Produtct in main page
         function box(productIndex, type) {
           GlobalStor.global.isBox = !GlobalStor.global.isBox;
+
           //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
           function editProduct() {
-            if(OrderStor.order.products[productIndex].lamination.id > 0) {
+            if (OrderStor.order.products[productIndex].lamination.id > 0) {
               OrderStor.order.products[productIndex].profile.impost_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.impost_list_id);
               OrderStor.order.products[productIndex].profile.rama_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_list_id);
               OrderStor.order.products[productIndex].profile.rama_still_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_still_list_id);
@@ -243,11 +242,11 @@
             GlobalStor.global.isCreatedNewProduct = 1;
             GlobalStor.global.isChangedTemplate = 1;
             MainServ.prepareMainPage();
-            if(type === 'auxiliary') {
+            if (type === 'auxiliary') {
               //------ open AddElements Panel
               GlobalStor.global.activePanel = 6;
             }
-            if(!ProductStor.product.is_addelem_only) {
+            if (!ProductStor.product.is_addelem_only) {
               //------- set previos Page
               var productTEMP;
               var newId = ProductStor.product.profile.id;
@@ -257,7 +256,7 @@
               /** check new Profile */
               MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
                 //------- set current template for product
-                MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+                MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function () {
 
                   /** Extra Glass finding */
                   MainServ.checkGlassSizes(ProductStor.product.template);
@@ -265,31 +264,33 @@
                   /** return previous Product */
                   ProductStor.product = angular.copy(productTEMP);
                   DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-                  GlobalStor.global.showKarkas=1;
-                  GlobalStor.global.showConfiguration=0;
-                  GlobalStor.global.showCart=0;
+                  GlobalStor.global.showKarkas = 1;
+                  GlobalStor.global.showConfiguration = 0;
+                  GlobalStor.global.showCart = 0;
                 });
               });
               GlobalStor.global.isBox = !GlobalStor.global.isBox;
             } else {
               GlobalStor.global.activePanel = 6;
               GlobalStor.global.isBox = !GlobalStor.global.isBox;
-              GlobalStor.global.showKarkas=1;
-              GlobalStor.global.showConfiguration=0;
-              GlobalStor.global.showCart=0;
+              GlobalStor.global.showKarkas = 1;
+              GlobalStor.global.showConfiguration = 0;
+              GlobalStor.global.showCart = 0;
             }
             setTimeout(function () {
               DesignServ.rebuildSVGTemplate();
             }, 250);
           }
+
           function addCloneProductInOrder(cloneProduct, lastProductId) {
             // console.log(cloneProduct)
             lastProductId += 1;
             cloneProduct.product_id = lastProductId;
             OrderStor.order.products.push(cloneProduct);
           }
+
           function createProductCopy() {
-            var lastProductId = d3.max(_.map(OrderStor.order.products,function(item) {
+            var lastProductId = d3.max(_.map(OrderStor.order.products, function (item) {
                 return item.product_id;
               })),
 
@@ -299,6 +300,7 @@
             CartMenuServ.joinAllAddElements();
             CartMenuServ.calculateOrderPrice();
           }
+
           GeneralServ.confirmAlert(
             $filter('translate')('common_words.EDIT_COPY_TXT'),
             $filter('translate')('  '),
@@ -309,6 +311,7 @@
           );
 
         }
+
         function toggleDoorConfig() {
           GlobalStor.global.checkDoors = 0;
           DesignStor.design.steps.isDoorConfig = 1;
@@ -324,6 +327,7 @@
           $(".right-side").width("100%");
           $(".main-content").width("100%");
         }
+
         function closeDoorConfig() {
           if (DesignStor.design.steps.selectedStep3) {
             DesignStor.design.steps.selectedStep3 = 0;
@@ -347,6 +351,7 @@
           }
 
         }
+
         function saveDoorConfig(product) {
           (product) ? product = product : product = ProductStor.product;
           var deferred = $q.defer();
@@ -373,6 +378,7 @@
           $(".main-content").width("96rem");
           return deferred.promise;
         }
+
         function addProdQty() {
           GlobalStor.global.product_qty++;
           MainServ.setProductPriceTOTAL(ProductStor.product);
@@ -384,16 +390,54 @@
             MainServ.setProductPriceTOTAL(ProductStor.product);
           }
         }
+
+        function setValueQty(newValue) {
+          if (GlobalStor.global.product_qty === 0) {
+            GlobalStor.global.product_qty = newValue;
+          } else {
+            GlobalStor.global.product_qty += '' + newValue;
+          }
+          MainServ.setProductPriceTOTAL(ProductStor.product);
+        }
+
+        function deleteLastNumber() {
+          let tmp = "";
+          tmp = angular.copy(GlobalStor.global.product_qty);
+          if (tmp.length > 1) {
+            tmp = tmp.slice(0, tmp.length - 1);
+          } else {
+            tmp = 0;
+          }
+          if (tmp === "") {
+            GlobalStor.global.product_qty = 0;
+          } else {
+            GlobalStor.global.product_qty = tmp;
+          }
+          MainServ.setProductPriceTOTAL(ProductStor.product);
+        }
+
+        function closeSizeCaclulator() {
+          GlobalStor.global.enterCount = 0;
+          if (GlobalStor.global.product_qty === 0) {
+            GlobalStor.global.product_qty = 1;
+          }
+          GlobalStor.global.isSizeCalculator = 0;
+          MainServ.setProductPriceTOTAL(ProductStor.product);
+        }
+
         /**========== FINISH ==========*/
 
         thisFactory.publicObj = {
           designSaved: designSaved,
-          box : box,
-          toggleDoorConfig : toggleDoorConfig,
-          closeDoorConfig : closeDoorConfig,
-          saveDoorConfig : saveDoorConfig,
-          addProdQty : addProdQty,
-          subtractProdQty : subtractProdQty
+          box: box,
+          toggleDoorConfig: toggleDoorConfig,
+          closeDoorConfig: closeDoorConfig,
+          saveDoorConfig: saveDoorConfig,
+          addProdQty: addProdQty,
+          subtractProdQty: subtractProdQty,
+          closeSizeCaclulator: closeSizeCaclulator,
+          deleteLastNumber: deleteLastNumber,
+          setValueQty: setValueQty
 
         };
 

@@ -19,7 +19,6 @@
           query = globalConstants.localPath+options.key+'.json',
           path;
 
-      console.log(query);
       if(isDevice) {
         path = window.location.href.replace('/index.html', '');
         path = path.replace('#/', '');
@@ -40,7 +39,6 @@
           }
         );
       }
-      console.log(query);
       return def.promise;
     };
   });

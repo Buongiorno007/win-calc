@@ -28,11 +28,10 @@
           ProductStor.product.chosenAddElements.forEach(function (addElem) {
             addElem.splice(0, addElem.length);
           });
-
           GlobalStor.global.servicesPriceIndex = -1;
           GlobalStor.global.typeMenuID = 5555;
           GlobalStor.global.typeMenu = 5555;
-          ProductStor.product.services_price_arr = [0,0,0,0,0]
+          ProductStor.product.services_price_arr = [0, 0, 0, 0, 0]
           ProductStor.product.service_price = 0;
           ProductStor.product.service_price_dis = 0;
           ProductStor.product.addelem_price = 0;
@@ -77,6 +76,9 @@
                     $location.path("/design");
                   }
                 }
+                if ($location.path() === "/light") {
+                  DesignServ.designSaved();
+                }
               });
             })
           }
@@ -120,7 +122,6 @@
           ProductStor.product.room_id = templateIndex;
 
           function goToNewTemplate() {
-
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();
             GlobalStor.global.isNewTemplate = 1;
@@ -139,11 +140,11 @@
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
                 GlobalStor.global.product_qty = 1;
-                if (whoCalled === 'main') {
-                  newPriceForNewTemplate(templateIndex, roomInd);
-                } else {
-                  culcPriceNewTemplate(templateIndex);
-                }
+                // if (whoCalled === 'main') {
+                //   newPriceForNewTemplate(templateIndex, roomInd);
+                // } else {
+                // }
+                culcPriceNewTemplate(templateIndex);
               }
               setTimeout(function () {
                 DesignServ.rebuildSVGTemplate();

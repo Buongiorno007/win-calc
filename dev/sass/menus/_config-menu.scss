@@ -303,3 +303,11 @@
   }
 
 }
+.light-v{
+  .titleLight {
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin: rem(5px) 0;
+    color: $main_red !important;
+  }
+}

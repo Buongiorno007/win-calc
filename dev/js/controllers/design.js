@@ -407,7 +407,6 @@
 
 
         /**-------- Select menu item ---------*/
-
         function selectMenuItem(id) {
           // GlobalStor.global.activePanel = 0;
           if (DesignStor.design.tempSize.length) {
@@ -469,10 +468,18 @@
                   //DesignServ.deselectAllGlass();
                   DesignStor.design.activeSubMenuItem = id;
                   break;
+                case 6:
+                  DesignStor.design.activeSubMenuItem = id;
+                  GlobalStor.global.goLeft = true;
+                  //DesignServ.deselectAllGlass();
+                  break;
               }
             } else {
               //------ if we close menu
               DesignStor.design.activeSubMenuItem = 0;
+              GlobalStor.global.goLeft = false;
+              GlobalStor.global.showTemplates = false;
+              GlobalStor.global.activePanel = 1;
               //-------- delete selected glasses
               DesignServ.deselectAllGlass();
               DesignServ.deselectAllArc();

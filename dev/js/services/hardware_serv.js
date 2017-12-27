@@ -36,7 +36,6 @@
             } else {
               //-------- set current Hardware
               MainServ.setCurrentHardware(ProductStor.product, newId);
-              if ($location.path() !== "/light") {
                 //------ calculate price
                 MainServ.preparePrice(
                   ProductStor.product.template,
@@ -45,7 +44,6 @@
                   ProductStor.product.hardware.id,
                   ProductStor.product.lamination.lamination_in_id
                 );
-              }
               //------ save analytics data
 //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
               /** send analytics data to Server*/

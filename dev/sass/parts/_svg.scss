@@ -47,6 +47,13 @@
   stroke: $main_orange;
   stroke-width: 6;
 }
+.light-v {
+  .sash_mark {
+    fill: none;
+    stroke: $main_red;
+    stroke-width: 6;
+  }
+}
 .corner_mark {
   @extend .active_svg;
   stroke: none;

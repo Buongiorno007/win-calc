@@ -24,6 +24,7 @@
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
+    thisCtrl.D = DesignStor;
 
 
     thisCtrl.config = {
@@ -75,7 +76,6 @@
       thisCtrl.selected = marker;
       // marker = (marker===3)? 4:marker;
       GlobalStor.global.templatesType = marker;
-
       optionsServ.getTemplateImgIcons(function (results) {
         if (results.status) {
           GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function(data) {
@@ -83,7 +83,8 @@
           });
         };
       });
-      
+        GlobalStor.global.showTemplates = true;
+        GlobalStor.global.goLeft = true;
       MainServ.downloadAllTemplates(marker).then(function(data) {
         if (data) {
           GlobalStor.global.templatesSourceSTORE = angular.copy(data);

@@ -80,6 +80,23 @@
 //    @include flex-flow(row nowrap);
 //    @include justify-content(center);
   }
+  .template-footerLight {
+    display: none !important;
+    flex-direction: column;
+    left: -1rem;
+    width: 20rem;
+    @include display-flex();
+    overflow: auto;
+    position: relative;
+    top: 20rem;
+    display: flex;
+    overflow: auto;
+    &.goLeft{
+      display: inline-flex !important;
+    }
+    //    @include flex-flow(row nowrap);
+    //    @include justify-content(center);
+  }
 
   .other-templates {
     @include display-flex();
