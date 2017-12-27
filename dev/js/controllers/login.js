@@ -845,7 +845,6 @@
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
-            console.log(curDate);
             if ((curDate === checkDate) || GlobalStor.global.ISEXT) {
               UserStor.userInfo = JSON.parse(LZString.decompress(user));
               GlobalStor.global = JSON.parse(LZString.decompress(global));

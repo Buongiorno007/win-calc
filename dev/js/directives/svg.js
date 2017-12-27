@@ -2079,6 +2079,7 @@
                       },
                       'fill': function (d) {
                         var fillName;
+
                         if (d.type === 'glass') {
                           if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                             if (d.glass_type === 3) {
@@ -2111,6 +2112,7 @@
                               fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
                             }
                           } else {
+
                             if (d.type === "frame") {
                               switch (indexFrame) {
                                 case 0 : {
@@ -2205,8 +2207,10 @@
                             // }
                             // fillName = 'url(#frame_fp1)';
                           }
+                          if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
+                              fillName = '#DCDCDC';
+                          }
                           //   if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
-                          //     fillName = '#DCDCDC';
                           // } else {
                           //     fillName = '#f9f9f9';
                           // }
@@ -2241,7 +2245,10 @@
                         } else {
                           indexSashFilter++;
                         }
+                        if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                         return filterName;
+
+                        }
                       },
                       'fill-opacity': function (d) {
                         var fillName;

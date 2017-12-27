@@ -1076,7 +1076,26 @@
           // This code runs if there were any errors
           console.log(err);
         });
+      }
 
+      function insertTablesLocalDB(tables) {
+        var defer = $q.defer();
+        let tables_name = Object.keys(tables);
+        let table_length = tables_name.length;
+        for (let index = 0; index < table_length; index++){
+          let tableName = tables_name[index];
+          LocalDataBase[tableName] = tables[tableName];
+        }
+
+        db.setItem('tables', LocalDataBase).then(function (value) {
+          // Do other things once the value has been saved.
+          defer.resolve(1);
+        }).catch(function (err) {
+          // This code runs if there were any errors
+          defer.resolve(0);
+          console.log(err);
+        });
+        return defer.promise;
       }
 
       function updateLocalDB(tableName, elem, options) {
@@ -3943,7 +3962,6 @@
           }
           output[keys[index]] = new_table;
         }
-        console.log("return");
         return output;
       }
 
@@ -3991,6 +4009,7 @@
         selectLocalDB: selectLocalDB,
         insertRowLocalDB: insertRowLocalDB,
         updateLocalDB: updateLocalDB,
+        insertTablesLocalDB : insertTablesLocalDB,
         deleteRowLocalDB: deleteRowLocalDB,
 
         importUser: importUser,

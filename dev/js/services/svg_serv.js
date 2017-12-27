@@ -1346,8 +1346,6 @@
                     }
                   }
                 }
-
-
                 collectPointsInParts(part, drawpoint1, drawpoint2, drawpoint3, drawpoint4);
               }
             } else {

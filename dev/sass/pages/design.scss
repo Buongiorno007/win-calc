@@ -51,6 +51,9 @@ $door-config-content: $ipad-height - $door-config-header;
       content: $angel-shape-icon-b;
     }
   }
+  .order-btn{
+    background-color: $main_red !important;
+  }
   .infoIcon {
     display: none;
     position: absolute;
