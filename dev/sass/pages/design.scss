@@ -54,6 +54,7 @@ $door-config-content: $ipad-height - $door-config-header;
   .order-btn{
     background-color: $main_red !important;
   }
+
   .infoIcon {
     display: none;
     position: absolute;
@@ -1214,7 +1215,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .figure-icon-top {
     @include font-icon(rem(88px), 1);
-    color: $main_blue;
+    color: $main_gray_light;
   }
   .template-icon {
     width: 5.5rem;
@@ -1230,20 +1231,31 @@ $door-config-content: $ipad-height - $door-config-header;
     position: relative;
     top: -13rem !important;
     left: 41rem;
+    cursor: pointer;
+  }
+  .product-u-coeff-description{
+    text-decoration:  underline;
+    @include roboto-lt(rem(36px), rem(65px));
+    position: relative;
+    display: inline-block;
+    width: auto;
+    top: -15rem !important;
+    left: 35rem;
+    cursor: pointer;
   }
   .size-line {
     stroke-width: 1.2px !important;
-    stroke: $main_red !important;
+    stroke: $main_gray_light !important;
   }
   .size-rect {
     width: 160px;
     height: 70px;
-    stroke: $main_red;
+    stroke: $main_gray_light;
     stroke-width: 0px;
     fill-opacity: 0;
     cursor: pointer;
     &.active {
-      fill: $main_red;
+      fill: $main_gray_light;
       fill-opacity: 1;
     }
   }
@@ -1257,8 +1269,8 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .size-txt-edit {
     @extend .size-txt;
-    stroke: $main_red;
-    fill: $main_red;
+    stroke: $main_gray_light;
+    fill: $main_gray_light;
 
     &.active {
       stroke: #fff;
@@ -1326,16 +1338,16 @@ $door-config-content: $ipad-height - $door-config-header;
   .discount-block {
     width: 100%;
     margin-bottom: 5rem;
-    margin-left: 2rem;
+    margin-left: 2.75rem;
     .discount-priceRed {
       text-decoration: line-through;
-      font: normal 2.4rem/2.25rem roboto-medium, sans-serif, icons;
+      font: normal 2.4rem/2.25rem roboto-regular, sans-serif, icons;
       color: #ff2121;
     }
     .discount-price {
-      font: normal 4rem/6.25rem roboto-medium, sans-serif, icons;
+      font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
       color: #363636;
-      margin-left: 10rem;
+      margin-left: 0rem;
     }
   }
   .counter-block {
@@ -1345,7 +1357,7 @@ $door-config-content: $ipad-height - $door-config-header;
     width: 100%;
     display: inline-flex;
     flex-direction: row-reverse;
-    margin-left: 2rem;
+    margin-left: 2.75rem;
   }
 
   .counter {
@@ -1354,13 +1366,17 @@ $door-config-content: $ipad-height - $door-config-header;
     display: inline-block;
     margin-bottom: 2rem;
     input {
-      @include roboto-lt(rem(36px), rem(60px));
+      @include roboto-md(rem(36px), rem(60px));
       text-align: center;
-      border: 1px solid #36a4f3;
+      border: 1px solid $main_gray_light;
       width: 7rem;
       height: 7rem;
       margin-right: 4rem;
     }
+  }
+
+  .prodcounter {
+    color : $main_red;
   }
   .input-minus, .input-plus {
     cursor: pointer;
@@ -1385,7 +1401,7 @@ $door-config-content: $ipad-height - $door-config-header;
     @extend .splash;
     cursor: pointer;
     position: relative;
-    background: #36a4f3;
+    background: $aux_connect_color;
     width: 85%;
     height: 7rem;
     display: inline-block;

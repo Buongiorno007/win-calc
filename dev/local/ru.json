@@ -105,7 +105,7 @@
     "NAVMENU_APPENDIX": "Приложение",
     "NAVMENU_NEW_CALC": "Новый расчет",
 
-    "NAVMENU_LIGHT_VER": "Light версия",
+    "NAVMENU_LIGHT_VER": "Web версия",
     "NAVMENU_STANDART_VERSION": "Стандартная версия",
     "CONFIGMENU_CONFIGURATION": "Конфигурация и размеры",
     "CONFIGMENU_SIZING": "ширина * высота",
@@ -403,7 +403,7 @@
     "CALL_CREDIT_PARTIAL_PRICE": "по",
     "ADDELEMENTS_EDIT_LIST": "Редактировать список ...",
     "ADDELEMENTS_PRODUCT_COST": "в одном изделии",
-    "HEAT_TRANSFER": "теплопередача",
+    "HEAT_TRANSFER": "Коефициент теплопередачи",
     "WRONG_EMAIL": "Неверная электронная почта",
     "LINK_BETWEEN_COUPLE": "между парой",
     "LINK_BETWEEN_ALL": "между всеми",
