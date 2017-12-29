@@ -177,18 +177,18 @@
             var aux = LZString.compress(JSON.stringify(AuxStor.aux));
             var order = LZString.compress(JSON.stringify(OrderStor.order));
             console.log("save");
-            localStorage.clear();
+            window.localStorage.clear();
             // Internet Explorer 6-11
             var isIE = /*@cc_on!@*/false || !!document.documentMode;
             var isEdge = !isIE && !!window.StyleMedia;
 
             if (!isEdge) {
-              localStorage.setItem('GlobalStor', global);
-              localStorage.setItem('ProductStor', product);
-              localStorage.setItem('UserStor', userInfo);
-              localStorage.setItem('AuxStor', aux);
-              localStorage.setItem('DesignStor', design);
-              localStorage.setItem('OrderStor', order);
+              window.localStorage.setItem('GlobalStor', global);
+              window.localStorage.setItem('ProductStor', product);
+              window.localStorage.setItem('UserStor', userInfo);
+              window.localStorage.setItem('AuxStor', aux);
+              window.localStorage.setItem('DesignStor', design);
+              window.localStorage.setItem('OrderStor', order);
             }
             $location.path("/main");
             GlobalStor.global.ISLOGIN = 0;

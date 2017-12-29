@@ -17,13 +17,16 @@
               include panels/_templatesLight
               img.infoIcon(ng-src='img/calc/info-button.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
               img.infoIconGreen(ng-src='img/calc/info-buttonGreen.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
-            .product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
-              div R = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::lightPage.HEATCOEF_VAL }}
-              img.infoIcon(ng-src='img/calc/info-button.svg', ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
-              img.infoIconGreen(ng-src='img/calc/info-buttonGreen.svg', ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
-            .product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
-              div U = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::lightPage.HEATCOEF_VAL}}/{{::lightPage.LETTER_M}}&sup2;&deg;C
+              include parts/_room-info
 
+            //.product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+            //  div R = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::lightPage.HEATCOEF_VAL }}
+            //  img.infoIcon(ng-src='img/calc/info-button.svg', ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+            //  img.infoIconGreen(ng-src='img/calc/info-buttonGreen.svg', ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+            //.product-u-coeff-description(ng-if="lightPage.G.global.isConfigMenu && lightPage.U.userInfo.therm_coeff_id") Коефициент теплопередачи
+            //.product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+            //  div U = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::lightPage.HEATCOEF_VAL}}/{{::lightPage.LETTER_M}}&sup2;&deg;C
+            //.product-u-coeff-description(ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id") Сопротивление теплопередаче
             .right-menu-header
               .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1")
                 button.construct-tools.step-back(ng-click="lightPage.stepBack()")
@@ -337,6 +340,11 @@
         .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
           .construction-left-menu
             ul.figure-lists
+              li.figure-item.temp-fig(ng-click="designPage.selectMenuItem(6)", ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
+                .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
+                  img.template-icon(src="img/config-menu/template.svg")
+                .figure-label(data-output="{{ ::designPage.ROOM_SELECTION }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+              hr.separator
               li.figure-item(ng-click="designPage.selectMenuItem(3)",ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
                 .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
                   .figure-icon-top.impost-shape-a
@@ -366,11 +374,7 @@
                   .figure-icon-top.position-shape-a
                   .figure-icon-bottom.position-shape-b
                 .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-              hr.separator
-              li.figure-item.temp-fig(ng-click="designPage.selectMenuItem(6)",ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
-                .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
-                  img.template-icon(src="img/config-menu/template.svg")
-                  .figure-label(data-output="{{ ::designPage.ROOM_SELECTION }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
             #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
               .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
               .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
@@ -549,7 +553,7 @@
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
         .discount-block(ng-if="configMenu.G.global.showCart == 0")
           .discount-priceRed {{ lightPage.G.global.tempPrice | number : 2}} {{lightPage.U.userInfo.currency}}
-          .discount-price {{ lightPage.P.product.product_price * lightPage.G.global.product_qty}} {{lightPage.U.userInfo.currency}}
+          .discount-price {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2 }} {{lightPage.U.userInfo.currency}}
         .counter-block(ng-if="configMenu.G.global.showCart == 0")
           .counter
             //.input-minus(ng-click="lightPage.subtractProdQty()") -

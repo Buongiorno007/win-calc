@@ -1,13 +1,6 @@
 .room-info-container(ng-controller="RoomInfoCtrl as roomInfo", ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}", ng-swipe-up="roomInfo.switchComment($event)", ng-swipe-down="roomInfo.switchComment($event)")
   .coeff-container
     .coeff-block
-      .powered-by
-        //a(href="http://www.windowscalculator.net" target="_blank") {{roomInfo.POWERED_BY_1}}
-        a {{roomInfo.POWERED_BY_1}}
-      .powered-by
-        //a(href="http://www.windowscalculator.net" target="_blank") {{roomInfo.POWERED_BY_2}}
-        a {{roomInfo.POWERED_BY_2}}
-    .coeff-block
       .coeff-info-block(ng-if="roomInfo.G.global.showCoefInfoBlock")
         .coeff-max {{ roomInfo.O.order.heat_coef_min }}
           .heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id")
@@ -31,11 +24,3 @@
                             fs-click="roomInfo.showCoefInfoBlock()")
         | U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
         .coeff-title(data-output="{{ ::roomInfo.HEAT_TRANSFER }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
-
-
-    //.coeff-block(ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total < roomInfo.O.order.heat_coef_min}")
-    //  div.product-u-coeff R = {{ roomInfo.P.product.heat_coef_total }}
-    //  div.product-u-coeff {{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
-    .coeff-block
-      .select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="roomInfo.showRoomSelectorDialog()") {{ ::roomInfo.ROOM_SELECTION }}
-      .select-window-door.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="roomInfo.showRoomSelectorDialog()") {{ ::roomInfo.WINDOW_DOOR_SELECTION }}
