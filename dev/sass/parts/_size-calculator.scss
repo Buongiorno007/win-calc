@@ -8,6 +8,10 @@
     bottom: 0rem;
     z-index: 14;
   }
+  &.active2 {
+    bottom: 2rem;
+    z-index: 14;
+  }
 }
 
 .calc-equal {
@@ -26,6 +30,7 @@
       @include font-icon(rem(36px), 0);
 
       left: 30%;
+      top: 50%;
       position: absolute;
       color: $main_gray_txt;
       content: $calc-clean-icon;

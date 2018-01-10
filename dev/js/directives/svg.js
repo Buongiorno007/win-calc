@@ -741,14 +741,14 @@
                 .attr({
                   "in": "SourceGraphic"
                 });
-                /**<feGaussianBlur in="SourceAlpha" stdDeviation="40"></feGaussianBlur>
-                 <feOffset dx="0" dy="0" result="offsetblur"></feOffset>
-                 <feFlood flood-color="#8E8C8C"></feFlood>
-                 <feComposite in2="offsetblur" operator="in"></feComposite>
-                 <feMerge>
-                 <feMergeNode></feMergeNode>
-                 <feMergeNode in="SourceGraphic"></feMergeNode>
-                 </feMerge> */
+              /**<feGaussianBlur in="SourceAlpha" stdDeviation="40"></feGaussianBlur>
+               <feOffset dx="0" dy="0" result="offsetblur"></feOffset>
+               <feFlood flood-color="#8E8C8C"></feFlood>
+               <feComposite in2="offsetblur" operator="in"></feComposite>
+               <feMerge>
+               <feMergeNode></feMergeNode>
+               <feMergeNode in="SourceGraphic"></feMergeNode>
+               </feMerge> */
 
 
 
@@ -790,21 +790,21 @@
                 });
 
 
-             /**
-              <feComposite in2="offsetblur" operator="in"/>
-              <feMerge>
-              <feMergeNode/>
-              <feMergeNode in="SourceGraphic"/>
-              </feMerge> */
+              /**
+               <feComposite in2="offsetblur" operator="in"/>
+               <feMerge>
+               <feMergeNode/>
+               <feMergeNode in="SourceGraphic"/>
+               </feMerge> */
 
-             var sash_fp2_shadow = defs.append("filter")
-               .attr({
-                 "id": "sash_fp2_shadow",
-                 "x": "-100%",
-                 "y": "-100%",
-                 "width": "300%",
-                 "height": "300%"
-               });
+              var sash_fp2_shadow = defs.append("filter")
+                .attr({
+                  "id": "sash_fp2_shadow",
+                  "x": "-100%",
+                  "y": "-100%",
+                  "width": "300%",
+                  "height": "300%"
+                });
               sash_fp2_shadow.append("feGaussianBlur")
                 .attr({
                   "in": "SourceAlpha",
@@ -1092,7 +1092,9 @@
                         return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                       },
                       'rx': sizeBoxRadius,
-                      'ry': sizeBoxRadius
+                      'ry': sizeBoxRadius,
+                      "height": 46,
+                      "width": 160
                     });
                 }
 
@@ -1132,9 +1134,9 @@
                       },
                       'x': function () {
                         if (dim.dimId === "fp7") {
-                          return dir ? (dimLineHeight - sizeBoxWidth * 0.8-200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                          return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                         }
-                          return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                       },
                       'y': function () {
                         return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
@@ -1197,7 +1199,9 @@
                     'x': dimQ.midleX,
                     'y': dimQ.midleY,
                     'rx': sizeBoxRadius,
-                    'ry': sizeBoxRadius
+                    'ry': sizeBoxRadius,
+                    "height": 46,
+                    "width": 160
                   });
               }
 
@@ -2208,7 +2212,7 @@
                             // fillName = 'url(#frame_fp1)';
                           }
                           if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
-                              fillName = '#DCDCDC';
+                            fillName = '#DCDCDC';
                           }
                           //   if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                           // } else {
@@ -2246,7 +2250,7 @@
                           indexSashFilter++;
                         }
                         if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
-                        return filterName;
+                          return filterName;
 
                         }
                       },

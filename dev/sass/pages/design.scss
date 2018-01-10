@@ -1250,13 +1250,13 @@ $door-config-content: $ipad-height - $door-config-header;
   .size-rect {
     width: 160px;
     height: 70px;
-    stroke: $main_gray_light;
+    -moz-stroke: $main_gray_light;
     stroke-width: 0px;
     fill-opacity: 0;
     cursor: pointer;
     &.active {
-      fill: $main_gray_light;
-      fill-opacity: 1;
+      -moz-fill: $main_gray_light;
+      -moz-fill-opacity: 1;
     }
   }
   .size-txt {

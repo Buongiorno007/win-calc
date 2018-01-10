@@ -27,7 +27,8 @@
         /*jshint validthis:true */
         var thisFactory = this,
           clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'mousedown';
-
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        var isEdge = !isIE && !!window.StyleMedia;
 
         /**============ METHODS ================*/
 
@@ -173,6 +174,31 @@
             newCoordLast = finishSize - newLength,
             blocksQty = blocks.length, isLastDim = 0,
             overall = [], overallQty, newHeightQ, b, i, pointsQQty, pointsOutQty;
+          console.log(DesignStor.design.oldSize);
+          if (isEdge) {
+            axis = DesignStor.design.oldSize.attributes[7].nodeValue;
+            dimId = DesignStor.design.oldSize.attributes[11].nodeValue;
+            startSize = +DesignStor.design.oldSize.attributes[12].nodeValue;
+            finishSize = +DesignStor.design.oldSize.attributes[13].nodeValue;
+            curDimType = DesignStor.design.oldSize.attributes[5].nodeValue;
+            curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue;
+            newCoord = startSize + newLength;
+            newCoordLast = finishSize - newLength;
+            console.log("axis", axis)
+            console.log("curDimType", curDimType)
+            console.log("dimId", dimId)
+            console.log("startSize", startSize)
+            console.log("finishSize", finishSize)
+            console.log("level", level)
+          } else {
+            console.log("curDimType", curDimType)
+            console.log("curBlockId", curBlockId)
+            console.log("dimId", dimId)
+            console.log("startSize", startSize)
+            console.log("finishSize", finishSize)
+            console.log("axis", axis)
+            console.log("level", level)
+          }
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -255,6 +281,7 @@
                 while (--pointsOutQty > -1) {
                   //------ if not last dimension
                   if (!isLastDim) {
+
                     if (axis === 'x') {
                       if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
                         blocks[b].pointsOut[pointsOutQty].x = newCoord;
@@ -424,7 +451,6 @@
             /** Square limits checking */
             if (currSquare <= GlobalStor.global.maxSquareLimit) {
               /** Dimensions limits checking */
-
               if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
                 addNewSizeInTemplate(newLength);
                 //------ close size calculator and deactive size box in svg
@@ -432,8 +458,8 @@
                 //----- change Template
                 SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                   .then(function (result) {
-                    DesignStor.design.templateTEMP = angular.copy(result);
-                    DesignStor.design.resultSize = angular.copy(result);
+                    DesignStor.design.templateTEMP = Object.assign(result);
+                    DesignStor.design.resultSize = Object.assign(result);
                     checkSize(result);
                     cleanTempSize();
                     deff.resolve(1);
@@ -515,19 +541,16 @@
           var sizeLength = DesignStor.design.tempSize.length;
           //console.log('take new value = ', newValue);
           if (GlobalStor.global.isVoiceHelper) {
-
             var tempVal = parseInt(newValue, 10);
             //console.log('tempVal=====', tempVal);
             DesignStor.design.voiceTxt = '';
             DesignStor.design.openVoiceHelper = false;
-
             if ((tempVal > 0) && (tempVal < 10000)) {
               DesignStor.design.tempSize = ("" + tempVal).split('');
               //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
               changeSize();
             }
             deselectAllDimension();
-
           } else {
             //---- clear array from 0 after delete all number in array
             if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
@@ -682,8 +705,15 @@
                     dim.classed('active', true);
                     DesignStor.design.oldSize = dim[0][0];
                     DesignStor.design.prevSize = dim[0][0].textContent;
-                    DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                    DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    // Internet Explorer 6-11
+
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
                     //------- show caclulator or voice helper
                     if (GlobalStor.global.isVoiceHelper) {
                       DesignStor.design.openVoiceHelper = 1;
@@ -803,7 +833,7 @@
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
           if ($location.path() !== "/light") {
-          $location.path("/main");
+            $location.path("/main");
             GlobalStor.global.currOpenPage = '/main';
           }
         }

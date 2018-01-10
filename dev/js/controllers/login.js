@@ -911,8 +911,7 @@
         //------- defined system language
         setTimeout(function () {
           loginServ.getDeviceLanguage();
-        }, 1000)
-
+        }, 1000);
         //------- export data
         if (thisCtrl.isOnline) {
           // loginServ.initExport();

@@ -2151,7 +2151,6 @@
               }
             }
           }
-          // console.log("dimLimit", dimLimit);
           return dimLimit;
         }
 
@@ -2277,6 +2276,12 @@
           if (ProductStor.product.construction_type === 3) {
             dimLimit.minL = globalConstants.minSizeLimit;
             dimLimit.maxL = maxSizeLimit;
+          }
+          if (dimLimit.maxL < dimLimit.minL) {
+            let tmp = dimLimit.minL;
+            dimLimit.minL = dimLimit.maxL;
+            dimLimit.maxL = tmp;
+
           }
           return dimLimit;
         }
