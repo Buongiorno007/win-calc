@@ -104,7 +104,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .discounts-icon-up(ng-if="cartPage.G.global.toggleDiscount")
                         .disc(ng-if="cartPage.G.global.toggleDiscount")
                             .discount-box.selected
-                                .discount-data(ng-keyup="cartPage.enterKeyPrice(event)")
+                                .discount-data(ng-keyup="cartPage.enterKeyPrice($event)")
                                     .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
                                     input.disc-input.noPreventDefault#disc-input(type="number" value="0" ng-model="cartPage.C.cart.tempConstructDisc")
                                     |%

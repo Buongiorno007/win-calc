@@ -39,16 +39,17 @@
         }
 
 
-        $(window).load(function () {
-          document.addEventListener("deviceready", function () {
-            getDeviceLanguage();
-          }, function () {
-            getDeviceLanguage();
-          });
-        });
+        // $(window).load(function () {
+        //   document.addEventListener("deviceready", function () {
+        //     getDeviceLanguage();
+        //   }, function () {
+        //     getDeviceLanguage();
+        //   });
+        // });
 
         //------- defined system language
         function getDeviceLanguage() {
+          console.log("getDeviceLanguage");
           var browserLang = navigator.language || navigator.userLanguage;
           checkLangDictionary(browserLang);
           $translate.use(UserStor.userInfo.langLabel);

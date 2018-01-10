@@ -145,21 +145,40 @@
 
         function enterKeyPrice(e) {
           e = e || window.event;
-          if (e.keyCode === 13) {
+          var keycode;
+          if (window.event) {
+            keycode = e.which ? window.event.which : window.event.keyCode;
+          }
+          if (keycode === 13) {
             CartMenuServ.approveNewDisc(0)
           }
         }
-
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+        $(".discount-container").keyup(function() {
+          if (isFirefox) {
+          CartMenuServ.approveNewDisc(0);
+          CartMenuServ.approveNewDisc(1);
+          CartMenuServ.approveNewDisc(2);
+          }
+        });
         function enterKeyDop(e) {
           e = e || window.event;
-          if (e.keyCode === 13) {
+          var keycode;
+          if (window.event) {
+            keycode = e.which ? window.event.which : window.event.keyCode;
+          }
+          if (keycode === 13) {
             CartMenuServ.approveNewDisc(1)
           }
         }
 
         function enterKeyDopService(e) {
           e = e || window.event;
-          if (e.keyCode === 13) {
+          var keycode;
+          if (window.event) {
+            keycode = e.which ? window.event.which : window.event.keyCode;
+          }
+          if (keycode === 13) {
             CartMenuServ.approveNewDisc(2)
           }
         }

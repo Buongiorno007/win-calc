@@ -5,7 +5,7 @@
   border-left: 1px solid $main_gray_btn;
   z-index: 4;
   &.active {
-    bottom: 2rem;
+    bottom: 0rem;
     z-index: 14;
   }
 }

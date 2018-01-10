@@ -97,12 +97,13 @@
 
 
     $('.main-content').off("keypress").keypress(function(event) {
+      console.log(event);
       //      console.log(UserStor.userInfo.user_type);
       //console.log('RRRRRRRRR', event.keyCode);
       //------ show report only for Plands (5,7)
       if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
         //----- Button 'R'
-        if(event.keyCode === 82 || event.keyCode === 114) {
+        if(event.which === 1082 || event.which === 114) {
           showReport();
         }
       }

@@ -170,26 +170,20 @@
             //
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
-            var global = LZString.compress(JSON.stringify(GlobalStor.global));
-            var product = LZString.compress(JSON.stringify(ProductStor.product));
-            var userInfo = LZString.compress(JSON.stringify(UserStor.userInfo));
-            var design = LZString.compress(JSON.stringify(DesignStor.design));
-            var aux = LZString.compress(JSON.stringify(AuxStor.aux));
-            var order = LZString.compress(JSON.stringify(OrderStor.order));
+            var global = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
+            var product = LZString.compressToUTF16(JSON.stringify(ProductStor.product));
+            var userInfo = LZString.compressToUTF16(JSON.stringify(UserStor.userInfo));
+            var design = LZString.compressToUTF16(JSON.stringify(DesignStor.design));
+            var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
+            var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
             console.log("save");
             window.localStorage.clear();
-            // Internet Explorer 6-11
-            var isIE = /*@cc_on!@*/false || !!document.documentMode;
-            var isEdge = !isIE && !!window.StyleMedia;
-
-            if (!isEdge) {
-              window.localStorage.setItem('GlobalStor', global);
-              window.localStorage.setItem('ProductStor', product);
-              window.localStorage.setItem('UserStor', userInfo);
-              window.localStorage.setItem('AuxStor', aux);
-              window.localStorage.setItem('DesignStor', design);
-              window.localStorage.setItem('OrderStor', order);
-            }
+            window.localStorage.setItem('GlobalStor', global);
+            window.localStorage.setItem('ProductStor', product);
+            window.localStorage.setItem('UserStor', userInfo);
+            window.localStorage.setItem('AuxStor', aux);
+            window.localStorage.setItem('DesignStor', design);
+            window.localStorage.setItem('OrderStor', order);
             $location.path("/main");
             GlobalStor.global.ISLOGIN = 0;
             GlobalStor.global.currOpenPage = 'main';
@@ -835,27 +829,27 @@
         // setTimeout(function () {
         //   $('#jssj').trigger('click');
         // }, 1000);
-
         function checkSavedData() {
-          loginServ.getDeviceLanguage();
-          var order = localStorage.getItem("OrderStor");
-          var product = localStorage.getItem("ProductStor");
-          var aux = localStorage.getItem("AuxStor");
-          var design = localStorage.getItem("DesignStor");
-          var user = localStorage.getItem("UserStor");
-          var global = localStorage.getItem("GlobalStor");
+          // loginServ.getDeviceLanguage();
+          var order = window.localStorage.getItem("OrderStor");
+          var product = window.localStorage.getItem("ProductStor");
+          var aux = window.localStorage.getItem("AuxStor");
+          var design = window.localStorage.getItem("DesignStor");
+          var user = window.localStorage.getItem("UserStor");
+          var global = window.localStorage.getItem("GlobalStor");
           localDB.getSavedLocation();
           localDB.getLocalStor();
+
           if (product && user && global && design && order && aux) {
-            var loadDate = new Date(Date.parse(JSON.parse(LZString.decompress(global)).loadDate));
+            var loadDate = new Date(Date.parse(JSON.parse(LZString.decompressFromUTF16(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
             if ((curDate === checkDate) || GlobalStor.global.ISEXT) {
-              UserStor.userInfo = JSON.parse(LZString.decompress(user));
-              GlobalStor.global = JSON.parse(LZString.decompress(global));
-              OrderStor.order = JSON.parse(LZString.decompress(order));
-              ProductStor.product = JSON.parse(LZString.decompress(product));
-              AuxStor.aux = JSON.parse(LZString.decompress(aux));
+              UserStor.userInfo = JSON.parse(LZString.decompressFromUTF16(user));
+              GlobalStor.global = JSON.parse(LZString.decompressFromUTF16(global));
+              OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
+              ProductStor.product = JSON.parse(LZString.decompressFromUTF16(product));
+              AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
               console.log("типа все ок");
               MainServ.createOrderData();
               return true;
@@ -890,8 +884,8 @@
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
-            // $location.path("/" + GlobalStor.global.currOpenPage);
-            $location.path("/light");
+            $location.path("/" + GlobalStor.global.currOpenPage);
+            // $location.path("/light");
           }
 
         }
@@ -915,7 +909,9 @@
 
 
         //------- defined system language
-        loginServ.getDeviceLanguage();
+        setTimeout(function () {
+          loginServ.getDeviceLanguage();
+        }, 1000)
 
         //------- export data
         if (thisCtrl.isOnline) {

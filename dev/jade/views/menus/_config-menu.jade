@@ -14,7 +14,7 @@
           p  {{configMenu.COUNT}}
           .counter
             .input-minus(ng-click="configMenu.subtractProdQty()") -
-            input.prodCounter(type="number", min="1", ng-model="configMenu.G.global.product_qty",  ng-keyup="configMenu.setCount()")
+            input.prodCounter(type="number", min="1", ng-model="configMenu.G.global.product_qty",  ng-keyup="configMenu.setCount()" readonly)
             .input-plus(ng-click="configMenu.addProdQty()") +
       //.value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
