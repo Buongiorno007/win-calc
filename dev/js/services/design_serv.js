@@ -27,7 +27,8 @@
         /*jshint validthis:true */
         var thisFactory = this,
           clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'mousedown';
-
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        var isEdge = !isIE && !!window.StyleMedia;
 
         /**============ METHODS ================*/
 
@@ -173,6 +174,31 @@
             newCoordLast = finishSize - newLength,
             blocksQty = blocks.length, isLastDim = 0,
             overall = [], overallQty, newHeightQ, b, i, pointsQQty, pointsOutQty;
+          console.log(DesignStor.design.oldSize);
+          if (isEdge) {
+            axis = DesignStor.design.oldSize.attributes[7].nodeValue;
+            dimId = DesignStor.design.oldSize.attributes[11].nodeValue;
+            startSize = +DesignStor.design.oldSize.attributes[12].nodeValue;
+            finishSize = +DesignStor.design.oldSize.attributes[13].nodeValue;
+            curDimType = DesignStor.design.oldSize.attributes[5].nodeValue;
+            curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue;
+            newCoord = startSize + newLength;
+            newCoordLast = finishSize - newLength;
+            console.log("axis", axis)
+            console.log("curDimType", curDimType)
+            console.log("dimId", dimId)
+            console.log("startSize", startSize)
+            console.log("finishSize", finishSize)
+            console.log("level", level)
+          } else {
+            console.log("curDimType", curDimType)
+            console.log("curBlockId", curBlockId)
+            console.log("dimId", dimId)
+            console.log("startSize", startSize)
+            console.log("finishSize", finishSize)
+            console.log("axis", axis)
+            console.log("level", level)
+          }
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -255,6 +281,7 @@
                 while (--pointsOutQty > -1) {
                   //------ if not last dimension
                   if (!isLastDim) {
+
                     if (axis === 'x') {
                       if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
                         blocks[b].pointsOut[pointsOutQty].x = newCoord;
@@ -424,17 +451,15 @@
             /** Square limits checking */
             if (currSquare <= GlobalStor.global.maxSquareLimit) {
               /** Dimensions limits checking */
-
               if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
-                console.log("1");
                 addNewSizeInTemplate(newLength);
                 //------ close size calculator and deactive size box in svg
                 hideSizeTools();
                 //----- change Template
                 SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                   .then(function (result) {
-                    DesignStor.design.templateTEMP = angular.copy(result);
-                    DesignStor.design.resultSize = angular.copy(result);
+                    DesignStor.design.templateTEMP = Object.assign(result);
+                    DesignStor.design.resultSize = Object.assign(result);
                     checkSize(result);
                     cleanTempSize();
                     deff.resolve(1);
@@ -681,8 +706,7 @@
                     DesignStor.design.oldSize = dim[0][0];
                     DesignStor.design.prevSize = dim[0][0].textContent;
                     // Internet Explorer 6-11
-                    var isIE = /*@cc_on!@*/false || !!document.documentMode;
-                    var isEdge = !isIE && !!window.StyleMedia;
+
                     if (isEdge) {
                       DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
                       DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
