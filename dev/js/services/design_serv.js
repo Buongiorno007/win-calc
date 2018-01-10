@@ -426,6 +426,7 @@
               /** Dimensions limits checking */
 
               if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
+                console.log("1");
                 addNewSizeInTemplate(newLength);
                 //------ close size calculator and deactive size box in svg
                 hideSizeTools();
@@ -515,19 +516,16 @@
           var sizeLength = DesignStor.design.tempSize.length;
           //console.log('take new value = ', newValue);
           if (GlobalStor.global.isVoiceHelper) {
-
             var tempVal = parseInt(newValue, 10);
             //console.log('tempVal=====', tempVal);
             DesignStor.design.voiceTxt = '';
             DesignStor.design.openVoiceHelper = false;
-
             if ((tempVal > 0) && (tempVal < 10000)) {
               DesignStor.design.tempSize = ("" + tempVal).split('');
               //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
               changeSize();
             }
             deselectAllDimension();
-
           } else {
             //---- clear array from 0 after delete all number in array
             if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
@@ -682,8 +680,16 @@
                     dim.classed('active', true);
                     DesignStor.design.oldSize = dim[0][0];
                     DesignStor.design.prevSize = dim[0][0].textContent;
-                    DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                    DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    // Internet Explorer 6-11
+                    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+                    var isEdge = !isIE && !!window.StyleMedia;
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
                     //------- show caclulator or voice helper
                     if (GlobalStor.global.isVoiceHelper) {
                       DesignStor.design.openVoiceHelper = 1;
@@ -803,7 +809,7 @@
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
           if ($location.path() !== "/light") {
-          $location.path("/main");
+            $location.path("/main");
             GlobalStor.global.currOpenPage = '/main';
           }
         }
