@@ -177,6 +177,13 @@
       color: $main_green;
     }
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
   .prodCounter {
     border-radius: 5px !important;
     box-shadow: inset 1px 1px 1px 0px $main_gray_btn;
@@ -311,3 +318,6 @@
     color: $main_red !important;
   }
 }
+input[type='number'] {
+     -moz-appearance:textfield;
+   }
