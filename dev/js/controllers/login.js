@@ -879,6 +879,7 @@
         function fastEnter(url) {
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
+          GlobalStor.global.ISLOGIN = 0;
           if (url.orderEdit) {
             HistoryStor.history.orderEdit = 2;
             HistoryServ.reqResult().then(function () {
