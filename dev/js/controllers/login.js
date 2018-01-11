@@ -826,9 +826,10 @@
           }
         }
 
-        // setTimeout(function () {
-        //   $('#jssj').trigger('click');
-        // }, 1000);
+        setTimeout(function () {
+          $('#jssj').trigger('click');
+        }, 100);
+
         function checkSavedData() {
           // loginServ.getDeviceLanguage();
           var order = window.localStorage.getItem("OrderStor");

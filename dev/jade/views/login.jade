@@ -15,7 +15,7 @@ section.login-page
 
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
       .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
-        input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.LOGIN }}", required)
+        input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ loginPage.LOGIN }}", required)
         .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
         .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
