@@ -226,12 +226,12 @@
             var user          = localStorage.getItem("UserStor");
             var global        = localStorage.getItem("GlobalStor");
             if (product && user && global && design && order && aux) {
-              var global      = LZString.compress(JSON.stringify(GlobalStor.global));
-              var product     = LZString.compress(JSON.stringify(ProductStor.product));
-              var userInfo    = LZString.compress(JSON.stringify(UserStor.userInfo));
-              var design      = LZString.compress(JSON.stringify(DesignStor.design));
-              var aux         = LZString.compress(JSON.stringify(AuxStor.aux));
-              var order       = LZString.compress(JSON.stringify(OrderStor.order));
+              var global      = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
+              var product     = LZString.compressToUTF16(JSON.stringify(ProductStor.product));
+              var userInfo    = LZString.compressToUTF16(JSON.stringify(UserStor.userInfo));
+              var design      = LZString.compressToUTF16(JSON.stringify(DesignStor.design));
+              var aux         = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
+              var order       = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
 
               localStorage.setItem('GlobalStor', global);
               localStorage.setItem('ProductStor', product);

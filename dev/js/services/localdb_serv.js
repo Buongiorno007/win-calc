@@ -971,7 +971,6 @@
           }
 
         };
-
       localforage.setDriver([localforage.INDEXEDDB]);
       var db = localforage.createInstance({
         name: "bauvoice"
@@ -1668,7 +1667,6 @@
         selectLocalDB(tablesLocalDB.window_hardwares.tableName, {
           window_hardware_group_id: whId
         }).then(function (result) {
-          //console.warn('*****hardware = ', result);
           var resQty = result.length,
             hardwareKits = [],
             sashBlocksQty = sashBlocks.length,
@@ -1803,6 +1801,7 @@
                   item,
                   construction.laminationId
                 ).then(function (hardwares) {
+                  GlobalStor.global.TEMP_HARDWARES = hardwares;
                   if (hardwares.length) {
                     deff1.resolve(hardwares);
                   } else {
@@ -1813,7 +1812,6 @@
                 if (angular.isArray(construction.ids[index])) {
                   var promisKits = _.map(construction.ids[index], function (item2) {
                     var deff2 = $q.defer();
-                    console.log("promisKits", item2);
                     selectLocalDB(tablesLocalDB.lists.tableName,
                       {id: item2},
                       "id, parent_element_id, name, waste, amendment_pruning"

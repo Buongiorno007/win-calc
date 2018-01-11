@@ -189,7 +189,8 @@
             construction_count: 0,
             isServiceCalculator: 0,
             servicesPriceIndex: -1,
-            toggleDiscount: 0
+            toggleDiscount: 0,
+            TEMP_HARDWARES : []
           },
 
           setDefaultGlobal: setDefaultGlobal
