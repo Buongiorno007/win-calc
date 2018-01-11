@@ -51,7 +51,7 @@ $door-config-content: $ipad-height - $door-config-header;
       content: $angel-shape-icon-b;
     }
   }
-  .order-btn{
+  .order-btn {
     background-color: $main_red !important;
   }
 
@@ -1017,10 +1017,17 @@ $door-config-content: $ipad-height - $door-config-header;
 
     }
   }
-  .light-v {
+  .cart-menu {
     .item {
       border: none;
       margin-top: 1rem;
+      &:after {
+        color: $main_red !important;
+      }
+    }
+    .title {
+      margin: rem(10px) 0;
+      color: $main_red !important;
     }
   }
   .img-karkas {
@@ -1233,8 +1240,8 @@ $door-config-content: $ipad-height - $door-config-header;
     left: 41rem;
     cursor: pointer;
   }
-  .product-u-coeff-description{
-    text-decoration:  underline;
+  .product-u-coeff-description {
+    text-decoration: underline;
     @include roboto-lt(rem(36px), rem(65px));
     position: relative;
     display: inline-block;
@@ -1376,7 +1383,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 
   .prodcounter {
-    color : $main_red;
+    color: $main_red;
   }
   .input-minus, .input-plus {
     cursor: pointer;

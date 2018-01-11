@@ -10,7 +10,6 @@
 
   .item {
     position: relative;
-
     &:after {
       @extend .icon-setting;
       @include font-icon(rem(60px), 1.5);
@@ -22,7 +21,7 @@
       top: rem(16px);
       right: rem(20px);
       display: block;
-      color: $main_red;
+      color: $main_orange;
       content: $config_menu-arrow-icon;
     }
     &.active {
@@ -110,7 +109,7 @@
 
   .title {
     margin: rem(10px) 0;
-    color: $main_red;
+    color: $main_orange;
   }
 
 
