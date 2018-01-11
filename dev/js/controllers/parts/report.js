@@ -97,7 +97,6 @@
 
 
     $('.main-content').off("keypress").keypress(function(event) {
-      console.log(event);
       //      console.log(UserStor.userInfo.user_type);
       //console.log('RRRRRRRRR', event.keyCode);
       //------ show report only for Plands (5,7)

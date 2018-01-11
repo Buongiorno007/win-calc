@@ -765,6 +765,7 @@
 
       //---------- Price define
       function calculationPrice(obj) {
+        let tmp_hardware;
         var deferred = $q.defer();
         GlobalStor.global.isZeroPriceList = [];
         localDB.calculationPrice(obj).then(function (result) {
@@ -773,6 +774,18 @@
             if (entry.element_group_id !== 8) {
               if (entry.priceReal === 0 || entry.price === 0) {
                 GlobalStor.global.isZeroPriceList.push(entry.name);
+              }
+            }
+            if (entry.element_group_id === 5) {
+              if (entry.size === 0) {
+                GlobalStor.global.TEMP_HARDWARES[0].forEach(function(hard, item) {
+                  if (entry.id === hard.child_id) {
+                    tmp_hardware = angular.copy(entry.priceReal);
+                    entry.size = hard.length/1000;
+                    entry.priceReal  = entry.price * entry.size * entry.qty;
+                    result.priceTotal = result.priceTotal - tmp_hardware +  entry.priceReal
+                  }
+                });
               }
             }
           });
@@ -844,7 +857,6 @@
       }
 
       function prepareReport(elementList) {
-        // console.time("prepareReport");
         var report = [],
           elementListQty = elementList.length,
           ind,
@@ -1399,15 +1411,15 @@
             ).then(function (result) {
               ProductStor.product.template = angular.copy(result);
               var hardwareIds = ProductStor.product.hardware.id || 0;
-                preparePrice(
-                  ProductStor.product.template,
-                  profile,
-                  ProductStor.product.glass,
-                  hardwareIds,
-                  ProductStor.product.lamination.lamination_in_id
-                ).then(function () {
-                  deff.resolve(1);
-                });
+              preparePrice(
+                ProductStor.product.template,
+                profile,
+                ProductStor.product.glass,
+                hardwareIds,
+                ProductStor.product.lamination.lamination_in_id
+              ).then(function () {
+                deff.resolve(1);
+              });
               //----- create template icon
               SVGServ.createSVGTemplateIcon(
                 ProductStor.product.template_source,
