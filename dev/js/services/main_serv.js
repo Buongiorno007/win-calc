@@ -1015,8 +1015,8 @@
           /** U */
           ProductStor.product.heat_coef_total =
             GeneralServ.roundingValue(
-              ProductStor.product.template_square / heatCoeffTotal, 2
-            ) * 1.03;
+              (ProductStor.product.template_square / heatCoeffTotal), 2
+            );
         }
       }
 
