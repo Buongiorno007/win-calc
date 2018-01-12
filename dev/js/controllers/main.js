@@ -90,7 +90,14 @@
               ProductStor.product.template = data;
             });
         }
-
+        localDB.getLocalStor().then((result) => {
+          if (result)
+            if (!ProductStor.product.is_addelem_only) {
+              MainServ.profile();
+              MainServ.doorProfile();
+              MainServ.laminationDoor();
+            }
+        });
         getPCPower();
 
 
