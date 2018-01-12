@@ -847,6 +847,7 @@
           GlobalStor.global.checkDoors = 0;
           DesignStor.design.steps.isDoorConfig = 1;
           closeSizeCaclulator();
+          console.log(DesignStor.design.doorShapeList);
         }
 
         /**---------- Select door shape --------*/
@@ -859,7 +860,6 @@
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
-          console.log(doorsLaminations);
           for (var z = 0; z < doorsGroups.length; z += 1) {
             for (var i = 0; i < doorsLaminations.length; i += 1) {
               if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
