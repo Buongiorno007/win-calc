@@ -1212,8 +1212,6 @@
         var coupleQty = GlobalStor.global.doorsLaminations.length,
           laminatQty = GlobalStor.global.laminats.length,
           lam;
-        console.log(GlobalStor.global.doorsLaminations);
-        console.log(GlobalStor.global.laminats);
         while (--coupleQty > -1) {
           for (lam = 0; lam < laminatQty; lam += 1) {
             if (

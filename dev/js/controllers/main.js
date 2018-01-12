@@ -90,7 +90,14 @@
               ProductStor.product.template = data;
             });
         }
-
+        localDB.getLocalStor().then((result) => {
+          if (result)
+            if (!ProductStor.product.is_addelem_only) {
+              MainServ.profile();
+              MainServ.doorProfile();
+              MainServ.laminationDoor();
+            }
+        });
         getPCPower();
 
 
@@ -104,7 +111,6 @@
               var t = Math.sqrt(i) * Math.sin(i) * Math.cos(i / 2) / 2;
               s += t;
             }
-            ;
             var end = +new Date();
 
             var diff = end - start;
@@ -113,7 +119,6 @@
           GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
           GlobalStor.global.loader = 2;
           return Math.round(1000000 / diffs);
-
         }
 
 
