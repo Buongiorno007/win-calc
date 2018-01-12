@@ -3872,7 +3872,6 @@
       }
 
       function convert(input) {
-        var p1 = Promise.resolve(5);
         let output = [];
         let keys = Object.keys(input.tables);
         let tables = input.tables;

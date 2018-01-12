@@ -840,11 +840,11 @@
           var global = window.localStorage.getItem("GlobalStor");
           localDB.getSavedLocation();
           localDB.getLocalStor().then(()=>{
-            if (!ProductStor.product.is_addelem_only) {
-              MainServ.profile();
-              MainServ.doorProfile();
-              MainServ.laminationDoor();
-            }
+            // if (!ProductStor.product.is_addelem_only) {
+            //   MainServ.profile();
+            //   MainServ.doorProfile();
+            //   MainServ.laminationDoor();
+            // }
           });
 
           if (product && user && global && design && order && aux) {
