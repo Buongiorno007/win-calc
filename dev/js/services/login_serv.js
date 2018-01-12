@@ -643,13 +643,13 @@
             /** sorting glasses by type */
             while (--glassTypeQty > -1) {
               /** change Images Path and save in device */
-              // GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
-              //   GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
-              // );
+                // GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
+                //   GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
+                // );
 
               var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function (elem) {
-                return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
-              });
+                  return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
+                });
               //          console.log('glassByType!!!!!', glassByType);
               if (glassByType.length) {
                 newGlassesType.unshift(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty]);
@@ -947,7 +947,7 @@
               tempElemQty, t,
               elements, el,
               widthTemp, heightTemp, k, delQty;
-
+            console.log()
             /** sorting types by position */
             if (groupsData && groupsData.length) {
               groups = groupsData.sort(function (a, b) {
@@ -959,15 +959,17 @@
               if (addElemAll[elemAllQty].elementsList) {
                 if (!elemAllQty) {
                   /** Grids */
-                  elemQty = addElemAll[elemAllQty].elementsList[0].length;
-                  if (elemQty) {
-                    for (el = 0; el < elemQty; el += 1) {
-                      addElemAll[elemAllQty].elementsList[0][el].element_width = 1000;
-                      addElemAll[elemAllQty].elementsList[0][el].element_height = 1000;
-                      addElemAll[elemAllQty].elementsList[0][el].element_qty = 1;
-                      addElemAll[elemAllQty].elementsList[0][el].list_group_id = 20;
+                  if (addElemAll[elemAllQty].elementsList[0]) {
+                    elemQty = addElemAll[elemAllQty].elementsList[0].length;
+                    if (elemQty) {
+                      for (el = 0; el < elemQty; el += 1) {
+                        addElemAll[elemAllQty].elementsList[0][el].element_width = 1000;
+                        addElemAll[elemAllQty].elementsList[0][el].element_height = 1000;
+                        addElemAll[elemAllQty].elementsList[0][el].element_qty = 1;
+                        addElemAll[elemAllQty].elementsList[0][el].list_group_id = 20;
+                      }
+                      getGridPrice(addElemAll[elemAllQty].elementsList[0]);
                     }
-                    getGridPrice(addElemAll[elemAllQty].elementsList[0]);
                   }
 
                 } else {
@@ -1350,7 +1352,6 @@
             GlobalStor.global.doorsItems = angular.copy(items);
           });
         }
-
 
 
         /** =========== DOWNLOAD ALL DATA =========== */

@@ -3975,6 +3975,8 @@
         var defer = $q.defer();
         db.getItem('tables').then(function (value) {
           LocalDataBase = value;
+          console.log("tables");
+          defer.resolve(1);
         }).catch(function (err) {
           console.log(err);
           defer.resolve(0);

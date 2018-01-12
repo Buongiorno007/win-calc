@@ -847,14 +847,11 @@
           GlobalStor.global.checkDoors = 0;
           DesignStor.design.steps.isDoorConfig = 1;
           closeSizeCaclulator();
-          console.log(DesignStor.design.doorShapeList);
-          console.log(DesignStor.design.doorShapeData);
         }
 
         /**---------- Select door shape --------*/
 
         function selectDoor(id, product) {
-          console.log(id, product);
           var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
           var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
@@ -862,7 +859,6 @@
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
-          console.log('doorsLaminations',doorsLaminations)
           for (var z = 0; z < doorsGroups.length; z += 1) {
             for (var i = 0; i < doorsLaminations.length; i += 1) {
               if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in
