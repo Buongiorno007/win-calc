@@ -90,11 +90,7 @@
               ProductStor.product.template = data;
             });
         }
-        // if (!ProductStor.product.is_addelem_only) {
-        //   profile();
-        //   MainServ.doorProfile();
-        //   MainServ.laminationDoor();
-        // }
+
         getPCPower();
 
 
@@ -120,24 +116,12 @@
 
         }
 
-        function profile() {
-          var deferred = $q.defer();
-          if (ProductStor.product.is_addelem_only === 0) {
-            localDB.selectLocalDB(
-              localDB.tablesLocalDB.elements_profile_systems.tableName, {
-                'profile_system_id': ProductStor.product.profile.id
-              }).then(function (result) {
-              GlobalStor.global.dataProfiles = angular.copy(result)
-              deferred.resolve(result);
-            });
-          }
-          return deferred.promise;
-        }
+
 
         /**========== FINISH ==========*/
 
         //------ clicking
-        thisCtrl.profile = profile;
+        thisCtrl.profile = MainServ.profile;
         thisCtrl.getPCPower = getPCPower;
         thisCtrl.goToEditTemplate = goToEditTemplate;
         thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
