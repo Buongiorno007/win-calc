@@ -839,13 +839,6 @@
           var user = window.localStorage.getItem("UserStor");
           var global = window.localStorage.getItem("GlobalStor");
           localDB.getSavedLocation();
-          localDB.getLocalStor().then(()=>{
-            // if (!ProductStor.product.is_addelem_only) {
-            //   MainServ.profile();
-            //   MainServ.doorProfile();
-            //   MainServ.laminationDoor();
-            // }
-          });
 
           if (product && user && global && design && order && aux) {
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompressFromUTF16(global)).loadDate));
