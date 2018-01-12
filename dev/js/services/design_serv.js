@@ -861,8 +861,8 @@
           DesignStor.designSource.doorShapeList.length = [];
           for (var z = 0; z < doorsGroups.length; z += 1) {
             for (var i = 0; i < doorsLaminations.length; i += 1) {
-              if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in
-                && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out) {
+              if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
+                && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
                 if (doorsGroups[z].id === doorsLaminations[i].group_id) {
                   doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
                   doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
@@ -1256,6 +1256,7 @@
           doorId(product, source).then(function (res) {
             deferred.resolve(1);
           });
+
           return deferred.promise;
         }
 
