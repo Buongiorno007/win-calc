@@ -1212,6 +1212,8 @@
         var coupleQty = GlobalStor.global.doorsLaminations.length,
           laminatQty = GlobalStor.global.laminats.length,
           lam;
+        console.log(GlobalStor.global.doorsLaminations);
+        console.log(GlobalStor.global.laminats);
         while (--coupleQty > -1) {
           for (lam = 0; lam < laminatQty; lam += 1) {
             if (
@@ -2336,10 +2338,23 @@
       function displayData(value) {
         return angular.copy(value) * 0.0393701;
       }
-
+      function profile() {
+        var deferred = $q.defer();
+        if (ProductStor.product.is_addelem_only === 0) {
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.elements_profile_systems.tableName, {
+              'profile_system_id': ProductStor.product.profile.id
+            }).then(function (result) {
+            GlobalStor.global.dataProfiles = angular.copy(result);
+            deferred.resolve(result);
+          });
+        }
+        return deferred.promise;
+      }
       /**========== FINISH ==========*/
 
       thisFactory.publicObj = {
+        profile : profile,
         displayData: displayData,
         setCurrentGlassInTemplate: setCurrentGlassInTemplate,
         checkDependGlassTest: checkDependGlassTest,

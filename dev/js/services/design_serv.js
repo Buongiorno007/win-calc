@@ -859,11 +859,10 @@
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
-
           for (var z = 0; z < doorsGroups.length; z += 1) {
             for (var i = 0; i < doorsLaminations.length; i += 1) {
-              if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
-                && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+              if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in
+                && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out) {
                 if (doorsGroups[z].id === doorsLaminations[i].group_id) {
                   doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
                   doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
@@ -887,7 +886,7 @@
           // if (GlobalStor.global.orderEditNumber === 0) {
           //     doorsGroups = angular.copy(temp);
           // }
-          for (d = 0; d < doorTypeQty; d += 1) {
+          for (d = 0; d < doorTypeQty; d++) {
             var ch1 = DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
               return item.doorstep_type === 2;
             });
@@ -895,6 +894,7 @@
             var ch2 = DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
               return item.doorstep_type === 1;
             });
+
             isExist = 0;
             if (d === 2 && ch1.length) {
               isExist = 1;

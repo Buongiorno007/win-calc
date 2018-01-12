@@ -1040,21 +1040,21 @@
             }
             result = angular.copy(new_res);
           }
-          if (GlobalStor.global.ISLOGIN) {
-            setTimeout(() => {
-              if (result) {
-                defer.resolve(result);
-              } else {
-                defer.resolve(0);
-              }
-            }, 200);
-          } else {
+          // if (GlobalStor.global.ISLOGIN) {
+          //   setTimeout(() => {
+          //     if (result) {
+          //       defer.resolve(result);
+          //     } else {
+          //       defer.resolve(0);
+          //     }
+          //   }, 200);
+          // } else {
             if (result) {
               defer.resolve(result);
             } else {
               defer.resolve(0);
             }
-          }
+          // }
 
         } else {
           defer.resolve(0);
@@ -3872,7 +3872,6 @@
       }
 
       function convert(input) {
-        var p1 = Promise.resolve(5);
         let output = [];
         let keys = Object.keys(input.tables);
         let tables = input.tables;
@@ -3975,6 +3974,8 @@
         var defer = $q.defer();
         db.getItem('tables').then(function (value) {
           LocalDataBase = value;
+          console.log("tables");
+          defer.resolve(1);
         }).catch(function (err) {
           console.log(err);
           defer.resolve(0);
