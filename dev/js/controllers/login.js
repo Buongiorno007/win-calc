@@ -166,7 +166,14 @@
             GlobalStor.global.startSlider = 0;
             //console.timeEnd('prog');
 
-
+            if (UserStor.userInfo.user_type === 8) {
+              $location.path("/light");
+              GlobalStor.global.currOpenPage = 'light';
+              GlobalStor.global.isLightVersion = 1;
+            } else {
+              GlobalStor.global.isLightVersion = 0;
+              GlobalStor.global.currOpenPage = 'main';
+            }
             //
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -184,15 +191,8 @@
             window.localStorage.setItem('AuxStor', aux);
             window.localStorage.setItem('DesignStor', design);
             window.localStorage.setItem('OrderStor', order);
-            if (UserStor.userInfo.user_type === 8) {
-              $location.path("/light");
-              GlobalStor.global.currOpenPage = 'light';
-              GlobalStor.global.isLightVersion = 1;
-            } else {
-              $location.path("/main");
-              GlobalStor.global.isLightVersion = 0;
-              GlobalStor.global.currOpenPage = 'main';
-            }
+
+            $location.path("/" + GlobalStor.global.currOpenPage);
             GlobalStor.global.ISLOGIN = 0;
           });
         }
