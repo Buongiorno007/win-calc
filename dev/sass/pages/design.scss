@@ -1257,13 +1257,17 @@ $door-config-content: $ipad-height - $door-config-header;
   .size-rect {
     width: 160px;
     height: 70px;
+    stroke: rgb(255, 3, 3) !important;
     -moz-stroke: $main_gray_light;
     stroke-width: 0px;
     fill-opacity: 0;
     cursor: pointer;
     &.active {
-      -moz-fill: $main_gray_light;
+      -moz-fill: $main_red;
       -moz-fill-opacity: 1;
+      stroke: rgb(255, 3, 3) !important;
+      fill-opacity: 1;
+      fill: rgb(255, 3, 3);
     }
   }
   .size-txt {
@@ -1276,12 +1280,12 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .size-txt-edit {
     @extend .size-txt;
-    stroke: $main_gray_light;
-    fill: $main_gray_light;
+    stroke: $main_red;
+    fill: $main_red;
 
     &.active {
-      stroke: #fff;
-      fill: #fff;
+      stroke: white;
+      fill: white; 
     }
   }
   .order-qty-menu {

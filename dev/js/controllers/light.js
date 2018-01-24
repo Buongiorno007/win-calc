@@ -268,6 +268,7 @@
         }
       }
       function showCalck() {
+
         GlobalStor.global.enterCount = 1;
         GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
       }
