@@ -184,9 +184,16 @@
             window.localStorage.setItem('AuxStor', aux);
             window.localStorage.setItem('DesignStor', design);
             window.localStorage.setItem('OrderStor', order);
-            $location.path("/main");
+            if (UserStor.userInfo.user_type === 8) {
+              $location.path("/light");
+              GlobalStor.global.currOpenPage = 'light';
+              GlobalStor.global.isLightVersion = 1;
+            } else {
+              $location.path("/main");
+              GlobalStor.global.isLightVersion = 0;
+              GlobalStor.global.currOpenPage = 'main';
+            }
             GlobalStor.global.ISLOGIN = 0;
-            GlobalStor.global.currOpenPage = 'main';
           });
         }
 
@@ -298,7 +305,7 @@
             //---- show attantion
             thisCtrl.isUserNotActive = 1;
           }
-
+          console.log(UserStor.userInfo)
         }
 
 
