@@ -755,6 +755,7 @@
               GlobalStor.global.showCart = 0;
               GlobalStor.global.isSizeCalculator = 0;
               CartStor.cart.isShowDiscount = 0;
+              GlobalStor.global.product_qty = 1;
               $location.path('/light');
               GlobalStor.global.currOpenPage = 'light';
               MainServ.createNewProject();
