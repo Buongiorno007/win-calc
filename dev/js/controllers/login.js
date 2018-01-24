@@ -167,7 +167,6 @@
             //console.timeEnd('prog');
 
             if (UserStor.userInfo.user_type === 8) {
-              $location.path("/light");
               GlobalStor.global.currOpenPage = 'light';
               GlobalStor.global.isLightVersion = 1;
             } else {
@@ -845,9 +844,9 @@
           var design = window.localStorage.getItem("DesignStor");
           var user = window.localStorage.getItem("UserStor");
           var global = window.localStorage.getItem("GlobalStor");
-          localDB.getSavedLocation();
 
           if (product && user && global && design && order && aux) {
+            localDB.getSavedLocation();
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompressFromUTF16(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
