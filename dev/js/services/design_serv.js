@@ -174,7 +174,6 @@
             newCoordLast = finishSize - newLength,
             blocksQty = blocks.length, isLastDim = 0,
             overall = [], overallQty, newHeightQ, b, i, pointsQQty, pointsOutQty;
-          console.log(DesignStor.design.oldSize);
           if (isEdge) {
             axis = DesignStor.design.oldSize.attributes[7].nodeValue;
             dimId = DesignStor.design.oldSize.attributes[11].nodeValue;
@@ -184,20 +183,6 @@
             curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue;
             newCoord = startSize + newLength;
             newCoordLast = finishSize - newLength;
-            console.log("axis", axis)
-            console.log("curDimType", curDimType)
-            console.log("dimId", dimId)
-            console.log("startSize", startSize)
-            console.log("finishSize", finishSize)
-            console.log("level", level)
-          } else {
-            console.log("curDimType", curDimType)
-            console.log("curBlockId", curBlockId)
-            console.log("dimId", dimId)
-            console.log("startSize", startSize)
-            console.log("finishSize", finishSize)
-            console.log("axis", axis)
-            console.log("level", level)
           }
 
           //---- save last step

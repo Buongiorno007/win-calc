@@ -7,6 +7,7 @@
       $filter,
       $timeout,
       loginServ,
+      localDB,
       globalConstants,
       DesignServ,
       LightServ,
@@ -190,7 +191,14 @@
         CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
       }
       /**========== FUNCTIONS ==========*/
-
+      localDB.getLocalStor().then((result) => {
+        if (result)
+          if (!ProductStor.product.is_addelem_only) {
+            MainServ.profile();
+            MainServ.doorProfile();
+            MainServ.laminationDoor();
+          }
+      });
       $timeout(function() {
         DesignServ.initAllImposts();
         DesignServ.initAllGlass();
@@ -268,6 +276,7 @@
         }
       }
       function showCalck() {
+
         GlobalStor.global.enterCount = 1;
         GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
       }

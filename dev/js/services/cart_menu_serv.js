@@ -749,7 +749,19 @@
             //------- set previos Page
             GeneralServ.setPreviosPage();
             GlobalStor.global.isLoader = 0;
-            $location.path('/history');
+            // if (UserStor.userInfo.user_type === 8) {
+            //   GlobalStor.global.showKarkas = 1;
+            //   GlobalStor.global.showConfiguration = 0;
+            //   GlobalStor.global.showCart = 0;
+            //   GlobalStor.global.isSizeCalculator = 0;
+            //   CartStor.cart.isShowDiscount = 0;
+            //   GlobalStor.global.product_qty = 1;
+            //   $location.path('/light');
+            //   GlobalStor.global.currOpenPage = 'light';
+            //   MainServ.createNewProject();
+            // } else {
+            // }
+              $location.path('/history');
           });
         }
 

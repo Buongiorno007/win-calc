@@ -166,7 +166,13 @@
             GlobalStor.global.startSlider = 0;
             //console.timeEnd('prog');
 
-
+            // if (UserStor.userInfo.user_type === 8) {
+            //   GlobalStor.global.currOpenPage = 'light';
+            //   GlobalStor.global.isLightVersion = 1;
+            // } else {
+            // }
+              GlobalStor.global.isLightVersion = 0;
+              GlobalStor.global.currOpenPage = 'main';
             //
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
@@ -176,7 +182,7 @@
             var design = LZString.compressToUTF16(JSON.stringify(DesignStor.design));
             var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
             var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
-            console.log("save");
+            console.log("configuration finished. get ready to rock");
             window.localStorage.clear();
             window.localStorage.setItem('GlobalStor', global);
             window.localStorage.setItem('ProductStor', product);
@@ -184,9 +190,9 @@
             window.localStorage.setItem('AuxStor', aux);
             window.localStorage.setItem('DesignStor', design);
             window.localStorage.setItem('OrderStor', order);
-            $location.path("/main");
+
+            $location.path("/" + GlobalStor.global.currOpenPage);
             GlobalStor.global.ISLOGIN = 0;
-            GlobalStor.global.currOpenPage = 'main';
           });
         }
 
@@ -298,7 +304,6 @@
             //---- show attantion
             thisCtrl.isUserNotActive = 1;
           }
-
         }
 
 
@@ -838,9 +843,9 @@
           var design = window.localStorage.getItem("DesignStor");
           var user = window.localStorage.getItem("UserStor");
           var global = window.localStorage.getItem("GlobalStor");
-          localDB.getSavedLocation();
 
           if (product && user && global && design && order && aux) {
+            localDB.getSavedLocation();
             var loadDate = new Date(Date.parse(JSON.parse(LZString.decompressFromUTF16(global)).loadDate));
             var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
             var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
