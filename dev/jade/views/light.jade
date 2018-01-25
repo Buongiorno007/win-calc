@@ -5,7 +5,8 @@
 
     section.right-side(ng-class="{'main-page-bg': lightPage.G.global.currOpenPage === 'light', 'main-room-bg': lightPage.G.global.currOpenPage === 'light'}")
       section.main-content(tabindex="0")
-        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)" ng-if="userBox.U.userInfo.user_type !== 8")
+        //.user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)" ng-if="userBox.U.userInfo.user_type !== 8")
+        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)")
           button.nav-menu-btn(ng-if="userBox.U.userInfo.user_type !== 8" ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedlightPage)}", fs-click="userBox.swipeMainPage($event)")
 
         // section.construction-page(ng-class="{'active': lightPage.G.global.showCart == 1}")
