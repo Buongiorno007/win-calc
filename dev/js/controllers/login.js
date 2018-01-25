@@ -182,7 +182,7 @@
             var design = LZString.compressToUTF16(JSON.stringify(DesignStor.design));
             var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
             var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
-            console.log("save");
+            console.log("configuration finished. get ready to rock");
             window.localStorage.clear();
             window.localStorage.setItem('GlobalStor', global);
             window.localStorage.setItem('ProductStor', product);
@@ -304,7 +304,6 @@
             //---- show attantion
             thisCtrl.isUserNotActive = 1;
           }
-          console.log(UserStor.userInfo)
         }
 
 

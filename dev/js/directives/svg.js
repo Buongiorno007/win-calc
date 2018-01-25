@@ -1863,25 +1863,29 @@
 
                   /** lamination */
                   if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
-                    defs.append('pattern')
-                      .attr('id', 'laminat')
-                      .attr('patternUnits', 'userSpaceOnUse')
-                      .attr('width', 600)
-                      .attr('height', 400)
-                      .append("image")
-                      .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + ".jpg")
-                      .attr('width', 600)
-                      .attr('height', 400);
 
                     defs.append('pattern')
-                      .attr('id', 'laminat1')
+                      .attr('id', 'laminat_horizontal')
                       .attr('patternUnits', 'userSpaceOnUse')
-                      .attr('width', 150)
-                      .attr('height', 100)
+                      .attr('width', 1500)
+                      .attr('height', 50)
                       .append("image")
                       .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + ".jpg")
-                      .attr('width', 150)
-                      .attr('height', 100);
+                      .attr('width', 1500)
+                      .attr('height', 50);
+
+                    defs.append('pattern')
+                      .attr('id', 'laminat_vertical')
+                      .attr('patternUnits', 'userSpaceOnUse')
+                      .attr('width', 50)
+                      .attr('height', 1500)
+                      .append("image")
+                      .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_2.jpg")
+                      .attr('width', 50)
+                      .attr('height', 1500);
+
+
+
                   } else if (ProductStor.product.doorLock.stvorka_type === 6) {
                     defs.append('pattern')
                       .attr('id', 'laminat')
@@ -2104,11 +2108,92 @@
                           }
                         } else {
                           if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
-                            if ((d.type === 'frame') || (d.type === 'impost')) {
-                              fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
-                            } else {
-                              fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
+                            if (d.type === "frame") {
+                              switch (indexFrame) {
+                                case 0 : {
+                                  fillName = 'url(#laminat_horizontal)';
+                                  break;
+                                }
+                                case 1 : {
+                                  fillName = 'url(#laminat_vertical)';
+                                  break;
+                                }
+                                case 2 : {
+                                  fillName = 'url(#laminat_horizontal)';
+                                  break;
+                                }
+                                case 3 : {
+                                  fillName = 'url(#laminat_vertical)';
+                                  indexFrame = 0;
+                                  break;
+                                }
+                              }
                             }
+                            if (d.type === "bead") {
+                              switch (indexBead) {
+                                case 0 : {
+                                  fillName = 'url(#laminat_horizontal)';
+                                  break;
+                                }
+                                case 1 : {
+                                  fillName = 'url(#laminat_vertical)';
+                                  break;
+                                }
+                                case 2 : {
+                                  fillName = 'url(#laminat_horizontal)';
+                                  break;
+                                }
+                                case 3 : {
+                                  fillName = 'url(#laminat_vertical)';
+                                  indexFrame = 0;
+                                  break;
+                                }
+                              }
+                            }
+                            if (d.type === "sash") {
+                              switch (indexSash) {
+                                case 0 : {
+                                  fillName = 'url(#laminat_horizontal)';
+                                  break;
+                                }
+                                case 1 : {
+                                  fillName = 'url(#laminat_vertical)';
+                                  break;
+                                }
+                                case 2 : {
+                                  fillName = 'url(#laminat_horizontal)';
+                                  break;
+                                }
+                                case 3 : {
+                                  fillName = 'url(#laminat_vertical)';
+                                  indexFrame = 0;
+                                  break;
+                                }
+                              }
+                            }
+                            if (d.type === "impost" || d.type === "impost") {
+                              fillName = 'url(#laminat_vertical)';
+                            }
+                            if (indexFrame >= 3) {
+                              indexFrame = 0
+                            } else {
+                              indexFrame++;
+                            }
+                            if (indexBead >= 3) {
+                              indexBead = 0
+                            } else {
+                              indexBead++;
+                            }
+                            if (indexSash >= 3) {
+                              indexSash = 0
+                            } else {
+                              indexSash++;
+                            }
+                            // if ((d.type === 'frame') || (d.type === 'impost')) {
+                            //   fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                            // } else {
+                            //   fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
+                            // }
                           } else if (ProductStor.product.lamination.img_out_id > 1 && ProductStor.product.doorLock.stvorka_type === 6) {
                             if ((d.type === 'frame') || (d.type === 'impost')) {
                               fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
@@ -2134,7 +2219,6 @@
                                 case 3 : {
                                   fillName = 'url(#frame_fp2)';
                                   indexFrame = 0;
-
                                   break;
                                 }
                               }
