@@ -2049,8 +2049,8 @@
                     setHandle(defs, 'handleU', 270, 41, 40, 'handle-mark', 'handles/handle_left', 100);
                     setHandle(defs, 'handleD', 270, 68, 40, 'handle-mark', 'handles/handle_right', 100);
 
-                    setHandle(defs, 'hingeR', 0, 29, 56, 'hinge-mark', 'handles/hinge', 120);
-                    setHandle(defs, 'hingeL', 0, 68, 56, 'hinge-mark', 'handles/hinge', 120);
+                    setHandle(defs, 'hingeR', 0, 28, 56, 'hinge-mark', 'handles/hinge', 120);
+                    setHandle(defs, 'hingeL', 0, 69, 56, 'hinge-mark', 'handles/hinge', 120);
                     setHandle(defs, 'hingeU', 270, 30, 56, 'hinge-mark', 'handles/hinge', 120);
                     setHandle(defs, 'hingeD', 270, 68, 56, 'hinge-mark', 'handles/hinge', 120);
                   } else {

@@ -166,13 +166,13 @@
             GlobalStor.global.startSlider = 0;
             //console.timeEnd('prog');
 
-            // if (UserStor.userInfo.user_type === 8) {
-            //   GlobalStor.global.currOpenPage = 'light';
-            //   GlobalStor.global.isLightVersion = 1;
-            // } else {
-            // }
+            if (UserStor.userInfo.user_type === 8) {
+              GlobalStor.global.currOpenPage = 'light';
+              GlobalStor.global.isLightVersion = 1;
+            } else {
               GlobalStor.global.isLightVersion = 0;
               GlobalStor.global.currOpenPage = 'main';
+            }
             //
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
