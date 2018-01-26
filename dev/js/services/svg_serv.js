@@ -1332,7 +1332,6 @@
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                       drawpoint3 = angular.copy(pointsIn[0]);
                       drawpoint3.y = newPointsOut[0].y;
-
                     }
                   }
                   if (shapeIndex === 3) {

@@ -479,7 +479,7 @@
               DesignStor.design.activeSubMenuItem = 0;
               GlobalStor.global.goLeft = false;
               GlobalStor.global.showTemplates = false;
-              GlobalStor.global.activePanel = 1;
+              GlobalStor.global.activePanel = 0;
               //-------- delete selected glasses
               DesignServ.deselectAllGlass();
               DesignServ.deselectAllArc();

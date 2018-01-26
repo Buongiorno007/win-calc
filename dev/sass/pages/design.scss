@@ -950,7 +950,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
     p {
       @include roboto-lt(rem(20px));
-      color: $main_gray_txt;
+      color: black;
       margin: 0;
     }
 
@@ -1222,7 +1222,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .figure-icon-top {
     @include font-icon(rem(88px), 1);
-    color: $main_gray_light;
+    color: gray;
   }
   .template-icon {
     width: 5.5rem;
@@ -1252,7 +1252,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .size-line {
     stroke-width: 1.2px !important;
-    stroke: $main_gray_light !important;
+    stroke: gray !important;
   }
   .size-rect {
     width: 160px;
