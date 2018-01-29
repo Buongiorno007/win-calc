@@ -78,6 +78,8 @@
                 }
                 if ($location.path() === "/light") {
                   DesignServ.designSaved();
+                  GlobalStor.global.goLeft = false;
+                  GlobalStor.global.showTemplates = false;
                 }
               });
             })

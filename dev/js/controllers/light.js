@@ -176,6 +176,8 @@
       thisCtrl.OTHERS = $filter("translate")("add_elements.OTHERS");
       thisCtrl.ROOM_SELECTION = $filter("translate")("mainpage.ROOM_SELECTION");
 
+      thisCtrl.ADD_ORDER = $filter('translate')('cart.ADD_ORDER');
+
       thisCtrl.ADDELEMENTS_EDIT_LIST = $filter("translate")(
         "cart.ADDELEMENTS_EDIT_LIST"
       );
@@ -417,6 +419,7 @@
       thisCtrl.increaseProductQty = CartServ.increaseProductQty;
       thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
       thisCtrl.fastEdit = CartServ.fastEdit;
+      thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
 
       thisCtrl.selectDoor = DesignServ.selectDoor;
       thisCtrl.selectSash = DesignServ.selectSash;
