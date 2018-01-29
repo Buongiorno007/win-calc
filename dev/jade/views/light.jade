@@ -199,6 +199,12 @@
                     .order-comment-box
                       .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
                       .order-comment-content {{ lightPage.O.order.comment }}
+                .add-new-product.order(ng-click="lightPage.addNewProductInOrder()")
+                  .add-img
+                    | +
+                  .title {{lightPage.ADD_ORDER}}
+                  .order-footer
+
             .template-window(ng-if="lightPage.C.cart.showCurrentTemp")
               button.close-cur-window(ng-click="lightPage.C.cart.showCurrentTemp=0")
               img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
@@ -553,13 +559,14 @@
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
         .discount-block(ng-if="configMenu.G.global.showCart == 0")
           .discount-priceRed {{ lightPage.G.global.tempPrice | number : 2}} {{lightPage.U.userInfo.currency}}
-          .discount-price {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2 }} {{lightPage.U.userInfo.currency}}
+          .discount-price
+            price(price-value="lightPage.P.product.product_price * lightPage.G.global.product_qty", price-currency="lightPage.U.userInfo.currency")
         .counter-block(ng-if="configMenu.G.global.showCart == 0")
           .counter
             //.input-minus(ng-click="lightPage.subtractProdQty()") -
             input.prodcounter(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
             //.input-plus(ng-click="lightPage.addProdQty()") +
-          .save-block(ng-click="lightPage.checkForAddElem()")
+          .save-block#save-block(ng-click="lightPage.checkForAddElem()")
             p {{lightPage.CONFIGMENU_IN_CART}}
         //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
         //  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}

@@ -1170,11 +1170,11 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   #impost-shape-menu {
-    top: 1rem;
+    top: 9.5rem;
     z-index: -1;
   }
   #sash-shape-menu {
-    top: 9.5rem;
+    top: 17.5rem;
     z-index: -1;
     &.active {
       left: -28rem;
@@ -1191,7 +1191,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 
   #angel-shape-menu {
-    top: 17.5rem;
+    top: 25rem;
     z-index: -1;
     &.active {
       left: -20rem;
@@ -1199,14 +1199,14 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   #arc-shape-menu {
     z-index: -1;
-    top: 25rem;
+    top: 33.5rem;
     &.active {
       left: -16rem;
     }
   }
   #position-menu-for-position {
     z-index: -1;
-    top: 34rem;
+    top: 41.5rem;
     &.active {
       left: -29rem;
     }
@@ -1328,14 +1328,14 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     width: 35%;
     height: 21%;
-    top: 6.8rem;
+    top: 10.5rem;
     padding-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
     background: rgba(#fff, .9);
     z-index: 999;
     &.active {
-      height: 100%;
+      height: 90%;
     }
     &.goLeft {
       left: 64rem;
@@ -1567,9 +1567,17 @@ $door-config-content: $ipad-height - $door-config-header;
   .additional-list-container {
     top: -5rem !important;
   }
+  .construct-tools {
+    width: 7rem;
+    height: 7rem;
+    &:after {
+      top: 32%;
+      left: 31%;
+    }
+  }
   .nav-tool-box {
     position: relative;
-    top: -5.5rem;
+    top: -3rem;
     left: 2rem;
   }
   .template-window {

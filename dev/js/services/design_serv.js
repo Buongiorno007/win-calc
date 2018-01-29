@@ -77,6 +77,7 @@
           deselectAllDimension();
           GlobalStor.global.isSizeCalculator = 0;
           DesignStor.design.openVoiceHelper = 0;
+
         }
 
 
@@ -2968,6 +2969,7 @@
                   DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
                 }
               });
+
             });
         }
 
@@ -3290,7 +3292,6 @@
 
 
         function designSaved() {
-
           if (GlobalStor.global.checkDoors === 0) {
             var doorConfig = DesignStor.design.doorConfig,
               isSashesInTemplate;
@@ -3395,8 +3396,8 @@
                         //-------- template was changed
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
+                          DesignStor.design.templateTEMP = angular.copy(result);
                           GlobalStor.global.isChangedTemplate = 1;
-
                           backtoTemplatePanel();
                         });
                       });
