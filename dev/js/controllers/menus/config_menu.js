@@ -199,15 +199,19 @@
         }
 
         function cartButton() {
-          if (GlobalStor.global.locations.cities.length === 1) {
-            loginServ.downloadAllCities(1);
-          }
+          if (OrderStor.order.products.length) {
           GlobalStor.global.showKarkas = 0;
           GlobalStor.global.showConfiguration = 0;
           GlobalStor.global.showCart = 1;
           GlobalStor.global.activePanel = 0;
           CartMenuServ.calculateOrderPrice();
-          CartMenuServ.joinAllAddElements();
+          CartMenuServ.joinAllAddElements();}
+          else {
+            GeneralServ.infoAlert(
+              $filter('translate')('natification.ATENTION'),
+              $filter('translate')('common_words.SAVED_KONSTRUCTION_ATTENTION')
+            );
+          }
         }
 
         function configButton() {

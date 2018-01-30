@@ -213,7 +213,7 @@
             .discount-container
               .discount-box.selected
                 .discount-data
-                  label.disc-input.noPreventDefault#disc-input-main {{lightPage.C.cart.averageDisc}}
+                  label.disc-input.noPreventDefault#disc-input-main {{lightPage.C.cart.averageDisc | number : 2}}
                   label %
                 .discount-txt-arrow(ng-click="lightPage.toggleDiscount()")
                   .discounts-label {{lightPage.DISCOUNT}}
@@ -560,7 +560,7 @@
         .discount-block(ng-if="configMenu.G.global.showCart == 0")
           .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
           .discount-price
-            price(price-value="lightPage.P.product.productPriceDis * lightPage.G.global.product_qty", price-currency="lightPage.U.userInfo.currency")
+            price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
         .counter-block(ng-if="configMenu.G.global.showCart == 0")
           .counter
             //.input-minus(ng-click="lightPage.subtractProdQty()") -

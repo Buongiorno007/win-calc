@@ -775,8 +775,9 @@
           }
         }
 
+
         function calculateAverageDisc() {
-          CartStor.cart.averageDisc = parseFloat(100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100).toFixed(2);
+          CartStor.cart.averageDisc = 100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100;
           // CartStor.cart.averageDisc = Math.round(100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100);
         }
 

@@ -36,6 +36,7 @@
     "LETTER_M": "м",
     "COUNT": "Кількість",
     "SAVED_KONSTRUCTION" : "Конструкція з даними набором параметрів збережена.",
+    "SAVED_KONSTRUCTION_ATTENTION" : "Для початку збережіть конструкцію.",
     "SAVE_OR_NO" : "Зберегти поточну конструкцію?"
   },
   "natification": {

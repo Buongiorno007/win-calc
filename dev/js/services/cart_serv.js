@@ -10,6 +10,7 @@
                 $timeout,
                 GeneralServ,
                 MainServ,
+                DesignServ,
                 CartMenuServ,
                 GlobalStor,
                 OrderStor,
@@ -62,6 +63,23 @@
               //$scope.global.createNewProjectCart();
               //TODO create new project
             }
+            if ($location.path() === "/light") {
+              if (!OrderStor.order.products.length) {
+                MainServ.createNewProduct();
+                DesignServ.deselectAllDimension();
+                GlobalStor.global.showKarkas = 1;
+                GlobalStor.global.showConfiguration = 0;
+                GlobalStor.global.showCart = 0;
+                GlobalStor.global.isSizeCalculator = 0;
+                GlobalStor.global.activePanel = 0;
+                CartStor.cart.isShowDiscount = 0;
+                ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+                ProductStor.product.template = DesignStor.design.templateTEMP;
+                setTimeout(function () {
+                  DesignServ.rebuildSVGTemplate();
+                }, 250);
+              }
+            }
           }
 
           GeneralServ.confirmAlert(
@@ -88,6 +106,7 @@
         /*** FASTEDIT*/
         function fastEdit(productIndex, type) {
           GlobalStor.global.isBox = 0;
+
           function edit() {
             CartStor.cart.showCurrentTemp = !CartStor.cart.showCurrentTemp;
             ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
@@ -119,24 +138,24 @@
                   ProductStor.product = angular.copy(productTEMP);
                   DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
                   if (GlobalStor.global.isLightVersion) {
-                    GlobalStor.global.showKarkas=1;
-                    GlobalStor.global.showConfiguration=0;
-                    GlobalStor.global.showCart=0;
+                    GlobalStor.global.showKarkas = 1;
+                    GlobalStor.global.showConfiguration = 0;
+                    GlobalStor.global.showCart = 0;
                   } else {
                     $location.path('/main');
-                    GlobalStor.global.isLightVersion =0;
+                    GlobalStor.global.isLightVersion = 0;
                   }
                 });
               });
             } else {
               GlobalStor.global.activePanel = 6;
               if (GlobalStor.global.isLightVersion) {
-                GlobalStor.global.showKarkas=1;
-                GlobalStor.global.showConfiguration=0;
-                GlobalStor.global.showCart=0;
+                GlobalStor.global.showKarkas = 1;
+                GlobalStor.global.showConfiguration = 0;
+                GlobalStor.global.showCart = 0;
               } else {
                 $location.path('/main');
-                GlobalStor.global.isLightVersion =0;
+                GlobalStor.global.isLightVersion = 0;
               }
             }
           }
@@ -147,6 +166,7 @@
             edit
           );
         }
+
         function setAddElementsTotalPrice(currProduct) {
           var elemTypeQty = currProduct.chosenAddElements.length,
             elemQty;
@@ -175,6 +195,7 @@
         //----- Edit Produtct in main page
         function box(productIndex, type) {
           GlobalStor.global.isBox = !GlobalStor.global.isBox;
+
           //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
           function editProduct() {
             if (OrderStor.order.products[productIndex].lamination.id > 0) {
@@ -232,7 +253,7 @@
           }
 
           function createProductCopy() {
-            var lastProductId = d3.max(_.map(OrderStor.order.products,function (item) {
+            var lastProductId = d3.max(_.map(OrderStor.order.products, function (item) {
                 return item.product_id;
               })),
 
@@ -309,7 +330,7 @@
 
         function initSelectedProductsArr() {
           CartStor.cart.selectedProducts.length = 0;
-          CartStor.cart.selectedProducts = _.map(OrderStor.order.products,function () {
+          CartStor.cart.selectedProducts = _.map(OrderStor.order.products, function () {
             return [];
           });
         }
@@ -319,7 +340,7 @@
         function showAllAddElements() {
           GeneralServ.addElementDATA.forEach(function (elemType) {
             CartStor.cart.allAddElemsOrder.forEach(function (allAddElemsOrder) {
-              if (elemType.id === allAddElemsOrder.list_group_id){
+              if (elemType.id === allAddElemsOrder.list_group_id) {
                 console.log(elemType.id);
               }
             })
@@ -372,7 +393,7 @@
 
 
         function createProductCopy(currProdInd) {
-          var lastProductId = d3.max(_.map(OrderStor.order.products,function (item) {
+          var lastProductId = d3.max(_.map(OrderStor.order.products, function (item) {
               return item.product_id;
             })),
             cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
@@ -380,11 +401,12 @@
           CartMenuServ.joinAllAddElements();
           CartMenuServ.calculateOrderPrice();
         }
+
         function collectAddElem() {
           CartStor.cart.addedAddElem = [];
           GeneralServ.addElementDATA.forEach(function (elemType) {
             CartStor.cart.allAddElemsOrder.forEach(function (allAddElemsOrder) {
-              if (elemType.id===allAddElemsOrder.list_group_id){
+              if (elemType.id === allAddElemsOrder.list_group_id) {
 
               }
             })

@@ -35,6 +35,7 @@
     "LETTER_M": "m",
     "COUNT": "Amount",
     "SAVED_KONSTRUCTION" : "The construction with this set of parameters is saved.",
+    "SAVED_KONSTRUCTION_ATTENTION" : "First, save the construction.",
     "SAVE_OR_NO" : "Do you want to save the current construction?"
   },
   "natification": {
