@@ -5,7 +5,7 @@
 
     section.right-side(ng-class="{'main-page-bg': lightPage.G.global.currOpenPage === 'light', 'main-room-bg': lightPage.G.global.currOpenPage === 'light'}")
       section.main-content(tabindex="0")
-        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)" ng-if="userBox.U.userInfo.user_type !== 8")
+        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)" ng-show="userBox.U.userInfo.user_type !== 8")
           button.nav-menu-btn(ng-if="userBox.U.userInfo.user_type !== 8" ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedlightPage)}", fs-click="userBox.swipeMainPage($event)")
 
         // section.construction-page(ng-class="{'active': lightPage.G.global.showCart == 1}")
@@ -134,7 +134,7 @@
 
         section.cart-page(ng-if="lightPage.G.global.showCart === 1")
           section.cart-container.full-view(ng-class="{'discount': lightPage.C.cart.isShowDiscount}")
-            .scroll-hor-container.left-position
+            .scroll-hor-container
               .order-block
                 .order(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
                   button.order-delete(fs-click="lightPage.clickDeleteProduct($index)")
@@ -558,9 +558,9 @@
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
         .discount-block(ng-if="configMenu.G.global.showCart == 0")
-          .discount-priceRed {{ lightPage.G.global.tempPrice | number : 2}} {{lightPage.U.userInfo.currency}}
+          .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
           .discount-price
-            price(price-value="lightPage.P.product.product_price * lightPage.G.global.product_qty", price-currency="lightPage.U.userInfo.currency")
+            price(price-value="lightPage.P.product.productPriceDis * lightPage.G.global.product_qty", price-currency="lightPage.U.userInfo.currency")
         .counter-block(ng-if="configMenu.G.global.showCart == 0")
           .counter
             //.input-minus(ng-click="lightPage.subtractProdQty()") -

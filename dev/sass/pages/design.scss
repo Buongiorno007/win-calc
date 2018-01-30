@@ -1544,7 +1544,7 @@ $door-config-content: $ipad-height - $door-config-header;
     width: auto;
     height: 84rem !important;
     padding-left: 1rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
   }
   .size-calc-container {
     position: relative;
@@ -1576,9 +1576,9 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .nav-tool-box {
-    position: relative;
+    position: absolute;
     top: -3rem;
-    left: 2rem;
+    left: -6rem;
   }
   .template-window {
     top: 6.75rem !important;
