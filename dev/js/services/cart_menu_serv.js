@@ -367,6 +367,7 @@
               OrderStor.order.products[productQty].service_price_dis +
               GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
+            MainServ.setProductPriceTOTAL(OrderStor.order.products[productQty]);
           }
         }
 
