@@ -654,6 +654,9 @@
             CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
           }
           CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+          approveNewDisc(0);
+          approveNewDisc(1);
+          approveNewDisc(2);
         }
 
 
