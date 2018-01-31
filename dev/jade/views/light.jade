@@ -138,7 +138,7 @@
               .order-block
                 .order(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
                   button.order-delete(fs-click="lightPage.clickDeleteProduct($index)")
-                  img.imgg(ng-src='img/copy_edit.png', fs-click="lightPage.box($index, 'product')")
+                  img.imgg(ng-src='img/cart/copy_edit.svg', fs-click="lightPage.box($index, 'product')")
                   .order-header(ng-click="lightPage.showCartTemplte($index)")
                     .order-template
                       svg-template(template="product.templateIcon", template-width="lightPage.constants.svgTemplateIconWidthCart", template-height="lightPage.constants.svgTemplateIconHeightCart", type-construction="lightPage.constants.SVG_CLASS_ICON")

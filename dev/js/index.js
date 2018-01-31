@@ -176,9 +176,15 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         controller: 'LightCtrl as lightPage',
         title: 'Light'
       })
+      .when('/mobile', {
+        templateUrl: 'views/mobile-view.html',
+        controller: 'MobileCtrl as mobilePage',
+        title: 'Mobile'
+      })
       .otherwise({
         redirectTo: '/'
       });
+
     $locationProvider.html5Mode(false).hashPrefix('');
 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
