@@ -857,7 +857,6 @@
       }
 
       function prepareReport(elementList) {
-        console.log(elementList);
         var report = [],
           elementListQty = elementList.length,
           ind,
@@ -1359,6 +1358,8 @@
             DesignStor.design.templateTEMP = angular.copy(result);
           });
         }
+        console.log(ProductStor.product.lamination)
+
       }
 
       function setProfileByLaminat(lamId) {

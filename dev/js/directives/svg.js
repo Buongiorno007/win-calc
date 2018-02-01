@@ -1863,7 +1863,9 @@
 
                   /** lamination */
                   if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
-                    if (ProductStor.product.lamination.img_in_id === 4) {
+                    if (ProductStor.product.lamination.img_in_id === 4 ||
+                        ProductStor.product.lamination.img_in_id === 14) {
+
                       defs.append('pattern')
                         .attr('id', 'laminat_horizontal_frame')
                         .attr('patternUnits', 'objectBoundingBox')
@@ -1987,13 +1989,14 @@
                         .attr('width', 50)
                         .attr('height', 1500);
                     }
+
                     defs.append('pattern')
                       .attr('id', 'laminat')
                       .attr('patternUnits', 'userSpaceOnUse')
                       .attr('width', 600)
                       .attr('height', 400)
                       .append("image")
-                      .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_out_id + ".jpg")
+                      .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + ".jpg")
                       .attr('width', 600)
                       .attr('height', 400);
 
@@ -2003,9 +2006,10 @@
                       .attr('width', 150)
                       .attr('height', 100)
                       .append("image")
-                      .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_out_id + ".jpg")
+                      .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + ".jpg")
                       .attr('width', 150)
                       .attr('height', 100);
+
 
 
                   } else if (ProductStor.product.doorLock.stvorka_type === 6) {
