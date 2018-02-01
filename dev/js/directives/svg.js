@@ -1860,7 +1860,7 @@
                     backgroundSVG(heightT, widthT, defs);
                     elementsRoom(heightT, widthT);
                   }
-
+                  let color_id = 0;
                   /** lamination */
                   if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
                     if (ProductStor.product.lamination.img_in_id === 4 ||
@@ -1870,6 +1870,15 @@
                       ProductStor.product.lamination.img_in_id === 6 ||
                       ProductStor.product.lamination.img_in_id === 16) {
 
+                      if (ProductStor.product.lamination.img_in_id === 4 || ProductStor.product.lamination.img_in_id === 14) {
+                        color_id = 4;
+                      }
+                      if (ProductStor.product.lamination.img_in_id === 5 || ProductStor.product.lamination.img_in_id === 15) {
+                        color_id = 5;
+                      }
+                      if (ProductStor.product.lamination.img_in_id === 6 || ProductStor.product.lamination.img_in_id === 16) {
+                        color_id = 6;
+                      }
                       defs.append('pattern')
                         .attr('id', 'laminat_horizontal_frame')
                         .attr('patternUnits', 'objectBoundingBox')
@@ -1878,7 +1887,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 350 50")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_impost_hor.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_impost_hor.jpg")
                         .attr('width', 1500)
                         .attr('height', 50);
 
@@ -1890,7 +1899,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 50 350")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_impost_vert.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_impost_vert.jpg")
                         .attr('width', 50)
                         .attr('height', 1500);
 
@@ -1903,7 +1912,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 350 50")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_sash_top.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_sash_top.jpg")
                         .attr('width', 1500)
                         .attr('height', 50);
 
@@ -1916,7 +1925,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 350 50")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_sash_bottom.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_sash_bottom.jpg")
                         .attr('width', 1500)
                         .attr('height', 50);
 
@@ -1928,7 +1937,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 50 350")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_sash_left.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_sash_left.jpg")
                         .attr('width', 50)
                         .attr('height', 1500);
 
@@ -1940,7 +1949,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 50 350")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_sash_right.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_sash_right.jpg")
                         .attr('width', 50)
                         .attr('height', 1500);
 
@@ -1952,7 +1961,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 350 50")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_bead_top.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_bead_top.jpg")
                         .attr('width', 1500)
                         .attr('height', 50);
 
@@ -1965,7 +1974,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 350 50")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_bead_bottom.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_bead_bottom.jpg")
                         .attr('width', 1500)
                         .attr('height', 50);
 
@@ -1977,7 +1986,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 50 350")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_bead_left.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_bead_left.jpg")
                         .attr('width', 50)
                         .attr('height', 1500);
 
@@ -1989,7 +1998,7 @@
                         .attr('preserveAspectRatio', "none")
                         .attr('viewBox', "0 0 50 350")
                         .append("image")
-                        .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + "_bead_right.jpg")
+                        .attr("xlink:href", "img/lamination/" + color_id + "_bead_right.jpg")
                         .attr('width', 50)
                         .attr('height', 1500);
                     }
