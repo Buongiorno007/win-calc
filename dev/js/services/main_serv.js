@@ -857,6 +857,7 @@
       }
 
       function prepareReport(elementList) {
+        console.log(elementList);
         var report = [],
           elementListQty = elementList.length,
           ind,

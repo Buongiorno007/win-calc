@@ -733,16 +733,8 @@
     }
   }
   .cart-dialog-tool {
-    top: 25%;
-    width: rem(60px);
-    height: rem(60px);
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: transparent;
-    outline: none;
     &:before {
-      color: $main_orange;
+      color: $main_red;
     }
   }
 }

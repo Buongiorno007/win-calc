@@ -81,7 +81,7 @@
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.infoSource.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         button.save.save-order(type="submit") {{ ::orderForm.READY }}
-  .cart-dialogs-container(ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8")
+  .cart-dialogs-container(ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' z")
     form(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
       .cart-dialog-header
         button.cart-dialog-tool.back(fs-click="orderForm.closeOrderDialog()", type="button")
