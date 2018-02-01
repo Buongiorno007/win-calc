@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('UserInfoCtrl',
 
-      function (globalConstants, GlobalStor, UserStor, $location, localDB, GeneralServ) {
+      function (globalConstants, GlobalStor, UserStor, $location, localDB, GeneralServ, DesignServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.G = GlobalStor;
@@ -29,6 +29,7 @@
           if ($location.path() === "/light") {
             GlobalStor.global.currOpenPage = "light";
             GlobalStor.global.isLightVersion = 1;
+              DesignServ.closeSizeCaclulator();
           }
           else {
             GlobalStor.global.isLightVersion = 0;

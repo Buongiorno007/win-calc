@@ -36,6 +36,7 @@
     "PRINT": "На печать",
     "LETTER_M": "м",
     "SAVED_KONSTRUCTION" : "Конструкция с данным набором параметров сохранена.",
+    "SAVED_KONSTRUCTION_ATTENTION" : "Для начала сохраните конструкцию.",
     "SAVE_OR_NO" : "Сохранить текущую конструкцию?"
   },
   "login": {
@@ -370,7 +371,7 @@
     "DATE_DELIVERY_LABEL": "при поставке на",
     "FIRST_PAYMENT_LABEL": "Первый платеж",
     "ORDER": "Заказать",
-    "ORDER_LV": "Оформить заказ",
+    "ORDER_LV": "Спецификация",
     "CALCULATE_PRICE": "Рассчитать",
     "MEASURE": "Замерить",
     "MEASURE_RU": "Заявка",
@@ -385,6 +386,7 @@
     "CALL_ORDER": "Оформление заказа для рассчета",
     "CALL_ORDER_DESCRIP": "Для того, чтобы выполнить заказ, мы должны кое-что о вас знать.",
     "CALL_ORDER_CLIENT_INFO": "Информация о клиенте (заполняйте обязательно):",
+    "CALL_ORDER_CLIENT_INFO_light": "Информация о клиенте (заполняйте обязательно *)",
     "CALL_ORDER_CLIENT_INFO_SHORT": "Информация о клиенте:",
     "CLIENT_NAME": "Фамилия Имя Отчество",
     "CALL_ORDER_DELIVERY": "Доставить заказ на",

@@ -5,8 +5,8 @@
 
     section.right-side(ng-class="{'main-page-bg': lightPage.G.global.currOpenPage === 'light', 'main-room-bg': lightPage.G.global.currOpenPage === 'light'}")
       section.main-content(tabindex="0")
-        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)")
-          button.nav-menu-btn(ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedlightPage)}", fs-click="userBox.swipeMainPage($event)")
+        .user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)" ng-show="userBox.U.userInfo.user_type !== 8")
+          button.nav-menu-btn(ng-if="userBox.U.userInfo.user_type !== 8" ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedlightPage)}", fs-click="userBox.swipeMainPage($event)")
 
         // section.construction-page(ng-class="{'active': lightPage.G.global.showCart == 1}")
         section.construction-page(ng-if="lightPage.G.global.showCart == 0")
@@ -134,11 +134,11 @@
 
         section.cart-page(ng-if="lightPage.G.global.showCart === 1")
           section.cart-container.full-view(ng-class="{'discount': lightPage.C.cart.isShowDiscount}")
-            .scroll-hor-container.left-position
+            .scroll-hor-container
               .order-block
                 .order(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
                   button.order-delete(fs-click="lightPage.clickDeleteProduct($index)")
-                  img.imgg(ng-src='img/copy_edit.png', fs-click="lightPage.box($index, 'product')")
+                  img.imgg(ng-src='img/cart/copy_edit.svg', fs-click="lightPage.box($index, 'product')")
                   .order-header(ng-click="lightPage.showCartTemplte($index)")
                     .order-template
                       svg-template(template="product.templateIcon", template-width="lightPage.constants.svgTemplateIconWidthCart", template-height="lightPage.constants.svgTemplateIconHeightCart", type-construction="lightPage.constants.SVG_CLASS_ICON")
@@ -199,6 +199,12 @@
                     .order-comment-box
                       .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
                       .order-comment-content {{ lightPage.O.order.comment }}
+                .add-new-product.order(ng-click="lightPage.addNewProductInOrder()")
+                  .add-img
+                    | +
+                  .title {{lightPage.ADD_ORDER}}
+                  .order-footer
+
             .template-window(ng-if="lightPage.C.cart.showCurrentTemp")
               button.close-cur-window(ng-click="lightPage.C.cart.showCurrentTemp=0")
               img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
@@ -207,7 +213,7 @@
             .discount-container
               .discount-box.selected
                 .discount-data
-                  label.disc-input.noPreventDefault#disc-input-main {{lightPage.C.cart.averageDisc}}
+                  label.disc-input.noPreventDefault#disc-input-main {{lightPage.C.cart.averageDisc | number : 2}}
                   label %
                 .discount-txt-arrow(ng-click="lightPage.toggleDiscount()")
                   .discounts-label {{lightPage.DISCOUNT}}
@@ -552,14 +558,15 @@
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
         .discount-block(ng-if="configMenu.G.global.showCart == 0")
-          .discount-priceRed {{ lightPage.G.global.tempPrice | number : 2}} {{lightPage.U.userInfo.currency}}
-          .discount-price {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2 }} {{lightPage.U.userInfo.currency}}
+          .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
+          .discount-price
+            price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
         .counter-block(ng-if="configMenu.G.global.showCart == 0")
           .counter
             //.input-minus(ng-click="lightPage.subtractProdQty()") -
             input.prodcounter(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
             //.input-plus(ng-click="lightPage.addProdQty()") +
-          .save-block(ng-click="lightPage.checkForAddElem()")
+          .save-block#save-block(ng-click="lightPage.checkForAddElem()")
             p {{lightPage.CONFIGMENU_IN_CART}}
         //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
         //  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}

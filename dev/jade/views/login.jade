@@ -1,6 +1,6 @@
-section.login-page
+section.login-page.login-page-mobView
   //---------------- LogIn Form
-  #login-container.login-container(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0")
+  #login-container.login-container.login-container-mobView(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0")
     .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ ::loginPage.OFFLINE }}
       button.inet_ok(fs-click="loginPage.closeOfflineAlert()") {{ ::loginPage.OK }}
     .attantion(ng-if="loginPage.isSendEmail")         {{ ::loginPage.USER_CHECK_EMAIL }}
@@ -10,7 +10,7 @@ section.login-page
     .attantion(ng-if="loginPage.isStartImport")       {{ ::loginPage.IMPORT_DB }}
     .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
     .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
-    .logo
+    .logo.logo-mobView
     .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
 
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")

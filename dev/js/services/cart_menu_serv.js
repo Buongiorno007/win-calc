@@ -367,6 +367,7 @@
               OrderStor.order.products[productQty].service_price_dis +
               GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
             OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
+            MainServ.setProductPriceTOTAL(OrderStor.order.products[productQty]);
           }
         }
 
@@ -653,6 +654,9 @@
             CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
           }
           CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+          approveNewDisc(0);
+          approveNewDisc(1);
+          approveNewDisc(2);
         }
 
 
@@ -749,7 +753,19 @@
             //------- set previos Page
             GeneralServ.setPreviosPage();
             GlobalStor.global.isLoader = 0;
-            $location.path('/history');
+            if (UserStor.userInfo.user_type === 8) {
+              GlobalStor.global.showKarkas = 1;
+              GlobalStor.global.showConfiguration = 0;
+              GlobalStor.global.showCart = 0;
+              GlobalStor.global.isSizeCalculator = 0;
+              CartStor.cart.isShowDiscount = 0;
+              GlobalStor.global.product_qty = 1;
+              $location.path('/light');
+              GlobalStor.global.currOpenPage = 'light';
+              MainServ.createNewProject();
+            } else {
+              $location.path('/history');
+            }
           });
         }
 
@@ -763,8 +779,9 @@
           }
         }
 
+
         function calculateAverageDisc() {
-          CartStor.cart.averageDisc = parseFloat(100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100).toFixed(2);
+          CartStor.cart.averageDisc = 100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100;
           // CartStor.cart.averageDisc = Math.round(100 - (OrderStor.order.productsPriceDis / OrderStor.order.order_price) * 100);
         }
 

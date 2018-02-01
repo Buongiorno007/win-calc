@@ -77,6 +77,7 @@
           deselectAllDimension();
           GlobalStor.global.isSizeCalculator = 0;
           DesignStor.design.openVoiceHelper = 0;
+
         }
 
 
@@ -174,7 +175,6 @@
             newCoordLast = finishSize - newLength,
             blocksQty = blocks.length, isLastDim = 0,
             overall = [], overallQty, newHeightQ, b, i, pointsQQty, pointsOutQty;
-          console.log(DesignStor.design.oldSize);
           if (isEdge) {
             axis = DesignStor.design.oldSize.attributes[7].nodeValue;
             dimId = DesignStor.design.oldSize.attributes[11].nodeValue;
@@ -184,20 +184,6 @@
             curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue;
             newCoord = startSize + newLength;
             newCoordLast = finishSize - newLength;
-            console.log("axis", axis)
-            console.log("curDimType", curDimType)
-            console.log("dimId", dimId)
-            console.log("startSize", startSize)
-            console.log("finishSize", finishSize)
-            console.log("level", level)
-          } else {
-            console.log("curDimType", curDimType)
-            console.log("curBlockId", curBlockId)
-            console.log("dimId", dimId)
-            console.log("startSize", startSize)
-            console.log("finishSize", finishSize)
-            console.log("axis", axis)
-            console.log("level", level)
           }
 
           //---- save last step
@@ -2983,6 +2969,7 @@
                   DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
                 }
               });
+
             });
         }
 
@@ -3305,7 +3292,6 @@
 
 
         function designSaved() {
-
           if (GlobalStor.global.checkDoors === 0) {
             var doorConfig = DesignStor.design.doorConfig,
               isSashesInTemplate;
@@ -3410,8 +3396,8 @@
                         //-------- template was changed
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
+                          DesignStor.design.templateTEMP = angular.copy(result);
                           GlobalStor.global.isChangedTemplate = 1;
-
                           backtoTemplatePanel();
                         });
                       });

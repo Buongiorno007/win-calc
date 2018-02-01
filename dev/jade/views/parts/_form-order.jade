@@ -1,5 +1,5 @@
 .cart-dialogs.order-dialog(ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }" ng-if="orderForm.C.cart.isOrderDialog")
-  .cart-dialogs-container(ng-if="orderForm.globalConstants.serverIP !== 'http://api.calc.csokna.ru'")
+  .cart-dialogs-container(ng-if="orderForm.globalConstants.serverIP !== 'http://api.calc.csokna.ru' && orderForm.U.userInfo.user_type !== 8")
     form(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
       .cart-dialog-header
         button.cart-dialog-tool.back(fs-click="orderForm.closeOrderDialog()", type="button")
@@ -81,18 +81,14 @@
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.infoSource.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         button.save.save-order(type="submit") {{ ::orderForm.READY }}
-  .cart-dialogs-container(ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru'")
+  .cart-dialogs-container(ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8 ")
     form(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
       .cart-dialog-header
         button.cart-dialog-tool.back(fs-click="orderForm.closeOrderDialog()", type="button")
-        .cart-dialog-title {{ ::orderForm.CALL_ORDER }}
+        .cart-dialog-title {{ ::orderForm.CALL_ORDER_CLIENT_INFO_light }}
       .cart-dialog-body
-        .cart-dialog-descrip {{ ::orderForm.CALL_ORDER_DESCRIP }}
-
-        .cart-dialog-label {{ ::orderForm.CALL_ORDER_CLIENT_INFO }}
-
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.name.$error.required }")
-          input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_NAME }}", required)
+          input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_NAME }} *", required)
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.name.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.phone.$error.required }")
@@ -101,8 +97,8 @@
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty && callOrderForm.phone.$error.pattern") {{ ::orderForm.WRONG_NUMBER }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.mail.$error.required }")
-          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}", required)
+          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }} *", required)
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.mail.$error.email") {{ ::orderForm.WRONG_EMAIL }}
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.mail.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
-        button.save.save-order(type="submit") {{ ::orderForm.READY }}
+        button.save.save-order.little(type="submit") {{ ::orderForm.READY }}

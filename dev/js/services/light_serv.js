@@ -203,15 +203,15 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
-                          ProductStor.product.product_qty = GlobalStor.global.product_qty;
-                          MainServ.inputProductInOrder();
-                          GlobalStor.global.construction_count = 0;
-                          OrderStor.order.products.forEach(function (product) {
-                            GlobalStor.global.construction_count += product.product_qty;
+                            ProductStor.product.product_qty = GlobalStor.global.product_qty;
+                            MainServ.inputProductInOrder();
+                            GlobalStor.global.construction_count = 0;
+                            OrderStor.order.products.forEach(function (product) {
+                              GlobalStor.global.construction_count += product.product_qty;
 
-                          });
-                          GlobalStor.global.isNewTemplate = 0;
-                          DesignStor.design.designSteps = [];
+                            });
+                            GlobalStor.global.isNewTemplate = 0;
+                            DesignStor.design.designSteps = [];
                         });
                       });
                     });

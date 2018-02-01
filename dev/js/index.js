@@ -1,17 +1,21 @@
 'use strict';
 /** global variable defined Browser or Device */
 /** check first device */
-var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent)) ? 1 : 0;
+let isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent)) ? 1 : 0;
 //console.log("!!!!!");
-
-(function() {
+let portrait = false;
+(function () {
   /** check browser */
-  // if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
-  //   isDevice = 0;
-  // }
-  //console.log("isDevice",isDevice);
-  // Test via a getter in the options object to see if the passive property is accessed
-  var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+  function getDeviseScreen() {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+      console.log("portrait")
+    }
+    if (window.matchMedia("(orientation: landscape)").matches) {
+      console.log("landscape")
+    }
+  }
+
+  let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
   if (app) {
     isDevice = 1;
     // console.log("PhoneGap application");
@@ -19,64 +23,45 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     isDevice = 0;
     // console.log("Web page");
   }
-  $(window).load(function() {
+  function resize() {
+    let obj = $("#main-frame");
+    let width = obj.width();
+    let height = obj.height();
+    let scale = 1, left = 0, top = 0;
+    if (self.innerWidth / width > self.innerHeight / height) {
+      scale = self.innerHeight / height;
+      left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
+    } else {
+      scale = self.innerWidth / width;
+      top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
+    }
+    if (scale > 1) {
+      scale = 1;
+    }
+    obj.css({
+      "transform": "scale(" + scale + ")",
+      "left": left + "px",
+      "top": top + "px"
+    });
+  }
+  $(window).load(function () {
     location.hash = "#/";
-    var obj = $("#main-frame");
-    var width = obj.width();
-    var height = obj.height();
-    var scale = 1,
-      left = 0,
-      top = 0;
-    if (self.innerWidth / width > self.innerHeight / height) {
-      scale = self.innerHeight / height;
-      left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
-    } else {
-      scale = self.innerWidth / width;
-      top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
-    }
-    if (scale > 1) {
-      scale = 1;
-    }
-    obj.css({
-      "transform": "scale(" + scale + ")",
-      "left": left + "px",
-      "top": top + "px"
-    });
+    resize();
   });
-
-  window.onresize = function() {
-    var obj = $("#main-frame");
-    var width = obj.width();
-    var height = obj.height();
-    var scale = 1,
-      left = 0,
-      top = 0;
-    if (self.innerWidth / width > self.innerHeight / height) {
-      scale = self.innerHeight / height;
-      left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
-    } else {
-      scale = self.innerWidth / width;
-      top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
-    }
-    if (scale > 1) {
-      scale = 1;
-    }
-    obj.css({
-      "transform": "scale(" + scale + ")",
-      "left": left + "px",
-      "top": top + "px"
-    });
+  window.onresize = function () {
+    resize();
   };
+
   if (isDevice) {
 
-    var app = window.PhonegapApp = {
-      initialize: function() {
+    let app = window.PhonegapApp = {
+      initialize: function () {
         this.bindEvents();
       },
-      bindEvents: function() {
+      bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
       },
-      onDeviceReady: function() {
+      onDeviceReady: function () {
 
 
       }
@@ -98,7 +83,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     'HistoryModule',
     'LightModule',
     'SettingsModule'
-  ]).config( /*@ngInject*/ configurationApp);
+  ]).config(/*@ngInject*/ configurationApp);
 
   //============== Modules ============//
   angular
@@ -176,9 +161,15 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         controller: 'LightCtrl as lightPage',
         title: 'Light'
       })
+      .when('/mobile', {
+        templateUrl: 'views/mobile-view.html',
+        controller: 'MobileCtrl as mobilePage',
+        title: 'Mobile'
+      })
       .otherwise({
         redirectTo: '/'
       });
+
     $locationProvider.html5Mode(false).hashPrefix('');
 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
@@ -188,8 +179,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
 
-    var browserLang = navigator.language;
-    var label = browserLang.substr(0, 2);
+    let browserLang = navigator.language;
+    let label = browserLang.substr(0, 2);
     $translateProvider.preferredLanguage(label);
 
     $translateProvider.useSanitizeValueStrategy(null);

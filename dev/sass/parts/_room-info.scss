@@ -47,18 +47,8 @@
     text-align:center;
     padding: 2rem 0 0 0;
     text-shadow: none;
-    &:after {
-      position: absolute;
-      right: 50rem;
-      bottom: -2rem;
-      display: block;
-      width: 0;
-      border-width: 1.5625rem 0 1.5625rem 1.5625rem;
-      border-style: solid;
-      border-color: transparent rgba(255, 255, 255, 1);
-      transform: rotate(90deg);
-      content: '';
-    }
+    box-shadow: 0rem 0 0.9375rem 0.1rem rgba(0, 0, 0, 0.5);
+
     .coeff-max, .heat-transfer{
       color : $main_green;
       @include roboto-rg(rem(80px));

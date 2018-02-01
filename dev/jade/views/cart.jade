@@ -96,7 +96,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                     .discount-container
                         .discount-box.selected
                             .discount-data
-                                label.disc-input.noPreventDefault#disc-input-main {{cartPage.C.cart.averageDisc}}
+                                label.disc-input.noPreventDefault#disc-input-main {{cartPage.C.cart.averageDisc | number : 2}}
                                 label %
                             .discount-txt-arrow(ng-click="cartPage.toggleDiscount()")
                                 .discounts-label {{cartPage.DISCOUNT}}

@@ -90,7 +90,7 @@
     margin-left: -5rem;
   }
   .price-value {
-    @include roboto-md(rem($price_container-height), 1);
+    @include roboto-lt(rem($price_container-height), 1);
 
     display: inline-flex;
     overflow: hidden;

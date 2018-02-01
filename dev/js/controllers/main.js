@@ -72,6 +72,7 @@
             GlobalStor.global.currOpenPage = "design";
           }
         }
+
         /**=============== FIRST START =========*/
 
         if (GlobalStor.global.startProgramm) {
@@ -122,7 +123,6 @@
         }
 
 
-
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -131,6 +131,16 @@
         thisCtrl.goToEditTemplate = goToEditTemplate;
         thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
 
+        $("#main-frame").removeClass("main-frame-mobView");
+        $("#app-container").removeClass("app-container-mobView");
+
+        MainServ.resize();
+        $(window).load(function () {
+          MainServ.resize();
+        });
+        window.onresize = function () {
+          MainServ.resize();
+        };
 
       });
 })();

@@ -35,6 +35,7 @@
     "LETTER_M": "m",
     "COUNT": "Amount",
     "SAVED_KONSTRUCTION" : "The construction with this set of parameters is saved.",
+    "SAVED_KONSTRUCTION_ATTENTION" : "First, save the construction.",
     "SAVE_OR_NO" : "Do you want to save the current construction?"
   },
   "natification": {
@@ -369,7 +370,7 @@
     "DATE_DELIVERY_LABEL": "Delivered on",
     "FIRST_PAYMENT_LABEL": "The first payment",
     "ORDER": "To order",
-    "ORDER_LV": "Place an order",
+    "ORDER_LV": "Specification",
     "CALCULATE_PRICE": "Calculate",
     "MEASURE": "Measure",
     "MEASURE_RU": "Measure",
@@ -384,6 +385,7 @@
     "CALL_ORDER": "Ordering for calculating",
     "CALL_ORDER_DESCRIP": "In order to fulfill the order, we need to something about you know.",
     "CALL_ORDER_CLIENT_INFO": "Customer Information (must be filled):",
+    "CALL_ORDER_CLIENT_INFO_light": "Customer Information (must be filled *)",
     "CLIENT_NAME": "Full Name",
     "CALL_ORDER_DELIVERY": "Deliver an order for",
     "CALL_ORDER_TOTAL_PRICE": "in all",
