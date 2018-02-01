@@ -218,7 +218,14 @@
     thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
     thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
     thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
-
+    $("#main-frame").removeClass("main-frame-mobView");
+    $("#app-container").removeClass("app-container-mobView");
+    $(window).load(function() {
+      MainServ.resize();
+    });
+    window.onresize = function() {
+      MainServ.resize();
+    };
 
   });
 })();

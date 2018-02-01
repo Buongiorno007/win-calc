@@ -32,6 +32,7 @@
     thisCtrl.CALL_ORDER = $filter('translate')('cart.CALL_ORDER');
     thisCtrl.CALL_ORDER_DESCRIP = $filter('translate')('cart.CALL_ORDER_DESCRIP');
     thisCtrl.CALL_ORDER_CLIENT_INFO = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO');
+    thisCtrl.CALL_ORDER_CLIENT_INFO_light = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO_light');
     thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
     thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
     thisCtrl.MOBILE = $filter('translate')('login.MOBILE');

@@ -110,17 +110,44 @@
     background-color: white;
   }
   .img-configuration {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
     background: url(../img/config-menu/conf.svg) no-repeat center;
     background-size: contain;
     padding: 1rem;
     display: inline-block;
-
     &.active {
-      background: url(../img/config-menu/conf_active.svg) no-repeat;
+      width: 3rem;
+      height: 3rem;
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      background: url(../img/config-menu/conf_active.svg) no-repeat center;
+      background-size: contain;
+      padding: 1rem;
+      display: inline-block;
+    }
+  }
+
+  .img-karkas {
+    width: 3rem;
+    height: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    background: url(../img/config-menu/karkas.svg) no-repeat center;
+    background-size: cover;
+    padding: 1rem;
+    display: inline-block;
+    &.active {
+      width: 3rem;
+      height: 3rem;
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      background: url(../img/config-menu/karkas_active.svg) no-repeat center;
+      background-size: contain;
+      padding: 1rem;
+      display: inline-block;
     }
   }
   .karkas-button {
@@ -151,20 +178,7 @@
       color: $main_red !important;
     }
   }
-  .img-karkas {
-    width: 3rem;
-    height: 3rem;
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
-    background: url(../img/config-menu/karkas.svg) no-repeat center;
-    background-size: contain;
-    padding: 1rem;
-    display: inline-block;
-    color: $main_gray_btn;
-    &.active {
-      background: url(../img/config-menu/karkas_active.svg) no-repeat center;
-    }
-  }
+
   .cart-button {
     cursor: pointer;
     width: 33.3%;
@@ -233,6 +247,9 @@
   .figure-item-block:hover {
     background-color: transparent !important;
 
+  }
+  .selected{
+    color: $main_blue !important;
   }
   .figure-icon:hover {
     color: #000;
@@ -720,11 +737,13 @@
   }
   .cart-dialog-tool {
     &:before {
-      color: $main_red !important;
+      color: $main_red;
     }
   }
-  .save-order{
-    background-color: $main_red !important;
+  .user-field, .user-select-field{
+    font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
   }
-
+  .order-dialog .cart-dialogs-container{
+    margin-top: 10%;
+  }
 }
