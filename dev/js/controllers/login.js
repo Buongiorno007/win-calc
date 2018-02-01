@@ -173,7 +173,7 @@
               GlobalStor.global.isLightVersion = 0;
               GlobalStor.global.currOpenPage = 'main';
             }
-            //
+
             /** !!!! **/
             GlobalStor.global.loadDate = new Date();
             var global = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
@@ -880,7 +880,6 @@
 
         }
 
-
         function fastEnter(url) {
           GlobalStor.global.isLoader = 0;
           GlobalStor.global.startSlider = 0;
@@ -894,12 +893,9 @@
             $location.path("/" + GlobalStor.global.currOpenPage);
             // $location.path("/light");
           }
-
         }
 
-
         /**========== FINISH ==========*/
-
 
         //------ clicking
         thisCtrl.gotoSettingsPage = gotoSettingsPage;
@@ -923,7 +919,23 @@
         if (thisCtrl.isOnline) {
           // loginServ.initExport();
           entryWithoutLogin();
-
         }
+
+        MainServ.resize();
+        $(window).load(function () {
+          MainServ.resize();
+        });
+        window.onresize = function () {
+          MainServ.resize();
+        };
+
+        $("#main-frame").addClass("main-frame-mobView");
+        $("#app-container").addClass("app-container-mobView");
+        let obj = $("#main-frame");
+        obj.css({
+        "transform": "scale(1)",
+        "left": "0px",
+        "top": "0px",
+        });
       });
 })();

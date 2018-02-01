@@ -697,5 +697,13 @@
         thisCtrl.selectGlassFast = selectGlassFast;
         thisCtrl.selectProfileFast = selectProfileFast;
         thisCtrl.selectWindowsHardwareFast = selectWindowsHardwareFast;
+        $("#main-frame").removeClass("main-frame-mobView");
+        $("#app-container").removeClass("app-container-mobView");
+        $(window).load(function() {
+          MainServ.resize();
+        });
+        window.onresize = function() {
+          MainServ.resize();
+        };
       });
 })();
