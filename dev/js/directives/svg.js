@@ -1864,7 +1864,11 @@
                   /** lamination */
                   if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
                     if (ProductStor.product.lamination.img_in_id === 4 ||
-                        ProductStor.product.lamination.img_in_id === 14) {
+                        ProductStor.product.lamination.img_in_id === 14 ||
+                        ProductStor.product.lamination.img_in_id === 5 ||
+                        ProductStor.product.lamination.img_in_id === 15||
+                      ProductStor.product.lamination.img_in_id === 6 ||
+                      ProductStor.product.lamination.img_in_id === 16) {
 
                       defs.append('pattern')
                         .attr('id', 'laminat_horizontal_frame')
@@ -2234,7 +2238,12 @@
                           }
                         } else {
                           if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
-                            if (ProductStor.product.lamination.img_in_id === 4) {
+                            if (ProductStor.product.lamination.img_in_id === 4 ||
+                              ProductStor.product.lamination.img_in_id === 14 ||
+                              ProductStor.product.lamination.img_in_id === 5 ||
+                              ProductStor.product.lamination.img_in_id === 15||
+                              ProductStor.product.lamination.img_in_id === 6 ||
+                              ProductStor.product.lamination.img_in_id === 16) {
 
                               if (d.type === "frame") {
                                 switch (indexFrame) {
