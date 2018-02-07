@@ -63,7 +63,7 @@
               //$scope.global.createNewProjectCart();
               //TODO create new project
             }
-            if ($location.path() === "/light") {
+            if ($location.path() === "/light" || $location.path() === "/mobile") {
               if (!OrderStor.order.products.length) {
                 MainServ.createNewProduct();
                 DesignServ.deselectAllDimension();

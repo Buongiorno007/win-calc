@@ -1,17 +1,17 @@
 .config-content(ng-controller="ConfigMenuCtrl as configMenu")
   .common-scroll-container.configs-list
-    .conf-item(fs-click="configMenu.selectConfigPanel(2)")
+    .conf-item(fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}")
       .configuration.profile
       .conf-item-text {{ ::configMenu.CONFIGMENU_PROFILE }}
-    .conf-item(fs-click="configMenu.selectConfigPanel(3)")
+    .conf-item(fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}")
       .configuration.glass
       .conf-item-text {{ ::configMenu.CONFIGMENU_GLASS }}
-    .conf-item(fs-click="configMenu.selectConfigPanel(4)")
+    .conf-item(fs-click="configMenu.selectConfigPanel(4)" ng-class="{active : configMenu.G.global.activePanel===4}")
       .configuration.furniture
       .conf-item-text {{ ::configMenu.CONFIGMENU_HARDWARE }}
-    .conf-item(fs-click="configMenu.selectConfigPanel(5)")
+    .conf-item(fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}")
       .configuration.laminataion
       .conf-item-text {{ ::configMenu.CONFIGMENU_LAMINATION }}
-    .conf-item(fs-click="configMenu.selectConfigPanel(6)")
+    .conf-item(fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}")
       .configuration.add-elements
       .conf-item-text {{ ::configMenu.CONFIGMENU_ADDITIONAL }}

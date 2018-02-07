@@ -2,7 +2,8 @@
   .main-view
     .svg-template(ng-controller="DesignCtrl as designPage")
       svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.mobSize", template-height="designPage.mobSize", type-construction="designPage.constants.SVG_ID_EDIT")
-
+  .mobile-price
+    include mobile/mobile-price
   .content-container(ng-if="!mobilePage.isSet(0)")
     .common-content-style.templates-content(ng-if="mobilePage.isSet(1)")
       include mobile/templates-mobile
@@ -29,6 +30,12 @@
   include panels/_hardwares
   include panels/_laminations
   include panels/_add-elements
+  include parts/_alert
+  include parts/_info-box
+  include parts/_attantions
+  include parts/_danger-alert
+  include parts/_error-product
+  include parts/_loader
   .mob-size-calculator(ng-if="mobilePage.G.global.isSizeCalculator")
     include parts/_size-calculator
 

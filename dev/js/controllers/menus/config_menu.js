@@ -229,7 +229,7 @@
           $('.img-karkas').css({
 
           });
-          if ($location.path() === "/light") {
+          if ($location.path() === "/light" ) {
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
           }

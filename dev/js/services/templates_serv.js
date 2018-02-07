@@ -76,7 +76,7 @@
                     $location.path("/design");
                   }
                 }
-                if ($location.path() === "/light") {
+                if ($location.path() === "/light" || $location.path() === "/mobile") {
                   DesignServ.designSaved();
                   GlobalStor.global.goLeft = false;
                   GlobalStor.global.showTemplates = false;

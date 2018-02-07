@@ -67,16 +67,85 @@
       }
     }
     .size-rect {
-      width: 240px;
-      height: 110px;
-      stroke: $main_red;
+      width: 0px;
+      height: 0px;
       stroke: $main_red;
       stroke-width: 3px;
       fill-opacity: 0;
       cursor: pointer;
       &.active {
+        width: 240px;
+        height: 110px;
         fill: $main_red;
         fill-opacity: 1;
+      }
+    }
+  }
+
+  .mobile-price {
+    position: absolute;
+    bottom: 15vh;
+    height: 10vh;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    .price {
+      @include display-flex();
+      @include justify-content(center);
+      margin-left: -5rem;
+    }
+    .price-value {
+      @include roboto-lt(rem($price_container-height), 1);
+      display: inline-flex;
+      overflow: hidden;
+      height: rem($price_container-height);
+      text-align: center;
+      color: $main_red;
+    }
+    .digit-cell {
+      position: relative;
+      float: left;
+      &:nth-last-child(3n+3) {
+        margin-left: rem(4px);
+      }
+      &:nth-last-child(3) {
+        margin-left: 0;
+      }
+    }
+    .price-currency {
+      @include roboto-lt(rem(50px), rem($price_container-height - 8px));
+
+      margin-left: rem(10px);
+      margin-right: -2rem;
+      padding-top: rem(8px);
+      color: $main_red;
+    }
+    .go-to-cart{
+      width: 40%;
+      height: 7vh;
+      background: red;
+      border-radius: 50px;
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .go-to-cart-title{
+        color: white;
+        font-size: 3vh;
+        margin-left: 2vh;
+      }
+      .product-counter{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 6vh;
+        width: 6vh;
+        background: white;
+        border-radius: 50px;
+        color: $main_red;
+        font-size: 3vh;
+        margin-right: 0.5vh;
       }
     }
   }
@@ -316,6 +385,12 @@
               color: $main_gray_dark;
             }
           }
+          .constr-shape-position{
+            background: none;
+            color:  $main_gray_dark;
+            font-size: 2vh;
+            border: none;
+          }
         }
       }
     }
@@ -330,6 +405,11 @@
         height: 10vh;
         margin: 0 15px 0 15px;
         width: 10vh;
+        &.active {
+          background: white;
+          border-bottom-right-radius: 5px ;
+          border-bottom-left-radius: 5px ;
+        }
         .configuration {
           height: 6vh;
           width: 6vh;
