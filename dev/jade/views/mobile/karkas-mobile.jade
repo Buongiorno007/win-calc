@@ -1,0 +1,59 @@
+.karkas-content(ng-controller="DesignCtrl as designPage")
+  .common-scroll-container.figure-lists
+    .figure-item(ng-click="designPage.selectMenuItem(3)" ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
+        .figure-icon.impost-shape-a
+        .figure-icon.impost-shape-b
+        .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+    .figure-item(ng-click="designPage.selectMenuItem(1)" ng-class="{'selected': designPage.D.design.activeMenuItem == 1}")
+        .figure-icon.sash-shape-a
+        .figure-icon.sash-shape-b
+        .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+    .figure-item(ng-click="designPage.selectMenuItem(2)" ng-class="{'selected': designPage.D.design.activeMenuItem == 2}")
+        .figure-icon.angel-shape-a
+        .figure-icon.angel-shape-b
+        .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+    .figure-item(ng-click="designPage.selectMenuItem(4)" ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
+        .figure-icon.arch-shape-a
+        .figure-icon.arch-shape-b
+        .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+    .figure-item(ng-click="designPage.selectMenuItem(5)" ng-class="{'selected': designPage.D.design.activeMenuItem == 5}")
+        .figure-icon.position-shape-a
+        .figure-icon.position-shape-b
+        .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
+  .edit-submenu-list(ng-if="designPage.D.design.activeMenuItem")
+    .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 3")
+      .edit-btn.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
+      .edit-btn.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
+      .edit-btn.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(4)")
+      .edit-btn.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(5)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+      .edit-btn.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(6)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+      .edit-btn.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+      .edit-btn.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(8)")
+      .edit-btn.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(9)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+      .edit-btn.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(10)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+      .edit-btn.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(11)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+      .edit-btn.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(12)")
+      .edit-btn.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(13)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
+      .edit-btn.clean(ng-show="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(1)")
+    .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 1")
+      .edit-btn.clean(ng-click="designPage.insertSash(1)")
+      .edit-btn.sash-left(ng-click="designPage.insertSash(2)")
+      .edit-btn.sash-right(ng-click="designPage.insertSash(3)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+      .edit-btn.sash-up(ng-click="designPage.insertSash(4)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+      .edit-btn.sash-down(ng-click="designPage.insertSash(5)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+      .edit-btn.sash-right-up(ng-click="designPage.insertSash(6)", ng-hide="designPage.P.product.construction_type === 4")
+      .edit-btn.sash-left-up(ng-click="designPage.insertSash(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}", ng-hide="designPage.P.product.construction_type === 4")
+      .edit-btn(ng-click="designPage.insertSash(8)", ng-class="(designPage.P.product.construction_type === 4) ? 'sash-shtulp-left-door' : 'sash-shtulp-left'")
+      .edit-btn.sash-shtulp-right(ng-click="designPage.insertSash(9)", ng-class="[ (designPage.P.product.construction_type === 4) ? 'sash-shtulp-right-door' : 'sash-shtulp-right' , {'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}]")
+    .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 2")
+      .edit-btn.clean(ng-click="designPage.insertCorner(1)")
+      .edit-btn.corner(ng-click="designPage.insertCorner(2)")
+      .edit-btn.corner-curv(ng-click="designPage.insertCorner(3)")
+    .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 4")
+      .edit-btn.clean(ng-click="designPage.insertArc(1)")
+      .edit-btn.arc(ng-click="designPage.insertArc(2)")
+    .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 5" ng-hide="designPage.P.product.construction_type === 4")
+      .edit-btn.constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
+      .edit-btn.constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
+

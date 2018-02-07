@@ -143,7 +143,7 @@
         }
 
         function checkForAddElem(go_to_cart) {
-          console.log("ProductStor.product", ProductStor.product);
+          // console.log("ProductStor.product", ProductStor.product);
           if (!GlobalStor.global.isZeroPriceList.length) {
             if (!ProductStor.product.is_addelem_only) {
               alert();
@@ -226,6 +226,9 @@
           GlobalStor.global.showTemplates = false;
           GlobalStor.global.goLeft = false;
           $('.img-karkas').hide().show(0);
+          $('.img-karkas').css({
+
+          });
           if ($location.path() === "/light") {
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;

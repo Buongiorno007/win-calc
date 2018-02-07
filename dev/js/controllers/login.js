@@ -171,7 +171,7 @@
               GlobalStor.global.isLightVersion = 1;
             } else {
               GlobalStor.global.isLightVersion = 0;
-              GlobalStor.global.currOpenPage = 'main';
+              GlobalStor.global.currOpenPage = 'mobile';
             }
 
             /** !!!! **/
@@ -920,14 +920,6 @@
           // loginServ.initExport();
           entryWithoutLogin();
         }
-
-        MainServ.resize();
-        $(window).load(function () {
-          MainServ.resize();
-        });
-        window.onresize = function () {
-          MainServ.resize();
-        };
 
         $("#main-frame").addClass("main-frame-mobView");
         $("#app-container").addClass("app-container-mobView");

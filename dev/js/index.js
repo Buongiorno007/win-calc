@@ -23,34 +23,10 @@ let portrait = false;
     isDevice = 0;
     // console.log("Web page");
   }
-  function resize() {
-    let obj = $("#main-frame");
-    let width = obj.width();
-    let height = obj.height();
-    let scale = 1, left = 0, top = 0;
-    if (self.innerWidth / width > self.innerHeight / height) {
-      scale = self.innerHeight / height;
-      left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
-    } else {
-      scale = self.innerWidth / width;
-      top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
-    }
-    if (scale > 1) {
-      scale = 1;
-    }
-    obj.css({
-      "transform": "scale(" + scale + ")",
-      "left": left + "px",
-      "top": top + "px"
-    });
-  }
   $(window).load(function () {
     location.hash = "#/";
-    resize();
   });
-  window.onresize = function () {
-    resize();
-  };
+
 
   if (isDevice) {
 

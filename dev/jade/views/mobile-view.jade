@@ -1,13 +1,34 @@
 .mobile
-  .control-buttons
-    .templates
-    .karkas
-    .config
-    .cart
-  .content-container
-    .templates-content
-    .karkas-content
-    .config-content
-    .cart-content
-  .content-container-inner
+  .main-view
+    .svg-template(ng-controller="DesignCtrl as designPage")
+      svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.mobSize", template-height="designPage.mobSize", type-construction="designPage.constants.SVG_ID_EDIT")
+
+  .content-container(ng-if="!mobilePage.isSet(0)")
+    .common-content-style.templates-content(ng-if="mobilePage.isSet(1)")
+      include mobile/templates-mobile
+    .common-content-style.karkas-content(ng-if="mobilePage.isSet(2)")
+      include mobile/karkas-mobile
+    .common-content-style.config-content(ng-if="mobilePage.isSet(3)")
+      include mobile/config-mobile
+    .common-content-style.cart-content(ng-if="mobilePage.isSet(4)")
+  .control-buttons-container
+    .templates.control-button(ng-click="mobilePage.setTab(1)")
+      .img-common.templates-img(ng-class="{ active: mobilePage.isSet(1) }")
+      p {{mobilePage.ROOM_SELECTION}}
+    .karkas.control-button(ng-click="mobilePage.setTab(2)")
+      .img-common.karkas-img(ng-class="{ active: mobilePage.isSet(2) }")
+      p {{mobilePage.KARKAS}}
+    .config.control-button(ng-click="mobilePage.setTab(3)")
+      .img-common.config-img(ng-class="{ active: mobilePage.isSet(3) }")
+      p {{mobilePage.KONFIG}}
+    .cart.control-button(ng-click="mobilePage.setTab(4)")
+      .img-common.cart-img(ng-class="{ active: mobilePage.isSet(4) }")
+      p {{mobilePage.CART}}
+  include panels/_profiles
+  include panels/_glasses
+  include panels/_hardwares
+  include panels/_laminations
+  include panels/_add-elements
+  .mob-size-calculator(ng-if="mobilePage.G.global.isSizeCalculator")
+    include parts/_size-calculator
 

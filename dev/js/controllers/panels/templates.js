@@ -25,7 +25,7 @@
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
     thisCtrl.D = DesignStor;
-
+    thisCtrl.tab = 0;
 
     thisCtrl.config = {
       DELAY_TEMPLATE_ELEMENT: 5 * globalConstants.STEP,
@@ -71,6 +71,7 @@
 
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
+      setTab(marker);
       GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;
@@ -96,10 +97,23 @@
     }
 
 
+    function setTab(newTab) {
+      if (thisCtrl.tab === newTab) {
+        thisCtrl.tab = 0;
+      } else {
+        thisCtrl.tab = newTab;
+      }
+    };
+
+    function isSet(tabNum) {
+      return thisCtrl.tab === tabNum;
+    };
 
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.setTab = setTab;
+    thisCtrl.isSet = isSet;
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
