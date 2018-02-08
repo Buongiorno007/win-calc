@@ -12,7 +12,7 @@
 
     function changePrice(price, elem) {
       var DELAY_PRICE_DIGIT = globalConstants.STEP * 2,
-          DIGIT_CELL_HEIGHT = 64,
+          DIGIT_CELL_HEIGHT = 44,
           priceByDigit,
           digitCells = elem.find('#price').children(),
           MAX_DIGITS = digitCells.length,

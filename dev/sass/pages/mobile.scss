@@ -54,7 +54,8 @@
     #tamlateSVG {
       all: unset;
       position: absolute;
-      top: -2vh;
+      top: -5vh;
+      left: -5vh;
     }
     .size-txt-edit {
       @extend .size-txt;
@@ -94,12 +95,13 @@
       @include display-flex();
       @include justify-content(center);
       margin-left: -5rem;
+      align-items: center;
     }
     .price-value {
-      @include roboto-lt(rem($price_container-height), 1);
+      @include roboto-lt(rem($price_container-height-mobile), 1);
       display: inline-flex;
       overflow: hidden;
-      height: rem($price_container-height);
+      height: rem($price_container-height-mobile);
       text-align: center;
       color: $main_red;
     }
@@ -114,15 +116,12 @@
       }
     }
     .price-currency {
-      @include roboto-lt(rem(50px), rem($price_container-height - 8px));
-
-      margin-left: rem(10px);
-      margin-right: -2rem;
-      padding-top: rem(8px);
+      @include roboto-lt(rem($price_container-height-mobile - 4px),1);
       color: $main_red;
+      margin: 0 1vw 0 1vw;
     }
     .go-to-cart{
-      width: 40%;
+      width: 45%;
       height: 7vh;
       background: red;
       border-radius: 50px;
@@ -132,20 +131,20 @@
       justify-content: space-between;
       .go-to-cart-title{
         color: white;
-        font-size: 4.5vw;
-        margin-left: 2vh;
+        font-size: 5vw;
+        margin-left: 4.5vw;
       }
       .product-counter{
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 6vh;
-        width: 6vh;
+        height: 6.5vh;
+        width: 6.5vh;
         background: white;
         border-radius: 50px;
         color: $main_red;
         font-size: 3vh;
-        margin-right: 0.5vh;
+        margin-right: 0.3vh;
       }
     }
   }
@@ -225,14 +224,18 @@
       min-width: 100%;
       display: inline-flex;
       align-items: center;
+      justify-content: space-around;
       flex-wrap: nowrap;
       overflow-x: auto;
       overflow-y: hidden;
       box-sizing: content-box;
     }
     .templates-content {
-      .template-type {
-        height: 10vh;
+        height: 90vh;
+        width: 100%;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
         .types {
           display: inline-flex;
           flex-direction: column;
@@ -242,14 +245,13 @@
           flex: 0 0 auto;
           height: 10vh;
           padding: 0 10px 0 10px;
-          width: 9vh;
+          width: 100%;
           @include roboto-lt(1.5vh);
           box-sizing: content-box;
           &.active {
             background: white;
           }
         }
-      }
       .templates-list {
         position: absolute;
         bottom: 10vh;
@@ -274,11 +276,10 @@
           display: inline-flex;
           flex-direction: column;
           align-items: center;
+          justify-content: space-around;
           flex: 0 0 auto;
           height: 10vh;
-          margin: 0 15px 0 15px;
-          min-width: 8vh;
-          width: auto;
+          width: 19vw;
           box-sizing: content-box;
           &.selected {
             background: white;
@@ -369,7 +370,6 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         overflow-y: hidden;
-        background: white;
         .edit-submenu {
           width: 100%;
           min-width: 100%;
@@ -379,6 +379,7 @@
           overflow-x: auto;
           overflow-y: hidden;
           box-sizing: content-box;
+          background: white;
           .edit-btn {
             font-size: 6vh;
             margin: 0 15px 0 15px;
@@ -404,8 +405,7 @@
         justify-content: flex-end;
         flex: 0 0 auto;
         height: 10vh;
-        margin: 0 15px 0 15px;
-        width: 10vh;
+        width: 19vw;
         &.active {
           background: white;
           border-bottom-right-radius: 5px ;
