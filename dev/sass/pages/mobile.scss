@@ -84,7 +84,7 @@
 
   .mobile-price {
     position: absolute;
-    bottom: 15vh;
+    bottom: 10vh;
     height: 10vh;
     width: 100%;
     display: inline-flex;
@@ -132,7 +132,7 @@
       justify-content: space-between;
       .go-to-cart-title{
         color: white;
-        font-size: 3vh;
+        font-size: 4.5vw;
         margin-left: 2vh;
       }
       .product-counter{
@@ -277,7 +277,7 @@
           flex: 0 0 auto;
           height: 10vh;
           margin: 0 15px 0 15px;
-          min-width: 10vh;
+          min-width: 8vh;
           width: auto;
           box-sizing: content-box;
           &.selected {
@@ -369,6 +369,7 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         overflow-y: hidden;
+        background: white;
         .edit-submenu {
           width: 100%;
           min-width: 100%;

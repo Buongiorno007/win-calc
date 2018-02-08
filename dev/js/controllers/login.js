@@ -4,7 +4,6 @@
   angular
     .module('LoginModule')
     .controller('LoginCtrl',
-
       function ($location,
                 $timeout,
                 $rootScope,
@@ -171,7 +170,7 @@
               GlobalStor.global.isLightVersion = 1;
             } else {
               GlobalStor.global.isLightVersion = 0;
-              GlobalStor.global.currOpenPage = 'mobile';
+              GlobalStor.global.currOpenPage = 'main';
             }
 
             /** !!!! **/
@@ -183,6 +182,7 @@
             var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
             var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
             console.log("configuration finished. get ready to rock");
+            console.log();
             window.localStorage.clear();
             window.localStorage.setItem('GlobalStor', global);
             window.localStorage.setItem('ProductStor', product);

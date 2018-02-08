@@ -49,11 +49,13 @@
       function isSet(tabNum) {
         return thisCtrl.tab === tabNum;
       };
+      $("#main-frame").addClass("main-frame-mobView");
+      $("#app-container").addClass("app-container-mobView");
       let obj = $("#main-frame");
       obj.css({
-        "transform": "scale(1)",
-        "left": "0px",
-        "top": "0px",
+      "transform": "scale(1)",
+      "left": "0px",
+      "top": "0px",
       });
       /**========== FINISH ==========*/
 

@@ -58,6 +58,10 @@
           span.nav-icon-light
           span.title(ng-if="navMenu.G.global.isLightVersion === 0") {{ ::navMenu.NAVMENU_LIGHT_VER }}
           span.title(ng-if="navMenu.G.global.isLightVersion !== 0") {{ ::navMenu.NAVMENU_STANDART_VERSION }}
+      li.item(fs-click="navMenu.selectMenuItem(11)")
+        .item-content
+          span.title 
+            | mobile
       li.item(fs-click="navMenu.logOut()")
         .item-content
           span.nav-icon-logOut
