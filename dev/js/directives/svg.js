@@ -1080,6 +1080,15 @@
                     .classed('size-rect', true)
                     .attr({
                       'x': function () {
+                        if ($location.path() === "/mobile") {
+                          if (dim.dimId === "fp7") {
+                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                          }
+                          // if (dim.dimId === "fp11" ) {
+                          //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                          // }
+                          return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                        }
                         if (dim.dimId === "fp7") {
                           return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                         }
@@ -1088,8 +1097,10 @@
                         // }
                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                       },
+
+
                       'y': function () {
-                        return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                        return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
                       },
                       'rx': sizeBoxRadius,
                       'ry': sizeBoxRadius,
@@ -1133,6 +1144,13 @@
                         return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
                       },
                       'x': function () {
+                        if ($location.path() === "/mobile") {
+                        let move_left = 40;
+                          if (dim.dimId === "fp7") {
+                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                          }
+                          return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                        }
                         if (dim.dimId === "fp7") {
                           return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                         }
@@ -1845,13 +1863,10 @@
                 /** Defs */
                 if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                   var defs = mainGroup.append("defs");
-
                   /** Points */
-
                   var noVvPath = pnt.noVvPath,
                     widthT = pnt.widthT,
                     heightT = pnt.heightT;
-
                   /** background */
                   if (GlobalStor.global.currOpenPage === 'main' && GlobalStor.global.activePanel === 0) {
                     elementsRoom(heightT, widthT);
@@ -1864,9 +1879,9 @@
                   /** lamination */
                   if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
                     if (ProductStor.product.lamination.img_in_id === 4 ||
-                        ProductStor.product.lamination.img_in_id === 14 ||
-                        ProductStor.product.lamination.img_in_id === 5 ||
-                        ProductStor.product.lamination.img_in_id === 15||
+                      ProductStor.product.lamination.img_in_id === 14 ||
+                      ProductStor.product.lamination.img_in_id === 5 ||
+                      ProductStor.product.lamination.img_in_id === 15 ||
                       ProductStor.product.lamination.img_in_id === 6 ||
                       ProductStor.product.lamination.img_in_id === 16) {
 
@@ -2022,7 +2037,6 @@
                       .attr("xlink:href", "img/lamination/" + ProductStor.product.lamination.img_in_id + ".jpg")
                       .attr('width', 150)
                       .attr('height', 100);
-
 
 
                   } else if (ProductStor.product.doorLock.stvorka_type === 6) {
@@ -2250,7 +2264,7 @@
                             if (ProductStor.product.lamination.img_in_id === 4 ||
                               ProductStor.product.lamination.img_in_id === 14 ||
                               ProductStor.product.lamination.img_in_id === 5 ||
-                              ProductStor.product.lamination.img_in_id === 15||
+                              ProductStor.product.lamination.img_in_id === 15 ||
                               ProductStor.product.lamination.img_in_id === 6 ||
                               ProductStor.product.lamination.img_in_id === 16) {
 

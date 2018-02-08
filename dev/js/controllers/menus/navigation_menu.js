@@ -136,6 +136,9 @@
               }
               break;
             }
+              case 11: {
+                $location.path("/mobile");
+              }
           }
         }
 

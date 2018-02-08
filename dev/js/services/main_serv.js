@@ -738,7 +738,7 @@
           Product.productPriceDis * GlobalStor.global.product_qty;
         GlobalStor.global.isLoader = 0;
 
-        if ($location.path() === "/light") {
+        if ($location.path() === "/light" || $location.path() === "/mobile") {
           setTimeout(function () {
             SVGServ.createSVGTemplate(
               DesignStor.design.templateSourceTEMP,
@@ -1350,7 +1350,7 @@
             }
           }
         }
-        if ($location.path() === "/light") {
+        if ($location.path() === "/light" || $location.path() === "/mobile") {
           SVGServ.createSVGTemplate(
             ProductStor.product.template_source,
             ProductStor.product.profileDepths
@@ -1358,7 +1358,6 @@
             DesignStor.design.templateTEMP = angular.copy(result);
           });
         }
-        console.log(ProductStor.product.lamination)
 
       }
 

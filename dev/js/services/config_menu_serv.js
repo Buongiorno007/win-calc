@@ -23,7 +23,7 @@
 
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
-          if ($location.path() === "/light") {
+          if ($location.path() === "/light" || $location.path() === "/mobile") {
             SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
             });
@@ -130,7 +130,7 @@
               if (GlobalStor.global.activePanel === id) {
                 GlobalStor.global.activePanel = 0;
                 GlobalStor.global.isServiceCalculator = 0;
-                if ($location.path() === '/light') {
+                if ($location.path() === '/light' || $location.path() === "/mobile") {
                   setTimeout(function () {
                     DesignServ.rebuildSVGTemplate();
                   }, 1000);

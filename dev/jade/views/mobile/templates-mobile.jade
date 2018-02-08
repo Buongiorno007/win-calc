@@ -1,0 +1,8 @@
+.templates-content(ng-controller="TemplatesCtrl as templatesPanel")
+  .common-scroll-container.templates-list(ng-if="!templatesPanel.isSet(0)")
+    .template(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index", ng-click="templatesPanel.selectNewTemplate($index)")
+      img.template-img(ng-src="{{ templateIcon.src }}")
+  .common-scroll-container.template-type
+    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-click="templatesPanel.selectNewTemplateType($index+1)"  ng-class="{ active: templatesPanel.isSet($index+1) }") {{ ::templatesPanel.templateName[$index]|translate }}
+    .types.add-elems-only(ng-click="templatesPanel.setTab(0)")
+      | Add elements only

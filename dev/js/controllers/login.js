@@ -4,7 +4,6 @@
   angular
     .module('LoginModule')
     .controller('LoginCtrl',
-
       function ($location,
                 $timeout,
                 $rootScope,
@@ -183,6 +182,7 @@
             var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
             var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
             console.log("configuration finished. get ready to rock");
+            console.log();
             window.localStorage.clear();
             window.localStorage.setItem('GlobalStor', global);
             window.localStorage.setItem('ProductStor', product);
@@ -920,14 +920,6 @@
           // loginServ.initExport();
           entryWithoutLogin();
         }
-
-        MainServ.resize();
-        $(window).load(function () {
-          MainServ.resize();
-        });
-        window.onresize = function () {
-          MainServ.resize();
-        };
 
         $("#main-frame").addClass("main-frame-mobView");
         $("#app-container").addClass("app-container-mobView");

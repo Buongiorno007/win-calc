@@ -818,7 +818,7 @@
           GlobalStor.global.isLoader = 0;
           clearTimeout(GlobalStor.global.hintTimer);
           DesignStor.design.showHint = -1;
-          if ($location.path() !== "/light") {
+          if ($location.path() !== "/light"  && $location.path() !== "/mobile") {
             $location.path("/main");
             GlobalStor.global.currOpenPage = '/main';
           }

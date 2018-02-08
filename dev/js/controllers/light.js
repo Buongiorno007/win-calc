@@ -455,6 +455,7 @@
       thisCtrl.selectHandle = DesignServ.selectHandle;
       thisCtrl.selectLock = DesignServ.selectLock;
       thisCtrl.stepBack = DesignServ.stepBack;
+
       $("#main-frame").removeClass("main-frame-mobView");
       $("#app-container").removeClass("app-container-mobView");
       $(window).load(function() {

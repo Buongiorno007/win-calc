@@ -31,8 +31,18 @@
         thisCtrl.P = ProductStor;
         thisCtrl.D = DesignStor;
 
+        DesignStor.design.activeSubMenuItem = 0;
+        DesignStor.design.activeMenuItem = 0;
+
         //------- set current Page
         GlobalStor.global.currOpenPage = 'design';
+        thisCtrl.mobSize = 0;
+        if (self.innerWidth > self.innerHeight) {
+          thisCtrl.mobSize = self.innerHeight;
+        } else {
+          thisCtrl.mobSize = self.innerWidth + 50;
+        }
+        thisCtrl.mobHeight = self.innerHeight+ 50;
 
         thisCtrl.config = {
           //---- design menu
@@ -311,7 +321,7 @@
 
             }
           }
-          if ($location.path() === "/light") {
+          if ($location.path() === "/light" || $location.path() === "/mobile") {
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
@@ -528,7 +538,6 @@
 
         /**-------- Select menu item ---------*/
         function selectMenuItem(id) {
-          // GlobalStor.global.activePanel = 0;
           if (DesignStor.design.tempSize.length) {
             //----- finish size culculation
             DesignServ.closeSizeCaclulator();
@@ -561,6 +570,7 @@
                   }, delaySubMenu4);
                   break;
                 case 2:
+                  // DesignStor.design.activeSubMenuItem = id;
                   DesignServ.deselectAllGlass();
                   showAllAvailableCorner(id);
                   break;
@@ -581,6 +591,7 @@
                   }, delaySubMenu4);
                   break;
                 case 4:
+                  // DesignStor.design.activeSubMenuItem = id;
                   DesignServ.deselectAllGlass();
                   showAllAvailableArc(id);
                   break;
@@ -596,7 +607,7 @@
               }
             } else {
               //------ if we close menu
-              DesignStor.design.activeSubMenuItem = 0;
+              // DesignStor.design.activeSubMenuItem = 0;
               GlobalStor.global.goLeft = false;
               GlobalStor.global.showTemplates = false;
               GlobalStor.global.activePanel = 0;
@@ -608,6 +619,7 @@
               }, 300);
             }
           }
+
         }
 
         /**----- open/close template pannel -------*/
@@ -697,13 +709,15 @@
         thisCtrl.selectGlassFast = selectGlassFast;
         thisCtrl.selectProfileFast = selectProfileFast;
         thisCtrl.selectWindowsHardwareFast = selectWindowsHardwareFast;
-        $("#main-frame").removeClass("main-frame-mobView");
-        $("#app-container").removeClass("app-container-mobView");
-        $(window).load(function() {
-          MainServ.resize();
-        });
-        window.onresize = function() {
-          MainServ.resize();
-        };
+        if ($location.path() !== "/mobile") {
+          $("#main-frame").removeClass("main-frame-mobView");
+          $("#app-container").removeClass("app-container-mobView");
+          $(window).load(function () {
+            MainServ.resize();
+          });
+          window.onresize = function () {
+            MainServ.resize();
+          };
+        }
       });
 })();
