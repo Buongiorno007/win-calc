@@ -11,7 +11,7 @@
                                         GlobalStor,
                                         ProductStor) {
       var thisCtrl = this;
-      thisCtrl.tab = 0;
+      GlobalStor.global.MobileTabActive = 0;
 
       thisCtrl.G = GlobalStor;
       thisCtrl.P = ProductStor;
@@ -36,18 +36,17 @@
             MainServ.laminationDoor();
           }
       });
-
       function setTab(newTab) {
         GlobalStor.global.activePanel = 0;
-        if (thisCtrl.tab === newTab) {
-          thisCtrl.tab = 0;
+        if (GlobalStor.global.MobileTabActive === newTab) {
+          GlobalStor.global.MobileTabActive = 0;
         } else {
-          thisCtrl.tab = newTab;
+          GlobalStor.global.MobileTabActive = newTab;
         }
       };
 
       function isSet(tabNum) {
-        return thisCtrl.tab === tabNum;
+        return GlobalStor.global.MobileTabActive === tabNum;
       };
       $("#main-frame").addClass("main-frame-mobView");
       $("#app-container").addClass("app-container-mobView");

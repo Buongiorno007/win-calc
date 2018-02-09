@@ -16,7 +16,8 @@
     GlobalStor,
     DesignStor,
     OrderStor,
-    ProductStor
+    ProductStor,
+    UserStor
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -25,6 +26,7 @@
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
     thisCtrl.D = DesignStor;
+    thisCtrl.U = UserStor;
     thisCtrl.tab = 0;
 
     thisCtrl.config = {
@@ -48,12 +50,14 @@
     thisCtrl.TEMPLATE_DOOR = $filter('translate')('panels.TEMPLATE_DOOR');
     thisCtrl.TEMPLATE_BALCONY_ENTER = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
     thisCtrl.TEMPLATE_BALCONY = $filter('translate')('panels.TEMPLATE_BALCONY');
+    thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
 
 
     //---------- download templates Img icons
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
             GlobalStor.global.templatesImgs = results.data.templateImgs;
+            console.log(GlobalStor.global.templatesImgs);
           } else {
             console.log(results);
           }
@@ -92,7 +96,6 @@
           GlobalStor.global.templatesSource = angular.copy(data);
         }
       });
-
       GlobalStor.global.isTemplateTypeMenu = 0;
     }
 
@@ -108,12 +111,15 @@
     function isSet(tabNum) {
       return thisCtrl.tab === tabNum;
     };
-
+    function closeTemplatePanelMobile(){
+      GlobalStor.global.MobileTabActive = 0;
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.setTab = setTab;
     thisCtrl.isSet = isSet;
+    thisCtrl.closeTemplatePanelMobile = closeTemplatePanelMobile;
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;

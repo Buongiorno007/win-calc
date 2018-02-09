@@ -5,7 +5,7 @@
   .mobile-price
     include mobile/mobile-price
   .content-container(ng-if="!mobilePage.isSet(0)")
-    .common-content-style.templates-content(ng-if="mobilePage.isSet(1)")
+    .templates-content(ng-if="mobilePage.isSet(1)")
       include mobile/templates-mobile
     .common-content-style.karkas-content(ng-if="mobilePage.isSet(2)")
       include mobile/karkas-mobile
@@ -38,4 +38,3 @@
   include parts/_loader
   .mob-size-calculator(ng-if="mobilePage.G.global.isSizeCalculator")
     include parts/_size-calculator
-

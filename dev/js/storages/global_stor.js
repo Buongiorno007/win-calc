@@ -13,9 +13,10 @@
         function setDefaultGlobal() {
           return angular.copy(thisFactory.publicObj.globalSource);
         }
-
+        
         thisFactory.publicObj = {
           globalSource: {
+            MobileTabActive : 0,
             goLeft: false,
             showTemplates: false,
             ISLOGIN: 0,

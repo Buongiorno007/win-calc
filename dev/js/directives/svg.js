@@ -1,20 +1,20 @@
 /* globals d3 */
-(function () {
+(function() {
   'use strict';
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('svgTemplate',
 
-      function ($location,
-                globalConstants,
-                GeneralServ,
-                ProductStor,
-                SVGServ,
-                DesignServ,
-                PointsServ,
-                GlobalStor,
-                UserStor) {
+      function($location,
+        globalConstants,
+        GeneralServ,
+        ProductStor,
+        SVGServ,
+        DesignServ,
+        PointsServ,
+        GlobalStor,
+        UserStor) {
 
         return {
           restrict: 'E',
@@ -26,7 +26,7 @@
             templateWidth: '=',
             templateHeight: '='
           },
-          link: function (scope, elem) {
+          link: function(scope, elem) {
             /**============ METHODS ================*/
 
             function zooming() {
@@ -451,11 +451,11 @@
               sash_fp1.append("stop")
                 .attr("offset", "0.9816")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9033");  //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
+                .attr("stop-opacity", "0.9033"); //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
               sash_fp1.append("stop")
                 .attr("offset", "0.988")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9487");  //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
+                .attr("stop-opacity", "0.9487"); //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
               sash_fp1.append("stop")
                 .attr("offset", "1")
                 .attr("stop-color", "#96989A"); //  <stop  offset="1" style="stop-color:#96989A"/>
@@ -534,11 +534,11 @@
               sash_fp4.append("stop")
                 .attr("offset", "0.9816")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9033");  //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
+                .attr("stop-opacity", "0.9033"); //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
               sash_fp4.append("stop")
                 .attr("offset", "0.988")
                 .attr("stop-color", "#FFFFFF")
-                .attr("stop-opacity", "0.9487");  //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
+                .attr("stop-opacity", "0.9487"); //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
               sash_fp4.append("stop")
                 .attr("offset", "1")
                 .attr("stop-color", "#96989A"); //  <stop  offset="1" style="stop-color:#96989A"/>
@@ -1033,7 +1033,7 @@
 
                 dimBlock = dimGroup.append('g')
                   .attr({
-                    'class': function () {
+                    'class': function() {
                       var className;
                       if (scope.typeConstruction === globalConstants.SVG_ID_ICON) {
                         if (dir) {
@@ -1065,10 +1065,10 @@
                   .classed('size-line', true)
                   .attr({
                     'd': lineCreator(lineCenter),
-                    'marker-start': function () {
+                    'marker-start': function() {
                       return dir ? 'url(#dimVertR)' : 'url(#dimHorL)';
                     },
-                    'marker-end': function () {
+                    'marker-end': function() {
                       return dir ? 'url(#dimVertL)' : 'url(#dimHorR)';
                     }
                   });
@@ -1079,7 +1079,7 @@
                   sizeBox.append('rect')
                     .classed('size-rect', true)
                     .attr({
-                      'x': function () {
+                      'x': function() {
                         if ($location.path() === "/mobile") {
                           if (dim.dimId === "fp7") {
                             return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
@@ -1092,15 +1092,15 @@
                         if (dim.dimId === "fp7") {
                           return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                         }
-                        // if (dim.dimId === "fp11" ) {
-                        //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                        // }
                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                       },
 
 
-                      'y': function () {
-                        return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
+                      'y': function() {
+                        if ($location.path() === "/mobile") {
+                          return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
+                        }
+                        return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                       },
                       'rx': sizeBoxRadius,
                       'ry': sizeBoxRadius,
@@ -1113,13 +1113,13 @@
                   sizeBox.append('text')
                     .text((dim.text * 0.0393701).toFixed(1))
                     .attr({
-                      'class': function () {
+                      'class': function() {
                         return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
                       },
-                      'x': function () {
+                      'x': function() {
                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                       },
-                      'y': function () {
+                      'y': function() {
                         return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                       },
                       'dx': 80,
@@ -1135,17 +1135,16 @@
                       'axis': dim.axis,
                       'level': dim.level
                     });
-                }
-                else {
+                } else {
                   sizeBox.append('text')
                     .text(dim.text)
                     .attr({
-                      'class': function () {
+                      'class': function() {
                         return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
                       },
-                      'x': function () {
+                      'x': function() {
                         if ($location.path() === "/mobile") {
-                        let move_left = 40;
+                          let move_left = 40;
                           if (dim.dimId === "fp7") {
                             return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                           }
@@ -1156,7 +1155,7 @@
                         }
                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                       },
-                      'y': function () {
+                      'y': function() {
                         return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                       },
                       'dx': 80,
@@ -1272,20 +1271,24 @@
             function elementsRoom(heightT, widthT) {
               if ($location.path() !== '/light') {
                 if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                  var sunH = (((0.18 * heightT) - 252) + 520), /*height sun rays*/
+                  var sunH = (((0.18 * heightT) - 252) + 520),
+                    /*height sun rays*/
                     hD = 755;
                   $('.elem17_1').css({
                     "display": "none"
                   });
                   /*height display*/
                   if (ProductStor.product.construction_type === 1) {
-                    var sunW = (((0.18 * widthT) - 234) + 520), /*width sun rays*/
-                      hsrof = 90, /*the height of the sun's rays on the floor*/
+                    var sunW = (((0.18 * widthT) - 234) + 520),
+                      /*width sun rays*/
+                      hsrof = 90,
+                      /*the height of the sun's rays on the floor*/
                       upLim = 720;
                     /*upper limit 15 block*/
 
                     if (heightT < 1648) {
-                      var upl = 454, /*upper limit for window sill */
+                      var upl = 454,
+                        /*upper limit for window sill */
                         dnl = 100;
                       /*upper limit for window sill */
                     }
@@ -1358,7 +1361,7 @@
 
                     let windowHeight = 0;
                     let windowWidth = 0;
-                    ProductStor.product.template_source.details.forEach(function (detail) {
+                    ProductStor.product.template_source.details.forEach(function(detail) {
                       if (detail.id === "block_1") {
                         windowWidth = detail.pointsOut[2].x;
                         windowHeight = detail.pointsOut[2].y;
@@ -1563,7 +1566,7 @@
                     if (ProductStor.product.template_source.name === "balconies1") {
                       //правый откос для двери
                       $('.elem11').css('left', (0.23 * (0.991 * widthT) + 280) + 'px');
-                      ProductStor.product.template_source.details.forEach(function (detail) {
+                      ProductStor.product.template_source.details.forEach(function(detail) {
                         if (detail.id === "block_1") {
                           // console.log(detail.pointsOut);
                           windowWidth = detail.pointsOut[2].x;
@@ -1591,7 +1594,7 @@
                         'left': 257 + 'px',
                         'top': tmp2 + 'px'
                       });
-                      setTimeout(function () {
+                      setTimeout(function() {
                         $('.elem8_1').width(windowWidth * SVGServ.setTemplateScaleMAIN(0.6) + 66 + "px")
                       }, 100);
 
@@ -1600,7 +1603,7 @@
 
 
                     if (ProductStor.product.template_source.name === "balconies2") {
-                      ProductStor.product.template_source.details.forEach(function (detail) {
+                      ProductStor.product.template_source.details.forEach(function(detail) {
                         if (detail.id === "block_2") {
                           doorWidth = detail.pointsOut[0].x;
                           windowHeight = detail.pointsOut[2].y;
@@ -1635,7 +1638,7 @@
                       $('.elem7_1').css({
                         'width': 85 + 'px',
                       });
-                      setTimeout(function () {
+                      setTimeout(function() {
                         $('.elem8_1').width(66 + "px")
                       }, 100);
                     }
@@ -1649,7 +1652,7 @@
                       doorWidth = 0;
                       doorHeight = 0;
 
-                      ProductStor.product.template_source.details.forEach(function (detail) {
+                      ProductStor.product.template_source.details.forEach(function(detail) {
                         if (detail.id === "block_1") {
                           leftWindowWidth = detail.pointsOut[1].x;
                           leftWindowHeight = detail.pointsOut[2].y;
@@ -1687,7 +1690,7 @@
                         'left': 257 + 'px',
                         'top': leftWindowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180 + 'px'
                       });
-                      setTimeout(function () {
+                      setTimeout(function() {
                         $('.elem8_1').width(leftWindowWidth * SVGServ.setTemplateScaleMAIN(0.6) + 66 + "px")
                       }, 100);
                     }
@@ -1777,28 +1780,35 @@
             }
 
             function getOffsetSum(elem) {
-              var top = 0, left = 0
+              var top = 0,
+                left = 0
               while (elem) {
                 top = top + parseFloat(elem.offsetTop)
                 left = left + parseFloat(elem.offsetLeft)
                 elem = elem.offsetParent
               }
-              return {top: Math.round(top), left: Math.round(left)}
+              return {
+                top: Math.round(top),
+                left: Math.round(left)
+              }
             }
 
             function buildSVG(template, widthSVG, heightSVG) {
               if (template && !$.isEmptyObject(template)) {
                 var container = document.createElement('div'),
                   lineCreator = d3.svg.line()
-                    .x(function (d) {
-                      return d.x;
-                    })
-                    .y(function (d) {
-                      return d.y;
-                    })
-                    .interpolate("linear"),
+                  .x(function(d) {
+                    return d.x;
+                  })
+                  .y(function(d) {
+                    return d.y;
+                  })
+                  .interpolate("linear"),
                   padding = 0.7,
-                  position = {x: 0, y: 0},
+                  position = {
+                    x: 0,
+                    y: 0
+                  },
                   mainSVG, mainGroup, elementsGroup, dimGroup,
                   points, dimMaxMin, scale, blocksQty, i, corners,
                   pnt = PointsServ.templatePoints(template);
@@ -2198,7 +2208,7 @@
                       'block_id': template.details[i].id,
                       'parent_id': template.details[i].parent,
                       //'class': function(d) { return d.type; },
-                      'class': function (d) {
+                      'class': function(d) {
                         var className;
                         if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                           if (d.type === 'glass') {
@@ -2222,23 +2232,23 @@
                         return className;
                       },
 
-                      'item_type': function (d) {
+                      'item_type': function(d) {
                         return d.type;
                       },
-                      'item_dir': function (d) {
+                      'item_dir': function(d) {
                         return d.dir;
                       },
-                      'item_id': function (d) {
+                      'item_id': function(d) {
                         return d.points[0].id;
                       },
-                      'd': function (d) {
+                      'd': function(d) {
                         if (ProductStor.product.doorLock.stvorka_type !== 6) {
                           return d.path;
                         } else if (ProductStor.product.doorLock.stvorka_type === 6 && d.type !== 'bead') {
                           return d.path;
                         }
                       },
-                      'fill': function (d) {
+                      'fill': function(d) {
                         var fillName;
 
                         if (d.type === 'glass') {
@@ -2270,65 +2280,77 @@
 
                               if (d.type === "frame") {
                                 switch (indexFrame) {
-                                  case 0 : {
-                                    fillName = 'url(#laminat_horizontal_frame)';
-                                    break;
-                                  }
-                                  case 1 : {
-                                    fillName = 'url(#laminat_vertical_frame)';
-                                    break;
-                                  }
-                                  case 2 : {
-                                    fillName = 'url(#laminat_horizontal_frame)';
-                                    break;
-                                  }
-                                  case 3 : {
-                                    fillName = 'url(#laminat_vertical_frame)';
-                                    indexFrame = 0;
-                                    break;
-                                  }
+                                  case 0:
+                                    {
+                                      fillName = 'url(#laminat_horizontal_frame)';
+                                      break;
+                                    }
+                                  case 1:
+                                    {
+                                      fillName = 'url(#laminat_vertical_frame)';
+                                      break;
+                                    }
+                                  case 2:
+                                    {
+                                      fillName = 'url(#laminat_horizontal_frame)';
+                                      break;
+                                    }
+                                  case 3:
+                                    {
+                                      fillName = 'url(#laminat_vertical_frame)';
+                                      indexFrame = 0;
+                                      break;
+                                    }
                                 }
                               }
                               if (d.type === "bead") {
                                 switch (indexBead) {
-                                  case 0 : {
-                                    fillName = 'url(#laminat_bead_bottom)';
-                                    break;
-                                  }
-                                  case 1 : {
-                                    fillName = 'url(#laminat_bead_left)';
-                                    break;
-                                  }
-                                  case 2 : {
-                                    fillName = 'url(#laminat_bead_top)';
-                                    break;
-                                  }
-                                  case 3 : {
-                                    fillName = 'url(#laminat_bead_right)';
-                                    indexFrame = 0;
-                                    break;
-                                  }
+                                  case 0:
+                                    {
+                                      fillName = 'url(#laminat_bead_bottom)';
+                                      break;
+                                    }
+                                  case 1:
+                                    {
+                                      fillName = 'url(#laminat_bead_left)';
+                                      break;
+                                    }
+                                  case 2:
+                                    {
+                                      fillName = 'url(#laminat_bead_top)';
+                                      break;
+                                    }
+                                  case 3:
+                                    {
+                                      fillName = 'url(#laminat_bead_right)';
+                                      indexFrame = 0;
+                                      break;
+                                    }
                                 }
                               }
                               if (d.type === "sash") {
                                 switch (indexSash) {
-                                  case 0 : {
-                                    fillName = 'url(#laminat_sash_bottom)'; //sash_fp3
-                                    break;
-                                  }
-                                  case 1 : {
-                                    fillName = 'url(#laminat_sash_left)'; //sash_fp4
-                                    break;
-                                  }
-                                  case 2 : {
-                                    fillName = 'url(#laminat_sash_top)'; //sash_fp1
-                                    break;
-                                  }
-                                  case 3 : {
-                                    fillName = 'url(#laminat_sash_right)'; //sash_fp2
-                                    indexSash = 0;
-                                    break;
-                                  }
+                                  case 0:
+                                    {
+                                      fillName = 'url(#laminat_sash_bottom)'; //sash_fp3
+                                      break;
+                                    }
+                                  case 1:
+                                    {
+                                      fillName = 'url(#laminat_sash_left)'; //sash_fp4
+                                      break;
+                                    }
+                                  case 2:
+                                    {
+                                      fillName = 'url(#laminat_sash_top)'; //sash_fp1
+                                      break;
+                                    }
+                                  case 3:
+                                    {
+                                      fillName = 'url(#laminat_sash_right)'; //sash_fp2
+                                      indexSash = 0;
+                                      break;
+                                    }
                                 }
                               }
                               if (d.type === "impost" || d.type === "shtulp") {
@@ -2349,8 +2371,7 @@
                               } else {
                                 indexSash++;
                               }
-                            }
-                            else {
+                            } else {
 
                               if ((d.type === 'frame') || (d.type === 'impost')) {
                                 fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
@@ -2368,65 +2389,77 @@
 
                             if (d.type === "frame") {
                               switch (indexFrame) {
-                                case 0 : {
-                                  fillName = 'url(#frame_fp3)';
-                                  break;
-                                }
-                                case 1 : {
-                                  fillName = 'url(#frame_fp4)';
-                                  break;
-                                }
-                                case 2 : {
-                                  fillName = 'url(#frame_fp1)';
-                                  break;
-                                }
-                                case 3 : {
-                                  fillName = 'url(#frame_fp2)';
-                                  indexFrame = 0;
-                                  break;
-                                }
+                                case 0:
+                                  {
+                                    fillName = 'url(#frame_fp3)';
+                                    break;
+                                  }
+                                case 1:
+                                  {
+                                    fillName = 'url(#frame_fp4)';
+                                    break;
+                                  }
+                                case 2:
+                                  {
+                                    fillName = 'url(#frame_fp1)';
+                                    break;
+                                  }
+                                case 3:
+                                  {
+                                    fillName = 'url(#frame_fp2)';
+                                    indexFrame = 0;
+                                    break;
+                                  }
                               }
                             }
                             if (d.type === "bead") {
                               switch (indexBead) {
-                                case 0 : {
-                                  fillName = 'url(#bead_fp3)';
-                                  break;
-                                }
-                                case 1 : {
-                                  fillName = 'url(#bead_fp4)';
-                                  break;
-                                }
-                                case 2 : {
-                                  fillName = 'url(#bead_fp1)';
-                                  break;
-                                }
-                                case 3 : {
-                                  fillName = 'url(#bead_fp2)';
-                                  indexBead = 0;
-                                  break;
-                                }
+                                case 0:
+                                  {
+                                    fillName = 'url(#bead_fp3)';
+                                    break;
+                                  }
+                                case 1:
+                                  {
+                                    fillName = 'url(#bead_fp4)';
+                                    break;
+                                  }
+                                case 2:
+                                  {
+                                    fillName = 'url(#bead_fp1)';
+                                    break;
+                                  }
+                                case 3:
+                                  {
+                                    fillName = 'url(#bead_fp2)';
+                                    indexBead = 0;
+                                    break;
+                                  }
                               }
                             }
                             if (d.type === "sash") {
                               switch (indexSash) {
-                                case 0 : {
-                                  fillName = 'url(#sash_fp3)';
-                                  break;
-                                }
-                                case 1 : {
-                                  fillName = 'url(#sash_fp4)';
-                                  break;
-                                }
-                                case 2 : {
-                                  fillName = 'url(#sash_fp1)';
-                                  break;
-                                }
-                                case 3 : {
-                                  fillName = 'url(#sash_fp2)';
-                                  indexSash = 0;
-                                  break;
-                                }
+                                case 0:
+                                  {
+                                    fillName = 'url(#sash_fp3)';
+                                    break;
+                                  }
+                                case 1:
+                                  {
+                                    fillName = 'url(#sash_fp4)';
+                                    break;
+                                  }
+                                case 2:
+                                  {
+                                    fillName = 'url(#sash_fp1)';
+                                    break;
+                                  }
+                                case 3:
+                                  {
+                                    fillName = 'url(#sash_fp2)';
+                                    indexSash = 0;
+                                    break;
+                                  }
                               }
                             }
                             if (d.type === "impost" || d.type === "impost") {
@@ -2469,27 +2502,31 @@
                         }
                         return fillName;
                       },
-                      'filter': function (d) {
+                      'filter': function(d) {
                         let filterName;
                         if (d.type === "sash") {
                           switch (indexSashFilter) {
-                            case 0 : {
-                              filterName = 'url(#sash_fp3_shadow)';
-                              break;
-                            }
-                            case 1 : {
-                              filterName = 'url(#sash_fp4_shadow)';
-                              break;
-                            }
-                            case 2 : {
-                              filterName = 'url(#sash_fp1_shadow)';
-                              break;
-                            }
-                            case 3 : {
-                              filterName = 'url(#sash_fp2_shadow)';
-                              indexSashFilter = 0;
-                              break;
-                            }
+                            case 0:
+                              {
+                                filterName = 'url(#sash_fp3_shadow)';
+                                break;
+                              }
+                            case 1:
+                              {
+                                filterName = 'url(#sash_fp4_shadow)';
+                                break;
+                              }
+                            case 2:
+                              {
+                                filterName = 'url(#sash_fp1_shadow)';
+                                break;
+                              }
+                            case 3:
+                              {
+                                filterName = 'url(#sash_fp2_shadow)';
+                                indexSashFilter = 0;
+                                break;
+                              }
                           }
                         }
                         if (indexSashFilter >= 3) {
@@ -2502,7 +2539,7 @@
 
                         }
                       },
-                      'fill-opacity': function (d) {
+                      'fill-opacity': function(d) {
                         var fillName;
                         if (d.type === 'glass') {
                           if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
@@ -2530,18 +2567,18 @@
                         .append('path')
                         .classed('sash_mark', true)
                         .attr({
-                          'd': function (d) {
+                          'd': function(d) {
                             return lineCreator(d.points);
                           },
                           //------- handler
-                          'marker-mid': function (d) {
+                          'marker-mid': function(d) {
                             return setSashFittings(1, d, template.details[i]);
                           },
                           //------- hinges
-                          'marker-start': function (d) {
+                          'marker-start': function(d) {
                             return setSashFittings(0, d, template.details[i]);
                           },
-                          'marker-end': function (d) {
+                          'marker-end': function(d) {
                             return setSashFittings(0, d, template.details[i]);
                           }
                         });
@@ -2557,18 +2594,18 @@
                           .append('path')
                           .classed('sash_mark', true)
                           .attr({
-                            'd': function (d) {
+                            'd': function(d) {
                               return lineCreator(d.points);
                             },
                             //------- handler
-                            'marker-mid': function (d) {
+                            'marker-mid': function(d) {
                               return setSashFittings(1, d, template.details[h[z]]);
                             },
                             //------- hinges
-                            'marker-start': function (d) {
+                            'marker-start': function(d) {
                               return setSashFittings(0, d, template.details[h[z]]);
                             },
-                            'marker-end': function (d) {
+                            'marker-end': function(d) {
                               return setSashFittings(0, d, template.details[h[z]]);
                             },
                             "xlink:href": "./img/handle.svg"
@@ -2579,7 +2616,7 @@
                     if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                       if (template.details[i].level === 1) {
                         //----- create array of frame points with corner = true
-                        corners = template.details[i].pointsOut.filter(function (item) {
+                        corners = template.details[i].pointsOut.filter(function(item) {
                           return item.corner > 0;
                         });
                         elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
@@ -2589,13 +2626,13 @@
                           .attr({
                             'block_id': template.details[i].id,
                             'class': 'corner_mark',
-                            'parent_id': function (d) {
+                            'parent_id': function(d) {
                               return d.id;
                             },
-                            'cx': function (d) {
+                            'cx': function(d) {
                               return d.x;
                             },
-                            'cy': function (d) {
+                            'cy': function(d) {
                               return d.y;
                             },
                             'r': 0
@@ -2665,7 +2702,7 @@
               }
             }
 
-            scope.$watchCollection('template', function () {
+            scope.$watchCollection('template', function() {
               buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
             });
 

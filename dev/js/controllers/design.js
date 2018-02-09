@@ -40,9 +40,9 @@
         if (self.innerWidth > self.innerHeight) {
           thisCtrl.mobSize = self.innerHeight;
         } else {
-          thisCtrl.mobSize = self.innerWidth + 50;
+          thisCtrl.mobSize = self.innerWidth + 70;
         }
-        thisCtrl.mobHeight = self.innerHeight+ 50;
+        thisCtrl.mobHeight = self.innerHeight+ 70;
 
         thisCtrl.config = {
           //---- design menu
