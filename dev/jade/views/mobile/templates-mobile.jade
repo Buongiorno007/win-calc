@@ -3,12 +3,11 @@
       .curr-price
         price(price-value="templatesPanel.G.global.tempPrice", price-currency="templatesPanel.U.userInfo.currency")
       .accept-button(ng-click="templatesPanel.closeTemplatePanelMobile()") {{templatesPanel.APPLY}}
-    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-class="{ active: templatesPanel.isSet($index+1), gray : $index%2 !== 0 }") 
-      .button(ng-click="templatesPanel.selectNewTemplateType($index+1)")
+    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{ active: templatesPanel.isSet($index+1), gray : $index%2 !== 0 }") 
+      .button
         p {{ ::templatesPanel.templateName[$index]|translate }}
-        .arrow(ng-class="{ active: templatesPanel.isSet($index+1) }")
-      .templates-list(ng-if="templatesPanel.isSet($index+1)")
+      .templates-list
         .template(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index", ng-click="templatesPanel.selectNewTemplate($index)")
-          img.template-img(ng-src="{{ templateIcon.src }}")
+          img.template-img(ng-src="{{ templateIcon.src }}" ng-if="templateIcon.type === Pindex")
     .types.add-elems-only(ng-click="templatesPanel.setTab(0)")
       | Add elements only

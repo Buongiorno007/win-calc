@@ -296,7 +296,8 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        height: 10vh;
+        height: auto;
+        min-height: 10vh;
         padding: 0 10px;
         width: 100%;
         @include roboto-lt(5vw);
@@ -342,9 +343,15 @@
 
       .templates-list {
         position: relative;
-        height: auto;
+        width: 100%;
+        min-width: 100%;
         display: inline-flex;
+        align-items: center;
+        flex-wrap: nowrap;
         overflow-x: auto;
+        overflow-y: hidden;
+        box-sizing: content-box;
+
         .template {
           display: inline-flex;
 

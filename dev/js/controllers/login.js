@@ -170,7 +170,7 @@
               GlobalStor.global.isLightVersion = 1;
             } else {
               GlobalStor.global.isLightVersion = 0;
-              GlobalStor.global.currOpenPage = 'mobile';
+              GlobalStor.global.currOpenPage = 'main';
             }
 
             /** !!!! **/

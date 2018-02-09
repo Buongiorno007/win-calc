@@ -57,6 +57,7 @@
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
             GlobalStor.global.templatesImgs = results.data.templateImgs;
+            console.log(GlobalStor.global.templatesImgs);
           } else {
             console.log(results);
           }

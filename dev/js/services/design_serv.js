@@ -835,7 +835,7 @@
           closeSizeCaclulator();
         }
 
-        /**---------- Select door shape --------*/
+        /**---------- Select door shape 1 --------*/
 
         function selectDoor(id, product) {
           var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
@@ -843,6 +843,15 @@
           var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
           var temp = [];
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
+          DesignStor.design.steps.selectedStep1 = 0;
+          DesignStor.design.steps.selectedStep2 = 0;
+          DesignStor.design.steps.selectedStep3 = 0;
+          DesignStor.design.steps.selectedStep4 = 0;
+
+          DesignStor.design.doorConfig.sashShapeIndex = -1;
+          DesignStor.design.doorConfig.handleShapeIndex = -1;
+          DesignStor.design.doorConfig.lockShapeIndex = -1;
+
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
           for (var z = 0; z < doorsGroups.length; z += 1) {
@@ -931,7 +940,7 @@
           }
         }
 
-        /**---------- Select profile/sash shape --------*/
+        /**---------- Select profile/sash shape 2 --------*/
 
         function selectSash(id, product) {
           var deferred = $q.defer();
@@ -945,6 +954,12 @@
             impostDepth: null,
             shtulpDepth: null
           };
+          DesignStor.design.steps.selectedStep2 = 0;
+          DesignStor.design.steps.selectedStep3 = 0;
+          DesignStor.design.steps.selectedStep4 = 0;
+
+          DesignStor.design.doorConfig.handleShapeIndex = -1;
+          DesignStor.design.doorConfig.lockShapeIndex = -1;
 
           DesignStor.design.doorConfig.glassDepProf = (ids.profile_id === product.profile.id);
           $q.all([
@@ -989,6 +1004,7 @@
           return deferred.promise;
         }
 
+
         function depend(item) {
           var newHandleArr;
           newHandleArr = GlobalStor.global.doorHandlers.filter(function (handle) {
@@ -1002,14 +1018,16 @@
           DesignStor.design.handleShapeList = filtered;
         }
 
-        /**---------- Select handle shape --------*/
-
         function selectHandle(id, product) {
           (id) ? id = id : id = DesignStor.design.handleShapeList[0].id;
           var pnt = checkSize(DesignStor.design.templateTEMP, 4);
           // console.log(pnt);
           var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
           var array = [];
+          DesignStor.design.steps.selectedStep4 = 0;
+
+          DesignStor.design.doorConfig.lockShapeIndex = -1;
+
           if (!DesignStor.design.steps.selectedStep4) {
             if (DesignStor.design.doorConfig.handleShapeIndex === id) {
               DesignStor.design.doorConfig.handleShapeIndex = '';
@@ -1044,7 +1062,7 @@
           }
         }
 
-        /**---------- Select lock shape --------*/
+        /**---------- Select lock shape 4 --------*/
 
         function selectLock(id, product) {
           if (DesignStor.design.doorConfig.lockShapeIndex === id) {
