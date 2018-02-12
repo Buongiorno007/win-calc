@@ -116,36 +116,27 @@
           var templateTemp = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
           GlobalStor.global.templatesSource[ProductStor.product.template_id] = templateTemp;
         }
-
-
         //---------- select new template and recalculate it price
         function selectNewTemplate(templateIndex, roomInd, whoCalled) {
           GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
-          ProductStor.product.room_id = templateIndex;
-
           function goToNewTemplate() {
+            ProductStor.product.room_id = templateIndex;
+            GlobalStor.global.SelectedTemplateIndex = roomInd;
+            GlobalStor.global.SelectedTemplateName = GlobalStor.global.templatesImgs[ProductStor.product.room_id].name;
+            GlobalStor.global.SelectedName = GlobalStor.global.templatesImgs[templateIndex].name;
             MainServ.setDefaultDoorConfig();
             DesignServ.setDefaultConstruction();
             GlobalStor.global.isNewTemplate = 1;
             //-------- check changes in current template
             GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
             ProductStor.product.construction_type = GlobalStor.global.templatesType;
-            // if (!whoCalled) {
-            // } else {
-            // ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd - 1].group_id;
-            // }
             DesignStor.design.template_id = templateIndex;
             GlobalStor.global.selectRoom = 1;
             MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function (data) {
-
               if (data) {
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
                 GlobalStor.global.product_qty = 1;
-                // if (whoCalled === 'main') {
-                //   newPriceForNewTemplate(templateIndex, roomInd);
-                // } else {
-                // }
                 culcPriceNewTemplate(templateIndex);
               }
               setTimeout(function () {
