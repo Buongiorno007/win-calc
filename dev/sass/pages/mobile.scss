@@ -229,7 +229,7 @@
     p {
       margin: 0;
       text-transform: uppercase;
-      @include roboto-lt(1.5vh);
+      @include roboto-lt(10px);
     }
   }
 
@@ -277,6 +277,7 @@
         align-items: center;
         overflow-x: hidden;
         overflow-y: auto;
+
         .accept-container {
           display: inline-flex;
           align-items: center;
@@ -284,17 +285,28 @@
           height: 10vh;
           width: 100%;
 
-          .accept-button {
-            width: 45%;
-            height: 5vh;
-            background: red;
-            border-radius: 50px;
+          .right {
             display: inline-flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            @include roboto-rg(24px);
-            color: white;
+            height: 10vh;
+            width: 50%;
+            background: white;
+            @include roboto-rg(15px);
+
+            .accept-button {
+              width: 100%;
+              height: 5vh;
+              background: red;
+              border-radius: 50px;
+              display: inline-flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              @include roboto-rg(24px);
+              color: white;
+            }
           }
         }
 
@@ -310,9 +322,11 @@
           @include roboto-lt(5vw);
           color: $main_gray_dark;
           box-sizing: content-box;
+
           &.gray {
             background: $main_gray_light;
           }
+
           .button {
             display: inline-flex;
             flex-direction: row;
@@ -325,6 +339,7 @@
             @include roboto-lt(5vw);
             color: $main_gray_dark;
             box-sizing: content-box;
+            text-transform: uppercase;
           }
         }
 
@@ -337,33 +352,46 @@
           flex-wrap: nowrap;
           overflow-x: auto;
           overflow-y: hidden;
-          padding-bottom: 30px;
+
           .template {
-            margin: 0px 10px 0px 10px;
+            padding: 20px 0;
+
             .template-img {
-              height: 10vh;
-              margin: 10px 30px 10px 30px;
+              height: 8vh;
+              margin: 10px 30px;
               object-fit: contain;
             }
+
+            .name {
+              @include roboto-lt(rem(25px), 1);
+            }
+
+            &.active {
+              border: 2px solid $main_red;
+            }
           }
+
           .door {
             display: inline-flex;
             flex-direction: column;
-            height: 20vh !important;
+
             .template-img {
-              height: 15vh;
+              height: 13vh;
             }
           }
         }
       }
-      .add-elems-only{
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+
+      .add-elems-only {
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
         height: 100px;
         width: 100%;
         @include roboto-lt(5vw);
         color: $main_gray_dark;
+        line-height: 50px;
+
         &.gray {
           background: $main_gray_light;
         }
@@ -637,8 +665,12 @@
     //  align-items: center;
     //}
   }
-}
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
-::-webkit-scrollbar {
-  display: none;
+  body {
+    /* Disables pull-to-refresh but allows overscroll glow effects. */
+    overscroll-behavior-y: contain;
+  }
 }

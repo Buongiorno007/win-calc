@@ -14,7 +14,6 @@ let portrait = false;
       console.log("landscape")
     }
   }
-
   let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
   if (app) {
     isDevice = 1;
