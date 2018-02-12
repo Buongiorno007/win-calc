@@ -1,13 +1,14 @@
-.templates-content(ng-controller="TemplatesCtrl as templatesPanel")
+.scroll-container(ng-controller="TemplatesCtrl as templatesPanel")
     .accept-container
       .curr-price
         price(price-value="templatesPanel.G.global.tempPrice", price-currency="templatesPanel.U.userInfo.currency")
       .accept-button(ng-click="templatesPanel.closeTemplatePanelMobile()") {{templatesPanel.APPLY}}
-    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{ active: templatesPanel.isSet($index+1), gray : $index%2 !== 0 }") 
+    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}") 
       .button
         p {{ ::templatesPanel.templateName[$index]|translate }}
       .templates-list
-        .template(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index", ng-click="templatesPanel.selectNewTemplate($index)")
-          img.template-img(ng-src="{{ templateIcon.src }}" ng-if="templateIcon.type === Pindex")
-    .types.add-elems-only(ng-click="templatesPanel.setTab(0)")
+        .template(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index", ng-click="templatesPanel.selectNewTemplate($index)" ng-class="{door : Pindex !== 1}")
+          img.template-img(ng-src="{{ templateIcon.src }}" ng-if="templateIcon.type === Pindex" )
+          .name(ng-if="templateIcon.type === Pindex") {{templateIcon.name}}
+    .add-elems-only.gray(ng-click="templatesPanel.setTab(0)")
       | Add elements only

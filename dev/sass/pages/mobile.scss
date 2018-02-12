@@ -269,96 +269,104 @@
       background: white;
       z-index: 1;
 
-      .accept-container {
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-around;
-        height: 10vh;
+      .scroll-container {
+        position: relative;
         width: 100%;
-
-        .accept-button {
-          width: 45%;
-          height: 5vh;
-          background: red;
-          border-radius: 50px;
-          display: inline-flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: center;
-          @include roboto-lt(26px);
-          color: white;
-        }
-      }
-
-      .types {
-        display: inline-flex;
+        display: inline-block;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        text-align: center;
-        height: auto;
-        min-height: 10vh;
-        padding: 0 10px;
-        width: 100%;
-        @include roboto-lt(5vw);
-        color: $main_gray_dark;
-        box-sizing: content-box;
-
-        &.gray {
-          background: $main_gray_light;
-        }
-
-        &.active {
-          height: auto;
-        }
-
-        .button {
+        overflow-x: hidden;
+        overflow-y: auto;
+        .accept-container {
           display: inline-flex;
-          flex-direction: row;
+          align-items: center;
+          justify-content: space-around;
+          height: 10vh;
+          width: 100%;
+
+          .accept-button {
+            width: 45%;
+            height: 5vh;
+            background: red;
+            border-radius: 50px;
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            @include roboto-rg(24px);
+            color: white;
+          }
+        }
+
+        .types {
+          display: inline-block;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
-          height: 10vh;
-          padding: 0 10px;
+          min-height: 5vh;
+          height: auto;
           width: 100%;
           @include roboto-lt(5vw);
           color: $main_gray_dark;
           box-sizing: content-box;
-
-          .arrow {
-            position: absolute;
-            right: 5vh;
+          &.gray {
+            background: $main_gray_light;
+          }
+          .button {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             height: 5vh;
-            width: 5vh;
-            background: url("../img/config-menu/down-arrow.svg") no-repeat center;
-            background-size: contain;
+            padding: 0 10px;
+            width: 100%;
+            @include roboto-lt(5vw);
+            color: $main_gray_dark;
+            box-sizing: content-box;
+          }
+        }
 
-            &.active {
-              background: url("../img/config-menu/up-arrow.svg") no-repeat center;
-              background-size: contain;
+        .templates-list {
+          position: relative;
+          width: 100%;
+          min-width: 100%;
+          display: inline-flex;
+          align-items: center;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overflow-y: hidden;
+          padding-bottom: 15px;
+          .template {
+            display: inline-flex;
+            flex-direction: column;
+            height: 15vh;
+            .template-img {
+              height: 10vh;
+              margin: 10px 30px 10px 30px;
+            }
+          }
+          .door {
+            display: inline-flex;
+            flex-direction: column;
+            height: 20vh !important;
+            .template-img {
+              height: 15vh;
             }
           }
         }
       }
-
-      .templates-list {
-        position: relative;
-        width: 100%;
-        min-width: 100%;
+      .add-elems-only{
         display: inline-flex;
         align-items: center;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-        box-sizing: content-box;
-
-        .template {
-          display: inline-flex;
-
-          .template-img {
-            height: 10vh;
-            margin: 30px;
-          }
+        justify-content: center;
+        height: 100px;
+        width: 100%;
+        @include roboto-lt(5vw);
+        color: $main_gray_dark;
+        &.gray {
+          background: $main_gray_light;
         }
       }
     }
