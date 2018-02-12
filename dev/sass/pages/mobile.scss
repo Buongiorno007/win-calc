@@ -333,18 +333,17 @@
           width: 100%;
           min-width: 100%;
           display: inline-flex;
-          align-items: center;
+          align-items: flex-start;
           flex-wrap: nowrap;
           overflow-x: auto;
           overflow-y: hidden;
-          padding-bottom: 15px;
+          padding-bottom: 30px;
           .template {
-            display: inline-flex;
-            flex-direction: column;
-            height: 15vh;
+            margin: 0px 10px 0px 10px;
             .template-img {
               height: 10vh;
               margin: 10px 30px 10px 30px;
+              object-fit: contain;
             }
           }
           .door {
