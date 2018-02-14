@@ -728,7 +728,7 @@
       justify-content: space-around;
 
       .accept-button {
-        width: 50%;
+        width: 40vw;
         height: 5vh;
         background: red;
         border-radius: 50px;
@@ -736,7 +736,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        @include roboto-rg(24px);
+        @include roboto-bd(18px);
         color: white;
       }
 
