@@ -11,12 +11,14 @@
         GlobalStor,
         ProductStor,
         ProfileServ,
+        UserStor,
         MainServ
       ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.G = GlobalStor;
         thisCtrl.P = ProductStor;
+        thisCtrl.U = UserStor;
 
         thisCtrl.config = {
           camera: $filter('translate')('panels.CAMERa'),
