@@ -1,45 +1,49 @@
-(function(){
+(function() {
   'use strict';
   /**@ngInject*/
   angular
     .module('MainModule')
     .controller('HardwaresCtrl',
 
-  function(
-    $filter,
-    globalConstants,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    DesignStor,
-    UserStor,
-    MainServ,
-    AnalyticsServ,
-    HardwareServ
-  ) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.P = ProductStor;
+      function(
+        $filter,
+        globalConstants,
+        GlobalStor,
+        OrderStor,
+        ProductStor,
+        DesignStor,
+        UserStor,
+        MainServ,
+        AnalyticsServ,
+        HardwareServ
+      ) {
+        /*jshint validthis:true */
+        var thisCtrl = this;
+        thisCtrl.G = GlobalStor;
+        thisCtrl.P = ProductStor;
 
-    thisCtrl.config = {
-      DELAY_START: 5 * globalConstants.STEP,
-      DELAY_BLOCK: 2 * globalConstants.STEP,
-      DELAY_TYPING: 2.5 * globalConstants.STEP,
-      typing: 'on'
-    };
+        thisCtrl.config = {
+          DELAY_START: 5 * globalConstants.STEP,
+          DELAY_BLOCK: 2 * globalConstants.STEP,
+          DELAY_TYPING: 2.5 * globalConstants.STEP,
+          typing: 'on'
+        };
+        thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
+        console.log(GlobalStor.global.hardwares);
 
-    //------- translate
-    thisCtrl.BRAND = $filter('translate')('panels.BRAND');
-    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
-    thisCtrl.CORROSION_COEFF = $filter('translate')('panels.CORROSION_COEFF');
-    thisCtrl.BURGLAR_COEFF = $filter('translate')('panels.BURGLAR_COEFF');
-    
-    /**========== FINISH ==========*/
+        //------- translate
 
-    //------ clicking
-    thisCtrl.selectHardware = HardwareServ.selectHardware;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
+        thisCtrl.BRAND = $filter('translate')('panels.BRAND');
+        thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+        thisCtrl.CORROSION_COEFF = $filter('translate')('panels.CORROSION_COEFF');
+        thisCtrl.BURGLAR_COEFF = $filter('translate')('panels.BURGLAR_COEFF');
 
-  });
+        /**========== FINISH ==========*/
+
+        //------ clicking
+        thisCtrl.closePanelMobile = MainServ.closePanelMobile;
+        thisCtrl.selectHardware = HardwareServ.selectHardware;
+        thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+      });
 })();

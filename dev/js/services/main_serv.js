@@ -2380,9 +2380,13 @@
           "top": top + "px"
         });
       }
+      function closePanelMobile() {
+        GlobalStor.global.activePanel = 0;
+      }
       /**========== FINISH ==========*/
 
       thisFactory.publicObj = {
+        closePanelMobile : closePanelMobile,
         profile: profile,
         resize: resize,
         displayData: displayData,
