@@ -1,11 +1,11 @@
 .scroll-container(ng-controller="TemplatesCtrl as templatesPanel")
-    .accept-container
+    .template-accept-container
       .curr-price
         price(price-value="templatesPanel.G.global.tempPrice", price-currency="templatesPanel.U.userInfo.currency")
-      .right
         .accept-button(ng-click="templatesPanel.closeTemplatePanelMobile()") {{templatesPanel.APPLY}}
-        |{{templatesPanel.G.global.SelectedTemplateName}}
-    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}") 
+      .right
+        .value {{templatesPanel.G.global.SelectedTemplateName}}
+    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0, first : $index === 0}") 
       .button
         p {{ ::templatesPanel.templateName[$index]|translate }}
       .templates-list

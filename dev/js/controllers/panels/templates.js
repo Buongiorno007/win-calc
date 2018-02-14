@@ -63,7 +63,6 @@
             console.log(results);
           }
         });
-        console.log(GlobalStor.global.templatesImgs);
         GlobalStor.global.SelectedTemplateIndex = ProductStor.product.template_id;
         GlobalStor.global.SelectedTemplateName = GlobalStor.global.templatesImgs[6].name;
 
@@ -103,7 +102,6 @@
 
         function downloadTemplateForMobile(marker, id) {
           selectNewTemplateType(marker);
-          console.log(marker, id);
           /*ЭТО ДИКИЙ КОСТЫЛЬ. ПРОСТИТЕ.*/
           let selected_id  = id;
           if (marker === 2) {

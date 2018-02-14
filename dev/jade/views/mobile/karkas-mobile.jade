@@ -1,5 +1,5 @@
 .karkas-content(ng-controller="DesignCtrl as designPage")
-  .common-scroll-container.figure-lists
+  .common-scroll-container.figure-lists(ng-class="{'gray': designPage.D.design.activeMenuItem }")
     .figure-item(ng-click="designPage.selectMenuItem(3)" ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
         .figure-icon.impost-shape-a
         .figure-icon.impost-shape-b
@@ -56,4 +56,3 @@
     .edit-submenu(ng-if="designPage.D.design.activeSubMenuItem == 5" ng-hide="designPage.P.product.construction_type === 4")
       .edit-btn.constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
       .edit-btn.constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
-
