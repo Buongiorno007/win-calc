@@ -124,16 +124,16 @@
   .mobile-price {
     position: absolute;
     bottom: 10vh;
-    height: 10vh;
+    height: 50px;
     width: 100%;
     display: inline-flex;
     align-items: center;
     justify-content: space-around;
 
     .go-to-cart {
-      width: 45%;
-      height: 7vh;
-      background: red;
+      width: 200px;
+      height: 45px;
+      background: $main_red;
       border-radius: 50px;
       display: inline-flex;
       flex-direction: row;
@@ -142,21 +142,21 @@
 
       .go-to-cart-title {
         color: white;
-        font-size: 5vw;
-        margin-left: 4.5vw;
+        @include roboto-rg(rem($price_container-height-mobile - 4px),1);
+        margin-left: 25px;
       }
 
       .product-counter {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 6.5vh;
-        width: 6.5vh;
+        height: 43px;
+        width: 43px;
         background: white;
         border-radius: 50px;
         color: $main_red;
-        font-size: 3vh;
-        margin-right: 0.1vh;
+        @include roboto-rg(rem($price_container-height-mobile - 4px),1);
+        margin-right: 1px;
       }
     }
   }
@@ -164,7 +164,7 @@
   .control-buttons-container {
     position: absolute;
     bottom: 0;
-    height: 10vh;
+    height: 70px;
     width: 100%;
     display: inline-flex;
     flex-direction: row;
@@ -182,8 +182,8 @@
       padding-top: 10px;
 
       .img-common {
-        width: 5vh;
-        height: 5vh;
+        width: 40px;
+        height: 40px;
       }
 
       .cart-img {
@@ -239,7 +239,7 @@
     height: auto;
     width: 100%;
     position: absolute;
-    bottom: 10vh;
+    bottom: 70px;
     background: white;
 
     .common-content-style {
@@ -285,10 +285,10 @@
           align-items: center;
           justify-content: center;
           text-align: center;
-          min-height: 5vh;
+          min-height: 100px;
           height: auto;
           width: 100%;
-          @include roboto-lt(5vw);
+          @include roboto-lt(20px);
           color: $main_gray_dark;
           box-sizing: content-box;
 
@@ -302,9 +302,9 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            height: 5vh;
+            height: 50px;
             width: 100%;
-            @include roboto-bd(5vw);
+            @include roboto-bd(20px);
             color: $main_gray_dark;
             box-sizing: content-box;
             text-transform: uppercase;
@@ -329,7 +329,7 @@
             padding: 15px 0;
 
             .template-img {
-              height: 8vh;
+              height: 70px;
               margin: 10px 30px;
               object-fit: contain;
             }
@@ -348,7 +348,7 @@
             flex-direction: column;
 
             .template-img {
-              height: 13vh;
+              height: 120px;
             }
           }
         }
@@ -367,7 +367,6 @@
           align-items: center;
           width: 100%;
           height: auto;
-          min-height: 10vh;
           padding-top: 25px;
 
           .curr-price {
@@ -378,14 +377,14 @@
 
           .accept-button {
             width: 40vw;
-            height: 5vh;
-            background: red;
+            height: 40px;
+            background: $main_red;
             border-radius: 50px;
             display: inline-flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            @include roboto-bd(18px);
+            @include roboto-bd(16px);
             color: white;
           }
 
@@ -404,7 +403,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 10vh;
+        height: 50px;
         width: 100%;
         @include roboto-lt(5vw);
         color: $main_gray_dark;
@@ -428,8 +427,8 @@
           align-items: center;
           justify-content: space-around;
           flex: 0 0 auto;
-          height: 10vh;
-          width: 19vw;
+          height: 70px;
+          width: 70px;
           box-sizing: content-box;
 
           &.selected {
@@ -540,7 +539,7 @@
       .edit-submenu-list {
         position: absolute;
         bottom: 10vh;
-        height: 10vh;
+        height: 70px;
         width: 100%;
         min-width: 100%;
         display: flex;
@@ -702,7 +701,7 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    @include roboto-lt(13px);
+    @include roboto-lt(14px);
     color: $main_red;
   }
 
@@ -716,7 +715,6 @@
     align-items: center;
     width: 100%;
     height: auto;
-    min-height: 10vh;
     padding-top: 25px;
 
     .row {
@@ -729,14 +727,14 @@
 
       .accept-button {
         width: 40vw;
-        height: 5vh;
-        background: red;
+        height: 40px;
+        background: $main_red;
         border-radius: 50px;
         display: inline-flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        @include roboto-bd(18px);
+        @include roboto-bd(16px);
         color: white;
       }
 
@@ -750,7 +748,8 @@
       }
 
       .selected-profile {
-        width: 35%;
+        width: auto;
+        min-width: 35%;
         display: inline-flex;
         flex-direction: row;
         align-items: center;
@@ -766,13 +765,14 @@
     height: 100%;
     width: 100%;
     background: white;
+    overflow-y: auto;
 
     .profiles-list {
       display: inline-flex;
       flex-direction: column;
       height: auto;
       width: 100%;
-      margin-top: 13vh;
+      margin-top: 100px;
 
       .profile-block {
         display: inline-flex;
@@ -783,14 +783,17 @@
         .producer {
           display: inline-flex;
           align-items: center;
-          height: 50px;
+          height: 70px;
           background: $main_f7;
 
           .title {
             margin: 0;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             @include roboto-rg(24px);
             color: black;
+            text-transform: uppercase;
+            line-height: 20px;
           }
 
           .info {
@@ -799,11 +802,16 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: red;
+            background: $main_red;
             border-radius: 50px;
-            color: white;
-            @include roboto-rg(24px);
             margin: 0 20px;
+
+            p {
+              margin: 0;
+              color: white;
+              @include roboto-bd(20px);
+              line-height: 16px;
+            }
           }
         }
 
@@ -815,11 +823,12 @@
 
           .profile-info {
             position: relative;
-            height: 200px;
+            height: 86vw;
             display: inline-flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
+            border: 1px solid $main_f7;
 
             .profile-info-item {
               display: inline-flex;
@@ -827,23 +836,53 @@
               align-items: center;
 
               .name {
-                @include roboto-rg(10px);
+                @include roboto-bd(4vw);
                 text-align: center;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 7.74vw;
+                width: 100%;
               }
             }
 
             &.selected {
-              border: 1px solid red;
+              border: 1px solid $main_red;
               background: $main_f7;
             }
 
             .profile-img {
-              display: inline-block;
-              width: 30vw;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 43vw;
+              height: 43vw;
+              object-fit: contain;
+            }
+
+            .info-container {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              height: 19.87vw;
+              width: 100%;
+            }
+
+            .common-info {
+              display: inline-flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: flex-end;
+              height: 15.48vw;
+              width: 100%;
+
+              p {
+                margin: 0;
+                @include roboto-rg(3.5vw);
+              }
             }
 
             .information {
-
               display: inline-flex;
               align-items: center;
               justify-content: center;
@@ -851,8 +890,7 @@
               border: 1px solid $main_red;
               border-radius: 25px;
               color: $main_red;
-              @include roboto-rg(15px);
-              margin-bottom: 25px;
+              @include roboto-rg(5vw);
             }
           }
         }
@@ -869,9 +907,13 @@
     background: white;
   }
 
+  .info_container {}
+
   .info_box {
     all: unset;
     position: absolute;
+    padding: 10px;
+    box-sizing: border-box;
     top: 0;
     left: 0;
     width: 100%;
@@ -883,8 +925,9 @@
   .isApply {
     all: unset;
     position: relative;
-    width: 50%;
-    left: 25%;
+    display: inline-block;
+    width: 80%;
+    left: 10%;
     top: 0;
     line-height: 6rem;
     text-align: center;
@@ -903,4 +946,5 @@
 body {
   overflow: auto;
   overscroll-behavior: contain;
+  overscroll-behavior-y: none;
 }
