@@ -406,6 +406,7 @@
     "ADDELEMENTS_EDIT_LIST": "Редактировать список ...",
     "ADDELEMENTS_PRODUCT_COST": "в одном изделии",
     "HEAT_TRANSFER": "Коефициент теплопередачи",
+    "NOIZE_TRANSFER": "Коефициент звукоизоляции",
     "WRONG_EMAIL": "Неверная электронная почта",
     "LINK_BETWEEN_COUPLE": "между парой",
     "LINK_BETWEEN_ALL": "между всеми",

@@ -1,28 +1,36 @@
 .mobile-profiles(ng-if="mobilePage.G.global.activePanel === 4" ng-controller="HardwaresCtrl as hardwarePanel")
-  .accept-container
-    .row
-      .curr-price
-        price(price-value="hardwarePanel.G.global.tempPrice", price-currency="hardwarePanel.U.userInfo.currency")
-      .accept-button(ng-click="hardwarePanel.closePanelMobile()") {{ hardwarePanel.APPLY }}
-    .row
-      .product-u-coeff(ng-if="hardwarePanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': profilesPanel.P.product.heat_coef_total < profilesPanel.O.order.heat_coef_min}")
-        div R = {{ hardwarePanel.P.product.heat_coef_total | number :2 }} {{ ::hardwarePanel.LETTER_M}}&sup2;&deg;C/{{::hardwarePanel.HEATCOEF_VAL }}
-      .product-u-coeff(ng-if="!hardwarePanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': profilesPanel.P.product.heat_coef_total > profilesPanel.O.order.heat_coef_min}")
-        div U = {{ hardwarePanel.P.product.heat_coef_total | number :2 }} {{ ::hardwarePanel.HEATCOEF_VAL}}/{{::hardwarePanel.LETTER_M}}&sup2;&deg;C
-      .selected-profile
-        .value(ng-if="hardwarePanel.P.product.construction_type !== 4") {{ hardwarePanel.P.product.hardware.name }}
-        .value(ng-if="hardwarePanel.P.product.construction_type === 4") {{ hardwarePanel.P.product.doorHandle.name }}
-        .value(ng-if="hardwarePanel.P.product.construction_type === 4") {{ hardwarePanel.P.product.doorLock.name }}
-  .profiles-list
-    .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index") 
-      .producer
-        .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
-          | i
-        .title {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
-      .profile-box
-        .profile-info(ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" )
-          .profile-info-item(ng-click="hardwarePanel.selectHardware(hardware.id)")
-            img.profile-img( ng-src="{{hardware.img}}" )
-            .name {{hardware.name}}
-          .information(ng-if="hardware.img.length || hardware.link.length || hardware.description.length", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
-            | Information
+    .accept-container
+        .row
+            .curr-price
+                price(price-value="hardwarePanel.G.global.tempPrice", price-currency="hardwarePanel.U.userInfo.currency")
+            .accept-button(ng-click="hardwarePanel.closePanelMobile()") {{ hardwarePanel.APPLY }}
+        .row
+            .product-u-coeff(ng-if="hardwarePanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': hardwarePanel.P.product.heat_coef_total < hardwarePanel.O.order.heat_coef_min}")
+                div R = {{ hardwarePanel.P.product.heat_coef_total | number :2 }} {{ ::hardwarePanel.LETTER_M}}&sup2;&deg;C/{{::hardwarePanel.HEATCOEF_VAL }}
+            .product-u-coeff(ng-if="!hardwarePanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': hardwarePanel.P.product.heat_coef_total > hardwarePanel.O.order.heat_coef_min}")
+                div U = {{ hardwarePanel.P.product.heat_coef_total | number :2 }} {{ ::hardwarePanel.HEATCOEF_VAL}}/{{::hardwarePanel.LETTER_M}}&sup2;&deg;C
+            .selected-profile
+                .value(ng-if="hardwarePanel.P.product.construction_type !== 4")
+                    p {{ hardwarePanel.P.product.hardware.name }}
+                .value(ng-if="hardwarePanel.P.product.construction_type === 4")
+                    p {{ hardwarePanel.P.product.doorHandle.name }}
+                .value(ng-if="hardwarePanel.P.product.construction_type === 4")
+                    p {{ hardwarePanel.P.product.doorLock.name }}
+    .profiles-list
+        .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index")
+            .producer
+                .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
+                    p i
+                .title {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+            .profile-box
+                .profile-info(ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" )
+                    .profile-info-item(ng-click="hardwarePanel.selectHardware(hardware.id)")
+                        img.profile-img( ng-src="{{hardware.img}}" alt="{{hardware.name}}")
+                        .name
+                            p {{hardware.name}}
+                        .common-info
+                            p {{::hardwarePanel.HEAT_TRANSFER}} {{hardware.heat_coeff}}
+                            p {{::hardwarePanel.NOICE_INSULATION}} {{hardware.noise_coeff}}
+                    .info-container
+                        .information(ng-if="hardware.img.length || hardware.link.length || hardware.description.length", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
+                            | Information
