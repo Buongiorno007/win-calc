@@ -9,6 +9,7 @@
         $filter,
         globalConstants,
         GlobalStor,
+        OrderStor,
         ProductStor,
         ProfileServ,
         UserStor,
@@ -19,6 +20,7 @@
         thisCtrl.G = GlobalStor;
         thisCtrl.P = ProductStor;
         thisCtrl.U = UserStor;
+        thisCtrl.O = OrderStor;
 
         thisCtrl.config = {
           camera: $filter('translate')('panels.CAMERa'),
@@ -29,13 +31,17 @@
           DELAY_TYPING: 2.5 * globalConstants.STEP,
           typing: 'on'
         };
-        console.log(GlobalStor.global.profiles);
         //------- translate
         thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
         thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
         thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
         thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
-
+        thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+        thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+        thisCtrl.CAMERa = $filter('translate')('panels.CAMERa');
+        thisCtrl.CAMER = $filter('translate')('panels.CAMER');
+        thisCtrl.CAMERs = $filter('translate')('panels.CAMERs');
+        thisCtrl.HEAT_TRANSFER = $filter('translate')('cart.HEAT_TRANSFER');
         /**========== FINISH ==========*/
         //------ clicking
         thisCtrl.closePanelMobile = MainServ.closePanelMobile;

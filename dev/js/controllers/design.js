@@ -709,6 +709,7 @@
         thisCtrl.selectGlassFast = selectGlassFast;
         thisCtrl.selectProfileFast = selectProfileFast;
         thisCtrl.selectWindowsHardwareFast = selectWindowsHardwareFast;
+
         if ($location.path() !== "/mobile") {
           $("#main-frame").removeClass("main-frame-mobView");
           $("#app-container").removeClass("app-container-mobView");
