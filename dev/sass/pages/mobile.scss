@@ -249,7 +249,7 @@ body {
     height: auto;
     width: 100%;
     position: absolute;
-    bottom: 70px;
+    bottom: 65px;
     background: white;
 
     .common-content-style {
@@ -826,12 +826,14 @@ body {
         }
 
         .profile-box {
-          display: inline-flex;
-          flex-direction: row;
           min-width: 100%;
+          display: flex;
+          flex-wrap: nowrap;
           overflow-x: auto;
-
+          -webkit-overflow-scrolling: touch;
+          -ms-overflow-style: -ms-autohiding-scrollbar;
           .profile-info {
+            flex: 0 0 auto;
             position: relative;
             height: 86vw;
             width: 43vw !important;
@@ -985,6 +987,17 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 15px;
+    .product-u-coeff{
+      white-space: nowrap;
+    }
+    .title{
+      p{
+        margin: 0;
+        color: $main_gray_dark;
+        @include roboto-bd(15px);
+      }
+    }
     .info{
       height: 30px;
       width: 30px;
@@ -997,6 +1010,49 @@ body {
       color: $main_red;
       @include roboto-bd(18px);
     }
+
+  }
+  .coeff-info-block{
+    position: absolute;
+    top : 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: white;
+    padding: 50px 30px 50px 30px;
+    text-align: center;
+    .coeff-max{
+      display: inline-flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      color: $main_green;
+      @include roboto-bd(38px);
+      .heat-transfer{
+        display: inline-flex;
+
+      }
+    }
+    .heat-transfer-info_hr{
+      color: $main_gray_dark;
+      @include roboto-bd(28px);
+    }
+    .heat-transfer-info{
+      color: $main_gray_dark;
+      @include roboto-bd(24px);
+    }
+    .close-dialog{
+      background-color: $main_red;
+    }
+  }
+  .sash_mark {
+    fill: none;
+    stroke: $main_red;
+    stroke-width: 6;
   }
 }
 
