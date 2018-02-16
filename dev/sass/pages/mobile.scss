@@ -240,7 +240,7 @@ body {
     p {
       margin: 0;
       text-transform: uppercase;
-      @include roboto-lt(10px);
+      @include roboto-lt(8px);
     }
   }
 
@@ -452,7 +452,7 @@ body {
 
           .figure-icon {
             position: absolute;
-            font-size: 5vh;
+            font-size: 6vh;
           }
 
           .impost-shape-a {
@@ -978,34 +978,40 @@ body {
 
   .heat-coef-block-mobile {
     position: absolute;
-    bottom: 70px;
+    bottom: 65px;
     height: 20px;
     width: 100%;
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
+    justify-content: center;
     .product-u-coeff{
+      display: inline-flex;
+      align-items: flex-end;
       white-space: nowrap;
+      margin: 5px;
     }
     .title{
+      display: inline-flex;
+      align-items: flex-end;
+      margin: 5px;
       p{
         margin: 0;
         color: $main_gray_dark;
-        @include roboto-bd(13px);
+        @include roboto-rg(12px);
       }
     }
     .info{
-      height: 30px;
-      width: 30px;
+      margin: 5px;
+      height: 20px;
+      width: 20px;
       background: white;
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       border: 1px solid $main_red;
       border-radius: 25px;
       color: $main_red;
-      @include roboto-bd(18px);
+      @include roboto-bd(15px);
     }
 
   }
