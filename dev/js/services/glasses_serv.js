@@ -17,7 +17,6 @@
                 /**============ METHODS ================*/
 
                 function selectGlass(newId, newName, type) {
-                    console.log(newId, newName, type);
                     GlobalStor.global.isChangedTemplate = 1;
                     GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
                     GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);

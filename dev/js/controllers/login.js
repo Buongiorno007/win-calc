@@ -650,7 +650,6 @@
         });
 
         function enterForm(form) {
-          $location.path('/mobile');
           thisCtrl.submitted = 1;
           if (form.$valid) {
             if (navigator.onLine) {

@@ -1481,7 +1481,6 @@
                 /**------- set click to all Glass for Glass selector ---------- */
 
                 function initAllGlassXGlass() {
-
                     DesignStor.design.selectedGlass.length = 0;
                     d3.selectAll('#' + globalConstants.SVG_ID_GLASS + ' .glass')
                         .each(function () {

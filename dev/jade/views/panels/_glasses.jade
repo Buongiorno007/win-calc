@@ -1,4 +1,4 @@
-.config-panel.glass-container(ng-controller="GlassesCtrl as glassPanel", ng-class="{'active': glassPanel.G.global.activePanel == 3}")
+.config-panel.glass-container(ng-controller="GlassesCtrl as glassPanel")
   .panel-inner(ng-if="glassPanel.G.global.activePanel == 3")
     .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index", ng-class="{'selected': glassPanel.P.product.glassTypeIndex == $index}")
 
