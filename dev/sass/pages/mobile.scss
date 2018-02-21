@@ -45,6 +45,7 @@
   background: url("../img/login/logo.png?1516794682") no-repeat center;
   background-size: cover;
 }
+
 html {
   overflow: hidden;
   height: 100%;
@@ -54,6 +55,7 @@ body {
   height: 100%;
   overflow: auto;
 }
+
 .mobile {
 
   position: relative;
@@ -90,7 +92,7 @@ body {
   }
 
   .price-currency {
-    @include roboto-lt(rem($price_container-height-mobile - 4px),1);
+    @include roboto-lt(rem($price_container-height-mobile - 4px), 1);
     color: $main_red;
     margin: 0 1vw;
   }
@@ -152,7 +154,7 @@ body {
 
       .go-to-cart-title {
         color: white;
-        @include roboto-rg(rem($price_container-height-mobile - 4px),1);
+        @include roboto-rg(rem($price_container-height-mobile - 4px), 1);
         margin-left: 15px;
       }
 
@@ -165,7 +167,7 @@ body {
         background: white;
         border-radius: 50px;
         color: $main_red;
-        @include roboto-rg(rem($price_container-height-mobile - 4px),1);
+        @include roboto-rg(rem($price_container-height-mobile - 4px), 1);
         margin-right: 1px;
       }
     }
@@ -409,7 +411,7 @@ body {
             width: 100%;
             background: white;
             .value {
-              width: 55%;
+              width: 52%;
             }
           }
         }
@@ -715,7 +717,7 @@ body {
     align-items: center;
     @include roboto-lt(14px);
     color: $main_red;
-    p{
+    p {
       width: 100%;
       text-align: center;
       white-space: nowrap;
@@ -733,7 +735,7 @@ body {
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: auto;
+    height: 15vh;
     padding-top: 25px;
 
     .row {
@@ -767,8 +769,7 @@ body {
       }
     }
   }
-
-  .mobile-profiles {
+  .mobile-common-panel {
     position: absolute;
     top: 0;
     left: 0;
@@ -777,12 +778,15 @@ body {
     background: white;
     overflow-y: auto;
     z-index: 1;
+  }
+  .mobile-profiles {
+
     .profiles-list {
       display: inline-flex;
       flex-direction: column;
       height: auto;
       width: 100%;
-      margin-top: 100px;
+      margin-top: 15vh;
 
       .profile-block {
         display: inline-flex;
@@ -857,7 +861,7 @@ body {
                 justify-content: center;
                 height: 7.74vw;
                 width: 100%;
-                p{
+                p {
                   margin: 0;
                   width: 90%;
                   white-space: nowrap;
@@ -920,6 +924,120 @@ body {
       }
     }
   }
+  .mobile-glass {
+    .glass-container {
+      position: fixed;
+      top: 15vh;
+      width: 100%;
+      height: calc(100% - 15vh);
+      overflow-y: auto;
+      background: white;
+      .glass-block {
+        all: unset;
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        &.gray {
+          background-color: $main_f7;
+        }
+        .button {
+          width: 90%;
+          height: 50px;
+          background: white;
+          border-radius: 50px;
+          border: 2px solid $main_gray_dark;
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          @include roboto-rg(20px);
+          color: $main_gray_dark;
+          z-index: 1;
+          margin-top: 15px;
+          &.active {
+            color: $main_red;
+            border: 2px solid $main_red;
+          }
+          p{
+            width: 90%;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        .glass-folder {
+          position: relative;
+          width: 100%;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          .glass-item {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            height: 40px;
+            background: white;
+            border-radius: 50px;
+            border: 1px solid $main_gray_dark;
+            margin : 5px 0 5px 0;
+            &.selected{
+              border: 2px solid $main_red;
+            }
+            .title{
+              width: calc(100% - 34px);
+              display: inline-flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              @include roboto-rg(20px);
+              color: $main_gray_dark;
+              z-index: 1;
+              p{
+                margin: 0;
+              }
+            }
+            .info{
+              all: unset;
+              position: relative;
+              right: 2px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              height: 34px;
+              width: 34px;
+              border-radius: 50px;
+              background: $main_red;
+              @include roboto-rg(20px);
+              color: white;
+            }
+          }
+        }
+
+        img {
+          position: relative;
+          top: 0;
+          width: 70vw;
+          height: 70vw;
+
+        }
+      }
+    }
+    .glass-selector-dialog{
+      all : unset;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: white;
+      top : 0;
+      left: 0;
+      z-index: 2;
+    }
+  }
 
   .product-u-coeff {
     display: inline-flex;
@@ -944,7 +1062,8 @@ body {
     background: white;
   }
 
-  .info_container {}
+  .info_container {
+  }
 
   .info_box {
     all: unset;
@@ -987,23 +1106,23 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    .product-u-coeff{
+    .product-u-coeff {
       display: inline-flex;
       align-items: flex-end;
       white-space: nowrap;
       margin: 5px;
     }
-    .title{
+    .title {
       display: inline-flex;
       align-items: flex-end;
       margin: 5px;
-      p{
+      p {
         margin: 0;
         color: $main_gray_dark;
         @include roboto-rg(12px);
       }
     }
-    .info{
+    .info {
       margin: 5px;
       height: 20px;
       width: 20px;
@@ -1018,9 +1137,9 @@ body {
     }
 
   }
-  .coeff-info-block{
+  .coeff-info-block {
     position: absolute;
-    top : 0;
+    top: 0;
     left: 0;
     height: 100%;
     width: 100%;
@@ -1031,27 +1150,27 @@ body {
     background: white;
     padding: 50px 30px 50px 30px;
     text-align: center;
-    .coeff-max{
+    .coeff-max {
       display: inline-flex;
       width: 100%;
       align-items: center;
       justify-content: center;
       color: $main_green;
       @include roboto-bd(30px);
-      .heat-transfer{
+      .heat-transfer {
         display: inline-flex;
 
       }
     }
-    .heat-transfer-info_hr{
+    .heat-transfer-info_hr {
       color: $main_gray_dark;
       @include roboto-bd(24px);
     }
-    .heat-transfer-info{
+    .heat-transfer-info {
       color: $main_gray_dark;
       @include roboto-bd(22px);
     }
-    .close-dialog{
+    .close-dialog {
       background-color: $main_red;
     }
   }
