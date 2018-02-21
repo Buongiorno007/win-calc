@@ -1,7 +1,7 @@
 .mobile
   .main-view
     .svg-template(ng-controller="DesignCtrl as designPage")
-      svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.mobSize", template-height="designPage.mobSize", type-construction="designPage.constants.SVG_ID_EDIT")
+      svg-template(template="designPage.D.design.templateTEMP", template-width="mobilePage.mobSize", template-height="mobilePage.mobSize", type-construction="designPage.constants.SVG_ID_EDIT")
   include mobile/mobile-price
   .content-container(ng-if="!mobilePage.isSet(0)")
     .templates-content(ng-if="mobilePage.isSet(1)")
@@ -26,7 +26,7 @@
       p {{mobilePage.CART}}
   include mobile/heat-coef-mobile
   include mobile/profiles-mobile
-  include panels/_glasses
+  include mobile/glass-mobile
   include mobile/hardwares-mobile
   include panels/_laminations
   include panels/_add-elements

@@ -30,6 +30,14 @@
             thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
             thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
             thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
+            thisCtrl.mobSize = 0;
+            if (self.innerWidth > self.innerHeight) {
+                thisCtrl.mobSize = self.innerHeight;
+            } else {
+                thisCtrl.mobSize = self.innerWidth + 70;
+            }
+            thisCtrl.mobHeight = self.innerHeight+ 70;
+
             window.addEventListener('load', function () {
                 var maybePreventPullToRefresh = false;
                 var lastTouchY = 0;
