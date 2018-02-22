@@ -27,6 +27,8 @@
     "TEMPLATE_CHANGES_LOST": "Modificările în șablon nu vor fi salvate! Doriți să  continuați?",
     "PAGE_REFRESH": "Reîncărcarea paginii va duce la pierderea datelor!",
     "SELECT": "Alege",
+    "SELECT_CURRENT": "Для выбранного",
+    "SELECT_ALL_CONSTRUCTION": "Для выбранного",
     "AND": "și",
     "OK": "OK",
     "BACK": "Înapoi",

@@ -29,6 +29,8 @@
     "TEMPLATE_CHANGES_LOST": "Wszystkie zmiany zostaną utracone! Kontynuować bez zapisu?",
     "PAGE_REFRESH": "Po odświeżeniu strony dane zostaną utracone!",
     "SELECT": "Wybierz",
+    "SELECT_CURRENT": "Для выбранного",
+    "SELECT_ALL_CONSTRUCTION": "Для выбранного",
     "AND": "i",
     "OK": "OK",
     "BACK": "Wstecz",

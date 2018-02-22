@@ -793,7 +793,9 @@ body {
     z-index: 1;
   }
   .mobile-profiles {
-
+    p {
+      text-align: center;
+    }
     .profiles-list {
       display: inline-flex;
       flex-direction: column;
@@ -1082,7 +1084,7 @@ body {
         border-radius: 25px;
         p {
           margin: 0;
-          @include roboto-rg(20px);
+          @include roboto-lt(20px);
 
           color: $main_red;
           line-height: 19px;
@@ -1104,18 +1106,83 @@ body {
         overflow: hidden;
       }
       .dialog-title {
+        width: 100%;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .apply-title {
+          width: 100%;
+          p {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            @include roboto-rg(30px);
+            color: $main_gray_dark;
+          }
+        }
         .glass-title {
+          width: 100%;
           display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: row;
           &.column {
             display: inline-flex;
+            align-items: center;
+            justify-content: center;
             flex-direction: column;
           }
           .curr-glass-value {
             p {
-
+              text-align: center;
+              margin: 0;
+              @include roboto-lt(17px);
+              color: $main_gray_dark;
             }
           }
         }
+      }
+      .buttons {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-around;
+
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        bottom: 10vh;
+        div {
+          width: 45%;
+          height: 40px;
+          border-radius: 25px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          p {
+            margin: 0;
+            @include roboto-lt(17px);
+          }
+        }
+        .set-glass-btn {
+          background: white;
+          border: 1px solid $main_red;
+          p {
+            color: $main_red;
+          }
+        }
+        .set-glass-all-btn {
+          background: red;
+          p {
+            color: white;
+          }
+        }
+      }
+      .heat-coef-block-mobile {
+        position: absolute;
+        bottom: 5vh;
       }
     }
   }
@@ -1156,6 +1223,9 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
+    background: white;
+  }
+  .info_box_inner {
     background: white;
   }
 

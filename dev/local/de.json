@@ -27,6 +27,8 @@
     "TEMPLATE_CHANGES_LOST": "Die Template-Änderungen gehen verloren! Fortfahren?",
     "PAGE_REFRESH": "Das Neuladen der Seite zu Datenverlust führen!",
     "SELECT": "wählen",
+    "SELECT_CURRENT": "Для выбранного",
+    "SELECT_ALL_CONSTRUCTION": "Для выбранного",
     "AND": "und",
     "OK": "OK",
     "PRINT": "Druckansicht",

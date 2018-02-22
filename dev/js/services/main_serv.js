@@ -516,7 +516,7 @@
       function setCurrentGlassForTemplate(templateSource, product) {
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           if (product.profile.profileId) {
-            return product.construction_type == 4 ?
+            return product.construction_type === 4 ?
               item.profileId === product.profile.profileId :
               item.profileId === product.profile.id;
           } else {
