@@ -28,8 +28,11 @@
                         p {{glass.sku}}
                     .info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)") i
     .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
+        .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
+            p x
         .dialog-title
-            .apply-title {{glassPanel.APPLY}}
+            .apply-title
+                p {{glassPanel.APPLY}}
             .glass-title(ng-class="{'column': glassPanel.G.global.selectGlassName.length > 20}")
                 .curr-glass-value
                     p {{ glassPanel.G.global.glassTypes[glassPanel.OpenFolder].name }}
@@ -40,4 +43,3 @@
         .buttons
             .set-glass-btn(fs-click="glassPanel.confirmGlass()") {{}}
             .set-glass-all-btn(fs-click="glassPanel.setGlassToAll()") {{ ::glassPanel.SELECT_ALL }}
-        .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
