@@ -109,7 +109,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    div{
+    div {
       position: absolute;
       height: 65vh;
       width: 100%;
@@ -117,7 +117,6 @@ body {
       align-items: center;
       justify-content: center;
     }
-
 
     .size-txt-edit {
       @extend .size-txt;
@@ -974,7 +973,7 @@ body {
             color: $main_red;
             border: 2px solid $main_red;
           }
-          p{
+          p {
             width: 90%;
             text-align: center;
             white-space: nowrap;
@@ -998,11 +997,11 @@ body {
             background: white;
             border-radius: 50px;
             border: 1px solid $main_gray_dark;
-            margin : 5px 0 5px 0;
-            &.selected{
+            margin: 5px 0 5px 0;
+            &.selected {
               border: 2px solid $main_red;
             }
-            .title{
+            .title {
               width: calc(100% - 34px);
               display: inline-flex;
               flex-direction: row;
@@ -1011,14 +1010,14 @@ body {
               @include roboto-rg(20px);
               color: $main_gray_dark;
               z-index: 1;
-              p{
+              p {
                 margin: 0;
               }
-              &.selected{
+              &.selected {
                 color: $main_red;
               }
             }
-            .info{
+            .info {
               all: unset;
               position: relative;
               right: 2px;
@@ -1044,24 +1043,24 @@ body {
         }
       }
     }
-    .glass-selector-dialog{
-      all : unset;
+    .glass-selector-dialog {
+      all: unset;
       position: fixed;
       display: inline-block;
       width: 0;
-      height:0;
+      height: 0;
       background: white;
-      top : 0;
+      top: 0;
       left: 0;
       z-index: 2;
       overflow: hidden;
-      padding-top: 25px;
-      #tamlateGlassSVG{
-        all:unset;
+      padding-top: 15px;
+      #tamlateGlassSVG {
+        all: unset;
         position: relative;
         left: 3rem;
       }
-      .dialog-inner{
+      .dialog-inner {
         position: relative;
         height: 80vh;
         width: 100%;
@@ -1069,22 +1068,54 @@ body {
         align-items: center;
         justify-content: center;
       }
-      .close-dialog{
-        background-color: $main_red;
+      .close-dialog {
+        all: unset;
+        position: relative;
+        left: 85%;
+        background-color: white;
+        border: 1px solid $main_red;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 25px;
+        p {
+          margin: 0;
+          @include roboto-rg(20px);
+
+          color: $main_red;
+          line-height: 19px;
+        }
+        &:after {
+          content: '';
+        }
+
       }
-      &.active{
+      &.active {
         position: fixed;
         display: inline-block;
         width: 100%;
         height: 100%;
         background: white;
-        top : 0;
+        top: 0;
         left: 0;
         z-index: 2;
         overflow: hidden;
       }
-      .dialog-title{
+      .dialog-title {
+        .glass-title {
+          display: inline-flex;
+          &.column {
+            display: inline-flex;
+            flex-direction: column;
+          }
+          .curr-glass-value {
+            p {
 
+            }
+          }
+        }
       }
     }
   }
