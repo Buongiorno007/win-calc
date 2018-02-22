@@ -37,7 +37,11 @@
             } else {
                 thisCtrl.mobSize = self.innerWidth + 70;
             }
-            thisCtrl.mobHeight = self.innerHeight+ 70;
+            thisCtrl.mobWidth = self.innerWidth + 70;
+            thisCtrl.mobHeight = self.innerHeight * 0.8;
+
+            thisCtrl.mobWidthGlass = self.innerWidth;
+            thisCtrl.mobHeightGlass = self.innerHeight * 0.65;
 
             window.addEventListener('load', function () {
                 var maybePreventPullToRefresh = false;
@@ -99,6 +103,7 @@
             function isSet(tabNum) {
                 return GlobalStor.global.MobileTabActive === tabNum;
             };
+
             function showCoefInfoBlock() {
                 GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
             }

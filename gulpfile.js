@@ -36,7 +36,6 @@ gulp.task('clean', function () {
 var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
-    // "windowSiteTest": "'http://api.test.windowscalculator.net'",
     "windowSiteTest": "'http://api.windowscalculator.net'",
     "windowSiteLocal": "'http://api.test.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
@@ -45,8 +44,7 @@ var server_env = {
     "window": "'http://api.windowscalculator.net'"
   },
   print_env = {
-    // "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSiteLocal": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",

@@ -28,6 +28,8 @@
     "TEMPLATE_CHANGES_LOST": " I cambiamenti in una sagoma saranno persi! Continuare?",
     "PAGE_REFRESH": "L'azzerramento della pagina porterà a perdita di dati!",
     "SELECT": " Scegliere ",
+    "SELECT_CURRENT": "Для выбранного",
+    "SELECT_ALL_CONSTRUCTION": "Для выбранного",
     "AND": " e ",
     "OK": "OK",
     "BACK": "Back",

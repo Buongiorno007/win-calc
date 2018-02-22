@@ -49,6 +49,8 @@
                 thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
                 thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
+                thisCtrl.SELECT_CURRENT = $filter('translate')('common_words.SELECT_CURRENT');
+                thisCtrl.SELECT_ALL_CONSTRUCTION = $filter('translate')('common_words.SELECT_ALL_CONSTRUCTION');
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
                 thisCtrl.OpenFolder  = -1;
                 /**============ METHODS ================*/

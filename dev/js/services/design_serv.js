@@ -448,6 +448,9 @@
                                         ProductStor.product.template = Object.assign(result);
                                         ProductStor.product.template_source = Object.assign(DesignStor.design.templateSourceTEMP);
                                         DesignStor.design.resultSize = Object.assign(result);
+                                        setTimeout(function () {
+                                            rebuildSVGTemplate();
+                                        }, 250);
                                         checkSize(result);
                                         cleanTempSize();
                                         deff.resolve(1);

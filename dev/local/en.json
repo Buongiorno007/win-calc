@@ -27,6 +27,8 @@
     "TEMPLATE_CHANGES_LOST": "The template changes will lost! Continue?",
     "PAGE_REFRESH": "Reloading the page will lead to data loss!",
     "SELECT": "Select",
+    "SELECT_CURRENT": "For the selected",
+    "SELECT_ALL_CONSTRUCTION": "The whole design",
     "AND": "and",
     "OK": "OK",
     "BACK": "Back",

@@ -1,7 +1,7 @@
 .mobile
   .main-view
     .svg-template(ng-controller="DesignCtrl as designPage")
-      svg-template(template="designPage.D.design.templateTEMP", template-width="mobilePage.mobSize", template-height="mobilePage.mobSize", type-construction="designPage.constants.SVG_ID_EDIT")
+      svg-template(template="designPage.D.design.templateTEMP", template-width="mobilePage.mobWidth", template-height="mobilePage.mobHeight", type-construction="designPage.constants.SVG_ID_EDIT")
   include mobile/mobile-price
   .content-container(ng-if="!mobilePage.isSet(0)")
     .templates-content(ng-if="mobilePage.isSet(1)")
