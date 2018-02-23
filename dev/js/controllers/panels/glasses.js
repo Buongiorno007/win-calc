@@ -52,11 +52,12 @@
                 thisCtrl.SELECT_CURRENT = $filter('translate')('common_words.SELECT_CURRENT');
                 thisCtrl.SELECT_ALL_CONSTRUCTION = $filter('translate')('common_words.SELECT_ALL_CONSTRUCTION');
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
-                thisCtrl.OpenFolder  = -1;
+                thisCtrl.OpenFolder = -1;
                 /**============ METHODS ================*/
 
                 console.log(GlobalStor.global.glassTypes);
                 console.log(GlobalStor.global.glasses);
+
                 function changePriceAsNewGlass() {
                     var hardwareIds;
                     DesignStor.design.selectedGlass.length = 0;
@@ -151,11 +152,17 @@
                             ProductStor.product.templateIcon = angular.copy(result);
                         });
                 }
-                function OpenGlassFolder(index){
-                    if (thisCtrl.OpenFolder  === index){
+
+                function OpenGlassFolder(index, event) {
+                    if (thisCtrl.OpenFolder === index) {
                         thisCtrl.OpenFolder = -1;
                     } else {
                         thisCtrl.OpenFolder = index;
+                        if (event) {
+                            setTimeout(() => {
+                                $('.glass-container').animate({scrollTop: $(event.currentTarget).offset().top + $('.glass-container').scrollTop() - $(event.currentTarget).height() / 2 - 10 - $('.accept-container').height()}, 'slow');
+                            }, 250);
+                        }
                     }
                 }
 
