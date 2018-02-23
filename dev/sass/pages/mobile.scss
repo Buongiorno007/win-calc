@@ -1005,6 +1005,10 @@ body {
             border-radius: 50px;
             border: 1px solid $main_gray_dark;
             margin: 5px 0 5px 0;
+            .info{
+              height: 30px;
+              width: 30px;
+            }
             &.selected {
               border: 1px solid $main_red;
             }
@@ -1053,7 +1057,7 @@ body {
       #tamlateGlassSVG {
         all: unset;
         position: relative;
-        left: 3rem;
+        left: 1rem;
       }
       .dialog-inner {
         position: relative;
@@ -1173,6 +1177,7 @@ body {
     height: 35px;
     background: url("../img/calc/close-calculator.svg") no-repeat;
     background-size: contain;
+    z-index: 2;
     &:after {
       all:unset;
       content: '';
