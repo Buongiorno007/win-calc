@@ -19,7 +19,7 @@
     .profiles-list
         .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index")
             .producer
-                .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
+                .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length && hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
                     p i
                 .title {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
             .profile-box
@@ -32,5 +32,5 @@
                             p {{::hardwarePanel.HEAT_TRANSFER}} {{hardware.heat_coeff}}
                             p {{::hardwarePanel.NOICE_INSULATION}} {{hardware.noise_coeff}}
                     .info-container
-                        .information(ng-if="hardware.img.length || hardware.link.length || hardware.description.length", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
+                        .information(ng-if="hardware.img.length && hardware.description.length", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
                             | Information

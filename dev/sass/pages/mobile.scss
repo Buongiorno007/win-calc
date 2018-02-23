@@ -748,7 +748,7 @@ body {
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    min-height: 15vh;
+    height: 100px;
     padding-top: 25px;
     z-index: 2;
     @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
@@ -943,7 +943,7 @@ body {
   .mobile-glass {
     .glass-container {
       position: absolute;
-      top: 15vh;
+      top: 100px;
       width: 100%;
       height: calc(100% - 15vh);
       overflow-y: auto;
@@ -985,6 +985,9 @@ body {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            &.active {
+              color: $main_red;
+            }
           }
         }
         .glass-folder {
