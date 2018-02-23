@@ -1,26 +1,26 @@
 doctype html
 html(ng-app='BauVoiceApp')
-  head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge', lang="ru")
-    title BauVoice | {{ title }}
-    meta(name='description', content='')
-    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge', lang="ru")
+        title BauVoice | {{ title }}
+        meta(name='description', content='')
+        meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
     //Touch Icons - iOS and Android 2.1+ , maximum-scale=5
     link(rel="apple-touch-icon-precomposed" href="img/favicon.ico")
     //Firefox, Chrome, Safari, IE 11+ and Opera.
     link(rel="icon" href="img/favicon.ico")
     link(rel='stylesheet', href='css/main.css?t=RANDOM_FLAG')
     link(rel='visor', href='vendor/vis.js')
-  body
-    #main-frame.main-frame-mobView(style='position:relative;  transform: scale(1);')
-      section#app-container.app-container.app-container-mobView(ng-view)
-      script(src="")
-        
-      audio#sounds(preload)
-        source(src="audio/soundsPrice.aac", type="audio/mpeg")
-        source(src="audio/soundsPrice.ogg", type="audio/ogg")
-        //source(src="audio/sounds.mp3", type="audio/mpeg")
-        //source(src="audio/sounds.wav", type="audio/wav")
-      script(src='./js/plugins.js?t=RANDOM_FLAG')
-      script(src='./js/main.js?t=RANDOM_FLAG')
+    body
+        #main-frame.main-frame-mobView(style='position:relative;  transform: scale(1);')
+            section#app-container.app-container.app-container-mobView(ng-view)
+            script(src="")
+
+            audio#sounds(preload)
+                source(src="audio/soundsPrice.aac", type="audio/mpeg")
+                source(src="audio/soundsPrice.ogg", type="audio/ogg")
+                //source(src="audio/sounds.mp3", type="audio/mpeg")
+                //source(src="audio/sounds.wav", type="audio/wav")
+            script(src='./js/plugins.js?t=RANDOM_FLAG')
+            script(src='./js/main.js?t=RANDOM_FLAG')

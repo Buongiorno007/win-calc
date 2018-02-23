@@ -20,7 +20,7 @@
     .glass-container
         .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")
             .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
-                p {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
             img(ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" ng-click="glassPanel.OpenGlassFolder($index)")
             .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
                 .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
