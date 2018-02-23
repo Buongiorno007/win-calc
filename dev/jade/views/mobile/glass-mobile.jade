@@ -37,8 +37,8 @@
                     p {{ glassPanel.G.global.glassTypes[glassPanel.OpenFolder].name }}&nbsp
                 .curr-glass-value
                     p {{glassPanel.G.global.selectGlassName}}
-        .dialog-inner
-            svg-template(template="glassPanel.P.product.template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobHeightGlass", type-construction="glassPanel.constants.SVG_ID_GLASS")
+        .dialog-inner-mob
+            svg-template(template="glassPanel.P.product.template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="glassPanel.constants.SVG_ID_GLASS")
         .buttons
             .set-glass-btn(fs-click="glassPanel.confirmGlass()")
                 p {{ ::glassPanel.SELECT_CURRENT }}
