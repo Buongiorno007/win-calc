@@ -20,7 +20,6 @@
         .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index")
             .producer
                 .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length && hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
-                    p i
                 .title {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
             .profile-box
                 .profile-info(ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" )

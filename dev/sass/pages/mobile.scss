@@ -75,6 +75,7 @@ body {
     height: rem($price_container-height-mobile);
     text-align: center;
     color: $main_red;
+    -webkit-text-fill-color: $main_red;
   }
 
   .digit-cell {
@@ -93,6 +94,7 @@ body {
   .price-currency {
     @include roboto-lt(rem($price_container-height-mobile - 4px), 1);
     color: $main_red;
+    -webkit-text-fill-color: $main_red;
     margin: 0 1vw;
   }
   #tamlateSVG {
@@ -166,6 +168,7 @@ body {
 
       .go-to-cart-title {
         color: white;
+        -webkit-text-fill-color: white;
         @include roboto-rg(rem($price_container-height-mobile - 4px), 1);
         margin-left: 15px;
       }
@@ -179,6 +182,7 @@ body {
         background: white;
         border-radius: 50px;
         color: $main_red;
+        -webkit-text-fill-color: $main_red;
         @include roboto-rg(rem($price_container-height-mobile - 4px), 1);
         margin-right: 1px;
       }
@@ -318,6 +322,7 @@ body {
           width: 100%;
           @include roboto-lt(20px);
           color: $main_gray_dark;
+          -webkit-text-fill-color: $main_gray_dark;
           box-sizing: content-box;
 
           &.gray {
@@ -334,6 +339,7 @@ body {
             width: 100%;
             @include roboto-bd(20px);
             color: $main_gray_dark;
+            -webkit-text-fill-color: $main_gray_dark;
             box-sizing: content-box;
             text-transform: uppercase;
 
@@ -413,6 +419,7 @@ body {
             justify-content: center;
             @include roboto-bd(16px);
             color: white;
+            -webkit-text-fill-color: white;
           }
 
           .right {
@@ -437,7 +444,7 @@ body {
         width: 100%;
         @include roboto-lt(5vw);
         color: $main_gray_dark;
-
+        -webkit-text-fill-color: $main_gray_dark;
         &.gray {
           background: $main_f7;
         }
@@ -474,7 +481,7 @@ body {
 
           .impost-shape-a {
             color: $main_gray_dark;
-
+            -webkit-text-fill-color: $main_gray_dark;
             &:after {
               content: $impost-shape-icon-a;
             }
@@ -482,7 +489,7 @@ body {
 
           .impost-shape-b {
             color: $main_red;
-
+            -webkit-text-fill-color: $main_red;
             &:after {
               content: $impost-shape-icon-b;
             }
@@ -490,7 +497,7 @@ body {
 
           .sash-shape-a {
             color: $main_gray_dark;
-
+            -webkit-text-fill-color: $main_gray_dark;
             &:after {
               content: $sash-shape-icon-a;
             }
@@ -498,7 +505,7 @@ body {
 
           .sash-shape-b {
             color: $main_red;
-
+            -webkit-text-fill-color: $main_red;
             &:after {
               content: $sash-shape-icon-b;
             }
@@ -506,7 +513,7 @@ body {
 
           .angel-shape-a {
             color: $main_gray_dark;
-
+            -webkit-text-fill-color: $main_gray_dark;
             &:after {
               content: $angel-shape-icon-a;
             }
@@ -514,7 +521,7 @@ body {
 
           .angel-shape-b {
             color: $main_red;
-
+            -webkit-text-fill-color: $main_red;
             &:after {
               content: $angel-shape-icon-b;
             }
@@ -522,7 +529,7 @@ body {
 
           .arch-shape-a {
             color: $main_gray_dark;
-
+            -webkit-text-fill-color: $main_gray_dark;
             &:after {
               content: $arch-shape-icon-a;
             }
@@ -530,7 +537,7 @@ body {
 
           .arch-shape-b {
             color: $main_red;
-
+            -webkit-text-fill-color: $main_red;
             &:after {
               content: $arch-shape-icon-b;
             }
@@ -538,7 +545,7 @@ body {
 
           .position-shape-a {
             color: $main_gray_dark;
-
+            -webkit-text-fill-color: $main_gray_dark;
             &:after {
               content: $position-shape-icon-a;
             }
@@ -546,7 +553,7 @@ body {
 
           .position-shape-b {
             color: $main_red;
-
+            -webkit-text-fill-color: $main_red;
             &:after {
               content: $position-shape-icon-b;
             }
@@ -590,12 +597,14 @@ body {
 
             &:after {
               color: $main_gray_dark;
+              -webkit-text-fill-color: $main_gray_dark;
             }
           }
 
           .constr-shape-position {
             background: none;
             color: $main_gray_dark;
+            -webkit-text-fill-color: $main_gray_dark;
             font-size: 2vh;
             border: none;
           }
@@ -729,6 +738,7 @@ body {
     align-items: center;
     @include roboto-lt(14px);
     color: $main_red;
+    -webkit-text-fill-color: $main_red;
     p {
       width: 100%;
       text-align: center;
@@ -770,6 +780,7 @@ body {
         justify-content: center;
         @include roboto-bd(16px);
         color: white;
+        -webkit-text-fill-color: white;
       }
 
       .selected-profile {
@@ -821,26 +832,9 @@ body {
             align-items: center;
             @include roboto-rg(24px);
             color: black;
+            -webkit-text-fill-color: black;
             text-transform: uppercase;
             line-height: 20px;
-          }
-
-          .info {
-            height: 25px;
-            width: 25px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: $main_red;
-            border-radius: 50px;
-            margin: 0 20px;
-
-            p {
-              margin: 0;
-              color: white;
-              @include roboto-bd(20px);
-              line-height: 16px;
-            }
           }
         }
 
@@ -932,6 +926,7 @@ body {
               border: 1px solid $main_red;
               border-radius: 25px;
               color: $main_red;
+              -webkit-text-fill-color: $main_red;
               @include roboto-rg(5vw);
             }
           }
@@ -969,11 +964,13 @@ body {
           justify-content: center;
           @include roboto-rg(25px);
           color: $main_gray_dark;
+          -webkit-text-fill-color: $main_gray_dark;
           z-index: 1;
           margin-top: 15px;
           text-transform: uppercase;
           &.active {
             color: $main_red;
+            -webkit-text-fill-color: $main_red;
             border: 2px solid $main_red;
           }
           p {
@@ -986,6 +983,7 @@ body {
             text-overflow: ellipsis;
             &.active {
               color: $main_red;
+              -webkit-text-fill-color: $main_red;
             }
           }
         }
@@ -1018,27 +1016,15 @@ body {
               justify-content: center;
               @include roboto-rg(20px);
               color: $main_gray_dark;
+              -webkit-text-fill-color: $main_gray_dark;
               z-index: 1;
               p {
                 margin: 0;
               }
               &.selected {
                 color: $main_red;
+                -webkit-text-fill-color: $main_red;
               }
-            }
-            .info {
-              all: unset;
-              position: relative;
-              right: 2px;
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              height: 34px;
-              width: 34px;
-              border-radius: 50px;
-              background: $main_red;
-              @include roboto-rg(20px);
-              color: white;
             }
           }
         }
@@ -1107,6 +1093,7 @@ body {
             margin: 0;
             @include roboto-rg(30px);
             color: $main_gray_dark;
+            -webkit-text-fill-color: $main_gray_dark;
           }
         }
         .glass-title {
@@ -1127,6 +1114,7 @@ body {
               margin: 0;
               @include roboto-lt(17px);
               color: $main_gray_dark;
+              -webkit-text-fill-color: $main_gray_dark;
             }
           }
         }
@@ -1158,18 +1146,21 @@ body {
           border: 1px solid $main_red;
           p {
             color: $main_red;
+            -webkit-text-fill-color: $main_red;
           }
         }
         .set-glass-all-btn {
           background: red;
           p {
             color: white;
+            -webkit-text-fill-color: white;
           }
         }
       }
       .heat-coef-block-mobile {
         position: absolute;
         bottom: 5vh;
+        z-index: 2;
       }
     }
   }
@@ -1178,25 +1169,13 @@ body {
     position: absolute;
     right: 15px;
     top : 15px;
-    background-color: white;
-    border: 1px solid $main_red;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 35px;
     height: 35px;
-    border-radius: 25px;
-    @include roboto-rg(25px);
+    background: url("../img/calc/close-calculator.svg") no-repeat;
+    background-size: contain;
     &:after {
       all:unset;
-      width: 35px;
-      height: 35px;
-      padding-top: 5px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      content: $cross-icon;
-      color: $main_red;
+      content: '';
     }
 
   }
@@ -1207,10 +1186,11 @@ body {
     justify-content: center;
     @include roboto-rg(14px);
     color: $main_green;
-
+    -webkit-text-fill-color: $main_green;
     &.coeff-low {
       @extend .flashing;
       color: $main_red;
+      -webkit-text-fill-color: $main_red;
     }
   }
 
@@ -1221,9 +1201,6 @@ body {
     height: 100%;
     width: 100%;
     background: white;
-  }
-
-  .info_container {
   }
 
   .info_box {
@@ -1238,6 +1215,7 @@ body {
     background: white;
     .info_title{
       color: $main_red;
+      -webkit-text-fill-color: $main_red;
     }
   }
   .info_box_inner {
@@ -1275,22 +1253,11 @@ body {
       p {
         margin: 0;
         color: $main_gray_dark;
+        -webkit-text-fill-color: $main_gray_dark;
         @include roboto-rg(12px);
       }
     }
-    .info {
-      margin: 5px;
-      height: 20px;
-      width: 20px;
-      background: white;
-      display: inline-flex;
-      align-items: flex-start;
-      justify-content: center;
-      border: 1px solid $main_red;
-      border-radius: 25px;
-      color: $main_red;
-      @include roboto-bd(15px);
-    }
+
 
   }
   .coeff-info-block {
@@ -1306,12 +1273,14 @@ body {
     background: white;
     padding: 50px 30px 50px 30px;
     text-align: center;
+    z-index: 2;
     .coeff-max {
       display: inline-flex;
       width: 100%;
       align-items: center;
       justify-content: center;
       color: $main_green;
+      -webkit-text-fill-color: $main_green;
       @include roboto-bd(30px);
       .heat-transfer {
         display: inline-flex;
@@ -1320,20 +1289,29 @@ body {
     }
     .heat-transfer-info_hr {
       color: $main_gray_dark;
+      -webkit-text-fill-color: $main_gray_dark;
       @include roboto-bd(24px);
     }
     .heat-transfer-info {
       color: $main_gray_dark;
+      -webkit-text-fill-color: $main_gray_dark;
       @include roboto-bd(22px);
-    }
-    .close-dialog {
-      background-color: $main_red;
     }
   }
   .sash_mark {
     fill: none;
     stroke: $main_red;
     stroke-width: 6;
+  }
+  .info {
+    margin: 2px;
+    height: 35px;
+    width: 35px;
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: url("../img/calc/info.svg") no-repeat;
+    background-size: contain;
   }
 }
 
