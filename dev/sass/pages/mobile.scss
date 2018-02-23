@@ -1006,9 +1006,12 @@ body {
             border: 1px solid $main_gray_dark;
             margin: 5px 0 5px 0;
             .info{
-              height: 30px;
-              width: 30px;
+              height: 35px;
+              width: 35px;
+              background: url("../img/calc/info-button.svg") no-repeat;
+              background-size: contain;
             }
+
             &.selected {
               border: 1px solid $main_red;
             }
@@ -1058,6 +1061,7 @@ body {
         all: unset;
         position: relative;
         left: 1rem;
+        top: 2rem;
       }
       .dialog-inner {
         position: relative;
@@ -1142,7 +1146,7 @@ body {
           justify-content: center;
           p {
             margin: 0;
-            @include roboto-lt(17px);
+            @include roboto-lt(15px);
           }
         }
         .set-glass-btn {
@@ -1229,6 +1233,8 @@ body {
 
   .isApply {
     background: $main_red;
+    color: white;
+    -webkit-text-fill-color: white;
     border-radius: 25px;
   }
 

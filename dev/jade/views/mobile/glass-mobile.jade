@@ -26,7 +26,7 @@
                 .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
                     .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
                         p {{glass.sku}}
-                    .info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)") i
+                    .info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
     .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
         .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
         .dialog-title
@@ -44,4 +44,3 @@
                 p {{ ::glassPanel.SELECT_CURRENT }}
             .set-glass-all-btn(fs-click="glassPanel.setGlassToAll()")
                 p {{ ::glassPanel.SELECT_ALL_CONSTRUCTION }}
-        include heat-coef-mobile
