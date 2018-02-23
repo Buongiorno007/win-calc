@@ -1134,7 +1134,7 @@ body {
 
         width: 100%;
         height: 40px;
-        position: fixed;
+        position: absolute;
         bottom: 10vh;
         div {
           width: 45%;
@@ -1163,7 +1163,7 @@ body {
         }
       }
       .heat-coef-block-mobile {
-        position: fixed;
+        position: absolute;
         bottom: 5vh;
       }
     }
