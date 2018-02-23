@@ -20,7 +20,6 @@
     .profile-block(ng-repeat="producer in profilesPanel.G.global.profiles track by $index") 
       .producer
         .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
-          p i
         .title {{ profilesPanel.G.global.profilesType[$index].name }}
       .profile-box
         .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
