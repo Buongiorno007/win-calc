@@ -855,7 +855,7 @@ body {
             align-items: center;
             justify-content: space-between;
             border: 1px solid $main_f7;
-
+            box-sizing: content-box;
             .profile-info-item {
               display: inline-flex;
               flex-direction: column;
@@ -881,7 +881,7 @@ body {
             }
 
             &.selected {
-              border: 1px solid $main_red;
+              border: 2px solid $main_red;
               background: $main_f7;
             }
 

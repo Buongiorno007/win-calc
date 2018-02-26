@@ -26,10 +26,10 @@
             thisCtrl.ROOM_SELECTION = $filter("translate")("mainpage.ROOM_SELECTION");
             thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
             thisCtrl.HEAT_TRANSFER = $filter('translate')('cart.HEAT_TRANSFER');
-            thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
             thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
             thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
             thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
+            thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
 
             thisCtrl.mobSize = 0;
             if (self.innerWidth > self.innerHeight) {
@@ -120,6 +120,7 @@
             /**========== FINISH ==========*/
 
             //------ clicking
+            thisCtrl.closePanelMobile = MainServ.closePanelMobile;
             thisCtrl.showCoefInfoBlock = showCoefInfoBlock;
             thisCtrl.setTab = setTab;
             thisCtrl.isSet = isSet;

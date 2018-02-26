@@ -1,21 +1,5 @@
 .mobile-profiles.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 4" ng-controller="HardwaresCtrl as hardwarePanel")
-    .accept-container
-        .row
-            .curr-price
-                price(price-value="hardwarePanel.G.global.tempPrice", price-currency="hardwarePanel.U.userInfo.currency")
-            .accept-button(ng-click="hardwarePanel.closePanelMobile()") {{ hardwarePanel.APPLY }}
-        .row
-            .product-u-coeff(ng-if="hardwarePanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': hardwarePanel.P.product.heat_coef_total < hardwarePanel.O.order.heat_coef_min}")
-                div R = {{ hardwarePanel.P.product.heat_coef_total | number :2 }} {{ ::hardwarePanel.LETTER_M}}&sup2;&deg;C/{{::hardwarePanel.HEATCOEF_VAL }}
-            .product-u-coeff(ng-if="!hardwarePanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': hardwarePanel.P.product.heat_coef_total > hardwarePanel.O.order.heat_coef_min}")
-                div U = {{ hardwarePanel.P.product.heat_coef_total | number :2 }} {{ ::hardwarePanel.HEATCOEF_VAL}}/{{::hardwarePanel.LETTER_M}}&sup2;&deg;C
-            .selected-profile
-                .value(ng-if="hardwarePanel.P.product.construction_type !== 4")
-                    p {{ hardwarePanel.P.product.hardware.name }}
-                .value(ng-if="hardwarePanel.P.product.construction_type === 4")
-                    p {{ hardwarePanel.P.product.doorHandle.name }}
-                .value(ng-if="hardwarePanel.P.product.construction_type === 4")
-                    p {{ hardwarePanel.P.product.doorLock.name }}
+    include accept-container
     .profiles-list
         .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index")
             .producer

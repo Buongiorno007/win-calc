@@ -1,0 +1,31 @@
+.accept-container
+    .row
+        .curr-price
+            price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency")
+        .accept-button(ng-click="mobilePage.closePanelMobile()") {{mobilePage.APPLY}}
+    .row
+        .product-u-coeff(ng-if="mobilePage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total < mobilePage.O.order.heat_coef_min}")
+            div R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}
+        .product-u-coeff(ng-if="!mobilePage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total > mobilePage.O.order.heat_coef_min}")
+            div U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C
+        .selected-profile(ng-if="mobilePage.G.global.activePanel === 3")
+            .value(ng-if="mobilePage.P.product.glass.length == 1")
+                p {{ mobilePage.P.product.glass[0].sku }}
+            .value(ng-if="mobilePage.P.product.glass.length == 2")
+                p {{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}
+            .value(ng-if="mobilePage.P.product.glass.length > 2")
+                p {{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}
+        .selected-profile(ng-if="mobilePage.G.global.activePanel === 4")
+            .value(ng-if="hardwarePanel.P.product.construction_type !== 4")
+                p {{ hardwarePanel.P.product.hardware.name }}
+            .value(ng-if="hardwarePanel.P.product.construction_type === 4")
+                p {{ hardwarePanel.P.product.doorHandle.name }}
+            .value(ng-if="hardwarePanel.P.product.construction_type === 4")
+                p {{ hardwarePanel.P.product.doorLock.name }}
+        .selected-profile(ng-if="mobilePage.G.global.activePanel === 2")
+            .value(ng-if="profilesPanel.P.product.construction_type !== 4")
+                p {{ profilesPanel.P.product.profile.name }}
+            .value(ng-if="profilesPanel.P.product.construction_type === 4")
+                p {{ profilesPanel.P.product.doorName | translate }}
+            .value(ng-if="profilesPanel.P.product.construction_type === 4")
+                p {{ profilesPanel.P.product.doorSashName }}

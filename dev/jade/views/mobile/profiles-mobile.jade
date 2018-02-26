@@ -1,37 +1,21 @@
 .mobile-profiles.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 2" ng-controller="ProfilesCtrl as profilesPanel")
-  .accept-container
-    .row
-      .curr-price
-        price(price-value="profilesPanel.G.global.tempPrice", price-currency="profilesPanel.U.userInfo.currency")
-      .accept-button(ng-click="profilesPanel.closePanelMobile()") {{profilesPanel.APPLY}}
-    .row
-      .product-u-coeff(ng-if="profilesPanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': profilesPanel.P.product.heat_coef_total < profilesPanel.O.order.heat_coef_min}")
-        div R = {{ profilesPanel.P.product.heat_coef_total | number :2 }} {{ ::profilesPanel.LETTER_M}}&sup2;&deg;C/{{::profilesPanel.HEATCOEF_VAL }}
-      .product-u-coeff(ng-if="!profilesPanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': profilesPanel.P.product.heat_coef_total > profilesPanel.O.order.heat_coef_min}")
-        div U = {{ profilesPanel.P.product.heat_coef_total | number :2 }} {{ ::profilesPanel.HEATCOEF_VAL}}/{{::profilesPanel.LETTER_M}}&sup2;&deg;C
-      .selected-profile
-        .value(ng-if="profilesPanel.P.product.construction_type !== 4")
-          p {{ profilesPanel.P.product.profile.name }}
-        .value(ng-if="profilesPanel.P.product.construction_type === 4")
-          p {{ profilesPanel.P.product.doorName | translate }}
-        .value(ng-if="profilesPanel.P.product.construction_type === 4")
-          p {{ profilesPanel.P.product.doorSashName }}
-  .profiles-list
-    .profile-block(ng-repeat="producer in profilesPanel.G.global.profiles track by $index") 
-      .producer
-        .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
-        .title {{ profilesPanel.G.global.profilesType[$index].name }}
-      .profile-box
-        .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
-          .profile-info-item(ng-click="profilesPanel.checkForAddElem(profile.id)")
-            img.profile-img(ng-if="profile.img.length", ng-src="{{profile.img}}" )
-            .name
-              p {{profile.name}}
-            .common-info 
-               p(ng-if="profile.cameras === 1 ")                      {{profile.cameras}} {{::profilesPanel.CAMERa}}
-               p(ng-if="profile.cameras > 2 && profile.cameras < 6")  {{profile.cameras}} {{::profilesPanel.CAMERa}}
-               p(ng-if="profile.cameras > 5")                         {{profile.cameras}} {{::profilesPanel.CAMERa}}
-               p {{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}
-          .info-container
-            .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
-              | Information
+    include accept-container
+    .profiles-list
+        .profile-block(ng-repeat="producer in profilesPanel.G.global.profiles track by $index")
+            .producer
+                .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
+                .title {{ profilesPanel.G.global.profilesType[$index].name }}
+            .profile-box
+                .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
+                    .profile-info-item(ng-click="profilesPanel.checkForAddElem(profile.id)")
+                        img.profile-img(ng-if="profile.img.length", ng-src="{{profile.img}}" )
+                        .name
+                            p {{profile.name}}
+                        .common-info
+                            p(ng-if="profile.cameras === 1 ")                      {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                            p(ng-if="profile.cameras > 2 && profile.cameras < 6")  {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                            p(ng-if="profile.cameras > 5")                         {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                            p {{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}
+                    .info-container
+                        .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
+                            | Information
