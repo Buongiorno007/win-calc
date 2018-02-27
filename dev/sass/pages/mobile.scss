@@ -1418,7 +1418,7 @@ body {
   .close-dialog-body {
     position: relative;
     width: 60%;
-    height: 45px;
+    height: 40px;
     border-radius: 50px;
     background: white;
     display: inline-flex;
@@ -1427,6 +1427,10 @@ body {
     .close-dialog-text {
       margin-left: -15px;
       @include roboto-lt(23px);
+    }
+    .close-dialog{
+      top : 3px;
+      right: 2px;
     }
   }
   .sash_mark {

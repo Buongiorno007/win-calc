@@ -32,7 +32,7 @@
                     | {{ ::mobilePage.HEAT_TRANSFER_INFO_9 }}
                 .heat-transfer-info2(ng-click='mobilePage.OpenPanel(2)')
                     | {{ ::mobilePage.HEAT_TRANSFER_INFO_10 }}
-        .close-dialog-body
+        .close-dialog-body(fs-click="mobilePage.G.global.showCoefInfoBlock=0")
             .close-dialog-text
                 | {{ ::mobilePage.HEAT_TRANSFER_INFO_11 }}
-            .close-dialog(fs-click="mobilePage.G.global.showCoefInfoBlock=0")
+            .close-dialog
