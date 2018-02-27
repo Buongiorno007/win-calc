@@ -1,22 +1,5 @@
 .mobile-glass.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 3" ng-controller="GlassesCtrl as glassPanel")
-    .accept-container
-        .row
-            .curr-price
-                price(price-value="glassPanel.G.global.tempPrice", price-currency="glassPanel.U.userInfo.currency")
-            .accept-button(ng-click="glassPanel.closePanelMobile()") {{glassPanel.APPLY}}
-        .row
-            .product-u-coeff(ng-if="glassPanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': glassPanel.P.product.heat_coef_total < glassPanel.O.order.heat_coef_min}")
-                div R = {{ glassPanel.P.product.heat_coef_total | number :2 }} {{ ::glassPanel.LETTER_M}}&sup2;&deg;C/{{::glassPanel.HEATCOEF_VAL }}
-            .product-u-coeff(ng-if="!glassPanel.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': glassPanel.P.product.heat_coef_total > glassPanel.O.order.heat_coef_min}")
-                div U = {{ glassPanel.P.product.heat_coef_total | number :2 }} {{ ::glassPanel.HEATCOEF_VAL}}/{{::glassPanel.LETTER_M}}&sup2;&deg;C
-            .selected-profile
-                .value(ng-if="glassPanel.P.product.glass.length == 1")
-                    p {{ glassPanel.P.product.glass[0].sku }}
-                .value(ng-if="glassPanel.P.product.glass.length == 2")
-                    p {{ glassPanel.P.product.glass[0].sku +', '+ glassPanel.P.product.glass[1].sku }}
-                .value(ng-if="glassPanel.P.product.glass.length > 2")
-                    p {{ glassPanel.P.product.glass[0].sku +', '+ glassPanel.P.product.glass[1].sku +', '+ glassPanel.P.product.glass[2].sku }}
-
+    include accept-container
     .glass-container
         .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")
             .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
