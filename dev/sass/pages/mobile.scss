@@ -762,6 +762,7 @@ body {
         @include roboto-bd(25px);
         color: $main_red;
         -webkit-text-fill-color: $main_red;
+        text-transform: uppercase;
       }
     }
   }
@@ -1207,6 +1208,8 @@ body {
         justify-content: center;
       }
       .laminat-label-button {
+        position: relative;
+        top : 20px;
         width: 90%;
         height: 60px;
         background: white;
@@ -1216,16 +1219,23 @@ body {
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        @include roboto-rg(25px);
+        @include roboto-rg(20px);
         color: $main_gray_dark;
         -webkit-text-fill-color: $main_gray_dark;
         z-index: 1;
-        margin-top: 15px;
         text-transform: uppercase;
         &.active {
           color: $main_red;
           -webkit-text-fill-color: $main_red;
           border: 2px solid $main_red;
+        }
+        p {
+          margin: 0;
+          width: 90%;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
       .laminat-label {
@@ -1234,13 +1244,18 @@ body {
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        @include roboto-rg(20px);
+        @include roboto-rg(15px);
         color: $main_gray_dark;
         -webkit-text-fill-color: $main_gray_dark;
         z-index: 1;
         margin: 5px;
         p {
           margin: 0;
+          width: 90%;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         &.active {
           color: $main_red;
@@ -1254,6 +1269,9 @@ body {
         align-items: center;
         justify-content: center;
       }
+      .laminat-folder-header{
+
+      }
     }
     .laminat-img {
       img {
@@ -1262,6 +1280,7 @@ body {
         width: 70vw;
         height: 70vw;
       }
+      margin-bottom: 15px;
     }
   }
   .close-dialog {
@@ -1494,7 +1513,9 @@ body {
       margin: 15px;
     }
     .alert-descr {
+      width: 80%;
       @include roboto-rg(15px);
+      text-align: center;
     }
     .order-delete {
       all: unset;

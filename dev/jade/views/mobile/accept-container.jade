@@ -38,4 +38,5 @@
                 p {{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}
     .row(ng-if="mobilePage.isSet(1)")
         .back-button(ng-click="mobilePage.closePanelMobile()")
-        .row-title {{mobilePage.TEMPLATE_SELECTION}}
+        .row-title
+            p {{mobilePage.TEMPLATE_SELECTION}}
