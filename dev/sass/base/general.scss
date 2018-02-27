@@ -339,6 +339,7 @@ body {
   @extend .icon-setting;
   @extend .splash;
   &:after {
+    -webkit-text-fill-color: $error_color;
     color: $error_color;
     content: $notification;
   }
