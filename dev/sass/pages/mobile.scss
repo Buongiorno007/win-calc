@@ -1221,6 +1221,7 @@ body {
         color: $main_gray_dark;
         -webkit-text-fill-color: $main_gray_dark;
         z-index: 1;
+        margin: 5px;
         p {
           margin: 0;
         }
@@ -1445,18 +1446,17 @@ body {
   }
   .alert-block {
     all: unset;
+    display: inline-flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     background: white;
     top: 5%;
     left: 5%;
     height: 90%;
     width: 90%;
-    display: inline-flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-
     .alert-no {
       background: white;
       border: 1px solid $main_red;
@@ -1505,13 +1505,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .attention{
+    .attention {
       @include roboto-rg(35px);
       color: white;
       -webkit-text-fill-color: white;
       margin-bottom: 25px;
     }
-    .glass-list{
+    .glass-list {
       width: 100%;
       display: inline-flex;
       flex-direction: column;
@@ -1520,9 +1520,9 @@ body {
       @include roboto-rg(20px);
       color: white;
       -webkit-text-fill-color: white;
-      margin : 25px 0 25px 0;
+      margin: 25px 0 25px 0;
     }
-    .extra-glass, span{
+    .extra-glass, span {
       width: 100%;
       display: inline-flex;
       flex-direction: column;
@@ -1540,7 +1540,7 @@ body {
       justify-content: center;
       align-items: center;
       margin-top: 35px;
-      .close-dialog-title{
+      .close-dialog-title {
         @include roboto-rg(20px);
       }
       .close-dialog {
