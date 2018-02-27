@@ -217,7 +217,8 @@
     "EXTRA_GLASS1": "There is no possibility of glass installation ",
     "EXTRA_GLASS2": " for the design configuration",
     "INTERIOR" : "Interior",
-    "FACADE" : "Facade"
+    "FACADE" : "Facade",
+    "TEMPLATE_SELECTION" : "Template selection"
   },
   "add_elements": {
     "CHOOSE": "select",

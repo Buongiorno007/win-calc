@@ -31,6 +31,7 @@
             thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
             thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
             thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
+            thisCtrl.TEMPLATE_SELECTION = $filter('translate')('panels.TEMPLATE_SELECTION');
             thisCtrl.HEAT_TRANSFER_INFO_3 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_3');
             thisCtrl.HEAT_TRANSFER_INFO_4 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_4');
             thisCtrl.HEAT_TRANSFER_INFO_5 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_5');

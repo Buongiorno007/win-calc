@@ -1,9 +1,9 @@
 .accept-container
-    .row
+    .row(ng-if="!mobilePage.isSet(1)")
         .curr-price
             price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency")
         .accept-button(ng-click="mobilePage.closePanelMobile()") {{mobilePage.APPLY}}
-    .row
+    .row(ng-if="!mobilePage.isSet(1)")
         .product-u-coeff(ng-if="mobilePage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total < mobilePage.O.order.heat_coef_min}")
             div R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}
         .product-u-coeff(ng-if="!mobilePage.U.userInfo.therm_coeff_id",  ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total > mobilePage.O.order.heat_coef_min}")
@@ -36,6 +36,6 @@
         .selected-profile(ng-if="mobilePage.G.global.activePanel === 5")
             .value
                 p {{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}
-        //ШАБЛОН
-        .selected-profile(ng-if="mobilePage.isSet(1)")
-            .value {{mobilePage.G.global.SelectedTemplateName}}
+    .row(ng-if="mobilePage.isSet(1)")
+        .back-button(ng-click="mobilePage.closePanelMobile()")
+        .row-title {{mobilePage.TEMPLATE_SELECTION}}
