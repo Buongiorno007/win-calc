@@ -1450,7 +1450,7 @@ body {
   }
   .alert-block {
     all: unset;
-    display: inline-flex;
+    display: inline-flex !important;
     flex-direction: column;
     align-content: center;
     align-items: center;
