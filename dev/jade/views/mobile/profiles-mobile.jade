@@ -2,7 +2,7 @@
     include accept-container
     .profiles-list
         .profile-block(ng-repeat="producer in profilesPanel.G.global.profiles track by $index")
-            .producer
+            .producer(ng-click='profilesPanel.ClickOnFolder($event)')
                 .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
                 .title {{ profilesPanel.G.global.profilesType[$index].name }}
             .profile-box

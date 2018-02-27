@@ -2,7 +2,7 @@
     include accept-container
     .profiles-list
         .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index")
-            .producer
+            .producer(ng-click='hardwarePanel.ClickOnFolder($event)')
                 .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length && hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
                 .title {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
             .profile-box

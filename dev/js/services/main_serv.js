@@ -38,7 +38,6 @@
             }
 
             getOnline();
-
             /**---------- Close Room Selector Dialog ---------*/
             function closeRoomSelectorDialog() {
                 GlobalStor.global.showRoomSelectorDialog = 0;
@@ -2384,6 +2383,7 @@
 
             function closePanelMobile() {
                 GlobalStor.global.activePanel = 0;
+                GlobalStor.global.MobileTabActive = 0;
                 SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                     .then(function (result) {
                         DesignStor.design.templateTEMP = angular.copy(result);

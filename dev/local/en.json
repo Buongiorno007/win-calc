@@ -101,6 +101,15 @@
     "HEAT_TRANSFER_RESISTANCE": "resistance to heat transfer",
     "HEAT_TRANSFER_INFO_1": "The required value for this climatic zone.",
     "HEAT_TRANSFER_INFO_2": "** To improve it, use double-glazed windows with energy-saving glasses and profile systems with many cameras",
+    "HEAT_TRANSFER_INFO_3": "The required value",
+    "HEAT_TRANSFER_INFO_4": "for this climatic zone.",
+    "HEAT_TRANSFER_INFO_5": "To improve it, use",
+    "HEAT_TRANSFER_INFO_6": "double-glazed windows",
+    "HEAT_TRANSFER_INFO_7": "with energy-saving glasses",
+    "HEAT_TRANSFER_INFO_8": "and",
+    "HEAT_TRANSFER_INFO_9": "profile",
+    "HEAT_TRANSFER_INFO_10": "systems with many cameras",
+    "HEAT_TRANSFER_INFO_11": "Understand",
 
     "AIR_CIRCULATION": "coefficient of ventilation",
     "NAVMENU_GEOLOCATION": "To choose a location",
@@ -206,7 +215,9 @@
     "LOCK_TYPE1": "one-locking with a latch",
     "LOCK_TYPE2": "multilocking with a latch",
     "EXTRA_GLASS1": "There is no possibility of glass installation ",
-    "EXTRA_GLASS2": " for the design configuration"
+    "EXTRA_GLASS2": " for the design configuration",
+    "INTERIOR" : "Interior",
+    "FACADE" : "Facade"
   },
   "add_elements": {
     "CHOOSE": "select",

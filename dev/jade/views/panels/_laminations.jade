@@ -10,7 +10,7 @@
           .laminat-label(ng-if="lamin.id === 1", data-output="{{ ::lamin.name | translate}}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
     .laminat-groups
-      .laminat-box(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index")
+      .laminat-box(ng-repeat="lamCouple in laminPanel.laminatCouples track by $index")
         .laminat-row
           .laminat-label {{ ::laminPanel.LAMINAT_INSIDE }}
           .laminat-label {{ ::laminPanel.LAMINAT_OUTSIDE }}

@@ -40,9 +40,19 @@
                 thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
                 thisCtrl.HEAT_TRANSFER = $filter('translate')('cart.HEAT_TRANSFER');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
-                /**========== FINISH ==========*/
 
+                function ClickOnFolder(event) {
+                    if ($(event.target).parent().attr('class') === 'producer') {
+                        $('.profiles-list').animate({scrollTop: $(event.target).offset().top + $('.profiles-list').scrollTop() - 120}, 'slow');
+                    } else {
+                        $('.profiles-list').animate({scrollTop: $(event.target).offset().top + $('.profiles-list').scrollTop() - 100}, 'slow');
+                    }
+                }
+
+                /**========== FINISH ==========*/
                 //------ clicking
+
+                thisCtrl.ClickOnFolder = ClickOnFolder;
                 thisCtrl.closePanelMobile = MainServ.closePanelMobile;
                 thisCtrl.selectHardware = HardwareServ.selectHardware;
                 thisCtrl.showInfoBox = MainServ.showInfoBox;

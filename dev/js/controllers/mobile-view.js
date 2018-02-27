@@ -30,7 +30,16 @@
             thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
             thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
             thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
-
+            thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
+            thisCtrl.HEAT_TRANSFER_INFO_3 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_3');
+            thisCtrl.HEAT_TRANSFER_INFO_4 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_4');
+            thisCtrl.HEAT_TRANSFER_INFO_5 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_5');
+            thisCtrl.HEAT_TRANSFER_INFO_6 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_6');
+            thisCtrl.HEAT_TRANSFER_INFO_7 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_7');
+            thisCtrl.HEAT_TRANSFER_INFO_8 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_8');
+            thisCtrl.HEAT_TRANSFER_INFO_9 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_9');
+            thisCtrl.HEAT_TRANSFER_INFO_10 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_10');
+            thisCtrl.HEAT_TRANSFER_INFO_11 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_11');
             thisCtrl.mobSize = 0;
             if (self.innerWidth > self.innerHeight) {
                 thisCtrl.mobSize = self.innerHeight;
@@ -104,10 +113,14 @@
                 return GlobalStor.global.MobileTabActive === tabNum;
             };
 
+            function OpenPanel(panel) {
+                GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
+                GlobalStor.global.activePanel = panel;
+            }
+
             function showCoefInfoBlock() {
                 GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
             }
-
             $("#main-frame").addClass("main-frame-mobView");
             $("#app-container").addClass("app-container-mobView");
             let obj = $("#main-frame");
@@ -121,6 +134,8 @@
 
             //------ clicking
             thisCtrl.closePanelMobile = MainServ.closePanelMobile;
+
+            thisCtrl.OpenPanel = OpenPanel;
             thisCtrl.showCoefInfoBlock = showCoefInfoBlock;
             thisCtrl.setTab = setTab;
             thisCtrl.isSet = isSet;
