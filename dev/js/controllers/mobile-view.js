@@ -4,6 +4,7 @@
     angular
         .module("MainModule")
         .controller("MobileCtrl", function ($filter,
+                                            $location,
                                             $timeout,
                                             SVGServ,
                                             MainServ,
@@ -41,6 +42,20 @@
             thisCtrl.HEAT_TRANSFER_INFO_9 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_9');
             thisCtrl.HEAT_TRANSFER_INFO_10 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_10');
             thisCtrl.HEAT_TRANSFER_INFO_11 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_11');
+
+            thisCtrl.PC_POWER_INFO_1 = $filter('translate')('settings.PC_POWER_INFO_1');
+            thisCtrl.PC_POWER_INFO_2 = $filter('translate')('settings.PC_POWER_INFO_2');
+
+            thisCtrl.GO_TO_CALCULATION = $filter('translate')('settings.GO_TO_CALCULATION');
+            thisCtrl.GEOLOCATION = $filter('translate')('settings.GEOLOCATION');
+            thisCtrl.LANGUAGE = $filter('translate')('settings.LANGUAGE');
+            thisCtrl.HINTS = $filter('translate')('settings.HINTS');
+            thisCtrl.REPORT = $filter('translate')('settings.REPORT');
+            thisCtrl.EXIT = $filter('translate')('settings.EXIT');
+            thisCtrl.ORDER_HISTORY = $filter('translate')('settings.ORDER_HISTORY');
+
+
+            thisCtrl.mobMenu = 0;
             thisCtrl.mobSize = 0;
             if (self.innerWidth > self.innerHeight) {
                 thisCtrl.mobSize = self.innerHeight;
@@ -85,7 +100,7 @@
                 document.addEventListener('touchmove', touchmoveHandler, false);
             });
 
-
+            MainServ.getPCPower();
             if (GlobalStor.global.productEditNumber && !ProductStor.product.is_addelem_only) {
                 SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
                     .then(function (data) {
@@ -122,6 +137,51 @@
             function showCoefInfoBlock() {
                 GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
             }
+            function OpenMenu() {
+                thisCtrl.mobMenu = !thisCtrl.mobMenu;
+            }
+            function mobileMenuClick(index){
+                switch (index) {
+                    case 0: {
+                        thisCtrl.mobMenu = 0;
+                        break;
+                    }
+                    case 1: {
+                        $location.path("/location");
+                        break;
+                    }
+                    case 2: {
+                        $location.path("/history");
+                        break;
+                    }
+                    case 3: {
+                        $location.path('/change-lang');
+                        break;
+                    }
+                    case 4: {
+                        break;
+                    }
+                    case 5: {
+                        thisCtrl.mobMenu = 0;
+                        GlobalStor.global.isMobileReport = 1;
+                        break;
+                    }
+                    case 6: {
+                        localStorage.clear();
+                        localDB.db.clear().then(function () {
+                            // Run this code once the database has been entirely deleted.
+                            console.log('Database is now empty.');
+                        }).catch(function (err) {
+                            // This code runs if there were any errors
+                            console.log(err);
+                        });
+                        // $location.path("/");
+                        location.reload();
+                        break;
+                    }
+                }
+            }
+
             $("#main-frame").addClass("main-frame-mobView");
             $("#app-container").addClass("app-container-mobView");
             let obj = $("#main-frame");
@@ -136,6 +196,8 @@
             //------ clicking
             thisCtrl.closePanelMobile = MainServ.closePanelMobile;
 
+            thisCtrl.mobileMenuClick = mobileMenuClick;
+            thisCtrl.OpenMenu = OpenMenu;
             thisCtrl.OpenPanel = OpenPanel;
             thisCtrl.showCoefInfoBlock = showCoefInfoBlock;
             thisCtrl.setTab = setTab;

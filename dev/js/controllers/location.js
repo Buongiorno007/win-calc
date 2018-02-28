@@ -10,6 +10,7 @@
     GeneralServ,
     loginServ,
     SettingServ,
+    MainServ,
     GlobalStor,
     OrderStor,
     UserStor

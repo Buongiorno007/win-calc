@@ -470,6 +470,16 @@
     "CURRENT_PASSWORD": "Поточний",
     "NEW_PASSWORD": "Новий",
     "CONFIRM_PASSWORD": "Підтвердити",
+    "PC_POWER_INFO_1": "* Швидкість обробки даних.",
+    "PC_POWER_INFO_2": "Рекомендована не нижче 755",
+
+    "GO_TO_CALCULATION": "Екран розрахунку",
+    "GEOLOCATION": "Геолокація",
+    "LANGUAGE": "Мова",
+    "HINTS": "Підказки",
+    "REPORT": "Звіт",
+    "EXIT": "Вихід",
+
     "NO_CONFIRM_PASS": "Невірний пароль"
   }
 }
