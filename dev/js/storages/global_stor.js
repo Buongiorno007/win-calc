@@ -156,6 +156,7 @@
 
             //---- report
             isReport: 0,
+            isMobileReport: 0,
 
             currencies: [],
             locations: {

@@ -475,6 +475,19 @@
     "CURRENT_PASSWORD": "Текущий",
     "NEW_PASSWORD": "Новый",
     "CONFIRM_PASSWORD": "Подтвердить",
+
+    "PC_POWER_INFO_1": "* Скорость обработки данных.",
+    "PC_POWER_INFO_2": "Рекомендуемая НЕ НИЖЕ 755",
+
+    "GO_TO_CALCULATION": "Экран расчета",
+    "GEOLOCATION": "Геолокация",
+    "ORDER_HISTORY": "История заказов",
+    "LANGUAGE": "Язык",
+    "HINTS": "Подсказки",
+    "REPORT": "Отчет",
+    "EXIT": "Выход",
+
+
     "NO_CONFIRM_PASS": "Неверный пароль"
   }
 }

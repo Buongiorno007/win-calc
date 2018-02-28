@@ -1,0 +1,9 @@
+.user-info-container(ng-controller="UserInfoCtrl as userBox",  ng-swipe-left="userBox.swipeLeft($event)", ng-swipe-right="userBox.swipeRight($event)")
+    img.user-foto(ng-if="userBox.U.userInfo.avatar && (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}")
+    .user-info-block
+        .user-location(data-output="{{ userBox.U.userInfo.cityName }}", typing="{{ userBox.config.typing }}", typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}")
+        .user-name(data-output="{{ userBox.U.userInfo.name }}", typing="{{ userBox.config.typing }}", typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}")
+
+        .db-block(ng-if="userBox.G.global.ISEXT")
+            .info База данных от {{userBox.loadDate}} &nbsp
+            .update(ng-click="userBox.getAlert()") Обновить?

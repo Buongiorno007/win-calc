@@ -471,6 +471,17 @@
     "CURRENT_PASSWORD": "The Current",
     "NEW_PASSWORD": "New",
     "CONFIRM_PASSWORD": "Confirm",
+    "PC_POWER_INFO_1": "* Data processing speed.",
+    "PC_POWER_INFO_2": "Recommended not below 755",
+
+    "GO_TO_CALCULATION": "Calculation screen",
+    "GEOLOCATION": "Geolocation",
+    "ORDER_HISTORY": "Order history",
+    "LANGUAGE": "Language",
+    "HINTS": "Tips",
+    "REPORT": "Report",
+    "EXIT": "Exit",
+
     "NO_CONFIRM_PASS": "Invalid password"
   }
 }

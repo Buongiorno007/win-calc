@@ -67,7 +67,10 @@ body {
     margin-left: -5rem;
     align-items: center;
   }
-
+  p {
+    margin: 0;
+    text-align: center;
+  }
   .price-value {
     @include roboto-lt(rem($price_container-height-mobile), 1);
     display: inline-flex;
@@ -256,7 +259,6 @@ body {
     }
 
     p {
-      margin: 0;
       text-transform: uppercase;
       @include roboto-lt(8px);
     }
@@ -696,7 +698,6 @@ body {
     -webkit-text-fill-color: $main_red;
     p {
       width: 100%;
-      text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -745,8 +746,8 @@ body {
         justify-content: center;
       }
 
-      .back-button{
-        all : unset;
+      .back-button {
+        all: unset;
         display: inline-flex;
         height: 50px;
         width: 50px;
@@ -754,7 +755,7 @@ body {
         background: url("../img/calc/go-back-arrow.svg") no-repeat;
         background-size: contain;
       }
-      .row-title{
+      .row-title {
         display: inline-flex;
         flex-direction: row;
         align-items: center;
@@ -777,9 +778,6 @@ body {
     z-index: 1;
   }
   .mobile-profiles {
-    p {
-      text-align: center;
-    }
     .profiles-list {
       display: inline-block;
       flex-direction: column;
@@ -888,9 +886,7 @@ body {
               width: 100%;
 
               p {
-                margin: 0;
                 @include roboto-rg(3.5vw);
-                text-align: center;
                 text-overflow: clip
               }
             }
@@ -954,7 +950,6 @@ body {
             position: relative;
             top: 2px;
             width: 90%;
-            text-align: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1002,9 +997,6 @@ body {
               color: $main_gray_dark;
               -webkit-text-fill-color: $main_gray_dark;
               z-index: 1;
-              p {
-                margin: 0;
-              }
               &.selected {
                 color: $main_red;
                 -webkit-text-fill-color: $main_red;
@@ -1074,7 +1066,6 @@ body {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
             @include roboto-rg(30px);
             color: $main_gray_dark;
             -webkit-text-fill-color: $main_gray_dark;
@@ -1094,8 +1085,6 @@ body {
           }
           .curr-glass-value {
             p {
-              text-align: center;
-              margin: 0;
               @include roboto-lt(17px);
               color: $main_gray_dark;
               -webkit-text-fill-color: $main_gray_dark;
@@ -1121,7 +1110,6 @@ body {
           align-items: center;
           justify-content: center;
           p {
-            margin: 0;
             @include roboto-lt(15px);
           }
         }
@@ -1160,7 +1148,6 @@ body {
           align-items: flex-end;
           margin: 5px;
           p {
-            margin: 0;
             color: $main_gray_dark;
             -webkit-text-fill-color: $main_gray_dark;
             @include roboto-rg(12px);
@@ -1209,7 +1196,7 @@ body {
       }
       .laminat-label-button {
         position: relative;
-        top : 20px;
+        top: 20px;
         width: 90%;
         height: 60px;
         background: white;
@@ -1230,9 +1217,7 @@ body {
           border: 2px solid $main_red;
         }
         p {
-          margin: 0;
           width: 90%;
-          text-align: center;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1250,9 +1235,7 @@ body {
         z-index: 1;
         margin: 5px;
         p {
-          margin: 0;
           width: 90%;
-          text-align: center;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1269,7 +1252,7 @@ body {
         align-items: center;
         justify-content: center;
       }
-      .laminat-folder-header{
+      .laminat-folder-header {
 
       }
     }
@@ -1373,7 +1356,6 @@ body {
       align-items: flex-end;
       margin: 5px;
       p {
-        margin: 0;
         color: $main_gray_dark;
         -webkit-text-fill-color: $main_gray_dark;
         @include roboto-rg(12px);
@@ -1464,8 +1446,8 @@ body {
       margin-left: -15px;
       @include roboto-lt(23px);
     }
-    .close-dialog{
-      top : 3px;
+    .close-dialog {
+      top: 3px;
       right: 2px;
     }
   }
@@ -1590,6 +1572,114 @@ body {
         top: 1px;
         width: 43px;
         height: 43px;
+      }
+    }
+  }
+  .burger {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    height: 30px;
+    width: 30px;
+    transition: 1s linear;
+    background: url("../img/config-menu/settings.svg") no-repeat;
+    background-size: contain;
+    &.active {
+      opacity: 0;
+      //background: url("../img/config-menu/settings_active.svg") no-repeat;
+      //background-size: contain;
+    }
+  }
+  .mobile-left-menu {
+    position: absolute;
+    display: inline-flex;
+    flex-direction: column;
+    top: 0;
+    height: 100%;
+    width: 60%;
+    background: white;
+    opacity: 0.9;
+    left: -65%;
+    transition: 1s linear;
+    z-index: 2;
+    border-right: 1px solid $main_gray_btn;
+    //@include box-shadow($main_gray_btn 5px 0 5px);
+    .user-info-container {
+      position: relative;
+      display: inline-flex;
+      height: 100px;
+      width: 100%;
+      top : 0;
+      margin-top: 25px;
+      @include box-shadow($main_gray_btn 0 2px 10px  -2px);
+      .user-location {
+        text-align: left;
+      }
+    }
+    &.opened {
+      left: 0;
+      transition: 1s linear;
+    }
+    .burger-inner {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      height: 30px;
+      width: 30px;
+      background: url("../img/config-menu/settings.svg") no-repeat;
+      background-size: contain;
+      &.active {
+        background: url("../img/config-menu/settings_active.svg") no-repeat;
+        background-size: contain;
+      }
+    }
+    .buttons-list{
+      height: calc(100% - 275px);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+      padding: 10px 0 10px 10px;
+      .button{
+        p {
+          @include roboto-rg(20px);
+        }
+      }
+    }
+    .footer {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      height: 150px;
+      width: 100%;
+      background: $main_f7;
+      .index {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 60%;
+        background: white;
+        border: 1px solid $main_red;
+        color: $main_red;
+        -webkit-text-fill-color: $main_red;
+        border-radius: 25px;
+        margin: 15px;
+        p {
+          color: $main_red;
+          -webkit-text-fill-color: $main_red;
+          @include roboto-rg(20px);
+        }
+      }
+      .title {
+        p {
+          color: $main_red;
+          -webkit-text-fill-color: $main_red;
+          @include roboto-rg(15px);
+        }
       }
     }
   }
