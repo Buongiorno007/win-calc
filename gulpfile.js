@@ -36,7 +36,7 @@ gulp.task('clean', function () {
 var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
-    "windowSiteTest": "'http://api.windowscalculator.net'",
+    "windowSiteTest": "'http://api.w/home/anton/Documents/projects/bauvoiceapp/dev/img/lamination/3.jpgindowscalculator.net'",
     "windowSiteLocal": "'http://api.test.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
     "steko": "'http://api.steko.com.ua'",

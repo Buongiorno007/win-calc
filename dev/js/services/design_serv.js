@@ -450,6 +450,7 @@
                                         DesignStor.design.resultSize = Object.assign(result);
                                         setTimeout(function () {
                                             rebuildSVGTemplate();
+                                            getSizeAlert();
                                         }, 250);
                                         checkSize(result);
                                         cleanTempSize();
@@ -3312,7 +3313,46 @@
 
                 }
 
+                function getSizeAlert() {
+                    if (GlobalStor.global.checkDoors === 0) {
+                        var  isSashesInTemplate;
+                        closeSizeCaclulator(1).then(function () {
+                            /** check sizes of all glass */
+                            MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
+                            if (DesignStor.design.extraGlass.length) {
+                                /** expose Alert */
+                                GlobalStor.global.isLoader = 0;
+                                DesignStor.design.isGlassExtra = 1;
+                            } else {
+                                /** if sash was added/removed in template */
+                                isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
+                                if (isSashesInTemplate) {
+                                    /** set first hardware if sash were not existed before */
+                                    if ((!GlobalStor.global.isSashesInTemplate || !ProductStor.product.hardware.id) && ProductStor.product.construction_type !== 4) {
+                                        GlobalStor.global.isSashesInTemplate = 1;
+                                        ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+                                    }
+                                    /** check sizes of all hardware in sashes */
+                                    MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
 
+                                } else {
+                                    /** sashes were removed */
+                                    ProductStor.product.hardware = {};
+                                    ProductStor.product.hardware.id = 0;
+                                    GlobalStor.global.isSashesInTemplate = 0;
+                                    //------ clean Extra Hardware
+                                    DesignStor.design.extraHardware.length = 0;
+                                }
+
+                                if (DesignStor.design.extraHardware.length) {
+                                    /** expose Alert */
+                                    GlobalStor.global.isLoader = 0;
+                                    DesignStor.design.isHardwareExtra = 1;
+                                }
+                            }
+                        });
+                    }
+                }
                 function designSaved() {
                     if (GlobalStor.global.checkDoors === 0) {
                         var doorConfig = DesignStor.design.doorConfig,
