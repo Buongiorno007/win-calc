@@ -1,0 +1,10 @@
+.add-elements-mobile.mobile-common-panel(ng-controller="AddElementsCtrl as elementsPanel", ng-if="mobilePage.G.global.activePanel === 6")
+    include accept-container
+    .folders-container
+        .folders(
+        ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index"
+        ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList && elementsPanel.config.addElementDATA[$index].mainTypeMenu === elementsPanel.G.global.typeMenu || elementsPanel.G.global.addElementsAll[$index].elementsList && elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.typeMenu",
+        ng-click="elementsPanel.selectAddElement($index+1)"
+        ng-class = "{gray : $index%2 === 0 }"
+        )
+            p {{ elementsPanel.config.addElementDATA[$index].name | translate }}

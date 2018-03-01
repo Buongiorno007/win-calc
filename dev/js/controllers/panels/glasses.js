@@ -55,9 +55,6 @@
                 thisCtrl.OpenFolder = -1;
                 /**============ METHODS ================*/
 
-                console.log(GlobalStor.global.glassTypes);
-                console.log(GlobalStor.global.glasses);
-
                 function changePriceAsNewGlass() {
                     var hardwareIds;
                     DesignStor.design.selectedGlass.length = 0;
