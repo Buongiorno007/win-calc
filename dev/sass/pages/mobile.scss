@@ -1590,12 +1590,13 @@ body {
     position: absolute;
     top: 15px;
     left: 15px;
-    height: 20px;
-    width: 20px;
-    transition: 1s linear;
+    height: 30px;
+    width: 30px;
+    transition: 2s linear;
     background: url("../img/config-menu/settings.svg") no-repeat;
     background-size: contain;
     &.active {
+      transition: 2s linear;
       opacity: 0;
       //background: url("../img/config-menu/settings_active.svg") no-repeat;
       //background-size: contain;
@@ -1643,8 +1644,8 @@ body {
       position: absolute;
       top: 15px;
       right: 15px;
-      height: 20px;
-      width: 20px;
+      height: 30px;
+      width: 30px;
       background: url("../img/config-menu/settings.svg") no-repeat;
       background-size: contain;
       transition: 0.5s linear;
