@@ -68,14 +68,13 @@
     thisCtrl.switchLang = switchLang;
     thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
-    $("#main-frame").removeClass("main-frame-mobView");
-    $("#app-container").removeClass("app-container-mobView");
-
-    $(window).load(function() {
-      MainServ.resize();
-    });
-    window.onresize = function() {
-      MainServ.resize();
-    };
+      $("#main-frame").addClass("main-frame-mobView");
+      $("#app-container").addClass("app-container-mobView");
+      let obj = $("#main-frame");
+      obj.css({
+          "transform": "scale(1)",
+          "left": "0px",
+          "top": "0px",
+      });
   });
 })();

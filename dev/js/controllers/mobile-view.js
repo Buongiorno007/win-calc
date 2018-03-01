@@ -15,7 +15,7 @@
                                             ProductStor) {
             var thisCtrl = this;
             GlobalStor.global.MobileTabActive = 0;
-
+            GlobalStor.global.currOpenPage = 'mobile';
             thisCtrl.G = GlobalStor;
             thisCtrl.P = ProductStor;
             thisCtrl.U = UserStor;

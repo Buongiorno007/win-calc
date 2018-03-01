@@ -1226,10 +1226,7 @@
                     .then(function (result) {
                             if (result.data.status) {
                                 //-------- insert in LocalDB
-                                console.log('result.data',result.data);
                                 LocalDataBase = convert(result.data);
-                                console.log('LocalDataBase', LocalDataBase);
-
                                 db.setItem('tables', LocalDataBase).then(function (value) {
                                     // Do other things once the value has been saved.
                                     defer.resolve(1);
