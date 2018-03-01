@@ -1600,7 +1600,7 @@ body {
     background: white;
     opacity: 0.9;
     left: -65%;
-    transition: 1s linear;
+    transition: 0.5s linear;
     z-index: 2;
     border-right: 1px solid $main_gray_btn;
     //@include box-shadow($main_gray_btn 5px 0 5px);
@@ -1618,7 +1618,7 @@ body {
     }
     &.opened {
       left: 0;
-      transition: 1s linear;
+      transition: 0.5s linear;
     }
     .burger-inner {
       position: absolute;
