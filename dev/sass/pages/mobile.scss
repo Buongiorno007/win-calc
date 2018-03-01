@@ -1629,9 +1629,12 @@ body {
       width: 30px;
       background: url("../img/config-menu/settings.svg") no-repeat;
       background-size: contain;
+      transition: 0.5s linear;
       &.active {
-        background: url("../img/config-menu/settings_active.svg") no-repeat;
+        transform: rotate(-90deg);
+        background: url("../img/config-menu/settings.svg") no-repeat;
         background-size: contain;
+        transition: 0.5s linear;
       }
     }
     .buttons-list {
