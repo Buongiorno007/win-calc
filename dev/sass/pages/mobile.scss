@@ -1671,7 +1671,7 @@ body {
     .footer {
       display: inline-flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       position: absolute;
       bottom: 0;
@@ -1689,7 +1689,6 @@ body {
         color: $main_red;
         -webkit-text-fill-color: $main_red;
         border-radius: 25px;
-        margin: 15px;
         p {
           color: $main_red;
           -webkit-text-fill-color: $main_red;
