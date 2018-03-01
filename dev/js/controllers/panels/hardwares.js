@@ -28,7 +28,6 @@
                     typing: 'on'
                 };
                 thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
-                console.log(GlobalStor.global.hardwares);
 
                 //------- translate
 
