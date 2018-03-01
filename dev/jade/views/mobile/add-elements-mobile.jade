@@ -4,7 +4,22 @@
         .folders(
         ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index"
         ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList && elementsPanel.config.addElementDATA[$index].mainTypeMenu === elementsPanel.G.global.typeMenu || elementsPanel.G.global.addElementsAll[$index].elementsList && elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.typeMenu",
-        ng-click="elementsPanel.selectAddElement($index+1)"
-        ng-class = "{gray : $index%2 === 0 }"
         )
-            p {{ elementsPanel.config.addElementDATA[$index].name | translate }}
+            .folder-title(ng-click="elementsPanel.selectAddElement($index+1)" ng-class='{active : elementsPanel.A.aux.isFocusedAddElement === $index+1}')
+                p {{ elementsPanel.config.addElementDATA[$index].name | translate }}
+            .current-folder(ng-if="elementsPanel.A.aux.isFocusedAddElement === $index+1")
+                .menu-lists
+                    ul.items-lister()
+                        li.item.empty-element(ng-class="{'active': elementsPanel.A.aux.isAddElement == false}", ng-click="elementsPanel.chooseAddElement()")
+                            .value {{ ::elementsPanel.EMPTY_ELEMENT }}
+
+                    ul.items-lister(ng-repeat="type in elementsPanel.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsPanel.A.aux.addElementsList.length<=1}")
+                        .title(ng-click="elementsPanel.hideMenu($index)") {{ elementsPanel.A.aux.addElementsType[$index].name }}
+                            button.element-info(ng-if="elementsPanel.A.aux.addElementsType[$index].img.length || elementsPanel.A.aux.addElementsType[$index].link.length || elementsPanel.A.aux.addElementsType[$index].description.length", fs-click="elementsPanel.showInfoBox(elementsPanel.A.aux.addElementsType[$index].id, elementsPanel.A.aux.addElementsType)")
+                            .open-list(id="{{$index + 'open'}}")
+                                img(ng-src='img/plus.png')
+                            .open-list2(id="{{$index + 'close'}}")
+                                img(ng-src='img/minus.png')
+                        li.item(ng-repeat="addElement in type track by $index")
+                            .value(ng-click="elementsPanel.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
+                            button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsPanel.showInfoBox(addElement.id, type)")
