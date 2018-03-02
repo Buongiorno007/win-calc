@@ -37,7 +37,7 @@ var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
     "windowSiteTest": "'http://api.windowscalculator.net'",
-    "windowSiteLocal": "'http://api.test.windowscalculator.net'",
+    "windowSiteLocal": "'http://api.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
     "steko": "'http://api.steko.com.ua'",
     "orange": "'http://api.calc.csokna.ru'",
