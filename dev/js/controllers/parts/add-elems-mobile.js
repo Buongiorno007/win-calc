@@ -8,6 +8,7 @@
                                                        $scope,
                                                        globalConstants,
                                                        GeneralServ,
+                                                       MainServ,
                                                        AddElementsServ,
                                                        AddElementMenuServ,
                                                        DesignServ,
@@ -61,7 +62,7 @@
                     }
                 }
             });
-
+            console.log(thisCtrl.AddElementsMobile);
             function OpenFolder(index) {
                 thisCtrl.OpenItemFolder = -1;
                 if (thisCtrl.OpenSubFolder === index) {
@@ -94,8 +95,12 @@
             thisCtrl.showItems = showItems;
             thisCtrl.OpenFolder = OpenFolder;
 
+            thisCtrl.showInfoBox = MainServ.showInfoBox;
             thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
             thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
+            thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+
+            thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
         });

@@ -76,11 +76,11 @@
                     thisCtrl.type_id = type_id;
                     if (img) {
                         setTimeout(() => {
-                            $('.laminat-filter').animate({scrollTop: $(event.target).offset().top + $('.laminat-filter').scrollTop() - 100 - $('.accept-container').height()}, 'slow');
+                            $('.laminat-filter').animate({scrollTop: $(event.target).offset().top + $('.laminat-filter').scrollTop() - 150}, 'slow');
                         }, 250);
                     } else {
                         setTimeout(() => {
-                            $('.laminat-filter').animate({scrollTop: $(event.target).offset().top + $('.laminat-filter').scrollTop() - 37 - $('.accept-container').height()}, 'slow');
+                            $('.laminat-filter').animate({scrollTop: $(event.target).offset().top + $('.laminat-filter').scrollTop() - 130}, 'slow');
                         }, 250);
                     }
                     if (thisCtrl.OpenFolder === index) {
