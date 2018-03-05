@@ -50,26 +50,28 @@
                 return result;
             }
 
-            thisCtrl.MobileAddElementsMobile = [];
+            thisCtrl.AddElementsMobile = [];
             GlobalStor.global.addElementsAll.forEach((item, index) => {
-                if (item.elementType && item.elementsList) {
-                    let tmp;
-                    tmp = GeneralServ.addElementDATA[index];
-                    tmp.folder = merge(item.elementType, item.elementsList);
-                    thisCtrl.MobileAddElementsMobile.push(tmp);
+                if (index < 13) {
+                    if (item.elementType && item.elementsList) {
+                        let tmp;
+                        tmp = GeneralServ.addElementDATA[index];
+                        tmp.folder = merge(item.elementType, item.elementsList);
+                        thisCtrl.AddElementsMobile.push(tmp);
+                    }
                 }
             });
 
             function OpenFolder(index) {
+                thisCtrl.OpenItemFolder = -1;
                 if (thisCtrl.OpenSubFolder === index) {
                     thisCtrl.OpenSubFolder = -1;
                 } else {
                     thisCtrl.OpenSubFolder = index;
-                    AuxStor.aux.isFocusedAddElement = index+1;
-
+                    AuxStor.aux.isFocusedAddElement = index + 1;
                 }
-
             }
+
             function showItems(index) {
                 if (thisCtrl.OpenItemFolder === index) {
                     thisCtrl.OpenItemFolder = -1;
@@ -78,12 +80,21 @@
                 }
 
             }
+
+            setTimeout(() => {
+                $(".folders").each((index, item) => {
+                    if (index % 2 === 0) {
+                        $(item).addClass('gray');
+                    }
+                });
+            }, 100);
             /**========== FINISH ==========*/
 
             //------ clicking
             thisCtrl.showItems = showItems;
             thisCtrl.OpenFolder = OpenFolder;
 
+            thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
             thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
 
 

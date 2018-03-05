@@ -289,7 +289,7 @@
                 }
 
                 //---------selected addElem
-                function selectAddElem(typeId, elementId, clickEvent, addElementsList) {
+                function selectAddElem(typeId, elementId, clickEvent, addElementsList, element) {
                     if (addElementsList) {
                         AuxStor.aux.addElementsList = addElementsList;
                     }
@@ -322,6 +322,7 @@
                             AuxStor.aux.selectedGrid = [typeId, elementId];
                             AuxStor.aux.isGridSelectorDialog = 1;
                             AuxStor.aux.isAddElement = typeId + '-' + elementId;
+                            GlobalStor.global.selectedGrid = element;
                             DesignServ.initAllGlassXGrid();
                         }
                     } else {

@@ -108,13 +108,7 @@
                 }, 500);
             }
 
-            setTimeout(() => {
-                $(".folders").each((index, item) => {
-                    if (index % 2 === 0) {
-                        $(item).addClass('gray');
-                    }
-                });
-            }, 100);
+
             /**========== FINISH ==========*/
 
             //------ clicking

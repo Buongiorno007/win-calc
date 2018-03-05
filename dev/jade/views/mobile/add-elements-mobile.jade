@@ -1,9 +1,26 @@
 .add-elements-mobile.mobile-common-panel(ng-controller="MobileAddElementsCtrl as elementsMobilePage",  ng-if="mobilePage.G.global.activePanel === 6")
     include accept-container
     .folders-container
-        .folders(ng-repeat="folders in elementsMobilePage.MobileAddElementsMobile track by $index" ng-init="OpenSubFolder = $index")
-            p(ng-click="elementsMobilePage.OpenFolder($index)") {{folders.name | translate}}
+        .folders(ng-repeat="folders in elementsMobilePage.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" )
+            p.folders-name(ng-click="elementsMobilePage.OpenFolder($index)" ng-class='{active : OpenSubFolder === elementsMobilePage.OpenSubFolder}') {{folders.name | translate}}
+            .choosen-add-elem(ng-repeat="chosenAddElem in elementsMobilePage.P.product.chosenAddElements[$index] track by $index")
+                .row-header
+                    p.name {{chosenAddElem.name}}
+                    .close-dialog(ng-click='elementsMobilePage.deleteAddElement($parent.$index, $index)')
+                .row
+                    .item
+                        p.val {{chosenAddElem.element_qty}}
+                        p шт
+                    .item(ng-if='chosenAddElem.element_width')
+                        p.val {{chosenAddElem.element_width}}
+                        p ширина
+                    .item(ng-if='chosenAddElem.element_height')
+                        p.val {{chosenAddElem.element_height}}
+                        p длинна
+                    .item
+                        p.val {{chosenAddElem.element_price}}
+                        p цена
             .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsMobilePage.OpenSubFolder" ng-init="OpenItemFolder = $index")
-                p(ng-click='elementsMobilePage.showItems($index)') {{subfolder.name}}
+                p.subfolders-name(ng-click='elementsMobilePage.showItems($index)' ng-class='{active : elementsMobilePage.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}') {{subfolder.name}}
                 .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="elementsMobilePage.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
-                    p(ng-click="elementsMobilePage.selectAddElement(0, $index, $event, [subfolder.subFolder])") {{item.name}}
+                    p(ng-click="elementsMobilePage.selectAddElement(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
