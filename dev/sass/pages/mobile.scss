@@ -1279,14 +1279,41 @@ body {
         @include roboto-lt(25px);
 
         .subfolders {
+          display: inline-flex;
+          flex-direction: column;
+          width: 100%;
           .subfolders-name{
+            position: relative;
+            width: 90%;
+            height: 60px;
+            background: white;
+            border-radius: 50px;
+            border: 2px solid $main_gray_dark;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            @include roboto-rg(25px);
+            color: $main_gray_dark;
+            -webkit-text-fill-color: $main_gray_dark;
+            z-index: 1;
+            margin: 10px 0;
             &.active{
-              @include roboto-rg(25px);
               color: $main_red;
               -webkit-text-fill-color: $main_red;
+              border: 2px solid $main_red;
             }
           }
           .items {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            height: 40px;
+            background: white;
+            border-radius: 50px;
+            border: 1px solid $main_gray_dark;
+            margin: 5px 0 5px 0;
           }
         }
 

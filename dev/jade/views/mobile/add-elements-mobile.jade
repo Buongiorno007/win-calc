@@ -9,7 +9,7 @@
                     .close-dialog(ng-click='elementsMobilePage.deleteAddElement($parent.$index, $index)')
                 .row
                     .item
-                        p.val {{chosenAddElem.element_qty}}
+                        p.val(fs-click="elementsMobilePage.initAddElementTools((OpenSubFolder+1), 1, 0)", ng-keyup="elementsMobilePage.pressCulculator($event)") {{chosenAddElem.element_qty}}
                         p шт
                     .item(ng-if='chosenAddElem.element_width')
                         p.val {{chosenAddElem.element_width}}
@@ -21,6 +21,11 @@
                         p.val {{chosenAddElem.element_price}}
                         p цена
             .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsMobilePage.OpenSubFolder" ng-init="OpenItemFolder = $index")
-                p.subfolders-name(ng-click='elementsMobilePage.showItems($index)' ng-class='{active : elementsMobilePage.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}') {{subfolder.name}}
+                .subfolders-name( ng-class='{active : elementsMobilePage.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name')
+                    p(ng-click='elementsMobilePage.showItems($index)') {{subfolder.name}}
+                    .info(fs-click="elementsMobilePage.showInfoBox(subfolder.id, subfolder)")
+                img.subfolders-image(ng-click='elementsMobilePage.showItems($index)' ng-if='subfolder.img' ng-src='{{subfolder.img}}')
                 .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="elementsMobilePage.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
                     p(ng-click="elementsMobilePage.selectAddElement(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
+                    //.info(ng-if='item.link && item.img && item.description' fs-click="elementsMobilePage.showInfoBox(item.id, subfolder.subFolder)")
+                    .info(fs-click="elementsMobilePage.showInfoBox(item.id, subfolder.subFolder)")
