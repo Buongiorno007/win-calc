@@ -63,6 +63,8 @@
             thisCtrl.variable = 10;
             $scope.servisesPrice = [0, 0, 0, 0, 0];
 
+            thisCtrl.openIndex = -1;
+
             /**============ METHODS ================*/
             // Show Window Scheme Dialog
             function showWindowScheme() {
@@ -106,13 +108,7 @@
                 }, 500);
             }
 
-            setTimeout(() => {
-                $(".folders").each((index, item) => {
-                    if (index % 2 === 0) {
-                        $(item).addClass('gray');
-                    }
-                });
-            }, 100);
+
             /**========== FINISH ==========*/
 
             //------ clicking

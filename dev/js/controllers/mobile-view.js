@@ -12,7 +12,8 @@
                                             UserStor,
                                             OrderStor,
                                             GlobalStor,
-                                            ProductStor) {
+                                            ProductStor,
+                                            AuxStor) {
             var thisCtrl = this;
             GlobalStor.global.MobileTabActive = 0;
             GlobalStor.global.currOpenPage = 'mobile';
@@ -20,6 +21,7 @@
             thisCtrl.P = ProductStor;
             thisCtrl.U = UserStor;
             thisCtrl.O = OrderStor;
+            thisCtrl.A = AuxStor;
 
             thisCtrl.KARKAS = $filter("translate")("mainpage.KARKAS");
             thisCtrl.KONFIG = $filter("translate")("mainpage.KONFIG");
@@ -67,6 +69,7 @@
 
             thisCtrl.mobWidthGlass = self.innerWidth;
             thisCtrl.mobHeightGlass = self.innerHeight * 0.65;
+
 
             window.addEventListener('load', function () {
                 var maybePreventPullToRefresh = false;
@@ -137,10 +140,12 @@
             function showCoefInfoBlock() {
                 GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
             }
+
             function OpenMenu() {
                 thisCtrl.mobMenu = !thisCtrl.mobMenu;
             }
-            function mobileMenuClick(index){
+
+            function mobileMenuClick(index) {
                 switch (index) {
                     case 0: {
                         thisCtrl.mobMenu = 0;
