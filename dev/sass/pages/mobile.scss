@@ -1006,7 +1006,7 @@ body {
     top: 0;
     left: 0;
     z-index: 2;
-    overflow: hidden;
+    overflow: hidden !important;
     padding-top: 15px;
     #tamlateGlassSVG {
       all: unset;
