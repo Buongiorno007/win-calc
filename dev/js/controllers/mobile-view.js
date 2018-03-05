@@ -68,6 +68,7 @@
             thisCtrl.mobWidthGlass = self.innerWidth;
             thisCtrl.mobHeightGlass = self.innerHeight * 0.65;
 
+
             window.addEventListener('load', function () {
                 var maybePreventPullToRefresh = false;
                 var lastTouchY = 0;
@@ -137,10 +138,12 @@
             function showCoefInfoBlock() {
                 GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
             }
+
             function OpenMenu() {
                 thisCtrl.mobMenu = !thisCtrl.mobMenu;
             }
-            function mobileMenuClick(index){
+
+            function mobileMenuClick(index) {
                 switch (index) {
                     case 0: {
                         thisCtrl.mobMenu = 0;

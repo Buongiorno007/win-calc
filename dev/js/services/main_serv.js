@@ -2395,6 +2395,7 @@
                         });
 
                     });
+                console.log(ProductStor.product);
             }
             function getPCPower() {
                 var iterations = 1000000;

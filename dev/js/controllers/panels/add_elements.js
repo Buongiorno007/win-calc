@@ -63,6 +63,8 @@
             thisCtrl.variable = 10;
             $scope.servisesPrice = [0, 0, 0, 0, 0];
 
+            thisCtrl.openIndex = -1;
+
             /**============ METHODS ================*/
             // Show Window Scheme Dialog
             function showWindowScheme() {
