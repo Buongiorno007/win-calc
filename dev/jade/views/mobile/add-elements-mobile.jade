@@ -30,7 +30,8 @@
                     .info(ng-if='item.img && item.description' fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)")
 
     .confirm-add-elem(ng-if='mobPage.confirmAddElem')
-        .close-dialog(ng-click='mobPage.cancelAddElem(mobPage.ChoosenAddElemGroup, mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder].length-1)')
+        .close-dialog(ng-if='mobPage.edit' ng-click='mobPage.closeConfirmAddElem()')
+        .close-dialog(ng-if='!mobPage.edit' ng-click='mobPage.cancelAddElem(mobPage.ChoosenAddElemGroup, mobPage.SelectedElement)')
         .info(ng-if='mobPage.SelectedElement.img && mobPage.SelectedElement.description'
         fs-click="mobPage.showInfoBox(mobPage.SelectedElement.id, mobPage.SelectedElement.addElementsList)")
         .name

@@ -141,10 +141,9 @@
             }
 
             function cancelAddElem(typeId, elementId) {
-                if (!thisCtrl.edit) {
-                    AddElementMenuServ.deleteAddElement(typeId, elementId);
-                }
-                closeConfirmAddElem();
+                AddElementMenuServ.deleteAddElement(typeId, elementId);
+                thisCtrl.confirmAddElem = 0;
+                thisCtrl.edit = 0;
             }
 
             //------ clicking
