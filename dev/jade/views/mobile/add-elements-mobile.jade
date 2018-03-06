@@ -11,10 +11,10 @@
                     .item
                         p.val(fs-click="elementsMobilePage.initAddElementTools((OpenSubFolder+1), 1, 0)", ng-keyup="elementsMobilePage.pressCulculator($event)") {{chosenAddElem.element_qty}}
                         p шт
-                    .item(ng-if='chosenAddElem.element_width')
+                    .item(ng-if='chosenAddElem.element_width' fs-click="elementsMobilePage.initAddElementTools((OpenSubFolder+1), 2, 0)" ng-keyup="elementsPanel.pressCulculator($event)")
                         p.val {{chosenAddElem.element_width}}
                         p ширина
-                    .item(ng-if='chosenAddElem.element_height')
+                    .item(ng-if='chosenAddElem.element_height' fs-click="elementsMobilePage.initAddElementTools((OpenSubFolder+1), 3, 0)" ng-keyup="elementsPanel.pressCulculator($event)")
                         p.val {{chosenAddElem.element_height}}
                         p длинна
                     .item
