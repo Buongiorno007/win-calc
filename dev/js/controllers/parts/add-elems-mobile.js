@@ -37,9 +37,21 @@
                 colorFilter: 5555,
                 typing: "on"
             };
+
+            thisCtrl.COUNT = $filter('translate')('common_words.COUNT');
+            thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+            thisCtrl.LENGTH_LABEL = $filter('translate')('add_elements.LENGTH_LABEL');
+            thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+            thisCtrl.ADD = $filter('translate')('add_elements.ADD');
+            thisCtrl.DELETE = $filter('translate')('add_elements.DELETE');
+            thisCtrl.MM = $filter('translate')('mainpage.MM');
+
             thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;
             thisCtrl.OpenSubFolder = -1;
             thisCtrl.OpenItemFolder = -1;
+            thisCtrl.confirmAddElem = 0;
+            thisCtrl.SelectedElement = '';
+            thisCtrl.addElementsList = '';
 
 
             function merge(item1, item2) {
@@ -62,15 +74,19 @@
                     }
                 }
             });
-            console.log(thisCtrl.AddElementsMobile);
-            function OpenFolder(index) {
+
+            function OpenFolder(index, event) {
                 thisCtrl.OpenItemFolder = -1;
                 if (thisCtrl.OpenSubFolder === index) {
                     thisCtrl.OpenSubFolder = -1;
                 } else {
                     thisCtrl.OpenSubFolder = index;
                     AuxStor.aux.isFocusedAddElement = index + 1;
+                    setTimeout(() => {
+                        $('.add-elements-mobile').animate({scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 100}, 'slow');
+                    }, 250);
                 }
+
             }
 
             function showItems(index) {
@@ -79,7 +95,6 @@
                 } else {
                     thisCtrl.OpenItemFolder = index;
                 }
-
             }
 
             setTimeout(() => {
@@ -89,14 +104,53 @@
                     }
                 });
             }, 100);
+
             /**========== FINISH ==========*/
+            function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
+                AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
+                thisCtrl.confirmAddElem = 1;
+                thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[thisCtrl.OpenSubFolder].length;
+                thisCtrl.addElementsList = addElementsList[0];
+            }
+
+            function closeConfirmAddElem() {
+                thisCtrl.confirmAddElem = 0;
+            }
+
+            function confirmAddElemDelete(typeId, elementId) {
+                console.log(typeId);
+
+                function deleteaddelem() {
+                    AddElementMenuServ.deleteAddElement(typeId, elementId)
+                }
+
+                GeneralServ.confirmAlert(
+                    $filter('translate')('common_words.DELETE_ORDER_TITLE'),
+                    $filter('translate')('common_words.DELETE_ORDER_TXT'),
+                    deleteaddelem
+                );
+            }
+            function editEddElem(index) {
+                thisCtrl.confirmAddElem = 1;
+                thisCtrl.SelectedElement = index;
+            }
+
+            function cancelAddElem(typeId, elementId) {
+                AddElementMenuServ.deleteAddElement(typeId, elementId);
+                closeConfirmAddElem();
+            }
 
             //------ clicking
             thisCtrl.showItems = showItems;
             thisCtrl.OpenFolder = OpenFolder;
+            thisCtrl.confirmAddElemDialog = confirmAddElemDialog;
+            thisCtrl.confirmAddElemDelete = confirmAddElemDelete;
+            thisCtrl.closeConfirmAddElem = closeConfirmAddElem;
+            thisCtrl.editEddElem = editEddElem;
+            thisCtrl.cancelAddElem = cancelAddElem;
+
 
             thisCtrl.showInfoBox = MainServ.showInfoBox;
-            thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
             thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
             thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
 

@@ -222,7 +222,8 @@
   },
   "add_elements": {
     "CHOOSE": "select",
-    "ADD": "add",
+    "ADD": "Add",
+    "DELETE": "Delete",
     "GRID": "mosquito grid",
     "VISOR": "peak",
     "SPILLWAY": "water outflow",

@@ -7,6 +7,7 @@
     .controller('CartCtrl',
 
       function ($filter,
+                $location,
                 globalConstants,
                 GlobalStor,
                 OrderStor,
@@ -256,14 +257,15 @@
         thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
         thisCtrl.initAllGlassXGlass = DesignServ.initAllGlassXGlass;
 
-        $("#main-frame").removeClass("main-frame-mobView");
-        $("#app-container").removeClass("app-container-mobView");
-
-        $(window).load(function() {
-          MainServ.resize();
-        });
-        window.onresize = function() {
-          MainServ.resize();
-        };
+          if ($location.path() !== "/mobile") {
+              $("#main-frame").removeClass("main-frame-mobView");
+              $("#app-container").removeClass("app-container-mobView");
+              $(window).load(function () {
+                  MainServ.resize();
+              });
+              window.onresize = function () {
+                  MainServ.resize();
+              };
+          }
       });
 })();
