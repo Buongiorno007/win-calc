@@ -217,6 +217,7 @@
   "add_elements": {
     "CHOOSE": "Выбрать",
     "ADD": "Добавить",
+    "DELETE": "Удалить",
     "GRID": "москитная сетка",
     "VISOR": "козырек",
     "SPILLWAY": "водоотлив",
@@ -253,6 +254,7 @@
     "SIZE_LABEL": "размер",
     "WIDTH_LABEL": "ширина",
     "HEIGHT_LABEL": "высота",
+    "LENGTH_LABEL": "длинна",
     "OTHER_ELEMENTS1": "Еще",
     "OTHER_ELEMENTS2": "компонента...",
     "SCHEME_VIEW": "Схематически",

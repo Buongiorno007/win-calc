@@ -10,7 +10,7 @@
             include mobile/karkas-mobile
         .common-content-style.config-content(ng-if="mobilePage.isSet(3)")
             include mobile/config-mobile
-        .common-content-style.cart-content(ng-if="mobilePage.isSet(4)")
+
     .control-buttons-container
         .templates.control-button(ng-click="mobilePage.setTab(1)")
             .img-common.templates-img(ng-class="{ active: mobilePage.isSet(1) }")
@@ -39,6 +39,8 @@
     include parts/_danger-alert
     include parts/_error-product
     include parts/_loader
+    .cart-content(ng-if="mobilePage.isSet(4)")
+        include mobile/cart-mobile
     //include parts/_report
     .mob-size-calculator(ng-if="mobilePage.G.global.isSizeCalculator")
         include parts/_size-calculator
