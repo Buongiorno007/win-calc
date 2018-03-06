@@ -1390,6 +1390,11 @@ body {
 
       }
     }
+    .mob-qty-calculator{
+      position: fixed;
+      bottom : 0;
+      width: 100%;
+    }
   }
   .close-dialog {
     all: unset;
