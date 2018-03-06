@@ -1255,9 +1255,6 @@ body {
       width: 100%;
       height: auto;
       overflow: auto;
-      p {
-        text-align: left;
-      }
       .folders {
         display: inline-flex;
         flex-direction: column;
@@ -1270,7 +1267,7 @@ body {
           align-items: center;
           width: 100%;
           height: 50px;
-          &.active{
+          &.active {
             @include roboto-rg(25px);
             color: $main_red;
             -webkit-text-fill-color: $main_red;
@@ -1282,26 +1279,35 @@ body {
           display: inline-flex;
           flex-direction: column;
           width: 100%;
-          .subfolders-name{
+          .subfolders-name {
             position: relative;
             width: 90%;
-            height: 60px;
+            height: 50px;
             background: white;
             border-radius: 50px;
             border: 2px solid $main_gray_dark;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            @include roboto-rg(25px);
+
             color: $main_gray_dark;
             -webkit-text-fill-color: $main_gray_dark;
             z-index: 1;
             margin: 10px 0;
-            &.active{
+            &.active {
               color: $main_red;
               -webkit-text-fill-color: $main_red;
               border: 2px solid $main_red;
             }
+            p {
+              width: 100%;
+              @include roboto-rg(20px);
+            }
+          }
+          .subfolders-image{
+            position: relative;
+            top : -25px;
+            width: 90%;
           }
           .items {
             position: relative;
@@ -1314,6 +1320,17 @@ body {
             border-radius: 50px;
             border: 1px solid $main_gray_dark;
             margin: 5px 0 5px 0;
+            p {
+              width: 100%;
+              @include roboto-rg(15px);
+            }
+          }
+          .info {
+            position: absolute;
+            right: 1px;
+            top: 1px;
+            height: 40px;
+            width: 40px;
           }
         }
 
@@ -1355,7 +1372,7 @@ body {
               flex-direction: column;
               align-items: center;
               @include roboto-lt(15px);
-              .val{
+              .val {
                 min-width: 30px;
                 height: 20px;
                 background: white;
