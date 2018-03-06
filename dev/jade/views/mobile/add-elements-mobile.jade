@@ -7,7 +7,7 @@
                 .row-header
                     p.name {{chosenAddElem.name}}
                     .close-dialog(ng-click='mobPage.confirmAddElemDelete($parent.$index, $index)')
-                .row(ng-click='mobPage.editEddElem($index)')
+                .row(ng-click='mobPage.editEddElem($parent.$index,$index)')
                     .item
                         p.val {{chosenAddElem.element_qty}}
                         p шт
@@ -30,31 +30,32 @@
                     .info(ng-if='item.img && item.description' fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)")
 
     .confirm-add-elem(ng-if='mobPage.confirmAddElem')
-        .close-dialog(ng-click='mobPage.cancelAddElem(mobPage.OpenSubFolder, mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder].length-1)')
+        .close-dialog(ng-if='mobPage.edit' ng-click='mobPage.closeConfirmAddElem()')
+        .close-dialog(ng-if='!mobPage.edit' ng-click='mobPage.cancelAddElem(mobPage.ChoosenAddElemGroup, mobPage.SelectedElement)')
         .info(ng-if='mobPage.SelectedElement.img && mobPage.SelectedElement.description'
         fs-click="mobPage.showInfoBox(mobPage.SelectedElement.id, mobPage.SelectedElement.addElementsList)")
         .name
-            span {{mobPage.SelectedElement.name}}
+            span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].name}}
         .item
             .item-name
                 span {{mobPage.COUNT}}
-            .item-val(fs-click="mobPage.initAddElementTools((mobPage.OpenSubFolder+1), 1, mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder].length-1)", ng-keyup="mobPage.pressCulculator($event)")
-                span {{mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder][mobPage.SelectedElement].element_qty + ' ' + mobPage.QTY_LABEL}}
-        .item(ng-if='mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder][0].element_width' )
+            .item-val(fs-click="mobPage.initAddElementTools((mobPage.ChoosenAddElemGroup+1), 1, mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup].length-1)", ng-keyup="mobPage.pressCulculator($event)")
+                span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty + ' ' + mobPage.QTY_LABEL}}
+        .item(ng-if='mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_width' )
             .item-name
                 span {{mobPage.WIDTH_LABEL}}
-            .item-val(fs-click="mobPage.initAddElementTools((mobPage.OpenSubFolder+1), 2, mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder].length-1)" ng-keyup="elementsPanel.pressCulculator($event)")
-                span {{mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder][mobPage.SelectedElement].element_width + ' ' + mobPage.MM}}
-        .item(ng-if='mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder][0].element_height')
+            .item-val(fs-click="mobPage.initAddElementTools((mobPage.ChoosenAddElemGroup+1), 2, mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup].length-1)" ng-keyup="elementsPanel.pressCulculator($event)")
+                span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_width + ' ' + mobPage.MM}}
+        .item(ng-if='mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_height')
             .item-name
                 span {{mobPage.LENGTH_LABEL}}
-            .item-val(fs-click="mobPage.initAddElementTools((mobPage.OpenSubFolder+1), 3, mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder].length-1)" ng-keyup="elementsPanel.pressCulculator($event)")
-                span {{mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder][mobPage.SelectedElement].element_height + ' ' + mobPage.MM}}
+            .item-val(fs-click="mobPage.initAddElementTools((mobPage.ChoosenAddElemGroup+1), 3, mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup].length-1)" ng-keyup="elementsPanel.pressCulculator($event)")
+                span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_height + ' ' + mobPage.MM}}
         .add-elem-price
-            span {{mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder][mobPage.SelectedElement].element_qty}}
+            span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty}}
             span.curr {{mobPage.U.userInfo.currency}}
         .controls
-            .alert-no(ng-click='mobPage.cancelAddElem(mobPage.OpenSubFolder, mobPage.P.product.chosenAddElements[mobPage.OpenSubFolder].length-1)')
+            .alert-no(ng-click='mobPage.cancelAddElem(mobPage.ChoosenAddElemGroup, mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup].length-1)')
                 p {{mobPage.DELETE}}
             .alert-yes(ng-click='mobPage.closeConfirmAddElem()')
                 p {{mobPage.ADD}}

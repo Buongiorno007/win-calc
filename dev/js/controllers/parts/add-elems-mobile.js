@@ -49,6 +49,8 @@
             thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;
             thisCtrl.OpenSubFolder = -1;
             thisCtrl.OpenItemFolder = -1;
+            thisCtrl.edit = 0;
+            thisCtrl.ChoosenAddElemGroup = -1;
             thisCtrl.confirmAddElem = 0;
             thisCtrl.SelectedElement = '';
             thisCtrl.addElementsList = '';
@@ -81,6 +83,7 @@
                     thisCtrl.OpenSubFolder = -1;
                 } else {
                     thisCtrl.OpenSubFolder = index;
+                    thisCtrl.ChoosenAddElemGroup = index;
                     AuxStor.aux.isFocusedAddElement = index + 1;
                     setTimeout(() => {
                         $('.add-elements-mobile').animate({scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 100}, 'slow');
@@ -115,11 +118,10 @@
 
             function closeConfirmAddElem() {
                 thisCtrl.confirmAddElem = 0;
+                thisCtrl.edit = 0;
             }
 
             function confirmAddElemDelete(typeId, elementId) {
-                console.log(typeId);
-
                 function deleteaddelem() {
                     AddElementMenuServ.deleteAddElement(typeId, elementId)
                 }
@@ -130,14 +132,18 @@
                     deleteaddelem
                 );
             }
-            function editEddElem(index) {
+
+            function editEddElem(AddElemGroup, index) {
+                thisCtrl.edit = 1;
                 thisCtrl.confirmAddElem = 1;
                 thisCtrl.SelectedElement = index;
+                thisCtrl.ChoosenAddElemGroup = AddElemGroup;
             }
 
             function cancelAddElem(typeId, elementId) {
                 AddElementMenuServ.deleteAddElement(typeId, elementId);
-                closeConfirmAddElem();
+                thisCtrl.confirmAddElem = 0;
+                thisCtrl.edit = 0;
             }
 
             //------ clicking
