@@ -1,5 +1,14 @@
 .cart-mobile(ng-controller='CartCtrl as cartPage')
     .cart-header
         .back-button(ng-click="mobilePage.closePanelMobile()")
-        .show-add-elems
-        .add-mounting-delivery
+        .header-buttons.alert-no
+            label {{cartPage.SORT_SHOW}}
+            label {{cartPage.NAVMENU_ADD_ELEMENTS}}
+        .header-buttons.alert-no
+            label {{cartPage.ADD}}
+            label {{cartPage.DELIVERY_MOUNTINGS}}
+    .cart-footer
+        .price
+            price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
+        .spesification
+            label {{cartPage.ORDER_LV}}

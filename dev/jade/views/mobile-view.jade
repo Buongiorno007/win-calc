@@ -24,6 +24,8 @@
         .cart.control-button(ng-click="mobilePage.setTab(4)")
             .img-common.cart-img(ng-class="{ active: mobilePage.isSet(4) }")
             p {{mobilePage.CART}}
+            .qty#qty.unvisible(ng-class="{'active': configMenu.O.order.products.length}") {{ mobilePage.G.global.construction_count }}
+
     .burger(ng-click='mobilePage.OpenMenu()' ng-class="{ active: mobilePage.mobMenu }")
     include mobile/left-menu-mobile
     include mobile/heat-coef-mobile

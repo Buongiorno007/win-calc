@@ -117,13 +117,12 @@
                 }
 
                 /**----- initialize Events again in order to svg in template pannel -------*/
-                $timeout(function () {
-                    DesignServ.initAllImposts();
-                    DesignServ.initAllGlass();
-                    DesignServ.initAllArcs();
-                    DesignServ.initAllDimension();
-                }, 50);
-
+                    $timeout(function () {
+                        DesignServ.initAllImposts();
+                        DesignServ.initAllGlass();
+                        DesignServ.initAllArcs();
+                        DesignServ.initAllDimension();
+                    }, 50);
 
                 /**============ METHODS ================*/
                 function recalculate() {
@@ -323,14 +322,14 @@
 
                         }
                     }
-                    if ($location.path() === "/light" || $location.path() === "/mobile") {
+                    if ($location.path() === "/light") {
                         ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
                         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
                         ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
                         setTimeout(function () {
                             DesignServ.rebuildSVGTemplate();
                             $('#save-block').click(1);
-                        }, 1500);
+                        }, 50);
                     }
                 }
 
