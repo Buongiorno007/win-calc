@@ -1410,7 +1410,7 @@ body {
       background: white;
       .name {
         @include roboto-rg(22px);
-        margin: 20px 0 ;
+        margin: 20px 0;
       }
       .item {
         display: inline-flex;
@@ -1418,7 +1418,7 @@ body {
         align-items: center;
         justify-content: space-between;
         padding: 0 15px;
-        margin: 20px 0 ;
+        margin: 20px 0;
         .item-val {
           display: inline-flex;
           align-items: center;
@@ -1467,7 +1467,7 @@ body {
       }
       .info {
         position: absolute;
-        top : 15px;
+        top: 15px;
         left: 15px;
       }
     }
@@ -1528,7 +1528,51 @@ body {
   }
   .cart-mobile {
     background: #d7dcd8;
-
+    justify-content: center;
+    .cart-header {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-around;
+      height: 70px;
+      width: 100%;
+      .header-buttons {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        width: 35%;
+        margin: 0;
+        @include roboto-rg(13px);
+        text-align: center;
+      }
+    }
+    .cart-footer {
+      position: absolute;
+      bottom: 25px;
+      display: inline-flex;
+      height: 60px;
+      width: 90%;
+      background: white;
+      border-radius: 30px;
+      border: 1px solid $main_red;
+      .price {
+        margin-left: -1rem;
+      }
+      .spesification {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        width: 55%;
+        background: $main_red;
+        border-radius: 30px;
+        position: absolute;
+        right: 0;
+        @include roboto-rg(20px);
+        color: white;
+      }
+    }
   }
   .info_box {
     all: unset;
@@ -1744,9 +1788,9 @@ body {
   .danger-alert {
     background: $main_red;
     z-index: 2;
-    .continued-proc{
-      all : unset;
-      display: inline-flex ;
+    .continued-proc {
+      all: unset;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       position: absolute;
@@ -1761,7 +1805,7 @@ body {
     .close-danger-alert {
       all: unset;
       position: absolute;
-      top : 15px;
+      top: 15px;
       right: 15px;
       width: 41px;
       height: 41px;

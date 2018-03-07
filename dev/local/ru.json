@@ -371,6 +371,7 @@
     "LIGHT_VIEW": "Сокращенный вид",
     "FULL_VIEW": "Полный вид",
     "DELIVERY": "Доставка ",
+    "DELIVERY_MOUNTINGS": "монтаж/доставку ",
     "GARBAGE_REMOVE": "Вывоз мусора ",
     "SELF_EXPORT": "самовывоз",
     "FLOOR": "этаж",
