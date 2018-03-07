@@ -111,7 +111,9 @@
             /**========== FINISH ==========*/
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
-                thisCtrl.confirmAddElem = 1;
+                if (thisCtrl.ChoosenAddElemGroup) {
+                    thisCtrl.confirmAddElem = 1;
+                }
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[thisCtrl.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
             }
@@ -127,8 +129,8 @@
                 }
 
                 GeneralServ.confirmAlert(
-                    $filter('translate')('common_words.DELETE_ORDER_TITLE'),
-                    $filter('translate')('common_words.DELETE_ORDER_TXT'),
+                    $filter('translate')('common_words.DELETE_ELEM_TITLE'),
+                    $filter('translate')('common_words.DELETE_ELEM_TXT'),
                     deleteaddelem
                 );
             }
