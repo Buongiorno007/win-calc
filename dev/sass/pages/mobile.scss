@@ -1282,6 +1282,7 @@ body {
         .subfolders {
           display: inline-flex;
           flex-direction: column;
+          align-items: center;
           width: 100%;
           .subfolders-name {
             position: relative;
@@ -1311,14 +1312,15 @@ body {
           .subfolders-image {
             position: relative;
             top: -25px;
-            width: 90%;
+            width: 70vw;
+            height: 70vw;
           }
           .items {
             position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 80%;
+            width: 90%;
             height: 40px;
             background: white;
             border-radius: 50px;
@@ -1704,7 +1706,7 @@ body {
     background: url("../img/calc/info.svg") no-repeat;
     background-size: contain;
   }
-  .alert-block {
+  .alert-block, .danger-alert {
     all: unset;
     display: inline-flex !important;
     flex-direction: column;
@@ -1734,6 +1736,39 @@ body {
       z-index: 2;
       &:after {
         all: unset;
+        content: '';
+      }
+    }
+  }
+
+  .danger-alert {
+    background: $main_red;
+    z-index: 2;
+    .continued-proc{
+      all : unset;
+      display: inline-flex ;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 15px;
+      width: 60%;
+      height: 40px;
+      background: white;
+      border-radius: 25px;
+      color: $main_red;
+      @include roboto-rg(20px);
+    }
+    .close-danger-alert {
+      all: unset;
+      position: absolute;
+      top : 15px;
+      right: 15px;
+      width: 41px;
+      height: 41px;
+      background: url("../img/calc/error.svg") no-repeat;
+      background-size: contain;
+      z-index: 2;
+      &:after {
         content: '';
       }
     }

@@ -19,6 +19,8 @@
     "DELETE_PRODUCT_TXT": "Хотите удалить продукт?",
     "DELETE_ORDER_TITLE": "Удаление заказа!",
     "DELETE_ORDER_TXT": "Хотите удалить заказ?",
+    "DELETE_ELEM_TITLE": "Удаление элементa!",
+    "DELETE_ELEM_TXT": "Хотите удалить элемент?",
     "COPY_ORDER_TITLE": "Выберите действие!",
     "COUNT": "Количество",
     "APPLY": "Применить",

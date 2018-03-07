@@ -533,7 +533,6 @@
 
 
         function deleteGridsInTemplate(blockID) {
-          console.log(blockID);
           var blocksQty = ProductStor.product.template_source.details.length;
           while (--blocksQty > 0) {
             if (blockID) {
