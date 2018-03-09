@@ -13,7 +13,8 @@
                                             OrderStor,
                                             GlobalStor,
                                             ProductStor,
-                                            AuxStor) {
+                                            AuxStor,
+                                            CartStor) {
             var thisCtrl = this;
             GlobalStor.global.MobileTabActive = 0;
             GlobalStor.global.currOpenPage = 'mobile';
@@ -22,6 +23,7 @@
             thisCtrl.U = UserStor;
             thisCtrl.O = OrderStor;
             thisCtrl.A = AuxStor;
+            thisCtrl.C = CartStor;
 
             thisCtrl.KARKAS = $filter("translate")("mainpage.KARKAS");
             thisCtrl.KONFIG = $filter("translate")("mainpage.KONFIG");

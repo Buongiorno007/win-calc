@@ -408,6 +408,7 @@
     "CALL_ORDER_CLIENT_INFO": "Информация о клиенте (заполняйте обязательно):",
     "CALL_ORDER_CLIENT_INFO_light": "Информация о клиенте (заполняйте обязательно *)",
     "CALL_ORDER_CLIENT_INFO_SHORT": "Информация о клиенте:",
+    "CALL_ORDER_CLIENT_INFO_SHORT_1": "(Поля обязательные к заполнению *)",
     "CLIENT_NAME": "Фамилия Имя Отчество",
     "CALL_ORDER_DELIVERY": "Доставить заказ на",
     "CALL_ORDER_TOTAL_PRICE": "Всего",

@@ -329,7 +329,7 @@
                         setTimeout(function () {
                             DesignServ.rebuildSVGTemplate();
                             $('#save-block').click(1);
-                        }, 50);
+                        }, 1500);
                     }
                 }
 

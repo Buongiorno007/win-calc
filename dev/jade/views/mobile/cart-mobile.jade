@@ -10,5 +10,5 @@
     .cart-footer
         .price
             price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
-        .spesification
+        .spesification(ng-click='cartPage.openOrderDialog()')
             label {{cartPage.ORDER_LV}}

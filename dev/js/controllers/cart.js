@@ -241,6 +241,7 @@
                 thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
                 thisCtrl.createProductCopy = CartServ.createProductCopy;
                 thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
+                thisCtrl.openOrderDialog = CartServ.openOrderDialog;
                 thisCtrl.openBox = CartServ.openBox;
 
 

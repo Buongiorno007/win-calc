@@ -69,6 +69,9 @@
     thisCtrl.CALL_END_TIME = $filter('translate')('cart.CALL_END_TIME');
     thisCtrl.CALL_CREDIT_PARTIAL_PRICE = $filter('translate')('cart.CALL_CREDIT_PARTIAL_PRICE');
 
+    thisCtrl.BACK = $filter('translate')('common_words.BACK');
+    thisCtrl.CALL_ORDER_CLIENT_INFO_SHORT = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO_SHORT');
+    thisCtrl.CALL_ORDER_CLIENT_INFO_SHORT_1 = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO_SHORT_1');
 
 
     //SettingServ.downloadLocations().then(function(data) {
