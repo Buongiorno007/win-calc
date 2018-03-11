@@ -69,3 +69,9 @@
                 price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
             .spesification(ng-click='cartPage.openOrderDialog()')
                 label {{cartPage.ORDER_LV}}
+    .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
+        .order-delete(ng-click="cartPage.C.cart.showCurrentTemp=0")
+        .edit-cur-window(ng-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
+        svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="cartPage.constants.SVG_ID_GLASS")
+    .backDarkView(ng-show="cartPage.C.cart.showCurrentTemp")
+

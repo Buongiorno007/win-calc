@@ -1623,8 +1623,8 @@ body {
             align-items: center;
             justify-content: center;
             position: relative;
-            top : 20px;
-            color : $main_red;
+            top: 20px;
+            color: $main_red;
           }
           .prod-count {
             display: inline-flex;
@@ -1657,18 +1657,10 @@ body {
             justify-content: center;
             @include roboto-rg(22px);
             position: relative;
-            top : 50px
+            top: 50px
 
           }
-          .order-delete {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 25px;
-            height: 25px;
-            background: url("../img/calc/close-calculator-hover.svg") no-repeat;
-            background-size: contain;
-          }
+
           .order-item {
             margin: 5px 0;
             .order-value {
@@ -1728,6 +1720,52 @@ body {
         color: white;
       }
     }
+    .order-delete {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 25px;
+      height: 25px;
+      background: url("../img/calc/close-calculator-hover.svg") no-repeat;
+      background-size: contain;
+    }
+    .template-window {
+      position: absolute;
+      top: 20%;
+      left: 5%;
+      width: 90%;
+      height: 60%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      background: white;
+      border-radius: 15px;
+      .order-delete {
+        top: 10px;
+        right: 10px;
+        z-index: 1;
+      }
+      .edit-cur-window {
+        position: absolute;
+        top: 10px;
+        right: 50px;
+        width: 25px;
+        height: 25px;
+        background: url("../img/cart/copy_edit.svg") no-repeat;
+        background-size: contain;
+        z-index: 1;
+      }
+      #tamlateGlassSVG{
+        padding: 10px 0 0 0;
+        position: relative;
+        top: 40px;
+      }
+    }
+    .backDarkView {
+      z-index: 0;
+    }
+
   }
   .info_box {
     all: unset;
