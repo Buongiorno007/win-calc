@@ -2,4 +2,4 @@
   price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency")
   .go-to-cart
     .go-to-cart-title(ng-click='configMenu.checkForAddElem()') {{configMenu.CONFIGMENU_IN_CART}}
-    .product-counter {{configMenu.G.global.product_qty}}
+    .product-counter(ng-click="configMenu.showCalck()") {{configMenu.G.global.product_qty}}

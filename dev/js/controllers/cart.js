@@ -247,7 +247,6 @@
                 thisCtrl.openOrderDialog = CartServ.openOrderDialog;
                 thisCtrl.openBox = CartServ.openBox;
 
-
                 thisCtrl.enterKeyPrice = enterKeyPrice;
                 thisCtrl.enterKeyDop = enterKeyDop;
                 thisCtrl.enterKeyDopService = enterKeyDopService;
