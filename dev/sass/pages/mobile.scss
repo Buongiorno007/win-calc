@@ -174,6 +174,9 @@ body {
         -webkit-text-fill-color: white;
         @include roboto-rg(rem($price_container-height-mobile - 4px), 1);
         margin-left: 15px;
+        height: 100%;
+        display: inline-flex;
+        align-items: center;
       }
 
       .product-counter {
@@ -254,6 +257,25 @@ body {
         &.active {
           background: url("../img/config-menu/template_active.svg") no-repeat center;
           background-size: contain;
+        }
+      }
+      .qty-mobile {
+        position: absolute;
+        top: 0;
+        right: 6%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        height: 20px;
+        width: 20px;
+        background: $main_red;
+        border-radius: 25px;
+        @include roboto-lt(15px);
+        span {
+          position: relative;
+          top: 1px;
+          left: 1px;
         }
       }
     }
@@ -1527,8 +1549,9 @@ body {
 
   }
   .cart-mobile {
-    background: #d7dcd8;
-    justify-content: center;
+    background: $main_f3;
+    display: inline-flex;
+    flex-direction: column;
     .cart-header {
       display: inline-flex;
       align-items: center;
@@ -1547,15 +1570,146 @@ body {
         text-align: center;
       }
     }
-    .cart-footer {
+    .product-container {
+      display: inline-flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 170px);
+      min-height: calc(100% - 170px);
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding: 10px 0;
+      .add-product {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        @include roboto-rg(20px);
+
+      }
+      .product {
+        position: relative;
+        display: inline-flex;
+        min-height: 345px;
+        background: white;
+        margin: 5px 10px;
+        border: 1px solid #afacac;
+        border-radius: 15px;
+        padding: 15px 10px 10px 10px;
+        @include roboto-rg(15px);
+        @include box-shadow($main_gray_btn 0px 0px 5px 1px);
+        .col {
+          display: inline-flex;
+          flex-direction: column;
+          width: 50%;
+          height: 100%;
+          svg-template {
+            all: unset;
+            position: relative;
+            div {
+              all: unset;
+              position: relative;
+            }
+          }
+          .prod-template {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .prod-heat-coef {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            top : 20px;
+            color : $main_red;
+          }
+          .prod-count {
+            display: inline-flex;
+            width: 45%;
+            align-items: center;
+            justify-content: space-around;
+            position: absolute;
+            bottom: 10px;
+            .count-button {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              height: 40px;
+              border: 1px solid $main_red;
+              border-radius: 25px;
+              color: $main_red;
+              @include roboto-rg(20px);
+              label {
+                position: relative;
+                top: -1px;
+                left: 0px;
+              }
+            }
+          }
+          .prod-price {
+            display: inline-flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            @include roboto-rg(22px);
+            position: relative;
+            top : 50px
+
+          }
+          .order-delete {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 25px;
+            height: 25px;
+            background: url("../img/calc/close-calculator-hover.svg") no-repeat;
+            background-size: contain;
+          }
+          .order-item {
+            margin: 5px 0;
+            .order-value {
+              @include roboto-rg(15px);
+            }
+            .order-label {
+              @include roboto-lt(10px);
+              border-bottom: 1px solid $main_f7;
+            }
+          }
+          .order-edit {
+            margin: 5px 0 0 0;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+    .cart-footer-container {
       position: absolute;
-      bottom: 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      padding: 0px 15px;
+      @include box-shadow($main_gray_dark 0 2px 10px 0px);
+
+    }
+    .cart-footer {
+      position: relative;
       display: inline-flex;
       height: 60px;
-      width: 90%;
+      width: 100%;
       background: white;
       border-radius: 30px;
       border: 1px solid $main_red;
+      box-sizing: content-box;
       .price {
         margin-left: -1rem;
       }
@@ -1563,12 +1717,13 @@ body {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 60px;
+        position: absolute;
+        right: 0px;
+        top: -1px;
+        height: 62px;
         width: 55%;
         background: $main_red;
         border-radius: 30px;
-        position: absolute;
-        right: 0;
         @include roboto-rg(20px);
         color: white;
       }
@@ -1995,6 +2150,71 @@ body {
           -webkit-text-fill-color: $main_red;
           @include roboto-rg(12px);
         }
+      }
+    }
+  }
+  .mobile-order-forms {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: white;
+    z-index: 2;
+    .order-dialog-mobile {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: white;
+      padding: 10px 25px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      .cart-dialog-header {
+        display: inline-flex;
+        width: 100%;
+        height: 50px;
+        align-items: center;
+        justify-content: space-between;
+        .col {
+          display: inline-flex;
+          align-items: center;
+        }
+        .back-button {
+          background: url("../img/calc/back_red.svg") no-repeat;
+          background-size: contain;
+          width: 25px;
+          height: 25px;
+          margin: 0 10px;
+        }
+      }
+      .save {
+        background: #cc0000;
+        color: white;
+        -webkit-text-fill-color: white;
+        border-radius: 25px;
+        width: 100%;
+        height: 60px;
+        border: none;
+      }
+      .input-field {
+        display: inline-flex;
+        width: 100%;
+
+      }
+      .user-field {
+        border-radius: 25px;
+        background: white;
+        border: 1px solid $main_red;
+        height: 50px;
+      }
+      .street {
+        width: 100%;
+      }
+      .small {
+        width: 30%;
+        flex: 1;
       }
     }
   }

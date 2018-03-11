@@ -92,11 +92,14 @@
                 thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
                 thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
 
+                thisCtrl.ADD_PRODUCT = $filter('translate')('cart.ADD_PRODUCT');
                 thisCtrl.OTHER = $filter("translate")("add_elements.OTHER");
                 thisCtrl.SERV1 = $filter("translate")("add_elements.SERV1");
                 thisCtrl.SERV2 = $filter("translate")("add_elements.SERV2");
                 thisCtrl.SERV3 = $filter("translate")("add_elements.SERV3");
                 thisCtrl.SERV4 = $filter("translate")("add_elements.SERV4");
+
+                thisCtrl.BUTTON_E = $filter("translate")("common_words.BUTTON_E");
                 //------- set current Page
                 if ($location.path() !== "/mobile") {
                     GlobalStor.global.currOpenPage = 'cart';
@@ -241,6 +244,7 @@
                 thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
                 thisCtrl.createProductCopy = CartServ.createProductCopy;
                 thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
+                thisCtrl.openOrderDialog = CartServ.openOrderDialog;
                 thisCtrl.openBox = CartServ.openBox;
 
 

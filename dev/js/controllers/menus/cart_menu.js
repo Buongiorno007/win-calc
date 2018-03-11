@@ -13,6 +13,7 @@
                 AuxStor,
                 CartStor,
                 ProductStor,
+                CartServ,
                 CartMenuServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
@@ -87,19 +88,7 @@
           }
         }
 
-        //------ show Order/Credit Dialog
-        function openOrderDialog() {
-          CartStor.cart.showCurrentTemp = 0;
-          if (OrderStor.order.products.length) {
-            // console.log("openOrderDialog");
-            if (OrderStor.order.is_instalment) {
-              CartStor.cart.isCreditDialog = 1;
-            } else {
-              CartStor.cart.isOrderDialog = 1;
-              console.log("openOrderDialog");
-            }
-          }
-        }
+
 
         /**========== FINISH ==========*/
 
@@ -111,7 +100,7 @@
         thisCtrl.selectDisAssembling = CartMenuServ.selectDisAssembling;
         thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
         thisCtrl.openMasterDialog = openMasterDialog;
-        thisCtrl.openOrderDialog = openOrderDialog;
+        thisCtrl.openOrderDialog = CartServ.openOrderDialog;
         thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
         thisCtrl.calculateOrderPrice = CartMenuServ.calculateOrderPrice;
 

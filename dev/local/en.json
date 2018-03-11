@@ -367,6 +367,7 @@
   "cart": {
     "ALL_ADD_ELEMENTS": "All additional elements order",
     "ADD_ORDER": "Add the product",
+    "ADD_PRODUCT": "Add the construction",
     "PRODUCT_QTY": "number of products",
     "LIGHT_VIEW": "Short view",
     "FULL_VIEW": "Full view",
@@ -415,6 +416,9 @@
     "CALL_CREDIT": "Making installment and order to calculate",
     "CALL_CREDIT_DESCRIP": "To arrange installments and fulfill the order, we have something for you to know.",
     "CALL_CREDIT_CLIENT_INFO": "Installment:",
+
+    "CALL_ORDER_CLIENT_INFO_SHORT": "Customer information:",
+    "CALL_ORDER_CLIENT_INFO_SHORT_1": "(Required fields *)",
     "CREDIT_TARGET": "The purpose of registration of installments",
     "CLIENT_ITN": "Individual Tax Number",
     "CALL_START_TIME": "Call from:",

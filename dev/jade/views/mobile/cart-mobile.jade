@@ -7,8 +7,65 @@
         .header-buttons.alert-no
             label {{cartPage.ADD}}
             label {{cartPage.DELIVERY_MOUNTINGS}}
-    .cart-footer
-        .price
-            price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
-        .spesification
-            label {{cartPage.ORDER_LV}}
+    .product-container
+        .add-product.alert-no(ng-click="cartPage.addNewProductInOrder()")
+            label {{'+ '+cartPage.ADD_PRODUCT}}
+        .product(ng-repeat="product in cartPage.O.order.products track by $index")
+            .col
+                .order-delete(ng-click="cartPage.clickDeleteProduct($index)")
+                .prod-number
+                    label {{$index+1+"."}}
+                .prod-template(ng-click="cartPage.showCartTemplte($index)")
+                    svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
+                .prod-heat-coef
+                    label U = {{ product.heat_coef_total | number : 2}}
+                    label {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
+                .prod-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+
+                .prod-count
+                    .count-button(ng-click="cartPage.decreaseProductQty($index)")
+                        label -
+                    .count {{ product.product_qty }} {{cartPage.QTY_LABEL}}
+                    .count-button(ng-click="cartPage.increaseProductQty($index)")
+                        label +
+
+            .col
+                .order-item
+                    .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"\u00A0 *\u00A0"}} {{ product.template_height }} {{ ::cartPage.MM }}
+                    .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
+                    .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
+                .order-item
+                    .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
+                    .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
+                .order-item(ng-if="product.glass.length > 1")
+                    .order-value {{ product.glass[0].sku + ', ...' }}
+                    .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                .order-item(ng-if="product.glass.length <= 1")
+                    .order-value {{ product.glass[0].sku }}
+                    .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                .order-item
+                    .order-value(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
+                    .order-value(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
+                    .order-label {{ ::cartPage.CONFIGMENU_HARDWARE }}
+                .order-item
+                    .order-value
+                        span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
+                        span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
+                        span /
+                        span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
+                        span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
+                    .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
+                .order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
+                    .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}
+                        ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
+                        when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
+                    .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
+                .order-edit.alert-no(ng-click="cartPage.box($index, 'product')")
+                    span {{::cartPage.BUTTON_E}}
+    .cart-footer-container
+        .cart-footer
+            .price
+                price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
+            .spesification(ng-click='cartPage.openOrderDialog()')
+                label {{cartPage.ORDER_LV}}

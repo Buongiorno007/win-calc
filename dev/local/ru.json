@@ -367,6 +367,7 @@
   "cart": {
     "ALL_ADD_ELEMENTS": "Все доп.элементы заказа",
     "ADD_ORDER": "Новое изделие",
+    "ADD_PRODUCT": "Добавить конструкцию",
     "PRODUCT_QTY": "количество изделий",
     "LIGHT_VIEW": "Сокращенный вид",
     "FULL_VIEW": "Полный вид",
@@ -408,6 +409,7 @@
     "CALL_ORDER_CLIENT_INFO": "Информация о клиенте (заполняйте обязательно):",
     "CALL_ORDER_CLIENT_INFO_light": "Информация о клиенте (заполняйте обязательно *)",
     "CALL_ORDER_CLIENT_INFO_SHORT": "Информация о клиенте:",
+    "CALL_ORDER_CLIENT_INFO_SHORT_1": "(Поля обязательные к заполнению *)",
     "CLIENT_NAME": "Фамилия Имя Отчество",
     "CALL_ORDER_DELIVERY": "Доставить заказ на",
     "CALL_ORDER_TOTAL_PRICE": "Всего",
