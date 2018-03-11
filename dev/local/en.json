@@ -367,6 +367,7 @@
   "cart": {
     "ALL_ADD_ELEMENTS": "All additional elements order",
     "ADD_ORDER": "Add the product",
+    "ADD_PRODUCT": "Add the construction",
     "PRODUCT_QTY": "number of products",
     "LIGHT_VIEW": "Short view",
     "FULL_VIEW": "Full view",
