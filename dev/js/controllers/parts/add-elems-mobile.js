@@ -47,13 +47,12 @@
             thisCtrl.MM = $filter('translate')('mainpage.MM');
 
             thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;
-            thisCtrl.OpenSubFolder = -1;
-            thisCtrl.OpenItemFolder = -1;
             thisCtrl.edit = 0;
             thisCtrl.ChoosenAddElemGroup = -1;
             thisCtrl.confirmAddElem = 0;
             thisCtrl.SelectedElement = '';
             thisCtrl.addElementsList = '';
+            thisCtrl.lastParent = null;
 
 
             function merge(item1, item2) {
@@ -67,36 +66,45 @@
 
             thisCtrl.AddElementsMobile = [];
             GlobalStor.global.addElementsAll.forEach((item, index) => {
-                if (index < 13) {
-                    if (item.elementType && item.elementsList) {
-                        let tmp;
-                        tmp = GeneralServ.addElementDATA[index];
-                        tmp.folder = merge(item.elementType, item.elementsList);
-                        thisCtrl.AddElementsMobile.push(tmp);
-                    }
+                if (item.elementType && item.elementsList) {
+                    let tmp;
+                    tmp = GeneralServ.addElementDATA[index];
+                    tmp.folder = merge(item.elementType, item.elementsList);
+                    thisCtrl.AddElementsMobile.push(tmp);
                 }
             });
+            console.log(GlobalStor.global.addElementsAll);
 
             function OpenFolder(index, event) {
-                thisCtrl.OpenItemFolder = -1;
-                if (thisCtrl.OpenSubFolder === index) {
-                    thisCtrl.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+                if (GlobalStor.global.OpenSubFolder === index) {
+                    GlobalStor.global.OpenSubFolder = -1;
                 } else {
-                    thisCtrl.OpenSubFolder = index;
+                    GlobalStor.global.OpenSubFolder = index;
                     thisCtrl.ChoosenAddElemGroup = index;
                     AuxStor.aux.isFocusedAddElement = index + 1;
                     setTimeout(() => {
                         $('.add-elements-mobile').animate({scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 100}, 'slow');
                     }, 250);
+                    thisCtrl.lastParent = event;
                 }
 
             }
 
-            function showItems(index) {
-                if (thisCtrl.OpenItemFolder === index) {
-                    thisCtrl.OpenItemFolder = -1;
+            function showItems(index, event, img) {
+                if (GlobalStor.global.OpenItemFolder === index) {
+                    GlobalStor.global.OpenItemFolder = -1;
                 } else {
-                    thisCtrl.OpenItemFolder = index;
+                    GlobalStor.global.OpenItemFolder = index;
+                    if (img) {
+                        setTimeout(() => {
+                            $('.add-elements-mobile').animate({scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 150}, 'slow');
+                        }, 250);
+                    } else {
+                        setTimeout(() => {
+                            $('.add-elements-mobile').animate({scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 120}, 'slow');
+                        }, 250);
+                    }
                 }
             }
 
@@ -114,13 +122,19 @@
                 if (thisCtrl.ChoosenAddElemGroup) {
                     thisCtrl.confirmAddElem = 1;
                 }
-                thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[thisCtrl.OpenSubFolder].length;
+                thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
             }
 
             function closeConfirmAddElem() {
                 thisCtrl.confirmAddElem = 0;
                 thisCtrl.edit = 0;
+                GlobalStor.global.isSizeCalculator = 0;
+                GlobalStor.global.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+                setTimeout(() => {
+                    $('.add-elements-mobile').animate({scrollTop: $(thisCtrl.lastParent.target).offset().top + $('.add-elements-mobile').scrollTop() - 100}, 'slow');
+                }, 50);
             }
 
             function confirmAddElemDelete(typeId, elementId) {
@@ -146,6 +160,12 @@
                 AddElementMenuServ.deleteAddElement(typeId, elementId);
                 thisCtrl.confirmAddElem = 0;
                 thisCtrl.edit = 0;
+                GlobalStor.global.isSizeCalculator = 0;
+                GlobalStor.global.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+                setTimeout(() => {
+                    $('.add-elements-mobile').animate({scrollTop: $(thisCtrl.lastParent.target).offset().top + $('.add-elements-mobile').scrollTop() - 100}, 'slow');
+                }, 50);
             }
 
             //------ clicking

@@ -34,6 +34,7 @@
     thisCtrl.CALL_ORDER_CLIENT_INFO = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO');
     thisCtrl.CALL_ORDER_CLIENT_INFO_light = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO_light');
     thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.CLIENT_NAME_SHORT = $filter('translate')('cart.CLIENT_NAME_SHORT');
     thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
     thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
     thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
@@ -46,6 +47,7 @@
     thisCtrl.CALL_ORDER_TOTAL_PRICE = $filter('translate')('cart.CALL_ORDER_TOTAL_PRICE');
     thisCtrl.CALL_ORDER_ADD_INFO = $filter('translate')('cart.CALL_ORDER_ADD_INFO');
     thisCtrl.CLIENT_EMAIL_ORDER = $filter('translate')('cart.CLIENT_EMAIL_ORDER');
+    thisCtrl.CLIENT_EMAIL_SHORT = 'E-mail *';
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
     thisCtrl.ADD_PHONE = $filter('translate')('cart.ADD_PHONE');
     thisCtrl.CLIENT_SEX = $filter('translate')('cart.CLIENT_SEX');

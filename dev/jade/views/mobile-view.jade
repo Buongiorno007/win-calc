@@ -44,9 +44,10 @@
     include parts/_danger-alert
     include parts/_error-product
     include parts/_loader
+    .mob-rep(ng-if="mobilePage.G.global.isMobileReport")
+        include mobile/report_mobile
     .cart-content(ng-if="mobilePage.isSet(4)")
         include mobile/cart-mobile
-    //include parts/_report
     .mob-size-calculator(ng-if="mobilePage.G.global.isSizeCalculator")
         include parts/_size-calculator
 

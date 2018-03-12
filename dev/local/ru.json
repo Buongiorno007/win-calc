@@ -411,6 +411,7 @@
     "CALL_ORDER_CLIENT_INFO_SHORT": "Информация о клиенте:",
     "CALL_ORDER_CLIENT_INFO_SHORT_1": "(Поля обязательные к заполнению *)",
     "CLIENT_NAME": "Фамилия Имя Отчество",
+    "CLIENT_NAME_SHORT": "ФИO *",
     "CALL_ORDER_DELIVERY": "Доставить заказ на",
     "CALL_ORDER_TOTAL_PRICE": "Всего",
     "CALL_ORDER_ADD_INFO": "Дополнительно:",

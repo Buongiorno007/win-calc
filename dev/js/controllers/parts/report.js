@@ -84,18 +84,21 @@
                             thisCtrl.config.reportMenu = result.filter(function (item) {
                                 return item.position > 0;
                             });
-                            thisCtrl.config.reportMenu.push({
+                            thisCtrl.config.reportMenu.unshift({
                                 id: 0,
                                 name: $filter('translate')('common_words.ALL')
                             });
                         });
                     }
-                    $rootScope.$apply();
+                    if ($location.path() !== "/mobile") {
+                        $rootScope.$apply();
+                    }
                 }
-                function closeReport(){
+
+                function closeReport() {
                     console.log('closeReport');
                     GlobalStor.global.isReport = 0;
-                    GlobalStor.global.isMobileReport = 1;
+                    GlobalStor.global.isMobileReport = 0;
                 }
 
                 $('.main-content').off("keypress").keypress(function (event) {

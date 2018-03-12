@@ -158,7 +158,7 @@
                         break;
                     }
                     case 2: {
-                        $location.path("/history");
+                        // $location.path("/history");
                         break;
                     }
                     case 3: {
@@ -170,7 +170,10 @@
                     }
                     case 5: {
                         thisCtrl.mobMenu = 0;
-                        GlobalStor.global.isMobileReport = 1;
+                        GlobalStor.global.isMobileReport = !GlobalStor.global.isMobileReport;
+                        if (!GlobalStor.global.isMobileReport) {
+                            GlobalStor.global.isReport = 0;
+                        }
                         break;
                     }
                     case 6: {
