@@ -2292,6 +2292,16 @@ body {
         width: 100%;
         height: 60px;
         border: none;
+        @include roboto-rg(20px);
+      }
+      .location-list-tooltip {
+        position: absolute;
+        background: white;
+        width: 100%;
+        top: 60px;
+        @include roboto-rg(15px);
+        z-index: 2;
+        @include box-shadow($main_gray_btn 0px 1px 10px  0px);
       }
       .input-field {
         display: inline-flex;
