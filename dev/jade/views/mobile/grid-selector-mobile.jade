@@ -5,7 +5,7 @@
             p {{ ::gridBox.APPLY }}
         .glass-title(ng-class="{'column': glassPanel.G.global.selectGlassName.length > 8}")
             .curr-glass-value
-                p {{ ::gridBox.G.global.selectedGrid.name }}
+                p {{ gridBox.G.global.selectedGrid.name }}
     .dialog-inner-mob
         svg-template(template="gridBox.P.product.template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="gridBox.constants.SVG_ID_GRID")
     .buttons

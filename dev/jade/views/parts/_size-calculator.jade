@@ -3,7 +3,7 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
     td
       button.cell.calc-delete(fs-click="sizeCalc.deleteLastNumber()")
     td(colspan= "2", ng-if="sizeCalc.G.global.enterCount")
-      .calc-interval-hide
+      .calc-interval-hide(ng-class="{'number': sizeCalc.G.global.enterCount}")
         |{{ sizeCalc.G.global.product_qty }}
     td(colspan= "2", ng-if="!sizeCalc.G.global.enterCount")
       .calc-interval-hide(ng-if="sizeCalc.P.product.construction_type === 3")
@@ -35,7 +35,7 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
         button.cell.calc-digit(fs-click="sizeCalc.setValueSize("+cell+")")= cell
     - }
   tr
-    td(colspan= "2", ng-if="sizeCalc.G.global.enterCount")
+    td(colspan= "2", ng-if="sizeCalc.G.global.enterCount" )
       button.cell.calc-digitLight(fs-click="sizeCalc.setValueSize(0)") 0
     td(ng-if="!sizeCalc.G.global.enterCount")
       button.cell.calc-digit(fs-click="sizeCalc.setValueSize(0)") 0

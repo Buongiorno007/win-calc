@@ -193,8 +193,11 @@ body {
         margin-right: 1px;
       }
     }
-  }
 
+  }
+  .number {
+    width: 177px;;
+  }
   .control-buttons-container {
     position: absolute;
     bottom: 0;
@@ -1564,7 +1567,7 @@ body {
         align-items: center;
         justify-content: center;
         height: 50px;
-        width: 35%;
+        width: 40%;
         margin: 0;
         @include roboto-rg(13px);
         text-align: center;
@@ -1590,7 +1593,7 @@ body {
       .product {
         position: relative;
         display: inline-flex;
-        min-height: 345px;
+        min-height: 350px;
         background: white;
         margin: 5px 10px;
         border: 1px solid #afacac;
@@ -1623,8 +1626,8 @@ body {
             align-items: center;
             justify-content: center;
             position: relative;
-            top : 20px;
-            color : $main_red;
+            top: 20px;
+            color: $main_red;
           }
           .prod-count {
             display: inline-flex;
@@ -1657,18 +1660,10 @@ body {
             justify-content: center;
             @include roboto-rg(22px);
             position: relative;
-            top : 50px
+            top: 50px
 
           }
-          .order-delete {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 25px;
-            height: 25px;
-            background: url("../img/calc/close-calculator-hover.svg") no-repeat;
-            background-size: contain;
-          }
+
           .order-item {
             margin: 5px 0;
             .order-value {
@@ -1685,6 +1680,9 @@ body {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            position: absolute;
+            bottom: 10px;
+            width: 45%;
           }
         }
       }
@@ -1721,13 +1719,66 @@ body {
         right: 0px;
         top: -1px;
         height: 62px;
-        width: 55%;
+        width: 50%;
         background: $main_red;
         border-radius: 30px;
-        @include roboto-rg(20px);
+        @include roboto-rg(18px);
         color: white;
       }
     }
+    .order-delete {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 25px;
+      height: 25px;
+      background: url("../img/calc/close-calculator-hover.svg") no-repeat;
+      background-size: contain;
+    }
+    .template-window {
+      position: absolute;
+      top: 15%;
+      left: 5%;
+      width: 90%;
+      height: 70%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      background: white;
+      border-radius: 15px;
+      .order-delete {
+        top: 10px;
+        right: 10px;
+        z-index: 1;
+      }
+      .edit-cur-window {
+        position: absolute;
+        top: 10px;
+        right: 50px;
+        width: 25px;
+        height: 25px;
+        background: url("../img/cart/copy_edit.svg") no-repeat;
+        background-size: contain;
+        z-index: 1;
+      }
+      #tamlateGlassSVG {
+        padding: 10px 0 0 0;
+        position: relative;
+        top: 30px;
+      }
+    }
+    .addelements-detail {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: white;
+      z-index: 1;
+    }
+    .backDarkView {
+      z-index: 0;
+    }
+
   }
   .info_box {
     all: unset;
@@ -1918,7 +1969,14 @@ body {
     left: 5%;
     height: 90%;
     width: 90%;
-
+    .alert-btns {
+      button {
+        display: inline-flex;
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+      }
+    }
     .alert-descr {
       width: 80%;
       @include roboto-rg(15px);

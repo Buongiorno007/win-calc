@@ -247,7 +247,6 @@
                 thisCtrl.openOrderDialog = CartServ.openOrderDialog;
                 thisCtrl.openBox = CartServ.openBox;
 
-
                 thisCtrl.enterKeyPrice = enterKeyPrice;
                 thisCtrl.enterKeyDop = enterKeyDop;
                 thisCtrl.enterKeyDopService = enterKeyDopService;
@@ -261,6 +260,7 @@
                 thisCtrl.coutNull = coutNull;
 
                 thisCtrl.box = CartServ.box;
+                thisCtrl.mobileBox = CartServ.mobileBox;
                 thisCtrl.fastEdit = CartServ.fastEdit;
                 thisCtrl.calculateAverageDisc = CartMenuServ.calculateAverageDisc;
                 thisCtrl.showAllAddElements = CartServ.showAllAddElements;

@@ -38,6 +38,7 @@
             }
 
             getOnline();
+
             /**---------- Close Room Selector Dialog ---------*/
             function closeRoomSelectorDialog() {
                 GlobalStor.global.showRoomSelectorDialog = 0;
@@ -1792,9 +1793,13 @@
                     laminatFiltering();
                     if (GlobalStor.global.currOpenPage !== "main") {
                         GlobalStor.global.showRoomSelectorDialog = 0;
-                        if (GlobalStor.global.isLightVersion) {
-                            $location.path("/light");
-                            GlobalStor.global.currOpenPage = "light";
+                        if ($location.path() === "/light" || $location.path() === "/mobile") {
+                            if ($location.path() === "/light") {
+                                GlobalStor.global.currOpenPage = "light";
+                            }
+                            if ($location.path() === "/mobile") {
+                                GlobalStor.global.currOpenPage = "mobile";
+                            }
                         } else {
                             $location.path("/main");
                             GlobalStor.global.currOpenPage = "main";
@@ -1824,9 +1829,16 @@
                 });
                 if (GlobalStor.global.currOpenPage !== "main") {
                     GlobalStor.global.showRoomSelectorDialog = 0;
-                    if (GlobalStor.global.isLightVersion) {
-                        //$location.path('/light');
-                        GlobalStor.global.currOpenPage = "light";
+                    if ($location.path() === "/light" || $location.path() === "/mobile") {
+                        if ($location.path() === "/light") {
+                            GlobalStor.global.currOpenPage = "light";
+                        }
+                        if ($location.path() === "/mobile") {
+                            GlobalStor.global.currOpenPage = "mobile";
+                            $timeout(function () {
+                                closePanelMobile();
+                            }, 500);
+                        }
                     } else {
                         $location.path("/main");
                         GlobalStor.global.currOpenPage = "main";
@@ -2397,6 +2409,7 @@
                     });
                 console.log(ProductStor.product);
             }
+
             function getPCPower() {
                 var iterations = 1000000;
                 var s = 0;
@@ -2416,6 +2429,7 @@
                 GlobalStor.global.loader = 2;
                 return Math.round(1000000 / diffs);
             }
+
             /**========== FINISH ==========*/
 
             thisFactory.publicObj = {

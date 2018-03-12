@@ -275,6 +275,88 @@
 
                 }
 
+                //----- Edit Produtct in main page
+                function mobileBox(productIndex, type) {
+                    GlobalStor.global.isBox = !GlobalStor.global.isBox;
+
+                    //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
+                    function editProduct() {
+                        if (OrderStor.order.products[productIndex].lamination.id > 0) {
+                            OrderStor.order.products[productIndex].profile.impost_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.impost_list_id);
+                            OrderStor.order.products[productIndex].profile.rama_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_list_id);
+                            OrderStor.order.products[productIndex].profile.rama_still_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.rama_still_list_id);
+                            OrderStor.order.products[productIndex].profile.shtulp_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.shtulp_list_id);
+                            OrderStor.order.products[productIndex].profile.stvorka_list_id = angular.copy(OrderStor.order.products[productIndex].lamination.stvorka_list_id);
+                        }
+                        ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
+                        GlobalStor.global.productEditNumber = ProductStor.product.product_id;
+                        GlobalStor.global.isCreatedNewProduct = 1;
+                        GlobalStor.global.isChangedTemplate = 1;
+                        GlobalStor.global.product_qty = ProductStor.product.product_qty;
+                        MainServ.prepareMainPage();
+                        if (type === 'auxiliary') {
+                            //------ open AddElements Panel
+                            GlobalStor.global.activePanel = 6;
+                        }
+                        if (!ProductStor.product.is_addelem_only) {
+                            //------- set previos Page
+                            GeneralServ.setPreviosPage();
+                            var productTEMP;
+                            var newId = ProductStor.product.profile.id;
+                            /** save previous Product */
+                            productTEMP = angular.copy(ProductStor.product);
+
+                            /** check new Profile */
+                            MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+                                //------- set current template for product
+                                MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function () {
+
+                                    /** Extra Glass finding */
+                                    MainServ.checkGlassSizes(ProductStor.product.template);
+
+                                    /** return previous Product */
+                                    ProductStor.product = angular.copy(productTEMP);
+                                    setAddElementsTotalPrice(ProductStor.product);
+                                    MainServ.closePanelMobile();
+                                });
+                            });
+                            GlobalStor.global.isBox = 0;
+                        } else {
+                            GlobalStor.global.activePanel = 6;
+                            GlobalStor.global.isBox = 0;
+                        }
+                    }
+
+                    function addCloneProductInOrder(cloneProduct, lastProductId) {
+                        // console.log(cloneProduct)
+                        lastProductId += 1;
+                        cloneProduct.product_id = lastProductId;
+                        OrderStor.order.products.push(cloneProduct);
+                    }
+
+                    function createProductCopy() {
+                        var lastProductId = d3.max(_.map(OrderStor.order.products, function (item) {
+                                return item.product_id;
+                            })),
+
+                            cloneProduct = angular.copy(OrderStor.order.products[productIndex]);
+                        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+                        addCloneProductInOrder(cloneProduct, lastProductId);
+                        CartMenuServ.joinAllAddElements();
+                        CartMenuServ.calculateOrderPrice();
+                    }
+
+                    GeneralServ.confirmAlert(
+                        $filter('translate')('common_words.EDIT_COPY_TXT'),
+                        $filter('translate')('  '),
+                        editProduct
+                    );
+                    GeneralServ.confirmPath(
+                        createProductCopy
+                    );
+
+                }
+
 
                 /**======== ALL ADD LEMENTS PANEL ========*/
 
@@ -436,6 +518,7 @@
                     addNewProductInOrder: addNewProductInOrder,
                     clickDeleteProduct: clickDeleteProduct,
                     box: box,
+                    mobileBox: mobileBox,
                     fastEdit: fastEdit,
                     showAllAddElements: showAllAddElements,
                     collectAllAddElems: collectAllAddElems,
