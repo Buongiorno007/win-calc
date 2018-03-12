@@ -2,7 +2,7 @@
     include accept-container
     .folders-container
         .folders(ng-repeat="folders in mobPage.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" )
-            p.folders-name(ng-click="mobPage.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === mobPage.OpenSubFolder}') {{folders.name | translate}}
+            p.folders-name(ng-click="mobPage.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}') {{folders.name | translate}}
             .choosen-add-elem(ng-repeat="chosenAddElem in mobPage.P.product.chosenAddElements[$index] track by $index")
                 .row-header
                     p.name {{chosenAddElem.name}}
@@ -20,12 +20,12 @@
                     .item
                         p.val {{chosenAddElem.element_price}}
                         p цена
-            .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === mobPage.OpenSubFolder" ng-init="OpenItemFolder = $index")
-                .subfolders-name( ng-class='{active : mobPage.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name')
-                    p(ng-click='mobPage.showItems($index)' ) {{subfolder.name}}
+            .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === mobPage.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index")
+                .subfolders-name( ng-class='{active : mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
+                    p(ng-click='mobPage.showItems($index, $event, 0)' ) {{subfolder.name}}
                     .info(fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
-                img.subfolders-image(ng-click='mobPage.showItems($index)' ng-if='subfolder.img' ng-src='{{subfolder.img}}')
-                .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="mobPage.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
+                img.subfolders-image(ng-click='mobPage.showItems($index, $event, 1)' ng-if='subfolder.img' ng-src='{{subfolder.img}}')
+                .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
                     p(ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
                     .info(ng-if='item.img && item.description' fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)")
 

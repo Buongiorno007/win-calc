@@ -32,7 +32,7 @@
             .col
                 .order-item
                     .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"*"}} {{ product.template_height }} {{ ::cartPage.MM }}
-                    .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
+                    .order-value.splice(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
                     .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                 .order-item
                     .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
@@ -56,7 +56,8 @@
                         span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
                         span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
                     .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
-                .order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
+                //.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
+                .order-item.addelements-btn
                     .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}
                         ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
                         when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
@@ -71,7 +72,8 @@
                 label {{cartPage.ORDER_LV}}
     .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
         .order-delete(ng-click="cartPage.C.cart.showCurrentTemp=0")
-        .edit-cur-window(ng-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
+        .order-edit.alert-no(ng-click="cartPage.mobileBox(cartPage.C.cart.curProd, 'product')")
+            span {{::cartPage.BUTTON_E}}
         svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="cartPage.constants.SVG_ID_GLASS")
     .addelements-detail(ng-if="cartPage.config.isAddElementDetail")
         .addelements-detail-header

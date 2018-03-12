@@ -16,6 +16,8 @@
 
                 thisFactory.publicObj = {
                     globalSource: {
+                        OpenSubFolder: -1,
+                        OpenItemFolder: -1,
                         selectedGrid: '',
                         SelectedName: "",
                         MobileTabActive: 0,
