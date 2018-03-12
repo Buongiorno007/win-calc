@@ -1581,7 +1581,7 @@ body {
       min-height: calc(100% - 170px);
       overflow-y: scroll;
       overflow-x: hidden;
-      padding: 10px 0;
+      padding: 0 0 10px 0;
       .add-product {
         display: inline-flex;
         align-items: center;
@@ -1668,6 +1668,16 @@ body {
             margin: 5px 0;
             .order-value {
               @include roboto-rg(15px);
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .splice {
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
             .order-label {
               @include roboto-lt(10px);

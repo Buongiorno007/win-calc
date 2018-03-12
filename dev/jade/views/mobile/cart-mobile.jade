@@ -32,7 +32,7 @@
             .col
                 .order-item
                     .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"*"}} {{ product.template_height }} {{ ::cartPage.MM }}
-                    .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
+                    .order-value.splice(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
                     .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                 .order-item
                     .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}

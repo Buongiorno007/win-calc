@@ -448,6 +448,7 @@
                                         ProductStor.product.template = Object.assign(result);
                                         ProductStor.product.template_source = Object.assign(DesignStor.design.templateSourceTEMP);
                                         DesignStor.design.resultSize = Object.assign(result);
+                                        GlobalStor.global.isChangedTemplate = 1;
                                         setTimeout(function () {
                                             rebuildSVGTemplate();
                                             getSizeAlert();
