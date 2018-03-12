@@ -31,7 +31,7 @@
 
             .col
                 .order-item
-                    .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"\u00A0 *\u00A0"}} {{ product.template_height }} {{ ::cartPage.MM }}
+                    .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"*"}} {{ product.template_height }} {{ ::cartPage.MM }}
                     .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
                     .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                 .order-item
@@ -61,7 +61,7 @@
                         ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
                         when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
                     .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
-                .order-edit.alert-no(ng-click="cartPage.box($index, 'product')")
+                .order-edit.alert-no(ng-click="cartPage.mobileBox($index, 'product')")
                     span {{::cartPage.BUTTON_E}}
     .cart-footer-container
         .cart-footer
@@ -77,7 +77,7 @@
         .addelements-detail-header
             .addelements-detail-tools
                 button.addelements-detail-edit(fs-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')") {{ ::cartPage.ADDELEMENTS_EDIT_LIST }}
-                button.addelements-detail-close(fs-click="cartPage.closeAddElementDetail()")
+                .order-delete(fs-click="cartPage.closeAddElementDetail()")
             .product-template(ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only")
                 .addelements-detail-row
                     .product-value
@@ -93,9 +93,9 @@
                     .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}
                     .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::cartPage.INCH }}
                     .product-label {{ ::cartPage.HEIGHT_LABEL }}
-        .addelements-detail-content
-            ul.addelements-detail-list
-                li.addelements-detail-item(ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
+        //.addelements-detail-content
+            .addelements-detail-list
+                .addelements-detail-item(ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
                     .product-value {{ addelement.name }}
                     .product-value(ng-switch-when="0") {{ ::cartPage.GRID }}
                     .product-value(ng-switch-when="1") {{ ::cartPage.VISOR }}

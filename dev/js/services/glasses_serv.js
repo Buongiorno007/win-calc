@@ -20,9 +20,9 @@
                     GlobalStor.global.isChangedTemplate = 1;
                     GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
                     GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
-                    GlobalStor.global.selectGlassId = newId;
-                    GlobalStor.global.selectGlassName = newName;
-                    GlobalStor.global.selectGlassType = type;
+                    GlobalStor.global.selectGlassId = angular.copy(newId);
+                    GlobalStor.global.selectGlassName = angular.copy(newName);
+                    GlobalStor.global.selectGlassType = angular.copy(type);
                     //----- open glass selector dialog
                     GlobalStor.global.showGlassSelectorDialog = 1;
                     DesignServ.initAllGlassXGlass();

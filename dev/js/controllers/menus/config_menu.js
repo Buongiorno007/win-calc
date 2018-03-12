@@ -77,10 +77,11 @@
 
 
                 function saveProduct(go_to_cart) {
+
                     GlobalStor.global.showCoefInfoBlock = 0;
                     GlobalStor.global.servicesPriceIndex = -1;
                     GlobalStor.global.continued = 0;
-                    ProductStor.product.product_qty = GlobalStor.global.product_qty;
+                    ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
 
                     MainServ.preparePrice(
                         ProductStor.product.template,
@@ -98,8 +99,9 @@
                             }
                             GlobalStor.global.construction_count = 0;
                             OrderStor.order.products.forEach(function (product) {
-                                GlobalStor.global.construction_count += product.product_qty;
+                                GlobalStor.global.construction_count += parseInt(product.product_qty);
                             });
+                            GlobalStor.global.product_qty = 1;
                         }
                     });
 
