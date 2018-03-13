@@ -2314,6 +2314,16 @@ body {
         border: 1px solid $main_red;
         height: 50px;
       }
+      .error-tooltip {
+        all : unset;
+        position: absolute;
+        right: -15px;
+        color: $main_red;
+        @include roboto-bd(40px);
+        &:before {
+          all : unset;
+        }
+      }
       .red-field {
         border-radius: 25px;
         background: $main_red;
