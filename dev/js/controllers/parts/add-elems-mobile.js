@@ -55,6 +55,15 @@
             thisCtrl.addElementsList = '';
             thisCtrl.lastParent = null;
 
+            function filterMoscitos(input) {
+                let output = [];
+                input.forEach((item, index) => {
+                    if (item.profile_id === ProductStor.product.profile.id) {
+                        output.push(item);
+                    }
+                });
+                return output;
+            }
 
             function merge(item1, item2) {
                 let result = [];
@@ -62,11 +71,17 @@
                     item.subFolder = item2[index];
                     result.push(item);
                 });
+
                 return result;
             }
 
             thisCtrl.AddElementsMobile = [];
             GlobalStor.global.addElementsAll.forEach((item, index) => {
+                console.log(item);
+
+                if (index === 0) {
+                    item.elementsList[0] = filterMoscitos(item.elementsList[0]);
+                }
                 if (item.elementType && item.elementsList) {
                     let tmp;
                     tmp = GeneralServ.addElementDATA[index];
