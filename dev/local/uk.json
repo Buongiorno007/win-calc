@@ -266,6 +266,7 @@
     "TOTAL_PRICE_TXT": "Разом додаткових компонентів на суму:",
     "ELEMENTS": "компонентів",
     "ELEMENT": "компонент",
+    "PRICE": "цiна",
     "ELEMENTA": "компонента"
   },
   "add_elements_menu": {
@@ -406,6 +407,9 @@
     "CALL_ORDER_CLIENT_INFO": "Інформація про клієнта (заповнюйте обов`язково):",
     "CALL_ORDER_CLIENT_INFO_light": "Інформація про клієнта (заповнюйте обов`язково *)",
     "CLIENT_NAME": "Прізвище Ім`я По батькові",
+    "CALL_ORDER_CLIENT_INFO_SHORT": "Информація про клиінта:",
+    "CALL_ORDER_CLIENT_INFO_SHORT_1": "(Поля обов'язкові до заповнення *)",
+    "CLIENT_NAME_SHORT": "ПІБ *",
     "CALL_ORDER_DELIVERY": "Доставити замовлення на",
     "CALL_ORDER_TOTAL_PRICE": "Загалом",
     "CALL_ORDER_ADD_INFO": "Додатково:",
