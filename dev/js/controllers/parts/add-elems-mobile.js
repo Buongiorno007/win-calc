@@ -44,6 +44,7 @@
             thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
             thisCtrl.ADD = $filter('translate')('add_elements.ADD');
             thisCtrl.DELETE = $filter('translate')('add_elements.DELETE');
+            thisCtrl.PRICE = $filter('translate')('add_elements.PRICE');
             thisCtrl.MM = $filter('translate')('mainpage.MM');
 
             thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;

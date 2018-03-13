@@ -407,6 +407,7 @@
     "CALL_ORDER_CLIENT_INFO": "Customer Information (must be filled):",
     "CALL_ORDER_CLIENT_INFO_light": "Customer Information (must be filled *)",
     "CLIENT_NAME": "Full Name",
+    "CLIENT_NAME_SHORT": "Name *",
     "CALL_ORDER_DELIVERY": "Deliver an order for",
     "CALL_ORDER_TOTAL_PRICE": "in all",
     "CALL_ORDER_ADD_INFO": "Extras:",

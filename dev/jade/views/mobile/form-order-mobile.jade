@@ -1,4 +1,4 @@
-form.order-dialog-mobile(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
+form.order-dialog-mobile.scrollFix(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
     .cart-dialog-header
         .col(fs-click="orderForm.closeOrderDialog()")
             .back-button
@@ -9,28 +9,28 @@ form.order-dialog-mobile(name='callOrderForm', novalidate, ng-submit="orderForm.
         .cart-dialog-label.bold {{ ::orderForm.CALL_ORDER_CLIENT_INFO_SHORT }}
         .cart-dialog-label {{ ::orderForm.CALL_ORDER_CLIENT_INFO_SHORT_1 }}
 
-        .input-field.red-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.name.$error.required }")
+        .input-field-mobile.red-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.name.$error.required }")
             input.user-field.red-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_NAME_SHORT }}", required)
             .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.name.$error.required") !
 
-        .input-field.red-field
+        .input-field-mobile.red-field
             input.user-field.red-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL_SHORT }}")
             .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.mail.$error.email") !
 
-        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.phone.$error.required }")
+        .input-field-mobile(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.phone.$error.required }")
             input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.MOBILE }}", required)
             .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.phone.$error.required") !
             .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty && callOrderForm.phone.$error.pattern") !
-        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.location.$error.required && orderForm.G.global.changeLocation === 0}")
+        .input-field-mobile(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.location.$error.required && orderForm.G.global.changeLocation === 0}")
             input.user-field(id="impLocation", type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ ::orderForm.CLIENT_LOCATION }}", required)
             .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') !
             .location-list-tooltip(ng-show="orderForm.C.cart.isCityBox")
                 .location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", fs-click="orderForm.selectCity(location)") {{location.fullLocation}}
 
-        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.address.$error.required }")
+        .input-field-mobile(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.address.$error.required }")
             input.user-field.street(type="text", name="address", ng-model="orderForm.C.cart.customer.customer_address", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_ADDRESS }}", required)
             .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.address.$error.required") !
-        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.address.$error.required }")
+        .input-field-mobile(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.address.$error.required }")
             input.user-field.small(type="text", name="house", ng-model="orderForm.C.cart.customer.customer_house", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_HOUSE }}", required)
             .error-tooltip.house(ng-show="orderForm.C.cart.submitted && callOrderForm.house.$error.required") !
             input.user-field.small(type="text", name="flat", ng-model="orderForm.C.cart.customer.customer_flat", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLAT }}", required)
@@ -38,7 +38,7 @@ form.order-dialog-mobile(name='callOrderForm', novalidate, ng-submit="orderForm.
             input.user-field.small(type="text", name="floor", ng-model="orderForm.C.cart.customer.customer_floor", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLOOR }}", required)
             .error-tooltip.floor(ng-show="orderForm.C.cart.submitted && callOrderForm.floor.$error.required") !
 
-        .input-field
+        .input-field-mobile
             input.user-field(type="tel", name="phone2", ng-model="orderForm.C.cart.customer.customer_phone_city", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.ADD_PHONE }}")
 
         button.save(type="submit") {{ ::orderForm.READY }}
