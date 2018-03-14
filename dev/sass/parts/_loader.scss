@@ -1,44 +1,34 @@
 .loader-container {
   @extend .backLightView;
-
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   .loader {
     position: absolute;
-    top: 80%;
-    left: 48.5%;
-    width: 11rem;
-    height: 11rem;
-    margin: -3rem 0 0 -3rem;
-    background-image: url('../img/spinner.gif');
-    background-repeat: no-repeat;
+    display: inline-flex;
+    width: 100px;
+    height: 100px;
+    background: url('../img/spinner.gif') no-repeat;
     background-size: cover;
-    opacity: 1;
-    transition: opacity 0s, visibility 1s linear 1s;
     &.active {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 6rem;
-      height: 6rem;
-      margin: -3rem 0 0 -3rem;
-      background-image: image-url('spinner.gif');
-      background-repeat: no-repeat;
+      background: url('../img/spinner.gif') no-repeat;
       background-size: cover;
     }
   }
 
   .loader-counter {
-    padding-left: 5px;
-    position: absolute;
-    top: 81%;
-    font-size: 17px;
+    position: relative;
+    top : -30px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    left: 49%;
-    width: 3.9rem;
-    height: 3.9rem;
-    color: #8c8c8c;
-    opacity: 1;
-    transition: opacity 0s, visibility 1s linear 1s;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+    label {
+      position: absolute;
+      @include roboto-rg(rem(36px));
+    }
   }
 }
