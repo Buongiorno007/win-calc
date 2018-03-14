@@ -656,7 +656,7 @@
                         });
                     }
                 });
-                
+
 
                 function enterForm(form) {
                     thisCtrl.submitted = 1;
