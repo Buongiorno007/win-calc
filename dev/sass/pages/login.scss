@@ -8,7 +8,7 @@ $img_logo: 'login/logo.png';
   background: image-url('login/login-bg.jpg') no-repeat;
   background-size: cover;
 
-  #no-visible{
+  #no-visible {
     display: none;
   }
 }
@@ -57,7 +57,6 @@ $img_logo: 'login/logo.png';
   }
 }
 
-
 .logo {
   @extend .splash;
   width: rem(image-width($img_logo));
@@ -95,14 +94,15 @@ $img_logo: 'login/logo.png';
   width: 80%;
   height: rem(112px);
   text-align: center;
-   border: 3px solid #221c48;;
-   border-radius: 4rem;
+  border: 1px solid #221c48;;
+  border-radius: 50px;
   outline: none;
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
     border-color: $error_color;
   }
 }
+
 .user-field-add {
   @include roboto-lt(rem(36px));
 
@@ -157,7 +157,7 @@ $img_logo: 'login/logo.png';
     display: block;
     width: rem(40px);
     height: rem(40px);
-    border-radius:rem(5px);
+    border-radius: rem(5px);
     background-color: $error_color;
     content: '';
   }
@@ -169,33 +169,38 @@ $img_logo: 'login/logo.png';
   background-color: $main_red !important;
   display: block;
   border-radius: 4rem;
-   width: 80%;
-   margin: 0.875rem auto 0 auto;
+  width: 80%;
+  margin: 0.875rem auto 0 auto;
 }
-.text-logo{
+
+.text-logo {
   text-align: center;
   margin: 0 auto 7.5625rem;
   color: white;
   font-size: 18px;
 }
+
 .i {
-    width:100%;
-    text-align: center;
-    vertical-align: middle;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
 }
-.updateDB{
+
+.updateDB {
   @include roboto-lt(rem(35px));
   display: inline-block;
   width: 90%;
 }
-#updateDBcheck{
-  margin : 1em 1em auto auto;
+
+#updateDBcheck {
+  margin: 1em 1em auto auto;
   width: 1em;
   height: 1em;
 }
-.i-info{
-  display : inline-block;
-  float : right;
+
+.i-info {
+  display: inline-block;
+  float: right;
   width: 1em;
   height: 1em;
   font: normal 3.125rem/1 icons, sans-serif;
@@ -204,7 +209,7 @@ $img_logo: 'login/logo.png';
   color: white;
   text-align: center;
   border-radius: 30px;
-  margin : 0.7em auto auto auto;
+  margin: 0.7em auto auto auto;
 }
 
 .inet_ok {
@@ -232,32 +237,39 @@ $img_logo: 'login/logo.png';
   color: $main_gray_txt;
   z-index: 10;
 }
+
 .factory_title {
   @include roboto-bd(rem(36px));
   margin-bottom: rem(10px);
   text-align: center;
 }
+
 .factory_list {
   height: 76%;
   overflow: auto;
   padding: 0 rem(40px);
 }
+
 table.factory_table {
   border: none;
   td {
     padding: rem(25px) 0;
   }
 }
+
 tr.factory_item {
   vertical-align: top;
 }
+
 .factory_select {
   width: 5%;
   padding-right: rem(5px);
 }
+
 .factory_name {
   width: 45%;
 }
+
 .factory_name, .factory_place {
   text-align: left;
 }

@@ -22,12 +22,7 @@
   min-width: 100%;
   display: -webkit-flex;
   display: flex;
-  background: -moz-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* ff3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, rgba(53,66,75,1)), color-stop(58%, rgba(53,66,75,1)), color-stop(100%, rgba(97,93,107,1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* safari5.1+,chrome10+ */
-  background: -o-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* opera 11.10+ */
-  background: -ms-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* ie10+ */
-  background: linear-gradient(181deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* w3c */
+  background: linear-gradient(181deg, rgba(16,35,52,1) 1%, rgba(87,101,114,1) 100%); /* w3c */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35424b', endColorstr='#615D6B',GradientType=0 ); /* ie6-9 */
 }
 
@@ -42,7 +37,7 @@
   width: 18.125rem;
   height: 18.125rem;
   margin: 0 auto 0.5625rem;
-  background: url("../img/login/512.jpg") no-repeat center;
+  background: url("../img/login/512.png") no-repeat center;
   background-size: cover;
 }
 
