@@ -25,11 +25,15 @@
       background-size: cover;
     }
   }
-  
+
   .loader-counter {
+    padding-left: 5px;
     position: absolute;
     top: 81%;
     font-size: 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     left: 49%;
     width: 3.9rem;
     height: 3.9rem;

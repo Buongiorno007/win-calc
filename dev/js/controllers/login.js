@@ -665,6 +665,8 @@
                             GlobalStor.global.isLoader = 1;
                             GlobalStor.global.startSlider = 1;
                             checkingUser();
+                            // loader();
+
                         } else {
                             // thisCtrl.isOffline = 1;
                             thisCtrl.isOfflineImport = 1;
