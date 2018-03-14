@@ -656,6 +656,7 @@
                         });
                     }
                 });
+                
 
                 function enterForm(form) {
                     thisCtrl.submitted = 1;
@@ -664,9 +665,8 @@
                             GlobalStor.global.loadDate = new Date();
                             GlobalStor.global.isLoader = 1;
                             GlobalStor.global.startSlider = 1;
-                            // checkingUser();
-                            loader();
-
+                            checkingUser();
+                            // loader();
                         } else {
                             // thisCtrl.isOffline = 1;
                             thisCtrl.isOfflineImport = 1;
