@@ -1,6 +1,6 @@
 .scroll-container(ng-controller="TemplatesCtrl as templatesPanel")
     include accept-container
-    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0, first : $index === 0}")
+    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}")
         .button
             p {{ ::templatesPanel.templateName[$index]|translate }}
         .templates-list

@@ -88,7 +88,7 @@
                 thisCtrl.UNEXPECTED_ERROR = $filter('translate')('login.UNEXPECTED_ERROR');
                 thisCtrl.SYNC_INFO_P1 = $filter('translate')('login.SYNC_INFO_P1');
                 thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
-
+                thisCtrl.WINDOW_COST = $filter('translate')('login.WINDOW_COST');
                 /** reload room img */
 
                 //$("<img />").attr("src", "img/room/1.png");

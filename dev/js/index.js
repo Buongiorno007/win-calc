@@ -15,6 +15,7 @@ let portrait = false;
         }
     }
 
+
     let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
     if (app) {
         isDevice = 1;
@@ -26,8 +27,6 @@ let portrait = false;
     $(window).load(function () {
         location.hash = "#/";
     });
-
-
     if (isDevice) {
 
         let app = window.PhonegapApp = {
