@@ -22,27 +22,27 @@
   min-width: 100%;
   display: -webkit-flex;
   display: flex;
-  background: url("../img/login/login-bg.jpg?1516794682") no-repeat;
-  background-size: cover;
-  background-position: center center;
+  background: -moz-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, rgba(53,66,75,1)), color-stop(58%, rgba(53,66,75,1)), color-stop(100%, rgba(97,93,107,1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(269deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* ie10+ */
+  background: linear-gradient(181deg, rgba(53,66,75,1) 1%, rgba(53,66,75,1) 58%, rgba(97,93,107,1) 100%); /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35424b', endColorstr='#615D6B',GradientType=0 ); /* ie6-9 */
 }
 
 .login-container-mobView {
-  -moz-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
-  -webkit-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
-  box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
   position: relative;
   margin: auto;
   padding: 1.75rem 2.875rem;
   border-radius: 2rem;
-  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .logo-mobView {
-  width: 4.125rem;
-  height: 4.125rem;
-  margin: 0 auto 4.5625rem;
-  background: url("../img/login/logo.png?1516794682") no-repeat center;
+  width: 18.125rem;
+  height: 18.125rem;
+  margin: 0 auto 0.5625rem;
+  background: url("../img/login/512.jpg") no-repeat center;
   background-size: cover;
 }
 
@@ -317,6 +317,22 @@ body {
       box-sizing: content-box;
     }
 
+    .scroll-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: white;
+      width: 100%;
+      height: calc(100% - 100px);
+      z-index: 1;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding-top: 100px;
+      box-sizing: content-box;
+    }
+    .swiper-container {
+      width: 100% !important;
+    }
     .templates-content {
       position: fixed;
       bottom: 0;
@@ -328,26 +344,18 @@ body {
       background: white;
       z-index: 1;
 
-      .scroll-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: inline-block;
-        overflow-x: hidden;
-        overflow-y: scroll;
         .types {
-          display: inline-block;
+          display: inline-flex;
           flex-direction: column;
+          height: auto;
+          width: 100%;
           align-items: center;
           justify-content: center;
           text-align: center;
-          min-height: 100px;
-          height: auto;
-          width: 100%;
           @include roboto-lt(20px);
           color: $main_gray_dark;
           -webkit-text-fill-color: $main_gray_dark;
-          box-sizing: content-box;
+
           .button {
             display: inline-flex;
             flex-direction: row;
@@ -369,23 +377,37 @@ body {
         }
 
         .templates-list {
-          display: inline-block;
-          height: auto;
+          min-width: 100%;
           width: 100%;
-          overflow-y: hidden;
-          overflow-x: scroll;
+          display: inline-block;
           white-space: nowrap;
+          height: auto;
+          overflow: scroll;
+          //overflow-x: hidden;
+          //overflow-y: hidden;
+          //-webkit-overflow-scrolling: touch;
+          //-ms-overflow-style: -ms-autohiding-scrollbar;
+
           .template {
+            flex: 0 0 auto;
             padding: 10px 0 0 0;
-            display:inline-block;
-            min-width:100px;
+            min-width: 100px;
             width: auto;
-            height:auto;
-            line-height:80px;
-            text-align:center;
+            height: auto;
+            line-height: 80px;
+            text-align: center;
             margin: 0 15px;
+
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: content-box;
+
+
             .template-img {
-              display:inline-block;
+              display: inline-block;
               height: 70px;
               object-fit: contain;
             }
@@ -413,7 +435,6 @@ body {
         .first {
           padding-top: 100px;
         }
-      }
 
       .add-elems-only {
         display: inline-flex;
@@ -426,7 +447,6 @@ body {
         -webkit-text-fill-color: $main_gray_dark;
       }
     }
-
     .karkas-content {
       height: 10vh;
       .figure-lists {
@@ -717,14 +737,16 @@ body {
       text-overflow: ellipsis;
     }
   }
-  @supports ((position:sticky) or (position:-webkit-sticky)){
-    .accept-container{
+  @supports ((position:sticky) or (position:-webkit-sticky)) {
+    .accept-container {
       position: -webkit-sticky;
       position: sticky;
     }
   }
   .accept-container {
     position: fixed;
+    top: 0;
+    left: 0;
     background: white;
     display: inline-flex;
     flex-direction: column;
@@ -732,7 +754,6 @@ body {
     justify-content: space-around;
     width: 100%;
     height: 100px;
-    padding-top: 25px;
     z-index: 3;
     @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
     .row {
@@ -2314,7 +2335,7 @@ body {
         top: 60px;
         @include roboto-rg(15px);
         z-index: 2;
-        @include box-shadow($main_gray_btn 0px 1px 10px  0px);
+        @include box-shadow($main_gray_btn 0px 1px 10px 0px);
       }
       .input-field-mobile {
         display: inline-flex;
@@ -2329,14 +2350,14 @@ body {
         height: 50px;
       }
       .error-tooltip {
-        all : unset;
+        all: unset;
         position: absolute;
         right: -15px;
         color: $main_red;
         -webkit-text-fill-color: $main_red;
         @include roboto-bd(40px);
         &:before {
-          all : unset;
+          all: unset;
         }
       }
       .red-field {

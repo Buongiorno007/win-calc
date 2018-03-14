@@ -70,6 +70,7 @@
     "IMPORT_DB_START": "Wait, began loading the database",
     "IMPORT_DB_FINISH": "Thank you for the download is complete",
     "LOGIN": "Login",
+    "WINDOW_COST": "window cost",
     "PASSWORD": "Password",
     "MOBILE": "Mobile telephone",
     "REGISTRATION": "Registration",

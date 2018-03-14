@@ -77,8 +77,6 @@
 
             thisCtrl.AddElementsMobile = [];
             GlobalStor.global.addElementsAll.forEach((item, index) => {
-                console.log(item);
-
                 if (index === 0) {
                     item.elementsList[0] = filterMoscitos(item.elementsList[0]);
                 }
@@ -89,7 +87,6 @@
                     thisCtrl.AddElementsMobile.push(tmp);
                 }
             });
-            console.log(GlobalStor.global.addElementsAll);
 
             function OpenFolder(index, event) {
                 GlobalStor.global.OpenItemFolder = -1;
