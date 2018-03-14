@@ -52,6 +52,9 @@ body {
 }
 
 .mobile {
+  *{
+    outline: none;
+  }
   position: relative;
   width: 100%;
   height: 100%;
@@ -2317,7 +2320,7 @@ body {
         background: #cc0000;
         color: white;
         -webkit-text-fill-color: white;
-        border-radius: 25px;
+        border-radius: 50px;
         width: 100%;
         height: 60px;
         border: none;
@@ -2343,11 +2346,12 @@ body {
         background: white;
         border: 1px solid $main_red;
         height: 50px;
+        width: 100%;
       }
       .error-tooltip {
         all: unset;
         position: absolute;
-        right: -15px;
+        right: 5px;
         color: $main_red;
         -webkit-text-fill-color: $main_red;
         @include roboto-bd(40px);
