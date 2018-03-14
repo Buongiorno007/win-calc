@@ -25,11 +25,14 @@
       background-size: cover;
     }
   }
-  
+
   .loader-counter {
     position: absolute;
     top: 81%;
     font-size: 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     left: 49%;
     width: 3.9rem;
     height: 3.9rem;
