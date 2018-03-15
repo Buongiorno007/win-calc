@@ -825,7 +825,8 @@
                 }
 
                 function gotoSettingsPage() {
-                    if (window.location.hash.length < 10) {
+                    let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+                    if (window.location.hash.length < 10 || app) {
                         if (GlobalStor.global.gotoSettingsPage === 0) {
                             $timeout(function () {
                                 $location.path('/change-lang');
@@ -842,7 +843,8 @@
 
                 setTimeout(function () {
                     $('#jssj').trigger('click');
-                }, 100);
+                    console.log('123');
+                }, 500);
 
                 function checkSavedData() {
                     // loginServ.getDeviceLanguage();
