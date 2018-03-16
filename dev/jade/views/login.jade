@@ -51,7 +51,11 @@ section.login-page.login-page-mobView
             button.login-submit(fs-click="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
         .buttom-info-box
             span {{loginPage.CONTACT_US}}
-            a(href='mailto:info@windowscalculator.net') info@windowscalculator.net
+            span info@windowscalculator.net
+        .test-top-info-box
+          span {{::loginPage.TEST_USER}}
+          span {{::loginPage.LOGIN}} {{loginPage.TEST_USER_LOGIN}}
+          span {{::loginPage.PASSWORD}} {{loginPage.TEST_USER_PASS}}
 
     //------------- Registration Form
     .login-container(ng-show="loginPage.isRegistration", fs-click="loginPage.isUserExist = 0;")

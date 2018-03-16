@@ -90,6 +90,11 @@
                 thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
                 thisCtrl.WINDOW_COST = $filter('translate')('login.WINDOW_COST');
                 thisCtrl.CONTACT_US = $filter('translate')('login.CONTACT_US');
+
+                thisCtrl.TEST_USER = $filter('translate')('login.TEST_USER');
+                thisCtrl.TEST_USER_LOGIN = $filter('translate')('login.TEST_USER_LOGIN');
+                thisCtrl.TEST_USER_PASS = $filter('translate')('login.TEST_USER_PASS');
+
                 /** reload room img */
 
                 //$("<img />").attr("src", "img/room/1.png");
@@ -203,6 +208,7 @@
                         GlobalStor.global.ISLOGIN = 0;
                     });
                 }
+
 
 
                 function importDBfromServer() {
@@ -844,7 +850,6 @@
 
                 setTimeout(function () {
                     $('#jssj').trigger('click');
-                    console.log('123');
                 }, 500);
 
                 function checkSavedData() {

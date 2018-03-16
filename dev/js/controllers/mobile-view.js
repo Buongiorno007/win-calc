@@ -6,6 +6,8 @@
         .controller("MobileCtrl", function ($filter,
                                             $location,
                                             $timeout,
+                                            $scope,
+                                            $window,
                                             SVGServ,
                                             MainServ,
                                             localDB,
@@ -158,8 +160,30 @@
                     }
                 }
             }
-
-
+            /**
+             * for testing
+             * **/
+            // $scope.getWindowOrientation = function () {
+            //     return $window.orientation;
+            // };
+            //
+            // $scope.$watch($scope.getWindowOrientation, function (newValue, oldValue) {
+            //     console.log(newValue);
+            //     switch (newValue) {
+            //         case 0 : {
+            //             $location.path('/mobile')
+            //             break;
+            //         }
+            //         case 90 : {
+            //             $location.path('/main')
+            //             break;
+            //         }
+            //     }
+            // }, true);
+            //
+            // angular.element($window).bind('orientationchange', function () {
+            //     $scope.$apply();
+            // });
 
             $("#main-frame").addClass("main-frame-mobView");
             $("#app-container").addClass("app-container-mobView");

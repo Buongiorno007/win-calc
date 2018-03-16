@@ -88,7 +88,10 @@
     "UNEXPECTED_ERROR" : "Siamo spiacenti, qualcosa è andato storto, riprova più tardi",
     "SYNC_INFO_P1" : "I dati nell'applicazione sono sincronizzati ",
     "SYNC_INFO_P2" : "Aggiornare ora?",
-    "CONTACT_US" : "Для индивидуальной настройки обратитесь",
+    "CONTACT_US" : "Per la regolazione individuale, contattare",
+    "TEST_USER" : "Prova utente",
+    "TEST_USER_LOGIN" : "Website",
+    "TEST_USER_PASS" : "Website",
     "SYNCHRONIZE_INFO" : "Quando i dati funzioni abilitate la sincronizzazione automatica, durante l'avvio dell'applicazione viene caricato prezzi correnti, così come il risparmio sugli ordini del server reclutati in precedenza. Sincronizzazione automatica solo se si ha accesso a Internet"
 
   },
