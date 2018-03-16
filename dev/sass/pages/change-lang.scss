@@ -14,11 +14,13 @@
     }
   }
   .lang-container {
-    padding-left: rem(50px);
+    height: 80%;
+    padding-left: rem(25px);
     color: #fff;
   }
   .lists {
-    height: rem(1450px);
+    height: 100%;
+    overflow: hidden;
   }
   li.item.active {
     color: $main_orange;

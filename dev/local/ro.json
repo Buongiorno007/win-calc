@@ -27,6 +27,8 @@
     "TEMPLATE_CHANGES_LOST": "Modificările în șablon nu vor fi salvate! Doriți să  continuați?",
     "PAGE_REFRESH": "Reîncărcarea paginii va duce la pierderea datelor!",
     "SELECT": "Alege",
+    "SELECT_CURRENT": "Для выбранного",
+    "SELECT_ALL_CONSTRUCTION": "Для выбранного",
     "AND": "și",
     "OK": "OK",
     "BACK": "Înapoi",
@@ -79,6 +81,10 @@
     "UNEXPECTED_ERROR" : "Ne pare rau, ceva a mers prost, vă rugăm să încercați din nou mai târziu",
     "SYNC_INFO_P1" : "Datele din aplicație sunt sincronizate ",
     "SYNC_INFO_P2" : "Actualizați acum?",
+    "CONTACT_US" : "Pentru ajustarea individuală, contactați",
+    "TEST_USER" : "Utilizator de test",
+    "TEST_USER_LOGIN" : "Website",
+    "TEST_USER_PASS" : "Website",
     "SYNCHRONIZE_INFO" : "Când datele caracteristici activate sincronizarea automată, în timpul pornirii aplicațiilor este încărcată prețuri curente, precum și de economisire pe ordinele de server recrutați mai devreme. Sincronizarea automată numai dacă aveți acces la Internet"
 
   },

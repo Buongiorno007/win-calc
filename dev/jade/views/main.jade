@@ -1,39 +1,39 @@
 section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
-  section.left-side
-    include menus/_navigation-menu
-  section.right-side(
+    section.left-side
+        include menus/_navigation-menu
+    section.right-side(
     ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}")
-    section.main-content(tabindex="0")
-      include parts/_room-elements
-      include parts/_main-svg
-      include parts/_room-for-doors
-      include parts/_interior_doors
-      .main-svg-click(fs-click="mainPage.goToEditTemplate()")
-      include parts/_user-info
-      include parts/_report
-      include panels/_templates
-      .panel-inner(ng-if="mainPage.G.global.activePanel == 2")
-        include panels/_profiles
-      .panel-inner(ng-if="mainPage.G.global.activePanel == 3")
-        include panels/_glasses
-      .panel-inner(ng-if="mainPage.G.global.activePanel == 4")
-        include panels/_hardwares
-      .panel-inner(ng-if="mainPage.G.global.activePanel == 5")
-        include panels/_laminations
-      .add-elements-container(ng-if="mainPage.G.global.activePanel == 6")
-        include panels/_add-elements
-        include panels/_add-elements-list
-        include parts/_grid-selector
-      .backDarkView(ng-if="mainPage.G.global.isShowCommentBlock")
-    section.right-menu
-      include menus/_config-menu
-      include menus/_addelems-menu
-      .calculators-box.size-calculator(ng-class="[{'active': mainPage.G.global.isSizeCalculator}, mainPage.A.aux.calculatorStyle]" ng-if="mainPage.G.global.isSizeCalculator")
-        include parts/_size-calculator
-      .calculators-box.qty-calculator(ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]" ng-if="mainPage.G.global.isQtyCalculator")
-        include parts/_qty-calculator
-      .calculators-box.serv-calculator(ng-class="{'active': mainPage.G.global.isServiceCalculator}" ng-if="mainPage.G.global.isServiceCalculator")
-        include parts/_serviсe-calculator
+        section.main-content(tabindex="0")
+            include parts/_room-elements
+            include parts/_main-svg
+            include parts/_room-for-doors
+            include parts/_interior_doors
+            .main-svg-click(fs-click="mainPage.goToEditTemplate()")
+            include parts/_user-info
+            include parts/_report
+            include panels/_templates
+            .panel-inner(ng-if="mainPage.G.global.activePanel == 2")
+                include panels/_profiles
+            .panel-inner(ng-if="mainPage.G.global.activePanel == 3")
+                include panels/_glasses
+            .panel-inner(ng-if="mainPage.G.global.activePanel == 4")
+                include panels/_hardwares
+            .panel-inner(ng-if="mainPage.G.global.activePanel == 5")
+                include panels/_laminations
+            .add-elements-container(ng-if="mainPage.G.global.activePanel == 6")
+                include panels/_add-elements
+                include panels/_add-elements-list
+                include parts/_grid-selector
+            .backDarkView(ng-if="mainPage.G.global.isShowCommentBlock")
+        section.right-menu
+            include menus/_config-menu
+            include menus/_addelems-menu
+            .calculators-box.size-calculator(ng-class="[{'active': mainPage.G.global.isSizeCalculator}, mainPage.A.aux.calculatorStyle]" ng-if="mainPage.G.global.isSizeCalculator")
+                include parts/_size-calculator
+            .calculators-box.qty-calculator(ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]" ng-if="mainPage.G.global.isQtyCalculator")
+                include parts/_qty-calculator
+            .calculators-box.serv-calculator(ng-class="{'active': mainPage.G.global.isServiceCalculator}" ng-if="mainPage.G.global.isServiceCalculator")
+                include parts/_serviсe-calculator
 
 include parts/_alert
 include parts/_info-box

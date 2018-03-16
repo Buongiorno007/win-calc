@@ -1,0 +1,19 @@
+.mobile-profiles.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 4" ng-controller="HardwaresCtrl as hardwarePanel")
+    include accept-container
+    .profiles-list
+        .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index")
+            .producer(ng-click='hardwarePanel.ClickOnFolder($event)')
+                .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length && hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
+                .title {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+            .profile-box
+                .profile-info(ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" )
+                    .profile-info-item(ng-click="hardwarePanel.selectHardware(hardware.id)")
+                        img.profile-img( ng-src="{{hardware.img}}" alt="{{hardware.name}}")
+                        .name
+                            p {{hardware.name}}
+                        .common-info
+                            p {{::hardwarePanel.HEAT_TRANSFER}} {{hardware.heat_coeff}}
+                            p {{::hardwarePanel.NOICE_INSULATION}} {{hardware.noise_coeff}}
+                    .info-container
+                        .information(ng-if="hardware.img.length && hardware.description.length", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
+                            | Information

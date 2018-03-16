@@ -1,0 +1,29 @@
+.mobile-glass.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 3" ng-controller="GlassesCtrl as glassPanel")
+    include accept-container
+    .glass-container
+        .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")
+            .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
+            img(ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" ng-click="glassPanel.OpenGlassFolder($index)")
+            .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
+                .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
+                    .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
+                        p {{glass.sku}}
+                    .info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
+    .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
+        .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
+        .dialog-title
+            .apply-title
+                p {{glassPanel.APPLY}}
+            .glass-title(ng-class="{'column': glassPanel.G.global.selectGlassName.length > 8}")
+                .curr-glass-value
+                    p {{ glassPanel.G.global.glassTypes[glassPanel.OpenFolder].name }}&nbsp
+                .curr-glass-value
+                    p {{glassPanel.G.global.selectGlassName}}
+        .dialog-inner-mob
+            svg-template(template="glassPanel.P.product.template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="glassPanel.constants.SVG_ID_GLASS")
+        .buttons
+            .set-glass-btn(fs-click="glassPanel.confirmGlass()")
+                p {{ ::glassPanel.SELECT_CURRENT }}
+            .set-glass-all-btn(fs-click="glassPanel.confirmGlass()")
+                p {{ ::glassPanel.SELECT_ALL_CONSTRUCTION }}

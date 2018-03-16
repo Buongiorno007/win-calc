@@ -278,7 +278,6 @@
       }
 
       function showCalck() {
-
         GlobalStor.global.enterCount = 1;
         GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
       }
@@ -455,6 +454,7 @@
       thisCtrl.selectHandle = DesignServ.selectHandle;
       thisCtrl.selectLock = DesignServ.selectLock;
       thisCtrl.stepBack = DesignServ.stepBack;
+
       $("#main-frame").removeClass("main-frame-mobView");
       $("#app-container").removeClass("app-container-mobView");
       $(window).load(function() {

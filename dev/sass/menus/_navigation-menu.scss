@@ -70,6 +70,13 @@
     color: $main_yellow;
     content: $light-icon;
   }
+
+  .nav-icon-mobile:before {
+    color: white;
+
+    content: $mobile_v;
+  }
+
   .nav-icon-logOut:before {
     color: $main_gray_btn;
     content: $logOut-icon;
