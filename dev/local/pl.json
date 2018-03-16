@@ -75,6 +75,7 @@
     "UNEXPECTED_ERROR" : "Niestety, cos poszlo nie tak, sprobuj ponownie pozniej",
     "SYNC_INFO_P1" : "Dane zawarte w aplikacji sa zsynchronizowane ",
     "SYNC_INFO_P2" : "Odswiez teraz?",
+    "CONTACT_US" : "Для индивидуальной настройки обратитесь",
     "SYNCHRONIZE_INFO" : "Gdy dane z obsluga funkcji automatycznej synchronizacji, podczas uruchamiania aplikacji jest ladowany aktualne ceny, a takze oszczednosci przy zamowieniu serwera rekrutowanych wczesniej. Automatyczna synchronizacja tylko wtedy, gdy masz dostep do internetu"
   },
   "natification": {

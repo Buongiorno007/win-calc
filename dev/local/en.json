@@ -93,6 +93,7 @@
     "UNEXPECTED_ERROR" : "Sorry, something went wrong, please try again later",
     "SYNC_INFO_P1" : "The data in the application are synchronized ",
     "SYNC_INFO_P2" : "Refresh now?",
+    "CONTACT_US" : "Для индивидуальной настройки обратитесь",
     "SYNCHRONIZE_INFO" : "When enabled features auto-sync data, during application startup is loaded current prices, as well as saving on server orders recruited earlier. Auto-sync only if you have access to the Internet"
 
   },

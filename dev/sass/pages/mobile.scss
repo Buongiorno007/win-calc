@@ -102,23 +102,10 @@ body {
     all: unset;
     display: inline-block;
     position: relative;
-    left: 3vh;
+    left: -2vh;
+    top: -4vh;
   }
   .main-view, svg-template, .svg-template {
-    position: absolute;
-    height: 65vh;
-    width: 100%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    div {
-      position: absolute;
-      height: 65vh;
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
 
     .size-txt-edit {
       @extend .size-txt;
@@ -134,7 +121,7 @@ body {
     .size-rect {
       width: 0;
       height: 0;
-      stroke: $main_red;
+      stroke: white;
       stroke-width: 3px;
       fill-opacity: 0;
       cursor: pointer;
@@ -261,9 +248,9 @@ body {
         }
       }
       .qty-mobile {
-        position: absolute;
-        top: 0;
-        right: 6%;
+        position: relative;
+        top: -10px;
+        right: -20px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -2465,6 +2452,30 @@ body {
         }
       }
     }
+  }
+
+}
+@media screen and (orientation:landscape)  {
+  html{
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+    width: 100vh; /*Разрешение экрана iPhone*/
+    height: 100vw;
+    position: absolute;
+    top: 100%;
+    left: 0
+  }
+  body {
+    width: 100vh;
+    height: 100vw !important;
   }
 }
 

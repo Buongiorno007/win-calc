@@ -89,6 +89,7 @@
                 thisCtrl.SYNC_INFO_P1 = $filter('translate')('login.SYNC_INFO_P1');
                 thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
                 thisCtrl.WINDOW_COST = $filter('translate')('login.WINDOW_COST');
+                thisCtrl.CONTACT_US = $filter('translate')('login.CONTACT_US');
                 /** reload room img */
 
                 //$("<img />").attr("src", "img/room/1.png");
@@ -656,7 +657,7 @@
                         });
                     }
                 });
-                
+
 
                 function enterForm(form) {
                     thisCtrl.submitted = 1;
@@ -825,7 +826,8 @@
                 }
 
                 function gotoSettingsPage() {
-                    if (window.location.hash.length < 10) {
+                    let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+                    if (window.location.hash.length < 10 || app) {
                         if (GlobalStor.global.gotoSettingsPage === 0) {
                             $timeout(function () {
                                 $location.path('/change-lang');
@@ -842,7 +844,8 @@
 
                 setTimeout(function () {
                     $('#jssj').trigger('click');
-                }, 100);
+                    console.log('123');
+                }, 500);
 
                 function checkSavedData() {
                     // loginServ.getDeviceLanguage();

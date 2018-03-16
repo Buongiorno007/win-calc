@@ -152,8 +152,8 @@
                             // This code runs if there were any errors
                             console.log(err);
                         });
-                        // $location.path("/");
-                        location.reload();
+                        $location.path("/");
+                        // location.reload();
                         break;
                     }
                 }
