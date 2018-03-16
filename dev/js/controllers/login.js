@@ -89,6 +89,7 @@
                 thisCtrl.SYNC_INFO_P1 = $filter('translate')('login.SYNC_INFO_P1');
                 thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
                 thisCtrl.WINDOW_COST = $filter('translate')('login.WINDOW_COST');
+                thisCtrl.CONTACT_US = $filter('translate')('login.CONTACT_US');
                 /** reload room img */
 
                 //$("<img />").attr("src", "img/room/1.png");

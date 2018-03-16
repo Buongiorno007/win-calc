@@ -49,7 +49,9 @@ section.login-page.login-page-mobView
                         td.factory_name {{ factory.name }}
                         td.factory_place {{ factory.location }}
             button.login-submit(fs-click="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
-
+        .buttom-info-box
+            span {{loginPage.CONTACT_US}}
+            a(href='mailto:info@windowscalculator.net') info@windowscalculator.net
 
     //------------- Registration Form
     .login-container(ng-show="loginPage.isRegistration", fs-click="loginPage.isUserExist = 0;")
@@ -89,7 +91,6 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.required") {{ ::loginPage.EMPTY_FIELD }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ ::loginPage.WRONG_EMAIL }}
-
             button.login-submit(type="submit") {{ ::loginPage.REGISTRATION }}
     .backDarkView(ng-if="loginPage.isFactoryId")
     .backDarkView(ng-if="loginPage.isOffline")

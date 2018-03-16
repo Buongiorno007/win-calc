@@ -93,6 +93,7 @@
     "UNEXPECTED_ERROR" : "Sorry, etwas schief gelaufen ist, bitte versuchen Sie es später noch einmal",
     "SYNC_INFO_P1" : "Die Daten in der Anwendung synchronisiert ",
     "SYNC_INFO_P2" : "Aktualisieren jetzt?",
+    "CONTACT_US" : "Для индивидуальной настройки обратитесь",
     "SYNCHRONIZE_INFO" : "Wenn diese Funktion aktiviert Funktionen Auto-Sync-Daten, beim Start der Anwendung wird der Strompreise belastet, sowie die Einsparung von früher rekrutiert Server Aufträge. Auto-Sync nur, wenn Sie Zugang zum Internet haben"
   },
   "mainpage": {
