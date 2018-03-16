@@ -78,7 +78,7 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-bottom: rem(44px);
+  margin-bottom: rem(20px);
 
   &.has-error > .user-field {
     border-color: $error_color;
@@ -90,7 +90,7 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   display: block;
   color: #35424b !important;
   width: 80%;
-  height: rem(112px);
+  height: rem(80px);
   text-align: center;
   border: 1px solid #221c48;
   border-radius: 50px;
@@ -168,12 +168,13 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   display: block;
   border-radius: 4rem;
   width: 80%;
-  margin: 0.875rem auto 0;
+  margin: 0.8rem auto 0;
+  height: rem(80px);
 }
 
 .text-logo {
   text-align: center;
-  margin: 0 auto 7.5625rem;
+  margin: 0 auto 15px;
   color: white;
   font-size: 18px;
 }
