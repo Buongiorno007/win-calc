@@ -1,9 +1,7 @@
-$img_logo: 'login/logo.png';
-//$img_logo: 'login/logo-steko.png';
+$img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
 
 .login-page {
   @include display-flex();
-
   height: 100%;
   background: image-url('login/login-bg.jpg') no-repeat;
   background-size: cover;
@@ -22,10 +20,10 @@ $img_logo: 'login/logo.png';
 
   .text-container {
     @include roboto-lt(rem(48px));
-
     overflow: hidden;
     text-align: center;
     color: #000;
+
     &.error {
       color: red;
     }
@@ -40,7 +38,6 @@ $img_logo: 'login/logo.png';
   @extend .splash;
   @extend .icon-setting;
   @include font-icon(rem(50px), 1);
-
   position: absolute;
   top: 4%;
   left: 5%;
@@ -51,6 +48,7 @@ $img_logo: 'login/logo.png';
   border: none;
   background: transparent;
   outline: none;
+
   &:before {
     content: $arrow-icon;
     color: $main_orange;
@@ -61,7 +59,7 @@ $img_logo: 'login/logo.png';
   @extend .splash;
   width: rem(image-width($img_logo));
   height: rem(image-height($img_logo));
-  margin: 0 auto rem(73px) auto;
+  margin: 0 auto rem(73px);
   background: image-url($img_logo) no-repeat;
   background-size: cover;
 }
@@ -81,6 +79,7 @@ $img_logo: 'login/logo.png';
   align-items: center;
   position: relative;
   margin-bottom: rem(44px);
+
   &.has-error > .user-field {
     border-color: $error_color;
   }
@@ -88,15 +87,15 @@ $img_logo: 'login/logo.png';
 
 .user-field {
   @include roboto-lt(rem(36px));
-
   display: block;
   color: #35424b !important;
   width: 80%;
   height: rem(112px);
   text-align: center;
-  border: 1px solid #221c48;;
+  border: 1px solid #221c48;
   border-radius: 50px;
   outline: none;
+
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
     border-color: $error_color;
@@ -105,7 +104,6 @@ $img_logo: 'login/logo.png';
 
 .user-field-add {
   @include roboto-lt(rem(36px));
-
   display: block;
   max-width: 55%;
   height: rem(60px);
@@ -113,6 +111,7 @@ $img_logo: 'login/logo.png';
   border: 1px solid rgba(140, 140, 140, 0.65);
   border-radius: 1rem;
   outline: none;
+
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
     border-color: $error_color;
@@ -121,7 +120,6 @@ $img_logo: 'login/logo.png';
 
 .user-field-m {
   @include roboto-lt(rem(36px));
-
   display: block;
   width: 100%;
   max-width: 100%;
@@ -130,6 +128,7 @@ $img_logo: 'login/logo.png';
   border: 1px solid rgba(140, 140, 140, 0.65);
   border-radius: 1rem;
   outline: none;
+
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
     border-color: $error_color;
@@ -139,7 +138,6 @@ $img_logo: 'login/logo.png';
 .error-tooltip {
   @include top_left_coord(-10px, 600px);
   @include roboto-lt(rem(36px));
-
   position: absolute;
   display: table;
   max-width: rem(600px);
@@ -148,9 +146,9 @@ $img_logo: 'login/logo.png';
   border-radius: rem($radius_general-small_button);
   background: $error_color;
   z-index: 1;
+
   &:before {
     @include transform(rotate(45deg));
-
     position: absolute;
     top: rem(25px);
     left: rem(-15px);
@@ -170,7 +168,7 @@ $img_logo: 'login/logo.png';
   display: block;
   border-radius: 4rem;
   width: 80%;
-  margin: 0.875rem auto 0 auto;
+  margin: 0.875rem auto 0;
 }
 
 .text-logo {
@@ -209,13 +207,12 @@ $img_logo: 'login/logo.png';
   color: white;
   text-align: center;
   border-radius: 30px;
-  margin: 0.7em auto auto auto;
+  margin: 0.7em auto auto;
 }
 
 .inet_ok {
   display: block;
-  margin: auto auto;
-  margin-top: 1rem;
+  margin: 1rem auto auto;
 }
 
 .placeholder-select {
@@ -252,6 +249,7 @@ $img_logo: 'login/logo.png';
 
 table.factory_table {
   border: none;
+
   td {
     padding: rem(25px) 0;
   }
@@ -270,7 +268,34 @@ tr.factory_item {
   width: 45%;
 }
 
-.factory_name, .factory_place {
+.factory_name,
+.factory_place {
   text-align: left;
 }
 
+.buttom-info-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: $main_red;
+  color: white;
+  -webkit-text-fill-color: white;
+  @include roboto-rg(15px);
+}
+
+.test-top-info-box {
+  position: fixed;
+  top: 10px;
+  left: 30px;
+  color: white;
+  -webkit-text-fill-color: white;
+  display: inline-flex;
+  flex-direction: column;
+  @include roboto-rg(10px);
+}
