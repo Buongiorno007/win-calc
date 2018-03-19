@@ -21,7 +21,6 @@
         /*jshint validthis:true */
         var thisFactory = this;
         var addElementDATA = [
-
           /** GRID */
           {
             id: 20,

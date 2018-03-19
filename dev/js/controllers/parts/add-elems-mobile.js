@@ -74,11 +74,12 @@
         return result;
       }
       thisCtrl.AddElementsMobile = [];
-      GlobalStor.global.addElementsAll.forEach((item, index) => {
+      console.log(GeneralServ.addElementDATA);
+      console.log(GlobalStor.global.addElementsAll);
+      angular.copy(GlobalStor.global.addElementsAll).forEach((item, index) => {
         if (index === 0) {
           item.elementsList[0] = filterMoscitos(item.elementsList[0]);
         }
-        if (GeneralServ.addElementDATA[index]) {
             if (GeneralServ.addElementDATA[index].id < 99) {
                 if (item.elementType && item.elementsList) {
                     let tmp;
@@ -87,7 +88,6 @@
                     thisCtrl.AddElementsMobile.push(tmp);
                 }
             }
-        }
       });
 
       function OpenFolder(index, event) {

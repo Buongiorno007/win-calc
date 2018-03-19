@@ -154,8 +154,13 @@
                             // This code runs if there were any errors
                             console.log(err);
                         });
-                        $location.path("/");
-                        // location.reload();
+                        // $location.path("/");
+
+                        /**
+                         * ЭТА ХУЙНЯ НУЖНЯ ДЛЯ ТОГО ЧТОБЫ ОБНУЛИТЬ ВСЕ ПЕРЕМЕННЫЕ
+                         * ТАК КАК ПРО ОБЫЧНОМ ПЕРЕХОДЕ НА СТРАНИЦУ ЛОГИНА ДАННЫЕ СКАЧАННЫЕ С СЕРВЕРА ДОБАВЛЯЮТСЯ К УЖЕ СУЩЕСТВУЮЩИМ
+                        */
+                        location.reload();
                         break;
                     }
                 }
