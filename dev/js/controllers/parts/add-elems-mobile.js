@@ -71,24 +71,22 @@
           item.subFolder = item2[index];
           result.push(item);
         });
-
         return result;
       }
-      console.log(angular.copy(GlobalStor.global.addElementsAll));
       thisCtrl.AddElementsMobile = [];
       GlobalStor.global.addElementsAll.forEach((item, index) => {
-        console.log(item);
         if (index === 0) {
           item.elementsList[0] = filterMoscitos(item.elementsList[0]);
         }
-        if (GeneralServ.addElementDATA[index].id < 99) {
-
-          if (item.elementType && item.elementsList) {
-            let tmp;
-            tmp = GeneralServ.addElementDATA[index];
-            tmp.folder = merge(item.elementType, item.elementsList);
-            thisCtrl.AddElementsMobile.push(tmp);
-          }
+        if (GeneralServ.addElementDATA[index]) {
+            if (GeneralServ.addElementDATA[index].id < 99) {
+                if (item.elementType && item.elementsList) {
+                    let tmp;
+                    tmp = GeneralServ.addElementDATA[index];
+                    tmp.folder = merge(item.elementType, item.elementsList);
+                    thisCtrl.AddElementsMobile.push(tmp);
+                }
+            }
         }
       });
 
