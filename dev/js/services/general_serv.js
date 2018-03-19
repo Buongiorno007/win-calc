@@ -188,7 +188,7 @@
           },
           /**GRATING main*/
           {
-            id: 9,
+            id: 999,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spil',
             mainTypeMenu: 5555,
