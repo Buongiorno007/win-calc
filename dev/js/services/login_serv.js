@@ -1439,7 +1439,7 @@
                                               });
 
                                               /** add white color */
-                                              GlobalStor.global.laminats.push({
+                                              GlobalStor.global.laminats.unshift({
                                                 id: 1,
                                                 lamination_type_id: 1,
                                                 isActive: 0,
