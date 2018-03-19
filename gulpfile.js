@@ -851,7 +851,7 @@ gulp.task('wincalcApp', function () {
     .pipe(replace('LOCAL_PATH', path_env["window"]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    // .pipe(removeLogs())
+    .pipe(removeLogs())
     .pipe(ngAnnotate({add: true}))
     // .pipe(js_obfuscator())
     // .pipe(uglify())

@@ -74,9 +74,7 @@
         return result;
       }
       thisCtrl.AddElementsMobile = [];
-      console.log(GeneralServ.addElementDATA);
-      console.log(GlobalStor.global.addElementsAll);
-      angular.copy(GlobalStor.global.addElementsAll).forEach((item, index) => {
+      GlobalStor.global.addElementsAll.forEach((item, index) => {
         if (index === 0) {
           item.elementsList[0] = filterMoscitos(item.elementsList[0]);
         }

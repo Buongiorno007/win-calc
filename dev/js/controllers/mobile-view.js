@@ -37,6 +37,7 @@
             thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
             thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
             thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
+            thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
             thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
             thisCtrl.TEMPLATE_SELECTION = $filter('translate')('panels.TEMPLATE_SELECTION');
             thisCtrl.HEAT_TRANSFER_INFO_3 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_3');
@@ -155,11 +156,10 @@
                             console.log(err);
                         });
                         // $location.path("/");
-
                         /**
-                         * ЭТА ХУЙНЯ НУЖНЯ ДЛЯ ТОГО ЧТОБЫ ОБНУЛИТЬ ВСЕ ПЕРЕМЕННЫЕ
+                         * ЭТА ХУЙНЯ НУЖНA ДЛЯ ТОГО ЧТОБЫ ОБНУЛИТЬ ВСЕ ПЕРЕМЕННЫЕ
                          * ТАК КАК ПРО ОБЫЧНОМ ПЕРЕХОДЕ НА СТРАНИЦУ ЛОГИНА ДАННЫЕ СКАЧАННЫЕ С СЕРВЕРА ДОБАВЛЯЮТСЯ К УЖЕ СУЩЕСТВУЮЩИМ
-                        */
+                        **/
                         location.reload();
                         break;
                     }

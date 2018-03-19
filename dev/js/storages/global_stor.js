@@ -16,6 +16,7 @@
 
                 thisFactory.publicObj = {
                     globalSource: {
+                        showMountDelivery : 0,
                         OpenSubFolder: -1,
                         OpenItemFolder: -1,
                         selectedGrid: '',
