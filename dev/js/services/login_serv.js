@@ -1496,7 +1496,8 @@
           setUserLocation: setUserLocation,
           setUserGeoLocation: setUserGeoLocation,
           downloadAllData: downloadAllData,
-          getGridPrice: getGridPrice
+          getGridPrice: getGridPrice,
+          downloadAllAddElements : downloadAllAddElements
         };
 
         return thisFactory.publicObj;

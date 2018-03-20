@@ -1726,9 +1726,12 @@ body {
       }
       .mount-delivery-mountings-container {
         display: inline-flex;
+        flex-direction: column; 
         width: 100%;
         height: calc(100% - 60px);
         background: yellowgreen;
+        overflow-y: auto;
+        overflow-y: hidden;
       }
     }
     .backDarkView {

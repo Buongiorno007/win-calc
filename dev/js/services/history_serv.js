@@ -732,7 +732,7 @@
             }
           ).then(function (result) {
             var elementsAdd = angular.copy(result),
-              addElementsAll = GlobalStor.global.addElementsAll,
+              addElementsAll = angular.copy(GlobalStor.global.addElementsAll),
               allAddElemQty = elementsAdd.length,
               orderProductsQty = OrderStor.order.products.length,
               prod, index;

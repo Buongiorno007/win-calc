@@ -9,6 +9,7 @@
       globalConstants,
       GeneralServ,
       MainServ,
+      loginServ,
       AddElementsServ,
       AddElementMenuServ,
       DesignServ,
@@ -55,6 +56,21 @@
       thisCtrl.addElementsList = '';
       thisCtrl.lastParent = null;
 
+      thisCtrl.AddElementsMobile = [];
+      GlobalStor.global.addElementsAll.forEach((item, index) => {
+        if (index === 0) {
+          item.elementsList[0] = filterMoscitos(item.elementsList[0]);
+        }
+        if (GeneralServ.addElementDATA[index].id < 99) {
+          if (item.elementType && item.elementsList) {
+            let tmp = '';
+            tmp = GeneralServ.addElementDATA[index];
+            tmp.folder = merge(angular.copy(item.elementType), angular.copy(item.elementsList));
+            thisCtrl.AddElementsMobile.push(tmp);
+          }
+        }
+      });
+
       function filterMoscitos(input) {
         let output = [];
         input.forEach((item, index) => {
@@ -65,28 +81,15 @@
         return output;
       }
 
-      function merge(item1, item2) {
+      function merge(elementType, elementsList) {
         let result = [];
-        item1.forEach((item, index) => {
-          item.subFolder = item2[index];
+        elementType.forEach((item, index) => {
+          item.subFolder = elementsList[index];
           result.push(item);
         });
         return result;
       }
-      thisCtrl.AddElementsMobile = [];
-      GlobalStor.global.addElementsAll.forEach((item, index) => {
-        if (index === 0) {
-          item.elementsList[0] = filterMoscitos(item.elementsList[0]);
-        }
-            if (GeneralServ.addElementDATA[index].id < 99) {
-                if (item.elementType && item.elementsList) {
-                    let tmp;
-                    tmp = GeneralServ.addElementDATA[index];
-                    tmp.folder = merge(item.elementType, item.elementsList);
-                    thisCtrl.AddElementsMobile.push(tmp);
-                }
-            }
-      });
+
 
       function OpenFolder(index, event) {
         GlobalStor.global.OpenItemFolder = -1;
