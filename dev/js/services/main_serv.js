@@ -164,7 +164,6 @@
                 if (!GlobalStor.global.rooms[room]) {
                     room = 0;
                 }
-                console.log(GlobalStor.global.rooms);
                 ProductStor.product.construction_type =
                     GlobalStor.global.rooms[room].group_id;
                 ProductStor.product.template_id =
@@ -423,8 +422,7 @@
                 }
             }
 
-            function checkDependGlassTest(sash, product) {
-            }
+
 
             function setCurrentGlass(product, id) {
                 //------- cleaning glass in product
@@ -2443,7 +2441,6 @@
                 resize: resize,
                 displayData: displayData,
                 setCurrentGlassInTemplate: setCurrentGlassInTemplate,
-                checkDependGlassTest: checkDependGlassTest,
                 setGlassfilter: setGlassfilter,
                 setGlassDefault: setGlassDefault,
                 saveUserEntry: saveUserEntry,

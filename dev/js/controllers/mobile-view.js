@@ -189,6 +189,10 @@
             // angular.element($window).bind('orientationchange', function () {
             //     $scope.$apply();
             // });
+            
+            $("#closeSizeCaclulator").on('click', (event)=>{
+                console.log(event);
+            }, false);
 
             $("#main-frame").addClass("main-frame-mobView");
             $("#app-container").addClass("app-container-mobView");
