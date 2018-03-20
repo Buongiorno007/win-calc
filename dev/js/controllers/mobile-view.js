@@ -37,6 +37,7 @@
             thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
             thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
             thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
+            thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
             thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
             thisCtrl.TEMPLATE_SELECTION = $filter('translate')('panels.TEMPLATE_SELECTION');
             thisCtrl.HEAT_TRANSFER_INFO_3 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_3');
@@ -154,8 +155,12 @@
                             // This code runs if there were any errors
                             console.log(err);
                         });
-                        $location.path("/");
-                        // location.reload();
+                        // $location.path("/");
+                        /**
+                         * ЭТА ХУЙНЯ НУЖНA ДЛЯ ТОГО ЧТОБЫ ОБНУЛИТЬ ВСЕ ПЕРЕМЕННЫЕ
+                         * ТАК КАК ПРО ОБЫЧНОМ ПЕРЕХОДЕ НА СТРАНИЦУ ЛОГИНА ДАННЫЕ СКАЧАННЫЕ С СЕРВЕРА ДОБАВЛЯЮТСЯ К УЖЕ СУЩЕСТВУЮЩИМ
+                        **/
+                        location.reload();
                         break;
                     }
                 }
@@ -184,6 +189,10 @@
             // angular.element($window).bind('orientationchange', function () {
             //     $scope.$apply();
             // });
+            
+            $("#closeSizeCaclulator").on('click', (event)=>{
+                console.log(event);
+            }, false);
 
             $("#main-frame").addClass("main-frame-mobView");
             $("#app-container").addClass("app-container-mobView");

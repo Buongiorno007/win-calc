@@ -424,7 +424,7 @@
                     }, 50);
                 }
 
-                function closeSizeCaclulator(prom) {
+                function closeSizeCaclulator(prom, save) {
                     var deff = $q.defer();
                     if (DesignStor.design.tempSize.length) {
                         if (UserStor.userInfo.factory_id === 1966) {
@@ -452,6 +452,19 @@
                                         setTimeout(function () {
                                             rebuildSVGTemplate();
                                             getSizeAlert();
+                                                MainServ.preparePrice(
+                                                    ProductStor.product.template,
+                                                    ProductStor.product.profile.id,
+                                                    ProductStor.product.glass,
+                                                    ProductStor.product.hardware.id,
+                                                    ProductStor.product.lamination.lamination_in_id
+                                                ).then(function () {
+                                                    //-------- template was changed
+                                                    SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+                                                        ProductStor.product.template = angular.copy(result);
+                                                        DesignStor.design.templateTEMP = angular.copy(result);
+                                                    });
+                                                });
                                         }, 250);
                                         checkSize(result);
                                         cleanTempSize();

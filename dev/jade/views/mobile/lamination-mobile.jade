@@ -1,7 +1,7 @@
 .mobile-lamination.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 5" ng-controller="LaminationsCtrl as laminPanel")
     include accept-container
     .laminat-filter
-        .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats  track by $index" ng-class = "{gray : $index%2 === 0 }")
+        .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'id' track by $index" ng-class = "{gray : $index%2 === 0 }")
             .laminat-folder-header
                 .laminat-label-button(ng-if="lamin.id > 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}")
                     p {{ ::lamin.name }}

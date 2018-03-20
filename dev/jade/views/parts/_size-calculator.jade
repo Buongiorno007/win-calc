@@ -44,7 +44,7 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
     td(ng-if="sizeCalc.U.userInfo.factory_id==1966")
       button.cell.calc-digit(fs-click="sizeCalc.setValueSize('.')") .
     td
-      button.cell.calc-equal(fs-click="sizeCalc.closeSizeCaclulator()") =
+      button.cell.calc-equal#closeSizeCaclulator(fs-click="sizeCalc.closeSizeCaclulator()") =
 
 
 
