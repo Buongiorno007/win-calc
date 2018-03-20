@@ -227,7 +227,7 @@
                 //----------- create AddElement Groups for Searching
                 function createAddElementGroups() {
                     var groupNamesQty = GeneralServ.addElementDATA.length,
-                        allElems = GlobalStor.global.addElementsAll,
+                        allElems = angular.copy(GlobalStor.global.addElementsAll),
                         searchWord = AuxStor.aux.searchingWord.toLowerCase(),
                         groupsArr = [],
                         groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;

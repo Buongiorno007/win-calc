@@ -1743,7 +1743,6 @@
 
             function showInfoBox(id, itemArr) {
                 if (GlobalStor.global.isInfoBox !== id) {
-                    console.info(id, itemArr);
                     var itemArrQty = itemArr.length,
                         tempObj = {};
                     while (--itemArrQty > -1) {

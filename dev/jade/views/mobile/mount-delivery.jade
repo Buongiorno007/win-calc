@@ -36,3 +36,32 @@
                         input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select();")
                         .name.drop-txt {{ cartMenu.U.userInfo.currency }}
             .mobile-delivery
+                .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(7)")
+                    label {{::cartMenu.DIS_ASSEMBLING}}
+                .mobile-delivery-selected
+                    .value
+                        label(ng-show="!cartMenu.O.order.dismantling_id") {{ ::cartMenu.WITHOUT_DIS_ASSEMBLING }}
+                        label(ng-show="cartMenu.O.order.dismantling_id") {{ cartMenu.O.order.dismantling_name }}
+                        label(ng-show="cartMenu.O.order.dismantling_id") + {{ cartMenu.O.order.dismantling_price }} {{ cartMenu.U.userInfo.currency }}
+                    .price
+                        label + {{ cartMenu.O.order.dismantling_price}} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-items(ng-if='cartMenu.config.activeMenuItem == 7 && cartMenu.G.global.disassemblyData.length')
+                    .dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(0)")
+                        .dropdown-item-inner
+                        .value.drop-txt {{ ::cartMenu.SELF_EXPORT }}
+                        .name.drop-txt
+                    .dropdown-item(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(supplyList)")
+                        .dropdown-item-inner
+                        .value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
+                        .name.drop-txt + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
+                    .dropdown-item
+                        .dropdown-item-inner
+                        .value.drop-txt {{ ::cartMenu.DELIVERY }}
+                        input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select();")
+                        .name.drop-txt {{ cartMenu.U.userInfo.currency }}
+                    .dropdown-item
+                        .dropdown-item-inner
+                        .value.drop-txt {{ ::cartMenu.GARBAGE_REMOVE }}
+                        input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select();")
+                        .name.drop-txt {{ cartMenu.U.userInfo.currency }}
+            .mobile-delivery
