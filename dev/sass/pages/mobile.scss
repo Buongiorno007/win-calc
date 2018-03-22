@@ -2463,9 +2463,16 @@ body {
     top : 0;
     left: 0;
     display: inline-flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    background: brown;
+    background: white;
     z-index: 2;
+    .door-config {
+      @include roboto-rg(15px);
+    }
+    .selected{
+      border: 1px solid $main_red;
+    }
   }
 }

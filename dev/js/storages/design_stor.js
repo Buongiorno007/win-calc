@@ -53,6 +53,13 @@
               selectedStep3: 0,
               selectedStep4: 0
             },
+            mobileSteps: {
+              step1: 0,
+              step2: 0,
+              step3: 0,
+              step4: 0
+            },
+            showMobileStep: 0,
             isMinSizeRestriction: 0,
             isMaxSizeRestriction: 0,
             minSizeLimit: 0,
