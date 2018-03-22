@@ -215,7 +215,7 @@
     "LOCK_TYPE1": "jednolockingowy zamek z zatrzaskiem",
     "LOCK_TYPE2": "multilockingowy zamek z zatrzaskiem",
     "EXTRA_GLASS1": "Nie ma mozliwosci ustawienia szyby zespolonej ",
-    "EXTRA_GLASS2": " dla tego typu konfiguracji konstrukcji"
+    "EXTRA_GLASS2": " dla tego typu konfiguracji konstrukcji",
     "INTERIOR" : "Projektowanie wnetrz",
     "FACADE" : "Fasada",
     "TEMPLATE_SELECTION" : "Wybor szablonu"
@@ -386,6 +386,7 @@
     "DIS_ASSEMBLING": "Demontaz",
     "WITHOUT_DIS_ASSEMBLING": "bez demontazu",
     "ADD_SERVICES": "uslugi dodatkowe",
+    "ADD_SERVICES_SHORT": "uslugi dodatkowe",
 
     "FREE": "bezplatnie",
     "PAYMENT_BY_INSTALMENTS": "Platnosc ratalna",

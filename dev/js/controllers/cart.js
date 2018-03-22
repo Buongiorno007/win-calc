@@ -238,6 +238,16 @@
         function showMoundDeliveryFunc() {
           GlobalStor.global.showMountDelivery = !GlobalStor.global.showMountDelivery;
         }
+        function cancelMoundDeliveryFunc() {
+          GlobalStor.global.showMountDelivery = !GlobalStor.global.showMountDelivery;
+          CartMenuServ.selectFloorPrice(0);
+          CartMenuServ.selectDisAssembling(0);
+          CartMenuServ.selectAssembling(0);
+          OrderStor.order.sale_price = 0;
+          OrderStor.order.delivery_add = 0;
+          OrderStor.order.delivery_garbage_removal = 0;
+          OrderStor.order.comment = '';
+        }
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -262,6 +272,7 @@
         thisCtrl.showCartTemplte = showCartTemplte;
         thisCtrl.coutNull = coutNull;
         thisCtrl.showMoundDeliveryFunc = showMoundDeliveryFunc;
+        thisCtrl.cancelMoundDeliveryFunc = cancelMoundDeliveryFunc;
 
         thisCtrl.box = CartServ.box;
         thisCtrl.mobileBox = CartServ.mobileBox;

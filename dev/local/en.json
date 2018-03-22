@@ -386,6 +386,7 @@
     "DIS_ASSEMBLING": "Dismantling",
     "WITHOUT_DIS_ASSEMBLING": "without dismantling",
     "ADD_SERVICES": "additional services",
+    "ADD_SERVICES_SHORT": "additional services",
     "FREE": "free",
     "PAYMENT_BY_INSTALMENTS": "Payment by installments",
     "WITHOUT_INSTALMENTS": "free installments",
