@@ -50,7 +50,8 @@
             .mobile-delivery 
                 .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(7)")
                     label {{::cartMenu.DIS_ASSEMBLING}}
-                .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 7')
+                //- .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 7')
+                .mobile-delivery-selected
                     .mobile-delivery-value
                         label(ng-show="!cartMenu.O.order.dismantling_id") {{ ::cartMenu.WITHOUT_DIS_ASSEMBLING }}
                         label(ng-show="cartMenu.O.order.dismantling_id") {{ cartMenu.O.order.dismantling_name }}
