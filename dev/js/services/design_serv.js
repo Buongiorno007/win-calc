@@ -1111,6 +1111,7 @@
                     } else {
                         //------ close door config
                         DesignStor.design.steps.isDoorConfig = 0;
+                        DesignStor.design.isDoorConfigMobile = 0;
                         //------ set Default indexes
                         DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
                     }
@@ -1302,6 +1303,8 @@
                     DesignStor.design.doorConfig.doorShapeIndex = '';
                     //------ close door config
                     DesignStor.design.steps.isDoorConfig = 0;
+                    DesignStor.design.isDoorConfigMobile = 0;
+                    
                     //------ set Default indexes
 
                     DesignStor.design.doorConfig = DesignStor.setDefaultDoor();

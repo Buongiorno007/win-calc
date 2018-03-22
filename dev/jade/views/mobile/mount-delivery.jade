@@ -8,28 +8,30 @@
             .mobile-delivery.gray 
                 .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(1)")
                     label {{::cartMenu.DELIVERY}}
-                 .mobile-delivery-selected(ng-show="cartMenu.O.order.floor_id" )
+                 .mobile-delivery-selected(ng-if="cartMenu.O.order.floor_id" ng-hide='cartMenu.config.activeMenuItem == 1')
                     .mobile-delivery-value
                         label {{cartMenu.O.order.floorName}}
                     .mobile-delivery-price
                         label {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}
-                .mobile-delivery-selected(ng-show="cartMenu.O.order.delivery_garbage_removal")
+                .mobile-delivery-selected(ng-if="cartMenu.O.order.delivery_garbage_removal"  ng-hide='cartMenu.config.activeMenuItem == 1')
                     .mobile-delivery-value
                         label {{ ::cartMenu.GARBAGE_REMOVE  }}
                     .mobile-delivery-price
                         label {{ cartMenu.O.order.delivery_garbage_removal }} {{ cartMenu.U.userInfo.currency }}
-                .mobile-delivery-selected(ng-show="cartMenu.O.order.delivery_add") 
+                .mobile-delivery-selected(ng-if="cartMenu.O.order.delivery_add"  ng-hide='cartMenu.config.activeMenuItem == 1') 
                     .mobile-delivery-value
                         label{{ ::cartMenu.DELIVERY}}
                     .mobile-delivery-price
                         label {{ cartMenu.O.order.delivery_add }} {{ cartMenu.U.userInfo.currency }}
-                .mobile-delivery-selected(ng-show="!cartMenu.O.order.floor_id")
+                .mobile-delivery-selected(ng-if="!cartMenu.O.order.floor_id"  ng-hide='cartMenu.config.activeMenuItem == 1')
                     .mobile-delivery-value
                         label  {{ ::cartMenu.SELF_EXPORT }}
                     .mobile-delivery-price
                         label {{ 0 }} {{ cartMenu.U.userInfo.currency }}
+
+
                 .mobile-delivery-items(ng-if='cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length')
-                    .mobile-delivery-selected(ng-if="!cartMenu.O.order.floor_id", fs-click="cartMenu.selectFloorPrice(0)")
+                    .mobile-delivery-selected(fs-click="cartMenu.selectFloorPrice(0)" ng-class="{'selected': !cartMenu.O.order.floor_id}")
                         .mobile-delivery-value
                             label {{ ::cartMenu.SELF_EXPORT }}
                         .mobile-delivery-price
@@ -37,12 +39,12 @@
                     .mobile-delivery-selected(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(supplyList)")
                         .mobile-delivery-value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
                         .name.drop-txt  {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
-                    .mobile-delivery-selected
+                    .mobile-delivery-selected(ng-class="{'selected': cartMenu.O.order.delivery_add}")
                         .mobile-delivery-value.drop-txt {{ ::cartMenu.DELIVERY }}
                         .mobile-delivery-value
                             input.name.drop-txt.only-numbers(type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.changeVal(cartMenu.O.order.delivery_add)" ng-keydown="cartMenu.keyUp($event)" onClick="this.select();")
                             .name.drop-txt {{ cartMenu.U.userInfo.currency }}
-                    .mobile-delivery-selected
+                    .mobile-delivery-selected(ng-class="{'selected': cartMenu.O.order.delivery_garbage_removal}")
                         .mobile-delivery-value.drop-txt {{ ::cartMenu.GARBAGE_REMOVE }}
                         .mobile-delivery-value
                             input.name.drop-txt.only-numbers(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.changeVal(cartMenu.O.order.delivery_garbage_removal)"  ng-keydown="cartMenu.keyUp($event)"  onClick="this.select();")
@@ -50,8 +52,7 @@
             .mobile-delivery 
                 .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(7)")
                     label {{::cartMenu.DIS_ASSEMBLING}}
-                //- .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 7')
-                .mobile-delivery-selected
+                .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 7')
                     .mobile-delivery-value
                         label(ng-show="!cartMenu.O.order.dismantling_id") {{ ::cartMenu.WITHOUT_DIS_ASSEMBLING }}
                         label(ng-show="cartMenu.O.order.dismantling_id") {{ cartMenu.O.order.dismantling_name }}
@@ -67,7 +68,7 @@
             .mobile-delivery.gray
                 .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(2)")
                     label {{::cartMenu.ASSEMBLING }}
-                .mobile-delivery-selected 
+                .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 2')
                     .mobile-delivery-value
                         label(ng-show="!cartMenu.O.order.mounting_id") {{ ::cartMenu.WITHOUT_ASSEMBLING }}
                         label(ng-show="cartMenu.O.order.mounting_id") {{ cartMenu.O.order.mountingName }}
