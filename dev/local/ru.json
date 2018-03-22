@@ -294,6 +294,8 @@
     "PROJECT_DEFAULT": "Проект по умолчанию",
     "DOOR_CONFIG_LABEL": "конфигурация двери",
     "DOOR_CONFIG_DESCTIPT": "рама двери",
+    "DOOR_CONFIG_DESCTIPT_MOBILE": "Дверная рама",
+    "SASH_CONFIG_DESCTIPT_MOBILE": "Дверная створка",
     "SASH_CONFIG_DESCTIPT": "створка двери",
     "HANDLE_CONFIG_DESCTIPT": "ручка",
     "LOCK_CONFIG_DESCTIPT": "замок",

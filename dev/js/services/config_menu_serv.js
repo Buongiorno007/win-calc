@@ -126,8 +126,8 @@
                   if ($location.path() !== '/mobile') {
                     DesignStor.design.steps.isDoorConfig = 1;
                   } else {
-                    console.log('123')
                     DesignStor.design.isDoorConfigMobile = 1;
+                    DesignStor.design.showMobileStep = 0;
                   }
                 })
               }
