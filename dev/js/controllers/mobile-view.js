@@ -14,6 +14,7 @@
                                             UserStor,
                                             OrderStor,
                                             GlobalStor,
+                                            DesignStor,
                                             ProductStor,
                                             AuxStor,
                                             CartStor) {
@@ -26,6 +27,7 @@
             thisCtrl.O = OrderStor;
             thisCtrl.A = AuxStor;
             thisCtrl.C = CartStor;
+            thisCtrl.D = DesignStor;
 
             thisCtrl.KARKAS = $filter("translate")("mainpage.KARKAS");
             thisCtrl.KONFIG = $filter("translate")("mainpage.KONFIG");

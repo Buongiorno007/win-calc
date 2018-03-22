@@ -91,7 +91,6 @@
                 thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
                 thisCtrl.CALC_PRICE = $filter('translate')('design.CALC_PRICE');
 
-
                 thisCtrl.PROFILE_SYSTEM_SELECT = $filter('translate')('design.PROFILE_SYSTEM_SELECT');
                 thisCtrl.GLASS_SELECT = $filter('translate')('design.GLASS_SELECT');
                 thisCtrl.GLASS_SELECT_BIG = $filter('translate')('design.GLASS_SELECT_BIG');
@@ -99,7 +98,6 @@
                 thisCtrl.LEFT_TEXT_SELECT = $filter('translate')('design.LEFT_TEXT_SELECT');
 
                 thisCtrl.AND = $filter('translate')('common_words.AND');
-
 
                 //------ DOOR
                 //DesignServ.setDoorConfigDefault(ProductStor.product);

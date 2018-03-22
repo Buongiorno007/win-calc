@@ -1,0 +1,10 @@
+.door-settings-mobile(ng-controller='DesignCtrl as designPage' ng-if='mobilePage.D.design.isDoorConfigMobile')
+        //просто скопировал хедер из доставок
+        .mount-delivery-header 
+            .header-buttons.alert-no(ng-click='designPage.closeDoorConfig()')
+                label {{mobilePage.CANCEL}}
+            .header-buttons.alert-yes(ng-click='mobilePage.closeDoorConfig()')
+                label {{mobilePage.APPLY}}
+        .door-config
+            .door-config-title
+            .door-config-list
