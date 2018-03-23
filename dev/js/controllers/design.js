@@ -682,6 +682,17 @@
             DesignStor.design.showMobileStep = step;
           }
         }
+
+        function gethandleShapeIndex(id) {
+          let index = -1;
+          DesignStor.design.handleShapeList.forEach((item, itemindex) => {
+            if (item.id === id) {
+              index = itemindex;
+              // break;
+            }
+          });
+          return index;
+        }
         /**========== FINISH ==========*/
 
         //------ clicking
@@ -711,6 +722,7 @@
         thisCtrl.positionAxis = positionAxis;
         thisCtrl.positionGlass = positionGlass;
         thisCtrl.showStepsMobileFunc = showStepsMobileFunc;
+        thisCtrl.gethandleShapeIndex = gethandleShapeIndex;
 
         //thisCtrl.setAddElementsTotalPrice = AddElementMenuServ.setAddElementsTotalPrice;
 

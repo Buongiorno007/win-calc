@@ -31,7 +31,7 @@
                 label {{ ::designPage.LOCK_CONFIG_DESCTIPT }}
             .door-config-selected
                 label(ng-if='designPage.D.design.doorConfig.handleShapeIndex === ""' ng-hide='designPage.D.design.showMobileStep === 3') 3 {{ ::designPage.STEP }}
-                label(ng-hide='designPage.D.design.showMobileStep === 3') {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].name }}
+                label(ng-hide='designPage.D.design.showMobileStep === 3') {{ designPage.D.design.handleShapeList[designPage.gethandleShapeIndex(designPage.D.design.doorConfig.handleShapeIndex)].name }} 
             .door-config-list(ng-if='designPage.D.design.showMobileStep === 3')
                 .door-config-item(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === handle.id}", ng-click="designPage.selectHandle(handle.id, designPage.P.product)")
                     label {{ handle.name }}
