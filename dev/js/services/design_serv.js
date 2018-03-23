@@ -930,7 +930,7 @@
             if (DesignStor.design.doorConfig.doorShapeIndex === id) {
               DesignStor.design.doorConfig.doorShapeIndex = '';
               DesignStor.design.steps.selectedStep1 = 0;
-              
+
             } else {
               DesignStor.design.sashShapeList.length = 0;
               switch (id) {
@@ -958,6 +958,7 @@
               DesignStor.design.doorConfig.doorShapeIndex = id;
               DesignStor.design.doorConfig.doorTypeIndex = DesignStor.design.doorShapeList[id].id;
               DesignStor.design.steps.selectedStep1 = 1;
+              DesignStor.design.showMobileStep = 2;
               return DesignStor.design.sashShapeList[id];
             }
           }
@@ -1008,6 +1009,8 @@
                 } else {
                   DesignStor.design.doorConfig.sashShapeIndex = id;
                   DesignStor.design.steps.selectedStep2 = 1;
+                  DesignStor.design.showMobileStep = 3;
+
                 }
               }
               localDB.selectLocalDB(
@@ -1059,6 +1062,8 @@
             } else {
               DesignStor.design.doorConfig.handleShapeIndex = id;
               DesignStor.design.steps.selectedStep3 = 1;
+              DesignStor.design.showMobileStep = 4;
+              
             }
 
             var lockArr = GlobalStor.global.doorLocks.filter(function (doorLocks) {
@@ -1113,7 +1118,7 @@
             DesignStor.design.steps.selectedStep2 = 0;
             DesignStor.design.doorConfig.sashShapeIndex = '';
             DesignStor.design.showMobileStep = 2;
-            
+
           } else if (DesignStor.design.steps.selectedStep1) {
             DesignStor.design.steps.selectedStep1 = 0;
             DesignStor.design.doorConfig.doorShapeIndex = '';
