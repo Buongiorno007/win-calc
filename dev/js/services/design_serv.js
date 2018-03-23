@@ -870,9 +870,9 @@
           DesignStor.design.steps.selectedStep3 = 0;
           DesignStor.design.steps.selectedStep4 = 0;
 
-          DesignStor.design.doorConfig.sashShapeIndex = -1;
-          DesignStor.design.doorConfig.handleShapeIndex = -1;
-          DesignStor.design.doorConfig.lockShapeIndex = -1;
+          DesignStor.design.doorConfig.sashShapeIndex = '';
+          DesignStor.design.doorConfig.handleShapeIndex = '';
+          DesignStor.design.doorConfig.lockShapeIndex = '';
 
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
@@ -981,8 +981,8 @@
           DesignStor.design.steps.selectedStep3 = 0;
           DesignStor.design.steps.selectedStep4 = 0;
 
-          DesignStor.design.doorConfig.handleShapeIndex = -1;
-          DesignStor.design.doorConfig.lockShapeIndex = -1;
+          DesignStor.design.doorConfig.handleShapeIndex = '';
+          DesignStor.design.doorConfig.lockShapeIndex = '';
 
           DesignStor.design.doorConfig.glassDepProf = (ids.profile_id === product.profile.id);
           $q.all([
@@ -1050,7 +1050,7 @@
           var array = [];
           DesignStor.design.steps.selectedStep4 = 0;
 
-          DesignStor.design.doorConfig.lockShapeIndex = -1;
+          DesignStor.design.doorConfig.lockShapeIndex = '';
 
           if (!DesignStor.design.steps.selectedStep4) {
             if (DesignStor.design.doorConfig.handleShapeIndex === id) {
@@ -1108,14 +1108,16 @@
             DesignStor.design.steps.selectedStep4 = 0;
             DesignStor.design.doorConfig.lockShapeIndex = '';
             DesignStor.design.doorConfig.handleShapeIndex = '';
+            DesignStor.design.showMobileStep = 3;
           } else if (DesignStor.design.steps.selectedStep2) {
             DesignStor.design.steps.selectedStep2 = 0;
             DesignStor.design.doorConfig.sashShapeIndex = '';
-            DesignStor.design.showMobileStep = 1;
+            DesignStor.design.showMobileStep = 2;
             
           } else if (DesignStor.design.steps.selectedStep1) {
             DesignStor.design.steps.selectedStep1 = 0;
             DesignStor.design.doorConfig.doorShapeIndex = '';
+            DesignStor.design.showMobileStep = 1;
           } else {
             //------ close door config
             DesignStor.design.steps.isDoorConfig = 0;
