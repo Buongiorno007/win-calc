@@ -23,10 +23,6 @@
 
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
-          console.log(DesignStor.design.handleShapeList)
-          console.log(DesignStor.design.doorConfig.handleShapeIndex)
-          
-
           if ($location.path() === "/light" || $location.path() === "/mobile") {
             SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);

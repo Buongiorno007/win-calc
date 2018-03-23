@@ -279,6 +279,8 @@
     "DOOR_CONFIG_DESCTIPT": "cadrul ușii",
     "SASH_CONFIG_DESCTIPT": "canatul ușii",
     "HANDLE_CONFIG_DESCTIPT": "mâner",
+    "DOOR_CONFIG_DESCTIPT_MOBILE": "Cadru pentru ușă",
+    "SASH_CONFIG_DESCTIPT_MOBILE": "Frunza de ușă",
     "LOCK_CONFIG_DESCTIPT": "lacăt",
     "STEP": "pas",
     "LABEL_DOOR_TYPE": "Selectați structura cadrului ușii",

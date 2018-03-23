@@ -299,6 +299,8 @@
     "DOOR_CONFIG_DESCTIPT": "oscieznica",
     "SASH_CONFIG_DESCTIPT": "skrzydlo drzwiowe",
     "HANDLE_CONFIG_DESCTIPT": "klamka",
+    "DOOR_CONFIG_DESCTIPT_MOBILE": "Rama drzwi",
+    "SASH_CONFIG_DESCTIPT_MOBILE": "Skrzydło drzwi",
     "LOCK_CONFIG_DESCTIPT": "zamek",
     "STEP": "krok",
     "LABEL_DOOR_TYPE": "Wybierz strukture oscieznicy",

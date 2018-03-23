@@ -294,6 +294,8 @@
     "DOOR_CONFIG_LABEL": "Anordnung der Türen",
     "DOOR_CONFIG_DESCTIPT": "Türrahmen",
     "SASH_CONFIG_DESCTIPT": "Torblatt",
+    "DOOR_CONFIG_DESCTIPT_MOBILE": "Türrahmen",
+    "SASH_CONFIG_DESCTIPT_MOBILE": "Türblatt",
     "HANDLE_CONFIG_DESCTIPT": "Griff",
     "LOCK_CONFIG_DESCTIPT": "Verschluss",
     "STEP": "Schritt",
