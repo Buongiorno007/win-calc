@@ -1181,6 +1181,7 @@
             });
           });
           DesignStor.design.steps.isDoorConfig = 0;
+          DesignStor.design.isDoorConfigMobile = 0;
           return deferred.promise;
         }
 
