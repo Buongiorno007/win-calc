@@ -281,6 +281,8 @@
     "DOOR_CONFIG_DESCTIPT": "infisso porta",
     "SASH_CONFIG_DESCTIPT": "battente della porta",
     "HANDLE_CONFIG_DESCTIPT": "maniglia",
+    "DOOR_CONFIG_DESCTIPT_MOBILE": "Telaio della porta",
+    "SASH_CONFIG_DESCTIPT_MOBILE": "Foglia di porta",
     "LOCK_CONFIG_DESCTIPT": "la serratura",
     "STEP": "passo",
     "LABEL_DOOR_TYPE": "Scegliete il modello dell’infisso porta",

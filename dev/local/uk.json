@@ -287,6 +287,8 @@
     "DOOR_CONFIG_DESCTIPT": "рама дверей",
     "SASH_CONFIG_DESCTIPT": "стулка дверей",
     "HANDLE_CONFIG_DESCTIPT": "ручка",
+    "DOOR_CONFIG_DESCTIPT_MOBILE": "Дверна рама",
+    "SASH_CONFIG_DESCTIPT_MOBILE": "Дверна стулка",
     "LOCK_CONFIG_DESCTIPT": "замок",
     "STEP": "крок",
     "LABEL_DOOR_TYPE": "Виберіть конструкцію рами дверей",
