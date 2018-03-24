@@ -7,11 +7,13 @@
 
   function(
     $filter,
+    $location,
     GlobalStor,
     UserStor,
     HistoryStor,
     HistoryServ,
     CartServ,
+    MainServ,
     PrintServ,
     globalConstants
   ) {
@@ -80,7 +82,10 @@
 
 
     //------- set current Page
-    GlobalStor.global.currOpenPage = 'history';
+    if ($location.path() !== "/mobile") {
+      //------- set current Page
+      GlobalStor.global.currOpenPage = 'history';
+    }
 
     //----- variables for drafts sorting
     thisCtrl.createdDate = 'created';
@@ -103,13 +108,17 @@
     thisCtrl.testFunc = HistoryServ.testFunc;
     thisCtrl.synchronizeOrders = HistoryServ.synchronizeOrders;
     thisCtrl.closeDeviceReport = HistoryServ.closeDeviceReport;
-    $("#main-frame").removeClass("main-frame-mobView");
-    $("#app-container").removeClass("app-container-mobView");
-    $(window).load(function() {
-      MainServ.resize();
-    });
-    window.onresize = function() {
-      MainServ.resize();
-    };
+
+    if ($location.path() !== "/mobile") {
+      $("#main-frame").removeClass("main-frame-mobView");
+      $("#app-container").removeClass("app-container-mobView");
+      $(window).load(function () {
+        MainServ.resize();
+      });
+      window.onresize = function () {
+        MainServ.resize();
+      };
+    }
+  
   });
 })();

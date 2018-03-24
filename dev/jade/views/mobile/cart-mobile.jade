@@ -1,4 +1,4 @@
-.cart-mobile(ng-controller='CartCtrl as cartPage')
+.cart-mobile.mobile-common-panel(ng-controller='CartCtrl as cartPage' ng-if="mobilePage.isSet(4)")
     .cart-header
         .back-button(ng-click="mobilePage.closePanelMobile()")
         .header-buttons.alert-no

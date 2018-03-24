@@ -20,7 +20,7 @@
     //------- translate
     thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
 
-
+    console.log('123');
     /**============ METHODS ================*/
 
     /**--------- AddElements List View ----------*/
@@ -81,12 +81,12 @@
 
     //------ clicking
     //----------- for AddElements List View
-    if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart') {
+    if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart' || GlobalStor.global.currOpenPage === 'light') {
       thisCtrl.placeholder = $filter('translate')('add_elements.INPUT_ADD_ELEMENT');
       thisCtrl.checkChanges = checkChanges;
       thisCtrl.cancelSearching = cancelSearching;
       thisCtrl.deleteSearchChart = deleteSearchChart;
-    } else if(GlobalStor.global.currOpenPage === 'history'){
+    } else if(GlobalStor.global.currOpenPage === 'history' || GlobalStor.global.currOpenPage === 'mobile'){
       //----------- for History Page
       thisCtrl.placeholder = $filter('translate')('history.SEARCH_PLACEHOLDER');
       thisCtrl.checkChanges = checkChangesHistory;
