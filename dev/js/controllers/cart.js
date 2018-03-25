@@ -248,6 +248,7 @@
           OrderStor.order.delivery_garbage_removal = 0;
           OrderStor.order.comment = '';
         }
+
         /**========== FINISH ==========*/
 
         //------ clicking

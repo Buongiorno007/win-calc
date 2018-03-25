@@ -37,6 +37,7 @@
     include mobile/hardwares-mobile
     include mobile/lamination-mobile
     include mobile/add-elements-mobile
+    include mobile/mobile-order-history
     section.mobile-order-forms(ng-controller="OrderFormCtrl as orderForm" ng-if="mobilePage.C.cart.isOrderDialog")
         include mobile/form-order-mobile
     include parts/_alert
@@ -47,8 +48,7 @@
     include parts/_loader
     .mob-rep(ng-if="mobilePage.G.global.isMobileReport")
         include mobile/report_mobile
-    .cart-content(ng-if="mobilePage.isSet(4)")
-        include mobile/cart-mobile
+    include mobile/cart-mobile
     .mob-size-calculator(ng-if="mobilePage.G.global.isSizeCalculator")
         include parts/_size-calculator
 
