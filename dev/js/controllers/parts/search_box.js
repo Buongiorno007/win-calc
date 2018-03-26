@@ -20,7 +20,6 @@
     //------- translate
     thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
 
-    console.log('123');
     /**============ METHODS ================*/
 
     /**--------- AddElements List View ----------*/

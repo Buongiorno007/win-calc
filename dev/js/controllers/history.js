@@ -80,7 +80,11 @@
         }
         ];
 
-
+        $('.period-of-time').on('change', ()=>{
+          if ($location.path() === "/mobile") {
+          HistoryServ.reqResult();
+          }
+        });
     //------- set current Page
     if ($location.path() !== "/mobile") {
       //------- set current Page
