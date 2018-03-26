@@ -11,10 +11,10 @@
                     .delete-search(fs-click="searchBox.deleteSearchChart()")
                     .close-dialog(ng-click="searchBox.cancelSearching()")
         .order
-            select
-                option(value='{{1}}' ng-click="historyPage.reqResult()") {{historyPage.DURING_THE_WEEK}}
-                option(value='{{2}}' ng-click="historyPage.reqResult()") {{historyPage.PER_MOUNTH}}
-                option(value='{{3}}' ng-click="historyPage.reqResult()") {{historyPage.IN_A_YEAR}}
+            select.period-of-time
+                option(value='{{1}}') {{historyPage.DURING_THE_WEEK}}
+                option(value='{{2}}') {{historyPage.PER_MOUNTH}}
+                option(value='{{3}}') {{historyPage.IN_A_YEAR}}
             .arrow-down
         .history-settings
             .config.tool-btn(ng-click='historyPage.orderSorting()')
@@ -37,3 +37,30 @@
                         .filter-label {{ ::historyPage.SORT_SHOW_WAIT }}
                     .filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }", fs-click="historyPage.sortingInit(1, 'done')")
                         .filter-label {{ ::historyPage.SORT_SHOW_DONE }}
+    .order-list-scroll-block
+        .order-card(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index"
+                    )
+            .row-id
+                .order-row-item
+                    label id {{ order.order_number }}-{{ order.id }}
+                .order-row-item
+                    label {{ ::historyPage.FROM }} {{order.order_date | date:"dd MMMM, yyyy"}}
+            .order-row
+                .order-row-item
+                    label {{ order.customer_name }}
+                    span  {{ ::historyPage.CLIENT }}
+            .order-row
+                .order-row-item(ng-if='order.customer_phone')
+                    label {{ order.customer_phone }}
+                    span  {{ ::historyPage.PHONE }}
+            .order-row
+                .order-row-item
+                        label {{ order.customer_location }}, {{ order.customer_address }}
+                        span  {{ ::historyPage.ADDRESS }}
+            .order-row
+                .order-row-item
+                    label {{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
+            .order-row-price
+                label {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
+
+            

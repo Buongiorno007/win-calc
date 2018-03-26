@@ -1361,7 +1361,7 @@
                     )
                     .then(
                         function () {
-                            console.log("Success!");
+                            // console.log("Success!");
                         },
                         function () {
                             console.log("Something went wrong!");

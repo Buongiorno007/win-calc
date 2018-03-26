@@ -50,6 +50,20 @@
   background-size: cover;
 }
 
+.border {
+  border: 1px solid $main_red;
+}
+
+.flex-column {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.red-color {
+  color: $main_red;
+  -webkit-text-fill-color: $main_red;
+}
+
 html {
   overflow: hidden;
   height: 100%;
@@ -85,8 +99,7 @@ body {
     overflow: hidden;
     height: rem($price_container-height-mobile);
     text-align: center;
-    color: $main_red;
-    -webkit-text-fill-color: $main_red;
+    @extend .red-color;
   }
   .digit-cell {
     position: relative;
@@ -99,10 +112,8 @@ body {
     }
   }
   .price-currency {
-    @include roboto-lt(rem($price_container-height-mobile - 4px),
-    1);
-    color: $main_red;
-    -webkit-text-fill-color: $main_red;
+    @include roboto-lt(rem($price_container-height-mobile - 4px),1);
+    @extend .red-color;
     margin: 0 1vw;
   }
   #tamlateSVG {
@@ -174,8 +185,7 @@ body {
         width: 43px;
         background: white;
         border-radius: 50px;
-        color: $main_red;
-        -webkit-text-fill-color: $main_red;
+        @extend .red-color;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
         1);
         margin-right: 1px;
@@ -197,8 +207,7 @@ body {
     border-top: 1px solid $main_gray_light;
     background: #f9f9f9;
     .control-button {
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       align-items: center;
       width: 25%;
       height: 100%;
@@ -312,14 +321,12 @@ body {
       bottom: 0;
       height: 100%;
       width: 100%;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       align-items: center;
       background: white;
       z-index: 1;
       .types {
-        display: inline-flex;
-        flex-direction: column;
+        @extend .flex-column;
         height: auto;
         width: 100%;
         align-items: center;
@@ -366,8 +373,7 @@ body {
           text-align: center;
           margin: 0 15px;
           position: relative;
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           align-items: center;
           justify-content: space-between;
           box-sizing: content-box;
@@ -386,8 +392,7 @@ body {
           }
         }
         .door {
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           .template-img {
             height: 120px;
           }
@@ -412,8 +417,7 @@ body {
       .figure-lists {
         .figure-item {
           position: relative;
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           align-items: center;
           justify-content: space-evenly;
           height: 9vh;
@@ -433,8 +437,7 @@ body {
             }
           }
           .impost-shape-b {
-            color: $main_red;
-            -webkit-text-fill-color: $main_red;
+            @extend .red-color;
             &:after {
               content: $impost-shape-icon-b;
             }
@@ -447,8 +450,7 @@ body {
             }
           }
           .sash-shape-b {
-            color: $main_red;
-            -webkit-text-fill-color: $main_red;
+            @extend .red-color;
             &:after {
               content: $sash-shape-icon-b;
             }
@@ -461,8 +463,7 @@ body {
             }
           }
           .angel-shape-b {
-            color: $main_red;
-            -webkit-text-fill-color: $main_red;
+            @extend .red-color;
             &:after {
               content: $angel-shape-icon-b;
             }
@@ -475,8 +476,7 @@ body {
             }
           }
           .arch-shape-b {
-            color: $main_red;
-            -webkit-text-fill-color: $main_red;
+            @extend .red-color;
             &:after {
               content: $arch-shape-icon-b;
             }
@@ -489,8 +489,7 @@ body {
             }
           }
           .position-shape-b {
-            color: $main_red;
-            -webkit-text-fill-color: $main_red;
+            @extend .red-color;
             &:after {
               content: $position-shape-icon-b;
             }
@@ -545,8 +544,7 @@ body {
     .config-content {
       .conf-item {
         position: relative;
-        display: inline-flex;
-        flex-direction: column;
+        @extend .flex-column;
         align-items: center;
         justify-content: flex-end;
         flex: 0 0 auto;
@@ -618,8 +616,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    display: inline-flex;
-    flex-direction: column;
+    @extend .flex-column;
     align-items: center;
     z-index: 1;
     .calc-delete {
@@ -631,15 +628,7 @@ body {
     }
     .cell {
       height: rem(70px);
-    } //tbody {
-    //  display: inline-flex;
-    //  flex-direction: column;
-    //  align-items: center;
-    //}
-    //thead, tr {
-    //  display: inline-flex;
-    //  align-items: center;
-    //}
+    }
   }
   ::-webkit-scrollbar {
     display: none;
@@ -651,8 +640,7 @@ body {
     justify-content: center;
     align-items: center;
     @include roboto-lt(14px);
-    color: $main_red;
-    -webkit-text-fill-color: $main_red;
+    @extend .red-color;
     p {
       width: 100%;
       white-space: nowrap;
@@ -671,8 +659,7 @@ body {
     top: 0;
     left: 0;
     background: white;
-    display: inline-flex;
-    flex-direction: column;
+    @extend .flex-column;
     align-items: center;
     justify-content: space-around;
     width: 100%;
@@ -713,8 +700,7 @@ body {
         align-items: center;
         justify-content: center;
         @include roboto-bd(25px);
-        color: $main_red;
-        -webkit-text-fill-color: $main_red;
+        @extend .red-color;
         text-transform: uppercase;
       }
     }
@@ -740,8 +726,7 @@ body {
   }
   .mobile-profiles {
     .profiles-list {
-      display: inline-block;
-      flex-direction: column;
+      @extend .flex-column;
       height: calc(100% - 100px);
       overflow-y: scroll;
       overflow-x: hidden;
@@ -749,8 +734,7 @@ body {
       margin-top: 100px;
       -webkit-overflow-scrolling: touch;
       .profile-block {
-        display: inline-flex;
-        flex-direction: column;
+        @extend .flex-column;
         height: auto;
         width: 100%;
         .producer {
@@ -783,15 +767,13 @@ body {
             position: relative;
             height: 86vw;
             width: 43vw !important;
-            display: inline-flex;
-            flex-direction: column;
+            @extend .flex-column;
             align-items: center;
             justify-content: space-between;
             border: 1px solid $main_f7;
             box-sizing: content-box;
             .profile-info-item {
-              display: inline-flex;
-              flex-direction: column;
+              @extend .flex-column;
               align-items: center;
               width: 43vw;
               .name {
@@ -831,8 +813,7 @@ body {
               width: 100%;
             }
             .common-info {
-              display: inline-flex;
-              flex-direction: column;
+              @extend .flex-column;
               align-items: center;
               justify-content: flex-end;
               height: 15.48vw;
@@ -843,14 +824,13 @@ body {
               }
             }
             .information {
+              @extend .border;
               display: inline-flex;
               align-items: center;
               justify-content: center;
               width: 85%;
-              border: 1px solid $main_red;
               border-radius: 25px;
-              color: $main_red;
-              -webkit-text-fill-color: $main_red;
+              @extend .red-color;
               @include roboto-rg(5vw);
             }
           }
@@ -869,8 +849,7 @@ body {
       .glass-block {
         all: unset;
         position: relative;
-        display: inline-flex;
-        flex-direction: column;
+        @extend .flex-column;
         align-items: center;
         width: 100%;
         .button {
@@ -890,8 +869,7 @@ body {
           margin-top: 15px;
           text-transform: uppercase;
           &.active {
-            color: $main_red;
-            -webkit-text-fill-color: $main_red;
+            @extend .red-color;
             border: 2px solid $main_red;
           }
           p {
@@ -902,16 +880,14 @@ body {
             overflow: hidden;
             text-overflow: ellipsis;
             &.active {
-              color: $main_red;
-              -webkit-text-fill-color: $main_red;
+              @extend .red-color;
             }
           }
         }
         .glass-folder {
           position: relative;
           width: 100%;
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           align-items: center;
           transition: 5s linear;
           .glass-item {
@@ -932,7 +908,7 @@ body {
               background-size: contain;
             }
             &.selected {
-              border: 1px solid $main_red;
+              @extend .border;
             }
             .title {
               width: calc(100% - 34px);
@@ -945,8 +921,7 @@ body {
               -webkit-text-fill-color: $main_gray_dark;
               z-index: 1;
               &.selected {
-                color: $main_red;
-                -webkit-text-fill-color: $main_red;
+                @extend .red-color;
               }
             }
           }
@@ -1001,8 +976,7 @@ body {
       position: relative;
       width: 100%;
       height: auto;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       align-items: center;
       justify-content: center;
       .apply-title {
@@ -1024,10 +998,9 @@ body {
         justify-content: center;
         flex-direction: row;
         &.column {
-          display: inline-flex;
+          @extend .flex-column;
           align-items: center;
           justify-content: center;
-          flex-direction: column;
         }
         .curr-glass-value {
           p {
@@ -1060,10 +1033,9 @@ body {
       }
       .set-glass-btn {
         background: white;
-        border: 1px solid $main_red;
+        @extend .border;
         p {
-          color: $main_red;
-          -webkit-text-fill-color: $main_red;
+          @extend .red-color;
         }
       }
       .set-glass-all-btn {
@@ -1108,8 +1080,7 @@ body {
     }
     .laminat-box {
       width: 100%;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       align-items: center;
       justify-content: center;
       .laminat-row {
@@ -1124,9 +1095,8 @@ body {
         border: 1px solid $main_gray_dark;
         margin: 5px 0 5px 0;
         &.active {
-          color: $main_red;
-          -webkit-text-fill-color: $main_red;
-          border: 1px solid $main_red;
+          @extend .red-color;
+          @extend .border;
         }
       }
       .laminat-row-descr {
@@ -1153,8 +1123,7 @@ body {
         z-index: 1;
         text-transform: uppercase;
         &.active {
-          color: $main_red;
-          -webkit-text-fill-color: $main_red;
+          @extend .red-color;
           border: 2px solid $main_red;
         }
         p {
@@ -1182,14 +1151,12 @@ body {
           text-overflow: ellipsis;
         }
         &.active {
-          color: $main_red;
-          -webkit-text-fill-color: $main_red;
+          @extend .red-color;
         }
       }
       .laminat-folder {
         width: 100%;
-        flex-direction: column;
-        display: inline-flex;
+        @extend .flex-column;
         align-items: center;
         justify-content: center;
       }
@@ -1211,14 +1178,12 @@ body {
     overflow: auto;
     .folders-container {
       padding-top: 120px;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       width: 100%;
       height: auto;
       overflow: auto;
       .folders {
-        display: inline-flex;
-        flex-direction: column;
+        @extend .flex-column;
         align-items: flex-start;
         width: 100%;
         height: auto;
@@ -1234,14 +1199,12 @@ body {
           text-overflow: ellipsis;
           &.active {
             @include roboto-rg(25px);
-            color: $main_red;
-            -webkit-text-fill-color: $main_red;
+            @extend .red-color;
           }
         }
         @include roboto-lt(25px);
         .subfolders {
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           align-items: center;
           width: 100%;
           .subfolders-name {
@@ -1259,8 +1222,7 @@ body {
             z-index: 1;
             margin: 10px 0;
             &.active {
-              color: $main_red;
-              -webkit-text-fill-color: $main_red;
+              @extend .red-color;
               border: 2px solid $main_red;
             }
             p {
@@ -1300,8 +1262,7 @@ body {
         }
         .choosen-add-elem {
           position: relative;
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           width: 100%;
           .row-header {
             display: inline-flex;
@@ -1318,8 +1279,7 @@ body {
               width: 20px;
             }
             .name {
-              color: $main_red;
-              -webkit-text-fill-color: $main_red;
+              @extend .red-color;
               @include roboto-lt(15px);
               margin: 5px 0;
             }
@@ -1330,8 +1290,7 @@ body {
             justify-content: space-around;
             padding-right: 20px;
             .item {
-              display: inline-flex;
-              flex-direction: column;
+              @extend .flex-column;
               align-items: center;
               @include roboto-lt(15px);
               .val {
@@ -1356,8 +1315,7 @@ body {
       position: fixed;
       top: 0px;
       left: 0;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       align-items: center;
       justify-content: center;
       width: 100%;
@@ -1380,7 +1338,7 @@ body {
           align-items: center;
           width: 120px;
           height: 40px;
-          border: 1px solid $main_red;
+          @extend .border;
           border-radius: 25px;
           padding: 0 15px;
           box-sizing: border-box;
@@ -1459,14 +1417,12 @@ body {
     -webkit-text-fill-color: $main_green;
     &.coeff-low {
       @extend .flashing;
-      color: $main_red;
-      -webkit-text-fill-color: $main_red;
+      @extend .red-color;
     }
   }
   .cart-mobile {
     background: $main_f3;
-    display: inline-flex;
-    flex-direction: column;
+    @extend .flex-column;
     .cart-header {
       display: inline-flex;
       align-items: center;
@@ -1474,8 +1430,7 @@ body {
       height: 70px;
       width: 100%;
       .header-buttons {
-        display: inline-flex;
-        flex-direction: column;
+        @extend .flex-column;
         align-items: center;
         justify-content: center;
         height: 50px;
@@ -1486,8 +1441,7 @@ body {
       }
     }
     .product-container {
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       width: 100%;
       height: calc(100% - 170px);
       min-height: calc(100% - 170px);
@@ -1513,8 +1467,7 @@ body {
         @include roboto-rg(15px);
         @include box-shadow($main_gray_btn 0px 0px 5px 1px);
         .col {
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           width: 50%;
           height: 100%;
           svg-template {
@@ -1538,7 +1491,7 @@ body {
             justify-content: center;
             position: relative;
             top: 20px;
-            color: $main_red;
+            @extend .red-color;
           }
           .prod-count {
             display: inline-flex;
@@ -1553,9 +1506,9 @@ body {
               justify-content: center;
               width: 40px;
               height: 40px;
-              border: 1px solid $main_red;
+              @extend .border;
               border-radius: 25px;
-              color: $main_red;
+              @extend .red-color;
               @include roboto-rg(20px);
               label {
                 position: relative;
@@ -1618,7 +1571,7 @@ body {
       width: 100%;
       background: white;
       border-radius: 30px;
-      border: 1px solid $main_red;
+      @extend .border;
       box-sizing: content-box;
       .price {
         margin-left: -1rem;
@@ -1715,21 +1668,19 @@ body {
       }
       .mobile-delivery-items {
         @include roboto-lt(15px);
-        color: $main_red;
+        @extend .red-color;
       }
       .mobile-delivery {
         align-items: center;
         justify-content: center;
-        display: inline-flex;
+        @extend .flex-column;
         min-height: 80px;
         width: 100%;
-        flex-direction: column;
         padding: 10px 0;
         flex: 0 0 auto;
       }
       .mount-delivery-mountings-container {
-        display: inline-flex;
-        flex-direction: column;
+        @extend .flex-column;
         width: 100%;
         height: calc(100% - 60px);
         background: white;
@@ -1742,7 +1693,7 @@ body {
           justify-content: space-between;
           padding: 0px 30px;
           @include roboto-lt(20px);
-          color: $main_red;
+          @extend .red-color;
           input {
             width: 60px;
             border-radius: 5px;
@@ -1751,13 +1702,12 @@ body {
           }
         }
         .selected {
-          border: 1px solid $main_red;
+          @extend .border;
           border-radius: 25px;
         }
         .dropdown-items-list {
           width: 100%;
-          display: inline-flex;
-          flex-direction: column;
+          @extend .flex-column;
           align-items: center;
           justify-content: center;
         }
@@ -1796,8 +1746,7 @@ body {
     margin: 0;
     background: white;
     .info_title {
-      color: $main_red;
-      -webkit-text-fill-color: $main_red;
+      @extend .red-color;
     }
   }
   .info_box_inner {
@@ -1811,9 +1760,8 @@ body {
   }
   .alert-no {
     background: white;
-    border: 1px solid $main_red;
-    color: $main_red;
-    -webkit-text-fill-color: $main_red;
+    @extend .border;
+    @extend .red-color;
     border-radius: 25px;
     margin: 15px;
   }
@@ -1877,8 +1825,7 @@ body {
     left: 12px;
     height: 95%;
     width: 93%;
-    display: inline-flex;
-    flex-direction: column;
+    @extend .flex-column;
     align-items: center;
     justify-content: space-around;
     padding: 50px 10px 20px 10px;
@@ -1888,8 +1835,7 @@ body {
       display: inline-flex;
       width: 100%;
       align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      @extend .flex-column;
       color: white;
       -webkit-text-fill-color: white;
       @include roboto-bd(90px);
@@ -1977,8 +1923,7 @@ body {
   .alert-block,
   .danger-alert {
     all: unset;
-    display: inline-flex !important;
-    flex-direction: column;
+    @extend .flex-column;
     align-content: center;
     align-items: center;
     justify-content: center;
@@ -2030,7 +1975,7 @@ body {
       height: 40px;
       background: white;
       border-radius: 25px;
-      color: $main_red;
+      @extend .red-color;
       @include roboto-rg(20px);
     }
     .close-danger-alert {
@@ -2059,8 +2004,7 @@ body {
     background: $main_red;
     z-index: 2;
     box-sizing: border-box;
-    display: inline-flex;
-    flex-direction: column;
+    @extend .flex-column;
     justify-content: center;
     align-items: center;
     .attention {
@@ -2071,8 +2015,7 @@ body {
     }
     .glass-list {
       width: 100%;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       justify-content: center;
       align-items: center;
       @include roboto-rg(20px);
@@ -2083,8 +2026,7 @@ body {
     .extra-glass,
     span {
       width: 100%;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -2127,8 +2069,7 @@ body {
   }
   .mobile-left-menu {
     position: absolute;
-    display: inline-flex;
-    flex-direction: column;
+    @extend .flex-column;
     top: 0;
     height: 100%;
     width: 70%;
@@ -2182,8 +2123,7 @@ body {
     }
     .buttons-list {
       height: calc(100% - 200px);
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       align-items: flex-start;
       justify-content: flex-start;
       padding: 10px 0 10px 10px;
@@ -2195,8 +2135,7 @@ body {
       }
     }
     .footer {
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       justify-content: space-around;
       align-items: center;
       position: absolute;
@@ -2211,20 +2150,17 @@ body {
         height: 40px;
         width: 60%;
         background: white;
-        border: 1px solid $main_red;
-        color: $main_red;
-        -webkit-text-fill-color: $main_red;
+        @extend .border;
+        @extend .red-color;
         border-radius: 25px;
         p {
-          color: $main_red;
-          -webkit-text-fill-color: $main_red;
+          @extend .red-color;
           @include roboto-rg(20px);
         }
       }
       .title {
         p {
-          color: $main_red;
-          -webkit-text-fill-color: $main_red;
+          @extend .red-color;
           @include roboto-rg(12px);
         }
       }
@@ -2269,7 +2205,7 @@ body {
         }
         .cart-dialog-title {
           @include roboto-rg(15px);
-          color: $main_red;
+          @extend .red-color;
         }
         .cart-dialog-label {
           @include roboto-rg(20px);
@@ -2313,7 +2249,7 @@ body {
       .user-field {
         border-radius: 25px;
         background: white;
-        border: 1px solid $main_red;
+        @extend .border;
         height: 50px;
         width: 100%;
       }
@@ -2321,8 +2257,7 @@ body {
         all: unset;
         position: absolute;
         right: 5px;
-        color: $main_red;
-        -webkit-text-fill-color: $main_red;
+        @extend .red-color;
         @include roboto-bd(40px);
         &:before {
           all: unset;
@@ -2418,8 +2353,8 @@ body {
         background-color: white;
         cursor: pointer;
         &.active {
-          border: 1px solid $main_red;
-          color: $main_red;
+          @extend .border;
+          @extend .red-color;
         }
         &.activeAll {
           width: calc(15% - 5px);
@@ -2463,22 +2398,20 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    color: $main_red;
+    @extend .red-color;
   }
   .door-settings-mobile {
     position: absolute;
     top: 0;
     left: 0;
-    display: inline-flex;
-    flex-direction: column;
+    @extend .flex-column;
     width: 100%;
     height: 100%;
     background: white;
     z-index: 2;
     .door-congig-scroll {
       position: relative;
-      display: inline-flex;
-      flex-direction: column;
+      @extend .flex-column;
       width: 100%;
       height: calc(100% - 80px);
       overflow-x: hidden;
@@ -2492,7 +2425,7 @@ body {
     }
   }
   .selected {
-    border: 1px solid $main_red;
+    @extend .border;
     border-radius: 25px;
   }
   .mobile-order-history {
@@ -2503,14 +2436,17 @@ body {
       margin: 15px 0;
       display: inline-flex;
       justify-content: center;
+      height: 30px;
     }
     .search-config-order {
       width: 100%;
       display: inline-flex;
       justify-content: space-around;
       align-items: center;
+      height: 50px;
+      @include box-shadow($main_gray_dark 0 3px 10px -5px);
       .tool-btn {
-        color: $main_red;
+        @extend .red-color;
         @include font-icon(rem(60px),
         1);
       }
@@ -2532,14 +2468,14 @@ body {
           z-index: 2;
           border: 1px solid white;
           overflow: hidden;
-          transition: 2s;
+          transition: 1s;
           &.active {
             width: 90vw;
-            transition: 2s;
+            transition: 1s;
             border-radius: 50px;
           }
           &.border {
-            border: 1px solid $main_red;
+            @extend .border;
           }
           .close-dialog {
             top: 2px;
@@ -2575,9 +2511,7 @@ body {
           position: absolute;
           top: 14px;
           right: 15px;
-          display: inline-flex;
-          flex-direction: column;
-          
+          @extend .flex-column;
           height: 0px;
           width: 0px;
           overflow: hidden;
@@ -2585,26 +2519,26 @@ body {
           border-radius: 15px;
           background: white;
           padding: 0px;
-          transition: 2s;
+          transition: 1s;
           &.active {
-            top: 40px;
+            top: 50px;
             right: -5px;
             height: 330px;
             width: 90vw;
             background: white;
             z-index: 2;
             padding: 10px;
-            transition: 2s;
+            transition: 1s;
           }
           &.border {
-            border: 1px solid $main_red;
+            @extend .border;
           }
-          .filter-divider{
+          .filter-divider {
             @include roboto-lt(7vw);
-            margin : 5px 0;
+            margin: 5px 0;
             text-align: center;
           }
-          .filter-item{
+          .filter-item {
             @include roboto-rg(5vw);
             padding: 5px 0 5px 10px;
           }
@@ -2620,11 +2554,11 @@ body {
         width: 40vw;
         select {
           background: transparent;
-          border: 1px solid $main_red;
+          @extend .border;
           border-radius: 25px;
           width: 100%;
           height: 30px;
-          color: $main_red;
+          @extend .red-color;
           @include roboto-rg(4vw);
           padding-left: 10px;
           -moz-appearance: none;
@@ -2644,6 +2578,55 @@ body {
           height: 20px;
           transform: rotate(270deg);
           z-index: -1;
+        }
+      }
+    }
+    .order-list-scroll-block {
+      @extend .flex-column;
+      align-items: center;
+      height: calc(100% - 110px);
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      .order-card {
+        @extend .flex-column;
+        height: auto;
+        width: 90%;
+        flex: 0 0 auto;
+        @extend .border;
+        margin: 10px 0;
+        border-radius: 15px;
+        padding: 10px;
+        .order-row {
+          display: inline-flex;
+          width: 100%;
+          justify-content: space-between;
+          margin : 5px 0 0 0;
+          flex: 0 0 auto;
+          .order-row-item {
+            @extend .flex-column;
+            label {
+              @include roboto-rg(18px);
+            }
+            span {
+              @include roboto-rg(15px);
+              @extend .red-color;
+            }
+          }
+        }
+        .row-id {
+          display: inline-flex;
+          justify-content: space-between;
+          @include roboto-bd(11px);
+          flex: 0 0 auto;
+        }
+        .order-row-price {
+          margin : 10px 0 0 0;
+          display: inline-flex;
+          justify-content: flex-end;
+          @extend .red-color;
+          @include roboto-lt(30px);
+          flex: 0 0 auto;
         }
       }
     }
