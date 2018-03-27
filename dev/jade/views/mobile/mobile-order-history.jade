@@ -39,7 +39,7 @@
                         .filter-label {{ ::historyPage.SORT_SHOW_DONE }}
     .order-list-scroll-block
         .order-card(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index"
-                    )
+                     ng-class="{ 'done': order.order_style == 'done' }")
             .row-id
                 .order-row-item
                     label id {{ order.order_number }}-{{ order.id }}
@@ -61,6 +61,19 @@
                 .order-row-item
                     label {{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
             .order-row-price
+                .config.tool-btn(ng-click='historyPage.showOrderActions($index)')
                 label {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
+            .order-actions(ng-class='{active : historyPage.OrderActions === $index}')
+                .btn.delete(ng-hide="order.order_style == 'done'", fs-click="historyPage.clickDeleteOrder(order.order_type, order.id)")
+                    span {{ ::historyPage.DELETE }}
+                .btn(fs-click="historyPage.orderPrint(order.id)") 
+                    span {{ ::historyPage.PRINT }}
+                .btn(ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}", ng-hide="order.order_style == 'done'", fs-click="historyPage.editOrder(1, order.id)") 
+                    span {{ ::historyPage.CHANGE }}
+                 .btn(fs-click="historyPage.makeOrderCopy(order.order_style, order.id)") 
+                    span {{ ::historyPage.BUTTON_C }}
+                .btn.delete(ng-hide="order.order_style == 'done'", fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)", ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}")
+                    span {{ ::historyPage.SEND_ORDER_TITLE }}
+                .order-delete(ng-click='historyPage.OrderActions = -1')
 
             

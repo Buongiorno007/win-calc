@@ -111,8 +111,51 @@ body {
       margin-left: 0;
     }
   }
+  .alert-block,
+  .danger-alert {
+    all: unset;
+    display: inline-flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background: white;
+    top: 5%;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+    .alert-btns {
+      button {
+        display: inline-flex;
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .alert-descr {
+      width: 80%;
+      @include roboto-rg(15px);
+      text-align: center;
+    }
+    .order-delete {
+      all: unset;
+      position: absolute;
+      right: 2px;
+      width: 41px;
+      height: 41px;
+      background: url("../img/calc/close-calculator-hover.svg") no-repeat;
+      background-size: contain;
+      z-index: 2;
+      &:after {
+        all: unset;
+        content: '';
+      }
+    }
+  }
   .price-currency {
-    @include roboto-lt(rem($price_container-height-mobile - 4px),1);
+    @include roboto-lt(rem($price_container-height-mobile - 4px),
+    1);
     @extend .red-color;
     margin: 0 1vw;
   }
@@ -1920,47 +1963,7 @@ body {
       background-size: contain;
     }
   }
-  .alert-block,
-  .danger-alert {
-    all: unset;
-    @extend .flex-column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    background: white;
-    top: 5%;
-    left: 5%;
-    height: 90%;
-    width: 90%;
-    .alert-btns {
-      button {
-        display: inline-flex;
-        width: 100px;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-    .alert-descr {
-      width: 80%;
-      @include roboto-rg(15px);
-      text-align: center;
-    }
-    .order-delete {
-      all: unset;
-      position: absolute;
-      right: 2px;
-      width: 41px;
-      height: 41px;
-      background: url("../img/calc/close-calculator-hover.svg") no-repeat;
-      background-size: contain;
-      z-index: 2;
-      &:after {
-        all: unset;
-        content: '';
-      }
-    }
-  }
+
   .danger-alert {
     background: $main_red;
     z-index: 2;
@@ -2438,6 +2441,16 @@ body {
       justify-content: center;
       height: 30px;
     }
+    .tool-btn {
+      @extend .red-color;
+      @include font-icon(rem(60px),
+      1);
+    }
+    .config {
+      &:after {
+        content: $settings-icon;
+      }
+    }
     .search-config-order {
       width: 100%;
       display: inline-flex;
@@ -2445,11 +2458,6 @@ body {
       align-items: center;
       height: 50px;
       @include box-shadow($main_gray_dark 0 3px 10px -5px);
-      .tool-btn {
-        @extend .red-color;
-        @include font-icon(rem(60px),
-        1);
-      }
       .search {
         position: relative;
         .lupa {
@@ -2544,11 +2552,6 @@ body {
           }
         }
       }
-      .config {
-        &:after {
-          content: $settings-icon;
-        }
-      }
       .order {
         position: relative;
         width: 40vw;
@@ -2589,6 +2592,7 @@ body {
       overflow-x: hidden;
       overflow-y: auto;
       .order-card {
+        position: relative;
         @extend .flex-column;
         height: auto;
         width: 90%;
@@ -2601,7 +2605,7 @@ body {
           display: inline-flex;
           width: 100%;
           justify-content: space-between;
-          margin : 5px 0 0 0;
+          margin: 5px 0 0 0;
           flex: 0 0 auto;
           .order-row-item {
             @extend .flex-column;
@@ -2621,12 +2625,93 @@ body {
           flex: 0 0 auto;
         }
         .order-row-price {
-          margin : 10px 0 0 0;
+          margin: 10px 0 0 0;
           display: inline-flex;
-          justify-content: flex-end;
+          justify-content: space-between;
+          align-items: center;
           @extend .red-color;
           @include roboto-lt(30px);
           flex: 0 0 auto;
+        }
+        .order-actions {
+          position: absolute;
+          @extend .flex-column;
+          align-items: flex-start;
+          justify-content: space-between;
+          border-radius: 15px;
+          width: 0;
+          height: 0;
+          bottom: 30px;
+          left: 25px;
+          transition: 1s;
+          overflow: hidden;
+          z-index: 1;
+          background: white;
+          padding: 0;
+          border: 1px solid transparent;
+          &.active {
+            padding: 5px 10px;
+            @extend .border;
+            width: 80%;
+            height: calc(100% + 2px);
+            bottom: -1px;
+            left: -1px;
+            background: white;
+            transition: 1s; 
+            box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5)
+          }
+          .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            padding: 0 25px;
+            height: 40px;
+            @extend .border;
+            border-radius: 25px;
+            @include roboto-rg(15px);
+            margin: 5px 0;
+          }
+          .delete {
+            color: white;
+            -webkit-text-fill-color: white;
+            background: $main_red;
+          }
+          .order-delete {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: url("../img/calc/close-calculator-hover.svg") no-repeat;
+            background-size: contain;
+          }
+        }
+      }
+      .done {
+        border: 1px solid $main_gray_btn;
+        background: $main_f3;
+        .order-row-price {
+          color: black;
+          -webkit-text-fill-color: black;
+          @include roboto-lt(30px);
+          flex: 0 0 auto;
+        }
+        .order-actions {
+          justify-content: flex-start;
+          background: $main_f3;
+          .btn {
+            border: 1px solid $main_gray_btn;
+          }
+          &.active {
+            background: $main_f3;
+            border: 1px solid $main_gray_txt;
+            
+          }
+        }
+        .tool-btn {
+          color: black;
+          -webkit-text-fill-color: black;
         }
       }
     }
