@@ -216,14 +216,9 @@
           GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
         }
 
-
-        $(".scroll-hor-container").resize(function () {
-          console.log(".scroll-hor-container");
-        });
-        $(".order-block").resize(function () {
-          console.log(".order-block");
-        });
-
+        setTimeout(() => {
+          $('.product-container').scrollTop(70);
+        }, 5);
 
         function coutNull(arr) {
           var tmp = 0;
@@ -238,6 +233,7 @@
         function showMoundDeliveryFunc() {
           GlobalStor.global.showMountDelivery = !GlobalStor.global.showMountDelivery;
         }
+
         function cancelMoundDeliveryFunc() {
           GlobalStor.global.showMountDelivery = !GlobalStor.global.showMountDelivery;
           CartMenuServ.selectFloorPrice(0);
