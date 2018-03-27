@@ -400,7 +400,7 @@ gulp.task('buildOrangeExt', function () {
   buildExt("orange");
 });
 gulp.task('buildWindowSiteExt', function () {
-  buildExt("steko");
+  buildExt("windowSiteTest");
 });
 gulp.task('buildExt', function () {
   gulp.start('buildStekoExt', 'buildWindowExt', 'buildOrangeExt');
@@ -507,7 +507,7 @@ gulp.task('buildStekoSite', function () {
 });
 
 gulp.task('buildWindowSiteTest', function () {
-  buildSite("windowSiteTest");
+  buildSite("steko");
 });
 
 
