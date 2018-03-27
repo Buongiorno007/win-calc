@@ -20,7 +20,7 @@
                         label {{ cartMenu.O.order.delivery_garbage_removal }} {{ cartMenu.U.userInfo.currency }}
                 .mobile-delivery-selected(ng-if="cartMenu.O.order.delivery_add"  ng-hide='cartMenu.config.activeMenuItem == 1') 
                     .mobile-delivery-value
-                        label{{ ::cartMenu.DELIVERY}}
+                        label {{ ::cartMenu.DELIVERY}}
                     .mobile-delivery-price
                         label {{ cartMenu.O.order.delivery_add }} {{ cartMenu.U.userInfo.currency }}
                 .mobile-delivery-selected(ng-if="!cartMenu.O.order.floor_id"  ng-hide='cartMenu.config.activeMenuItem == 1')
