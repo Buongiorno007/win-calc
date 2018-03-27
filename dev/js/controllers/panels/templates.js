@@ -61,8 +61,6 @@
                         console.log(results);
                     }
                 });
-                GlobalStor.global.SelectedTemplateIndex = ProductStor.product.template_id;
-                GlobalStor.global.SelectedTemplateName = GlobalStor.global.templatesImgs[6].name;
 
                 /**============ METHODS ================*/
 
