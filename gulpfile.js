@@ -37,6 +37,7 @@ var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
     "windowSiteTest": "'http://api.test.windowscalculator.net'",
+    "windowSiteLocal": "'http://api.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
     "steko": "'http://api.steko.com.ua'",
     "orange": "'http://api.calc.csokna.ru'",
@@ -44,6 +45,7 @@ var server_env = {
   },
   print_env = {
     "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSiteLocal": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
@@ -51,6 +53,7 @@ var server_env = {
   },
   path_env = {
     "windowSiteTest": "'/calculator/local/'",
+    "windowSiteLocal": "'/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
     "orange": "'/local/'",
@@ -397,7 +400,7 @@ gulp.task('buildOrangeExt', function () {
   buildExt("orange");
 });
 gulp.task('buildWindowSiteExt', function () {
-  buildExt("windowSiteTest");
+  buildExt("steko");
 });
 gulp.task('buildExt', function () {
   gulp.start('buildStekoExt', 'buildWindowExt', 'buildOrangeExt');
