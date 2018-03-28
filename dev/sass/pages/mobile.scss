@@ -31,7 +31,7 @@
   display: flex;
   background: linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%);
   /* w3c */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35424b', endColorstr='#615D6B', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#35424b', endColorstr='#615D6B', GradientType=0);
   /* ie6-9 */
 }
 
@@ -94,7 +94,7 @@ body {
   }
   .price-value {
     @include roboto-lt(rem($price_container-height-mobile),
-    1);
+            1);
     display: inline-flex;
     overflow: hidden;
     height: rem($price_container-height-mobile);
@@ -155,7 +155,7 @@ body {
   }
   .price-currency {
     @include roboto-lt(rem($price_container-height-mobile - 4px),
-    1);
+            1);
     @extend .red-color;
     margin: 0 1vw;
   }
@@ -214,7 +214,7 @@ body {
         color: white;
         -webkit-text-fill-color: white;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
-        1);
+                1);
         margin-left: 15px;
         height: 100%;
         display: inline-flex;
@@ -230,14 +230,13 @@ body {
         border-radius: 50px;
         @extend .red-color;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
-        1);
+                1);
         margin-right: 1px;
       }
     }
   }
   .number {
-    width: 177px;
-    ;
+    width: 177px;;
   }
   .control-buttons-container {
     position: absolute;
@@ -428,7 +427,7 @@ body {
           .name {
             margin: 10px 0px;
             @include roboto-lt(rem(25px),
-            1);
+                    1);
           }
           &.active {
             border: 2px solid $main_red;
@@ -2447,7 +2446,7 @@ body {
     .tool-btn {
       @extend .red-color;
       @include font-icon(rem(60px),
-      1);
+              1);
     }
     .config {
       &:after {
@@ -2660,7 +2659,7 @@ body {
             bottom: -1px;
             left: -1px;
             background: white;
-            transition: 1s; 
+            transition: 1s;
             box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5)
           }
           .btn {
@@ -2709,7 +2708,7 @@ body {
           &.active {
             background: $main_f3;
             border: 1px solid $main_gray_txt;
-            
+
           }
         }
         .tool-btn {
@@ -2717,6 +2716,90 @@ body {
           -webkit-text-fill-color: black;
         }
       }
+    }
+  }
+  .mobile-discount {
+    @extend .flex-column;
+    background: white;
+    align-items: center;
+    .mobile-discount-row {
+      display: inline-flex;
+      width: 80%;
+      align-items: center;
+      justify-content: flex-start;
+      border-radius: 15px;
+      margin: 5px 0;
+      height: auto;
+      flex: 0 0 auto;
+    }
+    .mobile-discount-col {
+      @extend .flex-column;
+      width: 80%;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 5px 0;
+      height: auto;
+      flex: 0 0 auto;
+      .discount-price-box {
+        display: inline-flex;
+        flex: 0 0 auto;
+      }
+      .discount-box {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 100%;
+        margin: 5px 0;
+        height: 40px;
+        flex: 0 0 auto;
+        .discounts-icon-down {
+          position: absolute;
+          right: 10px;
+          top: 9px;
+          width: 20px;
+          height: 20px;
+          background: url("../img/calc/back_red.svg") no-repeat;
+          background-size: contain;
+          display: inline-block;
+          transform: rotate(270deg);
+        }
+
+        .discounts-icon-up {
+          position: absolute;
+          right: 10px;
+          top: 8px;
+          width: 20px;
+          height: 20px;
+          background: url("../img/calc/back_red.svg") no-repeat;
+          background-size: contain;
+          display: inline-block;
+          transform: rotate(90deg);
+        }
+      }
+      .discount-box {
+        @include roboto-lt(15px);
+        padding-left: 15px;
+
+      }
+      .disc {
+        height: auto;
+        flex: 0 0 auto;
+
+        .disc-input {
+          width: 30px;
+          border: none;
+        }
+      }
+    }
+    .delete {
+      height: 40px;
+      color: white;
+      -webkit-text-fill-color: white;
+      background: $main_red;
+      @include roboto-lt(20px);
+      justify-content: center;
+      border-radius: 25px;
+
     }
   }
 }
