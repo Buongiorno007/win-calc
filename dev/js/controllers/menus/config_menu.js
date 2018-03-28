@@ -292,6 +292,8 @@
                     GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
                 }
 
+
+
                 /**========== FINISH ==========*/
 
                 //------ clicking

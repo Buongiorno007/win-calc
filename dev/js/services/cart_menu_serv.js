@@ -649,6 +649,7 @@
                 }
 
                 function swipeDiscountBlock() {
+                    console.log('swipeDiscountBlock');
                     if (!CartStor.cart.isShowDiscount) {
                         CartStor.cart.tempConstructDisc = +OrderStor.order.discount_construct;
                         CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;

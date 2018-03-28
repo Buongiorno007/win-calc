@@ -66,7 +66,7 @@
                     span {{::cartPage.BUTTON_E}}
     .cart-footer-container
         .cart-footer
-            .price
+            .price(ng-click='cartPage.swipeDiscountBlock()')
                 price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
             .spesification(ng-click='cartPage.openOrderDialog()')
                 label {{cartPage.ORDER_LV}}
@@ -144,5 +144,6 @@
             div &#8721;
 
     include mount-delivery
+    include discount-mobile
     .backDarkView(ng-show="cartPage.C.cart.showCurrentTemp || cartPage.config.isAddElementDetail")
 
