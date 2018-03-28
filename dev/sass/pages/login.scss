@@ -9,6 +9,34 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   #no-visible {
     display: none;
   }
+  .input-field {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: rem(20px);
+
+    &.has-error > .user-field {
+      border-color: $error_color;
+    }
+  }
+  .user-field {
+    @include roboto-lt(rem(36px));
+    display: block;
+    color: #35424b !important;
+    width: 80%;
+    height: rem(80px);
+    text-align: center;
+    border: 1px solid #221c48;
+    border-radius: 50px;
+    outline: none;
+
+    &.ng-invalid-minlength,
+    &.ng-invalid-pattern {
+      border-color: $error_color;
+    }
+  }
 }
 
 .login-container {
@@ -72,35 +100,9 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   height: 4.75rem;
 }
 
-.input-field {
-  display: inline-flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin-bottom: rem(20px);
 
-  &.has-error > .user-field {
-    border-color: $error_color;
-  }
-}
 
-.user-field {
-  @include roboto-lt(rem(36px));
-  display: block;
-  color: #35424b !important;
-  width: 80%;
-  height: rem(80px);
-  text-align: center;
-  border: 1px solid #221c48;
-  border-radius: 50px;
-  outline: none;
 
-  &.ng-invalid-minlength,
-  &.ng-invalid-pattern {
-    border-color: $error_color;
-  }
-}
 
 .user-field-add {
   @include roboto-lt(rem(36px));

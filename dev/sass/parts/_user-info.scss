@@ -15,10 +15,10 @@
     &.orange-navmenu-btn:before {
       color: $main_orange;
     }
+    z-index: 2;
   }
   .user-foto {
     @extend .avatar;
-
     margin: 0 rem(20px);
   }
   .icon-location {
