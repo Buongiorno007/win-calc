@@ -16,6 +16,13 @@
     background-color: #fff;
     text-align: center;
   }
+  .input-field {
+    position: relative;
+    margin-bottom: rem(44px);
+    &.has-error > .user-field {
+      border-color: $error_color;
+    }
+  }
 
   .template-window {
     @extend .splash;

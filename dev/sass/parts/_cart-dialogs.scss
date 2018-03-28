@@ -119,6 +119,21 @@ position: absolute;
     background-color: #f0f0f0;
     border-bottom-left-radius: rem($radius_login-container);
     border-bottom-right-radius: rem($radius_login-container);
+    .user-field {
+      @include roboto-lt(rem(36px));
+
+      display: block;
+      width: 100%;
+      height: rem(112px);
+      padding: rem(20px);
+      border: 1px solid #8c8c8c;
+      border-radius: rem($radius_general-big_button);
+      outline: none;
+      &.ng-invalid-minlength,
+      &.ng-invalid-pattern {
+        border-color: $error_color;
+      }
+    }
   }
   .cart-dialog-descrip {
     @include roboto-lt(rem(36px));
