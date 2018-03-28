@@ -121,7 +121,6 @@ position: absolute;
     border-bottom-right-radius: rem($radius_login-container);
     .user-field {
       @include roboto-lt(rem(36px));
-
       display: inline-flex;
       width: 100%;
       height: rem(112px);
@@ -141,6 +140,10 @@ position: absolute;
         display: inline-block;
         width: 12.5% ;
       }
+    }
+    .input-field {
+      margin-bottom: rem(44px);
+      
     }
   }
   .cart-dialog-descrip {
