@@ -122,7 +122,7 @@ position: absolute;
     .user-field {
       @include roboto-lt(rem(36px));
 
-      display: block;
+      display: inline-flex;
       width: 100%;
       height: rem(112px);
       padding: rem(20px);
@@ -132,6 +132,14 @@ position: absolute;
       &.ng-invalid-minlength,
       &.ng-invalid-pattern {
         border-color: $error_color;
+      }
+      &.street {
+        display: inline-block;
+        width: 60%;
+      }
+      &.small {
+        display: inline-block;
+        width: 12.5% ;
       }
     }
   }
@@ -294,16 +302,7 @@ position: absolute;
 }
 
 
- .user-field {
-   &.street {
-     display: inline-block;
-     width: 60%;
-   }
-   &.small {
-     display: inline-block;
-     width: 12.5%;
-   }
- }
+
 
 .cart-dialogs .error-tooltip {
   top: 1rem;
