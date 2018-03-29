@@ -249,7 +249,7 @@ body {
     border-top: 1px solid $main_gray_light;
     background: #f9f9f9;
     .control-button {
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       align-items: center;
       width: 25%;
       height: 100%;
@@ -363,12 +363,12 @@ body {
       bottom: 0;
       height: 100%;
       width: 100%;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       align-items: center;
       background: white;
       z-index: 1;
       .types {
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         height: auto;
         width: 100%;
         align-items: center;
@@ -415,7 +415,7 @@ body {
           text-align: center;
           margin: 0 15px;
           position: relative;
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           align-items: center;
           justify-content: space-between;
           box-sizing: content-box;
@@ -434,7 +434,7 @@ body {
           }
         }
         .door {
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           .template-img {
             height: 120px;
           }
@@ -459,7 +459,7 @@ body {
       .figure-lists {
         .figure-item {
           position: relative;
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           align-items: center;
           justify-content: space-evenly;
           height: 9vh;
@@ -586,7 +586,7 @@ body {
     .config-content {
       .conf-item {
         position: relative;
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         align-items: center;
         justify-content: flex-end;
         flex: 0 0 auto;
@@ -658,7 +658,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     align-items: center;
     z-index: 1;
     .calc-delete {
@@ -701,7 +701,7 @@ body {
     top: 0;
     left: 0;
     background: white;
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     align-items: center;
     justify-content: space-around;
     width: 100%;
@@ -768,7 +768,7 @@ body {
   }
   .mobile-profiles {
     .profiles-list {
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       height: calc(100% - 100px);
       overflow-y: scroll;
       overflow-x: hidden;
@@ -776,7 +776,7 @@ body {
       margin-top: 100px;
       -webkit-overflow-scrolling: touch;
       .profile-block {
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         height: 109vw;
         flex: 0 0 auto;
         width: 100%;
@@ -812,13 +812,13 @@ body {
             position: relative;
             height: 86vw;
             width: 43vw !important;
-            @extend .flex-column;
+            display : inline-flex; flex-direction : column;
             align-items: center;
             justify-content: space-between;
             border: 1px solid $main_f7;
             box-sizing: content-box;
             .profile-info-item {
-              @extend .flex-column;
+              display : inline-flex; flex-direction : column;
               align-items: center;
               width: 43vw;
               .name {
@@ -859,7 +859,7 @@ body {
               width: 100%;
             }
             .common-info {
-              @extend .flex-column;
+              display : inline-flex; flex-direction : column;
               align-items: center;
               justify-content: flex-end;
               height: 15.48vw;
@@ -895,9 +895,13 @@ body {
       .glass-block {
         all: unset;
         position: relative;
-        @extend .flex-column;
+        display: inline-flex;
+        justify-content: center;
         align-items: center;
         width: 100%;
+        flex-direction: column;
+        flex: 0 0 auto;
+
         .button {
           width: 90%;
           height: 60px;
@@ -933,7 +937,7 @@ body {
         .glass-folder {
           position: relative;
           width: 100%;
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           align-items: center;
           transition: 5s linear;
           .glass-item {
@@ -968,7 +972,11 @@ body {
               z-index: 1;
               &.selected {
                 @extend .red-color;
+                border: none;
               }
+            }
+            p {
+              @extend .splice;
             }
           }
         }
@@ -1022,7 +1030,7 @@ body {
       position: relative;
       width: 100%;
       height: auto;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       align-items: center;
       justify-content: center;
       .apply-title {
@@ -1044,7 +1052,7 @@ body {
         justify-content: center;
         flex-direction: row;
         &.column {
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           align-items: center;
           justify-content: center;
         }
@@ -1126,7 +1134,7 @@ body {
     }
     .laminat-box {
       width: 100%;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       align-items: center;
       justify-content: center;
       .laminat-row {
@@ -1202,7 +1210,7 @@ body {
       }
       .laminat-folder {
         width: 100%;
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         align-items: center;
         justify-content: center;
       }
@@ -1224,12 +1232,12 @@ body {
     overflow: auto;
     .folders-container {
       padding-top: 120px;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       width: 100%;
       height: auto;
       overflow: auto;
       .folders {
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         align-items: flex-start;
         width: 100%;
         height: auto;
@@ -1250,7 +1258,7 @@ body {
         }
         @include roboto-lt(25px);
         .subfolders {
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           align-items: center;
           width: 100%;
           .subfolders-name {
@@ -1308,7 +1316,7 @@ body {
         }
         .choosen-add-elem {
           position: relative;
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           width: 100%;
           .row-header {
             display: inline-flex;
@@ -1336,7 +1344,7 @@ body {
             justify-content: space-around;
             padding-right: 20px;
             .item {
-              @extend .flex-column;
+              display : inline-flex; flex-direction : column;
               align-items: center;
               @include roboto-lt(15px);
               .val {
@@ -1361,7 +1369,7 @@ body {
       position: fixed;
       top: 0px;
       left: 0;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       align-items: center;
       justify-content: center;
       width: 100%;
@@ -1468,7 +1476,7 @@ body {
   }
   .cart-mobile {
     background: $main_f3;
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     .cart-header {
       display: inline-flex;
       align-items: center;
@@ -1476,7 +1484,7 @@ body {
       height: 70px;
       width: 100%;
       .header-buttons {
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         align-items: center;
         justify-content: center;
         height: 50px;
@@ -1487,7 +1495,7 @@ body {
       }
     }
     .product-container {
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       width: 100%;
       height: calc(100% - 170px);
       min-height: calc(100% - 170px);
@@ -1513,7 +1521,7 @@ body {
         @include roboto-rg(15px);
         @include box-shadow($main_gray_btn 0px 0px 5px 1px);
         .col {
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           width: 50%;
           height: 100%;
           svg-template {
@@ -1728,14 +1736,14 @@ body {
       .mobile-delivery {
         align-items: center;
         justify-content: center;
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         min-height: 80px;
         width: 100%;
         padding: 10px 0;
         flex: 0 0 auto;
       }
       .mount-delivery-mountings-container {
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         width: 100%;
         height: calc(100% - 60px);
         background: white;
@@ -1759,10 +1767,11 @@ body {
         .selected {
           @extend .border;
           border-radius: 25px;
+          @extend .red-color;
         }
         .dropdown-items-list {
           width: 100%;
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           align-items: center;
           justify-content: center;
         }
@@ -1880,7 +1889,7 @@ body {
     left: 12px;
     height: 95%;
     width: 93%;
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     align-items: center;
     justify-content: space-around;
     padding: 50px 10px 20px 10px;
@@ -1890,7 +1899,7 @@ body {
       display: inline-flex;
       width: 100%;
       align-items: center;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       color: white;
       -webkit-text-fill-color: white;
       @include roboto-bd(90px);
@@ -2019,7 +2028,7 @@ body {
     background: $main_red;
     z-index: 2;
     box-sizing: border-box;
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     justify-content: center;
     align-items: center;
     .attention {
@@ -2030,18 +2039,19 @@ body {
     }
     .glass-list {
       width: 100%;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       justify-content: center;
       align-items: center;
       @include roboto-rg(20px);
       color: white;
       -webkit-text-fill-color: white;
-      margin: 25px 0 25px 0;
+      margin: 50px 0 25px 0;
+      height: auto;
     }
     .extra-glass,
     span {
       width: 100%;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -2084,7 +2094,7 @@ body {
   }
   .mobile-left-menu {
     position: absolute;
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     top: 0;
     height: 100%;
     width: 70%;
@@ -2138,7 +2148,7 @@ body {
     }
     .buttons-list {
       height: calc(100% - 200px);
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       align-items: flex-start;
       justify-content: flex-start;
       padding: 10px 0 10px 10px;
@@ -2150,7 +2160,7 @@ body {
       }
     }
     .footer {
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       justify-content: space-around;
       align-items: center;
       position: absolute;
@@ -2422,14 +2432,14 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     width: 100%;
     height: 100%;
     background: white;
     z-index: 2;
     .door-congig-scroll {
       position: relative;
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       width: 100%;
       height: calc(100% - 80px);
       overflow-x: hidden;
@@ -2534,7 +2544,7 @@ body {
           position: absolute;
           top: 14px;
           right: 15px;
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           height: 0px;
           width: 0px;
           overflow: hidden;
@@ -2600,7 +2610,7 @@ body {
       }
     }
     .order-list-scroll-block {
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       align-items: center;
       height: calc(100% - 110px);
       width: 100%;
@@ -2608,7 +2618,7 @@ body {
       overflow-y: auto;
       .order-card {
         position: relative;
-        @extend .flex-column;
+        display : inline-flex; flex-direction : column;
         height: auto;
         width: 90%;
         flex: 0 0 auto;
@@ -2623,7 +2633,7 @@ body {
           margin: 5px 0 0 0;
           flex: 0 0 auto;
           .order-row-item {
-            @extend .flex-column;
+            display : inline-flex; flex-direction : column;
             label {
               @include roboto-rg(18px);
             }
@@ -2650,7 +2660,7 @@ body {
         }
         .order-actions {
           position: absolute;
-          @extend .flex-column;
+          display : inline-flex; flex-direction : column;
           align-items: flex-start;
           justify-content: space-between;
           border-radius: 15px;
@@ -2732,7 +2742,7 @@ body {
     }
   }
   .mobile-discount {
-    @extend .flex-column;
+    display : inline-flex; flex-direction : column;
     background: white;
     align-items: center;
     padding: 25px 0;
@@ -2755,7 +2765,7 @@ body {
       }
     }
     .mobile-discount-col {
-      @extend .flex-column;
+      display : inline-flex; flex-direction : column;
       width: 85%;
       align-items: center;
       justify-content: flex-start;
