@@ -2611,22 +2611,6 @@
                 return value;
             }
 
-            function dataF(id) {
-                switch (id) {
-                    case 1:
-                        return "2017-08-01";
-                        break;
-                    case 12:
-                        return "2017-09-01";
-                        break;
-                    case 56:
-                        return "2017-10-01";
-                        break;
-                    default:
-                        return "2017-08-01";
-                }
-            }
-
             function culcPriceAsRule(parentValue,
                                      currSize,
                                      currConsist,
@@ -2687,9 +2671,9 @@
                             //console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', (currSize + pruning) * currConsist.value, qtyReal, ' kg. на метр родителя');
                             break;
                         case 24:
-                            sizeReal = 0;
+                            // sizeReal = 0;
                             qtyReal = parentValue * currConsist.value;
-                            //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', (currSize + pruning - currConsist.value), sizeReal);
+                            //кг на родителя
                             break;
                         case 2:
                         case 4:

@@ -96,7 +96,6 @@
                 }
 
                 function closeReport() {
-                    console.log('closeReport');
                     GlobalStor.global.isReport = 0;
                     GlobalStor.global.isMobileReport = 0;
                 }
