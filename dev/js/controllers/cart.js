@@ -246,6 +246,10 @@
                     OrderStor.order.comment = '';
                 }
 
+                function discountChange(){
+
+                }
+
                 /**========== FINISH ==========*/
 
                 //------ clicking

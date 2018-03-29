@@ -2722,19 +2722,28 @@ body {
     @extend .flex-column;
     background: white;
     align-items: center;
+    padding: 25px 0;
     .mobile-discount-row {
       display: inline-flex;
-      width: 80%;
+      width: 85%;
       align-items: center;
       justify-content: flex-start;
       border-radius: 15px;
-      margin: 5px 0;
+      margin: 25px 5px 0 0;
       height: auto;
       flex: 0 0 auto;
+      @include roboto-rg(20px);
+      text-transform: capitalize;
+      .discount-price-label {
+        @include roboto-rg(10px);
+      }
+      .discount-price-box{
+        width: 50%;
+      }
     }
     .mobile-discount-col {
       @extend .flex-column;
-      width: 80%;
+      width: 85%;
       align-items: center;
       justify-content: flex-start;
       margin: 5px 0;
@@ -2752,6 +2761,19 @@ body {
         margin: 5px 0;
         height: 40px;
         flex: 0 0 auto;
+        @include roboto-lt(15px);
+        text-align: right;
+        padding-left: 15px;
+        .discounts-label {
+          margin-left: 10px;
+
+        }
+        .red {
+          @extend .red-color;
+        }
+        .discount-data {
+          width: 50px;
+        }
         .discounts-icon-down {
           position: absolute;
           right: 10px;
@@ -2776,19 +2798,19 @@ body {
           transform: rotate(90deg);
         }
       }
-      .discount-box {
-        @include roboto-lt(15px);
-        padding-left: 15px;
-
+      #disc-input-main{
+        width: 30px;
+      }
+      .disc-input {
+        width: 30px;
+        border: none;
+        text-align: right;
+        margin-right: 4px;
       }
       .disc {
         height: auto;
         flex: 0 0 auto;
 
-        .disc-input {
-          width: 30px;
-          border: none;
-        }
       }
     }
     .delete {

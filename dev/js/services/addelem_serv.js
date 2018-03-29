@@ -22,7 +22,6 @@
                 var thisFactory = this,
                     delayShowElementsMenu = globalConstants.STEP * 12;
                 /**============ METHODS ================*/
-                console.log(GlobalStor.global.typeMenu);
                 function downloadAddElementsData(id) {
                     var index = (id - 1),
                         gridsSort;
