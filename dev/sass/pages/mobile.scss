@@ -777,13 +777,15 @@ body {
       -webkit-overflow-scrolling: touch;
       .profile-block {
         @extend .flex-column;
-        height: auto;
+        height: 109vw;
+        flex: 0 0 auto;
         width: 100%;
         .producer {
           display: inline-flex;
           align-items: center;
           height: 70px;
           background: $main_f7;
+          flex: 0 0 auto;
           .title {
             margin: 0;
             display: inline-flex;
@@ -799,11 +801,12 @@ body {
           min-width: 100%;
           display: flex;
           flex-wrap: nowrap;
-          height: auto;
+          height: 88vw;
           overflow-x: auto;
           overflow-y: hidden;
           -webkit-overflow-scrolling: touch;
           -ms-overflow-style: -ms-autohiding-scrollbar;
+          flex: 0 0 auto;
           .profile-info {
             flex: 0 0 auto;
             position: relative;
@@ -838,6 +841,7 @@ body {
             &.selected {
               border: 2px solid $main_red;
               background: $main_f7;
+              border-radius: 0;
             }
             .profile-img {
               display: inline-flex;
