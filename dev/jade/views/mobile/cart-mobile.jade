@@ -18,8 +18,13 @@
                 .prod-template(ng-click="cartPage.showCartTemplte($index)")
                     svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
                 .prod-heat-coef
-                    label U = {{ product.heat_coef_total | number : 2}}
-                    label {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
+                    .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
+                        div.R-MInfo {{ product.heat_coef_total | number : 2 }} {{"\u00A0"+"\u00A0"}}
+                        div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
+                    .order-u-coeff(ng-if="!cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > cartPage.O.order.heat_coef_min}")
+                        div U = {{ product.heat_coef_total | number : 2}}
+                        div {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
+
                 .prod-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
 
                 .prod-count

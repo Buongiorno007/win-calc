@@ -1893,7 +1893,9 @@
                       ProductStor.product.lamination.img_in_id === 5 ||
                       ProductStor.product.lamination.img_in_id === 15 ||
                       ProductStor.product.lamination.img_in_id === 6 ||
-                      ProductStor.product.lamination.img_in_id === 16) {
+                      ProductStor.product.lamination.img_in_id === 16||
+                        ProductStor.product.lamination.img_in_id === 8 ||
+                        ProductStor.product.lamination.img_in_id === 18) {
 
                       if (ProductStor.product.lamination.img_in_id === 4 || ProductStor.product.lamination.img_in_id === 14) {
                         color_id = 4;
@@ -1904,6 +1906,9 @@
                       if (ProductStor.product.lamination.img_in_id === 6 || ProductStor.product.lamination.img_in_id === 16) {
                         color_id = 6;
                       }
+                        if (ProductStor.product.lamination.img_in_id === 8 || ProductStor.product.lamination.img_in_id === 18) {
+                            color_id = 8;
+                        }
                       defs.append('pattern')
                         .attr('id', 'laminat_horizontal_frame')
                         .attr('patternUnits', 'objectBoundingBox')
@@ -2276,7 +2281,9 @@
                               ProductStor.product.lamination.img_in_id === 5 ||
                               ProductStor.product.lamination.img_in_id === 15 ||
                               ProductStor.product.lamination.img_in_id === 6 ||
-                              ProductStor.product.lamination.img_in_id === 16) {
+                              ProductStor.product.lamination.img_in_id === 16||
+                                ProductStor.product.lamination.img_in_id === 8 ||
+                                ProductStor.product.lamination.img_in_id === 18) {
 
                               if (d.type === "frame") {
                                 switch (indexFrame) {

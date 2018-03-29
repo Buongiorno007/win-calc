@@ -467,8 +467,8 @@
     "DISCOUNT_WITH": "С учетом скидки",
     "DISCOUNT_WITHOUT": "Без учета скидки",
     "DISCOUNT_WINDOW": "Скидка на изделие",
-    "DISCOUNT_ADDELEM": "Скидка на дополнительные элементы",
-    "DISCOUNT_SERVICE": "Скидка на дополнительные услуги",
+    "DISCOUNT_ADDELEM": "Скидка на доп. элементы",
+    "DISCOUNT_SERVICE": "Скидка на доп. услуги",
     "ORDER_COMMENT": "Заметка о заказе",
     "UNKNOWN": "Неизвестно"
   },

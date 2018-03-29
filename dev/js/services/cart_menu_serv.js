@@ -674,6 +674,8 @@
 
                 function approveNewDisc(type) {
                     if (type === 0) {
+                        if (!CartStor.cart.tempConstructDisc)
+                            CartStor.cart.tempConstructDisc = 0;
                         //------- discount x construction
                         CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
                         if (CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
@@ -683,6 +685,8 @@
                         changeProductPriceAsDiscount(OrderStor.order.discount_construct);
                     } else if (type === 1) {
                         //------- discount x add element
+                        if (!CartStor.cart.tempAddelemDisc)
+                            CartStor.cart.tempAddelemDisc = 0;
                         CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
                         if (CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
                             CartStor.cart.tempAddelemDisc = +UserStor.userInfo.discountAddElemMax;
@@ -691,6 +695,8 @@
                         changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
 
                     } else {
+                        if (!CartStor.cart.discount_service)
+                            CartStor.cart.discount_service = 0;
                         CartStor.cart.discount_service = checkNewDiscount(CartStor.cart.discount_service);
                         if (CartStor.cart.discount_service > 100) {
                             CartStor.cart.discount_service = 100;
