@@ -1537,7 +1537,16 @@ body {
             justify-content: center;
             position: relative;
             top: 20px;
-            @extend .red-color;
+            .order-u-coeff {
+              width: 100%;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              color: $main_green;
+            }
+            .coeff-low {
+              @extend .red-color;
+            }
           }
           .prod-count {
             display: inline-flex;
