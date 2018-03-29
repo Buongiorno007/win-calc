@@ -2664,12 +2664,10 @@
                         case 1:
                         case 21:
                         case 22:
-                            sizeReal = GeneralServ.roundingValue(
-                                currSize + pruning - currConsist.value,
-                                3
-                            );
+                            sizeReal = GeneralServ.roundingValue( currSize + pruning - currConsist.value, 3 );
                             //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', (currSize + pruning - currConsist.value), sizeReal);
                             break;
+
                         case 3:
                             //qtyReal = Math.round(currSize + pruning) * currConsist.value;
                             qtyReal = (currSize + pruning) * currConsist.value;
@@ -2687,6 +2685,11 @@
                             //qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
                             qtyReal = (currSize + pruning) * currConsist.value;
                             //console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', (currSize + pruning) * currConsist.value, qtyReal, ' kg. на метр родителя');
+                            break;
+                        case 24:
+                            sizeReal = 0;
+                            qtyReal = parentValue * currConsist.value;
+                            //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', (currSize + pruning - currConsist.value), sizeReal);
                             break;
                         case 2:
                         case 4:
