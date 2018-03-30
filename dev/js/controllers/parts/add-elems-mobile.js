@@ -61,9 +61,9 @@
         if (index === 0) {
           item.elementsList[0] = filterMoscitos(item.elementsList[0]);
         }
-        if (GeneralServ.addElementDATA[index].id < 99) {
+        if (GeneralServ.addElementDATA[index].id < 100 && !GeneralServ.addElementDATA[index].disable_mobile) {
           if (item.elementType && item.elementsList) {
-            let tmp = '';
+            let tmp;
             tmp = GeneralServ.addElementDATA[index];
             tmp.folder = merge(angular.copy(item.elementType), angular.copy(item.elementsList));
             thisCtrl.AddElementsMobile.push(tmp);

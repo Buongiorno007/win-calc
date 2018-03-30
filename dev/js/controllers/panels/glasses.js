@@ -54,6 +54,7 @@
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
                 thisCtrl.OpenFolder = -1;
                 /**============ METHODS ================*/
+                console.log(GlobalStor.global.glassesAll);
                 function changePriceAsNewGlass() {
                     var hardwareIds;
                     DesignStor.design.selectedGlass.length = 0;
