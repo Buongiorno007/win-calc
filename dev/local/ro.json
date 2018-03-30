@@ -254,6 +254,7 @@
     "INPUT_ADD_ELEMENT": "Adaugă component",
     "CANCEL": "Anulare",
     "TOTAL_PRICE_TXT": "Total componenți suplimentari în sumă de:",
+    "TOTAL_PRICE_SHORT": "Total",
     "ELEMENTS": "componente",
     "ELEMENT": "componentă",
     "ELEMENTA": "componentei"

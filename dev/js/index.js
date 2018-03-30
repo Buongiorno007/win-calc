@@ -25,7 +25,7 @@ let portrait = false;
         // console.log("Web page");
     }
     $(window).load(function () {
-        location.hash = "#/";
+        location.hash = "/";
     });
     if (isDevice) {
 

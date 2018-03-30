@@ -1,7 +1,7 @@
 .cart-mobile.mobile-common-panel(ng-controller='CartCtrl as cartPage' ng-if="mobilePage.isSet(4)")
     .cart-header
         .back-button(ng-click="mobilePage.closePanelMobile()")
-        .header-buttons.alert-no
+        .header-buttons.alert-no(ng-click='cartPage.showAllAddElements()')
             label {{cartPage.SORT_SHOW}}
             label {{cartPage.NAVMENU_ADD_ELEMENTS}}
         .header-buttons.alert-no(ng-click='cartPage.showMoundDeliveryFunc()')
@@ -150,5 +150,6 @@
 
     include mount-delivery
     include discount-mobile
+    //include all-add-elems-cart
     .backDarkView(ng-show="cartPage.C.cart.showCurrentTemp || cartPage.config.isAddElementDetail")
 

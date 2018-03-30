@@ -20,5 +20,5 @@
                     .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name }}
                     .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name | translate }}
                 .laminat-row(ng-if='laminPanel.OpenFolder === 0' ng-click="laminPanel.selectLaminat(0)")
-                    .laminat-label {{laminPanel.G.global.lamGroupFiltered[0].laminat_in_name | translate}}
+                    .laminat-label {{ laminPanel.WHITE_LAMINATION | translate}}
 

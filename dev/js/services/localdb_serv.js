@@ -1001,7 +1001,7 @@
 
             function where(collection, options) {
                 var arr = [];
-                let length = collection.length
+                let length = collection.length;
                 for (let index = 0; index < length; index++) {
                     let el = collection[index];
                     if (_.isMatch(el, options)) {

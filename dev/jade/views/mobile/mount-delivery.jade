@@ -49,7 +49,7 @@
                         .mobile-delivery-value
                             input.name.drop-txt.only-numbers(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.changeVal(cartMenu.O.order.delivery_garbage_removal)"  ng-keydown="cartMenu.keyUp($event)"  onClick="this.select();")
                             .name.drop-txt {{ cartMenu.U.userInfo.currency }}
-            .mobile-delivery 
+            .mobile-delivery(ng-if='cartMenu.G.global.disassemblyData.length')
                 .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(7)")
                     label {{::cartMenu.DIS_ASSEMBLING}}
                 .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 7')
@@ -65,7 +65,7 @@
                     .mobile-delivery-selected(ng-repeat="assemb in cartMenu.G.global.disassemblyData", ng-class="{'selected': assemb.id == cartMenu.O.order.dismantling_id}", fs-click="cartMenu.selectDisAssembling(assemb)")
                         .mobile-delivery-value.drop-txt {{ assemb.name }}
                         .name.drop-txt  {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
-            .mobile-delivery.gray
+            .mobile-delivery.gray(ng-if='cartMenu.G.global.assemblingData.length')
                 .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(2)")
                     label {{::cartMenu.ASSEMBLING }}
                 .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 2')

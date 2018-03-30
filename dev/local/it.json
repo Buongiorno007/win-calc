@@ -256,6 +256,7 @@
     "INPUT_ADD_ELEMENT": "Aggiungere un componente elemento",
     "CANCEL": "Revoca",
     "TOTAL_PRICE_TXT": "Totale componenti aggiuntivi:",
+    "TOTAL_PRICE_SHORT": "Totale",
     "ELEMENTS": "componenti",
     "ELEMENT": "componente",
     "ELEMENTA": "di componente"

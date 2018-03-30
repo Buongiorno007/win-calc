@@ -249,7 +249,8 @@ body {
     border-top: 1px solid $main_gray_light;
     background: #f9f9f9;
     .control-button {
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       width: 25%;
       height: 100%;
@@ -363,12 +364,14 @@ body {
       bottom: 0;
       height: 100%;
       width: 100%;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       background: white;
       z-index: 1;
       .types {
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         height: auto;
         width: 100%;
         align-items: center;
@@ -415,7 +418,8 @@ body {
           text-align: center;
           margin: 0 15px;
           position: relative;
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           align-items: center;
           justify-content: space-between;
           box-sizing: content-box;
@@ -434,7 +438,8 @@ body {
           }
         }
         .door {
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           .template-img {
             height: 120px;
           }
@@ -459,7 +464,8 @@ body {
       .figure-lists {
         .figure-item {
           position: relative;
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           align-items: center;
           justify-content: space-evenly;
           height: 9vh;
@@ -586,7 +592,8 @@ body {
     .config-content {
       .conf-item {
         position: relative;
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         align-items: center;
         justify-content: flex-end;
         flex: 0 0 auto;
@@ -658,7 +665,8 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
     z-index: 1;
     .calc-delete {
@@ -701,7 +709,8 @@ body {
     top: 0;
     left: 0;
     background: white;
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     width: 100%;
@@ -768,7 +777,8 @@ body {
   }
   .mobile-profiles {
     .profiles-list {
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       height: calc(100% - 100px);
       overflow-y: scroll;
       overflow-x: hidden;
@@ -776,7 +786,8 @@ body {
       margin-top: 100px;
       -webkit-overflow-scrolling: touch;
       .profile-block {
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         height: 109vw;
         flex: 0 0 auto;
         width: 100%;
@@ -812,13 +823,15 @@ body {
             position: relative;
             height: 86vw;
             width: 43vw !important;
-            display : inline-flex; flex-direction : column;
+            display: inline-flex;
+            flex-direction: column;
             align-items: center;
             justify-content: space-between;
             border: 1px solid $main_f7;
             box-sizing: content-box;
             .profile-info-item {
-              display : inline-flex; flex-direction : column;
+              display: inline-flex;
+              flex-direction: column;
               align-items: center;
               width: 43vw;
               .name {
@@ -859,7 +872,8 @@ body {
               width: 100%;
             }
             .common-info {
-              display : inline-flex; flex-direction : column;
+              display: inline-flex;
+              flex-direction: column;
               align-items: center;
               justify-content: flex-end;
               height: 15.48vw;
@@ -937,7 +951,8 @@ body {
         .glass-folder {
           position: relative;
           width: 100%;
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           align-items: center;
           transition: 5s linear;
           .glass-item {
@@ -1030,7 +1045,8 @@ body {
       position: relative;
       width: 100%;
       height: auto;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       .apply-title {
@@ -1052,7 +1068,8 @@ body {
         justify-content: center;
         flex-direction: row;
         &.column {
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
         }
@@ -1134,7 +1151,8 @@ body {
     }
     .laminat-box {
       width: 100%;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       .laminat-row {
@@ -1210,7 +1228,8 @@ body {
       }
       .laminat-folder {
         width: 100%;
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
       }
@@ -1232,12 +1251,14 @@ body {
     overflow: auto;
     .folders-container {
       padding-top: 120px;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       width: 100%;
       height: auto;
       overflow: auto;
       .folders {
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         align-items: flex-start;
         width: 100%;
         height: auto;
@@ -1258,7 +1279,8 @@ body {
         }
         @include roboto-lt(25px);
         .subfolders {
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           align-items: center;
           width: 100%;
           .subfolders-name {
@@ -1275,13 +1297,19 @@ body {
             -webkit-text-fill-color: $main_gray_dark;
             z-index: 1;
             margin: 10px 0;
+            padding-left: 15px;
             &.active {
               @extend .red-color;
               border: 2px solid $main_red;
             }
             p {
-              width: 100%;
+              width: 80%;
               @include roboto-rg(20px);
+            }
+            .info {
+              position: relative;
+              height: 43px;
+              width: 42px;
             }
           }
           .subfolders-image {
@@ -1301,22 +1329,23 @@ body {
             border-radius: 50px;
             border: 1px solid $main_gray_dark;
             margin: 5px 0 5px 0;
+            padding-left: 15px;
             p {
-              width: 100%;
+              width: calc(100% - 30px);
               @include roboto-rg(15px);
             }
+            .info {
+              position: relative;
+              height: 35px;
+              width: 36px;
+            }
           }
-          .info {
-            position: absolute;
-            right: 5px;
-            top: 6px;
-            height: 30px;
-            width: 30px;
-          }
+
         }
         .choosen-add-elem {
           position: relative;
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           width: 100%;
           .row-header {
             display: inline-flex;
@@ -1344,7 +1373,8 @@ body {
             justify-content: space-around;
             padding-right: 20px;
             .item {
-              display : inline-flex; flex-direction : column;
+              display: inline-flex;
+              flex-direction: column;
               align-items: center;
               @include roboto-lt(15px);
               .val {
@@ -1369,7 +1399,8 @@ body {
       position: fixed;
       top: 0px;
       left: 0;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 100%;
@@ -1476,7 +1507,8 @@ body {
   }
   .cart-mobile {
     background: $main_f3;
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     .cart-header {
       display: inline-flex;
       align-items: center;
@@ -1484,7 +1516,8 @@ body {
       height: 70px;
       width: 100%;
       .header-buttons {
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 50px;
@@ -1495,7 +1528,8 @@ body {
       }
     }
     .product-container {
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       width: 100%;
       height: calc(100% - 170px);
       min-height: calc(100% - 170px);
@@ -1521,7 +1555,8 @@ body {
         @include roboto-rg(15px);
         @include box-shadow($main_gray_btn 0px 0px 5px 1px);
         .col {
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           width: 50%;
           height: 100%;
           svg-template {
@@ -1736,14 +1771,16 @@ body {
       .mobile-delivery {
         align-items: center;
         justify-content: center;
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         min-height: 80px;
         width: 100%;
         padding: 10px 0;
         flex: 0 0 auto;
       }
       .mount-delivery-mountings-container {
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         width: 100%;
         height: calc(100% - 60px);
         background: white;
@@ -1755,6 +1792,7 @@ body {
           align-items: center;
           justify-content: space-between;
           padding: 0px 30px;
+          margin: 5px 0;
           @include roboto-lt(20px);
           @extend .red-color;
           input {
@@ -1771,7 +1809,8 @@ body {
         }
         .dropdown-items-list {
           width: 100%;
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
         }
@@ -1783,9 +1822,102 @@ body {
         }
       }
     }
+
+    .alladdelements-view-mobiile {
+      position: absolute;
+      display: inline-flex;
+      flex-direction: column;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      &.active {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: white;
+        z-index: 1;
+      }
+      .add-elem-header-mobile {
+        flex: 0 0 auto;
+        .add-elem-price {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: calc(96% - 50px);
+          @include roboto-lt(20px);
+          @extend .red-color;
+        }
+      }
+      .add-elems-scroll {
+        display: inline-flex;
+        flex-direction: column;
+        height: calc(100% - 70px);
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .add-elem-item {
+        position: relative;
+        flex: 0 0 auto;
+        .add-elem-current {
+          position: relative;
+          .add-elem-current-title {
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            height: 50px;
+            padding: 0px  0px 0px 15px;
+            @include roboto-rg(25px);
+            text-transform: capitalize;
+          }
+          .add-elem-current-row {
+            display: inline-flex;
+            flex-direction: column;
+            width: 100%;
+            .add-elem-row-title {
+              position: relative;
+              display: inline-flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+              height: 40px;
+
+              @include roboto-lt(20px);
+              padding: 0px  0px 0px 15px;
+              label {
+                width: 80%;
+
+              }
+              .order-delete{
+                position: relative;
+                right: 8%;
+              }
+            }
+            .add-elem-row-info {
+              padding: 0px  0px 0px 15px;
+
+              display: inline-flex;
+              @include roboto-lt(15px);
+              .add-elem-row {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 25%;
+                height: 30px;
+                border-right: 1px solid white;
+                //border-left: 1px solid white;
+              }
+            }
+
+          }
+        }
+      }
+    }
     .backDarkView {
       z-index: 0;
     }
+
   }
   .splice {
     width: 100%;
@@ -1889,7 +2021,8 @@ body {
     left: 12px;
     height: 95%;
     width: 93%;
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     padding: 50px 10px 20px 10px;
@@ -1899,7 +2032,8 @@ body {
       display: inline-flex;
       width: 100%;
       align-items: center;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       color: white;
       -webkit-text-fill-color: white;
       @include roboto-bd(90px);
@@ -2028,7 +2162,8 @@ body {
     background: $main_red;
     z-index: 2;
     box-sizing: border-box;
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     .attention {
@@ -2039,7 +2174,8 @@ body {
     }
     .glass-list {
       width: 100%;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       @include roboto-rg(20px);
@@ -2051,7 +2187,8 @@ body {
     .extra-glass,
     span {
       width: 100%;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -2094,7 +2231,8 @@ body {
   }
   .mobile-left-menu {
     position: absolute;
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     top: 0;
     height: 100%;
     width: 70%;
@@ -2148,7 +2286,8 @@ body {
     }
     .buttons-list {
       height: calc(100% - 200px);
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
       padding: 10px 0 10px 10px;
@@ -2160,7 +2299,8 @@ body {
       }
     }
     .footer {
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       justify-content: space-around;
       align-items: center;
       position: absolute;
@@ -2343,6 +2483,7 @@ body {
       border: 1px solid #000;
       padding: 10px 4px;
       font-size: 10px;
+      max-width: 16vw;
     }
     .report-price-total {
       @include roboto-bd(rem(30px));
@@ -2425,21 +2566,28 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    height: 30px;
     width: 100%;
+    margin: 5px 0;
     @extend .red-color;
+    label {
+      width: 90%;
+    }
   }
   .door-settings-mobile {
     position: absolute;
     top: 0;
     left: 0;
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     background: white;
     z-index: 2;
     .door-congig-scroll {
       position: relative;
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       width: 100%;
       height: calc(100% - 80px);
       overflow-x: hidden;
@@ -2544,7 +2692,8 @@ body {
           position: absolute;
           top: 14px;
           right: 15px;
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           height: 0px;
           width: 0px;
           overflow: hidden;
@@ -2610,7 +2759,8 @@ body {
       }
     }
     .order-list-scroll-block {
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       height: calc(100% - 110px);
       width: 100%;
@@ -2618,7 +2768,8 @@ body {
       overflow-y: auto;
       .order-card {
         position: relative;
-        display : inline-flex; flex-direction : column;
+        display: inline-flex;
+        flex-direction: column;
         height: auto;
         width: 90%;
         flex: 0 0 auto;
@@ -2633,7 +2784,8 @@ body {
           margin: 5px 0 0 0;
           flex: 0 0 auto;
           .order-row-item {
-            display : inline-flex; flex-direction : column;
+            display: inline-flex;
+            flex-direction: column;
             label {
               @include roboto-rg(18px);
             }
@@ -2660,7 +2812,8 @@ body {
         }
         .order-actions {
           position: absolute;
-          display : inline-flex; flex-direction : column;
+          display: inline-flex;
+          flex-direction: column;
           align-items: flex-start;
           justify-content: space-between;
           border-radius: 15px;
@@ -2742,7 +2895,8 @@ body {
     }
   }
   .mobile-discount {
-    display : inline-flex; flex-direction : column;
+    display: inline-flex;
+    flex-direction: column;
     background: white;
     align-items: center;
     padding: 25px 0;
@@ -2760,12 +2914,13 @@ body {
       .discount-price-label {
         @include roboto-rg(10px);
       }
-      .discount-price-box{
+      .discount-price-box {
         width: 50%;
       }
     }
     .mobile-discount-col {
-      display : inline-flex; flex-direction : column;
+      display: inline-flex;
+      flex-direction: column;
       width: 85%;
       align-items: center;
       justify-content: flex-start;
@@ -2821,7 +2976,7 @@ body {
           transform: rotate(90deg);
         }
       }
-      #disc-input-main{
+      #disc-input-main {
         width: 30px;
       }
       .disc-input {

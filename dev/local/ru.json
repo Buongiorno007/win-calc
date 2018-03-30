@@ -269,6 +269,7 @@
     "INPUT_ADD_ELEMENT": "Добавить компонент",
     "CANCEL": "Отмена",
     "TOTAL_PRICE_TXT": "Итого дополнительных компонентов на сумму:",
+    "TOTAL_PRICE_SHORT": "Итого",
     "ELEMENTS": "компонентов",
     "ELEMENT": "компонент",
     "PRICE": "цена",
