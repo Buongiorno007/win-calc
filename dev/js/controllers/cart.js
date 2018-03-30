@@ -88,6 +88,7 @@
                 //---- add elements pannel
                 thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
                 thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
+                thisCtrl.TOTAL_PRICE_SHORT = $filter('translate')('add_elements.TOTAL_PRICE_SHORT');
                 thisCtrl.PRICE = $filter('translate')('add_elements.PRICE');
                 thisCtrl.LINK_BETWEEN_COUPLE = $filter('translate')('cart.LINK_BETWEEN_COUPLE');
                 thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
@@ -289,6 +290,11 @@
 
 
                 thisCtrl.initAllGlassXGlass = DesignServ.initAllGlassXGlass;
+
+
+
+
+
 
                 if ($location.path() !== "/mobile") {
                     $("#main-frame").removeClass("main-frame-mobView");

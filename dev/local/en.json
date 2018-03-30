@@ -276,6 +276,7 @@
     "INPUT_ADD_ELEMENT": "Add Component",
     "CANCEL": "cancel",
     "TOTAL_PRICE_TXT": "Total additional components in the amount of:",
+    "TOTAL_PRICE_SHORT": "Total",
     "ELEMENTS": "components",
     "ELEMENT": "component",
     "ELEMENTA": "component"

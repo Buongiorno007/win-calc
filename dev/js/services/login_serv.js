@@ -1404,7 +1404,7 @@
                             if (data) {
                               /** download All Glasses */
                               downloadAllGlasses().then(function (data) {
-                                // console.log("downloadAllGlasses");
+                                // console.log("downloadAllGlasses",data);
                                 if (data) {
                                   /** sorting glasses as to Type */
                                   sortingGlasses();

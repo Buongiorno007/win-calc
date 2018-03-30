@@ -261,6 +261,7 @@
     "INPUT_ADD_ELEMENT": "Додати компонент",
     "CANCEL": "Відміна",
     "TOTAL_PRICE_TXT": "Разом додаткових компонентів на суму:",
+    "TOTAL_PRICE_SHORT": "Разом",
     "ELEMENTS": "компонентів",
     "ELEMENT": "компонент",
     "PRICE": "цiна",

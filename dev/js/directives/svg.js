@@ -1887,7 +1887,7 @@
                   }
                   let color_id = 0;
                   /** lamination */
-                  if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
+                  if (ProductStor.product.lamination.img_in_id > 1 ) {
                     if (ProductStor.product.lamination.img_in_id === 4 ||
                       ProductStor.product.lamination.img_in_id === 14 ||
                       ProductStor.product.lamination.img_in_id === 5 ||
@@ -2275,7 +2275,7 @@
                             }
                           }
                         } else {
-                          if (ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !== 6) {
+                          if (ProductStor.product.lamination.img_in_id > 1) {
                             if (ProductStor.product.lamination.img_in_id === 4 ||
                               ProductStor.product.lamination.img_in_id === 14 ||
                               ProductStor.product.lamination.img_in_id === 5 ||

@@ -426,12 +426,21 @@
                                 console.log(elemType.id);
                             }
                         })
-                    })
+                    });
                     collectAllAddElems();
                     getAddElemsPriceTotal();
                     initSelectedProductsArr();
                     CartStor.cart.isAllAddElems = 1;
                     AuxStor.aux.isAddElementListView = 1;
+
+
+                    setTimeout(() => {
+                        $(".dynamic-gray").each((index, item) => {
+                            if (index % 2 === 0) {
+                                $(item).addClass('gray');
+                            }
+                        });
+                    }, 100);
                 }
 
 
