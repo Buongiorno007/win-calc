@@ -26,12 +26,12 @@
           li.dropdown-item
             .dropdown-item-inner
               .value.drop-txt {{ ::cartMenu.DELIVERY }}
-              input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select();")
+              input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select()")
               .name.drop-txt {{ cartMenu.U.userInfo.currency }}
           li.dropdown-item
             .dropdown-item-inner
               .value.drop-txt {{ ::cartMenu.GARBAGE_REMOVE }}
-              input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select();")
+              input.name.drop-txt(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select()")
               .name.drop-txt {{ cartMenu.U.userInfo.currency }}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 7, 'hov': cartMenu.config.activeMenuItem !== 7}", fs-click="cartMenu.selectMenuItem(7)")
@@ -78,7 +78,7 @@
           label {{cartMenu.U.userInfo.currency}}
       .dismounting
         .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 6}")
-          input.comment-field.noPreventDefault(type="number" ng-model="cartMenu.O.order.sale_price" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select();")
+          input.comment-field.noPreventDefault(type="number" ng-model="cartMenu.O.order.sale_price" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select()")
           //label {{cartMenu.U.userInfo.currency}}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}", fs-click="cartMenu.selectMenuItem(5)")
