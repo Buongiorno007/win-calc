@@ -39,30 +39,31 @@
                         .filter-label {{ ::historyPage.SORT_SHOW_DONE }}
     .order-list-scroll-block
         .order-card(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index"
-                     ng-class="{ 'done': order.order_style == 'done' }")
-            .row-id
-                .order-row-item
-                    label id {{ order.order_number }}-{{ order.id }}
-                .order-row-item
-                    label {{ ::historyPage.FROM }} {{order.order_date | date:"dd MMMM, yyyy"}}
-            .order-row
-                .order-row-item
-                    label {{ order.customer_name }}
-                    span  {{ ::historyPage.CLIENT }}
-            .order-row
-                .order-row-item(ng-if='order.customer_phone')
-                    label {{ order.customer_phone }}
-                    span  {{ ::historyPage.PHONE }}
-            .order-row
-                .order-row-item
-                        label {{ order.customer_location }}, {{ order.customer_address }}
-                        span  {{ ::historyPage.ADDRESS }}
-            .order-row
-                .order-row-item
-                    label {{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
-            .order-row-price
-                .config.tool-btn(ng-click='historyPage.showOrderActions($index)')
-                label {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
+                     ng-class="{ 'done': order.order_style == 'done' }" )
+            .curr-card(ng-click='historyPage.showOrderActions($index)')
+                .row-id
+                    .order-row-item
+                        label id {{ order.order_number }}-{{ order.id }}
+                    .order-row-item
+                        label {{ ::historyPage.FROM }} {{order.order_date | date:"dd MMMM, yyyy"}}
+                .order-row
+                    .order-row-item
+                        label {{ order.customer_name }}
+                        span  {{ ::historyPage.CLIENT }}
+                .order-row
+                    .order-row-item(ng-if='order.customer_phone')
+                        label {{ order.customer_phone }}
+                        span  {{ ::historyPage.PHONE }}
+                .order-row
+                    .order-row-item
+                            label {{ order.customer_location }}, {{ order.customer_address }}
+                            span  {{ ::historyPage.ADDRESS }}
+                .order-row
+                    .order-row-item
+                        label {{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
+                .order-row-price
+                    //.config.tool-btn(ng-click='historyPage.showOrderActions($index)')
+                    label {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
             .order-actions(ng-class='{active : historyPage.OrderActions === $index}')
                 .btn.delete(ng-hide="order.order_style == 'done'", fs-click="historyPage.clickDeleteOrder(order.order_type, order.id)")
                     span {{ ::historyPage.DELETE }}
