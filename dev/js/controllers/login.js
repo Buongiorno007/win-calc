@@ -332,9 +332,6 @@
                     if (DemoLogin) {
                         login = DemoLogin;
                         pass = DemoPass;
-                        console.log('demo')
-                    } else {
-                        console.log('ordinary')
                     }
 
                     localDB.importUser(login).then(function (result) {
