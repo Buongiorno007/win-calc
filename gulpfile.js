@@ -294,7 +294,7 @@ function buildExt(id) {
         .pipe(concat('main.js'))
         .pipe(removeLogs())
         // .pipe(ngAnnotate({add: true}))
-        // .pipe(js_obfuscator())
+        .pipe(js_obfuscator())
         // .pipe(uglify())
         .pipe(gulp.dest("_product/" + id + "/ext/js"))
         .on('end', function () {
@@ -399,34 +399,19 @@ gulp.task('buildExt', function () {
 
 function buildSite(id) {
     //html
-    if (id === "steko") {
-        gulp.src(config.build.src.html)
-            .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
-            .pipe(jade({
-                doctype: 'html',
-                pretty: true
-            }))
-            .pipe(replace('RANDOM_FLAG', random))
-            .pipe(replace('orbit', "steko"))
-            .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
-            .pipe(gulp.dest("_product/" + id + "/site"))
-            .on('end', function () {
-                gutil.log('html!');
-            });
-    } else {
-        gulp.src(config.build.src.html)
-            .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
-            .pipe(jade({
-                doctype: 'html',
-                pretty: true
-            }))
-            .pipe(replace('RANDOM_FLAG', random))
-            .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
-            .pipe(gulp.dest("_product/" + id + "/site"))
-            .on('end', function () {
-                gutil.log('html!');
-            });
-    }
+
+    gulp.src(config.build.src.html)
+        .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+        .pipe(jade({
+            doctype: 'html',
+            pretty: true
+        }))
+        .pipe(replace('RANDOM_FLAG', random))
+        .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+        .pipe(gulp.dest("_product/" + id + "/site"))
+        .on('end', function () {
+            gutil.log('html!');
+        });
     gulp.src(config.build.src.js_other)
         .pipe(gulp.dest("_product/" + id + "/site/js"));
 
@@ -447,8 +432,10 @@ function buildSite(id) {
         .pipe(replace('LOCAL_PATH', path_env[id]))
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
-        // .pipe(uglify({mangle: true}).on('error', gutil.log))
         .pipe(removeLogs())
+        .pipe(ngAnnotate({add: true}))
+        .pipe(js_obfuscator())
+        // .pipe(uglify())
         .pipe(gulp.dest("_product/" + id + "/site/js"))
         .on('end', function () {
             gutil.log('js!');
