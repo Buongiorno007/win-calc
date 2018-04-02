@@ -138,6 +138,7 @@
                     }
                     case 3: {
                         $location.path('/change-lang');
+                        GlobalStor.global.prevOpenPage = 'mobile';
                         break;
                     }
                     case 4: {
@@ -203,9 +204,6 @@
                 console.log(event);
             }, false);
 
-            $("input").on('keyup', (event) => {
-                console.log(event);
-            }, false);
 
             $("#main-frame").addClass("main-frame-mobView");
             $("#app-container").addClass("app-container-mobView");

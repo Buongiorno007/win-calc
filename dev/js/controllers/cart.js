@@ -247,7 +247,32 @@
                     OrderStor.order.comment = '';
                 }
 
-                function discountChange(){
+                function keyUp(event) {
+                    console.log('event.which',event.which);
+                    switch (event.which) {
+                        case 8:
+                            break;
+                        case 13:
+                            console.log('enterpress');
+                            break;
+                        case 48:
+                        case 49:
+                        case 50:
+                        case 51:
+                        case 52:
+                        case 53:
+                        case 54:
+                        case 55:
+                        case 56:
+                        case 57:
+                            break;
+                        case 189:
+                            // event.preventDefault();
+                            break;
+                        default:
+                            event.preventDefault();
+                            break;
+                    }
 
                 }
 
@@ -266,6 +291,7 @@
                 thisCtrl.mobileBox = CartServ.mobileBox;
                 thisCtrl.fastEdit = CartServ.fastEdit;
 
+                thisCtrl.keyUp = keyUp;
                 thisCtrl.enterKeyPrice = enterKeyPrice;
                 thisCtrl.enterKeyDop = enterKeyDop;
                 thisCtrl.enterKeyDopService = enterKeyDopService;
