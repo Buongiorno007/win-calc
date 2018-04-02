@@ -73,7 +73,15 @@ body {
   height: 100%;
   overflow: hidden;
 }
-
+.back-button {
+  all: unset;
+  display: inline-flex;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  background: url("../img/calc/go-back-arrow.svg") no-repeat;
+  background-size: contain;
+}
 .mobile {
   * {
     outline: none;
@@ -293,6 +301,7 @@ body {
         }
       }
       .qty-mobile {
+        @extend .splash;
         position: relative;
         top: -10px;
         right: -20px;
@@ -760,15 +769,7 @@ body {
       }
     }
   }
-  .back-button {
-    all: unset;
-    display: inline-flex;
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
-    background: url("../img/calc/go-back-arrow.svg") no-repeat;
-    background-size: contain;
-  }
+
   .mobile-common-panel {
     position: absolute;
     top: 0;
@@ -1787,7 +1788,7 @@ body {
         display: inline-flex;
         flex-direction: column;
         width: 100%;
-        height: calc(100% - 60px);
+        height: calc(100% - 80px);
         background: white;
         overflow-y: auto;
         overflow-x: hidden;
@@ -2809,7 +2810,8 @@ body {
         .order-row-price {
           margin: 10px 0 0 0;
           display: inline-flex;
-          justify-content: space-between;
+          width: 100%;
+          justify-content: flex-end;
           align-items: center;
           @extend .red-color;
           @include roboto-lt(30px);
@@ -2835,13 +2837,13 @@ body {
           &.active {
             padding: 5px 10px;
             @extend .border;
-            width: calc(100% + 2px);
+            width: 80%;
             height: calc(100% + 2px);
             bottom: -1px;
             left: -1px;
             background: white;
             transition: 1s;
-            //box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5)
+            box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5)
           }
           .btn {
             display: inline-flex;
@@ -2875,6 +2877,9 @@ body {
         border: 1px solid $main_gray_btn;
         background: $main_f3;
         .order-row-price {
+          display: inline-flex;
+          width: 100%;
+          justify-content: flex-end;
           color: black;
           -webkit-text-fill-color: black;
           @include roboto-lt(30px);
@@ -2985,7 +2990,7 @@ body {
         width: 30px;
       }
       .disc-input {
-        width: 30px;
+        width: 40px;
         border: none;
         text-align: right;
         margin-right: 4px;
