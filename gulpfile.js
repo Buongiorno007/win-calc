@@ -433,12 +433,10 @@ function buildSite(id) {
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
         .pipe(ngAnnotate({
-            remove: true,
-            add: true,
-            single_quotes: true
+            add: true
         }))
         .pipe(removeLogs())
-        .pipe(js_obfuscator())
+        // .pipe(js_obfuscator())
         .pipe(gulp.dest("_product/" + id + "/site/js"))
         .on('end', function () {
             gutil.log('js!');
