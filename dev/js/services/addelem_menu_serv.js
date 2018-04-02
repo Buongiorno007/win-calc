@@ -523,6 +523,8 @@
                     if (grids.length > 0) {
                         insertGrids(grids);
                     }
+                    GlobalStor.global.OpenSubFolder = -1;
+                    GlobalStor.global.OpenItemFolder = -1;
                 }
 
 

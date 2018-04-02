@@ -468,10 +468,14 @@ body {
           flex-direction: column;
           align-items: center;
           justify-content: space-evenly;
-          height: 9vh;
           text-align: center;
+          height: 10vh;
+          width:  15vw;
+          flex: 0 0 auto;
           &.selected {
             background: white;
+            border: none;
+            border-radius: 0;
           }
           .figure-icon {
             position: absolute;
@@ -1767,6 +1771,7 @@ body {
       .mobile-delivery-items {
         @include roboto-lt(15px);
         @extend .red-color;
+        padding: 0px 15px;
       }
       .mobile-delivery {
         align-items: center;
@@ -1791,7 +1796,7 @@ body {
           display: inline-flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0px 30px;
+          padding: 0px 15px;
           margin: 5px 0;
           @include roboto-lt(20px);
           @extend .red-color;
@@ -2830,13 +2835,13 @@ body {
           &.active {
             padding: 5px 10px;
             @extend .border;
-            width: 80%;
+            width: calc(100% + 2px);
             height: calc(100% + 2px);
             bottom: -1px;
             left: -1px;
             background: white;
             transition: 1s;
-            box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5)
+            //box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5)
           }
           .btn {
             display: inline-flex;
@@ -2950,7 +2955,7 @@ body {
           @extend .red-color;
         }
         .discount-data {
-          width: 50px;
+          width: 60px;
         }
         .discounts-icon-down {
           position: absolute;
