@@ -57,24 +57,10 @@
                     if (results.status) {
                         GlobalStor.global.templatesImgs = results.data.templateImgs;
                         thisCtrl.templateList = results.data.templateImgs;
-                        console.log(thisCtrl.templateList);
                     } else {
                         console.log(results);
                     }
                 });
-                GlobalStor.global.SelectedTemplateIndex = ProductStor.product.template_id;
-                GlobalStor.global.SelectedTemplateName = GlobalStor.global.templatesImgs[6].name;
-                let counter = -1;
-                let lastIndex = 0;
-                let mobTemp = [];
-                thisCtrl.templateList.forEach((item, index) => {
-                    if (item.id === 1) {
-                        counter++;
-                        // mobTemp.push({name: thisCtrl.templateName[counter]});
-                    }
-                    mobTemp.push(item);
-                });
-                console.log(mobTemp);
 
                 /**============ METHODS ================*/
 

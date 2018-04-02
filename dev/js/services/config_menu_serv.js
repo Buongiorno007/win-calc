@@ -5,19 +5,19 @@
     .module('MainModule')
     .factory('ConfigMenuServ',
       function ($location,
-                $filter,
-                GeneralServ,
-                MainServ,
-                CartMenuServ,
-                GlobalStor,
-                OrderStor,
-                ProductStor,
-                $timeout,
-                InfoBoxServ,
-                DesignStor,
-                SVGServ,
-                DesignServ,
-                AddElementMenuServ) {
+        $filter,
+        GeneralServ,
+        MainServ,
+        CartMenuServ,
+        GlobalStor,
+        OrderStor,
+        ProductStor,
+        $timeout,
+        InfoBoxServ,
+        DesignStor,
+        SVGServ,
+        DesignServ,
+        AddElementMenuServ) {
         var thisFactory = this;
 
 
@@ -111,17 +111,24 @@
               } else {
                 // GlobalStor.global.activePanel = 0;
                 DesignStor.design.isGlassExtra = 0;
-                if ($location.path() !== '/light') {
-                  $location.path("/design")
-                  GlobalStor.global.currOpenPage = 'design';
-                } else {
-                  $(".config-menu").hide();
-                  $(".right-side").width("100%");
-                  $(".main-content").width("100%");
+                if ($location.path() !== '/mobile') {
+                  if ($location.path() !== '/light') {
+                    $location.path("/design")
+                    GlobalStor.global.currOpenPage = 'design';
+                  } else {
+                    $(".config-menu").hide();
+                    $(".right-side").width("100%");
+                    $(".main-content").width("100%");
+                  }
                 }
                 GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
                 DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
-                  DesignStor.design.steps.isDoorConfig = 1;
+                  if ($location.path() !== '/mobile') {
+                    DesignStor.design.steps.isDoorConfig = 1;
+                  } else {
+                    DesignStor.design.isDoorConfigMobile = 1;
+                    DesignStor.design.showMobileStep = 0;
+                  }
                 })
               }
             } else {

@@ -16,6 +16,8 @@
 
                 thisFactory.publicObj = {
                     globalSource: {
+                        mobileOrderHistory : 0,
+                        showMountDelivery : 0,
                         OpenSubFolder: -1,
                         OpenItemFolder: -1,
                         selectedGrid: '',

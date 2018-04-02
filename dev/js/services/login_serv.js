@@ -1404,7 +1404,7 @@
                             if (data) {
                               /** download All Glasses */
                               downloadAllGlasses().then(function (data) {
-                                // console.log("downloadAllGlasses");
+                                // console.log("downloadAllGlasses",data);
                                 if (data) {
                                   /** sorting glasses as to Type */
                                   sortingGlasses();
@@ -1439,7 +1439,7 @@
                                               });
 
                                               /** add white color */
-                                              GlobalStor.global.laminats.push({
+                                              GlobalStor.global.laminats.unshift({
                                                 id: 1,
                                                 lamination_type_id: 1,
                                                 isActive: 0,
@@ -1496,7 +1496,8 @@
           setUserLocation: setUserLocation,
           setUserGeoLocation: setUserGeoLocation,
           downloadAllData: downloadAllData,
-          getGridPrice: getGridPrice
+          getGridPrice: getGridPrice,
+          downloadAllAddElements : downloadAllAddElements
         };
 
         return thisFactory.publicObj;

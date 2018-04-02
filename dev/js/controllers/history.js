@@ -7,11 +7,13 @@
 
   function(
     $filter,
+    $location,
     GlobalStor,
     UserStor,
     HistoryStor,
     HistoryServ,
     CartServ,
+    MainServ,
     PrintServ,
     globalConstants
   ) {
@@ -63,30 +65,51 @@
     thisCtrl.ORDER_DONE = $filter('translate')('history.ORDER_DONE')
     thisCtrl.ORDER_ERROR = $filter('translate')('history.ORDER_ERROR');
     thisCtrl.SYNCHRONIZE_ORDERS = $filter('translate')('history.SYNCHRONIZE_ORDERS');
+    thisCtrl.DELETE = $filter('translate')('add_elements.DELETE');
     thisCtrl.time = [
-        {
-            name:$filter('translate')('history.DURING_THE_WEEK'),
-            namb: 1
-        },
-        {
-            name:$filter('translate')('history.PER_MOUNTH'),
-            namb: 2
-        },
-        {
-            name:$filter('translate')('history.IN_A_YEAR'),
-            namb: 3
-        }
-        ];
-
-
+      {
+        name:$filter('translate')('history.DURING_THE_WEEK'),
+        namb: 1
+      },
+      {
+        name:$filter('translate')('history.PER_MOUNTH'),
+        namb: 2
+      },
+      {
+        name:$filter('translate')('history.IN_A_YEAR'),
+        namb: 3
+      }
+    ];
+    
+    $('.period-of-time').on('change', ()=>{
+      if ($location.path() === "/mobile") {
+        HistoryServ.reqResult();
+      }
+    });
     //------- set current Page
-    GlobalStor.global.currOpenPage = 'history';
+    if ($location.path() !== "/mobile") {
+      //------- set current Page
+      GlobalStor.global.currOpenPage = 'history';
+    }
+    
+    thisCtrl.OrderActions = -1;
+    
+    function showOrderActions(index) {
+      if (thisCtrl.OrderActions === index) {
+        thisCtrl.OrderActions = -1;
+      } else {
+        thisCtrl.OrderActions = index;
+      }
+    }
 
     //----- variables for drafts sorting
     thisCtrl.createdDate = 'created';
 
     HistoryServ.downloadOrders();
     //------ clicking
+    thisCtrl.showOrderActions = showOrderActions;
+
+
     thisCtrl.reqResult = HistoryServ.reqResult;
     thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;
     thisCtrl.sendOrderToFactory = HistoryServ.sendOrderToFactory;
@@ -103,13 +126,17 @@
     thisCtrl.testFunc = HistoryServ.testFunc;
     thisCtrl.synchronizeOrders = HistoryServ.synchronizeOrders;
     thisCtrl.closeDeviceReport = HistoryServ.closeDeviceReport;
-    $("#main-frame").removeClass("main-frame-mobView");
-    $("#app-container").removeClass("app-container-mobView");
-    $(window).load(function() {
-      MainServ.resize();
-    });
-    window.onresize = function() {
-      MainServ.resize();
-    };
+
+    if ($location.path() !== "/mobile") {
+      $("#main-frame").removeClass("main-frame-mobView");
+      $("#app-container").removeClass("app-container-mobView");
+      $(window).load(function () {
+        MainServ.resize();
+      });
+      window.onresize = function () {
+        MainServ.resize();
+      };
+    }
+  
   });
 })();

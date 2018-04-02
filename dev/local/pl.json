@@ -215,7 +215,7 @@
     "LOCK_TYPE1": "jednolockingowy zamek z zatrzaskiem",
     "LOCK_TYPE2": "multilockingowy zamek z zatrzaskiem",
     "EXTRA_GLASS1": "Nie ma mozliwosci ustawienia szyby zespolonej ",
-    "EXTRA_GLASS2": " dla tego typu konfiguracji konstrukcji"
+    "EXTRA_GLASS2": " dla tego typu konfiguracji konstrukcji",
     "INTERIOR" : "Projektowanie wnetrz",
     "FACADE" : "Fasada",
     "TEMPLATE_SELECTION" : "Wybor szablonu"
@@ -268,6 +268,7 @@
     "INPUT_ADD_ELEMENT": "Dodaj element",
     "CANCEL": "Anuluj",
     "TOTAL_PRICE_TXT": "Calkowity koszt dodatkowych elementow:",
+    "TOTAL_PRICE_SHORT": "Calkowity",
     "ELEMENTS": "elementow",
     "ELEMENT": "element",
     "ELEMENTA": "elementa"
@@ -299,6 +300,8 @@
     "DOOR_CONFIG_DESCTIPT": "oscieznica",
     "SASH_CONFIG_DESCTIPT": "skrzydlo drzwiowe",
     "HANDLE_CONFIG_DESCTIPT": "klamka",
+    "DOOR_CONFIG_DESCTIPT_MOBILE": "Rama drzwi",
+    "SASH_CONFIG_DESCTIPT_MOBILE": "Skrzydło drzwi",
     "LOCK_CONFIG_DESCTIPT": "zamek",
     "STEP": "krok",
     "LABEL_DOOR_TYPE": "Wybierz strukture oscieznicy",
@@ -386,6 +389,7 @@
     "DIS_ASSEMBLING": "Demontaz",
     "WITHOUT_DIS_ASSEMBLING": "bez demontazu",
     "ADD_SERVICES": "uslugi dodatkowe",
+    "ADD_SERVICES_SHORT": "uslugi dodatkowe",
 
     "FREE": "bezplatnie",
     "PAYMENT_BY_INSTALMENTS": "Platnosc ratalna",

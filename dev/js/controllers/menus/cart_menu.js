@@ -6,15 +6,15 @@
     .controller('CartMenuCtrl',
 
       function ($filter,
-                globalConstants,
-                GlobalStor,
-                OrderStor,
-                UserStor,
-                AuxStor,
-                CartStor,
-                ProductStor,
-                CartServ,
-                CartMenuServ) {
+        globalConstants,
+        GlobalStor,
+        OrderStor,
+        UserStor,
+        AuxStor,
+        CartStor,
+        ProductStor,
+        CartServ,
+        CartMenuServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.G = GlobalStor;
@@ -43,6 +43,7 @@
         thisCtrl.WITHOUT_ASSEMBLING = $filter('translate')('cart.WITHOUT_ASSEMBLING');
         thisCtrl.WITHOUT_DIS_ASSEMBLING = $filter('translate')('cart.WITHOUT_DIS_ASSEMBLING');
         thisCtrl.ADD_SERVICES = $filter('translate')('cart.ADD_SERVICES');
+        thisCtrl.ADD_SERVICES_SHORT = $filter('translate')('cart.ADD_SERVICES_SHORT');
         thisCtrl.FREE = $filter('translate')('cart.FREE');
         thisCtrl.PAYMENT_BY_INSTALMENTS = $filter('translate')('cart.PAYMENT_BY_INSTALMENTS');
         thisCtrl.WITHOUT_INSTALMENTS = $filter('translate')('cart.WITHOUT_INSTALMENTS');
@@ -88,11 +89,46 @@
           }
         }
 
+        function changeVal(elem) {
+          if (elem === '-') {
+
+          } else {
+            CartMenuServ.calculateOrderPrice();
+          }
+        }
+
+        function keyUp(event) {
+
+          switch (event.which) {
+            case 8:
+              break;
+            case 48:
+            case 49:
+            case 50:
+            case 51:
+            case 52:
+            case 53:
+            case 54:
+            case 55:
+            case 56:
+            case 57:
+              break;
+            case 189:
+              // event.preventDefault();
+              break;
+            default:
+              event.preventDefault();
+              break;
+          }
+
+        }
 
 
         /**========== FINISH ==========*/
 
         //------ clicking
+        thisCtrl.keyUp = keyUp;
+        thisCtrl.changeVal = changeVal;
         thisCtrl.selectMenuItem = selectMenuItem;
         thisCtrl.closeInstalment = closeInstalment;
         thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;

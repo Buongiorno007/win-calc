@@ -2,7 +2,7 @@
     .main-view
         .svg-template(ng-controller="DesignCtrl as designPage")
             svg-template(template="designPage.D.design.templateTEMP", template-width="mobilePage.mobWidth", template-height="mobilePage.mobHeight", type-construction="designPage.constants.SVG_ID_EDIT")
-    include mobile/mobile-price
+    include mobile/price-mobile
     .content-container(ng-if="!mobilePage.isSet(0)")
         .templates-content(ng-if="mobilePage.isSet(1)")
             include mobile/templates-mobile
@@ -29,6 +29,7 @@
 
     .burger(ng-click='mobilePage.OpenMenu()' ng-class="{ active: mobilePage.mobMenu }")
     include mobile/left-menu-mobile
+    include mobile/door-settings-mobile
     include mobile/heat-coef-mobile
     include mobile/profiles-mobile
     include mobile/glass-mobile
@@ -36,6 +37,7 @@
     include mobile/hardwares-mobile
     include mobile/lamination-mobile
     include mobile/add-elements-mobile
+    include mobile/order-history-mobile
     section.mobile-order-forms(ng-controller="OrderFormCtrl as orderForm" ng-if="mobilePage.C.cart.isOrderDialog")
         include mobile/form-order-mobile
     include parts/_alert
@@ -46,8 +48,7 @@
     include parts/_loader
     .mob-rep(ng-if="mobilePage.G.global.isMobileReport")
         include mobile/report_mobile
-    .cart-content(ng-if="mobilePage.isSet(4)")
-        include mobile/cart-mobile
+    include mobile/cart-mobile
     .mob-size-calculator(ng-if="mobilePage.G.global.isSizeCalculator")
         include parts/_size-calculator
 

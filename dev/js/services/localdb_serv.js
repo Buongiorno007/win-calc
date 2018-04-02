@@ -1001,7 +1001,7 @@
 
             function where(collection, options) {
                 var arr = [];
-                let length = collection.length
+                let length = collection.length;
                 for (let index = 0; index < length; index++) {
                     let el = collection[index];
                     if (_.isMatch(el, options)) {
@@ -1361,7 +1361,7 @@
                     )
                     .then(
                         function () {
-                            console.log("Success!");
+                            // console.log("Success!");
                         },
                         function () {
                             console.log("Something went wrong!");
@@ -2611,22 +2611,6 @@
                 return value;
             }
 
-            function dataF(id) {
-                switch (id) {
-                    case 1:
-                        return "2017-08-01";
-                        break;
-                    case 12:
-                        return "2017-09-01";
-                        break;
-                    case 56:
-                        return "2017-10-01";
-                        break;
-                    default:
-                        return "2017-08-01";
-                }
-            }
-
             function culcPriceAsRule(parentValue,
                                      currSize,
                                      currConsist,
@@ -2664,12 +2648,10 @@
                         case 1:
                         case 21:
                         case 22:
-                            sizeReal = GeneralServ.roundingValue(
-                                currSize + pruning - currConsist.value,
-                                3
-                            );
+                            sizeReal = GeneralServ.roundingValue( currSize + pruning - currConsist.value, 3 );
                             //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', (currSize + pruning - currConsist.value), sizeReal);
                             break;
+
                         case 3:
                             //qtyReal = Math.round(currSize + pruning) * currConsist.value;
                             qtyReal = (currSize + pruning) * currConsist.value;
@@ -2687,6 +2669,11 @@
                             //qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
                             qtyReal = (currSize + pruning) * currConsist.value;
                             //console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', (currSize + pruning) * currConsist.value, qtyReal, ' kg. на метр родителя');
+                            break;
+                        case 24:
+                            // sizeReal = 0;
+                            qtyReal = parentValue * currConsist.value;
+                            //кг на родителя
                             break;
                         case 2:
                         case 4:

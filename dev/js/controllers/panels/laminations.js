@@ -30,10 +30,10 @@
                 thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
                 thisCtrl.INTERIOR = $filter('translate')('panels.INTERIOR');
                 thisCtrl.FACADE = $filter('translate')('panels.FACADE');
+                thisCtrl.WHITE_LAMINATION = $filter('translate')('mainpage.WHITE_LAMINATION');
 
 
                 /**============ METHODS ================*/
-
                 /** init Laminat Filter */
                 function initLaminatFilter(typeId) {
                     // console.info('init filter --- ', typeId);

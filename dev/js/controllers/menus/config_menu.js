@@ -77,7 +77,6 @@
 
 
                 function saveProduct(go_to_cart) {
-
                     GlobalStor.global.showCoefInfoBlock = 0;
                     GlobalStor.global.servicesPriceIndex = -1;
                     GlobalStor.global.continued = 0;
@@ -90,7 +89,7 @@
                         ProductStor.product.hardware.id,
                         ProductStor.product.lamination.lamination_in_id
                     ).then(function () {
-                        if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
+                        if (globalConstants.serverIP === 'http://api.calc.csokna.ru' || globalConstants.serverIP === 'http://api.windowscalculator.net') {
                             ProductStor.product.template_source.report = ProductStor.product.report;
                         }
                         if (MainServ.inputProductInOrder()) {
@@ -292,6 +291,8 @@
                     GlobalStor.global.enterCount = 1;
                     GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
                 }
+
+
 
                 /**========== FINISH ==========*/
 

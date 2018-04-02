@@ -5,7 +5,8 @@
         .module('MainModule')
         .factory('AddElementsServ',
 
-            function ($filter,
+            function (
+                        $filter,
                       $timeout,
                       $location,
                       globalConstants,
@@ -15,30 +16,28 @@
                       ProductStor,
                       AuxStor,
                       DesignServ,
-                      DesignStor) {
+                      DesignStor
+            ) {
                 /*jshint validthis:true */
                 var thisFactory = this,
                     delayShowElementsMenu = globalConstants.STEP * 12;
-
                 /**============ METHODS ================*/
-
-
                 function downloadAddElementsData(id) {
                     var index = (id - 1),
                         gridsSort;
                     AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
                     AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
-                    console.log('AuxStor.aux.addElementsType', AuxStor.aux.addElementsType)
+
                     /** if Grids */
                     if (AuxStor.aux.isFocusedAddElement === 1) {
                         if (ProductStor.product.is_addelem_only) {
                             /** without window */
-                            gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function (item) {
+                            gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
                                 return !item.profile_id;
                             });
                             AuxStor.aux.addElementsList = [gridsSort];
                         } else {
-                            gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function (item) {
+                            gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
                                 return item.profile_id === ProductStor.product.profile.id;
                             });
                             AuxStor.aux.addElementsList = [gridsSort];
@@ -248,12 +247,12 @@
                             if (!g) {
                                 if (ProductStor.product.is_addelem_only) {
                                     /** without window */
-                                    elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function (item) {
+                                    elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
                                         return !item.profile_id;
                                     })];
                                 } else {
                                     /** grid filtering as ot profile id */
-                                    elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function (item) {
+                                    elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
                                         return item.profile_id === ProductStor.product.profile.id;
                                     })];
                                 }

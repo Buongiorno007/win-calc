@@ -88,6 +88,8 @@
                 //---- add elements pannel
                 thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
                 thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
+                thisCtrl.TOTAL_PRICE_SHORT = $filter('translate')('add_elements.TOTAL_PRICE_SHORT');
+                thisCtrl.PRICE = $filter('translate')('add_elements.PRICE');
                 thisCtrl.LINK_BETWEEN_COUPLE = $filter('translate')('cart.LINK_BETWEEN_COUPLE');
                 thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
                 thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
@@ -216,14 +218,9 @@
                     GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
                 }
 
-
-                $(".scroll-hor-container").resize(function () {
-                    console.log(".scroll-hor-container");
-                });
-                $(".order-block").resize(function () {
-                    console.log(".order-block");
-                });
-
+                setTimeout(() => {
+                    $('.product-container').scrollTop(70);
+                }, 5);
 
                 function coutNull(arr) {
                     var tmp = 0;
@@ -233,6 +230,25 @@
                         });
                     }
                     return tmp;
+                }
+
+                function showMoundDeliveryFunc() {
+                    GlobalStor.global.showMountDelivery = !GlobalStor.global.showMountDelivery;
+                }
+
+                function cancelMoundDeliveryFunc() {
+                    GlobalStor.global.showMountDelivery = !GlobalStor.global.showMountDelivery;
+                    CartMenuServ.selectFloorPrice(0);
+                    CartMenuServ.selectDisAssembling(0);
+                    CartMenuServ.selectAssembling(0);
+                    OrderStor.order.sale_price = 0;
+                    OrderStor.order.delivery_add = 0;
+                    OrderStor.order.delivery_garbage_removal = 0;
+                    OrderStor.order.comment = '';
+                }
+
+                function discountChange(){
+
                 }
 
                 /**========== FINISH ==========*/
@@ -246,6 +262,9 @@
                 thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
                 thisCtrl.openOrderDialog = CartServ.openOrderDialog;
                 thisCtrl.openBox = CartServ.openBox;
+                thisCtrl.box = CartServ.box;
+                thisCtrl.mobileBox = CartServ.mobileBox;
+                thisCtrl.fastEdit = CartServ.fastEdit;
 
                 thisCtrl.enterKeyPrice = enterKeyPrice;
                 thisCtrl.enterKeyDop = enterKeyDop;
@@ -258,16 +277,24 @@
                 thisCtrl.pressEnterInDisc = pressEnterInDisc;
                 thisCtrl.showCartTemplte = showCartTemplte;
                 thisCtrl.coutNull = coutNull;
+                thisCtrl.showMoundDeliveryFunc = showMoundDeliveryFunc;
+                thisCtrl.cancelMoundDeliveryFunc = cancelMoundDeliveryFunc;
 
-                thisCtrl.box = CartServ.box;
-                thisCtrl.mobileBox = CartServ.mobileBox;
-                thisCtrl.fastEdit = CartServ.fastEdit;
+
                 thisCtrl.calculateAverageDisc = CartMenuServ.calculateAverageDisc;
                 thisCtrl.showAllAddElements = CartServ.showAllAddElements;
                 thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
                 thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
                 thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
+                thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
+
+
                 thisCtrl.initAllGlassXGlass = DesignServ.initAllGlassXGlass;
+
+
+
+
+
 
                 if ($location.path() !== "/mobile") {
                     $("#main-frame").removeClass("main-frame-mobView");

@@ -1,0 +1,48 @@
+.door-settings-mobile(ng-controller='DesignCtrl as designPage' ng-if='mobilePage.D.design.isDoorConfigMobile')
+        //просто скопировал хедер из доставок
+        .mount-delivery-header 
+            .header-buttons.alert-no(ng-click='designPage.closeDoorConfig()')
+                label {{mobilePage.CANCEL}}
+            .header-buttons.alert-yes(ng-click='designPage.saveDoorConfig()' ng-show="designPage.D.design.steps.selectedStep4")
+                label {{mobilePage.APPLY}}
+        //  ДВЕРНАЯ РАМА
+        .door-congig-scroll
+            .door-config.gray
+                .door-config-title(ng-click='designPage.showStepsMobileFunc(1)')
+                    label {{ ::designPage.DOOR_CONFIG_DESCTIPT_MOBILE }}
+                .door-config-selected(ng-hide='designPage.D.design.showMobileStep === 1')
+                    label(ng-if='designPage.D.design.doorConfig.doorShapeIndex === ""') 1 {{ ::designPage.STEP }}
+                    label {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].name | translate }}
+                .door-config-list(ng-if='designPage.D.design.showMobileStep === 1')
+                    .door-config-item(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="designPage.selectDoor($index, designPage.P.product)")
+                        label {{ ::door.name | translate }}
+            //створка двери
+            .door-config
+                .door-config-title(ng-click='designPage.showStepsMobileFunc(2)')
+                    label {{ ::designPage.SASH_CONFIG_DESCTIPT_MOBILE }}
+                .door-config-selected(ng-hide='designPage.D.design.showMobileStep === 2')
+                    label(ng-if='designPage.D.design.doorConfig.sashShapeIndex === ""' ) 2 {{ ::designPage.STEP }}
+                    label  {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].name }}
+                .door-config-list(ng-if='designPage.D.design.showMobileStep === 2')
+                    .door-config-item(ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="designPage.selectSash($index, designPage.P.product)")
+                        label.splice {{ sashShape.name }}
+            //ручка дверная
+            .door-config.gray
+                .door-config-title(ng-click='designPage.showStepsMobileFunc(3)')
+                    label {{ ::designPage.LOCK_CONFIG_DESCTIPT }}
+                .door-config-selected(ng-hide='designPage.D.design.showMobileStep === 3')
+                    label(ng-if='designPage.D.design.doorConfig.handleShapeIndex === ""' ) 3 {{ ::designPage.STEP }}
+                    label(ng-hide='designPage.D.design.showMobileStep === 3') {{ designPage.D.design.handleShapeList[designPage.gethandleShapeIndex(designPage.D.design.doorConfig.handleShapeIndex)].name }} 
+                .door-config-list(ng-if='designPage.D.design.showMobileStep === 3')
+                    .door-config-item(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === handle.id}", ng-click="designPage.selectHandle(handle.id, designPage.P.product)")
+                        label.splice {{ handle.name }}
+            //замок дверной
+            .door-config
+                .door-config-title(ng-click='designPage.showStepsMobileFunc(4)')
+                    label {{ ::designPage.HANDLE_CONFIG_DESCTIPT }}
+                .door-config-selected(ng-hide='designPage.D.design.showMobileStep === 4')
+                    label(ng-if='designPage.D.design.doorConfig.lockShapeIndex === ""' ) 4 {{ ::designPage.STEP }}
+                    label {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].name }}
+                .door-config-list(ng-if='designPage.D.design.showMobileStep === 4')
+                    .door-config-item(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="designPage.selectLock($index, designPage.P.product)")
+                        label.splice {{ lock.name }}

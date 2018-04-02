@@ -18,16 +18,17 @@
                         p.val {{chosenAddElem.element_height}}
                         p {{mobPage.LENGTH_LABEL}}
                     .item
-                        p.val {{chosenAddElem.element_price}}
-                        p {{mobPage.PRICE}}
+                        p.val {{chosenAddElem.element_price | number : 2}}
+                        p {{mobPage.PRICE }}
             .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === mobPage.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index")
                 .subfolders-name( ng-class='{active : mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
-                    p(ng-click='mobPage.showItems($index, $event, 0)' ) {{subfolder.name}}
+                    p.splice(ng-click='mobPage.showItems($index, $event, 0)' ) {{subfolder.name}}
                     .info(fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
                 img.subfolders-image(ng-click='mobPage.showItems($index, $event, 1)' ng-if='subfolder.img' ng-src='{{subfolder.img}}')
                 .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
-                    p(ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
+                    p.splice(ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
                     .info(ng-if='item.img && item.description' fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)")
+
 
     .confirm-add-elem(ng-if='mobPage.confirmAddElem')
         .close-dialog(ng-if='mobPage.edit' ng-click='mobPage.closeConfirmAddElem()')
@@ -52,7 +53,7 @@
             .item-val(fs-click="mobPage.initAddElementTools((mobPage.ChoosenAddElemGroup+1), 3, mobPage.SelectedElement)" ng-keyup="elementsPanel.pressCulculator($event)")
                 span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_height + ' ' + mobPage.MM}}
         .add-elem-price
-            span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty}}
+            span {{mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_price * mobPage.P.product.chosenAddElements[mobPage.ChoosenAddElemGroup][mobPage.SelectedElement].element_qty | number : 2}}
             span.curr {{mobPage.U.userInfo.currency}}
         .controls
             .alert-no(ng-click='mobPage.cancelAddElem(mobPage.ChoosenAddElemGroup, mobPage.SelectedElement)')

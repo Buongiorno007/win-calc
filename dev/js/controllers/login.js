@@ -104,7 +104,8 @@
                     if (!preloadImages.list) {
                         preloadImages.list = [];
                     }
-                    var list = preloadImages.list, i, img;
+                    var list = preloadImages.list,
+                        i, img;
                     for (i = 0; i < array.length; i += 1) {
                         img = new Image();
                         img.onload = function () {
@@ -208,7 +209,6 @@
                         GlobalStor.global.ISLOGIN = 0;
                     });
                 }
-
 
 
                 function importDBfromServer() {
@@ -321,19 +321,29 @@
                 }
 
 
-                function checkingUser() {
+                function checkingUser(DemoLogin, DemoPass) {
                     loader();
                     GlobalStor.global.ISLOGIN = 1;
                     localDB.db.setItem("FirstIn", "true", function (err, value) {
                     });
                     // console.time('importUser');
-                    localDB.importUser(thisCtrl.user.phone).then(function (result) {
+                    let login = thisCtrl.user.phone;
+                    let pass = thisCtrl.user.password;
+                    if (DemoLogin) {
+                        login = DemoLogin;
+                        pass = DemoPass;
+                        console.log('demo')
+                    } else {
+                        console.log('ordinary')
+                    }
+
+                    localDB.importUser(login).then(function (result) {
                         if (result.status) {
                             var userTemp = angular.copy(result.user);
                             startSlider();
                             //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
                             //---------- check user password
-                            var newUserPassword = localDB.md5(thisCtrl.user.password);
+                            var newUserPassword = localDB.md5(pass);
                             if (newUserPassword === userTemp.password) {
                                 importDBProsses(userTemp);
                                 GlobalStor.global.startSlider = 1;
@@ -689,7 +699,7 @@
                     }
                 }
 
-//********************
+                //********************
 
 
                 /**--------- FACTORIES ------------*/
@@ -703,10 +713,12 @@
                             //-------- send selected Factory Id in Server
                             UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
                             console.log(UserStor.userInfo.factory_id);
-//                  console.log(UserStor.userInfo.factory_id);
+                            //                  console.log(UserStor.userInfo.factory_id);
                             //----- update factoryId in LocalDB & Server
                             localDB.updateLocalServerDBs(
-                                "users", UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
+                                "users", UserStor.userInfo.id, {
+                                    factory_id: UserStor.userInfo.factory_id
+                                }
                             ).then(function () {
                                 //-------- close Factory Dialog
                                 thisCtrl.isFactoryId = 0;
@@ -739,7 +751,7 @@
                         //------- check available Local DB
                         loginServ.isLocalDBExist().then(function (data) {
                             thisCtrl.isLocalDB = data;
-//          console.log('REG', data);
+                            //          console.log('REG', data);
                             //------ if locations is not exists refresh Location and Users
                             if (thisCtrl.isLocalDB) {
                                 GlobalStor.global.isLoader = 1;
@@ -910,6 +922,23 @@
                         // $location.path("/light");
                     }
                 }
+                function DemoLogin() {
+                console.log(UserStor.userInfo.langLabel);
+                let login, pass;
+                if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
+                    login = 'DemoRU';
+                    pass = 'DemoRU';
+                } else {
+                    login = 'DemoEng';
+                    pass = 'DemoEng';
+                }
+                    if (navigator.onLine) {
+                        GlobalStor.global.loadDate = new Date();
+                        GlobalStor.global.isLoader = 1;
+                        GlobalStor.global.startSlider = 1;
+                        checkingUser(login, pass);
+                    }
+                }
 
                 /**========== FINISH ==========*/
 
@@ -925,6 +954,7 @@
                 thisCtrl.closeFactoryDialog = closeFactoryDialog;
                 thisCtrl.closeOfflineAlert = closeOfflineAlert;
                 thisCtrl.startSlider = startSlider;
+                thisCtrl.DemoLogin = DemoLogin;
 
 
                 //------- defined system language
@@ -945,5 +975,6 @@
                     "left": "0px",
                     "top": "0px",
                 });
-            });
+            }
+        );
 })();

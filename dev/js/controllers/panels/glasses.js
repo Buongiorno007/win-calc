@@ -54,7 +54,7 @@
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
                 thisCtrl.OpenFolder = -1;
                 /**============ METHODS ================*/
-
+                console.log(GlobalStor.global.glassesAll);
                 function changePriceAsNewGlass() {
                     var hardwareIds;
                     DesignStor.design.selectedGlass.length = 0;
@@ -157,7 +157,7 @@
                         thisCtrl.OpenFolder = index;
                         if (event) {
                             setTimeout(() => {
-                                $('.glass-container').animate({scrollTop: $(event.currentTarget).offset().top + $('.glass-container').scrollTop() - $(event.currentTarget).height() / 2 - 10 - $('.accept-container').height()}, 'slow');
+                                $('.glass-container').animate({scrollTop: $(event.currentTarget).offset().top + $('.glass-container').scrollTop() - $(event.currentTarget).height() / 2 - $('.accept-container').height()}, 'slow');
                             }, 250);
                         }
                     }

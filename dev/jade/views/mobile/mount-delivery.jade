@@ -1,0 +1,108 @@
+.mount-delivery(ng-if='cartPage.G.global.showMountDelivery')
+        .mount-delivery-header
+            .header-buttons.alert-no(ng-click='cartPage.cancelMoundDeliveryFunc()')
+                label {{mobilePage.CANCEL}}
+            .header-buttons.alert-yes(ng-click='cartPage.showMoundDeliveryFunc()')
+                label {{mobilePage.APPLY}}
+        .mount-delivery-mountings-container(ng-controller="CartMenuCtrl as cartMenu")
+            .mobile-delivery.gray 
+                .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(1)")
+                    label {{::cartMenu.DELIVERY}}
+                 .mobile-delivery-selected(ng-if="cartMenu.O.order.floor_id" ng-hide='cartMenu.config.activeMenuItem == 1')
+                    .mobile-delivery-value
+                        label {{cartMenu.O.order.floorName}}
+                    .mobile-delivery-price
+                        label {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-selected(ng-if="cartMenu.O.order.delivery_garbage_removal"  ng-hide='cartMenu.config.activeMenuItem == 1')
+                    .mobile-delivery-value
+                        label {{ ::cartMenu.GARBAGE_REMOVE  }}
+                    .mobile-delivery-price
+                        label {{ cartMenu.O.order.delivery_garbage_removal }} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-selected(ng-if="cartMenu.O.order.delivery_add"  ng-hide='cartMenu.config.activeMenuItem == 1') 
+                    .mobile-delivery-value
+                        label {{ ::cartMenu.DELIVERY}}
+                    .mobile-delivery-price
+                        label {{ cartMenu.O.order.delivery_add }} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-selected(ng-if="!cartMenu.O.order.floor_id"  ng-hide='cartMenu.config.activeMenuItem == 1')
+                    .mobile-delivery-value
+                        label  {{ ::cartMenu.SELF_EXPORT }}
+                    .mobile-delivery-price
+                        label {{ 0 }} {{ cartMenu.U.userInfo.currency }}
+
+
+                .mobile-delivery-items(ng-if='cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length')
+                    .mobile-delivery-selected(fs-click="cartMenu.selectFloorPrice(0)" ng-class="{'selected': !cartMenu.O.order.floor_id}")
+                        .mobile-delivery-value
+                            label {{ ::cartMenu.SELF_EXPORT }}
+                        .mobile-delivery-price
+                            label {{ 0 }} {{ cartMenu.U.userInfo.currency }}
+                    .mobile-delivery-selected(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(supplyList)")
+                        .mobile-delivery-value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
+                        .name.drop-txt  {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
+                    .mobile-delivery-selected(ng-class="{'selected': cartMenu.O.order.delivery_add}")
+                        .mobile-delivery-value.drop-txt {{ ::cartMenu.DELIVERY }}
+                        .mobile-delivery-value
+                            input.name.drop-txt.only-numbers(type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.changeVal(cartMenu.O.order.delivery_add)" ng-keydown="cartMenu.keyUp($event)" onClick="this.select();")
+                            .name.drop-txt {{ cartMenu.U.userInfo.currency }}
+                    .mobile-delivery-selected(ng-class="{'selected': cartMenu.O.order.delivery_garbage_removal}")
+                        .mobile-delivery-value.drop-txt {{ ::cartMenu.GARBAGE_REMOVE }}
+                        .mobile-delivery-value
+                            input.name.drop-txt.only-numbers(type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.changeVal(cartMenu.O.order.delivery_garbage_removal)"  ng-keydown="cartMenu.keyUp($event)"  onClick="this.select();")
+                            .name.drop-txt {{ cartMenu.U.userInfo.currency }}
+            .mobile-delivery(ng-if='cartMenu.G.global.disassemblyData.length')
+                .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(7)")
+                    label {{::cartMenu.DIS_ASSEMBLING}}
+                .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 7')
+                    .mobile-delivery-value
+                        label(ng-show="!cartMenu.O.order.dismantling_id") {{ ::cartMenu.WITHOUT_DIS_ASSEMBLING }}
+                        label(ng-show="cartMenu.O.order.dismantling_id") {{ cartMenu.O.order.dismantling_name }}
+                    .mobile-delivery-price
+                        label  {{ cartMenu.O.order.dismantling_price}} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-items(ng-if='cartMenu.config.activeMenuItem == 7 && cartMenu.G.global.disassemblyData.length')
+                    .mobile-delivery-selected(ng-class="{'selected': !cartMenu.O.order.dismantling_id}", fs-click="cartMenu.selectDisAssembling(0)")
+                        .mobile-delivery-value.drop-txt {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+                        .name.drop-txt {{ ::cartMenu.FREE }}
+                    .mobile-delivery-selected(ng-repeat="assemb in cartMenu.G.global.disassemblyData", ng-class="{'selected': assemb.id == cartMenu.O.order.dismantling_id}", fs-click="cartMenu.selectDisAssembling(assemb)")
+                        .mobile-delivery-value.drop-txt {{ assemb.name }}
+                        .name.drop-txt  {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
+            .mobile-delivery.gray(ng-if='cartMenu.G.global.assemblingData.length')
+                .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(2)")
+                    label {{::cartMenu.ASSEMBLING }}
+                .mobile-delivery-selected(ng-hide='cartMenu.config.activeMenuItem == 2')
+                    .mobile-delivery-value
+                        label(ng-show="!cartMenu.O.order.mounting_id") {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+                        label(ng-show="cartMenu.O.order.mounting_id") {{ cartMenu.O.order.mountingName }}
+                    .mobile-delivery-price
+                        label  {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-items(ng-if='cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length')
+                    .mobile-delivery-selected(ng-class="{'selected': !cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(0)")
+                        .mobile-delivery-value.drop-txt {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+                        .name.drop-txt {{ ::cartMenu.FREE }}
+                    .mobile-delivery-selected(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(assemb)")
+                        .mobile-delivery-value.drop-txt {{ assemb.name }}
+                        .name.drop-txt  {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
+            
+            .mobile-delivery 
+                .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(6)")
+                    label {{::cartMenu.ADD_SERVICES }}
+                //- .mobile-delivery-selected
+                //-     .mobile-delivery-value
+                //-         label {{::cartMenu.ADD_SERVICES_SHORT }}
+                //-     .mobile-delivery-price
+                //-         label {{ cartMenu.O.order.sale_price }} {{cartMenu.U.userInfo.currency}}
+                .mobile-delivery-selected
+                    .mobile-delivery-value
+                        label {{::cartMenu.ADD_SERVICES_SHORT }}
+                    .mobile-delivery-price
+                        input.comment-field.noPreventDefault.only-numbers(type="number" ng-model="cartMenu.O.order.sale_price" ng-change="cartMenu.changeVal(cartMenu.O.order.sale_price)" ng-keydown="cartMenu.keyUp($event)"  onClick="this.select()") 
+                        label {{cartMenu.U.userInfo.currency}}
+                     
+            
+            .mobile-delivery.gray
+                .mobile-delivery-title(ng-click="cartMenu.selectMenuItem(5)")
+                    label {{::cartMenu.COMMENT }}
+                .mobile-delivery-selected
+                    .mobile-delivery-value
+                        label.splice-comment {{ cartMenu.O.order.comment }}
+                .mobile-delivery-items(ng-if='cartMenu.config.activeMenuItem == 5') 
+                    textarea.comment-field.noPreventDefault(ng-model="cartMenu.O.order.comment")

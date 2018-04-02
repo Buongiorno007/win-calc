@@ -283,7 +283,6 @@
       }
 
       function alert() {
-        console.log("alert");
         GlobalStor.global.nameAddElem = [];
         var name = "";
         var product = 0;
