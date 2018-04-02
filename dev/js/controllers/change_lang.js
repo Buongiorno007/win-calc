@@ -56,7 +56,7 @@
       }
 
     function gotoSettingsPage() {
-      $location.path("/settings");
+      $location.path("/"+GlobalStor.global.prevOpenPage);
     }
 
 
