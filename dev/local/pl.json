@@ -472,8 +472,8 @@
     "DISCOUNT_WITH": "Biorac pod uwage rabaty",
     "DISCOUNT_WITHOUT": "Wykluczajac rabaty",
     "DISCOUNT_WINDOW": "Rabat na produkt",
-    "DISCOUNT_ADDELEM": "Rabat na dodatkowe elementy",
-    "DISCOUNT_SERVICE": "Rabat na dodatkowe uslugi",
+    "DISCOUNT_ADDELEM": "Rabat na dod. elementy",
+    "DISCOUNT_SERVICE": "Rabat na dod. uslugi",
     "ORDER_COMMENT": "Uwagi do zamowienia",
     "UNKNOWN": "Nie wiadomo"
   },
