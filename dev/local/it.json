@@ -443,9 +443,9 @@
     "DISCOUNT_SELECT": "Scelta di sconto",
     "DISCOUNT_WITH": "Prendere in considerazione uno sconto",
     "DISCOUNT_WITHOUT": "Senza uno sconto",
-    "DISCOUNT_WINDOW": "Sconto a un prodotto",
-    "DISCOUNT_ADDELEM": "Sconto a elementi supplementari",
-    "DISCOUNT_SERVICE": "Sconto per servizi aggiuntivi",
+    "DISCOUNT_WINDOW": " a un prodotto",
+    "DISCOUNT_ADDELEM": " a elementi supplementari",
+    "DISCOUNT_SERVICE": " per servizi aggiuntivi",
     "ORDER_COMMENT": "Nota Order",
     "UNKNOWN": "Sconosciuto"
   },
