@@ -152,15 +152,18 @@
                                 if (ProductStor.product.beadsData.length > 0) {
                                     if (!OrderStor.order.products.length) {
                                         $('#qty').hide().show(0);
+                                        $('#qty-mobile').hide().show(0);
                                         saveProduct(go_to_cart);
                                     } else if (GlobalStor.global.isNewTemplate) {
                                         $('#qty').hide().show(0);
+                                        $('#qty-mobile').hide().show(0);
                                         saveProduct();
                                     } else if (!GlobalStor.global.isChangedTemplate) {
                                         //  ALERT
                                         GlobalStor.global.isNoChangedProduct = 1;
                                     } else {
                                         $('#qty').hide().show(0);
+                                        $('#qty-mobile').hide().show(0);
                                         saveProduct(go_to_cart);
                                     }
                                 } else {

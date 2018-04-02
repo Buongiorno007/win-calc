@@ -203,6 +203,9 @@
                 console.log(event);
             }, false);
 
+            $("input").on('keyup', (event) => {
+                console.log(event);
+            }, false);
 
             $("#main-frame").addClass("main-frame-mobView");
             $("#app-container").addClass("app-container-mobView");
@@ -227,3 +230,10 @@
 
         });
 })();
+
+$('input').keypress(function(e) {
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        alert('You pressed enter! - keypress');
+    }
+});

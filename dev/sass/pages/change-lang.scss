@@ -1,31 +1,36 @@
 .language-page {
-  .back {
-    @extend .icon-setting;
-    @include font-icon(rem(50px), 1);
+  display: inline-flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: white;
 
-    width: rem(60px);
-    height: rem(60px);
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    &:before {
-      color: $main_orange;
-      content: $config_menu-arrow-icon;
+  .header {
+    height: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    @include roboto-rg(25px);
+    padding: 0 20px;
+    .title {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: calc(100% - 40px);
+      color: $main_red !important;
     }
   }
   .lang-container {
-    height: 80%;
-    padding-left: rem(25px);
-    color: #fff;
-  }
-  .lists {
-    height: 100%;
-    overflow: hidden;
-  }
-  li.item.active {
-    color: $main_orange;
-  }
-  .lang-label {
-    @include roboto-lt(rem(36px), rem(99px));
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0 20px;
+    .item {
+      @include roboto-rg(20px);
+      color: black;
+      &.active {
+        color: $main_red;
+      }
+    }
+
   }
 }
