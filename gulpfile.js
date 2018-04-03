@@ -129,13 +129,13 @@ gulp.task('js', function () {
         .pipe(replace('PRINT_IP', print_env[env]))
         .pipe(replace('LOCAL_PATH', path_env[env]))
         .pipe(replace('ISEXTFLAG', "0"))
-        .pipe(ngAnnotate({
-            remove: true,
-            add: true,
-            single_quotes: true
-        }))
-        .pipe(removeLogs())
-        .pipe(js_obfuscator())
+        // .pipe(ngAnnotate({
+        //     remove: true,
+        //     add: true,
+        //     single_quotes: true
+        // }))
+        // .pipe(removeLogs())
+        // .pipe(js_obfuscator())
         .pipe(gulp.dest(config.build.dest.js))
         .pipe(reload({stream: true}));
 });

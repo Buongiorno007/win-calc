@@ -175,21 +175,21 @@
                             }
                         }
 
+                        console.log(UserStor.userInfo, 'code_sync');
                         /** check user */
-                        try {
                             if (orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
                                 GeneralServ.confirmAlert(
                                     $filter('translate')('common_words.SEND_ORDER_TITLE'),
                                     $filter('translate')('common_words.SEND_ORDER_TXT'),
                                     sendOrder
                                 );
+                            } else {
+                                GeneralServ.infoAlert(
+                                    "BAD USER",
+                                    "check user params"
+                                );
                             }
-                        } catch (e) {
-                            GeneralServ.infoAlert(
-                                "BAD USER",
-                                "check user params"
-                            );
-                        }
+
                     } else {
 
                         MainServ.getOnline();
@@ -665,7 +665,7 @@
                                                     OrderStor.order.products.push(item);
                                                     deferIcon.resolve(1);
                                                 }
-                                                if (item.services_price_arr && typeof item.services_price_arr === 'string' ) {
+                                                if (item.services_price_arr && typeof item.services_price_arr === 'string') {
                                                     item.services_price_arr = item.services_price_arr.split(",");
                                                 }
                                                 //console.log(item, 'item')
