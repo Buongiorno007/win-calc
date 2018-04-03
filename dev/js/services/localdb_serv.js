@@ -3920,28 +3920,15 @@
                             } else {
                                 new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
                             }
-                            if (curr_table.fields[kndex] === "img" || curr_table.fields[kndex] === "link") {
-                                if (is_url(curr_row[kndex])) {
-                                    // getBase64(curr_row[kndex]).then((base64) => {
-                                    //   new_row[curr_table.fields[kndex]] = base64;
-                                    // });
-                                    // getDataUri(curr_row[kndex], function (base64) {
-                                    //   new_row[curr_table.fields[kndex]] = base64;
-                                    //   console.log("getDataUri");
-                                    // });
+                            if (curr_table.fields[kndex] === "img")  {
                                     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
-                                } else {
-                                    // getBase64(globalConstants.serverIP + curr_row[kndex]).then((base64) => {
-                                    //   new_row[curr_table.fields[kndex]] = base64;
-                                    // });
-                                    // getDataUri(globalConstants.serverIP + curr_row[kndex], function (base64) {
-                                    //   new_row[curr_table.fields[kndex]] = base64;
-                                    //   console.log("getDataUri");
-                                    // });
-                                    new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
-                                }
+                                // if (is_url(curr_row[kndex])) {
+                                // } else {
+                                //     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
+                                // }
                             }
                         }
+
                         new_table.push(new_row);
                     }
                     output[keys[index]] = new_table;
