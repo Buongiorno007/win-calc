@@ -31,6 +31,7 @@
     "yargs": "^6.5.0"
   },
   "dependencies": {
-    "gulp-install": "^1.1.0"
+    "gulp-install": "^1.1.0",
+    "gulp-javascript-obfuscator": "^1.1.4"
   }
 }
