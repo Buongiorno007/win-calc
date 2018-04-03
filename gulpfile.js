@@ -135,7 +135,6 @@ gulp.task('js', function () {
             single_quotes: true
         }))
         .pipe(removeLogs())
-        // .pipe(uglify())
         .pipe(js_obfuscator())
         .pipe(gulp.dest(config.build.dest.js))
         .pipe(reload({stream: true}));
@@ -433,10 +432,12 @@ function buildSite(id) {
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
         .pipe(ngAnnotate({
-            add: true
+            remove: true,
+            add: true,
+            single_quotes: true
         }))
         .pipe(removeLogs())
-        // .pipe(js_obfuscator())
+        .pipe(js_obfuscator())
         .pipe(gulp.dest("_product/" + id + "/site/js"))
         .on('end', function () {
             gutil.log('js!');
