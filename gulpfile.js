@@ -443,8 +443,6 @@ function buildSite(id) {
             gutil.log('js!');
         });
 
-
-
     // Копируем изображения
     gulp.src(config.build.src.img)
         .pipe(gulp.dest("_product/" + id + "/site/img"))
