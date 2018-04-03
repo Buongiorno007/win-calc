@@ -22,7 +22,7 @@ var gulp = require('gulp'),                       // Собственно Gulp J
     ngAnnotate = require('gulp-ng-annotate'),
     htmlmin = require('gulp-htmlmin'),
     gutil = require('gulp-util'),
-    js_obfuscator = require('gulp-js-obfuscator'),  //обфускация кода
+    js_obfuscator = require('gulp-javascript-obfuscator'),  //обфускация кода
     replace = require('gulp-replace'),              //плагин для замены данных в файлах (в нашем случае заменяется метка server_ip на конкретный адрес формата "http://...")
     args = require('yargs').argv,                   //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
     removeLogs = require('gulp-removelogs'),       //Strip console statements from JavaScript
@@ -135,7 +135,6 @@ gulp.task('js', function () {
             single_quotes: true
         }))
         .pipe(removeLogs())
-        // .pipe(uglify())
         .pipe(js_obfuscator())
         .pipe(gulp.dest(config.build.dest.js))
         .pipe(reload({stream: true}));
@@ -433,10 +432,12 @@ function buildSite(id) {
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
         .pipe(ngAnnotate({
-            add: true
+            remove: true,
+            add: true,
+            single_quotes: true
         }))
         .pipe(removeLogs())
-        // .pipe(js_obfuscator())
+        .pipe(js_obfuscator())
         .pipe(gulp.dest("_product/" + id + "/site/js"))
         .on('end', function () {
             gutil.log('js!');

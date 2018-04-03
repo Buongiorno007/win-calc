@@ -459,9 +459,9 @@
     "DISCOUNT_SELECT": "Вибір знижки",
     "DISCOUNT_WITH": "Зі знижкою",
     "DISCOUNT_WITHOUT": "Без знижки",
-    "DISCOUNT_WINDOW": "Знижка на виріб",
-    "DISCOUNT_ADDELEM": "Знижка на дод. елементи",
-    "DISCOUNT_SERVICE": "Знижка на дод. послуги",
+    "DISCOUNT_WINDOW": " на виріб",
+    "DISCOUNT_ADDELEM": " на дод. елементи",
+    "DISCOUNT_SERVICE": " на дод. послуги",
     "ORDER_COMMENT": "Замітка до замовлення",
     "UNKNOWN": "Не відомо"
   },

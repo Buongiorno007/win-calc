@@ -440,9 +440,9 @@
     "DISCOUNT_SELECT": "Selectarea reducerii",
     "DISCOUNT_WITH": "Cu reducere",
     "DISCOUNT_WITHOUT": "Fără reducere",
-    "DISCOUNT_WINDOW": "Reducere pentru articol",
-    "DISCOUNT_ADDELEM": "Reducere pentru elementele suplimentare",
-    "DISCOUNT_SERVICE": "Reducere pentru servicii suplimentare",
+    "DISCOUNT_WINDOW": " pentru articol",
+    "DISCOUNT_ADDELEM": " pentru elementele suplimentare",
+    "DISCOUNT_SERVICE": " pentru servicii suplimentare",
     "ORDER_COMMENT": "Notă în ordinea",
     "UNKNOWN": "Necunoscut"
   },
