@@ -936,7 +936,6 @@
                         checkingUser(login, pass);
                     }
                 }
-
                 /**========== FINISH ==========*/
 
                 //------ clicking

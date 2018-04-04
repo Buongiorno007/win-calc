@@ -57,6 +57,7 @@
             thisCtrl.lastParent = null;
 
             thisCtrl.AddElementsMobile = [];
+
             GlobalStor.global.addElementsAll.forEach((item, index) => {
                 if (index === 0) {
                     if (item.elementsList[0]) {
@@ -64,7 +65,7 @@
                     }
                 }
                 if (GeneralServ.addElementDATA[index].id < 100 && !GeneralServ.addElementDATA[index].disable_mobile) {
-                    if (item.elementType.length && item.elementsList.length) {
+                    if (item.elementType && item.elementsList) {
                         let tmp;
                         tmp = GeneralServ.addElementDATA[index];
                         tmp.folder = merge(angular.copy(item.elementType), angular.copy(item.elementsList));
@@ -142,6 +143,7 @@
 
             /**========== FINISH ==========*/
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
+                // AuxStor.aux.isFocusedAddElement = 0;
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
                 if (thisCtrl.ChoosenAddElemGroup) {
                     thisCtrl.confirmAddElem = 1;
