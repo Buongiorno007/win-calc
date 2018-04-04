@@ -228,7 +228,7 @@
 
         });
 })();
-if (window.location.hostname === 'localhost') {
+if (window.location.hostname !== 'localhost') {
     document.onkeydown = function (e) {
         if (event.keyCode == 123) {
             return false;
