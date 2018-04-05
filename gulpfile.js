@@ -51,7 +51,7 @@ var server_env = {
         "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
         "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
         "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
-        "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
+        "window": "'http://admin.windowscalculator.net/orders/get-order-pdf/'"
     },
     path_env = {
         "windowSiteTest": "'/calculator/local/'",
@@ -826,7 +826,7 @@ gulp.task('wincalcApp', function () {
         .pipe(replace('LOCAL_PATH', path_env["window"]))
         .pipe(replace('ISEXTFLAG', "1"))
         .pipe(concat('main.js'))
-        .pipe(removeLogs())
+        // .pipe(removeLogs())
         .pipe(ngAnnotate({add: true}))
         // .pipe(js_obfuscator())
         // .pipe(uglify())

@@ -157,6 +157,7 @@
                         localDB.db.clear().then(function () {
                             // Run this code once the database has been entirely deleted.
                             console.log('Database is now empty.');
+                            location.reload();
                         }).catch(function (err) {
                             // This code runs if there were any errors
                             console.log(err);
@@ -166,7 +167,6 @@
                          * ЭТА ХУЙНЯ НУЖНA ДЛЯ ТОГО ЧТОБЫ ОБНУЛИТЬ ВСЕ ПЕРЕМЕННЫЕ
                          * ТАК КАК ПРО ОБЫЧНОМ ПЕРЕХОДЕ НА СТРАНИЦУ ЛОГИНА ДАННЫЕ СКАЧАННЫЕ С СЕРВЕРА ДОБАВЛЯЮТСЯ К УЖЕ СУЩЕСТВУЮЩИМ
                          **/
-                        location.reload();
                         break;
                     }
                 }
@@ -199,9 +199,6 @@
             // });
 
 
-            $("#closeSizeCaclulator").on('click', (event) => {
-                console.log(event);
-            }, false);
 
 
             $("#main-frame").addClass("main-frame-mobView");

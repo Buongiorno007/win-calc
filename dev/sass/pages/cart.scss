@@ -17,7 +17,7 @@
     text-align: center;
   }
   .input-field {
-    position: relative;
+    position: relative !important;
     margin-bottom: rem(44px);
     &.has-error > .user-field {
       border-color: $error_color;
