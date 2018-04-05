@@ -716,6 +716,7 @@
                 /** ========== Orders Dialogs ====== */
 
                 function setDefaultCustomerData() {
+                    console.log(arguments);
                     CartStor.cart.customer.customer_city_id = arguments[0];
                     CartStor.cart.customer.customer_city = arguments[1];
                     CartStor.cart.customer.customer_location = arguments[2];
@@ -800,8 +801,9 @@
                 /**------------ Select City in Order Dialogs -------------*/
 
                 function selectCity(location) {
+                    console.log('location',location)
                     GlobalStor.global.changeLocation = 1;
-                    setDefaultCustomerData(location.cityId, location.cityName, location.fullLocation);
+                    setDefaultCustomerData(location.id, location.name, location.fullLocation);
                     CartStor.cart.isCityBox = 0;
                 }
 
