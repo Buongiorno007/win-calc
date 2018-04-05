@@ -23,6 +23,7 @@
         path = window.location.href.replace('/index.html', '');
         path = path.replace('#/', '');
         path = path.replace('main','');
+        path = path.replace('mobile','');
         path = path.replace('light','');
         path = path.replace('change-lang', '');
         $.getJSON(path + query, function(data){

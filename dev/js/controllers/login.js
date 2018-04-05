@@ -920,7 +920,6 @@
                     }
                 }
                 function DemoLogin() {
-                console.log(UserStor.userInfo.langLabel);
                 let login, pass;
                 if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
                     login = 'DemoRU';
