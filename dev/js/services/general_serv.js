@@ -204,7 +204,8 @@
                         typeMenu: 3333,
                         mainTypeMenu: 5555,
                         //colorClass: 'aux_color_connect',
-                        delay: globalConstants.STEP * 30
+                        delay: globalConstants.STEP * 30,
+                        disable_mobile: 1
                     }
 
                 ];
