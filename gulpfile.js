@@ -435,6 +435,8 @@ function buildSite(id) {
         .pipe(replace('LOCAL_PATH', path_env[id]))
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
+        .pipe(js_obfuscator())
+
         .pipe(babel({
             presets: ['env']
         }))
@@ -444,7 +446,6 @@ function buildSite(id) {
             single_quotes: true
         }))
         .pipe(removeLogs())
-        .pipe(js_obfuscator())
         .pipe(gulp.dest("_product/" + id + "/site/js"))
         .on('end', function () {
             gutil.log('js!');
