@@ -2342,7 +2342,15 @@
                                                                         break;
                                                                     }
                                                                     case 3: {
-                                                                        fillName = 'url(#laminat_sash_right)'; //sash_fp2
+                                                                        if (ProductStor.product.door_type_index === 1) {
+                                                                            if (d.points[0].id === 'fp2') {
+                                                                                fillName = 'url(#laminat_sash_right)'; //sash_fp2
+                                                                            } else {
+                                                                                fillName = 'url(#laminat_sash_bottom)'; //sash_fp3
+                                                                            }
+                                                                        } else {
+                                                                            fillName = 'url(#laminat_sash_right)'; //sash_fp2
+                                                                        }
                                                                         indexSash = 0;
                                                                         break;
                                                                     }
@@ -2374,13 +2382,15 @@
                                                                 fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
                                                             }
                                                         }
-                                                    } else if (ProductStor.product.lamination.img_out_id > 1 && ProductStor.product.doorLock.stvorka_type === 6) {
-                                                        if ((d.type === 'frame') || (d.type === 'impost')) {
-                                                            fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
-                                                        } else {
-                                                            fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
-                                                        }
-                                                    } else {
+                                                    }
+                                                    // else if (ProductStor.product.lamination.img_out_id > 1 && ProductStor.product.doorLock.stvorka_type === 6) {
+                                                    //     if ((d.type === 'frame') || (d.type === 'impost')) {
+                                                    //         fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                                                    //     } else {
+                                                    //         fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
+                                                    //     }
+                                                    // }
+                                                    else {
 
                                                         if (d.type === "frame") {
                                                             switch (indexFrame) {
@@ -2525,7 +2535,15 @@
                                                             break;
                                                         }
                                                         case 3: {
-                                                            filterName = 'url(#sash_fp2_shadow)';
+                                                            if (ProductStor.product.door_type_index === 1) {
+                                                                if (d.points[0].id === 'fp2') {
+                                                                    filterName = 'url(#sash_fp2_shadow)';
+                                                                } else {
+                                                                    filterName = 'url(#sash_fp3_shadow)';
+                                                                }
+                                                            } else {
+                                                                filterName = 'url(#sash_fp2_shadow)';
+                                                            }
                                                             indexSashFilter = 0;
                                                             break;
                                                         }
