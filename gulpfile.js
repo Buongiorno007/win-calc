@@ -26,7 +26,8 @@ var gulp = require('gulp'),                       // Собственно Gulp J
     replace = require('gulp-replace'),              //плагин для замены данных в файлах (в нашем случае заменяется метка server_ip на конкретный адрес формата "http://...")
     args = require('yargs').argv,                   //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
     removeLogs = require('gulp-removelogs'),       //Strip console statements from JavaScript
-    jsonminify = require('gulp-jsonminify');       //Strip console statements from JavaScript
+    jsonminify = require('gulp-jsonminify'),       //Strip console statements from JavaScript
+    babel = require('gulp-babel');
 // Очистка результирующей папки
 gulp.task('clean', function () {
     del('www/**', function () {
@@ -136,6 +137,9 @@ gulp.task('js', function () {
         // }))
         // .pipe(removeLogs())
         // .pipe(js_obfuscator())
+        .pipe(babel({
+            presets: ['env']
+        }))
         .pipe(gulp.dest(config.build.dest.js))
         .pipe(reload({stream: true}));
 });
@@ -431,6 +435,9 @@ function buildSite(id) {
         .pipe(replace('LOCAL_PATH', path_env[id]))
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
+        .pipe(babel({
+            presets: ['env']
+        }))
         .pipe(ngAnnotate({
             remove: true,
             add: true,

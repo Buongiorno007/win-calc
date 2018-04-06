@@ -140,13 +140,7 @@
                 ]);
 
                 /**============ METHODS ================*/
-                function startSlider() {
-                    $('#featured').orbit({
-                        'bullets': true,
-                        'timer': true,
-                        'animation': 'horizontal-slide'
-                    });
-                }
+
 
                 function startProgramm() {
                     //console.time('prog');
@@ -337,7 +331,6 @@
                     localDB.importUser(login).then(function (result) {
                         if (result.status) {
                             var userTemp = angular.copy(result.user);
-                            startSlider();
                             //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
                             //---------- check user password
                             var newUserPassword = localDB.md5(pass);
@@ -632,14 +625,7 @@
                     }
                 }
 
-                function formatDate(date) {
-                    var year = date.getFullYear();
-                    var month = date.getMonth() + 1;
-                    if (month < 10) month = "0" + month;
-                    var day = date.getDate();
-                    if (day < 10) day = "0" + day;
-                    return "\n" + year + "-" + month + "-" + day + "\n";
-                }
+
 
                 if (window.location.hash.length > 10) {
                     loader()
@@ -948,7 +934,6 @@
                 thisCtrl.selectFactory = selectFactory;
                 thisCtrl.closeFactoryDialog = closeFactoryDialog;
                 thisCtrl.closeOfflineAlert = closeOfflineAlert;
-                thisCtrl.startSlider = startSlider;
                 thisCtrl.DemoLogin = DemoLogin;
 
 
