@@ -644,13 +644,11 @@
                 var FirstIn = "true";
                 localDB.db.getItem("FirstIn", function (err, value) {
                     if (value !== "true") {
-                        $("#updateDBcheck").prop("checked", true);
                         GlobalStor.global.loadDate = new Date();
                         localDB.db.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
                         });
                         /** **/
                     } else {
-                        $(".i").show();
                         localDB.db.getItem("loadDate", function (err, value) {
                             GlobalStor.global.loadDate = new Date(value);
                         });
