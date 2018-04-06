@@ -27,6 +27,11 @@
     width: 100px;
     height: 100px;
     label {
+      width: 100px;
+      height: 100px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       position: absolute;
       @include roboto-rg(rem(36px));
     }
