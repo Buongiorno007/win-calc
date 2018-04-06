@@ -101,7 +101,6 @@
                     var deff = $q.defer(),
                         countryQty, regionQty, cityQty, areasQty;
                     localDB.getSavedLocation().then(function (location) {
-                        console.log('location',location)
                         if (location) {
                             cityQty = location.cities.length;
                             GlobalStor.global.locations.cities = angular.copy(location.cities);
