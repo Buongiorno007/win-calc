@@ -2413,6 +2413,7 @@ body {
         @include box-shadow($main_gray_btn 0px 1px 10px 0px);
       }
       .input-field-mobile {
+        position: relative;
         display: inline-flex;
         justify-content: space-between;
         width: 100%;
