@@ -29,7 +29,7 @@
             //ручка дверная
             .door-config.gray
                 .door-config-title(ng-click='designPage.showStepsMobileFunc(3)')
-                    label {{ ::designPage.LOCK_CONFIG_DESCTIPT }}
+                    label {{ ::designPage.HANDLE_CONFIG_DESCTIPT }}
                 .door-config-selected(ng-hide='designPage.D.design.showMobileStep === 3')
                     label(ng-if='designPage.D.design.doorConfig.handleShapeIndex === ""' ) 3 {{ ::designPage.STEP }}
                     label(ng-hide='designPage.D.design.showMobileStep === 3') {{ designPage.D.design.handleShapeList[designPage.gethandleShapeIndex(designPage.D.design.doorConfig.handleShapeIndex)].name }} 
@@ -39,7 +39,7 @@
             //замок дверной
             .door-config
                 .door-config-title(ng-click='designPage.showStepsMobileFunc(4)')
-                    label {{ ::designPage.HANDLE_CONFIG_DESCTIPT }}
+                    label {{ ::designPage.LOCK_CONFIG_DESCTIPT }}
                 .door-config-selected(ng-hide='designPage.D.design.showMobileStep === 4')
                     label(ng-if='designPage.D.design.doorConfig.lockShapeIndex === ""' ) 4 {{ ::designPage.STEP }}
                     label {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].name }}
