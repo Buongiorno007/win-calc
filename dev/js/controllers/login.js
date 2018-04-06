@@ -916,7 +916,7 @@
                         GlobalStor.global.loadDate = new Date();
                         GlobalStor.global.isLoader = 1;
                         GlobalStor.global.startSlider = 1;
-                        // checkingUser(login, pass);
+                        checkingUser(login, pass);
                     }
                 }
                 /**========== FINISH ==========*/
