@@ -487,6 +487,10 @@ function buildSite(id) {
 }
 
 
+gulp.task('buildWindowSteko', function () {
+    buildSite("windowSteko");
+});
+
 gulp.task('buildStekoSite', function () {
     buildSite("steko");
 });
