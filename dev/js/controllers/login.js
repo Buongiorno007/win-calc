@@ -141,7 +141,7 @@
 
                 /**============ METHODS ================*/
 
-
+                let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
                 function startProgramm() {
                     //console.time('prog');
                     /** save first User entrance */
@@ -184,13 +184,10 @@
 
                         /** !!!! **/
 
-                        let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
                         let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
                         if (app) {
                             if (deviceType !== 'iPad' && deviceType !== 'iPhone') {
                                 saveCache();
-                            } else {
-                                $('body').addClass('padding-top-ios')
                             }
 
                         } else {
@@ -960,7 +957,13 @@
                     // loginServ.initExport();
                     entryWithoutLogin();
                 }
-
+                if (app) {
+                    // console.log("PhoneGap application");
+                    let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
+                    if (deviceType === 'iPad' || deviceType === 'iPhone') {
+                        $('body').addClass('padding-top-ios')
+                    }
+                }
                 $("#main-frame").addClass("main-frame-mobView");
                 $("#app-container").addClass("app-container-mobView");
                 let obj = $("#main-frame");
