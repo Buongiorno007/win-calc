@@ -189,7 +189,10 @@
                         if (app) {
                             if (deviceType !== 'iPad' && deviceType !== 'iPhone') {
                                 saveCache();
+                            } else {
+                                $('body').addClass('padding-top-ios')
                             }
+
                         } else {
                             saveCache();
                         }
