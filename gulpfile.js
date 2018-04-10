@@ -43,7 +43,8 @@ var server_env = {
         "windowSite": "'http://api.windowscalculator.net'",
         "steko": "'http://api.steko.com.ua'",
         "orange": "'http://api.calc.csokna.ru'",
-        "window": "'http://api.windowscalculator.net'"
+        "window": "'http://api.windowscalculator.net'",
+        "windowSteko": "'https://api.steko.windowscalculator.net/'"
     },
     print_env = {
         // "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
@@ -52,7 +53,8 @@ var server_env = {
         "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
         "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
         "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
-        "window": "'http://admin.windowscalculator.net/orders/get-order-pdf/'"
+        "window": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
+        "windowSteko": "'https://admin.steko.windowscalculator.net/orders/get-order-pdf/'"
     },
     path_env = {
         "windowSiteTest": "'/calculator/local/'",
@@ -60,7 +62,8 @@ var server_env = {
         "windowSite": "'/calculator/local/'",
         "steko": "'/local/'",
         "orange": "'/local/'",
-        "window": "'/local/'"
+        "window": "'/local/'",
+        "windowSteko": "'/local/'"
     };
 //для указания сервера, к которому будет обращаться приложение необходимо передать параметр
 //по умолчанию обращение идет к стеко.
