@@ -183,21 +183,28 @@
                         }
 
                         /** !!!! **/
-                        GlobalStor.global.loadDate = new Date();
-                        var global = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
-                        var product = LZString.compressToUTF16(JSON.stringify(ProductStor.product));
-                        var userInfo = LZString.compressToUTF16(JSON.stringify(UserStor.userInfo));
-                        var design = LZString.compressToUTF16(JSON.stringify(DesignStor.design));
-                        var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
-                        var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
-                        console.log("configuration finished. get ready to rock");
-                        window.localStorage.clear();
-                        window.localStorage.setItem('GlobalStor', global);
-                        window.localStorage.setItem('ProductStor', product);
-                        window.localStorage.setItem('UserStor', userInfo);
-                        window.localStorage.setItem('AuxStor', aux);
-                        window.localStorage.setItem('DesignStor', design);
-                        window.localStorage.setItem('OrderStor', order);
+
+
+                        var deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
+                        console.log(deviceType);
+
+                        if (deviceType !== 'iPad' &&  deviceType !== 'iPhone' ) {
+                            GlobalStor.global.loadDate = new Date();
+                            var global = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
+                            var product = LZString.compressToUTF16(JSON.stringify(ProductStor.product));
+                            var userInfo = LZString.compressToUTF16(JSON.stringify(UserStor.userInfo));
+                            var design = LZString.compressToUTF16(JSON.stringify(DesignStor.design));
+                            var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
+                            var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
+                            console.log("configuration finished. get ready to rock");
+                            window.localStorage.clear();
+                            window.localStorage.setItem('GlobalStor', global);
+                            window.localStorage.setItem('ProductStor', product);
+                            window.localStorage.setItem('UserStor', userInfo);
+                            window.localStorage.setItem('AuxStor', aux);
+                            window.localStorage.setItem('DesignStor', design);
+                            window.localStorage.setItem('OrderStor', order);
+                        }
 
                         $location.path("/" + GlobalStor.global.currOpenPage);
                         GlobalStor.global.ISLOGIN = 0;
@@ -626,7 +633,6 @@
                 }
 
 
-
                 if (window.location.hash.length > 10) {
                     loader()
                 }
@@ -903,15 +909,16 @@
                         // $location.path("/light");
                     }
                 }
+
                 function DemoLogin() {
-                let login, pass;
-                if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
-                    login = 'DemoRU';
-                    pass = 'DemoRU';
-                } else {
-                    login = 'DemoEng';
-                    pass = 'DemoEng';
-                }
+                    let login, pass;
+                    if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
+                        login = 'DemoRU';
+                        pass = 'DemoRU';
+                    } else {
+                        login = 'DemoEng';
+                        pass = 'DemoEng';
+                    }
                     if (navigator.onLine) {
                         GlobalStor.global.loadDate = new Date();
                         GlobalStor.global.isLoader = 1;
@@ -919,6 +926,7 @@
                         checkingUser(login, pass);
                     }
                 }
+
                 /**========== FINISH ==========*/
 
                 //------ clicking
