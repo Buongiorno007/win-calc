@@ -185,10 +185,7 @@
                         /** !!!! **/
 
                         let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
-                        var deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
-                        console.log(deviceType, app);
-
-
+                        let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
                         if (app) {
                             if (deviceType !== 'iPad' && deviceType !== 'iPhone') {
                                 saveCache();
