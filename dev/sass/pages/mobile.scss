@@ -2804,6 +2804,7 @@ body {
           }
         }
         .row-id {
+          width: 100%;
           display: inline-flex;
           justify-content: space-between;
           @include roboto-bd(11px);

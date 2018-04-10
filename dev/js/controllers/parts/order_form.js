@@ -83,7 +83,7 @@
     // thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
     //   return item.country_id === UserStor.userInfo.country_id;
     // });
-    thisCtrl.locations = _.where(GlobalStor.global.locations.cities, {country_id : UserStor.userInfo.country_id});
+    thisCtrl.locations = _.filter(GlobalStor.global.locations.cities, {country_id : UserStor.userInfo.country_id});
 
 
     /**============ METHODS ================*/

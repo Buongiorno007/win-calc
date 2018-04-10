@@ -296,7 +296,7 @@ function buildExt(id) {
         .pipe(replace('ISEXTFLAG', "1"))
         .pipe(concat('main.js'))
         .pipe(removeLogs())
-        // .pipe(ngAnnotate({add: true}))
+        .pipe(ngAnnotate({add: true}))
         .pipe(js_obfuscator())
         // .pipe(uglify())
         .pipe(gulp.dest("_product/" + id + "/ext/js"))

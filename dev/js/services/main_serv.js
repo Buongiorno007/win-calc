@@ -942,7 +942,7 @@
                 ) {
                     if (!ProductStor.product.template.details[l].children.length) {
                         //ищем стеклопакет, чтобы получить значение glass_type
-                        glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {
+                        glassObj = _.find(_.flatten(GlobalStor.global.glasses), {
                             id: ProductStor.product.template.details[l].glassId
                         });
                         //умнажаем периметр с/п на coefGlass

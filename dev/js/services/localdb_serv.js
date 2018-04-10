@@ -1098,7 +1098,7 @@
             }
 
             function updateLocalDB(tableName, elem, options) {
-                LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.findWhere(LocalDataBase[tableName], options));
+                LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.find(LocalDataBase[tableName], options));
                 LocalDataBase[tableName].push(elem);
                 db.setItem('tables', LocalDataBase).then(function (value) {
                     // Do other things once the value has been saved.
@@ -1109,7 +1109,7 @@
             }
 
             function deleteRowLocalDB(tableName, options) {
-                LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.findWhere(LocalDataBase[tableName], options));
+                LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.find(LocalDataBase[tableName], options));
                 db.setItem('tables', LocalDataBase).then(function (value) {
                     // Do other things once the value has been saved.
                 }).catch(function (err) {
@@ -2420,7 +2420,7 @@
                         } else if (group === 7) {
                             var temp = angular.copy(priceObj);
                             var storeSize = angular.copy(
-                                _.where(_.compact(_.flatten(temp)), {child_id: constrElem.id})
+                                _.filter(_.compact(_.flatten(temp)), {child_id: constrElem.id})
                             );
                             if (storeSize[0] && storeSize[0].length) {
                                 constrElem.size = angular.copy(storeSize[0].length / 1000);
