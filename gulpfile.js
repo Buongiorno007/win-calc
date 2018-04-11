@@ -438,11 +438,11 @@ function buildSite(id) {
         .pipe(replace('LOCAL_PATH', path_env[id]))
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
-        // .pipe(removeLogs())
-        // .pipe(js_obfuscator())
-        // .pipe(babel({
-        //     presets: ['env']
-        // }))
+        .pipe(removeLogs())
+        .pipe(js_obfuscator())
+        .pipe(babel({
+            presets: ['env']
+        }))
         .pipe(ngAnnotate())
         .pipe(gulp.dest("_product/" + id + "/site/js"))
         .on('end', function () {
