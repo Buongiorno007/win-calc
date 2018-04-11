@@ -1070,7 +1070,7 @@
               return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id) + 1;
             });
             var newLockArr = lockArr.filter(function (doorLocks) {
-              var temp = _.where(_.compact(_.flatten(DesignStor.design.handleShapeList)), {
+              var temp = _.filter(_.compact(_.flatten(DesignStor.design.handleShapeList)), {
                 id: id
               });
               return temp[0].profIds.indexOf('hel' + doorLocks.id + 'lo') + 1;
@@ -1211,7 +1211,7 @@
           product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
           product.doorName = source.doorShapeList[product.door_shape_id].name;
           product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
-          var doorHandle = _.where(_.compact(_.flatten(source.handleShapeList)), {
+          var doorHandle = _.filter(_.compact(_.flatten(source.handleShapeList)), {
             id: product.door_handle_shape_id
           });
           product.doorHandle = doorHandle[0];
