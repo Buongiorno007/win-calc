@@ -2315,7 +2315,6 @@
 
                 return deferred.promise;
             }
-
             function setGlassfilter() {
                 var product = angular.copy(ProductStor.product);
                 var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
@@ -2350,7 +2349,6 @@
                     template.details[x].glass_type = product.glass[0].glass_type;
                 }
             }
-
             function displayData(value) {
                 return angular.copy(value) * 0.0393701;
             }
