@@ -166,7 +166,6 @@
                         DesignStor.design.maxSizeLimit = 5000;
                         GlobalStor.global.maxSizeAddElem = 5000;
                     }
-                    ;
 
                     /** click to the same parameter => calc Price and close caclulators */
                     if (AuxStor.aux.auxParameter === groupId + '-' + toolsId + '-' + elementIndex) {
