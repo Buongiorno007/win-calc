@@ -98,7 +98,6 @@
                     }
                 }, 100);
             }
-
             function openServiceCalculator(id) {
                 GlobalStor.global.isServiceCalculator = 0;
                 GlobalStor.global.servicesPriceIndex = id;
@@ -114,7 +113,9 @@
             //------ clicking
             thisCtrl.click = click;
             thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+
             thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+
             thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
             thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
             thisCtrl.showWindowScheme = showWindowScheme;

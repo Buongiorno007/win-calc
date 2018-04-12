@@ -121,7 +121,6 @@
                 //      });
             }
 
-            
 
             /**  Create Order Id and Date */
 
@@ -358,19 +357,23 @@
                                         _callback(null, result);
                                     });
                             },
+
                             function (result, _callback) {
-                                localDB
-                                    .selectLocalDB(
-                                        "elements_profile_systems", {
-                                            element_id: result[0].parent_element_id
-                                        },
-                                        "profile_system_id"
-                                    )
-                                    .then(function (result2) {
-                                        product.profileId = result2[0].profile_system_id;
-                                        door.push(product);
-                                        _callback(null, product.profileId);
-                                    });
+                                if (result.length) {
+                                    localDB
+                                        .selectLocalDB(
+                                            "elements_profile_systems", {
+                                                element_id: result[0].parent_element_id
+                                            },
+                                            "profile_system_id"
+                                        )
+                                        .then(function (result2) {
+                                            product.profileId = result2[0].profile_system_id;
+                                            door.push(product);
+                                            _callback(null, product.profileId);
+                                        });
+                                }
+
                             }
                         ],
                         function (err, result) {
@@ -421,7 +424,6 @@
                     }
                 }
             }
-
 
 
             function setCurrentGlass(product, id) {
