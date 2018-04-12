@@ -39,7 +39,5 @@
     .dialog-inner
       svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="glassPanel.constants.SVG_ID_GLASS")
     .set-glass-btn(fs-click="glassPanel.confirmGlass()") {{glassPanel.APPLY}}
-    //.set-glass-all-btn(fs-click="glassPanel.setGlassToAll()") {{ ::glassPanel.SELECT_ALL }}
-    //.set-glass-warning <span></span> {{ ::glassPanel.SELECT_GLASS_WARN }}
     .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
   .backDarkView(ng-if="glassPanel.G.global.showGlassSelectorDialog")

@@ -27,7 +27,8 @@ var gulp = require('gulp'),                       // Собственно Gulp J
     args = require('yargs').argv,                   //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
     removeLogs = require('gulp-removelogs'),       //Strip console statements from JavaScript
     jsonminify = require('gulp-jsonminify'),       //Strip console statements from JavaScript
-    babel = require('gulp-babel');
+    babel = require('gulp-babel'),
+    imagemin = require('gulp-imagemin');
 // Очистка результирующей папки
 gulp.task('clean', function () {
     del('www/**', function () {
@@ -140,9 +141,9 @@ gulp.task('js', function () {
         // }))
         // .pipe(removeLogs())
         // .pipe(js_obfuscator())
-        .pipe(babel({
-            presets: ['env']
-        }))
+        // .pipe(babel({
+        //     presets: ['env']
+        // }))
         .pipe(gulp.dest(config.build.dest.js))
         .pipe(reload({stream: true}));
 });
@@ -455,6 +456,7 @@ function buildSite(id) {
 
     // Копируем изображения
     gulp.src(config.build.src.img)
+        .pipe(imagemin())
         .pipe(gulp.dest("_product/" + id + "/site/img"))
         .on('end', function () {
             //css
@@ -866,6 +868,7 @@ gulp.task('wincalcApp', function () {
 
 // Копируем изображения
     gulp.src(config.build.src.img)
+        .pipe(imagemin())
         .pipe(gulp.dest(config.build.window.app.img))
         .on('end', function () {
             //css

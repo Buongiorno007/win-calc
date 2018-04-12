@@ -158,6 +158,8 @@
 
                 function initAddElementTools(groupId, toolsId, elementIndex) {
                     var currElem;
+                    console.log(groupId, toolsId, elementIndex);
+                    console.log(ProductStor.product.chosenAddElements);
                     DesignStor.design.minSizeLimit = 0;
                     if (ProductStor.product.chosenAddElements[groupId - 1][elementIndex].max_size) {
                         DesignStor.design.maxSizeLimit = ProductStor.product.chosenAddElements[groupId - 1][elementIndex].max_size;
@@ -166,7 +168,6 @@
                         DesignStor.design.maxSizeLimit = 5000;
                         GlobalStor.global.maxSizeAddElem = 5000;
                     }
-                    ;
 
                     /** click to the same parameter => calc Price and close caclulators */
                     if (AuxStor.aux.auxParameter === groupId + '-' + toolsId + '-' + elementIndex) {
