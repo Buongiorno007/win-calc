@@ -1,141 +1,196 @@
 .glass-container {
-  .glass-block {
-    @extend .config-section;
-  }
-  .glass-block-header,
-  .glass-block-footer {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include justify-content(flex-start);
-  }
-  .info {
-    top: rem(-30px);
-    right: rem(35px);
-  }
-  .glass-block-footer {
-    overflow-x: auto;
-    overflow-y: hidden;
-    //min-width: 98%;
-    height: rem(370px);
-    margin-top: rem(50px);
-    padding-top: 1rem;
-  }
-  .footer-inner {
-    @include display-flex();
-    @include align-items(center);
-  }
-  .glass-box {
-    @include transition(all .5s linear);
-    width: rem(515px);
-    min-width: rem(515px);
-    height: rem(310px);
-    margin-right: rem(50px);
-    &.selected {
-      position: relative;
-      background-color: $main_green;
-      .glass-type {
-        background-color: #57b23c;
-      }
-      &:after {
-        @include top_left_coord(40px, 30px);
-      }
-    }
-    .label {
-      display: inline-block;
-      margin-left: 4.5rem;
-      width: 100%;
-      margin-top : .3rem;
-      span {
-        @include roboto-lt(rem(30px));
-        float:  left;
-        width: auto;
-        display: inline-block;
-      }
-    }
-  }
-  .glass-box-view {
-    @include display-flex();
-    @include flex-flow(column wrap);
-    @include justify-content(space-between);
-
-    float: left;
-    overflow: hidden;
-    max-width: 12rem;
-    text-align: center;
-    .label {
-      max-width: 12rem;
-      word-wrap: break-word;
-    }
-  }
-  .glass-img {
-    img {
-      max-width: rem(150px);
-    }
-  }
-  .glass-box-data {
-    float: right;
-    width: rem(225px);
-    margin-top: 1.5rem;
-  }
-  .glass-descr {
-    @extend .truncated;
-    @include roboto-md(rem(36px));
-    color: $main_gray_txt;
-    margin-left: 2rem;
-  }
-  .label {
-    @include roboto-lt(rem(22px));
-    color: #8c8c8c;
-  }
-
-  .full-name {
-    @extend .truncated;
-    @include roboto-lt(rem(20px));
+  .glass-container {
     position: absolute;
-    bottom: 0;
+    top: 0;
     width: 100%;
-    background-color: $main_orange;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    text-align: center;
+    height: 100%;
+    overflow-y: auto;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+    padding-top: 15px;
+    .glass-block {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      flex-direction: column;
+      flex : 0 0 auto;
+      width: 80%;
+      height: auto;
+      margin-bottom: 20px;
+      .folder-img {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        height: 250px;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+        //background: white;
+        padding: 5px;
+        img {
+          display: inline-flex;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      .button {
+        border: 2px solid $main_orange;
+        border-radius: 45px;
+        height: 65px;
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
+        z-index: 1;
+        .title {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: calc(100% - 114px);
+          color: black;
+          @include roboto-bd(25px);
+          text-transform: uppercase;
+        }
+        .arrow{
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 25px;
+          height: 25px;
+          background: url("../img/calc/right-arrow.svg");
+          background-size: contain;
+          transition: 0.5s;
+          margin: 12px;
+          &.active {
+            transform: rotate(90deg);
+            transition: 0.5s;
+          }
+        }
+
+      }
+      .glass-folder {
+        //position: absolute;
+        //top: 310px;
+        //z-index: 1;
+        padding: 10px 10px 0 10px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        background: white;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
+        .glass-item {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 52px;
+          border: 2px solid $main_orange;
+          border-radius: 25px;
+          margin-bottom: 10px;
+          .glass-width{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 40px;
+            flex : 0 0 auto;
+            border-radius: 25px;
+            background: $main_orange;
+            color: white;
+            @include roboto-bd(16px);
+          }
+          .title{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: calc(100% - 167px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex : 0 0 auto;
+            @include roboto-rg(20px);
+            color: black;
+          }
+          .item-info{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 40px;
+            flex : 0 0 auto;
+          }
+          .blank-div{
+            display: inline-flex;
+            width: 80px;
+            height: 40px;
+            flex : 0 0 auto;
+          }
+        }
+      }
+      .info {
+        all: unset;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 45px;
+        width: 50px;
+        height: 50px;
+        background: $main_green;
+        &:before {
+          content: '';
+        }
+        label {
+          color: white;
+          @include roboto-bd(35px);
+        }
+      }
+    }
+
   }
 
-  //======== Glasses dialog
+}
 
-  .glass-selector-dialog {
-    @extend .modal-dialog;
-    @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
-    height: 70rem;
-    background-color: #fff;
-    z-index: 12;
+.glass-selector-dialog {
+  @extend .modal-dialog;
+  @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+  height: 70rem;
+  background-color: #fff;
+  z-index: 12;
+  text-align: center;
+
+  .dialog-inner {
+    height: 90%;
+    width: 100%;
     text-align: center;
-
-    .dialog-inner {
-      height: 90%;
-      width: 100%;
-      text-align: center;
-    }
-    .set-glass-btn {
-      @extend .button;
-      @extend .splash;
-      @include roboto-rg(15px);
-      position: absolute;
-      top: 1.875rem;
-      right: 6rem;
-      border-radius: 5rem;
-      width: 15rem;
-      height : 3rem;
-      background-color: $main_green;
-      text-align: center;
-      color: #fff;
-      text-transform : uppercase;
-      display : inline-flex;
-      justify-content : center;
-      align-items : center;
-      // &:after {
-      //   color: #fff;
-      //   content: $select-history-icon;
-      // }
-    }
+  }
+  .set-glass-btn {
+    @extend .button;
+    @extend .splash;
+    @include roboto-rg(15px);
+    position: absolute;
+    top: 1.875rem;
+    right: 6rem;
+    border-radius: 5rem;
+    width: 15rem;
+    height: 3rem;
+    background-color: $main_green;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    // &:after {
+    //   color: #fff;
+    //   content: $select-history-icon;
+    // }
   }
 }
