@@ -440,7 +440,7 @@ function buildSite(id) {
         .pipe(replace('ISEXTFLAG', "0"))
         .pipe(concat('main.js'))
         .pipe(removeLogs())
-        .pipe(js_obfuscator())
+        // .pipe(js_obfuscator())
         .pipe(babel({
             presets: ['env']
         }))
@@ -452,7 +452,7 @@ function buildSite(id) {
 
     // Копируем изображения
     gulp.src(config.build.src.img)
-        .pipe(imagemin())
+        // .pipe(imagemin())
         .pipe(gulp.dest("_product/" + id + "/site/img"))
         .on('end', function () {
             //css
