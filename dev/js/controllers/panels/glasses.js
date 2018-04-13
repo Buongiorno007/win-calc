@@ -52,7 +52,10 @@
                 thisCtrl.SELECT_CURRENT = $filter('translate')('common_words.SELECT_CURRENT');
                 thisCtrl.SELECT_ALL_CONSTRUCTION = $filter('translate')('common_words.SELECT_ALL_CONSTRUCTION');
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+                thisCtrl.MM = $filter("translate")("mainpage.MM");
                 thisCtrl.OpenFolder = -1;
+
+
                 /**============ METHODS ================*/
                 function changePriceAsNewGlass() {
                     var hardwareIds;
@@ -155,9 +158,16 @@
                     } else {
                         thisCtrl.OpenFolder = index;
                         if (event) {
-                            setTimeout(() => {
-                                $('.glass-container').animate({scrollTop: $(event.currentTarget).offset().top + $('.glass-container').scrollTop() - $(event.currentTarget).height() / 2 - $('.accept-container').height()}, 'slow');
-                            }, 250);
+                            if ($location.path() === "/mobile") {
+                                setTimeout(() => {
+                                    $('.glass-container').animate({scrollTop: $(event.currentTarget).offset().top + $('.glass-container').scrollTop() - $(event.currentTarget).height() / 2 - $('.accept-container').height()}, 'slow');
+                                }, 250);
+                            } else {
+                                $('.glass-container').scrollTop(0);
+                                setTimeout(() => {
+                                    $('.glass-container').animate({scrollTop: $(event.target).offset().top - 240}, 'slow');
+                                }, 500);
+                            }
                         }
                     }
                 }

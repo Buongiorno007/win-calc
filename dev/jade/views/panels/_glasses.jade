@@ -1,43 +1,25 @@
 .config-panel.glass-container(ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}")
-  .panel-inner(ng-if="glassPanel.G.global.activePanel == 3")
-    .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index", ng-class="{'selected': glassPanel.P.product.glassTypeIndex == $index}")
-
-      .group-block-header
-        .title(data-output="{{ glassPanel.G.global.glassTypes[$index].name }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START }}")
-        .group-info
-          .info(ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
-
-      .glass-block-footer.clearfix
-        .footer-inner
-          .box.glass-box.unvisible(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
-            .box_inner(ng-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
-              .glass-descr(data-output="{{ ::glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-              .glass-box-view
-                .glass-img
-                  img(ng-src="img/glasses/glass{{ glass.glass_image }}.png")
-              .glass-box-data
-                .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.transcalencyD === 1, 'coef-level-2': glass.transcalencyD === 2, 'coef-level-3': glass.transcalencyD === 3, 'coef-level-4': glass.transcalencyD === 4}")
-                  .coef-index
-                  .coef-index
-                  .coef-index
-                  .coef-index
-                  .coef-index
-                .label(data-output="{{ ::glassPanel.HEAT_INSULATION }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-                .coef-level.noise-insulation(ng-class="{'coef-level-0': glass.noise_coeffD === 0,'coef-level-1': glass.noise_coeffD == 1, 'coef-level-2': glass.noise_coeffD == 2, 'coef-level-3': glass.noise_coeffD == 3, 'coef-level-4': glass.noise_coeffD == 4}")
-                  .coef-index
-                  .coef-index
-                  .coef-index
-                  .coef-index
-                  .coef-index
-                .label(data-output="{{ ::glassPanel.NOICE_INSULATION }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-            .info(ng-if="glass.img.length || glass.link.length || glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
-            .label
-              span {{ glassPanel.config.glassLabels[glass.glass_image-1] | translate }}
-              span(ng-if="glass.glass_image === 3 || glass.glass_image === 6 || glass.glass_image === 7") {{ ::glassPanel.ENERGY_SAVE }}
-            .full-name(ng-if="glass.sku.length > 21") {{ glass.sku }}
-  .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
-    .dialog-inner
-      svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="glassPanel.constants.SVG_ID_GLASS")
-    .set-glass-btn(fs-click="glassPanel.confirmGlass()") {{glassPanel.APPLY}}
-    .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
-  .backDarkView(ng-if="glassPanel.G.global.showGlassSelectorDialog")
+    .glass-container
+        .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")
+            .folder-img( ng-click="glassPanel.OpenGlassFolder($index)")
+                img(ng-src="{{glassPanel.G.global.glassTypes[$index].img}}")
+            .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
+                .info.folder-info(ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
+                    label i
+                label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
+                .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
+            .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
+                .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
+                    .glass-width
+                        label {{glass.glass_width}} {{glassPanel.MM}}
+                    .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
+                        label {{glass.sku}}
+                    .info.item-info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
+                        label i
+                    .blank-div(ng-if="!(glass.img.length && glass.description.length)")
+    .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
+        .dialog-inner
+            svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="glassPanel.constants.SVG_ID_GLASS")
+        .set-glass-btn(fs-click="glassPanel.confirmGlass()") {{glassPanel.APPLY}}
+        .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
+    .backDarkView(ng-if="glassPanel.G.global.showGlassSelectorDialog")
