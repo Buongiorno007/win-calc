@@ -166,19 +166,10 @@
                   }, 'slow');
                 }, 250);
               } else {
-                // $anchorScroll('anchor' + index);
-                //   setTimeout(() => {
-                //     // $location.hash('anchor' + index);
-                //     // $('.glass-container').animate({scrollTop: $(event.target).offset().top}, 'slow');
-                //   }, 500);
-                // Prevent default anchor click behavior
                 event.preventDefault();
-                var hash = this.hash;
-                $('.glass-container').animate({
-                  scrollTop: $(hash).offset().top
-                }, 800, function() {
-                  window.location.hash = hash;
-                });
+                setTimeout(() => {
+                  $anchorScroll('anchor' + index);
+                }, 50);
               }
             }
           }
