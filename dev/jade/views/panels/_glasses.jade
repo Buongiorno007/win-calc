@@ -3,8 +3,8 @@
     .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")
       .folder-img( ng-click="glassPanel.OpenGlassFolder($index)")
         img(ng-src="{{glassPanel.G.global.glassTypes[$index].img}}")
-      .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
-        .info.folder-info(ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
+      .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" id='anchor{{$index}}')
+        .info.folder-info(ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
           label i
         label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
         .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")

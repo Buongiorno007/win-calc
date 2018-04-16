@@ -481,10 +481,7 @@ function buildSite(id) {
         .on('end', function () {
             gutil.log('local!');
         });
-
 }
-
-
 gulp.task('buildWindowSteko', function () {
     buildSite("windowSteko");
 });
