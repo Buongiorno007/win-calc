@@ -3,6 +3,7 @@
   height: 100%;
   .item {
     padding: 0 2.75rem 0 0;
+    min-height: rem(150px);
     &.active {
       background-color: rgba(0, 0, 0, 0.07);
       &:before {

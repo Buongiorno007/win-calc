@@ -45,17 +45,17 @@ var server_env = {
         "steko": "'http://api.steko.com.ua'",
         "orange": "'http://api.calc.csokna.ru'",
         "window": "'http://api.windowscalculator.net'",
-        "windowSteko": "'https://api.steko.windowscalculator.net/'"
+        "windowSteko": "'http://api.steko.com.ua'"
     },
     print_env = {
         // "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
-        "windowSiteTest": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
+        "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
         "windowSiteLocal": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
         "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-        "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
+        "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
         "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
         "window": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-        "windowSteko": "'https://admin.steko.windowscalculator.net/orders/get-order-pdf/'"
+        "windowSteko": "'http://admin.steko.com.ua/orders/get-order-pdf/'"
     },
     path_env = {
         "windowSiteTest": "'/calculator/local/'",
@@ -452,7 +452,7 @@ function buildSite(id) {
 
     // Копируем изображения
     gulp.src(config.build.src.img)
-        .pipe(imagemin())
+        // .pipe(imagemin())
         .pipe(gulp.dest("_product/" + id + "/site/img"))
         .on('end', function () {
             //css
@@ -481,10 +481,7 @@ function buildSite(id) {
         .on('end', function () {
             gutil.log('local!');
         });
-
 }
-
-
 gulp.task('buildWindowSteko', function () {
     buildSite("windowSteko");
 });

@@ -32,7 +32,6 @@
                 thisCtrl.G = GlobalStor;
                 thisCtrl.consts = globalConstants;
 
-
                 //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
                 thisCtrl.isOnline = 1;
                 thisCtrl.isOffline = 0;
@@ -95,11 +94,6 @@
                 thisCtrl.TEST_USER_LOGIN = $filter('translate')('login.TEST_USER_LOGIN');
                 thisCtrl.TEST_USER_PASS = $filter('translate')('login.TEST_USER_PASS');
 
-                /** reload room img */
-
-                //$("<img />").attr("src", "img/room/1.png");
-                //$("<img />").attr("src", "img/room/33.gif");
-                //$("<img />").attr("src", "img/room/333.gif");
                 function preloadImages(array) {
                     if (!preloadImages.list) {
                         preloadImages.list = [];

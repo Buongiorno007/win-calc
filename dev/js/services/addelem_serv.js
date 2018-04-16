@@ -134,7 +134,6 @@
                         /** calc Price previous parameter and close caclulators */
                         AddElementMenuServ.finishCalculators();
                     }
-                    console.log(id);
                     /** if AddElem Menu is opened yet */
                     if (AuxStor.aux.showAddElementsMenu) {
                         if (AuxStor.aux.isFocusedAddElement === id) {
