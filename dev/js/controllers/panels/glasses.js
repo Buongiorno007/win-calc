@@ -171,7 +171,6 @@
                 //     // $location.hash('anchor' + index);
                 //     // $('.glass-container').animate({scrollTop: $(event.target).offset().top}, 'slow');
                 //   }, 500);
-
                 // Prevent default anchor click behavior
                 event.preventDefault();
                 var hash = this.hash;
