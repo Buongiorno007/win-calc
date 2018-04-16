@@ -7,6 +7,7 @@
 
       function($filter,
         $location,
+        $timeout,
         $anchorScroll,
         globalConstants,
         MainServ,
@@ -153,24 +154,25 @@
             });
         }
 
-        function OpenGlassFolder(index, event) {
+        function OpenGlassFolder(index) {
           if (thisCtrl.OpenFolder === index) {
             thisCtrl.OpenFolder = -1;
           } else {
             thisCtrl.OpenFolder = index;
             if (event) {
-              if ($location.path() === "/mobile") {
-                setTimeout(() => {
-                  $('.glass-container').animate({
-                    scrollTop: $(event.currentTarget).offset().top + $('.glass-container').scrollTop() - $(event.currentTarget).height() / 2 - $('.accept-container').height()
-                  }, 'slow');
-                }, 250);
-              } else {
-                event.preventDefault();
-                setTimeout(() => {
-                  $anchorScroll('anchor' + index);
-                }, 50);
-              }
+                if ($location.path() === "/mobile") {
+                  $timeout(()=>{
+                    $anchorScroll('anchor' + index);
+                    $timeout(()=>{
+                      $('.glass-container').animate({ scrollTop: $('.glass-container').scrollTop() - 20 }, 'slow');
+                    },100);
+                  },100);
+                } else {
+                  $timeout(()=>{
+                    $anchorScroll('anchor' + index);
+                  },100);
+                }
+
             }
           }
         }
