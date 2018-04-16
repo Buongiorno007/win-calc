@@ -49,13 +49,13 @@ var server_env = {
     },
     print_env = {
         // "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
-        "windowSiteTest": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
+        "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
         "windowSiteLocal": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
         "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-        "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
+        "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
         "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
         "window": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-        "windowSteko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'"
+        "windowSteko": "'http://admin.steko.com.ua/orders/get-order-pdf/'"
     },
     path_env = {
         "windowSiteTest": "'/calculator/local/'",
