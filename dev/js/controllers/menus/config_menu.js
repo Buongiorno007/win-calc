@@ -13,6 +13,7 @@
                       GeneralServ,
                       loginServ,
                       MainServ,
+                      NavMenuServ,
                       AddElementMenuServ,
                       DesignServ,
                       GlobalStor,
@@ -76,7 +77,7 @@
                 //------- Select menu item
 
 
-                function saveProduct(go_to_cart) {
+                function saveProduct() {
                     GlobalStor.global.showCoefInfoBlock = 0;
                     GlobalStor.global.servicesPriceIndex = -1;
                     GlobalStor.global.continued = 0;
@@ -93,14 +94,18 @@
                             ProductStor.product.template_source.report = ProductStor.product.report;
                         }
                         if (MainServ.inputProductInOrder()) {
-                            if (go_to_cart) {
-                                MainServ.goToCart();
-                            }
                             GlobalStor.global.construction_count = 0;
                             OrderStor.order.products.forEach(function (product) {
                                 GlobalStor.global.construction_count += parseInt(product.product_qty);
                             });
                             GlobalStor.global.product_qty = 1;
+                            if (ProductStor.product.is_addelem_only) {
+                                GlobalStor.global.isLoader = 0;
+                                MainServ.createNewProduct();
+                                $timeout(()=>{
+                                    NavMenuServ.createAddElementsProduct();
+                                },500);
+                            }
                         }
                     });
 
@@ -143,7 +148,7 @@
                     }
                 }
 
-                function checkForAddElem(go_to_cart) {
+                function checkForAddElem() {
                     // console.log("ProductStor.product", ProductStor.product);
                     if (!GlobalStor.global.isZeroPriceList.length) {
                         if (!ProductStor.product.is_addelem_only) {
@@ -153,7 +158,7 @@
                                     if (!OrderStor.order.products.length) {
                                         $('#qty').hide().show(0);
                                         $('#qty-mobile').hide().show(0);
-                                        saveProduct(go_to_cart);
+                                        saveProduct();
                                     } else if (GlobalStor.global.isNewTemplate) {
                                         $('#qty').hide().show(0);
                                         $('#qty-mobile').hide().show(0);
@@ -164,7 +169,7 @@
                                     } else {
                                         $('#qty').hide().show(0);
                                         $('#qty-mobile').hide().show(0);
-                                        saveProduct(go_to_cart);
+                                        saveProduct();
                                     }
                                 } else {
                                     GeneralServ.isErrorProd(
@@ -173,6 +178,7 @@
                                 }
                             }
                         } else {
+                            console.log('is_addelem_only');
                             saveProduct();
                         }
                     } else {

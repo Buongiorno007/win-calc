@@ -50,6 +50,7 @@
 
                 /**========== FINISH ==========*/
                 //------ clicking
+                thisCtrl.extendUrl = MainServ.extendUrl;
 
                 thisCtrl.ClickOnFolder = ClickOnFolder;
                 thisCtrl.closePanelMobile = MainServ.closePanelMobile;

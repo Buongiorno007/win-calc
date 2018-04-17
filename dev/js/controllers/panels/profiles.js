@@ -51,6 +51,7 @@
 
                 /**========== FINISH ==========*/
                 //------ clicking
+                thisCtrl.extendUrl = MainServ.extendUrl;
 
                 thisCtrl.ClickOnFolder = ClickOnFolder;
                 thisCtrl.alert = alert;
