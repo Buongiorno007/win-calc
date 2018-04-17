@@ -1870,8 +1870,9 @@
                 if (ProductStor.product.is_addelem_only) {
                     permission = checkEmptyChoosenAddElems();
                 }
+                
                 if (permission) {
-                    //console.info('product-----', ProductStor.product);
+                    // console.info('product-----', ProductStor.product);
                     GlobalStor.global.tempAddElements.length = 0;
                     GlobalStor.global.configMenuTips = 0;
                     GlobalStor.global.isShowCommentBlock = 0;
@@ -1894,7 +1895,7 @@
                         GlobalStor.global.productEditNumber = 0;
                         /**========== if New Product =========*/
                     } else {
-                        ProductStor.product.product_id =
+                        ProductStor.product.product_id = 
                             OrderStor.order.products.length > 0 ?
                                 OrderStor.order.products.length + 1 :
                                 1;
@@ -2432,10 +2433,13 @@
                 GlobalStor.global.loader = 2;
                 return Math.round(1000000 / diffs);
             }
-
+            function extendUrl(url){
+                return cordova.file.applicationStorageDirectory + url;
+            }
             /**========== FINISH ==========*/
 
             thisFactory.publicObj = {
+                extendUrl: extendUrl,
                 getPCPower: getPCPower,
                 closePanelMobile: closePanelMobile,
                 profile: profile,

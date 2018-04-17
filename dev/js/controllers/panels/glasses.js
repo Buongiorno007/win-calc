@@ -184,6 +184,8 @@
         /**========== FINISH ==========*/
 
         //------ clicking
+        thisCtrl.extendUrl = MainServ.extendUrl;
+        
         thisCtrl.OpenGlassFolder = OpenGlassFolder;
         thisCtrl.confirmGlass = confirmGlass;
         thisCtrl.setGlassToAll = setGlassToAll;
