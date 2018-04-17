@@ -506,6 +506,7 @@
 
                 //------ show Order/Credit Dialog
                 function openOrderDialog() {
+                    // console.log(OrderStor.order);
                     CartStor.cart.showCurrentTemp = 0;
                     if (OrderStor.order.products.length) {
                         // console.log("openOrderDialog");
