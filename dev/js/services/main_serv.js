@@ -2014,18 +2014,10 @@
                         OrderStor.order.new_delivery_date
                     );
                     orderData.customer_sex = +OrderStor.order.customer_sex || 0;
-                    orderData.customer_age = OrderStor.order.customer_age ?
-                        OrderStor.order.customer_age.id :
-                        0;
-                    orderData.customer_education = OrderStor.order.customer_education ?
-                        OrderStor.order.customer_education.id :
-                        0;
-                    orderData.customer_occupation = OrderStor.order.customer_occupation ?
-                        OrderStor.order.customer_occupation.id :
-                        0;
-                    orderData.customer_infoSource = OrderStor.order.customer_infoSource ?
-                        OrderStor.order.customer_infoSource.id :
-                        0;
+                    orderData.customer_age = OrderStor.order.customer_age ? OrderStor.order.customer_age.id : 0;
+                    orderData.customer_education = OrderStor.order.customer_education ? OrderStor.order.customer_education.id : 0;
+                    orderData.customer_occupation = OrderStor.order.customer_occupation ? OrderStor.order.customer_occupation.id : 0;
+                    orderData.customer_infoSource = OrderStor.order.customer_infoSource ? OrderStor.order.customer_infoSource.id : 0;
                     orderData.products_qty = GeneralServ.roundingValue(
                         OrderStor.order.products_qty
                     );
@@ -2112,14 +2104,14 @@
                                 UserStor.userInfo.phone,
                                 UserStor.userInfo.device_code,
                                 "orders",
-                                orderData,
+                                angular.copy(orderData),
                                 orderId
                             )
                             .then(function (res) {
                                 //------- save draft
                                 localDB.updateLocalDB(
                                     "orders",
-                                    orderData, {
+                                    angular.copy(orderData), {
                                         id: orderId
                                     }
                                 );
