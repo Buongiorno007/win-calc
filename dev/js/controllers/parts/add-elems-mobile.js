@@ -199,6 +199,7 @@
             }
 
             //------ clicking
+            thisCtrl.extendUrl = MainServ.extendUrl;
             thisCtrl.showItems = showItems;
             thisCtrl.OpenFolder = OpenFolder;
             thisCtrl.confirmAddElemDialog = confirmAddElemDialog;
