@@ -2471,7 +2471,6 @@
                                                                         }
                                                                     } else {
                                                                         fillName = 'url(#sash_fp2)';
-
                                                                     }
                                                                     indexSash = 0;
                                                                     break;

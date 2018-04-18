@@ -3104,14 +3104,14 @@
           if (ProductStor.product.profile.id === 25 ||
             ProductStor.product.profile.id === 528 ||
             ProductStor.product.profile.id === 26 ||
-            ProductStor.product.profile.id === 529) {
+            ProductStor.product.profile.id === 529 ||
+            ProductStor.product.profile.id === 561) {
             temp_profile_id = 416727;
           }
           if (ProductStor.product.profile.id === 532 ||
             ProductStor.product.profile.id === 533 ||
             ProductStor.product.profile.id === 534 ||
-            ProductStor.product.profile.id === 535 ||
-            ProductStor.product.profile.id === 561) {
+            ProductStor.product.profile.id === 535 ) {
             temp_profile_id = 416728;
           }
           
