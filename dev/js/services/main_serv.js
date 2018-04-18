@@ -2104,14 +2104,15 @@
                                 UserStor.userInfo.phone,
                                 UserStor.userInfo.device_code,
                                 "orders",
-                                angular.copy(orderData),
+                                orderData,
                                 orderId
                             )
                             .then(function (res) {
+                                orderData.id = orderId;
                                 //------- save draft
                                 localDB.updateLocalDB(
                                     "orders",
-                                    angular.copy(orderData), {
+                                    orderData, {
                                         id: orderId
                                     }
                                 );
