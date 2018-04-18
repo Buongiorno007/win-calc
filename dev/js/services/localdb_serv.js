@@ -1361,7 +1361,7 @@
             field: JSON.stringify(data)
           }];
         updateLocalDB(table, data, {
-          id: row
+          'id': row
         });
         updateServer(
           UserStor.userInfo.phone,
