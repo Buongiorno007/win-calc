@@ -952,7 +952,7 @@
           }
         }
         return arr;
-      };
+      }
 
       function selectLocalDB(key, options, columns) {
         // console.log("selectLocalDB",key);
@@ -1040,10 +1040,14 @@
       }
 
       function updateLocalDB(tableName, elem, options) {
-        LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.find(LocalDataBase[tableName], options));
+        let key = Object.keys(options)[0];
+        let val = options[key]
+        LocalDataBase[tableName] =  LocalDataBase[tableName].filter(function(item){return item[key] !== val})
+
         LocalDataBase[tableName].push(elem);
         db.setItem('tables', LocalDataBase).then(function (value) {
           // Do other things once the value has been saved.
+          // console.log(tableName,value[tableName])
         }).catch(function (err) {
           // This code runs if there were any errors
           console.log(err);
@@ -1051,13 +1055,20 @@
       }
 
       function deleteRowLocalDB(tableName, options) {
-        LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.find(LocalDataBase[tableName], options));
-        db.setItem('tables', LocalDataBase).then(function (value) {
-          // Do other things once the value has been saved.
-        }).catch(function (err) {
-          // This code runs if there were any errors
-          console.log(err);
-        });
+        let key = Object.keys(options)[0];
+        let val = options[key]
+        if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
+
+          LocalDataBase[tableName] =  LocalDataBase[tableName].filter(function(item){return item[key] !== val})
+          
+          db.setItem('tables', LocalDataBase).then(function (value) {
+            // Do other things once the value has been saved.
+            // console.log(tableName,value[tableName]);
+          }).catch(function (err) {
+            // This code runs if there were any errors
+            console.log(err);
+          });
+        }
       }
 
       function deleteProductServer(login, access, orderNumber, table) {
