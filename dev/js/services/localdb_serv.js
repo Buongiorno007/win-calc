@@ -3126,7 +3126,7 @@
                 if (result && result.length) {
                   tmp = result;
                   tmp[0].qty = 1;
-                  if (ProductStor.product.template_square >= 1 && ProductStor.product.template_square < 2) {
+                  if (ProductStor.product.template_square >= 0 && ProductStor.product.template_square < 2) {
                     tmp[0].qty = 0.5;
                   }
                   if (ProductStor.product.template_square >= 2 && ProductStor.product.template_square < 3) {
