@@ -2119,7 +2119,7 @@
                 localDB.updateLocalDB(
                   "orders",
                   angular.copy(orderData), {
-                    id: orderId
+                    'id': orderId
                   }
                 );
                 defer.resolve(1);
