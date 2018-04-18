@@ -3107,15 +3107,14 @@
             ProductStor.product.profile.id === 529) {
             temp_profile_id = 416727;
           }
-          if (ProductStor.product.profile.id === 538 ||
-            ProductStor.product.profile.id === 539 ||
-            ProductStor.product.profile.id === 532 ||
+          if (ProductStor.product.profile.id === 532 ||
             ProductStor.product.profile.id === 533 ||
             ProductStor.product.profile.id === 534 ||
             ProductStor.product.profile.id === 535 ||
-            ProductStor.product.profile.id === 526) {
-            temp_profile_id = 416727;
+            ProductStor.product.profile.id === 561) {
+            temp_profile_id = 416728;
           }
+          
           if (temp_profile_id) {
             if (ProductStor.product.template_square >= 1) {
               selectLocalDB(
@@ -3126,20 +3125,20 @@
                 if (result && result.length) {
                   tmp = result;
                   tmp[0].qty = 1;
-                  if (ProductStor.product.template_square >= 0 && ProductStor.product.template_square < 2) {
+                  if (ProductStor.product.template_square >= 1 && ProductStor.product.template_square < 2) {
                     tmp[0].qty = 0.5;
                   }
                   if (ProductStor.product.template_square >= 2 && ProductStor.product.template_square < 3) {
-                    tmp[0].qty = 1;
+                    tmp[0].qty = 0.75;
                   }
                   if (ProductStor.product.template_square >= 3 && ProductStor.product.template_square < 4) {
-                    tmp[0].qty = 1.5;
+                    tmp[0].qty = 1;
                   }
                   if (ProductStor.product.template_square >= 4 && ProductStor.product.template_square < 5) {
-                    tmp[0].qty = 2;
+                    tmp[0].qty = 1.25;
                   }
                   if (ProductStor.product.template_square >= 5) {
-                    tmp[0].qty = 2.5;
+                    tmp[0].qty = 1.5;
                   }
                   tmp[0].size = 0;
                   tmp[0].sizeLabel = 0;
