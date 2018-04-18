@@ -565,7 +565,7 @@
                     var printProd = [];
                     localDB.selectLocalDB(
                         localDB.tablesLocalDB.order_products.tableName, {
-                            order_id: GlobalStor.global.orderEditNumber
+                            'order_id': GlobalStor.global.orderEditNumber
                         }
                     ).then(function (result) {
                         var products = angular.copy(result);
