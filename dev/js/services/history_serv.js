@@ -569,6 +569,7 @@
                         }
                     ).then(function (result) {
                         var products = angular.copy(result);
+                        console.log('downloadProducts',result);
                         if (products.length) {
                             //------------- parsing All Templates Source and Icons for Order
                             var productPromises = _.map(products, function (prod) {
