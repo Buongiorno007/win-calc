@@ -958,16 +958,11 @@
         // console.log("selectLocalDB",tableName);
         var defer = $q.defer();
         let result = [];
-        if (tableName in LocalDataBase) {
+        if (LocalDataBase[tableName]) {
           if (!options) {
-            // console.log("no option");
             result = angular.copy(LocalDataBase[tableName]);
           } else {
-            // console.log("option");
             result = angular.copy(where(LocalDataBase[tableName], options));
-           //  let key = Object.keys(options)[0];
-           //  let val = options[key]
-           // result =  LocalDataBase[tableName].filter(function(item){return item[key] === val})
           }
           if (columns) {
             let new_res = [];
@@ -986,21 +981,11 @@
             }
             result = angular.copy(new_res);
           }
-          // if (GlobalStor.global.ISLOGIN) {
-          //   setTimeout(() => {
-          //     if (result) {
-          //       defer.resolve(result);
-          //     } else {
-          //       defer.resolve(0);
-          //     }
-          //   }, 200);
-          // } else {
           if (result) {
             defer.resolve(result);
           } else {
             defer.resolve(0);
           }
-          // }
 
         } else {
           defer.resolve(0);
