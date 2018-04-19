@@ -813,7 +813,6 @@
                 )
                 .then(function (doorResult) {
                   GlobalStor.global.isZeroPriceList = [];
-                  console.log(doorResult.consistElem);
                   if (doorResult.consistElem) {
 
                     doorResult.consistElem.forEach(function (entry) {
@@ -2223,9 +2222,7 @@
 
             /**============= SAVE ADDELEMENTS ============ */
 
-            var addElemQty =
-              OrderStor.order.products[p].chosenAddElements.length,
-              add;
+            var addElemQty =   OrderStor.order.products[p].chosenAddElements.length, add;
             for (add = 0; add < addElemQty; add += 1) {
               var elemQty =
                 OrderStor.order.products[p].chosenAddElements[add].length,
@@ -2282,7 +2279,7 @@
                   if (orderType) {
                     localDB.insertRowLocalDB(
                       addElementsData,
-                      ""
+                      localDB.tablesLocalDB.order_addelements.tableName
                     );
                     localDB.insertServer(
                       UserStor.userInfo.phone,

@@ -8,7 +8,6 @@ var gulp = require('gulp'), // Собственно Gulp JS
   jade = require('gulp-jade'), // Плагин для Jade
   compass = require('gulp-compass'), // Плагин для Compass
   csso = require('gulp-csso'), // Минификация CSS
-  imagemin = require('gulp-imagemin'), // Минификация изображений
   uglify = require('gulp-uglify'), // Минификация JS
   ftp = require('gulp-ftp'), // FTP-клиент
   del = require('del'), // Удаление файлов и папок
@@ -27,8 +26,7 @@ var gulp = require('gulp'), // Собственно Gulp JS
   args = require('yargs').argv, //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
   removeLogs = require('gulp-removelogs'), //Strip console statements from JavaScript
   jsonminify = require('gulp-jsonminify'), //Strip console statements from JavaScript
-  babel = require('gulp-babel'),
-  imagemin = require('gulp-imagemin');
+  babel = require('gulp-babel');
 // Очистка результирующей папки
 gulp.task('clean', function () {
   del('www/**', function () {
@@ -485,7 +483,6 @@ function buildSite(id) {
 
   // Копируем изображения
   gulp.src(config.build.src.img)
-    // .pipe(imagemin())
     .pipe(gulp.dest("_product/" + id + "/site/img"))
     .on('end', function () {
       //css
@@ -712,7 +709,6 @@ gulp.task('stekoApp', function () {
 
   // Копируем изображения
   gulp.src(config.build.src.img)
-    .pipe(imagemin())
     .pipe(gulp.dest(config.build.steko.app.img))
     .on('end', function () {
       //css
@@ -929,7 +925,6 @@ gulp.task('wincalcApp', function () {
 
   // Копируем изображения
   gulp.src(config.build.src.img)
-    .pipe(imagemin())
     .pipe(gulp.dest(config.build.window.app.img))
     .on('end', function () {
       //css

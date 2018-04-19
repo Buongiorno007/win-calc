@@ -1,4 +1,5 @@
-.light-v { //*!!!!!!!!!!!!!!!!!!!!!!*//
+.light-v {
+  //*!!!!!!!!!!!!!!!!!!!!!!*//
   background: white;
   background-size: cover;
   #tamlateSVG {
@@ -50,7 +51,6 @@
   }
   .cart-container.full-view {
     background: white;
-
   }
   .cart-menu {
     background: white;
@@ -67,13 +67,11 @@
     text-align: center;
     background-color: white;
     padding-top: .5rem;
-
     p {
       @include roboto-lt(rem(20px));
       color: black;
       margin: 0;
     }
-
   }
   .configuration-button {
     cursor: pointer;
@@ -87,7 +85,6 @@
     border-bottom: .5px solid $main_gray_btn;
     &.active {
       background-color: white;
-
     }
   }
   .img-border {
@@ -105,7 +102,6 @@
     background-color: white;
   }
   .main-content {
-
     background-color: white;
   }
   .img-configuration {
@@ -128,7 +124,6 @@
       display: inline-block;
     }
   }
-
   .img-karkas {
     width: 3rem;
     height: 3rem;
@@ -161,7 +156,6 @@
     background-color: white;
     &.active {
       background-color: white;
-
     }
   }
   .cart-menu {
@@ -177,7 +171,6 @@
       color: $main_red !important;
     }
   }
-
   .cart-button {
     cursor: pointer;
     width: 33.3%;
@@ -190,7 +183,6 @@
     background-color: white;
     &.active {
       background-color: white;
-
     }
   }
   .img-cart {
@@ -241,13 +233,11 @@
     &.selected {
       background-color: transparent !important;
     }
-
   }
   .figure-item-block:hover {
     background-color: transparent !important;
-
   }
-  .selected{
+  .selected {
     color: $main_blue !important;
   }
   .figure-icon:hover {
@@ -259,8 +249,7 @@
   .figure-item {
     height: auto;
     width: 110%;
-    display: inline-block;
-    //border-bottom: 1px solid #b1b1b1;
+    display: inline-block; //border-bottom: 1px solid #b1b1b1;
     padding-top: 1rem;
     padding-bottom: .2rem;
     &.selected {
@@ -272,7 +261,6 @@
       height: 7.5rem
     }
   }
-
   .figure-item:hover {
     background-color: rgba(0, 0, 0, 0.07);
     margin-left: -2rem;
@@ -323,10 +311,11 @@
   .sash-left-up {
     left: 6rem;
   }
-  .sash-up, .sash-right, .sash-down {
+  .sash-up,
+  .sash-right,
+  .sash-down {
     left: 1.2rem;
   }
-
   #angel-shape-menu {
     top: 25rem;
     z-index: -1;
@@ -348,7 +337,10 @@
       left: -29rem;
     }
   }
-  .active_svg, .frame-active, .glass-active, .corner_mark {
+  .active_svg,
+  .frame-active,
+  .glass-active,
+  .corner_mark {
     fill: #7d8efb !important;
   }
   .menu-footer {
@@ -419,7 +411,6 @@
     @extend .size-txt;
     stroke: $main_red;
     fill: $main_red;
-
     &.active {
       stroke: white;
       fill: white;
@@ -458,7 +449,6 @@
       overflow: hidden;
     }
   }
-
   .configur-panelLight {
     box-shadow: -0.1875rem 0 0.9375rem -0.3125rem rgba(0, 0, 0, 0.5);
     left: 135rem;
@@ -507,7 +497,6 @@
     flex-direction: row-reverse;
     margin-left: 2.75rem;
   }
-
   .counter {
     width: 40%;
     height: 5rem;
@@ -522,28 +511,24 @@
       margin-right: 4rem;
     }
   }
-
   .prodcounter {
     color: $main_red;
   }
-  .input-minus, .input-plus {
+  .input-minus,
+  .input-plus {
     cursor: pointer;
-
     position: relative;
     top: -2rem;
-
   }
   .input-minus {
     @include roboto-lt(rem(90px));
     float: left;
     color: $main_gray_txt;
-
   }
   .input-plus {
     @include roboto-lt(rem(90px));
     float: right;
     color: $main_green;
-
   }
   .save-block {
     @extend .splash;
@@ -588,7 +573,6 @@
     float: left;
     border-bottom-right-radius: rem(20px);
     border-bottom-left-radius: rem(20px);
-
     border: 1px solid $main_gray_btn;
   }
   .order-header {
@@ -605,10 +589,8 @@
     position: relative;
     top: rem(30px);
   }
-
   .close-cur-window {
     @extend .small-cross-btn;
-
     position: absolute;
     top: rem(-20px);
     right: rem(-20px);
@@ -625,13 +607,17 @@
   .order-u-coeff {
     @include roboto-lt(rem(42px));
     position: relative;
-    color: $main_green;
+    color: $main_green !important;
     text-align: center;
     height: auto;
     border-bottom: 1px solid $main_gray_btn;
     &.coeff-low {
-      @extend .coeff-low;
+      @extend .flashing;
+      color: $main_red;
     }
+  }
+  .coeff{
+    color: $main_green;
   }
   .order-content {
     padding: 0 rem(40px) 0 rem(50px);
@@ -739,10 +725,11 @@
       color: $main_red;
     }
   }
-  .user-field, .user-select-field{
+  .user-field,
+  .user-select-field {
     font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
   }
-  .order-dialog .cart-dialogs-container{
+  .order-dialog .cart-dialogs-container {
     margin-top: 10%;
   }
 }

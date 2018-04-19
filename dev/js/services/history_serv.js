@@ -730,8 +730,8 @@
                     localDB.selectLocalDB(
                         localDB.tablesLocalDB.order_addelements.tableName, {
                             'order_id': GlobalStor.global.orderEditNumber
-                        }
-                    ).then(function (result) {
+                        }).then(function (result) {
+                          console.log(result);
                         var elementsAdd = angular.copy(result),
                             addElementsAll = angular.copy(GlobalStor.global.addElementsAll),
                             allAddElemQty = elementsAdd.length,

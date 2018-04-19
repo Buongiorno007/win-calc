@@ -954,17 +954,20 @@
         return arr;
       }
 
-      function selectLocalDB(key, options, columns) {
-        // console.log("selectLocalDB",key);
+      function selectLocalDB(tableName, options, columns) {
+        // console.log("selectLocalDB",tableName);
         var defer = $q.defer();
         let result = [];
-        if (key in LocalDataBase) {
+        if (tableName in LocalDataBase) {
           if (!options) {
             // console.log("no option");
-            result = angular.copy(LocalDataBase[key]);
+            result = angular.copy(LocalDataBase[tableName]);
           } else {
             // console.log("option");
-            result = angular.copy(where(LocalDataBase[key], options));
+            result = angular.copy(where(LocalDataBase[tableName], options));
+           //  let key = Object.keys(options)[0];
+           //  let val = options[key]
+           // result =  LocalDataBase[tableName].filter(function(item){return item[key] === val})
           }
           if (columns) {
             let new_res = [];
@@ -1060,7 +1063,7 @@
         if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
 
           LocalDataBase[tableName] =  LocalDataBase[tableName].filter(function(item){return item[key] !== val})
-          
+
           db.setItem('tables', LocalDataBase).then(function (value) {
             // Do other things once the value has been saved.
             // console.log(tableName,value[tableName]);
@@ -3104,17 +3107,17 @@
           if (ProductStor.product.profile.id === 25 ||
             ProductStor.product.profile.id === 528 ||
             ProductStor.product.profile.id === 26 ||
-            ProductStor.product.profile.id === 529) {
+            ProductStor.product.profile.id === 529 ||
+            ProductStor.product.profile.id === 561) {
             temp_profile_id = 416727;
           }
           if (ProductStor.product.profile.id === 532 ||
             ProductStor.product.profile.id === 533 ||
             ProductStor.product.profile.id === 534 ||
-            ProductStor.product.profile.id === 535 ||
-            ProductStor.product.profile.id === 561) {
+            ProductStor.product.profile.id === 535 ) {
             temp_profile_id = 416728;
           }
-          
+
           if (temp_profile_id) {
             if (ProductStor.product.template_square >= 1) {
               selectLocalDB(
@@ -3826,7 +3829,7 @@
       function downloadFile(url, fileURL) {
         let fileTransfer = new FileTransfer();
         url = encodeURI(url);
-      
+
         fileTransfer.download(
           url,
         //   cordova.file.applicationDirectory+fileURL,
