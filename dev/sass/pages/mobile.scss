@@ -73,6 +73,7 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
 .back-button {
   all: unset;
   display: inline-flex;
@@ -82,12 +83,14 @@ body {
   background: url("../img/calc/go-back-arrow.svg") no-repeat;
   background-size: contain;
 }
+
 .padding-top-ios {
   padding-top: 20px;
   height: 100%;
   overflow: hidden;
   background: black;
 }
+
 .mobile {
   * {
     outline: none;
@@ -109,7 +112,7 @@ body {
   }
   .price-value {
     @include roboto-lt(rem($price_container-height-mobile),
-            1);
+    1);
     display: inline-flex;
     overflow: hidden;
     height: rem($price_container-height-mobile);
@@ -170,7 +173,7 @@ body {
   }
   .price-currency {
     @include roboto-lt(rem($price_container-height-mobile - 4px),
-            1);
+    1);
     @extend .red-color;
     margin: 0 1vw;
   }
@@ -229,7 +232,7 @@ body {
         color: white;
         -webkit-text-fill-color: white;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
-                1);
+        1);
         margin-left: 15px;
         height: 100%;
         display: inline-flex;
@@ -245,13 +248,14 @@ body {
         border-radius: 50px;
         @extend .red-color;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
-                1);
+        1);
         margin-right: 1px;
       }
     }
   }
   .number {
-    width: 177px;;
+    width: 177px;
+    ;
   }
   .control-buttons-container {
     position: absolute;
@@ -447,7 +451,7 @@ body {
           .name {
             margin: 10px 0px;
             @include roboto-lt(rem(25px),
-                    1);
+            1);
           }
           &.active {
             border: 2px solid $main_red;
@@ -486,7 +490,7 @@ body {
           justify-content: space-evenly;
           text-align: center;
           height: 10vh;
-          width:  15vw;
+          width: 15vw;
           flex: 0 0 auto;
           &.selected {
             background: white;
@@ -777,7 +781,6 @@ body {
       }
     }
   }
-
   .mobile-common-panel {
     position: absolute;
     top: 0;
@@ -928,7 +931,6 @@ body {
         width: 100%;
         flex-direction: column;
         flex: 0 0 auto;
-
         .button {
           width: 90%;
           height: 60px;
@@ -1112,7 +1114,7 @@ body {
         align-items: center;
         justify-content: center;
         position: relative;
-        top : 0;
+        top: 0;
         right: 0;
         p {
           @include roboto-lt(15px);
@@ -1356,7 +1358,6 @@ body {
               width: 36px;
             }
           }
-
         }
         .choosen-add-elem {
           position: relative;
@@ -1666,6 +1667,12 @@ body {
           }
         }
       }
+      .empty {
+        display: inline-flex;
+        width: 100%;
+        height: 100px;
+        flex: 0 0 auto;
+      }
     }
     .cart-footer-container {
       position: absolute;
@@ -1839,7 +1846,6 @@ body {
         }
       }
     }
-
     .alladdelements-view-mobiile {
       position: absolute;
       display: inline-flex;
@@ -1884,7 +1890,7 @@ body {
             align-items: center;
             width: 100%;
             height: 50px;
-            padding: 0px  0px 0px 15px;
+            padding: 0px 0px 0px 15px;
             @include roboto-rg(25px);
             text-transform: capitalize;
           }
@@ -1899,21 +1905,18 @@ body {
               justify-content: space-between;
               width: 100%;
               height: 40px;
-
               @include roboto-lt(20px);
-              padding: 0px  0px 0px 15px;
+              padding: 0px 0px 0px 15px;
               label {
                 width: 80%;
-
               }
-              .order-delete{
+              .order-delete {
                 position: relative;
                 right: 8%;
               }
             }
             .add-elem-row-info {
-              padding: 0px  0px 0px 15px;
-
+              padding: 0px 0px 0px 15px;
               display: inline-flex;
               @include roboto-lt(15px);
               .add-elem-row {
@@ -1922,11 +1925,9 @@ body {
                 align-items: center;
                 width: 25%;
                 height: 30px;
-                border-right: 1px solid white;
-                //border-left: 1px solid white;
+                border-right: 1px solid white; //border-left: 1px solid white;
               }
             }
-
           }
         }
       }
@@ -1934,7 +1935,6 @@ body {
     .backDarkView {
       z-index: 0;
     }
-
   }
   .splice {
     width: 100%;
@@ -2135,7 +2135,6 @@ body {
       background-size: contain;
     }
   }
-
   .danger-alert {
     background: $main_red;
     z-index: 2;
@@ -2437,7 +2436,6 @@ body {
         width: 100%;
         @include roboto-rg(15px);
         padding-left: 15px;
-
       }
       .error-tooltip {
         all: unset;
@@ -2635,7 +2633,7 @@ body {
     .tool-btn {
       @extend .red-color;
       @include font-icon(rem(60px),
-              1);
+      1);
     }
     .config {
       &:after {
@@ -2907,7 +2905,6 @@ body {
           &.active {
             background: $main_f3;
             border: 1px solid $main_gray_txt;
-
           }
         }
         .tool-btn {
@@ -2967,7 +2964,6 @@ body {
         padding-left: 5px;
         .discounts-label {
           margin-left: 10px;
-
         }
         .red {
           @extend .red-color;
@@ -2986,7 +2982,6 @@ body {
           display: inline-block;
           transform: rotate(270deg);
         }
-
         .discounts-icon-up {
           position: absolute;
           right: 10px;
@@ -3011,7 +3006,6 @@ body {
       .disc {
         height: auto;
         flex: 0 0 auto;
-
       }
     }
     .delete {
@@ -3022,7 +3016,6 @@ body {
       @include roboto-lt(20px);
       justify-content: center;
       border-radius: 25px;
-
     }
   }
 }
