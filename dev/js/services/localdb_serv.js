@@ -952,19 +952,22 @@
           }
         }
         return arr;
-      };
+      }
 
-      function selectLocalDB(key, options, columns) {
-        // console.log("selectLocalDB",key);
+      function selectLocalDB(tableName, options, columns) {
+        // console.log("selectLocalDB",tableName);
         var defer = $q.defer();
         let result = [];
-        if (key in LocalDataBase) {
+        if (tableName in LocalDataBase) {
           if (!options) {
             // console.log("no option");
-            result = angular.copy(LocalDataBase[key]);
+            result = angular.copy(LocalDataBase[tableName]);
           } else {
             // console.log("option");
-            result = angular.copy(where(LocalDataBase[key], options));
+            result = angular.copy(where(LocalDataBase[tableName], options));
+           //  let key = Object.keys(options)[0];
+           //  let val = options[key]
+           // result =  LocalDataBase[tableName].filter(function(item){return item[key] === val})
           }
           if (columns) {
             let new_res = [];
@@ -1040,10 +1043,14 @@
       }
 
       function updateLocalDB(tableName, elem, options) {
-        LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.find(LocalDataBase[tableName], options));
+        let key = Object.keys(options)[0];
+        let val = options[key]
+        LocalDataBase[tableName] =  LocalDataBase[tableName].filter(function(item){return item[key] !== val})
+
         LocalDataBase[tableName].push(elem);
         db.setItem('tables', LocalDataBase).then(function (value) {
           // Do other things once the value has been saved.
+          // console.log(tableName,value[tableName])
         }).catch(function (err) {
           // This code runs if there were any errors
           console.log(err);
@@ -1051,13 +1058,20 @@
       }
 
       function deleteRowLocalDB(tableName, options) {
-        LocalDataBase[tableName] = _.without(LocalDataBase[tableName], _.find(LocalDataBase[tableName], options));
-        db.setItem('tables', LocalDataBase).then(function (value) {
-          // Do other things once the value has been saved.
-        }).catch(function (err) {
-          // This code runs if there were any errors
-          console.log(err);
-        });
+        let key = Object.keys(options)[0];
+        let val = options[key]
+        if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
+
+          LocalDataBase[tableName] =  LocalDataBase[tableName].filter(function(item){return item[key] !== val})
+
+          db.setItem('tables', LocalDataBase).then(function (value) {
+            // Do other things once the value has been saved.
+            // console.log(tableName,value[tableName]);
+          }).catch(function (err) {
+            // This code runs if there were any errors
+            console.log(err);
+          });
+        }
       }
 
       function deleteProductServer(login, access, orderNumber, table) {
@@ -1350,7 +1364,7 @@
             field: JSON.stringify(data)
           }];
         updateLocalDB(table, data, {
-          id: row
+          'id': row
         });
         updateServer(
           UserStor.userInfo.phone,
@@ -3093,18 +3107,17 @@
           if (ProductStor.product.profile.id === 25 ||
             ProductStor.product.profile.id === 528 ||
             ProductStor.product.profile.id === 26 ||
-            ProductStor.product.profile.id === 529) {
+            ProductStor.product.profile.id === 529 ||
+            ProductStor.product.profile.id === 561) {
             temp_profile_id = 416727;
           }
-          if (ProductStor.product.profile.id === 538 ||
-            ProductStor.product.profile.id === 539 ||
-            ProductStor.product.profile.id === 532 ||
+          if (ProductStor.product.profile.id === 532 ||
             ProductStor.product.profile.id === 533 ||
             ProductStor.product.profile.id === 534 ||
-            ProductStor.product.profile.id === 535 ||
-            ProductStor.product.profile.id === 526) {
-            temp_profile_id = 416727;
+            ProductStor.product.profile.id === 535 ) {
+            temp_profile_id = 416728;
           }
+
           if (temp_profile_id) {
             if (ProductStor.product.template_square >= 1) {
               selectLocalDB(
@@ -3119,16 +3132,16 @@
                     tmp[0].qty = 0.5;
                   }
                   if (ProductStor.product.template_square >= 2 && ProductStor.product.template_square < 3) {
-                    tmp[0].qty = 1;
+                    tmp[0].qty = 0.75;
                   }
                   if (ProductStor.product.template_square >= 3 && ProductStor.product.template_square < 4) {
-                    tmp[0].qty = 1.5;
+                    tmp[0].qty = 1;
                   }
                   if (ProductStor.product.template_square >= 4 && ProductStor.product.template_square < 5) {
-                    tmp[0].qty = 2;
+                    tmp[0].qty = 1.25;
                   }
                   if (ProductStor.product.template_square >= 5) {
-                    tmp[0].qty = 2.5;
+                    tmp[0].qty = 1.5;
                   }
                   tmp[0].size = 0;
                   tmp[0].sizeLabel = 0;
@@ -3816,7 +3829,7 @@
       function downloadFile(url, fileURL) {
         let fileTransfer = new FileTransfer();
         url = encodeURI(url);
-      
+
         fileTransfer.download(
           url,
         //   cordova.file.applicationDirectory+fileURL,

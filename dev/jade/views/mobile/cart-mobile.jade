@@ -69,6 +69,7 @@
                     .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
                 .order-edit.alert-no(ng-click="cartPage.mobileBox($index, 'product')")
                     span {{::cartPage.BUTTON_E}}
+        .empty(ng-if='cartPage.O.order.products.length === 1')
     .cart-footer-container
         .cart-footer
             .price(ng-click='cartPage.swipeDiscountBlock()')

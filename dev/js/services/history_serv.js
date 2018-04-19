@@ -569,6 +569,7 @@
                         }
                     ).then(function (result) {
                         var products = angular.copy(result);
+                        console.log('downloadProducts',result);
                         if (products.length) {
                             //------------- parsing All Templates Source and Icons for Order
                             var productPromises = _.map(products, function (prod) {
@@ -729,8 +730,8 @@
                     localDB.selectLocalDB(
                         localDB.tablesLocalDB.order_addelements.tableName, {
                             'order_id': GlobalStor.global.orderEditNumber
-                        }
-                    ).then(function (result) {
+                        }).then(function (result) {
+                          console.log(result);
                         var elementsAdd = angular.copy(result),
                             addElementsAll = angular.copy(GlobalStor.global.addElementsAll),
                             allAddElemQty = elementsAdd.length,
@@ -802,10 +803,12 @@
                             }
                         }
                     }
+
                     OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
                     OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
                     OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
                     OrderStor.order.order_edit = 1;
+                    OrderStor.order.sale_price = parseFloat(OrderStor.order.sale_price)
                     setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
                     setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
                     setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
