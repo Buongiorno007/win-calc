@@ -3079,13 +3079,16 @@
       /** CONSTRUCTION PRICE **/
 
       function calculationPrice(construction) {
+        console.log(ProductStor.product);
         var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
         var tmp = 0;
         var temp_profile_id = 0;
         GlobalStor.global.screw = 0;
-        if (!ProductStor.product.hardware.id) {
+        if (!ProductStor.product.hardware.id &&
+              ProductStor.product.lamination.img_out_id.img_in_id === 1 &&
+              ProductStor.product.lamination.img_out_id ===  1) {
           if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
             temp_profile_id = 416611;
           }
