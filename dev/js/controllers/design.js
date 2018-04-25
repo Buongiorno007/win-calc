@@ -314,7 +314,7 @@
                                 isPermit = 0;
                             }
                         }
-
+                        console.log('DesignStor.design.isDropSubMenu',DesignStor.design.isDropSubMenu)
                         if (isPermit) {
                             deactivMenu();
                             GlobalStor.global.isSashesInTemplate = 1;
