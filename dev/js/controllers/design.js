@@ -296,9 +296,7 @@
                                 if (entry.id === add_elem.block_id) {
                                     entry.gridId = 0;
                                     entry.gridTxt = "";
-
                                     ProductStor.product.chosenAddElements[0].splice(index, 1);
-                                    console.log("2");
                                 }
 
                             });

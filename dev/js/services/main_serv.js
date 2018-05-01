@@ -2407,7 +2407,6 @@
             });
 
           });
-        console.log(ProductStor.product);
       }
 
       function getPCPower() {

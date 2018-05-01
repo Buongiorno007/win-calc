@@ -8,10 +8,8 @@ let portrait = false;
     /** check browser */
     function getDeviseScreen() {
         if (window.matchMedia("(orientation: portrait)").matches) {
-            console.log("portrait")
         }
         if (window.matchMedia("(orientation: landscape)").matches) {
-            console.log("landscape")
         }
     }
     let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
