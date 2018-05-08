@@ -423,7 +423,7 @@
                     GeneralServ.addElementDATA.forEach(function (elemType) {
                         CartStor.cart.allAddElemsOrder.forEach(function (allAddElemsOrder) {
                             if (elemType.id === allAddElemsOrder.list_group_id) {
-                                console.log(elemType.id);
+                                // console.log(elemType.id);
                             }
                         })
                     });
@@ -514,7 +514,6 @@
                             CartStor.cart.isCreditDialog = 1;
                         } else {
                             CartStor.cart.isOrderDialog = 1;
-                            console.log("openOrderDialog");
                         }
                     }
                 }
