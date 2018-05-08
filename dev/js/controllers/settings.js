@@ -98,7 +98,6 @@
     }
 
     function findInput(idElement) {
-      console.log("2");
       $timeout(function() {
         $('#'+idElement).find('input').focus();
       }, 100);

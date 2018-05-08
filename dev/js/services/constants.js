@@ -51,7 +51,8 @@
         {label: 'de', name: 'Deutsch'},
         {label: 'ro', name: 'Român'},
         {label: 'it', name: 'Italiano'},
-        {label: 'pl', name: 'Polski'}
+        {label: 'pl', name: 'Polski'},
+        {label: 'bg', name: 'Български'},
       ]
 
     });

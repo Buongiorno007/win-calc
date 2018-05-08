@@ -3079,7 +3079,6 @@
       /** CONSTRUCTION PRICE **/
 
       function calculationPrice(construction) {
-        console.log(ProductStor.product);
         var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
