@@ -18,7 +18,6 @@
       var def = $q.defer(),
           query = globalConstants.localPath+options.key+'.json',
           path;
-
       if(isDevice) {
         path = window.location.href.replace('/index.html', '');
         path = path.replace('#/', '');
