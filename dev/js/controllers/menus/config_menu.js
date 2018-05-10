@@ -178,12 +178,10 @@
                                 }
                             }
                         } else {
-                            console.log('is_addelem_only');
                             saveProduct();
                         }
                     } else {
                         var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
-                        console.log(GlobalStor.global.isZeroPriceList);
                         GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
                             msg += " " + ZeroElem + "\n";
                         });

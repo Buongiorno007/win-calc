@@ -183,7 +183,6 @@
                             if (deviceType !== 'iPad' && deviceType !== 'iPhone') {
                                 saveCache();
                             }
-
                         } else {
                             saveCache();
                         }

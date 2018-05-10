@@ -389,10 +389,6 @@
         GlobalStor.global.toggleDiscount = !GlobalStor.global.toggleDiscount;
       }
 
-      $(".prodcounter").change(function () {
-        console.log("Handler for .keypress() called.");
-      });
-
       function addNewProductInOrder() {
         //------- set previos Page
         CartStor.cart.showCurrentTemp = 0;

@@ -353,6 +353,7 @@ $door-config-content: $ipad-height - $door-config-header;
   @include transition(top 0.3s linear);
   @extend .constr-shape-icon;
   position: absolute;
+  display: inline-flex;
   top: 0;
   border-right: none;
   z-index: 4;
@@ -428,6 +429,8 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   &.left {
     left: 10.6rem;
+    background: none;
+    background-color: #242424;;
   }
 }
 
