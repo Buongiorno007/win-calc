@@ -5,28 +5,28 @@
         .module('LoginModule')
         .controller('LoginCtrl',
             function ($location,
-                      $timeout,
-                      $rootScope,
-                      $route,
-                      // $cordovaNetwork,
-                      $filter,
-                      $translate,
-                      $q,
-                      GlobalStor,
-                      ProductStor,
-                      OrderStor,
-                      AuxStor,
-                      DesignStor,
-                      UserStor,
-                      HistoryStor,
-                      CartStor,
-                      globalConstants,
-                      localDB,
-                      loginServ,
-                      MainServ,
-                      SettingServ,
-                      HistoryServ,
-                      GeneralServ) {
+                $timeout,
+                $rootScope,
+                $route,
+                // $cordovaNetwork,
+                $filter,
+                $translate,
+                $q,
+                GlobalStor,
+                ProductStor,
+                OrderStor,
+                AuxStor,
+                DesignStor,
+                UserStor,
+                HistoryStor,
+                CartStor,
+                globalConstants,
+                localDB,
+                loginServ,
+                MainServ,
+                SettingServ,
+                HistoryServ,
+                GeneralServ) {
                 /*jshint validthis:true */
                 var thisCtrl = this;
                 thisCtrl.G = GlobalStor;
@@ -101,24 +101,26 @@
                 //$("<img />").attr("src", "img/room/33.gif");
                 //$("<img />").attr("src", "img/room/333.gif");
                 function preloadImages(array) {
-                    if (!preloadImages.list) {
-                        preloadImages.list = [];
-                    }
-                    var list = preloadImages.list,
-                        i, img;
-                    for (i = 0; i < array.length; i += 1) {
-                        img = new Image();
-                        img.onload = function () {
-                            var index = list.indexOf(this);
-                            if (index !== -1) {
-                                // remove image from the array once it's loaded
-                                // for memory consumption reasons
-                                list.splice(index, 1);
-                            }
-                        };
-                        list.push(img);
-                        img.src = array[i];
-                    }
+                    if (!app) {
+                        if (!preloadImages.list) {
+                            preloadImages.list = [];
+                        }
+                        var list = preloadImages.list,
+                            i, img;
+                        for (i = 0; i < array.length; i += 1) {
+                            img = new Image();
+                            img.onload = function () {
+                                var index = list.indexOf(this);
+                                if (index !== -1) {
+                                    // remove image from the array once it's loaded
+                                    // for memory consumption reasons
+                                    list.splice(index, 1);
+                                }
+                            };
+                            list.push(img);
+                            img.src = array[i];
+                        }
+                    }пше
                 }
 
                 preloadImages([
