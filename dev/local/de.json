@@ -75,6 +75,8 @@
     "PASSWORD": "Passwort",
     "MOBILE": "Handy",
     "REGISTRATION": "Anmeldung",
+    "REGISTRATION_INFO": "Um Login und Passwort zu erhalten, geben Sie Ihre Daten ein",
+    
     "SELECT_COUNTRY": "Land wählen",
     "SELECT_REGION": "Region wählen",
     "SELECT_CITY": "Wählen Sie die Stadt",

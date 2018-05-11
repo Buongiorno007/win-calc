@@ -9,6 +9,10 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   #no-visible {
     display: none;
   }
+  .user-select-field {
+      text-align-last: center;
+  }
+  
   .input-field {
     display: inline-flex;
     width: 100%;
@@ -68,19 +72,16 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   @include font-icon(rem(50px), 1);
   position: absolute;
   top: 4%;
-  left: 5%;
+  right: 5%;
   width: rem(60px);
   height: rem(60px);
   margin: 0;
   padding: 0;
   border: none;
-  background: transparent;
+  background: url('./../../img/calc/close-calculator-hover.svg');
+  background-size: contain;
   outline: none;
 
-  &:before {
-    content: $arrow-icon;
-    color: $main_orange;
-  }
 }
 
 .logo {

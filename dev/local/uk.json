@@ -68,6 +68,7 @@
     "PASSWORD": "Пароль",
     "MOBILE": "Мобільний телефон",
     "REGISTRATION": "Реєстрація",
+    "REGISTRATION_INFO": "Щоб отримати логін та пароль, заповніть свої дані",
     "SELECT_COUNTRY": "Оберіть країну",
     "SELECT_REGION": "Оберіть регіон",
     "SELECT_CITY": "Оберіть місто",

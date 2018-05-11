@@ -8,6 +8,7 @@
                 $timeout,
                 $rootScope,
                 $route,
+                $http,
                 // $cordovaNetwork,
                 $filter,
                 $translate,
@@ -53,6 +54,14 @@
                 thisCtrl.factories = 0;
                 GlobalStor.global.loader = 0;
                 thisCtrl.unexpectedError = 0;
+                thisCtrl.countries = 0;
+                thisCtrl.registration_data = {
+                    email : '',
+                    name : ''
+                }
+                thisCtrl.selected_country = 0;
+                thisCtrl.email_required = 0;
+
 
                 /** PING SERVER*/
                 MainServ.getOnline();
@@ -100,6 +109,8 @@
                 //$("<img />").attr("src", "img/room/1.png");
                 //$("<img />").attr("src", "img/room/33.gif");
                 //$("<img />").attr("src", "img/room/333.gif");
+                let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+
                 function preloadImages(array) {
                     if (!app) {
                         if (!preloadImages.list) {
@@ -120,7 +131,7 @@
                             list.push(img);
                             img.src = array[i];
                         }
-                    }пше
+                    }
                 }
 
                 preloadImages([
@@ -143,7 +154,6 @@
 
                 /**============ METHODS ================*/
 
-                let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
                 function startProgramm() {
                     //console.time('prog');
                     /** save first User entrance */
@@ -787,55 +797,98 @@
                 function closeRegistration() {
                     thisCtrl.user = {};
                     thisCtrl.isRegistration = 0;
+                    thisCtrl.email_required = 0;
                 }
 
                 function registrForm(form) {
                     // Trigger validation flag.
                     thisCtrl.submitted = true;
                     if (form.$valid) {
-                        //------ check Internet
-                        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-                        if (thisCtrl.isOnline) {
+                        
+                        if (thisCtrl.registration_data.selected_country > 0) {
                             GlobalStor.global.isLoader = 1;
-                            //--- checking user in server
-                            localDB.importUser(thisCtrl.user.phone).then(function (result) {
-                                if (result.status) {
+                            $http
+                            .post('http://windowscalculator.net/api/wc/', thisCtrl.registration_data)
+                            .then(
+                                function (result) {
+                                    console.log('result',result)
                                     GlobalStor.global.isLoader = 0;
-                                    //---- show attantion
-                                    thisCtrl.isUserExist = 1;
-                                } else {
-                                    var userData = {
-                                        name: thisCtrl.user.name,
-                                        phone: thisCtrl.user.phone,
-                                        email: thisCtrl.user.mail,
-                                        cityId: thisCtrl.user.city.cityId,
-                                        password: localDB.md5(thisCtrl.user.phone)
-                                    };
-                                    console.log('CREATE USER!!!!!!!!!!!!', userData);
-                                    //--- create new user in Server
-                                    localDB.createUserServer(userData);
-                                    GlobalStor.global.isLoader = 0;
-                                    //-------- sent confirmed email
-                                    thisCtrl.isSendEmail = 1;
-                                    closeRegistration();
+                                },
+                                function () {
+    
                                 }
-                            });
+                            );
                         } else {
-                            thisCtrl.isOffline = 1;
+                            thisCtrl.email_required = 1;
                         }
+                        // //------ check Internet
+                        // //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+                        // if (thisCtrl.isOnline) {
+                        //     GlobalStor.global.isLoader = 1;
+                        //     //--- checking user in server
+                        //     localDB.importUser(thisCtrl.user.phone).then(function (result) {
+                        //         if (result.status) {
+                        //             GlobalStor.global.isLoader = 0;
+                        //             //---- show attantion
+                        //             thisCtrl.isUserExist = 1;
+                        //         } else {
+                        //             var userData = {
+                        //                 name: thisCtrl.user.name,
+                        //                 phone: thisCtrl.user.phone,
+                        //                 email: thisCtrl.user.mail,
+                        //                 cityId: thisCtrl.user.city.cityId,
+                        //                 password: localDB.md5(thisCtrl.user.phone)
+                        //             };
+                        //             console.log('CREATE USER!!!!!!!!!!!!', userData);
+                        //             //--- create new user in Server
+                        //             localDB.createUserServer(userData);
+                        //             GlobalStor.global.isLoader = 0;
+                        //             //-------- sent confirmed email
+                        //             thisCtrl.isSendEmail = 1;
+                        //             closeRegistration();
+                        //         }
+                        //     });
+                        // } else {
+                        //     thisCtrl.isOffline = 1;
+                        // }
                     }
                 }
 
                 //--------- if was empty option selected in select after choosing
-                function selectLocation() {
-                    if (!thisCtrl.user.country) {
-                        delete thisCtrl.user.region;
-                        delete thisCtrl.user.city;
-                    } else if (!thisCtrl.user.region) {
-                        delete thisCtrl.user.city;
-                    }
+                function selectLocation(id) {
+                    thisCtrl.email_required = 0;
+                    thisCtrl.registration_data.selected_country = thisCtrl.selected_country.id;
                 }
+                function DemoLogin() {
+                    GlobalStor.global.isLoader = 1;
+                    $http
+                        .post('http://windowscalculator.net/api/wc/?task=country')
+                        .then(
+                            function (result) {
+                                thisCtrl.countries = result.data;
+                                thisCtrl.countries.unshift({'id' : '0', 'name' : thisCtrl.SELECT_COUNTRY})
+                                thisCtrl.isRegistration = 1;
+                                GlobalStor.global.isLoader = 0;
+                            },
+                            function () {
 
+                            }
+                        );
+                    // let login, pass;
+                    // if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
+                    //     login = 'DemoRU';
+                    //     pass = 'DemoRU';
+                    // } else {
+                    //     login = 'DemoEng';
+                    //     pass = 'DemoEng';
+                    // }
+                    // if (navigator.onLine) {
+                    //     GlobalStor.global.loadDate = new Date();
+                    //     GlobalStor.global.isLoader = 1;
+                    //     GlobalStor.global.startSlider = 1;
+                    //     checkingUser(login, pass);
+                    // }
+                }
                 function gotoSettingsPage() {
                     let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
                     if (window.location.hash.length < 10 || app) {
@@ -858,7 +911,6 @@
                 }, 500);
 
                 function checkSavedData() {
-                    // loginServ.getDeviceLanguage();
                     var order = window.localStorage.getItem("OrderStor");
                     var product = window.localStorage.getItem("ProductStor");
                     var aux = window.localStorage.getItem("AuxStor");
@@ -916,22 +968,7 @@
                     }
                 }
 
-                function DemoLogin() {
-                    let login, pass;
-                    if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
-                        login = 'DemoRU';
-                        pass = 'DemoRU';
-                    } else {
-                        login = 'DemoEng';
-                        pass = 'DemoEng';
-                    }
-                    if (navigator.onLine) {
-                        GlobalStor.global.loadDate = new Date();
-                        GlobalStor.global.isLoader = 1;
-                        GlobalStor.global.startSlider = 1;
-                        checkingUser(login, pass);
-                    }
-                }
+
 
                 /**========== FINISH ==========*/
 

@@ -74,6 +74,8 @@
     "PASSWORD": "Password",
     "MOBILE": "Mobile telephone",
     "REGISTRATION": "Registration",
+    "REGISTRATION_INFO": "To get login and password, fill in your details",
+    
     "UPDATEDB" : "Update Database",
     "SELECT_COUNTRY": "Select country",
     "SELECT_REGION": "Select region",

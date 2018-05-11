@@ -57,6 +57,8 @@
     "PASSWORD": "Haslo",
     "MOBILE": "Telefon komorkowy",
     "REGISTRATION": "Rejestracja",
+    "REGISTRATION_INFO": "Rejestracja",
+    
     "SELECT_COUNTRY": "Wybierz kraj",
     "SELECT_REGION": "Wybierz region/ wojewodztwo",
     "SELECT_CITY": "Wybierz miasto",
