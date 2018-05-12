@@ -70,6 +70,10 @@
     "PASSWORD": "Password",
     "MOBILE": "Il cellulare",
     "REGISTRATION": "Registrazione",
+    "REGISTRATION_INFO": "Per ottenere login e password, inserisci i tuoi dati",
+    "REGISTRATION_LOGIN_EMAIL": "Una lettera con un nome utente e una password è stata inviata alla tua e-mail",
+    
+    
     "SELECT_COUNTRY": "Il paese di Veberite",
     "SELECT_REGION": "Scelga la regione",
     "SELECT_CITY": "Scelga la città",
