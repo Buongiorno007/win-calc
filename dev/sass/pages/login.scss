@@ -47,7 +47,6 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   position: relative;
   width: rem(1000px);
   margin: auto;
-  padding: rem(60px) rem(110px);
   border-radius: rem($radius_login-container);
 
   .text-container {
@@ -64,6 +63,13 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   .user-field {
     background-color: white !important;
   }
+  .registr-info {
+    width: rem(1000px);
+    @include roboto-lt(rem(36px));
+    color : white;
+    text-align: center;
+    margin-bottom: rem(50px)
+  }
 }
 
 .close_dialog {
@@ -71,8 +77,8 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   @extend .icon-setting;
   @include font-icon(rem(50px), 1);
   position: absolute;
-  top: 4%;
-  right: 5%;
+  top: -30%;
+  right: 0;
   width: rem(60px);
   height: rem(60px);
   margin: 0;

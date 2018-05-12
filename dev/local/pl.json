@@ -58,6 +58,8 @@
     "MOBILE": "Telefon komorkowy",
     "REGISTRATION": "Rejestracja",
     "REGISTRATION_INFO": "Rejestracja",
+    "REGISTRATION_LOGIN_EMAIL": "List z nazwą użytkownika i hasłem został wysłany na twój e-mail",
+    
     
     "SELECT_COUNTRY": "Wybierz kraj",
     "SELECT_REGION": "Wybierz region/ wojewodztwo",

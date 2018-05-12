@@ -27,7 +27,8 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
-        button.login-submit(ng-if='loginPage.consts.serverIP === "http://api.windowscalculator.net"' ng-click='loginPage.DemoLogin()')
+        //- button.login-submit(ng-if='loginPage.consts.serverIP === "http://api.windowscalculator.net"' ng-click='loginPage.DemoLogin()')
+        button.login-submit(ng-click='loginPage.DemoLogin()')
             {{ ::loginPage.REGISTRATION }}
 
         //button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
@@ -55,6 +56,8 @@ section.login-page.login-page-mobView
         .attantion(ng-show="loginPage.isUserExist") {{ ::loginPage.USER_EXIST }}
         //- .logo
         form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")
+            .input-field
+                label.registr-info  {{ ::loginPage.REGISTRATION_INFO }} 
 
             .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.name.$error.required }")
                 input.user-field(type="text", name="name", ng-model="loginPage.registration_data.name",  ng-minlength="3", placeholder="{{ ::loginPage.CLIENT_NAME }}", required)

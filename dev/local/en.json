@@ -75,6 +75,7 @@
     "MOBILE": "Mobile telephone",
     "REGISTRATION": "Registration",
     "REGISTRATION_INFO": "To get login and password, fill in your details",
+    "REGISTRATION_LOGIN_EMAIL": "A letter with a username and password was sent to your e-mail",
     
     "UPDATEDB" : "Update Database",
     "SELECT_COUNTRY": "Select country",
