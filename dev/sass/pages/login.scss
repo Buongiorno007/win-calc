@@ -15,6 +15,7 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   
   .input-field {
     display: inline-flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -45,9 +46,10 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
 
 .login-container {
   position: relative;
-  width: rem(1000px);
+  width: 100%;
   margin: auto;
   border-radius: rem($radius_login-container);
+  max-width: 500px;
 
   .text-container {
     @include roboto-lt(rem(48px));
@@ -64,11 +66,11 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
     background-color: white !important;
   }
   .registr-info {
-    width: rem(1000px);
     @include roboto-lt(rem(36px));
     color : white;
     text-align: center;
-    margin-bottom: rem(50px)
+    margin-bottom: rem(50px);
+    width: 90%;
   }
 }
 
@@ -77,8 +79,8 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   @extend .icon-setting;
   @include font-icon(rem(50px), 1);
   position: absolute;
-  top: -30%;
-  right: 0;
+  top: -15%;
+  right: 5%;
   width: rem(60px);
   height: rem(60px);
   margin: 0;
@@ -145,29 +147,32 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
 }
 
 .error-tooltip {
-  @include top_left_coord(-10px, 600px);
+  width: 80%;
+  text-align: center;
+  // @include top_left_coord(-10px, 600px);
   @include roboto-lt(rem(36px));
-  position: absolute;
+  position: relative;
   display: table;
-  max-width: rem(600px);
-  padding: rem(20px) rem(40px);
+  // max-width: rem(600px);
+  padding: 5px rem(20px);
   color: #fff;
   border-radius: rem($radius_general-small_button);
   background: $error_color;
   z-index: 1;
+  margin-top: 5px;
 
-  &:before {
-    @include transform(rotate(45deg));
-    position: absolute;
-    top: rem(25px);
-    left: rem(-15px);
-    display: block;
-    width: rem(40px);
-    height: rem(40px);
-    border-radius: rem(5px);
-    background-color: $error_color;
-    content: '';
-  }
+  // &:before {
+  //   @include transform(rotate(45deg));
+  //   position: absolute;
+  //   top: rem(25px);
+  //   left: rem(-15px);
+  //   display: block;
+  //   width: rem(40px);
+  //   height: rem(40px);
+  //   border-radius: rem(5px);
+  //   background-color: $error_color;
+  //   content: '';
+  // }
 }
 
 .login-submit {
