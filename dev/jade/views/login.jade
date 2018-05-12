@@ -79,7 +79,7 @@ section.login-page.login-page-mobView
             .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.mail.$error.required }")
                 input.user-field(type="email", name="mail", ng-model="loginPage.registration_data.email", ng-pattern="loginPage.consts.REG_MAIL", placeholder="{{ ::loginPage.CLIENT_EMAIL }}", required)
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-                .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
+                //- .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ ::loginPage.WRONG_EMAIL }}
             button.login-submit(type="submit") {{ ::loginPage.OK }}
     .backDarkView(ng-if="loginPage.isFactoryId")

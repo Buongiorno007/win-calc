@@ -855,6 +855,10 @@
             // } else {
             //     thisCtrl.isOffline = 1;
             // }
+          } else {
+            if (thisCtrl.registration_data.selected_country === 0) {
+              thisCtrl.email_required = 1;
+            }
           }
         }
 
@@ -875,6 +879,7 @@
                   'id': '0',
                   'name': thisCtrl.SELECT_COUNTRY
                 })
+                thisCtrl.registration_data.selected_country = 0;
                 thisCtrl.isRegistration = 1;
                 GlobalStor.global.isLoader = 0;
 
