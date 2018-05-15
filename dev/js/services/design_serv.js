@@ -863,7 +863,6 @@
             d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
           var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
-          console.log('doorsGroups 1',angular.copy(doorsGroups))
           var temp = [];
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
           DesignStor.design.steps.selectedStep1 = 0;
@@ -904,7 +903,6 @@
           // if (GlobalStor.global.orderEditNumber === 0) {
           //     doorsGroups = angular.copy(temp);
           // }
-          console.log('doorsGroups 2',angular.copy(doorsGroups))
           for (d = 0; d < doorTypeQty; d++) {
             var ch1 = DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
               return item.doorstep_type === 2;
@@ -1066,7 +1064,7 @@
               DesignStor.design.doorConfig.handleShapeIndex = id;
               DesignStor.design.steps.selectedStep3 = 1;
               DesignStor.design.showMobileStep = 4;
-              
+
             }
 
             var lockArr = GlobalStor.global.doorLocks.filter(function (doorLocks) {

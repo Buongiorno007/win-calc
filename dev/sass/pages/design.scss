@@ -444,6 +444,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   &.left {
     left: 10.6rem;
+    background : #242424;
   }
 }
 
@@ -879,5 +880,3 @@ $door-config-content: $ipad-height - $door-config-header;
   left: 2rem;
   top: 0rem;
 }
-
-
