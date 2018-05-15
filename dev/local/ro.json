@@ -63,6 +63,10 @@
     "PASSWORD": "Parolă",
     "MOBILE": "Telefon mobil",
     "REGISTRATION": "Înregistrare",
+    "REGISTRATION_INFO": "Pentru a obține login și parola, completați detaliile",
+    "REGISTRATION_LOGIN_EMAIL": "O scrisoare cu un nume de utilizator și o parolă a fost trimisă pe e-mail",
+    
+    
     "SELECT_COUNTRY": "Selectați țara",
     "SELECT_REGION": "Selectați regiunea",
     "SELECT_CITY": "Selectați orașul",

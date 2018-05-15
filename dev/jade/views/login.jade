@@ -27,8 +27,9 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
+        //- button.login-submit(ng-click='loginPage.DemoLogin()')
         button.login-submit(ng-if='loginPage.consts.serverIP === "http://api.windowscalculator.net"' ng-click='loginPage.DemoLogin()')
-             | Demo
+            {{ ::loginPage.REGISTRATION }}
 
         //button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
 
@@ -48,50 +49,39 @@ section.login-page.login-page-mobView
         .buttom-info-box
             span {{loginPage.CONTACT_US}}
             span info@windowscalculator.net
-        //.test-top-info-box
-          span {{::loginPage.TEST_USER}}
-          span {{::loginPage.LOGIN}} {{loginPage.TEST_USER_LOGIN}}
-          span {{::loginPage.PASSWORD}} {{loginPage.TEST_USER_PASS}}
 
     //------------- Registration Form
-    .login-container(ng-show="loginPage.isRegistration", fs-click="loginPage.isUserExist = 0;")
+    .login-container(ng-if="loginPage.isRegistration", fs-click="loginPage.isUserExist = 0;")
         button.close_dialog(type="button", fs-click="loginPage.closeRegistration()")
         .attantion(ng-show="loginPage.isUserExist") {{ ::loginPage.USER_EXIST }}
-        .logo
+        //- .logo
         form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")
+            .input-field
+                label.registr-info  {{ ::loginPage.REGISTRATION_INFO }} 
 
             .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.name.$error.required }")
-                input.user-field(type="text", name="name", ng-model="loginPage.user.name", ng-pattern="loginPage.consts.REG_NAME", ng-minlength="3", placeholder="{{ ::loginPage.CLIENT_NAME }}", required)
+                input.user-field(type="text", name="name", ng-model="loginPage.registration_data.name",  ng-minlength="3", placeholder="{{ ::loginPage.CLIENT_NAME }}", required)
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.required") {{ ::loginPage.EMPTY_FIELD }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.pattern || registrForm.name.$dirty && registrForm.name.$error.pattern") {{ ::loginPage.WRONG_NAME }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.minlength || registrForm.name.$dirty && registrForm.name.$error.minlength") {{ ::loginPage.SHORT_NAME }}
 
-            .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.phone.$error.required }")
-                input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.LOGIN }}", required)
-                .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-                .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.pattern || registrForm.phone.$dirty && registrForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
-
             .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }")
-                select.user-select-field(name="country", ng-model="loginPage.user.country", ng-options="country.name for country in loginPage.G.global.locations.countries | orderBy:'name'", ng-change="loginPage.selectLocation()", required)
-                    option(value='') {{ ::loginPage.SELECT_COUNTRY }}
-                .error-tooltip(ng-show="loginPage.submitted && registrForm.country.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-
-            .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.region.$error.required, 'placeholder-select': !loginPage.user.region }")
-                select.user-select-field(name="region", ng-model="loginPage.user.region", ng-options="region.name for region in loginPage.G.global.locations.regions | filter: {country_id: loginPage.user.country.id}:true | orderBy:'name'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.country", required)
-                    option(value='') {{ ::loginPage.SELECT_REGION }}
-                .error-tooltip(ng-show="loginPage.submitted && registrForm.region.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-
-            .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.city.$error.required, 'placeholder-select': !loginPage.user.city }")
-                select.user-select-field(name="city", ng-model="loginPage.user.city", ng-options="city.cityName for city in loginPage.G.global.locations.cities | filter: {regionId: loginPage.user.region.id}:true | orderBy:'cityName'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.region", required)
-                    option(value='') {{ ::loginPage.SELECT_CITY }}
-                .error-tooltip(ng-show="loginPage.submitted && registrForm.city.$error.required") {{ ::loginPage.EMPTY_FIELD }}
+                select.user-select-field( 
+                                        ng-init="loginPage.selected_country = loginPage.countries[0]"
+                                        ng-model="loginPage.selected_country", 
+                                        ng-options="country.name for country in loginPage.countries track by country.id", 
+                                        ng-change="loginPage.selectLocation()" 
+                                        required
+                                        )
+                    //- option(value='' selected='selected') {{ ::loginPage.SELECT_COUNTRY }}
+                .error-tooltip(ng-show="(loginPage.submitted && registrForm.country.$error.required) || (loginPage.email_required)") {{ ::loginPage.EMPTY_FIELD }}
 
             .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.mail.$error.required }")
-                input.user-field(type="email", name="mail", ng-model="loginPage.user.mail", ng-pattern="loginPage.consts.REG_MAIL", placeholder="{{ ::loginPage.CLIENT_EMAIL }}", required)
+                input.user-field(type="email", name="mail", ng-model="loginPage.registration_data.email", ng-pattern="loginPage.consts.REG_MAIL", placeholder="{{ ::loginPage.CLIENT_EMAIL }}", required)
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-                .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
+                //- .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ ::loginPage.WRONG_EMAIL }}
-            button.login-submit(type="submit") {{ ::loginPage.REGISTRATION }}
+            button.login-submit(type="submit") {{ ::loginPage.OK }}
     .backDarkView(ng-if="loginPage.isFactoryId")
     .backDarkView(ng-if="loginPage.isOffline")
 include parts/_loader
