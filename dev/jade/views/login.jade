@@ -3,10 +3,10 @@ section.login-page.login-page-mobView
     #login-container.login-container.login-container-mobView(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0")
         .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ ::loginPage.OFFLINE }}
             button.inet_ok(fs-click="loginPage.closeOfflineAlert()") {{ ::loginPage.OK }}
-        .attantion(ng-if="loginPage.isSendEmail")         {{ ::loginPage.USER_CHECK_EMAIL }}
-        .attantion(ng-if="loginPage.isUserNotExist")      {{ ::loginPage.USER_NOT_EXIST }}
-        .attantion(ng-if="loginPage.isUserNotActive")     {{ ::loginPage.USER_NOT_ACTIVE }}
-        .attantion(ng-if="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
+        //- .attantion(ng-if="loginPage.isSendEmail")         {{ ::loginPage.USER_CHECK_EMAIL }}
+        //- .attantion(ng-if="loginPage.isUserNotExist")      {{ ::loginPage.USER_NOT_EXIST }}
+        //- .attantion(ng-if="loginPage.isUserNotActive")     {{ ::loginPage.USER_NOT_ACTIVE }}
+        //- .attantion(ng-if="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
         .attantion(ng-if="loginPage.isStartImport")       {{ ::loginPage.IMPORT_DB }}
         .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
         .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
@@ -19,12 +19,15 @@ section.login-page.login-page-mobView
                 input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ loginPage.LOGIN }}", required)
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
-
+                .error-tooltip(ng-show="loginPage.isSendEmail") {{ ::loginPage.USER_CHECK_EMAIL }}
+                .error-tooltip(ng-show="loginPage.isUserNotExist") {{ ::loginPage.USER_NOT_EXIST }}
+                .error-tooltip(ng-show="loginPage.isUserNotActive") {{ ::loginPage.USER_NOT_ACTIVE }}
 
             .input-field(ng-class="{ 'has-error' : loginPage.submitted && loginForm.password.$error.required }")
                 input.user-field(type="password", name="password", ng-model="loginPage.user.password", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.PASSWORD }}", required)
                 .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.required') {{ ::loginPage.EMPTY_FIELD }}
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
+                .error-tooltip(ng-show="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
 
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
         //- button.login-submit(ng-click='loginPage.DemoLogin()')
