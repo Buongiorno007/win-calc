@@ -342,7 +342,7 @@
 
 
                 function checkingUser(DemoLogin, DemoPass) {
-                    loader();
+                    // loader();
                     GlobalStor.global.ISLOGIN = 1;
                     localDB.db.setItem("FirstIn", "true", function (err, value) { });
                     // console.time('importUser');
@@ -556,14 +556,14 @@
                                     GlobalStor.global.loadDate = new Date();
                                     GlobalStor.global.isLoader = 1;
                                     GlobalStor.global.startSlider = 1;
-                                    loader();
+                                    // loader();
                                     checkingUser();
                                 }
                             } else {
                                 GlobalStor.global.loadDate = new Date();
                                 GlobalStor.global.isLoader = 1;
                                 GlobalStor.global.startSlider = 1;
-                                loader();
+                                // loader();
                                 localDB.importUser(url.access, 1).then(function (result) {
                                     var userTemp = angular.copy(result.user);
                                     GlobalStor.global.isLoader = 1;
@@ -577,7 +577,7 @@
                             GlobalStor.global.loadDate = new Date();
                             GlobalStor.global.isLoader = 1;
                             GlobalStor.global.startSlider = 1;
-                            loader();
+                            // loader();
                             localDB.importUser(url.autologin, 1).then(function (result) {
                                 if (result.status) {
                                     var userTemp = angular.copy(result.user);
@@ -620,7 +620,7 @@
 
 
                 if (window.location.hash.length > 10) {
-                    loader()
+                    // loader()
                 }
                 if (!GlobalStor.global.onlineMode && !navigator.onLine) {
                     localDB.db.getItem("UserStor.userInfo.phone", function (err, value) {
