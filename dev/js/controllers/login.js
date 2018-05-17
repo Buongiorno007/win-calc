@@ -654,7 +654,7 @@
                             GlobalStor.global.loadDate = new Date();
                             GlobalStor.global.isLoader = 1;
                             GlobalStor.global.startSlider = 1;
-                            // checkingUser();
+                            checkingUser();
                         } else {
                             // thisCtrl.isOffline = 1;
                             thisCtrl.isOfflineImport = 1;
