@@ -915,7 +915,8 @@
           }
 
         };
-      localforage.setDriver([localforage.INDEXEDDB]);
+  
+        localforage.setDriver([localforage.INDEXEDDB]);
       var db = localforage.createInstance({
         name: "bauvoice"
       });
@@ -1118,9 +1119,8 @@
             function (result) {
               if (result.data.status) {
                 //-------- insert in LocalDB
-                // console.warn(result.data);
                 LocalLocationBase = convert(result.data);
-                db.setItem('location', LocalLocationBase).then(function (value) {
+                db.setItem('location', LocalLocationBase).then((value)=>{
                   // Do other things once the value has been saved.
                   defer.resolve(LocalLocationBase);
                 }).catch(function (err) {
@@ -3896,11 +3896,21 @@
                 new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
               }
               if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
+<<<<<<< HEAD
                 if (GlobalStor.global.ISEXT) {
                     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
                 } else {
                     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
                 }
+=======
+                new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
+                
+                // if (GlobalStor.global.ISEXT) {
+                //     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
+                // } else {
+                //   new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
+                // }
+>>>>>>> 7490a317803a6601d620a7f4d0fb7fbd6915f410
               }
             }
 
