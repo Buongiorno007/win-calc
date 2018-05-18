@@ -3899,7 +3899,7 @@
                 if (GlobalStor.global.ISEXT) {
                     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
                 } else {
-                  new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
+                    new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
                 }
               }
             }
