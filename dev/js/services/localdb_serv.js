@@ -916,7 +916,7 @@
 
         };
   
-        localforage.setDriver([localforage.INDEXEDDB,localforage.WEBSQL]);
+        localforage.setDriver([localforage.INDEXEDDB]);
       var db = localforage.createInstance({
         name: "bauvoice"
       });
@@ -1119,9 +1119,8 @@
             function (result) {
               if (result.data.status) {
                 //-------- insert in LocalDB
-                // console.warn(result.data);
                 LocalLocationBase = convert(result.data);
-                db.setItem('location', LocalLocationBase).then(function (value) {
+                db.setItem('location', LocalLocationBase).then((value)=>{
                   // Do other things once the value has been saved.
                   defer.resolve(LocalLocationBase);
                 }).catch(function (err) {
