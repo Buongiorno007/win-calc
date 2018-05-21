@@ -649,18 +649,18 @@
                 function enterForm(form) {
                     thisCtrl.submitted = 1;
                     if (form.$valid) {
-                        if (navigator.onLine) {
-                            GlobalStor.global.loadDate = new Date();
-                            GlobalStor.global.isLoader = 1;
-                            GlobalStor.global.startSlider = 1;
-                            checkingUser();
+                        if (new Date("2018-08-01") >= new Date()) {
+                            if (navigator.onLine) {
+                                GlobalStor.global.loadDate = new Date();
+                                GlobalStor.global.isLoader = 1;
+                                GlobalStor.global.startSlider = 1;
+                                checkingUser();
+                            } else {
+                                thisCtrl.isOfflineImport = 1;
+                            }
                         } else {
-                            thisCtrl.isOfflineImport = 1;
+                            GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
                         }
-                        // if (new Date("2018-08-01") >= new Date()) {
-                        // } else {
-                        //     GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
-                        // }
 
 
                         // localforage.getItem("analitics", function (err, value) {

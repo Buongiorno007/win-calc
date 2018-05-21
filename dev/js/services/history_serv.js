@@ -6,25 +6,25 @@
         .factory('HistoryServ',
 
             function ($location,
-                      $filter,
-                      $q,
-                      $http,
-                      globalConstants,
-                      localDB,
-                      $timeout,
-                      GeneralServ,
-                      MainServ,
-                      RecOrderServ,
-                      SVGServ,
-                      DesignServ,
-                      GlobalStor,
-                      OrderStor,
-                      ProductStor,
-                      UserStor,
-                      HistoryStor,
-                      CartStor,
-                      DesignStor,
-                      PrintServ) {
+                $filter,
+                $q,
+                $http,
+                globalConstants,
+                localDB,
+                $timeout,
+                GeneralServ,
+                MainServ,
+                RecOrderServ,
+                SVGServ,
+                DesignServ,
+                GlobalStor,
+                OrderStor,
+                ProductStor,
+                UserStor,
+                HistoryStor,
+                CartStor,
+                DesignStor,
+                PrintServ) {
                 /*jshint validthis:true */
                 var thisFactory = this,
                     orderMasterStyle = 'master',
@@ -177,18 +177,18 @@
 
                         console.log(UserStor.userInfo, 'code_sync');
                         /** check user */
-                            if (orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
-                                GeneralServ.confirmAlert(
-                                    $filter('translate')('common_words.SEND_ORDER_TITLE'),
-                                    $filter('translate')('common_words.SEND_ORDER_TXT'),
-                                    sendOrder
-                                );
-                            } else {
-                                GeneralServ.infoAlert(
-                                    "BAD USER",
-                                    "check user params"
-                                );
-                            }
+                        if (orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
+                            GeneralServ.confirmAlert(
+                                $filter('translate')('common_words.SEND_ORDER_TITLE'),
+                                $filter('translate')('common_words.SEND_ORDER_TXT'),
+                                sendOrder
+                            );
+                        } else {
+                            GeneralServ.infoAlert(
+                                "BAD USER",
+                                "check user params"
+                            );
+                        }
 
                     } else {
 
@@ -556,11 +556,25 @@
                     }
 
                 }
-
+                function chechFloat(input) {
+                    input.forEach((product) => {
+                        let keys = Object.keys(product);
+                        keys.forEach((key) => {
+                            if (parseInt(product[key]) == product[key]) {
+                                product[key] = parseInt(product[key]);
+                                console.log(product[key]);
+                            }
+                            else if (parseFloat(product[key]) == product[key]) {
+                                product[key] = parseFloat(product[key]);
+                                console.log(product[key]);
+                            }
+                        });
+                    });
+                    return input;
+                }
 
                 //------ Download All Products Data for Order
                 function downloadProducts(print) {
-
                     var deferred = $q.defer();
                     var printProd = [];
                     localDB.selectLocalDB(
@@ -568,8 +582,8 @@
                             'order_id': GlobalStor.global.orderEditNumber
                         }
                     ).then(function (result) {
-                        var products = angular.copy(result);
-                        console.log('downloadProducts',result);
+                        var products = angular.copy(chechFloat(result));
+                        console.log('downloadProducts', result);
                         if (products.length) {
                             //------------- parsing All Templates Source and Icons for Order
                             var productPromises = _.map(products, function (prod) {
@@ -595,8 +609,12 @@
                                     //----- find depths and build design icon
                                     MainServ.setCurrentProfile(tempProd, tempProfileId).then(function () {
                                         if (tempProd.glass_id) {
-                                            var glassIDs = tempProd.glass_id.split(', '),
-                                                glassIDsQty = glassIDs.length;
+                                            try {
+                                                var glassIDs = tempProd.glass_id.split(', ')  
+                                            } catch (error) {
+                                                var glassIDs = tempProd.glass_id;
+                                            }
+                                            var glassIDsQty = glassIDs.length;
                                             if (glassIDsQty) {
                                                 while (--glassIDsQty > -1) {
                                                     setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
@@ -691,9 +709,9 @@
                         localDB.tablesLocalDB.order_products.tableName, {
                             'order_id': HistoryStor.history.orderEditNumber
                         }).then(function (result) {
-                        //console.log('result' , result)
-                        deferred.resolve(result);
-                    });
+                            //console.log('result' , result)
+                            deferred.resolve(result);
+                        });
                     return deferred.promise;
                 }
 
@@ -731,55 +749,55 @@
                         localDB.tablesLocalDB.order_addelements.tableName, {
                             'order_id': GlobalStor.global.orderEditNumber
                         }).then(function (result) {
-                          console.log(result);
-                        var elementsAdd = angular.copy(result),
-                            addElementsAll = angular.copy(GlobalStor.global.addElementsAll),
-                            allAddElemQty = elementsAdd.length,
-                            orderProductsQty = OrderStor.order.products.length,
-                            prod, index;
-                        if (addEl) {
-                            deferred.resolve(elementsAdd);
-                        } else {
-                            for (var x = 0; x < allAddElemQty; x += 1) {
-                                for (var y = 0; y < addElementsAll[elementsAdd[x].element_type].elementsList.length; y += 1) {
-                                    for (var z = 0; z < addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z += 1) {
-                                        if (elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
-                                            if (elementsAdd[x].element_type !== 0) {
-                                                elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
-                                                elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
-                                                elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
-                                                elementsAdd[x].list_type_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_type_id;
-                                                break
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (allAddElemQty) {
-                                while (--allAddElemQty > -1) {
-                                    for (prod = 0; prod < orderProductsQty; prod += 1) {
-                                        if (elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
-                                            index = elementsAdd[allAddElemQty].element_type;
-                                            elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
-                                            delete elementsAdd[allAddElemQty].element_id;
-                                            delete elementsAdd[allAddElemQty].modified;
-                                            elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
-                                                elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
-                                            );
-                                            elementsAdd[allAddElemQty].list_group_id = GeneralServ.addElementDATA[index].id;
-                                            OrderStor.order.products[prod].chosenAddElements[index].push(elementsAdd[allAddElemQty]);
-                                            if (!allAddElemQty) {
-                                                deferred.resolve(1);
-                                            }
-                                        }
-                                    }
-                                }
+                            console.log(result);
+                            var elementsAdd = angular.copy(result),
+                                addElementsAll = angular.copy(GlobalStor.global.addElementsAll),
+                                allAddElemQty = elementsAdd.length,
+                                orderProductsQty = OrderStor.order.products.length,
+                                prod, index;
+                            if (addEl) {
+                                deferred.resolve(elementsAdd);
                             } else {
-                                deferred.resolve(1);
+                                for (var x = 0; x < allAddElemQty; x += 1) {
+                                    for (var y = 0; y < addElementsAll[elementsAdd[x].element_type].elementsList.length; y += 1) {
+                                        for (var z = 0; z < addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z += 1) {
+                                            if (elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
+                                                if (elementsAdd[x].element_type !== 0) {
+                                                    elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
+                                                    elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
+                                                    elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
+                                                    elementsAdd[x].list_type_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_type_id;
+                                                    break
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (allAddElemQty) {
+                                    while (--allAddElemQty > -1) {
+                                        for (prod = 0; prod < orderProductsQty; prod += 1) {
+                                            if (elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                                                index = elementsAdd[allAddElemQty].element_type;
+                                                elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
+                                                delete elementsAdd[allAddElemQty].element_id;
+                                                delete elementsAdd[allAddElemQty].modified;
+                                                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
+                                                    elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
+                                                );
+                                                elementsAdd[allAddElemQty].list_group_id = GeneralServ.addElementDATA[index].id;
+                                                OrderStor.order.products[prod].chosenAddElements[index].push(elementsAdd[allAddElemQty]);
+                                                if (!allAddElemQty) {
+                                                    deferred.resolve(1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    deferred.resolve(1);
+                                }
                             }
-                        }
-                    });
+                        });
                     return deferred.promise;
                 }
 
@@ -879,21 +897,21 @@
 
                         function calculate(products, _cb) {
                             async.waterfall([
-                                    function (_callback) {
-                                        if (products.construction_type === 4) {
-                                            ProductStor.product = angular.copy(products);
-                                            DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
-                                                calculateWork(res);
-                                                OrderStor.order.products.push(res);
-                                                _callback();
-                                            });
-                                        } else {
-                                            calculateWork(products);
-                                            OrderStor.order.products.push(products);
+                                function (_callback) {
+                                    if (products.construction_type === 4) {
+                                        ProductStor.product = angular.copy(products);
+                                        DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                                            calculateWork(res);
+                                            OrderStor.order.products.push(res);
                                             _callback();
-                                        }
+                                        });
+                                    } else {
+                                        calculateWork(products);
+                                        OrderStor.order.products.push(products);
+                                        _callback();
                                     }
-                                ],
+                                }
+                            ],
                                 function (err, result) {
                                     if (err) {
                                         //console.log('err', err)
@@ -1213,7 +1231,7 @@
                                         var addElementsData2 = angular.copy(result_order_addelements);
 
 
-                                        if (typeof(orderData2.order_number) !== "number") {
+                                        if (typeof (orderData2.order_number) !== "number") {
                                             //console.log('send local save');
                                             async.eachSeries(productData2, calculate1, function (err, result) {
                                                 defer.resolve(1);
@@ -1310,7 +1328,7 @@
                                                             orderData
                                                         ).then(function (respond) {
                                                             //console.log("respond", respond);
-                                                            if (typeof(respond.order_number) !== 'undefined') {
+                                                            if (typeof (respond.order_number) !== 'undefined') {
                                                                 orderData.order_number = respond.order_number;
                                                                 localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {
                                                                     'id': orderData.id

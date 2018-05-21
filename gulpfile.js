@@ -139,7 +139,7 @@ gulp.task('js', function() {
     .pipe(replace('SERVER_IP', server_env[env]))
     .pipe(replace('PRINT_IP', print_env[env]))
     .pipe(replace('LOCAL_PATH', path_env[env]))
-    .pipe(replace('ISEXTFLAG', "1"))
+    .pipe(replace('ISEXTFLAG', "0"))
     // .pipe(ngAnnotate({
     //     remove: true,
     //     add: true,
@@ -691,9 +691,9 @@ gulp.task('stekoApp', function() {
       add: true
     }))
     // .pipe(js_obfuscator())
-    .pipe(babel({
-      presets: ['env']
-    }))
+    // .pipe(babel({
+    //   presets: ['env']
+    // }))
 
     .pipe(gulp.dest(config.build.steko.app.js))
     .on('end', function() {
@@ -903,14 +903,14 @@ gulp.task('wincalcApp', function() {
     .pipe(replace('LOCAL_PATH', path_env["window"]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    .pipe(removeLogs())
+    // .pipe(removeLogs())
     .pipe(ngAnnotate({
       add: true
     }))
     .pipe(js_obfuscator())
-    .pipe(babel({
-      presets: ['env']
-    }))
+    // .pipe(babel({
+    //   presets: ['env']
+    // }))
     .pipe(gulp.dest(config.build.window.app.js))
     .on('end', function() {
       gutil.log('js!');
