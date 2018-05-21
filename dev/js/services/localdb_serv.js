@@ -3908,7 +3908,7 @@
                                 new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
                             }
                             if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
-                                if (GlobalStor.global.ISEXT) {
+                                if (!!window.cordova) {
                                     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
                                 } else {
                                     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];

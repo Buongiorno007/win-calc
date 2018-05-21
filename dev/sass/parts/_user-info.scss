@@ -50,4 +50,13 @@
 
     color: $main_gray_txt;
   }
+  .db-block {
+    @include roboto-rg(rem(25px));
+  }
+  .update {
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+  }
 }
