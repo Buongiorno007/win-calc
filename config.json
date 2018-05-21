@@ -1,16 +1,16 @@
 {
   "offline": {
     "steko": [
-      "../offline/steko/manifest.json"
+      "./offline/steko/manifest.json"
     ],
     "window": [
-      "../offline/windows/manifest.json"
+      "./offline/windows/manifest.json"
     ],
     "orange": [
-      "../offline/orange/manifest.json"
+      "./offline/orange/manifest.json"
     ],
     "background": [
-      "../offline/background.js"
+      "./offline/background.js"
     ]
   },
   "build": {
