@@ -321,12 +321,16 @@ function buildExt(id) {
     .pipe(replace('LOCAL_PATH', path_env[id]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    .pipe(removeLogs())
     .pipe(ngAnnotate({
-      add: true
+        remove: true,
+        add: true,
+        single_quotes: true
     }))
+    .pipe(removeLogs())
     .pipe(js_obfuscator())
-    // .pipe(uglify())
+    .pipe(babel({
+        presets: ['env']
+    }))
     .pipe(gulp.dest("_product/" + id + "/ext/js"))
     .on('end', function() {
       gutil.log('js!');
@@ -390,7 +394,7 @@ function buildExt(id) {
     });
 
 
-  gulp.src("../offline/" + id + "/manifest.json")
+  gulp.src("./offline/" + id + "/manifest.json")
     .pipe(gulp.dest("_product/" + id + "/ext"));
 
   gulp.src(config.offline.background)
@@ -687,9 +691,9 @@ gulp.task('stekoApp', function() {
       add: true
     }))
     // .pipe(js_obfuscator())
-    .pipe(babel({
-      presets: ['env']
-    }))
+    // .pipe(babel({
+    //   presets: ['env']
+    // }))
 
     .pipe(gulp.dest(config.build.steko.app.js))
     .on('end', function() {
@@ -899,14 +903,14 @@ gulp.task('wincalcApp', function() {
     .pipe(replace('LOCAL_PATH', path_env["window"]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
-    .pipe(removeLogs())
+    // .pipe(removeLogs())
     .pipe(ngAnnotate({
       add: true
     }))
     .pipe(js_obfuscator())
-    .pipe(babel({
-      presets: ['env']
-    }))
+    // .pipe(babel({
+    //   presets: ['env']
+    // }))
     .pipe(gulp.dest(config.build.window.app.js))
     .on('end', function() {
       gutil.log('js!');

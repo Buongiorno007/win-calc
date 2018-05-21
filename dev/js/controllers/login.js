@@ -649,15 +649,20 @@
                 function enterForm(form) {
                     thisCtrl.submitted = 1;
                     if (form.$valid) {
-                        if (navigator.onLine) {
-                            GlobalStor.global.loadDate = new Date();
-                            GlobalStor.global.isLoader = 1;
-                            GlobalStor.global.startSlider = 1;
-                            checkingUser();
+                        if (new Date("2018-08-01") >= new Date()) {
+                            if (navigator.onLine) {
+                                GlobalStor.global.loadDate = new Date();
+                                GlobalStor.global.isLoader = 1;
+                                GlobalStor.global.startSlider = 1;
+                                checkingUser();
+                            } else {
+                                thisCtrl.isOfflineImport = 1;
+                            }
                         } else {
-                            // thisCtrl.isOffline = 1;
-                            thisCtrl.isOfflineImport = 1;
+                            GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
                         }
+
+
                         // localforage.getItem("analitics", function (err, value) {
                         //   if (value) {
                         //     GlobalStor.global.analitics_storage.push(value);
@@ -665,7 +670,6 @@
                         //     // console.log(GlobalStor.global.analitics_storage);
                         //   }
                         // });
-
                     }
                 }
 
@@ -788,36 +792,6 @@
                         } else {
                             thisCtrl.email_required = 1;
                         }
-                        // //------ check Internet
-                        // //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-                        // if (thisCtrl.isOnline) {
-                        //     GlobalStor.global.isLoader = 1;
-                        //     //--- checking user in server
-                        //     localDB.importUser(thisCtrl.user.phone).then(function (result) {
-                        //         if (result.status) {
-                        //             GlobalStor.global.isLoader = 0;
-                        //             //---- show attantion
-                        //             thisCtrl.isUserExist = 1;
-                        //         } else {
-                        //             var userData = {
-                        //                 name: thisCtrl.user.name,
-                        //                 phone: thisCtrl.user.phone,
-                        //                 email: thisCtrl.user.mail,
-                        //                 cityId: thisCtrl.user.city.cityId,
-                        //                 password: localDB.md5(thisCtrl.user.phone)
-                        //             };
-                        //             console.log('CREATE USER!!!!!!!!!!!!', userData);
-                        //             //--- create new user in Server
-                        //             localDB.createUserServer(userData);
-                        //             GlobalStor.global.isLoader = 0;
-                        //             //-------- sent confirmed email
-                        //             thisCtrl.isSendEmail = 1;
-                        //             closeRegistration();
-                        //         }
-                        //     });
-                        // } else {
-                        //     thisCtrl.isOffline = 1;
-                        // }
                     } else {
                         if (thisCtrl.registration_data.selected_country === 0) {
                             thisCtrl.email_required = 1;
@@ -851,20 +825,6 @@
 
                             }
                         );
-                    // let login, pass;
-                    // if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
-                    //     login = 'DemoRU';
-                    //     pass = 'DemoRU';
-                    // } else {
-                    //     login = 'DemoEng';
-                    //     pass = 'DemoEng';
-                    // }
-                    // if (navigator.onLine) {
-                    //     GlobalStor.global.loadDate = new Date();
-                    //     GlobalStor.global.isLoader = 1;
-                    //     GlobalStor.global.startSlider = 1;
-                    //     checkingUser(login, pass);
-                    // }
                 }
 
                 function gotoSettingsPage() {

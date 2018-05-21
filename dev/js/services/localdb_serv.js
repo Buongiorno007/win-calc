@@ -1047,9 +1047,7 @@
                 let key = Object.keys(options)[0];
                 let val = options[key]
                 if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
-
                     LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) { return item[key] !== val })
-
                     db.setItem('tables', LocalDataBase).then(function (value) {
                         // Do other things once the value has been saved.
                         // console.log(tableName,value[tableName]);
@@ -3845,7 +3843,6 @@
             }
 
             function convert(input) {
-
                 let output = [];
                 let keys = Object.keys(input.tables);
                 let tables = input.tables;
@@ -3908,14 +3905,14 @@
                                 new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
                             }
                             if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
-                                if (GlobalStor.global.ISEXT) {
-                                    downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
-                                } else {
-                                    new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
-                                }
+                                new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
+                                // if (!!window.cordova) {
+                                //     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
+                                // } else {
+                                //     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
+                                // }
                             }
                         }
-
                         new_table.push(new_row);
                     }
                     output[keys[index]] = new_table;
