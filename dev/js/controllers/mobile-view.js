@@ -4,20 +4,21 @@
     angular
         .module("MainModule")
         .controller("MobileCtrl", function ($filter,
-                                            $location,
-                                            $timeout,
-                                            $scope,
-                                            $window,
-                                            SVGServ,
-                                            MainServ,
-                                            localDB,
-                                            UserStor,
-                                            OrderStor,
-                                            GlobalStor,
-                                            DesignStor,
-                                            ProductStor,
-                                            AuxStor,
-                                            CartStor) {
+            $location,
+            $timeout,
+            $scope,
+            $window,
+            SVGServ,
+            MainServ,
+            NavMenuServ,
+            localDB,
+            UserStor,
+            OrderStor,
+            GlobalStor,
+            DesignStor,
+            ProductStor,
+            AuxStor,
+            CartStor) {
             var thisCtrl = this;
             GlobalStor.global.MobileTabActive = 0;
             GlobalStor.global.currOpenPage = 'mobile';
@@ -62,6 +63,8 @@
             thisCtrl.REPORT = $filter('translate')('settings.REPORT');
             thisCtrl.EXIT = $filter('translate')('settings.EXIT');
             thisCtrl.ORDER_HISTORY = $filter('translate')('settings.ORDER_HISTORY');
+            thisCtrl.NAVMENU_ADD_ELEMENTS = $filter('translate')('mainpage.NAVMENU_ADD_ELEMENTS');
+
 
 
             thisCtrl.mobMenu = 0;
@@ -167,6 +170,11 @@
                          * ЭТА ХУЙНЯ НУЖНA ДЛЯ ТОГО ЧТОБЫ ОБНУЛИТЬ ВСЕ ПЕРЕМЕННЫЕ
                          * ТАК КАК ПРО ОБЫЧНОМ ПЕРЕХОДЕ НА СТРАНИЦУ ЛОГИНА ДАННЫЕ СКАЧАННЫЕ С СЕРВЕРА ДОБАВЛЯЮТСЯ К УЖЕ СУЩЕСТВУЮЩИМ
                          **/
+                        break;
+                    }
+                    case 7: {
+                        thisCtrl.mobMenu = 0;
+                        NavMenuServ.createAddElementsProduct();
                         break;
                     }
                 }

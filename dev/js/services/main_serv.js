@@ -747,7 +747,7 @@
           Product.productPriceDis * GlobalStor.global.product_qty;
         GlobalStor.global.isLoader = 0;
 
-        if ($location.path() === "/light" || $location.path() === "/mobile") {
+        if ( ($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
           setTimeout(function () {
             SVGServ.createSVGTemplate(
               DesignStor.design.templateSourceTEMP,
@@ -2395,7 +2395,9 @@
       function closePanelMobile() {
         GlobalStor.global.activePanel = 0;
         GlobalStor.global.MobileTabActive = 0;
+        GlobalStor.global.OpenSubFolder = 0;
         CartStor.cart.showCurrentTemp = 0;
+        if (!ProductStor.product.is_addelem_only)
         SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
           .then(function (result) {
             DesignStor.design.templateTEMP = angular.copy(result);
@@ -2430,7 +2432,8 @@
       }
 
       function extendUrl(url) {
-        return cordova.file.applicationStorageDirectory + url;
+        // return cordova.file.applicationStorageDirectory + url;
+        return cordova.file.dataDirectory + url;
       }
       /**========== FINISH ==========*/
 

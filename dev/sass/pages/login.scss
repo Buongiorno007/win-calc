@@ -1,4 +1,5 @@
 $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
+$img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
 
 .login-page {
   @include display-flex();
@@ -98,8 +99,9 @@ $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
   height: rem(image-height($img_logo));
   margin: 0 auto rem(73px);
   background: image-url($img_logo) no-repeat;
-  background-size: cover;
+  background-size: cover !important;
 }
+
 
 .lang {
   position: absolute;

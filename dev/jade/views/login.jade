@@ -10,7 +10,8 @@ section.login-page.login-page-mobView
         .attantion(ng-if="loginPage.isStartImport")       {{ ::loginPage.IMPORT_DB }}
         .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
         .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
-        .logo.logo-mobView
+        .logo.logo-mobView-steko(ng-if='loginPage.consts.serverIP === "http://api.steko.com.ua"')
+        .logo.logo-mobView(ng-if='loginPage.consts.serverIP !== "http://api.steko.com.ua"')
         .text-logo {{ ::loginPage.WINDOW_COST }}
         .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
 

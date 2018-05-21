@@ -3,19 +3,21 @@
     .burger-inner(ng-click='mobilePage.OpenMenu()' ng-class="{ active: mobilePage.mobMenu }")
     .buttons-list
         .button(ng-click="mobilePage.mobileMenuClick(0)")
-            p {{mobilePage.GO_TO_CALCULATION}}
+            p {{ ::mobilePage.GO_TO_CALCULATION}}
         //.button(ng-click="mobilePage.mobileMenuClick(1)")
-            p {{mobilePage.GEOLOCATION}}
+            p {{ ::mobilePage.GEOLOCATION}}
         .button(ng-click="mobilePage.mobileMenuClick(2)")
-            p {{mobilePage.ORDER_HISTORY}}
+            p {{ ::mobilePage.ORDER_HISTORY}}
         .button(ng-click="mobilePage.mobileMenuClick(3)")
-            p {{mobilePage.LANGUAGE}}
+            p {{ ::mobilePage.LANGUAGE}}
         //.button(ng-click="mobilePage.mobileMenuClick(4)")
-            p {{mobilePage.HINTS}}
+            p {{ ::mobilePage.HINTS}}
         .button(ng-click="mobilePage.mobileMenuClick(5)")
-            p {{mobilePage.REPORT}}
+            p {{ ::mobilePage.REPORT}}
         .button(ng-click="mobilePage.mobileMenuClick(6)")
-            p {{mobilePage.EXIT}}
+            p {{ ::mobilePage.EXIT}}
+        .button(ng-click="mobilePage.mobileMenuClick(7)")
+            p {{ ::mobilePage.NAVMENU_ADD_ELEMENTS }}
     .footer
         .index
             p {{mobilePage.G.global.getPCPower }}
