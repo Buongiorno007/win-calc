@@ -130,6 +130,8 @@
                 /**--------- Select additional element group -----------*/
 
                 function selectAddElement(id) {
+
+                    
                     if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
                         /** calc Price previous parameter and close caclulators */
                         AddElementMenuServ.finishCalculators();
@@ -313,6 +315,7 @@
                         if (ProductStor.product.is_addelem_only) {
                             /** without window */
                             AddElementMenuServ.chooseAddElement(typeId, elementId);
+                            console.log('addelems only');
                         } else {
                             /** show Grid Selector Dialog */
                             AuxStor.aux.selectedGrid = [typeId, elementId];

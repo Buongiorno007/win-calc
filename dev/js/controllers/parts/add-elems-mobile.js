@@ -60,9 +60,9 @@
 
             GlobalStor.global.addElementsAll.forEach((item, index) => {
                 if (index === 0) {
-                    if (item.elementsList[0]) {
-                        item.elementsList[0] = filterMoscitos(item.elementsList[0]);
-                    }
+                    if (item.elementsList[0]) 
+                        if (!ProductStor.product.is_addelem_only) 
+                            item.elementsList[0] = filterMoscitos(item.elementsList[0]);
                 }
                 if (GeneralServ.addElementDATA[index].id < 100 && !GeneralServ.addElementDATA[index].disable_mobile) {
                     if (item.elementType && item.elementsList) {
