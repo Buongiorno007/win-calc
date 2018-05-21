@@ -565,7 +565,6 @@
                             }
                             else if (parseFloat(product[key]) == product[key]) {
                                 product[key] = parseFloat(product[key]);
-                                console.log(product[key]);
                             }
                         });
                     });
