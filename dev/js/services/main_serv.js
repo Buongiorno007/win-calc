@@ -2430,7 +2430,8 @@
       }
 
       function extendUrl(url) {
-        return cordova.file.applicationStorageDirectory + url;
+        // return cordova.file.applicationStorageDirectory + url;
+        return cordova.file.dataDirectory + url;
       }
       /**========== FINISH ==========*/
 

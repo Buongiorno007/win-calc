@@ -342,10 +342,9 @@
 
 
                 function checkingUser(DemoLogin, DemoPass) {
-                    // loader();
                     GlobalStor.global.ISLOGIN = 1;
                     localDB.db.setItem("FirstIn", "true", function (err, value) { });
-                    // console.time('importUser');
+                    console.log('importUser');
                     let login = thisCtrl.user.phone;
                     let pass = thisCtrl.user.password;
                     if (DemoLogin) {
@@ -597,13 +596,13 @@
                 function closeOfflineAlert() {
                     thisCtrl.isOffline = false;
                 }
-                function loaderChange(state, time){
+                function loaderChange(state, time) {
                     GlobalStor.global.isLoader2 = state;
                     if (state <= 98) {
                         $timeout(function () { loaderChange(++state) }, temp)
                     }
                 }
-                let temp ;
+                let temp;
                 /** =========== SIGN IN ======== */
                 function loader() {
                     if (GlobalStor.global.isLoader3 === 1) {
@@ -613,7 +612,7 @@
                     }
                     if (GlobalStor.global.isLoader3 === 0) {
                         $timeout(function () { GlobalStor.global.isLoader3 = 1 }, 1)
-                        temp = (240/99)*1000; 
+                        temp = (240 / 99) * 1000;
                         loaderChange(1, temp)
                     }
                 }
@@ -943,7 +942,6 @@
                         });
                     } else {
                         $location.path("/" + GlobalStor.global.currOpenPage);
-                        // $location.path("/light");
                     }
                 }
 

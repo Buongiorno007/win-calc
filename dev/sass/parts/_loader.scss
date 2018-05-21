@@ -7,8 +7,10 @@
   .loader {
     position: absolute;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 30rem;
-    height: 30rem;
+    height: 15rem;
     background: url('../img/spinner.gif') no-repeat;
     background-size: cover;
     &.active {
