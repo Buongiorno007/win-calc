@@ -562,7 +562,6 @@
                         keys.forEach((key) => {
                             if (parseInt(product[key]) == product[key]) {
                                 product[key] = parseInt(product[key]);
-                                console.log(product[key]);
                             }
                             else if (parseFloat(product[key]) == product[key]) {
                                 product[key] = parseFloat(product[key]);
@@ -609,11 +608,7 @@
                                     //----- find depths and build design icon
                                     MainServ.setCurrentProfile(tempProd, tempProfileId).then(function () {
                                         if (tempProd.glass_id) {
-                                            try {
-                                                var glassIDs = tempProd.glass_id.split(', ')  
-                                            } catch (error) {
-                                                var glassIDs = tempProd.glass_id;
-                                            }
+                                            var glassIDs = tempProd.glass_id;
                                             var glassIDsQty = glassIDs.length;
                                             if (glassIDsQty) {
                                                 while (--glassIDsQty > -1) {
