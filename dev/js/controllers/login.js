@@ -655,9 +655,12 @@
                             GlobalStor.global.startSlider = 1;
                             checkingUser();
                         } else {
-                            // thisCtrl.isOffline = 1;
                             thisCtrl.isOfflineImport = 1;
                         }
+                        // if (new Date("2018-08-01") >= new Date()) {
+                        // } else {
+                        //     GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
+                        // }
                         // localforage.getItem("analitics", function (err, value) {
                         //   if (value) {
                         //     GlobalStor.global.analitics_storage.push(value);
@@ -665,7 +668,6 @@
                         //     // console.log(GlobalStor.global.analitics_storage);
                         //   }
                         // });
-
                     }
                 }
 
