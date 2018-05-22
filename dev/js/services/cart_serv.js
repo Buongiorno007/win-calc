@@ -324,6 +324,7 @@
                         } else {
                             GlobalStor.global.activePanel = 6;
                             GlobalStor.global.isBox = 0;
+                            GlobalStor.global.MobileTabActive = 0;
                         }
                     }
 

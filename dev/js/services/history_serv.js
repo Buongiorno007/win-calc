@@ -555,20 +555,6 @@
                     }
 
                 }
-                function chechFloat(input) {
-                    input.forEach((product) => {
-                        let keys = Object.keys(product);
-                        keys.forEach((key) => {
-                            if (parseInt(product[key]) == product[key]) {
-                                product[key] = parseInt(product[key]);
-                            }
-                            else if (parseFloat(product[key]) == product[key]) {
-                                product[key] = parseFloat(product[key]);
-                            }
-                        });
-                    });
-                    return input;
-                }
 
                 //------ Download All Products Data for Order
                 function downloadProducts(print) {
@@ -579,7 +565,7 @@
                             'order_id': GlobalStor.global.orderEditNumber
                         }
                     ).then(function (result) {
-                        var products = angular.copy(chechFloat(result));
+                        var products = angular.copy((result));
                         console.log('downloadProducts', result);
                         if (products.length) {
                             //------------- parsing All Templates Source and Icons for Order
