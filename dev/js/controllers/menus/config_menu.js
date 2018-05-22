@@ -101,9 +101,7 @@
                             GlobalStor.global.product_qty = 1;
                             if (ProductStor.product.is_addelem_only) {
                                 if ($location.path() === "/mobile") {
-                                    setTimeout(() => {
-                                        GlobalStor.global.MobileTabActive = 4;
-                                    }, 250);
+                                    GlobalStor.global.MobileTabActive = 4;
                                 }
                                 GlobalStor.global.isLoader = 0;
                                 if ($location.path() !== "/mobile") {

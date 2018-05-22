@@ -2386,7 +2386,7 @@
                 });
             }
 
-            function closePanelMobile() {
+            function closePanelMobile(closeAll) {
                 GlobalStor.global.activePanel = 0;
                 GlobalStor.global.MobileTabActive = 0;
                 GlobalStor.global.OpenSubFolder = -1;
@@ -2404,9 +2404,11 @@
 
                         });
                 } else {
-                    setTimeout(() => {
-                        $('#checkForAddElem').trigger('click');
-                    }, 50);
+                    if (!closeAll) {
+                        setTimeout(() => {
+                            $('#checkForAddElem').trigger('click');
+                        }, 50);
+                    }
                 }
 
             }
