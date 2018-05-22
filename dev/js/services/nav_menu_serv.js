@@ -123,7 +123,7 @@
                         ProductStor.product.is_addelem_only = 1;
                         GlobalStor.global.isNavMenu = 0;
                         ConfigMenuServ.selectConfigPanel(5);
-                        // GlobalStor.global.isConfigMenu = 1;
+                        GlobalStor.global.isConfigMenu = 1;
                         //------ open AddElements Panel
                         GlobalStor.global.activePanel = 6;
                     }

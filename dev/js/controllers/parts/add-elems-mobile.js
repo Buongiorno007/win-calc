@@ -151,7 +151,7 @@
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
                 // AuxStor.aux.isFocusedAddElement = 0;
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
-                if (thisCtrl.ChoosenAddElemGroup) {
+                if (thisCtrl.ChoosenAddElemGroup || ProductStor.product.is_addelem_only) {
                     thisCtrl.confirmAddElem = 1;
                 }
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;

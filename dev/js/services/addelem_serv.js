@@ -315,7 +315,6 @@
                         if (ProductStor.product.is_addelem_only) {
                             /** without window */
                             AddElementMenuServ.chooseAddElement(typeId, elementId);
-                            console.log('addelems only');
                         } else {
                             /** show Grid Selector Dialog */
                             AuxStor.aux.selectedGrid = [typeId, elementId];
