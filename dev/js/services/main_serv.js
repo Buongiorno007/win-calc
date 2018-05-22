@@ -747,7 +747,7 @@
                     Product.productPriceDis * GlobalStor.global.product_qty;
                 GlobalStor.global.isLoader = 0;
 
-                if ( ($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only) ) {
+                if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
                     setTimeout(function () {
                         SVGServ.createSVGTemplate(
                             DesignStor.design.templateSourceTEMP,
@@ -2403,6 +2403,11 @@
                             });
 
                         });
+                } else {
+                    setTimeout(() => {
+                        $('#checkForAddElem').trigger('click');
+
+                    }, 250);
                 }
 
             }
