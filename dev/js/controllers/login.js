@@ -240,7 +240,7 @@
                     localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
                         if (data) {
                             /** download all data */
-                            // console.time('downloadAllData');
+                            console.log('downloadAllData');
                             loginServ.downloadAllData().then(function () {
                                 startProgramm();
                             });

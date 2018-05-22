@@ -253,7 +253,6 @@
                                 return item;
                             }
                         };
-
                         localDB.insertTablesLocalDB(localDB.convert(res)).then(function () {
                             downloadOrders().then(function () {
                                 defer.resolve(1);
