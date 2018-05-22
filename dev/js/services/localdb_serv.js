@@ -916,9 +916,16 @@
 
                 };
 
-            localforage.setDriver([localforage.INDEXEDDB]);
+            // var db = localforage.createInstance({
+            //     name: "bauvoice"
+            // });
             var db = localforage.createInstance({
-                name: "bauvoice"
+                driver      : localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+                name        : 'bauvoice',
+                version     : 1.0,
+                size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
+                storeName   : 'bauvoice', // Should be alphanumeric, with underscores.
+                description : 'some description'
             });
             /**============ methods ================*/
             let LocalDataBase = null;
@@ -1120,7 +1127,6 @@
                                 console.log('download location');
                                 LocalLocationBase = convert(result.data);
                                 console.log('convert location');
-
                                 db.setItem('location', LocalLocationBase).then((value) => {
                                     // Do other things once the value has been saved.
                                     console.log('save location');

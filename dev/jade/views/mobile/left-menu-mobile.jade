@@ -16,7 +16,7 @@
             p {{ ::mobilePage.REPORT}}
         .button(ng-click="mobilePage.mobileMenuClick(6)")
             p {{ ::mobilePage.EXIT}}
-        .button(ng-click="mobilePage.mobileMenuClick(7)")
+        .button(ng-click="mobilePage.mobileMenuClick(7)" ng-class='{add_elems : mobilePage.P.product.is_addelem_only}')
             p {{ ::mobilePage.NAVMENU_ADD_ELEMENTS }}
     .footer
         .index
