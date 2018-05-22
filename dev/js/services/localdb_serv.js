@@ -933,22 +933,7 @@
 
             /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
 
-            function checkStringToQuote(str) {
-                if (angular.isString(str)) {
-                    // if (!isNaN(parseFloat(str)) && !str.includes("-")) {
-                    //   return parseFloat(str);
-                    // } else {
-                    if (str.indexOf("'") + 1) {
-                        //console.warn(str);
-                        return str.replace(/'/g, "''");
-                    } else {
-                        return str;
-                    }
-                    // }
-                } else {
-                    return str;
-                }
-            }
+
 
             function where(collection, options) {
                 var arr = [];
@@ -1016,6 +1001,7 @@
             }
 
             function insertTablesLocalDB(tables) {
+                console.log('tables' , tables);
                 var defer = $q.defer();
                 let tables_name = Object.keys(tables);
                 let table_length = tables_name.length;
@@ -3900,23 +3886,14 @@
                         let curr_row = curr_table.rows[jndex];
                         let curr_row_length = curr_table.rows[jndex].length;
                         for (let kndex = 0; kndex < curr_row_length; kndex++) {
-                            let key_list = "lists list_contents options_coefficients price_koefficients profile_systems users_deliveries users_discounts users_mountings window_hardware_handles";
-                            if (key_list.includes(keys[index])) {
-                                if (curr_table.fields[kndex] !== "name") {
-                                    new_row[curr_table.fields[kndex]] = chechFloat(curr_row[kndex]);
+                            if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
+                                if (!!window.cordova) {
+                                    downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
                                 } else {
-                                    new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
+                                    new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
                                 }
                             } else {
                                 new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
-                            }
-                            if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
-                                new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
-                                // if (!!window.cordova) {
-                                //     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
-                                // } else {
-                                //     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
-                                // }
                             }
                         }
                         new_table.push(new_row);
@@ -3926,12 +3903,22 @@
                 return output;
             }
 
-            function chechFloat(item) {
-                if (!isNaN(parseFloat(item))) {
-                    return parseFloat(item);
+            function checkStringToQuote(str) {
+                str = chechFloat(str);
+                if (angular.isString(str)) {
+                    if (str.indexOf("'") + 1) {
+                        return str.replace(/'/g, "''");
+                    } else {
+                        return str;
+                    }
                 } else {
-                    return item;
+                    return str;
                 }
+            }
+
+            function chechFloat(item) {
+                return (item == parseFloat(item) ? parseFloat(item) : item)
+
             }
 
             function getLocalStor() {
