@@ -3893,7 +3893,8 @@
                                     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
                                 }
                             } else {
-                                new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
+                                if (curr_table.fields[kndex] !== "glass_id")
+                                    new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
                             }
                         }
                         new_table.push(new_row);
