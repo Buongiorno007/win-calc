@@ -1,6 +1,6 @@
 .cart-mobile.mobile-common-panel(ng-controller='CartCtrl as cartPage' ng-if="mobilePage.isSet(4)")
     .cart-header
-        .back-button(ng-click="mobilePage.closePanelMobile()")
+        .back-button(ng-click="mobilePage.closePanelMobile(1)")
         .header-buttons.alert-no(ng-click='cartPage.showAllAddElements()')
             label {{cartPage.SORT_SHOW}}
             label {{cartPage.NAVMENU_ADD_ELEMENTS}}
