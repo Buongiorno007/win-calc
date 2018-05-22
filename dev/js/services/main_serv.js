@@ -2406,8 +2406,7 @@
                 } else {
                     setTimeout(() => {
                         $('#checkForAddElem').trigger('click');
-
-                    }, 250);
+                    }, 50);
                 }
 
             }

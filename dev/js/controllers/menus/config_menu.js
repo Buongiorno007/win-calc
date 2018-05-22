@@ -100,11 +100,19 @@
                             });
                             GlobalStor.global.product_qty = 1;
                             if (ProductStor.product.is_addelem_only) {
+                                if ($location.path() === "/mobile") {
+                                    setTimeout(() => {
+                                        GlobalStor.global.MobileTabActive = 4;
+                                    }, 250);
+                                }
                                 GlobalStor.global.isLoader = 0;
-                                MainServ.createNewProduct();
-                                $timeout(()=>{
-                                    NavMenuServ.createAddElementsProduct();
-                                },500);
+                                if ($location.path() !== "/mobile") {
+                                    MainServ.createNewProduct();
+                                    $timeout(() => {
+                                        NavMenuServ.createAddElementsProduct();
+                                    }, 100);
+                                }
+
                             }
                         }
                     });
@@ -298,7 +306,6 @@
                     GlobalStor.global.enterCount = 1;
                     GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
                 }
-
 
 
                 /**========== FINISH ==========*/
