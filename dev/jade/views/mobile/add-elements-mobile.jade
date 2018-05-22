@@ -25,7 +25,7 @@
                     p.splice(ng-click='mobPage.showItems($index, $event, 0)' ) {{subfolder.name}}
                     .info(fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
                 img.subfolders-image(ng-click='mobPage.showItems($index, $event, 1)' ng-if='subfolder.img && !!window.cordova' ng-src='{{mobPage.extendUrl(subfolder.img)}}')
-                img.subfolders-image(ng-click='mobPage.showItems($index, $event, 1)' ng-if='subfolder.img && !(!!window.cordova))' ng-src='{{subfolder.img}}')
+                img.subfolders-image(ng-click='mobPage.showItems($index, $event, 1)' ng-if='subfolder.img && !(!!window.cordova)' ng-src='{{subfolder.img}}')
                 .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
                     p.splice(ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
                     .info(ng-if='item.img && item.description' fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)")

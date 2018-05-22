@@ -2395,7 +2395,7 @@
       function closePanelMobile() {
         GlobalStor.global.activePanel = 0;
         GlobalStor.global.MobileTabActive = 0;
-        GlobalStor.global.OpenSubFolder = 0;
+        GlobalStor.global.OpenSubFolder = -1;
         CartStor.cart.showCurrentTemp = 0;
         if (!ProductStor.product.is_addelem_only)
         SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)

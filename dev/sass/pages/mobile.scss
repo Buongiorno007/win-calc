@@ -2323,6 +2323,9 @@ body {
           @include roboto-rg(20px);
         }
       }
+      .add_elems {
+          color : $main_red
+      }
     }
     .footer {
       display: inline-flex;

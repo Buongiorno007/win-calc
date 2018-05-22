@@ -1125,8 +1125,7 @@
                             if (result.data.status) {
                                 //-------- insert in LocalDB
                                 console.log('download location');
-                                // LocalLocationBase = convert(result.data);
-                                LocalLocationBase = (result.data);
+                                LocalLocationBase = convert(result.data);
                                 console.log('convert location');
                                 db.setItem('location', LocalLocationBase).then((value) => {
                                     // Do other things once the value has been saved.
