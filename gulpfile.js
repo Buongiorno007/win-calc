@@ -713,24 +713,24 @@ gulp.task('stekoApp', function() {
     .pipe(gulp.dest(config.build.steko.app.js));
 
   // Копируем изображения
-  gulp.src(config.build.src.img)
-    .pipe(gulp.dest(config.build.steko.app.img))
-    .on('end', function() {
-      //css
-      gulp.src(config.build.src.css)
-        .pipe(compass({
-          css: config.build.steko.app.css,
-          image: config.build.steko.app.img,
-          sass: "dev/sass",
-          font: config.build.steko.app.fonts,
-        }))
-        .pipe(csso())
-        .pipe(gulp.dest(config.build.steko.app.css))
-        .on('end', function() {
-          gutil.log('css!');
-        });
-      gutil.log('img!');
-    });
+  // gulp.src(config.build.src.img)
+  //   .pipe(gulp.dest(config.build.steko.app.img))
+  //   .on('end', function() {
+  //     //css
+  //     gulp.src(config.build.src.css)
+  //       .pipe(compass({
+  //         css: config.build.steko.app.css,
+  //         image: config.build.steko.app.img,
+  //         sass: "dev/sass",
+  //         font: config.build.steko.app.fonts,
+  //       }))
+  //       .pipe(csso())
+  //       .pipe(gulp.dest(config.build.steko.app.css))
+  //       .on('end', function() {
+  //         gutil.log('css!');
+  //       });
+  //     gutil.log('img!');
+  //   });
 
   // Копируем шрифты
   gulp.src(config.build.src.fonts)

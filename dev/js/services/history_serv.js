@@ -592,11 +592,7 @@
                                     //----- find depths and build design icon
                                     MainServ.setCurrentProfile(tempProd, tempProfileId).then(function () {
                                         if (tempProd.glass_id) {
-                                            try {
-                                                var glassIDs = tempProd.glass_id.split(', ');
-                                            } catch (e) {
-                                                var glassIDs = tempProd.glass_id;
-                                            }
+                                            var glassIDs = tempProd.glass_id.split(', ');
                                             var glassIDsQty = glassIDs.length;
                                             if (glassIDsQty) {
                                                 while (--glassIDsQty > -1) {
