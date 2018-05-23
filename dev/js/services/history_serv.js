@@ -728,7 +728,6 @@
                         localDB.tablesLocalDB.order_addelements.tableName, {
                             'order_id': GlobalStor.global.orderEditNumber
                         }).then(function (result) {
-                            console.log(result);
                             var elementsAdd = angular.copy(result),
                                 addElementsAll = angular.copy(GlobalStor.global.addElementsAll),
                                 allAddElemQty = elementsAdd.length,
@@ -756,6 +755,7 @@
                                 if (allAddElemQty) {
                                     while (--allAddElemQty > -1) {
                                         for (prod = 0; prod < orderProductsQty; prod += 1) {
+                                            console.log(elementsAdd[allAddElemQty].product_id , OrderStor.order.products[prod].product_id)
                                             if (elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                                                 index = elementsAdd[allAddElemQty].element_type;
                                                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
@@ -768,6 +768,10 @@
                                                 OrderStor.order.products[prod].chosenAddElements[index].push(elementsAdd[allAddElemQty]);
                                                 if (!allAddElemQty) {
                                                     deferred.resolve(1);
+                                                }
+                                            } else  {
+                                                if (!allAddElemQty) {
+                                                    deferred.resolve(0);
                                                 }
                                             }
                                         }
@@ -825,7 +829,6 @@
                     delete OrderStor.order.modified;
                     //------ Download All Products of edited Order
                     downloadProducts().then(function (res) {
-                        console.log('downloadProducts res', res)
 
                         var products = angular.copy(OrderStor.order.products);
                         OrderStor.order.products = [];
@@ -833,7 +836,7 @@
 
                         async.eachSeries(products, calculate, function (err, result) {
                             //------ Download All Add Elements from LocalDB
-                            downloadAddElements().then(function () {
+                            downloadAddElements().then(function (res) {
                                 GlobalStor.global.isConfigMenu = 1;
                                 GlobalStor.global.isNavMenu = 0;
                                 //------- set previos Page
@@ -894,7 +897,7 @@
                             ],
                                 function (err, result) {
                                     if (err) {
-                                        //console.log('err', err)
+                                        console.log('err', err)
                                         return _cb(err);
                                     }
                                     _cb(null);
