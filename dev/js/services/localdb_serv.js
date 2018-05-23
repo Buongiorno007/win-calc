@@ -3864,7 +3864,8 @@
                     url,
                     //   cordova.file.applicationDirectory+fileURL,
                     //   cordova.file.applicationStorageDirectory+fileURL,
-                    cordova.file.dataDirectory + fileURL,
+                    // cordova.file.dataDirectory + fileURL,
+                    cordova.file.cacheDirectory + fileURL,
                     function (entry) {
                         console.log('download complete: ' + entry.toURL());
                     },
@@ -3929,8 +3930,15 @@
                         let curr_row_length = curr_table.rows[jndex].length;
                         for (let kndex = 0; kndex < curr_row_length; kndex++) {
                             if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
-                                if (!!window.cordova) {
+                                let is_cordova = false;
+                                try {
+                                    is_cordova = device.cordova
+                                } catch(err){
+
+                                }
+                                if (is_cordova) {
                                     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
+                                    new_row[curr_table.fields[kndex]] = curr_row[kndex]
                                 } else {
                                     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
                                 }

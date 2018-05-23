@@ -687,7 +687,10 @@
                         // });
                     }
                 }
-
+                document.addEventListener("deviceready", onDeviceReady, false);
+                function onDeviceReady() {
+                    GlobalStor.global.cordova = device.cordova;
+                }
                 //********************
 
 

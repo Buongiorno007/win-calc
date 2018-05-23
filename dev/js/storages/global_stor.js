@@ -16,6 +16,7 @@
 
                 thisFactory.publicObj = {
                     globalSource: {
+                        cordova : 0,
                         mobileOrderHistory : 0,
                         showMountDelivery : 0,
                         OpenSubFolder: -1,

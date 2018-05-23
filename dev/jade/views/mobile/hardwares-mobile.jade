@@ -8,8 +8,8 @@
             .profile-box
                 .profile-info(ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" )
                     .profile-info-item(ng-click="hardwarePanel.selectHardware(hardware.id)")
-                        img.profile-img(ng-if='!(!!window.cordova)' ng-src="{{hardware.img}}" alt="{{hardware.name}}")
-                        img.profile-img(ng-if='(!!window.cordova)' ng-src="{{hardwarePanel.extendUrl(hardware.img)}}" alt="{{hardware.name}}")
+                        img.profile-img(ng-if='!hardwarePanel.G.global.cordova' ng-src="{{hardware.img}}" alt="{{hardware.name}}")
+                        img.profile-img(ng-if='hardwarePanel.G.global.cordova' ng-src="{{hardwarePanel.extendUrl(hardware.img)}}" alt="{{hardware.name}}")
                         .name
                             p {{hardware.name}}
                         .common-info
