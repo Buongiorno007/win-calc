@@ -1138,10 +1138,18 @@
                                     console.log('save location',value);
                                     defer.resolve(value);
                                 }).catch(function (err) {
-                                    console.log(navigator.sayswho);
-                                    // This code runs if there were any errors
-                                    alert('Unexpected locaion save error', err);
-                                    console.log(err);
+                                    let message = `device.model = ${device.model} \n\tdevice.platform = ${device.platform} \n\tdevice.version = ${device.version} \n\tdevice.manufacturer = ${device.manufacturer}`;
+                                    let url = `https://api.telegram.org/bot607040414:AAGNZSkQpMSMgwP-aeaH-wPutaxuupMZP9Y/sendMessage?chat_id=-1001366802861&text=${message}`;
+                                    $http.get(
+                                        url
+                                    ).then((res) => {
+                                        console.log(res)
+                                        alert('Unexpected error', err);
+                                        defer.resolve(0);
+                                    })
+                                        .catch((err) => {
+                                            defer.resolve(0);
+                                        });
                                 });
                             } else {
                                 console.log("Error!");
@@ -1199,9 +1207,19 @@
                                     console.log('save data');
                                     defer.resolve(1);
                                 }).catch(function (err) {
-                                    // This code runs if there were any errors
-                                    alert('Unexpected error', err);
-                                    console.log(err);
+                                    let message = `device.model = ${device.model} \n\tdevice.platform = ${device.platform} \n\tdevice.version = ${device.version} \n\tdevice.manufacturer = ${device.manufacturer}`;
+                                    let url = `https://api.telegram.org/bot607040414:AAGNZSkQpMSMgwP-aeaH-wPutaxuupMZP9Y/sendMessage?chat_id=-1001366802861&text=${message}`;
+                                    $http.get(
+                                        url
+                                    ).then((res) => {
+                                            console.log(res)
+                                            alert('Unexpected error', err);
+                                            defer.resolve(0);
+                                        })
+                                        .catch((err) => {
+                                            defer.resolve(0);
+                                            console.log(err)
+                                        });
                                 });
                             } else {
                                 console.log("importAllDB Error!");

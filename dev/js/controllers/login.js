@@ -648,6 +648,7 @@
 
                 function enterForm(form) {
                     thisCtrl.submitted = 1;
+
                     if (form.$valid) {
                         if (new Date("2018-08-01") >= new Date()) {
                             if (navigator.onLine) {
