@@ -987,7 +987,6 @@
             }
 
             function insertRowLocalDB(row, tableName) {
-                console.log(tableName, row)
                 if (!LocalDataBase[tableName]) {
                     LocalDataBase[tableName] = [row];
                 } else {
@@ -1237,7 +1236,6 @@
             }
 
             function insertServer(login, access, table, data) {
-                console.log(table, data)
                 var defer = $q.defer(),
                     dataToSend = {
                         model: table,
