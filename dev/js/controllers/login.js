@@ -5,29 +5,29 @@
         .module('LoginModule')
         .controller('LoginCtrl',
             function ($location,
-                $timeout,
-                $rootScope,
-                $route,
-                $http,
-                // $cordovaNetwork,
-                $filter,
-                $translate,
-                $q,
-                GlobalStor,
-                ProductStor,
-                OrderStor,
-                AuxStor,
-                DesignStor,
-                UserStor,
-                HistoryStor,
-                CartStor,
-                globalConstants,
-                localDB,
-                loginServ,
-                MainServ,
-                SettingServ,
-                HistoryServ,
-                GeneralServ) {
+                      $timeout,
+                      $rootScope,
+                      $route,
+                      $http,
+                      // $cordovaNetwork,
+                      $filter,
+                      $translate,
+                      $q,
+                      GlobalStor,
+                      ProductStor,
+                      OrderStor,
+                      AuxStor,
+                      DesignStor,
+                      UserStor,
+                      HistoryStor,
+                      CartStor,
+                      globalConstants,
+                      localDB,
+                      loginServ,
+                      MainServ,
+                      SettingServ,
+                      HistoryServ,
+                      GeneralServ) {
                 /*jshint validthis:true */
                 var thisCtrl = this;
                 thisCtrl.G = GlobalStor;
@@ -111,9 +111,9 @@
 
                 /** reload room img */
 
-                //$("<img />").attr("src", "img/room/1.png");
-                //$("<img />").attr("src", "img/room/33.gif");
-                //$("<img />").attr("src", "img/room/333.gif");
+                    //$("<img />").attr("src", "img/room/1.png");
+                    //$("<img />").attr("src", "img/room/33.gif");
+                    //$("<img />").attr("src", "img/room/333.gif");
                 let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 
                 function preloadImages(array) {
@@ -325,10 +325,12 @@
                                 });
                                 var key = "UserStor.userInfo.phone";
                                 var value = UserStor.userInfo.phone;
-                                localDB.db.setItem(key, value, function (err, value) { });
+                                localDB.db.setItem(key, value, function (err, value) {
+                                });
                                 var key = "UserStor.userInfo.device_code";
                                 var value = UserStor.userInfo.device_code;
-                                localDB.db.setItem(key, value, function (err, value) { });
+                                localDB.db.setItem(key, value, function (err, value) {
+                                });
                             } else {
                                 GlobalStor.global.isLoader = 0;
                                 GlobalStor.global.startSlider = 0;
@@ -346,7 +348,8 @@
 
                 function checkingUser(DemoLogin, DemoPass) {
                     GlobalStor.global.ISLOGIN = 1;
-                    localDB.db.setItem("FirstIn", "true", function (err, value) { });
+                    localDB.db.setItem("FirstIn", "true", function (err, value) {
+                    });
                     console.log('importUser');
                     let login = thisCtrl.user.phone;
                     let pass = thisCtrl.user.password;
@@ -599,13 +602,18 @@
                 function closeOfflineAlert() {
                     thisCtrl.isOffline = false;
                 }
+
                 function loaderChange(state, time) {
                     GlobalStor.global.isLoader2 = state;
                     if (state <= 98) {
-                        $timeout(function () { loaderChange(++state) }, temp)
+                        $timeout(function () {
+                            loaderChange(++state)
+                        }, temp)
                     }
                 }
+
                 let temp;
+
                 /** =========== SIGN IN ======== */
                 function loader() {
                     if (GlobalStor.global.isLoader3 === 1) {
@@ -614,7 +622,9 @@
                         }
                     }
                     if (GlobalStor.global.isLoader3 === 0) {
-                        $timeout(function () { GlobalStor.global.isLoader3 = 1 }, 1)
+                        $timeout(function () {
+                            GlobalStor.global.isLoader3 = 1
+                        }, 1)
                         temp = (240 / 99) * 1000;
                         loaderChange(1, temp)
                     }
@@ -639,7 +649,8 @@
                 localDB.db.getItem("FirstIn", function (err, value) {
                     if (value !== "true") {
                         GlobalStor.global.loadDate = new Date();
-                        localDB.db.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) { });
+                        localDB.db.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) {
+                        });
                         /** **/
                     } else {
                         localDB.db.getItem("loadDate", function (err, value) {
@@ -653,15 +664,15 @@
                     thisCtrl.submitted = 1;
 
                     if (form.$valid) {
-                        if (new Date("2018-08-01") >= new Date()) {
-                            if (navigator.onLine) {
-                                GlobalStor.global.loadDate = new Date();
-                                GlobalStor.global.isLoader = 1;
-                                GlobalStor.global.startSlider = 1;
-                                checkingUser();
-                            } else {
-                                thisCtrl.isOfflineImport = 1;
-                            }
+                        if (navigator.onLine) {
+                            GlobalStor.global.loadDate = new Date();
+                            GlobalStor.global.isLoader = 1;
+                            GlobalStor.global.startSlider = 1;
+                            checkingUser();
+                            // if (new Date("2018-08-01") >= new Date()) {
+                            // } else {
+                            //     thisCtrl.isOfflineImport = 1;
+                            // }
                         } else {
                             GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
                         }
@@ -908,7 +919,6 @@
                         $location.path("/" + GlobalStor.global.currOpenPage);
                     }
                 }
-
 
 
                 /**========== FINISH ==========*/
