@@ -734,7 +734,6 @@
                                 orderProductsQty = OrderStor.order.products.length,
                                 prod, index;
                             if (addEl) {
-                                console.log('1')
                                 deferred.resolve(elementsAdd);
                             } else {
                                 for (var x = 0; x < allAddElemQty; x += 1) {
@@ -754,12 +753,10 @@
                                 }
 
                                 if (allAddElemQty) {
-                                    console.log('2', OrderStor.order.products)
                                     while (--allAddElemQty > -1) {
                                         for (prod = 0; prod < orderProductsQty; prod += 1) {
                                             console.log(elementsAdd[allAddElemQty].product_id , OrderStor.order.products[prod].product_id)
                                             if (elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
-                                                console.log('3')
                                                 index = elementsAdd[allAddElemQty].element_type;
                                                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                                                 delete elementsAdd[allAddElemQty].element_id;
@@ -780,7 +777,6 @@
                                         }
                                     }
                                 } else {
-                                    console.log('4')
                                     deferred.resolve(1);
                                 }
                             }
@@ -833,7 +829,6 @@
                     delete OrderStor.order.modified;
                     //------ Download All Products of edited Order
                     downloadProducts().then(function (res) {
-                        console.log('downloadProducts res', res)
 
                         var products = angular.copy(OrderStor.order.products);
                         OrderStor.order.products = [];
@@ -842,7 +837,6 @@
                         async.eachSeries(products, calculate, function (err, result) {
                             //------ Download All Add Elements from LocalDB
                             downloadAddElements().then(function (res) {
-                                console.log('downloadAddElements',res)
                                 GlobalStor.global.isConfigMenu = 1;
                                 GlobalStor.global.isNavMenu = 0;
                                 //------- set previos Page
@@ -851,7 +845,6 @@
                                 GlobalStor.global.isLoader = 0;
                                 //console.warn('ORDER ====', OrderStor.order);
                                 if ($location.path() !== "/mobile") {
-                                    console.log('go to cart')
                                     $location.path('/cart');
                                     GlobalStor.global.currOpenPage = 'cart';
                                 } else {
