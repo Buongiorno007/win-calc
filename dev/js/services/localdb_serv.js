@@ -4,40 +4,40 @@
     angular
         .module("BauVoiceApp")
         .factory("localDB", function ($http,
-            $q,
-            $filter,
-            globalConstants,
-            GeneralServ,
-            UserStor,
-            GlobalStor,
-            AuxStor,
-            ProductStor) {
+                                      $q,
+                                      $filter,
+                                      globalConstants,
+                                      GeneralServ,
+                                      UserStor,
+                                      GlobalStor,
+                                      AuxStor,
+                                      ProductStor) {
             var thisFactory = this,
                 tablesLocalDB = {
                     addition_folders: {
                         tableName: "addition_folders",
                         prop: "name VARCHAR(255)," +
-                            " addition_type_id INTEGER," +
-                            " is_push INTEGER," +
-                            " factory_id INTEGER," +
-                            " position INTEGER," +
-                            " img VARCHAR," +
-                            " description VARCHAR," +
-                            " link VARCHAR," +
-                            " max_size INTEGER",
+                        " addition_type_id INTEGER," +
+                        " is_push INTEGER," +
+                        " factory_id INTEGER," +
+                        " position INTEGER," +
+                        " img VARCHAR," +
+                        " description VARCHAR," +
+                        " link VARCHAR," +
+                        " max_size INTEGER",
                         foreignKey: ", FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)"
                     },
                     cities: {
                         tableName: "cities",
                         prop: "region_id INTEGER," +
-                            " name VARCHAR(255)," +
-                            " transport VARCHAR(2)," +
-                            " lat NUMERIC, long NUMERIC," +
-                            " is_capital INTEGER," +
-                            " code_sync INTEGER," +
-                            " name_sync VARCHAR(255)," +
-                            " area_id INTEGER," +
-                            " price_koef_id INTEGER",
+                        " name VARCHAR(255)," +
+                        " transport VARCHAR(2)," +
+                        " lat NUMERIC, long NUMERIC," +
+                        " is_capital INTEGER," +
+                        " code_sync INTEGER," +
+                        " name_sync VARCHAR(255)," +
+                        " area_id INTEGER," +
+                        " price_koef_id INTEGER",
                         foreignKey: ", FOREIGN KEY(region_id) REFERENCES regions(id)"
                     },
                     price_koefficients: {
@@ -73,32 +73,32 @@
                     glass_folders: {
                         tableName: "glass_folders",
                         prop: "name VARCHAR(255)," +
-                            " img VARCHAR," +
-                            " is_push INTEGER," +
-                            " position INTEGER," +
-                            " factory_id INTEGER," +
-                            " description VARCHAR," +
-                            " link VARCHAR," +
-                            " is_base INTEGER",
+                        " img VARCHAR," +
+                        " is_push INTEGER," +
+                        " position INTEGER," +
+                        " factory_id INTEGER," +
+                        " description VARCHAR," +
+                        " link VARCHAR," +
+                        " is_base INTEGER",
                         foreignKey: ""
                     },
                     glass_prices: {
                         tableName: "glass_prices",
                         prop: "element_id INTEGER," +
-                            " col_1_range NUMERIC(10, 2)," +
-                            " col_1_price NUMERIC(10, 2)," +
-                            " col_2_range_1 NUMERIC(10, 2)," +
-                            " col_2_range_2 NUMERIC(10, 2)," +
-                            " col_2_price NUMERIC(10, 2)," +
-                            " col_3_range_1 NUMERIC(10, 2)," +
-                            " col_3_range_2 NUMERIC(10, 2)," +
-                            " col_3_price NUMERIC(10, 2)," +
-                            " col_4_range_1 NUMERIC(10, 2)," +
-                            " col_4_range_2 NUMERIC(10, 2)," +
-                            " col_4_price NUMERIC(10, 2)," +
-                            " col_5_range NUMERIC(10, 2)," +
-                            " col_5_price NUMERIC(10, 2)," +
-                            " table_width INTEGER",
+                        " col_1_range NUMERIC(10, 2)," +
+                        " col_1_price NUMERIC(10, 2)," +
+                        " col_2_range_1 NUMERIC(10, 2)," +
+                        " col_2_range_2 NUMERIC(10, 2)," +
+                        " col_2_price NUMERIC(10, 2)," +
+                        " col_3_range_1 NUMERIC(10, 2)," +
+                        " col_3_range_2 NUMERIC(10, 2)," +
+                        " col_3_price NUMERIC(10, 2)," +
+                        " col_4_range_1 NUMERIC(10, 2)," +
+                        " col_4_range_2 NUMERIC(10, 2)," +
+                        " col_4_price NUMERIC(10, 2)," +
+                        " col_5_range NUMERIC(10, 2)," +
+                        " col_5_price NUMERIC(10, 2)," +
+                        " table_width INTEGER",
                         foreignKey: ""
                     },
                     lamination_factory_colors: {
@@ -124,138 +124,138 @@
                     options_coefficients: {
                         tableName: "options_coefficients",
                         prop: "rentability_percent INTEGER," +
-                            " rentability_hrn_m INTEGER," +
-                            " rentability_hrn INTEGER," +
-                            " others_percent INTEGER," +
-                            " others_hrn_m INTEGER," +
-                            " others_hrn INTEGER," +
-                            " transport_cost_percent INTEGER," +
-                            " transport_cost_hrn_m INTEGER," +
-                            " transport_cost_hrn INTEGER," +
-                            " salary_manager_percent INTEGER," +
-                            " salary_manager_hrn_m INTEGER," +
-                            " salary_manager_hrn INTEGER," +
-                            " rent_offices_percent INTEGER," +
-                            " rent_offices_hrn_m INTEGER," +
-                            " rent_offices_hrn INTEGER," +
-                            " salary_itr_percent INTEGER," +
-                            " salary_itr_hrn_m INTEGER," +
-                            " salary_itr_hrn INTEGER," +
-                            " rent_production_percent INTEGER," +
-                            " rent_production_hrn_m INTEGER," +
-                            " rent_production_hrn INTEGER," +
-                            " salary_glass_percent INTEGER," +
-                            " salary_glass_hrn_m INTEGER," +
-                            " salary_glass_hrn INTEGER," +
-                            " salary_assembly_percent INTEGER," +
-                            " salary_assembly_hrn_m INTEGER," +
-                            " salary_assembly_hrn INTEGER," +
-                            " estimated_cost INTEGER," +
-                            " factory_id INTEGER," +
-                            " plan_production INTEGER," +
-                            " margin NUMERIC(10, 2)," +
-                            " coeff NUMERIC(10, 2)," +
-                            " area_price NUMERIC(10, 2)," +
-                            " area_currencies INTEGER," +
-                            " perimeter_price NUMERIC(10, 2)," +
-                            " perimeter_currencies INTEGER," +
-                            " piece_price NUMERIC(10, 2)," +
-                            " piece_currencies NUMERIC(10, 2)",
+                        " rentability_hrn_m INTEGER," +
+                        " rentability_hrn INTEGER," +
+                        " others_percent INTEGER," +
+                        " others_hrn_m INTEGER," +
+                        " others_hrn INTEGER," +
+                        " transport_cost_percent INTEGER," +
+                        " transport_cost_hrn_m INTEGER," +
+                        " transport_cost_hrn INTEGER," +
+                        " salary_manager_percent INTEGER," +
+                        " salary_manager_hrn_m INTEGER," +
+                        " salary_manager_hrn INTEGER," +
+                        " rent_offices_percent INTEGER," +
+                        " rent_offices_hrn_m INTEGER," +
+                        " rent_offices_hrn INTEGER," +
+                        " salary_itr_percent INTEGER," +
+                        " salary_itr_hrn_m INTEGER," +
+                        " salary_itr_hrn INTEGER," +
+                        " rent_production_percent INTEGER," +
+                        " rent_production_hrn_m INTEGER," +
+                        " rent_production_hrn INTEGER," +
+                        " salary_glass_percent INTEGER," +
+                        " salary_glass_hrn_m INTEGER," +
+                        " salary_glass_hrn INTEGER," +
+                        " salary_assembly_percent INTEGER," +
+                        " salary_assembly_hrn_m INTEGER," +
+                        " salary_assembly_hrn INTEGER," +
+                        " estimated_cost INTEGER," +
+                        " factory_id INTEGER," +
+                        " plan_production INTEGER," +
+                        " margin NUMERIC(10, 2)," +
+                        " coeff NUMERIC(10, 2)," +
+                        " area_price NUMERIC(10, 2)," +
+                        " area_currencies INTEGER," +
+                        " perimeter_price NUMERIC(10, 2)," +
+                        " perimeter_currencies INTEGER," +
+                        " piece_price NUMERIC(10, 2)," +
+                        " piece_currencies NUMERIC(10, 2)",
                         foreignKey: ""
                     },
                     options_discounts: {
                         tableName: "options_discounts",
                         prop: "factory_id INTEGER," +
-                            " min_time INTEGER," +
-                            " standart_time INTEGER," +
-                            " base_time INTEGER," +
-                            " week_1 INTEGER," +
-                            " week_2 INTEGER," +
-                            " week_3 INTEGER," +
-                            " week_4 INTEGER," +
-                            " week_5 INTEGER," +
-                            " week_6 INTEGER," +
-                            " week_7 INTEGER," +
-                            " week_8 INTEGER," +
-                            " percents ARRAY",
+                        " min_time INTEGER," +
+                        " standart_time INTEGER," +
+                        " base_time INTEGER," +
+                        " week_1 INTEGER," +
+                        " week_2 INTEGER," +
+                        " week_3 INTEGER," +
+                        " week_4 INTEGER," +
+                        " week_5 INTEGER," +
+                        " week_6 INTEGER," +
+                        " week_7 INTEGER," +
+                        " week_8 INTEGER," +
+                        " percents ARRAY",
                         foreignKey: ", FOREIGN KEY(factory_id) REFERENCES factories(id)"
                     },
                     elements: {
                         tableName: "elements",
                         prop: "heat_coeff INTEGER," +
-                            " name VARCHAR(255)," +
-                            " element_group_id INTEGER," +
-                            " currency_id INTEGER," +
-                            " supplier_id INTEGER," +
-                            " margin_id INTEGER," +
-                            " waste NUMERIC(10, 2)," +
-                            " is_optimized INTEGER," +
-                            " is_virtual INTEGER," +
-                            " is_additional INTEGER," +
-                            " weight_accounting_unit NUMERIC(10, 3)," +
-                            " glass_folder_id INTEGER," +
-                            " min_width NUMERIC," +
-                            " min_height NUMERIC," +
-                            " max_width NUMERIC," +
-                            " max_height NUMERIC," +
-                            " max_sq NUMERIC," +
-                            " transcalency NUMERIC(10, 2)," +
-                            " glass_width INTEGER," +
-                            " factory_id INTEGER," +
-                            " price NUMERIC(10, 2)," +
-                            " amendment_pruning NUMERIC(10, 2)," +
-                            " noise_coeff NUMERIC," +
-                            " sku VARCHAR(100)," +
-                            " lamination_in_id INTEGER," +
-                            " lamination_out_id INTEGER," +
-                            " reg_coeff NUMERIC",
+                        " name VARCHAR(255)," +
+                        " element_group_id INTEGER," +
+                        " currency_id INTEGER," +
+                        " supplier_id INTEGER," +
+                        " margin_id INTEGER," +
+                        " waste NUMERIC(10, 2)," +
+                        " is_optimized INTEGER," +
+                        " is_virtual INTEGER," +
+                        " is_additional INTEGER," +
+                        " weight_accounting_unit NUMERIC(10, 3)," +
+                        " glass_folder_id INTEGER," +
+                        " min_width NUMERIC," +
+                        " min_height NUMERIC," +
+                        " max_width NUMERIC," +
+                        " max_height NUMERIC," +
+                        " max_sq NUMERIC," +
+                        " transcalency NUMERIC(10, 2)," +
+                        " glass_width INTEGER," +
+                        " factory_id INTEGER," +
+                        " price NUMERIC(10, 2)," +
+                        " amendment_pruning NUMERIC(10, 2)," +
+                        " noise_coeff NUMERIC," +
+                        " sku VARCHAR(100)," +
+                        " lamination_in_id INTEGER," +
+                        " lamination_out_id INTEGER," +
+                        " reg_coeff NUMERIC",
                         foreignKey: ", FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)"
                     },
                     profile_system_folders: {
                         tableName: "profile_system_folders",
                         prop: "name VARCHAR(255)," +
-                            " factory_id INTEGER," +
-                            " position INTEGER," +
-                            " link VARCHAR," +
-                            " description VARCHAR," +
-                            " img VARCHAR",
+                        " factory_id INTEGER," +
+                        " position INTEGER," +
+                        " link VARCHAR," +
+                        " description VARCHAR," +
+                        " img VARCHAR",
                         foreignKey: ", FOREIGN KEY(factory_id) REFERENCES factories(id)"
                     },
                     profile_systems: {
                         tableName: "profile_systems",
                         prop: "name VARCHAR(255)," +
-                            " short_name VARCHAR(100)," +
-                            " folder_id INTEGER," +
-                            " rama_list_id INTEGER," +
-                            " rama_still_list_id INTEGER," +
-                            " stvorka_list_id INTEGER," +
-                            " impost_list_id INTEGER," +
-                            " shtulp_list_id INTEGER," +
-                            " is_editable INTEGER," +
-                            " is_default INTEGER," +
-                            " position INTEGER," +
-                            " country VARCHAR(100)," +
-                            " cameras INTEGER," +
-                            " heat_coeff INTEGER," +
-                            " noise_coeff INTEGER," +
-                            " heat_coeff_value NUMERIC(5,2)," +
-                            " link VARCHAR," +
-                            " description VARCHAR," +
-                            " img VARCHAR," +
-                            " is_push INTEGER",
+                        " short_name VARCHAR(100)," +
+                        " folder_id INTEGER," +
+                        " rama_list_id INTEGER," +
+                        " rama_still_list_id INTEGER," +
+                        " stvorka_list_id INTEGER," +
+                        " impost_list_id INTEGER," +
+                        " shtulp_list_id INTEGER," +
+                        " is_editable INTEGER," +
+                        " is_default INTEGER," +
+                        " position INTEGER," +
+                        " country VARCHAR(100)," +
+                        " cameras INTEGER," +
+                        " heat_coeff INTEGER," +
+                        " noise_coeff INTEGER," +
+                        " heat_coeff_value NUMERIC(5,2)," +
+                        " link VARCHAR," +
+                        " description VARCHAR," +
+                        " img VARCHAR," +
+                        " is_push INTEGER",
                         foreignKey: ""
                     },
                     profile_laminations: {
                         tableName: "profile_laminations",
                         prop: "profile_id INTEGER," +
-                            " lamination_in_id INTEGER," +
-                            " lamination_out_id INTEGER," +
-                            " rama_list_id INTEGER," +
-                            " rama_still_list_id INTEGER," +
-                            " stvorka_list_id INTEGER," +
-                            " impost_list_id INTEGER," +
-                            " shtulp_list_id INTEGER," +
-                            " code_sync VARCHAR",
+                        " lamination_in_id INTEGER," +
+                        " lamination_out_id INTEGER," +
+                        " rama_list_id INTEGER," +
+                        " rama_still_list_id INTEGER," +
+                        " stvorka_list_id INTEGER," +
+                        " impost_list_id INTEGER," +
+                        " shtulp_list_id INTEGER," +
+                        " code_sync VARCHAR",
                         foreignKey: ""
                     },
                     rules_types: {
@@ -271,125 +271,125 @@
                     users: {
                         tableName: "users",
                         prop: " email VARCHAR(255)," +
-                            " password VARCHAR(255)," +
-                            " factory_id INTEGER," +
-                            " name VARCHAR(255)," +
-                            " phone VARCHAR(100)," +
-                            " locked INTEGER," +
-                            " user_type INTEGER," +
-                            " city_phone VARCHAR(100)," +
-                            " city_id INTEGER," +
-                            " fax VARCHAR(100)," +
-                            " avatar VARCHAR(255)," +
-                            " birthday DATE," +
-                            " sex VARCHAR(100)," +
-                            " mount_mon NUMERIC(5,2)," +
-                            " mount_tue NUMERIC(5,2)," +
-                            " mount_wed NUMERIC(5,2)," +
-                            " mount_thu NUMERIC(5,2)," +
-                            " mount_fri NUMERIC(5,2)," +
-                            " mount_sat NUMERIC(5,2)," +
-                            " mount_sun NUMERIC(5,2)," +
-                            " device_code VARCHAR(250)," +
-                            " last_sync TIMESTAMP," +
-                            " address VARCHAR," +
-                            " therm_coeff_id INTEGER," +
-                            " factoryLink VARCHAR," +
-                            " code_sync VARCHAR",
+                        " password VARCHAR(255)," +
+                        " factory_id INTEGER," +
+                        " name VARCHAR(255)," +
+                        " phone VARCHAR(100)," +
+                        " locked INTEGER," +
+                        " user_type INTEGER," +
+                        " city_phone VARCHAR(100)," +
+                        " city_id INTEGER," +
+                        " fax VARCHAR(100)," +
+                        " avatar VARCHAR(255)," +
+                        " birthday DATE," +
+                        " sex VARCHAR(100)," +
+                        " mount_mon NUMERIC(5,2)," +
+                        " mount_tue NUMERIC(5,2)," +
+                        " mount_wed NUMERIC(5,2)," +
+                        " mount_thu NUMERIC(5,2)," +
+                        " mount_fri NUMERIC(5,2)," +
+                        " mount_sat NUMERIC(5,2)," +
+                        " mount_sun NUMERIC(5,2)," +
+                        " device_code VARCHAR(250)," +
+                        " last_sync TIMESTAMP," +
+                        " address VARCHAR," +
+                        " therm_coeff_id INTEGER," +
+                        " factoryLink VARCHAR," +
+                        " code_sync VARCHAR",
                         foreignKey: ", FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)"
                     },
                     users_discounts: {
                         tableName: "users_discounts",
                         prop: "user_id INTEGER," +
-                            " max_construct NUMERIC(5,1)," +
-                            " max_add_elem NUMERIC(5,1)," +
-                            " default_construct NUMERIC(5,1)," +
-                            " default_add_elem NUMERIC(5,1)," +
-                            " week_1_construct NUMERIC(5,1)," +
-                            " week_1_add_elem NUMERIC(5,1)," +
-                            " week_2_construct NUMERIC(5,1)," +
-                            " week_2_add_elem NUMERIC(5,1)," +
-                            " week_3_construct NUMERIC(5,1)," +
-                            " week_3_add_elem NUMERIC(5,1)," +
-                            " week_4_construct NUMERIC(5,1)," +
-                            " week_4_add_elem NUMERIC(5,1)," +
-                            " week_5_construct NUMERIC(5,1)," +
-                            " week_5_add_elem NUMERIC(5,1)," +
-                            " week_6_construct NUMERIC(5,1)," +
-                            " week_6_add_elem NUMERIC(5,1)," +
-                            " week_7_construct NUMERIC(5,1)," +
-                            " week_7_add_elem NUMERIC(5,1)," +
-                            " week_8_construct NUMERIC(5,1)," +
-                            " week_8_add_elem NUMERIC(5,1)",
+                        " max_construct NUMERIC(5,1)," +
+                        " max_add_elem NUMERIC(5,1)," +
+                        " default_construct NUMERIC(5,1)," +
+                        " default_add_elem NUMERIC(5,1)," +
+                        " week_1_construct NUMERIC(5,1)," +
+                        " week_1_add_elem NUMERIC(5,1)," +
+                        " week_2_construct NUMERIC(5,1)," +
+                        " week_2_add_elem NUMERIC(5,1)," +
+                        " week_3_construct NUMERIC(5,1)," +
+                        " week_3_add_elem NUMERIC(5,1)," +
+                        " week_4_construct NUMERIC(5,1)," +
+                        " week_4_add_elem NUMERIC(5,1)," +
+                        " week_5_construct NUMERIC(5,1)," +
+                        " week_5_add_elem NUMERIC(5,1)," +
+                        " week_6_construct NUMERIC(5,1)," +
+                        " week_6_add_elem NUMERIC(5,1)," +
+                        " week_7_construct NUMERIC(5,1)," +
+                        " week_7_add_elem NUMERIC(5,1)," +
+                        " week_8_construct NUMERIC(5,1)," +
+                        " week_8_add_elem NUMERIC(5,1)",
                         foreignKey: ""
                     },
                     users_deliveries: {
                         tableName: "users_deliveries",
                         prop: "user_id INTEGER," +
-                            " active INTEGER," +
-                            " name VARCHAR," +
-                            " type INTEGER," +
-                            " price NUMERIC(6,1)",
+                        " active INTEGER," +
+                        " name VARCHAR," +
+                        " type INTEGER," +
+                        " price NUMERIC(6,1)",
                         foreignKey: ""
                     },
                     users_mountings: {
                         tableName: "users_mountings",
                         prop: "user_id INTEGER," +
-                            " active INTEGER," +
-                            " name VARCHAR," +
-                            " type INTEGER," +
-                            " price NUMERIC(6,1)",
+                        " active INTEGER," +
+                        " name VARCHAR," +
+                        " type INTEGER," +
+                        " price NUMERIC(6,1)",
                         foreignKey: ""
                     },
                     users_dismantlings: {
                         tableName: "users_dismantlings",
                         prop: "user_id INTEGER," +
-                            " active INTEGER," +
-                            " name VARCHAR," +
-                            " type INTEGER," +
-                            " price NUMERIC(6,1)",
+                        " active INTEGER," +
+                        " name VARCHAR," +
+                        " type INTEGER," +
+                        " price NUMERIC(6,1)",
                         foreignKey: ""
                     },
                     lists: {
                         tableName: "lists",
                         prop: "name VARCHAR(255)," +
-                            " list_group_id INTEGER," +
-                            " list_type_id INTEGER," +
-                            " a NUMERIC(10, 2)," +
-                            " b NUMERIC(10, 2)," +
-                            " c NUMERIC(10, 2)," +
-                            " d NUMERIC(10, 2)," +
-                            " parent_element_id INTEGER," +
-                            " position NUMERIC," +
-                            " add_color_id INTEGER," +
-                            " addition_folder_id INTEGER," +
-                            " amendment_pruning NUMERIC(10, 2)," +
-                            " waste NUMERIC(10, 2)," +
-                            " cameras INTEGER," +
-                            " link VARCHAR," +
-                            " description VARCHAR," +
-                            " img VARCHAR," +
-                            " beed_lamination_id INTEGER," +
-                            " in_door INTEGER," +
-                            " is_push INTEGER," +
-                            " doorstep_type INTEGER," +
-                            " glass_type INTEGER," +
-                            " glass_image INTEGER," +
-                            " glass_color INTEGER",
+                        " list_group_id INTEGER," +
+                        " list_type_id INTEGER," +
+                        " a NUMERIC(10, 2)," +
+                        " b NUMERIC(10, 2)," +
+                        " c NUMERIC(10, 2)," +
+                        " d NUMERIC(10, 2)," +
+                        " parent_element_id INTEGER," +
+                        " position NUMERIC," +
+                        " add_color_id INTEGER," +
+                        " addition_folder_id INTEGER," +
+                        " amendment_pruning NUMERIC(10, 2)," +
+                        " waste NUMERIC(10, 2)," +
+                        " cameras INTEGER," +
+                        " link VARCHAR," +
+                        " description VARCHAR," +
+                        " img VARCHAR," +
+                        " beed_lamination_id INTEGER," +
+                        " in_door INTEGER," +
+                        " is_push INTEGER," +
+                        " doorstep_type INTEGER," +
+                        " glass_type INTEGER," +
+                        " glass_image INTEGER," +
+                        " glass_color INTEGER",
                         foreignKey: ", FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)"
                     },
                     list_contents: {
                         tableName: "list_contents",
                         prop: "parent_list_id INTEGER," +
-                            " child_id INTEGER," +
-                            " child_type VARCHAR(255)," +
-                            " value NUMERIC(10, 7)," +
-                            " rules_type_id INTEGER," +
-                            " direction_id INTEGER," +
-                            " window_hardware_color_id INTEGER," +
-                            " lamination_type_id INTEGER," +
-                            " rounding_value NUMERIC," +
-                            " rounding_type INTEGER",
+                        " child_id INTEGER," +
+                        " child_type VARCHAR(255)," +
+                        " value NUMERIC(10, 7)," +
+                        " rules_type_id INTEGER," +
+                        " direction_id INTEGER," +
+                        " window_hardware_color_id INTEGER," +
+                        " lamination_type_id INTEGER," +
+                        " rounding_value NUMERIC," +
+                        " rounding_type INTEGER",
                         foreignKey: ", FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)"
                     },
                     window_hardware_types: {
@@ -400,53 +400,53 @@
                     window_hardware_folders: {
                         tableName: "window_hardware_folders",
                         prop: "name VARCHAR," +
-                            " factory_id INTEGER," +
-                            " link VARCHAR," +
-                            " description VARCHAR," +
-                            " img VARCHAR",
+                        " factory_id INTEGER," +
+                        " link VARCHAR," +
+                        " description VARCHAR," +
+                        " img VARCHAR",
                         foreignKey: ""
                     },
 
                     window_hardware_groups: {
                         tableName: "window_hardware_groups",
                         prop: "name VARCHAR(255)," +
-                            " short_name VARCHAR(100)," +
-                            " folder_id INTEGER," +
-                            " is_editable INTEGER," +
-                            " is_group INTEGER," +
-                            " is_in_calculation INTEGER," +
-                            " is_default INTEGER," +
-                            " position INTEGER," +
-                            " producer VARCHAR(255)," +
-                            " country VARCHAR(255)," +
-                            " noise_coeff INTEGER," +
-                            " heat_coeff INTEGER," +
-                            " min_height INTEGER," +
-                            " max_height INTEGER," +
-                            " min_width INTEGER," +
-                            " max_width INTEGER," +
-                            " is_push INTEGER," +
-                            " link VARCHAR," +
-                            " description VARCHAR," +
-                            " img VARCHAR",
+                        " short_name VARCHAR(100)," +
+                        " folder_id INTEGER," +
+                        " is_editable INTEGER," +
+                        " is_group INTEGER," +
+                        " is_in_calculation INTEGER," +
+                        " is_default INTEGER," +
+                        " position INTEGER," +
+                        " producer VARCHAR(255)," +
+                        " country VARCHAR(255)," +
+                        " noise_coeff INTEGER," +
+                        " heat_coeff INTEGER," +
+                        " min_height INTEGER," +
+                        " max_height INTEGER," +
+                        " min_width INTEGER," +
+                        " max_width INTEGER," +
+                        " is_push INTEGER," +
+                        " link VARCHAR," +
+                        " description VARCHAR," +
+                        " img VARCHAR",
                         foreignKey: ""
                     },
                     window_hardwares: {
                         tableName: "window_hardwares",
                         prop: "window_hardware_type_id INTEGER," +
-                            " min_width INTEGER," +
-                            " max_width INTEGER," +
-                            " min_height INTEGER," +
-                            " max_height INTEGER," +
-                            " direction_id INTEGER," +
-                            " window_hardware_color_id INTEGER," +
-                            " length INTEGER," +
-                            " count INTEGER," +
-                            " child_id INTEGER," +
-                            " child_type VARCHAR(100)," +
-                            " position INTEGER," +
-                            " factory_id INTEGER," +
-                            " window_hardware_group_id INTEGER",
+                        " min_width INTEGER," +
+                        " max_width INTEGER," +
+                        " min_height INTEGER," +
+                        " max_height INTEGER," +
+                        " direction_id INTEGER," +
+                        " window_hardware_color_id INTEGER," +
+                        " length INTEGER," +
+                        " count INTEGER," +
+                        " child_id INTEGER," +
+                        " child_type VARCHAR(100)," +
+                        " position INTEGER," +
+                        " factory_id INTEGER," +
+                        " window_hardware_group_id INTEGER",
                         foreignKey: ", FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)"
                     },
                     window_hardware_colors: {
@@ -468,133 +468,133 @@
                     orders: {
                         tableName: "orders",
                         prop: "order_number VARCHAR," +
-                            " order_hz VARCHAR," +
-                            " order_date TIMESTAMP," +
-                            " order_type INTEGER," +
-                            " order_style VARCHAR," +
-                            " user_id INTEGER," +
-                            " created TIMESTAMP," +
-                            " additional_payment VARCHAR," +
-                            " sended TIMESTAMP," +
-                            " state_to TIMESTAMP," +
-                            " state_buch TIMESTAMP," +
-                            " batch VARCHAR," +
-                            " base_price NUMERIC(13, 2)," +
-                            " factory_margin NUMERIC(11, 2)," +
-                            " factory_id INTEGER," +
-                            " purchase_price NUMERIC(10, 2)," +
-                            " sale_price NUMERIC(10, 2)," +
-                            " delivery_add NUMERIC(10, 2)," +
-                            " delivery_garbage_removal NUMERIC(10, 2)," +
-                            " climatic_zone INTEGER," +
-                            " heat_coef_min NUMERIC," +
-                            " products_qty INTEGER," +
-                            " templates_price NUMERIC," +
-                            " addelems_price NUMERIC," +
-                            " products_price NUMERIC," +
-                            " delivery_date TIMESTAMP," +
-                            " sync_date TIMESTAMP," +
-                            " app_version VARCHAR," +
-                            " new_delivery_date TIMESTAMP," +
-                            " delivery_price NUMERIC," +
-                            " is_date_price_less INTEGER," +
-                            " is_date_price_more INTEGER," +
-                            " floor_id INTEGER," +
-                            " floor_price NUMERIC," +
-                            " mounting_id INTEGER," +
-                            " mounting_price NUMERIC," +
-                            " dismantling_user_id INTEGER," +
-                            " dismantling_id INTEGER," +
-                            " dismantling_price NUMERIC," +
-                            " is_instalment INTEGER," +
-                            " instalment_id INTEGER," +
-                            " is_old_price INTEGER," +
-                            " payment_first NUMERIC," +
-                            " payment_monthly NUMERIC," +
-                            " payment_first_primary NUMERIC," +
-                            " payment_monthly_primary NUMERIC," +
-                            " order_price NUMERIC," +
-                            " order_price_dis NUMERIC," +
-                            " order_price_primary NUMERIC," +
-                            " discount_construct NUMERIC," +
-                            " discount_addelem NUMERIC," +
-                            " discount_construct_max NUMERIC," +
-                            " discount_addelem_max NUMERIC," +
-                            " delivery_user_id NUMERIC," +
-                            " mounting_user_id NUMERIC," +
-                            " default_term_plant NUMERIC," +
-                            " disc_term_plant NUMERIC," +
-                            " margin_plant NUMERIC," +
-                            " comment TEXT," +
-                            " customer_name TEXT," +
-                            " customer_email TEXT," +
-                            " customer_phone VARCHAR(30)," +
-                            " customer_phone_city VARCHAR(20)," +
-                            " customer_city_id INTEGER," +
-                            " customer_city VARCHAR," +
-                            " customer_address TEXT," +
-                            " customer_house TEXT," +
-                            " customer_flat TEXT," +
-                            " customer_floor TEXT," +
-                            " customer_location VARCHAR," +
-                            " customer_itn INTEGER," +
-                            " customer_starttime VARCHAR," +
-                            " customer_endtime VARCHAR," +
-                            " customer_target VARCHAR," +
-                            " customer_sex INTEGER," +
-                            " customer_age INTEGER," +
-                            " customer_education INTEGER," +
-                            " customer_occupation INTEGER," +
-                            " customer_infoSource INTEGER",
+                        " order_hz VARCHAR," +
+                        " order_date TIMESTAMP," +
+                        " order_type INTEGER," +
+                        " order_style VARCHAR," +
+                        " user_id INTEGER," +
+                        " created TIMESTAMP," +
+                        " additional_payment VARCHAR," +
+                        " sended TIMESTAMP," +
+                        " state_to TIMESTAMP," +
+                        " state_buch TIMESTAMP," +
+                        " batch VARCHAR," +
+                        " base_price NUMERIC(13, 2)," +
+                        " factory_margin NUMERIC(11, 2)," +
+                        " factory_id INTEGER," +
+                        " purchase_price NUMERIC(10, 2)," +
+                        " sale_price NUMERIC(10, 2)," +
+                        " delivery_add NUMERIC(10, 2)," +
+                        " delivery_garbage_removal NUMERIC(10, 2)," +
+                        " climatic_zone INTEGER," +
+                        " heat_coef_min NUMERIC," +
+                        " products_qty INTEGER," +
+                        " templates_price NUMERIC," +
+                        " addelems_price NUMERIC," +
+                        " products_price NUMERIC," +
+                        " delivery_date TIMESTAMP," +
+                        " sync_date TIMESTAMP," +
+                        " app_version VARCHAR," +
+                        " new_delivery_date TIMESTAMP," +
+                        " delivery_price NUMERIC," +
+                        " is_date_price_less INTEGER," +
+                        " is_date_price_more INTEGER," +
+                        " floor_id INTEGER," +
+                        " floor_price NUMERIC," +
+                        " mounting_id INTEGER," +
+                        " mounting_price NUMERIC," +
+                        " dismantling_user_id INTEGER," +
+                        " dismantling_id INTEGER," +
+                        " dismantling_price NUMERIC," +
+                        " is_instalment INTEGER," +
+                        " instalment_id INTEGER," +
+                        " is_old_price INTEGER," +
+                        " payment_first NUMERIC," +
+                        " payment_monthly NUMERIC," +
+                        " payment_first_primary NUMERIC," +
+                        " payment_monthly_primary NUMERIC," +
+                        " order_price NUMERIC," +
+                        " order_price_dis NUMERIC," +
+                        " order_price_primary NUMERIC," +
+                        " discount_construct NUMERIC," +
+                        " discount_addelem NUMERIC," +
+                        " discount_construct_max NUMERIC," +
+                        " discount_addelem_max NUMERIC," +
+                        " delivery_user_id NUMERIC," +
+                        " mounting_user_id NUMERIC," +
+                        " default_term_plant NUMERIC," +
+                        " disc_term_plant NUMERIC," +
+                        " margin_plant NUMERIC," +
+                        " comment TEXT," +
+                        " customer_name TEXT," +
+                        " customer_email TEXT," +
+                        " customer_phone VARCHAR(30)," +
+                        " customer_phone_city VARCHAR(20)," +
+                        " customer_city_id INTEGER," +
+                        " customer_city VARCHAR," +
+                        " customer_address TEXT," +
+                        " customer_house TEXT," +
+                        " customer_flat TEXT," +
+                        " customer_floor TEXT," +
+                        " customer_location VARCHAR," +
+                        " customer_itn INTEGER," +
+                        " customer_starttime VARCHAR," +
+                        " customer_endtime VARCHAR," +
+                        " customer_target VARCHAR," +
+                        " customer_sex INTEGER," +
+                        " customer_age INTEGER," +
+                        " customer_education INTEGER," +
+                        " customer_occupation INTEGER," +
+                        " customer_infoSource INTEGER",
                         foreignKey: ""
                     },
                     order_products: {
                         tableName: "order_products",
                         prop: "order_id NUMERIC," +
-                            " product_id INTEGER," +
-                            " is_addelem_only INTEGER," +
-                            " room_id INTEGER," +
-                            " construction_type INTEGER," +
-                            " template_id INTEGER," +
-                            " template_source TEXT," +
-                            " template_width NUMERIC," +
-                            " template_height NUMERIC," +
-                            " template_square NUMERIC," +
-                            " profile_id INTEGER," +
-                            " door_group_id INTEGER," +
-                            " glass_id VARCHAR," +
-                            " hardware_id INTEGER," +
-                            " lamination_id INTEGER," +
-                            " lamination_out_id INTEGER," +
-                            " lamination_in_id INTEGER," +
-                            " door_type_index INTEGER," +
-                            " door_shape_id INTEGER," +
-                            " door_sash_shape_id INTEGER," +
-                            " door_handle_shape_id INTEGER," +
-                            " door_lock_shape_id INTEGER," +
-                            " heat_coef_total NUMERIC," +
-                            " template_price NUMERIC," +
-                            " addelem_price NUMERIC," +
-                            " product_price NUMERIC," +
-                            " comment TEXT," +
-                            " product_qty INTEGER," +
-                            " services_price_arr NUMERIC[]," +
-                            " service_price_dis NUMERIC," +
-                            " service_price NUMERIC",
+                        " product_id INTEGER," +
+                        " is_addelem_only INTEGER," +
+                        " room_id INTEGER," +
+                        " construction_type INTEGER," +
+                        " template_id INTEGER," +
+                        " template_source TEXT," +
+                        " template_width NUMERIC," +
+                        " template_height NUMERIC," +
+                        " template_square NUMERIC," +
+                        " profile_id INTEGER," +
+                        " door_group_id INTEGER," +
+                        " glass_id VARCHAR," +
+                        " hardware_id INTEGER," +
+                        " lamination_id INTEGER," +
+                        " lamination_out_id INTEGER," +
+                        " lamination_in_id INTEGER," +
+                        " door_type_index INTEGER," +
+                        " door_shape_id INTEGER," +
+                        " door_sash_shape_id INTEGER," +
+                        " door_handle_shape_id INTEGER," +
+                        " door_lock_shape_id INTEGER," +
+                        " heat_coef_total NUMERIC," +
+                        " template_price NUMERIC," +
+                        " addelem_price NUMERIC," +
+                        " product_price NUMERIC," +
+                        " comment TEXT," +
+                        " product_qty INTEGER," +
+                        " services_price_arr NUMERIC[]," +
+                        " service_price_dis NUMERIC," +
+                        " service_price NUMERIC",
                         foreignKey: ""
                     },
                     order_addelements: {
                         tableName: "order_addelements",
                         prop: "order_id NUMERIC," +
-                            " product_id INTEGER," +
-                            " element_type INTEGER," +
-                            " element_id INTEGER," +
-                            " name VARCHAR," +
-                            " element_width NUMERIC," +
-                            " element_height NUMERIC," +
-                            " element_price NUMERIC," +
-                            " element_qty INTEGER," +
-                            " block_id INTEGER",
+                        " product_id INTEGER," +
+                        " element_type INTEGER," +
+                        " element_id INTEGER," +
+                        " name VARCHAR," +
+                        " element_width NUMERIC," +
+                        " element_height NUMERIC," +
+                        " element_price NUMERIC," +
+                        " element_qty INTEGER," +
+                        " block_id INTEGER",
 
                         // ' block_id INTEGER'+
                         // ' top_id INTEGER'+
@@ -627,67 +627,67 @@
                     templates: {
                         tableName: "templates",
                         prop: "group_id INTEGER," +
-                            "name VARCHAR(255)," +
-                            "icon TEXT," +
-                            "template_object TEXT",
+                        "name VARCHAR(255)," +
+                        "icon TEXT," +
+                        "template_object TEXT",
                         foreignKey: ""
                     },
                     background_templates: {
                         tableName: "background_templates",
                         prop: "factory_id INTEGER," +
-                            "desc_1 VARCHAR(255)," +
-                            "desc_2 VARCHAR(255)," +
-                            "template_id INTEGER," +
-                            "group_id INTEGER," +
-                            "position INTEGER," +
-                            "img VARCHAR",
+                        "desc_1 VARCHAR(255)," +
+                        "desc_2 VARCHAR(255)," +
+                        "template_id INTEGER," +
+                        "group_id INTEGER," +
+                        "position INTEGER," +
+                        "img VARCHAR",
                         foreignKey: ""
                     },
 
                     factories: {
                         tableName: "factories",
                         prop: "name VARCHAR," +
-                            "app_token VARCHAR," +
-                            "link VARCHAR," +
-                            "therm_coeff_id INTEGER," +
-                            "max_construct_square INTEGER," +
-                            "max_construct_size INTEGER",
+                        "app_token VARCHAR," +
+                        "link VARCHAR," +
+                        "therm_coeff_id INTEGER," +
+                        "max_construct_square INTEGER," +
+                        "max_construct_size INTEGER",
                         foreignKey: ""
                     },
 
                     mosquitos: {
                         tableName: "mosquitos",
                         prop: "profile_id INTEGER," +
-                            "name VARCHAR," +
-                            "bottom_id INTEGER," +
-                            "bottom_waste INTEGER," +
-                            "left_id INTEGER," +
-                            "left_waste INTEGER," +
-                            "top_id INTEGER," +
-                            "top_waste INTEGER," +
-                            "right_id INTEGER," +
-                            "right_waste INTEGER," +
-                            "cloth_id INTEGER," +
-                            "cloth_waste INTEGER," +
-                            "group_id INTEGER",
+                        "name VARCHAR," +
+                        "bottom_id INTEGER," +
+                        "bottom_waste INTEGER," +
+                        "left_id INTEGER," +
+                        "left_waste INTEGER," +
+                        "top_id INTEGER," +
+                        "top_waste INTEGER," +
+                        "right_id INTEGER," +
+                        "right_waste INTEGER," +
+                        "cloth_id INTEGER," +
+                        "cloth_waste INTEGER," +
+                        "group_id INTEGER",
                         foreignKey: ""
                     },
 
                     mosquitos_singles: {
                         tableName: "mosquitos_singles",
                         prop: "factory_id INTEGER," +
-                            "name VARCHAR," +
-                            "bottom_id INTEGER," +
-                            "bottom_waste INTEGER," +
-                            "left_id INTEGER," +
-                            "left_waste INTEGER," +
-                            "top_id INTEGER," +
-                            "top_waste INTEGER," +
-                            "right_id INTEGER," +
-                            "right_waste INTEGER," +
-                            "cloth_id INTEGER," +
-                            "cloth_waste INTEGER," +
-                            "group_id INTEGER",
+                        "name VARCHAR," +
+                        "bottom_id INTEGER," +
+                        "bottom_waste INTEGER," +
+                        "left_id INTEGER," +
+                        "left_waste INTEGER," +
+                        "top_id INTEGER," +
+                        "top_waste INTEGER," +
+                        "right_id INTEGER," +
+                        "right_waste INTEGER," +
+                        "cloth_id INTEGER," +
+                        "cloth_waste INTEGER," +
+                        "group_id INTEGER",
                         foreignKey: ""
                     },
                     doors_groups_dependencies: {
@@ -698,51 +698,51 @@
                     doors_hardware_items: {
                         tableName: "doors_hardware_items",
                         prop: "hardware_group_id  INTEGER," +
-                            "min_width INTEGER," +
-                            "max_width INTEGER," +
-                            "min_height INTEGER," +
-                            "max_height INTEGER," +
-                            "direction_id   INTEGER," +
-                            "hardware_color_id  INTEGER," +
-                            "length INTEGER," +
-                            "count  INTEGER," +
-                            "child_id INTEGER," +
-                            "position INTEGER," +
-                            "child_type STRING",
+                        "min_width INTEGER," +
+                        "max_width INTEGER," +
+                        "min_height INTEGER," +
+                        "max_height INTEGER," +
+                        "direction_id   INTEGER," +
+                        "hardware_color_id  INTEGER," +
+                        "length INTEGER," +
+                        "count  INTEGER," +
+                        "child_id INTEGER," +
+                        "position INTEGER," +
+                        "child_type STRING",
                         foreignKey: ""
                     },
                     doors_hardware_groups: {
                         tableName: "doors_hardware_groups",
                         prop: "burglar_coeff INTEGER," +
-                            "anticorrosion_coeff INTEGER," +
-                            "image VARCHAR(255)," +
-                            "description VARCHAR(255)," +
-                            "link VARCHAR(255)," +
-                            "country VARCHAR(255)," +
-                            "producer VARCHAR(255)," +
-                            "name VARCHAR(255)," +
-                            "hardware_type_id INTEGER," +
-                            "factory_id INTEGER," +
-                            "type INTEGER," +
-                            "is_push INTEGER," +
-                            "height_max INTEGER," +
-                            "height_min INTEGER," +
-                            "width_max INTEGER," +
-                            "width_min INTEGER",
+                        "anticorrosion_coeff INTEGER," +
+                        "image VARCHAR(255)," +
+                        "description VARCHAR(255)," +
+                        "link VARCHAR(255)," +
+                        "country VARCHAR(255)," +
+                        "producer VARCHAR(255)," +
+                        "name VARCHAR(255)," +
+                        "hardware_type_id INTEGER," +
+                        "factory_id INTEGER," +
+                        "type INTEGER," +
+                        "is_push INTEGER," +
+                        "height_max INTEGER," +
+                        "height_min INTEGER," +
+                        "width_max INTEGER," +
+                        "width_min INTEGER",
                         foreignKey: ""
                     },
                     doors_groups: {
                         tableName: "doors_groups",
                         prop: "code_sync_white INTEGER," +
-                            "rama_sill_list_id INTEGER," +
-                            "shtulp_list_id INTEGER," +
-                            "impost_list_id INTEGER," +
-                            "stvorka_list_id INTEGER," +
-                            "door_sill_list_id INTEGER," +
-                            "rama_list_id INTEGER," +
-                            "name VARCHAR," +
-                            "folder_id INTEGER," +
-                            "factory_id INTEGER",
+                        "rama_sill_list_id INTEGER," +
+                        "shtulp_list_id INTEGER," +
+                        "impost_list_id INTEGER," +
+                        "stvorka_list_id INTEGER," +
+                        "door_sill_list_id INTEGER," +
+                        "rama_list_id INTEGER," +
+                        "name VARCHAR," +
+                        "folder_id INTEGER," +
+                        "factory_id INTEGER",
                         foreignKey: ""
                     },
                     areas: {
@@ -753,26 +753,26 @@
                     doors_laminations_dependencies: {
                         tableName: "doors_laminations_dependencies",
                         prop: "group_id INTEGER," +
-                            "rama_sill_list_id INTEGER," +
-                            "lamination_in INTEGER," +
-                            "lamination_out INTEGER," +
-                            "rama_list_id INTEGER," +
-                            "door_sill_list_id INTEGER," +
-                            "stvorka_list_id INTEGER," +
-                            "impost_list_id INTEGER," +
-                            "shtulp_list_id INTEGER," +
-                            "code_sync VARCHAR",
+                        "rama_sill_list_id INTEGER," +
+                        "lamination_in INTEGER," +
+                        "lamination_out INTEGER," +
+                        "rama_list_id INTEGER," +
+                        "door_sill_list_id INTEGER," +
+                        "stvorka_list_id INTEGER," +
+                        "impost_list_id INTEGER," +
+                        "shtulp_list_id INTEGER," +
+                        "code_sync VARCHAR",
                         foreignKey: ""
                     },
                     window_hardware_type_ranges: {
                         tableName: "window_hardware_type_ranges",
                         prop: "factory_id INTEGER," +
-                            "type_id INTEGER," +
-                            "max_width INTEGER," +
-                            "min_width INTEGER," +
-                            "max_height INTEGER," +
-                            "min_height INTEGER," +
-                            "group_id INTEGER",
+                        "type_id INTEGER," +
+                        "max_width INTEGER," +
+                        "min_width INTEGER," +
+                        "max_height INTEGER," +
+                        "min_height INTEGER," +
+                        "group_id INTEGER",
                         foreignKey: ""
                     },
 
@@ -815,102 +815,102 @@
                     filter_doorhandles: {
                         tableName: "filter_doorhandles",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "functions VARCHAR(255)," +
-                            "design VARCHAR(255)," +
-                            "color VARCHAR(255)," +
-                            "manufacturer VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "functions VARCHAR(255)," +
+                        "design VARCHAR(255)," +
+                        "color VARCHAR(255)," +
+                        "manufacturer VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_furnitures: {
                         tableName: "filter_furnitures",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "functions VARCHAR(255)," +
-                            "manufacturer VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "functions VARCHAR(255)," +
+                        "manufacturer VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_glasses: {
                         tableName: "filter_glasses",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "functions VARCHAR(255)," +
-                            "depth VARCHAR(255)," +
-                            "cameras_count VARCHAR(255)," +
-                            "distance_frame VARCHAR(255)," +
-                            "fill VARCHAR(255)," +
-                            "decoration VARCHAR(255)," +
-                            "manufacturer VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "functions VARCHAR(255)," +
+                        "depth VARCHAR(255)," +
+                        "cameras_count VARCHAR(255)," +
+                        "distance_frame VARCHAR(255)," +
+                        "fill VARCHAR(255)," +
+                        "decoration VARCHAR(255)," +
+                        "manufacturer VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_laminations: {
                         tableName: "filter_laminations",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "color VARCHAR(255)," +
-                            "location VARCHAR(255)," +
-                            "cover_type VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "color VARCHAR(255)," +
+                        "location VARCHAR(255)," +
+                        "cover_type VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_mosquitos: {
                         tableName: "filter_mosquitos",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "jumper VARCHAR(255)," +
-                            "color VARCHAR(255)," +
-                            "functions VARCHAR(255)," +
-                            "fastening_type VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "jumper VARCHAR(255)," +
+                        "color VARCHAR(255)," +
+                        "functions VARCHAR(255)," +
+                        "fastening_type VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_profile_systems: {
                         tableName: "filter_profile_systems",
                         prop: "factory_id INTEGER," +
-                            "manufacturer VARCHAR(255)," +
-                            "montage_width VARCHAR(255)," +
-                            "class VARCHAR(255)," +
-                            "cameras_count VARCHAR(255)," +
-                            "color VARCHAR(255)," +
-                            "design VARCHAR(255)," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "id INTEGER",
+                        "manufacturer VARCHAR(255)," +
+                        "montage_width VARCHAR(255)," +
+                        "class VARCHAR(255)," +
+                        "cameras_count VARCHAR(255)," +
+                        "color VARCHAR(255)," +
+                        "design VARCHAR(255)," +
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_sills: {
                         tableName: "filter_sills",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "surface_type	 VARCHAR(255)," +
-                            "color VARCHAR(255)," +
-                            "width VARCHAR(255)," +
-                            "type VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "surface_type	 VARCHAR(255)," +
+                        "color VARCHAR(255)," +
+                        "width VARCHAR(255)," +
+                        "type VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_slopes: {
                         tableName: "filter_slopes",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "surface_type	 VARCHAR(255)," +
-                            "color VARCHAR(255)," +
-                            "width VARCHAR(255)," +
-                            "material VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "surface_type	 VARCHAR(255)," +
+                        "color VARCHAR(255)," +
+                        "width VARCHAR(255)," +
+                        "material VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     },
                     filter_spillways: {
                         tableName: "filter_spillways",
                         prop: "factory_id INTEGER," +
-                            "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                            "surface_type	 VARCHAR(255)," +
-                            "color VARCHAR(255)," +
-                            "width VARCHAR(255)," +
-                            "type VARCHAR(255)," +
-                            "id INTEGER",
+                        "modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                        "surface_type	 VARCHAR(255)," +
+                        "color VARCHAR(255)," +
+                        "width VARCHAR(255)," +
+                        "type VARCHAR(255)," +
+                        "id INTEGER",
                         foreignKey: ""
                     }
 
@@ -920,12 +920,12 @@
             //     name: "bauvoice"
             // });
             var db = localforage.createInstance({
-                driver      : localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
-                name        : 'bauvoice',
-                version     : 1.0,
-                size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
-                storeName   : 'bauvoice', // Should be alphanumeric, with underscores.
-                description : 'some description'
+                driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+                name: 'bauvoice',
+                version: 2.0,
+                size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+                storeName: 'bauvoice', // Should be alphanumeric, with underscores.
+                description: 'some description'
             });
             /**============ methods ================*/
             let LocalDataBase = null;
@@ -1001,7 +1001,6 @@
             }
 
             function insertTablesLocalDB(tables) {
-                console.log('tables' , tables);
                 var defer = $q.defer();
                 let tables_name = Object.keys(tables);
                 let table_length = tables_name.length;
@@ -1024,7 +1023,9 @@
             function updateLocalDB(tableName, elem, options) {
                 let key = Object.keys(options)[0];
                 let val = options[key]
-                LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) { return item[key] !== val })
+                LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) {
+                    return item[key] !== val
+                })
 
                 LocalDataBase[tableName].push(elem);
                 db.setItem('tables', LocalDataBase).then(function (value) {
@@ -1040,7 +1041,9 @@
                 let key = Object.keys(options)[0];
                 let val = options[key]
                 if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
-                    LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) { return item[key] !== val })
+                    LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) {
+                        return item[key] !== val
+                    })
                     db.setItem('tables', LocalDataBase).then(function (value) {
                         // Do other things once the value has been saved.
                         // console.log(tableName,value[tableName]);
@@ -1101,8 +1104,25 @@
                 return defer.promise;
             }
 
+            navigator.sayswho = (function () {
+                var ua = navigator.userAgent, tem,
+                    M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+                if (/trident/i.test(M[1])) {
+                    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+                    return 'IE ' + (tem[1] || '');
+                }
+                if (M[1] === 'Chrome') {
+                    tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+                    if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+                }
+                M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+                if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+                return M.join(' ');
+            })();
+
             /** get Cities, Regions, Countries from Server */
             function importLocation(login, access) {
+                console.log(navigator.sayswho);
                 var defer = $q.defer();
                 $http
                     .get(globalConstants.serverIP + "/api/get/locations?login=" + login + "&access_token=" + access)
@@ -1115,11 +1135,12 @@
                                 console.log('convert location');
                                 db.setItem('location', LocalLocationBase).then((value) => {
                                     // Do other things once the value has been saved.
-                                    console.log('save location');
-                                    defer.resolve(LocalLocationBase);
+                                    console.log('save location',value);
+                                    defer.resolve(value);
                                 }).catch(function (err) {
+                                    console.log(navigator.sayswho);
                                     // This code runs if there were any errors
-                                    alert('Unexpected locaion save error' ,err);
+                                    alert('Unexpected locaion save error', err);
                                     console.log(err);
                                 });
                             } else {
@@ -1168,25 +1189,25 @@
                 $http
                     .get(globalConstants.serverIP + "/api/sync?login=" + login + "&access_token=" + access + "&" + Math.random())
                     .then(function (result) {
-                        if (result.data.status) {
-                            //-------- insert in LocalDB
-                            console.log('download data');
-                            LocalDataBase = convert(result.data);
-                            console.log('convert data');
-                            db.setItem('tables', LocalDataBase).then(function (value) {
-                                // Do other things once the value has been saved.
-                                console.log('save data');
-                                defer.resolve(1);
-                            }).catch(function (err) {
-                                // This code runs if there were any errors
-                                alert('Unexpected error' ,err);
-                                console.log(err);
-                            });
-                        } else {
-                            console.log("importAllDB Error!");
-                            defer.resolve(0);
-                        }
-                    },
+                            if (result.data.status) {
+                                //-------- insert in LocalDB
+                                console.log('download data');
+                                LocalDataBase = convert(result.data);
+                                console.log('convert data');
+                                db.setItem('tables', LocalDataBase).then(function (value) {
+                                    // Do other things once the value has been saved.
+                                    console.log('save data');
+                                    defer.resolve(1);
+                                }).catch(function (err) {
+                                    // This code runs if there were any errors
+                                    alert('Unexpected error', err);
+                                    console.log(err);
+                                });
+                            } else {
+                                console.log("importAllDB Error!");
+                                defer.resolve(0);
+                            }
+                        },
                         function (err) {
                             console.log('Something went wrong with importing Database!', err);
                             defer.resolve(0);
@@ -1763,8 +1784,8 @@
                                     var promisKits = _.map(construction.ids[index], function (item2) {
                                         var deff2 = $q.defer();
                                         selectLocalDB(tablesLocalDB.lists.tableName, {
-                                            id: item2
-                                        },
+                                                id: item2
+                                            },
                                             "id, parent_element_id, name, waste, amendment_pruning"
                                         ).then(function (result2) {
                                             if (result2.length) {
@@ -2305,12 +2326,12 @@
             }
 
             function culcPriceAsSize(group,
-                kits,
-                kitsElem,
-                sizes,
-                sizeQty,
-                priceObj,
-                constrElements) {
+                                     kits,
+                                     kitsElem,
+                                     sizes,
+                                     sizeQty,
+                                     priceObj,
+                                     constrElements) {
                 var priceTemp = 0,
                     sizeTemp = 0,
                     sizeLabelTemp = 0,
@@ -2568,13 +2589,13 @@
             }
 
             function culcPriceAsRule(parentValue,
-                currSize,
-                currConsist,
-                currConsistElem,
-                pruning,
-                wasteValue,
-                priceObj,
-                sizeLabel) {
+                                     currSize,
+                                     currConsist,
+                                     currConsistElem,
+                                     pruning,
+                                     wasteValue,
+                                     priceObj,
+                                     sizeLabel) {
                 if (currConsistElem) {
                     var objTmp = angular.copy(currConsistElem),
                         priceReal = 0,
@@ -2702,12 +2723,12 @@
             }
 
             function prepareConsistElemPrice(group,
-                currConstrSize,
-                mainKit,
-                currConsist,
-                currConsistElem,
-                consistArr,
-                priceObj) {
+                                             currConstrSize,
+                                             mainKit,
+                                             currConsist,
+                                             currConsistElem,
+                                             consistArr,
+                                             priceObj) {
                 //console.info('1-----', group);
                 //console.info('2-----', currConsist, currConsistElem);
                 //console.info('3-----', currConstrSize, mainKit);
@@ -2807,11 +2828,11 @@
             }
 
             function culcPriceConsistElem(group,
-                currConsist,
-                currConsistElem,
-                currConstrSize,
-                mainKit,
-                priceObj) {
+                                          currConsist,
+                                          currConsistElem,
+                                          currConstrSize,
+                                          mainKit,
+                                          priceObj) {
                 /** if hardware */
                 if (group === priceObj.consist.length - 1) {
                     //console.warn('-------hardware------- currConsist', currConsist);
@@ -3507,7 +3528,7 @@
                                                             ) {
                                                                 priceObj.consist[
                                                                     cons
-                                                                ].newValue = getValueByRule(
+                                                                    ].newValue = getValueByRule(
                                                                     sizeTemp,
                                                                     priceObj.consist[cons].value,
                                                                     priceObj.consist[cons].rules_type_id
@@ -3539,7 +3560,7 @@
                                                                     ) {
                                                                         priceObj.consist[
                                                                             cons
-                                                                        ].newValue = getValueByRule(
+                                                                            ].newValue = getValueByRule(
                                                                             priceObj.consist[el].newValue,
                                                                             priceObj.consist[cons].value,
                                                                             priceObj.consist[cons].rules_type_id
@@ -3612,12 +3633,12 @@
                             ])
                             .then(function (kitsElem) {
                                 var wasteList = [
-                                    grid.cloth_waste,
-                                    grid.top_waste,
-                                    grid.right_waste,
-                                    grid.bottom_waste,
-                                    grid.left_waste
-                                ],
+                                        grid.cloth_waste,
+                                        grid.top_waste,
+                                        grid.right_waste,
+                                        grid.bottom_waste,
+                                        grid.left_waste
+                                    ],
                                     kitsQty = wasteList.length,
                                     k,
                                     tempW,
@@ -3718,7 +3739,7 @@
                                                     for (el = 0; el < elemQty; el += 1) {
                                                         priceObj.consist[cons][
                                                             el
-                                                        ].newValue = getValueByRuleGrid(
+                                                            ].newValue = getValueByRuleGrid(
                                                             sizeSource,
                                                             priceObj.consist[cons][el].value,
                                                             priceObj.consist[cons][el].rules_type_id
@@ -3809,7 +3830,8 @@
                 image.setAttribute('crossOrigin', 'anonymous');
                 try {
                     image.src = url;
-                } catch (e) { }
+                } catch (e) {
+                }
             }
 
             function downloadFile(url, fileURL) {
