@@ -728,13 +728,13 @@
                         localDB.tablesLocalDB.order_addelements.tableName, {
                             'order_id': GlobalStor.global.orderEditNumber
                         }).then(function (result) {
-                            console.log(result);
                             var elementsAdd = angular.copy(result),
                                 addElementsAll = angular.copy(GlobalStor.global.addElementsAll),
                                 allAddElemQty = elementsAdd.length,
                                 orderProductsQty = OrderStor.order.products.length,
                                 prod, index;
                             if (addEl) {
+                                console.log('1')
                                 deferred.resolve(elementsAdd);
                             } else {
                                 for (var x = 0; x < allAddElemQty; x += 1) {
@@ -754,9 +754,12 @@
                                 }
 
                                 if (allAddElemQty) {
+                                    console.log('2', OrderStor.order.products)
                                     while (--allAddElemQty > -1) {
                                         for (prod = 0; prod < orderProductsQty; prod += 1) {
+                                            console.log(elementsAdd[allAddElemQty].product_id , OrderStor.order.products[prod].product_id)
                                             if (elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                                                console.log('3')
                                                 index = elementsAdd[allAddElemQty].element_type;
                                                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                                                 delete elementsAdd[allAddElemQty].element_id;
@@ -769,10 +772,15 @@
                                                 if (!allAddElemQty) {
                                                     deferred.resolve(1);
                                                 }
+                                            } else  {
+                                                if (!allAddElemQty) {
+                                                    deferred.resolve(0);
+                                                }
                                             }
                                         }
                                     }
                                 } else {
+                                    console.log('4')
                                     deferred.resolve(1);
                                 }
                             }
@@ -833,7 +841,8 @@
 
                         async.eachSeries(products, calculate, function (err, result) {
                             //------ Download All Add Elements from LocalDB
-                            downloadAddElements().then(function () {
+                            downloadAddElements().then(function (res) {
+                                console.log('downloadAddElements',res)
                                 GlobalStor.global.isConfigMenu = 1;
                                 GlobalStor.global.isNavMenu = 0;
                                 //------- set previos Page
@@ -842,6 +851,7 @@
                                 GlobalStor.global.isLoader = 0;
                                 //console.warn('ORDER ====', OrderStor.order);
                                 if ($location.path() !== "/mobile") {
+                                    console.log('go to cart')
                                     $location.path('/cart');
                                     GlobalStor.global.currOpenPage = 'cart';
                                 } else {
@@ -894,7 +904,7 @@
                             ],
                                 function (err, result) {
                                     if (err) {
-                                        //console.log('err', err)
+                                        console.log('err', err)
                                         return _cb(err);
                                     }
                                     _cb(null);
