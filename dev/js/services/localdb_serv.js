@@ -3864,8 +3864,7 @@
                     url,
                     //   cordova.file.applicationDirectory+fileURL,
                     //   cordova.file.applicationStorageDirectory+fileURL,
-                    // cordova.file.dataDirectory + fileURL,
-                    cordova.file.cacheDirectory + fileURL,
+                    cordova.file.dataDirectory + fileURL,
                     function (entry) {
                         console.log('download complete: ' + entry.toURL());
                     },

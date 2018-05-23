@@ -2435,8 +2435,7 @@
 
             function extendUrl(url) {
                 // return cordova.file.applicationStorageDirectory + url;
-                // return cordova.file.dataDirectory + url;
-                return cordova.file.cacheDirectory + url;
+                return cordova.file.dataDirectory + url;
             }
 
             /**========== FINISH ==========*/
