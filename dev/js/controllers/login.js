@@ -247,6 +247,7 @@
                             thisCtrl.isStartImport = 0;
                         } else {
                             console.log('Error!');
+                            thisCtrl.unexpectedError = 1;
                         }
                     });
                 }
@@ -322,14 +323,16 @@
                                 loginServ.prepareLocationToUse(data).then(function () {
                                     checkingFactory();
                                 });
-
-
                                 var key = "UserStor.userInfo.phone";
                                 var value = UserStor.userInfo.phone;
                                 localDB.db.setItem(key, value, function (err, value) { });
                                 var key = "UserStor.userInfo.device_code";
                                 var value = UserStor.userInfo.device_code;
                                 localDB.db.setItem(key, value, function (err, value) { });
+                            } else {
+                                GlobalStor.global.isLoader = 0;
+                                GlobalStor.global.startSlider = 0;
+                                thisCtrl.unexpectedError = 1;
                             }
                         });
                     } else {

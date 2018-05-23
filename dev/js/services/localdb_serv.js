@@ -1001,6 +1001,7 @@
             }
 
             function insertTablesLocalDB(tables) {
+                console.log('tables',tables)
                 var defer = $q.defer();
                 let tables_name = Object.keys(tables);
                 let table_length = tables_name.length;
@@ -1122,7 +1123,6 @@
 
             /** get Cities, Regions, Countries from Server */
             function importLocation(login, access) {
-                console.log(navigator.sayswho);
                 var defer = $q.defer();
                 $http
                     .get(globalConstants.serverIP + "/api/get/locations?login=" + login + "&access_token=" + access)
@@ -1135,16 +1135,15 @@
                                 console.log('convert location');
                                 db.setItem('location', LocalLocationBase).then((value) => {
                                     // Do other things once the value has been saved.
-                                    console.log('save location',value);
+                                    console.log('save location');
                                     defer.resolve(value);
                                 }).catch(function (err) {
-                                    let message = `device.model = ${device.model} \n\tdevice.platform = ${device.platform} \n\tdevice.version = ${device.version} \n\tdevice.manufacturer = ${device.manufacturer}`;
+                                    let message = `device.model : ${device.model}; \n\tdevice.platform : ${device.platform}; \n\tdevice.version : ${device.version}; \n\tdevice.manufacturer : ${device.manufacturer}; user.login : ${login}; browser : ${navigator.sayswho}`;
                                     let url = `https://api.telegram.org/bot607040414:AAGNZSkQpMSMgwP-aeaH-wPutaxuupMZP9Y/sendMessage?chat_id=-1001366802861&text=${message}`;
                                     $http.get(
                                         url
                                     ).then((res) => {
                                         console.log(res)
-                                        alert('Unexpected error', err);
                                         defer.resolve(0);
                                     })
                                         .catch((err) => {
@@ -1207,13 +1206,16 @@
                                     console.log('save data');
                                     defer.resolve(1);
                                 }).catch(function (err) {
-                                    let message = `device.model = ${device.model} \n\tdevice.platform = ${device.platform} \n\tdevice.version = ${device.version} \n\tdevice.manufacturer = ${device.manufacturer}`;
+                                    try{
+                                     let message = `device.model : ${device.model}; \n\tdevice.platform : ${device.platform}; \n\tdevice.version : ${device.version}; \n\tdevice.manufacturer : ${device.manufacturer}; user.login : ${login}; browser : ${navigator.sayswho}`;
+                                    } catch(err){
+                                        let message = 'no cordova unexpected error';
+                                    }
                                     let url = `https://api.telegram.org/bot607040414:AAGNZSkQpMSMgwP-aeaH-wPutaxuupMZP9Y/sendMessage?chat_id=-1001366802861&text=${message}`;
                                     $http.get(
                                         url
                                     ).then((res) => {
                                             console.log(res)
-                                            alert('Unexpected error', err);
                                             defer.resolve(0);
                                         })
                                         .catch((err) => {

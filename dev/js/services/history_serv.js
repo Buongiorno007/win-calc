@@ -648,7 +648,7 @@
                                             SVGServ.createSVGTemplate(item.template_source, item.profileDepths).then(function (data2) {
                                                 item.template = data2;
                                                 delete item.profile_id;
-                                                delete item.glass_id;
+                                                // delete item.glass_id;
                                                 delete item.hardware_id;
 
                                                 //----- set price Discounts
@@ -824,7 +824,8 @@
                     // delete OrderStor.order.sale_price;
                     delete OrderStor.order.modified;
                     //------ Download All Products of edited Order
-                    downloadProducts().then(function () {
+                    downloadProducts().then(function (res) {
+                        console.log('downloadProducts res', res)
 
                         var products = angular.copy(OrderStor.order.products);
                         OrderStor.order.products = [];
@@ -1205,6 +1206,7 @@
                             //console.log("orderData2", orderData2);
                             if (result_orders) {
                                 localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName).then(function (result_order_products) {
+                                    console.log('result_order_products',result_order_products);
                                     var productData2 = angular.copy(result_order_products);
                                     localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName).then(function (result_order_addelements) {
                                         var addElementsData2 = angular.copy(result_order_addelements);
