@@ -648,7 +648,7 @@
                                             SVGServ.createSVGTemplate(item.template_source, item.profileDepths).then(function (data2) {
                                                 item.template = data2;
                                                 delete item.profile_id;
-                                                // delete item.glass_id;
+                                                delete item.glass_id;
                                                 delete item.hardware_id;
 
                                                 //----- set price Discounts

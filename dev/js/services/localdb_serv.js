@@ -987,6 +987,7 @@
             }
 
             function insertRowLocalDB(row, tableName) {
+                console.log(tableName, row)
                 if (!LocalDataBase[tableName]) {
                     LocalDataBase[tableName] = [row];
                 } else {
@@ -1236,6 +1237,7 @@
             }
 
             function insertServer(login, access, table, data) {
+                console.log(table, data)
                 var defer = $q.defer(),
                     dataToSend = {
                         model: table,
@@ -3935,8 +3937,11 @@
                                     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
                                 }
                             } else {
-                                if (curr_table.fields[kndex] !== "glass_id")
+                                if (curr_table.fields[kndex] !== "glass_id"){
                                     new_row[curr_table.fields[kndex]] = checkStringToQuote(curr_row[kndex]);
+                                } else {
+                                    new_row[curr_table.fields[kndex]] = (curr_row[kndex]);
+                                }
                             }
                         }
                         new_table.push(new_row);
