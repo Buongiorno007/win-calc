@@ -11,6 +11,7 @@
                       MainServ,
                       GeneralServ,
                       TemplatesServ,
+                      NavMenuServ,
                       optionsServ,
                       GlobalStor,
                       DesignStor,
@@ -113,6 +114,9 @@
                 }
 
                 function setTab(newTab) {
+                    if (newTab === 0) {
+                        NavMenuServ.createAddElementsProduct();
+                    }
                     if (thisCtrl.tab === newTab) {
                         thisCtrl.tab = 0;
                     } else {

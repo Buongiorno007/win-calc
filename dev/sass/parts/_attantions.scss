@@ -2,8 +2,7 @@
   @include roboto-lt(rem(36px));
   position: absolute;
   top: 50%;
-  left: 20%;
-  width: rem(600px);
+  width: 100%;
   padding: rem(20px) rem(40px);
   color: #fff;
   border-radius: rem($radius_general-small_button);

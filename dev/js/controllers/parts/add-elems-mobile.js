@@ -4,19 +4,19 @@
     angular
         .module("MainModule")
         .controller("MobileAddElementsCtrl", function ($filter,
-                                                       $timeout,
-                                                       $scope,
-                                                       globalConstants,
-                                                       GeneralServ,
-                                                       MainServ,
-                                                       loginServ,
-                                                       AddElementsServ,
-                                                       AddElementMenuServ,
-                                                       DesignServ,
-                                                       GlobalStor,
-                                                       UserStor,
-                                                       AuxStor,
-                                                       ProductStor) {
+            $timeout,
+            $scope,
+            globalConstants,
+            GeneralServ,
+            MainServ,
+            loginServ,
+            AddElementsServ,
+            AddElementMenuServ,
+            DesignServ,
+            GlobalStor,
+            UserStor,
+            AuxStor,
+            ProductStor) {
             /*jshint validthis:true */
             var thisCtrl = this;
             thisCtrl.constants = globalConstants;
@@ -58,11 +58,12 @@
 
             thisCtrl.AddElementsMobile = [];
 
-            GlobalStor.global.addElementsAll.forEach((item, index) => {
+            let addElementsAll = angular.copy(GlobalStor.global.addElementsAll);
+
+            addElementsAll.forEach((item, index) => {
                 if (index === 0) {
-                    if (item.elementsList[0]) {
+                    if (item.elementsList[0])
                         item.elementsList[0] = filterMoscitos(item.elementsList[0]);
-                    }
                 }
                 if (GeneralServ.addElementDATA[index].id < 100 && !GeneralServ.addElementDATA[index].disable_mobile) {
                     if (item.elementType && item.elementsList) {
@@ -76,11 +77,16 @@
 
             function filterMoscitos(input) {
                 let output = [];
-                input.forEach((item, index) => {
-                    if (item.profile_id === ProductStor.product.profile.id) {
-                        output.push(item);
-                    }
-                });
+                if (!ProductStor.product.is_addelem_only) {
+                    output =  angular.copy(input.filter((item) => {
+                        return (item.profile_id == ProductStor.product.profile.id);
+                    }));
+                }
+                else {
+                    output = angular.copy(input.filter(function(item) {
+                        return !item.profile_id;
+                    }));
+                }
                 return output;
             }
 
@@ -145,7 +151,7 @@
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
                 // AuxStor.aux.isFocusedAddElement = 0;
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
-                if (thisCtrl.ChoosenAddElemGroup) {
+                if (thisCtrl.ChoosenAddElemGroup || ProductStor.product.is_addelem_only) {
                     thisCtrl.confirmAddElem = 1;
                 }
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;

@@ -33,12 +33,15 @@
   /* w3c */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#35424b', endColorstr='#615D6B', GradientType=0);
   /* ie6-9 */
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 .login-container-mobView {
   position: relative;
-  margin: auto;
-  padding: 1rem 2.875rem;
+  margin: auto 10px;
   border-radius: 2rem;
 }
 
@@ -47,8 +50,15 @@
   height: 14rem;
   margin: 0 auto 0.5625rem;
   background: url("../img/login/logo.png") no-repeat center;
-  background-size: cover;
+  background-size: contain !important;
 }
+.logo-mobView-steko {
+    width: 14rem;
+    height: 14rem;
+    margin: 0 auto 0.5625rem;
+    background: url("../img/login/logo-steko.png") no-repeat center;
+    background-size: contain !important;
+  }
 
 .border {
   border: 1px solid $main_red;
@@ -2312,6 +2322,9 @@ body {
         p {
           @include roboto-rg(20px);
         }
+      }
+      .add_elems {
+          color : $main_red
       }
     }
     .footer {

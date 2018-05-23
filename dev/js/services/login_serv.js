@@ -306,6 +306,7 @@
       }
 
       function setCurrency() {
+        console.log('setCurrency')
         var defer = $q.defer();
         /** download All Currencies */
         localDB
@@ -347,7 +348,9 @@
       }
 
       function setUserDiscounts() {
-        var defer = $q.defer();
+          console.log('setUserDiscounts')
+
+          var defer = $q.defer();
         //-------- add server url to avatar img
         // var url = globalConstants.serverIP + UserStor.userInfo.avatar
         // UserStor.userInfo.avatar = url;
@@ -402,7 +405,8 @@
 
       /** price Margins of Plant */
       function downloadPriceMargin() {
-        return localDB
+          console.log('downloadPriceMargin')
+          return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
             null,
@@ -414,7 +418,8 @@
       }
 
       function downloadOptionsCoefficients() {
-        return localDB
+          console.log('downloadOptionsCoefficients')
+          return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
             null,
@@ -427,7 +432,8 @@
 
       /** delivery Coeff of Plant */
       function downloadDeliveryCoeff() {
-        return localDB
+          console.log('downloadDeliveryCoeff')
+          return localDB
           .selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName)
           .then(function(coeff) {
             return coeff;
@@ -437,7 +443,9 @@
       //----------- get all elements as to groups
 
       function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
-        var defer = $q.defer();
+          console.log('downloadAllElemAsGroup')
+
+          var defer = $q.defer();
         //------- get all Folders
         localDB.selectLocalDB(tableGroup).then(function(result) {
           /** sorting types by position */
@@ -514,7 +522,8 @@
       }
 
       function downloadAllGlasses() {
-        var defer = $q.defer(),
+          console.log('downloadAllGlasses')
+          var defer = $q.defer(),
           profilesQty = GlobalStor.global.profiles.length,
           profileIds = [];
         //----- collect profiles in one array
@@ -859,6 +868,7 @@
 
       /** download all Backgrounds */
       function downloadAllBackgrounds() {
+        console.log('downloadAllBackgrounds')
         var deff = $q.defer();
         localDB
           .selectLocalDB(localDB.tablesLocalDB.background_templates.tableName)
@@ -1702,7 +1712,7 @@
                           if (data) {
                             /** download All Glasses */
                             downloadAllGlasses().then(function(data) {
-                              // console.log("downloadAllGlasses",data);
+                              console.log("downloadAllGlasses finished");
                               if (data) {
                                 /** sorting glasses as to Type */
                                 sortingGlasses();
@@ -1727,11 +1737,10 @@
                                       /** download All AddElements */
                                       downloadAllAddElements().then(function() {
                                         //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
+                                          console.log("downloadAllAddElements");
                                         /** download All Lamination */
-                                        downloadAllLamination().then(function(
-                                          result
-                                        ) {
-                                          // console.log('LAMINATION++++', result);
+                                        downloadAllLamination().then(function( result ) {
+                                          console.log('downloadAllLamination');
                                           if (result && result.length) {
                                             GlobalStor.global.laminats = _.map(
                                               angular.copy(result),
@@ -1740,7 +1749,6 @@
                                                 return item;
                                               }
                                             );
-
                                             /** add white color */
                                             GlobalStor.global.laminats.unshift({
                                               id: 1,
