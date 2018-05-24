@@ -1044,14 +1044,20 @@
                 if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
                     LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) {
                         return item[key] !== val
-                    })
-                    db.setItem('tables', LocalDataBase).then(function (value) {
-                        // Do other things once the value has been saved.
-                        // console.log(tableName,value[tableName]);
-                    }).catch(function (err) {
+                    });
+                    db.removeItem('tables').then(function() {
+                        db.setItem('tables', LocalDataBase).then(function (value) {
+                            // Do other things once the value has been saved.
+                            // console.log(tableName,value[tableName]);
+                        }).catch(function (err) {
+                            // This code runs if there were any errors
+                            console.log(err);
+                        });
+                    }).catch(function(err) {
                         // This code runs if there were any errors
                         console.log(err);
                     });
+
                 }
             }
 

@@ -47,9 +47,13 @@
                             CartStor.cart.isShowDiscount = 0;
                             $location.path('/light');
                             GlobalStor.global.currOpenPage = 'light';
+                            MainServ.createNewProject();
+
                         } else {
                             $location.path('/main');
                             GlobalStor.global.currOpenPage = 'main';
+                            MainServ.createNewProject();
+
                         }
                     } else {
                         //-------- CREATE NEW PROJECT
@@ -225,25 +229,26 @@
                         GlobalStor.global.isLoader = 0;
                     } else {
                         res = JSON.parse(xhr.response);
+                        console.log(angular.copy(res))
                         res.tables.order_products.fields.splice(1, 1);
                         res.tables.order_products.fields.splice(2, 1);
                         res.tables.order_products.fields.splice(6, 1);
-                        res.tables.order_products.fields.splice(27, 1);
+                        // res.tables.order_products.fields.splice(27, 1);
+
                         res.tables.orders.fields.splice(3, 1);
+
                         for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
                             res.tables.order_products.rows[x].splice(1, 1);
                             res.tables.order_products.rows[x].splice(2, 1);
                             res.tables.order_products.rows[x].splice(6, 1);
-                            res.tables.order_products.rows[x].splice(27, 1);
+                            // res.tables.order_products.rows[x].splice(27, 1);
                         }
-                        ;
                         for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
                             res.tables.orders.rows[x].splice(3, 1);
                             (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                             (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                             (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                         }
-                        ;
 
                         //noinspection JSAnnotator
                         function test(item) {
@@ -751,7 +756,7 @@
                                         }
                                     }
                                 }
-
+                                console.log(OrderStor.order.products)
                                 if (allAddElemQty) {
                                     while (--allAddElemQty > -1) {
                                         for (prod = 0; prod < orderProductsQty; prod += 1) {
