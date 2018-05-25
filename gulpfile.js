@@ -475,8 +475,8 @@ function buildSite(id) {
     .pipe(ngAnnotate({
       add: true
     }))
-    .pipe(removeLogs())
-    .pipe(js_obfuscator())
+    // .pipe(removeLogs())
+    // .pipe(js_obfuscator())
     .pipe(babel({
       presets: ['env']
     }))
