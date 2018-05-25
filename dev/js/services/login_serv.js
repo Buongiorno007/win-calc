@@ -1697,7 +1697,7 @@
                         ).then(function(data) {
                           // console.log("downloadAllElemAsGroup");
                           downloadOptionsCoefficients().then(function(coef) {
-                            // console.log("downloadOptionsCoefficients");
+                            console.log("downloadOptionsCoefficients",coef);
                             GlobalStor.global.area_currencies =
                               coef[0].area_currencies;
                             GlobalStor.global.area_price = coef[0].area_price;
