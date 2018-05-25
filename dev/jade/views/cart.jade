@@ -232,15 +232,15 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                     .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
                                     .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currency }})
                         .service-block
-                            .sb-1(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]")
+                            .sb-1(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0] != 0")
                                 | {{cartPage.SERV1}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]}} {{cartPage.U.userInfo.currency}}
-                            .sb-2(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]")
+                            .sb-2(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1] != 0")
                                 | {{cartPage.SERV2}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]}} {{cartPage.U.userInfo.currency}}
-                            .sb-3(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]")
+                            .sb-3(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2] != 0")
                                 | {{cartPage.SERV3}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]}} {{cartPage.U.userInfo.currency}}
-                            .sb-4(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]")
+                            .sb-4(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3] != 0")
                                 | {{cartPage.SERV4}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]}} {{cartPage.U.userInfo.currency}}
-                            .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]")
+                            .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4] != 0")
                                 | {{cartPage.OTHER }}- {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}
                         .addelements-detail-row.price-one-product
                             .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")

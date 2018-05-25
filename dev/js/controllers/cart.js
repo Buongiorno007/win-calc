@@ -226,7 +226,7 @@
                     var tmp = 0;
                     if (arr) {
                         arr.forEach(function (entry) {
-                            (entry !== 0) ? tmp++ : 0;
+                            (entry != 0) ? tmp++ : 0;
                         });
                     }
                     return tmp;
