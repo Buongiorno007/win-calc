@@ -1772,6 +1772,8 @@
             function createNewProject() {
                 //----- cleaning product
                 ProductStor.product = ProductStor.setDefaultProduct();
+                CartStor.cart = CartStor.setDefaultCart();
+                OrderStor.order = OrderStor.setDefaultOrder();
                 //------- set new orderId
                 createOrderData();
                 //------- set current Discounts
@@ -2183,6 +2185,7 @@
                         delete productData.doorLock;
 
                         if (orderType) {
+                            console.log('productData',productData)
                             localDB.insertRowLocalDB(
                                 productData,
                                 "order_products"

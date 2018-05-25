@@ -1044,14 +1044,20 @@
                 if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
                     LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) {
                         return item[key] !== val
-                    })
-                    db.setItem('tables', LocalDataBase).then(function (value) {
-                        // Do other things once the value has been saved.
-                        // console.log(tableName,value[tableName]);
-                    }).catch(function (err) {
+                    });
+                    db.removeItem('tables').then(function() {
+                        db.setItem('tables', LocalDataBase).then(function (value) {
+                            // Do other things once the value has been saved.
+                            // console.log(tableName,value[tableName]);
+                        }).catch(function (err) {
+                            // This code runs if there were any errors
+                            console.log(err);
+                        });
+                    }).catch(function(err) {
                         // This code runs if there were any errors
                         console.log(err);
                     });
+
                 }
             }
 
@@ -3929,8 +3935,15 @@
                         let curr_row_length = curr_table.rows[jndex].length;
                         for (let kndex = 0; kndex < curr_row_length; kndex++) {
                             if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
-                                if (!!window.cordova) {
+                                let is_cordova = false;
+                                try {
+                                    is_cordova = device.cordova
+                                } catch(err){
+
+                                }
+                                if (is_cordova) {
                                     downloadFile(globalConstants.serverIP + curr_row[kndex], curr_row[kndex]);
+                                    new_row[curr_table.fields[kndex]] = curr_row[kndex]
                                 } else {
                                     new_row[curr_table.fields[kndex]] = globalConstants.serverIP + curr_row[kndex];
                                 }

@@ -664,6 +664,8 @@
                     thisCtrl.submitted = 1;
 
                     if (form.$valid) {
+
+
                         if (navigator.onLine) {
                             GlobalStor.global.loadDate = new Date();
                             GlobalStor.global.isLoader = 1;
@@ -671,12 +673,11 @@
                             checkingUser();
                             // if (new Date("2018-08-01") >= new Date()) {
                             // } else {
-                            //     thisCtrl.isOfflineImport = 1;
+                            //     GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
                             // }
                         } else {
-                            GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
+                            thisCtrl.isOfflineImport = 1;
                         }
-
 
                         // localforage.getItem("analitics", function (err, value) {
                         //   if (value) {
@@ -686,6 +687,12 @@
                         //   }
                         // });
                     }
+                }
+
+                document.addEventListener("deviceready", onDeviceReady, false);
+
+                function onDeviceReady() {
+                    GlobalStor.global.cordova = device.cordova;
                 }
 
                 //********************
