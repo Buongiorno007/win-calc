@@ -32,7 +32,7 @@ section.login-page.login-page-mobView
 
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
         //- button.login-submit(ng-click='loginPage.DemoLogin()')
-        button.login-submit(ng-if='loginPage.consts.serverIP === "http://api.windowscalculator.net"' ng-click='loginPage.DemoLogin()')
+        button.login-submit(ng-click='loginPage.DemoLogin()')
             | {{ ::loginPage.REGISTRATION }}
 
         //button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}

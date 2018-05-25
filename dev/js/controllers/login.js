@@ -106,7 +106,6 @@
                 thisCtrl.TEST_USER_LOGIN = $filter('translate')('login.TEST_USER_LOGIN');
                 thisCtrl.TEST_USER_PASS = $filter('translate')('login.TEST_USER_PASS');
 
-
                 thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
 
                 /** reload room img */
@@ -799,8 +798,14 @@
                     if (form.$valid) {
                         if (thisCtrl.registration_data.selected_country > 0) {
                             GlobalStor.global.isLoader = 1;
+                            let url;
+                            if (globalConstants.serverIP === 'http://api.steko.com.ua') {
+                                url = `http://export.steko.com.ua/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
+                            } else {
+                                url = `http://windowscalculator.net/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
+                            }
                             $http
-                                .get(`http://windowscalculator.net/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`)
+                                .get(url)
                                 .then(
                                     (result) => {
                                         GlobalStor.global.isLoader = 0;
@@ -829,15 +834,23 @@
 
                 function DemoLogin() {
                     GlobalStor.global.isLoader = 1;
+                    let url, name;
+                    if (globalConstants.serverIP == 'http://api.steko.com.ua') {
+                        url = "http://export.steko.com.ua/api/wc/?task=region";
+                        name = thisCtrl.SELECT_REGION;
+                    } else {
+                        url = 'http://windowscalculator.net/api/wc/?task=country';
+                        name = thisCtrl.SELECT_COUNTRY;
+                    }
                     $http
-                        .post('http://windowscalculator.net/api/wc/?task=country')
+                        .post(url)
                         .then(
                             function (result) {
                                 thisCtrl.countries = result.data;
                                 thisCtrl.countries.unshift({
                                     'id': '0',
-                                    'name': thisCtrl.SELECT_COUNTRY
-                                })
+                                    'name': name
+                                });
                                 thisCtrl.registration_data.selected_country = 0;
                                 thisCtrl.isRegistration = 1;
                                 GlobalStor.global.isLoader = 0;
