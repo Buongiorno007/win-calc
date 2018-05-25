@@ -71,6 +71,7 @@
                         var orders = angular.copy(result),
                             orderQty = orders.length;
                         HistoryStor.history.isEmptyResult = 0;
+                        console.log('downloadOrders',orders);
                         if (orderQty) {
                             while (--orderQty > -1) {
                                 orders[orderQty].created = new Date(orders[orderQty].created);
@@ -658,9 +659,7 @@
 
                                                 //----- set price Discounts
                                                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                                                item.productPriceDis = (GeneralServ.setPriceDis(
-                                                    item.template_price, OrderStor.order.discount_construct
-                                                ) + item.addelemPriceDis + item.service_price_dis);
+                                                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis + item.service_price_dis);
                                                 if (print) {
                                                     printProd.push(item);
                                                     deferIcon.resolve(printProd);
@@ -671,7 +670,7 @@
                                                 if (item.services_price_arr && typeof item.services_price_arr === 'string') {
                                                     item.services_price_arr = item.services_price_arr.split(",");
                                                 }
-                                                //console.log(item, 'item')
+                                                // console.log(item, 'item')
                                             });
                                         });
                                     }
@@ -760,7 +759,6 @@
                                 if (allAddElemQty) {
                                     while (--allAddElemQty > -1) {
                                         for (prod = 0; prod < orderProductsQty; prod += 1) {
-                                            console.log(elementsAdd[allAddElemQty].product_id , OrderStor.order.products[prod].product_id)
                                             if (elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                                                 index = elementsAdd[allAddElemQty].element_type;
                                                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
@@ -836,12 +834,16 @@
                     downloadProducts().then(function (res) {
 
                         var products = angular.copy(OrderStor.order.products);
+
+
                         OrderStor.order.products = [];
 
 
                         async.eachSeries(products, calculate, function (err, result) {
                             //------ Download All Add Elements from LocalDB
                             downloadAddElements().then(function (res) {
+                                console.log('OrderStor.order.products',OrderStor.order.products);
+
                                 GlobalStor.global.isConfigMenu = 1;
                                 GlobalStor.global.isNavMenu = 0;
                                 //------- set previos Page
@@ -860,25 +862,30 @@
                         });
 
                         function calculateWork(product) {
+                            var works = 0,
+                                works_dis = 0,
+                                works_perimeter = 0,
+                                works_piece = 0,
+                                works_area = 0;
                             if (GlobalStor.global.area_price) {
-                                var works_area = localDB.currencyExgange(GlobalStor.global.area_price * product.template_square, GlobalStor.global.area_currencies);
+                                works_area = localDB.currencyExgange(GlobalStor.global.area_price * product.template_square, GlobalStor.global.area_currencies);
                             }
                             if (GlobalStor.global.perimeter_price) {
-                                var works_perimeter = localDB.currencyExgange(GlobalStor.global.perimeter_price * ((product.template_width / 1000 + product.template_height / 1000) * 2), GlobalStor.global.perimeter_currencies);
+                                works_perimeter = localDB.currencyExgange(GlobalStor.global.perimeter_price * ((product.template_width / 1000 + product.template_height / 1000) * 2), GlobalStor.global.perimeter_currencies);
                             }
                             if (GlobalStor.global.piece_price) {
-                                var works_piece = localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
+                                works_piece = localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
                             }
 
                             if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
-                                var works = works_area + works_perimeter + works_piece;
-                                var works_dis = GeneralServ.setPriceDis(
+                                works = works_area + works_perimeter + works_piece;
+                                works_dis = GeneralServ.setPriceDis(
                                     works,
                                     OrderStor.order.discount_construct
                                 );
                             } else {
-                                var works = 0;
-                                var works_dis = 0;
+                                works = 0;
+                                works_dis = 0;
                             }
                             product.productPriceDis += works_dis;
                         }
