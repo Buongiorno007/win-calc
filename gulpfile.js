@@ -37,7 +37,7 @@ var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
     // "windowSiteTest": "'http://api.test.windowscalculator.net'",
-    "windowSiteTest": "'http://api.steko.com.ua'",
+    "windowSiteTest": "'http://api.windowscalculator.net'",
     "windowSiteLocal": "'http://api.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
     "steko": "'http://api.steko.com.ua'",
@@ -47,7 +47,7 @@ var server_env = {
   },
   print_env = {
     // "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
+    "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "windowSiteLocal": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
