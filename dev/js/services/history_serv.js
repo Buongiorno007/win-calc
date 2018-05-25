@@ -229,20 +229,20 @@
                         GlobalStor.global.isLoader = 0;
                     } else {
                         res = JSON.parse(xhr.response);
-                        console.log(angular.copy(res))
-                        res.tables.order_products.fields.splice(1, 1);
-                        res.tables.order_products.fields.splice(2, 1);
-                        res.tables.order_products.fields.splice(6, 1);
-                        res.tables.order_products.fields.splice(27, 1);
+                        // res.tables.order_products.fields.splice(1, 1);
+                        // res.tables.order_products.fields.splice(2, 1);
+                        // res.tables.order_products.fields.splice(6, 1);
+                        // res.tables.order_products.fields.splice(27, 1);
 
                         res.tables.orders.fields.splice(3, 1);
 
-                        for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
-                            res.tables.order_products.rows[x].splice(1, 1);
-                            res.tables.order_products.rows[x].splice(2, 1);
-                            res.tables.order_products.rows[x].splice(6, 1);
-                            res.tables.order_products.rows[x].splice(27, 1);
-                        }
+                        // for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
+                        //     res.tables.order_products.rows[x].splice(1, 1);
+                        //     res.tables.order_products.rows[x].splice(2, 1);
+                        //     res.tables.order_products.rows[x].splice(6, 1);
+                        //     res.tables.order_products.rows[x].splice(27, 1);
+                        // }
+
                         for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
                             res.tables.orders.rows[x].splice(3, 1);
                             (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
