@@ -202,9 +202,9 @@
 
                         let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
                         if (app) {
-                            if (deviceType !== 'iPad' && deviceType !== 'iPhone') {
+                            // if (deviceType !== 'iPad' && deviceType !== 'iPhone') {
                                 saveCache();
-                            }
+                            // }
                         } else {
                             saveCache();
                         }
@@ -970,6 +970,13 @@
                     // console.log("PhoneGap application");
                     let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
                     if (deviceType === 'iPad' || deviceType === 'iPhone') {
+                        try {
+                            console.log('device',device.model);
+                            console.log('device',window.device);
+                            console.log('device',$(window).height());
+
+                        } catch (e) {
+                        }
                         $('body').addClass('padding-top-ios')
                     }
                 }
