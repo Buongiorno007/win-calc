@@ -69,13 +69,9 @@
 
             thisCtrl.mobMenu = 0;
             thisCtrl.mobSize = 0;
-            if (self.innerWidth > self.innerHeight) {
-                thisCtrl.mobSize = self.innerHeight;
-            } else {
-                thisCtrl.mobSize = self.innerWidth + 70;
-            }
+
             thisCtrl.mobWidth = self.innerWidth + 70;
-            thisCtrl.mobHeight = self.innerHeight * 0.8;
+            thisCtrl.mobHeight = self.innerHeight * 0.7;
 
             thisCtrl.mobWidthGlass = self.innerWidth;
             thisCtrl.mobHeightGlass = self.innerHeight * 0.65;
