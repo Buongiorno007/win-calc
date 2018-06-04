@@ -15,6 +15,7 @@ section.login-page.login-page-mobView
         .text-logo {{ ::loginPage.WINDOW_COST }}
         .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
 
+
         form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
             .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
                 input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ loginPage.LOGIN }}", required)
@@ -50,7 +51,7 @@ section.login-page.login-page-mobView
                         td.factory_name {{ factory.name }}
                         td.factory_place {{ factory.location }}
             button.login-submit(fs-click="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
-        .buttom-info-box
+        //.buttom-info-box
             span {{loginPage.CONTACT_US}}
             span info@windowscalculator.net
 

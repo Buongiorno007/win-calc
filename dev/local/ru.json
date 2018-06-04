@@ -80,7 +80,7 @@
     "SELECT_COUNTRY": "Выберите страну",
     "SELECT_REGION": "Выберите регион",
     "SELECT_CITY": "Выберите город",
-    "WINDOW_COST": "windowscalculator",
+    "WINDOW_COST": "WindowsCalculator",
     "USER_EXIST": "Такой пользователь уже существует! Попробуйте еще раз.",
     "USER_NOT_EXIST": "Такой пользователь не существует. Проверьте корректность введённого логина",
     "USER_NOT_ACTIVE": "Вы не активировали Ваш профиль. Проверьте Вашу почту.",
