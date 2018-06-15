@@ -827,24 +827,52 @@
         }
 
         function DemoLogin() {
-          console.log(UserStor.userInfo.langLabel);
           let login, pass;
-          if (UserStor.userInfo.langLabel === 'ru' || UserStor.userInfo.langLabel === 'ua') {
-            login = 'DemoRU';
-            pass = 'DemoRU';
-          } else {
-            login = 'DemoEng';
-            pass = 'DemoEng';
-          }
-          if (globalConstants.serverIP == 'http://api.steko.com.ua') {
+          switch (thisCtrl.registration_data.selected_country) {
+            case 1:
               login = '000003';
-              pass = '000003';  
+              pass = '000003';
+              break;
+            case 2:
+            case 3:
+            case 5:
+            case 9:
+            case 12:
+            case 25:
+            case 72:
+            case 145:
+            case 173:
+            case 203:
+            case 214:
+            case 217:
+              login = 'DemoRU';
+              pass = 'DemoRU';
+              break;
+            case 7:
+            case 10:
+            case 97:
+            case 139:
+            case 154:
+              login = '2222';
+              pass = '2222';
+              break;
+            default:
+              login = 'Website';
+              pass = 'Website';
+              break;
+
+          }
+
+          if (globalConstants.serverIP == 'http://api.steko.com.ua') {
+            login = '000003';
+            pass = '000003';
           }
           if (navigator.onLine) {
             GlobalStor.global.loadDate = new Date();
             GlobalStor.global.isLoader = 1;
             GlobalStor.global.startSlider = 1;
             thisCtrl.isConfirmRegistration = 0;
+            console.log('login, pass',login, pass)
             checkingUser(login, pass);
           }
         }
@@ -868,6 +896,7 @@
             .post(url)
             .then(
               function(result) {
+                console.log("result", result)
                 thisCtrl.countries = result.data;
                 thisCtrl.countries.unshift({
                   'id': '0',

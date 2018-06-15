@@ -32,8 +32,7 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
 
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
-        //- button.login-submit(ng-click='loginPage.DemoLogin()')
-        button.login-submit(ng-click='loginPage.registration()')
+        button.login-submit(ng-if='loginPage.consts.serverIP !== "http://api.steko.com.ua"' ng-click='loginPage.registration()')
             | {{ ::loginPage.REGISTRATION }}
 
 
