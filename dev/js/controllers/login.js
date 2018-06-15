@@ -828,7 +828,8 @@
 
         function DemoLogin() {
           let login, pass;
-          switch (thisCtrl.registration_data.selected_country) {
+
+          switch (+thisCtrl.registration_data.selected_country) {
             case 1:
               login = '000003';
               pass = '000003';
@@ -845,21 +846,28 @@
             case 203:
             case 214:
             case 217:
-              login = 'DemoRU';
-              pass = 'DemoRU';
-              break;
+              {
+                login = 'DemoRU';
+                pass = 'DemoRU';
+                break;
+              }
             case 7:
             case 10:
             case 97:
             case 139:
             case 154:
-              login = '2222';
-              pass = '2222';
-              break;
+              {
+                login = '2222';
+                pass = '2222';
+                break;
+              }
+
             default:
-              login = 'Website';
-              pass = 'Website';
-              break;
+              {
+                login = 'Website';
+                pass = 'Website';
+                break;
+              }
 
           }
 
@@ -872,7 +880,7 @@
             GlobalStor.global.isLoader = 1;
             GlobalStor.global.startSlider = 1;
             thisCtrl.isConfirmRegistration = 0;
-            console.log('login, pass',login, pass)
+            console.log('login, pass', login, pass)
             checkingUser(login, pass);
           }
         }
@@ -880,6 +888,7 @@
         function selectLocation(id) {
           thisCtrl.email_required = 0;
           thisCtrl.registration_data.selected_country = thisCtrl.selected_country.id;
+          console.log('country id ', thisCtrl.registration_data.selected_country);
         }
 
         function registration() {
