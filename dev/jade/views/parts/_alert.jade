@@ -32,6 +32,7 @@
       .thisAlert
        section.cart-page
       button.alert-info.alert-no(fs-click="alertBox.G.global.isAlertInfo = 0", ng-show="alertBox.G.global.isAlertInfo") {{ ::alertBox.OK }}
+
 .alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isSyncAlert")
   .alert-block
     .alert-descr {{ alertBox.G.global.alertDescr }}
@@ -48,4 +49,3 @@
         section.loginPage
       //button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}
       button.alert-yes(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.OK }}
-

@@ -33,8 +33,9 @@ section.login-page.login-page-mobView
 
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
         //- button.login-submit(ng-click='loginPage.DemoLogin()')
-        button.login-submit(ng-click='loginPage.DemoLogin()')
+        button.login-submit(ng-click='loginPage.registration()')
             | {{ ::loginPage.REGISTRATION }}
+
 
         //button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
 
@@ -51,7 +52,7 @@ section.login-page.login-page-mobView
                         td.factory_name {{ factory.name }}
                         td.factory_place {{ factory.location }}
             button.login-submit(fs-click="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
-        //.buttom-info-box
+        .buttom-info-box
             span {{loginPage.CONTACT_US}}
             span info@windowscalculator.net
 
@@ -87,7 +88,18 @@ section.login-page.login-page-mobView
                 //- .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ ::loginPage.WRONG_EMAIL }}
             button.login-submit(type="submit") {{ ::loginPage.OK }}
+            
+
+    
     .backDarkView(ng-if="loginPage.isFactoryId")
     .backDarkView(ng-if="loginPage.isOffline")
+    .backDarkView(ng-if="loginPage.isConfirmRegistration")
+.alert-overlay(ng-show='loginPage.isConfirmRegistration')
+    .alert-block
+        .alert-sign
+        .alert-title {{loginPage.ATENTION}}
+        .alert-descr {{loginPage.REGISTRATION_LOGIN_EMAIL}}
+        .alert-btns
+            button.alert-info.alert-yes(ng-click="loginPage.DemoLogin()") {{ ::loginPage.OK }}
 include parts/_loader
 include parts/_alert

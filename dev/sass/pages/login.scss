@@ -13,7 +13,7 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
   .user-select-field {
       text-align-last: center;
   }
-  
+
   .input-field {
     display: inline-flex;
     flex-direction: column;
@@ -42,6 +42,18 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
     &.ng-invalid-pattern {
       border-color: $error_color;
     }
+  }
+
+
+  .confirm-registration {
+      position: absolute;
+    align-self: center;
+    background: white;
+    height: 200px;
+    display: inline-flex;
+    flex-direction: column;
+    border-radius: 50px;
+    z-index: 10;
   }
 }
 
