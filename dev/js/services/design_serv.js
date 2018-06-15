@@ -959,7 +959,6 @@
               DesignStor.design.doorConfig.doorTypeIndex = DesignStor.design.doorShapeList[id].id;
               DesignStor.design.steps.selectedStep1 = 1;
               DesignStor.design.showMobileStep = 2;
-              console.log('sashShapeList',DesignStor.design.sashShapeList[id]);
               return DesignStor.design.sashShapeList[id];
             }
           }

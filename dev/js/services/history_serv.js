@@ -47,9 +47,13 @@
                             CartStor.cart.isShowDiscount = 0;
                             $location.path('/light');
                             GlobalStor.global.currOpenPage = 'light';
+                            MainServ.createNewProject();
+
                         } else {
                             $location.path('/main');
                             GlobalStor.global.currOpenPage = 'main';
+                            MainServ.createNewProject();
+
                         }
                     } else {
                         //-------- CREATE NEW PROJECT
@@ -67,6 +71,7 @@
                         var orders = angular.copy(result),
                             orderQty = orders.length;
                         HistoryStor.history.isEmptyResult = 0;
+                        console.log('downloadOrders',orders);
                         if (orderQty) {
                             while (--orderQty > -1) {
                                 orders[orderQty].created = new Date(orders[orderQty].created);
@@ -225,25 +230,26 @@
                         GlobalStor.global.isLoader = 0;
                     } else {
                         res = JSON.parse(xhr.response);
-                        res.tables.order_products.fields.splice(1, 1);
-                        res.tables.order_products.fields.splice(2, 1);
-                        res.tables.order_products.fields.splice(6, 1);
-                        res.tables.order_products.fields.splice(27, 1);
+                        // res.tables.order_products.fields.splice(1, 1);
+                        // res.tables.order_products.fields.splice(2, 1);
+                        // res.tables.order_products.fields.splice(6, 1);
+                        // res.tables.order_products.fields.splice(27, 1);
+
                         res.tables.orders.fields.splice(3, 1);
-                        for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
-                            res.tables.order_products.rows[x].splice(1, 1);
-                            res.tables.order_products.rows[x].splice(2, 1);
-                            res.tables.order_products.rows[x].splice(6, 1);
-                            res.tables.order_products.rows[x].splice(27, 1);
-                        }
-                        ;
+
+                        // for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
+                        //     res.tables.order_products.rows[x].splice(1, 1);
+                        //     res.tables.order_products.rows[x].splice(2, 1);
+                        //     res.tables.order_products.rows[x].splice(6, 1);
+                        //     res.tables.order_products.rows[x].splice(27, 1);
+                        // }
+
                         for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
                             res.tables.orders.rows[x].splice(3, 1);
                             (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                             (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                             (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
                         }
-                        ;
 
                         //noinspection JSAnnotator
                         function test(item) {
@@ -653,9 +659,7 @@
 
                                                 //----- set price Discounts
                                                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                                                item.productPriceDis = (GeneralServ.setPriceDis(
-                                                    item.template_price, OrderStor.order.discount_construct
-                                                ) + item.addelemPriceDis + item.service_price_dis);
+                                                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis + item.service_price_dis);
                                                 if (print) {
                                                     printProd.push(item);
                                                     deferIcon.resolve(printProd);
@@ -666,7 +670,7 @@
                                                 if (item.services_price_arr && typeof item.services_price_arr === 'string') {
                                                     item.services_price_arr = item.services_price_arr.split(",");
                                                 }
-                                                //console.log(item, 'item')
+                                                // console.log(item, 'item')
                                             });
                                         });
                                     }
@@ -751,11 +755,10 @@
                                         }
                                     }
                                 }
-
+                                console.log(OrderStor.order.products)
                                 if (allAddElemQty) {
                                     while (--allAddElemQty > -1) {
                                         for (prod = 0; prod < orderProductsQty; prod += 1) {
-                                            console.log(elementsAdd[allAddElemQty].product_id , OrderStor.order.products[prod].product_id)
                                             if (elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                                                 index = elementsAdd[allAddElemQty].element_type;
                                                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
@@ -831,12 +834,16 @@
                     downloadProducts().then(function (res) {
 
                         var products = angular.copy(OrderStor.order.products);
+
+
                         OrderStor.order.products = [];
 
 
                         async.eachSeries(products, calculate, function (err, result) {
                             //------ Download All Add Elements from LocalDB
                             downloadAddElements().then(function (res) {
+                                console.log('OrderStor.order.products',OrderStor.order.products);
+
                                 GlobalStor.global.isConfigMenu = 1;
                                 GlobalStor.global.isNavMenu = 0;
                                 //------- set previos Page
@@ -855,25 +862,30 @@
                         });
 
                         function calculateWork(product) {
+                            var works = 0,
+                                works_dis = 0,
+                                works_perimeter = 0,
+                                works_piece = 0,
+                                works_area = 0;
                             if (GlobalStor.global.area_price) {
-                                var works_area = localDB.currencyExgange(GlobalStor.global.area_price * product.template_square, GlobalStor.global.area_currencies);
+                                works_area = localDB.currencyExgange(GlobalStor.global.area_price * product.template_square, GlobalStor.global.area_currencies);
                             }
                             if (GlobalStor.global.perimeter_price) {
-                                var works_perimeter = localDB.currencyExgange(GlobalStor.global.perimeter_price * ((product.template_width / 1000 + product.template_height / 1000) * 2), GlobalStor.global.perimeter_currencies);
+                                works_perimeter = localDB.currencyExgange(GlobalStor.global.perimeter_price * ((product.template_width / 1000 + product.template_height / 1000) * 2), GlobalStor.global.perimeter_currencies);
                             }
                             if (GlobalStor.global.piece_price) {
-                                var works_piece = localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
+                                works_piece = localDB.currencyExgange(GlobalStor.global.piece_price, GlobalStor.global.piece_currencies);
                             }
 
                             if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
-                                var works = works_area + works_perimeter + works_piece;
-                                var works_dis = GeneralServ.setPriceDis(
+                                works = works_area + works_perimeter + works_piece;
+                                works_dis = GeneralServ.setPriceDis(
                                     works,
                                     OrderStor.order.discount_construct
                                 );
                             } else {
-                                var works = 0;
-                                var works_dis = 0;
+                                works = 0;
+                                works_dis = 0;
                             }
                             product.productPriceDis += works_dis;
                         }
