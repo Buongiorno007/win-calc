@@ -722,7 +722,8 @@
                     //     OrderStor.order.discount_construct
                     // );
                 }
-
+                Product.template_price += works;
+                    
                 var deliveryCoeff =
                         GlobalStor.global.deliveryCoeff.percents[
                             GlobalStor.global.deliveryCoeff.standart_time
@@ -730,7 +731,8 @@
                     priceDis = GeneralServ.setPriceDis( Product.template_price, OrderStor.order.discount_construct );
 
                 //playSound('price');
-                Product.template_price += works;
+
+
                 Product.product_price = GeneralServ.roundingValue(
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
