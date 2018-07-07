@@ -15,6 +15,7 @@ section.login-page.login-page-mobView
         .text-logo {{ ::loginPage.WINDOW_COST }}
         .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
 
+
         form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
             .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
                 input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ loginPage.LOGIN }}", required)
@@ -31,9 +32,9 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
 
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
-        //- button.login-submit(ng-click='loginPage.DemoLogin()')
-        button.login-submit(ng-click='loginPage.DemoLogin()')
+        button.login-submit(ng-if='loginPage.consts.serverIP !== "http://api.steko.com.ua"' ng-click='loginPage.registration()')
             | {{ ::loginPage.REGISTRATION }}
+
 
         //button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
 
@@ -86,7 +87,18 @@ section.login-page.login-page-mobView
                 //- .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ ::loginPage.WRONG_EMAIL }}
             button.login-submit(type="submit") {{ ::loginPage.OK }}
+            
+
+    
     .backDarkView(ng-if="loginPage.isFactoryId")
     .backDarkView(ng-if="loginPage.isOffline")
+    .backDarkView(ng-if="loginPage.isConfirmRegistration")
+.alert-overlay(ng-show='loginPage.isConfirmRegistration')
+    .alert-block
+        .alert-sign
+        .alert-title {{loginPage.ATENTION}}
+        .alert-descr {{loginPage.REGISTRATION_LOGIN_EMAIL}}
+        .alert-btns
+            button.alert-info.alert-yes(ng-click="loginPage.DemoLogin()") {{ ::loginPage.OK }}
 include parts/_loader
 include parts/_alert
