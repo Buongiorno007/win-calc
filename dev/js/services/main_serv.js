@@ -714,27 +714,27 @@
                         GlobalStor.global.piece_currencies
                     );
                 }
+
                 if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
                     works = works_area + works_perimeter + works_piece;
-                    works_dis = GeneralServ.setPriceDis(
-                        works,
-                        OrderStor.order.discount_construct
-                    );
+                    // works_dis = GeneralServ.setPriceDis(
+                    //     works,
+                    //     OrderStor.order.discount_construct
+                    // );
                 }
+
                 var deliveryCoeff =
                         GlobalStor.global.deliveryCoeff.percents[
                             GlobalStor.global.deliveryCoeff.standart_time
                             ],
-                    priceDis = GeneralServ.setPriceDis(
-                        Product.template_price,
-                        OrderStor.order.discount_construct
-                    );
+                    priceDis = GeneralServ.setPriceDis( Product.template_price, OrderStor.order.discount_construct );
 
                 //playSound('price');
+                Product.template_price += works;
                 Product.product_price = GeneralServ.roundingValue(
-                    Product.template_price + Product.addelem_price + Product.service_price + works
+                    Product.template_price + Product.addelem_price + Product.service_price
                 );
-                Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis + works_dis;
+                Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -2067,7 +2067,7 @@
                     delete orderData.paymentFirstPrimaryDis;
                     delete orderData.paymentMonthlyPrimaryDis;
 
-                    // console.log('!!!!orderData!!!!', orderData);
+                    console.log('!!!!orderData!!!!', orderData);
                     if (orderType && orderData.order_edit === 0) {
                         delete orderData.order_edit;
                         localDB

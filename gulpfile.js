@@ -591,6 +591,7 @@ gulp.task('prod', function() {
     .pipe(gulp.dest(config.build.dest.product));
 });
 
+
 // PhoneGap build
 // Копируем in app/www
 //var appPath = 'app/platforms/ios/';
