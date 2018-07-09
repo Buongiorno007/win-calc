@@ -6,13 +6,13 @@
         .factory('CartMenuServ',
 
             function ($location,
-                      GeneralServ,
-                      MainServ,
-                      localDB,
-                      GlobalStor,
-                      OrderStor,
-                      CartStor,
-                      UserStor) {
+                GeneralServ,
+                MainServ,
+                localDB,
+                GlobalStor,
+                OrderStor,
+                CartStor,
+                UserStor) {
                 /*jshint validthis:true */
                 var thisFactory = this;
 
@@ -271,13 +271,13 @@
                         templatePriceDis, addElemsQty, elemQty,
                         prod, elem, item;
                     for (prod = 0; prod < productQty; prod++) {
-  
+
                         templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis;
                         OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
                             OrderStor.order.products[prod].addelem_price, discount
                         );
                         OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
-                            templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis 
+                            templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis
                         );
 
                         addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
@@ -313,7 +313,7 @@
                     var productQty = OrderStor.order.products.length,
                         tempPrice;
                     while (--productQty > -1) {
-                         OrderStor.order.products[productQty].service_price_dis = GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount);
+                        OrderStor.order.products[productQty].service_price_dis = GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount);
                         tempPrice =
                             GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount) +
                             OrderStor.order.products[productQty].addelemPriceDis +
@@ -450,8 +450,8 @@
                             calculateAllProductsPrice();
                         }
 
-//        console.info('discont', userDiscConstr, userDiscAddElem);
-//        console.info('discont Plant', discountPlant);
+                        //        console.info('discont', userDiscConstr, userDiscAddElem);
+                        //        console.info('discont Plant', discountPlant);
                         if (discountPlant) {
                             CartStor.cart.discountDeliveyPlant = discountPlant;
                             culcDeliveyPriceByDiscPlant();
@@ -473,7 +473,7 @@
 
                         var marginIndex = Math.abs(GlobalStor.global.deliveryCoeff.standart_time + qtyDays);
                         CartStor.cart.marginDeliveyPlant = +GlobalStor.global.deliveryCoeff.percents[marginIndex];
-//        console.info('margin', margin);
+                        //        console.info('margin', margin);
                         if (CartStor.cart.marginDeliveyPlant) {
                             culcDeliveryPriceByMargPlant();
                             OrderStor.order.is_date_price_more = 1;
@@ -560,16 +560,20 @@
                     CartStor.cart.isShowDiscount = 0;
                 }
 
-                function swipeDiscountBlock() {
-                    if (!CartStor.cart.isShowDiscount) {
-                        CartStor.cart.tempConstructDisc = +OrderStor.order.discount_construct;
-                        CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
+                function swipeDiscountBlock(flag) {
+                    if (!flag) {
+                        if (!CartStor.cart.isShowDiscount) {
+                            CartStor.cart.tempConstructDisc = +OrderStor.order.discount_construct;
+                            CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
+                        }
+                        CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
                     }
-                    CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+
                     approveNewDisc(0);
                     approveNewDisc(1);
                     approveNewDisc(2);
                 }
+
 
 
                 function checkNewDiscount(discount) {

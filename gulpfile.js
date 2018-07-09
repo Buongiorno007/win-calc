@@ -46,7 +46,7 @@ var server_env = {
     "windowSteko": "'http://api.steko.com.ua'"
   },
   print_env = {
-    "windowSiteTest": "'http://api.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     // "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "windowSiteLocal": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
