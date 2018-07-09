@@ -764,29 +764,33 @@
                         works_piece = 0;
                     if (GlobalStor.global.area_price) {
                         works_area = localDB.currencyExgange(
-                            GlobalStor.global.area_price * ProductStor.template_square,
+                            GlobalStor.global.area_price * ProductStor.product.template_square,
                             GlobalStor.global.area_currencies
                         );
+                        console.log('works_area',works_area,ProductStor)
                     }
                     if (GlobalStor.global.perimeter_price) {
                         works_perimeter = localDB.currencyExgange(
                             GlobalStor.global.perimeter_price *
-                            ((ProductStor.template_width / 1000 +
-                                ProductStor.template_height / 1000) *
+                            ((ProductStor.product.template_width / 1000 +
+                                ProductStor.product.template_height / 1000) *
                                 2),
                             GlobalStor.global.perimeter_currencies
                         );
+                        console.log('works_perimeter',works_perimeter)
                     }
                     if (GlobalStor.global.piece_price) {
                         works_piece = localDB.currencyExgange(
                             GlobalStor.global.piece_price,
                             GlobalStor.global.piece_currencies
                         );
+                        console.log('works_piece',works_piece)
                     }
 
                     if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
                         works = works_area + works_perimeter + works_piece;
                     }
+                     (!works) && (works = 0)
                     var priceObj = angular.copy(result),
                         priceMargin,
                         doorData,
