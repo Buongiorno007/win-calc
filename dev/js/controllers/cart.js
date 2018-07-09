@@ -115,7 +115,7 @@
 
                 CartMenuServ.calculateAverageDisc();
 
-                CartMenuServ.swipeDiscountBlock(true)
+                // CartMenuServ.swipeDiscountBlock(true)
 
                 // console.log('cart +++++', JSON.stringify(OrderStor.order));
                 //-------- return from Main Page
