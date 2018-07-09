@@ -271,42 +271,13 @@
                         templatePriceDis, addElemsQty, elemQty,
                         prod, elem, item;
                     for (prod = 0; prod < productQty; prod++) {
-                        var works = 0;
-                        if (GlobalStor.global.area_price) {
-                            var tmp = localDB.currencyExgange(
-                                GlobalStor.global.area_price * OrderStor.order.products[prod].template_square,
-                                GlobalStor.global.area_currencies
-                            );
-                            works += tmp;
-                        }
-                        if (GlobalStor.global.perimeter_price) {
-                            var tmp = localDB.currencyExgange(
-                                GlobalStor.global.perimeter_price *
-                                ((OrderStor.order.products[prod].template_width / 1000 +
-                                    OrderStor.order.products[prod].template_height / 1000) *
-                                    2),
-                                GlobalStor.global.perimeter_currencies
-                            );
-                            works += tmp;
-                        }
-                        if (GlobalStor.global.piece_price) {
-                            var tmp = localDB.currencyExgange(
-                                GlobalStor.global.piece_price,
-                                GlobalStor.global.piece_currencies
-                            );
-                            works += tmp;
-                        }
-                        if (!(GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price)) {
-                            var works = 0;
-                            var works_dis = 0;
-                        }
-                        templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis - GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
+  
+                        templatePriceDis = OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis - OrderStor.order.products[prod].service_price_dis;
                         OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
                             OrderStor.order.products[prod].addelem_price, discount
                         );
                         OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
-                            templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis +
-                            GeneralServ.setPriceDis(works, OrderStor.order.discount_construct)
+                            templatePriceDis + OrderStor.order.products[prod].addelemPriceDis + OrderStor.order.products[prod].service_price_dis 
                         );
 
                         addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
@@ -329,43 +300,10 @@
                     var productQty = OrderStor.order.products.length,
                         tempPrice;
                     while (--productQty > -1) {
-                        var works = 0, works_dis = 0, works_area = 0, works_perimeter = 0, works_piece = 0;
-                        if (GlobalStor.global.area_price) {
-                            var works_area = localDB.currencyExgange(
-                                GlobalStor.global.area_price * OrderStor.order.products[productQty].template_square,
-                                GlobalStor.global.area_currencies
-                            );
-                        }
-                        if (GlobalStor.global.perimeter_price) {
-                            var works_perimeter = localDB.currencyExgange(
-                                GlobalStor.global.perimeter_price *
-                                ((OrderStor.order.products[productQty].template_width / 1000 +
-                                    OrderStor.order.products[productQty].template_height / 1000) *
-                                    2),
-                                GlobalStor.global.perimeter_currencies
-                            );
-                        }
-                        if (GlobalStor.global.piece_price) {
-                            var works_piece = localDB.currencyExgange(
-                                GlobalStor.global.piece_price,
-                                GlobalStor.global.piece_currencies
-                            );
-                        }
-                        if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
-                            var works = works_area + works_perimeter + works_piece;
-                            var works_dis = GeneralServ.setPriceDis(
-                                works,
-                                OrderStor.order.discount_construct
-                            );
-                        } else {
-                            var works = 0;
-                            var works_dis = 0;
-                        }
                         tempPrice =
                             GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, discount) +
                             OrderStor.order.products[productQty].addelemPriceDis +
-                            OrderStor.order.products[productQty].service_price_dis +
-                            GeneralServ.setPriceDis(works, OrderStor.order.discount_construct);
+                            OrderStor.order.products[productQty].service_price_dis;
                         OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
                         MainServ.setProductPriceTOTAL(OrderStor.order.products[productQty]);
                     }
@@ -375,36 +313,10 @@
                     var productQty = OrderStor.order.products.length,
                         tempPrice;
                     while (--productQty > -1) {
-                        var works = 0;
-                        if (GlobalStor.global.area_price) {
-                            var tmp = localDB.currencyExgange(
-                                GlobalStor.global.area_price * OrderStor.order.products[productQty].template_square,
-                                GlobalStor.global.area_currencies
-                            );
-                            works += tmp;
-                        }
-                        if (GlobalStor.global.perimeter_price) {
-                            var tmp = localDB.currencyExgange(
-                                GlobalStor.global.perimeter_price *
-                                ((OrderStor.order.products[productQty].template_width / 1000 +
-                                    OrderStor.order.products[productQty].template_height / 1000) *
-                                    2),
-                                GlobalStor.global.perimeter_currencies
-                            );
-                            works += tmp;
-                        }
-                        if (GlobalStor.global.piece_price) {
-                            var tmp = localDB.currencyExgange(
-                                GlobalStor.global.piece_price,
-                                GlobalStor.global.piece_currencies
-                            );
-                            works += tmp;
-                        }
-                        OrderStor.order.products[productQty].service_price_dis = GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount);
+                         OrderStor.order.products[productQty].service_price_dis = GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount);
                         tempPrice =
                             GeneralServ.setPriceDis(OrderStor.order.products[productQty].service_price, discount) +
                             OrderStor.order.products[productQty].addelemPriceDis +
-                            GeneralServ.setPriceDis(works, OrderStor.order.discount_construct) +
                             GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, OrderStor.order.discount_construct);
                         OrderStor.order.products[productQty].productPriceDis = angular.copy(GeneralServ.roundingValue(tempPrice));
                     }
