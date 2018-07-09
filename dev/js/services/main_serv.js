@@ -771,8 +771,8 @@
                     if (GlobalStor.global.perimeter_price) {
                         works_perimeter = localDB.currencyExgange(
                             GlobalStor.global.perimeter_price *
-                            ((Product.template_width / 1000 +
-                                Product.template_height / 1000) *
+                            ((ProductStor.template_width / 1000 +
+                                ProductStor.template_height / 1000) *
                                 2),
                             GlobalStor.global.perimeter_currencies
                         );
