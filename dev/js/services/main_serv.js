@@ -836,7 +836,7 @@
                                         priceMargin + GlobalStor.global.screw + works,
                                         2
                                     );
-                                    setProductPriceTOTAL(angular.copy(ProductStor.product));
+                                    setProductPriceTOTAL((ProductStor.product));
                                     deferred.resolve(priceObj);
                                 });
                         } else {
@@ -848,7 +848,7 @@
                                 priceMargin + GlobalStor.global.screw + works,
                                 2
                             );
-                            setProductPriceTOTAL(angular.copy(ProductStor.product));
+                            setProductPriceTOTAL((ProductStor.product));
                             deferred.resolve(priceObj);
                         }
                     } else {
@@ -2062,7 +2062,7 @@
                     delete orderData.paymentFirstPrimaryDis;
                     delete orderData.paymentMonthlyPrimaryDis;
 
-                    console.log('!!!!orderData!!!!', orderData);
+                    // console.log('!!!!orderData!!!!', orderData);
                     if (orderType && orderData.order_edit === 0) {
                         delete orderData.order_edit;
                         localDB
