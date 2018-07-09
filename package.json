@@ -36,6 +36,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "gulp-install": "^1.1.0",
-    "gulp-javascript-obfuscator": "^1.1.4"
+    "gulp-javascript-obfuscator": "^1.1.4",
+    "javascript-obfuscator": "^0.17.0"
   }
 }
