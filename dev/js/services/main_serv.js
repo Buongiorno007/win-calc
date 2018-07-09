@@ -767,7 +767,6 @@
                             GlobalStor.global.area_price * ProductStor.product.template_square,
                             GlobalStor.global.area_currencies
                         );
-                        console.log('works_area',works_area,ProductStor)
                     }
                     if (GlobalStor.global.perimeter_price) {
                         works_perimeter = localDB.currencyExgange(
@@ -777,20 +776,18 @@
                                 2),
                             GlobalStor.global.perimeter_currencies
                         );
-                        console.log('works_perimeter',works_perimeter)
                     }
                     if (GlobalStor.global.piece_price) {
                         works_piece = localDB.currencyExgange(
                             GlobalStor.global.piece_price,
                             GlobalStor.global.piece_currencies
                         );
-                        console.log('works_piece',works_piece)
                     }
 
                     if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
                         works = works_area + works_perimeter + works_piece;
                     }
-                     (!works) && (works = 0)
+
                     var priceObj = angular.copy(result),
                         priceMargin,
                         doorData,
@@ -839,7 +836,7 @@
                                         priceMargin + GlobalStor.global.screw + works,
                                         2
                                     );
-                                    setProductPriceTOTAL(ProductStor.product);
+                                    setProductPriceTOTAL(angular.copy(ProductStor.product));
                                     deferred.resolve(priceObj);
                                 });
                         } else {
@@ -851,7 +848,7 @@
                                 priceMargin + GlobalStor.global.screw + works,
                                 2
                             );
-                            setProductPriceTOTAL(ProductStor.product);
+                            setProductPriceTOTAL(angular.copy(ProductStor.product));
                             deferred.resolve(priceObj);
                         }
                     } else {
