@@ -764,7 +764,7 @@
                         works_piece = 0;
                     if (GlobalStor.global.area_price) {
                         works_area = localDB.currencyExgange(
-                            GlobalStor.global.area_price * Product.template_square,
+                            GlobalStor.global.area_price * ProductStor.template_square,
                             GlobalStor.global.area_currencies
                         );
                     }
