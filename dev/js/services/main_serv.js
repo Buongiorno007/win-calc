@@ -4,24 +4,24 @@
     angular
         .module("MainModule")
         .factory("MainServ", function ($location,
-                                       $q,
-                                       $filter,
-                                       $timeout,
-                                       localDB,
-                                       GeneralServ,
-                                       SVGServ,
-                                       loginServ,
-                                       optionsServ,
-                                       AnalyticsServ,
-                                       GlobalStor,
-                                       OrderStor,
-                                       ProductStor,
-                                       UserStor,
-                                       AuxStor,
-                                       CartStor,
-                                       DesignStor,
-                                       HistoryStor,
-                                       globalConstants) {
+            $q,
+            $filter,
+            $timeout,
+            localDB,
+            GeneralServ,
+            SVGServ,
+            loginServ,
+            optionsServ,
+            AnalyticsServ,
+            GlobalStor,
+            OrderStor,
+            ProductStor,
+            UserStor,
+            AuxStor,
+            CartStor,
+            DesignStor,
+            HistoryStor,
+            globalConstants) {
             /*jshint validthis:true */
             var thisFactory = this;
 
@@ -400,10 +400,10 @@
             }
 
             function setGlassToTemplateBlocks(type,
-                                              template,
-                                              glassId,
-                                              glassName,
-                                              blockId) {
+                template,
+                glassId,
+                glassName,
+                blockId) {
                 var blocksQty = template.details.length;
                 while (--blocksQty > 0) {
                     if (blockId) {
@@ -433,7 +433,7 @@
                     //----- get Glass Ids from template and check dublicates
                     var glassIds = GeneralServ.removeDuplicates(
                         getGlassFromTemplateBlocks(product.template)
-                        ),
+                    ),
                         glassIdsQty = glassIds.length;
                     //------- glass filling by new elements
                     while (--glassIdsQty > -1) {
@@ -478,7 +478,7 @@
                     //----- get Glass Ids from template and check dublicates
                     var glassIds = GeneralServ.removeDuplicates(
                         getGlassFromTemplateBlocks(templateSourceTemp)
-                        ),
+                    ),
                         glassIdsQty = glassIds.length;
                     //------- glass filling by new elements
                     while (--glassIdsQty > -1) {
@@ -688,49 +688,12 @@
             }
 
             function setProductPriceTOTAL(Product) {
-                var works = 0,
-                    works_dis = 0,
-                    works_area = 0,
-                    works_perimeter = 0,
-                    works_piece = 0;
-                if (GlobalStor.global.area_price) {
-                    works_area = localDB.currencyExgange(
-                        GlobalStor.global.area_price * Product.template_square,
-                        GlobalStor.global.area_currencies
-                    );
-                }
-                if (GlobalStor.global.perimeter_price) {
-                    works_perimeter = localDB.currencyExgange(
-                        GlobalStor.global.perimeter_price *
-                        ((Product.template_width / 1000 +
-                            Product.template_height / 1000) *
-                            2),
-                        GlobalStor.global.perimeter_currencies
-                    );
-                }
-                if (GlobalStor.global.piece_price) {
-                    works_piece = localDB.currencyExgange(
-                        GlobalStor.global.piece_price,
-                        GlobalStor.global.piece_currencies
-                    );
-                }
 
-                if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
-                    works = works_area + works_perimeter + works_piece;
-                    // works_dis = GeneralServ.setPriceDis(
-                    //     works,
-                    //     OrderStor.order.discount_construct
-                    // );
-                }
-                Product.template_price += works;
-                    
                 var deliveryCoeff =
-                        GlobalStor.global.deliveryCoeff.percents[
-                            GlobalStor.global.deliveryCoeff.standart_time
-                            ],
-                    priceDis = GeneralServ.setPriceDis( Product.template_price, OrderStor.order.discount_construct );
-
-                //playSound('price');
+                    GlobalStor.global.deliveryCoeff.percents[
+                    GlobalStor.global.deliveryCoeff.standart_time
+                    ],
+                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
 
 
                 Product.product_price = GeneralServ.roundingValue(
@@ -757,7 +720,7 @@
                         ).then(function (result) {
                             DesignStor.design.templateTEMP = angular.copy(result);
                             DesignStor.design.templateTEMP.details.forEach(function (entry,
-                                                                                     index) {
+                                index) {
                                 if (entry.impost) {
                                     DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
                                     DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
@@ -794,7 +757,36 @@
                             }
                         }
                     });
+                    var works = 0,
+                        works_dis = 0,
+                        works_area = 0,
+                        works_perimeter = 0,
+                        works_piece = 0;
+                    if (GlobalStor.global.area_price) {
+                        works_area = localDB.currencyExgange(
+                            GlobalStor.global.area_price * Product.template_square,
+                            GlobalStor.global.area_currencies
+                        );
+                    }
+                    if (GlobalStor.global.perimeter_price) {
+                        works_perimeter = localDB.currencyExgange(
+                            GlobalStor.global.perimeter_price *
+                            ((Product.template_width / 1000 +
+                                Product.template_height / 1000) *
+                                2),
+                            GlobalStor.global.perimeter_currencies
+                        );
+                    }
+                    if (GlobalStor.global.piece_price) {
+                        works_piece = localDB.currencyExgange(
+                            GlobalStor.global.piece_price,
+                            GlobalStor.global.piece_currencies
+                        );
+                    }
 
+                    if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
+                        works = works_area + works_perimeter + works_piece;
+                    }
                     var priceObj = angular.copy(result),
                         priceMargin,
                         doorData,
@@ -840,7 +832,7 @@
                                         GlobalStor.global.margins.coeff
                                     );
                                     ProductStor.product.template_price = GeneralServ.roundingValue(
-                                        priceMargin + GlobalStor.global.screw,
+                                        priceMargin + GlobalStor.global.screw + works,
                                         2
                                     );
                                     setProductPriceTOTAL(ProductStor.product);
@@ -852,7 +844,7 @@
                                 GlobalStor.global.margins.coeff
                             );
                             ProductStor.product.template_price = GeneralServ.roundingValue(
-                                priceMargin + GlobalStor.global.screw,
+                                priceMargin + GlobalStor.global.screw + works,
                                 2
                             );
                             setProductPriceTOTAL(ProductStor.product);
@@ -954,7 +946,7 @@
                                 (Math.abs(
                                     ProductStor.product.template.details[l].sashPointsIn[1].x -
                                     ProductStor.product.template.details[l].sashPointsIn[0].x
-                                    ) *
+                                ) *
                                     2 +
                                     Math.abs(
                                         ProductStor.product.template.details[l].sashPointsIn[2].y -
@@ -968,7 +960,7 @@
                                 (Math.abs(
                                     ProductStor.product.template.details[l].pointsIn[1].x -
                                     ProductStor.product.template.details[l].pointsIn[0].x
-                                    ) *
+                                ) *
                                     2 +
                                     Math.abs(
                                         ProductStor.product.template.details[l].pointsIn[2].y -
@@ -1033,10 +1025,10 @@
             /**--------- create object for price calculation ----------*/
 
             function preparePrice(template,
-                                  profileId,
-                                  glassIds,
-                                  hardwareId,
-                                  laminatId) {
+                profileId,
+                glassIds,
+                hardwareId,
+                laminatId) {
                 var deferred = $q.defer();
                 GlobalStor.global.isLoader = 1;
                 setBeadId(profileId, laminatId).then(function (beadResult) {
@@ -1055,7 +1047,7 @@
                                 }
                                 return item.beadId;
                             })
-                            ),
+                        ),
                             objXFormedPrice = {
                                 laminationId: laminatId,
                                 ids: [
@@ -1096,15 +1088,15 @@
                             ProductStor.product.template_width +=
                                 ProductStor.product.template.details[0].overallDim[
                                     overallQty
-                                    ].w;
+                                ].w;
                             ProductStor.product.template_height +=
                                 ProductStor.product.template.details[0].overallDim[
                                     overallQty
-                                    ].h;
+                                ].h;
                             ProductStor.product.template_square +=
                                 ProductStor.product.template.details[0].overallDim[
                                     overallQty
-                                    ].square;
+                                ].square;
                         }
 
                         //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
@@ -2037,8 +2029,8 @@
                     orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
                     orderData.default_term_plant =
                         GlobalStor.global.deliveryCoeff.percents[
-                            GlobalStor.global.deliveryCoeff.standart_time
-                            ];
+                        GlobalStor.global.deliveryCoeff.standart_time
+                        ];
                     orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
                     orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
 
@@ -2187,7 +2179,7 @@
                         delete productData.doorLock;
 
                         if (orderType) {
-                            console.log('productData',productData)
+                            console.log('productData', productData)
                             localDB.insertRowLocalDB(
                                 productData,
                                 "order_products"
@@ -2203,7 +2195,7 @@
                         /** ====== SAVE Report Data ===== */
                         var productReportData = angular.copy(
                             OrderStor.order.products[p].report
-                            ),
+                        ),
                             reportQty = productReportData.length;
                         while (--reportQty > -1) {
                             productReportData[reportQty].order_id = OrderStor.order.id;
@@ -2224,7 +2216,7 @@
                         var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
                         for (add = 0; add < addElemQty; add += 1) {
                             var elemQty =
-                                    OrderStor.order.products[p].chosenAddElements[add].length,
+                                OrderStor.order.products[p].chosenAddElements[add].length,
                                 elem;
                             if (elemQty > 0) {
                                 for (elem = 0; elem < elemQty; elem += 1) {
@@ -2236,13 +2228,13 @@
                                         if (
                                             typeof OrderStor.order.products[p].chosenAddElements[add][
                                                 elem
-                                                ].block_id !== "number"
+                                            ].block_id !== "number"
                                         ) {
                                             OrderStor.order.products[p].chosenAddElements[add][
                                                 elem
-                                                ].block_id = OrderStor.order.products[
+                                            ].block_id = OrderStor.order.products[
                                                 p
-                                                ].chosenAddElements[add][elem].block_id.split("_")[1];
+                                            ].chosenAddElements[add][elem].block_id.split("_")[1];
                                         }
                                     }
                                     var addElementsData = {
@@ -2360,9 +2352,9 @@
                         localDB.tablesLocalDB.elements_profile_systems.tableName, {
                             'profile_system_id': ProductStor.product.profile.id
                         }).then(function (result) {
-                        GlobalStor.global.dataProfiles = angular.copy(result);
-                        deferred.resolve(result);
-                    });
+                            GlobalStor.global.dataProfiles = angular.copy(result);
+                            deferred.resolve(result);
+                        });
                 }
                 return deferred.promise;
             }
