@@ -920,7 +920,7 @@
             } else if (!d || d === 1) {
               isExist = 1;
             }
-            if (isExist && d !== 2) {
+            if (isExist) {
               DesignStor.design.doorShapeList.push(DesignStor.design.doorShapeData[d]);
               DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
             }
@@ -933,6 +933,7 @@
 
             } else {
               DesignStor.design.sashShapeList.length = 0;
+
               switch (id) {
                 case 0:
                 case 1:
@@ -943,14 +944,14 @@
                 case 3:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === 2;
+                      return item.doorstep_type === DesignStor.design.doorShapeList[id].door_type;
                     });
                     break;
                   }
                 case 2:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === 1;
+                      return item.doorstep_type ===  DesignStor.design.doorShapeList[id].door_type;
                     });
                     break;
                   }

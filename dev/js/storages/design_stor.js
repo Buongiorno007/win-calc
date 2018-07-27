@@ -82,25 +82,29 @@
                 id: 0,
                 name: 'panels.DOOR_TYPE1',
                 icon: './img/door-config/doorstep.png',
-                iconSelect: './img/door-config-selected/doorstep.png'
+                iconSelect: './img/door-config-selected/doorstep.png',
+                door_type : 0
               },
               {
                 id: 1,
                 name: 'panels.DOOR_TYPE2',
                 icon: 'img/door-config/no-doorstep.png',
-                iconSelect: 'img/door-config-selected/no-doorstep.png'
+                iconSelect: 'img/door-config-selected/no-doorstep.png',
+                door_type : 1
               },
               {
                 id: 2,
                 name: 'panels.DOOR_TYPE3',
                 icon: 'img/door-config/doorstep-al1.png',
-                iconSelect: 'img/door-config-selected/doorstep-al1.png'
+                iconSelect: 'img/door-config-selected/doorstep-al1.png',
+                door_type : 2
               },
               {
                 id: 3,
                 name: 'panels.DOOR_TYPE4',
                 icon: 'img/door-config/doorstep-al2.png',
-                iconSelect: 'img/door-config-selected/doorstep-al2.png'
+                iconSelect: 'img/door-config-selected/doorstep-al2.png',
+                door_type : 3
               }
             ],
             doorShapeList: [],
