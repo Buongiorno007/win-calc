@@ -928,7 +928,7 @@
               DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
             }
           }
-
+          console.log('DesignStor.design.doorShapeData[id]',DesignStor.design.doorShapeData[id])
           if (!DesignStor.design.steps.selectedStep2) {
             if (DesignStor.design.doorConfig.doorShapeIndex === id) {
               DesignStor.design.doorConfig.doorShapeIndex = '';
@@ -944,17 +944,11 @@
                     DesignStor.design.sashShapeList = angular.copy(doorsGroups);
                   }
                   break;
+                case 2:
                 case 3:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === 2;
-                    });
-                    break;
-                  }
-                case 2:
-                  if (doorsGroups.length) {
-                    DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === 1;
+                      return item.doorstep_type === DesignStor.design.doorShapeData[id].doorstep_type;
                     });
                     break;
                   }

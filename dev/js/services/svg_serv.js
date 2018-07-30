@@ -1279,10 +1279,11 @@
           if (GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
             /** door_type_index === 0 - рама по периметру
              *  door_type_index === 1 - без порога
-             *  door_type_index === 3 - алюминиевый порог*/
+             *  door_type_index === 2 - алюминиевый порог (между рамой) 
+             *  door_type_index === 3 - алюминиевый порог (под рамой)*/
           }
           shapeIndex = ProductStor.product.door_type_index;
-
+          // console.log('тип порога',shapeIndex)
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {
               return false;
@@ -1334,7 +1335,7 @@
                       drawpoint3.y = newPointsOut[0].y;
                     }
                   }
-                  if (shapeIndex === 3) {
+                  if (shapeIndex === 3 || shapeIndex === 2) {
                     //-------- change points fp2-fp3 frame
                     /**алюминиевый порог. отрисовка рамы*/
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
@@ -1405,17 +1406,17 @@
                       drawpoint4.y = newPointsOut[index].y * 1;
                     }
                   }
-                  if (shapeIndex === 2) {
-                    console.log("shapeIndex === 2");
-                    if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
-                      drawpoint1 = newPointsOut[index];
-                      drawpoint1.x = pointsIn[index].x * 1;
-                      drawpoint2 = newPointsOut[index + 1];
-                      drawpoint2.x = pointsIn[index + 1].x * 1;
-                      part.doorstep = 1;
-                    }
-                  }
-                  if (shapeIndex === 3) {
+                  // if (shapeIndex === 2) {
+                  //   console.log("shapeIndex === 2");
+                  //   if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                  //     drawpoint1 = newPointsOut[index];
+                  //     drawpoint1.x = pointsIn[index].x * 1;
+                  //     drawpoint2 = newPointsOut[index + 1];
+                  //     drawpoint2.x = pointsIn[index + 1].x * 1;
+                  //     part.doorstep = 1;
+                  //   }
+                  // }
+                  if (shapeIndex === 3 || shapeIndex === 2) {
                     /** doorstep Al outer
                      * отрисовка порога не прнимает участия в высоте фальца, створки*/
                     //-------- change fp3-fp4 frame to outer doorstep
