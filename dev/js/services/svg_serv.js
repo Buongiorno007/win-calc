@@ -1329,10 +1329,19 @@
                 var drawpoint3 = pointsIn[0];
                 var drawpoint4 = pointsIn[index];
                 if (ProductStor.product.construction_type === 4) {
-                  if (shapeIndex === 1 || shapeIndex === 2) {
+                  if (shapeIndex === 1) {
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                       drawpoint3 = angular.copy(pointsIn[0]);
                       drawpoint3.y = newPointsOut[0].y;
+                    }
+                  }
+                  if (shapeIndex === 2) {
+                    if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
+                      
+                      drawpoint2.y = newPointsOut[0].y;
+
+                      drawpoint3 = angular.copy(pointsIn[0]);
+                      drawpoint3.y = drawpoint2.y;
                     }
                   }
                   if (shapeIndex === 3 ) {
@@ -1417,14 +1426,53 @@
                     }
                   }
                   if ( shapeIndex === 2) {
+                    if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                      if (doorSill.a) {
+                        drawpoint4 = angular.copy(pointsIn[index]);
+                        drawpoint4.y = newPointsOut[index].y - doorSill.a;
+                        drawpoint3 = angular.copy(pointsIn[index + 1]);
+                        drawpoint3.y = newPointsOut[index + 1].y - doorSill.a;
+                        drawpoint4.x = newPointsOut[index].x * 1;
+                        drawpoint3.x = newPointsOut[index + 1].x * 1;
+                      } else {
+                        drawpoint4 = angular.copy(pointsIn[index]);
+                        drawpoint4.x = newPointsOut[index].x * 1;
+                        drawpoint3 = angular.copy(pointsIn[index + 1]);
+                        drawpoint3.x = newPointsOut[index + 1].x * 1;
+                      }
+                      part.doorstep = 1;
+                    }
+
                     if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
                       //-------- change points fp4-fp1 frame
-                      drawpoint4 = angular.copy(pointsIn[index]);
-                      drawpoint4.y = newPointsOut[index].y;
+                      // drawpoint1 = angular.copy(newPointsOut[index]);
+                      drawpoint1.y = newPointsOut[index].y;
 
-                    }
-                    if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
-                      part.doorstep = 1;
+                      drawpoint4 = angular.copy(pointsIn[index]);
+                      drawpoint4.y = drawpoint1.y;
+                    } else {
+
+                      if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+                        if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
+                          /** отрисовка
+                           *  +doorSill.a +doorSill.a - depths.frameDepth.b + depths.frameStillDepth.b; */
+                          drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        } else if (newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
+                          /** левая сторона двойных входных дверей*/
+                          drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        } else if (newPointsOut[index].type === 'sash' && newPointsOut[index + 1].type === 'sash' && index === 0) {
+                          drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        }
+                      }
                     }
                   }
                   if (shapeIndex === 3) {
