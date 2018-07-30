@@ -863,6 +863,9 @@
             d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
           var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+          console.log('doorsLaminations',doorsLaminations)
+          console.log('doorsGroups',doorsGroups)
+
           var temp = [];
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
           DesignStor.design.steps.selectedStep1 = 0;
@@ -944,14 +947,14 @@
                 case 3:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === DesignStor.design.doorShapeList[id].door_type;
+                      return item.doorstep_type === 2;
                     });
                     break;
                   }
                 case 2:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type ===  DesignStor.design.doorShapeList[id].door_type;
+                      return item.doorstep_type === 1;
                     });
                     break;
                   }
