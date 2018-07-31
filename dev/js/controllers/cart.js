@@ -248,12 +248,10 @@
                 }
 
                 function keyUp(event) {
-                    console.log('event.which',event.which);
                     switch (event.which) {
                         case 8:
                             break;
                         case 13:
-                            console.log('enterpress');
                             break;
                         case 48:
                         case 49:

@@ -6,12 +6,12 @@
     .factory('SVGServ',
 
       function ($q,
-                globalConstants,
-                GeneralServ,
-                GlobalStor,
-                ProductStor,
-                DesignStor,
-                PointsServ) {
+        globalConstants,
+        GeneralServ,
+        GlobalStor,
+        ProductStor,
+        DesignStor,
+        PointsServ) {
         /*jshint validthis:true */
         var thisFactory = this;
 
@@ -165,11 +165,11 @@
                       break;
                     case 2:
                       if (points[pQty].y === points[pQty2].y) {
-//                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' ||
+                        //                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' ||
                         // points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
-//                      delete points[pQty];
-//                    points.splice(pQty, 1);
-//                    } else
+                        //                      delete points[pQty];
+                        //                    points.splice(pQty, 1);
+                        //                    } else
                         if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
                           //                    points.splice(pQty2, 1);
                           delete points[pQty2];
@@ -251,28 +251,28 @@
           //      console.log('setQPointCoord-----------', line, middle);
           //------- line vert or hor
           if (!line.coefA || !line.coefB) {
-            coordQP.x = Math.sqrt(Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.x;
+            coordQP.x = Math.sqrt(Math.pow(dist, 2) / (1 + (Math.pow((line.coefB / line.coefA), 2)))) + middle.x;
             coordQP.y = Math.sqrt(Math.abs(Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2))) + middle.y;
             //        console.log('line vert or hor');
           } else {
             switch (side) {
               case 1:
-                coordQP.y = middle.y - Math.sqrt(Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+                coordQP.y = middle.y - Math.sqrt(Math.pow(dist, 2) / (1 + (Math.pow((line.coefB / line.coefA), 2))));
                 coordQP.x = middle.x - Math.sqrt(Math.abs(Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2)));
                 //            console.log('1');
                 break;
               case 2:
-                coordQP.y = middle.y - Math.sqrt(Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+                coordQP.y = middle.y - Math.sqrt(Math.pow(dist, 2) / (1 + (Math.pow((line.coefB / line.coefA), 2))));
                 coordQP.x = Math.sqrt(Math.abs(Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2))) + middle.x;
                 //            console.log('2');
                 break;
               case 3:
-                coordQP.y = Math.sqrt(Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+                coordQP.y = Math.sqrt(Math.pow(dist, 2) / (1 + (Math.pow((line.coefB / line.coefA), 2)))) + middle.y;
                 coordQP.x = Math.sqrt(Math.abs(Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2))) + middle.x;
                 //            console.log('3');
                 break;
               case 4:
-                coordQP.y = Math.sqrt(Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+                coordQP.y = Math.sqrt(Math.pow(dist, 2) / (1 + (Math.pow((line.coefB / line.coefA), 2)))) + middle.y;
                 coordQP.x = middle.x - Math.sqrt(Math.abs(Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2)));
                 //            console.log('4');
 
@@ -410,7 +410,7 @@
             }
 
             line.to = angular.copy(points[index]);
-//        line.type = setLineType(points[i].type, points[index].type);
+            //        line.type = setLineType(points[i].type, points[index].type);
             line.type = setLineType(points[i].id, points[index].id);
             if (line.dir === 'line') {
               line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
@@ -528,7 +528,7 @@
 
           //------- if lines are paralles
           if (isParall) {
-//            console.log('parallel = ', isParall);
+            //            console.log('parallel = ', isParall);
             //----- set normal statement
             //    var normal = {
             //      coefA: 1,
@@ -538,21 +538,21 @@
 
             var x2 = line1.to.x,
               y2 = line1.to.y;
-//        if(line1.to.dir === 'curv') {
-//          x2 = line1.to.xQ;
-//          y2 = line1.to.yQ;
-//        }
+            //        if(line1.to.dir === 'curv') {
+            //          x2 = line1.to.xQ;
+            //          y2 = line1.to.yQ;
+            //        }
             var normal = {
               coefA: line1.coefB,
               coefB: -line1.coefA,
               coefC: (line1.coefA * y2 - line1.coefB * x2)
             };
-//        console.log('normal = ',  normal);
+            //        console.log('normal = ',  normal);
             coord = getCoordCrossPoint(line1, normal);
           } else {
             coord = getCoordCrossPoint(line1, line2);
           }
-//        console.log('coord = ', coord);
+          //        console.log('coord = ', coord);
           crossPoint.x = coord.x;
           crossPoint.y = coord.y;
 
@@ -631,9 +631,9 @@
 
               if (curvP0 && curvP1) {
                 var curvLine = {
-                    from: curvP0,
-                    to: curvP1
-                  },
+                  from: curvP0,
+                  to: curvP1
+                },
                   centerLine = getCenterLine(curvP0, curvP1),
                   curvQP = {
                     type: currBlock.pointsQ[q].type,
@@ -647,8 +647,8 @@
 
                 //------ get coordinates Q point
                 coordQP = setQPointCoord(currBlock.pointsQ[q].positionQ, curvLine, currBlock.pointsQ[q].heightQ * 2);
-//            console.log('!!!!! curvQP -----', curvP0, curvP1, coordQP);
-//            console.log('!!!!! curvQP -----', currBlock.pointsQ[q]);
+                //            console.log('!!!!! curvQP -----', curvP0, curvP1, coordQP);
+                //            console.log('!!!!! curvQP -----', currBlock.pointsQ[q]);
                 curvQP.x = coordQP.x;
                 curvQP.y = coordQP.y;
 
@@ -658,7 +658,7 @@
                 } else if (!curvLine.coefB && currBlock.pointsQ[q].positionQ === 4) {
                   curvQP.x -= currBlock.pointsQ[q].heightQ * 4;
                 }
-//            console.log('!!!!! curvQP -----', curvQP);
+                //            console.log('!!!!! curvQP -----', curvQP);
                 currBlock.pointsOut.push(angular.copy(curvQP));
 
                 //------ for R dimension, get coordinates for Radius location
@@ -750,8 +750,8 @@
           sideQP2.y = impostQP2.y;
           sideQP2.xQ = impostQPCenter2.x;
           sideQP2.yQ = impostQPCenter2.y;
-//      console.log('QQQQ--------', sideQP1);
-//      console.log('QQQQ--------', sideQP2);
+          //      console.log('QQQQ--------', sideQP1);
+          //      console.log('QQQQ--------', sideQP2);
 
           //----- delete Q point parent
           var pQty = pointsIn.length;
@@ -760,19 +760,19 @@
               pointsIn.splice(pQty, 1);
             }
           }
-//      console.log('QQQQ pointsIn after clean--------', JSON.stringify(pointsIn));
+          //      console.log('QQQQ pointsIn after clean--------', JSON.stringify(pointsIn));
 
           var noExist1 = checkEqualPoints(sideQP1, pointsIn);
           if (noExist1) {
-//        console.log('noExist1-------');
+            //        console.log('noExist1-------');
             pointsIn.push(sideQP1);
           }
           var noExist2 = checkEqualPoints(sideQP2, pointsIn);
           if (noExist2) {
-//        console.log('noExist2-------');
+            //        console.log('noExist2-------');
             pointsIn.push(sideQP2);
           }
-//      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
+          //      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
         }
 
 
@@ -799,9 +799,9 @@
 
           if (impCurvPoints.length === 2) {
             var impChord = {
-                from: angular.copy(impCurvPoints[0]),
-                to: angular.copy(impCurvPoints[1])
-              },
+              from: angular.copy(impCurvPoints[0]),
+              to: angular.copy(impCurvPoints[1])
+            },
               centerImpChord = getCenterLine(impChord.from, impChord.to),
               coordQP;
 
@@ -821,7 +821,7 @@
             } else if (!impChord.coefB && impostBlock.impostAxis[2].positionQ === 4) {
               impQP.x -= impostBlock.impostAxis[2].heightQ * 4;
             }
-//        console.log('!!!!! impQP -----', impQP);
+            //        console.log('!!!!! impQP -----', impQP);
             if (paramAx) {
               impostBlock.impostOut.push(impQP);
               return impQP;
@@ -945,10 +945,10 @@
             if (t > 0 && t < 1) {
               // possible point -- pending bounds check
               var point = {
-                  t: t,
-                  x: getCoordCurveByT(p1.x, p2.x, p3.x, t),
-                  y: getCoordCurveByT(p1.y, p2.y, p3.y, t)
-                },
+                t: t,
+                x: getCoordCurveByT(p1.x, p2.x, p3.x, t),
+                y: getCoordCurveByT(p1.y, p2.y, p3.y, t)
+              },
                 minX = Math.min(a1.x, a2.x, p1.x, p2.x, p3.x),
                 minY = Math.min(a1.y, a2.y, p1.y, p2.y, p3.y),
                 maxX = Math.max(a1.x, a2.x, p1.x, p2.x, p3.x),
@@ -1329,13 +1329,20 @@
                 var drawpoint3 = pointsIn[0];
                 var drawpoint4 = pointsIn[index];
                 if (ProductStor.product.construction_type === 4) {
-                  if (shapeIndex === 1 || shapeIndex === 2) {
+                  if (shapeIndex === 1) {
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                       drawpoint3 = angular.copy(pointsIn[0]);
                       drawpoint3.y = newPointsOut[0].y;
                     }
                   }
-                  if (shapeIndex === 3 ) {
+                  if (shapeIndex === 2) {
+                    if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
+                      drawpoint2.y = newPointsOut[0].y - 30;
+                      drawpoint3 = angular.copy(pointsIn[0]);
+                      drawpoint3.y = drawpoint2.y;
+                    }
+                  }
+                  if (shapeIndex === 3) {
                     //-------- change points fp2-fp3 frame
                     /**алюминиевый порог. отрисовка рамы*/
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
@@ -1345,16 +1352,6 @@
                       drawpoint3.y = pointsIn[0].y + doorSill.a;
                     }
                   }
-                  // if (shapeIndex === 2 ) {
-                  //   //-------- change points fp2-fp3 frame
-                  //   /**алюминиевый порог. отрисовка рамы*/
-                  //   if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
-                  //     drawpoint2 = angular.copy(newPointsOut[0]);
-                  //     drawpoint2.y = pointsIn[0].y + doorSill.a;
-                  //     drawpoint3 = angular.copy(pointsIn[0]);
-                  //     drawpoint3.y = pointsIn[0].y + doorSill.a;
-                  //   }
-                  // }
                 }
                 collectPointsInParts(part, drawpoint1, drawpoint2, drawpoint3, drawpoint4);
               }
@@ -1416,16 +1413,35 @@
                       drawpoint4.y = newPointsOut[index].y * 1;
                     }
                   }
-                  if ( shapeIndex === 2) {
-                    if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
-                      //-------- change points fp4-fp1 frame
-                      drawpoint4 = angular.copy(pointsIn[index]);
-                      drawpoint4.y = newPointsOut[index].y;
-
-                    }
+                  if (shapeIndex === 2) {
                     if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                      if (doorSill.a) {
+                        drawpoint4 = angular.copy(pointsIn[index]);
+                        drawpoint4.y = newPointsOut[index].y - doorSill.a;
+                        drawpoint3 = angular.copy(pointsIn[index + 1]);
+                        drawpoint3.y = newPointsOut[index + 1].y - doorSill.a;
+
+                        // console.log('drawpoint1', drawpoint1)
+                        // console.log('drawpoint2', drawpoint2)
+
+                        drawpoint4.x = newPointsOut[index].x - doorSill.b;
+                        drawpoint3.x = newPointsOut[index + 1].x + doorSill.b;
+                      } else {
+                        // drawpoint4 = angular.copy(pointsIn[index]);
+                        // drawpoint4.x = newPointsOut[index].x * 1;
+                        // drawpoint3 = angular.copy(pointsIn[index + 1]);
+                        // drawpoint3.x = newPointsOut[index + 1].x * 1;
+                      }
                       part.doorstep = 1;
                     }
+
+                    if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
+                      //-------- change points fp4-fp1 frame
+                      // drawpoint1 = angular.copy(newPointsOut[index]);
+                      drawpoint1.y = newPointsOut[index].y - 30;
+                      drawpoint4 = angular.copy(pointsIn[index]);
+                      drawpoint4.y = drawpoint1.y;
+                    } 
                   }
                   if (shapeIndex === 3) {
                     /** doorstep Al outer
@@ -1580,12 +1596,12 @@
 
         function setGlass(glassType, glassPoints, priceElements, currGlassId) {
           var part = {
-              type: 'glass',
-              points: glassPoints,
-              path: 'M ',
-              square: 0,
-              glass_type: glassType,
-            },
+            type: 'glass',
+            points: glassPoints,
+            path: 'M ',
+            square: 0,
+            glass_type: glassType,
+          },
             glassObj = {
               elemId: currGlassId
             },
@@ -1731,7 +1747,7 @@
 
 
         function cteateLineByAngel(center, angel) {
-//      console.log(angel);
+          //      console.log(angel);
           var k = Math.tan(angel * Math.PI / 180),
             lineMark = {
               center: center,
@@ -1869,10 +1885,10 @@
 
         function setSashePropertyXPrice(sashType, openDir, hardwareLines, priceElements, depths) {
           var tempSashBlock = {
-              sizes: [],
-              openDir: openDir,
-              type: sashType
-            },
+            sizes: [],
+            openDir: openDir,
+            type: sashType
+          },
             hardwareQty = hardwareLines.length;
           while (--hardwareQty > -1) {
             if (ProductStor.product.door_type_index === 3) {
@@ -1932,7 +1948,7 @@
               newPoints.push(pointsRight[r]);
             }
           }
-//      console.log('-----------IMPOST Q -----------', newPoints);
+          //      console.log('-----------IMPOST Q -----------', newPoints);
           return newPoints;
         }
 
@@ -2012,11 +2028,11 @@
           var arcQty = arcDims.length;
           while (--arcQty > -1) {
             var dim = {
-                blockId: currBlockId,
-                level: level,
-                dimId: arcDims[arcQty].id,
-                minLimit: globalConstants.minRadiusHeight
-              },
+              blockId: currBlockId,
+              level: level,
+              dimId: arcDims[arcQty].id,
+              minLimit: globalConstants.minRadiusHeight
+            },
               b, q;
             //---------- find point Q in pointsQ
             for (b = 1; b < blocksQty; b += 1) {
@@ -2097,8 +2113,8 @@
 
         function deleteDublicatDim(dimension) {
           var dimXLevel1 = dimension.filter(function (item) {
-              return item.level === 1;
-            }),
+            return item.level === 1;
+          }),
             dimXLevel1Qty = dimXLevel1.length,
             dimX = dimension.filter(function (item) {
               var count = 0, d;
@@ -2111,7 +2127,7 @@
                 return 1;
               }
             });
-//      console.log('````````````````````', dimX);
+          //      console.log('````````````````````', dimX);
           return dimX;
         }
 
@@ -2302,13 +2318,13 @@
           //console.log('createDimObj----1-----', level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit);
           //console.log('createDimObj----2-----', blockDim[index], blockDim[indexNext]);
           var dim = {
-              blockId: currBlockId,
-              level: level,
-              axis: axis,
-              dimId: blockDim[indexNext].id,
-              from: (axis === 'x') ? angular.copy(blockDim[index].x) : angular.copy(blockDim[index].y),
-              to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
-            },
+            blockId: currBlockId,
+            level: level,
+            axis: axis,
+            dimId: blockDim[indexNext].id,
+            from: (axis === 'x') ? angular.copy(blockDim[index].x) : angular.copy(blockDim[index].y),
+            to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
+          },
             currLimit;
           dim.text = GeneralServ.roundingValue(Math.abs(dim.to - dim.from), 1);
 
@@ -2340,10 +2356,10 @@
 
         function initDimensions(blocks) {
           var dimension = {
-              dimX: [],
-              dimY: [],
-              dimQ: []
-            },
+            dimX: [],
+            dimY: [],
+            dimQ: []
+          },
             blocksQty = blocks.length,
             maxSizeLimit = GlobalStor.global.maxSizeLimit,
             globalLimitsX, globalLimitsY, allPoints, b;
@@ -2375,7 +2391,7 @@
               var globalDimX = [],
                 globalDimY,
                 arcHeights = [],
-                overallDim = {w: 0, h: 0},
+                overallDim = { w: 0, h: 0 },
                 i;
 
               for (i = 0; i < pointsOutQty; i += 1) {
