@@ -1002,7 +1002,6 @@
             }
 
             function insertTablesLocalDB(tables) {
-                console.log('tables', tables)
                 var defer = $q.defer();
                 let tables_name = Object.keys(tables);
                 let table_length = tables_name.length;
@@ -1137,12 +1136,9 @@
                         function (result) {
                             if (result.data.status) {
                                 //-------- insert in LocalDB
-                                console.log('download location');
                                 LocalLocationBase = convert(result.data);
-                                console.log('convert location');
                                 db.setItem('location', LocalLocationBase).then((value) => {
                                     // Do other things once the value has been saved.
-                                    console.log('save location');
                                     defer.resolve(value);
                                 }).catch(function (err) {
                                     let message = `device.model : ${device.model}; \n\tdevice.platform : ${device.platform}; \n\tdevice.version : ${device.version}; \n\tdevice.manufacturer : ${device.manufacturer}; user.login : ${login}; browser : ${navigator.sayswho}`;
@@ -1205,12 +1201,9 @@
                     .then(function (result) {
                         if (result.data.status) {
                             //-------- insert in LocalDB
-                            console.log('download data');
                             LocalDataBase = convert(result.data);
-                            console.log('convert data');
                             db.setItem('tables', LocalDataBase).then(function (value) {
                                 // Do other things once the value has been saved.
-                                console.log('save data');
                                 defer.resolve(1);
                             }).catch(function (err) {
                                 try {
@@ -2439,10 +2432,8 @@
                             sizeTemp = sizes[siz] + kits.amendment_pruning;
                             priceTemp = sizeTemp * constrElem.price * waste;
 
-                            if (ProductStor.product.door_type_index === 2) {
-                                console.log('ProductStor', temp, ProductStor.product.template_height / 1000 + kits.amendment_pruning)
-
-                                if (temp.size === ProductStor.product.template_height / 1000 + kits.amendment_pruning) {
+                            if (ProductStor.product.door_type_index !== 0) {
+                                if (sizeTemp === ProductStor.product.template_height / 1000 + kits.amendment_pruning) {
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }

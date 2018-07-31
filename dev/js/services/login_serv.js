@@ -306,7 +306,6 @@
       }
 
       function setCurrency() {
-        console.log('setCurrency')
         var defer = $q.defer();
         /** download All Currencies */
         localDB
@@ -348,8 +347,6 @@
       }
 
       function setUserDiscounts() {
-          console.log('setUserDiscounts')
-
           var defer = $q.defer();
         //-------- add server url to avatar img
         // var url = globalConstants.serverIP + UserStor.userInfo.avatar
@@ -405,7 +402,6 @@
 
       /** price Margins of Plant */
       function downloadPriceMargin() {
-          console.log('downloadPriceMargin')
           return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
@@ -418,7 +414,6 @@
       }
 
       function downloadOptionsCoefficients() {
-          console.log('downloadOptionsCoefficients')
           return localDB
           .selectLocalDB(
             localDB.tablesLocalDB.options_coefficients.tableName,
@@ -432,7 +427,6 @@
 
       /** delivery Coeff of Plant */
       function downloadDeliveryCoeff() {
-          console.log('downloadDeliveryCoeff')
           return localDB
           .selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName)
           .then(function(coeff) {
@@ -443,8 +437,6 @@
       //----------- get all elements as to groups
 
       function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
-          console.log('downloadAllElemAsGroup')
-
           var defer = $q.defer();
         //------- get all Folders
         localDB.selectLocalDB(tableGroup).then(function(result) {
@@ -522,7 +514,6 @@
       }
 
       function downloadAllGlasses() {
-          console.log('downloadAllGlasses')
           var defer = $q.defer(),
           profilesQty = GlobalStor.global.profiles.length,
           profileIds = [];
@@ -868,7 +859,6 @@
 
       /** download all Backgrounds */
       function downloadAllBackgrounds() {
-        console.log('downloadAllBackgrounds')
         var deff = $q.defer();
         localDB
           .selectLocalDB(localDB.tablesLocalDB.background_templates.tableName)
@@ -1152,7 +1142,6 @@
               heightTemp,
               k,
               delQty;
-            console.log();
             /** sorting types by position */
             if (groupsData && groupsData.length) {
               groups = groupsData.sort(function(a, b) {
@@ -1687,7 +1676,6 @@
                         /** download factory data */
                         downloadFactoryData();
                         /** download All Profiles */
-                        // console.log('download All Profiles');
                         downloadAllElemAsGroup(
                           localDB.tablesLocalDB.profile_system_folders
                             .tableName,
@@ -1695,9 +1683,7 @@
                           GlobalStor.global.profilesType,
                           GlobalStor.global.profiles
                         ).then(function(data) {
-                          // console.log("downloadAllElemAsGroup");
                           downloadOptionsCoefficients().then(function(coef) {
-                            console.log("downloadOptionsCoefficients",coef);
                             GlobalStor.global.area_currencies =
                               coef[0].area_currencies;
                             GlobalStor.global.area_price = coef[0].area_price;
@@ -1712,7 +1698,6 @@
                           if (data) {
                             /** download All Glasses */
                             downloadAllGlasses().then(function(data) {
-                              console.log("downloadAllGlasses finished");
                               if (data) {
                                 /** sorting glasses as to Type */
                                 sortingGlasses();
@@ -1737,10 +1722,8 @@
                                       /** download All AddElements */
                                       downloadAllAddElements().then(function() {
                                         //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
-                                          console.log("downloadAllAddElements");
                                         /** download All Lamination */
                                         downloadAllLamination().then(function( result ) {
-                                          console.log('downloadAllLamination');
                                           if (result && result.length) {
                                             GlobalStor.global.laminats = _.map(
                                               angular.copy(result),
