@@ -863,8 +863,6 @@
             d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
           var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
-          console.log('doorsLaminations',doorsLaminations)
-          console.log('doorsGroups',doorsGroups)
 
           var temp = [];
           var doorKitsT1 = GlobalStor.global.doorKitsT1;
@@ -928,7 +926,6 @@
               DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
             }
           }
-          console.log('DesignStor.design.doorShapeData[id]',DesignStor.design.doorShapeData[id])
           if (!DesignStor.design.steps.selectedStep2) {
             if (DesignStor.design.doorConfig.doorShapeIndex === id) {
               DesignStor.design.doorConfig.doorShapeIndex = '';
