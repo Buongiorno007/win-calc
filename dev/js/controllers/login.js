@@ -240,7 +240,6 @@
           localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
             if (data) {
               /** download all data */
-              console.log('downloadAllData');
               loginServ.downloadAllData().then(function() {
                 startProgramm();
               });
@@ -347,7 +346,7 @@
         function checkingUser(DemoLogin, DemoPass) {
           GlobalStor.global.ISLOGIN = 1;
           localDB.db.setItem("FirstIn", "true", function(err, value) {});
-          console.log('importUser');
+          // console.log('importUser');
           let login = 'DemoRU';
           let pass = 'DemoRU';
           if (DemoLogin) {

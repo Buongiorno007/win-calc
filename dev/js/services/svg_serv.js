@@ -1276,13 +1276,15 @@
         function setParts(depths, sourceObj, pointsOut, pointsIn, priceElements, currGlassId) {
           var shapeIndex = 0;
           var doorSill = (depths.frameStillDepth) ? depths.frameStillDepth : 0;
+          console.log('depths',depths)
           if (GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
             /** door_type_index === 0 - рама по периметру
              *  door_type_index === 1 - без порога
-             *  door_type_index === 3 - алюминиевый порог*/
+             *  door_type_index === 2 - алюминиевый порог (между рамой) 
+             *  door_type_index === 3 - алюминиевый порог (под рамой)*/
           }
           shapeIndex = ProductStor.product.door_type_index;
-
+          // console.log('тип порога',shapeIndex)
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {
               return false;
@@ -1334,7 +1336,14 @@
                       drawpoint3.y = newPointsOut[0].y;
                     }
                   }
-                  if (shapeIndex === 3) {
+                  if (shapeIndex === 2) {
+                    if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
+                      drawpoint2.y = newPointsOut[0].y;
+                      drawpoint3 = angular.copy(pointsIn[0]);
+                      drawpoint3.y = drawpoint2.y;
+                    }
+                  }
+                  if (shapeIndex === 3 ) {
                     //-------- change points fp2-fp3 frame
                     /**алюминиевый порог. отрисовка рамы*/
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
@@ -1405,14 +1414,56 @@
                       drawpoint4.y = newPointsOut[index].y * 1;
                     }
                   }
-                  if (shapeIndex === 2) {
-                    console.log("shapeIndex === 2");
+                  if ( shapeIndex === 2) {
                     if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
-                      drawpoint1 = newPointsOut[index];
-                      drawpoint1.x = pointsIn[index].x * 1;
-                      drawpoint2 = newPointsOut[index + 1];
-                      drawpoint2.x = pointsIn[index + 1].x * 1;
+                      if (doorSill.a) {
+                        drawpoint1 = angular.copy(newPointsOut[index]);
+                        drawpoint2 = angular.copy(newPointsOut[index + 1]);
+
+                        drawpoint4 = angular.copy(pointsIn[index]);
+                        drawpoint4.y = newPointsOut[index].y - doorSill.a;
+                        drawpoint3 = angular.copy(pointsIn[index + 1]);
+                        drawpoint3.y = newPointsOut[index + 1].y - doorSill.a;
+
+                        drawpoint4.x = newPointsOut[index].x - depths.frameDepth.c;
+                        drawpoint3.x = newPointsOut[index + 1].x  + depths.frameDepth.c;
+
+                        drawpoint1.x = newPointsOut[index].x - depths.frameDepth.c;
+                        drawpoint2.x = newPointsOut[index + 1].x  + depths.frameDepth.c;
+                      } 
                       part.doorstep = 1;
+                    }
+
+                    if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
+                      //-------- change points fp4-fp1 frame
+                      // drawpoint1 = angular.copy(newPointsOut[index]);
+                      drawpoint1.y = newPointsOut[index].y;
+
+                      drawpoint4 = angular.copy(pointsIn[index]);
+                      drawpoint4.y = drawpoint1.y;
+                    } else {
+
+                      if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+                        if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
+                          /** отрисовка
+                           *  +doorSill.a +doorSill.a - depths.frameDepth.b + depths.frameStillDepth.b; */
+                          drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        } else if (newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
+                          /** левая сторона двойных входных дверей*/
+                          drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        } else if (newPointsOut[index].type === 'sash' && newPointsOut[index + 1].type === 'sash' && index === 0) {
+                          drawpoint1.y = newPointsOut[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint2.y = newPointsOut[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint3.y = pointsIn[index + 1].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                          drawpoint4.y = pointsIn[index].y + depths.frameDepth.b - depths.frameStillDepth.b;
+                        }
+                      }
                     }
                   }
                   if (shapeIndex === 3) {
