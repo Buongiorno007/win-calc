@@ -1276,6 +1276,7 @@
         function setParts(depths, sourceObj, pointsOut, pointsIn, priceElements, currGlassId) {
           var shapeIndex = 0;
           var doorSill = (depths.frameStillDepth) ? depths.frameStillDepth : 0;
+          console.log('depths',depths)
           if (GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
             /** door_type_index === 0 - рама по периметру
              *  door_type_index === 1 - без порога
@@ -1416,18 +1417,20 @@
                   if ( shapeIndex === 2) {
                     if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                       if (doorSill.a) {
+                        drawpoint1 = angular.copy(newPointsOut[index]);
+                        drawpoint2 = angular.copy(newPointsOut[index + 1]);
+
                         drawpoint4 = angular.copy(pointsIn[index]);
                         drawpoint4.y = newPointsOut[index].y - doorSill.a;
                         drawpoint3 = angular.copy(pointsIn[index + 1]);
                         drawpoint3.y = newPointsOut[index + 1].y - doorSill.a;
-                        drawpoint4.x = newPointsOut[index].x * 1;
-                        drawpoint3.x = newPointsOut[index + 1].x * 1;
-                      } else {
-                        drawpoint4 = angular.copy(pointsIn[index]);
-                        drawpoint4.x = newPointsOut[index].x * 1;
-                        drawpoint3 = angular.copy(pointsIn[index + 1]);
-                        drawpoint3.x = newPointsOut[index + 1].x * 1;
-                      }
+
+                        drawpoint4.x = newPointsOut[index].x - depths.frameDepth.c;
+                        drawpoint3.x = newPointsOut[index + 1].x  + depths.frameDepth.c;
+
+                        drawpoint1.x = newPointsOut[index].x - depths.frameDepth.c;
+                        drawpoint2.x = newPointsOut[index + 1].x  + depths.frameDepth.c;
+                      } 
                       part.doorstep = 1;
                     }
 
