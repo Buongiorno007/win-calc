@@ -1276,7 +1276,6 @@
         function setParts(depths, sourceObj, pointsOut, pointsIn, priceElements, currGlassId) {
           var shapeIndex = 0;
           var doorSill = (depths.frameStillDepth) ? depths.frameStillDepth : 0;
-          console.log('depths',depths)
           if (GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
             /** door_type_index === 0 - рама по периметру
              *  door_type_index === 1 - без порога
