@@ -2313,10 +2313,6 @@
                 return deff.promise;
             }
 
-            function elemValueM(obj) {
-                return obj.getMonth() < 10 ? "0" + obj.getMonth() : obj.getMonth();
-            }
-
             function currencyExgange(price, currencyElemId) {
                 var currencyQty = GlobalStor.global.currencies.length,
                     c,
@@ -2360,7 +2356,7 @@
                     block,
                     waste = kits.waste ? 1 + kits.waste / 100 : 1;
 
-                //      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
+                    //  console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
                 /** beads */
                 if (group === 6) {
                     for (block = 0; block < sizeQty; block += 1) {
@@ -2427,8 +2423,8 @@
                                 qtyTemp = kits.count;
                                 priceTemp = qtyTemp * constrElem.price * waste;
                             }
+
                         } else {
-                            let temp = angular.copy(constrElem);
                             sizeTemp = sizes[siz] + kits.amendment_pruning;
                             priceTemp = sizeTemp * constrElem.price * waste;
 
@@ -2438,6 +2434,7 @@
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }
                             }
+
 
                         }
 
@@ -2649,6 +2646,7 @@
                         sizeReal = currSize;
                     }
 
+
                     switch (currConsist.rules_type_id) {
                         case 1:
                         case 21:
@@ -2732,6 +2730,15 @@
                     /** currency conversion */
                     if (UserStor.userInfo.currencyId !== currConsistElem.currency_id) {
                         priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
+                    }
+                    if (objTmp.element_group_id === 3) {
+                        if (ProductStor.product.door_type_index !== 0) {
+                            if (sizeReal ===(ProductStor.product.template_height  + pruning*1000 - 100 )/1000) {
+                                console.log('objTmp',objTmp);
+                                // console.log(sizeReal , (ProductStor.product.template_height  + pruning*1000 - 100 )/1000 );
+                                sizeReal = (ProductStor.product.template_height  + pruning*500 - 100 )/1000
+                            }
+                        }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
