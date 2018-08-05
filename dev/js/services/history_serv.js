@@ -71,7 +71,6 @@
                         var orders = angular.copy(result),
                             orderQty = orders.length;
                         HistoryStor.history.isEmptyResult = 0;
-                        console.log('downloadOrders',orders);
                         if (orderQty) {
                             while (--orderQty > -1) {
                                 orders[orderQty].created = new Date(orders[orderQty].created);
@@ -209,63 +208,43 @@
                     var defer = $q.defer();
                     HistoryStor.history = HistoryStor.setDefaultHistory();
                     GlobalStor.global.isLoader = 1;
-                    var xhr = new XMLHttpRequest();
                     var res;
-                    var obj = {
-                        order_products: localDB.tablesLocalDB.order_products,
-                        orders: localDB.tablesLocalDB.orders,
-                        order_addelements: localDB.tablesLocalDB.order_addelements
-                    };
                     if (!$(".period-of-time").val()) {
                         HistoryStor.history.resTimeBox.namb = 3;
                     } else {
                         HistoryStor.history.resTimeBox.namb = $(".period-of-time").val()
                     }
-                    var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
-                    xhr.open('GET', url, false);
-                    xhr.send();
-                    if (xhr.status != 200) {
-                        // defer.resolve(1);
-                        console.info(xhr.status + ': ' + xhr.statusText);
-                        GlobalStor.global.isLoader = 0;
-                    } else {
-                        res = JSON.parse(xhr.response);
-                        // res.tables.order_products.fields.splice(1, 1);
-                        // res.tables.order_products.fields.splice(2, 1);
-                        // res.tables.order_products.fields.splice(6, 1);
-                        // res.tables.order_products.fields.splice(27, 1);
-
-                        res.tables.orders.fields.splice(3, 1);
-
-                        // for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
-                        //     res.tables.order_products.rows[x].splice(1, 1);
-                        //     res.tables.order_products.rows[x].splice(2, 1);
-                        //     res.tables.order_products.rows[x].splice(6, 1);
-                        //     res.tables.order_products.rows[x].splice(27, 1);
-                        // }
-
-                        for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
-                            res.tables.orders.rows[x].splice(3, 1);
-                            (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
-                            (res.tables.orders.rows[x][27] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
-                            (res.tables.orders.rows[x][28] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][57] = "done" : test(res.tables.orders.rows[x][57]);
-                        }
-
-                        //noinspection JSAnnotator
-                        function test(item) {
-                            if (item === "done") {
-                                return item = "order";
+                    var url = globalConstants.serverIP + '/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb + '?ts=' + Date.now();
+                    $http.get(url)
+                        .then((response) => {
+                            if (response.status != 200) {
+                                // defer.resolve(1);
+                                console.info(response.status + ': ' + response.statusText);
+                                GlobalStor.global.isLoader = 0;
                             } else {
-                                return item;
+                                res = response.data;
+                                // res.tables.orders.fields.splice(3, 1);
+                                let convert_data = localDB.convert(res);
+                                test(convert_data['order_style'])
+                                //noinspection JSAnnotator
+                                function test(item) {
+                                    if (item === "done") {
+                                        return item = "order";
+                                    } else {
+                                        return item;
+                                    }
+                                };
+                                localDB.insertTablesLocalDB(convert_data).then(function () {
+                                    downloadOrders().then(function () {
+                                        defer.resolve(1);
+                                    });
+                                });
                             }
-                        };
-                        localDB.insertTablesLocalDB(localDB.convert(res)).then(function () {
-                            downloadOrders().then(function () {
-                                defer.resolve(1);
-                            });
-                        });
-                    }
 
+                        })
+                        .catch((err) => {
+                            defer.resolve(0);
+                        });
                     return defer.promise;
                 }
 
@@ -572,7 +551,6 @@
                         }
                     ).then(function (result) {
                         var products = angular.copy((result));
-                        console.log('downloadProducts', result);
                         if (products.length) {
                             //------------- parsing All Templates Source and Icons for Order
                             var productPromises = _.map(products, function (prod) {
@@ -755,7 +733,6 @@
                                         }
                                     }
                                 }
-                                console.log(OrderStor.order.products)
                                 if (allAddElemQty) {
                                     while (--allAddElemQty > -1) {
                                         for (prod = 0; prod < orderProductsQty; prod += 1) {
@@ -842,8 +819,6 @@
                         async.eachSeries(products, calculate, function (err, result) {
                             //------ Download All Add Elements from LocalDB
                             downloadAddElements().then(function (res) {
-                                console.log('OrderStor.order.products',OrderStor.order.products);
-
                                 GlobalStor.global.isConfigMenu = 1;
                                 GlobalStor.global.isNavMenu = 0;
                                 //------- set previos Page
