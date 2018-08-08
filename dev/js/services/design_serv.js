@@ -921,11 +921,13 @@
             } else if (!d || d === 1) {
               isExist = 1;
             }
-            if (isExist) {
+            if (isExist && d !== 2) {
               DesignStor.design.doorShapeList.push(DesignStor.design.doorShapeData[d]);
               DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
             }
           }
+
+
           if (!DesignStor.design.steps.selectedStep2) {
             if (DesignStor.design.doorConfig.doorShapeIndex === id) {
               DesignStor.design.doorConfig.doorShapeIndex = '';
@@ -933,7 +935,6 @@
 
             } else {
               DesignStor.design.sashShapeList.length = 0;
-
               switch (id) {
                 case 0:
                 case 1:
@@ -941,11 +942,17 @@
                     DesignStor.design.sashShapeList = angular.copy(doorsGroups);
                   }
                   break;
-                case 2:
                 case 3:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === DesignStor.design.doorShapeData[id].doorstep_type;
+                      return item.doorstep_type === 2;
+                    });
+                    break;
+                  }
+                case 2:
+                  if (doorsGroups.length) {
+                    DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
+                      return item.doorstep_type === 1;
                     });
                     break;
                   }
