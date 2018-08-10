@@ -2729,8 +2729,6 @@
                     if (objTmp.element_group_id === 3) {
                         if (ProductStor.product.door_type_index !== 0) {
                             if (sizeReal === (ProductStor.product.template_height + pruning * 1000 - 100) / 1000) {
-                                console.log('objTmp', objTmp);
-                                // console.log(sizeReal , (ProductStor.product.template_height  + pruning*1000 - 100 )/1000 );
                                 sizeReal = (ProductStor.product.template_height + pruning * 500 - 100) / 1000
                             }
                         }

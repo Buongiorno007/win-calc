@@ -858,7 +858,8 @@
 
         /**---------- Select door shape 1 --------*/
 
-        function selectDoor(id, product, door) {
+        function selectDoor(id, product, door_id) {
+         
           var doorTypeQty = DesignStor.design.doorShapeData.length,
             d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
@@ -933,7 +934,10 @@
 
             } else {
               DesignStor.design.sashShapeList.length = 0;
-
+              if(door_id)
+                DesignStor.design.doorShapeDataID = door_id;
+                console.log('doorShapeDataID',DesignStor.design.doorShapeDataID)
+                console.log('doorstep_type',DesignStor.design.doorShapeData[DesignStor.design.doorShapeDataID].doorstep_type)
               switch (id) {
                 case 0:
                 case 1:
@@ -945,7 +949,7 @@
                 case 3:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === DesignStor.design.doorShapeData[door.id].doorstep_type;
+                      return item.doorstep_type === DesignStor.design.doorShapeData[DesignStor.design.doorShapeDataID].doorstep_type;
                     });
                     break;
                   }

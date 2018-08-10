@@ -113,6 +113,7 @@
                 doorstep_type : 1
               }
             ],
+            doorShapeDataID : 0,
             doorShapeList: [],
             sashShapeList: [],
             handleShapeList: [],

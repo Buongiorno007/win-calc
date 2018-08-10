@@ -1346,10 +1346,15 @@
                     //-------- change points fp2-fp3 frame
                     /**алюминиевый порог. отрисовка рамы*/
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
-                      drawpoint2 = angular.copy(newPointsOut[0]);
-                      drawpoint2.y = pointsIn[0].y + doorSill.a;
+
+                      drawpoint2.y = newPointsOut[0].y - doorSill.a;
                       drawpoint3 = angular.copy(pointsIn[0]);
-                      drawpoint3.y = pointsIn[0].y + doorSill.a;
+                      drawpoint3.y = drawpoint2.y;
+
+                      // drawpoint2 = angular.copy(newPointsOut[0]);
+                      // drawpoint2.y = pointsIn[0].y + doorSill.a;
+                      // drawpoint3 = angular.copy(pointsIn[0]);
+                      // drawpoint3.y = pointsIn[0].y + doorSill.a;
                     }
                   }
                 }
@@ -1488,10 +1493,15 @@
 
                     if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
                       //-------- change points fp4-fp1 frame
-                      drawpoint1 = angular.copy(newPointsOut[index]);
-                      drawpoint1.y = pointsIn[index].y + doorSill.a;
+                      // drawpoint1 = angular.copy(newPointsOut[index]);
+                      // drawpoint1.y = pointsIn[index].y + doorSill.a;
+                      // drawpoint4 = angular.copy(pointsIn[index]);
+                      // drawpoint4.y = pointsIn[index].y + doorSill.a;
+
+                      drawpoint1.y = newPointsOut[index].y -  doorSill.a;
+
                       drawpoint4 = angular.copy(pointsIn[index]);
-                      drawpoint4.y = pointsIn[index].y + doorSill.a;
+                      drawpoint4.y = drawpoint1.y;
                     } else {
 
                       if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {

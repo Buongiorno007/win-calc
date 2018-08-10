@@ -136,7 +136,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_DOOR_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep2}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="designPage.selectDoor($index, designPage.P.product, designPage.D.design.doorShapeList[$index])")
+            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="designPage.selectDoor($index, designPage.P.product, designPage.D.design.doorShapeList[$index].id)")
               .door-inner
                 .door-option-icon
                   img.door-shape(ng-src="{{ door.icon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index")
