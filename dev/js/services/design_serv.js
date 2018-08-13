@@ -936,8 +936,6 @@
               DesignStor.design.sashShapeList.length = 0;
               if(door_id)
                 DesignStor.design.doorShapeDataID = door_id;
-                console.log('doorShapeDataID',DesignStor.design.doorShapeDataID)
-                console.log('doorstep_type',DesignStor.design.doorShapeData[DesignStor.design.doorShapeDataID].doorstep_type)
               switch (id) {
                 case 0:
                 case 1:
