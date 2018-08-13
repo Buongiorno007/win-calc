@@ -1,9 +1,9 @@
 .attantion {
   @include roboto-lt(rem(36px));
   position: absolute;
-  top: 50%;
-  width: 100%;
-  padding: rem(20px) rem(40px);
+  top: 30%;
+  width: 60%;
+  padding: rem(10px) rem(20px);
   color: #fff;
   border-radius: rem($radius_general-small_button);
   background: $error_color;
@@ -22,7 +22,7 @@
 .design-attantion {
   @extend .attantion;
   top: 45%;
-  left: 35%;
+  left: 25%;
   padding: 30px 10px;
 }
 
