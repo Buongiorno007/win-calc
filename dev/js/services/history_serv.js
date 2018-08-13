@@ -802,8 +802,8 @@
                     delete OrderStor.order.state_to;
                     delete OrderStor.order.state_buch;
                     delete OrderStor.order.batch;
-                    delete OrderStor.order.base_price;
-                    delete OrderStor.order.factory_margin;
+                    // delete OrderStor.order.base_price;
+                    // delete OrderStor.order.factory_margin;
                     // delete OrderStor.order.purchase_price;
                     // delete OrderStor.order.sale_price;
                     delete OrderStor.order.modified;
@@ -861,7 +861,7 @@
                                 });
                         }
                     });
-                    // console.log(OrderStor.order);
+                    console.log(OrderStor.order);
                 }
 
 
