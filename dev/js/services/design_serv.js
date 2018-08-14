@@ -409,7 +409,7 @@
                   heightT = GlobalStor.global.heightTEMP = res[x].sizes[1];
                   GlobalStor.global.heightLim = '(' + product.width_min + ' - ' + product.width_max + ') x (' + product.height_min + ' - ' + product.height_max + ')';
                   if (heightT <= product.height_max && heightT >= product.height_min) {
-                    if (widthT <= product.width_max && widthT >= product.width_min) {} else {
+                    if (widthT <= product.width_max && widthT >= product.width_min) { } else {
                       GlobalStor.global.checkDoors = 1;
                       break
                     }
@@ -859,7 +859,6 @@
         /**---------- Select door shape 1 --------*/
 
         function selectDoor(id, product, door_id) {
-         
           var doorTypeQty = DesignStor.design.doorShapeData.length,
             d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
@@ -934,8 +933,12 @@
 
             } else {
               DesignStor.design.sashShapeList.length = 0;
-              if(door_id)
-                DesignStor.design.doorShapeDataID = door_id;
+
+              if (door_id)
+                ProductStor.product.door_type_index = door_id;
+              if (GlobalStor.global.orderEditNumber !== 0) {
+                // DesignStor.design.doorShapeDataID = ProductStor.product.;
+              }
               switch (id) {
                 case 0:
                 case 1:
@@ -947,7 +950,7 @@
                 case 3:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === DesignStor.design.doorShapeData[DesignStor.design.doorShapeDataID].doorstep_type;
+                      return item.doorstep_type === DesignStor.design.doorShapeData[ProductStor.product.door_type_index].doorstep_type;
                     });
                     break;
                   }
@@ -965,7 +968,7 @@
 
         function selectSash(id, product) {
           var deferred = $q.defer();
-          ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
+          // ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
           var ids = DesignStor.design.sashShapeList[id];
           // console.log("sashShapeList",DesignStor.design.sashShapeList,id);
           var profileDepths = {
@@ -1043,9 +1046,8 @@
         }
 
         function selectHandle(id, product) {
-          (id) ? id = id: id = DesignStor.design.handleShapeList[0].id;
+          (id) ? id = id : id = DesignStor.design.handleShapeList[0].id;
           var pnt = checkSize(DesignStor.design.templateTEMP, 4);
-          // console.log(pnt);
           var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
           var array = [];
           DesignStor.design.steps.selectedStep4 = 0;
@@ -1086,7 +1088,7 @@
                 }
               }
             }
-            DesignStor.design.lockShapeList = array;
+            DesignStor.design.lockShapeList = angular.copy(array);
           }
         }
 
@@ -1136,9 +1138,9 @@
           for (var x = 0; x < templateSource.length; x += 1) {
             for (var y = 0; y < product.glass.length; y += 1) {
               if (_.isEqual({
-                  id: templateSource[x].glassId,
-                  name: templateSource[x].glassTxt
-                }, {
+                id: templateSource[x].glassId,
+                name: templateSource[x].glassTxt
+              }, {
                   id: product.glass[y].id,
                   name: product.glass[y].sku
                 })) {
@@ -1158,7 +1160,7 @@
 
 
         function saveDoorConfig(product) {
-          (product) ? product = product: product = ProductStor.product;
+          (product) ? product = product : product = ProductStor.product;
           var deferred = $q.defer();
           checkGlassInTemplate(product);
           setNewDoorParamValue(product, DesignStor.design).then(function (res) {
@@ -1185,12 +1187,13 @@
         function setDoorParamValue(product, source) {
           var w = 900,
             h = 2000;
+          console.log('product', product)
           var k = product.door_lock_shape_id || 0;
           var widthTEMP, heightTEMP;
           var clipboard;
           var doorsItems = angular.copy(GlobalStor.global.doorsItems);
-          (GlobalStor.global.widthTEMP > 0) ? widthTEMP = GlobalStor.global.widthTEMP: widthTEMP = w;
-          (GlobalStor.global.heightTEMP > 0) ? heightTEMP = GlobalStor.global.heightTEMP: heightTEMP = h;
+          (GlobalStor.global.widthTEMP > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
+          (GlobalStor.global.heightTEMP > 0) ? heightTEMP = GlobalStor.global.heightTEMP : heightTEMP = h;
 
           function countHandle(source) {
             var count = source.templateTEMP.details.filter(function (item) {
@@ -1202,7 +1205,7 @@
             })
             return count;
           }
-
+          console.log(source.lockShapeList)
           source.lockShapeList[k].elem = [];
           product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
           product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
@@ -1635,7 +1638,7 @@
             var glasses = GlobalStor.global.allGlass.filter(function (gl) {
               for (var t = 0; t < GlobalStor.global.children.length; t += 1) {
                 if (d3.select(gl)[0][0].attributes.block_id.nodeValue == GlobalStor.global.children[t]) {
-                  (isExistElementInSelected(d3.select(gl)[0][0], DesignStor.design.selectedGlass)) ? d3.select(gl).classed('glass-active', true): d3.select(gl).classed('glass-active', false);
+                  (isExistElementInSelected(d3.select(gl)[0][0], DesignStor.design.selectedGlass)) ? d3.select(gl).classed('glass-active', true) : d3.select(gl).classed('glass-active', false);
                 }
               }
             })
@@ -1900,9 +1903,9 @@
           //      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
           if (crossPointsIn.length === 2) {
             var impLine = {
-                from: crossPointsIn[0],
-                to: crossPointsIn[1]
-              },
+              from: crossPointsIn[0],
+              to: crossPointsIn[1]
+            },
               impRadius = GeneralServ.roundingValue(
                 (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2),
                 1
@@ -2043,7 +2046,7 @@
           }
 
           permit(parentID, blocks).then(function (result) {
-            (result === 'good' || ProductStor.product.construction_type !== 4) ? doSash(type, glassObj): showErrorInBlock(blockID);
+            (result === 'good' || ProductStor.product.construction_type !== 4) ? doSash(type, glassObj) : showErrorInBlock(blockID);
           });
 
           function doSash(type, glassObj) {
@@ -2053,27 +2056,27 @@
 
                 if (type === 8) {
                   sashesParams = [{
-                      openDir: [4],
-                      handlePos: 0,
-                      sashType: 4
-                    },
-                    {
-                      openDir: (ProductStor.product.construction_type === 4) ? [2] : [1, 2],
-                      handlePos: 2,
-                      sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
-                    }
+                    openDir: [4],
+                    handlePos: 0,
+                    sashType: 4
+                  },
+                  {
+                    openDir: (ProductStor.product.construction_type === 4) ? [2] : [1, 2],
+                    handlePos: 2,
+                    sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+                  }
                   ];
                 } else if (type === 9) {
                   sashesParams = [{
-                      openDir: (ProductStor.product.construction_type === 4) ? [4] : [1, 4],
-                      handlePos: 4,
-                      sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
-                    },
-                    {
-                      openDir: [2],
-                      handlePos: 0,
-                      sashType: 4
-                    }
+                    openDir: (ProductStor.product.construction_type === 4) ? [4] : [1, 4],
+                    handlePos: 4,
+                    sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+                  },
+                  {
+                    openDir: [2],
+                    handlePos: 0,
+                    sashType: 4
+                  }
                   ];
                 }
 
@@ -2113,31 +2116,31 @@
                         blocks[b].handlePos = 4;
                         blocks[b].sashType = 2;
                         break;
-                        //----- 'right'
+                      //----- 'right'
                       case 3:
                         blocks[b].openDir = [2];
                         blocks[b].handlePos = 2;
                         blocks[b].sashType = 2;
                         break;
-                        //----- 'up'
+                      //----- 'up'
                       case 4:
                         blocks[b].openDir = [1];
                         blocks[b].handlePos = 1;
                         blocks[b].sashType = 7;
                         break;
-                        //------ 'down'
+                      //------ 'down'
                       case 5:
                         blocks[b].openDir = [3];
                         blocks[b].handlePos = 3;
                         blocks[b].sashType = 2;
                         break;
-                        //------ 'up', 'right'
+                      //------ 'up', 'right'
                       case 6:
                         blocks[b].openDir = [1, 2];
                         blocks[b].handlePos = 2;
                         blocks[b].sashType = 6;
                         break;
-                        //------ 'up', 'left'
+                      //------ 'up', 'left'
                       case 7:
                         blocks[b].openDir = [1, 4];
                         blocks[b].handlePos = 4;
@@ -2733,12 +2736,12 @@
               case 2:
                 angel = 90;
                 break;
-                //----- horisontal
+              //----- horisontal
               case 3:
                 angel = 180;
                 dimType = 1;
                 break;
-                //----- inclined right
+              //----- inclined right
               case 4:
                 angel = 170;
                 dimType = 1;
@@ -2747,7 +2750,7 @@
                 angel = 190;
                 dimType = 1;
                 break;
-                //----- inclined left
+              //----- inclined left
               case 6:
                 angel = 80;
                 break;
@@ -2755,7 +2758,7 @@
                 angel = 100;
                 break;
 
-                //----- curve vertical
+              //----- curve vertical
               case 8:
                 angel = 90;
                 isImpCurv = 1;
@@ -2766,7 +2769,7 @@
                 isImpCurv = 1;
                 positionQ = 4; //---left
                 break;
-                //----- curve horisontal
+              //----- curve horisontal
               case 10:
                 angel = 180;
                 dimType = 1;
@@ -2779,7 +2782,7 @@
                 isImpCurv = 1;
                 positionQ = 3; //--- down
                 break;
-                //----- inclined right curve
+              //----- inclined right curve
               case 12:
                 angel = 100;
                 isImpCurv = 1;
@@ -2790,7 +2793,7 @@
                 isImpCurv = 1;
                 positionQ = 3; //---- right-down
                 break;
-                //----- inclined left curve
+              //----- inclined left curve
               case 14:
                 angel = 10;
                 dimType = 1;
@@ -3011,9 +3014,9 @@
 
         function isPointInsideBlock(pointsOut, pointX, pointY) {
           var newP = {
-              x: pointX,
-              y: pointY
-            },
+            x: pointX,
+            y: pointY
+          },
             isInside = 0,
             tempInside = 0,
             pointsOutQty = pointsOut.length,
@@ -3136,8 +3139,8 @@
 
         function prepareBlockXPosition(currBlock, selectedBlocks) {
           var selectedBlock = {
-              imps: []
-            },
+            imps: []
+          },
             impostPoints = currBlock.pointsOut.filter(function (point) {
               return point.type === 'impost' || point.type === 'shtulp';
             }),
