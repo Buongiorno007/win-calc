@@ -750,10 +750,6 @@
                              <feMergeNode in="SourceGraphic"></feMergeNode>
                              </feMerge> */
 
-
-
-
-
                             var sash_fp1_shadow = defs.append("filter")
                                 .attr({
                                     "id": "sash_fp1_shadow",
@@ -1902,6 +1898,9 @@
                                             if (ProductStor.product.lamination.img_in_id === 8 || ProductStor.product.lamination.img_in_id === 18) {
                                                 color_id = 8;
                                             }
+                                            if (ProductStor.product.lamination.img_in_id === 9 || ProductStor.product.lamination.img_in_id === 19) {
+                                                color_id = 9;
+                                            }
                                         } else {
                                             if (ProductStor.product.lamination.img_out_id === 4 || ProductStor.product.lamination.img_out_id === 14) {
                                                 color_id = 4;
@@ -1914,6 +1913,9 @@
                                             }
                                             if (ProductStor.product.lamination.img_out_id === 8 || ProductStor.product.lamination.img_out_id === 18) {
                                                 color_id = 8;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 9 || ProductStor.product.lamination.img_in_id === 19) {
+                                                color_id = 9;
                                             }
                                         }
                                         defs.append('pattern')

@@ -1042,13 +1042,11 @@
                 let key = Object.keys(options)[0];
                 let val = options[key]
                 if (LocalDataBase[tableName] && LocalDataBase[tableName].length) {
-                    LocalDataBase[tableName] = LocalDataBase[tableName].filter(function (item) {
+                    LocalDataBase[tableName] = angular.copy(LocalDataBase[tableName].filter(function (item) {
                         return item[key] !== val
-                    });
-                    db.removeItem('tables').then(function () {
-                        db.setItem('tables', LocalDataBase).then(function (value) {
-                            // Do other things once the value has been saved.
-                            // console.log(tableName,value[tableName]);
+                    }));
+                    db.removeItem('tables').then(() => {
+                        db.setItem('tables', LocalDataBase).then((value) => {
                         }).catch(function (err) {
                             // This code runs if there were any errors
                             console.log(err);
@@ -1236,23 +1234,20 @@
             }
 
             function insertServer(login, access, table, data) {
+                const ordered = {};
+                Object.keys(data).sort().forEach(function (key) {
+                    ordered[key] = data[key];
+                });
                 var defer = $q.defer(),
                     dataToSend = {
                         model: table,
-                        row: JSON.stringify(data)
+                        row: JSON.stringify(ordered)
                     };
+
                 $http
-                    .post(
-                        globalConstants.serverIP +
-                        "/api/insert?login=" +
-                        login +
-                        "&access_token=" +
-                        access,
-                        dataToSend
-                    )
+                    .post(globalConstants.serverIP + "/api/insert?login=" + login + "&access_token=" + access, dataToSend)
                     .then(
                         function (result) {
-                            //console.log('send changes to server success:', result);
                             defer.resolve(result.data);
                         },
                         function (result) {
@@ -1373,7 +1368,7 @@
                     )
                     .then(
                         function (result) {
-                            // console.log(result.data);
+                            console.log('deleteOrderServer', result.data);
                         },
                         function () {
                             console.log("Something went wrong with order delete!");
@@ -2356,7 +2351,7 @@
                     block,
                     waste = kits.waste ? 1 + kits.waste / 100 : 1;
 
-                    //  console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
+                //  console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
                 /** beads */
                 if (group === 6) {
                     for (block = 0; block < sizeQty; block += 1) {
@@ -2733,10 +2728,8 @@
                     }
                     if (objTmp.element_group_id === 3) {
                         if (ProductStor.product.door_type_index !== 0) {
-                            if (sizeReal ===(ProductStor.product.template_height  + pruning*1000 - 100 )/1000) {
-                                console.log('objTmp',objTmp);
-                                // console.log(sizeReal , (ProductStor.product.template_height  + pruning*1000 - 100 )/1000 );
-                                sizeReal = (ProductStor.product.template_height  + pruning*500 - 100 )/1000
+                            if (sizeReal === (ProductStor.product.template_height + pruning * 1000 - 100) / 1000) {
+                                sizeReal = (ProductStor.product.template_height + pruning * 500 - 100) / 1000
                             }
                         }
                     }

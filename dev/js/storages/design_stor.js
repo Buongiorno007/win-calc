@@ -93,6 +93,9 @@
                 doorstep_type : 0
               },
               {
+                /*
+                между рамой 
+                */
                 id: 2,
                 name: 'panels.DOOR_TYPE3',
                 icon: 'img/door-config/doorstep-al1.png',
@@ -100,6 +103,9 @@
                 doorstep_type : 2
               },
               {
+                 /*
+                под рамой 
+                */
                 id: 3,
                 name: 'panels.DOOR_TYPE4',
                 icon: 'img/door-config/doorstep-al2.png',
@@ -107,6 +113,7 @@
                 doorstep_type : 1
               }
             ],
+            doorShapeDataID : 0,
             doorShapeList: [],
             sashShapeList: [],
             handleShapeList: [],
