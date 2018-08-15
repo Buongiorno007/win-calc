@@ -934,11 +934,7 @@
             } else {
               DesignStor.design.sashShapeList.length = 0;
 
-              if (door_id)
-                ProductStor.product.door_type_index = door_id;
-              if (GlobalStor.global.orderEditNumber !== 0) {
-                // DesignStor.design.doorShapeDataID = ProductStor.product.;
-              }
+              if (door_id) ProductStor.product.door_type_index = door_id;
               switch (id) {
                 case 0:
                 case 1:
@@ -950,7 +946,14 @@
                 case 3:
                   if (doorsGroups.length) {
                     DesignStor.design.sashShapeList = doorsGroups.filter(function (item) {
-                      return item.doorstep_type === DesignStor.design.doorShapeData[ProductStor.product.door_type_index].doorstep_type;
+                      let res = false;
+                      try {
+                        res = item.doorstep_type === DesignStor.design.doorShapeData[ProductStor.product.door_type_index].doorstep_type;
+                      } catch (e) {
+                        console.log('catch')
+                        res = id
+                      }
+                      return res
                     });
                     break;
                   }
