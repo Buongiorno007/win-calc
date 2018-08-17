@@ -1282,7 +1282,7 @@
              *  door_type_index === 2 - алюминиевый порог (между рамой) 
              *  door_type_index === 3 - алюминиевый порог (под рамой)*/
           }
-          shapeIndex = ProductStor.product.door_type_index;
+          shapeIndex = DesignStor.design.doorConfig.doorShapeIndex;
           // console.log('тип порога',shapeIndex)
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {
@@ -1347,9 +1347,10 @@
                     /**алюминиевый порог. отрисовка рамы*/
                     if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
 
-                      drawpoint2.y = newPointsOut[0].y - doorSill.a;
+                      drawpoint2 = angular.copy(newPointsOut[0]);
+                      drawpoint2.y = (drawpoint2.y - doorSill.a);
                       drawpoint3 = angular.copy(pointsIn[0]);
-                      drawpoint3.y = drawpoint2.y;
+                      drawpoint3.y = angular.copy(drawpoint2.y);
 
                       // drawpoint2 = angular.copy(newPointsOut[0]);
                       // drawpoint2.y = pointsIn[0].y + doorSill.a;
@@ -1483,10 +1484,10 @@
                         drawpoint4.x = newPointsOut[index].x * 1;
                         drawpoint3.x = newPointsOut[index + 1].x * 1;
                       } else {
-                        drawpoint4 = angular.copy(pointsIn[index]);
-                        drawpoint4.x = newPointsOut[index].x * 1;
-                        drawpoint3 = angular.copy(pointsIn[index + 1]);
-                        drawpoint3.x = newPointsOut[index + 1].x * 1;
+                        // drawpoint4 = angular.copy(pointsIn[index]);
+                        // drawpoint4.x = newPointsOut[index].x * 1;
+                        // drawpoint3 = angular.copy(pointsIn[index + 1]);
+                        // drawpoint3.x = newPointsOut[index + 1].x * 1;
                       }
                       part.doorstep = 1;
                     }
@@ -1498,7 +1499,8 @@
                       // drawpoint4 = angular.copy(pointsIn[index]);
                       // drawpoint4.y = pointsIn[index].y + doorSill.a;
 
-                      drawpoint1.y = newPointsOut[index].y -  doorSill.a;
+                      drawpoint1 = angular.copy(newPointsOut[index]);
+                      drawpoint1.y = drawpoint1.y -  doorSill.a;
 
                       drawpoint4 = angular.copy(pointsIn[index]);
                       drawpoint4.y = drawpoint1.y;
