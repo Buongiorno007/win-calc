@@ -2428,6 +2428,10 @@
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }
+                                if (sizeTemp === (ProductStor.product.template_height-ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
+                                    sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
+                                    priceTemp = sizeTemp * constrElem.price * waste;
+                                }
                             }
 
 
@@ -2731,6 +2735,13 @@
                             if (sizeReal === (ProductStor.product.template_height + pruning * 1000 - 100) / 1000) {
                                 sizeReal = (ProductStor.product.template_height + pruning * 500 - 100) / 1000
                             }
+                            if (sizeReal === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 1000) / 1000) {
+                                sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 500) / 1000
+                            }
+                            // if (sizeTemp === (ProductStor.product.template_height-ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
+                            //     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
+                            //     priceTemp = sizeTemp * constrElem.price * waste;
+                            // }
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
