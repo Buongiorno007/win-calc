@@ -7,14 +7,14 @@
         .directive('svgTemplate',
 
             function ($location,
-                      globalConstants,
-                      GeneralServ,
-                      ProductStor,
-                      SVGServ,
-                      DesignServ,
-                      PointsServ,
-                      GlobalStor,
-                      UserStor) {
+                globalConstants,
+                GeneralServ,
+                ProductStor,
+                SVGServ,
+                DesignServ,
+                PointsServ,
+                GlobalStor,
+                UserStor) {
 
                 return {
                     restrict: 'E',
@@ -1883,7 +1883,7 @@
                                     }
                                     let color_id = 0;
                                     /** lamination */
-                                    if ((ProductStor.product.doorLock.stvorka_type !== 6 && ProductStor.product.lamination.img_in_id > 1 )
+                                    if ((ProductStor.product.doorLock.stvorka_type !== 6 && ProductStor.product.lamination.img_in_id > 1)
                                         || (ProductStor.product.doorLock.stvorka_type === 6 && ProductStor.product.lamination.img_out_id > 1)) {
                                         if (ProductStor.product.doorLock.stvorka_type !== 6) {
                                             if (ProductStor.product.lamination.img_in_id === 4 || ProductStor.product.lamination.img_in_id === 14) {
@@ -2088,7 +2088,7 @@
                                         setHandle(defs, 'hingeD', 270, 68, 56, 'hinge-mark', 'handles/hinge', 120);
                                     } else {
                                         /** handle entrance door*/
-                                        setHandle(defs, 'handleR', 0, 34, 45, 'handle-mark', 'handles/handle_door_right', 130);
+                                        setHandle(defs, 'handleR', 0, 54, 45, 'handle-mark', 'handles/handle_door_left', 130);
                                         setHandle(defs, 'handleL', 0, 57, 45, 'handle-mark', 'handles/handle_door_right', 130);
                                         /** hinge */
                                         setHandle(defs, 'hingeR', 0, 15, 54, 'hinge-mark', 'handles/hinge', 120);
@@ -2262,97 +2262,97 @@
                                                         }
                                                     }
                                                 } else {
-                                                    if ((ProductStor.product.doorLock.stvorka_type !== 6 && ProductStor.product.lamination.img_in_id > 1 )
+                                                    if ((ProductStor.product.doorLock.stvorka_type !== 6 && ProductStor.product.lamination.img_in_id > 1)
                                                         || (ProductStor.product.doorLock.stvorka_type === 6 && ProductStor.product.lamination.img_out_id > 1)) {
-                                                            if (d.type === "frame") {
-                                                                switch (indexFrame) {
-                                                                    case 0: {
-                                                                        fillName = 'url(#laminat_horizontal_frame)';
-                                                                        break;
-                                                                    }
-                                                                    case 1: {
-                                                                        fillName = 'url(#laminat_vertical_frame)';
-                                                                        break;
-                                                                    }
-                                                                    case 2: {
-                                                                        fillName = 'url(#laminat_horizontal_frame)';
-                                                                        break;
-                                                                    }
-                                                                    case 3: {
-                                                                        fillName = 'url(#laminat_vertical_frame)';
-                                                                        indexFrame = 0;
-                                                                        break;
-                                                                    }
+                                                        if (d.type === "frame") {
+                                                            switch (indexFrame) {
+                                                                case 0: {
+                                                                    fillName = 'url(#laminat_horizontal_frame)';
+                                                                    break;
+                                                                }
+                                                                case 1: {
+                                                                    fillName = 'url(#laminat_vertical_frame)';
+                                                                    break;
+                                                                }
+                                                                case 2: {
+                                                                    fillName = 'url(#laminat_horizontal_frame)';
+                                                                    break;
+                                                                }
+                                                                case 3: {
+                                                                    fillName = 'url(#laminat_vertical_frame)';
+                                                                    indexFrame = 0;
+                                                                    break;
                                                                 }
                                                             }
-                                                            if (d.type === "bead") {
-                                                                switch (indexBead) {
-                                                                    case 0: {
-                                                                        fillName = 'url(#laminat_bead_bottom)';
-                                                                        break;
-                                                                    }
-                                                                    case 1: {
-                                                                        fillName = 'url(#laminat_bead_left)';
-                                                                        break;
-                                                                    }
-                                                                    case 2: {
-                                                                        fillName = 'url(#laminat_bead_top)';
-                                                                        break;
-                                                                    }
-                                                                    case 3: {
-                                                                        fillName = 'url(#laminat_bead_right)';
-                                                                        indexFrame = 0;
-                                                                        break;
-                                                                    }
+                                                        }
+                                                        if (d.type === "bead") {
+                                                            switch (indexBead) {
+                                                                case 0: {
+                                                                    fillName = 'url(#laminat_bead_bottom)';
+                                                                    break;
+                                                                }
+                                                                case 1: {
+                                                                    fillName = 'url(#laminat_bead_left)';
+                                                                    break;
+                                                                }
+                                                                case 2: {
+                                                                    fillName = 'url(#laminat_bead_top)';
+                                                                    break;
+                                                                }
+                                                                case 3: {
+                                                                    fillName = 'url(#laminat_bead_right)';
+                                                                    indexFrame = 0;
+                                                                    break;
                                                                 }
                                                             }
-                                                            if (d.type === "sash") {
-                                                                switch (indexSash) {
-                                                                    case 0: {
-                                                                        fillName = 'url(#laminat_sash_bottom)'; //sash_fp3
-                                                                        break;
-                                                                    }
-                                                                    case 1: {
-                                                                        fillName = 'url(#laminat_sash_left)'; //sash_fp4
-                                                                        break;
-                                                                    }
-                                                                    case 2: {
-                                                                        fillName = 'url(#laminat_sash_top)'; //sash_fp1
-                                                                        break;
-                                                                    }
-                                                                    case 3: {
-                                                                        if (ProductStor.product.door_type_index === 1) {
-                                                                            if (d.points[0].id === 'fp2') {
-                                                                                fillName = 'url(#laminat_sash_right)'; //sash_fp2
-                                                                            } else {
-                                                                                fillName = 'url(#laminat_sash_bottom)'; //sash_fp3
-                                                                            }
-                                                                        } else {
+                                                        }
+                                                        if (d.type === "sash") {
+                                                            switch (indexSash) {
+                                                                case 0: {
+                                                                    fillName = 'url(#laminat_sash_bottom)'; //sash_fp3
+                                                                    break;
+                                                                }
+                                                                case 1: {
+                                                                    fillName = 'url(#laminat_sash_left)'; //sash_fp4
+                                                                    break;
+                                                                }
+                                                                case 2: {
+                                                                    fillName = 'url(#laminat_sash_top)'; //sash_fp1
+                                                                    break;
+                                                                }
+                                                                case 3: {
+                                                                    if (ProductStor.product.door_type_index === 1) {
+                                                                        if (d.points[0].id === 'fp2') {
                                                                             fillName = 'url(#laminat_sash_right)'; //sash_fp2
+                                                                        } else {
+                                                                            fillName = 'url(#laminat_sash_bottom)'; //sash_fp3
                                                                         }
-                                                                        indexSash = 0;
-                                                                        break;
+                                                                    } else {
+                                                                        fillName = 'url(#laminat_sash_right)'; //sash_fp2
                                                                     }
+                                                                    indexSash = 0;
+                                                                    break;
                                                                 }
                                                             }
-                                                            if (d.type === "impost" || d.type === "shtulp") {
-                                                                fillName = 'url(#laminat_vertical_frame)';
-                                                            }
-                                                            if (indexFrame >= 3) {
-                                                                indexFrame = 0
-                                                            } else {
-                                                                indexFrame++;
-                                                            }
-                                                            if (indexBead >= 3) {
-                                                                indexBead = 0
-                                                            } else {
-                                                                indexBead++;
-                                                            }
-                                                            if (indexSash >= 3) {
-                                                                indexSash = 0
-                                                            } else {
-                                                                indexSash++;
-                                                            }
+                                                        }
+                                                        if (d.type === "impost" || d.type === "shtulp") {
+                                                            fillName = 'url(#laminat_vertical_frame)';
+                                                        }
+                                                        if (indexFrame >= 3) {
+                                                            indexFrame = 0
+                                                        } else {
+                                                            indexFrame++;
+                                                        }
+                                                        if (indexBead >= 3) {
+                                                            indexBead = 0
+                                                        } else {
+                                                            indexBead++;
+                                                        }
+                                                        if (indexSash >= 3) {
+                                                            indexSash = 0
+                                                        } else {
+                                                            indexSash++;
+                                                        }
                                                     } else {
 
                                                         if (d.type === "frame") {

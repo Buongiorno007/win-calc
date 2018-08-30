@@ -1085,19 +1085,29 @@
                         ProductStor.product.template_square = 0;
                         var overallQty =
                             ProductStor.product.template.details[0].overallDim.length;
+                        console.log(ProductStor.product.template.details[0].overallDim);
                         while (--overallQty > -1) {
-                            ProductStor.product.template_width +=
-                                ProductStor.product.template.details[0].overallDim[
-                                    overallQty
-                                ].w;
-                            ProductStor.product.template_height +=
-                                ProductStor.product.template.details[0].overallDim[
-                                    overallQty
-                                ].h;
-                            ProductStor.product.template_square +=
-                                ProductStor.product.template.details[0].overallDim[
-                                    overallQty
-                                ].square;
+                            if (ProductStor.product.construction_type === 3) {
+                                ProductStor.product.template_width =
+                                    ProductStor.product.template.details[0].overallDim[1].w;
+                                ProductStor.product.template_height =
+                                    ProductStor.product.template.details[0].overallDim[1].h;
+                                ProductStor.product.template_square =
+                                    ProductStor.product.template.details[0].overallDim[1].square;
+                            } else {
+                                ProductStor.product.template_width +=
+                                    ProductStor.product.template.details[0].overallDim[
+                                        overallQty
+                                    ].w;
+                                ProductStor.product.template_height +=
+                                    ProductStor.product.template.details[0].overallDim[
+                                        overallQty
+                                    ].h;
+                                ProductStor.product.template_square +=
+                                    ProductStor.product.template.details[0].overallDim[
+                                        overallQty
+                                    ].square;
+                            }
                         }
 
                         //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
