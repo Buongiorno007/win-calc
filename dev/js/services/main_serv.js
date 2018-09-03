@@ -1088,25 +1088,39 @@
                         console.log(ProductStor.product.template.details[0].overallDim);
                         while (--overallQty > -1) {
                             if (ProductStor.product.construction_type === 3) {
-                                ProductStor.product.template_width =
-                                    ProductStor.product.template.details[0].overallDim[1].w;
-                                ProductStor.product.template_height =
-                                    ProductStor.product.template.details[0].overallDim[1].h;
-                                ProductStor.product.template_square =
-                                    ProductStor.product.template.details[0].overallDim[1].square;
+                                if (ProductStor.product.template_id === 1) {
+                                    ProductStor.product.template_height =
+                                        ProductStor.product.template.details[0].overallDim[0].h;
+                                } else {
+                                    ProductStor.product.template_height =
+                                        ProductStor.product.template.details[0].overallDim[1].h - ProductStor.product.template.details[0].overallDim[0].h;
+                                }
+                                if (ProductStor.product.template_id === 2) {
+                                    ProductStor.product.template_square =
+                                        ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square + ProductStor.product.template.details[0].overallDim[2].square;
+                                    ProductStor.product.template_width =
+                                        ProductStor.product.template.details[0].overallDim[2].w;
+                                } else {
+                                    ProductStor.product.template_square =
+                                        ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square;
+                                    ProductStor.product.template_width =
+                                        ProductStor.product.template.details[0].overallDim[1].w;
+
+                                }
                             } else {
-                                ProductStor.product.template_width +=
+                                ProductStor.product.template_width =
                                     ProductStor.product.template.details[0].overallDim[
                                         overallQty
                                     ].w;
-                                ProductStor.product.template_height +=
+                                ProductStor.product.template_height =
                                     ProductStor.product.template.details[0].overallDim[
                                         overallQty
                                     ].h;
-                                ProductStor.product.template_square +=
+                                ProductStor.product.template_square =
                                     ProductStor.product.template.details[0].overallDim[
                                         overallQty
                                     ].square;
+
                             }
                         }
 
