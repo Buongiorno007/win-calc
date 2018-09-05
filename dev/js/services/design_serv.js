@@ -859,6 +859,7 @@
         /**---------- Select door shape 1 --------*/
 
         function selectDoor(id, product, door_id) {
+          console.log('door_id',door_id)
           var doorTypeQty = DesignStor.design.doorShapeData.length,
             d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
@@ -934,9 +935,9 @@
             } else {
               DesignStor.design.sashShapeList.length = 0;
 
-              try {
+              if (door_id){
                 ProductStor.product.door_type_index = door_id;
-              } catch (e) { }
+              }
               switch (id) {
                 case 0:
                 case 1:
@@ -1192,7 +1193,6 @@
         function setDoorParamValue(product, source) {
           var w = 900,
             h = 2000;
-          console.log('product', product)
           var k = product.door_lock_shape_id || 0;
           var widthTEMP, heightTEMP;
           var clipboard;
@@ -1210,7 +1210,6 @@
             })
             return count;
           }
-          console.log(source.lockShapeList)
           source.lockShapeList[k].elem = [];
           product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
           product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
