@@ -1085,7 +1085,7 @@
                         ProductStor.product.template_square = 0;
                         var overallQty =
                             ProductStor.product.template.details[0].overallDim.length;
-                        console.log(ProductStor.product.template.details[0].overallDim);
+                        //console.log(ProductStor.product.template.details[0].overallDim);
                         while (--overallQty > -1) {
                             if (ProductStor.product.construction_type === 3) {
                                 if (ProductStor.product.template_id === 1) {

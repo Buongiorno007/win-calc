@@ -2430,9 +2430,6 @@
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }
-                                /*
-                                    РАМА с порогом под рамой
-                                */
                                 if (sizeTemp === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;

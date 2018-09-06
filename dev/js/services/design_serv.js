@@ -859,7 +859,6 @@
         /**---------- Select door shape 1 --------*/
 
         function selectDoor(id, product, door_id) {
-          console.log('door_id',door_id)
           var doorTypeQty = DesignStor.design.doorShapeData.length,
             d, isExist;
           var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
