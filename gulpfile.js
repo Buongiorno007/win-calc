@@ -36,17 +36,6 @@ gulp.task('clean', function () {
 var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
-<<<<<<< HEAD
-    "windowSiteTest": "'http://api.windowscalculator.net'",
-    // "windowSiteTest": "'http://api.steko.com.ua'",
-    "windowSiteLocal": "'http://api.windowscalculator.net'",
-    "windowSite": "'http://api.windowscalculator.net'",
-    "steko": "'http://api.steko.com.ua'",
-    "orange": "'http://api.calc.csokna.ru'",
-    "window": "'http://api.windowscalculator.net'",
-    "windowSteko": "'http://api.steko.com.ua'"
-  },
-=======
   "windowSiteTest": "'http://api.windowscalculator.net'",
   // "windowSiteTest": "'http://api.steko.com.ua'",
   "windowSiteLocal": "'http://api.windowscalculator.net'",
@@ -56,7 +45,6 @@ var server_env = {
   "window": "'http://api.windowscalculator.net'",
   "windowSteko": "'http://api.steko.com.ua'"
 },
->>>>>>> denchik
   print_env = {
     "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     // "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
