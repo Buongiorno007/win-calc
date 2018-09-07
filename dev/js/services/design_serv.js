@@ -934,7 +934,7 @@
             } else {
               DesignStor.design.sashShapeList.length = 0;
 
-              if (door_id){
+              if (door_id) {
                 ProductStor.product.door_type_index = door_id;
               }
               switch (id) {
@@ -2135,7 +2135,7 @@
                       case 5:
                         blocks[b].openDir = [3];
                         blocks[b].handlePos = 3;
-                        blocks[b].sashType = 2;
+                        blocks[b].sashType = 7;
                         break;
                       //------ 'up', 'right'
                       case 6:
@@ -2158,6 +2158,7 @@
                 //------ show error
                 showErrorInBlock(blockID);
               }
+              //console.log(ProductStor.product.report)
             }
           }
         }
