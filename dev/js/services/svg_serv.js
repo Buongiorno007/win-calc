@@ -2822,7 +2822,7 @@
           }
           return scaleTmp;
         }
-
+        console.log(ProductStor.product.report)
         //----------- SCALE MAIN
 
         function setTemplateScaleMAIN(padding) {
