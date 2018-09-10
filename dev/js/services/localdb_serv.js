@@ -1775,13 +1775,17 @@
 
             function parseMainKit(construction) {
                 //AH928206
+
                 var deff = $q.defer(),
                     promisesKit = _.map(construction.sizes, function (item, index, arr) {
                         var deff1 = $q.defer();
                         //----- chekh is sizes and id
+
                         if (item.length && construction.ids[index]) {
+
                             /** if hardware */
                             if (index === arr.length - 1) {
+                                //console.log('ivan')
                                 parseHardwareKit(
                                     construction.ids[index],
                                     item,
@@ -1795,6 +1799,12 @@
                                     }
                                 });
                             } else {
+                                //console.log('ivan2')
+                                parseHardwareKit(
+                                    construction.ids[index],
+                                    item,
+                                    construction.laminationId
+                                )
                                 if (angular.isArray(construction.ids[index])) {
                                     var promisKits = _.map(construction.ids[index], function (item2) {
                                         var deff2 = $q.defer();
@@ -2420,6 +2430,7 @@
                             }
 
                         } else {
+                            //console.log(ProductStor.product)
                             sizeTemp = sizes[siz] + kits.amendment_pruning;
                             priceTemp = sizeTemp * constrElem.price * waste;
                             if (ProductStor.product.door_type_index !== 0) {
