@@ -1581,20 +1581,17 @@
                                             });
 
                                             var tmp = windowWidth * SVGServ.setTemplateScaleMAIN(1) + 55;
-                                            var tmp2 = windowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180;
-
+                                            var tmp2 =(doorHeight - windowHeight) * SVGServ.setTemplateScaleMAIN(0.6) - 60;
                                             //подоконник
                                             $('.elem17').css({
                                                 'width': tmp + 'px',
                                                 'height': 41 + 'px',
                                                 'left': 257 + 'px',
-                                                'top': tmp2 + 'px'
+                                                'bottom': tmp2 + 'px'
                                             });
                                             setTimeout(function () {
                                                 $('.elem8_1').width(windowWidth * SVGServ.setTemplateScaleMAIN(0.6) + 66 + "px")
                                             }, 100);
-
-
                                         }
 
 
@@ -1604,10 +1601,13 @@
                                                     doorWidth = detail.pointsOut[0].x;
                                                     windowHeight = detail.pointsOut[2].y;
                                                     windowWidth = detail.pointsOut[2].x - doorWidth;
+                                                    return;
+                                                }
+                                                if (detail.id === "block_1") {
+                                                    doorWidth = detail.pointsOut[0].x;
                                                     doorHeight = detail.pointsOut[2].y;
                                                     return;
                                                 }
-
                                             });
                                             //правый откос для двери
                                             $('.elem11').css({
@@ -1623,13 +1623,12 @@
 
                                             var tmp = windowWidth * SVGServ.setTemplateScaleMAIN(1) + 55;
                                             var tmp2 = windowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180;
-
                                             //подоконник
                                             $('.elem17').css({
                                                 'width': tmp + 'px',
                                                 'height': 41 + 'px',
                                                 'left': 290 + doorWidth * SVGServ.setTemplateScaleMAIN(0.6) + 'px',
-                                                'top': tmp2 + 'px'
+                                                'bottom': (doorHeight - windowHeight) * SVGServ.setTemplateScaleMAIN(0.6) - 60 + 'px'
                                             });
                                             $('.elem7_1').css({
                                                 'width': 85 + 'px',
@@ -1653,6 +1652,10 @@
                                                     leftWindowWidth = detail.pointsOut[1].x;
                                                     leftWindowHeight = detail.pointsOut[2].y;
                                                 }
+                                                if (detail.id === "block_2") {
+                                                    doorHeight = detail.pointsOut[2].y;
+                                                    doorWidth = detail.pointsOut[3].x - detail.pointsOut[2].x ;
+                                                }
                                                 if (detail.id === "block_3") {
                                                     rightWindowWidth = detail.pointsOut[1].x - detail.pointsOut[0].x;
                                                     rightSill = detail.pointsOut[0].x;
@@ -1672,7 +1675,7 @@
                                                 'width': rightWindowWidth * SVGServ.setTemplateScaleMAIN(1) + 45 + 'px',
                                                 'height': 41 + 'px',
                                                 'left': 290 + rightSill * SVGServ.setTemplateScaleMAIN(0.6) + 'px',
-                                                'top': rightWindowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180 + 'px'
+                                                'bottom': (doorHeight - rightWindowHeight) * SVGServ.setTemplateScaleMAIN(0.6) - 60 + 'px'
                                             });
 
                                             $('.elem8').css({
@@ -1684,7 +1687,7 @@
                                                 'width': leftWindowWidth * SVGServ.setTemplateScaleMAIN(1) + 45 + 'px',
                                                 'height': 41 + 'px',
                                                 'left': 257 + 'px',
-                                                'top': leftWindowHeight * SVGServ.setTemplateScaleMAIN(0.6) + 180 + 'px'
+                                                'bottom': (doorHeight - leftWindowHeight) * SVGServ.setTemplateScaleMAIN(0.6) - 60 + 'px'
                                             });
                                             setTimeout(function () {
                                                 $('.elem8_1').width(leftWindowWidth * SVGServ.setTemplateScaleMAIN(0.6) + 66 + "px")

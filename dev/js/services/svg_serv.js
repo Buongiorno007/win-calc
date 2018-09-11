@@ -1283,7 +1283,6 @@
              *  door_type_index === 3 - алюминиевый порог (под рамой)*/
           }
           shapeIndex = DesignStor.design.doorConfig.doorTypeIndex;
-          console.log('тип порога',shapeIndex)
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {
               return false;
