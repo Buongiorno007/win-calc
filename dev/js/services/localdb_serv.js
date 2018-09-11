@@ -1775,17 +1775,13 @@
 
             function parseMainKit(construction) {
                 //AH928206
-
                 var deff = $q.defer(),
                     promisesKit = _.map(construction.sizes, function (item, index, arr) {
                         var deff1 = $q.defer();
                         //----- chekh is sizes and id
-
                         if (item.length && construction.ids[index]) {
-
                             /** if hardware */
                             if (index === arr.length - 1) {
-                                //console.log('ivan')
                                 parseHardwareKit(
                                     construction.ids[index],
                                     item,
@@ -1799,12 +1795,6 @@
                                     }
                                 });
                             } else {
-                                //console.log('ivan2')
-                                parseHardwareKit(
-                                    construction.ids[index],
-                                    item,
-                                    construction.laminationId
-                                )
                                 if (angular.isArray(construction.ids[index])) {
                                     var promisKits = _.map(construction.ids[index], function (item2) {
                                         var deff2 = $q.defer();
@@ -2121,6 +2111,7 @@
                     },
                     "id, sku, currency_id, price, name, element_group_id"
                 ).then(function (result) {
+                    //ШТУЛЬП ВОТ ТУТ НАЧАЛО ИЩИТЕ
                     if (result.length) {
                         if (isArray) {
                             deff.resolve(result);
@@ -2132,10 +2123,6 @@
                     }
                 });
                 return deff.promise;
-            }
-
-            function elemValueD(obj) {
-                return obj.getDate() < 10 ? "0" + obj.getDate() : obj.getDate();
             }
 
             function parseKitElement(kits) {
@@ -2430,7 +2417,6 @@
                             }
 
                         } else {
-                            //console.log(ProductStor.product)
                             sizeTemp = sizes[siz] + kits.amendment_pruning;
                             priceTemp = sizeTemp * constrElem.price * waste;
                             if (ProductStor.product.door_type_index !== 0) {
@@ -2441,14 +2427,17 @@
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }
-                                if (sizeTemp === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
+                                /*
+                                    РАМА с порогом под рамой
+                                */
+                                if (sizeTemp === (ProductStor.product.template_height-ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }
                                 if (sizeTemp === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2) / 1000 + kits.amendment_pruning) {
                                     if (ProductStor.product.door_type_index !== 0) {
                                         if (ProductStor.product.door_type_index === 1) {
-                                            sizeTemp = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c) / 1000 - 0.020 + kits.amendment_pruning;
+                                            sizeTemp = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 + kits.amendment_pruning;
                                             priceTemp = sizeTemp * constrElem.price * waste;
                                         }
                                         if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
@@ -2760,19 +2749,18 @@
 
                     if (objTmp.element_group_id === 3) {
                         if (ProductStor.product.door_type_index !== 0) {
-                            //ProductStor.product.profileDepths.frameDepth.c что то с рамой
-                            //ProductStor.product.profileDepths.frameStillDepth.a порог
-                            if (sizeReal === (ProductStor.product.template_height / 1000 - 0.174)) {
-                                if (ProductStor.product.door_type_index === 1) {
-                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c) / 1000 - 0.020 + pruning - 0.020;
-                                }
-                                if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
-                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + pruning - 0.020
-                                }
+                            if (sizeReal === (ProductStor.product.template_height + pruning * 1000 - 100) / 1000) {
+                                sizeReal = (ProductStor.product.template_height + pruning * 500 - 100) / 1000
                             }
+                            if (sizeReal === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 1000) / 1000) {
+                                sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 500) / 1000
+                            }
+                            // if (sizeTemp === (ProductStor.product.template_height-ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
+                            //     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
+                            //     priceTemp = sizeTemp * constrElem.price * waste;
+                            // }
                         }
                     }
-
                     //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
@@ -3334,7 +3322,6 @@
                 });
 
                 getElementByListId(0, handleSource.parent_element_id).then(function (handleData) {
-                    //console.info('price handle kit', handleData);
                     handleData.count = handleSource.count;
                     getDoorElem(priceObj, handleData);
                     (function nextRecord() {
