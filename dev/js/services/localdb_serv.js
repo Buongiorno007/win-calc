@@ -2437,7 +2437,7 @@
                                 if (sizeTemp === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2) / 1000 + kits.amendment_pruning) {
                                     if (ProductStor.product.door_type_index !== 0) {
                                         if (ProductStor.product.door_type_index === 1) {
-                                            sizeTemp = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c) / 1000 - 0.020 + kits.amendment_pruning;
+                                            sizeTemp = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 + kits.amendment_pruning;
                                             priceTemp = sizeTemp * constrElem.price * waste;
                                         }
                                         if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
