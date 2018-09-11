@@ -1192,7 +1192,6 @@
         function setDoorParamValue(product, source) {
           var w = 900,
             h = 2000;
-          console.log('product', product)
           var k = product.door_lock_shape_id || 0;
           var widthTEMP, heightTEMP;
           var clipboard;
@@ -1210,7 +1209,6 @@
             })
             return count;
           }
-          console.log(source.lockShapeList)
           source.lockShapeList[k].elem = [];
           product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
           product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
