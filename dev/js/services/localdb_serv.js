@@ -1674,8 +1674,8 @@
 
                             /** change openDir for directions
                              * direction_id == 1 - не учитывать
-                             * 2 - право
-                             * 3 - лево
+                             * direction_id == 2 - право
+                             * direction_id == 3 - лево
                              * */
                             for (dir = 0; dir < openDirQty; dir += 1) {
                                 if (sashBlocks[s].openDir[dir] === 4) {
@@ -1774,7 +1774,8 @@
             }
 
             function parseMainKit(construction) {
-                //AH928206
+                console.log('product',ProductStor.product)
+                console.log('construction',construction)
                 var deff = $q.defer(),
                     promisesKit = _.map(construction.sizes, function (item, index, arr) {
                         var deff1 = $q.defer();
@@ -3219,7 +3220,7 @@
                     }
                 }
                 // console.info('START+++', construction);
-                // console.time("parseMainKit");
+                console.log("parseMainKit");
                 parseMainKit(construction).then(function (kits) {
                     // console.timeEnd("parseMainKit");
                     // console.log('kits!!!!!!+', kits);

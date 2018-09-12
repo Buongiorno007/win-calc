@@ -183,7 +183,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_LOCK_TYPE }}
         .door-config-content(ng-class="{'scroll-box': designPage.D.design.steps.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="designPage.selectLock($index, designPage.P.product)")
+            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="designPage.selectLock($index, designPage.P.product,lock)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-if="lock.type === 1 || lock.type === 2", ng-src="img/door-config/onelock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index")
