@@ -36,24 +36,26 @@ gulp.task('clean', function () {
 var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
-  // "windowSiteTest": "'http://api.windowscalculator.net'",
-  "windowSiteTest": "'http://api.steko.com.ua'",
+  "windowSiteTest": "'http://api.windowscalculator.net'",
+  // "windowSiteTest": "'http://api.steko.com.ua'",
   "windowSiteLocal": "'http://api.windowscalculator.net'",
   "windowSite": "'http://api.windowscalculator.net'",
   "steko": "'http://api.steko.com.ua'",
   "orange": "'http://api.calc.csokna.ru'",
   "window": "'http://api.windowscalculator.net'",
-  "windowSteko": "'http://api.steko.com.ua'"
+  "windowSteko": "'http://api.steko.com.ua'",
+  "apelsin": "'http://admin.apelsin.windowscalculator.net'"
 },
   print_env = {
-    // "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
+    "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
+    // "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "windowSiteLocal": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
     "window": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSteko": "'http://admin.steko.com.ua/orders/get-order-pdf/'"
+    "windowSteko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
+    "apelsin": "'http://admin.apelsin.windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
     "windowSiteTest": "'/calculator/local/'",
@@ -62,7 +64,8 @@ var server_env = {
     "steko": "'/local/'",
     "orange": "'/local/'",
     "window": "'/local/'",
-    "windowSteko": "'/local/'"
+    "windowSteko": "'/local/'",
+    "apelsin": "'/local/'"
   };
 //для указания сервера, к которому будет обращаться приложение необходимо передать параметр
 //по умолчанию обращение идет к стеко.
@@ -519,6 +522,9 @@ function buildSite(id) {
 }
 gulp.task('buildWindowSteko', function () {
   buildSite("windowSteko");
+});
+gulp.task('buildWindowApelsin', function () {
+  buildSite("apelsin");
 });
 
 gulp.task('buildStekoSite', function () {
