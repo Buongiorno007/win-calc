@@ -1030,7 +1030,6 @@
                 glassIds,
                 hardwareId,
                 laminatId) {
-                    console.log('hardwareId',hardwareId)
                 var deferred = $q.defer();
                 GlobalStor.global.isLoader = 1;
                 setBeadId(profileId, laminatId).then(function (beadResult) {
@@ -1064,8 +1063,7 @@
                                         }) :
                                         glassIds[0].id,
                                     beadIds.length > 1 ? beadIds : beadIds[0],
-                                    // ProductStor.product.construction_type === 4 ? 0 : hardwareId
-                                    hardwareId
+                                    ProductStor.product.construction_type === 4 ? 0 : hardwareId
                                 ],
                                 sizes: []
                             };

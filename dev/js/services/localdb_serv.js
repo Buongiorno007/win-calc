@@ -1774,8 +1774,6 @@
             }
 
             function parseMainKit(construction) {
-                console.log('product',ProductStor.product)
-                console.log('construction',construction)
                 var deff = $q.defer(),
                     promisesKit = _.map(construction.sizes, function (item, index, arr) {
                         var deff1 = $q.defer();
@@ -3220,7 +3218,6 @@
                     }
                 }
                 // console.info('START+++', construction);
-                console.log("parseMainKit");
                 parseMainKit(construction).then(function (kits) {
                     // console.timeEnd("parseMainKit");
                     // console.log('kits!!!!!!+', kits);
