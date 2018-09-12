@@ -1099,12 +1099,7 @@
 
         /**---------- Select lock shape 4 --------*/
 
-        function selectLock(id, product, lock) {
-          if (lock) {
-            ProductStor.product.hardware.id = lock.id
-          } else {
-            ProductStor.product.hardware.id = DesignStor.design.handleShapeList[0];
-          }
+        function selectLock(id, product) {
           if (DesignStor.design.doorConfig.lockShapeIndex === id) {
             DesignStor.design.doorConfig.lockShapeIndex = '';
             DesignStor.design.steps.selectedStep4 = 0;
@@ -1214,6 +1209,9 @@
             })
             return count;
           }
+          function replace(type) {
+            return type === 2 ? 3 : 2
+          }
           source.lockShapeList[k].elem = [];
           product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
           product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
@@ -1233,17 +1231,18 @@
                 }
                 for (var x = 0; x < doorsItems.length; x += 1) {
                   if (source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
-                    if ((source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id) || doorsItems[x].direction_id === 1) {
+                    if ((replace(source.templateTEMP.details[e].openDir[0]) === doorsItems[x].direction_id) || doorsItems[x].direction_id === 1) {
                       if (doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
                         if (heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) {
                           if (heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
                             if (widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
                               if (widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
-                                doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
+
+                                doorsItems[x].openDir = angular.copy((source.templateTEMP.details[e].openDir[0]));
+                                
                                 clipboard = angular.copy(doorsItems[x]);
                                 source.lockShapeList[k].elem.push(clipboard);
-                                // console.log("heightTEMP", heightTEMP);
-                                // console.log("widthTEMP", widthTEMP);
+
                               }
                             }
                           }
