@@ -1099,7 +1099,12 @@
 
         /**---------- Select lock shape 4 --------*/
 
-        function selectLock(id, product) {
+        function selectLock(id, product, lock) {
+          if (lock) {
+            ProductStor.product.hardware.id = lock.id
+          } else {
+            ProductStor.product.hardware.id = DesignStor.design.handleShapeList[0];
+          }
           if (DesignStor.design.doorConfig.lockShapeIndex === id) {
             DesignStor.design.doorConfig.lockShapeIndex = '';
             DesignStor.design.steps.selectedStep4 = 0;
@@ -1228,7 +1233,7 @@
                 }
                 for (var x = 0; x < doorsItems.length; x += 1) {
                   if (source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
-                    if (source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id || doorsItems[x].direction_id === 1) {
+                    if ((source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id) || doorsItems[x].direction_id === 1) {
                       if (doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
                         if (heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) {
                           if (heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {

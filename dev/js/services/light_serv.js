@@ -47,7 +47,7 @@
                     return item.id;
                   }) : glassIds[0].id,
                   (beadIds.length > 1) ? beadIds : beadIds[0],
-                  (ProductStor.product.construction_type === 4) ? 0 : hardwareId
+                  hardwareId
                 ],
                 sizes: []
               };
