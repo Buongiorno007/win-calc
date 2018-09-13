@@ -733,7 +733,6 @@
 
             //---------- Price define
             function calculationPrice(obj) {
-                console.log('calculationPrice')
                 let tmp_hardware;
                 var deferred = $q.defer();
                 GlobalStor.global.isZeroPriceList = [];
@@ -758,7 +757,6 @@
                             }
                         }
                     });
-                    console.log('isZeroPriceList', GlobalStor.global.isZeroPriceList)
                     var works = 0,
                         works_dis = 0,
                         works_area = 0,

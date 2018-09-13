@@ -160,6 +160,7 @@
                                 //console.info('first click')
                                 HistoryStor.history.firstClick.push(orderNum);
                                 var xhr = new XMLHttpRequest();
+                                console.log()
                                 xhr.open('GET', globalConstants.serverIP + '/api/export?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&orderId=' + orderNum, false);
                                 xhr.send();
                                 if (xhr.status === 200) {
@@ -219,13 +220,10 @@
                         .then((response) => {
                             if (response.status != 200) {
                                 // defer.resolve(1);
-                                console.info(response.status + ': ' + response.statusText);
                                 GlobalStor.global.isLoader = 0;
                             } else {
                                 res = response.data;
-                                // res.tables.orders.fields.splice(3, 1);
                                 let convert_data = localDB.convert(res);
-                                test(convert_data['order_style'])
                                 //noinspection JSAnnotator
                                 function test(item) {
                                     if (item === "done") {
@@ -334,6 +332,7 @@
                         newOrderCopy.id = MainServ.createOrderID();
                         newOrderCopy.order_number = 0;
                         newOrderCopy.order_hz = '---';
+                        newOrderCopy.batch = '---';
                         newOrderCopy.sended = new Date(0);
                         newOrderCopy.state_to = new Date(0);
                         newOrderCopy.state_buch = new Date(0);
@@ -341,10 +340,13 @@
                         newOrderCopy.order_date = new Date();
                         newOrderCopy.modified = new Date();
                         newOrderCopy.order_style = 'order';
+                        newOrderCopy.delivery_date = new Date();
+                        newOrderCopy.new_delivery_date = new Date();
                         (typeof newOrderCopy.customer_age === "number") ? newOrderCopy.customer_age = newOrderCopy.customer_age : newOrderCopy.customer_age = 0;
                         (typeof newOrderCopy.customer_education === "number") ? newOrderCopy.customer_education = newOrderCopy.customer_education : newOrderCopy.customer_education = 0;
                         (typeof newOrderCopy.customer_occupation === "number") ? newOrderCopy.customer_occupation = newOrderCopy.customer_occupation : newOrderCopy.customer_occupation = 0;
                         (typeof newOrderCopy.customer_infoSource === "number") ? newOrderCopy.customer_infoSource = newOrderCopy.customer_infoSource : newOrderCopy.customer_infoSource = 0;
+                        console.log('newOrderCopy',angular.copy(newOrderCopy))
                         localDB.insertServer(
                             UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
                         ).then(function (respond) {
@@ -749,7 +751,7 @@
                                                 if (!allAddElemQty) {
                                                     deferred.resolve(1);
                                                 }
-                                            } else  {
+                                            } else {
                                                 if (!allAddElemQty) {
                                                     deferred.resolve(0);
                                                 }
@@ -1166,7 +1168,7 @@
                             //console.log("orderData2", orderData2);
                             if (result_orders) {
                                 localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName).then(function (result_order_products) {
-                                    console.log('result_order_products',result_order_products);
+                                    console.log('result_order_products', result_order_products);
                                     var productData2 = angular.copy(result_order_products);
                                     localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName).then(function (result_order_addelements) {
                                         var addElementsData2 = angular.copy(result_order_addelements);

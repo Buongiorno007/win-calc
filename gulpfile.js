@@ -65,7 +65,7 @@ var server_env = {
     "orange": "'/local/'",
     "window": "'/local/'",
     "windowSteko": "'/local/'",
-    "apelsin": "'/calculator/local/'"
+    "apelsin": "'/local/'"
   };
 //для указания сервера, к которому будет обращаться приложение необходимо передать параметр
 //по умолчанию обращение идет к стеко.
