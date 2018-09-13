@@ -82,7 +82,6 @@
                     GlobalStor.global.servicesPriceIndex = -1;
                     GlobalStor.global.continued = 0;
                     ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
-                    console.log('ProductStor.product',ProductStor.product)
                     MainServ.preparePrice(
                         ProductStor.product.template,
                         ProductStor.product.profile.id,
@@ -156,6 +155,7 @@
 
                 function checkForAddElem() {
                     // console.log("ProductStor.product", ProductStor.product);
+                    console.log(GlobalStor.global.isZeroPriceList)
                     if (!GlobalStor.global.isZeroPriceList.length) {
                         if (!ProductStor.product.is_addelem_only) {
                             alert();
