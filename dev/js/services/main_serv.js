@@ -733,14 +733,15 @@
 
             //---------- Price define
             function calculationPrice(obj) {
+                console.log('calculationPrice')
                 let tmp_hardware;
                 var deferred = $q.defer();
                 GlobalStor.global.isZeroPriceList = [];
                 localDB.calculationPrice(obj).then(function (result) {
                     result.constrElements.forEach(function (entry) {
-                        // console.log(entry);
-                        if (entry.element_group_id !== 8) {
-                            if (entry.priceReal === 0 || entry.price === 0) {
+                        if (entry.element_group_id != 8) {
+                            if (entry.priceReal == 0 || entry.price == 0) {
+                                console.log('name',entry.name);
                                 GlobalStor.global.isZeroPriceList.push(entry.name);
                             }
                         }
@@ -757,6 +758,7 @@
                             }
                         }
                     });
+                    console.log('isZeroPriceList', GlobalStor.global.isZeroPriceList)
                     var works = 0,
                         works_dis = 0,
                         works_area = 0,
@@ -801,9 +803,7 @@
                                     ProductStor.product.doorLock.elem
                                 )
                                 .then(function (doorResult) {
-                                    GlobalStor.global.isZeroPriceList = [];
                                     if (doorResult.consistElem) {
-
                                         doorResult.consistElem.forEach(function (entry) {
                                             // console.log(entry);
                                             if (entry.element_group_id !== 8) {
