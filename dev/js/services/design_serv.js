@@ -1171,7 +1171,9 @@
         function saveDoorConfig(product) {
           (product) ? product = product : product = ProductStor.product;
           var deferred = $q.defer();
-          checkGlassInTemplate(product);
+          if (GlobalStor.global.orderEditNumber === 0) {
+            checkGlassInTemplate(product);
+          }
           setNewDoorParamValue(product, DesignStor.design).then(function (res) {
             SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, product.profileDepths).then(function (result) {
               DesignStor.design.templateTEMP = angular.copy(result);
@@ -1243,7 +1245,7 @@
                               if (widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
 
                                 doorsItems[x].openDir = angular.copy((source.templateTEMP.details[e].openDir[0]));
-                                
+
                                 clipboard = angular.copy(doorsItems[x]);
                                 source.lockShapeList[k].elem.push(clipboard);
 
@@ -1271,10 +1273,10 @@
           product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
           product.profile.id = source.sashShapeList[product.door_sash_shape_id].profile_id;
           product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profile_id;
-          product.profile.rama_still_list_id = 
-          product.door_type_index === 0 ?
-          source.sashShapeList[product.door_sash_shape_id].rama_sill_list_id:
-          source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+          product.profile.rama_still_list_id =
+            product.door_type_index === 0 ?
+              source.sashShapeList[product.door_sash_shape_id].rama_sill_list_id :
+              source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
           product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
           product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
           product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
