@@ -1388,6 +1388,11 @@
                 var drawpoint3 = pointsIn[index + 1];
                 var drawpoint4 = pointsIn[index];
                 if (ProductStor.product.construction_type === 4) {
+                  if (shapeIndex === 0) {
+                    if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                      part.sill = 1;
+                    }
+                  }
                   if (shapeIndex === 1) {
                     if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                       if (newPointsOut[index].type === 'sash' && newPointsOut[index].id === 'fp3') {
@@ -1548,6 +1553,7 @@
             //------- per Price
             //----- converting size from mm to m
             var sizeValue = GeneralServ.roundingValue(angular.copy(part.size) / 1000, 3);
+            
             if (newPointsOut[index].type === 'bead') {
               part.type = 'bead';
               beadObj.sizes.push(sizeValue);
@@ -1555,6 +1561,7 @@
               part.type = 'sash';
               priceElements.sashsSize.push(sizeValue);
             } else if (part.type === 'frame') {
+              /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
               if (part.sill || part.doorstep === 1) {
                 priceElements.frameSillSize.push(sizeValue);
               } else {

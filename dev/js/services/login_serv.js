@@ -1585,7 +1585,6 @@
         localDB
           .selectLocalDB(localDB.tablesLocalDB.doors_groups.tableName)
           .then(function(doorData) {
-
             doorData = doorData.sort(function(a, b) {
               return a.id - b.id;
             });
