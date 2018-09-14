@@ -877,12 +877,16 @@
 
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
+
+          console.log(GlobalStor.global.doorsGroups);
+
           for (var z = 0; z < doorsGroups.length; z += 1) {
             for (var i = 0; i < doorsLaminations.length; i += 1) {
               if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id &&
                 product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
                 if (doorsGroups[z].id === doorsLaminations[i].group_id) {
                   doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
+                  doorsGroups[z].rama_sill_list_id = doorsLaminations[i].rama_sill_list_id
                   doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
                   doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
                   doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
@@ -1260,6 +1264,7 @@
         }
 
         function doorId(product, source) {
+          console.log(product)
           var deferred = $q.defer();
           product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
           product.profile.short_name = '';
@@ -1269,7 +1274,10 @@
           product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
           product.profile.id = source.sashShapeList[product.door_sash_shape_id].profile_id;
           product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profile_id;
-          product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+          product.profile.rama_still_list_id = 
+          product.door_type_index === 0 ?
+          source.sashShapeList[product.door_sash_shape_id].rama_sill_list_id:
+          source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
           product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
           product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
           product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
