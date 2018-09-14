@@ -27,6 +27,8 @@ var gulp = require('gulp'), // Собственно Gulp JS
   removeLogs = require('gulp-removelogs'), //Strip console statements from JavaScript
   jsonminify = require('gulp-jsonminify'), //Strip console statements from JavaScript
   babel = require('gulp-babel');
+  const stripDebug = require('gulp-strip-debug');
+
 // Очистка результирующей папки
 gulp.task('clean', function () {
   del('www/**', function () {
@@ -148,7 +150,6 @@ gulp.task('js', function () {
     //     add: true,
     //     single_quotes: true
     // }))
-    // .pipe(removeLogs())
     // .pipe(js_obfuscator())
     // .pipe(babel({
     //     presets: ['env']
@@ -475,10 +476,12 @@ function buildSite(id) {
     .pipe(replace('LOCAL_PATH', path_env[id]))
     .pipe(replace('ISEXTFLAG', "0"))
     .pipe(concat('main.js'))
+    .pipe(removeLogs())
+    .pipe(stripDebug())
     .pipe(ngAnnotate({
       add: true
     }))
-    .pipe(removeLogs())
+
     .pipe(js_obfuscator())
     .pipe(babel({
       presets: ['env']
