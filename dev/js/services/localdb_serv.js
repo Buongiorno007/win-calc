@@ -2748,16 +2748,19 @@
 
                     if (objTmp.element_group_id === 3) {
                         if (ProductStor.product.door_type_index !== 0) {
-                            if (sizeReal === (ProductStor.product.template_height + pruning * 1000 - 100) / 1000) {
-                                sizeReal = (ProductStor.product.template_height + pruning * 500 - 100) / 1000
+                            if (sizeReal === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2 - 20) / 1000 + pruning) {
+                                if (ProductStor.product.door_type_index !== 0) {
+                                    if (ProductStor.product.door_type_index === 1) {
+                                        sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 40) / 1000 + pruning;
+                                        priceTemp = sizeReal * constrElem.price * waste;
+                                    }
+                                    if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
+                                        sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a - 20) / 1000 + pruning;
+                                        priceTemp = sizeReal * constrElem.price * waste;
+                                    }
+                                }
+
                             }
-                            if (sizeReal === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 1000) / 1000) {
-                                sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 500) / 1000
-                            }
-                            // if (sizeTemp === (ProductStor.product.template_height-ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
-                            //     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
-                            //     priceTemp = sizeTemp * constrElem.price * waste;
-                            // }
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
