@@ -1245,13 +1245,7 @@
                           if (heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
                             if (widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
                               if (widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
-<<<<<<< HEAD
                                 doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
-=======
-
-                                doorsItems[x].openDir = angular.copy((source.templateTEMP.details[e].openDir[0]));
-
->>>>>>> nshev
                                 clipboard = angular.copy(doorsItems[x]);
                                 source.lockShapeList[k].elem.push(clipboard);
                                 // console.log("heightTEMP", heightTEMP);
