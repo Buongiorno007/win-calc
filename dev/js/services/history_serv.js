@@ -68,8 +68,10 @@
                     localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {
                         order_type: 1
                     }).then(function (result) {
+
                         var orders = angular.copy(result),
                             orderQty = orders.length;
+
                         HistoryStor.history.isEmptyResult = 0;
                         if (orderQty) {
                             while (--orderQty > -1) {
@@ -97,6 +99,7 @@
                         }
                         defer.resolve(1);
                     });
+
                     return defer.promise;
                 }
 
@@ -346,7 +349,7 @@
                         (typeof newOrderCopy.customer_education === "number") ? newOrderCopy.customer_education = newOrderCopy.customer_education : newOrderCopy.customer_education = 0;
                         (typeof newOrderCopy.customer_occupation === "number") ? newOrderCopy.customer_occupation = newOrderCopy.customer_occupation : newOrderCopy.customer_occupation = 0;
                         (typeof newOrderCopy.customer_infoSource === "number") ? newOrderCopy.customer_infoSource = newOrderCopy.customer_infoSource : newOrderCopy.customer_infoSource = 0;
-                        console.log('newOrderCopy',angular.copy(newOrderCopy))
+                        console.log('newOrderCopy', angular.copy(newOrderCopy))
                         localDB.insertServer(
                             UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
                         ).then(function (respond) {
@@ -1158,17 +1161,36 @@
 
                 }
 
-                function synchronizeOrders() {
+
+                function synchronizeOrders() {        //TYT
                     MainServ.getOnline();
                     if (GlobalStor.global.onlineMode) {
                         var defer = $q.defer();
                         var orderData2;
                         localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName).then(function (result_orders) {
                             orderData2 = angular.copy(result_orders);
-                            //console.log("orderData2", orderData2);
                             if (result_orders) {
                                 localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName).then(function (result_order_products) {
-                                    console.log('result_order_products', result_order_products);
+                                    if (result_order_products.length > 0) {
+                                        for (var z = 0; z < result_order_products.length; z++) {
+                                            for (var y = 0; y < result_order_products.length; y++) {
+                                                if (z === y) {
+                                                    continue;
+                                                } else {
+                                                    if (result_order_products[z].order_id === result_order_products[y].order_id &&
+                                                        result_order_products[z].profile_id === result_order_products[y].profile_id &&
+                                                        result_order_products[z].template_price === result_order_products[y].template_price &&
+                                                        result_order_products[z].glass_id === result_order_products[y].glass_id &&
+                                                        result_order_products[z].product_id === z + 1
+                                                    ) {
+                                                        console.log(result_order_products[z])
+                                                        result_order_products.splice(y, 1);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    console.log('result_order_products', result_order_products)
                                     var productData2 = angular.copy(result_order_products);
                                     localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName).then(function (result_order_addelements) {
                                         var addElementsData2 = angular.copy(result_order_addelements);
@@ -1185,6 +1207,7 @@
                                             async.eachSeries(orderData2, calculate3, function (err, result) {
                                                 downloadOrders();
                                                 defer.resolve(1);
+
                                             });
 
                                             //noinspection JSAnnotator
@@ -1274,7 +1297,7 @@
                                                             if (typeof (respond.order_number) !== 'undefined') {
                                                                 orderData.order_number = respond.order_number;
                                                                 localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {
-                                                                    'id': orderData.id
+                                                                    'id': orderData.id // то же самое сделать для других 2х таблиц
                                                                 });
                                                                 localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
                                                             }
