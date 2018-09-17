@@ -144,7 +144,7 @@ gulp.task('js', function () {
     .pipe(replace('SERVER_IP', server_env[env]))
     .pipe(replace('PRINT_IP', print_env[env]))
     .pipe(replace('LOCAL_PATH', path_env[env]))
-    .pipe(replace('ISEXTFLAG', "1"))// заменить на 1 если нужно офлайн
+    .pipe(replace('ISEXTFLAG', "0"))// заменить на 1 если нужно офлайн
 
     // .pipe(ngAnnotate({
     //     remove: true,
