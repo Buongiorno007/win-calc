@@ -326,13 +326,13 @@ function buildExt(id) {
     .pipe(replace('LOCAL_PATH', path_env[id]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
+    .pipe(stripDebug())
     .pipe(ngAnnotate({
       remove: true,
       add: true,
       single_quotes: true
     }))
     .pipe(removeLogs())
-    .pipe(js_obfuscator())
     .pipe(babel({
       presets: ['env']
     }))
