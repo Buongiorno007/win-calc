@@ -324,7 +324,7 @@ function buildExt(id) {
     .pipe(replace('SERVER_IP', server_env[id]))
     .pipe(replace('PRINT_IP', print_env[id]))
     .pipe(replace('LOCAL_PATH', path_env[id]))
-    .pipe(replace('ISEXTFLAG', "1"))
+    .pipe(replace('ISEXTFLAG', "0"))
     .pipe(concat('main.js'))
     .pipe(stripDebug())
     .pipe(ngAnnotate({
