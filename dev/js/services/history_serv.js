@@ -1172,32 +1172,32 @@
                             if (result_orders) {
                                 localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName).then(function (result_order_products) {
                                     if (result_order_products.length > 0) {
-                                        for (var z = 0; z < result_order_products.length; z++) {
-                                            for (var y = 0; y < result_order_products.length; y++) {
-                                                if (z === y) {
-                                                    continue;
-                                                } else {
-                                                    if (result_order_products[z].order_id === result_order_products[y].order_id &&
-                                                        result_order_products[z].profile_id === result_order_products[y].profile_id &&
-                                                        result_order_products[z].template_price === result_order_products[y].template_price &&
-                                                        result_order_products[z].glass_id === result_order_products[y].glass_id &&
-                                                        result_order_products[z].product_id === z + 1
-                                                    ) {
-                                                        console.log(result_order_products[z])
-                                                        result_order_products.splice(y, 1);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        //
+                                        // for (var z = 0; z < result_order_products.length; z++) {
+                                        //     for (var y = 0; y < result_order_products.length; y++) {
+                                        //         if (z === y) {
+                                        //             continue;
+                                        //         } else {
+                                        //             if (result_order_products[z].order_id === result_order_products[y].order_id &&
+                                        //                 result_order_products[z].profile_id === result_order_products[y].profile_id &&
+                                        //                 result_order_products[z].template_price === result_order_products[y].template_price &&
+                                        //                 result_order_products[z].glass_id === result_order_products[y].glass_id
+                                        //             ) {
+                                        //                 console.log(result_order_products[z])
+                                        //                 result_order_products.splice(y, 1);
+                                        //             }
+                                        //         }
+                                        //     }
+                                        // }
                                     }
                                     console.log('result_order_products', result_order_products)
                                     var productData2 = angular.copy(result_order_products);
                                     localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName).then(function (result_order_addelements) {
                                         var addElementsData2 = angular.copy(result_order_addelements);
 
-
                                         if (typeof (orderData2.order_number) !== "number") {
                                             //console.log('send local save');
+                                            // async.waterfall([
                                             async.eachSeries(productData2, calculate1, function (err, result) {
                                                 defer.resolve(1);
                                             });
@@ -1207,8 +1207,8 @@
                                             async.eachSeries(orderData2, calculate3, function (err, result) {
                                                 downloadOrders();
                                                 defer.resolve(1);
-
                                             });
+                                            // ])
 
                                             //noinspection JSAnnotator
                                             function calculate1(productData1, _cb) {
@@ -1226,9 +1226,15 @@
                                                                 localDB.tablesLocalDB.order_products.tableName,
                                                                 productData
                                                             ).then(function (respond) {
-                                                                //console.log("calculate1", respond);
                                                                 if (respond) {
+                                                                    if (typeof (respond.order_number) !== 'undefined') {
 
+                                                                        productData.order_number = respond.order_number;
+                                                                        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {
+                                                                            'id': productData.id // то же самое сделать для других 2х таблиц
+                                                                        });
+                                                                        localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+                                                                    }
                                                                 }
                                                                 _callback();
                                                             });
@@ -1248,9 +1254,11 @@
                                             //noinspection JSAnnotator
                                             function calculate2(addElementsData1, _cb) {
                                                 var addElementsData;
+
                                                 async.waterfall([
                                                     function (_callback) {
                                                         addElementsData = angular.copy(addElementsData1);
+
                                                         _callback(null);
                                                     },
                                                     function (_callback) {
@@ -1260,9 +1268,15 @@
                                                             localDB.tablesLocalDB.order_addelements.tableName,
                                                             addElementsData
                                                         ).then(function (respond) {
-                                                            //console.log("calculate1", respond);
+                                                            console.log("calculate2", respond);
                                                             if (respond) {
-
+                                                                if (typeof (respond.order_number) !== 'undefined') {
+                                                                    addElementsData.order_number = respond.order_number;
+                                                                    localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {
+                                                                        'id': addElementsData.id // то же самое сделать для других 2х таблиц
+                                                                    });
+                                                                    localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
+                                                                }
                                                             }
                                                             _callback();
                                                         });
@@ -1284,6 +1298,7 @@
                                                 async.waterfall([
                                                     function (_callback) {
                                                         orderData = angular.copy(orderData1);
+                                                        console.log('orderData', orderData)
                                                         _callback(null);
                                                     },
                                                     function (_callback) {
@@ -1293,7 +1308,7 @@
                                                             localDB.tablesLocalDB.orders.tableName,
                                                             orderData
                                                         ).then(function (respond) {
-                                                            //console.log("respond", respond);
+                                                            console.log("calculate3", orderData);
                                                             if (typeof (respond.order_number) !== 'undefined') {
                                                                 orderData.order_number = respond.order_number;
                                                                 localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {
