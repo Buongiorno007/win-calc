@@ -1103,12 +1103,7 @@
 
         /**---------- Select lock shape 4 --------*/
 
-        function selectLock(id, product, lock) {
-          if (lock) {
-            ProductStor.product.hardware.id = lock.id
-          } else {
-            ProductStor.product.hardware.id = DesignStor.design.handleShapeList[0];
-          }
+        function selectLock(id, product) {
           if (DesignStor.design.doorConfig.lockShapeIndex === id) {
             DesignStor.design.doorConfig.lockShapeIndex = '';
             DesignStor.design.steps.selectedStep4 = 0;
