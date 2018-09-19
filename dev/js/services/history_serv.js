@@ -813,6 +813,7 @@
                     // delete OrderStor.order.sale_price;
                     delete OrderStor.order.modified;
                     //------ Download All Products of edited Order
+
                     downloadProducts().then(function (res) {
 
                         var products = angular.copy(OrderStor.order.products);
@@ -846,8 +847,14 @@
                             async.waterfall([
                                 function (_callback) {
                                     if (products.construction_type === 4) {
+
                                         ProductStor.product = angular.copy(products);
+
                                         DesignServ.setDoorConfigDefault(ProductStor.product, 1).then(function (res) {
+                                            res.productPriceDis = products.productPriceDis
+                                            res.template_price = products.template_price
+                                            res.product_price = products.product_price
+
                                             OrderStor.order.products.push(res);
                                             _callback();
                                         });
@@ -866,7 +873,7 @@
                                 });
                         }
                     });
-                    console.log(OrderStor.order);
+
                 }
 
 
