@@ -163,7 +163,6 @@
                                 //console.info('first click')
                                 HistoryStor.history.firstClick.push(orderNum);
                                 var xhr = new XMLHttpRequest();
-                                console.log()
                                 xhr.open('GET', globalConstants.serverIP + '/api/export?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&orderId=' + orderNum, false);
                                 xhr.send();
                                 if (xhr.status === 200) {
@@ -182,8 +181,9 @@
                                 }
                             }
                         }
+                        //console.log(globalConstants.serverIP + '/api/export?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&orderId=' + orderNum)
 
-                        console.log(UserStor.userInfo, 'code_sync');
+                        // console.log(UserStor.userInfo, 'code_sync');
                         /** check user */
                         if (orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
                             GeneralServ.confirmAlert(
@@ -252,12 +252,13 @@
                 function reqResult() {
                     var defer = $q.defer();
                     if (GlobalStor.global.ISEXT) {
+                        console.log('GlobalStor.global.ISEXT')
                         if (GlobalStor.global.onlineMode && navigator.onLine) {
                             synchronizeOrders().then(function () {
-                                downloadOrderHistory();
-                                defer.resolve(1);
+                                downloadOrderHistory().then(function () {
+                                    defer.resolve(1);
+                                });
                             });
-                            defer.resolve(1);
 
                         } else {
                             defer.resolve(1);
