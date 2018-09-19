@@ -27,7 +27,7 @@ var gulp = require('gulp'), // Собственно Gulp JS
   removeLogs = require('gulp-removelogs'), //Strip console statements from JavaScript
   jsonminify = require('gulp-jsonminify'), //Strip console statements from JavaScript
   babel = require('gulp-babel');
-  const stripDebug = require('gulp-strip-debug');
+const stripDebug = require('gulp-strip-debug');
 
 // Очистка результирующей папки
 gulp.task('clean', function () {
@@ -144,7 +144,8 @@ gulp.task('js', function () {
     .pipe(replace('SERVER_IP', server_env[env]))
     .pipe(replace('PRINT_IP', print_env[env]))
     .pipe(replace('LOCAL_PATH', path_env[env]))
-    .pipe(replace('ISEXTFLAG', "0"))
+    .pipe(replace('ISEXTFLAG', "0"))// заменить на 1 если нужно офлайн
+
     // .pipe(ngAnnotate({
     //     remove: true,
     //     add: true,
@@ -323,15 +324,15 @@ function buildExt(id) {
     .pipe(replace('SERVER_IP', server_env[id]))
     .pipe(replace('PRINT_IP', print_env[id]))
     .pipe(replace('LOCAL_PATH', path_env[id]))
-    .pipe(replace('ISEXTFLAG', "1"))
+    .pipe(replace('ISEXTFLAG', "0"))
     .pipe(concat('main.js'))
+    .pipe(stripDebug())
     .pipe(ngAnnotate({
       remove: true,
       add: true,
       single_quotes: true
     }))
     .pipe(removeLogs())
-    .pipe(js_obfuscator())
     .pipe(babel({
       presets: ['env']
     }))

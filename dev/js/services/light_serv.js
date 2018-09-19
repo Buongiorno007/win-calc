@@ -6,18 +6,18 @@
     .factory('LightServ',
 
       function ($filter,
-                $q,
-                GlobalStor,
-                DesignStor,
-                ProductStor,
-                OrderStor,
-                UserStor,
-                MainServ,
-                GeneralServ,
-                CartMenuServ,
-                DesignServ,
-                loginServ,
-                SVGServ) {
+        $q,
+        GlobalStor,
+        DesignStor,
+        ProductStor,
+        OrderStor,
+        UserStor,
+        MainServ,
+        GeneralServ,
+        CartMenuServ,
+        DesignServ,
+        loginServ,
+        SVGServ) {
         /*jshint validthis:true */
         var thisFactory = this;
 
@@ -65,9 +65,31 @@
               ProductStor.product.template_square = 0;
               var overallQty = ProductStor.product.template.details[0].overallDim.length;
               while (--overallQty > -1) {
-                ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-                ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-                ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
+                if (ProductStor.product.construction_type === 3) {
+                  if (ProductStor.product.template_id === 1) {
+                    ProductStor.product.template_height =
+                      ProductStor.product.template.details[0].overallDim[0].h;
+                  } else {
+                    ProductStor.product.template_height =
+                      ProductStor.product.template.details[0].overallDim[1].h - ProductStor.product.template.details[0].overallDim[0].h;
+                  }
+                  if (ProductStor.product.template_id === 2) {
+                    ProductStor.product.template_square =
+                      ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square + ProductStor.product.template.details[0].overallDim[2].square;
+                    ProductStor.product.template_width =
+                      ProductStor.product.template.details[0].overallDim[2].w;
+                  } else {
+                    ProductStor.product.template_square =
+                      ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square;
+                    ProductStor.product.template_width =
+                      ProductStor.product.template.details[0].overallDim[1].w;
+
+                  }
+                } else {
+                  ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+                  ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+                  ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
+                }
               }
 
               //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
@@ -162,7 +184,7 @@
                       ProductStor.product.template_source
                     );
                     /** check grids */
-                      // console.log(ProductStor.product);
+                    // console.log(ProductStor.product);
                     var isChanged = DesignServ.updateGrids();
                     if (isChanged) {
                       //------ get new grids price
@@ -203,15 +225,15 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
-                            ProductStor.product.product_qty = GlobalStor.global.product_qty;
-                            MainServ.inputProductInOrder();
-                            GlobalStor.global.construction_count = 0;
-                            OrderStor.order.products.forEach(function (product) {
-                              GlobalStor.global.construction_count += product.product_qty;
+                          ProductStor.product.product_qty = GlobalStor.global.product_qty;
+                          MainServ.inputProductInOrder();
+                          GlobalStor.global.construction_count = 0;
+                          OrderStor.order.products.forEach(function (product) {
+                            GlobalStor.global.construction_count += product.product_qty;
 
-                            });
-                            GlobalStor.global.isNewTemplate = 0;
-                            DesignStor.design.designSteps = [];
+                          });
+                          GlobalStor.global.isNewTemplate = 0;
+                          DesignStor.design.designSteps = [];
                         });
                       });
                     });
@@ -291,8 +313,8 @@
 
           function createProductCopy() {
             var lastProductId = d3.max(_.map(OrderStor.order.products, function (item) {
-                return item.product_id;
-              })),
+              return item.product_id;
+            })),
 
               cloneProduct = angular.copy(OrderStor.order.products[productIndex]);
             GlobalStor.global.isBox = !GlobalStor.global.isBox;

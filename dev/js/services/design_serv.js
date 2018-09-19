@@ -1169,6 +1169,7 @@
 
 
         function saveDoorConfig(product) {
+
           (product) ? product = product : product = ProductStor.product;
           var deferred = $q.defer();
           if (GlobalStor.global.orderEditNumber === 0) {
