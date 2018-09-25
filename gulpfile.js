@@ -38,8 +38,8 @@ gulp.task('clean', function () {
 var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
-  "windowSiteTest": "'http://api.windowscalculator.net'",
-  // "windowSiteTest": "'http://api.steko.com.ua'",
+  // "windowSiteTest": "'http://api.windowscalculator.net'",
+  "windowSiteTest": "'http://api.steko.com.ua'",
   "windowSiteLocal": "'http://api.windowscalculator.net'",
   "windowSite": "'http://api.windowscalculator.net'",
   "steko": "'http://api.steko.com.ua'",
@@ -49,8 +49,8 @@ var server_env = {
   "apelsin": "'http://admin.apelsin.windowscalculator.net'"
 },
   print_env = {
-    "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-    // "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
+    // "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "windowSiteLocal": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",

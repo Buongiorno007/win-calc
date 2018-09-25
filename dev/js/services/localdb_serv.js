@@ -2768,7 +2768,6 @@
                                 }
                             }
                             var armir = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2 - 20) / 1000 + pruning;
-                            console.log('armir', armir)
                             if (sizeReal === (Math.round(armir * 1000) / 1000)) {
                                 if (ProductStor.product.door_type_index !== 0) {
                                     if (ProductStor.product.door_type_index === 1) {

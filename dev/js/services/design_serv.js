@@ -965,7 +965,9 @@
                   }
               }
               DesignStor.design.doorConfig.doorShapeIndex = angular.copy(id);
-              DesignStor.design.doorConfig.doorTypeIndex = DesignStor.design.doorShapeList[id].id;
+              if (DesignStor.design.doorShapeList[id].id) {
+                DesignStor.design.doorConfig.doorTypeIndex = angular.copy(DesignStor.design.doorShapeList[id].id);
+              }
               DesignStor.design.steps.selectedStep1 = 1;
               DesignStor.design.showMobileStep = 2;
               return DesignStor.design.sashShapeList[id];
@@ -977,7 +979,6 @@
 
         function selectSash(id, product) {
           var deferred = $q.defer();
-          // ProductStor.product.door_type_index = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
           var ids = DesignStor.design.sashShapeList[id];
           // console.log("sashShapeList",DesignStor.design.sashShapeList,id);
           var profileDepths = {
@@ -1217,8 +1218,8 @@
             return count;
           }
           source.lockShapeList[k].elem = [];
-          product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
-          product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
+          product.door_group_id = source.sashShapeList[product.door_sash_shape_id].id;
+          product.template_source.profile_window_id = source.sashShapeList[product.door_sash_shape_id].profileId;
           product.doorName = source.doorShapeList[product.door_shape_id].name;
           product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
           var doorHandle = _.filter(_.compact(_.flatten(source.handleShapeList)), {
@@ -1305,7 +1306,8 @@
         function setNewDoorParamValue(product, source) {
           //------- save new door config
           var deferred = $q.defer();
-          product.door_type_index = source.doorConfig.doorTypeIndex;
+          console.log("setNewDoorParamValue",source)
+          product.door_type_index = angular.copy(source.doorConfig.doorTypeIndex);
           product.door_shape_id = source.doorConfig.doorShapeIndex;
           product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
           product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
