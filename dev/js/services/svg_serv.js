@@ -1285,7 +1285,8 @@
              *  door_type_index === 2 - алюминиевый порог (между рамой) 
              *  door_type_index === 3 - алюминиевый порог (под рамой)*/
           }
-          shapeIndex = DesignStor.design.doorConfig.doorTypeIndex;
+          shapeIndex = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
+          console.log('shapeIndex',shapeIndex)
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {
               return false;
