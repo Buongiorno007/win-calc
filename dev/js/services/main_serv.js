@@ -738,9 +738,9 @@
                 GlobalStor.global.isZeroPriceList = [];
                 localDB.calculationPrice(obj).then(function (result) {
                     result.constrElements.forEach(function (entry) {
-                        // console.log(entry);
-                        if (entry.element_group_id !== 8) {
-                            if (entry.priceReal === 0 || entry.price === 0) {
+                        if (entry.element_group_id != 8) {
+                            if (entry.priceReal == 0 || entry.price == 0) {
+                                console.log('name',entry.name);
                                 GlobalStor.global.isZeroPriceList.push(entry.name);
                             }
                         }
@@ -801,9 +801,7 @@
                                     ProductStor.product.doorLock.elem
                                 )
                                 .then(function (doorResult) {
-                                    GlobalStor.global.isZeroPriceList = [];
                                     if (doorResult.consistElem) {
-
                                         doorResult.consistElem.forEach(function (entry) {
                                             // console.log(entry);
                                             if (entry.element_group_id !== 8) {
@@ -1085,19 +1083,43 @@
                         ProductStor.product.template_square = 0;
                         var overallQty =
                             ProductStor.product.template.details[0].overallDim.length;
+                        //console.log(ProductStor.product.template.details[0].overallDim);
                         while (--overallQty > -1) {
-                            ProductStor.product.template_width +=
-                                ProductStor.product.template.details[0].overallDim[
-                                    overallQty
-                                ].w;
-                            ProductStor.product.template_height +=
-                                ProductStor.product.template.details[0].overallDim[
-                                    overallQty
-                                ].h;
-                            ProductStor.product.template_square +=
-                                ProductStor.product.template.details[0].overallDim[
-                                    overallQty
-                                ].square;
+                            if (ProductStor.product.construction_type === 3) {
+                                if (ProductStor.product.template_id === 1) {
+                                    ProductStor.product.template_height =
+                                        ProductStor.product.template.details[0].overallDim[0].h;
+                                } else {
+                                    ProductStor.product.template_height =
+                                        ProductStor.product.template.details[0].overallDim[1].h - ProductStor.product.template.details[0].overallDim[0].h;
+                                }
+                                if (ProductStor.product.template_id === 2) {
+                                    ProductStor.product.template_square =
+                                        ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square + ProductStor.product.template.details[0].overallDim[2].square;
+                                    ProductStor.product.template_width =
+                                        ProductStor.product.template.details[0].overallDim[2].w;
+                                } else {
+                                    ProductStor.product.template_square =
+                                        ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square;
+                                    ProductStor.product.template_width =
+                                        ProductStor.product.template.details[0].overallDim[1].w;
+
+                                }
+                            } else {
+                                ProductStor.product.template_width =
+                                    ProductStor.product.template.details[0].overallDim[
+                                        overallQty
+                                    ].w;
+                                ProductStor.product.template_height =
+                                    ProductStor.product.template.details[0].overallDim[
+                                        overallQty
+                                    ].h;
+                                ProductStor.product.template_square =
+                                    ProductStor.product.template.details[0].overallDim[
+                                        overallQty
+                                    ].square;
+
+                            }
                         }
 
                         //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);

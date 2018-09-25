@@ -706,7 +706,6 @@
               GlobalStor.global.isLoader = 1;
               //-------- send selected Factory Id in Server
               UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-              console.log(UserStor.userInfo.factory_id);
               //                  console.log(UserStor.userInfo.factory_id);
               //----- update factoryId in LocalDB & Server
               localDB.updateLocalServerDBs(

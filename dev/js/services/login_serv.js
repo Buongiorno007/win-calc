@@ -1585,7 +1585,6 @@
         localDB
           .selectLocalDB(localDB.tablesLocalDB.doors_groups.tableName)
           .then(function(doorData) {
-
             doorData = doorData.sort(function(a, b) {
               return a.id - b.id;
             });
@@ -1632,6 +1631,7 @@
         localDB
           .selectLocalDB(localDB.tablesLocalDB.doors_hardware_items.tableName)
           .then(function(doorData) {
+            
             var items = angular.copy(doorData);
             for (var x = 0; x < items.length; x += 1) {
               items[x].parent_element_id = items[x].child_id;

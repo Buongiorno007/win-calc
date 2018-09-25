@@ -1674,8 +1674,8 @@
 
                             /** change openDir for directions
                              * direction_id == 1 - не учитывать
-                             * 2 - право
-                             * 3 - лево
+                             * direction_id == 2 - право
+                             * direction_id == 3 - лево
                              * */
                             for (dir = 0; dir < openDirQty; dir += 1) {
                                 if (sashBlocks[s].openDir[dir] === 4) {
@@ -1774,7 +1774,6 @@
             }
 
             function parseMainKit(construction) {
-                //AH928206
                 var deff = $q.defer(),
                     promisesKit = _.map(construction.sizes, function (item, index, arr) {
                         var deff1 = $q.defer();
@@ -2111,6 +2110,7 @@
                     },
                     "id, sku, currency_id, price, name, element_group_id"
                 ).then(function (result) {
+                    //ШТУЛЬП ВОТ ТУТ НАЧАЛО ИЩИТЕ
                     if (result.length) {
                         if (isArray) {
                             deff.resolve(result);
@@ -2122,10 +2122,6 @@
                     }
                 });
                 return deff.promise;
-            }
-
-            function elemValueD(obj) {
-                return obj.getDate() < 10 ? "0" + obj.getDate() : obj.getDate();
             }
 
             function parseKitElement(kits) {
@@ -2422,16 +2418,36 @@
                         } else {
                             sizeTemp = sizes[siz] + kits.amendment_pruning;
                             priceTemp = sizeTemp * constrElem.price * waste;
-
                             if (ProductStor.product.door_type_index !== 0) {
+                                /*
+                                    РАМА с порогом между рамой
+                                */
                                 if (sizeTemp === ProductStor.product.template_height / 1000 + kits.amendment_pruning) {
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }
-                                if (sizeTemp === (ProductStor.product.template_height-ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
+                                /*
+                                    РАМА с порогом под рамой
+                                */
+                                if (sizeTemp === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
                                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                                     priceTemp = sizeTemp * constrElem.price * waste;
                                 }
+                                if (sizeTemp === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2) / 1000 + kits.amendment_pruning) {
+                                    if (ProductStor.product.door_type_index !== 0) {
+                                        if (ProductStor.product.door_type_index === 1) {
+
+                                            sizeTemp = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 + kits.amendment_pruning;
+                                            priceTemp = sizeTemp * constrElem.price * waste;
+                                        }
+                                        if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
+                                            sizeTemp = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning;
+                                            priceTemp = sizeTemp * constrElem.price * waste;
+                                        }
+                                    }
+
+                                }
+
                             }
 
 
@@ -2696,6 +2712,7 @@
                         roundVal = angular.copy(qtyReal);
                         tempS = angular.copy(roundVal);
                     }
+
                     if (currConsist.rounding_type > 0 && currConsist.rounding_value > 0) {
                         switch (currConsist.rounding_type) {
                             case 1:
@@ -2703,17 +2720,20 @@
                                     Math.ceil(tempS / currConsist.rounding_value) *
                                     currConsist.rounding_value;
                                 //console.log('Кратно заданному числу в большую сторону', 'результат=', roundVal, 'исходное значение=', tempS, 'кратное число', currConsist.rounding_value);
+
                                 break;
                             case 2:
                                 roundVal =
                                     Math.floor(tempS / currConsist.rounding_value) *
                                     currConsist.rounding_value;
+
                                 //console.log('Кратно заданному числу в меньшую сторону');
                                 break;
                             case 3:
                                 roundVal =
                                     Math.round(tempS / currConsist.rounding_value) *
                                     currConsist.rounding_value;
+
                                 //console.log('Кратно заданному числу согластно математическим правилам');
                                 break;
                         }
@@ -2730,18 +2750,36 @@
                     if (UserStor.userInfo.currencyId !== currConsistElem.currency_id) {
                         priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
                     }
+
                     if (objTmp.element_group_id === 3) {
                         if (ProductStor.product.door_type_index !== 0) {
-                            if (sizeReal === (ProductStor.product.template_height + pruning * 1000 - 100) / 1000) {
-                                sizeReal = (ProductStor.product.template_height + pruning * 500 - 100) / 1000
+                            if (sizeReal === 1.927) {
+                                if (ProductStor.product.door_type_index === 1) {
+
+                                    // console.log('ProductStor.product.template_height', ProductStor.product.template_height);
+                                    // console.log('ProductStor.product.profileDepths.frameDepth.c', ProductStor.product.profileDepths.frameDepth.c)
+                                    // console.log('pruning', pruning)
+                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 - pruning;
+                                    priceReal = sizeReal * currConsistElem.price * wasteValue;
+                                }
+                                if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
+                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a - 40) / 1000 - pruning;
+                                    priceReal = sizeReal * currConsistElem.price * wasteValue;
+                                }
                             }
-                            if (sizeReal === (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 1000) / 1000) {
-                                sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameStillDepth.a - currConsist.value * 1000 + pruning * 500) / 1000
+                            var armir = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2 - 20) / 1000 + pruning;
+                            if (sizeReal === (Math.round(armir * 1000) / 1000)) {
+                                if (ProductStor.product.door_type_index !== 0) {
+                                    if (ProductStor.product.door_type_index === 1) {
+                                        sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 40) / 1000 + pruning;
+                                        priceReal = sizeReal * currConsistElem.price * wasteValue;
+                                    }
+                                    if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
+                                        sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a - 20) / 1000 + pruning;
+                                        priceReal = sizeReal * currConsistElem.price * wasteValue;
+                                    }
+                                }
                             }
-                            // if (sizeTemp === (ProductStor.product.template_height-ProductStor.product.profileDepths.frameStillDepth.a) / 1000 + kits.amendment_pruning) {
-                            //     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
-                            //     priceTemp = sizeTemp * constrElem.price * waste;
-                            // }
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
@@ -3202,7 +3240,6 @@
                     }
                 }
                 // console.info('START+++', construction);
-                // console.time("parseMainKit");
                 parseMainKit(construction).then(function (kits) {
                     // console.timeEnd("parseMainKit");
                     // console.log('kits!!!!!!+', kits);
@@ -3305,7 +3342,6 @@
                 });
 
                 getElementByListId(0, handleSource.parent_element_id).then(function (handleData) {
-                    //console.info('price handle kit', handleData);
                     handleData.count = handleSource.count;
                     getDoorElem(priceObj, handleData);
                     (function nextRecord() {

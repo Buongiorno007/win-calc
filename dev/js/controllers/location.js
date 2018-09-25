@@ -6,14 +6,14 @@
         .controller('LocationCtrl',
 
             function (localDB,
-                      $location,
-                      GeneralServ,
-                      loginServ,
-                      SettingServ,
-                      MainServ,
-                      GlobalStor,
-                      OrderStor,
-                      UserStor) {
+                $location,
+                GeneralServ,
+                loginServ,
+                SettingServ,
+                MainServ,
+                GlobalStor,
+                OrderStor,
+                UserStor) {
                 /*jshint validthis:true */
                 var thisCtrl = this;
 
@@ -56,7 +56,7 @@
                         //----- save new City Id in LocalDB & Server
                         //----- update password in LocalDB & Server
                         localDB.updateLocalServerDBs(
-                            localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId}
+                            localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, { 'city_id': location.cityId }
                         );
 
                         //-------- if current geolocation changing
