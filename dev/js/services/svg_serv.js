@@ -1275,6 +1275,7 @@
           return size;
         }
 
+        var lastOne = 0;
 
         function setParts(depths, sourceObj, pointsOut, pointsIn, priceElements, currGlassId) {
           var shapeIndex = 0;
@@ -1285,8 +1286,14 @@
              *  door_type_index === 2 - алюминиевый порог (между рамой) 
              *  door_type_index === 3 - алюминиевый порог (под рамой)*/
           }
-          shapeIndex = angular.copy(DesignStor.design.doorConfig.doorTypeIndex);
-          console.log('shapeIndex',shapeIndex)
+          //console.log('DesignStor.design.doorConfig.doorTypeIndex', DesignStor.design.doorConfig.doorTypeIndex)
+          if (DesignStor.design.doorConfig.doorTypeIndex !== '') {
+            shapeIndex = DesignStor.design.doorConfig.doorTypeIndex;
+            lastOne = angular.copy(shapeIndex)
+          } else {
+            shapeIndex = lastOne
+          }
+          console.log('shapeIndex', shapeIndex)
           var newPointsOut = pointsOut.filter(function (item) {
             if (item.type === 'frame' && !item.view) {
               return false;
@@ -1554,7 +1561,7 @@
             //------- per Price
             //----- converting size from mm to m
             var sizeValue = GeneralServ.roundingValue(angular.copy(part.size) / 1000, 3);
-            
+
             if (newPointsOut[index].type === 'bead') {
               part.type = 'bead';
               beadObj.sizes.push(sizeValue);
