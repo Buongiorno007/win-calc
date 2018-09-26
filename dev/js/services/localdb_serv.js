@@ -1248,6 +1248,7 @@
                     .post(globalConstants.serverIP + "/api/insert?login=" + login + "&access_token=" + access, dataToSend)
                     .then(
                         function (result) {
+                            console.log("insertServer",result);
                             defer.resolve(result.data);
                         },
                         function (result) {
