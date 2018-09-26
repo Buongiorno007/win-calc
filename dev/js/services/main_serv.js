@@ -2084,7 +2084,7 @@
                     delete orderData.paymentFirstPrimaryDis;
                     delete orderData.paymentMonthlyPrimaryDis;
 
-                    // console.log('!!!!orderData!!!!', orderData);
+                    console.log('!!!!orderData!!!!', orderData);
                     if (orderType && orderData.order_edit === 0) {
                         delete orderData.order_edit;
                         localDB

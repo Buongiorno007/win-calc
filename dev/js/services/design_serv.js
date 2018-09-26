@@ -878,8 +878,6 @@
           DesignStor.design.doorShapeList.length = [];
           DesignStor.designSource.doorShapeList.length = [];
 
-          console.log(GlobalStor.global.doorsGroups);
-
           for (var z = 0; z < doorsGroups.length; z += 1) {
             for (var i = 0; i < doorsLaminations.length; i += 1) {
               if (product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id &&
@@ -938,8 +936,9 @@
             } else {
               DesignStor.design.sashShapeList.length = 0;
 
-              if (door_id) {
+              if (door_id !== undefined) {
                 ProductStor.product.door_type_index = door_id;
+                console.log(door_id)
               }
               switch (id) {
                 case 0:
@@ -965,9 +964,7 @@
                   }
               }
               DesignStor.design.doorConfig.doorShapeIndex = angular.copy(id);
-              if (DesignStor.design.doorShapeList[id].id) {
-                DesignStor.design.doorConfig.doorTypeIndex = angular.copy(DesignStor.design.doorShapeList[id].id);
-              }
+              DesignStor.design.doorConfig.doorTypeIndex = angular.copy(DesignStor.design.doorShapeList[id].id);
               DesignStor.design.steps.selectedStep1 = 1;
               DesignStor.design.showMobileStep = 2;
               return DesignStor.design.sashShapeList[id];
@@ -980,7 +977,6 @@
         function selectSash(id, product) {
           var deferred = $q.defer();
           var ids = DesignStor.design.sashShapeList[id];
-          // console.log("sashShapeList",DesignStor.design.sashShapeList,id);
           var profileDepths = {
             frameDepth: null,
             frameStillDepth: null,
@@ -1261,7 +1257,6 @@
         }
 
         function doorId(product, source) {
-          console.log(product)
           var deferred = $q.defer();
           product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
           product.profile.short_name = '';
@@ -1306,7 +1301,6 @@
         function setNewDoorParamValue(product, source) {
           //------- save new door config
           var deferred = $q.defer();
-          console.log("setNewDoorParamValue",source)
           product.door_type_index = angular.copy(source.doorConfig.doorTypeIndex);
           product.door_shape_id = source.doorConfig.doorShapeIndex;
           product.door_sash_shape_id = source.doorConfig.sashShapeIndex;

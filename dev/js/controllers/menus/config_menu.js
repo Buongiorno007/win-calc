@@ -155,7 +155,6 @@
 
                 function checkForAddElem() {
                     // console.log("ProductStor.product", ProductStor.product);
-                    console.log(GlobalStor.global.isZeroPriceList)
                     if (!GlobalStor.global.isZeroPriceList.length) {
                         if (!ProductStor.product.is_addelem_only) {
                             alert();
