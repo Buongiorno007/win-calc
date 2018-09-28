@@ -1889,7 +1889,8 @@
                                     let color_id = 0;
                                     /** lamination */
                                     if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON && OrderStor.order.products.length > 0) {
-                                        ProductStor.product.lamination.img_in_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id)
+                                        if ((ProductStor.product.lamination.img_in_id !== angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id)) && (ProductStor.product.lamination.img_out_id !== angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)) && (ProductStor.product.doorLock !== angular.copy(OrderStor.order.products[CartStor.cart.curProd].doorLock)))
+                                            ProductStor.product.lamination.img_in_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id)
                                         ProductStor.product.lamination.img_out_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)
                                         ProductStor.product.doorLock = angular.copy(OrderStor.order.products[CartStor.cart.curProd].doorLock)
                                     }
