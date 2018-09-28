@@ -13,6 +13,8 @@
                 SVGServ,
                 DesignServ,
                 PointsServ,
+                OrderStor,
+                CartStor,
                 GlobalStor,
                 UserStor) {
 
@@ -1581,7 +1583,7 @@
                                             });
 
                                             var tmp = windowWidth * SVGServ.setTemplateScaleMAIN(1) + 55;
-                                            var tmp2 =(doorHeight - windowHeight) * SVGServ.setTemplateScaleMAIN(0.6) - 60;
+                                            var tmp2 = (doorHeight - windowHeight) * SVGServ.setTemplateScaleMAIN(0.6) - 60;
                                             //подоконник
                                             $('.elem17').css({
                                                 'width': tmp + 'px',
@@ -1654,7 +1656,7 @@
                                                 }
                                                 if (detail.id === "block_2") {
                                                     doorHeight = detail.pointsOut[2].y;
-                                                    doorWidth = detail.pointsOut[3].x - detail.pointsOut[2].x ;
+                                                    doorWidth = detail.pointsOut[3].x - detail.pointsOut[2].x;
                                                 }
                                                 if (detail.id === "block_3") {
                                                     rightWindowWidth = detail.pointsOut[1].x - detail.pointsOut[0].x;
@@ -1886,9 +1888,16 @@
                                     }
                                     let color_id = 0;
                                     /** lamination */
+                                    if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON && OrderStor.order.products.length > 0) {
+                                        ProductStor.product.lamination.img_in_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id)
+                                        ProductStor.product.lamination.img_out_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)
+                                        ProductStor.product.doorLock = angular.copy(OrderStor.order.products[CartStor.cart.curProd].doorLock)
+                                    }
                                     if ((ProductStor.product.doorLock.stvorka_type !== 6 && ProductStor.product.lamination.img_in_id > 1)
                                         || (ProductStor.product.doorLock.stvorka_type === 6 && ProductStor.product.lamination.img_out_id > 1)) {
+
                                         if (ProductStor.product.doorLock.stvorka_type !== 6) {
+                                            console.log(ProductStor.product.lamination.img_in_id, 'ProductStor.product.lamination.img_in_id')
                                             if (ProductStor.product.lamination.img_in_id === 4 || ProductStor.product.lamination.img_in_id === 14) {
                                                 color_id = 4;
                                             }
