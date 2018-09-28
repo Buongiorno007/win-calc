@@ -1889,10 +1889,11 @@
                                     let color_id = 0;
                                     /** lamination */
                                     if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON && OrderStor.order.products.length > 0) {
-                                        if ((ProductStor.product.lamination.img_in_id !== angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id)) && (ProductStor.product.lamination.img_out_id !== angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)) && (ProductStor.product.doorLock !== angular.copy(OrderStor.order.products[CartStor.cart.curProd].doorLock)))
+                                        if ((ProductStor.product.lamination.img_in_id !== OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id) && (ProductStor.product.lamination.img_out_id !== OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id) && (ProductStor.product.doorLock !== OrderStor.order.products[CartStor.cart.curProd].doorLock)) {
                                             ProductStor.product.lamination.img_in_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id)
-                                        ProductStor.product.lamination.img_out_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)
-                                        ProductStor.product.doorLock = angular.copy(OrderStor.order.products[CartStor.cart.curProd].doorLock)
+                                            ProductStor.product.lamination.img_out_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)
+                                            ProductStor.product.doorLock = angular.copy(OrderStor.order.products[CartStor.cart.curProd].doorLock)
+                                        }
                                     }
                                     if ((ProductStor.product.doorLock.stvorka_type !== 6 && ProductStor.product.lamination.img_in_id > 1)
                                         || (ProductStor.product.doorLock.stvorka_type === 6 && ProductStor.product.lamination.img_out_id > 1)) {
