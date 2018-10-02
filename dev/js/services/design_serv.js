@@ -890,7 +890,7 @@
                   doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
                   doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
                   doorsGroups[z].doorstep_type = 0;
-                  doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
+                  doorsGroups[z].profileId = doorsGroups[z].profile_id /*|| 345   (вай?)*/;
                   DesignStor.design.doorsGroups.push(doorsGroups[z].id)
                   for (var x = 0; x < doorKitsT1.length; x += 1) {
                     if (doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {

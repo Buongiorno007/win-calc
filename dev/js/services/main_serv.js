@@ -266,31 +266,49 @@
             function setCurrentProfile(product, id) {
                 var deferred = $q.defer();
                 if (id) {
+                    console.log(id, 'DADADADADA')
                     product.profile = angular.copy(
                         fineItemById(id, GlobalStor.global.profiles)
                     );
                 } else {
+                    console.log(product.profile, ' product.profile.')
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                 }
-
+                console.log(product.profile, ' product.profile.')
                 if (product.lamination.id > 0) {
+                    //console.log(product.lamination.rama_list_id, 'product.lamination.rama_list_id')
                     product.profile.rama_list_id = angular.copy(
                         product.lamination.rama_list_id
                     );
+                    //ProductStor.product.profile.rama_list_id = product.lamination.rama_list_id
+                    //console.log(product.profile.rama_list_id, 'product.profile.rama_list_id')
+                    //console.log(product.lamination.rama_still_list_id, 'product.lamination.rama_still_list_id')
                     product.profile.rama_still_list_id = angular.copy(
                         product.lamination.rama_still_list_id
                     );
+                    //ProductStor.product.profile.rama_still_list_id = product.lamination.rama_still_list_id
+                    //console.log(product.profile.rama_still_list_id, 'product.profile.rama_list_id')
+                    //console.log(product.lamination.stvorka_list_id, 'product.lamination.stvorka_list_id')
                     product.profile.stvorka_list_id = angular.copy(
                         product.lamination.stvorka_list_id
                     );
+                    // ProductStor.product.profile.stvorka_list_id = product.lamination.stvorka_list_id
+                    //console.log(product.profile.stvorka_list_id, 'product.profile.stvorka_list_id')
+                    //console.log(product.lamination.impost_list_id, 'product.lamination.impost_list_id')
                     product.profile.impost_list_id = angular.copy(
                         product.lamination.impost_list_id
                     );
+                    //ProductStor.product.profile.impost_list_id = product.lamination.impost_list_id
+                    //console.log(product.profile.impost_list_id, 'product.profile.impost_list_id')
+                    //console.log(product.lamination.shtulp_list_id, 'product.lamination.shtulp_list_id')
                     product.profile.shtulp_list_id = angular.copy(
                         product.lamination.shtulp_list_id
                     );
+                    //ProductStor.product.profile.shtulp_list_id = product.lamination.shtulp_list_id
+                    //console.log(product.profile.shtulp_list_id, 'product.profile.shtulp_list_id')
                 }
                 //------- set Depths
+
                 $q
                     .all([
                         downloadProfileDepth(product.profile.rama_list_id),
@@ -740,7 +758,7 @@
                     result.constrElements.forEach(function (entry) {
                         if (entry.element_group_id != 8) {
                             if (entry.priceReal == 0 || entry.price == 0) {
-                                console.log('name',entry.name);
+                                console.log('name', entry.name);
                                 GlobalStor.global.isZeroPriceList.push(entry.name);
                             }
                         }
@@ -1345,6 +1363,7 @@
             }
 
             function setCurrLamination(product, newLamId) {
+                //может? тут вроде смотрел но уже глаза плывут
                 var selectedLam = [];
                 if (product.construction_type !== 4) {
                     selectedLam = angular.copy(GlobalStor.global.laminatCouples);
@@ -2084,7 +2103,6 @@
                     delete orderData.paymentFirstPrimaryDis;
                     delete orderData.paymentMonthlyPrimaryDis;
 
-                    console.log('!!!!orderData!!!!', orderData);
                     if (orderType && orderData.order_edit === 0) {
                         delete orderData.order_edit;
                         localDB

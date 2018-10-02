@@ -6,16 +6,16 @@
     .controller('RoomSelectorCtrl',
 
       function ($filter,
-                $location,
-                globalConstants,
-                MainServ,
-                TemplatesServ,
-                GlobalStor,
-                ProductStor,
-                UserStor,
-                optionsServ,
-                DesignStor,
-                $timeout) {
+        $location,
+        globalConstants,
+        MainServ,
+        TemplatesServ,
+        GlobalStor,
+        ProductStor,
+        UserStor,
+        optionsServ,
+        DesignStor,
+        $timeout) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.G = GlobalStor;
@@ -33,6 +33,7 @@
 
         //---------- Room Select
         function selectRoom(id) {
+          //а тут может быть?
           GlobalStor.global.rooms.length
           optionsServ.getTemplateImgIcons(function (results) {
             if (results.status) {
@@ -48,15 +49,15 @@
               GlobalStor.global.templatesSource = angular.copy(data);
             }
           });
-          if(GlobalStor.global.selectRoom === 0 && !GlobalStor.global.selectNewTemplate) {
+          if (GlobalStor.global.selectRoom === 0 && !GlobalStor.global.selectNewTemplate) {
             GlobalStor.global.prohibitCopyingTemplate = 1;
             $location.path("/design");
             GlobalStor.global.currOpenPage = 'design';
             GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
-            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
+            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id + 1, 'main');
             GlobalStor.global.selectRoom = 1;
           } else {
-            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1, 'main');
+            TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id + 1, 'main');
           }
           ProductStor.product.chosenAddElements[0].splice(0, ProductStor.product.chosenAddElements[0].length);
           ProductStor.product.addelem_price = 0;
@@ -69,12 +70,12 @@
         }
 
 
-    /**========== FINISH ==========*/
-    //------ clicking
-    thisCtrl.selectRoom = selectRoom;
-    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
-    //---- hide rooms if opened
-    GlobalStor.global.showRoomSelectorDialog = 0;
+        /**========== FINISH ==========*/
+        //------ clicking
+        thisCtrl.selectRoom = selectRoom;
+        thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
+        //---- hide rooms if opened
+        GlobalStor.global.showRoomSelectorDialog = 0;
 
-  });
+      });
 })();

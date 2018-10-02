@@ -1826,7 +1826,7 @@
                                     'width': widthSVG,
                                     'height': heightSVG
                                 });
-
+                                
                                 if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                                     mainSVG.attr('class', scope.typeConstruction);
                                 } else {
@@ -1888,7 +1888,7 @@
                                     }
                                     let color_id = 0;
                                     /** lamination */
-                                    if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON && OrderStor.order.products.length > 0 && CartStor.cart.curProd !== '') {
+                                    if (OrderStor.order.products.length > 0 && CartStor.cart.curProd !== '') {
                                         if ((ProductStor.product.lamination.img_in_id !== OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id) && (ProductStor.product.lamination.img_out_id !== OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)) {
                                             ProductStor.product.lamination.img_in_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_in_id)
                                             ProductStor.product.lamination.img_out_id = angular.copy(OrderStor.order.products[CartStor.cart.curProd].lamination.img_out_id)
@@ -1900,7 +1900,6 @@
                                         || (ProductStor.product.doorLock.stvorka_type === 6 && ProductStor.product.lamination.img_out_id > 1)) {
 
                                         if (ProductStor.product.doorLock.stvorka_type !== 6) {
-                                            console.log(ProductStor.product.lamination.img_in_id, 'ProductStor.product.lamination.img_in_id')
                                             if (ProductStor.product.lamination.img_in_id === 4 || ProductStor.product.lamination.img_in_id === 14) {
                                                 color_id = 4;
                                             }

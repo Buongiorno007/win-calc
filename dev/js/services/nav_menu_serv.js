@@ -41,10 +41,10 @@
                                 //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
                                 var deviceLocation = data.results[0].formatted_address.split(', ');
-//TODO set new currencyID!!!!
-//TODO before need to fine currencyId!!!!
-//TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
-//TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+                                //TODO set new currencyID!!!!
+                                //TODO before need to fine currencyId!!!!
+                                //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+                                //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
                                 OrderStor.order.customer_city_id = 156;
                                 OrderStor.order.customer_city = deviceLocation[deviceLocation.length - 3];
                                 OrderStor.order.climatic_zone = 7; //TODO
@@ -69,19 +69,19 @@
                 function setLanguageVoiceHelper() {
                     var langLabel = 'ru_RU';
 
-//      switch (UserStor.userInfo.langLabel) {
-//        //case 'ua': langLabel = 'ukr-UKR';
-//        case 'ua': langLabel = 'ru_RU';
-//        break;
-//        case 'ru': langLabel = 'ru_RU';
-//        break;
-//        case 'en': langLabel = 'en_US';
-//        break;
-//        case 'de': langLabel = 'de_DE';
-//        break;
-//        case 'ro': langLabel = 'ro_RO';
-//        break;
-//      }
+                    //      switch (UserStor.userInfo.langLabel) {
+                    //        //case 'ua': langLabel = 'ukr-UKR';
+                    //        case 'ua': langLabel = 'ru_RU';
+                    //        break;
+                    //        case 'ru': langLabel = 'ru_RU';
+                    //        break;
+                    //        case 'en': langLabel = 'en_US';
+                    //        break;
+                    //        case 'de': langLabel = 'de_DE';
+                    //        break;
+                    //        case 'ro': langLabel = 'ro_RO';
+                    //        break;
+                    //      }
                     return langLabel;
                 }
 
@@ -117,6 +117,7 @@
                         MainServ.createNewProduct();
                     } else {
                         //------- create new empty product
+                        //console.log(ProductStor.product, 'ProductStor.product');
                         ProductStor.product = ProductStor.setDefaultProduct();
                         MainServ.closeRoomSelectorDialog();
                         MainServ.setDefaultAuxParam();

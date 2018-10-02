@@ -3177,6 +3177,7 @@
             /** CONSTRUCTION PRICE **/
 
             function calculationPrice(construction) {
+                console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
                 var deffMain = $q.defer(),
                     priceObj = {},
                     finishPriceObj = {};
@@ -3270,14 +3271,14 @@
                                     construction.sizes
                                 );
                                 if (!ProductStor.product.hardware.id) {
-                                    if (temp_profile_id) {
-                                        if (ProductStor.product.template_square >= 1) {
-                                            if (tmp[0]) {
-                                                priceObj.constrElements.push(tmp[0]);
-                                            }
+                                if (temp_profile_id) {
+                                    if (ProductStor.product.template_square >= 1) {
+                                        if (tmp[0]) {
+                                            priceObj.constrElements.push(tmp[0]);
                                         }
                                     }
                                 }
+                            }
                                 // console.log(priceObj, construction);
                                 culcConsistPrice(priceObj, construction);
                                 priceObj.priceTotal = GeneralServ.roundingValue(
