@@ -48,7 +48,6 @@
                         //EST' varik chto eto mojet but' sdes', esli toje tak schitaesh to zavtra procheshu etu dich, tam mnogo metodov
                         DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
                             // console.timeEnd("setDoorConfigDefault");
-                            console.log(ProductStor.product, 'eb tvou mat nu gde je oshibka')
                             ProductStor.product = angular.copy(result);
                             if ($location.path() === "/main") {
                                 if ($location.path() !== "/design") {
@@ -141,7 +140,7 @@
                         GlobalStor.global.SelectedTemplateIndex = roomInd;
                         GlobalStor.global.SelectedTemplateName = GlobalStor.global.templatesImgs[ProductStor.product.room_id].name;
                         GlobalStor.global.SelectedName = GlobalStor.global.templatesImgs[templateIndex].name;
-                        MainServ.setDefaultDoorConfig();
+                        //MainServ.setDefaultDoorConfig();
                         DesignServ.setDefaultConstruction();
                         GlobalStor.global.isNewTemplate = 1;
                         //-------- check changes in current template
@@ -165,6 +164,7 @@
                                 //     ProductStor.product.lamination.lamination_in_id
                                 // );
                                 // eto sozdanie constructyon togo formata chto nujno
+                                DesignServ.rebuildSVGTemplate();
                                 var objXFormedPrice = {
                                     laminationId: ProductStor.product.lamination.id,
                                     ids: [
@@ -183,13 +183,36 @@
                                     ],
                                     sizes: []
                                 }
-
+                                console.log(GlobalStor.global.defaultWindowSize, 'GlobalStor.global.defaultWindowSize')
                                 //------- fill objXFormedPrice for sizes
-                                for (var size in ProductStor.product.template.priceElements) {
-                                    /** for door elements */
-                                    objXFormedPrice.sizes.push(
-                                        angular.copy(ProductStor.product.template.priceElements[size])
-                                    );
+
+                                if (ProductStor.product.construction_type === 1) {
+                                    switch (ProductStor.product.template_id) {
+                                        case 0: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize0);
+                                            break;
+                                        case 1: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize1);
+                                            break;
+                                        case 2: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize2);
+                                            break;
+                                        case 3: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize3);
+                                            break;
+                                        case 4: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize4);
+                                            break;
+                                        case 5: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize5);
+                                            break;
+                                        case 6: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize6);
+                                            break;
+                                        case 7: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize7);
+                                            break;
+                                        case 8: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize8);
+                                            break;
+                                        case 9: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize9);
+                                            break;
+                                        case 10: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize10);
+                                            break;
+
+
+                                    }
                                 }
                                 console.log(objXFormedPrice, 'objXFormedPrice')
                                 localDB.calculationPrice(objXFormedPrice);
