@@ -3348,7 +3348,6 @@
         /**------- Save and Close Construction Page ----------*/
         function saveSizeCheck() {
           if (ProductStor.product.construction_type === 4) {
-
             DesignStor.design.steps.selectedStep3 = 0;
             DesignStor.design.steps.selectedStep4 = 0;
             DesignStor.design.doorConfig.lockShapeIndex = '';

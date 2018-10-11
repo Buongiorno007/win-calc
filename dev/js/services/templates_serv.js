@@ -38,14 +38,11 @@
                     ProductStor.product.addelem_price = 0;
                     ProductStor.product.addelemPriceDis = 0;
                     if (ProductStor.product.construction_type === 4) {
-                        //vseravno ne rabotaet
                         GlobalStor.global.noDoorExist = 0
-                        //uje ebashu copy vesde
                         ProductStor.product.template_id = angular.copy(DesignStor.design.template_id);
                         DesignStor.designSource.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
                         DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
                         // console.time("setDoorConfigDefault");
-                        //EST' varik chto eto mojet but' sdes', esli toje tak schitaesh to zavtra procheshu etu dich, tam mnogo metodov
                         DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
                             // console.timeEnd("setDoorConfigDefault");
                             ProductStor.product = angular.copy(result);
@@ -62,14 +59,13 @@
                         ProductStor.product.template_id = angular.copy(DesignStor.design.template_id);
                         // console.time("setCurrentProfile");
                         //TYT stojal 0 , ja pomen9l na to chto nyjno navernoe, no bl9 vseravno s profaila ne to idet
+                        DesignServ.setDefaultConstruction();
                         MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
                             // console.timeEnd("setCurrentProfile");
                             // console.time("saveTemplateInProduct");
                             MainServ.saveTemplateInProduct(templateIndex).then(function (result) {
                                 // console.timeEnd("saveTemplateInProduct");
-
                                 MainServ.setCurrentHardware(ProductStor.product);
-                                DesignServ.setDefaultConstruction();
                                 //------ define product price
 
                                 /** send analytics data to Server*/
@@ -128,11 +124,7 @@
 
                 //---------- select new template and recalculate it price
                 function selectNewTemplate(templateIndex, roomInd, whoCalled) {
-                    console.log(GlobalStor.global.templateTEMP, 'GlobalStor.global.templateTEMP do nachala')
-                    console.log(ProductStor.product, 'ProductStor.product do nachala')
                     GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
-                    console.log(GlobalStor.global.templateTEMP, 'GlobalStor.global.templateTEMP posle nachala')
-                    console.log(ProductStor.product, 'ProductStor.product posle nachala')
 
                     function goToNewTemplate() {
                         ProductStor.product.room_id = templateIndex;
@@ -183,37 +175,10 @@
                                     ],
                                     sizes: []
                                 }
-                                console.log(GlobalStor.global.defaultWindowSize, 'GlobalStor.global.defaultWindowSize')
+                                //console.log(GlobalStor.global.defaultWindowSize, 'GlobalStor.global.defaultWindowSize')
                                 //------- fill objXFormedPrice for sizes
 
-                                if (ProductStor.product.construction_type === 1) {
-                                    switch (ProductStor.product.template_id) {
-                                        case 0: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize0);
-                                            break;
-                                        case 1: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize1);
-                                            break;
-                                        case 2: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize2);
-                                            break;
-                                        case 3: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize3);
-                                            break;
-                                        case 4: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize4);
-                                            break;
-                                        case 5: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize5);
-                                            break;
-                                        case 6: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize6);
-                                            break;
-                                        case 7: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize7);
-                                            break;
-                                        case 8: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize8);
-                                            break;
-                                        case 9: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize9);
-                                            break;
-                                        case 10: objXFormedPrice.sizes = angular.copy(GlobalStor.global.defaultWindowSize10);
-                                            break;
-
-
-                                    }
-                                }
+                                // 
                                 console.log(objXFormedPrice, 'objXFormedPrice')
                                 localDB.calculationPrice(objXFormedPrice);
                             }

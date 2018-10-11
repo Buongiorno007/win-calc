@@ -267,7 +267,7 @@
                 var deferred = $q.defer();
                 var laminat = 0;
                 for (var i = 0; i < GlobalStor.global.laminatCouples.length; i++) {
-                    if (GlobalStor.global.laminatCouples[i].lamination_in_id === product.lamination.lamination_in_id && GlobalStor.global.laminatCouples[i].lamination_out_id === product.lamination.lamination_out_id) {
+                    if (GlobalStor.global.laminatCouples[i].lamination_in_id === product.lamination.lamination_in_id && GlobalStor.global.laminatCouples[i].lamination_out_id === product.lamination.lamination_out_id && id === GlobalStor.global.laminatCouples[i].profile_id) {
                         laminat = angular.copy(GlobalStor.global.laminatCouples[i]);
                         break;
                     }
@@ -286,32 +286,18 @@
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id
                     );
-                    //ProductStor.product.profile.rama_list_id = product.lamination.rama_list_id
-                    //console.log(product.profile.rama_list_id, 'product.profile.rama_list_id')
-                    //console.log(product.lamination.rama_still_list_id, 'product.lamination.rama_still_list_id')
                     product.profile.rama_still_list_id = angular.copy(
                         laminat.rama_still_list_id
                     );
-                    //ProductStor.product.profile.rama_still_list_id = product.lamination.rama_still_list_id
-                    //console.log(product.profile.rama_still_list_id, 'product.profile.rama_list_id')
-                    //console.log(product.lamination.stvorka_list_id, 'product.lamination.stvorka_list_id')
                     product.profile.stvorka_list_id = angular.copy(
                         laminat.stvorka_list_id
                     );
-                    // ProductStor.product.profile.stvorka_list_id = product.lamination.stvorka_list_id
-                    //console.log(product.profile.stvorka_list_id, 'product.profile.stvorka_list_id')
-                    //console.log(product.lamination.impost_list_id, 'product.lamination.impost_list_id')
                     product.profile.impost_list_id = angular.copy(
                         laminat.impost_list_id
                     );
-                    //ProductStor.product.profile.impost_list_id = product.lamination.impost_list_id
-                    //console.log(product.profile.impost_list_id, 'product.profile.impost_list_id')
-                    //console.log(product.lamination.shtulp_list_id, 'product.lamination.shtulp_list_id')
                     product.profile.shtulp_list_id = angular.copy(
                         laminat.shtulp_list_id
                     );
-                    //ProductStor.product.profile.shtulp_list_id = product.lamination.shtulp_list_id
-                    //console.log(product.profile.shtulp_list_id, 'product.profile.shtulp_list_id')
                 }
                 //------- set Depths
 
@@ -1295,7 +1281,6 @@
 
             function laminatFiltering() {
                 if (ProductStor.product.construction_type !== 4) {
-
                     var laminatQty = GlobalStor.global.laminats.length,
                         /** sort by Profile */
                         lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function (item) {
