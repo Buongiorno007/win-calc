@@ -14,7 +14,7 @@
         .laminat-row
           .laminat-label {{ ::laminPanel.LAMINAT_INSIDE }}
           .laminat-label {{ ::laminPanel.LAMINAT_OUTSIDE }}
-        .laminat-row.laminat-img(ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }", ng-click="laminPanel.selectLaminat(lamCouple.id)")
+        .laminat-row.laminat-img(ng-class="{'selected': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id && lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id }", ng-click="laminPanel.selectLaminat(lamCouple.id)")
             img(ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg")
             img(ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg")
         .laminat-row
