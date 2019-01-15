@@ -44,6 +44,16 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
     }
   }
 
+  .privacy-policy{
+    text-align: center;
+    color: aliceblue;
+    font-size: 15px;
+    a{
+      color: aquamarine;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 
   .confirm-registration {
       position: absolute;

@@ -30,7 +30,7 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.required') {{ ::loginPage.EMPTY_FIELD }}
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
                 .error-tooltip(ng-show="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
-
+            .privacy-policy Нажимая кнопку входа я принимаю <a class="privacy-link">пользовательское соглашение</a>
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
         button.login-submit(ng-if='loginPage.consts.serverIP !== "http://api.steko.com.ua"' ng-click='loginPage.registration()')
             | {{ ::loginPage.REGISTRATION }}
