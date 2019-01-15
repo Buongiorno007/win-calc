@@ -35,8 +35,8 @@
     "PRINT": "Print View",
     "LETTER_M": "m",
     "COUNT": "număr",
-    "SAVED_KONSTRUCTION" : "Design-ul cu un anumit set de parametri este stocat.",
-    "SAVE_OR_NO" : "Pentru a păstra structura actuală?"
+    "SAVED_KONSTRUCTION": "Design-ul cu un anumit set de parametri este stocat.",
+    "SAVE_OR_NO": "Pentru a păstra structura actuală?"
   },
   "natification": {
     "ASKING_PRICE": " Verificați tarifele",
@@ -45,11 +45,14 @@
     "TEXT3": ". Pentru a salva un design de redimensionare.",
     "EDIT_HARDWARE": "Alte accesorii",
     "EDIT_SIZE": "Întoarcere dimensiunea",
-    "ATENTION" : "ATENȚIE!",
-    "ATENTION_MSG1" : "Calculul nu este posibilă din cauza lipsei de prețuri ",
-    "ATENTION_MSG2" : "Vă rugăm să selectați o configurație diferită."
+    "ATENTION": "ATENȚIE!",
+    "ATENTION_MSG1": "Calculul nu este posibilă din cauza lipsei de prețuri ",
+    "ATENTION_MSG2": "Vă rugăm să selectați o configurație diferită."
   },
   "login": {
+    "TEXT1": " Attention! Loading data ...  ",
+    "TEXT2": " Application launch time is up to 7 min. ",
+    "TEXT3": ". Time depends on the Internet connection and device speed.",
     "ENTER": "Intră",
     "PASS_CODE": "Comunicați acest cod managerului.",
     "YOUR_CODE": "Codul Dvs.: ",
@@ -65,8 +68,6 @@
     "REGISTRATION": "Înregistrare",
     "REGISTRATION_INFO": "Pentru a obține login și parola, completați detaliile",
     "REGISTRATION_LOGIN_EMAIL": "O scrisoare cu un nume de utilizator și o parolă a fost trimisă pe e-mail",
-    
-    
     "SELECT_COUNTRY": "Selectați țara",
     "SELECT_REGION": "Selectați regiunea",
     "SELECT_CITY": "Selectați orașul",
@@ -79,18 +80,17 @@
     "USER_PASSWORD_ERROR": "Parolă incorectă!",
     "OFFLINE": "Nu există conexiune la Internet!",
     "OFFLINE_INFO": "Conectați-vă la internet și încercați din nou",
-    "OFFLINE_IMPORT":"Nu există conexiune la Internet!",
+    "OFFLINE_IMPORT": "Nu există conexiune la Internet!",
     "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!",
-    "AUTO_SYNCHRONIZE" : "Date de sincronizare automată la pornirea aplicației",
-    "UNEXPECTED_ERROR" : "Ne pare rau, ceva a mers prost, vă rugăm să încercați din nou mai târziu",
-    "SYNC_INFO_P1" : "Datele din aplicație sunt sincronizate ",
-    "SYNC_INFO_P2" : "Actualizați acum?",
-    "CONTACT_US" : "Pentru ajustarea individuală, contactați",
-    "TEST_USER" : "Utilizator de test",
-    "TEST_USER_LOGIN" : "Website",
-    "TEST_USER_PASS" : "Website",
-    "SYNCHRONIZE_INFO" : "Când datele caracteristici activate sincronizarea automată, în timpul pornirii aplicațiilor este încărcată prețuri curente, precum și de economisire pe ordinele de server recrutați mai devreme. Sincronizarea automată numai dacă aveți acces la Internet"
-
+    "AUTO_SYNCHRONIZE": "Date de sincronizare automată la pornirea aplicației",
+    "UNEXPECTED_ERROR": "Ne pare rau, ceva a mers prost, vă rugăm să încercați din nou mai târziu",
+    "SYNC_INFO_P1": "Datele din aplicație sunt sincronizate ",
+    "SYNC_INFO_P2": "Actualizați acum?",
+    "CONTACT_US": "Pentru ajustarea individuală, contactați",
+    "TEST_USER": "Utilizator de test",
+    "TEST_USER_LOGIN": "Website",
+    "TEST_USER_PASS": "Website",
+    "SYNCHRONIZE_INFO": "Când datele caracteristici activate sincronizarea automată, în timpul pornirii aplicațiilor este încărcată prețuri curente, precum și de economisire pe ordinele de server recrutați mai devreme. Sincronizarea automată numai dacă aveți acces la Internet"
   },
   "danger-alert": {
     "PRODUCT": "constructie",
@@ -106,7 +106,6 @@
     "HEAT_TRANSFER_RESISTANCE": "rezistență la transfer de căldură",
     "HEAT_TRANSFER_INFO_1": "Valoarea necesară pentru această zonă climatică.",
     "HEAT_TRANSFER_INFO_2": "** Pentru ao îmbunătăți, utilizează ferestre cu geamuri duble, cu ochelari de economisire a energiei și a sistemelor de profile cu multe aparate foto",
-
     "AIR_CIRCULATION": "coeficientul schimbului de aer",
     "NAVMENU_GEOLOCATION": "Alege amplasarea",
     "NAVMENU_CURRENT_GEOLOCATION": "Amplasarea curentă",
@@ -151,8 +150,7 @@
     "CART": "CART"
   },
   "panels": {
-    "INFO_HINT":"Lansați calculul prin selectarea șablonului dorit",
-
+    "INFO_HINT": "Lansați calculul prin selectarea șablonului dorit",
     "TEMPLATE_WINDOW": "Fereastră",
     "TEMPLATE_BALCONY": "Balcon",
     "TEMPLATE_DOOR": "Ușă",
@@ -164,11 +162,9 @@
     "HEAT_INSULATION": "izolare termică",
     "NOICE_INSULATION": "izolare fonică",
     "CORROSION_COEFF": "anticoroziune",
-
     "TEMPLATE_WINDOW_HAND": "Modele de ferestre",
     "TEMPLATE_BALCONY_HAND": "Uși de balcon",
     "TEMPLATE_DOOR_HAND": "Usi de intrare",
-
     "1_TYPE": "Fereastra orb",
     "2_TYPE": "fereastra de pivotare",
     "3_TYPE": "fereastră prelate & rândul său",
@@ -185,7 +181,6 @@
     "23_TYPE": "cu frunze",
     "31_TYPE": "ușa din față cu o singură aripă",
     "32_TYPE": "ușa din față cu frunze",
-
     "BURGLAR_COEFF": "antiefracție",
     "LAMINAT_INSIDE": "în cameră",
     "LAMINAT_OUTSIDE": "fațadă",
@@ -239,7 +234,6 @@
     "SERV2": "Închiderea cusătura sub pragul",
     "SERV3": "Spadework",
     "SERV4": "Termina pantele interioare",
-
     "GRIDS": "plase de protecție împotriva țânțarilor",
     "VISORS": "apărători",
     "SPILLWAYS": "glafuri pentru evacuarea apei",
@@ -313,12 +307,11 @@
     "CHANGE_SIZE": "Pentru salvarea construcției modificați dimensiunile.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
     "CALC_PRICE": "Se calculează prețul",
-
-    "PROFILE_SYSTEM_SELECT":"Sistemul de profile",
-    "GLASS_SELECT":"geamuri termoizolante",
-    "GLASS_SELECT_BIG":"Geamuri termoizolante",
-    "HARDWARE_SELECT":"accesorii",
-    "LEFT_TEXT_SELECT":"pentru a alege atunci când salvați"
+    "PROFILE_SYSTEM_SELECT": "Sistemul de profile",
+    "GLASS_SELECT": "geamuri termoizolante",
+    "GLASS_SELECT_BIG": "Geamuri termoizolante",
+    "HARDWARE_SELECT": "accesorii",
+    "LEFT_TEXT_SELECT": "pentru a alege atunci când salvați"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Căutare după cuvinte-cheie",
@@ -332,10 +325,10 @@
     "PAYMENTS": "plăți pentru",
     "ALLPRODUCTS": "articole",
     "ON": "la",
-    "DOWNLOAD_ORDERS" : "Descarcă ordine de",
-    "DURING_THE_WEEK" : "Pe săptămână",
-    "PER_MOUNTH" : "Pe lună",
-    "IN_A_YEAR" : "Pentru anul",
+    "DOWNLOAD_ORDERS": "Descarcă ordine de",
+    "DURING_THE_WEEK": "Pe săptămână",
+    "PER_MOUNTH": "Pe lună",
+    "IN_A_YEAR": "Pentru anul",
     "DRAFT": "Ciornă",
     "DATE_RANGE": "Diapazon de zile",
     "ALL_TIME": "Pentru toată perioada",
@@ -352,7 +345,7 @@
     "WAIT_MASTER": "se așteaptă specialistul în măsurări",
     "INCLUDED": "incluse",
     "NO_PRINT": "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet.",
-    "SYNCHRONIZE_ORDERS":"Sincronizarea ordinelor"
+    "SYNCHRONIZE_ORDERS": "Sincronizarea ordinelor"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Toate elementele supl. ale comenzii",

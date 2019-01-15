@@ -38,9 +38,9 @@
     "PRINT": "To print",
     "LETTER_M": "m",
     "COUNT": "Amount",
-    "SAVED_KONSTRUCTION" : "The construction with this set of parameters is saved.",
-    "SAVED_KONSTRUCTION_ATTENTION" : "First, save the construction.",
-    "SAVE_OR_NO" : "Do you want to save the current construction?"
+    "SAVED_KONSTRUCTION": "The construction with this set of parameters is saved.",
+    "SAVED_KONSTRUCTION_ATTENTION": "First, save the construction.",
+    "SAVE_OR_NO": "Do you want to save the current construction?"
   },
   "natification": {
     "ASKING_PRICE": "Check rates",
@@ -49,9 +49,9 @@
     "TEXT3": ". To save design resize.",
     "EDIT_HARDWARE": "Gibt die Größe des",
     "EDIT_SIZE": "Return the size of the",
-    "ATENTION" : "ATTENTION!",
-    "ATENTION_MSG1" : "Calculation is not possible due to lack of price for ",
-    "ATENTION_MSG2" : "Please choose another configuration."
+    "ATENTION": "ATTENTION!",
+    "ATENTION_MSG1": "Calculation is not possible due to lack of price for ",
+    "ATENTION_MSG2": "Please choose another configuration."
   },
   "danger-alert": {
     "PRODUCT": "construction",
@@ -60,6 +60,9 @@
     "DANGER_ALERT_SECOND_PAGE": "It is recommended to perform the replacement of additional elements on the corresponding system"
   },
   "login": {
+    "TEXT1": " Attention! Loading data ...  ",
+    "TEXT2": " Application launch time is up to 7 min. ",
+    "TEXT3": ". Time depends on the Internet connection and device speed.",
     "ENTER": "To enter",
     "PASS_CODE": "You will reveal to this code the manager.",
     "YOUR_CODE": "Your code: ",
@@ -76,8 +79,7 @@
     "REGISTRATION": "Registration",
     "REGISTRATION_INFO": "To get login and password, fill in your details",
     "REGISTRATION_LOGIN_EMAIL": "A letter with a username and password was sent to your e-mail",
-    
-    "UPDATEDB" : "Update Database",
+    "UPDATEDB": "Update Database",
     "SELECT_COUNTRY": "Select country",
     "SELECT_REGION": "Select region",
     "SELECT_CITY": "Select city",
@@ -89,19 +91,18 @@
     "SELECT_FACTORY": "Please select the producer",
     "USER_PASSWORD_ERROR": "Sorry, but your password is wrong!",
     "OFFLINE": "No internet connection!",
-    "OFFLINE_IMPORT":"No internet connection!",
+    "OFFLINE_IMPORT": "No internet connection!",
     "OFFLINE_INFO": "Connect to the internet and try again",
     "IMPORT_DB": "DataBase Import was started! Waite please!",
-    "AUTO_SYNCHRONIZE" : "Auto-sync data when the application starts",
-    "UNEXPECTED_ERROR" : "Sorry, something went wrong, please try again later",
-    "SYNC_INFO_P1" : "The data in the application are synchronized ",
-    "SYNC_INFO_P2" : "Refresh now?",
-    "CONTACT_US" : "For individual settings, contact",
-    "TEST_USER" : "Test user",
-    "TEST_USER_LOGIN" : "Website",
-    "TEST_USER_PASS" : "Website",
-    "SYNCHRONIZE_INFO" : "When enabled features auto-sync data, during application startup is loaded current prices, as well as saving on server orders recruited earlier. Auto-sync only if you have access to the Internet"
-
+    "AUTO_SYNCHRONIZE": "Auto-sync data when the application starts",
+    "UNEXPECTED_ERROR": "Sorry, something went wrong, please try again later",
+    "SYNC_INFO_P1": "The data in the application are synchronized ",
+    "SYNC_INFO_P2": "Refresh now?",
+    "CONTACT_US": "For individual settings, contact",
+    "TEST_USER": "Test user",
+    "TEST_USER_LOGIN": "Website",
+    "TEST_USER_PASS": "Website",
+    "SYNCHRONIZE_INFO": "When enabled features auto-sync data, during application startup is loaded current prices, as well as saving on server orders recruited earlier. Auto-sync only if you have access to the Internet"
   },
   "mainpage": {
     "MM": " mm ",
@@ -120,7 +121,6 @@
     "HEAT_TRANSFER_INFO_9": "profile",
     "HEAT_TRANSFER_INFO_10": "systems with many cameras",
     "HEAT_TRANSFER_INFO_11": "Understand",
-
     "AIR_CIRCULATION": "coefficient of ventilation",
     "NAVMENU_GEOLOCATION": "To choose a location",
     "NAVMENU_CURRENT_GEOLOCATION": "Current location",
@@ -165,8 +165,7 @@
     "CART": "CART"
   },
   "panels": {
-    "INFO_HINT":"Start the calculation by selecting the desired template",
-
+    "INFO_HINT": "Start the calculation by selecting the desired template",
     "TEMPLATE_WINDOW": "Window",
     "TEMPLATE_BALCONY": "Balcony",
     "TEMPLATE_DOOR": "Door",
@@ -190,12 +189,9 @@
     "SENDVICH": "sandwich panel",
     "PVX": "PVC panel",
     "CAMERa": "cameras",
-
-
     "TEMPLATE_WINDOW_HAND": "Templates for Windows",
     "TEMPLATE_BALCONY_HAND": "Doors balcony",
     "TEMPLATE_DOOR_HAND": "Entrance doors",
-
     "1_TYPE": "blind",
     "2_TYPE": "pivoting",
     "3_TYPE": "tilt & turn",
@@ -212,7 +208,6 @@
     "23_TYPE": "leaved",
     "31_TYPE": "Single-wing",
     "32_TYPE": "leaved",
-
     "CAMER": "cameras",
     "CAMERs": "cameras",
     "ENERGY_SAVE": "+energy saving",
@@ -226,9 +221,9 @@
     "LOCK_TYPE2": "multilocking with a latch",
     "EXTRA_GLASS1": "There is no possibility of glass installation ",
     "EXTRA_GLASS2": " for the design configuration",
-    "INTERIOR" : "Interior",
-    "FACADE" : "Facade",
-    "TEMPLATE_SELECTION" : "Template selection"
+    "INTERIOR": "Interior",
+    "FACADE": "Facade",
+    "TEMPLATE_SELECTION": "Template selection"
   },
   "add_elements": {
     "CHOOSE": "select",
@@ -254,13 +249,11 @@
     "HANDLEL": "handle",
     "OTHERS": "other",
     "OTHER": "Other",
-
     "SERVICES": "Services",
     "SERV1": "Sealing of the outer seam",
     "SERV2": "Sealing under the windowsil",
     "SERV3": "Preparation of work",
     "SERV4": "Finishing of internal slopes",
-
     "GRIDS": "mosquito grids",
     "VISORS": "peaks",
     "WINDOWSILLS": "sills",
@@ -284,7 +277,6 @@
     "ELEMENTS": "components",
     "ELEMENT": "component",
     "ELEMENTA": "component"
-
   },
   "add_elements_menu": {
     "TIP": "Select an item from the list",
@@ -335,12 +327,11 @@
     "CHANGE_SIZE": "To save design resize.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
     "CALC_PRICE": "Calculate the price",
-
-    "PROFILE_SYSTEM_SELECT":"The system profile",
-    "GLASS_SELECT":"glazing",
-    "GLASS_SELECT_BIG":"Glazing",
-    "HARDWARE_SELECT":"window hardware",
-    "LEFT_TEXT_SELECT":"choose after save"
+    "PROFILE_SYSTEM_SELECT": "The system profile",
+    "GLASS_SELECT": "glazing",
+    "GLASS_SELECT_BIG": "Glazing",
+    "HARDWARE_SELECT": "window hardware",
+    "LEFT_TEXT_SELECT": "choose after save"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Search by keyword",
@@ -354,10 +345,10 @@
     "PAYMENTS": "payments",
     "ALLPRODUCTS": "products",
     "ON": "on",
-    "DOWNLOAD_ORDERS" : "Download orders",
-    "DURING_THE_WEEK" : "During the week",
-    "PER_MOUNTH" : "Per month",
-    "IN_A_YEAR" : "In a year",
+    "DOWNLOAD_ORDERS": "Download orders",
+    "DURING_THE_WEEK": "During the week",
+    "PER_MOUNTH": "Per month",
+    "IN_A_YEAR": "In a year",
     "DRAFT": "Draft",
     "DATE_RANGE": "Date Range",
     "ALL_TIME": "For all time",
@@ -374,7 +365,7 @@
     "WAIT_MASTER": "expects gager",
     "INCLUDED": "included",
     "NO_PRINT": "Output Specification is impossible due to the lack of Internet connection",
-    "SYNCHRONIZE_ORDERS":"Synchronize orders"
+    "SYNCHRONIZE_ORDERS": "Synchronize orders"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "All additional elements order",
@@ -430,7 +421,6 @@
     "CALL_CREDIT": "Making installment and order to calculate",
     "CALL_CREDIT_DESCRIP": "To arrange installments and fulfill the order, we have something for you to know.",
     "CALL_CREDIT_CLIENT_INFO": "Installment:",
-
     "CALL_ORDER_CLIENT_INFO_SHORT": "Customer information:",
     "CALL_ORDER_CLIENT_INFO_SHORT_1": "(Required fields *)",
     "CREDIT_TARGET": "The purpose of registration of installments",
@@ -496,7 +486,6 @@
     "CONFIRM_PASSWORD": "Confirm",
     "PC_POWER_INFO_1": "* Data processing speed.",
     "PC_POWER_INFO_2": "Recommended not below 755",
-
     "GO_TO_CALCULATION": "Calculation screen",
     "GEOLOCATION": "Geolocation",
     "ORDER_HISTORY": "Order history",
@@ -504,7 +493,6 @@
     "HINTS": "Tips",
     "REPORT": "Report",
     "EXIT": "Exit",
-
     "NO_CONFIRM_PASS": "Invalid password"
   }
 }

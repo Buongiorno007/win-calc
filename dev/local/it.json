@@ -36,8 +36,8 @@
     "PRINT": "Visualizzazione",
     "LETTER_M": "m",
     "COUNT": "Numero",
-    "SAVED_KONSTRUCTION" : "Il design con un dato insieme di parametri viene memorizzato.",
-    "SAVE_OR_NO" : "Per mantenere l'attuale struttura?"
+    "SAVED_KONSTRUCTION": "Il design con un dato insieme di parametri viene memorizzato.",
+    "SAVE_OR_NO": "Per mantenere l'attuale struttura?"
   },
   "natification": {
     "ASKING_PRICE": "Controlla i prezzi",
@@ -46,9 +46,9 @@
     "TEXT3": ". Per salvare la progettazione di ridimensionamento.",
     "EDIT_HARDWARE": "Altri accessor",
     "EDIT_SIZE": " Ritorna la dimensione del",
-    "ATENTION" : "ATTENZIONE!",
-    "ATENTION_MSG1" : "Il calcolo non è possibile a causa della mancanza di prezzi ",
-    "ATENTION_MSG2" : "Si prega di selezionare una diversa configurazione."
+    "ATENTION": "ATTENZIONE!",
+    "ATENTION_MSG1": "Il calcolo non è possibile a causa della mancanza di prezzi ",
+    "ATENTION_MSG2": "Si prega di selezionare una diversa configurazione."
   },
   "danger-alert": {
     "PRODUCT": "progetto",
@@ -57,6 +57,9 @@
     "DANGER_ALERT_SECOND_PAGE": "Si consiglia di effettuare la sostituzione di elementi aggiuntivi sul corrispondente sistema"
   },
   "login": {
+    "TEXT1": " Attention! Loading data ...  ",
+    "TEXT2": " Application launch time is up to 7 min. ",
+    "TEXT3": ". Time depends on the Internet connection and device speed.",
     "ENTER": "Entrare",
     "PASS_CODE": "Comunicate il codice al manager.",
     "YOUR_CODE": "Il vostro codice: ",
@@ -72,8 +75,6 @@
     "REGISTRATION": "Registrazione",
     "REGISTRATION_INFO": "Per ottenere login e password, inserisci i tuoi dati",
     "REGISTRATION_LOGIN_EMAIL": "Una lettera con un nome utente e una password è stata inviata alla tua e-mail",
-    
-    
     "SELECT_COUNTRY": "Il paese di Veberite",
     "SELECT_REGION": "Scelga la regione",
     "SELECT_CITY": "Scelga la città",
@@ -86,18 +87,17 @@
     "USER_PASSWORD_ERROR": "Parola d'ordine scorretta!",
     "OFFLINE": "Non c'è connessione con l'Internet!",
     "OFFLINE_INFO": "Connettersi a Internet e riprova",
-    "OFFLINE_IMPORT":"Non c'è connessione con l'Internet!",
+    "OFFLINE_IMPORT": "Non c'è connessione con l'Internet!",
     "IMPORT_DB": "Il carico di Database ha cominciato! Aspetti, per favore!",
-    "AUTO_SYNCHRONIZE" : "Dati Sincronizzazione automatica all'avvio dell'applicazione",
-    "UNEXPECTED_ERROR" : "Siamo spiacenti, qualcosa è andato storto, riprova più tardi",
-    "SYNC_INFO_P1" : "I dati nell'applicazione sono sincronizzati ",
-    "SYNC_INFO_P2" : "Aggiornare ora?",
-    "CONTACT_US" : "Per la regolazione individuale, contattare",
-    "TEST_USER" : "Prova utente",
-    "TEST_USER_LOGIN" : "Website",
-    "TEST_USER_PASS" : "Website",
-    "SYNCHRONIZE_INFO" : "Quando i dati funzioni abilitate la sincronizzazione automatica, durante l'avvio dell'applicazione viene caricato prezzi correnti, così come il risparmio sugli ordini del server reclutati in precedenza. Sincronizzazione automatica solo se si ha accesso a Internet"
-
+    "AUTO_SYNCHRONIZE": "Dati Sincronizzazione automatica all'avvio dell'applicazione",
+    "UNEXPECTED_ERROR": "Siamo spiacenti, qualcosa è andato storto, riprova più tardi",
+    "SYNC_INFO_P1": "I dati nell'applicazione sono sincronizzati ",
+    "SYNC_INFO_P2": "Aggiornare ora?",
+    "CONTACT_US": "Per la regolazione individuale, contattare",
+    "TEST_USER": "Prova utente",
+    "TEST_USER_LOGIN": "Website",
+    "TEST_USER_PASS": "Website",
+    "SYNCHRONIZE_INFO": "Quando i dati funzioni abilitate la sincronizzazione automatica, durante l'avvio dell'applicazione viene caricato prezzi correnti, così come il risparmio sugli ordini del server reclutati in precedenza. Sincronizzazione automatica solo se si ha accesso a Internet"
   },
   "mainpage": {
     "MM": " мм ",
@@ -107,7 +107,6 @@
     "HEAT_TRANSFER_RESISTANCE": "resistenza al trasferimento di calore",
     "HEAT_TRANSFER_INFO_1": "Il valore richiesto per questa zona climatica.",
     "HEAT_TRANSFER_INFO_2": "** Per migliorare, utilizzare finestre con doppi vetri con i vetri a risparmio energetico e sistemi di profili con molte fotocamere",
-
     "AIR_CIRCULATION": "Coefficiente della circolazione d’aria",
     "NAVMENU_GEOLOCATION": "Scegliere la disposizione",
     "NAVMENU_CURRENT_GEOLOCATION": "La disposizione corrente",
@@ -152,8 +151,7 @@
     "CART": "CART"
   },
   "panels": {
-    "INFO_HINT":"Inizia il calcolo selezionando il modello desiderato",
-
+    "INFO_HINT": "Inizia il calcolo selezionando il modello desiderato",
     "TEMPLATE_WINDOW": "Finestra",
     "TEMPLATE_BALCONY": "Balcone",
     "TEMPLATE_DOOR": "Porta",
@@ -168,11 +166,9 @@
     "BURGLAR_COEFF": "protezione contro rottura",
     "LAMINAT_INSIDE": "in camera",
     "LAMINAT_OUTSIDE": "la facciata",
-
     "TEMPLATE_WINDOW_HAND": "Modelli di finestre",
     "TEMPLATE_BALCONY_HAND": "Portefinestre",
     "TEMPLATE_DOOR_HAND": "Porte d'ingresso",
-
     "1_TYPE": "cieca",
     "2_TYPE": "basculante",
     "3_TYPE": "ad anta ribalta",
@@ -189,7 +185,6 @@
     "23_TYPE": "porta del balcone leaved",
     "31_TYPE": "Single- ala",
     "32_TYPE": "leaved",
-
     "ONE_WINDOW_TYPE": "La porta sola",
     "TWO_WINDOW_TYPE": "L'ala doppio",
     "THREE_WINDOW_TYPE": "Il da tre foglie",
@@ -235,13 +230,11 @@
     "HANDLEL": "maniglia",
     "OTHERS": "altro",
     "OTHER": "Аltro",
-
     "SERVICES": "Servizi",
     "SERV1": "Incorporazione di saldatura esterni",
     "SERV2": "Chiusura della cucitura sotto il davanzale",
     "SERV3": "lavoro preliminare",
     "SERV4": "Finite le piste interne",
-
     "GRIDS": "le zanzariere",
     "VISORS": "le tettoie",
     "SPILLWAYS": "gli scoli d’acqua",
@@ -315,12 +308,11 @@
     "CHANGE_SIZE": "Per salvare la progettazione di ridimensionamento.",
     "DOOR_ERROR": "Systems of entrance doors are not configured",
     "CALC_PRICE": "Сalcolare il prezzo",
-
-    "PROFILE_SYSTEM_SELECT":"Il sistema di profili",
-    "GLASS_SELECT":"vetri",
-    "GLASS_SELECT_BIG":"Vetri",
-    "HARDWARE_SELECT":"accessori",
-    "LEFT_TEXT_SELECT":"scegliere quando si salva"
+    "PROFILE_SYSTEM_SELECT": "Il sistema di profili",
+    "GLASS_SELECT": "vetri",
+    "GLASS_SELECT_BIG": "Vetri",
+    "HARDWARE_SELECT": "accessori",
+    "LEFT_TEXT_SELECT": "scegliere quando si salva"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Ricerca per parole chiave",
@@ -330,10 +322,10 @@
     "CLIENT": "cliente",
     "ADDRESS": "indirizzo",
     "FROM": "da ",
-    "DOWNLOAD_ORDERS" : "Scarica gli ordini",
-    "DURING_THE_WEEK" : "A settimana",
-    "PER_MOUNTH" : "Al mese",
-    "IN_A_YEAR" : "Per l'anno",
+    "DOWNLOAD_ORDERS": "Scarica gli ordini",
+    "DURING_THE_WEEK": "A settimana",
+    "PER_MOUNTH": "Al mese",
+    "IN_A_YEAR": "Per l'anno",
     "UNTIL": "fino a ",
     "PAYMENTS": "dei pagamenti",
     "ALLPRODUCTS": "prodotti",
@@ -354,7 +346,7 @@
     "WAIT_MASTER": "Aspetta il misuratore ",
     "INCLUDED": "sono inclusi",
     "NO_PRINT": "Output Specification è impossibile a causa della mancanza di connessione a Internet",
-    "SYNCHRONIZE_ORDERS":"ordini Cinhronizirovat"
+    "SYNCHRONIZE_ORDERS": "ordini Cinhronizirovat"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Tutti gli elementi supplementari dell’oedine",
@@ -372,7 +364,6 @@
     "WITHOUT_DIS_ASSEMBLING": "Senza smontaggio",
     "ADD_SERVICES": "servizi aggiuntivi",
     "ADD_SERVICES_SHORT": "servizi aggiuntivi",
-
     "FREE": "gratuitamente",
     "PAYMENT_BY_INSTALMENTS": "Rateazione",
     "WITHOUT_INSTALMENTS": "senza rateazione",

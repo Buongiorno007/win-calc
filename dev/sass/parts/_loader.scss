@@ -18,7 +18,13 @@
       background-size: cover;
     }
   }
-
+  p {
+    position: absolute;
+    top: 55px;
+    text-align: center;
+    font-size: 18px;
+    color: #9c9c9b
+  }
   .loader-counter {
     position: relative;
     top : -30px;

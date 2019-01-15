@@ -1,10 +1,10 @@
-(function() {
+(function () {
   'use strict';
   /**@ngInject*/
   angular
     .module('LoginModule')
     .controller('LoginCtrl',
-      function($location,
+      function ($location,
         $timeout,
         $rootScope,
         $route,
@@ -67,6 +67,9 @@
         /** PING SERVER*/
         MainServ.getOnline();
         //------- translate
+        thisCtrl.LOADER_TEXT1 = $filter('translate')('login.LOADER_TEXT1');
+        thisCtrl.LOADER_TEXT2 = $filter('translate')('login.LOADER_TEXT2');
+        thisCtrl.LOADER_TEXT3 = $filter('translate')('login.LOADER_TEXT3');
         thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
         thisCtrl.OK = $filter('translate')('common_words.OK');
         thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
@@ -125,7 +128,7 @@
               i, img;
             for (i = 0; i < array.length; i += 1) {
               img = new Image();
-              img.onload = function() {
+              img.onload = function () {
                 var index = list.indexOf(this);
                 if (index !== -1) {
                   // remove image from the array once it's loaded
@@ -172,7 +175,7 @@
           MainServ.setCurrTemplate();
           /** set Templates */
           // console.time('prepareTemplates');
-          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function () {
             // console.timeEnd('prepareTemplates');
             MainServ.prepareMainPage();
             /** start lamination filtering */
@@ -237,10 +240,10 @@
           //thisCtrl.isStartImport = 1;
           //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
           // console.time('importAllDB');
-          localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+          localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
             if (data) {
               /** download all data */
-              loginServ.downloadAllData().then(function() {
+              loginServ.downloadAllData().then(function () {
                 startProgramm();
               });
               thisCtrl.isStartImport = 0;
@@ -278,7 +281,7 @@
               //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
               /** download all data */
               // console.time('downloadAllData');
-              loginServ.downloadAllData().then(function() {
+              loginServ.downloadAllData().then(function () {
                 // console.timeEnd('downloadAllData');
                 startProgramm();
               });
@@ -290,9 +293,9 @@
           } else {
             //---- show Factory List
             //----- collect city Ids regarding to user country
-            loginServ.collectCityIdsAsCountry().then(function(cityIds) {
+            loginServ.collectCityIdsAsCountry().then(function (cityIds) {
               localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
-                .then(function(result) {
+                .then(function (result) {
                   //            console.log('Factories++++++', result);
                   GlobalStor.global.startSlider = 0;
                   GlobalStor.global.isLoader = 0;
@@ -315,19 +318,19 @@
             angular.extend(UserStor.userInfo, user);
             //------- import Location
             // console.time('importLocation');
-            localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+            localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
               if (data) {
                 //------ save Location Data in local obj
                 // console.time('prepareLocationToUse');
-                loginServ.prepareLocationToUse(data).then(function() {
+                loginServ.prepareLocationToUse(data).then(function () {
                   checkingFactory();
                 });
                 var key = "UserStor.userInfo.phone";
                 var value = UserStor.userInfo.phone;
-                localDB.db.setItem(key, value, function(err, value) {});
+                localDB.db.setItem(key, value, function (err, value) { });
                 var key = "UserStor.userInfo.device_code";
                 var value = UserStor.userInfo.device_code;
-                localDB.db.setItem(key, value, function(err, value) {});
+                localDB.db.setItem(key, value, function (err, value) { });
               } else {
                 GlobalStor.global.isLoader = 0;
                 GlobalStor.global.startSlider = 0;
@@ -345,7 +348,7 @@
 
         function checkingUser(DemoLogin, DemoPass) {
           GlobalStor.global.ISLOGIN = 1;
-          localDB.db.setItem("FirstIn", "true", function(err, value) {});
+          localDB.db.setItem("FirstIn", "true", function (err, value) { });
           // console.log('importUser');
           let login = 'DemoRU';
           let pass = 'DemoRU';
@@ -357,7 +360,7 @@
             pass = thisCtrl.user.password;
           }
 
-          localDB.importUser(login).then(function(result) {
+          localDB.importUser(login).then(function (result) {
             if (result.status) {
               var userTemp = angular.copy(result.user);
               //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
@@ -568,7 +571,7 @@
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
                 // loader();
-                localDB.importUser(url.access, 1).then(function(result) {
+                localDB.importUser(url.access, 1).then(function (result) {
                   var userTemp = angular.copy(result.user);
                   GlobalStor.global.isLoader = 1;
                   GlobalStor.global.startSlider = 1;
@@ -582,7 +585,7 @@
               GlobalStor.global.isLoader = 1;
               GlobalStor.global.startSlider = 1;
               // loader();
-              localDB.importUser(url.autologin, 1).then(function(result) {
+              localDB.importUser(url.autologin, 1).then(function (result) {
                 if (result.status) {
                   var userTemp = angular.copy(result.user);
                   GlobalStor.global.isLoader = 1;
@@ -605,7 +608,7 @@
         function loaderChange(state, time) {
           GlobalStor.global.isLoader2 = state;
           if (state <= 98) {
-            $timeout(function() {
+            $timeout(function () {
               loaderChange(++state)
             }, temp)
           }
@@ -621,7 +624,7 @@
             }
           }
           if (GlobalStor.global.isLoader3 === 0) {
-            $timeout(function() {
+            $timeout(function () {
               GlobalStor.global.isLoader3 = 1
             }, 1)
             temp = (240 / 99) * 1000;
@@ -634,24 +637,24 @@
           // loader()
         }
         if (!GlobalStor.global.onlineMode && !navigator.onLine) {
-          localDB.db.getItem("UserStor.userInfo.phone", function(err, value) {
+          localDB.db.getItem("UserStor.userInfo.phone", function (err, value) {
             UserStor.userInfo.phone = value;
           });
 
-          localDB.db.getItem("UserStor.userInfo.device_code", function(err, value) {
+          localDB.db.getItem("UserStor.userInfo.device_code", function (err, value) {
             UserStor.userInfo.device_code = value;
           });
         }
         //$(".i").hide();
         $(".print-conteiner").hide();
         var FirstIn = "true";
-        localDB.db.getItem("FirstIn", function(err, value) {
+        localDB.db.getItem("FirstIn", function (err, value) {
           if (value !== "true") {
             GlobalStor.global.loadDate = new Date();
-            localDB.db.setItem("loadDate", GlobalStor.global.loadDate, function(err, value) {});
+            localDB.db.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) { });
             /** **/
           } else {
-            localDB.db.getItem("loadDate", function(err, value) {
+            localDB.db.getItem("loadDate", function (err, value) {
               GlobalStor.global.loadDate = new Date(value);
             });
           }
@@ -712,7 +715,7 @@
                 "users", UserStor.userInfo.id, {
                   factory_id: UserStor.userInfo.factory_id
                 }
-              ).then(function() {
+              ).then(function () {
                 //-------- close Factory Dialog
                 thisCtrl.isFactoryId = 0;
                 importDBfromServer();
@@ -742,13 +745,13 @@
           //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
           if (thisCtrl.isOnline) {
             //------- check available Local DB
-            loginServ.isLocalDBExist().then(function(data) {
+            loginServ.isLocalDBExist().then(function (data) {
               thisCtrl.isLocalDB = data;
               //          console.log('REG', data);
               //------ if locations is not exists refresh Location and Users
               if (thisCtrl.isLocalDB) {
                 GlobalStor.global.isLoader = 1;
-                loginServ.prepareLocationToUse(1).then(function() {
+                loginServ.prepareLocationToUse(1).then(function () {
                   GlobalStor.global.isLoader = 0;
                   thisCtrl.isRegistration = 1;
                 });
@@ -810,7 +813,7 @@
                     thisCtrl.isRegistration = 0;
                     thisCtrl.isConfirmRegistration = 1;
                   },
-                  function() {
+                  function () {
 
                   }
                 );
@@ -902,7 +905,7 @@
           $http
             .post(url)
             .then(
-              function(result) {
+              function (result) {
                 console.log("result", result)
                 thisCtrl.countries = result.data;
                 thisCtrl.countries.unshift({
@@ -914,7 +917,7 @@
                 GlobalStor.global.isLoader = 0;
 
               },
-              function() {
+              function () {
 
               }
             );
@@ -924,10 +927,10 @@
           let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
           if (window.location.hash.length < 10 || app) {
             if (GlobalStor.global.gotoSettingsPage === 0) {
-              $timeout(function() {
+              $timeout(function () {
                 $location.path('/change-lang');
               }, 1);
-              $timeout(function() {
+              $timeout(function () {
                 $location.path("/");
               }, 1);
               GlobalStor.global.gotoSettingsPage = 1;
@@ -937,7 +940,7 @@
           }
         }
 
-        setTimeout(function() {
+        setTimeout(function () {
           $('#jssj').trigger('click');
         }, 500);
 
@@ -965,10 +968,10 @@
               return true;
             } else {
               localStorage.clear();
-              localDB.db.clear().then(function() {
+              localDB.db.clear().then(function () {
                 // Run this code once the database has been entirely deleted.
                 console.log('Database is now empty.');
-              }).catch(function(err) {
+              }).catch(function (err) {
                 // This code runs if there were any errors
                 console.log(err);
               });
@@ -990,7 +993,7 @@
           GlobalStor.global.ISLOGIN = 0;
           if (url.orderEdit) {
             HistoryStor.history.orderEdit = 2;
-            HistoryServ.reqResult().then(function() {
+            HistoryServ.reqResult().then(function () {
               HistoryServ.editOrder(1, url.orderEdit);
             });
           } else {
@@ -1017,7 +1020,7 @@
 
 
         //------- defined system language
-        setTimeout(function() {
+        setTimeout(function () {
           loginServ.getDeviceLanguage();
         }, 1000);
         //------- export data
@@ -1034,7 +1037,7 @@
               console.log('device', window.device);
               console.log('device', $(window).height());
 
-            } catch (e) {}
+            } catch (e) { }
             $('body').addClass('padding-top-ios')
           }
         }

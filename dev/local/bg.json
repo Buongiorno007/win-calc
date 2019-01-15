@@ -52,7 +52,6 @@
     "ATENTION": "ВНИМАНИЕ!",
     "ATENTION_MSG1": "Изчисляването не е възможно поради липса на цена на",
     "ATENTION_MSG2": "Моля, изберете друга конфигурация"
-
   },
   "danger-alert": {
     "PRODUCT": "Конструкция",
@@ -61,6 +60,9 @@
     "DANGER_ALERT_SECOND_PAGE": "Препоръчва се да се извърши подмяната на допълнителни елементи на съответната система"
   },
   "login": {
+    "TEXT1": " Attention! Loading data ...  ",
+    "TEXT2": " Application launch time is up to 7 min. ",
+    "TEXT3": ". Time depends on the Internet connection and device speed.",
     "ENTER": "Вход",
     "PASS_CODE": "Парола.",
     "YOUR_CODE": "Вашата парола:",
@@ -77,7 +79,6 @@
     "REGISTRATION": "Регистрация",
     "REGISTRATION_INFO": "За да получите вашето потребителско име и парола, попълнете вашите данни",
     "REGISTRATION_LOGIN_EMAIL": "Писмо с потребителско име и парола бе изпратено на Вашия имейл",
-    
     "UPDATEDB": "Актуализиране на базата данни",
     "SELECT_COUNTRY": "Изберете държава",
     "SELECT_REGION": "Избор на регион",
@@ -312,7 +313,7 @@
     "VOICE_BIGGEST_SIZE": "Най-големия размер",
     "VOICE_SMALL_GLASS_BLOCK": "твърде малки остъкления",
     "SQUARE_EXTRA": "площа на конструкцията надхвърля допустимото",
-    "DIM_EXTRA" : "Цялостния дизайн е по-голям  от разрешения",
+    "DIM_EXTRA": "Цялостния дизайн е по-голям  от разрешения",
     "NOT_AVAILABLE": "Не е налице!",
     "TEST_STAGE": "Налично за техническия отдел",
     "GLASS": "Двойни стъклопакети",
