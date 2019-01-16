@@ -95,6 +95,7 @@ section.login-page.login-page-mobView
     .backDarkView(ng-if="loginPage.isConfirmRegistration")
     .terms-and-conditions(ng-show="loginPage.showTerms")
         .back
+            a(ng-click="loginPage.ShowTerms()") Назад
         .text-container
         h1 ПОЛОЖЕНИЯ И УСЛОВИЯ
         br
@@ -166,7 +167,6 @@ section.login-page.login-page-mobView
         
         p Соглашаясь на пользование, Вы тем самым даете свое согласие на использование Вашей информации, как это описано выше и предусматривается Политикой конфиденциальности компании.
 
-        a(ng-click="loginPage.ShowTerms()") Назад
 
 
 
