@@ -22,8 +22,8 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
   }
   a{
     position: fixed;
-    top: 69px;
-    left: 65px;
+    top: calc(1% - -60px);
+    right: calc(100% - 117px);
     z-index: 2;
     font-size: 17px;
     cursor: pointer;
