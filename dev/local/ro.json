@@ -50,9 +50,9 @@
     "ATENTION_MSG2": "Vă rugăm să selectați o configurație diferită."
   },
   "login": {
-    "TEXT1": " Attention! Loading data ...  ",
-    "TEXT2": " Application launch time is up to 7 min. ",
-    "TEXT3": ". Time depends on the Internet connection and device speed.",
+    "LOADER_TEXT1": " Attention! Loading data ...  ",
+    "LOADER_TEXT2": " Application launch time is up to 7 min. ",
+    "LOADER_TEXT3": ". Time depends on the Internet connection and device speed.",
     "ENTER": "Intră",
     "PASS_CODE": "Comunicați acest cod managerului.",
     "YOUR_CODE": "Codul Dvs.: ",

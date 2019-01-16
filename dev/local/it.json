@@ -57,9 +57,9 @@
     "DANGER_ALERT_SECOND_PAGE": "Si consiglia di effettuare la sostituzione di elementi aggiuntivi sul corrispondente sistema"
   },
   "login": {
-    "TEXT1": " Attention! Loading data ...  ",
-    "TEXT2": " Application launch time is up to 7 min. ",
-    "TEXT3": ". Time depends on the Internet connection and device speed.",
+    "LOADER_TEXT1": " Attention! Loading data ...  ",
+    "LOADER_TEXT2": " Application launch time is up to 7 min. ",
+    "LOADER_TEXT3": ". Time depends on the Internet connection and device speed.",
     "ENTER": "Entrare",
     "PASS_CODE": "Comunicate il codice al manager.",
     "YOUR_CODE": "Il vostro codice: ",
