@@ -1,6 +1,35 @@
 $img_logo: 'login/logo.png'; //$img_logo: 'login/logo-steko.png';
 $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
 
+.terms-and-conditions{
+  width: 90vw;
+  height: 87vh;
+  background-color: white;
+  padding: 40px 80px;
+  position: absolute;
+  z-index: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+  p{
+    margin: 0;
+    font-size: 12px;
+  }
+  h1{
+    font-size: 20px;
+  }
+  h3{
+    font-size: 16px;
+  }
+  a{
+    position: fixed;
+    top: 69px;
+    left: 65px;
+    z-index: 2;
+    font-size: 17px;
+    cursor: pointer;
+  }
+}
+
 .login-page {
   @include display-flex();
   height: 100%;
@@ -13,7 +42,6 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
   .user-select-field {
       text-align-last: center;
   }
-
   .input-field {
     display: inline-flex;
     flex-direction: column;
@@ -49,9 +77,9 @@ $img_logo-steko: 'login/logo-steko.png'; //$img_logo: 'login/logo-steko.png';
     color: aliceblue;
     font-size: 15px;
     a{
-      color: aquamarine;
       text-decoration: underline;
       cursor: pointer;
+      color:aliceblue;
     }
   }
 

@@ -35,6 +35,8 @@
 
 
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+
+        thisCtrl.showTerms = false;
         thisCtrl.isOnline = 1;
         thisCtrl.isOffline = 0;
         thisCtrl.isOfflineImport = 0;
@@ -827,6 +829,11 @@
           }
         }
 
+        function ShowTerms() {
+          thisCtrl.showTerms = !thisCtrl.showTerms;
+          console.log(thisCtrl.showTerms)
+        }
+
         function DemoLogin() {
           let login, pass;
 
@@ -1017,6 +1024,7 @@
         thisCtrl.closeOfflineAlert = closeOfflineAlert;
         thisCtrl.DemoLogin = DemoLogin;
         thisCtrl.registration = registration;
+        thisCtrl.ShowTerms = ShowTerms;
 
 
         //------- defined system language
