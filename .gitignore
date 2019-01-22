@@ -1,16 +1,13 @@
 node_modules/
+platforms/
 *.mp4
 docs/
 bower_components/
 adminka/
 .sass-cache/
-www/
-app/
 app2/
 .idea/
 .editorconfig
-./_product/
-_product/
 .DS_Store
 Thumbs.db
 

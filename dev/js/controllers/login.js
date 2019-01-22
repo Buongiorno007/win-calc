@@ -114,6 +114,8 @@
         thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
         thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
         thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+        thisCtrl.BY_PRESSING_ENTER = $filter('translate')('login.BY_PRESSING_ENTER');
+        thisCtrl.PRIVACY_POLICY = $filter('translate')('login.PRIVACY_POLICY');
         thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
         thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
         thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
@@ -149,7 +151,6 @@
         thisCtrl.TEST_USER_PASS = $filter('translate')('login.TEST_USER_PASS');
 
         thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
-
         /** reload room img */
 
         //$("<img />").attr("src", "img/room/1.png");
@@ -731,7 +732,7 @@
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
-          GlobalStor.global.cordova = device.cordova;
+          GlobalStor.global.cordova = window.cordova;
         }
 
         //********************

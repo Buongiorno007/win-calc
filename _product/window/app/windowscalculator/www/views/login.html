@@ -26,7 +26,7 @@
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.pattern || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
         <div ng-show="loginPage.isUserPasswordError" class="error-tooltip">{{ ::loginPage.USER_PASSWORD_ERROR }}</div>
       </div>
-      <div class="privacy-policy">Нажимая кнопку входа я принимаю <a class="privacy-link" ng-click="loginPage.ShowTerms()">пользовательское соглашение</a></div>
+      <div class="privacy-policy"> {{ ::loginPage.BY_PRESSING_ENTER }} <a class="privacy-link" ng-click="loginPage.ShowTerms()"> {{ ::loginPage.PRIVACY_POLICY }}</a></div>
       <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
     </form>
     <button ng-if="loginPage.consts.serverIP !== &quot;http://api.steko.com.ua&quot;" ng-click="loginPage.registration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
