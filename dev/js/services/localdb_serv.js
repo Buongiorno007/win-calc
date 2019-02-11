@@ -1248,7 +1248,7 @@
                     .post(globalConstants.serverIP + "/api/insert?login=" + login + "&access_token=" + access, dataToSend)
                     .then(
                         function (result) {
-                            console.log("insertServer",result);
+                            console.log("insertServer", result);
                             defer.resolve(result.data);
                         },
                         function (result) {
@@ -3271,14 +3271,14 @@
                                     construction.sizes
                                 );
                                 if (!ProductStor.product.hardware.id) {
-                                if (temp_profile_id) {
-                                    if (ProductStor.product.template_square >= 1) {
-                                        if (tmp[0]) {
-                                            priceObj.constrElements.push(tmp[0]);
+                                    if (temp_profile_id) {
+                                        if (ProductStor.product.template_square >= 1) {
+                                            if (tmp[0]) {
+                                                priceObj.constrElements.push(tmp[0]);
+                                            }
                                         }
                                     }
                                 }
-                            }
                                 // console.log(priceObj, construction);
                                 culcConsistPrice(priceObj, construction);
                                 priceObj.priceTotal = GeneralServ.roundingValue(

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="windowscalculator.com.ua" version="1.15.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Расчет окна</name>
+<widget id="net.voice-creator.mobile" version="2.21.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>WindowsCalculator</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -68,6 +68,10 @@
         <splash height="480" platform="ios" src="res/screens/ios/Default~iphone.png" width="320" />
     </platform>
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <preference name="Orientation" value="portrait" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="^7.1.4" />
 </widget>

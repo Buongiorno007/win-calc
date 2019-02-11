@@ -12,6 +12,15 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "net.voice_creator.mobile"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "net.voice-creator.mobile"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "net.voice-creator.mobile"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "net.voice-creator.mobile"
     }
   },
   "dependent_plugins": {}

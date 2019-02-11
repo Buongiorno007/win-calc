@@ -12,6 +12,15 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "net.voice_creator.mobile"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "windowscalculator.com.ua"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "windowscalculator.com.ua"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "windowscalculator.com.ua"
     }
   },
   "dependent_plugins": {}
