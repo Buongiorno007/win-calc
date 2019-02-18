@@ -3912,25 +3912,27 @@
             }
 
             function downloadFile(url, fileURL) {
-                console.log('download', fileURL)
-
-                let fileTransfer = new FileTransfer();
-                url = encodeURI(url);
-
-                fileTransfer.download(
-                    url,
-                    //   cordova.file.applicationDirectory+fileURL,
-                    //   cordova.file.applicationStorageDirectory+fileURL,
-                    cordova.file.dataDirectory + fileURL,
-                    function (entry) {
-                        console.log('download complete: ' + entry.toURL());
-                    },
-                    function (error) {
-                        console.log('download error source ' + error.source);
-                        console.log('download error target ' + error.target);
-                        console.log('upload error code is ' + error.code);
-                    });
-
+                try {
+                    console.log('download', fileURL)
+                    let fileTransfer = new FileTransfer();
+                    url = encodeURI(url);
+                    fileTransfer.download(
+                        url,
+                        //   cordova.file.applicationDirectory+fileURL,
+                        //   cordova.file.applicationStorageDirectory+fileURL,
+                        cordova.file.dataDirectory + fileURL,
+                        function (entry) {
+                            console.log('download complete: ' + entry.toURL());
+                        },
+                        function (error) {
+                            console.log('download error source ' + error.source);
+                            console.log('download error target ' + error.target);
+                            console.log('upload error code is ' + error.code);
+                        });
+                }
+                catch (err) {
+                    console.log(err)
+                }
             }
 
             function convert(input) {

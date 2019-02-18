@@ -62,6 +62,8 @@
     "DANGER_ALERT_SECOND_PAGE": "Es wird empfohlen, den Austausch von zusätzlichen Elementen auf dem entsprechenden System durchzuführen "
   },
   "login": {
+    "BY_PRESSING_ENTER": "By pressing the login button I accept the ",
+    "PRIVACY_POLICY": "terms of use",
     "TITLE": "TERMS AND CONDITIONS",
     "PLAN_A": "A. TERMS OF PRODUCT SALES",
     "PLAN_B": "B. CONDITIONS FOR SETTING PRICES AND MATERIALS ",

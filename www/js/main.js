@@ -2282,6 +2282,8 @@ let portrait = false;
         thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
         thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
         thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+        thisCtrl.BY_PRESSING_ENTER = $filter('translate')('login.BY_PRESSING_ENTER');
+        thisCtrl.PRIVACY_POLICY = $filter('translate')('login.PRIVACY_POLICY');
         thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
         thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
         thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
@@ -2898,7 +2900,7 @@ let portrait = false;
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
-          GlobalStor.global.cordova = wn.cordova;
+          GlobalStor.global.cordova = window.cordova;
         }
 
         //********************
@@ -22176,7 +22178,7 @@ function ErrorResult(code, message) {
                     .post(globalConstants.serverIP + "/api/insert?login=" + login + "&access_token=" + access, dataToSend)
                     .then(
                         function (result) {
-                            console.log("insertServer",result);
+                            console.log("insertServer", result);
                             defer.resolve(result.data);
                         },
                         function (result) {
@@ -24199,14 +24201,14 @@ function ErrorResult(code, message) {
                                     construction.sizes
                                 );
                                 if (!ProductStor.product.hardware.id) {
-                                if (temp_profile_id) {
-                                    if (ProductStor.product.template_square >= 1) {
-                                        if (tmp[0]) {
-                                            priceObj.constrElements.push(tmp[0]);
+                                    if (temp_profile_id) {
+                                        if (ProductStor.product.template_square >= 1) {
+                                            if (tmp[0]) {
+                                                priceObj.constrElements.push(tmp[0]);
+                                            }
                                         }
                                     }
                                 }
-                            }
                                 // console.log(priceObj, construction);
                                 culcConsistPrice(priceObj, construction);
                                 priceObj.priceTotal = GeneralServ.roundingValue(
@@ -24840,25 +24842,27 @@ function ErrorResult(code, message) {
             }
 
             function downloadFile(url, fileURL) {
-                console.log('download', fileURL)
-
-                let fileTransfer = new FileTransfer();
-                url = encodeURI(url);
-
-                fileTransfer.download(
-                    url,
-                    //   cordova.file.applicationDirectory+fileURL,
-                    //   cordova.file.applicationStorageDirectory+fileURL,
-                    cordova.file.dataDirectory + fileURL,
-                    function (entry) {
-                        console.log('download complete: ' + entry.toURL());
-                    },
-                    function (error) {
-                        console.log('download error source ' + error.source);
-                        console.log('download error target ' + error.target);
-                        console.log('upload error code is ' + error.code);
-                    });
-
+                try {
+                    console.log('download', fileURL)
+                    let fileTransfer = new FileTransfer();
+                    url = encodeURI(url);
+                    fileTransfer.download(
+                        url,
+                        //   cordova.file.applicationDirectory+fileURL,
+                        //   cordova.file.applicationStorageDirectory+fileURL,
+                        cordova.file.dataDirectory + fileURL,
+                        function (entry) {
+                            console.log('download complete: ' + entry.toURL());
+                        },
+                        function (error) {
+                            console.log('download error source ' + error.source);
+                            console.log('download error target ' + error.target);
+                            console.log('upload error code is ' + error.code);
+                        });
+                }
+                catch (err) {
+                    console.log(err)
+                }
             }
 
             function convert(input) {

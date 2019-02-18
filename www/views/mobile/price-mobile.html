@@ -1,0 +1,8 @@
+
+<div ng-controller="ConfigMenuCtrl as configMenu" class="mobile-price">
+  <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
+  <div class="go-to-cart">
+    <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
+    <div ng-click="configMenu.showCalck()" class="product-counter">{{configMenu.G.global.product_qty}}</div>
+  </div>
+</div>
