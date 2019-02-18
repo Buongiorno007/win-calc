@@ -16,37 +16,7 @@
     "cordova-plugin-file": {
       "PACKAGE_NAME": "net.voice-creator.mobile"
     },
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
     "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "cordova-plugin-app-version": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "cordova-plugin-badge": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "com.unarin.cordova.beacon": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "phonegap-plugin-barcodescanner": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "cordova-plugin-email-composer": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "cordova-plugin-file-opener2": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "com.rjfun.cordova.httpd": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "cordova-plugin-keyboard": {
-      "PACKAGE_NAME": "net.voice-creator.mobile"
-    },
-    "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "net.voice-creator.mobile"
     }
   },
