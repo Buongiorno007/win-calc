@@ -7,16 +7,16 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "net.voice_creator.mobile"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "net.voice_creator.mobile"
-    },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "windowscalculator.com.ua"
     },
     "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "windowscalculator.com.ua"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "windowscalculator.com.ua"
+    },
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "windowscalculator.com.ua"
     }
   },

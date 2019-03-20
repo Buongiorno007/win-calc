@@ -3990,7 +3990,7 @@
                             if (curr_table.fields[kndex] === "img" && curr_row[kndex]) {
                                 let is_cordova = false;
                                 try {
-                                    is_cordova = device.cordova
+                                    is_cordova = window.cordova
                                 } catch (err) {
 
                                 }
