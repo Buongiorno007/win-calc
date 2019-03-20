@@ -1,9 +1,0 @@
-.language-page
-    .header
-        .back-button(fs-click="languagePage.gotoSettingsPage()")
-        .title(data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}", typing="{{ languagePage.config.typing }}", typing-delay="{{ languagePage.config.DELAY_START }}")
-
-    .lang-container
-        .list
-            .item.click(ng-repeat="lang in languagePage.constants.languages", ng-class="{'active': languagePage.U.userInfo.langLabel === lang.label}", fs-click="languagePage.switchLang($index)")
-                .lang-label {{ lang.name }}

@@ -1,5 +1,0 @@
-form(ng-controller="searchCtrl as searchBox", name='searchForm')
-  .search-block
-    input.search-input(type="text", name="searching", ng-model="searchBox.searchingWord", ng-change="searchBox.checkChanges()", placeholder="{{searchBox.placeholder}}")
-    .delete-search(fs-click="searchBox.deleteSearchChart()")
-    button.cancel-search(fs-click="searchBox.cancelSearching()") {{ ::searchBox.CANCEL }}
