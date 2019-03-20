@@ -1,0 +1,62 @@
+$ipad-width: 2048px;
+$ipad-height: 1536px;
+
+
+$base-screen-width: $ipad-width;
+
+$base-font_size: 16px;
+$base-line_height: 1.42857;
+
+
+//$main_content-width-right_menu: 1574px;
+$right_menu-width: 512px;
+$main_content-width: 1536px;
+$left_side-width: 600px;
+
+$right_side-width: $main_content-width + $right_menu-width;
+//$right_side-width-right_menu: $main_content-width-right_menu + $right_menu-width;
+
+$page_container-width: $left_side-width + $right_side-width;
+//$page_container-width-right_menu: $left_side-width + $right_side-width-right_menu;
+
+$config_menu-side_padding: 44px;
+$price_container-height: 64px;
+$price_container-height-mobile: 44px;
+
+// Buttons
+$radius_general-big_button: 32px;
+$radius_general-small_button: 20px;
+
+// Login
+$radius_login-container: 32px;
+
+// Room Selector Dialog
+$radius_rooms-dialog: 20px;
+$radius_room-box_dialog: 15px;
+
+// Profile
+$radius_profile-box: 16px;
+$radius_coef-index: 8px;
+$radius_lamination: 15px;
+
+// Elements List
+$radius_frame-tab: 15px;
+
+// Design SubMenu
+$submenu_top1: 5.1rem;
+$submenu_top2: 10.2rem;
+$submenu_top3: 15.4rem;
+$submenu_left0: 1.2rem;
+$submenu_left1: 5.9rem;
+$submenu_left2: 10.5rem;
+$submenu_left3: 15.18rem;
+$submenu_left4: 19.9rem;
+
+// History
+$radius_account-top: 5px;
+$radius_account-bottom: 15px;
+$radius_account-tool: 30px;
+
+// Cart
+$radius_order: 20px;
+$radius_order-template: 10px;

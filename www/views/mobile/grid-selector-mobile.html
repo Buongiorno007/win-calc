@@ -1,0 +1,25 @@
+
+<div ng-class="{'active': mobilePage.A.aux.isGridSelectorDialog}" ng-controller="GridSelectorCtrl as gridBox" class="glass-selector-dialog">
+  <div fs-click="gridBox.closeGridSelectorDialog()" class="close-dialog"></div>
+  <div class="dialog-title">
+    <div class="apply-title">
+      <p>{{ ::gridBox.APPLY }}</p>
+    </div>
+    <div ng-class="{'column': glassPanel.G.global.selectGlassName.length &gt; 8}" class="glass-title">
+      <div class="curr-glass-value">
+        <p>{{ gridBox.G.global.selectedGrid.name }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="dialog-inner-mob">
+    <svg-template template="gridBox.P.product.template" template-width="mobilePage.mobWidthGlass" template-height="mobilePage.mobWidthGlass" type-construction="gridBox.constants.SVG_ID_GRID"></svg-template>
+  </div>
+  <div class="buttons">
+    <div fs-click="gridBox.confirmGrid()" class="set-glass-btn">
+      <p>{{ ::gridBox.APPLY}}</p>
+    </div>
+    <div fs-click="gridBox.setGridToAll()" class="set-glass-all-btn">
+      <p>{{ ::gridBox.SELECT_ALL }}</p>
+    </div>
+  </div>
+</div>

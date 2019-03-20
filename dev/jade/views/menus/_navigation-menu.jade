@@ -1,0 +1,76 @@
+.nav-menu(ng-controller="NavMenuCtrl as navMenu")
+  header.nav-menu-header
+    ul.items-list
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 1}", fs-click="navMenu.selectMenuItem(1)")
+        .item-content
+          span.nav-icon-addLocation
+          span.title {{ ::navMenu.NAVMENU_GEOLOCATION }}
+
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 2}", fs-click="navMenu.selectMenuItem(2)")
+        .item-content
+          span.nav-icon-geoLocation
+          span.title {{ ::navMenu.NAVMENU_CURRENT_GEOLOCATION }}
+
+      li.item
+        .item-content
+          span.nav-icon-location
+          span.title {{ navMenu.O.order.customer_city }}
+
+    .divider {{ ::navMenu.NAVMENU_CALCULATIONS }}
+
+    ul.items-list
+      li.item(ng-if="(navMenu.G.global.currOpenPage === 'history' && navMenu.G.global.isCreatedNewProject && navMenu.G.global.isCreatedNewProduct)", ng-class="{'selected': navMenu.activeMenuItem == 3}", fs-click="navMenu.selectMenuItem(3)")
+        .item-content
+          span.nav-icon-calculation
+          span.title {{ ::navMenu.NAVMENU_CURRENT_CALCULATION }}
+
+      li.item(ng-if="navMenu.O.order.products.length && navMenu.G.global.currOpenPage === 'main'", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", fs-click="navMenu.selectMenuItem(4)")
+        .item-content
+          span.nav-icon-basketOfCalculation
+          span.title {{ ::navMenu.NAVMENU_CART }}
+          span.badge {{ navMenu.O.order.products.length }}
+
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 5}", fs-click="navMenu.selectMenuItem(5)")
+        .item-content
+          span.nav-icon-additionalComponents
+          span.title {{ ::navMenu.NAVMENU_ADD_ELEMENTS }}
+
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}", fs-click="navMenu.selectMenuItem(6)")
+        .item-content
+          span.nav-icon-calculationsHistory
+          span.title {{ ::navMenu.NAVMENU_ALL_CALCULATIONS }}
+
+    .divider {{ ::navMenu.NAVMENU_APPENDIX }}
+
+    ul.items-list
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 7}", fs-click="navMenu.selectMenuItem(7)")
+        .item-content
+          span.nav-icon-settings
+          span.title {{ ::navMenu.NAVMENU_SETTINGS }}
+
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 8}", fs-click="navMenu.selectMenuItem(8)")
+        .item-content
+          span.nav-icon-information
+          span.title {{ ::navMenu.NAVMENU_MORE_INFO }}
+
+      li.item(fs-click="navMenu.selectMenuItem(10)")
+        .item-content
+          span.nav-icon-light
+          span.title(ng-if="navMenu.G.global.isLightVersion === 0") {{ ::navMenu.NAVMENU_LIGHT_VER }}
+          span.title(ng-if="navMenu.G.global.isLightVersion !== 0") {{ ::navMenu.NAVMENU_STANDART_VERSION }}
+      li.item(fs-click="navMenu.selectMenuItem(11)")
+        .item-content
+            span.nav-icon-mobile
+            span.title  mobile
+      li.item(fs-click="navMenu.logOut()")
+        .item-content
+          span.nav-icon-logOut
+          span.title {{ ::navMenu.LOGOUT }}
+      li.item(ng-if="navMenu.G.global.isDevice", ng-class="{'selected': navMenu.activeMenuItem == 9}", fs-click="navMenu.selectMenuItem(9)")
+        .item-content
+          span.nav-icon-voicehelp
+          span.title {{ ::navMenu.NAVMENU_VOICE_HELPER }}
+      li.item(fs-click="navMenu.clickNewProject()")
+        .item-content
+          span.nav-icon-plus
+          span.title {{ ::navMenu.NAVMENU_NEW_CALC }}

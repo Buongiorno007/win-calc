@@ -1,0 +1,140 @@
+.nav-menu {
+  @include display-flex();
+  @include flex-flow(column wrap);
+  @include justify-content(space-between);
+
+  height: 100%;
+  background-color: #0f0f0f;
+  .nav-menu-header {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    height: 85%;
+  }
+  .items-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .item {
+    padding-left: rem(50px);
+    background-color: rgba(#fff, .1);
+    cursor: pointer;
+    &.selected {
+      background-color: #0f0f0f;
+      box-shadow: inset 0 0 rem(7px) rem(7px) rgba(250,250,250,0.3);
+    }
+    &:last-child .item-content {
+      border-bottom: none;
+    }
+  }
+  .item-content {
+    @include display-flex();
+    @include align-items(center);
+
+    width: 100%;
+    height: rem(100px);
+    border-bottom: 1px solid #0f0f0f;
+    text-decoration: none;
+  }
+  [class^='nav-icon-'],
+  [class*=' nav-icon-'] {
+    @include font-icon(rem(40px));
+    @extend .icon-setting;
+    @extend .splash;
+
+    margin-right: rem(40px);
+  }
+  .nav-icon-additionalComponents:before {
+    color: $main_yellow;
+    content: $points-icon;
+  }
+  .nav-icon-addLocation:before {
+    color: $main_yellow;
+    content: $select_location-icon;
+  }
+  .nav-icon-basketOfCalculation:before {
+    color: $main_orange;
+    content: $basket-icon;
+  }
+  .nav-icon-calculation:before {
+    color: $main_yellow;
+    content: $calculations-icon;
+  }
+  .nav-icon-calculationsHistory:before {
+    color: $main_yellow;
+    content: $clocks-icon;
+  }
+  .nav-icon-light:before {
+    color: $main_yellow;
+    content: $light-icon;
+  }
+
+  .nav-icon-mobile:before {
+    color: white;
+
+    content: $mobile_v;
+  }
+
+  .nav-icon-logOut:before {
+    color: $main_gray_btn;
+    content: $logOut-icon;
+  }
+  .nav-icon-geoLocation:before {
+    color: $main_orange;
+    content: $geolocation-icon;
+  }
+  .nav-icon-information:before {
+    color: #34aadc;
+    content: $info-icon;
+  }
+  .nav-icon-location:before {
+    color: #6e6e6e;
+    content: $pin-icon;
+  }
+  .nav-icon-settings:before {
+    color: #6ed44a;
+    content: $settings-icon;
+  }
+  .nav-icon-voicehelp {
+    @include font-icon(rem(40px));
+    &:before {
+      color: $main_orange;
+      content: $voice-icon;
+    }
+  }
+  .title {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+
+    width: rem(400px);
+    color: #fff;
+  }
+  .badge {
+    @include roboto-md(rem(24px));
+
+    color: #999;
+  }
+  .divider {
+    @include roboto-md(rem(24px), rem(70px));
+
+    padding: rem(20px) 0 0 rem(50px);
+    text-transform: uppercase;
+    color: #999;
+  }
+  .nav-menu-footer {
+    padding: rem(50px);
+  }
+  .new-calc {
+    @extend .big-button;
+    @extend .ghost-button;
+    @extend .splash;
+
+    width: 100%;
+    height: rem(110px);
+    color: $main_orange;
+    border-color: $main_orange;
+    background: transparent;
+  }
+}

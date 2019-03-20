@@ -1,0 +1,63 @@
+
+image: ruby:2.1
+before_script:
+# install ssh-agent
+- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+# run ssh-agent
+- eval $(ssh-agent -s)
+
+# add ssh key stored in SSH_PRIVATE_KEY variable to the agent store
+- ssh-add <(echo "$SSH_PRIVATE_KEY")
+
+- mkdir -p ~/.ssh
+- echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+stages:
+  - test
+  - build
+  - deploy
+  - clean_up
+
+run_tests:
+  stage: test
+  script:
+    - echo "hello"
+
+build_dev:
+  stage: build
+  script:
+    - echo "build"
+  only:
+    - develop
+
+deploy_dev:
+  stage: deploy
+  script:
+  - ssh $SSH_TEST_USERNAME@$SSH_TEST_SERVER "
+      cd $PROJECT_TEST_PATH ;
+      git pull ;
+      npm i ;
+      gulp buildWindowSiteTest ;
+      cp -fr $TEST_BUILD_PATH/* $TEST_WEB_PATH "
+  only:
+    - develop
+deploy_prod:
+  stage: deploy
+  script:
+  - ssh $SSH_PROD_USERNAME@$SSH_PROD_SERVER "
+      cd $PROJECT_PROD_PATH ;
+      git checkout . ;
+      git pull origin $GIT_PROD_BRANCH ;
+      npm i ;
+      gulp buildWindowSite ;
+      cp -fr $PROD_BUILD_PATH/* $PROD_WEB_PATH "
+#      gulp buildStekoSite ;
+#      scp -r _product/steko/site/* bau@185.65.244.137:/var/www/calculator.steko.com.ua/web "
+  only:
+    - master
+clean_up_job:
+  stage: clean_up
+  script:
+    - rm -rf node_modules
+    - rm -rf ~/.node-gyp

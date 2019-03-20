@@ -1,0 +1,40 @@
+.password-page {
+  .back {
+    @extend .icon-setting;
+    @include font-icon(rem(50px), 1);
+
+    width: rem(60px);
+    height: rem(60px);
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    outline: none;
+    &:before {
+      color: $main_orange;
+      content: $config_menu-arrow-icon;
+    }
+  }
+  .psw-container {
+    padding-left: rem(50px);
+    color: #fff;
+  }
+  .lists {
+    overflow: visible;
+  }
+  .psw-label {
+    @include roboto-lt(rem(36px), rem(88px));
+
+    min-width: rem(400px);
+    color: $main_gray_btn;
+  }
+  .psw-data {
+    @include roboto-lt(rem(36px), rem(88px));
+    color: $main_orange;
+  }
+  .set-input-txt {
+    border-bottom-color: #4A4949;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+  }
+
+}

@@ -1,0 +1,212 @@
+{
+  "offline": {
+    "background": [
+      "./offline/background.js"
+    ]
+  },
+  "build": {
+    "src": {
+      "html": [
+        "./dev/jade/**/*.jade",
+        "!./dev/jade/**/_*.jade"
+      ],
+      "css": "./dev/sass/*.scss",
+      "js": [
+        "./dev/js/**/*.js",
+        "!./dev/js/**/_*.js"
+      ],
+      "js_order": [
+        "index.js",
+        "**/*.js"
+      ],
+      "js_vendor": "./dev/vendor/**/*.js",
+      "js_vendor_order": [
+        "jquery/**/*.js",
+        "hammer/**/*.js",
+        "angular/**/*.js",
+        "**/*.js"
+      ],
+      "js_other": "./dev/js/**/_*.js",
+      "img": "dev/img/**/*",
+      "fonts": "dev/fonts/**/*",
+      "audio": "dev/audio/*",
+      "local": "dev/local/*.json"
+    },
+    "dest": {
+      "css": "www/css",
+      "html": "www/",
+      "js": "www/js",
+      "img": "www/img",
+      "fonts": "www/fonts",
+      "audio": "www/audio",
+      "local": "www/local",
+      "product": "www/product"
+    },
+    "steko": {
+      "site": {
+        "root":"_product/steko/site",
+        "css": "_product/steko/site/css",
+        "html": "_product/steko/site/",
+        "js": "_product/steko/site/js",
+        "img": "_product/steko/site/img",
+        "fonts": "_product/steko/site/fonts",
+        "audio": "_product/steko/site/audio",
+        "local": "_product/steko/site/local",
+        "product": "_product/steko/site/product"
+      },
+      "ext": {
+        "root":"_product/steko/ext",
+        "css": "_product/steko/ext/css",
+        "html": "_product/steko/ext/",
+        "js": "_product/steko/ext/js",
+        "img": "_product/steko/ext/img",
+        "fonts": "_product/steko/ext/fonts",
+        "audio": "_product/steko/ext/audio",
+        "local": "_product/steko/ext/local",
+        "product": "_product/steko/ext/product"
+      },
+      "app": {
+        "root":"_product/steko/app/steko/www/",
+        "css": "_product/steko/app/steko/www/css",
+        "html": "_product/steko/app/steko/www/",
+        "js": "_product/steko/app/steko/www/js",
+        "img": "_product/steko/app/steko/www/img",
+        "fonts": "_product/steko/app/steko/www/fonts",
+        "audio": "_product/steko/app/steko/www/audio",
+        "local": "_product/steko/app/steko/www/local",
+        "product": "_product/steko/app/steko/www/product"
+      }
+    },
+    "window": {
+      "site": {
+        "root":"_product/window/site",
+        "css": "_product/window/site/css",
+        "html": "_product/window/site/",
+        "js": "_product/window/site/js",
+        "img": "_product/window/site/img",
+        "fonts": "_product/window/site/fonts",
+        "audio": "_product/window/site/audio",
+        "local": "_product/window/site/local",
+        "product": "_product/window/site/product"
+      },
+      "app": {
+        "root":"_product/window/app/windowscalculator/www/",
+        "css": "_product/window/app/windowscalculator/www/css",
+        "html": "_product/window/app/windowscalculator/www/",
+        "js": "_product/window/app/windowscalculator/www/js",
+        "img": "_product/window/app/windowscalculator/www/img",
+        "fonts": "_product/window/app/windowscalculator/www/fonts",
+        "audio": "_product/window/app/windowscalculator/www/audio",
+        "local": "_product/window/app/windowscalculator/www/local",
+        "product": "_product/window/app/windowscalculator/www/product"
+      },
+      "ext": {
+        "root":"_product/window/ext",
+        "css": "_product/window/ext/css",
+        "html": "_product/window/ext/",
+        "js": "_product/window/ext/js",
+        "img": "_product/window/ext/img",
+        "fonts": "_product/window/ext/fonts",
+        "audio": "_product/window/ext/audio",
+        "local": "_product/window/ext/local",
+        "product": "_product/window/ext/product"
+      }
+    },
+    "orange": {
+      "site": {
+        "root":"_product/orange/site",
+        "css": "_product/orange/site/css",
+        "html": "_product/orange/site/",
+        "js": "_product/orange/site/js",
+        "img": "_product/orange/site/img",
+        "fonts": "_product/orange/site/fonts",
+        "audio": "_product/orange/site/audio",
+        "local": "_product/orange/site/local",
+        "product": "_product/orange/site/product"
+      },
+      "ext": {
+        "root":"_product/orange/ext",
+        "css": "_product/orange/ext/css",
+        "html": "_product/orange/ext/",
+        "js": "_product/orange/ext/js",
+        "img": "_product/orange/ext/img",
+        "fonts": "_product/orange/ext/fonts",
+        "audio": "_product/orange/ext/audio",
+        "local": "_product/orange/ext/local",
+        "product": "_product/orange/ext/product"
+      },
+      "app": {
+        "root":"_product/orange/app/cornerstone/www/",
+        "css": "_product/orange/app/cornerstone/www/css",
+        "html": "_product/orange/app/cornerstone/www/",
+        "js": "_product/orange/app/cornerstone/www/js",
+        "img": "_product/orange/app/cornerstone/www/img",
+        "fonts": "_product/orange/app/cornerstone/www/fonts",
+        "audio": "_product/orange/app/cornerstone/www/audio",
+        "local": "_product/orange/app/cornerstone/www/local",
+        "product": "_product/orange/app/cornerstone/www/product"
+      }
+    }
+  },
+  "watch": {
+    "scss": [
+      "dev/sass/**/*.scss",
+      "dev/vendor/**/*.scss"
+    ],
+    "jade": "dev/jade/**/*.jade",
+    "js": "dev/js/**/*.js",
+    "js_vendor": "dev/vendor/**/*.js",
+    "img": [
+      "dev/img/**/*.png",
+      "dev/img/**/*.jpg",
+      "dev/img/**/*.gif"
+    ],
+    "fonts": [
+      "dev/fonts/**/*.eot",
+      "dev/fonts/**/*.ttf",
+      "dev/fonts/**/*.svg",
+      "dev/fonts/**/*.otf",
+      "dev/fonts/**/*.woff"
+    ],
+    "local": "dev/local/*.json"
+  },
+  "serverWindows": {
+    "host": "windowscalculator.net",
+    "port": "",
+    "user": "windowscalculator_netfpm",
+    "pass": "tyKlB@E0",
+    "remotePath": "/web/calculator"
+  },
+  "serverOrange": {
+    "host": "orange.windowscalculator.net",
+    "port": "",
+    "user": "windowscalculator_netfpm",
+    "pass": "tyKlB@E0",
+    "remotePath": "/web/"
+  },
+  "serverSteko": {
+    "host": "calculator.steko.com.ua",
+    "port": "",
+    "user": "c1_alica",
+    "pass": "_Y1zJyiXrwOJt",
+    "remotePath": "/web"
+  },
+  "buildApp": {
+    "src": {
+      "html": "www/product/views/*.html",
+      "css": "www/product/*.css",
+      "js": "www/product/*.js",
+      "img": "www/img/**/*",
+      "fonts": "www/fonts/**/*",
+      "local": "www/local/*.json"
+    },
+    "dest": {
+      "html": "www/views",
+      "css": "www/css",
+      "js": "www/js",
+      "img": "www/img",
+      "fonts": "www/fonts",
+      "local": "www/local"
+    }
+  }
+}

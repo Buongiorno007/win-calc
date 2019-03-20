@@ -1,0 +1,52 @@
+.mobile-discount.fullScreen(ng-if='cartPage.C.cart.isShowDiscount')
+    .mobile-discount-row
+        label {{ ::cartPage.PRICE}}
+    .mobile-discount-row
+        .discount-price-box
+            .discount-price-label {{ ::cartPage.DISCOUNT_WITHOUT }}
+            .discount-price {{ cartPage.O.order.order_price }} {{cartPage.U.userInfo.currency}}
+        .discount-price-box
+            .discount-price-label {{ ::cartPage.DISCOUNT_WITH }}
+            .discount-price {{ cartPage.O.order.productsPriceDis }} {{cartPage.U.userInfo.currency}}
+
+
+    .mobile-discount-row
+        label {{ ::cartPage.DISCOUNT}}
+
+
+    .mobile-discount-col
+        .discount-box.selected(ng-click="cartPage.toggleDiscount()")
+            .discount-data
+                label.disc-input.noPreventDefault#disc-input-main {{cartPage.C.cart.averageDisc | number : 1}}
+                label %
+            .discount-txt-arrow
+                .discounts-label {{ cartPage.C.cart.discountPriceDiff }} {{cartPage.U.userInfo.currency}}
+                .discounts-icon-down(ng-if="!cartPage.G.global.toggleDiscount")
+                .discounts-icon-up(ng-if="cartPage.G.global.toggleDiscount")
+        .disc(ng-if="cartPage.G.global.toggleDiscount")
+            .discount-box.selected
+                .discount-data.red(ng-keyup="cartPage.enterKeyPrice($event)")
+                    .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
+                    input.disc-input.noPreventDefault#disc-input( data-ng-keydown="cartPage.keyUp($event)" onClick="this.setSelectionRange(0, this.value.length)"  ng-model="cartPage.C.cart.tempConstructDisc"  ng-change="cartPage.approveNewDisc(0)" )
+                    | %
+                .discount-txt(ng-click="cartPage.approveNewDisc(0)")
+                    .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
+
+            .discount-box.selected
+                .discount-data.red(ng-keyup="cartPage.enterKeyDop(event)")
+                    .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                    input.disc-input.noPreventDefault#disc-input-add( data-ng-keydown="cartPage.keyUp($event)" onClick="this.setSelectionRange(0, this.value.length)" ng-model="cartPage.C.cart.tempAddelemDisc" ng-change="cartPage.approveNewDisc(1)" )
+                    | %
+                .discount-txt(ng-click="cartPage.approveNewDisc(1)")
+                    .discounts-label {{ cartPage.DISCOUNT_ADDELEM }}
+
+            .discount-box.selected
+                .discount-data.red(ng-keyup="cartPage.enterKeyDopService(event)")
+                    .disc-max(ng-show="cartPage.U.userInfo.discount_service > 100") {{ ::cartPage.MAX }} {{'100'}}%
+                    input.disc-input.noPreventDefault#disc-input-service( data-ng-keydown="cartPage.keyUp($event)" onClick="this.setSelectionRange(0, this.value.length)" ng-model="cartPage.C.cart.discount_service" ng-change="cartPage.approveNewDisc(2)" )
+                    | %
+                .discount-txt(ng-click="cartPage.approveNewDisc(2)")
+                    .discounts-label {{cartPage.DISCOUNT_SERVICE}}
+
+    .mobile-discount-row.delete(ng-click='cartPage.swipeDiscountBlock()')
+        label {{mobilePage.APPLY}}

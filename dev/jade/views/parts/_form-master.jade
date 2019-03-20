@@ -1,0 +1,32 @@
+.cart-dialogs.master-dialog(ng-class="{ 'unvisible' : !orderForm.C.cart.isMasterDialog }")
+  .cart-dialogs-container
+    form(name='callMasterForm', novalidate, ng-submit="orderForm.submitForm(callMasterForm)")
+      .cart-dialog-header
+        button.cart-dialog-tool.back(fs-click="orderForm.closeOrderDialog()", type="button")
+        .cart-dialog-title {{ ::orderForm.CALL_MASTER }}
+        button.save(type="submit") {{ ::orderForm.READY }}
+      .cart-dialog-body
+        .cart-dialog-descrip {{ ::orderForm.CALL_MASTER_DESCRIP }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callMasterForm.name.$error.required }")
+          input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_NAME }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.name.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callMasterForm.location.$error.required }")
+          input.user-field(type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ ::orderForm.CLIENT_LOCATION }}", autocomplete="off", required)
+          .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') {{ ::orderForm.EMPTY_FIELD }}
+          ul.location-list-tooltip(ng-show="orderForm.C.cart.isCityBox")
+            li.location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", fs-click="orderForm.selectCity(location)") {{location.fullLocation}}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callMasterForm.address.$error.required }")
+          input.user-field(type="text", name="address", ng-model="orderForm.C.cart.customer.customer_address", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_ADDRESS }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.address.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callMasterForm.phone.$error.required }")
+          input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.MOBILE }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.phone.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.phone.$error.pattern || callMasterForm.phone.$dirty && callMasterForm.phone.$error.pattern") {{ ::orderForm.WRONG_NUMBER }}
+        
+        .input-field
+          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callMasterForm.mail.$error.email") {{ ::orderForm.WRONG_EMAIL }}

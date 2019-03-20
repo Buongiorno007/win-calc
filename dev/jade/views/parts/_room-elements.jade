@@ -1,0 +1,60 @@
+.coeff-RoomContainer(ng-if="mainPage.G.global.isRoomElements>0 && !mainPage.P.product.doorLock.stvorka_type && !mainPage.P.product.is_addelem_only && (mainPage.P.product.construction_type)")
+  .blockCheck {{mainPage.G.global.getPCPower}}
+  .elem1
+    img(ng-src='img/room/1.png')
+    //беграунд комнаты
+  .elem5
+    img(ng-src='img/room/4.png')
+    //батарея
+  .elem7(ng-if="mainPage.P.product.construction_type!==3")
+    img(ng-src='img/room/6.png')
+    //плинтус слева
+  .elem8
+    img(ng-src='img/room/7.png')
+  .elem8_1(ng-if="mainPage.P.product.construction_type===3")
+    //плинтус справа
+  .elem9
+    img(ng-src='img/room/8.png')
+  //плинтус для окна
+  .elem10
+    img(ng-src='img/room/9.png')
+    //откос слева
+  .elem11
+    img(ng-src='img/room/10.png')
+    //откос справа
+  //.elem15
+  .elem16
+    img(ng-src='img/room/26.png')
+  .elem17
+    img(ng-src='img/room/11.png')
+    //подоконник
+  .elem17_1
+    img(ng-src='img/room/11.png')
+    //подоконник
+  .elem18(ng-show="mainPage.G.global.selectGlassType !==4")
+    img(ng-src='img/room/121.png')
+  .elem19(ng-show="mainPage.G.global.selectGlassType !==4")
+    img(ng-src='img/room/122.png')
+  .elem20(ng-show="mainPage.G.global.selectGlassType !==4")
+    img(ng-src='img/room/123.png')
+  //.elem21
+    img(ng-src='img/room/12.png')
+  .elem23
+    img(ng-src='img/room/41.png')
+    //sun lights
+  //- .elem24(ng-show="mainPage.P.product.construction_type === 1")
+    img(ng-src='img/room/51.png')
+  .elem25
+    img(ng-src='img/room/52.png')
+  .elem26(ng-show="mainPage.P.product.construction_type === 1")
+    img(ng-src='img/room/53.png')
+
+img.left-up(ng-src='img/slopes/left_up.svg')
+img.right-up(ng-src='img/slopes/right_up.svg')
+.slope-up
+//img.right-down(ng-src='img/slopes/right_down.svg')
+//img.left-down(ng-src='img/slopes/left_down.svg')
+.right
+.left
+//img.handle(ng-src='img/slopes/handle.svg')
+//.handle

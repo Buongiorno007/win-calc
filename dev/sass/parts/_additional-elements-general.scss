@@ -1,0 +1,409 @@
+.aux-choose-but {
+  @extend .splash;
+  @extend .small-button;
+  @extend .ghost-button;
+
+  padding: 0 rem(30px);
+  background-color: transparent;
+}
+
+.parameters-block {
+  .aux-title {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+  }
+  .aux-params-but {
+    @extend .splash;
+    @extend .ghost-button;
+    @extend .small-button;
+
+    padding: 0 rem(20px);
+    background-color: transparent;
+    &.color-selected {
+      border-color: #8C8C8C;
+      color: #8C8C8C;
+    }
+  }
+  .aux-label {
+    @include roboto-lt(rem(22px));
+
+    color: $main_gray_txt;
+  }
+}
+
+.aux-params {
+  float: left;
+  margin-right: rem(10px);
+
+  &.selected {
+    .aux-params-but {
+      color: #fff;
+    }
+  }
+}
+
+// List View
+
+.aux-list-row {
+  @include display-flex();
+  @include flex-flow(row nowrap);
+  @include justify-content(space-between);
+  @include align-items(flex-start);
+}
+.aux-name {
+  max-width: 50%;
+}
+.aux-title {
+  max-width: 90%;
+  cursor: pointer;
+}
+.aux-price {
+  @include roboto-bd(rem(36px));
+  min-width: 20%;
+  text-align: right;
+  color: $main_gray_txt;
+}
+
+
+
+////////// Themes ///////////
+
+
+.aux-visor-theme,
+.aux-vis-theme,
+.aux-grating-theme,
+.aux-grat-theme,
+.aux-windowsill-theme {
+
+  .aux-choose-but {
+    color: $aux_big_color;
+    border-color: $aux_big_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_big_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_big_color;
+    border-color: $aux_big_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_big_color;
+      }
+    }
+  }
+
+  .item {
+    &.active {
+      background-color: $aux_big_color;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_big_color;
+        background-color: $aux_big_color;
+      }
+    }
+  }
+  .frame-tab {
+    &.active {
+      border-top-color: $aux_big_color;
+    }
+  }
+
+  .aux-title,
+  .calc-value-limit {
+    color: $aux_big_color;
+  }
+
+  .calc-equal,
+  .search-element {
+    background-color: $aux_big_color;
+  }
+
+  .group-indicator {
+    background-color: $aux_big_color;
+    &:before {
+      border-color: transparent $aux_big_color;
+    }
+  }
+  .search-elem {
+    background-color: $aux_big_color;
+  }
+}
+
+.aux-spillway-theme,
+.aux-spil-theme,
+.aux-blind-theme,
+.aux-louver-theme,
+.aux-handle-theme {
+
+  .aux-choose-but {
+    color: $aux_middle_color;
+    border-color: $aux_middle_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_middle_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_middle_color;
+    border-color: $aux_middle_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_middle_color;
+      }
+    }
+  }
+
+  .item {
+    &.active {
+      background-color: $aux_middle_color;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_middle_color;
+        background-color: $aux_middle_color;
+      }
+    }
+  }
+  .frame-tab {
+    &.active {
+      border-top-color: $aux_middle_color;
+    }
+  }
+
+  .aux-title,
+  .calc-value-limit {
+    color: $aux_middle_color;
+  }
+
+  .calc-equal,
+  .search-element {
+    background-color: $aux_middle_color;
+  }
+
+  .group-indicator {
+    background-color: $aux_middle_color;
+    &:before {
+      border-color: transparent $aux_middle_color;
+    }
+  }
+  .search-elem {
+    background-color: $aux_middle_color;
+  }
+}
+
+.aux-grid-theme,
+.aux-shutters-theme,
+.aux-shut-theme,
+.aux-connectors-theme {
+
+  .aux-choose-but {
+    color: $aux_connect_color;
+    border-color: $aux_connect_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_connect_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_connect_color;
+    border-color: $aux_connect_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_connect_color;
+      }
+    }
+  }
+
+  .item {
+    &.active {
+      background-color: $aux_connect_color;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_connect_color;
+        background-color: $aux_connect_color;
+      }
+    }
+  }
+  .frame-tab {
+    &.active {
+      border-top-color: $aux_connect_color;
+    }
+  }
+
+  .aux-title,
+  .calc-value-limit {
+    color: $aux_connect_color;
+  }
+
+  .calc-equal,
+  .search-element {
+    background-color: $aux_connect_color;
+  }
+
+  .group-indicator {
+    background-color: $aux_connect_color;
+    &:before {
+      border-color: transparent $aux_connect_color;
+    }
+  }
+  .search-elem {
+    background-color: $aux_connect_color;
+  }
+}
+
+.aux-outside-theme,
+.aux-inside-theme {
+
+  .aux-choose-but {
+    color: $main_green;
+    border-color: $main_green;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $main_green;
+    }
+  }
+
+  .aux-params-but {
+    color: $main_green;
+    border-color: $main_green;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $main_green;
+      }
+    }
+  }
+
+  .item {
+    &.active {
+      background-color: $main_green;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $main_green;
+        background-color: $main_green;
+      }
+    }
+  }
+  .frame-tab {
+    &.active {
+      border-top-color: $main_green;
+    }
+  }
+
+  .aux-title,
+  .calc-value-limit {
+    color: $main_green;
+  }
+
+  .calc-equal,
+  .search-element {
+    background-color: $main_green;
+  }
+
+  .group-indicator {
+    background-color: $main_green;
+    &:before {
+      border-color: transparent $main_green;
+    }
+  }
+  .search-elem {
+    background-color: $main_green;
+  }
+}
+
+
+.aux-fan-theme,
+.aux-others-theme {
+
+  .aux-choose-but {
+    color: $aux_small_color;
+    border-color: $aux_small_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_small_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_small_color;
+    border-color: $aux_small_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_small_color;
+      }
+    }
+  }
+
+  .item {
+    &.active {
+      background-color: $aux_small_color;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_small_color;
+        background-color: $aux_small_color;
+      }
+    }
+  }
+  .frame-tab {
+    &.active {
+      border-top-color: $aux_small_color;
+    }
+  }
+
+  .aux-title,
+  .calc-value-limit {
+    color: $aux_small_color;
+  }
+
+  .calc-equal,
+  .search-element {
+    background-color: $aux_small_color;
+  }
+
+  .group-indicator {
+    background-color: $aux_small_color;
+    &:before {
+      border-color: transparent $aux_small_color;
+    }
+  }
+  .search-elem {
+    background-color: $aux_small_color;
+  }
+}

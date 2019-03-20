@@ -1,0 +1,6 @@
+.alert-overlay(ng-controller="ErrorProdCtrl as isErrorProd", ng-show="isErrorProd.G.global.isErrorProd")
+  .alert-block
+    .alert-sign
+    .alert-descr {{ isErrorProd.G.global.isErrorProdTitle }}
+    .alert-btns
+    .close-dialog(ng-click="isErrorProd.close()")

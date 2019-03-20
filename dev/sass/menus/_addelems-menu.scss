@@ -1,0 +1,268 @@
+.elements-list-container {
+  @extend .parameters-block;
+  @include top_left_coord(0px, 600px);
+  @include transition(all 0.3s linear);
+
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  &.active {
+    @include top_left_coord(0px, 0px);
+  }
+  .item {
+    &.active {
+      .value {
+        color: #fff;
+      }
+    }
+  }
+
+}
+
+.elements-menu {
+  @extend .menu-right-general;
+
+  position: absolute;
+  top: 0;
+  z-index: 3;
+
+  .menu-header {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-around);
+    @include align-items(center);
+
+    min-height: rem(170px);
+    margin-right: rem($config_menu-side_padding);
+    background-color: #f8f8f8;
+  }
+
+  .open-list {
+    height: 8px;
+    position: relative;
+    left: -16px;
+    top: -17px;
+    width: 8px;
+    img {
+      height: 100%;
+      width: 100%; 
+    } 
+  }
+  .open-list2 {
+    height: 8px;
+    position: relative;
+    left: -16px;
+    top: -25px;
+    width: 8px;
+    img {
+      height: 100%;
+      width: 100%; 
+    } 
+  }
+  .tip {
+    @include roboto-lt(rem(22px));
+    max-width: 70%;
+    color: #8c8c8c;
+  }
+  .close-elements-menu {
+    @extend .cross-btn;
+    @include font-icon(rem(40px), 1);
+
+    position: relative;
+    width: rem(85px);
+    height: rem(85px);
+    background-color: $main_gray_btn;
+    &:after {
+      top: 25%;
+      left: 25%;
+    }
+  }
+  .menu-lists {
+    @include overflow-scroll();
+    margin-left: rem(-$config_menu-side_padding);
+    padding-left: rem($config_menu-side_padding);
+    overflow-x: hidden;
+    //overflow-y: auto;
+    background-color: #fff;
+    height: 100%;
+    width: 105%;
+  }
+  .title {
+    margin: rem(45px) 0 0 0;
+    padding-bottom: rem(15px);
+    color: $main_gray_txt;
+    border-bottom: 1px solid $main_gray_btn;
+  }
+
+  .item {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    position: relative;
+  }
+  .value {
+    max-width: 88%;
+    width: 26.125rem;
+    line-height: 6rem;
+  }
+  .element-info {
+    @extend .button;
+
+    //position: relative;
+    width: rem(45px);
+    height: rem(45px);
+    float: right;
+    border-radius: 50%;
+    background-color: $main_gray_btn;
+    margin-left: -2rem;
+    &:after {
+      @extend .icon-setting;
+      @include font-icon(rem(30px), 0);
+
+      //position: absolute;
+      display: block;
+      color: #fff;
+      content: $info-i-icon;
+    }
+  }
+
+  .menu-footer {
+    @include display-flex();
+    @include flex-flow(column nowrap);
+
+    position: relative;
+    margin-left: rem(-44px);
+    margin-right: rem(44px);
+    padding-right: 0;
+  }
+  .price-element {
+    min-height: rem(130px);
+    padding-top: rem(20px);
+    background-color: #f8f8f8;
+  }
+
+  .aux-label-bold {
+    @include roboto-bd(rem(22px));
+
+    color: $main_gray_txt;
+  }
+}
+
+
+.list-items {
+  position: relative;
+}
+.list-item {
+  @include top_left_coord(0px, 0px);
+  position: absolute;
+}
+.aux-list-item {
+  @include transition(all .5s linear);
+
+  position: absolute;
+  left: 0;
+  width: rem(1500px);
+  padding: rem(20px) rem(40px);
+  border-style: solid;
+  border-color:#dcdcdc;
+  border-width: 1px 0 1px 1px;
+  border-top-left-radius: rem($radius_login-container);
+  border-bottom-left-radius: rem($radius_login-container);
+  background-color: #fff;
+  z-index: 2;
+  &.selected {
+    left: rem(-1500px);
+  }
+}
+
+
+.menu-right-tabs {
+  @include top_left_coord(60px, 0px);
+  position: absolute;
+
+  .tab-block {
+    @include transition(left .5s ease);
+
+    position: absolute;
+    width: rem(860px);
+    min-height: rem(312px);
+    max-height: rem(600px);
+    padding: rem(30px);
+    background-color: #fff;
+    border-color: $main_gray_btn;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    z-index: 1;
+
+    &.active {
+      left: rem(-860px);
+      //z-index: 2;
+    }
+  }
+  .simple-frame {
+    @include top_left_coord(0px, 0px);
+  }
+  .hard-frame {
+    @include top_left_coord(350px, 0px);
+  }
+
+  .frame-tab {
+    @extend .button;
+    @include rotate(-90deg);
+    @include top_left_coord(124px, -186px);
+    @include roboto-bd(rem(24px));
+    @include transition(all 0.5s linear);
+
+    position: absolute;
+    width: rem(312px);
+    height: rem(60px);
+    background-color: #dcdcdc;
+    border-color: $main_gray_btn;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-top-left-radius: rem($radius_frame-tab);
+    border-top-right-radius: rem($radius_frame-tab);
+    color: $main_gray_txt;
+    z-index: 1;
+    &.active {
+      border-top-width: rem(5px);
+      background-color: #fff;
+    }
+  }
+  .tab-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: rem(500px);
+  }
+  .tab-content-empty {
+    @include display-flex();
+    @include flex-flow(column nowrap);
+    @include justify-content(center);
+    height: rem(208px);
+  }
+  .tab-empty {
+    @include roboto-lt(rem(36px));
+    text-align: center;
+    color: $main_gray_btn;
+  }
+  .tab-aux-row {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    margin-bottom: rem(20px);
+
+    &:last-child{
+      margin: 0;
+    }
+  }
+  .aux-title {
+    width: rem(300px);
+  }
+  .tab-aux-price {
+    @include roboto-bd(rem(36px));
+    color: $main_gray_txt;
+  }
+}

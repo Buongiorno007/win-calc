@@ -1,0 +1,40 @@
+.location-page {
+  .header {
+    @include justify-content(flex-start);
+
+    padding-left: rem(100px);
+  }
+  .back {
+    @extend .icon-setting;
+    @include font-icon(rem(50px), 1);
+
+    width: rem(60px);
+    height: rem(60px);
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    &:before {
+      color: $main_yellow;
+      content: $select_location-icon;
+    }
+  }
+  .location-container {
+    padding-left: rem(50px);
+    color: #fff;
+  }
+  .lists {
+    height: rem(1450px);
+  }
+  .location-current,
+  .location-label {
+    @include roboto-lt(rem(36px), rem(99px));
+  }
+  .location-current {
+    width: 65%;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+}

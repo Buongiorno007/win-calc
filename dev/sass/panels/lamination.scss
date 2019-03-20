@@ -1,0 +1,93 @@
+.lamination-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: rem(50px) rem(80px);
+
+
+  .laminat-img {
+    @extend .splash;
+    @include transition(all .5s linear);
+    cursor: pointer;
+    img {
+      height: 11.5rem;
+    }
+    &.selected {
+      position: relative;
+      outline: 3px solid $main_green;
+      &:after {
+        @include font-icon(rem(130px), 7rem);
+        position: absolute;
+        top: 18%;
+        left: 36%;
+        color: $main_green;
+        content: $check-panel-icon;
+      }
+    }
+  }
+
+  .laminat-label {
+    @include roboto-lt(rem(36px));
+    word-wrap: break-word;
+    color: $main_gray_txt;
+  }
+
+
+  .laminat-filter {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2rem;
+
+    .laminat-inner {
+      @include display-flex();
+      @include align-items(center);
+    }
+
+    .laminat-box {
+      min-width: 25rem;
+      margin-right: 3rem;
+      float: left;
+    }
+    .laminat-img {
+      img {
+        width: 25.4rem;
+      }
+    }
+  }
+
+
+  .laminat-groups {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(space-around);
+    height: 76%;
+    overflow: auto;
+    padding-top: 3rem;
+
+    .laminat-box {
+      margin-bottom: 3rem;
+    }
+    .laminat-row {
+      @include display-flex();
+      @include flex-flow(row wrap);
+      @include justify-content(space-between);
+    }
+    .laminat-img {
+      img {
+        width: 12rem;
+      }
+    }
+    .laminat-label {
+      font-size: 2rem;
+    }
+  }
+
+
+  .info {
+    top: rem(-20px);
+    right: rem(50px);
+  }
+  .lamination-img.selected ~ .info {
+    top: rem(-30px);
+    right: rem(30px);
+  }
+}

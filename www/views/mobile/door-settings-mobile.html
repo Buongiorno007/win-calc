@@ -1,0 +1,74 @@
+
+<div ng-controller="DesignCtrl as designPage" ng-if="mobilePage.D.design.isDoorConfigMobile" class="door-settings-mobile">
+  <!--просто скопировал хедер из доставок-->
+  <div class="mount-delivery-header"> 
+    <div ng-click="designPage.closeDoorConfig()" class="header-buttons alert-no">
+      <label>{{mobilePage.CANCEL}}</label>
+    </div>
+    <div ng-click="designPage.saveDoorConfig()" ng-show="designPage.D.design.steps.selectedStep4" class="header-buttons alert-yes">
+      <label>{{mobilePage.APPLY}}</label>
+    </div>
+  </div>
+  <!--  ДВЕРНАЯ РАМА-->
+  <div class="door-congig-scroll">
+    <div class="door-config gray">
+      <div ng-click="designPage.showStepsMobileFunc(1)" class="door-config-title">
+        <label>{{ ::designPage.DOOR_CONFIG_DESCTIPT_MOBILE }}</label>
+      </div>
+      <div ng-hide="designPage.D.design.showMobileStep === 1" class="door-config-selected">
+        <label ng-if="designPage.D.design.doorConfig.doorShapeIndex === &quot;&quot;">1 {{ ::designPage.STEP }}</label>
+        <label>{{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].name | translate }}</label>
+      </div>
+      <div ng-if="designPage.D.design.showMobileStep === 1" class="door-config-list">
+        <div ng-repeat="door in designPage.D.design.doorShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}" ng-click="designPage.selectDoor($index, designPage.P.product)" class="door-config-item">
+          <label>{{ ::door.name | translate }}</label>
+        </div>
+      </div>
+    </div>
+    <!--створка двери-->
+    <div class="door-config">
+      <div ng-click="designPage.showStepsMobileFunc(2)" class="door-config-title">
+        <label>{{ ::designPage.SASH_CONFIG_DESCTIPT_MOBILE }}</label>
+      </div>
+      <div ng-hide="designPage.D.design.showMobileStep === 2" class="door-config-selected">
+        <label ng-if="designPage.D.design.doorConfig.sashShapeIndex === &quot;&quot;">2 {{ ::designPage.STEP }}</label>
+        <label> {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].name }}</label>
+      </div>
+      <div ng-if="designPage.D.design.showMobileStep === 2" class="door-config-list">
+        <div ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" ng-click="designPage.selectSash($index, designPage.P.product)" class="door-config-item">
+          <label class="splice">{{ sashShape.name }}</label>
+        </div>
+      </div>
+    </div>
+    <!--ручка дверная-->
+    <div class="door-config gray">
+      <div ng-click="designPage.showStepsMobileFunc(3)" class="door-config-title">
+        <label>{{ ::designPage.HANDLE_CONFIG_DESCTIPT }}</label>
+      </div>
+      <div ng-hide="designPage.D.design.showMobileStep === 3" class="door-config-selected">
+        <label ng-if="designPage.D.design.doorConfig.handleShapeIndex === &quot;&quot;">3 {{ ::designPage.STEP }}</label>
+        <label ng-hide="designPage.D.design.showMobileStep === 3">{{ designPage.D.design.handleShapeList[designPage.gethandleShapeIndex(designPage.D.design.doorConfig.handleShapeIndex)].name }} </label>
+      </div>
+      <div ng-if="designPage.D.design.showMobileStep === 3" class="door-config-list">
+        <div ng-repeat="handle in designPage.D.design.handleShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === handle.id}" ng-click="designPage.selectHandle(handle.id, designPage.P.product)" class="door-config-item">
+          <label class="splice">{{ handle.name }}</label>
+        </div>
+      </div>
+    </div>
+    <!--замок дверной-->
+    <div class="door-config">
+      <div ng-click="designPage.showStepsMobileFunc(4)" class="door-config-title">
+        <label>{{ ::designPage.LOCK_CONFIG_DESCTIPT }}</label>
+      </div>
+      <div ng-hide="designPage.D.design.showMobileStep === 4" class="door-config-selected">
+        <label ng-if="designPage.D.design.doorConfig.lockShapeIndex === &quot;&quot;">4 {{ ::designPage.STEP }}</label>
+        <label>{{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].name }}</label>
+      </div>
+      <div ng-if="designPage.D.design.showMobileStep === 4" class="door-config-list">
+        <div ng-repeat="lock in designPage.D.design.lockShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}" ng-click="designPage.selectLock($index, designPage.P.product)" class="door-config-item">
+          <label class="splice">{{ lock.name }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

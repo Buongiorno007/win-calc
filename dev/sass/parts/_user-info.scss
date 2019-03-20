@@ -1,0 +1,62 @@
+.user-info-container {
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include align-items(center);
+  @include top_left_coord(40px, 0px);
+
+  position: absolute;
+  width: 100%;
+  .nav-menu-btn {
+    @extend .menu-btn;
+    @include transition(transform 1s ease);
+    &.show-navmenu {
+      @include rotate(90deg);
+    }
+    &.orange-navmenu-btn:before {
+      color: $main_orange;
+    }
+    z-index: 2;
+  }
+  .user-foto {
+    @extend .avatar;
+    margin: 0 rem(20px);
+  }
+  .icon-location {
+    @extend .splash;
+
+    position: relative;
+    width: rem(35px);
+    &:before {
+      @extend .icon-setting;
+      @include font-icon(rem(30px), 1);
+
+      position: absolute;
+      top: rem(-30px);
+      margin-right: rem(6px);
+      color: $main_orange;
+      content: $geolocation_filled-icon;
+    }
+  }
+  .user-info-block {
+    text-align: center;
+  }
+  .user-location {
+    @include roboto-md(rem(36px), rem(54px));
+
+    color: $main_gray_txt;
+  }
+  .user-name {
+    @include roboto-lt(rem(24px), rem(40px));
+
+    color: $main_gray_txt;
+  }
+  .db-block {
+    @include roboto-rg(rem(25px));
+  }
+  .update {
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+  }
+}

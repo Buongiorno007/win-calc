@@ -1,0 +1,7 @@
+.grid-selector-dialog(ng-controller="GridSelectorCtrl as gridBox", ng-if="!gridBox.P.product.is_addelem_only", ng-class="{'active': gridBox.A.aux.isGridSelectorDialog}")
+  .dialog-inner
+    svg-template(template="gridBox.P.product.template", template-width="gridBox.constants.svgTemplateIconBigWidth", template-height="gridBox.constants.svgTemplateIconBigHeight", type-construction="gridBox.constants.SVG_ID_GRID")
+  .set-grid-btn(fs-click="gridBox.confirmGrid()") {{gridBox.APPLY}}
+  .set-grid-all-btn(fs-click="gridBox.setGridToAll()") {{ ::gridBox.SELECT_ALL }}
+  .set-grid-warning <span></span> {{ ::gridBox.SELECT_GLASS_WARN }}
+  .close-dialog(fs-click="gridBox.closeGridSelectorDialog()")

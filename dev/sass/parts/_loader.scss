@@ -1,0 +1,56 @@
+.loader-container {
+  @extend .backLightView;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .loader {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30rem;
+    height: 15rem;
+    background: url('../img/spinner.gif') no-repeat;
+    background-size: cover;
+    &.active {
+      background: url('../img/spinner.gif') no-repeat;
+      background-size: cover;
+    }
+  }
+  p {
+    position: absolute;
+    top: 55px;
+    text-align: center;
+    font-size: 18px;
+    color: #A61700;
+    font-weight: bold;
+  }
+  .loader-counter {
+    position: relative;
+    top : -30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+    label {
+      width: 100px;
+      height: 100px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      @include roboto-rg(rem(36px));
+    }
+  }
+}
+
+@media screen and (max-width: 768px){
+  .loader-container {
+    p{
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+section.settings.password-page
+  .header
+    button.back(fs-click="passwordPage.gotoSettingsPage()")
+    .title(data-output="{{ ::passwordPage.CHANGE_PASSWORD }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
+    button.save(fs-click="passwordPage.saveNewPassword()") {{ ::passwordPage.SAVE }}
+
+  .psw-container
+    .lists
+      form(name="passForm")
+        ul.list
+          li.item
+            .psw-label(data-output="{{ ::passwordPage.CURRENT_PASSWORD }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
+            input.set-input-txt(type="password", name="oldPassword", ng-model="passwordPage.config.oldPassword", ng-change="passwordPage.checkErrorOld()")
+            .error-tooltip(ng-show="passwordPage.config.isErrorOldPassword") {{ ::passwordPage.NO_CONFIRM_PASS }}
+          li.item
+            .psw-label(data-output="{{ ::passwordPage.NEW_PASSWORD }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
+            input.set-input-txt(type="password", name="newPassword", ng-model="passwordPage.config.newPassword", ng-pattern="passwordPage.consts.REG_LOGIN")
+            .error-tooltip(ng-show="passwordPage.newPassword.$error.pattern || passwordPage.newPassword.$dirty && passwordPage.newPassword.$error.pattern") {{ ::passwordPage.WRONG_LOGIN }}
+          li.item
+            .psw-label(data-output="{{ ::passwordPage.CONFIRM_PASSWORD }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
+            input.set-input-txt(type="password", name="confirmPassword", ng-model="passwordPage.config.confirmPassword", ng-pattern="passwordPage.consts.REG_LOGIN", ng-change="passwordPage.checkError()")
+            .error-tooltip(ng-show="passwordPage.config.isErrorPassword") {{ ::passwordPage.NO_CONFIRM_PASS }}
+            .error-tooltip(ng-show="passwordPage.confirmPassword.$error.pattern || passwordPage.confirmPassword.$dirty && passwordPage.confirmPassword.$error.pattern") {{ ::passwordPage.WRONG_LOGIN }}

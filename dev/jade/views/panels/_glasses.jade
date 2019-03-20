@@ -1,0 +1,25 @@
+.config-panel.glass-container(ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}")
+  .glass-container
+    .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")
+      .folder-img( ng-click="glassPanel.OpenGlassFolder($index)")
+        img(ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" id='anchor{{$index}}')
+      .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" )
+        .info.folder-info(ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
+          label i
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
+        .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
+      .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
+        .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
+          .glass-width
+            label {{glass.glass_width}} {{glassPanel.MM}}
+          .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
+            label {{glass.sku}}
+          .info.item-info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
+            label i
+          .blank-div(ng-if="!(glass.img.length && glass.description.length)")
+  .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
+    .dialog-inner
+      svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="glassPanel.constants.SVG_ID_GLASS")
+    .set-glass-btn(fs-click="glassPanel.confirmGlass()") {{glassPanel.APPLY}}
+    .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
+  .backDarkView(ng-if="glassPanel.G.global.showGlassSelectorDialog")

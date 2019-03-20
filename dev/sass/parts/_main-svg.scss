@@ -1,0 +1,26 @@
+// Construction SVG MAIN
+
+.construction-container-main {
+  position: relative;
+}
+
+.construction-block-main {
+  text-align: center;
+  
+}
+.soffits {
+  fill: url(#clipPolygon)
+}
+.construction-scrollbox-main {
+  width: 100%;
+  height: auto;
+  margin:  auto;
+  text-align: center;
+  overflow: hidden;
+ 
+}
+.design-attantion-main {
+  @extend .attantion;
+  top: 45%;
+  left: 25%;
+}

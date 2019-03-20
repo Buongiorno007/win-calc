@@ -1,0 +1,882 @@
+$door-config-header: 355px;
+$door-config-content: $ipad-height - $door-config-header;
+.call-price {
+  height: 4.875rem;
+  width: 26rem;
+  position: absolute;
+  left: 49rem;
+  top: 84rem;
+  color: #fff;
+  background-color: #f98000;
+  font: normal 3rem/1.5 roboto-light, sans-serif, icons;
+  border-radius: 1rem;
+  text-align: center;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.construction-container {
+  position: relative;
+}
+
+// General Menu Properties
+
+.construction-menu {
+  position: absolute;
+  height: 100%;
+}
+
+.construction-label {
+  @include roboto-bd(rem(22px), rem(24px));
+
+  margin-top: rem(20px);
+  text-transform: uppercase;
+  color: $main_gray_txt;
+}
+
+.construction-descrip {
+  @include roboto-lt(rem(24px));
+
+  margin-bottom: rem(10px);
+  color: #666;
+}
+
+.light-v {
+  .angel-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_red !important;
+    &:after {
+      content: $angel-shape-icon-b;
+    }
+  }
+  .order-btn {
+    background-color: $main_red !important;
+  }
+
+  .infoIcon {
+    display: none;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 85.3rem;
+    left: 37rem;
+    &.coeff-low {
+      display: inline;
+    }
+  }
+  .infoIconGreen {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 85.3rem;
+    left: 37rem;
+    &.coeff-low {
+      display: none;
+    }
+  }
+}
+
+.light-v {
+  .impost-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_red !important;
+    &:after {
+      content: $impost-shape-icon-b;
+    }
+  }
+}
+
+.light-v {
+  .sash-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_red !important;
+    &:after {
+      content: $sash-shape-icon-b;
+    }
+  }
+}
+
+.light-v {
+  .arch-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_red !important;
+    &:after {
+      content: $arch-shape-icon-b;
+    }
+  }
+}
+
+.light-v {
+  .position-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_red !important;
+    &:after {
+      content: $position-shape-icon-b;
+    }
+  }
+}
+
+// Construction Left Menu
+
+.construction-left-menu {
+  @extend .construction-menu;
+  @include top_left_coord(0px, 0px);
+  height: auto;
+  .figure-lists {
+    width: rem(220px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  .figure-item {
+    position: relative;
+    height: rem(215px);
+  }
+  .figure-item-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #d2d2d2;
+    border-width: 0 1px 1px 0;
+    padding: rem(40px);
+    text-align: center;
+    z-index: 10;
+
+    &.selected {
+      background-color: $main_green;
+      .figure-icon {
+        color: #fff;
+      }
+    }
+    &.hov:hover {
+      background-color: $main_green;
+      .figure-icon {
+        color: #fff;
+      }
+    }
+  }
+
+  .figure-icon {
+    @extend .splash;
+    @include font-icon(rem(88px), 1);
+    color: $main_green;
+  }
+
+  .sash-shape-a {
+    &:after {
+      content: $sash-shape-icon-a;
+    }
+  }
+  .sash-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_orange;
+    &:after {
+      content: $sash-shape-icon-b;
+    }
+  }
+  .angel-shape-a {
+    &:after {
+      content: $angel-shape-icon-a;
+    }
+  }
+  .angel-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_orange;
+    &:after {
+      content: $angel-shape-icon-b;
+    }
+  }
+  .impost-shape-a {
+    &:after {
+      content: $impost-shape-icon-a;
+    }
+  }
+  .impost-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_orange;
+    &:after {
+      content: $impost-shape-icon-b;
+    }
+  }
+  .arch-shape-a {
+    &:after {
+      content: $arch-shape-icon-a;
+    }
+  }
+  .arch-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_orange;
+    &:after {
+      content: $arch-shape-icon-b;
+    }
+  }
+  .position-shape-a {
+    &:after {
+      content: $position-shape-icon-a;
+    }
+  }
+  .position-shape-b {
+    position: absolute;
+    top: 20px;
+    left: 32px;
+    color: $main_orange;
+    &:after {
+      content: $position-shape-icon-b;
+    }
+  }
+
+  .figure-label {
+    @extend .construction-label;
+    @extend .truncated;
+  }
+
+  .left-menu-footer {
+    position: absolute;
+    left: rem(1452px);
+    bottom: 87rem;
+    width: rem(350px);
+  }
+  .footer-description {
+    @extend .construction-descrip;
+  }
+  .project-default {
+    @extend .middle-button;
+    @extend .splash;
+
+    display: inline-block;
+    height: rem(72px);
+    margin-bottom: 1rem;
+    padding: rem(13px) rem(26px);
+    line-height: 3.2rem;
+    color: #fff;
+    background-color: $main_green;
+  }
+}
+
+// Construction Edit menu
+
+.edit_submenu {
+  @include transition(all 0.3s linear);
+  @include roboto-lt(rem(36px), rem(65px));
+  @include display-flex();
+  position: absolute;
+  left: -60rem;
+  padding: 0 rem(20px);
+  border-radius: rem(16px);
+  background-color: #242424;
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+
+  &.active {
+    left: 14rem;
+  }
+}
+
+#impost-shape-menu {
+  top: 3rem;
+}
+
+#sash-shape-menu {
+  top: 17rem;
+}
+
+#angel-shape-menu {
+  top: 31rem;
+}
+
+#arc-shape-menu {
+  top: 44rem;
+}
+
+#position-menu {
+  top: 58rem;
+}
+
+#position-menu-for-position {
+  top: 58rem;
+}
+
+.constr-shape-icon {
+  @include font-icon(rem(50px), rem(80px));
+  position: relative;
+  padding: 0 0.7rem;
+  border-right: 1px solid $main_gray_btn;
+  text-align: center;
+  color: #ddd;
+  background-color: #242424;
+  z-index: 5;
+  &:last-child {
+    border-right: none;
+  }
+
+}
+
+.constr-shape-position {
+  /* font: normal 2.125rem/2.5rem icons, sans-serif; */
+  position: relative;
+  /* padding: 0 0.7rem; */
+  border-right: 1px solid #bebebe;
+  text-align: center;
+  color: #ddd;
+  background-color: #242424;
+  z-index: 5;
+  width: 11rem;
+  text-transform: lowercase;
+}
+
+.drop-shape-icon {
+  @include transition(top 0.3s linear);
+  @extend .constr-shape-icon;
+  position: absolute;
+  display: inline-flex;
+  top: 0;
+  border-right: none;
+  z-index: 4;
+}
+
+.clean:after {
+  content: $sash-empty-icon;
+}
+
+.sash-left:after {
+  content: $sash-left-icon;
+}
+
+.sash-right {
+  left: $submenu_left1;
+  &:after {
+    content: $sash-right-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+}
+
+.sash-up {
+  left: $submenu_left1;
+  &:after {
+    content: $sash-up-icon;
+  }
+  &.active {
+    top: $submenu_top2;
+  }
+}
+
+.sash-down {
+  left: $submenu_left1;
+  &:after {
+    content: $sash-down-icon;
+  }
+  &.active {
+    top: $submenu_top3;
+  }
+}
+
+.sash-right-up:after {
+  content: $sash-right-up-icon;
+}
+
+.sash-left-up {
+  left: $submenu_left2;
+  &:after {
+    content: $sash-left-up-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+}
+
+.sash-shtulp-left:after {
+  content: $sash-shtulp-left-icon;
+}
+
+.sash-shtulp-left-door:after {
+  content: $sash-shtulp-left-icon-door;
+}
+
+.sash-shtulp-right {
+  left: $submenu_left3;
+  &:after {
+    content: $sash-shtulp-right-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+  &.left {
+    left: 10.6rem;
+    background: none;
+    background-color: #242424;;
+  }
+}
+
+.sash-shtulp-right-door {
+  left: $submenu_left3;
+  &:after {
+    content: $sash-shtulp-right-icon-door;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+  &.left {
+    left: 10.6rem;
+    background : #242424;
+  }
+}
+
+//----- in Door case
+.door-sash {
+  .sash-right {
+    left: $submenu_left0;
+  }
+  .sash-up {
+    left: $submenu_left0;
+  }
+  .sash-down {
+    left: $submenu_left0;
+  }
+  .sash-left-up {
+    left: $submenu_left1;
+  }
+  .sash-shtulp-right {
+    left: $submenu_left2;
+  }
+}
+
+.impost-vert:after {
+  content: $impost-vert-icon;
+}
+
+.impost-hor:after {
+  content: $impost-hor-icon;
+}
+
+.impost-inc-hor:after {
+  content: $impost-inc-hor-icon;
+}
+
+.impost-inc-vert {
+  left: $submenu_left2;
+  &:after {
+    content: $impost-inc-vert-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+}
+
+.impost-inc-hor2 {
+  left: $submenu_left2;
+  &:after {
+    content: $impost-inc-hor2-icon;
+  }
+  &.active {
+    top: $submenu_top2;
+  }
+}
+
+.impost-inc-vert2 {
+  left: $submenu_left2;
+  &:after {
+    content: $impost-inc-vert2-icon;
+  }
+  &.active {
+    top: $submenu_top3;
+  }
+}
+
+.impost-curv-right:after {
+  content: $impost-curv-right-icon;
+}
+
+.impost-curv-left {
+  left: $submenu_left3;
+  &:after {
+    content: $impost-curv-left-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+}
+
+.impost-curv-up {
+  left: $submenu_left3;
+  &:after {
+    content: $impost-curv-up-icon;
+  }
+  &.active {
+    top: $submenu_top2;
+  }
+}
+
+.impost-curv-down {
+  left: $submenu_left3;
+  &:after {
+    content: $impost-curv-down-icon;
+  }
+  &.active {
+    top: $submenu_top3;
+  }
+}
+
+.impost-curv1:after {
+  content: $impost-curv1-icon;
+}
+
+.impost-curv3 {
+  left: $submenu_left4;
+  &:after {
+    content: $impost-curv3-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+}
+
+.impost-curv4:after {
+  content: $impost-curv4-icon;
+}
+
+.impost-curv2:after {
+  content: $impost-curv2-icon;
+}
+
+.arc:after {
+  content: $arc-icon;
+}
+
+.corner:after {
+  content: $corner-icon;
+}
+
+.corner-curv:after {
+  content: $corner-curv-icon;
+}
+
+.mirror:after {
+  content: $mirror;
+}
+
+.position-axis:after {
+  content: $position-axis;
+}
+
+.position-glass:after {
+  content: $position-glass;
+}
+
+// Construction SVG
+
+.construction-block {
+  text-align: center;
+}
+
+.construction-scrollbox {
+  width: 100%;
+  height: 100%;
+  margin: auto auto;
+  text-align: center;
+  overflow: auto;
+}
+
+// Construction Right Menu
+
+.right-menu-header {
+  position: absolute;
+  right: 0;
+  top: 3%;
+}
+
+.nav-tool-box {
+  float: left;
+  width: 8rem;
+  text-align: center;
+}
+
+.construct-tools {
+  @extend .cross-btn;
+  @extend .splash;
+  position: relative;
+  width: rem(85px);
+  height: rem(85px);
+  &:after {
+    top: 25%;
+    left: 25%;
+  }
+}
+
+.save-construction {
+  @include font-icon(rem(28px), 1.5);
+
+  background-color: $main_green;
+  &:after {
+    content: $select-history-icon;
+  }
+}
+
+.close-construction {
+  @include font-icon(rem(40px), 1);
+  background-color: $main_gray_btn;
+}
+
+.step-back {
+  @include font-icon(rem(40px), 1);
+  background-color: $main_gray_btn;
+  &:after {
+    content: $step-back;
+  }
+}
+
+.nav-tool-label {
+  @extend .construction-descrip;
+}
+
+.right-menu-footer {
+  position: absolute;
+  right: 0;
+  width: 32rem;
+}
+
+.door-config-menu {
+  position: absolute;
+  top: 25%;
+  right: rem(50px);
+  width: rem(300px);
+  text-align: right;
+}
+
+.door-config-btn {
+  @extend .button;
+  @extend .splash;
+  @extend .icon-setting;
+  @include font-icon(rem(130px), 1);
+
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  &:after {
+    color: $main_green;
+    content: $door-config-default-icon;
+  }
+  &.active {
+    &:after {
+      content: $door-config-active-icon;
+    }
+  }
+}
+
+.door-config-label {
+  @extend .construction-label;
+  margin-bottom: rem(30px);
+}
+
+.door-config-description {
+  @extend .construction-descrip;
+}
+
+// Door Configuration Panel
+
+.door-configuration {
+  @include top_left_coord(0px, -2500px);
+  @include transition(all 0.5s linear);
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+  z-index: 12;
+
+  &.active {
+    @include top_left_coord(0px, 0px);
+  }
+
+  .door-config-column {
+    @include transition(all 0.5s linear);
+    @include top_left_coord(0px, -460px);
+
+    position: absolute;
+    width: rem(512px);
+  }
+  .step1 {
+    @include top_left_coord(0px, 0px);
+
+    z-index: 6;
+  }
+  .step2 {
+    z-index: 5;
+    &.active {
+      @include top_left_coord(0px, 452px);
+    }
+  }
+  .step3 {
+    z-index: 4;
+    &.active {
+      @include top_left_coord(0px, 900px);
+    }
+  }
+  .step4 {
+    z-index: 3;
+    &.active {
+      @include top_left_coord(0px, 1352px);
+    }
+  }
+  .door-config-backfon {
+    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
+    @include top_left_coord(0px, 0px);
+
+    width: rem(452px);
+    height: 100%;
+    position: absolute;
+    border-right: 1px solid #d2d2d2;
+    background-color: #fafafa;
+    z-index: -1;
+  }
+  .door-config-header {
+    height: rem($door-config-header);
+    padding-left: rem(50px);
+    width: rem(452px);
+  }
+  .door-inner {
+    height: 100%;
+    padding: rem(40px) rem(20px);
+    border-bottom: 1px solid #d2d2d2;
+  }
+  .door-title {
+    @include roboto-bd(rem(48px));
+    padding: rem(20px) 0 rem(30px) 0;
+    color: $main_gray_txt;
+  }
+  .door-subtitle {
+    @include roboto-bd(rem(36px), rem(44px));
+
+    color: $main_gray_txt;
+  }
+  .door-config-content {
+    height: rem($door-config-content);
+    overflow: hidden;
+  }
+  ul.door-config-list {
+    width: 36rem;
+    height: rem($door-config-content);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-right: 2rem;
+    overflow-y: auto;
+  }
+  li.door-config-option {
+    width: rem(452px);
+    padding-left: rem(50px);
+    cursor: pointer;
+    position: relative;
+    &.selected {
+      background-color: $main_green;
+    }
+  }
+  .selected-item-arrow {
+    position: absolute;
+    top: 0;
+    right: rem(-58px);
+    width: rem(60px);
+    height: 100%;
+    background: image-url('door-arrow.png') no-repeat;
+    background-size: 100% 100%;
+  }
+  .door-option-label {
+    @include roboto-lt(rem(36px));
+    word-wrap: break-word;
+    color: $main_gray_txt;
+  }
+  .door-config-tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: rem(244px);
+  }
+  .door-config-finish-btn {
+    @extend button;
+    @extend .icon-setting;
+    @include font-icon(rem(176px), 1);
+
+    width: 100%;
+    color: #fff;
+    outline: none;
+    border: none;
+  }
+  .door-config-finish-save-btn {
+    @extend button;
+    @extend .icon-setting;
+    @include font-icon(rem(120px), 1);
+
+    width: 100%;
+    color: #fff;
+    outline: none;
+    border: none;
+  }
+  .close-door-config {
+    height: rem($door-config-header);
+    background-color: $main_gray_btn;
+    &:after {
+      content: $cross-big-icon;
+    }
+  }
+  .save-door-config {
+    height: rem($door-config-content);
+    background-color: $main_green;
+    &:after {
+      content: $select-history-icon;
+    }
+  }
+  .door-shape {
+    width: rem(112px);
+  }
+  .door-hardware {
+    width: rem(160px);
+  }
+}
+
+//* *//
+.template-elem {
+  @include roboto-rg(1.9rem);
+  width: 100%;
+  position: absolute;
+  top: 81%;
+  margin-top: 2rem;
+}
+
+.clicked {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+
+}
+
+#tamlateSVG {
+  position: relative;
+  left: 2rem;
+  top: 0rem;
+}

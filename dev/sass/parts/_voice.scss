@@ -1,0 +1,69 @@
+.voice-container {
+  @include transition(all 0.3s linear);
+  position: absolute;
+  bottom: rem(-1000px);
+  right: rem(10px);
+  width: rem(770px);
+  height: rem(390px);
+  padding: rem(30px);
+  border-radius: rem($radius_rooms-dialog);
+  background-color: rgba(#fff, .85);
+  z-index: 99999;
+
+  &.active {
+    bottom: rem(10px);
+  }
+
+  .voice-title {
+    @include roboto-lt(rem(48px));
+    color: #5c5b5b;
+  }
+
+  .voice-input {
+    @include roboto-lt(rem(38px));
+
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    width: 80%;
+    height: rem(87px);
+    margin: 0;
+    padding: rem(10px);
+    border: 1px solid #8c8c8c;
+    border-radius: rem($radius_general-big_button);
+    outline: none;
+
+    @include input-placeholder {
+      color: #5c5b5b;
+    }
+  }
+
+
+  .voice-icon {
+    @extend .icon-setting;
+    @include font-icon(rem(60px), 2.25);
+
+    position: absolute;
+    top: rem(10px);
+    right: rem(10px);
+    width: rem(155px);
+    height: rem(155px);
+    border: rem(10px) solid #cececd;
+    border-radius: 50%;
+    background-color: #f7f6f5;
+    box-shadow: inset 0 0 rem(7px) rem(7px) rgba(0,0,0,0.1);
+    &:after {
+      display: block;
+      text-align: center;
+      content: $voice-icon;
+      color: #f84141;
+    }
+  }
+
+  .loud-voice {
+    box-shadow: 0 0 rem(17px) rem(7px) rgba(#f84141,0.6);
+  }
+  .quiet-voice {
+    box-shadow: 0 0 rem(8px) rem(7px) rgba(#f84141,0.1);
+  }
+}

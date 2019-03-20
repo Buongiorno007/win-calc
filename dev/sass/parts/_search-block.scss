@@ -1,0 +1,60 @@
+.search-block {
+  position: relative;
+  margin-bottom: rem(50px);
+
+  &:before {
+    @extend .icon-setting;
+    @include font-icon(rem(50px), 1);
+
+    position: absolute;
+    top: 25%;
+    left: rem(30px);
+    color: $main_orange;
+    content: $search-icon;
+  }
+
+  .search-input {
+    @include roboto-lt(rem(36px));
+
+    width: rem(1150px);
+    height: rem(115px);
+    padding-left: rem(100px);
+    border: 1px solid #dcdcdc;
+    border-radius: rem($radius_login-container);
+    background-color: #fff;
+    outline: none;
+    color: #8c8c8c;
+
+    &:focus {
+      border-color: $main_orange;
+    }
+  }
+
+  .delete-search {
+    @extend .splash;
+
+    position: absolute;
+    top: 25%;
+    left: rem(1060px);
+    width: rem(60px);
+    height: rem(60px);
+    background-image: url("../../img/back.png");
+    background-size: contain;
+  }
+  .cancel-search {
+    @extend .middle-button;
+    @extend .splash;
+
+    position: absolute;
+    top: 25%;
+    left: rem(1180px);
+    height: rem(70px);
+    padding: 0 rem(28px);
+    color: #fff;
+    background-color: $main_orange;
+  }
+  .search-input:focus ~ .cancel-search {
+    display: block;
+  }
+
+}

@@ -1,0 +1,646 @@
+.coeff-RoomContainer {
+  position: absolute;
+  top: 0rem;
+  left: -4px;
+  height: 83%;
+  width: 143%;
+}
+
+.elem1 {
+  position: absolute;
+  z-index: -20;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem2 {
+  position: absolute;
+  z-index: -19;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem3 {
+  position: absolute;
+  z-index: -18;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem5 {
+  position: absolute;
+  z-index: -16;
+  top: 456px;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 32%;
+    width: 32%;
+  }
+}
+
+.elem6 {
+  position: absolute;
+  z-index: -15;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem7 {
+  position: absolute;
+  z-index: -14;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem8 {
+  position: absolute;
+  z-index: -13;
+  top: 653px;
+  max-height: 90%;
+  min-width: 90%;
+  img {
+    height: 90%;
+    width: 90%;
+  }
+}
+
+.elem8_1 {
+  position: absolute;
+  z-index: -13;
+  top: 654px;
+  left: 200px;
+  height: 18px;
+  background: #2e2015;
+  border-radius: 2px;
+}
+
+.elem9 {
+  position: absolute;
+  z-index: -12;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem10 {
+  position: absolute;
+  z-index: -11;
+  top: 582px;
+  left: 267px;
+  max-height: 11%;
+  min-width: 11%;
+  img {
+    height: 11%;
+    width: 11%;
+  }
+}
+
+.elem11 {
+  position: absolute;
+  z-index: -10;
+  top: 572px;
+  max-height: 12%;
+  min-width: 12%;
+  img {
+    height: 11.5%;
+    width: 11.5%;
+  }
+}
+
+.elem13 {
+  position: absolute;
+  z-index: -8;
+  top: -5.5rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem14 {
+  position: absolute;
+  z-index: -7;
+  top: -5.5rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem15 {
+  background: #FFFFFF;
+  -webkit-transform: skewX(130deg);
+  transform: skewX(130deg);
+  border-radius: 7px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+  box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+  position: absolute;
+  z-index: -4;
+  left: 65px;
+  opacity: .3;
+}
+
+.elem16 {
+  position: absolute;
+  z-index: -5;
+  top: 337px;
+  opacity: 0.7;
+  max-height: 45%;
+  min-width: 45%;
+  img {
+    height: 30%;
+    width: 30%;
+  }
+}
+
+.elem17 {
+  position: absolute;
+  z-index: 1;
+  img {
+    height: 57%;
+    width: 57%;
+  }
+}
+
+.elem17_1 {
+  position: absolute;
+  z-index: 1;
+  img {
+    height: 57%;
+    width: 57%;
+  }
+}
+
+.elem18 {
+  position: absolute;
+  z-index: 4;
+  opasity: 1;
+  @extend .firstLight;
+  img {
+    height: 122%;
+    width: 105%;
+  }
+}
+
+.elem19 {
+  position: absolute;
+  z-index: 2;
+  opacity: 1;
+  @extend .secondLight;
+  img {
+    height: 122%;
+    width: 105%;
+  }
+}
+
+.elem20 {
+  position: absolute;
+  z-index: 3;
+  opacity: 1;
+  @extend .thirdLight;
+  img {
+    height: 122%;
+    width: 105%;
+  }
+}
+
+.elem21 {
+  position: absolute;
+  z-index: 4;
+  opacity: 1;
+  img {
+    height: 122%;
+    width: 105%;
+  }
+}
+
+.elem23 {
+  position: absolute;
+  z-index: -7;
+  top: 0px;
+  opacity: 0.5;
+  img {
+    height: 95%;
+    width: 95%;
+  }
+}
+
+.elem24 {
+  position: absolute;
+  z-index: 1;
+  left: 25rem;
+  top: 12rem;
+  height: 280px;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem25 {
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  left: 65rem;
+  height: 257px;
+  width: 550px;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem26 {
+  position: absolute;
+  z-index: 2;
+  top: 5rem;
+  height: 100%;
+  width: 100%;
+  top: 14rem;
+  img {
+    height: 104%;
+    width: 104%;
+  }
+}
+
+.elem31 {
+  position: absolute;
+  z-index: -20;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 93%;
+    width: 93%;
+  }
+}
+
+.elem32 {
+  position: absolute;
+  top: 17rem;
+  left: 67rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 42%;
+    width: 42%;
+  }
+}
+
+.elem33 {
+  position: absolute;
+  left: 25.4rem;
+  z-index: 2;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 10.1%;
+    width: 10.1%;
+  }
+}
+
+.elem34 {
+  position: absolute;
+  top: 17rem;
+  left: 67rem;
+  z-index: 2;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 10.2%;
+    width: 10.2%;
+  }
+}
+
+.elem35 {
+  position: absolute;
+  top: 74.95rem;
+  left: 57rem;
+  z-index: 2;
+  width: 9.77rem;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.elem36 {
+  position: absolute;
+  top: 606px;
+  left: 25.39rem;
+  z-index: 2;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 14.5%;
+    width: 14.5%;
+  }
+}
+
+.elem37 {
+  position: absolute;
+  left: 0rem;
+  height: 121%;
+  width: 100%;
+  z-index: 1;
+  background-color: #6b6b6d;
+  transform: rotate(-15deg);
+  opacity: 0.1;
+}
+
+.elem38 {
+  position: absolute;
+  top: 23.6rem;
+  left: 39rem;
+  height: 50px;
+  width: 7%;
+  z-index: 1;
+  img {
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/room/top.png');
+    background-repeat: repeat-x;
+    background-size: contain;
+  }
+}
+
+.elem39 {
+  position: absolute;
+  top: 58.6rem;
+  left: 58.6rem;
+  height: 21%;
+  width: 3.66%;
+  z-index: 1;
+  img {
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/room/right.png');
+    background-repeat: repeat-y;
+    background-size: contain;
+  }
+}
+
+.elem40 {
+  position: absolute;
+  top: 58.6rem;
+  left: 203px;
+  height: 21%;
+  z-index: 1;
+  width: 4.15%;
+  img {
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/room/left.png');
+    background-repeat: repeat-y;
+    background-size: contain;
+  }
+}
+
+.blockCheck {
+  height: 6%;
+  left: 23rem;
+  top: 12rem;
+  color: #0f0f0f;
+  text-align: center;
+  border: black;
+  border-radius: 1rem;
+  position: absolute;
+  width: 10%;
+  font-size: medium;
+}
+
+.elem51 {
+  position: absolute;
+  z-index: -20;
+  top: 0rem;
+  left: -29.5rem;
+  height: 96rem;
+  width: 158rem;
+  background-image: url(../img/room/background3.png);
+  background-repeat: repeat-y;
+  background-size: contain;
+}
+
+.elem52 {
+  position: absolute;
+  z-index: -20;
+  top: 0rem;
+  left: 0rem;
+  height: 82rem;
+  width: 116rem;
+  background-image: url(../img/room/front_wool.png);
+  background-repeat: repeat-y;
+  background-size: contain;
+}
+
+.elem53 {
+  position: absolute;
+  z-index: -20;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+  img {
+    height: 80rem;
+    width: 106.6rem;
+    position: absolute;
+    top: 13rem;
+    left: 7rem;
+  }
+}
+
+.elem54 {
+  position: absolute;
+  z-index: 4;
+  top: 21.6rem;
+  left: 31.3rem;
+  height: 31.5rem;
+  width: 16.5rem;
+  background-image: url(../img/room/d11.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.elem55 {
+  position: absolute;
+  z-index: 4;
+  top: 21.5rem;
+  left: 48.3rem;
+  height: 31.5rem;
+  width: 16.5rem;
+  background-image: url(../img/room/d12.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.elem56 {
+  position: absolute;
+  z-index: 4;
+  top: 53rem;
+  left: 52.99rem;
+  height: 31.5rem;
+  width: 16.5rem;
+  background-image: url(../img/room/d13.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.elem57 {
+  position: absolute;
+  z-index: 3;
+  top: 53.5rem;
+  left: 28.4rem;
+  height: 31.5rem;
+  width: 16.5rem;
+  background-image: url(../img/room/d14.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.elem58 {
+  position: absolute;
+  top: 21.6rem;
+  left: 379.5px;
+  height: 38px;
+  width: 20.3px;
+  z-index: 2;
+  .img-b {
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/room/dd1.png');
+    background-repeat: repeat-x;
+    background-size: contain;
+  }
+}
+
+.elem59 {
+  position: absolute;
+  top: 416px;
+  left: 250px;
+  height: 29px;
+  z-index: 4;
+  width: 31px;
+  .img-b {
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/room/dd2.png');
+    background-repeat: repeat-y;
+    background-size: contain;
+  }
+}
+
+.elem60 {
+  position: absolute;
+  top: 51.6rem;
+  left: 470px;
+  height: 32px;
+  z-index: 3;
+  width: 37px;
+  .img-b {
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/room/dd3.png');
+    background-repeat: repeat-y;
+    background-size: contain;
+  }
+}
+
+.left-up {
+  display: none;
+
+  //background: url('../img/slopes/left_up.svg') no-repeat;
+  //background-position: center;
+  //background-size: cover;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+}
+
+.right-up {
+  display: none;
+}
+
+.right-down {
+  display: none;
+}
+
+.left-up {
+  display: none;
+}
+
+.left-down {
+  display: none;
+}
+
+.slope-up {
+  display: none;
+  //background: linear-gradient(bottom,#b0aeae,#c7c4c4);
+  background: url('../img/slopes/up.png') repeat-x;
+  background-size: cover;
+
+}
+
+.right {
+  display: none;
+  background: url('../img/slopes/right.png') repeat-y;
+  background-size: cover;
+}
+
+.left {
+  display: none;
+  background: url('../img/slopes/left.svg') repeat-y;
+  background-size: cover;
+}
+
+.handle {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background : red;
+  //background: url('../img/slopes/handle.svg') no-repeat;
+  //background-size: contain;
+  //background-position: top left;
+}
