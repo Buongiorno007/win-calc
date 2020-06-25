@@ -714,6 +714,9 @@ body {
     }
     .cell {
       height: rem(70px);
+      &:active {
+        background-color: #6ed44a;
+      }
     }
   }
   ::-webkit-scrollbar {

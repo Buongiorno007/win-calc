@@ -1914,6 +1914,18 @@
                                             }
                                             if (ProductStor.product.lamination.img_in_id === 9 || ProductStor.product.lamination.img_in_id === 19) {
                                                 color_id = 9;
+                                            } 
+                                            if (ProductStor.product.lamination.img_in_id === 10 || ProductStor.product.lamination.img_in_id === 18) {
+                                                color_id = 10;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 11 || ProductStor.product.lamination.img_in_id === 15) {
+                                                color_id = 11;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 12 || ProductStor.product.lamination.img_in_id === 19) {
+                                                color_id = 12;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 13 || ProductStor.product.lamination.img_in_id === 14) {
+                                                color_id = 13;
                                             }
                                         } else {
                                             if (ProductStor.product.lamination.img_out_id === 4 || ProductStor.product.lamination.img_out_id === 14) {
@@ -1930,6 +1942,18 @@
                                             }
                                             if (ProductStor.product.lamination.img_in_id === 9 || ProductStor.product.lamination.img_in_id === 19) {
                                                 color_id = 9;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 10 || ProductStor.product.lamination.img_in_id === 18) {
+                                                color_id = 10;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 11 || ProductStor.product.lamination.img_in_id === 15) {
+                                                color_id = 11;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 12 || ProductStor.product.lamination.img_in_id === 19) {
+                                                color_id = 12;
+                                            }
+                                            if (ProductStor.product.lamination.img_in_id === 13 || ProductStor.product.lamination.img_in_id === 14) {
+                                                color_id = 13;
                                             }
                                         }
                                         defs.append('pattern')

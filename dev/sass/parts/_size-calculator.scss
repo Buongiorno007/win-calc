@@ -12,6 +12,11 @@
     bottom: 2rem;
     z-index: 14;
   }
+  .cell.calc-digit {
+    &:active {
+      background-color: #6ed44a;
+    }
+  }
 }
 
 .calc-equal {
