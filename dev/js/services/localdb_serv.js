@@ -3187,14 +3187,20 @@
                 if (!ProductStor.product.hardware.id &&
                     ProductStor.product.lamination.img_in_id === 1 &&
                     ProductStor.product.lamination.img_out_id === 1) {
-                    if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527) {
+                    if (ProductStor.product.profile.id === 345 || ProductStor.product.profile.id === 527 ||
+                        ProductStor.product.profile.id === 541 || ProductStor.product.profile.id === 547 ||
+                        ProductStor.product.profile.id === 571) {
                         temp_profile_id = 416611;
                     }
                     if (ProductStor.product.profile.id === 25 ||
                         ProductStor.product.profile.id === 528 ||
                         ProductStor.product.profile.id === 26 ||
                         ProductStor.product.profile.id === 529 ||
-                        ProductStor.product.profile.id === 561) {
+                        ProductStor.product.profile.id === 561 ||
+                        ProductStor.product.profile.id === 572 ||
+                        ProductStor.product.profile.id === 573 ||
+                        ProductStor.product.profile.id === 574 ||
+                        ProductStor.product.profile.id === 575) {
                         temp_profile_id = 416727;
                     }
                     if (ProductStor.product.profile.id === 532 ||
