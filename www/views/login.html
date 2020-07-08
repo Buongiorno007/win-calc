@@ -7,8 +7,8 @@
     <div ng-if="loginPage.isStartImport" class="attantion">      {{ ::loginPage.IMPORT_DB }}</div>
     <div ng-if="loginPage.isOfflineImport" class="attantion">    {{ ::loginPage.OFFLINE_IMPORT }}</div>
     <div ng-if="loginPage.unexpectedError" class="attantion unexpectedError">    {{ ::loginPage.UNEXPECTED_ERROR }}</div>
-    <div ng-if="loginPage.consts.serverIP === &quot;http://api.steko.com.ua&quot;" class="logo logo-mobView-steko"></div>
-    <div ng-if="loginPage.consts.serverIP !== &quot;http://api.steko.com.ua&quot;" class="logo logo-mobView"></div>
+    <div ng-if="loginPage.consts.serverIP === &quot;https://api.steko.com.ua&quot;" class="logo logo-mobView-steko"></div>
+    <div ng-if="loginPage.consts.serverIP !== &quot;https://api.steko.com.ua&quot;" class="logo logo-mobView"></div>
     <div class="text-logo">{{ ::loginPage.WINDOW_COST }}</div>
     <div ng-click="loginPage.gotoSettingsPage()" id="jssj" class="lang"></div>
     <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
@@ -29,7 +29,7 @@
       <div class="privacy-policy"> {{ ::loginPage.BY_PRESSING_ENTER }} <a class="privacy-link" ng-click="loginPage.ShowTerms()"> {{ ::loginPage.PRIVACY_POLICY }}</a></div>
       <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
     </form>
-    <button ng-if="loginPage.consts.serverIP !== &quot;http://api.steko.com.ua&quot;" ng-click="loginPage.registration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
+    <button ng-if="loginPage.consts.serverIP !== &quot;https://api.steko.com.ua&quot;" ng-click="loginPage.registration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
     <!--button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}-->
     <div ng-show="loginPage.isFactoryId" fs-click="loginPage.isFactoryNotSelect = 0;" class="factory_box">
       <div ng-show="loginPage.isFactoryNotSelect" class="attantion">{{ ::loginPage.SELECT_FACTORY }}</div>

@@ -42,7 +42,7 @@ var server_env = {
   "windowSiteTest": "'http://api.steko.com.ua'",
   "windowSiteLocal": "'http://api.windowscalculator.net'",
   "windowSite": "'http://api.windowscalculator.net'",
-  "steko": "'http://api.steko.com.ua'",
+  "steko": "'https://api.steko.com.ua'",
   "orange": "'http://api.calc.csokna.ru'",
   "window": "'http://api.windowscalculator.net'",
   "windowSteko": "'http://api.steko.com.ua'",

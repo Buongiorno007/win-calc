@@ -70,6 +70,7 @@
       @include display-flex();
       @include flex-flow(row wrap);
       @include justify-content(space-between);
+      max-width: 192px;
     }
     .laminat-img {
       img {
