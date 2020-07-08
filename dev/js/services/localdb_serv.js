@@ -3200,7 +3200,8 @@
                         ProductStor.product.profile.id === 572 ||
                         ProductStor.product.profile.id === 573 ||
                         ProductStor.product.profile.id === 574 ||
-                        ProductStor.product.profile.id === 575) {
+                        ProductStor.product.profile.id === 575 || 
+                        ProductStor.product.profile.id === 576) {
                         temp_profile_id = 416727;
                     }
                     if (ProductStor.product.profile.id === 532 ||
