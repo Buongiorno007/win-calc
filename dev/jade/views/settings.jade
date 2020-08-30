@@ -22,6 +22,9 @@ section.settings.setting-page
         li.item.click(fs-click="settingsPage.gotoLanguagePage()")
           .setting-item-label(data-output="{{ settingsPage.U.userInfo.langName }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
           .setting-item-change(data-output="{{ ::settingsPage.CHANGE_LANGUAGE }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_SHOW_ICONS }}")
+        li.item.click(ls-click="setingsPage.gotoChangeCurrencyPage()")
+          .setting-item-label(data-output="{{ settingsPage.U.userInfo.currency }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          .setting-item-change(data-output="{{ ::settingsPage.CHANGE_CURRENCY }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_SHOW_ICONS }}")
 
       ul.list
         li.item

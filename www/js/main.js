@@ -115,6 +115,11 @@ let portrait = false;
                 controller: 'ChangeLangCtrl as languagePage',
                 title: 'Change Language'
             })
+            .when('/change-currency', {
+                templateUrl: 'views/change-currency.html',
+                controller: 'ChangeCurrencyCtrl as currencyPage',
+                title: 'Change Currency'
+            })
             .when('/location', {
                 templateUrl: 'views/location.html',
                 controller: 'LocationCtrl as locationPage',
@@ -7685,6 +7690,7 @@ if (window.location.hostname !== 'localhost') {
     thisCtrl.AUTHORIZATION = $filter('translate')('settings.AUTHORIZATION');
     thisCtrl.CHANGE_PASSWORD = $filter('translate')('settings.CHANGE_PASSWORD');
     thisCtrl.CHANGE_LANGUAGE = $filter('translate')('settings.CHANGE_LANGUAGE');
+    thisCtrl.CHANGE_CURRENCY = $filter('translate')('settings.CHANGE_CURRENCY');
     thisCtrl.PRIVATE_INFO = $filter('translate')('settings.PRIVATE_INFO');
     thisCtrl.USER_NAME = $filter('translate')('settings.USER_NAME');
     thisCtrl.CITY = $filter('translate')('settings.CITY');
@@ -7850,6 +7856,7 @@ if (window.location.hostname !== 'localhost') {
     thisCtrl.deletePhone = deletePhone;
     thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
     thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
+    thisCtrl.gotoChangeCurrencyPage = SettingServ.gotoChangeCurrencyPage;
     thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
     thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
 
@@ -32984,6 +32991,10 @@ function ErrorResult(code, message) {
       $location.path('/change-lang');
     }
 
+    function gotoChangeCurrencyPage() {
+      $location.path('/change-currency');
+    }
+
     function gotoSettingsPage() {
       $location.path('/settings');
     }
@@ -33006,6 +33017,7 @@ function ErrorResult(code, message) {
       gotoLocationPage: gotoLocationPage,
       gotoPasswordPage: gotoPasswordPage,
       gotoLanguagePage: gotoLanguagePage,
+      gotoChangeCurrencyPage: gotoChangeCurrencyPage,
       gotoSettingsPage: gotoSettingsPage,
       closeSettingsPage: closeSettingsPage
     };

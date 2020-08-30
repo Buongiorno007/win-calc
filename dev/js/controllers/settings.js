@@ -43,6 +43,7 @@
     thisCtrl.AUTHORIZATION = $filter('translate')('settings.AUTHORIZATION');
     thisCtrl.CHANGE_PASSWORD = $filter('translate')('settings.CHANGE_PASSWORD');
     thisCtrl.CHANGE_LANGUAGE = $filter('translate')('settings.CHANGE_LANGUAGE');
+    thisCtrl.CHANGE_CURRENCY = $filter('translate')('settings.CHANGE_CURRENCY');
     thisCtrl.PRIVATE_INFO = $filter('translate')('settings.PRIVATE_INFO');
     thisCtrl.USER_NAME = $filter('translate')('settings.USER_NAME');
     thisCtrl.CITY = $filter('translate')('settings.CITY');
@@ -208,6 +209,7 @@
     thisCtrl.deletePhone = deletePhone;
     thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
     thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
+    thisCtrl.gotoChangeCurrencyPage = SettingServ.gotoChangeCurrencyPage;
     thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
     thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
 

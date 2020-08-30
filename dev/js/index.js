@@ -112,6 +112,11 @@ let portrait = false;
                 controller: 'ChangeLangCtrl as languagePage',
                 title: 'Change Language'
             })
+            .when('/change-currency', {
+                templateUrl: 'views/change-currency.html',
+                controller: 'ChangeCurrencyCtrl as currencyPage',
+                title: 'Change Currency'
+            })
             .when('/location', {
                 templateUrl: 'views/location.html',
                 controller: 'LocationCtrl as locationPage',

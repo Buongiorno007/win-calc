@@ -67,6 +67,10 @@
       $location.path('/change-lang');
     }
 
+    function gotoChangeCurrencyPage() {
+      $location.path('/change-currency');
+    }
+
     function gotoSettingsPage() {
       $location.path('/settings');
     }
@@ -89,6 +93,7 @@
       gotoLocationPage: gotoLocationPage,
       gotoPasswordPage: gotoPasswordPage,
       gotoLanguagePage: gotoLanguagePage,
+      gotoChangeCurrencyPage: gotoChangeCurrencyPage,
       gotoSettingsPage: gotoSettingsPage,
       closeSettingsPage: closeSettingsPage
     };
