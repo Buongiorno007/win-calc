@@ -511,6 +511,7 @@
     "AUTHORIZATION": "Разрешение:",
     "CHANGE_PASSWORD": "Промяна на парола",
     "CHANGE_LANGUAGE": "Промяна на езика",
+    "CHANGE_CURRENCY": "Промяна на валутата",
     "PRIVATE_INFO": "Лична информация:",
     "USER_NAME": "Лице за контакт",
     "CITY": "Населено място",

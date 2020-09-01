@@ -1,0 +1,36 @@
+.currency-page {
+    display: inline-flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: white;
+  
+    .header {
+      height: 80px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      @include roboto-rg(25px);
+      padding: 0 20px;
+      .title {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 40px);
+        color: $main_red !important;
+      }
+    }
+    .currency-container {
+      display: inline-flex;
+      flex-direction: column;
+      padding: 0 20px;
+      .item {
+        @include roboto-rg(20px);
+        color: black;
+        &.active {
+          color: $main_red;
+        }
+      }
+  
+    }
+  }

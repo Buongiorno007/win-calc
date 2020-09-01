@@ -31,6 +31,7 @@
                 };
                 //------- translate
                 thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+                thisCtrl.PROFILE_NAME = $filter('translate')('panels.PROFILE_NAME');
                 thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
                 thisCtrl.APPLY = $filter('translate')('common_words.APPLY');

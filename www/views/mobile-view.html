@@ -443,7 +443,7 @@
           <div class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
         </div>
         <div class="profile-box">
-          <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" class="profile-info">
+          <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id} | translate" class="profile-info">
             <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="profile-info-item"><img ng-if="profile.img.length  &amp;&amp; !profilesPanel.G.global.cordova" ng-src="{{profile.img}}" class="profile-img"><img ng-if="profile.img.length &amp;&amp; profilesPanel.G.global.cordova" ng-src="{{profilesPanel.extendUrl(profile.img)}}" class="profile-img">
               <div class="name">
                 <p>{{profile.name}}</p>

@@ -512,6 +512,7 @@
     "AUTHORIZATION": "Авторизація:",
     "CHANGE_PASSWORD": "Змінити пароль",
     "CHANGE_LANGUAGE": "Змінити мову",
+    "CHANGE_CURRENCY": "Змінити валюту",
     "PRIVATE_INFO": "Особиста інформація:",
     "USER_NAME": "Контактна особа",
     "CITY": "Місто",

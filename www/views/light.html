@@ -168,7 +168,7 @@
                     <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner"><img ng-if="profile.img.length" ng-src="{{profile.img}}" class="profile-img">
                       <div ng-if="!profile.img.length" data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
                       <div ng-if="!profile.img.length" data-output="{{ ::profilesPanel.COUNTRY }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label-country"></div>
-                      <div data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                      <div data-output="{{ profile.name |translate}}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="!profile.img.length" class="profile-cameras">
                         <div class="type cam">{{ profile.cameras }}</div>
                         <div class="type-label">

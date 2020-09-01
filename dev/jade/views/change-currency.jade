@@ -1,9 +1,9 @@
-.language-page
+.currency-page
     .header
-        .back-button(fs-click="languagePage.gotoSettingsPage()")
-        .title(data-output="{{ 'settings.CHANGE_CURRENCY' | translate }}", typing="{{ languagePage.config.typing }}", typing-delay="{{ languagePage.config.DELAY_START }}")
+        .back-button(fs-click="currencyPage.gotoSettingsPage()")
+        .title(data-output="{{ 'settings.CHANGE_CURRENCY' | translate }}", typing="{{ currencyPage.config.typing }}", typing-delay="{{ currencyPage.config.DELAY_START }}")
 
-    .lang-container
+    .currency-container
         .list
-            .item.click(ng-repeat="lang in languagePage.constants.currency", ng-class="{'active': languagePage.U.userInfo.langLabel === lang.label}", fs-click="languagePage.switchLang($index)")
-                .lang-label {{ lang.name }}
+            .item.click(ng-repeat="currency in currencyPage.constants.currency", ng-class="{'active': currencyPage.U.userInfo.currencyLabel === currency.label}", fs-click="currencyPage.switchCurrency($index)")
+                .currency-label {{ currency.name }}
