@@ -730,7 +730,28 @@ let portrait = false;
   
   
       /**============ METHODS ================*/
-  
+
+      function switchCurrency(currencyId) {
+        var defer = $q.defer();
+        /** download All Currencies */
+        localDB
+          .selectLocalDB(
+            localDB.tablesLocalDB.currencies.tableName,
+            null,
+            "id, is_base, name, value"
+          )
+
+
+     
+        UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
+        UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
+        $timeout(function() {
+          $location.path("/"+GlobalStor.global.currOpenPage);
+        }, 500);
+        let currencyDoll = localDB.tablesLocalDB.currencies.name.usd;
+        console.log(currencyDoll);
+      }
+
   
       function gotoSettingsPage() {
         $location.path("/"+GlobalStor.global.prevOpenPage);
@@ -742,6 +763,8 @@ let portrait = false;
   
       //------ clicking
       thisCtrl.gotoSettingsPage = gotoSettingsPage;
+      thisCtrl.switchCurrency = switchCurrency;
+      thisCtrl.gotDeviceCurrency = loginServ.gotDeviceCurrency;
   
         $("#main-frame").addClass("main-frame-mobView");
         $("#app-container").addClass("app-container-mobView");
@@ -5622,9 +5645,9 @@ if (window.location.hostname !== 'localhost') {
                     DELAY_TYPING: 2.5 * globalConstants.STEP,
                     typing: 'on'
                 };
+
                 //------- translate
                 thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
-                thisCtrl.PROFILE_NAME = $filter('translate')('panels.PROFILE_NAME');
                 thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
                 thisCtrl.APPLY = $filter('translate')('common_words.APPLY');
@@ -14533,10 +14556,14 @@ function ErrorResult(code, message) {
         {label: 'it', name: 'Italiano'},
         {label: 'pl', name: 'Polski'},
         {label: 'bg', name: 'Български'},
-      ]
+      ],
 
+      currencies: [
+        {label: 'eur', name: 'EUR'},
+        {label: 'uah', name: 'UAH'},
+        {label: 'usd', name: 'USD'}
+      ],
     });
-
 })();
 
 
@@ -37318,6 +37345,8 @@ function ErrorResult(code, message) {
                         heat_transfer: 0,
                         langLabel: label || 'ru',
                         langName: name,
+                        currencLabel: label,
+                        currencyName: name,
                         currencyId: 0,
                         currency: '',
                         discountConstr: 0,

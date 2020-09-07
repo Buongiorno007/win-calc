@@ -53,8 +53,12 @@
         {label: 'it', name: 'Italiano'},
         {label: 'pl', name: 'Polski'},
         {label: 'bg', name: 'Български'},
-      ]
+      ],
 
+      currencies: [
+        {label: 'eur', name: 'EUR'},
+        {label: 'uah', name: 'UAH'},
+        {label: 'usd', name: 'USD'}
+      ],
     });
-
 })();

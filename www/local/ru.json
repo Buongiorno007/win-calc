@@ -536,9 +536,5 @@
     "REPORT": "Отчет",
     "EXIT": "Выход",
     "NO_CONFIRM_PASS": "Неверный пароль"
-  },
-  "profile_systems": {
-    
   }
-
 }

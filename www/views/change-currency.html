@@ -6,7 +6,7 @@
   </div>
   <div class="currency-container">
     <div class="list">
-      <div ng-repeat="currency in currencyPage.constants.currency" ng-class="{'active': currencyPage.U.userInfo.currencyLabel === currency.label}" fs-click="currencyPage.switchCurrency($index)" class="item click">
+      <div ng-repeat="currency in currencyPage.constants.currencies" ng-class="{'active': currencyPage.U.userInfo.currencyLabel === currency.label}" fs-click="currencyPage.switchCurrency($index)" class="item click">
         <div class="currency-label">{{ currency.name }}</div>
       </div>
     </div>

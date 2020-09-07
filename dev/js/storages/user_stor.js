@@ -52,6 +52,8 @@
                         heat_transfer: 0,
                         langLabel: label || 'ru',
                         langName: name,
+                        currencLabel: label,
+                        currencyName: name,
                         currencyId: 0,
                         currency: '',
                         discountConstr: 0,

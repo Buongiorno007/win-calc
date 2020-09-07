@@ -29,7 +29,28 @@
   
   
       /**============ METHODS ================*/
-  
+
+      function switchCurrency(currencyId) {
+        var defer = $q.defer();
+        /** download All Currencies */
+        localDB
+          .selectLocalDB(
+            localDB.tablesLocalDB.currencies.tableName,
+            null,
+            "id, is_base, name, value"
+          )
+
+
+     
+        UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
+        UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
+        $timeout(function() {
+          $location.path("/"+GlobalStor.global.currOpenPage);
+        }, 500);
+        let currencyDoll = localDB.tablesLocalDB.currencies.name.usd;
+        console.log(currencyDoll);
+      }
+
   
       function gotoSettingsPage() {
         $location.path("/"+GlobalStor.global.prevOpenPage);
@@ -41,6 +62,8 @@
   
       //------ clicking
       thisCtrl.gotoSettingsPage = gotoSettingsPage;
+      thisCtrl.switchCurrency = switchCurrency;
+      thisCtrl.gotDeviceCurrency = loginServ.gotDeviceCurrency;
   
         $("#main-frame").addClass("main-frame-mobView");
         $("#app-container").addClass("app-container-mobView");
