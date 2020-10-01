@@ -146,6 +146,7 @@
                         doorLocks: [],
                         doorsGroups: [],
                         doorsLaminations: [],
+                        locales_names: [],
 
                         //------ Cart
                         supplyData: [],

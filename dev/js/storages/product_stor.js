@@ -30,6 +30,7 @@
             template_square: 0,
 
             profile: {},
+            locales_names: [],
             glass: [],
             hardware: {},
             beadsData: [],

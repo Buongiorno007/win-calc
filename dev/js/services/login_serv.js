@@ -892,7 +892,20 @@
           });
         return deff.promise;
       }
-
+      // Download all languages
+      function downloadAllLanguages() {
+        return localDB
+          .selectLocalDB(
+            localDB.tablesLocalDB.locales_names.tableName,
+            null, 
+            "id, table_name, table_id, ru, en, table_attr"          
+          )
+          .then(function (result) {
+            if (result && result.length) {
+              GlobalStor.global.locales_names = angular.copy(result)
+            }
+          })
+        }
       /** download all lamination */
       function downloadAllLamination() {
         return localDB
@@ -904,7 +917,7 @@
           .then(function (lamin) {
             return lamin;
           });
-      }
+       }
 
       /** download lamination couples */
       function downloadLamCouples() {
@@ -1720,12 +1733,13 @@
                                     downloadDoorKits();
                                     /** download Hardware Limits */
                                     downloadHardwareLimits();
+                                    downloadAllLanguages();
                                     /** download All Templates and Backgrounds */
                                     downloadAllBackgrounds().then(function () {
                                       // console.log("downloadAllBackgrounds");
                                       /** download All AddElements */
                                       downloadAllAddElements().then(function () {
-                                        //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
+                                        // console.log(JSON.stringify(GlobalStor.global.tempAddElements));
                                         /** download All Lamination */
                                         downloadAllLamination().then(function (result) {
                                           if (result && result.length) {

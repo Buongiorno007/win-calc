@@ -122,6 +122,11 @@
                         prop: "name VARCHAR(255), image_add_param VARCHAR(100)",
                         foreignKey: ""
                     },
+                    locales_names: {
+                        tableName: "locales_names",
+                        prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, table_attr VARCHAR(255)",
+                        foreignKey: ""
+                    },
                     options_coefficients: {
                         tableName: "options_coefficients",
                         prop: "rentability_percent INTEGER," +

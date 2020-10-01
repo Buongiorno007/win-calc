@@ -21400,6 +21400,11 @@ function ErrorResult(code, message) {
                         prop: "name VARCHAR(255), image_add_param VARCHAR(100)",
                         foreignKey: ""
                     },
+                    locales_names: {
+                        tableName: "locales_names",
+                        prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, table_attr VARCHAR(255)",
+                        foreignKey: ""
+                    },
                     options_coefficients: {
                         tableName: "options_coefficients",
                         prop: "rentability_percent INTEGER," +
@@ -26283,7 +26288,20 @@ function ErrorResult(code, message) {
           });
         return deff.promise;
       }
-
+      // Download all languages
+      function downloadAllLanguages() {
+        return localDB
+          .selectLocalDB(
+            localDB.tablesLocalDB.locales_names.tableName,
+            null, 
+            "id, table_name, table_id, ru, en, table_attr"          
+          )
+          .then(function (result) {
+            if (result && result.length) {
+              GlobalStor.global.locales_names = angular.copy(result)
+            }
+          })
+        }
       /** download all lamination */
       function downloadAllLamination() {
         return localDB
@@ -26295,7 +26313,7 @@ function ErrorResult(code, message) {
           .then(function (lamin) {
             return lamin;
           });
-      }
+       }
 
       /** download lamination couples */
       function downloadLamCouples() {
@@ -27111,12 +27129,13 @@ function ErrorResult(code, message) {
                                     downloadDoorKits();
                                     /** download Hardware Limits */
                                     downloadHardwareLimits();
+                                    downloadAllLanguages();
                                     /** download All Templates and Backgrounds */
                                     downloadAllBackgrounds().then(function () {
                                       // console.log("downloadAllBackgrounds");
                                       /** download All AddElements */
                                       downloadAllAddElements().then(function () {
-                                        //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
+                                        // console.log(JSON.stringify(GlobalStor.global.tempAddElements));
                                         /** download All Lamination */
                                         downloadAllLamination().then(function (result) {
                                           if (result && result.length) {
@@ -27482,9 +27501,11 @@ function ErrorResult(code, message) {
                     );
                 } else {
                     console.log(product.profile, ' product.profile.')
+                    console.log(product.locales_names, 'locales_names!!')
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                 }
                 console.log(product.profile, ' product.profile.')
+                console.log(product.locales_names, 'locales_names!!')
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id
@@ -36886,6 +36907,7 @@ function ErrorResult(code, message) {
                         doorLocks: [],
                         doorsGroups: [],
                         doorsLaminations: [],
+                        locales_names: [],
 
                         //------ Cart
                         supplyData: [],
@@ -37212,6 +37234,7 @@ function ErrorResult(code, message) {
             template_square: 0,
 
             profile: {},
+            locales_names: [],
             glass: [],
             hardware: {},
             beadsData: [],
