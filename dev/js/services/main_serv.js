@@ -279,11 +279,12 @@
                     );
                 } else {
                     console.log(product.profile, ' product.profile.')
-                    console.log(product.locales_names, 'locales_names!!')
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
+                    console.log(product.locales_names, 'product.locales_names')
+                    product.locales_names = angular.copy(GlobalStor.global.locales_names);
                 }
                 console.log(product.profile, ' product.profile.')
-                console.log(product.locales_names, 'locales_names!!')
+                console.log(product.locales_names, 'locales_names')
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id

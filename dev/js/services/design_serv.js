@@ -2262,7 +2262,7 @@
               while (--partsQty > -1) {
                 if (template.details[blocksQty].parts[partsQty].type === 'glass') {
                   minGlassSize = d3.min(template.details[blocksQty].parts[partsQty].sizes);
-                  //              console.log('GLASS SIZES', minGlassSize);
+                              //  console.log('GLASS SIZES', minGlassSize);
                   if (minGlassSize <= globalConstants.minSizeLimit && minGlassSize <= globalConstants.minSizeLimit) {
                     //------ delete sash
                     removeSashPropInBlock(blocksSource[blocksQty]);

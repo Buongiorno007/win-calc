@@ -16834,7 +16834,7 @@ function ErrorResult(code, message) {
               while (--partsQty > -1) {
                 if (template.details[blocksQty].parts[partsQty].type === 'glass') {
                   minGlassSize = d3.min(template.details[blocksQty].parts[partsQty].sizes);
-                  //              console.log('GLASS SIZES', minGlassSize);
+                              //  console.log('GLASS SIZES', minGlassSize);
                   if (minGlassSize <= globalConstants.minSizeLimit && minGlassSize <= globalConstants.minSizeLimit) {
                     //------ delete sash
                     removeSashPropInBlock(blocksSource[blocksQty]);
@@ -27501,11 +27501,12 @@ function ErrorResult(code, message) {
                     );
                 } else {
                     console.log(product.profile, ' product.profile.')
-                    console.log(product.locales_names, 'locales_names!!')
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
+                    console.log(product.locales_names, 'product.locales_names')
+                    product.locales_names = angular.copy(GlobalStor.global.locales_names);
                 }
                 console.log(product.profile, ' product.profile.')
-                console.log(product.locales_names, 'locales_names!!')
+                console.log(product.locales_names, 'locales_names')
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id
@@ -37234,7 +37235,7 @@ function ErrorResult(code, message) {
             template_square: 0,
 
             profile: {},
-            locales_names: [],
+            locales_names: {},
             glass: [],
             hardware: {},
             beadsData: [],
