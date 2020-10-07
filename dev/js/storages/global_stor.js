@@ -146,7 +146,12 @@
                         doorLocks: [],
                         doorsGroups: [],
                         doorsLaminations: [],
+
+                        //-------- Locales names (Translation of individual elements)
                         locales_names: [],
+
+                        //-------- Currencies 
+                        currencies: [],
 
                         //------ Cart
                         supplyData: [],

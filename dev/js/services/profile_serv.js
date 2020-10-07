@@ -17,7 +17,6 @@
     AnalyticsServ,
     UserStor,
     localDB
-
   ) {
     /*jshint validthis:true */
     var thisFactory = this;

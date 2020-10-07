@@ -31,6 +31,7 @@
 
             profile: {},
             locales_names: {},
+            currencies: {},
             glass: [],
             hardware: {},
             beadsData: [],

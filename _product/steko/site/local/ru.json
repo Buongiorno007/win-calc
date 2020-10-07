@@ -514,6 +514,7 @@
     "AUTHORIZATION": "Авторизация:",
     "CHANGE_PASSWORD": "Изменить пароль",
     "CHANGE_LANGUAGE": "Изменить язык",
+    "CHANGE_CURRENCY": "Изменить валюту",
     "PRIVATE_INFO": "Личная информация:",
     "USER_NAME": "Контактное лицо",
     "CITY": "Город",

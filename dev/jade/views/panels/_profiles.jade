@@ -11,7 +11,7 @@
 
                     .profile-country(ng-if="!profile.img.length",data-output="{{ profile.country }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
                     .label-country(ng-if="!profile.img.length",data-output="{{ ::profilesPanel.COUNTRY }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
-                    .profile-descr(data-output="{{ profile.name |translate}}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+                    .profile-descr(data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
                     .profile-cameras(ng-if="!profile.img.length",)
                         .type.cam {{ profile.cameras }}
                         .type-label

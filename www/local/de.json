@@ -514,7 +514,8 @@
   "settings": {
     "AUTHORIZATION": "Autorisierung:",
     "CHANGE_PASSWORD": "Kennwort ändern",
-    "CHANGE_LANGUAGE": "ändern Sie die Sprache",
+    "CHANGE_LANGUAGE": "Ändern Sie die Sprache",
+    "CHANGE_CURRENCY": "Währung ändern",
     "PRIVATE_INFO": "Persönliche Informationen:",
     "USER_NAME": "Gesprächspartner",
     "CITY": "Stadt",

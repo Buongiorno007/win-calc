@@ -21405,6 +21405,10 @@ function ErrorResult(code, message) {
                         prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, table_attr VARCHAR(255)",
                         foreignKey: ""
                     },
+                    currencies: { 
+                        tableName: "currencies",
+                        prop: "id INTEGER, name VARCHAR(100), value NUMERIC(10, 4), factory_id INTEGER, is_base INTEGER, modified"
+                    },
                     options_coefficients: {
                         tableName: "options_coefficients",
                         prop: "rentability_percent INTEGER," +
@@ -27504,9 +27508,12 @@ function ErrorResult(code, message) {
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                     console.log(product.locales_names, 'product.locales_names')
                     product.locales_names = angular.copy(GlobalStor.global.locales_names);
+                    console.log(product.currencies, 'product.currencie')
+                    product.currencies = angular.copy(GlobalStor.global.currencies);
                 }
                 console.log(product.profile, ' product.profile.')
                 console.log(product.locales_names, 'locales_names')
+                console.log(product.currencies, 'product.currencie')
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id
@@ -32453,7 +32460,6 @@ function ErrorResult(code, message) {
     AnalyticsServ,
     UserStor,
     localDB
-
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -36908,7 +36914,12 @@ function ErrorResult(code, message) {
                         doorLocks: [],
                         doorsGroups: [],
                         doorsLaminations: [],
+
+                        //-------- Locales names (Translation of individual elements)
                         locales_names: [],
+
+                        //-------- Currencies 
+                        currencies: [],
 
                         //------ Cart
                         supplyData: [],
@@ -37236,6 +37247,7 @@ function ErrorResult(code, message) {
 
             profile: {},
             locales_names: {},
+            currencies: {},
             glass: [],
             hardware: {},
             beadsData: [],

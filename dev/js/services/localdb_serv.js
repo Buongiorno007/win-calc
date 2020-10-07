@@ -127,6 +127,10 @@
                         prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, table_attr VARCHAR(255)",
                         foreignKey: ""
                     },
+                    currencies: { 
+                        tableName: "currencies",
+                        prop: "id INTEGER, name VARCHAR(100), value NUMERIC(10, 4), factory_id INTEGER, is_base INTEGER, modified"
+                    },
                     options_coefficients: {
                         tableName: "options_coefficients",
                         prop: "rentability_percent INTEGER," +
