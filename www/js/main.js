@@ -550,6 +550,7 @@ let portrait = false;
     /**============ METHODS ================*/
 
     function switchLang(languageId) {
+      //console.log('just check how working function')
       $translate.use(globalConstants.languages[languageId].label);
       UserStor.userInfo.langLabel = globalConstants.languages[languageId].label;
       UserStor.userInfo.langName = globalConstants.languages[languageId].name;
@@ -725,24 +726,13 @@ let portrait = false;
         DELAY_START: globalConstants.STEP,
         typing: 'on'
       };
-  
-  
-  
-  
       /**============ METHODS ================*/
 
       function switchCurrency(currencyId) {
-        var defer = $q.defer();
-        /** download All Currencies */
-        localDB
-          .selectLocalDB(
-            localDB.tablesLocalDB.currencies.tableName,
-            null,
-            "id, is_base, name, value"
-          )
-
-
-     
+       // console.log('checking how function works')
+        
+        
+        
         UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
         UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
         $timeout(function() {
@@ -5647,6 +5637,23 @@ if (window.location.hostname !== 'localhost') {
                 };
 
                 //------- translate
+                thisCtrl.PROFILE_NAME = $filter('translate')('panels.PROFILE_NAME');
+                thisCtrl.PROFILE_NAME_2 = $filter('translate')('panels.PROFILE_NAME_2');
+                thisCtrl.PROFILE_NAME_3 = $filter('translate')('panels.PROFILE_NAME_3');
+                thisCtrl.PROFILE_NAME_4 = $filter('translate')('panels.PROFILE_NAME_4');
+                thisCtrl.PROFILE_NAME_5 = $filter('translate')('panels.PROFILE_NAME_5');
+                thisCtrl.PROFILE_NAME_6 = $filter('translate')('panels.PROFILE_NAME_6');
+                thisCtrl.PROFILE_NAME_7 = $filter('translate')('panels.PROFILE_NAME_7');
+                thisCtrl.PROFILE_NAME_8 = $filter('translate')('panels.PROFILE_NAME_8');
+                thisCtrl.PROFILE_NAME_9 = $filter('translate')('panels.PROFILE_NAME_9');
+                thisCtrl.PROFILE_NAME_10 = $filter('translate')('panels.PROFILE_NAME_10');
+                thisCtrl.PROFILE_NAME_11 = $filter('translate')('panels.PROFILE_NAME_11');
+                thisCtrl.PROFILE_NAME_12 = $filter('translate')('panels.PROFILE_NAME_12');
+                thisCtrl.PROFILE_NAME_13 = $filter('translate')('panels.PROFILE_NAME_13');
+                thisCtrl.PROFILE_NAME_14 = $filter('translate')('panels.PROFILE_NAME_14');
+                thisCtrl.PROFILE_NAME_15 = $filter('translate')('panels.PROFILE_NAME_15');
+                thisCtrl.PROFILE_NAME_16 = $filter('translate')('panels.PROFILE_NAME_16');
+                thisCtrl.PROFILE_NAME_17 = $filter('translate')('panels.PROFILE_NAME_17');
                 thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
                 thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
@@ -21402,7 +21409,7 @@ function ErrorResult(code, message) {
                     },
                     locales_names: {
                         tableName: "locales_names",
-                        prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, table_attr VARCHAR(255)",
+                        prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, ua, de, ro, it, pl, bg, table_attr VARCHAR(255)",
                         foreignKey: ""
                     },
                     currencies: { 

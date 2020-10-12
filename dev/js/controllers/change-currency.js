@@ -24,24 +24,13 @@
         DELAY_START: globalConstants.STEP,
         typing: 'on'
       };
-  
-  
-  
-  
       /**============ METHODS ================*/
 
       function switchCurrency(currencyId) {
-        var defer = $q.defer();
-        /** download All Currencies */
-        localDB
-          .selectLocalDB(
-            localDB.tablesLocalDB.currencies.tableName,
-            null,
-            "id, is_base, name, value"
-          )
-
-
-     
+       // console.log('checking how function works')
+        
+        
+        
         UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
         UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
         $timeout(function() {

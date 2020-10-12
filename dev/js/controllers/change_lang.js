@@ -31,6 +31,7 @@
     /**============ METHODS ================*/
 
     function switchLang(languageId) {
+      //console.log('just check how working function')
       $translate.use(globalConstants.languages[languageId].label);
       UserStor.userInfo.langLabel = globalConstants.languages[languageId].label;
       UserStor.userInfo.langName = globalConstants.languages[languageId].name;
