@@ -51,7 +51,11 @@
     "EDIT_SIZE": "Return the size of the",
     "ATENTION": "ATTENTION!",
     "ATENTION_MSG1": "Calculation is not possible due to lack of price for ",
-    "ATENTION_MSG2": "Please choose another configuration."
+    "ATENTION_MSG2": "Please choose another configuration.",
+    "PROFILE_TITLE_1": "Steko IDEAL7000 (□ 1.5mm)",
+    "PROFILE_DESKR_1": "",
+    "PROFILE_TITLE_2": "Steko IDEAL4000 (□ 1.5mm)",
+    "PROFILE_DESKR_2": ""
   },
   "danger-alert": {
     "PRODUCT": "construction",
@@ -213,6 +217,7 @@
     "COUNTRY": "country",
     "BRAND": "trademark",
     "HEAT_INSULATION": "thermal insulation",
+    "COUNTRY_NAME": "Ukraine",
     "PROFILE_NAME": "Steko IDEAL7000 (□ 1.5mm)",
     "PROFILE_NAME_2": "Steko IDEAL4000 (□ 1.5mm)",
     "PROFILE_NAME_3": "Steko IDEAL4000 (П 1,5mm)",

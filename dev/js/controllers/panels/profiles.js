@@ -31,6 +31,7 @@
                 };
 
                 //------- translate
+                thisCtrl.COUNTRY_NAME = $filter('translate')('panels.COUNTRY_NAME');
                 thisCtrl.PROFILE_NAME = $filter('translate')('panels.PROFILE_NAME');
                 thisCtrl.PROFILE_NAME_2 = $filter('translate')('panels.PROFILE_NAME_2');
                 thisCtrl.PROFILE_NAME_3 = $filter('translate')('panels.PROFILE_NAME_3');
