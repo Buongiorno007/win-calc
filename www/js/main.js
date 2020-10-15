@@ -5521,8 +5521,33 @@ if (window.location.hostname !== 'localhost') {
                 thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
                 thisCtrl.INTERIOR = $filter('translate')('panels.INTERIOR');
                 thisCtrl.FACADE = $filter('translate')('panels.FACADE');
+                thisCtrl.LAMINAT_IN_NAME = $filter('translate')('mainpage.LAMINAT_IN_NAME');
+                thisCtrl.LAMINAT_IN_NAME_2 = $filter('translate')('mainpage.LAMINAT_IN_NAME_2');
+                thisCtrl.LAMINAT_IN_NAME_3 = $filter('translate')('mainpage.LAMINAT_IN_NAME_3');
+                thisCtrl.LAMINAT_IN_NAME_4 = $filter('translate')('mainpage.LAMINAT_IN_NAME_4');
+                thisCtrl.LAMINAT_IN_NAME_5 = $filter('translate')('mainpage.LAMINAT_IN_NAME_5');
+                thisCtrl.LAMINAT_IN_NAME_6 = $filter('translate')('mainpage.LAMINAT_IN_NAME_6');
+                thisCtrl.LAMINAT_IN_NAME_7 = $filter('translate')('mainpage.LAMINAT_IN_NAME_7');
+                thisCtrl.LAMINAT_IN_NAME_8 = $filter('translate')('mainpage.LAMINAT_IN_NAME_8');
+                thisCtrl.LAMINAT_IN_NAME_9 = $filter('translate')('mainpage.LAMINAT_IN_NAME_9');
+                thisCtrl.LAMINAT_IN_NAME_10 = $filter('translate')('mainpage.LAMINAT_IN_NAME_10');
+                thisCtrl.LAMINAT_IN_NAME_11 = $filter('translate')('mainpage.LAMINAT_IN_NAME_11');
+                thisCtrl.LAMINAT_IN_NAME_12 = $filter('translate')('mainpage.LAMINAT_IN_NAME_12');
+                thisCtrl.LAMINAT_IN_NAME_13 = $filter('translate')('mainpage.LAMINAT_IN_NAME_13');
+                thisCtrl.LAMINAT_IN_NAME_14 = $filter('translate')('mainpage.LAMINAT_IN_NAME_14');
+                thisCtrl.LAMINAT_IN_NAME_15 = $filter('translate')('mainpage.LAMINAT_IN_NAME_15');
                 thisCtrl.WHITE_LAMINATION = $filter('translate')('mainpage.WHITE_LAMINATION');
-
+                thisCtrl.ANTHRACITE_LAMINATION = $filter('translate')('mainpage.ANTHRACITE_LAMINATION');
+                thisCtrl.ANTHRACITE_IDEAL_LAMINATION = $filter('translate')('mainpage.ANTHRACITE_IDEAL_LAMINATION');
+                thisCtrl.GOLDEN_OAK_LAMINATION = $filter('translate')('mainpage.GOLDEN_OAK_LAMINATION');
+                thisCtrl.GOLDEN_OAK_IDEAL_LAMINATION = $filter('translate')('mainpage.GOLDEN_OAK_IDEAL_LAMINATION');
+                thisCtrl.GOLDEN_OAK_BASE_LAMINATION = $filter('translate')('mainpage.GOLDEN_OAK_BASE_LAMINATION');
+                thisCtrl.WALNUT_LAMINATION = $filter('translate')('mainpage.WALNUT_LAMINATION');
+                thisCtrl.WALNUT_IDEAL_LAMINATION = $filter('translate')('mainpage.WALNUT_IDEAL_LAMINATION');
+                thisCtrl.WALNUT_BASE_LAMINATION = $filter('translate')('mainpage.WALNUT_BASE_LAMINATION');
+                thisCtrl.DARK_OAK_LAMINATION = $filter('translate')('mainpage.DARK_OAK_LAMINATION ');
+                thisCtrl.DARK_OAK_IDEAL_LAMINATION = $filter('translate')('mainpage.DARK_OAK_IDEAL_LAMINATION');
+                thisCtrl.DARK_OAK_BASE_LAMINATION = $filter('translate')('mainpage.DARK_OAK_BASE_LAMINATION');
 
                 /**============ METHODS ================*/
                 /** init Laminat Filter */
