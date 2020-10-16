@@ -1974,8 +1974,74 @@
 <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
   <div class="info_box">
     <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-      <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
-      <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (Арм.станд.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (П1,5мм арм.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_2 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_2 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (□1,5мм арм.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_3 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_3 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S400 (Арм.станд.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_4 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_4 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S700 (Арм.станд.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_5 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_5 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S700 (П1,5мм арм.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_6 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_6 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S700 (□1,5мм арм.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_7 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_7 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;S700Крыло(Арм.станд.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_8 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_8 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;S700Крыло(□1,5мм арм.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_9 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_9 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;EXTRA V75 (Арм.станд.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_10 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_10 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;EXTRA V75 (П 1,5мм)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_11 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_11 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;EXTRA V75 (□1,5мм арм.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_12 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_12 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (Арм.станд.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_13 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_13 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (□1,5мм арм.)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_14 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_14 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL4000(П 1,5мм)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_15 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_15 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL4000(□1,5мм)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_16 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_16 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL7000(□1,5мм)&quot;">
+        <div class="info_title">{{ ::infoBox.PROFILE_TITLE_17 }}</div>
+        <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_17 }}</div>
+      </ng-switch>
       <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}-->
     </div>
     <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog"></div>
