@@ -16525,8 +16525,10 @@ input[type='number'] {
   color: black;
   font: normal 25px/1.42857 roboto-bold, sans-serif, icons;
   text-transform: uppercase;
+  text-align: center;
+  white-space: pre-wrap;
 }
-/* line 58, ../../dev/sass/panels/glass.scss */
+/* line 60, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .button .arrow, .glass-container .glass-container .glass-block .ghost-button .arrow, .glass-container .glass-container .glass-block .aux-choose-but .arrow, .glass-container .glass-container .glass-block .parameters-block .aux-params-but .arrow, .parameters-block .glass-container .glass-container .glass-block .aux-params-but .arrow, .glass-container .glass-container .glass-block .elements-list-container .aux-params-but .arrow, .elements-list-container .glass-container .glass-container .glass-block .aux-params-but .arrow, .glass-container .glass-container .glass-block .auxiliaries-container .aux-params-but .arrow, .auxiliaries-container .glass-container .glass-container .glass-block .aux-params-but .arrow, .glass-container .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but .arrow, .additional-list-container .aux-list-content .glass-container .glass-container .glass-block .aux-params-but .arrow, .glass-container .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but .arrow, .cart-page .alladdelements-block .glass-container .glass-container .glass-block .aux-params-but .arrow, .glass-container .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but .arrow, .cart-page .addelementunit-only .glass-container .glass-container .glass-block .aux-params-but .arrow, .glass-container .glass-container .glass-block .nav-menu .new-calc .arrow, .nav-menu .glass-container .glass-container .glass-block .new-calc .arrow, .glass-container .glass-container .glass-block .cart-menu .measure-btn .arrow, .cart-menu .glass-container .glass-container .glass-block .measure-btn .arrow, .glass-container .glass-container .glass-block .big-button .arrow, .glass-container .glass-container .glass-block .orange-big-btn .arrow, .glass-container .glass-container .glass-block .menu-right-general .cart-btn .arrow, .menu-right-general .glass-container .glass-container .glass-block .cart-btn .arrow, .glass-container .glass-container .glass-block .order-path .cart-btn .arrow, .order-path .glass-container .glass-container .glass-block .cart-btn .arrow, .glass-container .glass-container .glass-block .config-menu .cart-btn .arrow, .config-menu .glass-container .glass-container .glass-block .cart-btn .arrow, .glass-container .glass-container .glass-block .elements-menu .cart-btn .arrow, .elements-menu .glass-container .glass-container .glass-block .cart-btn .arrow, .glass-container .glass-container .glass-block .cart-menu .cart-btn .arrow, .cart-menu .glass-container .glass-container .glass-block .cart-btn .arrow, .glass-container .glass-container .glass-block .old-price-tab .cart-btn .arrow, .old-price-tab .glass-container .glass-container .glass-block .cart-btn .arrow, .glass-container .glass-container .glass-block .old-price-inst-tab .cart-btn .arrow, .old-price-inst-tab .glass-container .glass-container .glass-block .cart-btn .arrow, .glass-container .glass-container .glass-block .cart-menu .order-btn .arrow, .cart-menu .glass-container .glass-container .glass-block .order-btn .arrow, .glass-container .glass-container .glass-block .login-submit .arrow, .glass-container .glass-container .glass-block .middle-button .arrow, .glass-container .glass-container .glass-block .alert-btns button .arrow, .alert-btns .glass-container .glass-container .glass-block button .arrow, .glass-container .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn .arrow, .alert-btns .door-configuration .glass-container .glass-container .glass-block .door-config-finish-btn .arrow, .glass-container .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn .arrow, .door-configuration .alert-btns .glass-container .glass-container .glass-block .door-config-finish-btn .arrow, .glass-container .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .arrow, .alert-btns .door-configuration .glass-container .glass-container .glass-block .door-config-finish-save-btn .arrow, .glass-container .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .arrow, .door-configuration .alert-btns .glass-container .glass-container .glass-block .door-config-finish-save-btn .arrow, .glass-container .glass-container .glass-block .settings .save .arrow, .settings .glass-container .glass-container .glass-block .save .arrow, .glass-container .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn .arrow, .grid-selector-dialog .glass-container .glass-container .glass-block .set-grid-all-btn .arrow, .glass-container .glass-container .glass-block .search-block .cancel-search .arrow, .search-block .glass-container .glass-container .glass-block .cancel-search .arrow, .glass-container .glass-container .glass-block .cart-dialogs-container .save .arrow, .cart-dialogs-container .glass-container .glass-container .glass-block .save .arrow, .glass-container .glass-container .glass-block .cart-page .cart-tool .arrow, .cart-page .glass-container .glass-container .glass-block .cart-tool .arrow,
 .glass-container .glass-container .glass-block .light-v .cart-tool .arrow,
 .light-v .glass-container .glass-container .glass-block .cart-tool .arrow, .glass-container .glass-container .glass-block .construction-left-menu .project-default .arrow, .construction-left-menu .glass-container .glass-container .glass-block .project-default .arrow, .glass-container .glass-container .glass-block .small-button .arrow, .glass-container .glass-container .glass-block .cart-page .order-tool .arrow, .cart-page .glass-container .glass-container .glass-block .order-tool .arrow,
@@ -16548,7 +16550,7 @@ input[type='number'] {
   transition: 0.5s;
   margin: 12px;
 }
-/* line 68, ../../dev/sass/panels/glass.scss */
+/* line 70, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .button .arrow.active, .glass-container .glass-container .glass-block .ghost-button .arrow.active, .glass-container .glass-container .glass-block .aux-choose-but .arrow.active, .glass-container .glass-container .glass-block .parameters-block .aux-params-but .arrow.active, .parameters-block .glass-container .glass-container .glass-block .aux-params-but .arrow.active, .glass-container .glass-container .glass-block .elements-list-container .aux-params-but .arrow.active, .elements-list-container .glass-container .glass-container .glass-block .aux-params-but .arrow.active, .glass-container .glass-container .glass-block .auxiliaries-container .aux-params-but .arrow.active, .auxiliaries-container .glass-container .glass-container .glass-block .aux-params-but .arrow.active, .glass-container .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but .arrow.active, .additional-list-container .aux-list-content .glass-container .glass-container .glass-block .aux-params-but .arrow.active, .glass-container .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but .arrow.active, .cart-page .alladdelements-block .glass-container .glass-container .glass-block .aux-params-but .arrow.active, .glass-container .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but .arrow.active, .cart-page .addelementunit-only .glass-container .glass-container .glass-block .aux-params-but .arrow.active, .glass-container .glass-container .glass-block .nav-menu .new-calc .arrow.active, .nav-menu .glass-container .glass-container .glass-block .new-calc .arrow.active, .glass-container .glass-container .glass-block .cart-menu .measure-btn .arrow.active, .cart-menu .glass-container .glass-container .glass-block .measure-btn .arrow.active, .glass-container .glass-container .glass-block .big-button .arrow.active, .glass-container .glass-container .glass-block .orange-big-btn .arrow.active, .glass-container .glass-container .glass-block .menu-right-general .cart-btn .arrow.active, .menu-right-general .glass-container .glass-container .glass-block .cart-btn .arrow.active, .glass-container .glass-container .glass-block .order-path .cart-btn .arrow.active, .order-path .glass-container .glass-container .glass-block .cart-btn .arrow.active, .glass-container .glass-container .glass-block .config-menu .cart-btn .arrow.active, .config-menu .glass-container .glass-container .glass-block .cart-btn .arrow.active, .glass-container .glass-container .glass-block .elements-menu .cart-btn .arrow.active, .elements-menu .glass-container .glass-container .glass-block .cart-btn .arrow.active, .glass-container .glass-container .glass-block .cart-menu .cart-btn .arrow.active, .cart-menu .glass-container .glass-container .glass-block .cart-btn .arrow.active, .glass-container .glass-container .glass-block .old-price-tab .cart-btn .arrow.active, .old-price-tab .glass-container .glass-container .glass-block .cart-btn .arrow.active, .glass-container .glass-container .glass-block .old-price-inst-tab .cart-btn .arrow.active, .old-price-inst-tab .glass-container .glass-container .glass-block .cart-btn .arrow.active, .glass-container .glass-container .glass-block .cart-menu .order-btn .arrow.active, .cart-menu .glass-container .glass-container .glass-block .order-btn .arrow.active, .glass-container .glass-container .glass-block .login-submit .arrow.active, .glass-container .glass-container .glass-block .middle-button .arrow.active, .glass-container .glass-container .glass-block .alert-btns button .arrow.active, .alert-btns .glass-container .glass-container .glass-block button .arrow.active, .glass-container .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn .arrow.active, .alert-btns .door-configuration .glass-container .glass-container .glass-block .door-config-finish-btn .arrow.active, .glass-container .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn .arrow.active, .door-configuration .alert-btns .glass-container .glass-container .glass-block .door-config-finish-btn .arrow.active, .glass-container .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .arrow.active, .alert-btns .door-configuration .glass-container .glass-container .glass-block .door-config-finish-save-btn .arrow.active, .glass-container .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .arrow.active, .door-configuration .alert-btns .glass-container .glass-container .glass-block .door-config-finish-save-btn .arrow.active, .glass-container .glass-container .glass-block .settings .save .arrow.active, .settings .glass-container .glass-container .glass-block .save .arrow.active, .glass-container .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn .arrow.active, .grid-selector-dialog .glass-container .glass-container .glass-block .set-grid-all-btn .arrow.active, .glass-container .glass-container .glass-block .search-block .cancel-search .arrow.active, .search-block .glass-container .glass-container .glass-block .cancel-search .arrow.active, .glass-container .glass-container .glass-block .cart-dialogs-container .save .arrow.active, .cart-dialogs-container .glass-container .glass-container .glass-block .save .arrow.active, .glass-container .glass-container .glass-block .cart-page .cart-tool .arrow.active, .cart-page .glass-container .glass-container .glass-block .cart-tool .arrow.active,
 .glass-container .glass-container .glass-block .light-v .cart-tool .arrow.active,
 .light-v .glass-container .glass-container .glass-block .cart-tool .arrow.active, .glass-container .glass-container .glass-block .construction-left-menu .project-default .arrow.active, .construction-left-menu .glass-container .glass-container .glass-block .project-default .arrow.active, .glass-container .glass-container .glass-block .small-button .arrow.active, .glass-container .glass-container .glass-block .cart-page .order-tool .arrow.active, .cart-page .glass-container .glass-container .glass-block .order-tool .arrow.active,
@@ -16563,7 +16565,7 @@ input[type='number'] {
   transform: rotate(90deg);
   transition: 0.5s;
 }
-/* line 75, ../../dev/sass/panels/glass.scss */
+/* line 77, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .glass-folder {
   padding: 10px 10px 0 10px;
   display: inline-flex;
@@ -16575,7 +16577,7 @@ input[type='number'] {
   border-bottom-right-radius: 15px;
   box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
 }
-/* line 88, ../../dev/sass/panels/glass.scss */
+/* line 90, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .glass-folder .glass-item {
   display: inline-flex;
   align-items: center;
@@ -16586,7 +16588,7 @@ input[type='number'] {
   border-radius: 25px;
   margin-bottom: 10px;
 }
-/* line 97, ../../dev/sass/panels/glass.scss */
+/* line 99, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .glass-folder .glass-item .glass-width {
   display: inline-flex;
   align-items: center;
@@ -16599,7 +16601,7 @@ input[type='number'] {
   color: white;
   font: normal 16px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 109, ../../dev/sass/panels/glass.scss */
+/* line 111, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .glass-folder .glass-item .title {
   display: inline-flex;
   align-items: center;
@@ -16613,7 +16615,7 @@ input[type='number'] {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
   color: black;
 }
-/* line 122, ../../dev/sass/panels/glass.scss */
+/* line 124, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .glass-folder .glass-item .item-info {
   display: inline-flex;
   align-items: center;
@@ -16622,14 +16624,14 @@ input[type='number'] {
   height: 40px;
   flex: 0 0 auto;
 }
-/* line 130, ../../dev/sass/panels/glass.scss */
+/* line 132, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .glass-folder .glass-item .blank-div {
   display: inline-flex;
   width: 80px;
   height: 40px;
   flex: 0 0 auto;
 }
-/* line 138, ../../dev/sass/panels/glass.scss */
+/* line 140, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .info {
   all: unset;
   display: inline-flex;
@@ -16640,17 +16642,17 @@ input[type='number'] {
   height: 50px;
   background: #6ed44a;
 }
-/* line 147, ../../dev/sass/panels/glass.scss */
+/* line 149, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .info:before {
   content: '';
 }
-/* line 150, ../../dev/sass/panels/glass.scss */
+/* line 152, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container .glass-block .info label {
   color: white;
   font: normal 35px/1.42857 roboto-bold, sans-serif, icons;
 }
 
-/* line 161, ../../dev/sass/panels/glass.scss */
+/* line 163, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
@@ -16660,13 +16662,13 @@ input[type='number'] {
   z-index: 12;
   text-align: center;
 }
-/* line 169, ../../dev/sass/panels/glass.scss */
+/* line 171, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .dialog-inner {
   height: 90%;
   width: 100%;
   text-align: center;
 }
-/* line 174, ../../dev/sass/panels/glass.scss */
+/* line 176, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .set-glass-btn {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   position: absolute;

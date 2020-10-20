@@ -54,6 +54,8 @@
           color: black;
           @include roboto-bd(25px);
           text-transform: uppercase;
+          text-align: center;
+          white-space: pre-wrap;
         }
         .arrow{
           display: inline-flex;

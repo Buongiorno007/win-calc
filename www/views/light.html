@@ -257,7 +257,23 @@
                     <div ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info folder-info">
                       <label>i</label>
                     </div>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Стандартные однокамерные&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Стандартные двухкамерные&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_2 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Энергосберегающие однокамерные&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_3 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Энергосберегающие двухкамерные&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_4 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Моностекло&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_5 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Сендвич-панели&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_6 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;С стеклом \&quot;Дельта\&quot;&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_7 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Сатин белый матовый&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_8 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;С стеклом \&quot;Кризет\&quot;&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_9 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;С противоударной плёнкой 225 мкм&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_10 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Сатин бронза матовый&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_11 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Стекло Bronze Reflect 28%&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_12 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Стекло Blue Reflect 32%&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_13 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Стекло Gold Reflect 47%&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_14 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Стекло Silver Reflect 20%&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_15 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Калёное стекло ESG&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_16 }}</label>
+                    <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Диамант белый&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_17 }}</label>
                     <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
                   </div>
                   <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">

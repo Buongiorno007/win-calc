@@ -47,6 +47,23 @@
         };
 
         //------- translate
+        thisCtrl.GLASS_HEADER  = $filter('translate')('panels.GLASS_HEADER');
+        thisCtrl.GLASS_HEADER_2  = $filter('translate')('panels.GLASS_HEADER_2');
+        thisCtrl.GLASS_HEADER_3  = $filter('translate')('panels.GLASS_HEADER_3');
+        thisCtrl.GLASS_HEADER_4  = $filter('translate')('panels.GLASS_HEADER_4');
+        thisCtrl.GLASS_HEADER_5  = $filter('translate')('panels.GLASS_HEADER_5');
+        thisCtrl.GLASS_HEADER_6  = $filter('translate')('panels.GLASS_HEADER_6');
+        thisCtrl.GLASS_HEADER_7  = $filter('translate')('panels.GLASS_HEADER_7');
+        thisCtrl.GLASS_HEADER_8  = $filter('translate')('panels.GLASS_HEADER_8');
+        thisCtrl.GLASS_HEADER_9  = $filter('translate')('panels.GLASS_HEADER_9');
+        thisCtrl.GLASS_HEADER_10  = $filter('translate')('panels.GLASS_HEADER_10');
+        thisCtrl.GLASS_HEADER_11  = $filter('translate')('panels.GLASS_HEADER_11');
+        thisCtrl.GLASS_HEADER_12  = $filter('translate')('panels.GLASS_HEADER_12');
+        thisCtrl.GLASS_HEADER_13  = $filter('translate')('panels.GLASS_HEADER_13');
+        thisCtrl.GLASS_HEADER_14  = $filter('translate')('panels.GLASS_HEADER_14');
+        thisCtrl.GLASS_HEADER_15  = $filter('translate')('panels.GLASS_HEADER_15');
+        thisCtrl.GLASS_HEADER_16  = $filter('translate')('panels.GLASS_HEADER_16');
+        thisCtrl.GLASS_HEADER_17  = $filter('translate')('panels.GLASS_HEADER_17');
         thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
         thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
         thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
