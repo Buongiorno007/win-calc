@@ -1028,8 +1028,14 @@
 <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
   <div class="info_box">
     <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-      <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
-      <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Украина&quot;">
+        <div class="info_title">{{ ::infoBox.COUNTRY_NAME }}</div>
+        <div class="info_descrip">{{ ::infoBox.COUNTRY_DESKR }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;IDEAL&quot;">
+        <div class="info_title">{{ ::infoBox.IDEAL_NAME }}</div>
+        <div class="info_descrip">{{ ::infoBox.IDEAL_DESKR }}</div>
+      </ng-switch>
       <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (Арм.станд.)&quot;">
         <div class="info_title">{{ ::infoBox.PROFILE_TITLE }}</div>
         <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR }}</div>
@@ -1097,6 +1103,114 @@
       <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL7000(□1,5мм)&quot;">
         <div class="info_title">{{ ::infoBox.PROFILE_TITLE_17 }}</div>
         <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_17 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Стандартные однокамерные&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Стандартные двухкамерные&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_2 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_2 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Энергосберегающие однокамерные&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_3 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_3 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Энергосберегающие двухкамерные&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_4 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_4 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Моностекло&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_5 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_5 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Сендвич-панели&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_6 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_6 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;С стеклом \&quot;Дельта\&quot;&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_7 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_7 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Сатин белый матовый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_8 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_8 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;С стеклом \&quot;Кризет\&quot;&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_9 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_9 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;С противоударной плёнкой 225 мкм&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_10 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_10 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Сатин бронза матовый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_11 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_11 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Стекло Bronze Reflect 28%&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_12 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_12 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Стекло Blue Reflect 32%&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_13 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_13 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Стекло Gold Reflect 47%&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_14 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_14 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Стекло Silver Reflect 20%&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_15 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_15 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Калёное стекло ESG&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_16 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_16 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Диамант белый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_17 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_17 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;AXOR&quot;">
+        <div class="info_title">{{ ::infoBox.AXOR_TITLE }}</div>
+        <div class="info_descrip">{{ ::infoBox.AXOR_DESKR }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;MACO&quot;">
+        <div class="info_title">{{ ::infoBox.MACO_TITLE }}</div>
+        <div class="info_descrip">{{ ::infoBox.MACO_DESKR }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Komfort Line K-3&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Komfort Line K-3 Микрощелевое&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE_2 }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR_2 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;AXOR K3 FIRST TILT&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE_3 }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR_3 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;STEKO Plus Скрытые петли&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE_4 }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR_4 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;STEKO Plus&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE_5 }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR_5 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;MACO VZ&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE_6 }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR_6 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;MACO VZ Микрощелевое&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE_7 }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR_7 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;MACO IS Микрощелевое&quot;">
+        <div class="info_title">{{ ::infoBox.FITTINGS_TITLE_8 }}</div>
+        <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR_8 }}</div>
       </ng-switch>
       <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}-->
     </div>

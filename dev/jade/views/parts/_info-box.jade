@@ -3,8 +3,16 @@
     .info_box_inner
       img(ng-if="infoBox.G.global.infoImg.length  && !infoBox.G.global.cordova", ng-src="{{infoBox.G.global.infoImg}}")
       img(ng-if="infoBox.G.global.infoImg.length && infoBox.G.global.cordova", ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}")
-      .info_title {{infoBox.G.global.infoTitle}}
-      .info_descrip {{infoBox.G.global.infoDescrip}}
+      //- .info_title {{infoBox.G.global.infoTitle}}
+      //- .info_descrip {{infoBox.G.global.infoDescrip}}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Украина"')
+        .info_title {{ ::infoBox.COUNTRY_NAME }}
+        .info_descrip {{ ::infoBox.COUNTRY_DESKR }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "IDEAL"')
+        .info_title {{ ::infoBox.IDEAL_NAME }}
+        .info_descrip {{ ::infoBox.IDEAL_DESKR }}
+
       ng-switch(ng-if='infoBox.G.global.infoTitle === "Steko S500 (Арм.станд.)"')
         .info_title {{ ::infoBox.PROFILE_TITLE }}
         .info_descrip {{ ::infoBox.PROFILE_DESKR }}
@@ -56,6 +64,93 @@
       ng-switch(ng-if='infoBox.G.global.infoTitle === "Steko IDEAL7000(□1,5мм)"')
         .info_title {{ ::infoBox.PROFILE_TITLE_17 }}
         .info_descrip {{ ::infoBox.PROFILE_DESKR_17 }}
+      //- These are already transfers of double-glazed windows
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Стандартные однокамерные"')
+        .info_title {{ ::infoBox.GLASS_TITLE }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Стандартные двухкамерные"')
+        .info_title {{ ::infoBox.GLASS_TITLE_2 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_2 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Энергосберегающие однокамерные"')
+        .info_title {{ ::infoBox.GLASS_TITLE_3 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_3 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Энергосберегающие двухкамерные"')
+        .info_title {{ ::infoBox.GLASS_TITLE_4 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_4 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Моностекло"')
+        .info_title {{ ::infoBox.GLASS_TITLE_5 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_5 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Сендвич-панели"')
+        .info_title {{ ::infoBox.GLASS_TITLE_6 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_6 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "С стеклом \\"Дельта\\""')
+        .info_title {{ ::infoBox.GLASS_TITLE_7 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_7 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Сатин белый матовый"')
+        .info_title {{ ::infoBox.GLASS_TITLE_8 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_8 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "С стеклом \\"Кризет\\""')
+        .info_title {{ ::infoBox.GLASS_TITLE_9 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_9 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "С противоударной плёнкой 225 мкм"')
+        .info_title {{ ::infoBox.GLASS_TITLE_10 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_10 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Сатин бронза матовый"')
+        .info_title {{ ::infoBox.GLASS_TITLE_11 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_11 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Стекло Bronze Reflect 28%"')
+        .info_title {{ ::infoBox.GLASS_TITLE_12 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_12 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Стекло Blue Reflect 32%"')
+        .info_title {{ ::infoBox.GLASS_TITLE_13 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_13 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Стекло Gold Reflect 47%"')
+        .info_title {{ ::infoBox.GLASS_TITLE_14 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_14 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Стекло Silver Reflect 20%"')
+        .info_title {{ ::infoBox.GLASS_TITLE_15 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_15 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Калёное стекло ESG"')
+        .info_title {{ ::infoBox.GLASS_TITLE_16 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_16 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Диамант белый"')
+        .info_title {{ ::infoBox.GLASS_TITLE_17 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_17 }}
+      //-There are already translations of fittings
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "AXOR"')
+        .info_title {{ ::infoBox.AXOR_TITLE }}
+        .info_descrip {{ ::infoBox.AXOR_DESKR }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "MACO"')
+        .info_title {{ ::infoBox.MACO_TITLE }}
+        .info_descrip {{ ::infoBox.MACO_DESKR }}
+
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Komfort Line K-3"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Komfort Line K-3 Микрощелевое"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE_2 }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR_2 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "AXOR K3 FIRST TILT"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE_3 }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR_3 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "STEKO Plus Скрытые петли"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE_4 }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR_4 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "STEKO Plus"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE_5 }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR_5 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "MACO VZ"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE_6 }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR_6 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "MACO VZ Микрощелевое"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE_7 }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR_7 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "MACO IS Микрощелевое"')
+        .info_title {{ ::infoBox.FITTINGS_TITLE_8 }}
+        .info_descrip {{ ::infoBox.FITTINGS_DESKR_8 }}
+
+
       //.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}
     .close-dialog(ng-click="infoBox.closeInfoBox($event)")
     .isApply-container(ng-show="infoBox.G.global.showApply === 1" )
