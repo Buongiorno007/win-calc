@@ -64,6 +64,7 @@
         thisCtrl.GLASS_HEADER_15  = $filter('translate')('panels.GLASS_HEADER_15');
         thisCtrl.GLASS_HEADER_16  = $filter('translate')('panels.GLASS_HEADER_16');
         thisCtrl.GLASS_HEADER_17  = $filter('translate')('panels.GLASS_HEADER_17');
+        thisCtrl.GLASS_HEADER_18  = $filter('translate')('panels.GLASS_HEADER_18');
         thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
         thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
         thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');

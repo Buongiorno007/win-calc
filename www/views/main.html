@@ -320,6 +320,7 @@
                 <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Стекло Silver Reflect 20%&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_15 }}</label>
                 <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Калёное стекло ESG&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_16 }}</label>
                 <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Диамант белый&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_17 }}</label>
+                <label ng-if="glassPanel.G.global.glassTypes[$index].name === &quot;Диамант коричневый&quot;" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{ ::glassPanel.GLASS_HEADER_18 }}</label>
                 <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
               </div>
               <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
@@ -1187,6 +1188,158 @@
       <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Диамант белый&quot;">
         <div class="info_title">{{ ::infoBox.GLASS_TITLE_17 }}</div>
         <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_17 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Диамант коричневый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_55 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_55 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_18 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_18 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 6-14-4&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_19 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_19 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4-10-4-10-4&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_20 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_20 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4i с i-стеклом&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_21 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_21 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4MDS_Plus-16_Ar-4 мультифункц.&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_22 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_22 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16_Ar-4i с i-стеклом, Аргон&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_23 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_23 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 6-14-4i с i-стеклом&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_24 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_24 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4MDS_Plus-14_Ar-6 мультифункц.&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_25 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_25 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 6-14_Ar-4i с i-стеклом,Аргон&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_26 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_26 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4-10_Ar-4-10_Ar-4i с i-стеклом,аргон &quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_27 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_27 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 6-8_Ar-4-10_Ar-4i &quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_28 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_28 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4MDS_Plus-10_Ar-4-10_Ar-4i мультифункц. с i-стеклом&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_29 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_29 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4MDS_Plus-10_Ar-4-10_Ar-4 мультифункц.&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_30 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_30 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4-10-4-10-4i с i-стеклом&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_31 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_31 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4MDS_Plus-9_Ar-6-9_Ar-4i мультифункц. с i-стеклом&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_32 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_32 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 6-8-4-10-4i&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_33 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_33 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4MDS_Plus-9_Ar-4-9_Ar-6 мультифункц. аргон&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_34 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_34 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Термопанель 24 мм (Сендвич)&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_35 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_35 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Термопанель 32 мм (Сендвич).&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_36 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_36 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4дельта бел-16_Ar-4 i-стекло,аргон&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_37 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_37 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4дельта бел-16-4 i-стекло&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_38 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_38 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4 дельта белое&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_39 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_39 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4 сатин бел.мат./сатин бел.мат.&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_40 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_40 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4 сатин бел.мат./i-стекло&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_41 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_41 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4-10-4-10-4 сатин бел.мат.&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_42 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_42 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4 сатин бел.мат.&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_43 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_43 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4 кризет/кризет белый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_44 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_44 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4MDS_Plus-16_Ar-4KR мультифункц./Кризет бел.&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_45 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_45 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4i кризет белый i-стекло&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_46 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_46 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 4-10-4-10-4 кризет белый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_47 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_47 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4 кризет белый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_48 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_48 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 6-14-4 кризет белый&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_49 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_49 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 4-16-4 против. 225мкм&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_50 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_50 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 6-14-4 противоуд. 225мкм&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_51 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_51 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 6(225)-14-4(225) противоуд.225мкм&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_52 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_52 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПО 24 мм 6-14-4i противоуд. 225мкм с i-стеклом&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_53 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_53 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;СПД 32 мм 6_225мкм-8-4-10-4i противоуд. 225мкм с i-стеклом&quot;">
+        <div class="info_title">{{ ::infoBox.GLASS_TITLE_54 }}</div>
+        <div class="info_descrip">{{ ::infoBox.GLASS_DESKR_54 }}</div>
       </ng-switch>
       <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;AXOR&quot;">
         <div class="info_title">{{ ::infoBox.AXOR_TITLE }}</div>

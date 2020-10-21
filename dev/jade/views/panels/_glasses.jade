@@ -45,6 +45,8 @@
         ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_16 }}
         label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Диамант белый"'
         ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_17 }}
+        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Диамант коричневый"'
+        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_18 }}
         .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
           
       .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
