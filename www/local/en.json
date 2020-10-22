@@ -90,8 +90,6 @@
     "PROFILE_DESKR_16": "",
     "PROFILE_TITLE_17": "Steko IDEAL7000 (□ 1.5mm)",
     "PROFILE_DESKR_17": "",
-
-
     "GLASS_TITLE": "Standard single-chamber double-glazed windows",
     "GLASS_DESKR": "Standard single-chamber glass unit Steko. Quality float glass with standard% light transmission. Modern imported sealant, two layers along the contour (butyl and high-quality polyurethane). The spacer separates the glass and serves as a frame for the glass unit.",
     "GLASS_TITLE_2": "Standard double-glazed windows",
@@ -450,6 +448,9 @@
     "PROFILE_NAME_15": "Steko S500 (□ 1.5mm arm.)",
     "PROFILE_NAME_16": "Steko S500 (П1.5mm arm.)",
     "PROFILE_NAME_17": "Steko S500 (Arm.stand.)",
+    "PROFILE_NAME_18": "Steko S500 (Arm.stand.)",
+    "PROFILE_NAME_19": "Steko S500 (□ 1.5mm arm.)",
+    "PROFILE_NAME_20": "Steko IDEAL2000 (□ 1.5mm arm.)",
     "NOICE_INSULATION": "noise isolation",
     "CORROSION_COEFF": "Anticorrosion",
     "BURGLAR_COEFF": "Burglar",
