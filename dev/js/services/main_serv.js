@@ -285,8 +285,8 @@
                     //console.log(product.currencies, 'product.currencie')
                     product.currencies = angular.copy(GlobalStor.global.currencies);
                 }
-                //console.log(product.profile, ' product.profile.')
-                //console.log(product.locales_names, 'locales_names')
+                console.log(product.profile, ' product.profile.')
+                console.log(product.locales_names, 'locales_names')
                 //console.log(product.currencies, 'product.currencie')
                 //console.log(GlobalStor.global, 'глобалстор')
                 if (product.lamination.id > 0) {

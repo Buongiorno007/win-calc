@@ -253,7 +253,16 @@
           <ul class="door-config-list">
             <li ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" ng-click="designPage.selectSash($index, designPage.P.product)" class="door-config-option">
               <div class="door-inner">
-                <div class="door-option-label">{{ sashShape.name }}</div>
+                <div ng-if="sashShape.name === &quot;Вх. дверь S400 с T-створкой&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME }}</div>
+                <div ng-if="sashShape.name === &quot;Межк. дверь S400&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_2 }}</div>
+                <div ng-if="sashShape.name === &quot;Межк. дверь S500&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_3 }}</div>
+                <div ng-if="sashShape.name === &quot;Межк. дверь S700&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_4 }}</div>
+                <div ng-if="sashShape.name === &quot;Вх. дверь Steko IDEAL 4000&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_5 }}</div>
+                <div ng-if="sashShape.name === &quot;Вх.дверь S500 створкаT-105 &quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_6 }}</div>
+                <div ng-if="sashShape.name === &quot;Вх.дверь S700 створка Т-115&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_7 }}</div>
+                <div ng-if="sashShape.name === &quot;Вх. дверь Steko IDEAL 7000&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_8 }}</div>
+                <div ng-if="sashShape.name === &quot;Межк. дверь Steko IDEAL2000&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_9 }}</div>
+                <div ng-if="sashShape.name === &quot;Межк. дверь Steko IDEAL4000&quot;" class="door-option-label">{{ ::designPage.DOOR_NAME_10 }}</div>
               </div>
               <div ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index" class="selected-item-arrow"></div>
             </li>
@@ -273,7 +282,23 @@
             <li ng-repeat="handle in designPage.D.design.handleShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === handle.id}" ng-click="designPage.selectHandle(handle.id, designPage.P.product)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-if="handle.list_type_id === 35" ng-src="img/door-config/lever-handle.png" ng-hide="designPage.D.design.doorConfig.handleShapeIndex === handle.id" class="door-hardware"><img ng-if="handle.list_type_id === 35" ng-src="img/door-config-selected/lever-handle.png" ng-show="designPage.D.design.doorConfig.handleShapeIndex ===handle.id" class="door-hardware"><img ng-if="handle.list_type_id === 36" ng-src="img/door-config/standart-handle.png" ng-hide="designPage.D.design.doorConfig.handleShapeIndex === handle.id" class="door-hardware"><img ng-if="handle.list_type_id === 36" ng-src="img/door-config-selected/standart-handle.png" ng-show="designPage.D.design.doorConfig.handleShapeIndex === handle.id" class="door-hardware"></div>
-                <div class="door-option-label">{{ handle.name }}</div>
+                <div ng-if="handle.name === &quot;Наж. гар. VORNE бел 25/92 мм (2 винта 200мм)&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME }}</div>
+                <div ng-if="handle.name === &quot;Наж. гар. VORNE кор 25/92 мм (2 винта 200мм)&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_2 }}</div>
+                <div ng-if="handle.name === &quot;Ручка офис. прямая типа Н кор 500мм&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_3 }}</div>
+                <div ng-if="handle.name === &quot;Ручка офис. прямоуг. кор&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_4 }}</div>
+                <div ng-if="handle.name === &quot;Ручка офис. прямая типа Н белая 500мм&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_5 }}</div>
+                <div ng-if="handle.name === &quot;Ручка офис. прямоуг. бел&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_6 }}</div>
+                <div ng-if="handle.name === &quot;Нажим. ручка Fuhr бел&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_7 }}</div>
+                <div ng-if="handle.name === &quot;Нажим. ручка Fuhr кор&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_8 }}</div>
+                <div ng-if="handle.name === &quot;Наж. гарн. 25-90  WC AXOR бел&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_10 }}</div>
+                <div ng-if="handle.name === &quot;Нажим. ручка Fuhr кор.&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_11 }}</div>
+                <div ng-if="handle.name === &quot;Нажим. ручка Fuhr бел.&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_12 }}</div>
+                <div ng-if="handle.name === &quot;Наж. гар. VORNE бел 25/92 мм (2 винта 200мм).&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_13 }}</div>
+                <div ng-if="handle.name === &quot;Наж. гар. VORNE кор 25/92 мм (2 винта 200мм).&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_14 }}</div>
+                <div ng-if="handle.name === &quot;Наж. гарн. 25-90  WC AXOR коричневый&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_16 }}</div>
+                <div ng-if="handle.name === &quot;Ручка офис.AL прямоуг бел.&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_17 }}</div>
+                <div ng-if="handle.name === &quot;Ручка офис.AL прямоуг кор.&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_18 }}</div>
+                <div ng-if="handle.name === &quot;Наж. гар. GreenteQ 35/92 белый (3 винта  97/113)&quot;" class="door-option-label">{{ ::designPage.HANDLE_NAME_19 }}</div>
               </div>
               <div ng-show="designPage.D.design.doorConfig.handleShapeIndex === handle.id" class="selected-item-arrow"></div>
             </li>
@@ -293,7 +318,84 @@
             <li ng-repeat="lock in designPage.D.design.lockShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}" ng-click="designPage.selectLock($index, designPage.P.product,lock)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-if="lock.type === 1 || lock.type === 2" ng-src="img/door-config/onelock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"><img ng-if="lock.type === 1 || lock.type === 2" ng-src="img/door-config-selected/onelock.png" ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"><img ng-if="lock.type === 3 || lock.type === 4" ng-src="img/door-config/multilock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"><img ng-if="lock.type === 3 || lock.type === 4" ng-src="img/door-config-selected/multilock.png" ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"></div>
-                <div class="door-option-label">{{ lock.name }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь (Турция)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь (Турция) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_2 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь (Замок Турция,Петли Roto)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_3 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_4 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Кор (Турция)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_5 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Кор (Турция) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_6 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Кор. (Замок Турция,Петли Roto)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_7 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Кор. (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_8 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Кор (Турция)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_9 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка Кор (Германия)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_10 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка Кор (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_11 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Кор (Турция) S600&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_12 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Кор. (Замок Турция,Петли Roto)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_13 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Кор. (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_14 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка (Турция)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_15 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка (Германия)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_16 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка (Турция) S600&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_17 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_18 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка (Замок Турция,Петли Roto)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_19 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь (Оф.ручка,петли Dr.Hahn,замок Fuhr)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_20 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_21 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь (Германия)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_22 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_23 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь Кор (Германия)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_24 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь Кор (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_25 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_26 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR, S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_27 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_28 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_29 }}</div>
+                <div ng-if="lock.name === &quot;Сантех.защёлка D25 AXOR (3 петли)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_30 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr Кор&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_31 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_32 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) S500&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_33 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR Кор&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_34 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) Кор S500&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_35 }}</div>
+                <div ng-if="lock.name === &quot;Сантех.защёлка D25 AXOR Кор (3 петли)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_36 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_37 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr Кор S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_38 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR Кор, S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_39 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) Кор S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_40 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь (Наж. GreenteQ,петли Dr.Hahn,замок Fuhr)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_41 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) Кор&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_42 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Турция)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_43 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Турция) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_44 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Замок Турция,Петли Roto)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_45 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_46 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Турция) Кор&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_47 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп Кор (Турция) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_48 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Замок Турция,Петли Roto) Кор&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_49 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп Кор (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_50 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка Кор Штульп (Германия)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_51 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Кор Штульп (Турция)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_52 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Кор Штульп (Турция) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_53 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка Кор Штульп (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_54 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Штульп Кор. (Замок Турция,Петли Roto)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_55 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Штульп Кор. (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_56 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка Штульп (Германия)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_57 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Штульп (Турция)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_58 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Штульп (Турция) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_59 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь оф. ручка Штульп (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_60 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Штульп (Замок Турция,Петли Roto)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_61 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Оф.ручка,петли Dr.Hahn,замок Fuhr)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_62 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь оф. ручка Штульп (Замок Турция,Петли Roto)S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_63 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь Штульп (Германия)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_64 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь Штульп (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_65 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь Штульп (Германия) Кор&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_66 }}</div>
+                <div ng-if="lock.name === &quot;Вх.дверь Штульп Кор (Германия) S700,IDEAL&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_67 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR (Штульп)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_68 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR (Штульп), S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_69 }}</div>
+                <div ng-if="lock.name === &quot;Сантех.защёлка D25 AXOR (3 петли) Штульп&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_70 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr Кор (Штульп)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_71 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr (Штульп)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_72 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR (Штульп) Кор&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_73 }}</div>
+                <div ng-if="lock.name === &quot;Сантех.защёлка D25 AXOR Кор (3 петли) Штульп&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_74 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr (Штульп) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_75 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 Fuhr Кор (Штульп) S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_76 }}</div>
+                <div ng-if="lock.name === &quot;Межк. дверь D25 AXOR + 3 Петли AXOR Кор (Штульп), S700&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_77 }}</div>
+                <div ng-if="lock.name === &quot;Вх.Дверь Штульп (Наж. GreenteQ,петли Dr.Hahn,замок Fuhr)&quot;" class="door-option-label">{{ ::designPage.LOCK_NAME_78 }}</div>
               </div>
               <div ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index" class="selected-item-arrow"></div>
             </li>

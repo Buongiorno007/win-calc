@@ -154,7 +154,17 @@ section.construction-page
           ul.door-config-list
             li.door-config-option(ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="designPage.selectSash($index, designPage.P.product)")
               .door-inner
-                .door-option-label {{ sashShape.name }}
+                //- .door-option-label {{ sashShape.name }}
+                .door-option-label(ng-if='sashShape.name === "Вх. дверь S400 с T-створкой"') {{ ::designPage.DOOR_NAME }}
+                .door-option-label(ng-if='sashShape.name === "Межк. дверь S400"') {{ ::designPage.DOOR_NAME_2 }}
+                .door-option-label(ng-if='sashShape.name === "Межк. дверь S500"') {{ ::designPage.DOOR_NAME_3 }}
+                .door-option-label(ng-if='sashShape.name === "Межк. дверь S700"') {{ ::designPage.DOOR_NAME_4 }}
+                .door-option-label(ng-if='sashShape.name === "Вх. дверь Steko IDEAL 4000"') {{ ::designPage.DOOR_NAME_5 }}
+                .door-option-label(ng-if='sashShape.name === "Вх.дверь S500 створкаT-105 "') {{ ::designPage.DOOR_NAME_6 }}
+                .door-option-label(ng-if='sashShape.name === "Вх.дверь S700 створка Т-115"') {{ ::designPage.DOOR_NAME_7 }}
+                .door-option-label(ng-if='sashShape.name === "Вх. дверь Steko IDEAL 7000"') {{ ::designPage.DOOR_NAME_8 }}
+                .door-option-label(ng-if='sashShape.name === "Межк. дверь Steko IDEAL2000"') {{ ::designPage.DOOR_NAME_9 }}
+                .door-option-label(ng-if='sashShape.name === "Межк. дверь Steko IDEAL4000"') {{ ::designPage.DOOR_NAME_10 }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index")
 
       .door-config-column.step3(ng-class="{'active': designPage.D.design.steps.selectedStep2}")
@@ -172,7 +182,26 @@ section.construction-page
                   img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config-selected/lever-handle.png", ng-show="designPage.D.design.doorConfig.handleShapeIndex ===handle.id")
                   img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config/standart-handle.png", ng-hide="designPage.D.design.doorConfig.handleShapeIndex === handle.id")
                   img.door-hardware(ng-if="handle.list_type_id === 36", ng-src="img/door-config-selected/standart-handle.png", ng-show="designPage.D.design.doorConfig.handleShapeIndex === handle.id")
-                .door-option-label {{ handle.name }}
+                .door-option-label(ng-if='handle.name === "Наж. гар. VORNE бел 25/92 мм (2 винта 200мм)"') {{ ::designPage.HANDLE_NAME }}
+                .door-option-label(ng-if='handle.name === "Наж. гар. VORNE кор 25/92 мм (2 винта 200мм)"') {{ ::designPage.HANDLE_NAME_2 }}
+                .door-option-label(ng-if='handle.name === "Ручка офис. прямая типа Н кор 500мм"') {{ ::designPage.HANDLE_NAME_3 }}
+                .door-option-label(ng-if='handle.name === "Ручка офис. прямоуг. кор"') {{ ::designPage.HANDLE_NAME_4 }}
+                .door-option-label(ng-if='handle.name === "Ручка офис. прямая типа Н белая 500мм"') {{ ::designPage.HANDLE_NAME_5 }}
+                .door-option-label(ng-if='handle.name === "Ручка офис. прямоуг. бел"') {{ ::designPage.HANDLE_NAME_6 }}
+                .door-option-label(ng-if='handle.name === "Нажим. ручка Fuhr бел"') {{ ::designPage.HANDLE_NAME_7 }}
+                .door-option-label(ng-if='handle.name === "Нажим. ручка Fuhr кор"') {{ ::designPage.HANDLE_NAME_8 }}
+                //- .door-option-label(ng-if='handle.name === "Наж. гар. VORNE бел 25/92 мм (2 винта 200мм)."') {{ ::designPage.HANDLE_NAME_9 }}
+                .door-option-label(ng-if='handle.name === "Наж. гарн. 25-90  WC AXOR бел"') {{ ::designPage.HANDLE_NAME_10 }}
+                .door-option-label(ng-if='handle.name === "Нажим. ручка Fuhr кор."') {{ ::designPage.HANDLE_NAME_11 }}
+                .door-option-label(ng-if='handle.name === "Нажим. ручка Fuhr бел."') {{ ::designPage.HANDLE_NAME_12 }}
+                .door-option-label(ng-if='handle.name === "Наж. гар. VORNE бел 25/92 мм (2 винта 200мм)."') {{ ::designPage.HANDLE_NAME_13 }}
+                .door-option-label(ng-if='handle.name === "Наж. гар. VORNE кор 25/92 мм (2 винта 200мм)."') {{ ::designPage.HANDLE_NAME_14 }}
+                //- .door-option-label(ng-if='handle.name === "Наж. гарн. 25-90  WC AXOR бел"') {{ ::designPage.HANDLE_NAME_15 }}
+                .door-option-label(ng-if='handle.name === "Наж. гарн. 25-90  WC AXOR коричневый"') {{ ::designPage.HANDLE_NAME_16 }}
+                .door-option-label(ng-if='handle.name === "Ручка офис.AL прямоуг бел."') {{ ::designPage.HANDLE_NAME_17 }}
+                .door-option-label(ng-if='handle.name === "Ручка офис.AL прямоуг кор."') {{ ::designPage.HANDLE_NAME_18 }}
+                .door-option-label(ng-if='handle.name === "Наж. гар. GreenteQ 35/92 белый (3 винта  97/113)"') {{ ::designPage.HANDLE_NAME_19 }}
+                //-.door-option-label {{ handle.name }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.handleShapeIndex === handle.id")
 
       .door-config-column.step4(ng-class="{'active': designPage.D.design.steps.selectedStep3}")
@@ -190,7 +219,86 @@ section.construction-page
                   img.door-hardware(ng-if="lock.type === 1 || lock.type === 2", ng-src="img/door-config-selected/onelock.png", ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index")
                   img.door-hardware(ng-if="lock.type === 3 || lock.type === 4", ng-src="img/door-config/multilock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index")
                   img.door-hardware(ng-if="lock.type === 3 || lock.type === 4", ng-src="img/door-config-selected/multilock.png", ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index")
-                .door-option-label {{ lock.name }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь (Турция)"') {{ ::designPage.LOCK_NAME }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь (Турция) S700"') {{ ::designPage.LOCK_NAME_2 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь (Замок Турция,Петли Roto)"') {{ ::designPage.LOCK_NAME_3 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_4 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Кор (Турция)"') {{ ::designPage.LOCK_NAME_5 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Кор (Турция) S700"') {{ ::designPage.LOCK_NAME_6 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Кор. (Замок Турция,Петли Roto)"') {{ ::designPage.LOCK_NAME_7 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Кор. (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_8 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Кор (Турция)"') {{ ::designPage.LOCK_NAME_9 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка Кор (Германия)"') {{ ::designPage.LOCK_NAME_10 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка Кор (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_11 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Кор (Турция) S600"') {{ ::designPage.LOCK_NAME_12 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Кор. (Замок Турция,Петли Roto)"') {{ ::designPage.LOCK_NAME_13 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Кор. (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_14 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка (Турция)"') {{ ::designPage.LOCK_NAME_15 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка (Германия)"') {{ ::designPage.LOCK_NAME_16 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка (Турция) S600"') {{ ::designPage.LOCK_NAME_17 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_18 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка (Замок Турция,Петли Roto)"') {{ ::designPage.LOCK_NAME_19 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь (Оф.ручка,петли Dr.Hahn,замок Fuhr)"') {{ ::designPage.LOCK_NAME_20 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_21 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь (Германия)"') {{ ::designPage.LOCK_NAME_22 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_23 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь Кор (Германия)"') {{ ::designPage.LOCK_NAME_24 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь Кор (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_25 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR"') {{ ::designPage.LOCK_NAME_26 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR, S700"') {{ ::designPage.LOCK_NAME_27 }}
+                .door-option-label(ng-if='lock.name === "Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor)"') {{ ::designPage.LOCK_NAME_28 }}
+                .door-option-label(ng-if='lock.name === "Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) S700"') {{ ::designPage.LOCK_NAME_29 }}
+                .door-option-label(ng-if='lock.name === "Сантех.защёлка D25 AXOR (3 петли)"') {{ ::designPage.LOCK_NAME_30 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr Кор"') {{ ::designPage.LOCK_NAME_31 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr"') {{ ::designPage.LOCK_NAME_32 }}
+                .door-option-label(ng-if='lock.name === "Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) S500"') {{ ::designPage.LOCK_NAME_33 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR Кор"') {{ ::designPage.LOCK_NAME_34 }}
+                .door-option-label(ng-if='lock.name === "Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) Кор S500"') {{ ::designPage.LOCK_NAME_35 }}
+                .door-option-label(ng-if='lock.name === "Сантех.защёлка D25 AXOR Кор (3 петли)"') {{ ::designPage.LOCK_NAME_36 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr S700"') {{ ::designPage.LOCK_NAME_37 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr Кор S700"') {{ ::designPage.LOCK_NAME_38 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR Кор, S700"') {{ ::designPage.LOCK_NAME_39 }}
+                .door-option-label(ng-if='lock.name === "Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) Кор S700"') {{ ::designPage.LOCK_NAME_40 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь (Наж. GreenteQ,петли Dr.Hahn,замок Fuhr)"') {{ ::designPage.LOCK_NAME_41 }}
+                .door-option-label(ng-if='lock.name === "Межк. дв.+замок D25 Vorne БЕЗ РИГЕЛЯ (3 петли Axor) Кор"') {{ ::designPage.LOCK_NAME_42 }}
+
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Турция)"') {{ ::designPage.LOCK_NAME_43 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Турция) S700"') {{ ::designPage.LOCK_NAME_44 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Замок Турция,Петли Roto)"') {{ ::designPage.LOCK_NAME_45 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_46 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Турция) Кор"') {{ ::designPage.LOCK_NAME_47 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп Кор (Турция) S700"') {{ ::designPage.LOCK_NAME_48 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Замок Турция,Петли Roto) Кор"') {{ ::designPage.LOCK_NAME_49 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп Кор (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_50 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка Кор Штульп (Германия)"') {{ ::designPage.LOCK_NAME_51 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Кор Штульп (Турция)"') {{ ::designPage.LOCK_NAME_52 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Кор Штульп (Турция) S700"') {{ ::designPage.LOCK_NAME_53 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка Кор Штульп (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_54 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Штульп Кор. (Замок Турция,Петли Roto)"') {{ ::designPage.LOCK_NAME_55 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Штульп Кор. (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_56 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка Штульп (Германия)"') {{ ::designPage.LOCK_NAME_57 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Штульп (Турция)"') {{ ::designPage.LOCK_NAME_58 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Штульп (Турция) S700"') {{ ::designPage.LOCK_NAME_59 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь оф. ручка Штульп (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_60 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Штульп (Замок Турция,Петли Roto)"') {{ ::designPage.LOCK_NAME_61 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Оф.ручка,петли Dr.Hahn,замок Fuhr)"') {{ ::designPage.LOCK_NAME_62 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь оф. ручка Штульп (Замок Турция,Петли Roto)S700"') {{ ::designPage.LOCK_NAME_63 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь Штульп (Германия)"') {{ ::designPage.LOCK_NAME_64 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь Штульп (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_65 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь Штульп (Германия) Кор"') {{ ::designPage.LOCK_NAME_66 }}
+                .door-option-label(ng-if='lock.name === "Вх.дверь Штульп Кор (Германия) S700,IDEAL"') {{ ::designPage.LOCK_NAME_67 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR (Штульп)"') {{ ::designPage.LOCK_NAME_68 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR (Штульп), S700"') {{ ::designPage.LOCK_NAME_69 }}
+                .door-option-label(ng-if='lock.name === "Сантех.защёлка D25 AXOR (3 петли) Штульп"') {{ ::designPage.LOCK_NAME_70 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr Кор (Штульп)"') {{ ::designPage.LOCK_NAME_71 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr (Штульп)"') {{ ::designPage.LOCK_NAME_72 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR (Штульп) Кор"') {{ ::designPage.LOCK_NAME_73 }}
+                .door-option-label(ng-if='lock.name === "Сантех.защёлка D25 AXOR Кор (3 петли) Штульп"') {{ ::designPage.LOCK_NAME_74 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr (Штульп) S700"') {{ ::designPage.LOCK_NAME_75 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 Fuhr Кор (Штульп) S700"') {{ ::designPage.LOCK_NAME_76 }}
+                .door-option-label(ng-if='lock.name === "Межк. дверь D25 AXOR + 3 Петли AXOR Кор (Штульп), S700"') {{ ::designPage.LOCK_NAME_77 }}
+                .door-option-label(ng-if='lock.name === "Вх.Дверь Штульп (Наж. GreenteQ,петли Dr.Hahn,замок Fuhr)"') {{ ::designPage.LOCK_NAME_78 }}
+                //- .door-option-label {{ lock.name }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index")
 
       .door-config-tools
