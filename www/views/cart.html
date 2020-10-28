@@ -985,17 +985,6 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Danke Мрамор (Мрамор Классико)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
-              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_10 }}
-                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
-                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
-                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
-              </div>
-              <li ng-repeat="addElement in type track by $index" class="item">
-                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
-              </li>
-            </ul>
             <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Danke Лалберо Бруно (Зол.Дуб)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_11 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
@@ -1283,17 +1272,6 @@
               </li>
             </ul>
             <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit белый (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
-              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_36 }}
-                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
-                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
-                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
-              </div>
-              <li ng-repeat="addElement in type track by $index" class="item">
-                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
-              </li>
-            </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit белый (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_37 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1304,7 +1282,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Золотой Дуб (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit белый (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_38 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1315,7 +1293,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Золотой Дуб (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Золотой Дуб (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_39 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1326,7 +1304,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Мрамор (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Золотой Дуб (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_40 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1337,7 +1315,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Мрамор (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Мрамор (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_41 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1348,7 +1326,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Тёмный Дуб (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Мрамор (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_42 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1359,7 +1337,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Бежевый Мрамор (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Тёмный Дуб (матовый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_43 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1370,7 +1348,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Тёмный Дуб (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Бежевый Мрамор (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_44 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1381,7 +1359,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Rif ICE Белый глянцевый&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Plastolit Тёмный Дуб (глянец)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_45 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1392,7 +1370,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Rif OSCAR Высокий глянец (Белый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Rif ICE Белый глянцевый&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_46 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1403,7 +1381,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Отливы коричневые&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Rif OSCAR Высокий глянец (Белый)&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_47 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1414,7 +1392,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Отливы белые&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Отливы коричневые&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_48 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1425,7 +1403,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Отливы \&quot;Золотой дуб\&quot;&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Отливы белые&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_49 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1436,7 +1414,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S400 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Отливы \&quot;Золотой дуб\&quot;&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_50 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1447,7 +1425,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S300 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S400 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_51 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1458,7 +1436,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S500 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S300 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_52 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1469,7 +1447,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S700 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S500 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_53 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1480,7 +1458,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;EXTRA V75 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S700 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_54 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1491,7 +1469,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S400 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;EXTRA V75 БЕЛЫЕ&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_55 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1502,7 +1480,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S700 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S400 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_56 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1513,7 +1491,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S500 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S700 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_57 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1524,7 +1502,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;STEKO IDEAL белые&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;S500 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_58 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1535,7 +1513,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;STEKO IDEAL ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;STEKO IDEAL белые&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_59 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1546,7 +1524,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;EXTRA V75 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;STEKO IDEAL ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_60 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1558,17 +1536,6 @@
               </li>
             </ul>
             <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;EXTRA V75 Ламинированные&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
-              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_60 }}
-                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
-                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
-                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
-              </div>
-              <li ng-repeat="addElement in type track by $index" class="item">
-                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
-              </li>
-            </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_61 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1579,18 +1546,8 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-2&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
-              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_62 }}
-                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
-                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
-                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
-              </div>
-              <li ng-repeat="addElement in type track by $index" class="item">
-                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
-              </li>
-            </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_63 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1601,7 +1558,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-4&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-2&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_64 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1612,8 +1569,8 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-9&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
-              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_65 }}
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_65}}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
@@ -1623,7 +1580,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-4&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_66 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1634,7 +1591,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Белые козырьки, Тип-9&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_67 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1645,7 +1602,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-4&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_68 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1656,7 +1613,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-5&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_69 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1667,7 +1624,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-7&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-4&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_70 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1678,7 +1635,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-9&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-5&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_71 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1689,7 +1646,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-7&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_72 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1700,7 +1657,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-2&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники белые, Тип-9&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_73 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1711,7 +1668,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_74 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1722,7 +1679,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-9&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-2&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_75 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1733,7 +1690,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_76 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1744,7 +1701,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Коричневые козырьки, Тип-9&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_77 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1755,7 +1712,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-4&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-1&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_78 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1766,7 +1723,7 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-5&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-3&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_79 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1777,8 +1734,30 @@
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
-            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-4&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_80 }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <li ng-repeat="addElement in type track by $index" class="item">
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+              </li>
+            </ul>
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Нащельники коричневые, Тип-5&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_81 }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <li ng-repeat="addElement in type track by $index" class="item">
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+              </li>
+            </ul>
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_82 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
