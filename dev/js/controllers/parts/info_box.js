@@ -85,8 +85,6 @@
         thisCtrl.GLASS_DESKR_16 = $filter('translate')('natification.GLASS_DESKR_16');
         thisCtrl.GLASS_TITLE_17 = $filter('translate')('natification.GLASS_TITLE_17');
         thisCtrl.GLASS_DESKR_17 = $filter('translate')('natification.GLASS_DESKR_17');
-        thisCtrl.GLASS_TITLE_55 = $filter('translate')('natification.GLASS_TITLE_55');
-        thisCtrl.GLASS_DESKR_55 = $filter('translate')('natification.GLASS_DESKR_55');
         thisCtrl.GLASS_TITLE_18 = $filter('translate')('natification.GLASS_TITLE_18');
         thisCtrl.GLASS_DESKR_18 = $filter('translate')('natification.GLASS_DESKR_18');
         thisCtrl.GLASS_TITLE_19 = $filter('translate')('natification.GLASS_TITLE_19');
@@ -161,6 +159,20 @@
         thisCtrl.GLASS_DESKR_53 = $filter('translate')('natification.GLASS_DESKR_53');
         thisCtrl.GLASS_TITLE_54 = $filter('translate')('natification.GLASS_TITLE_54');
         thisCtrl.GLASS_DESKR_54 = $filter('translate')('natification.GLASS_DESKR_54');
+        thisCtrl.GLASS_TITLE_55 = $filter('translate')('natification.GLASS_TITLE_55');
+        thisCtrl.GLASS_DESKR_55 = $filter('translate')('natification.GLASS_DESKR_55');
+        thisCtrl.GLASS_TITLE_56 = $filter('translate')('natification.GLASS_TITLE_56');
+        thisCtrl.GLASS_DESKR_56 = $filter('translate')('natification.GLASS_DESKR_56');
+        thisCtrl.GLASS_TITLE_57 = $filter('translate')('natification.GLASS_TITLE_57');
+        thisCtrl.GLASS_DESKR_57 = $filter('translate')('natification.GLASS_DESKR_57');
+        thisCtrl.GLASS_TITLE_58 = $filter('translate')('natification.GLASS_TITLE_58');
+        thisCtrl.GLASS_DESKR_58 = $filter('translate')('natification.GLASS_DESKR_58');
+        thisCtrl.GLASS_TITLE_59 = $filter('translate')('natification.GLASS_TITLE_59');
+        thisCtrl.GLASS_DESKR_59 = $filter('translate')('natification.GLASS_DESKR_59');
+        thisCtrl.GLASS_TITLE_60 = $filter('translate')('natification.GLASS_TITLE_60');
+        thisCtrl.GLASS_DESKR_60 = $filter('translate')('natification.GLASS_DESKR_60');
+        thisCtrl.GLASS_TITLE_61 = $filter('translate')('natification.GLASS_TITLE_61');
+        thisCtrl.GLASS_DESKR_61 = $filter('translate')('natification.GLASS_DESKR_61');
         //Translation AXOR
         thisCtrl.AXOR_TITLE = $filter('translate')('natification.AXOR_TITLE');
         thisCtrl.AXOR_DESKR = $filter('translate')('natification.AXOR_DESKR');

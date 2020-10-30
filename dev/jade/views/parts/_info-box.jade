@@ -3,8 +3,8 @@
     .info_box_inner
       img(ng-if="infoBox.G.global.infoImg.length  && !infoBox.G.global.cordova", ng-src="{{infoBox.G.global.infoImg}}")
       img(ng-if="infoBox.G.global.infoImg.length && infoBox.G.global.cordova", ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}")
-      //-.info_title {{infoBox.G.global.infoTitle}}
-      //-.info_descrip {{infoBox.G.global.infoDescrip}}
+      //- .info_title {{infoBox.G.global.infoTitle}}
+      //- .info_descrip {{infoBox.G.global.infoDescrip}}
 
       ng-switch(ng-if='infoBox.G.global.infoTitle === "Украина"')
         .info_title {{ ::infoBox.COUNTRY_NAME }}
@@ -231,6 +231,27 @@
       ng-switch(ng-if='infoBox.G.global.infoTitle === "СПД 32 мм 6_225мкм-8-4-10-4i противоуд. 225мкм с i-стеклом"')
         .info_title {{ ::infoBox.GLASS_TITLE_54 }}
         .info_descrip {{ ::infoBox.GLASS_DESKR_54 }}
+
+      //- This part of code refers to Energy-saving single-chamber double-glazed windows 
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "СПО 24 мм 4-16-4i"')
+        .info_title {{ ::infoBox.GLASS_TITLE_56 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_56 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "СПО 24 мм 4MDS_Plus-16_Ar-4"')
+        .info_title {{ ::infoBox.GLASS_TITLE_57 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_57 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "СПО 24 мм 4-16_Ar-4i"')
+        .info_title {{ ::infoBox.GLASS_TITLE_58 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_58 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "СПО 24 мм 6-14-4i"')
+        .info_title {{ ::infoBox.GLASS_TITLE_59 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_59 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "СПО 24 мм 4MDS_Plus-14_Ar-6"')
+        .info_title {{ ::infoBox.GLASS_TITLE_60 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_60 }}
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "СПО 24 мм 6-14_Ar-4i"')
+        .info_title {{ ::infoBox.GLASS_TITLE_61 }}
+        .info_descrip {{ ::infoBox.GLASS_DESKR_61 }}
 
       //-There are already translations of fittings
       ng-switch(ng-if='infoBox.G.global.infoTitle === "AXOR"')

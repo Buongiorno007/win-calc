@@ -892,7 +892,16 @@
     "EXTRA_GLASS2": " за конфигурацията",
     "INTERIOR": "Вътрешно",
     "FACADE": "Външно",
-    "TEMPLATE_SELECTION": "Изберете шаблон"
+    "TEMPLATE_SELECTION": "Изберете шаблон",
+
+    "HARDWARE_NAME": "Komfort Line K-3",
+    "HARDWARE_NAME_2": "Komfort Line K-3 Микрощелевое",
+    "HARDWARE_NAME_3": "AXOR K3 FIRST TILT",
+    "HARDWARE_NAME_4": "STEKO Plus Скрытые петли",
+    "HARDWARE_NAME_5": "STEKO Plus",
+    "HARDWARE_NAME_6": "MACO VZ",
+    "HARDWARE_NAME_7": "MACO VZ Микрощелевое",
+    "HARDWARE_NAME_8": "MACO IS Микрощелевое"
   },
   "add_elements": {
     "CHOOSE": "изберете",

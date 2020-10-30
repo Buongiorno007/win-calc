@@ -873,7 +873,16 @@
     "LOCK_TYPE1": "unisafe cu dispozitiv de blocare",
     "LOCK_TYPE2": "multisafe cu dispozitiv de blocare",
     "EXTRA_GLASS1": "Nu exisă posibilitate de montare a termopanului ",
-    "EXTRA_GLASS2": "pentru o astfel de construcție"
+    "EXTRA_GLASS2": "pentru o astfel de construcție",
+
+    "HARDWARE_NAME": "Komfort Line K-3",
+    "HARDWARE_NAME_2": "Komfort Line K-3 Микрощелевое",
+    "HARDWARE_NAME_3": "AXOR K3 FIRST TILT",
+    "HARDWARE_NAME_4": "STEKO Plus Скрытые петли",
+    "HARDWARE_NAME_5": "STEKO Plus",
+    "HARDWARE_NAME_6": "MACO VZ",
+    "HARDWARE_NAME_7": "MACO VZ Микрощелевое",
+    "HARDWARE_NAME_8": "MACO IS Микрощелевое"
   },
   "add_elements": {
     "CHOOSE": "Selectează",
