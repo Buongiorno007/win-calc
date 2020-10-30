@@ -15,7 +15,15 @@
               img(ng-src="{{ hardware.img }}")
           .hardware-box-data
             .hardware-data-txt
-              .hardware-descr(data-output="{{ ::hardware.name }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "Komfort Line K-3"' data-output="{{ ::hardwarePanel.HARDWARE_NAME }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "Komfort Line K-3 Микрощелевое"' data-output="{{ ::hardwarePanel.HARDWARE_NAME_2 }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "AXOR K3 FIRST TILT"' data-output="{{ ::hardwarePanel.HARDWARE_NAME_3 }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "STEKO Plus Скрытые петли"' data-output="{{ ::hardwarePanel.HARDWARE_NAME_4 }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "STEKO Plus"' data-output="{{ ::hardwarePanel.HARDWARE_NAME_5 }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "MACO VZ"' data-output="{{ ::hardwarePanel.HARDWARE_NAME_6 }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "MACO VZ Микрощелевое"' data-output="{{ ::hardwarePanel.HARDWARE_NAME_7 }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(ng-if='::hardware.name === "MACO IS Микрощелевое"' data-output="{{ ::hardwarePanel.HARDWARE_NAME_8 }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+
               .hardware-data
                 .hardware-brand(data-output="{{ ::hardware.producer }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
                 .hardware-label(data-output="{{ ::hardwarePanel.BRAND }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")

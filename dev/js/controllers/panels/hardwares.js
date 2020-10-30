@@ -39,6 +39,16 @@
                 thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
                 thisCtrl.HEAT_TRANSFER = $filter('translate')('cart.HEAT_TRANSFER');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+                thisCtrl.HARDWARE_NAME = $filter('translate')('panels.HARDWARE_NAME');
+                thisCtrl.HARDWARE_NAME_2 = $filter('translate')('panels.HARDWARE_NAME_2');
+                thisCtrl.HARDWARE_NAME_3 = $filter('translate')('panels.HARDWARE_NAME_3');
+                thisCtrl.HARDWARE_NAME_4 = $filter('translate')('panels.HARDWARE_NAME_4');
+                thisCtrl.HARDWARE_NAME_5 = $filter('translate')('panels.HARDWARE_NAME_5');
+                thisCtrl.HARDWARE_NAME_6 = $filter('translate')('panels.HARDWARE_NAME_6');
+                thisCtrl.HARDWARE_NAME_7 = $filter('translate')('panels.HARDWARE_NAME_7');
+                thisCtrl.HARDWARE_NAME_8 = $filter('translate')('panels.HARDWARE_NAME_8');
+                thisCtrl.HARDWARE_NAME_9 = $filter('translate')('panels.HARDWARE_NAME_9');
+                thisCtrl.HARDWARE_NAME_10 = $filter('translate')('panels.HARDWARE_NAME_10');
 
                 function ClickOnFolder(event) {
                     if ($(event.target).parent().attr('class') === 'producer') {

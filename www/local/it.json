@@ -874,7 +874,16 @@
     "LOCK_TYPE1": "una chiusura con una serratura a scatto",
     "LOCK_TYPE2": "la multichiusura con una serratura a scatto",
     "EXTRA_GLASS1": "Non vi è alcuna possibilità di installazione di vetro ",
-    "EXTRA_GLASS2": " per la configurazione di progettazione"
+    "EXTRA_GLASS2": " per la configurazione di progettazione",
+
+    "HARDWARE_NAME": "Komfort Line K-3",
+    "HARDWARE_NAME_2": "Komfort Line K-3 Микрощелевое",
+    "HARDWARE_NAME_3": "AXOR K3 FIRST TILT",
+    "HARDWARE_NAME_4": "STEKO Plus Скрытые петли",
+    "HARDWARE_NAME_5": "STEKO Plus",
+    "HARDWARE_NAME_6": "MACO VZ",
+    "HARDWARE_NAME_7": "MACO VZ Микрощелевое",
+    "HARDWARE_NAME_8": "MACO IS Микрощелевое"
   },
   "add_elements": {
     "CHOOSE": "Scegliere",

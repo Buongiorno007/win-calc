@@ -892,7 +892,16 @@
     "EXTRA_GLASS2": " for the design configuration",
     "INTERIOR": "Interior",
     "FACADE": "Facade",
-    "TEMPLATE_SELECTION": "Template selection"
+    "TEMPLATE_SELECTION": "Template selection",
+
+    "HARDWARE_NAME": "Komfort Line K-3",
+    "HARDWARE_NAME_2": "Komfort Line K-3 Microslot",
+    "HARDWARE_NAME_3": "AXOR K3 FIRST TILT",
+    "HARDWARE_NAME_4": "STEKO Plus Hidden hinges",
+    "HARDWARE_NAME_5": "STEKO Plus",
+    "HARDWARE_NAME_6": "MACO VZ",
+    "HARDWARE_NAME_7": "MACO VZ Microslot",
+    "HARDWARE_NAME_8": "MACO IS Microslot"
   },
   "add_elements": {
     "CHOOSE": "select",
