@@ -16,26 +16,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Ручка белая Secustik Roto Swing"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка бронза Secustik Roto Swing"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_2 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка золото/беж (латунь) Secustik Roto Swing"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_3 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка коричн. Secustik Roto Swing "'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_4 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка светл.бронза Secustik Roto Swing"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_5 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка серебро Secustik Roto Swing"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_6 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка титан мат. Secustik Roto Swing"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_7 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for Hoppe "ШТУТГАРТ" Secustik
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Hoppe \\"ШТУТГАРТ\\" Secustik"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -45,14 +27,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Hoppe Штудгард Secustik белая ручка оконная "'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_8 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Hoppe Штудгард Secustik бронза ручка оконная"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_9 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Hoppe Штудгард Secustik корич ручка оконная "'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_10 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for Window hadles with keys
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Ручки оконные с ключом"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -62,20 +38,10 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Ручка ок.с ключом бел. Roto"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_11 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка ок.с ключом бел.(Китай)"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_12 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка ок.с ключом кор. Roto"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_13 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка ок.с ключом кор.(Китай)"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_14 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for Window handles
-
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Ручки оконные"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
                 .title(ng-click="elementsMenu.hideMenu($index)") {{ ::elementsMenu.MENU_ELEMENT_4 }}
                     button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
@@ -83,38 +49,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Ручка Bio Touch Белая"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_15 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка Bio Touch Коричневая"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_16 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.балконная алюмин Антрацит"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_17 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.балконная алюмин Зол.дуб"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_18 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.балконная алюмин Махагон"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_19 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.балконная алюмин Орех"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_20 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.балконная алюмин Тем.дуб"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_21 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка оконная Антрацит"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_22 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка оконная белая"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_23 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка оконная бронза"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_24 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка оконная коричневая"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_25 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for 'Other'
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "other"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -124,47 +60,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Детский замок AFC Original  Корич."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_26 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Детский замок AFC Original Белый"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_27 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Детский замок BSL Sash prime Белый"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_28 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Детский замок BSL Sash prime Корич."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_29 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Детский замок Penkid с ключом белый"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_30 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Детский замок Penkid с ключом коричневый"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_31 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Замок дет.бел.Roto"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_32 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Замок дет.кор.Roto"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_33 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.бел.алюм.балконная "'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_34 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.бел.пласт.балконная "'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_35 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.кор.алюм.балконная "'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_36 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка кур.кор.пласт.балконная "'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_37 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка оконная Hoppe Hamburg Secustik белая"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_38 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Ручка оконная Hoppe Hamburg Secustik кор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_39 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for Rif Белые матовые
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Rif Белые Матовые"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -174,38 +71,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Подок Rif 100 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_40 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 150 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_41 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 200 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_42 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 250 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_43 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 300 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_44 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 350 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_45 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 400 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_46 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 450 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_47 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 500 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_48 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 600 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_49 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Подок Rif 700 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_50 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for rif soft белые
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Rif Soft Белые"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -215,35 +82,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Под Rif Soft 100 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_51 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 150 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_52 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 200 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_53 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 250 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_54 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 300 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_55 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 350 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_56 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 400 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_57 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 450 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_58 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 500 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_59 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под Rif Soft 600 бел."'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_60 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for Danke Крем де турке (Светло-бежевый)
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Danke Крем Де Турке (Светло-бежевый)"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -253,41 +93,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Под 100мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_61 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 150мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_62 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 200мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_63 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 250мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_64 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 300мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_65 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 350мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_66 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 400мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_67 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 450мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_68 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 500мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_69 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 550мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_70 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 600мм Danke Крем де турке"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_71 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 700мм Danke Крем де турке (2 капиноса)"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_72 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
             //- Data for Danke Лалберо Бьянко (Белое Дерево) 
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Danke Лалберо Бьянко (Белое Дерево)"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -297,41 +104,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Под 100мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_73 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 150мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_74 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 200мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_75 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 250мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_76 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 300мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_77 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 350мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_78 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 400мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_79 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 450мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_80 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 500мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_81 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 550мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_82 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 600мм Danke Лалберо бьянко"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_83 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 700мм Danke Лалберо бьянко (2 капиноса)"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_84 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
 
 
@@ -343,41 +117,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Под 100мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_85 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 150мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_86 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 200мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_87 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 250мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_88 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 300мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_89 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 350мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_90 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 400мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_91 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 450мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_92 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 500мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_93 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 550мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_94 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 600мм Danke Мрамор"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_95 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 700мм Danke Мрамор (2 капиноса)"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_96 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
 
              ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Danke Лалберо Бруно (Зол.Дуб)"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -387,41 +128,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Под 100мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_97 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 150мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_98 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 200мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_99 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 250мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_100 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 300мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_101 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 350мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_102 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 400мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_103 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 450мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_104 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 500мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_105 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 550мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_106 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 600мм Danke Лалберо бруно"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_107 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 700мм Danke Лалберо бруно (2 капиноса)"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_108 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
 
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Danke Венге (Тёмный Дуб)"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
@@ -431,41 +139,8 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
-                li.item(ng-if='addElement.name === "Под 100мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_109 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 150мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_110 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 200мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_111 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 250мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_112 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 300мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_113 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 350мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_114 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 400мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_115 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 450мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_116 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 500мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_117 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 550мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_118 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 600мм Danke Венге"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_119 }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                li.item(ng-if='addElement.name === "Под 700мм Danke Венге (2 капиноса)"'  ng-repeat="addElement in type track by $index")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ ::elementsMenu.CHILD_MENU_ELEMENT_120 }}
+                li.item(ng-repeat="addElement in type track by $index")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                     button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
 
             ul.items-lister(ng-if='elementsMenu.A.aux.addElementsType[$index].name === "Danke Махагон"' ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
