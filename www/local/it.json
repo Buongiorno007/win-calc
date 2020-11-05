@@ -671,7 +671,7 @@
     "G_TITLE_TEXT_8": "By agreeing to use, you consent to the use of your information, as described above and provided for by the company's Privacy Policy.",
     "BACK": "Back",
     "LOADER_TEXT1": " Attention! Loading data ...  ",
-    "LOADER_TEXT2": " Application launch time is up to 5 min. ",
+    "LOADER_TEXT2": " Application launch time is up to 5 min.",
     "LOADER_TEXT3": " Time depends on the Internet connection and device speed.",
     "ENTER": "Entrare",
     "PASS_CODE": "Comunicate il codice al manager.",
@@ -1037,6 +1037,7 @@
     "MENU_ELEMENT_80": "Нащельники коричневые, Тип-4",
     "MENU_ELEMENT_81": "Нащельники коричневые, Тип-5",
     "MENU_ELEMENT_82": "",
+    "MENU_ELEMENT_83": "altro",
 
     "CHILD_MENU_ELEMENT": "Ручка белая Secustik Roto Swing",
     "CHILD_MENU_ELEMENT_2": "Ручка бронза Secustik Roto Swing",

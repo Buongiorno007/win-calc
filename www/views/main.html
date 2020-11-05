@@ -768,7 +768,7 @@
               </div>
               <li ng-repeat="addElement in type track by $index" class="item">
                 <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox//////(addElement.id, type)" class="element-info"> </button>
               </li>
             </ul>
             <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Hoppe \&quot;ШТУТГАРТ\&quot; Secustik&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
@@ -806,6 +806,17 @@
             </ul>
             <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;other&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_5 }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <li ng-repeat="addElement in type track by $index" class="item">
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+              </li>
+            </ul>
+            <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;прочее&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ ::elementsMenu.MENU_ELEMENT_83 }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
@@ -1653,11 +1664,6 @@
               </li>
             </ul>
           </div>
-          <footer class="menu-footer">
-            <div ng-show="elementsMenu.A.aux.isAddElement &amp;&amp; elementsMenu.A.aux.currAddElementPrice" class="price-element">
-              <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
-            </div>
-          </footer>
         </div>
         <!--========== one element pannel in List View-->
         <div ng-show="elementsMenu.A.aux.isAddElementListView &amp;&amp; elementsMenu.A.aux.showAddElementsMenu &amp;&amp; ((elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement &gt; 1) || elementsMenu.G.global.currOpenPage === 'cart')" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
