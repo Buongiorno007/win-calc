@@ -768,7 +768,7 @@
               </div>
               <li ng-repeat="addElement in type track by $index" class="item">
                 <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox//////(addElement.id, type)" class="element-info"> </button>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"> </button>
               </li>
             </ul>
             <ul ng-if="elementsMenu.A.aux.addElementsType[$index].name === &quot;Hoppe \&quot;ШТУТГАРТ\&quot; Secustik&quot;" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
@@ -1949,6 +1949,8 @@
 <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
   <div class="info_box">
     <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
+      <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
+      <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
       <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Украина&quot;">
         <div class="info_title">{{ ::infoBox.COUNTRY_NAME }}</div>
         <div class="info_descrip">{{ ::infoBox.COUNTRY_DESKR }}</div>
@@ -2876,6 +2878,398 @@
       <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 700мм Steko Komfort (Орех структур) 2капиноса.&quot;">
         <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_142 }}</div>
         <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_142 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 100мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_143 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_143 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 150мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_144 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_144 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 200мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_145 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_145 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 250мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_146 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_146 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 300мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_147 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_147 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 350мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_148 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_148 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 400мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_149 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_149 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 450мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_150 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_150 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 500мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_151 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_151 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 550мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_152 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_152 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 600мм Steko Komfort (Сер мрамор глян).&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_153 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_153 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 700мм Steko Komfort (Сер мрамор глян) 2капиноса.&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_154 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_154 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 100мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_155 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_155 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 150мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_156 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_156 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 200мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_157 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_157 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 250мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_158 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_158 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 300мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_159 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_159 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 350мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_160 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_160 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 400мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_161 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_161 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 450мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_162 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_162 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 500мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_163 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_163 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 550мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_164 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_164 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 600мм Steko Komfort ( Белый дуб структур)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_165 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_165 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под 700мм Steko Komfort ( Белый дуб структур) 2 капиноса&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_166 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_166 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под Rif ICE 600 белый глянец (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_167 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_167 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Под Rif OSKAR 600 белый глянец (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_168 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_168 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Балк.защ. Roto NT магнитная&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_169 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_169 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Довод.GEZE TS1000 белый с ножницами до 80кг&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_170 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_170 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Довод.GEZE TS1000 корич с ножницами до 80кг&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_171 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_171 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Довод.GEZE TS2000 бел&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_172 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_172 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Довод.GEZE TS2000 кор.&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_173 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_173 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Довод.GEZE TS2000 серебро V BC RAL0110&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_174 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_174 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Доводчик RYOBI D-9903 + Ножницы EN-2,3 (до 60кг) Бел&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_175 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_175 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Доводчик RYOBI D-9903 + Ножницы EN-2,3 (до 60кг) Корич&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_176 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_176 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл. Plastolit 600мм Рустикал Дуб (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_177 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_177 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл. Plastolit стык 120-180 гр. 600мм мрамор&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_178 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_178 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.350 мм с 1 капиносом (пара) бел&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_179 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_179 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.350 мм с 1 капиносом (пара) ЗОЛ ДУБ&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_180 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_180 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.350 с одним капиносом&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_181 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_181 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.700 мм с 2мя капиносами бел&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_182 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_182 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.700 мм с 2мя капиносами МРАМОР&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_183 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_183 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.700 с двумя капиносами&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_184 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_184 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Danke Лалберо бруно 650мм(120-180 град)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_185 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_185 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Danke Лалберо бруно 700мм(90-135 град)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_186 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_186 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Danke Лючидо бьянко 350 (1капинос) пара&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_187 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_187 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Danke Лючидо бьянко 650мм(120-180 град)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_188 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_188 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Danke Лючидо бьянко 700 (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_189 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_189 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit 600мм бел (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_190 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_190 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit 600мм Зол.Дуб (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_191 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_191 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit 600мм Зол.Дуб (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_192 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_192 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit 600мм Тёмный дуб (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_193 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_193 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стык 120-180 гр. 600мм Рустикал Дуб&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_194 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_194 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стык 90-135 гр. 600мм мрамор&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_195 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_195 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стык 90-135 гр. 600мм Рустикал Дуб&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_196 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_196 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стык 90-135гр Зол.Дуб&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_197 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_197 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стык.120-180гр.600мм бел&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_198 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_198 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стыковая 120-180 гр. 600мм Тёмн.Дуб&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_199 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_199 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стыковая 120-180гр Зол.Дуб&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_200 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_200 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.Plastolit стыковая 90-135 гр. 600мм Тёмн.Дуб&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_201 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_201 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.пластик.600 цветная Элизиум&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_202 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_202 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 650мм (120/180 град) бел Standard&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_203 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_203 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 650мм (120/180 град) ЗОЛ ДУБ&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_204 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_204 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 650мм (120/180 град) МРАМОР&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_205 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_205 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 650мм(120-180 градусов)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_206 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_206 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 700мм (90/135 град) бел Standard&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_207 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_207 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 700мм (90/135 град) ЗОЛ ДУБ&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_208 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_208 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 700мм (90/135 град) МРАМОР&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_209 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_209 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.соед. 700мм(90-135 градусов)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_210 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_210 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.стык.600 бел. Rif&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_211 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_211 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Загл.стык.600 кор. Rif&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_212 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_212 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Danke Венге 350 (1капинос) пара&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_213 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_213 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Danke Венге 700 (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_214 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_214 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Danke Лалберо бьянко 350 (1капинос) пара&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_215 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_215 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Danke Лалберо бьянко 700 (2 капиноса)&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_216 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_216 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка ICE 500мм бел (2 капиноса) глян&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_217 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_217 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Komfort соед. 650 (120°-180°) Белый глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_218 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_218 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка OSKAR/ICE 500мм бел (2 капиноса) глян&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_219 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_219 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Plastolit стыковая 90-135гр. 600мм бел&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_220 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_220 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм антрацит (2 капиноса) мат&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_221 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_221 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм бел (2 капиноса) глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_222 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_222 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм бел (2 капиноса) матовый&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_223 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_223 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм Венге (2 капиноса) глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_224 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_224 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм Винчестер (2 капиноса) мат&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_225 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_225 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм Золотой Дуб (2 капиноса) глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_226 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_226 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм Золотой Дуб (2 капиноса) мат&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_227 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_227 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм мрамор (2 капиноса) глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_228 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_228 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка Sauberg 600мм мрамор (2 капиноса) мат&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_229 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_229 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg антрацит (180-120град) 600 мат&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_230 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_230 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg антрацит (90-135град) 600 мат&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_231 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_231 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg бел (180-120град) 600 глян&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_232 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_232 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg бел (180-120град) 600 матовый&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_233 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_233 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg бел (90-135град) 600 глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_234 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_234 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg бел (90-135град) 600 матовый&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_235 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_235 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg Венге (180-120град) 600 глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_236 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_236 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg антрацит (90-135град) 600 мат&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_237 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_237 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg бел (180-120град) 600 глян&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_238 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_238 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg бел (180-120град) 600 матовый&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_239 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_239 }}</div>
+      </ng-switch>
+      <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Заглушка соед Sauberg бел (90-135град) 600 глянец&quot;">
+        <div class="info_title">{{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_240 }}</div>
+        <div class="info_descrip">{{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_240 }}</div>
       </ng-switch>
       <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}-->
     </div>

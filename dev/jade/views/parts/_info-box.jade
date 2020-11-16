@@ -3,8 +3,8 @@
     .info_box_inner
       img(ng-if="infoBox.G.global.infoImg.length  && !infoBox.G.global.cordova", ng-src="{{infoBox.G.global.infoImg}}")
       img(ng-if="infoBox.G.global.infoImg.length && infoBox.G.global.cordova", ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}")
-      //- .info_title {{infoBox.G.global.infoTitle}}
-      //- .info_descrip {{infoBox.G.global.infoDescrip}}
+      .info_title {{infoBox.G.global.infoTitle}}
+      .info_descrip {{infoBox.G.global.infoDescrip}}
 
       ng-switch(ng-if='infoBox.G.global.infoTitle === "Украина"')
         .info_title {{ ::infoBox.COUNTRY_NAME }}
@@ -857,9 +857,397 @@
         .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_142 }}
         .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_142 }}
 
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 100мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_143 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_143 }}
 
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 150мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_144 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_144 }}
 
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 200мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_145 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_145 }}
 
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 250мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_146 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_146 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 300мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_147 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_147 }}
+      
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 350мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_148 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_148 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 400мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_149 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_149 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 450мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_150 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_150 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 500мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_151 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_151 }}
+      
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 550мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_152 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_152 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 600мм Steko Komfort (Сер мрамор глян)."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_153 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_153 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 700мм Steko Komfort (Сер мрамор глян) 2капиноса."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_154 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_154 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 100мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_155 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_155 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 150мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_156 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_156 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 200мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_157 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_157 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 250мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_158 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_158 }}
+      
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 300мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_159 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_159 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 350мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_160 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_160 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 400мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_161 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_161 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 450мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_162 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_162 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 500мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_163 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_163 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 550мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_164 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_164 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 600мм Steko Komfort ( Белый дуб структур)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_165 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_165 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под 700мм Steko Komfort ( Белый дуб структур) 2 капиноса"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_166 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_166 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под Rif ICE 600 белый глянец (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_167 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_167 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Под Rif OSKAR 600 белый глянец (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_168 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_168 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Балк.защ. Roto NT магнитная"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_169 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_169 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Довод.GEZE TS1000 белый с ножницами до 80кг"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_170 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_170 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Довод.GEZE TS1000 корич с ножницами до 80кг"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_171 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_171 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Довод.GEZE TS2000 бел"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_172 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_172 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Довод.GEZE TS2000 кор."')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_173 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_173 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Довод.GEZE TS2000 серебро V BC RAL0110"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_174 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_174 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Доводчик RYOBI D-9903 + Ножницы EN-2,3 (до 60кг) Бел"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_175 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_175 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Доводчик RYOBI D-9903 + Ножницы EN-2,3 (до 60кг) Корич"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_176 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_176 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл. Plastolit 600мм Рустикал Дуб (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_177 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_177 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл. Plastolit стык 120-180 гр. 600мм мрамор"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_178 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_178 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.350 мм с 1 капиносом (пара) бел"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_179 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_179 }}
+      
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.350 мм с 1 капиносом (пара) ЗОЛ ДУБ"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_180 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_180 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.350 с одним капиносом"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_181 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_181 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.700 мм с 2мя капиносами бел"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_182 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_182 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.700 мм с 2мя капиносами МРАМОР"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_183 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_183 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.700 с двумя капиносами"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_184 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_184 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Danke Лалберо бруно 650мм(120-180 град)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_185 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_185 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Danke Лалберо бруно 700мм(90-135 град)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_186 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_186 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Danke Лючидо бьянко 350 (1капинос) пара"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_187 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_187 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Danke Лючидо бьянко 650мм(120-180 град)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_188 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_188 }}
+      
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Danke Лючидо бьянко 700 (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_189 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_189 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit 600мм бел (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_190 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_190 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit 600мм Зол.Дуб (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_191 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_191 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit 600мм Зол.Дуб (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_192 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_192 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit 600мм Тёмный дуб (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_193 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_193 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стык 120-180 гр. 600мм Рустикал Дуб"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_194 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_194 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стык 90-135 гр. 600мм мрамор"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_195 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_195 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стык 90-135 гр. 600мм Рустикал Дуб"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_196 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_196 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стык 90-135гр Зол.Дуб"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_197 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_197 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стык.120-180гр.600мм бел"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_198 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_198 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стыковая 120-180 гр. 600мм Тёмн.Дуб"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_199 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_199 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стыковая 120-180гр Зол.Дуб"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_200 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_200 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.Plastolit стыковая 90-135 гр. 600мм Тёмн.Дуб"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_201 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_201 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.пластик.600 цветная Элизиум"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_202 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_202 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 650мм (120/180 град) бел Standard"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_203 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_203 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 650мм (120/180 град) ЗОЛ ДУБ"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_204 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_204 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 650мм (120/180 град) МРАМОР"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_205 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_205 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 650мм(120-180 градусов)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_206 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_206 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 700мм (90/135 град) бел Standard"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_207 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_207 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 700мм (90/135 град) ЗОЛ ДУБ"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_208 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_208 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 700мм (90/135 град) МРАМОР"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_209 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_209 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.соед. 700мм(90-135 градусов)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_210 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_210 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.стык.600 бел. Rif"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_211 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_211 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Загл.стык.600 кор. Rif"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_212 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_212 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Danke Венге 350 (1капинос) пара"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_213 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_213 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Danke Венге 700 (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_214 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_214 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Danke Лалберо бьянко 350 (1капинос) пара"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_215 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_215 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Danke Лалберо бьянко 700 (2 капиноса)"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_216 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_216 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка ICE 500мм бел (2 капиноса) глян"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_217 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_217 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Komfort соед. 650 (120°-180°) Белый глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_218 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_218 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка OSKAR/ICE 500мм бел (2 капиноса) глян"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_219 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_219 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Plastolit стыковая 90-135гр. 600мм бел"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_220 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_220 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм антрацит (2 капиноса) мат"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_221 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_221 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм бел (2 капиноса) глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_222 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_222 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм бел (2 капиноса) матовый"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_223 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_223 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм Венге (2 капиноса) глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_224 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_224 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм Винчестер (2 капиноса) мат"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_225 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_225 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм Золотой Дуб (2 капиноса) глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_226 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_226 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм Золотой Дуб (2 капиноса) мат"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_227 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_227 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм мрамор (2 капиноса) глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_228 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_228 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка Sauberg 600мм мрамор (2 капиноса) мат"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_229 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_229 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg антрацит (180-120град) 600 мат"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_230 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_230 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg антрацит (90-135град) 600 мат"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_231 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_231 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg бел (180-120град) 600 глян"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_232 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_232 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg бел (180-120град) 600 матовый"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_233 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_233 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg бел (90-135град) 600 глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_234 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_234 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg бел (90-135град) 600 матовый"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_235 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_235 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg Венге (180-120град) 600 глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_236 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_236 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg антрацит (90-135град) 600 мат"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_237 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_237 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg бел (180-120град) 600 глян"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_238 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_238 }}
+        
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg бел (180-120град) 600 матовый"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_239 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_239 }}
+
+      ng-switch(ng-if='infoBox.G.global.infoTitle === "Заглушка соед Sauberg бел (90-135град) 600 глянец"')
+        .info_title {{ ::infoBox.ADDITIONAL_ELEMENTS_TITLE_240 }}
+        .info_descrip {{ ::infoBox.ADDITIONAL_ELEMENTS_DESKR_240 }}
 
 
       //.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}
