@@ -3,8 +3,8 @@
     .info_box_inner
       img(ng-if="infoBox.G.global.infoImg.length  && !infoBox.G.global.cordova", ng-src="{{infoBox.G.global.infoImg}}")
       img(ng-if="infoBox.G.global.infoImg.length && infoBox.G.global.cordova", ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}")
-      .info_title {{infoBox.G.global.infoTitle}}
-      .info_descrip {{infoBox.G.global.infoDescrip}}
+      //-.info_title {{infoBox.G.global.infoTitle}}
+      //-.info_descrip {{infoBox.G.global.infoDescrip}}
 
       ng-switch(ng-if='infoBox.G.global.infoTitle === "Украина"')
         .info_title {{ ::infoBox.COUNTRY_NAME }}
