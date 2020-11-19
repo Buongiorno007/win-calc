@@ -550,11 +550,9 @@ let portrait = false;
     /**============ METHODS ================*/
 
     function switchLang(languageId) {
-      //console.log('just check how working function')
       $translate.use(globalConstants.languages[languageId].label);
       UserStor.userInfo.langLabel = globalConstants.languages[languageId].label;
       UserStor.userInfo.langName = globalConstants.languages[languageId].name;
-      //----- if Voice Helper switch on
       if(GlobalStor.global.isVoiceHelper) {
         GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
@@ -729,19 +727,13 @@ let portrait = false;
       /**============ METHODS ================*/
 
       function switchCurrency(currencyId) {
-       // console.log('checking how function works')
-        
-        
-        
         UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
         UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
+        //console.log(UserStor.userInfo.currencyName, 'userStor userInfo ')
         $timeout(function() {
           $location.path("/"+GlobalStor.global.currOpenPage);
         }, 500);
-        let currencyDoll = localDB.tablesLocalDB.currencies.name.usd;
-        console.log(currencyDoll);
       }
-
   
       function gotoSettingsPage() {
         $location.path("/"+GlobalStor.global.prevOpenPage);
@@ -7865,6 +7857,22 @@ if (window.location.hostname !== 'localhost') {
         thisCtrl.ADDITIONAL_ELEMENTS_DESKR_239 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_239');
         thisCtrl.ADDITIONAL_ELEMENTS_TITLE_240 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_240');
         thisCtrl.ADDITIONAL_ELEMENTS_DESKR_240 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_240');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_241 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_241');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_241 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_241');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_242 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_242');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_242 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_242');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_243 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_243');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_243 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_243');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_244 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_244');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_244 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_244');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_245 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_245');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_245 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_245');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_246 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_246');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_246 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_246');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_247 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_247');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_247 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_247');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_248 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_248');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_248 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_248');
         /**============ METHODS ================*/
 
         /** close Info Box */
@@ -21718,7 +21726,7 @@ function ErrorResult(code, message) {
             }
           }
           if (!$.isEmptyObject(tempObj)) {
-            GlobalStor.global.infoTitle = tempObj.name;
+            GlobalStor.global.infoTitle =  'true';
             GlobalStor.global.infoImg = tempObj.img;
             GlobalStor.global.infoLink = tempObj.link;
             GlobalStor.global.infoDescrip = tempObj.description;

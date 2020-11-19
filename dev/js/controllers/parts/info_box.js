@@ -677,6 +677,22 @@
         thisCtrl.ADDITIONAL_ELEMENTS_DESKR_239 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_239');
         thisCtrl.ADDITIONAL_ELEMENTS_TITLE_240 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_240');
         thisCtrl.ADDITIONAL_ELEMENTS_DESKR_240 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_240');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_241 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_241');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_241 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_241');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_242 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_242');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_242 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_242');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_243 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_243');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_243 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_243');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_244 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_244');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_244 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_244');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_245 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_245');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_245 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_245');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_246 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_246');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_246 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_246');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_247 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_247');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_247 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_247');
+        thisCtrl.ADDITIONAL_ELEMENTS_TITLE_248 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_TITLE_248');
+        thisCtrl.ADDITIONAL_ELEMENTS_DESKR_248 = $filter('translate')('natification.ADDITIONAL_ELEMENTS_DESKR_248');
         /**============ METHODS ================*/
 
         /** close Info Box */

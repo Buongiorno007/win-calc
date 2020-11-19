@@ -27,19 +27,13 @@
       /**============ METHODS ================*/
 
       function switchCurrency(currencyId) {
-       // console.log('checking how function works')
-        
-        
-        
         UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
         UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
+        //console.log(UserStor.userInfo.currencyName, 'userStor userInfo ')
         $timeout(function() {
           $location.path("/"+GlobalStor.global.currOpenPage);
         }, 500);
-        let currencyDoll = localDB.tablesLocalDB.currencies.name.usd;
-        console.log(currencyDoll);
       }
-
   
       function gotoSettingsPage() {
         $location.path("/"+GlobalStor.global.prevOpenPage);
