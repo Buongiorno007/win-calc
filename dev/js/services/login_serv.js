@@ -898,7 +898,7 @@
           .selectLocalDB(
             localDB.tablesLocalDB.locales_names.tableName,
             null, 
-            "id, table_name, table_id, ru, en, table_attr"          
+            "id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, table_attr"          
           )
           .then(function (result) {
             if (result && result.length) {

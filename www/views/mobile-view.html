@@ -1175,7 +1175,7 @@
   </div>
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
     <div class="info_box">
-      <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.glo bal.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
+      <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
         <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Украина&quot;">
           <div class="info_title">{{ ::infoBox.COUNTRY_NAME }}</div>
           <div class="info_descrip">{{ ::infoBox.COUNTRY_DESKR }}</div>

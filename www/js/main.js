@@ -6025,6 +6025,7 @@ if (window.location.hostname !== 'localhost') {
                 thisCtrl.PROFILE_NAME_18 = $filter('translate')('panels.PROFILE_NAME_18');
                 thisCtrl.PROFILE_NAME_19 = $filter('translate')('panels.PROFILE_NAME_19');
                 thisCtrl.PROFILE_NAME_20 = $filter('translate')('panels.PROFILE_NAME_20');
+                thisCtrl.PROFILE_NAME_21 = $filter('translate')('panels.PROFILE_NAME_21');
                 thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
                 thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
@@ -21726,7 +21727,7 @@ function ErrorResult(code, message) {
             }
           }
           if (!$.isEmptyObject(tempObj)) {
-            GlobalStor.global.infoTitle =  'true';
+            GlobalStor.global.infoTitle = tempObj.name;
             GlobalStor.global.infoImg = tempObj.img;
             GlobalStor.global.infoLink = tempObj.link;
             GlobalStor.global.infoDescrip = tempObj.description;
@@ -27356,7 +27357,7 @@ function ErrorResult(code, message) {
           .selectLocalDB(
             localDB.tablesLocalDB.locales_names.tableName,
             null, 
-            "id, table_name, table_id, ru, en, table_attr"          
+            "id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, table_attr"          
           )
           .then(function (result) {
             if (result && result.length) {

@@ -52,6 +52,7 @@
                 thisCtrl.PROFILE_NAME_18 = $filter('translate')('panels.PROFILE_NAME_18');
                 thisCtrl.PROFILE_NAME_19 = $filter('translate')('panels.PROFILE_NAME_19');
                 thisCtrl.PROFILE_NAME_20 = $filter('translate')('panels.PROFILE_NAME_20');
+                thisCtrl.PROFILE_NAME_21 = $filter('translate')('panels.PROFILE_NAME_21');
                 thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
                 thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
                 thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');

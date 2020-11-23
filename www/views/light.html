@@ -167,7 +167,8 @@
                   <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
                     <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner"><img ng-if="profile.img.length" ng-src="{{profile.img}}" class="profile-img">
                       <div ng-if="!profile.img.length" data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
-                      <div ng-if="!profile.img.length" data-output="{{ ::profilesPanel.COUNTRY }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label-country"></div><!-- These pieces of code with ng-switch allow you to assign each profile card a separate name that can be translated -->
+                      <div ng-if="!profile.img.length" data-output="{{ ::profilesPanel.COUNTRY }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label-country">
+                      </div>
                       <ng-switch ng-if="profile.id === 568">
                         <div data-output="{{ ::profilesPanel.PROFILE_NAME }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       </ng-switch>
@@ -219,15 +220,17 @@
                       <ng-switch ng-if="profile.id === 25">
                         <div data-output="{{ ::profilesPanel.PROFILE_NAME_17 }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       </ng-switch>
-                      <!--For user steko_www. Don't know why the same profiles has different id but this part of code is important-->
-                      <ng-switch ng-if="profile.id === 595">
+                      <ng-switch ng-if="profile.id === 686">
                         <div data-output="{{ ::profilesPanel.PROFILE_NAME_18 }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       </ng-switch>
-                      <ng-switch ng-if="profile.id === 586">
+                      <ng-switch ng-if="profile.id === 684">
                         <div data-output="{{ ::profilesPanel.PROFILE_NAME_19 }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       </ng-switch>
-                      <ng-switch ng-if="profile.id === 587">
+                      <ng-switch ng-if="profile.id === 685">
                         <div data-output="{{ ::profilesPanel.PROFILE_NAME_20 }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                      </ng-switch>
+                      <ng-switch ng-if="profile.id === 683">
+                        <div data-output="{{ ::profilesPanel.PROFILE_NAME_21 }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       </ng-switch>
                       <div ng-if="!profile.img.length" class="profile-cameras">
                         <div class="type cam">{{ profile.cameras }}</div>
@@ -2905,7 +2908,7 @@
 </div>
 <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
   <div class="info_box">
-    <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.glo bal.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
+    <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
       <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Украина&quot;">
         <div class="info_title">{{ ::infoBox.COUNTRY_NAME }}</div>
         <div class="info_descrip">{{ ::infoBox.COUNTRY_DESKR }}</div>

@@ -11,8 +11,8 @@
 
                     .profile-country(ng-if="!profile.img.length",data-output="{{ profile.country }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
                     .label-country(ng-if="!profile.img.length",data-output="{{ ::profilesPanel.COUNTRY }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
-
-                    <!-- These pieces of code with ng-switch allow you to assign each profile card a separate name that can be translated -->
+                  
+                     //-These pieces of code with ng-switch allow you to assign each profile card a separate name that can be translated
                     ng-switch(ng-if="profile.id === 568")
                        .profile-descr(data-output="{{ ::profilesPanel.PROFILE_NAME }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
                     ng-switch(ng-if="profile.id === 567")
@@ -48,13 +48,15 @@
                     ng-switch(ng-if="profile.id === 25" )
                        .profile-descr(data-output="{{ ::profilesPanel.PROFILE_NAME_17 }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
                      
-                     //For user steko_www. Don't know why the same profiles has different id but this part of code is important
-                    ng-switch(ng-if="profile.id === 595" )
+                     //-For user steko_www. Don't know why the same profiles has different id but this part of code is important
+                    ng-switch(ng-if="profile.id === 686" )
                        .profile-descr(data-output="{{ ::profilesPanel.PROFILE_NAME_18 }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
-                    ng-switch(ng-if="profile.id === 586" )
+                    ng-switch(ng-if="profile.id === 684" )
                        .profile-descr(data-output="{{ ::profilesPanel.PROFILE_NAME_19 }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
-                    ng-switch(ng-if="profile.id === 587" )
+                    ng-switch(ng-if="profile.id === 685" )
                        .profile-descr(data-output="{{ ::profilesPanel.PROFILE_NAME_20 }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+                    ng-switch(ng-if="profile.id === 683" )
+                       .profile-descr(data-output="{{ ::profilesPanel.PROFILE_NAME_21 }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
 
 
                     .profile-cameras(ng-if="!profile.img.length",)
