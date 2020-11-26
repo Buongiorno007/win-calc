@@ -56,6 +56,7 @@
                         currencyName: name,
                         currencyId: 0,
                         currency: '',
+                        currencies: '₴',
                         discountConstr: 0,
                         discountAddElem: 0,
                         discountConstrMax: 0,

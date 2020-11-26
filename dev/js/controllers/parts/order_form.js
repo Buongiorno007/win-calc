@@ -19,6 +19,7 @@
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
     thisCtrl.U = UserStor;
+    thisCtrl.G = GlobalStor;
     thisCtrl.globalConstants = globalConstants;
 
     thisCtrl.config = {

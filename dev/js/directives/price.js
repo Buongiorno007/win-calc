@@ -5,7 +5,7 @@
         .module('BauVoiceApp')
         .directive('price',
 
-            function (globalConstants, SoundPlayServ, $location, UserStor) {
+            function (globalConstants, SoundPlayServ, $location, UserStor, GlobalStor) {
 
 
                 /**============ METHODS ================*/
@@ -105,7 +105,13 @@
                     '</div>',
                     link: function (scope, elem, attrs) {
                         scope.$watchCollection(attrs.output, function (price) {
-                            changePrice(price, elem);
+                            if(UserStor.userInfo.currencies === '$') {
+                                changePrice(price / GlobalStor.global.currencies[0].value, elem);
+                            } else if(UserStor.userInfo.currencies === '€') {
+                                changePrice(price / GlobalStor.global.currencies[2].value, elem);
+                            } else {
+                                changePrice(price, elem )
+                            }
                         });
                     }
                 };

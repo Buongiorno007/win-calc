@@ -74,7 +74,9 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                         button.order-tool(ng-click="cartPage.increaseProductQty($index)") +
                                         .order-label.qty-label {{ ::cartPage.PRODUCT_QTY }}
                                 .order-footer
-                                    .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+                                    .order-price(ng-if='cartPage.U.userInfo.currencies === "$"' price-fixed="{{product.productPriceDis / cartPage.G.global.currencies[0].value}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currencies}}")
+                                    .order-price(ng-if='cartPage.U.userInfo.currencies === "€"' price-fixed="{{product.productPriceDis / cartPage.G.global.currencies[2].value}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currencies}}")
+                                    .order-price(ng-if='cartPage.U.userInfo.currencies === "₴"' price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currencies}}")
                                     .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': cartPage.config.isProductComment === $index+1}", fs-click="cartPage.switchProductComment($index)")
                                 .order-comment(ng-class="{'active': cartPage.config.isProductComment === $index+1}")
                                     .order-comment-box

@@ -147,7 +147,9 @@
                   </div>
                 </div>
                 <div class="order-footer">
-                  <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
+                  <div ng-if="cartPage.U.userInfo.currencies === &quot;$&quot;" price-fixed="{{product.productPriceDis / cartPage.G.global.currencies[0].value}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currencies}}" class="order-price"></div>
+                  <div ng-if="cartPage.U.userInfo.currencies === &quot;€&quot;" price-fixed="{{product.productPriceDis / cartPage.G.global.currencies[2].value}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currencies}}" class="order-price"></div>
+                  <div ng-if="cartPage.U.userInfo.currencies === &quot;₴&quot;" price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currencies}}" class="order-price"></div>
                   <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" fs-click="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
                 </div>
                 <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
@@ -621,7 +623,7 @@
                 <div ng-show="!cartMenu.O.order.floor_id &amp;&amp; !cartMenu.O.order.delivery_garbage_removal &amp;&amp; !cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.SELF_EXPORT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
                 <div ng-show="cartMenu.O.order.floor_id" data-output="{{cartMenu.O.order.floorName}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
                 <div ng-show="cartMenu.O.order.delivery_garbage_removal" data-output="{{ ::cartMenu.GARBAGE_REMOVE  }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
-                <div ng-show="cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.DELIVERY}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.floor_id" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span><span ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add" data-output=" + {{ cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add}} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+                <div ng-show="cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.DELIVERY}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.floor_id" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span><span ng-if="cartMenu.U.userInfo.currencies === '$'" ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add" data-output=" + {{ (cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add) / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span><span ng-if="cartMenu.U.userInfo.currencies === '€'" ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add" data-output=" + {{ (cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add) / cartMenu.G.global.currencies[2].value}} {{ cartMenu.U.userInfo.currencies }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span><span ng-if="cartMenu.U.userInfo.currencies === '₴'" ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add" data-output=" + {{ cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add }} {{ cartMenu.U.userInfo.currencies }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 1 &amp;&amp; cartMenu.G.global.supplyData.length}" class="dropdown-cart-menu drop-delivery">
@@ -635,21 +637,23 @@
                 <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{supplyList.name}} {{ ::cartMenu.FLOOR }}</div>
-                    <div class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '$'" class="name drop-txt">+ {{supplyList.priceReal / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '€'" class="name drop-txt">+ {{supplyList.priceReal / cartMenu.G.global.currencies[2].value }} {{ cartMenu.U.userInfo.currencies }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '₴'" class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currencies }}</div>
                   </div>
                 </li>
                 <li class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ ::cartMenu.DELIVERY }}</div>
                     <input type="number" ng-model="cartMenu.O.order.delivery_add" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select()" class="name drop-txt">
-                    <div class="name drop-txt">{{ cartMenu.U.userInfo.currency }}</div>
+                    <div class="name drop-txt">{{ cartMenu.U.userInfo.currencies }}</div>
                   </div>
                 </li>
                 <li class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ ::cartMenu.GARBAGE_REMOVE }}</div>
                     <input type="number" ng-model="cartMenu.O.order.delivery_garbage_removal" ng-change="cartMenu.calculateOrderPrice()" onClick="this.select()" class="name drop-txt">
-                    <div class="name drop-txt">{{ cartMenu.U.userInfo.currency }}</div>
+                    <div class="name drop-txt">{{ cartMenu.U.userInfo.currencies }}</div>
                   </div>
                 </li>
               </ul>
@@ -672,7 +676,9 @@
                 <li ng-repeat="assemb in cartMenu.G.global.disassemblyData" ng-class="{'selected': assemb.id == cartMenu.O.order.dismantling_id}" fs-click="cartMenu.selectDisAssembling(assemb)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ assemb.name }}</div>
-                    <div class="name drop-txt">+ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '$'" class="name drop-txt">+ {{supplyList.priceReal / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '€'" class="name drop-txt">+ {{supplyList.priceReal / cartMenu.G.global.currencies[2].value }} {{ cartMenu.U.userInfo.currencies }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '₴'" class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currencies }}</div>
                   </div>
                 </li>
               </ul>
@@ -681,7 +687,7 @@
               <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
-                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.mounting_id" data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-if="cartMenu.U.userInfo.currencies === '$'" ng-show="cartMenu.O.order.mounting_id" data-output=" + {{ cartMenu.O.order.mounting_price / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span><span ng-if="cartMenu.U.userInfo.currencies === '€'" ng-show="cartMenu.O.order.mounting_id" data-output=" + {{ cartMenu.O.order.mounting_price / cartMenu.G.global.currencies[2].value}} {{ cartMenu.U.userInfo.currencies }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span><span ng-if="cartMenu.U.userInfo.currencies === '₴'" ng-show="cartMenu.O.order.mounting_id" data-output=" + {{cartMenu.O.order.mounting_price}} {{ cartMenu.U.userInfo.currencies }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu drop-assembling">
@@ -695,7 +701,9 @@
                 <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(assemb)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ assemb.name }}</div>
-                    <div class="name drop-txt">+ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '$'" class="name drop-txt">+ {{supplyList.priceReal / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '€'" class="name drop-txt">+ {{supplyList.priceReal / cartMenu.G.global.currencies[2].value }} {{ cartMenu.U.userInfo.currencies }}</div>
+                    <div ng-if="cartMenu.U.userInfo.currencies === '₴'" class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currencies }}</div>
                   </div>
                 </li>
               </ul>
@@ -705,7 +713,7 @@
               <div class="cart-item-data"></div>
               <div ng-if="cartMenu.O.order.sale_price" class="dismounting">
                 <div data-output="{{ cartMenu.O.order.sale_price }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
-                <label>{{cartMenu.U.userInfo.currency}}</label>
+                <label>{{cartMenu.U.userInfo.currencies}}</label>
               </div>
             </li>
             <div class="dismounting">
@@ -1928,7 +1936,9 @@
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.flat.$error.required" class="error-tooltip flat">{{ ::orderForm.EMPTY_FIELD }}</div>
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.floor.$error.required" class="error-tooltip floor">{{ ::orderForm.EMPTY_FIELD }}</div>
               </div>
-              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currency }}</div>
+              <div ng-if="orderForm.U.userInfo.currencies === '$'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis / orderForm.G.global.currencies[0].value }} {{ orderForm.U.userInfo.currencies }}</div>
+              <div ng-if="orderForm.U.userInfo.currencies === '€'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis / orderForm.G.global.currencies[2].value }} {{ orderForm.U.userInfo.currencies }}</div>
+              <div ng-if="orderForm.U.userInfo.currencies === '₴'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currencies }}</div>
               <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_ADD_INFO }}</div>
               <div class="input-field">
                 <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" class="user-field">

@@ -726,10 +726,28 @@ let portrait = false;
       };
       /**============ METHODS ================*/
 
-      function switchCurrency(currencyId) {
-        UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
-        UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
-        //console.log(UserStor.userInfo.currencyName, 'userStor userInfo ')
+      function switchCurrencyToUsd(currencyId) {
+        UserStor.userInfo.currencies = '$'
+        console.log('Dollor on')
+        console.log(UserStor.userInfo, 'user info (need language)') 
+        $timeout(function() {
+          $location.path("/"+GlobalStor.global.currOpenPage);
+        }, 500);
+      }
+
+      function switchCurrencyToEur(currencyId) {
+        UserStor.userInfo.currencies = '€'
+        console.log('Evro on')
+        console.log(UserStor.userInfo, 'user info (need language)') 
+        $timeout(function() {
+          $location.path("/"+GlobalStor.global.currOpenPage);
+        }, 500);
+      }
+
+      function switchCurrencyToUah(currencyId) {
+        UserStor.userInfo.currencies = '₴'
+        console.log('Grivna on')
+        console.log(UserStor.userInfo, 'user info (need language)') 
         $timeout(function() {
           $location.path("/"+GlobalStor.global.currOpenPage);
         }, 500);
@@ -745,7 +763,9 @@ let portrait = false;
   
       //------ clicking
       thisCtrl.gotoSettingsPage = gotoSettingsPage;
-      thisCtrl.switchCurrency = switchCurrency;
+      thisCtrl.switchCurrencyToUsd = switchCurrencyToUsd;
+      thisCtrl.switchCurrencyToEur = switchCurrencyToEur;
+      thisCtrl.switchCurrencyToUah = switchCurrencyToUah;
       thisCtrl.gotDeviceCurrency = loginServ.gotDeviceCurrency;
   
         $("#main-frame").addClass("main-frame-mobView");
@@ -7943,6 +7963,7 @@ if (window.location.hostname !== 'localhost') {
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
     thisCtrl.U = UserStor;
+    thisCtrl.G = GlobalStor;
     thisCtrl.globalConstants = globalConstants;
 
     thisCtrl.config = {
@@ -9490,7 +9511,7 @@ if (window.location.hostname !== 'localhost') {
         .module('BauVoiceApp')
         .directive('price',
 
-            function (globalConstants, SoundPlayServ, $location, UserStor) {
+            function (globalConstants, SoundPlayServ, $location, UserStor, GlobalStor) {
 
 
                 /**============ METHODS ================*/
@@ -9590,7 +9611,13 @@ if (window.location.hostname !== 'localhost') {
                     '</div>',
                     link: function (scope, elem, attrs) {
                         scope.$watchCollection(attrs.output, function (price) {
-                            changePrice(price, elem);
+                            if(UserStor.userInfo.currencies === '$') {
+                                changePrice(price / GlobalStor.global.currencies[0].value, elem);
+                            } else if(UserStor.userInfo.currencies === '€') {
+                                changePrice(price / GlobalStor.global.currencies[2].value, elem);
+                            } else {
+                                changePrice(price, elem )
+                            }
                         });
                     }
                 };
@@ -28569,11 +28596,13 @@ function ErrorResult(code, message) {
                     product.locales_names = angular.copy(GlobalStor.global.locales_names);
                     //console.log(product.currencies, 'product.currencie')
                     product.currencies = angular.copy(GlobalStor.global.currencies);
+                    //console.log(UserStor.userInfo.currencies, 'user info (need language)') 
+                    //console.log(ProductStor.product.productPriceDis, 'product price dis')
                 }
-                console.log(product.profile, ' product.profile.')
-                console.log(product.locales_names, 'locales_names')
-                //console.log(product.currencies, 'product.currencie')
+                //console.log(product.profile, ' product.profile.')
+                // console.log(product.locales_names, 'locales_names')
                 //console.log(GlobalStor.global, 'глобалстор')
+                //console.log(UserStor.userInfo, 'user info (need language)') 
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id
@@ -38445,6 +38474,7 @@ function ErrorResult(code, message) {
                         currencyName: name,
                         currencyId: 0,
                         currency: '',
+                        currencies: '₴',
                         discountConstr: 0,
                         discountAddElem: 0,
                         discountConstrMax: 0,

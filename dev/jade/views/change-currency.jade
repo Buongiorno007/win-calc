@@ -5,5 +5,7 @@
 
     .currency-container
         .list
-            .item.click(ng-repeat="currency in currencyPage.constants.currencies", ng-class="{'active': currencyPage.U.userInfo.currencyLabel === currency.label}", fs-click="currencyPage.switchCurrency($index)")
-                .currency-label {{ currency.name }}
+            .item.click(ng-class="{'active': currencyPage.U.userInfo.currencyLabel === currency.label}")
+                .currency-label(fs-click="currencyPage.switchCurrencyToEur($index)") {{ currencyPage.constants.currencies[0].name }}
+                .currency-label(fs-click="currencyPage.switchCurrencyToUah($index)") {{ currencyPage.constants.currencies[1].name }}
+                .currency-label(fs-click="currencyPage.switchCurrencyToUsd($index)") {{ currencyPage.constants.currencies[2].name }}

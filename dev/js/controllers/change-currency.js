@@ -26,10 +26,28 @@
       };
       /**============ METHODS ================*/
 
-      function switchCurrency(currencyId) {
-        UserStor.userInfo.currencyLabel = globalConstants.currencies[currencyId].label;
-        UserStor.userInfo.currencyName = globalConstants.currencies[currencyId].name;
-        //console.log(UserStor.userInfo.currencyName, 'userStor userInfo ')
+      function switchCurrencyToUsd(currencyId) {
+        UserStor.userInfo.currencies = '$'
+        console.log('Dollor on')
+        console.log(UserStor.userInfo, 'user info (need language)') 
+        $timeout(function() {
+          $location.path("/"+GlobalStor.global.currOpenPage);
+        }, 500);
+      }
+
+      function switchCurrencyToEur(currencyId) {
+        UserStor.userInfo.currencies = '€'
+        console.log('Evro on')
+        console.log(UserStor.userInfo, 'user info (need language)') 
+        $timeout(function() {
+          $location.path("/"+GlobalStor.global.currOpenPage);
+        }, 500);
+      }
+
+      function switchCurrencyToUah(currencyId) {
+        UserStor.userInfo.currencies = '₴'
+        console.log('Grivna on')
+        console.log(UserStor.userInfo, 'user info (need language)') 
         $timeout(function() {
           $location.path("/"+GlobalStor.global.currOpenPage);
         }, 500);
@@ -45,7 +63,9 @@
   
       //------ clicking
       thisCtrl.gotoSettingsPage = gotoSettingsPage;
-      thisCtrl.switchCurrency = switchCurrency;
+      thisCtrl.switchCurrencyToUsd = switchCurrencyToUsd;
+      thisCtrl.switchCurrencyToEur = switchCurrencyToEur;
+      thisCtrl.switchCurrencyToUah = switchCurrencyToUah;
       thisCtrl.gotDeviceCurrency = loginServ.gotDeviceCurrency;
   
         $("#main-frame").addClass("main-frame-mobView");
