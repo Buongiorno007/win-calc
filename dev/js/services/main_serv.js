@@ -280,16 +280,16 @@
                 } else {
                     //console.log(product.profile, ' product.profile.')
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
-                    //console.log(product.locales_names, 'product.locales_names')
+                    console.log(product.locales_names, 'product.locales_names')
                     product.locales_names = angular.copy(GlobalStor.global.locales_names);
                     //console.log(product.currencies, 'product.currencie')
                     product.currencies = angular.copy(GlobalStor.global.currencies);
-                    //console.log(UserStor.userInfo.currencies, 'user info (need language)') 
-                    //console.log(ProductStor.product.productPriceDis, 'product price dis')
+                    console.log(UserStor.userInfo.currencies, 'user info (need language)') 
+                    console.log(ProductStor.product.productPriceDis, 'product price dis')
                 }
-                //console.log(product.profile, ' product.profile.')
-                // console.log(product.locales_names, 'locales_names')
-                //console.log(GlobalStor.global, 'глобалстор')
+                console.log(product.profile, ' product.profile.')
+                console.log(product.locales_names, 'locales_names')
+                console.log(GlobalStor.global, 'глобалстор')
                 //console.log(UserStor.userInfo, 'user info (need language)') 
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(

@@ -135,8 +135,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                         .discount-price-container
                             .discount-price-box
                                 .discount-price-label {{ ::cartPage.DISCOUNT_WITHOUT }}
-                                .discount-price(ng-if="cartPage.U.userInfo.currencies === '$'") {{ cartPage.O.order.order_price / cartPage.G.global.currencies[0].value }} {{cartPage.U.userInfo.currencies}}
-                                .discount-price(ng-if="cartPage.U.userInfo.currencies === '€'") {{ cartPage.O.order.order_price / cartPage.G.global.currencies[2].value }} {{cartPage.U.userInfo.currencies}}
+                                .discount-price(ng-if="cartPage.U.userInfo.currencies === '$'") {{ cartPage.O.order.order_price / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}
+                                .discount-price(ng-if="cartPage.U.userInfo.currencies === '€'") {{ cartPage.O.order.order_price / cartPage.G.global.currencies[2].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}
                                 .discount-price(ng-if="cartPage.U.userInfo.currencies === '₴'") {{ cartPage.O.order.order_price}} {{cartPage.U.userInfo.currencies}}
                             .discount-price-box
                                 .discount-price-label {{ ::cartPage.DISCOUNT_WITH }}
@@ -233,10 +233,10 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                         .addelement-value {{ addelement.element_qty }}
                                         .addelement-label {{ ::cartPage.QTY_LABEL }}
                                 .addelement-parameters
-                                    .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '$'") + {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[0].value}} {{ cartPage.U.userInfo.currencies }}
-                                    .addelement-label(ng-if="cartPage.U.userInfo.currencies === '$'") ({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[0].value}}{{ cartPage.U.userInfo.currencies }})
-                                     .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '€'") + {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[2].value}} {{ cartPage.U.userInfo.currencies }}
-                                    .addelement-label(ng-if="cartPage.U.userInfo.currencies === '€'") ({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[2].value}}{{ cartPage.U.userInfo.currencies }})
+                                    .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '$'") + {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[0].value | number: 1.0}} {{ cartPage.U.userInfo.currencies }}
+                                    .addelement-label(ng-if="cartPage.U.userInfo.currencies === '$'") ({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[0].value | number: 1.0}}{{ cartPage.U.userInfo.currencies }})
+                                     .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '€'") + {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[2].value | number: 1.0}} {{ cartPage.U.userInfo.currencies }}
+                                    .addelement-label(ng-if="cartPage.U.userInfo.currencies === '€'") ({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[2].value | number: 1.0}}{{ cartPage.U.userInfo.currencies }})
                                     .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '₴'") + {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currencies }}
                                     .addelement-label(ng-if="cartPage.U.userInfo.currencies === '₴'") ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currencies }})
                         .service-block
@@ -251,8 +251,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                             .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4] != 0")
                                 | {{cartPage.OTHER }}- {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}
                         .addelements-detail-row.price-one-product
-                            .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '$'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[0].value}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currencies}}")
-                            .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '€'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[2].value}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currencies}}")
+                            .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '$'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[0].value | number: 1.0}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currencies}}")
+                            .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '€'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[2].value | number: 1.0}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currencies}}")
                             .addelement-price-value(ng-if="cartPage.U.userInfo.currencies === '₴'" price-fixed="{{ cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currencies}}")
                             .product-label {{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}
                     .addelements-detail-footer

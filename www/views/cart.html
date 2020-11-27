@@ -218,8 +218,8 @@
             <div class="discount-price-container">
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ ::cartPage.DISCOUNT_WITHOUT }}</div>
-                <div ng-if="cartPage.U.userInfo.currencies === '$'" class="discount-price">{{ cartPage.O.order.order_price / cartPage.G.global.currencies[0].value }} {{cartPage.U.userInfo.currencies}}</div>
-                <div ng-if="cartPage.U.userInfo.currencies === '€'" class="discount-price">{{ cartPage.O.order.order_price / cartPage.G.global.currencies[2].value }} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '$'" class="discount-price">{{ cartPage.O.order.order_price / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '€'" class="discount-price">{{ cartPage.O.order.order_price / cartPage.G.global.currencies[2].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
                 <div ng-if="cartPage.U.userInfo.currencies === '₴'" class="discount-price">{{ cartPage.O.order.order_price}} {{cartPage.U.userInfo.currencies}}</div>
               </div>
               <div class="discount-price-box">
@@ -347,11 +347,11 @@
                   </div>
                 </div>
                 <div class="addelement-parameters">
-                  <div ng-if="cartPage.U.userInfo.currencies === '$'" class="addelement-price-value">+ {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[0].value}} {{ cartPage.U.userInfo.currencies }}</div>
-                  <div ng-if="cartPage.U.userInfo.currencies === '$'" class="addelement-label">({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[0].value}}{{ cartPage.U.userInfo.currencies }})
-                    <div ng-if="cartPage.U.userInfo.currencies === '€'" class="addelement-price-value">+ {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[2].value}} {{ cartPage.U.userInfo.currencies }}</div>
+                  <div ng-if="cartPage.U.userInfo.currencies === '$'" class="addelement-price-value">+ {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[0].value | number: 1.0}} {{ cartPage.U.userInfo.currencies }}</div>
+                  <div ng-if="cartPage.U.userInfo.currencies === '$'" class="addelement-label">({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[0].value | number: 1.0}}{{ cartPage.U.userInfo.currencies }})
+                    <div ng-if="cartPage.U.userInfo.currencies === '€'" class="addelement-price-value">+ {{ (addelement.element_qty * addelement.elementPriceDis) / cartPage.G.global.currencies[2].value | number: 1.0}} {{ cartPage.U.userInfo.currencies }}</div>
                   </div>
-                  <div ng-if="cartPage.U.userInfo.currencies === '€'" class="addelement-label">({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[2].value}}{{ cartPage.U.userInfo.currencies }})</div>
+                  <div ng-if="cartPage.U.userInfo.currencies === '€'" class="addelement-label">({{ addelement.element_qty }} x {{ addelement.elementPriceDis / cartPage.G.global.currencies[2].value | number: 1.0}}{{ cartPage.U.userInfo.currencies }})</div>
                   <div ng-if="cartPage.U.userInfo.currencies === '₴'" class="addelement-price-value">+ {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currencies }}</div>
                   <div ng-if="cartPage.U.userInfo.currencies === '₴'" class="addelement-label">({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currencies }})</div>
                 </div>
@@ -365,8 +365,8 @@
               <div ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4] != 0" class="sb-5">{{cartPage.OTHER }}- {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}</div>
             </div>
             <div class="addelements-detail-row price-one-product">
-              <div ng-if="cartPage.U.userInfo.currencies === '$'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[0].value}}" qty-element="1" currency-element="{{cartPage.U.userInfo.currencies}}" class="addelement-price-value"></div>
-              <div ng-if="cartPage.U.userInfo.currencies === '€'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[2].value}}" qty-element="1" currency-element="{{cartPage.U.userInfo.currencies}}" class="addelement-price-value"></div>
+              <div ng-if="cartPage.U.userInfo.currencies === '$'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[0].value | number: 1.0}}" qty-element="1" currency-element="{{cartPage.U.userInfo.currencies}}" class="addelement-price-value"></div>
+              <div ng-if="cartPage.U.userInfo.currencies === '€'" price-fixed="{{ (cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis) / cartPage.G.global.currencies[2].value | number: 1.0}}" qty-element="1" currency-element="{{cartPage.U.userInfo.currencies}}" class="addelement-price-value"></div>
               <div ng-if="cartPage.U.userInfo.currencies === '₴'" price-fixed="{{ cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}" qty-element="1" currency-element="{{cartPage.U.userInfo.currencies}}" class="addelement-price-value"></div>
               <div class="product-label">{{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}</div>
             </div>
