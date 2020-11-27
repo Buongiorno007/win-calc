@@ -29,7 +29,7 @@
                 button.aux-params-but(fs-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)", ng-keyup="elementsListPanel.pressCulculator($event)", ng-disabled="!elementsListPanel.P.product.is_addelem_only && $parent.$index === 0") {{ addElement.element_height }}
                 .aux-label(data-output="{{ ::elementsListPanel.HEIGHT_LABEL }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-price
-              .aux-price(price-fixed="{{addElement.elementPriceDis}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsListPanel.U.userInfo.currency}}")
+              .aux-price(price-fixed="{{(addElement.elementPriceDis / elementsListPanel.G.global.currencies[0].value)}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsListPanel.U.userInfo.currencies}}")
             td.aux-tablecell-delete
               .aux-delete(fs-click="elementsListPanel.deleteAddElement($parent.$index, $index)")
 
@@ -40,7 +40,9 @@
           td.aux-tablecell-total
             .aux-total-label(data-output="{{ ::elementsListPanel.TOTAL_PRICE_TXT }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-price
-            .aux-total-price {{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
+            .aux-total-price(ng-if="elementsListPanel.U.userInfo.currencies === '$'") {{ elementsListPanel.P.product.addelemPriceDis / elementsListPanel.G.global.currencies[0].value | number: 1.0}} {{ elementsListPanel.U.userInfo.currencies }}
+            .aux-total-price(ng-if="elementsListPanel.U.userInfo.currencies === '€'") {{ elementsListPanel.P.product.addelemPriceDis / elementsListPanel.G.global.currencies[2].value | number: 1.0}} {{ elementsListPanel.U.userInfo.currencies }}
+            .aux-total-price(ng-if="elementsListPanel.U.userInfo.currencies === '₴'") {{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currencies }}
           td.aux-tablecell-delete
             .aux-delete(fs-click="elementsListPanel.deleteAllAddElements()")
 

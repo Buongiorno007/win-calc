@@ -11,10 +11,10 @@
 
           span.name.aside(ng-show="cartMenu.O.order.floor_id", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '$'" ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add",
-            data-output=" + {{ (cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add) / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}",
+            data-output=" + {{ (cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add) / cartMenu.G.global.currencies[0].value | number: 1.0}} {{ cartMenu.U.userInfo.currencies }}",
             typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '€'" ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add",
-            data-output=" + {{ (cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add) / cartMenu.G.global.currencies[2].value}} {{ cartMenu.U.userInfo.currencies }}",
+            data-output=" + {{ (cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add) / cartMenu.G.global.currencies[2].value | number: 1.0}} {{ cartMenu.U.userInfo.currencies }}",
             typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '₴'" ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add",
             data-output=" + {{ cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add }} {{ cartMenu.U.userInfo.currencies }}",
@@ -29,8 +29,8 @@
           li.dropdown-item(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(supplyList)")
             .dropdown-item-inner
               .value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
-              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '$'") + {{supplyList.priceReal / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}
-              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '€'") + {{supplyList.priceReal / cartMenu.G.global.currencies[2].value }} {{ cartMenu.U.userInfo.currencies }}
+              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '$'") + {{supplyList.priceReal / cartMenu.G.global.currencies[0].value | number:'1.2-2'}} {{ cartMenu.U.userInfo.currencies }}
+              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '€'") + {{supplyList.priceReal / cartMenu.G.global.currencies[2].value | number:'1.2-2' }} {{ cartMenu.U.userInfo.currencies }}
               .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '₴'") + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currencies }}
           li.dropdown-item
             .dropdown-item-inner
@@ -58,8 +58,8 @@
           li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.disassemblyData", ng-class="{'selected': assemb.id == cartMenu.O.order.dismantling_id}", fs-click="cartMenu.selectDisAssembling(assemb)")
             .dropdown-item-inner
               .value.drop-txt {{ assemb.name }}
-              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '$'") + {{supplyList.priceReal / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}
-              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '€'") + {{supplyList.priceReal / cartMenu.G.global.currencies[2].value }} {{ cartMenu.U.userInfo.currencies }}
+              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '$'") + {{supplyList.priceReal / cartMenu.G.global.currencies[0].value | number: 1.0}} {{ cartMenu.U.userInfo.currencies }}
+              .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '€'") + {{supplyList.priceReal / cartMenu.G.global.currencies[2].value | number: 1.0}} {{ cartMenu.U.userInfo.currencies }}
               .name.drop-txt(ng-if="cartMenu.U.userInfo.currencies === '₴'") + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currencies }}
 
 
@@ -68,8 +68,8 @@
         .cart-item-data
           .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           .value(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '$'" ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price / cartMenu.G.global.currencies[0].value}} {{ cartMenu.U.userInfo.currencies }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '€'" ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price / cartMenu.G.global.currencies[2].value}} {{ cartMenu.U.userInfo.currencies }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '$'" ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price / cartMenu.G.global.currencies[0].value | number: 1.0}} {{ cartMenu.U.userInfo.currencies }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '€'" ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price / cartMenu.G.global.currencies[2].value | number: 1.0}} {{ cartMenu.U.userInfo.currencies }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-if="cartMenu.U.userInfo.currencies === '₴'" ng-show="cartMenu.O.order.mounting_id", data-output=" + {{cartMenu.O.order.mounting_price}} {{ cartMenu.U.userInfo.currencies }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
 
       .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")

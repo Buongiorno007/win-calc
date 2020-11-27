@@ -986,5 +986,7 @@
                     .aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
                         button.aux-params-but(fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_height }}
                         .aux-label {{ ::elementsMenu.HEIGHT_LABEL }}
-                    .tab-aux-price(price-fixed="{{addElement.elementPriceDis}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsMenu.U.userInfo.currency}}")
+                    .tab-aux-price(ng-if="elementsMenu.U.userInfo.currencies === '$'" price-fixed="{{addElement.elementPriceDis / elementsMenu.G.global.currencies[0].value | number: 1.2}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsMenu.U.userInfo.currencies}}")
+                    .tab-aux-price(ng-if="elementsMenu.U.userInfo.currencies === '€'" price-fixed="{{addElement.elementPriceDis / elementsMenu.G.global.currencies[2].value | number: 1.2}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsMenu.U.userInfo.currencies}}")
+                    .tab-aux-price(ng-if="elementsMenu.U.userInfo.currencies === '₴'" price-fixed="{{addElement.elementPriceDis}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsMenu.U.userInfo.currencies}}")
                     .aux-delete(fs-click="elementsMenu.deleteAddElement($parent.$index, $index)")

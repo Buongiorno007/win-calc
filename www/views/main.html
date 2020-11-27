@@ -631,7 +631,7 @@
                       </div>
                     </td>
                     <td class="aux-tablecell-price">
-                      <div price-fixed="{{addElement.elementPriceDis}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsListPanel.U.userInfo.currency}}" class="aux-price"></div>
+                      <div price-fixed="{{(addElement.elementPriceDis / elementsListPanel.G.global.currencies[0].value)}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsListPanel.U.userInfo.currencies}}" class="aux-price"></div>
                     </td>
                     <td class="aux-tablecell-delete">
                       <div fs-click="elementsListPanel.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
@@ -647,7 +647,9 @@
                     <div data-output="{{ ::elementsListPanel.TOTAL_PRICE_TXT }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
                   </td>
                   <td class="aux-tablecell-price">
-                    <div class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                    <div ng-if="elementsListPanel.U.userInfo.currencies === '$'" class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis / elementsListPanel.G.global.currencies[0].value | number: 1.0}} {{ elementsListPanel.U.userInfo.currencies }}</div>
+                    <div ng-if="elementsListPanel.U.userInfo.currencies === '€'" class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis / elementsListPanel.G.global.currencies[2].value | number: 1.0}} {{ elementsListPanel.U.userInfo.currencies }}</div>
+                    <div ng-if="elementsListPanel.U.userInfo.currencies === '₴'" class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currencies }}</div>
                   </td>
                   <td class="aux-tablecell-delete">
                     <div fs-click="elementsListPanel.deleteAllAddElements()" class="aux-delete"></div>
@@ -1732,7 +1734,9 @@
                   <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ ::elementsMenu.HEIGHT_LABEL }}</div>
                 </div>
-                <div price-fixed="{{addElement.elementPriceDis}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsMenu.U.userInfo.currency}}" class="tab-aux-price"></div>
+                <div ng-if="elementsMenu.U.userInfo.currencies === '$'" price-fixed="{{addElement.elementPriceDis / elementsMenu.G.global.currencies[0].value | number: 1.2}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsMenu.U.userInfo.currencies}}" class="tab-aux-price"></div>
+                <div ng-if="elementsMenu.U.userInfo.currencies === '€'" price-fixed="{{addElement.elementPriceDis / elementsMenu.G.global.currencies[2].value | number: 1.2}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsMenu.U.userInfo.currencies}}" class="tab-aux-price"></div>
+                <div ng-if="elementsMenu.U.userInfo.currencies === '₴'" price-fixed="{{addElement.elementPriceDis}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsMenu.U.userInfo.currencies}}" class="tab-aux-price"></div>
                 <div fs-click="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
               </div>
             </div>
