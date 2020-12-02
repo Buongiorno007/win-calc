@@ -28,8 +28,6 @@
 
       function switchCurrencyToUsd(currencyId) {
         UserStor.userInfo.currencies = '$'
-        console.log('Dollor on')
-        console.log(UserStor.userInfo, 'user info (need language)') 
         $timeout(function() {
           $location.path("/"+GlobalStor.global.currOpenPage);
         }, 500);
@@ -37,8 +35,6 @@
 
       function switchCurrencyToEur(currencyId) {
         UserStor.userInfo.currencies = '€'
-        console.log('Evro on')
-        console.log(UserStor.userInfo, 'user info (need language)') 
         $timeout(function() {
           $location.path("/"+GlobalStor.global.currOpenPage);
         }, 500);
@@ -46,8 +42,6 @@
 
       function switchCurrencyToUah(currencyId) {
         UserStor.userInfo.currencies = '₴'
-        console.log('Grivna on')
-        console.log(UserStor.userInfo, 'user info (need language)') 
         $timeout(function() {
           $location.path("/"+GlobalStor.global.currOpenPage);
         }, 500);

@@ -26,6 +26,14 @@
             var thisFactory = this;
 
             /**============ METHODS ================*/
+            var db = localforage.createInstance({
+                driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+                name: 'bauvoice',
+                version: 2.0,
+                size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+                storeName: 'bauvoice', // Should be alphanumeric, with underscores.
+                description: 'some description'
+            });
 
             function getOnline() {
                 $.get(globalConstants.serverIP, function () {
@@ -278,19 +286,44 @@
                         fineItemById(id, GlobalStor.global.profiles)
                     );
                 } else {
-                    //console.log(product.profile, ' product.profile.')
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                     console.log(product.locales_names, 'product.locales_names')
-                    product.locales_names = angular.copy(GlobalStor.global.locales_names);
                     //console.log(product.currencies, 'product.currencie')
                     product.currencies = angular.copy(GlobalStor.global.currencies);
                     console.log(UserStor.userInfo.currencies, 'user info (need language)') 
-                    console.log(ProductStor.product.productPriceDis, 'product price dis')
+                    console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
                 console.log(product.profile, ' product.profile.')
-                console.log(product.locales_names, 'locales_names')
                 console.log(GlobalStor.global, 'глобалстор')
-                //console.log(UserStor.userInfo, 'user info (need language)') 
+                var data = null
+                function needed_data() {
+                    var defer = $q.defer();
+                    db.getItem('tables').then(function (value) {
+                        data = value;
+                        defer.resolve(data);
+                    }).catch(function (err) {
+                        console.log(err);
+                        defer.resolve(0);
+                    });
+                    return defer.promise;
+                }  
+                needed_data().then(
+                    function(data) {
+                        console.log(data)
+                        product.locales_names_addition_folders = data
+                        GlobalStor.global.locales_names_addition_folders = data
+                        const array_size = 3;
+
+                        const sliced_array = [];
+
+                        for (let i = 0; i <GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
+                            sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
+                        }
+                        GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
+                        console.log(sliced_array);
+                    }
+                )
+               
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id

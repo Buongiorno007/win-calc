@@ -148,7 +148,7 @@
                         doorsLaminations: [],
 
                         //-------- Locales names (Translation of individual elements)
-                        locales_names: [],
+                        locales_names_addition_folders: [],
 
                         //-------- Currencies 
                         currencies: [],

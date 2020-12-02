@@ -31,6 +31,7 @@
 
             profile: {},
             locales_names: {},
+            locales_names_additional: {},
             currencies: {},
             glass: [],
             hardware: {},
