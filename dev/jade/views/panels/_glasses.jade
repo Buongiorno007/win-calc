@@ -6,49 +6,9 @@
       .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" )
         .info.folder-info(ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
           label i
-        //- label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
-        //- .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
-
-        label.title(
-        ng-if='glassPanel.G.global.glassTypes[$index].name === "Стандартные однокамерные"' 
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER }}
-        label.title(  
-        ng-if='glassPanel.G.global.glassTypes[$index].name === "Стандартные двухкамерные"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_2 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Энергосберегающие однокамерные"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_3 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Энергосберегающие двухкамерные"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_4 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Моностекло"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_5 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Сендвич-панели"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_6 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "С стеклом \\"Дельта\\""'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_7 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Сатин белый матовый"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_8 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "С стеклом \\"Кризет\\""'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_9 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "С противоударной плёнкой 225 мкм"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_10 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Сатин бронза матовый"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_11 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Стекло Bronze Reflect 28%"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_12 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Стекло Blue Reflect 32%"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_13 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Стекло Gold Reflect 47%"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_14 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Стекло Silver Reflect 20%"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_15 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Калёное стекло ESG"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_16 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Диамант белый"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_17 }}
-        label.title(ng-if='glassPanel.G.global.glassTypes[$index].name === "Диамант коричневый"'
-        ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{ ::glassPanel.GLASS_HEADER_18 }}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
         .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
-          
+
       .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
         .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
           .glass-width
