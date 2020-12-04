@@ -14911,9 +14911,9 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: ,,
-      printIP: ,,
-      localPath: ,,
+      serverIP: 'https://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
+      localPath: '/local/',
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -27949,16 +27949,24 @@ function ErrorResult(code, message) {
                         // for (let i = 0; i <GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
                         //     sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
                         // }
+                        
                         // GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
                         // console.log(sliced_array, 'sliced arrray')
-                        // // console.log(GlobalStor.global.profiles)
-                        // const filtered = sliced_array[0].filter(element => element.table_attr === "name")
-                        // console.log(filtered, 'filtered data')
+
+
+                        // const filteredArrayByName = sliced_array[0].filter(element => element.table_attr === "name")
+                        // //console.log(filteredArrayByName, 'filtered Array By Name data')
+                        // const loopedArray = filteredArrayByName.forEach(element => console.log(element, 'o YAYA'))
+
+
 
 
                         // for(let i =0; i<GlobalStor.global.profiles[0].length; i++) {
-                        //     //console.log(GlobalStor.global.profiles[0][i])
-                        //     GlobalStor.global.profiles[0][i]["translate"] = filtered[0][i]
+                        //     console.log(GlobalStor.global.profiles[0][i])
+                        //     //GlobalStor.global.profiles[0][i]["translate"] = loopedArray
+                        //     for(let y =0; y<GlobalStor.global.profiles[0][i]; i++){ 
+                        //         console.log(GlobalStor.global.profiles[0][i][y])
+                        //     }
                         // }
                     }
                 )

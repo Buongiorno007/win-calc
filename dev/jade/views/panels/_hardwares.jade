@@ -15,7 +15,7 @@
               img(ng-src="{{ hardware.img }}")
           .hardware-box-data
             .hardware-data-txt
-             .hardware-descr(data-output="{{ ::hardware.name }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
+              .hardware-descr(data-output="{{ ::hardware.name }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
               .hardware-data
                 .hardware-brand(data-output="{{ ::hardware.producer }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
                 .hardware-label(data-output="{{ ::hardwarePanel.BRAND }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")
