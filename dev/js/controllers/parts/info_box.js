@@ -5,10 +5,11 @@
     .module('MainModule')
     .controller('infoBoxCtrl',
 
-      function (GlobalStor, InfoBoxServ, $filter, MainServ) {
+      function (GlobalStor, UserStor, InfoBoxServ, $filter, MainServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.G = GlobalStor;
+        thisCtrl.U = UserStor;
         //Country translation 
         thisCtrl.COUNTRY_NAME = $filter('translate')('natification.COUNTRY_NAME');
         thisCtrl.COUNTRY_DESKR = $filter('translate')('natification.COUNTRY_DESKR');
@@ -50,6 +51,14 @@
         thisCtrl.PROFILE_DESKR_16 = $filter('translate')('natification.PROFILE_DESKR_16');
         thisCtrl.PROFILE_TITLE_17 = $filter('translate')('natification.PROFILE_TITLE_17');
         thisCtrl.PROFILE_DESKR_17 = $filter('translate')('natification.PROFILE_DESKR_17');
+        thisCtrl.PROFILE_TITLE_18 = $filter('translate')('natification.PROFILE_TITLE_18');
+        thisCtrl.PROFILE_DESKR_18 = $filter('translate')('natification.PROFILE_DESKR_18');
+        thisCtrl.PROFILE_TITLE_19 = $filter('translate')('natification.PROFILE_TITLE_19');
+        thisCtrl.PROFILE_DESKR_19 = $filter('translate')('natification.PROFILE_DESKR_19');
+        thisCtrl.PROFILE_TITLE_20 = $filter('translate')('natification.PROFILE_TITLE_20');
+        thisCtrl.PROFILE_DESKR_20 = $filter('translate')('natification.PROFILE_DESKR_20');
+        thisCtrl.PROFILE_TITLE_21 = $filter('translate')('natification.PROFILE_TITLE_21');
+        thisCtrl.PROFILE_DESKR_21 = $filter('translate')('natification.PROFILE_DESKR_21');
         // These are already transfers of double-glazed windows
         thisCtrl.GLASS_TITLE = $filter('translate')('natification.GLASS_TITLE');
         thisCtrl.GLASS_DESKR = $filter('translate')('natification.GLASS_DESKR');

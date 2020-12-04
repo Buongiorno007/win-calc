@@ -7200,10 +7200,11 @@ if (window.location.hostname !== 'localhost') {
     .module('MainModule')
     .controller('infoBoxCtrl',
 
-      function (GlobalStor, InfoBoxServ, $filter, MainServ) {
+      function (GlobalStor, UserStor, InfoBoxServ, $filter, MainServ) {
         /*jshint validthis:true */
         var thisCtrl = this;
         thisCtrl.G = GlobalStor;
+        thisCtrl.U = UserStor;
         //Country translation 
         thisCtrl.COUNTRY_NAME = $filter('translate')('natification.COUNTRY_NAME');
         thisCtrl.COUNTRY_DESKR = $filter('translate')('natification.COUNTRY_DESKR');
@@ -7245,6 +7246,14 @@ if (window.location.hostname !== 'localhost') {
         thisCtrl.PROFILE_DESKR_16 = $filter('translate')('natification.PROFILE_DESKR_16');
         thisCtrl.PROFILE_TITLE_17 = $filter('translate')('natification.PROFILE_TITLE_17');
         thisCtrl.PROFILE_DESKR_17 = $filter('translate')('natification.PROFILE_DESKR_17');
+        thisCtrl.PROFILE_TITLE_18 = $filter('translate')('natification.PROFILE_TITLE_18');
+        thisCtrl.PROFILE_DESKR_18 = $filter('translate')('natification.PROFILE_DESKR_18');
+        thisCtrl.PROFILE_TITLE_19 = $filter('translate')('natification.PROFILE_TITLE_19');
+        thisCtrl.PROFILE_DESKR_19 = $filter('translate')('natification.PROFILE_DESKR_19');
+        thisCtrl.PROFILE_TITLE_20 = $filter('translate')('natification.PROFILE_TITLE_20');
+        thisCtrl.PROFILE_DESKR_20 = $filter('translate')('natification.PROFILE_DESKR_20');
+        thisCtrl.PROFILE_TITLE_21 = $filter('translate')('natification.PROFILE_TITLE_21');
+        thisCtrl.PROFILE_DESKR_21 = $filter('translate')('natification.PROFILE_DESKR_21');
         // These are already transfers of double-glazed windows
         thisCtrl.GLASS_TITLE = $filter('translate')('natification.GLASS_TITLE');
         thisCtrl.GLASS_DESKR = $filter('translate')('natification.GLASS_DESKR');
@@ -26075,7 +26084,7 @@ function ErrorResult(code, message) {
                         priceObj.kits = angular.copy(kits);
                         //--- add other profiles
                         priceObj.kits.push(prof, prof, prof);
-                        console.warn('kits!!!!!!+', priceObj.kits);
+                        //console.warn('kits!!!!!!+', priceObj.kits);
 
                         $q
                             .all([
@@ -28597,16 +28606,12 @@ function ErrorResult(code, message) {
                     //console.log(product.currencies, 'product.currencie')
                     product.currencies = angular.copy(GlobalStor.global.currencies);
                     console.log(UserStor.userInfo.currencies, 'user info (need language)') 
-                    console.log(ProductStor.product.productPriceDis, 'product price dis')
-                    
+                    console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
                 console.log(product.profile, ' product.profile.')
                 console.log(GlobalStor.global, 'глобалстор')
-                console.log(ProductStor, 'product stor')
-                //var needed_data = db.getItem('tables')
-                //console.log(needed_data, 'needed_data')
+                console.log(UserStor.userInfo, 'User info')
                 var data = null
-
                 function needed_data() {
                     var defer = $q.defer();
                     db.getItem('tables').then(function (value) {
@@ -28620,31 +28625,30 @@ function ErrorResult(code, message) {
                 }  
                 needed_data().then(
                     function(data) {
-                        console.log(data)
-                        product.locales_names_addition_folders = data
-                        GlobalStor.global.locales_names_addition_folders = data
-                        const array_size = 3;
+                        // console.log(data)
+                        // product.locales_names_addition_folders = data
+                        // GlobalStor.global.locales_names_addition_folders = data
+                        // const array_size = 100;
 
-                        const sliced_array = [];
+                        // const sliced_array = [];
 
-                        for (let i = 0; i <GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
-                            sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
-                        }
-                        GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
-                        console.log(sliced_array);
+                        // for (let i = 0; i <GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
+                        //     sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
+                        // }
+                        // GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
+                        // console.log(sliced_array, 'sliced arrray')
+                        // // console.log(GlobalStor.global.profiles)
+                        // const filtered = sliced_array[0].filter(element => element.table_attr === "name")
+                        // console.log(filtered, 'filtered data')
+
+
+                        // for(let i =0; i<GlobalStor.global.profiles[0].length; i++) {
+                        //     //console.log(GlobalStor.global.profiles[0][i])
+                        //     GlobalStor.global.profiles[0][i]["translate"] = filtered[0][i]
+                        // }
                     }
                 )
                
-                
-
-
-
-            
-                
-
-
-
-
                 if (product.lamination.id > 0) {
                     product.profile.rama_list_id = angular.copy(
                         laminat.rama_list_id

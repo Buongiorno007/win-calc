@@ -295,6 +295,7 @@
                 }
                 console.log(product.profile, ' product.profile.')
                 console.log(GlobalStor.global, 'глобалстор')
+                console.log(UserStor.userInfo, 'User info')
                 var data = null
                 function needed_data() {
                     var defer = $q.defer();
@@ -309,18 +310,27 @@
                 }  
                 needed_data().then(
                     function(data) {
-                        console.log(data)
-                        product.locales_names_addition_folders = data
-                        GlobalStor.global.locales_names_addition_folders = data
-                        const array_size = 3;
+                        // console.log(data)
+                        // product.locales_names_addition_folders = data
+                        // GlobalStor.global.locales_names_addition_folders = data
+                        // const array_size = 100;
 
-                        const sliced_array = [];
+                        // const sliced_array = [];
 
-                        for (let i = 0; i <GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
-                            sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
-                        }
-                        GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
-                        console.log(sliced_array);
+                        // for (let i = 0; i <GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
+                        //     sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
+                        // }
+                        // GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
+                        // console.log(sliced_array, 'sliced arrray')
+                        // // console.log(GlobalStor.global.profiles)
+                        // const filtered = sliced_array[0].filter(element => element.table_attr === "name")
+                        // console.log(filtered, 'filtered data')
+
+
+                        // for(let i =0; i<GlobalStor.global.profiles[0].length; i++) {
+                        //     //console.log(GlobalStor.global.profiles[0][i])
+                        //     GlobalStor.global.profiles[0][i]["translate"] = filtered[0][i]
+                        // }
                     }
                 )
                

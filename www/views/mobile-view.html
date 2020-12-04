@@ -1184,7 +1184,7 @@
           <div class="info_title">{{ ::infoBox.IDEAL_NAME }}</div>
           <div class="info_descrip">{{ ::infoBox.IDEAL_DESKR }}</div>
         </ng-switch>
-        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (Арм.станд.)&quot;">
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (Арм.станд.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;&quot;">
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR }}</div>
         </ng-switch>
@@ -1208,7 +1208,7 @@
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE_6 }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_6 }}</div>
         </ng-switch>
-        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S700 (□1,5мм арм.)&quot;"> 
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S700 (□1,5мм арм.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;&quot;"> 
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE_7 }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_7 }}</div>
         </ng-switch>
@@ -1232,11 +1232,11 @@
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE_12 }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_12 }}</div>
         </ng-switch>
-        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (Арм.станд.)&quot;">
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (Арм.станд.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;&quot;">
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE_13 }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_13 }}</div>
         </ng-switch>
-        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (□1,5мм арм.)&quot;">
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (□1,5мм арм.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;&quot;">
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE_14 }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_14 }}</div>
         </ng-switch>
@@ -1248,9 +1248,41 @@
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE_16 }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_16 }}</div>
         </ng-switch>
-        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL7000(□1,5мм)&quot;">
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL7000(□1,5мм)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;&quot;">
           <div class="info_title">{{ ::infoBox.PROFILE_TITLE_17 }}</div>
           <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_17 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (Арм.станд.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;STEKO_test@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_18 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_18 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S700 (□1,5мм арм.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;STEKO_test@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_19 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_19 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (□1,5мм арм.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;STEKO_test@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_20 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_20 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL7000(□1,5мм)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;STEKO_test@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_21 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_21 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S500 (Арм.станд.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;steko_www@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_18 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_18 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko S400 (□1,5мм арм.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;steko_www@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_19 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_19 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL2000 (Арм.станд.)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;steko_www@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_20 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_20 }}</div>
+        </ng-switch>
+        <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Steko IDEAL7000(□1,5мм)&quot; &amp;&amp; infoBox.U.userInfo.email === &quot;steko_www@windowscalculator.net&quot;">
+          <div class="info_title">{{ ::infoBox.PROFILE_TITLE_21 }}</div>
+          <div class="info_descrip">{{ ::infoBox.PROFILE_DESKR_21 }}</div>
         </ng-switch>
         <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Стандартные однокамерные&quot;">
           <div class="info_title">{{ ::infoBox.GLASS_TITLE }}</div>
@@ -1504,10 +1536,6 @@
           <div class="info_title">{{ ::infoBox.MACO_TITLE }}</div>
           <div class="info_descrip">{{ ::infoBox.MACO_DESKR }}</div>
         </ng-switch>
-        <ng-switch-default ng-if="infoBox.G.global.infoTitle !== &quot;Украина&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;IDEAL&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko S500 (Арм.станд.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko S500 (П1.5мм арм.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko S500 (□1,5мм арм.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko S400 (Арм.станд.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko S700 (Арм.станд.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko S700 (П1,5мм арм.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko S700 (□1,5мм арм.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;S700Крыло(Арм.станд.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;S700Крыло(□1,5мм арм.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;EXTRA V75 (Арм.станд.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;EXTRA V75 (П 1,5мм)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;EXTRA V75 (□1,5мм арм.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko IDEAL2000 (Арм.станд.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko IDEAL2000 (□1,5мм арм.)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko IDEAL4000(П 1,5мм)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko IDEAL4000(□1,5мм)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Steko IDEAL7000(□1,5мм)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Стандартные однокамерные&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Стандартные двухкамерные&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Энергосберегающие однокамерные&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Энергосберегающее двухкамерные&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Моностекло&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Сендвич-панели&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;С стеклом \&quot;Дельта\&quot;&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Сатин белый матовый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;С стеклом \&quot;Кризет\&quot;&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;С противоударной плёнкой 225 мкм&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Сатин бронза матовый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Стекло Bronze Reflect 28%&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Стекло Blue Reflect 32%&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Стекло Gold Reflect 47%&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Стекло Silver Reflect 20%&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Калёное стекло ESG&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Диамант белый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Диамант коричневый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24мм 4-16-4&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14-4&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4-10-4-10-4&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4i с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4MDS_Plus-16_Ar-4 мультифункц.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16_Ar-4i с i-стеклом, Аргон&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14-4i с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4MDS_Plus-14_Ar-6 мультифункц.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14_Ar-4i с i-стеклом,Аргон&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14_Ar-4i с i-стеклом,Аргон&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4-10_Ar-4-10_Ar-4i с i-стеклом,аргон &quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 6-8_Ar-4-10_Ar-4i &quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4MDS_Plus-10_Ar-4-10_Ar-4i мультифункц. с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4MDS_Plus-10_Ar-4-10_Ar-4 мультифункц.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4-10-4-10-4i с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4MDS_Plus-9_Ar-6-9_Ar-4i мультифункц. с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 6-8-4-10-4i&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4MDS_Plus-9_Ar-4-9_Ar-6 мультифункц. аргон&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Термопанель 24 мм (Сендвич)&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Термопанель 32 мм (Сендвич).&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4дельта бел-16_Ar-4 i-стекло,аргон&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4дельта бел-16-4 i-стекло&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4 дельта белое&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4 сатин бел.мат./сатин бел.мат.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4 сатин бел.мат./i-стекло&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4-10-4-10-4 сатин бел.мат.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4-10-4-10-4 сатин бел.мат.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4 сатин бел.мат.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4 кризет/кризет белый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4MDS_Plus-16_Ar-4KR мультифункц./Кризет бел.&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4i кризет белый i-стекло&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 4-10-4-10-4 кризет белый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4 кризет белый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14-4 кризет белый&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4 против. 225мкм&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14-4 противоуд. 225мкм&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6(225)-14-4(225) противоуд.225мкм&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14-4i противоуд. 225мкм с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 6_225мкм-8-4-10-4i противоуд. 225мкм с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПД 32 мм 6_225мкм-8-4-10-4i противоуд. 225мкм с i-стеклом&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16-4i&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4MDS_Plus-16_Ar-4&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4-16_Ar-4i&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14-4i&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 4MDS_Plus-14_Ar-6&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;СПО 24 мм 6-14_Ar-4i&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;AXOR&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;MACO&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;AXOR&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Komfort Line K-3&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;Komfort Line K-3 Микрощелевое&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;AXOR K3 FIRST TILT&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;STEKO Plus Скрытые петли&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;STEKO Plus&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;MACO VZ&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;MACO VZ Микрощелевое&quot; &amp;&amp; infoBox.G.global.infoTitle !== &quot;MACO IS Микрощелевое&quot;">
-          <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
-          <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
-        </ng-switch-default>
         <ng-switch ng-if="infoBox.G.global.infoTitle === &quot;Komfort Line K-3&quot;">
           <div class="info_title">{{ ::infoBox.FITTINGS_TITLE }}</div>
           <div class="info_descrip">{{ ::infoBox.FITTINGS_DESKR }}</div>
