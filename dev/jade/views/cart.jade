@@ -41,7 +41,22 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                             .order-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
                                             .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                                         li.order-item
-                                            .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
+                                            //-Conditions to display different translations
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.profile.translate.en }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.profile.translate.ru }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.profile.translate.ua }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.profile.translate.pl }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.profile.translate.de }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.profile.translate.it }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.profile.translate.bg }}
+                                            //-If there are no translation of the language it's displaying default value
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.profile.translate.en") {{ product.profile.name}}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.profile.translate.ru") {{ product.profile.name }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk' && !product.profile.translate.ua") {{ product.profile.name }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl' && !product.profile.translate.pl") {{ product.profile.name }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.profile.translate.de") {{ product.profile.name }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.profile.translate.it") {{ product.profile.name }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.profile.translate.bg") {{ product.profile.name}}
                                             .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
                                             .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
                                         li.order-item(ng-if="product.glass.length > 1")

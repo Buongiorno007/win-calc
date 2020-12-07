@@ -310,35 +310,52 @@
                 }  
                 needed_data().then(
                     function(data) {
-                        // console.log(data)
-                        // product.locales_names_addition_folders = data
-                        // GlobalStor.global.locales_names_addition_folders = data
-                        // const array_size = 100;
+                        //console.log(data)
+                        product.locales_names_addition_folders = data
+                        GlobalStor.global.locales_names_addition_folders = data
+                        const array_size = 100;
 
-                        // const sliced_array = [];
+                        const sliced_array = [];
 
-                        // for (let i = 0; i <GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
-                        //     sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
-                        // }
+                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
+                            sliced_array.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
+                        }
+                        GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
+
+                        const filtered_array_by_name = sliced_array[0].filter(element => element.table_attr === "name")
+                        let profiles_data_first_array = GlobalStor.global.profiles[0];
+                        let profiles_data_second_array = GlobalStor.global.profiles[1];
                         
-                        // GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(sliced_array)
-                        // console.log(sliced_array, 'sliced arrray')
+                        for(let i = 0; i < profiles_data_first_array.length; i++) {
+                            for(let y = 0; y < filtered_array_by_name.length; y++) {
+                                if(profiles_data_first_array[i].id === filtered_array_by_name[y].table_id) {
+                                    profiles_data_first_array[i]["translate"] = filtered_array_by_name[y]
+    
+                                }
+                            }
+                        }
 
 
-                        // const filteredArrayByName = sliced_array[0].filter(element => element.table_attr === "name")
-                        // //console.log(filteredArrayByName, 'filtered Array By Name data')
-                        // const loopedArray = filteredArrayByName.forEach(element => console.log(element, 'o YAYA'))
+                        for(let i = 0; i < profiles_data_second_array.length; i++) {
+                            for(let y = 0; y < filtered_array_by_name.length; y++) {
+                                if(profiles_data_second_array[i].id === filtered_array_by_name[y].table_id) {
+                                    profiles_data_second_array[i]["translate"] = filtered_array_by_name[y]
+                                }
+                            }
+                        }
+                        
 
-
-
-
-                        // for(let i =0; i<GlobalStor.global.profiles[0].length; i++) {
-                        //     console.log(GlobalStor.global.profiles[0][i])
-                        //     //GlobalStor.global.profiles[0][i]["translate"] = loopedArray
-                        //     for(let y =0; y<GlobalStor.global.profiles[0][i]; i++){ 
-                        //         console.log(GlobalStor.global.profiles[0][i][y])
-                        //     }
-                        // }
+                        const filtered_array_by_description = sliced_array[0].filter(element => element.table_attr === "description")
+                        
+                        for(let i = 0; i < profiles_data_first_array.length; i++) {
+                            //console.log(profiles_data_first_array[i], 'looped second array of profiles')
+                            for(let y = 0; y < filtered_array_by_description.length; y++) {
+                                if(profiles_data_first_array[i].id === filtered_array_by_description[y].table_id) {
+                                    profiles_data_first_array[i]["description"] = filtered_array_by_description[y]
+    
+                                }
+                            }
+                        }
                     }
                 )
                
