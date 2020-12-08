@@ -1176,7 +1176,13 @@
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
     <div class="info_box">
       <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-        <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_title">{{infoBox.G.global.infoTitle.en}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_title">{{infoBox.G.global.infoTitle.ru}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_title">{{infoBox.G.global.infoTitle.ua}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'pl'" class="info_title">{{infoBox.G.global.infoTitle.pl}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_title">{{infoBox.G.global.infoTitle.de}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_title">{{infoBox.G.global.infoTitle.bg}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_title">{{infoBox.G.global.infoTitle.it}}</div>
         <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_descrip">{{infoBox.G.global.infoDescrip.en}}</div>
         <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_descrip">{{infoBox.G.global.infoDescrip.ru}}</div>
         <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_descrip">{{infoBox.G.global.infoDescrip.ua}}</div>
@@ -1184,7 +1190,6 @@
         <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_descrip">{{infoBox.G.global.infoDescrip.de}}</div>
         <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_descrip">{{infoBox.G.global.infoDescrip.bg}}</div>
         <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_descrip">{{infoBox.G.global.infoDescrip.it}}</div>
-        
         <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}-->
       </div>
       <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog"></div>

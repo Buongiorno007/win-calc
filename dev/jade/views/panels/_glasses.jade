@@ -14,7 +14,21 @@
           .glass-width
             label {{glass.glass_width}} {{glassPanel.MM}}
           .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
-            label {{glass.sku}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'en'") {{glass.translate.en}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'ru'") {{glass.translate.ru}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'uk'") {{glass.translate.ua}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'pl'") {{glass.translate.pl}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'de'") {{glass.translate.de}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'bg'") {{glass.translate.bg}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'it'") {{glass.translate.it}}
+
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'en' && !glass.translate.en") {{glass.sku}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'ru' && !glass.translate.ru") {{glass.sku}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'uk' && !glass.translate.ua") {{glass.sku}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'pl' && !glass.translate.pl") {{glass.sku}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'de' && !glass.translate.de") {{glass.sku}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'bg' && !glass.translate.bg") {{glass.sku}}
+            label(ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glass.translate.it") {{glass.sku}}
           .info.item-info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
             label i
           .blank-div(ng-if="!(glass.img.length && glass.description.length)")
