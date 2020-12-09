@@ -257,10 +257,10 @@
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glass.translate.bg">{{glass.sku}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glass.translate.it">{{glass.sku}}</label>
                       </div>
-                      <div ng-if="glass.img.length &amp;&amp; glass.description.length" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info item-info">
+                      <div ng-if="glass.img.length &amp;&amp; glass.description.en" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info item-info">
                         <label>i</label>
                       </div>
-                      <div ng-if="!(glass.img.length &amp;&amp; glass.description.length)" class="blank-div"></div>
+                      <div ng-if="!(glass.img.length &amp;&amp; glass.description.en)" class="blank-div"></div>
                     </div>
                   </div>
                 </div>
