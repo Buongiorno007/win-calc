@@ -27939,7 +27939,7 @@ function ErrorResult(code, message) {
                         //Block for profiles and profiles descriptions translations ***
                         product.locales_names_addition_folders = data
                         GlobalStor.global.locales_names_addition_folders = data
-                        //profiles_systems. There are only profiles systems here
+                        //There are only profiles systems here
                         const array_size = 100;
                         const profiles_systems = [];
                         for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
@@ -28009,6 +28009,36 @@ function ErrorResult(code, message) {
                             }
                         }
                         //Block for systems_folders translation end ***
+                        
+                        //Block for glasses folder starts ***
+                        const glasses_folders = [];
+                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders; i += array_size) {
+                            glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders.slice(i, i + array_size));
+                        }
+                        glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders);
+                        //Filtred array contains only glasses folders names
+                        const array_filtered_by_names_glasses_folders = glasses_folders[0].filter(element => element.table_attr === "name")
+                        let glasses_folders_array_first = GlobalStor.global.glassTypes;
+
+                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                        for(let i = 0; i < glasses_folders_array_first.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_glasses_folders.length; y++) {
+                                if(glasses_folders_array_first[i].id === array_filtered_by_names_glasses_folders[y].table_id) {
+                                    glasses_folders_array_first[i]["translate"] = array_filtered_by_names_glasses_folders[y]
+                                }
+                            }
+                        }
+                        //Glases folders desckriptions
+                        const array_filtered_by_description_folders = glasses_folders[0].filter(element => element.table_attr === "description")
+                        //Loop that runs through the glasses and pushes there translations from a filtered array
+                        for(let i = 0; i < glasses_folders_array_first.length; i++) {
+                           for(let y = 0; y < array_filtered_by_description_folders.length; y++) {
+                               if(glasses_folders_array_first[i].id === array_filtered_by_description_folders[y].table_id) {
+                                glasses_folders_array_first[i]["description"] = array_filtered_by_description_folders[y]
+                               }
+                           }
+                       }
+                        //Block for glasses folder end ***
 
                         //Block for glasses translations starts ***
                         const glasses = [];

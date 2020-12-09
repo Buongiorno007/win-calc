@@ -6,7 +6,20 @@
       .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" )
         .info.folder-info(ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
           label i
-        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'en' && glassPanel.G.global.glassTypes[$index].translate.en") {{glassPanel.G.global.glassTypes[$index].translate.en}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'ru' && glassPanel.G.global.glassTypes[$index].translate.ru") {{glassPanel.G.global.glassTypes[$index].translate.ru}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'uk' && glassPanel.G.global.glassTypes[$index].translate.ua") {{glassPanel.G.global.glassTypes[$index].translate.ua}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'pl' && glassPanel.G.global.glassTypes[$index].translate.pl") {{glassPanel.G.global.glassTypes[$index].translate.pl}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'de' && glassPanel.G.global.glassTypes[$index].translate.de") {{glassPanel.G.global.glassTypes[$index].translate.de}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'bg' && glassPanel.G.global.glassTypes[$index].translate.bg") {{glassPanel.G.global.glassTypes[$index].translate.bg}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'it' && glassPanel.G.global.glassTypes[$index].translate.it") {{glassPanel.G.global.glassTypes[$index].translate.it}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'en' && !glassPanel.G.global.glassTypes[$index].translate.en") {{glassPanel.G.global.glassTypes[$index].name}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'ru' && !glassPanel.G.global.glassTypes[$index].translate.ru") {{glassPanel.G.global.glassTypes[$index].name}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'uk' && !glassPanel.G.global.glassTypes[$index].translate.ua") {{glassPanel.G.global.glassTypes[$index].name}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'pl' && !glassPanel.G.global.glassTypes[$index].translate.pl") {{glassPanel.G.global.glassTypes[$index].name}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'de' && !glassPanel.G.global.glassTypes[$index].translate.de") {{glassPanel.G.global.glassTypes[$index].name}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'bg' && !glassPanel.G.global.glassTypes[$index].translate.bg") {{glassPanel.G.global.glassTypes[$index].name}}
+        label.title(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glassPanel.G.global.glassTypes[$index].translate.it") {{glassPanel.G.global.glassTypes[$index].name}}
         .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
 
       .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
