@@ -317,7 +317,6 @@
                             profiles_systems.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
                         }
                         GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(profiles_systems);
-                        //Filtred array contains only profiles systems names
                         const filtered_array_by_name = profiles_systems[0].filter(element => element.table_attr === "name")
                         let profiles_data_profiles_types_array = GlobalStor.global.profiles[0];
                         let profiles_data_second_array = GlobalStor.global.profiles[1];
@@ -339,7 +338,6 @@
                         }
                         //Filtred array contains only descriptions translations
                         const filtered_array_by_description = profiles_systems[0].filter(element => element.table_attr === "description")
-                         //The same loop as above but for descriptions translations
                         for(let i = 0; i < profiles_data_profiles_types_array.length; i++) {
                             for(let y = 0; y < filtered_array_by_description.length; y++) {
                                 if(profiles_data_profiles_types_array[i].id === filtered_array_by_description[y].table_id) {
@@ -356,23 +354,18 @@
                             system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders.slice(i, i + array_size));
                         }
                         system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders);
-
-                         //Filtred array contains only system_folders names
-                         const filtered_array = system_folders[0].filter(element => element.table_attr === "name")
-                         let profiles_types_array = GlobalStor.global.profilesType;
-
-                         //Loop that runs through the system_folders and pushes there translations from a filtered array
-                         for(let i = 0; i < profiles_types_array.length; i++) {
-                             for(let y = 0; y < filtered_array.length; y++) {
-                                 if(profiles_types_array[i].id === filtered_array[y].table_id) {
+                        //Filtred array contains only system_folders names
+                        const filtered_array = system_folders[0].filter(element => element.table_attr === "name")
+                        let profiles_types_array = GlobalStor.global.profilesType;
+                        for(let i = 0; i < profiles_types_array.length; i++) {
+                            for(let y = 0; y < filtered_array.length; y++) {
+                                if(profiles_types_array[i].id === filtered_array[y].table_id) {
                                     profiles_types_array[i]["translate"] = filtered_array[y]
-                                 }
-                             }
-                         }
-                         //Description for systems_folders 
-                         const array_filtered_by_description_profile_system_folder = system_folders[0].filter(element => element.table_attr === "description")
-                         //Loop that runs through the profiles and pushes there translations from a filtered array
-                         for(let i = 0; i < profiles_types_array.length; i++) {
+                                }
+                            }
+                        }
+                        const array_filtered_by_description_profile_system_folder = system_folders[0].filter(element => element.table_attr === "description")
+                        for(let i = 0; i < profiles_types_array.length; i++) {
                             for(let y = 0; y < array_filtered_by_description_profile_system_folder.length; y++) {
                                 if(profiles_types_array[i].id === array_filtered_by_description_profile_system_folder[y].table_id) {
                                     profiles_types_array[i]["description"] = array_filtered_by_description_profile_system_folder[y]
@@ -387,10 +380,8 @@
                             glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders.slice(i, i + array_size));
                         }
                         glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders);
-                        //Filtred array contains only glasses folders names
                         const array_filtered_by_names_glasses_folders = glasses_folders[0].filter(element => element.table_attr === "name")
                         let glasses_folders_array_first = GlobalStor.global.glassTypes;
-
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
                         for(let i = 0; i < glasses_folders_array_first.length; i++) {
                             for(let y = 0; y < array_filtered_by_names_glasses_folders.length; y++) {
@@ -399,9 +390,7 @@
                                 }
                             }
                         }
-                        //Glases folders desckriptions
                         const array_filtered_by_description_folders = glasses_folders[0].filter(element => element.table_attr === "description")
-                        //Loop that runs through the glasses and pushes there translations from a filtered array
                         for(let i = 0; i < glasses_folders_array_first.length; i++) {
                            for(let y = 0; y < array_filtered_by_description_folders.length; y++) {
                                if(glasses_folders_array_first[i].id === array_filtered_by_description_folders[y].table_id) {
@@ -410,6 +399,82 @@
                            }
                        }
                         //Block for glasses folder end ***
+
+
+                        //Block for hardware groups start***
+                        const hardware_groups = [];
+                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups; i += array_size) {
+                            hardware_groups.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups.slice(i, i + array_size));
+                        }
+                        hardware_groups.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups);
+                        const array_filtered_by_names_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "name")
+                        //First looop for first array
+                        let hardware_groups_array_first = GlobalStor.global.hardwares[0];
+                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                    hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                }
+                            }
+                        }
+                        //Second loop for second array
+                        let hardware_groups_array_second = GlobalStor.global.hardwares[1];
+                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                    hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                }
+                            }
+                        }
+
+                        const array_filtered_by_description_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "description")
+                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
+                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                               if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                hardware_groups_array_first[i]["translated_description"] = array_filtered_by_description_hardware_groups[y]
+                               }
+                           }
+                       }
+                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
+                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                               if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                hardware_groups_array_second[i]["translated_description"] = array_filtered_by_description_hardware_groups[y]
+                               }
+                           }
+                       }
+                        //Block for hardware goups end ***
+
+                        //Block for hardware folders start ***
+                        const hardware_folders = [];
+                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders; i += array_size) {
+                            hardware_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders.slice(i, i + array_size));
+                        }
+                        hardware_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders);
+                        const array_filtered_by_names_hardware_folders = hardware_folders[0].filter(element => element.table_attr === "name")
+                        //First looop for first array
+                        let hardware_folders_array_first = GlobalStor.global.hardwareTypes;
+                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                        for(let i = 0; i < hardware_folders_array_first.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_hardware_folders.length; y++) {
+                                if(hardware_folders_array_first[i].id === array_filtered_by_names_hardware_folders[y].table_id) {
+                                    hardware_folders_array_first[i]["translate"] = array_filtered_by_names_hardware_folders[y]
+                                }
+                            }
+                        }
+                        const array_filtered_by_description_hardware_folders = hardware_folders[0].filter(element => element.table_attr === "description")
+                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                        for(let i = 0; i < hardware_folders_array_first.length; i++) {
+                            for(let y = 0; y < array_filtered_by_description_hardware_folders.length; y++) {
+                                if(hardware_folders_array_first[i].id === array_filtered_by_description_hardware_folders[y].table_id) {
+                                    hardware_folders_array_first[i]["translated_description"] = array_filtered_by_description_hardware_folders[y]
+                                }
+                            }
+                        }
+
+
+                        //Block for hardware folders end ***
 
                         //Block for glasses translations starts ***
                         const glasses = [];
@@ -422,7 +487,6 @@
                         const array_filtered_by_names_glasses = glasses[0].filter(element => element.table_attr === "name")
                         let glasses_array_first = GlobalStor.global.glasses[0];
 
-                        //Loop that runs through the glasses and pushes there translations from a filtered array
                         for(let i = 0; i < glasses_array_first.length; i++) {
                             for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                 if(glasses_array_first[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -431,7 +495,6 @@
                             }
                         }
                         const array_filtered_by_description_glasses_first = glasses[0].filter(element => element.table_attr === "description")
-                        //Loop that runs through the glasses and pushes there translations from a filtered array
                         for(let i = 0; i < glasses_array_first.length; i++) {
                            for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                                if(glasses_array_first[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -439,9 +502,7 @@
                                }
                            }
                        }
-                       //Filtred array contains only profiles systems names
                        let glasses_array_second = GlobalStor.global.glasses[1];
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_second.length; i++) {
                            for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                if(glasses_array_second[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -449,7 +510,6 @@
                                }
                            }
                        }
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_second.length; i++) {
                           for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                               if(glasses_array_second[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -457,9 +517,7 @@
                               }
                           }
                       }
-                      //Filtred array contains only profiles systems names
                       let glasses_array_third = GlobalStor.global.glasses[2];
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_third.length; i++) {
                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                               if(glasses_array_third[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -467,7 +525,6 @@
                               }
                           }
                       }
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_third.length; i++) {
                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                              if(glasses_array_third[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -475,9 +532,7 @@
                              }
                          }
                       }
-                      //Filtred array contains only profiles systems names
                       let glasses_array_fourth = GlobalStor.global.glasses[3];
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_fourth.length; i++) {
                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                               if(glasses_array_fourth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -485,7 +540,6 @@
                               }
                           }
                       }
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_fourth.length; i++) {
                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                              if(glasses_array_fourth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -493,9 +547,7 @@
                              }
                          }
                       }
-                      //Filtred array contains only profiles systems names
                       let glasses_array_fifth = GlobalStor.global.glasses[4];
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_fifth.length; i++) {
                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                               if(glasses_array_fifth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -503,7 +555,6 @@
                               }
                           }
                       }
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_fifth.length; i++) {
                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                              if(glasses_array_fifth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -511,9 +562,7 @@
                              }
                          }
                       }
-                      //Filtred array contains only profiles systems names
                       let glasses_array_sixth = GlobalStor.global.glasses[5];
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_sixth.length; i++) {
                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                               if(glasses_array_sixth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -521,7 +570,6 @@
                               }
                           }
                       }
-                      //Loop that runs through the glasses and pushes there translations from a filtered array
                       for(let i = 0; i < glasses_array_sixth.length; i++) {
                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                              if(glasses_array_sixth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -529,9 +577,7 @@
                              }
                          }
                       }
-                       //Filtred array contains only profiles systems names
                        let glasses_array_seventh = GlobalStor.global.glasses[6];
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_seventh.length; i++) {
                            for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                if(glasses_array_seventh[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -539,7 +585,6 @@
                                }
                            }
                        }
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_seventh.length; i++) {
                           for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                               if(glasses_array_seventh[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -547,9 +592,7 @@
                               }
                           }
                        }
-                         //Filtred array contains only profiles systems names
                          let glasses_array_eighth = GlobalStor.global.glasses[7];
-                         //Loop that runs through the glasses and pushes there translations from a filtered array
                          for(let i = 0; i < glasses_array_eighth.length; i++) {
                              for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                  if(glasses_array_eighth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -557,7 +600,6 @@
                                  }
                              }
                          }
-                         //Loop that runs through the glasses and pushes there translations from a filtered array
                          for(let i = 0; i < glasses_array_eighth.length; i++) {
                             for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                                 if(glasses_array_eighth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -565,9 +607,7 @@
                                 }
                             }
                          }
-                          //Filtred array contains only profiles systems names
                           let glasses_array_ninth = GlobalStor.global.glasses[8];
-                          //Loop that runs through the glasses and pushes there translations from a filtered array
                           for(let i = 0; i < glasses_array_ninth.length; i++) {
                               for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                   if(glasses_array_ninth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -575,7 +615,6 @@
                                   }
                               }
                           }
-                          //Loop that runs through the glasses and pushes there translations from a filtered array
                           for(let i = 0; i < glasses_array_ninth.length; i++) {
                              for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                                  if(glasses_array_ninth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -583,9 +622,7 @@
                                  }
                              }
                         }
-                          //Filtred array contains only profiles systems names
                           let glasses_array_tenth = GlobalStor.global.glasses[9];
-                          //Loop that runs through the glasses and pushes there translations from a filtered array
                           for(let i = 0; i < glasses_array_tenth.length; i++) {
                               for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                   if(glasses_array_tenth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -593,7 +630,6 @@
                                   }
                               }
                           }
-                          //Loop that runs through the glasses and pushes there translations from a filtered array
                           for(let i = 0; i < glasses_array_tenth.length; i++) {
                              for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                                  if(glasses_array_tenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -601,9 +637,7 @@
                                  }
                             }
                         }
-                          //Filtred array contains only profiles systems names
                           let glasses_array_eleventh = GlobalStor.global.glasses[10];
-                          //Loop that runs through the glasses and pushes there translations from a filtered array
                           for(let i = 0; i < glasses_array_eleventh.length; i++) {
                               for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                   if(glasses_array_eleventh[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -611,7 +645,6 @@
                                   }
                               }
                           }
-                          //Loop that runs through the glasses and pushes there translations from a filtered array
                           for(let i = 0; i < glasses_array_eleventh.length; i++) {
                              for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                                  if(glasses_array_eleventh[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -619,9 +652,7 @@
                                  }
                             }
                         }
-                         //Filtred array contains only profiles systems names
                          let glasses_array_twelfth = GlobalStor.global.glasses[11];
-                         //Loop that runs through the glasses and pushes there translations from a filtered array
                          for(let i = 0; i < glasses_array_twelfth.length; i++) {
                              for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                  if(glasses_array_twelfth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -629,7 +660,6 @@
                                  }
                              }
                          }
-                         //Loop that runs through the glasses and pushes there translations from a filtered array
                          for(let i = 0; i < glasses_array_twelfth.length; i++) {
                             for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                                 if(glasses_array_twelfth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -637,9 +667,7 @@
                                 }
                            }
                        }
-                       //Filtred array contains only profiles systems names
                        let glasses_array_thirteenth = GlobalStor.global.glasses[12];
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_thirteenth.length; i++) {
                            for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                if(glasses_array_thirteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -647,7 +675,6 @@
                                }
                            }
                        }
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_thirteenth.length; i++) {
                           for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                               if(glasses_array_thirteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -655,9 +682,7 @@
                               }
                          }
                        }
-                       //Filtred array contains only profiles systems names
                        let glasses_array_fourteenth = GlobalStor.global.glasses[13];
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_fourteenth.length; i++) {
                            for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                if(glasses_array_fourteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -665,7 +690,6 @@
                                }
                            }
                        }
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_fourteenth.length; i++) {
                           for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                               if(glasses_array_fourteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -673,9 +697,7 @@
                               }
                          }
                        }
-                       //Filtred array contains only profiles systems names
                        let glasses_array_fifteenth = GlobalStor.global.glasses[14];
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_fifteenth.length; i++) {
                            for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                if(glasses_array_fifteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -683,7 +705,6 @@
                                }
                            }
                        }
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_fifteenth.length; i++) {
                           for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                               if(glasses_array_fifteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
@@ -691,9 +712,7 @@
                               }
                             }
                        }
-                       //Filtred array contains only glasses names
                        let glasses_array_sixteenth = GlobalStor.global.glasses[15];
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_sixteenth.length; i++) {
                            for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
                                if(glasses_array_sixteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
@@ -701,7 +720,6 @@
                                }
                            }
                        }
-                       //Loop that runs through the glasses and pushes there translations from a filtered array
                        for(let i = 0; i < glasses_array_sixteenth.length; i++) {
                           for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
                               if(glasses_array_sixteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
