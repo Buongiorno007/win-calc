@@ -250,11 +250,15 @@
               </div>
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ ::cartPage.DISCOUNT_WITH }}</div>
-                <div class="discount-price">{{ cartPage.O.order.productsPriceDis / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '$'" class="discount-price">{{ cartPage.O.order.productsPriceDis / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '€'" class="discount-price">{{ cartPage.O.order.productsPriceDis / cartPage.G.global.currencies[2].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '₴'" class="discount-price">{{ cartPage.O.order.productsPriceDis }}</div>
               </div>
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ ::cartPage.DISCOUNT }}</div>
-                <div class="discount-price">{{ cartPage.C.cart.discountPriceDiff / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '$'" class="discount-price">{{ cartPage.C.cart.discountPriceDiff / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '€'" class="discount-price">{{ cartPage.C.cart.discountPriceDiff / cartPage.G.global.currencies[2].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}</div>
+                <div ng-if="cartPage.U.userInfo.currencies === '₴'" class="discount-price">{{ cartPage.C.cart.discountPriceDiff }} {{cartPage.U.userInfo.currencies}}</div>
               </div>
             </div>
           </div>
