@@ -171,7 +171,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .discount-price-label {{ ::cartPage.DISCOUNT_WITH }}
                                 .discount-price(ng-if="cartPage.U.userInfo.currencies === '$'") {{ cartPage.O.order.productsPriceDis / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}
                                 .discount-price(ng-if="cartPage.U.userInfo.currencies === '€'") {{ cartPage.O.order.productsPriceDis / cartPage.G.global.currencies[2].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}
-                                .discount-price(ng-if="cartPage.U.userInfo.currencies === '₴'") {{ cartPage.O.order.productsPriceDis }}
+                                .discount-price(ng-if="cartPage.U.userInfo.currencies === '₴'") {{ cartPage.O.order.productsPriceDis }} {{cartPage.U.userInfo.currencies}}
                             .discount-price-box
                                 .discount-price-label {{ ::cartPage.DISCOUNT }}
                                 .discount-price(ng-if="cartPage.U.userInfo.currencies === '$'") {{ cartPage.C.cart.discountPriceDiff / cartPage.G.global.currencies[0].value | number: 1.2}} {{cartPage.U.userInfo.currencies}}
