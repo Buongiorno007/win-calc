@@ -241,7 +241,20 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                     .addelements-detail-content
                         ul.addelements-detail-list
                             li.addelements-detail-item(ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
-                                .product-value {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'en'") {{ addelement.translate.en }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'ru'") {{ addelement.translate.ru }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'uk'") {{ addelement.translate.ua }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'pl'") {{ addelement.translate.pl }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'de'") {{ addelement.translate.de }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'bg'") {{ addelement.translate.bg }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'it'") {{ addelement.translate.it }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'en' && !addelement.translate.en") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'ru' && !addelement.translate.ru") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'uk' && !addelement.translate.ua") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'pl' && !addelement.translate.pl") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'de' && !addelement.translate.de") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'bg' && !addelement.translate.bg") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'it' && !addelement.translate.it") {{ addelement.name }}
                                 .product-value(ng-switch-when="0") {{ ::cartPage.GRID }}
                                 .product-value(ng-switch-when="1") {{ ::cartPage.VISOR }}
                                 .product-value(ng-switch-when="2") {{ ::cartPage.SPILLWAY }}

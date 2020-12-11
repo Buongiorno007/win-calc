@@ -21,13 +21,13 @@
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       //-Conditions to display different translations
-      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'en'", data-output="{{ configMenu.P.product.profile.translate.en }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'ru'", data-output="{{ configMenu.P.product.profile.translate.ru }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'uk'", data-output="{{ configMenu.P.product.profile.translate.ua }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'pl'", data-output="{{ configMenu.P.product.profile.translate.pl }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'it'", data-output="{{ configMenu.P.product.profile.translate.it }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'de'", data-output="{{ configMenu.P.product.profile.translate.de }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'bg'", data-output="{{ configMenu.P.product.profile.translate.bg }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'en' && configMenu.P.product.profile.translate.en", data-output="{{ configMenu.P.product.profile.translate.en }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'ru' && configMenu.P.product.profile.translate.ru", data-output="{{ configMenu.P.product.profile.translate.ru }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'uk' && configMenu.P.product.profile.translate.ua", data-output="{{ configMenu.P.product.profile.translate.ua }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'pl' && configMenu.P.product.profile.translate.pl", data-output="{{ configMenu.P.product.profile.translate.pl }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'it' && configMenu.P.product.profile.translate.it", data-output="{{ configMenu.P.product.profile.translate.it }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'de' && configMenu.P.product.profile.translate.de", data-output="{{ configMenu.P.product.profile.translate.de }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'bg' && configMenu.P.product.profile.translate.bg", data-output="{{ configMenu.P.product.profile.translate.bg }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
       //-If there are no translation of the language it's displaying default value
       .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'en' && !configMenu.P.product.profile.translate.en", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -77,7 +77,21 @@
       .additional-items-list
         ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
           li.additional-item(ng-repeat="addElement in addElementGroup")
-            span.value(data-output="") {{ addElement.name }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'en' && addElement.translate.en", data-output="") {{ addElement.translate.en }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'ru' && addElement.translate.ru", data-output="") {{ addElement.translate.ru }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'uk' && addElement.translate.ua", data-output="") {{ addElement.translate.ua }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'pl' && addElement.translate.pl", data-output="") {{ addElement.translate.pl }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'de' && addElement.translate.de", data-output="") {{ addElement.translate.de }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'bg' && addElement.translate.bg", data-output="") {{ addElement.translate.bg }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'it' && addElement.translate.it", data-output="") {{ addElement.translate.it }}
+
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'en' && !addElement.translate.en", data-output="") {{ addElement.name }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'ru' && !addElement.translate.ru", data-output="") {{ addElement.name }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'uk' && !addElement.translate.ua", data-output="") {{ addElement.name }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'pl' && !addElement.translate.pl", data-output="") {{ addElement.name }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'de' && !addElement.translate.de", data-output="") {{ addElement.name }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'bg' && !addElement.translate.bg", data-output="") {{ addElement.name }}
+            span.value(ng-if="configMenu.U.userInfo.langLabel === 'it' && !addElement.translate.it", data-output="") {{ addElement.name }}
       .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
         div R = {{ configMenu.P.product.heat_coef_total | number :2 }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
       .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
