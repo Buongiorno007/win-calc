@@ -10,43 +10,14 @@
                     .value {{ ::elementsMenu.EMPTY_ELEMENT }}
 
             ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && elementsMenu.A.aux.addElementsType[$index].translate.en", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].translate.en }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && elementsMenu.A.aux.addElementsType[$index].translate.ru", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].translate.ru }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'uk' && elementsMenu.A.aux.addElementsType[$index].translate.ua", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].translate.ua }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'pl' && elementsMenu.A.aux.addElementsType[$index].translate.pl", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].translate.pl }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && elementsMenu.A.aux.addElementsType[$index].translate.de", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].translate.de }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && elementsMenu.A.aux.addElementsType[$index].translate.bg", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].translate.bg }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && elementsMenu.A.aux.addElementsType[$index].translate.it", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].translate.it }}
-
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !elementsMenu.A.aux.addElementsType[$index].translate.en", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && !elementsMenu.A.aux.addElementsType[$index].translate.ru", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name}}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'uk' && !elementsMenu.A.aux.addElementsType[$index].translate.ua", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'pl' && !elementsMenu.A.aux.addElementsType[$index].translate.pl", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && !elementsMenu.A.aux.addElementsType[$index].translate.de", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && !elementsMenu.A.aux.addElementsType[$index].translate.bg", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
-                .title(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && !elementsMenu.A.aux.addElementsType[$index].translate.it", ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
+                .title(ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
                     button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
                     .open-list(id="{{$index + 'open'}}")
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
                 li.item(ng-repeat="addElement in type track by $index")
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && addElement.translate.en", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.translate.en }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && addElement.translate.ru", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.translate.ru }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'uk' && addElement.translate.ua", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.translate.ua }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'pl' && addElement.translate.pl", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.translate.pl }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && addElement.translate.de", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.translate.de }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && addElement.translate.bg", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.translate.bg }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && addElement.translate.it", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.translate.it }}
-
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !addElement.translate.en", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && !addElement.translate.ru", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'uk' && !addElement.translate.ua", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'pl' && !addElement.translate.pl", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && !addElement.translate.de", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && !addElement.translate.bg", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
-                    .value(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && !addElement.translate.it", ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
-                    button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ addElement.name }}
 
 
     //========== one element pannel in List View
@@ -80,21 +51,7 @@
                 .tab-empty {{ ::elementsMenu.TAB_EMPTY_EXPLAIN }}
             .tab-content(ng-if="addElemTab.length > 0")
                 .tab-aux-row(ng-repeat="addElement in addElemTab track by $index")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'en'", data-output="{{ addElement.translate.en }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru'", data-output="{{ addElement.translate.ru }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'uk'", data-output="{{ addElement.translate.ua }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'pl'", data-output="{{ addElement.translate.pl }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de'", data-output="{{ addElement.translate.de }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg'", data-output="{{ addElement.translate.bg }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it'", data-output="{{ addElement.translate.it }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !addElement.translate.en", data-output="{{ addElement.translate.en }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && !addElement.translate.ru", data-output="{{ addElement.translate.ru }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'uk' && !addElement.translate.ua", data-output="{{ addElement.translate.ua }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'pl' && !addElement.translate.pl", data-output="{{ addElement.translate.pl }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && !addElement.translate.de", data-output="{{ addElement.translate.de }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && !addElement.translate.bg", data-output="{{ addElement.translate.bg }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && !addElement.translate.it", data-output="{{ addElement.translate.it }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+                    .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
                     .aux-params(ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
                         button.aux-params-but(fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_qty }}
                         .aux-label {{ ::elementsMenu.QTY_LABEL }}

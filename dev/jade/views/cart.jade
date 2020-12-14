@@ -86,11 +86,68 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                         li.order-item
                                             .order-label {{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}
                                             .order-value
-                                                span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
-                                                span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
-                                                span /
-                                                span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
-                                                span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'en'") {{ product.lamination.translate_in_id.en }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'en'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'en'") {{ product.lamination.translate_out_id.en }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'en'") {{ product.lamination.laminat_out_name |translate }}
+        
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.lamination.translate_in_id.ru }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.lamination.translate_out_id.ru }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'ri'") {{ product.lamination.laminat_out_name |translate }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.lamination.translate_in_id.ua }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.lamination.translate_out_id.ua }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.lamination.laminat_out_name |translate }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.lamination.translate_in_id.pl }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.lamination.translate_out_id.pl }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.lamination.laminat_out_name |translate }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'de'") {{ product.lamination.translate_in_id.de }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'de'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'de'") {{ product.lamination.translate_out_id.de }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'de'") {{ product.lamination.laminat_out_name |translate }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.lamination.translate_in_id.bg }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.lamination.laminat_in_name |translate }} 
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.lamination.translate_out_id.bg }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.lamination.laminat_out_name |translate }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'it'") {{ product.lamination.translate_in_id.it }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'it'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'it'") {{ product.lamination.translate_out_id.it }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'it'") {{ product.lamination.laminat_out_name |translate }}
+
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'en' && !product.lamination.translate_in_id.en") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'en' && !product.lamination.translate_out_id.en") {{ product.lamination.laminat_out_name }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'ru' && !product.lamination.translate_in_id.ru") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'ru' && !product.lamination.translate_out_id.ru") {{ product.lamination.laminat_out_name }}
+
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'uk' && !product.lamination.translate_in_id.ua") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'uk' && !product.lamination.translate_out_id.ua") {{ product.lamination.laminat_out_name }}
+                                                
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'pl' && !product.lamination.translate_in_id.pl") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'pl' && !product.lamination.translate_out_id.pl") {{ product.lamination.laminat_out_name }}
+                                                
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'de' && !product.lamination.translate_in_id.de") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'de' && !product.lamination.translate_in_id.de") {{ product.lamination.laminat_out_name }}
+                                                
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'bg' && !product.lamination.translate_in_id.bg") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'bg' && !product.lamination.translate_out_id.bg") {{ product.lamination.laminat_out_name }}
+                                                
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'it' && !product.lamination.translate_in_id.it") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'it' && !product.lamination.translate_out_id.it") {{ product.lamination.laminat_out_name }}
+                                       
                                             .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
                                         li.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
                                             .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}

@@ -12,11 +12,13 @@
                       GlobalStor,
                       OrderStor,
                       ProductStor,
-                      DesignServ) {
+                      DesignServ, 
+                      UserStor) {
                 /*jshint validthis:true */
                 var thisCtrl = this;
                 thisCtrl.G = GlobalStor;
                 thisCtrl.P = ProductStor;
+                thisCtrl.U = UserStor;
 
                 thisCtrl.config = {
                     DELAY_START: 5 * globalConstants.STEP,

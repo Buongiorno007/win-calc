@@ -5859,11 +5859,13 @@ if (window.location.hostname !== 'localhost') {
                       GlobalStor,
                       OrderStor,
                       ProductStor,
-                      DesignServ) {
+                      DesignServ, 
+                      UserStor) {
                 /*jshint validthis:true */
                 var thisCtrl = this;
                 thisCtrl.G = GlobalStor;
                 thisCtrl.P = ProductStor;
+                thisCtrl.U = UserStor;
 
                 thisCtrl.config = {
                     DELAY_START: 5 * globalConstants.STEP,
@@ -28419,7 +28421,6 @@ function ErrorResult(code, message) {
                             }
                         }
 
-
                         let additional_elements_array_sixth_zero = GlobalStor.global.addElementsAll[6].elementsList[0];
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
                          for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
@@ -28684,6 +28685,58 @@ function ErrorResult(code, message) {
                         }
 
                         //Block for mosquitos SINGLE end ***
+
+
+
+
+                       //Block for laminations start ***
+                       const laminations = [];
+                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
+                        laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
+                       }
+                       laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
+
+
+                       console.log(laminations, 'laminations')
+                    
+                       
+                       const array_filtered_by_names_laminations = laminations[0].filter(element => element.table_attr === "name")
+                       console.log(array_filtered_by_names_laminations, 'filtred by name')
+                       let laminations_array = GlobalStor.global.laminats;
+                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for(let i = 0; i < laminations_array.length; i++) {
+                                for(let y = 0; y < array_filtered_by_names_laminations.length; y++) {
+                                    if(laminations_array[i].id === array_filtered_by_names_laminations[y].table_id) {
+                                        laminations_array[i]["translate"] = array_filtered_by_names_laminations[y]
+                                } 
+                            }
+                        }
+
+                       //Block for laminations end ***
+
+
+                       //Block for lamination-couplese start ***
+                       const laminations_couples = [];
+                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
+                        laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
+                       }
+                       laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
+
+                       const array_filtered_by_names_laminations_couples = laminations_couples[0].filter(element => element.table_attr === "name")
+
+                        let laminations_couples_array = GlobalStor.global.laminatCouples;
+                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for(let i = 0; i < laminations_couples_array.length; i++) {
+                                for(let y = 0; y < array_filtered_by_names_laminations_couples.length; y++) {
+                                    if(laminations_couples_array[i].lamination_in_id === array_filtered_by_names_laminations_couples[y].table_id) {
+                                        laminations_couples_array[i]["translate_in_id"] = array_filtered_by_names_laminations_couples[y]
+                                    } if(laminations_couples_array[i].lamination_out_id === array_filtered_by_names_laminations_couples[y].table_id) {
+                                        laminations_couples_array[i]["translate_out_id"] = array_filtered_by_names_laminations_couples[y]
+                                    }
+                            }
+                        }
+                       //Block for lamination-couplese end ***
+
 
                         //Block for glasses translations starts ***
                         const glasses = [];
