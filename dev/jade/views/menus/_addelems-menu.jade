@@ -50,13 +50,13 @@
             .aux-list-item(ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.A.aux.coordinats")
                 .aux-list-row
                     .aux-name
-                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && addElement.translate.en") {{ addElement.translate.en }}
-                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && addElement.translate.ru") {{ addElement.translate.ru }}
-                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'uk' && addElement.translate.ua") {{ addElement.translate.ua }}
-                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'pl' && addElement.translate.pl") {{ addElement.translate.pl }}
-                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && addElement.translate.de") {{ addElement.translate.de }}
-                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && addElement.translate.bg") {{ addElement.translate.bg }}
-                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && addElement.translate.it") {{ addElement.translate.it }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'en'") {{ addElement.translate.en }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru'") {{ addElement.translate.ru }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'uk'") {{ addElement.translate.ua }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'pl'") {{ addElement.translate.pl }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de'") {{ addElement.translate.de }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg'") {{ addElement.translate.bg }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it'") {{ addElement.translate.it }}
 
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !addElement.translate.en") {{ addElement.name }}
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && !addElement.translate.ru") {{ addElement.name }}
