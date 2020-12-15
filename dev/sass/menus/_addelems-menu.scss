@@ -34,7 +34,7 @@
     @include align-items(center);
 
     min-height: rem(170px);
-    margin-right: rem($config_menu-side_padding);
+    margin-right: 250px;
     background-color: #f8f8f8;
   }
 
@@ -107,6 +107,8 @@
     max-width: 88%;
     width: 26.125rem;
     line-height: 6rem;
+
+    margin-left: 15px;
   }
   .element-info {
     @extend .button;
