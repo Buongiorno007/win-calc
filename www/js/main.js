@@ -28073,14 +28073,14 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < hardware_groups_array_first.length; i++) {
                            for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
                                if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_first[i]["translated_description"] = array_filtered_by_description_hardware_groups[y]
+                                hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
                                }
                            }
                        }
                         for(let i = 0; i < hardware_groups_array_second.length; i++) {
                            for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
                                if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_second[i]["translated_description"] = array_filtered_by_description_hardware_groups[y]
+                                hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
                                }
                            }
                        }
@@ -28108,7 +28108,7 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < hardware_folders_array_first.length; i++) {
                             for(let y = 0; y < array_filtered_by_description_hardware_folders.length; y++) {
                                 if(hardware_folders_array_first[i].id === array_filtered_by_description_hardware_folders[y].table_id) {
-                                    hardware_folders_array_first[i]["translated_description"] = array_filtered_by_description_hardware_folders[y]
+                                    hardware_folders_array_first[i]["description"] = array_filtered_by_description_hardware_folders[y]
                                 }
                             }
                         }

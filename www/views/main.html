@@ -332,7 +332,7 @@
                 </div>
               </div>
               <div ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible">
-                <div ng-if="hardware.img.length || hardware.link.length || hardware.translated_description.en" fs-click="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
+                <div ng-if="hardware.img.length || hardware.link.length || hardware.translated_description" fs-click="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
                 <div ng-click="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
                   <div class="hardware-box-view">
                     <div class="hardware-logo"><img ng-src="{{ hardware.img }}"></div>
