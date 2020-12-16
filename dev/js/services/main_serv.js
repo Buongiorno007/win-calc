@@ -346,6 +346,14 @@
                                 }
                             }
                         }
+
+                        for(let i = 0; i < profiles_data_second_array.length; i++) {
+                            for(let y = 0; y < filtered_array_by_description.length; y++) {
+                                if(profiles_data_second_array[i].id === filtered_array_by_description[y].table_id) {
+                                    profiles_data_second_array[i]["description"] = filtered_array_by_description[y]
+                                }
+                            }
+                        }
                         //Block for profiles and profiles descriptions translations end ***
 
                         //Block for systems_folders translation start ***
@@ -372,6 +380,7 @@
                                 }
                             }
                         }
+                        
                         //Block for systems_folders translation end ***
                         
                         //Block for glasses folder starts ***
