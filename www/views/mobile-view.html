@@ -1190,6 +1190,20 @@
         <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_descrip">{{infoBox.G.global.infoDescrip.de}}</div>
         <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_descrip">{{infoBox.G.global.infoDescrip.bg}}</div>
         <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_descrip">{{infoBox.G.global.infoDescrip.it}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'en' &amp;&amp; !infoBox.G.global.infoTitle.en" class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'ru' &amp;&amp; !infoBox.G.global.infoTitle.en" class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'uk' &amp;&amp; !infoBox.G.global.infoTitle.en" class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'pl' &amp;&amp; !infoBox.G.global.infoTitle.en" class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'de' &amp;&amp; !infoBox.G.global.infoTitle.en" class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'bg' &amp;&amp; !infoBox.G.global.infoTitle.en" class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'it' &amp;&amp; !infoBox.G.global.infoTitle.en" class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'en' &amp;&amp; !infoBox.G.global.infoDescrip.en" class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'ru' &amp;&amp; !infoBox.G.global.infoDescrip.ru" class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'uk' &amp;&amp; !infoBox.G.global.infoDescrip.ua" class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'pl' &amp;&amp; !infoBox.G.global.infoDescrip.pl" class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'de' &amp;&amp; !infoBox.G.global.infoDescrip.de" class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'bg' &amp;&amp; !infoBox.G.global.infoDescrip.bg" class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+        <div ng-if="infoBox.U.userInfo.langLabel === 'it' &amp;&amp; !infoBox.G.global.infoDescrip.it" class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
         <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}-->
       </div>
       <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog"></div>
