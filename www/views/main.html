@@ -782,13 +782,13 @@
           <li ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}" fs-click="configMenu.selectConfigPanel(5)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
             <div data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
-            <div ng-if="configMenu.U.userInfo.langLabel === 'en'" data-output="{{ configMenu.P.product.lamination.translate_in_id.en | translate}} / {{ configMenu.P.product.lamination.translate_out_id.en | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.U.userInfo.langLabel === 'ru'" data-output="{{ configMenu.P.product.lamination.translate_in_id.ru | translate}} / {{ configMenu.P.product.lamination.translate_out_id.ru | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.U.userInfo.langLabel === 'uk'" data-output="{{ configMenu.P.product.lamination.translate_in_id.ua | translate}} / {{ configMenu.P.product.lamination.translate_out_id.ua | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.U.userInfo.langLabel === 'pl'" data-output="{{ configMenu.P.product.lamination.translate_in_id.pl | translate}} / {{ configMenu.P.product.lamination.translate_out_id.pl | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.U.userInfo.langLabel === 'de'" data-output="{{ configMenu.P.product.lamination.translate_in_id.de | translate}} / {{ configMenu.P.product.lamination.translate_out_id.de | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.U.userInfo.langLabel === 'bg'" data-output="{{ configMenu.P.product.lamination.translate_in_id.bg | translate}} / {{ configMenu.P.product.lamination.translate_out_id.bg | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.U.userInfo.langLabel === 'it'" data-output="{{ configMenu.P.product.lamination.translate_in_id.it | translate}} / {{ configMenu.P.product.lamination.translate_out_id.it | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.U.userInfo.langLabel === 'en'" data-output="{{ configMenu.P.product.lamination.translate_in_id.en }} {{ configMenu.P.product.lamination.translate_out_id.en | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.U.userInfo.langLabel === 'ru'" data-output="{{ configMenu.P.product.lamination.translate_in_id.ru }} {{ configMenu.P.product.lamination.translate_out_id.ru | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.U.userInfo.langLabel === 'uk'" data-output="{{ configMenu.P.product.lamination.translate_in_id.ua | translate}} {{ configMenu.P.product.lamination.translate_out_id.ua | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.U.userInfo.langLabel === 'pl'" data-output="{{ configMenu.P.product.lamination.translate_in_id.pl | translate}} {{ configMenu.P.product.lamination.translate_out_id.pl | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.U.userInfo.langLabel === 'de'" data-output="{{ configMenu.P.product.lamination.translate_in_id.de | translate}} {{ configMenu.P.product.lamination.translate_out_id.de | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.U.userInfo.langLabel === 'bg'" data-output="{{ configMenu.P.product.lamination.translate_in_id.bg | translate}} {{ configMenu.P.product.lamination.translate_out_id.bg | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.U.userInfo.langLabel === 'it'" data-output="{{ configMenu.P.product.lamination.translate_in_id.it | translate}} {{ configMenu.P.product.lamination.translate_out_id.it | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
             <div ng-if="configMenu.U.userInfo.langLabel === 'en' &amp;&amp; !configMenu.P.product.lamination.translate_in_id.en &amp;&amp; !configMenu.P.product.lamination.translate_out_id.en" data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
             <div ng-if="configMenu.U.userInfo.langLabel === 'ru' &amp;&amp; !configMenu.P.product.lamination.translate_in_id.ru &amp;&amp; !configMenu.P.product.lamination.translate_out_id.ru" data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
             <div ng-if="configMenu.U.userInfo.langLabel === 'uk' &amp;&amp; !configMenu.P.product.lamination.translate_in_id.ua &amp;&amp; !configMenu.P.product.lamination.translate_out_id.ua" data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
@@ -844,34 +844,120 @@
               </li>
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.en" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.en }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.ru" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.ru }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.ua" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.ua }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'pl' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.pl" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.pl }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.de" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.de }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.bg" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.bg }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.it" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.it }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.en" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.ru" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name}}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.ua" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'pl' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.pl" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.de" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.bg" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
-              <div ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.it" ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
-                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
-                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp;  elementsMenu.A.aux.addElementsType[$index].translate.en" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.en }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.ru" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.ru }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.ua" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.ua }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'pl' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.pl" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.pl }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.de" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.de }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.bg" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.bg }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.it" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.it }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info">
+                  <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                  <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+                </button>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.en" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.ru" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.ua" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'pl' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.pl" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.de" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.bg" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.it" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
               </div>
               <li ng-repeat="addElement in type track by $index" class="item">
-                <div ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; addElement.translate.en" ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.translate.en }}</div>
-                <div ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; addElement.translate.ru" ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.translate.ru }}</div>
-                <div ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; addElement.translate.ua" ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.translate.ua }}</div>
-                <div ng-if="elementsMenu.U.userInfo.langLabel === 'pl' &amp;&amp; addElement.translate.pl" ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.translate.pl }}</div>
-                <div ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; addElement.translate.de" ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.translate.de }}</div>
-                <div ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; addElement.translate.bg" ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.translate.bg }}</div>
-                <div ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; addElement.translate.it" ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.translate.bg }}</div>
-                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.name }}</div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; addElement.translate.en" class="value">{{ addElement.translate.en }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; addElement.translate.ru" class="value">{{ addElement.translate.ru }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; addElement.translate.ua" class="value">{{ addElement.translate.ua }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'pl' &amp;&amp; addElement.translate.pl" class="value">{{ addElement.translate.pl }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; addElement.translate.de" class="value">{{ addElement.translate.de }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; addElement.translate.bg" class="value">{{ addElement.translate.bg }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; addElement.translate.it" class="value">{{ addElement.translate.it }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; !addElement.translate.en" class="value">{{ addElement.name }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; !addElement.translate.ru" class="value">{{ addElement.name }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; !addElement.translate.ua" class="value">{{ addElement.name }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'pl' &amp;&amp; !addElement.translate.pl" class="value">{{ addElement.name }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; !addElement.translate.de" class="value">{{ addElement.name }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; !addElement.translate.bg" class="value">{{ addElement.name }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; !addElement.translate.it" class="value">{{ addElement.name }}
+                  <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                </div>
               </li>
             </ul>
           </div>
