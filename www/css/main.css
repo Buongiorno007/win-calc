@@ -15311,8 +15311,9 @@ input[type='number'] {
   align-items: center;
   min-height: 10.625rem;
   background-color: #f8f8f8;
+  margin-right: 500px;
 }
-/* line 40, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 42, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .open-list {
   height: 8px;
   position: relative;
@@ -15320,12 +15321,12 @@ input[type='number'] {
   top: -17px;
   width: 8px;
 }
-/* line 46, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 48, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .open-list img {
   height: 100%;
   width: 100%;
 }
-/* line 51, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 53, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .open-list2 {
   height: 8px;
   position: relative;
@@ -15333,18 +15334,18 @@ input[type='number'] {
   top: -25px;
   width: 8px;
 }
-/* line 57, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 59, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .open-list2 img {
   height: 100%;
   width: 100%;
 }
-/* line 62, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 64, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .tip {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 70%;
   color: #8c8c8c;
 }
-/* line 67, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 69, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .close-elements-menu {
   font: normal 2.5rem/1 icons, sans-serif;
   position: relative;
@@ -15352,12 +15353,12 @@ input[type='number'] {
   height: 5.3125rem;
   background-color: #bebebe;
 }
-/* line 75, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 77, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .close-elements-menu:after {
   top: 25%;
   left: 25%;
 }
-/* line 80, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 82, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .menu-lists {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -15371,14 +15372,14 @@ input[type='number'] {
   height: 100%;
   width: 105%;
 }
-/* line 90, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 92, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .title {
   margin: 2.8125rem 0 0 0;
   padding-bottom: 0.9375rem;
   color: #363636;
   border-bottom: 1px solid #bebebe;
 }
-/* line 97, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 99, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .item {
   display: -webkit-flex;
   display: flex;
@@ -15390,13 +15391,13 @@ input[type='number'] {
   align-items: center;
   position: relative;
 }
-/* line 105, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 107, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .value {
   max-width: 88%;
   width: 26.125rem;
   margin-right: 150px;
 }
-/* line 111, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 113, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .element-info {
   width: 2.8125rem;
   height: 2.8125rem;
@@ -15405,14 +15406,14 @@ input[type='number'] {
   background-color: #bebebe;
   margin-left: -2rem;
 }
-/* line 121, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 123, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .element-info:after {
   font: normal 1.875rem/0 icons, sans-serif;
   display: block;
   color: #fff;
   content: "";
 }
-/* line 132, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 134, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .menu-footer {
   display: -webkit-flex;
   display: flex;
@@ -15423,31 +15424,31 @@ input[type='number'] {
   margin-right: 2.75rem;
   padding-right: 0;
 }
-/* line 141, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 143, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .price-element {
   min-height: 8.125rem;
   padding-top: 1.25rem;
   background-color: #f8f8f8;
 }
-/* line 147, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 149, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .aux-label-bold {
   font: normal 1.375rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 
-/* line 155, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 157, ../../dev/sass/menus/_addelems-menu.scss */
 .list-items {
   position: relative;
 }
 
-/* line 158, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 160, ../../dev/sass/menus/_addelems-menu.scss */
 .list-item {
   top: 0rem;
   left: 0rem;
   position: absolute;
 }
 
-/* line 162, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 164, ../../dev/sass/menus/_addelems-menu.scss */
 .aux-list-item {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -15465,18 +15466,18 @@ input[type='number'] {
   background-color: #fff;
   z-index: 2;
 }
-/* line 176, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 178, ../../dev/sass/menus/_addelems-menu.scss */
 .aux-list-item.selected {
   left: -93.75rem;
 }
 
-/* line 182, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 184, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs {
   top: 3.75rem;
   left: 0rem;
   position: absolute;
 }
-/* line 186, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 188, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-block {
   -moz-transition: left 0.5s ease;
   -o-transition: left 0.5s ease;
@@ -15493,21 +15494,21 @@ input[type='number'] {
   border-style: solid;
   z-index: 1;
 }
-/* line 200, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 202, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-block.active {
   left: -53.75rem;
 }
-/* line 205, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 207, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .simple-frame {
   top: 0rem;
   left: 0rem;
 }
-/* line 208, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 210, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .hard-frame {
   top: 21.875rem;
   left: 0rem;
 }
-/* line 212, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 214, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .frame-tab {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
@@ -15532,18 +15533,18 @@ input[type='number'] {
   color: #363636;
   z-index: 1;
 }
-/* line 230, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 232, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .frame-tab.active {
   border-top-width: 0.3125rem;
   background-color: #fff;
 }
-/* line 235, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 237, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-content {
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 31.25rem;
 }
-/* line 240, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 242, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-content-empty {
   display: -webkit-flex;
   display: flex;
@@ -15553,13 +15554,13 @@ input[type='number'] {
   justify-content: center;
   height: 13rem;
 }
-/* line 246, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 248, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-empty {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #bebebe;
 }
-/* line 251, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 253, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-aux-row {
   display: -webkit-flex;
   display: flex;
@@ -15569,15 +15570,15 @@ input[type='number'] {
   justify-content: space-between;
   margin-bottom: 1.25rem;
 }
-/* line 257, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 259, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-aux-row:last-child {
   margin: 0;
 }
-/* line 261, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 263, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .aux-title {
   width: 18.75rem;
 }
-/* line 264, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 266, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-aux-price {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
