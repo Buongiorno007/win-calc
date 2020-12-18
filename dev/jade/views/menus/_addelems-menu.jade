@@ -113,20 +113,9 @@
                     .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'it' && addElement.translate.it") {{ addElement.translate.it }}
                         button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
                     //-Conditions to display default value (data from DB) providing that translation of additional elements missing
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !addElement.translate.en") {{ addElement.name }}
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
                         button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && !addElement.translate.ru") {{ addElement.name }}
-                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'uk' && !addElement.translate.ua") {{ addElement.name }}
-                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'pl' && !addElement.translate.pl") {{ addElement.name }}
-                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'de' && !addElement.translate.de") {{ addElement.name }}
-                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && !addElement.translate.bg") {{ addElement.name }}
-                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
-                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-if="elementsMenu.U.userInfo.langLabel === 'it' && !addElement.translate.it") {{ addElement.name }}
-                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
+                    
                 
 
 

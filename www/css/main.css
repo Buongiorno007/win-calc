@@ -15394,8 +15394,9 @@ input[type='number'] {
 .elements-menu .value {
   max-width: 88%;
   width: 26.125rem;
+  margin-right: 150px;
 }
-/* line 109, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 111, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .element-info {
   width: 2.8125rem;
   height: 2.8125rem;
@@ -15404,14 +15405,14 @@ input[type='number'] {
   background-color: #bebebe;
   margin-left: -2rem;
 }
-/* line 119, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 121, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .element-info:after {
   font: normal 1.875rem/0 icons, sans-serif;
   display: block;
   color: #fff;
   content: "";
 }
-/* line 130, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 132, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .menu-footer {
   display: -webkit-flex;
   display: flex;
@@ -15422,31 +15423,31 @@ input[type='number'] {
   margin-right: 2.75rem;
   padding-right: 0;
 }
-/* line 139, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 141, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .price-element {
   min-height: 8.125rem;
   padding-top: 1.25rem;
   background-color: #f8f8f8;
 }
-/* line 145, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 147, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .aux-label-bold {
   font: normal 1.375rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 
-/* line 153, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 155, ../../dev/sass/menus/_addelems-menu.scss */
 .list-items {
   position: relative;
 }
 
-/* line 156, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 158, ../../dev/sass/menus/_addelems-menu.scss */
 .list-item {
   top: 0rem;
   left: 0rem;
   position: absolute;
 }
 
-/* line 160, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 162, ../../dev/sass/menus/_addelems-menu.scss */
 .aux-list-item {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -15464,18 +15465,18 @@ input[type='number'] {
   background-color: #fff;
   z-index: 2;
 }
-/* line 174, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 176, ../../dev/sass/menus/_addelems-menu.scss */
 .aux-list-item.selected {
   left: -93.75rem;
 }
 
-/* line 180, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 182, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs {
   top: 3.75rem;
   left: 0rem;
   position: absolute;
 }
-/* line 184, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 186, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-block {
   -moz-transition: left 0.5s ease;
   -o-transition: left 0.5s ease;
@@ -15492,21 +15493,21 @@ input[type='number'] {
   border-style: solid;
   z-index: 1;
 }
-/* line 198, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 200, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-block.active {
   left: -53.75rem;
 }
-/* line 203, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 205, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .simple-frame {
   top: 0rem;
   left: 0rem;
 }
-/* line 206, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 208, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .hard-frame {
   top: 21.875rem;
   left: 0rem;
 }
-/* line 210, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 212, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .frame-tab {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
@@ -15531,18 +15532,18 @@ input[type='number'] {
   color: #363636;
   z-index: 1;
 }
-/* line 228, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 230, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .frame-tab.active {
   border-top-width: 0.3125rem;
   background-color: #fff;
 }
-/* line 233, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 235, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-content {
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 31.25rem;
 }
-/* line 238, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 240, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-content-empty {
   display: -webkit-flex;
   display: flex;
@@ -15552,13 +15553,13 @@ input[type='number'] {
   justify-content: center;
   height: 13rem;
 }
-/* line 244, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 246, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-empty {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #bebebe;
 }
-/* line 249, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 251, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-aux-row {
   display: -webkit-flex;
   display: flex;
@@ -15568,15 +15569,15 @@ input[type='number'] {
   justify-content: space-between;
   margin-bottom: 1.25rem;
 }
-/* line 255, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 257, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-aux-row:last-child {
   margin: 0;
 }
-/* line 259, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 261, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .aux-title {
   width: 18.75rem;
 }
-/* line 262, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 264, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-aux-price {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
