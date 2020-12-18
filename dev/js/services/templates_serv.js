@@ -175,7 +175,6 @@
                                     ],
                                     sizes: []
                                 }
-                                //console.log(GlobalStor.global.defaultWindowSize, 'GlobalStor.global.defaultWindowSize')
                                 //------- fill objXFormedPrice for sizes
 
                                 // 
@@ -187,6 +186,68 @@
                             }, 500);
                         });
                         GlobalStor.global.activePanel = 0;
+                        //Calling the function one more time to rebuild the template
+                        setTimeout(() => {
+                            ProductStor.product.room_id = templateIndex;
+                            GlobalStor.global.MobileTabActive = 0;
+                            GlobalStor.global.SelectedTemplateIndex = roomInd;
+                            GlobalStor.global.SelectedTemplateName = GlobalStor.global.templatesImgs[ProductStor.product.room_id].name;
+                            GlobalStor.global.SelectedName = GlobalStor.global.templatesImgs[templateIndex].name;
+                            //MainServ.setDefaultDoorConfig();
+                            DesignServ.setDefaultConstruction();
+                            GlobalStor.global.isNewTemplate = 1;
+                            //-------- check changes in current template
+                            GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+                            ProductStor.product.construction_type = GlobalStor.global.templatesType;
+                            DesignStor.design.template_id = templateIndex;
+                            GlobalStor.global.selectRoom = 1;
+                            MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function (data) {
+                                if (data) {
+                                    GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+                                    GlobalStor.global.templatesSource = angular.copy(data);
+                                    GlobalStor.global.product_qty = 1;
+                                    culcPriceNewTemplate(templateIndex);
+                                    //TYT YJE NET vseravno s culcPriceNewTemplate prihodit ne to
+    
+                                    // MainServ.preparePrice(
+                                    //     ProductStor.product.template,
+                                    //     ProductStor.product.profile.id,
+                                    //     ProductStor.product.glass,
+                                    //     ProductStor.product.hardware.id,
+                                    //     ProductStor.product.lamination.lamination_in_id
+                                    // );
+                                    // eto sozdanie constructyon togo formata chto nujno
+                                    DesignServ.rebuildSVGTemplate();
+                                    var objXFormedPrice = {
+                                        laminationId: ProductStor.product.lamination.id,
+                                        ids: [
+                                            angular.copy(ProductStor.product.profile.rama_list_id),
+                                            angular.copy(ProductStor.product.profile.rama_still_list_id),
+                                            angular.copy(ProductStor.product.profile.stvorka_list_id),
+                                            angular.copy(ProductStor.product.profile.impost_list_id),
+                                            angular.copy(ProductStor.product.profile.shtulp_list_id),
+                                            ProductStor.product.glass.length > 1 ?
+                                                _.map(ProductStor.product.glass, function (item) {
+                                                    return item.id;
+                                                }) :
+                                                ProductStor.product.glass[0].id,
+                                            //beadIds.length > 1 ? beadIds : beadIds[0],
+                                            ProductStor.product.construction_type === 4 ? 0 : ProductStor.product.hardware.id
+                                        ],
+                                        sizes: []
+                                    }
+                                    //------- fill objXFormedPrice for sizes
+    
+                                    // 
+                                    console.log(objXFormedPrice, 'objXFormedPrice')
+                                    localDB.calculationPrice(objXFormedPrice);
+                                }
+                                setTimeout(function () {
+                                    DesignServ.rebuildSVGTemplate();
+                                }, 500);
+                            });
+                            GlobalStor.global.activePanel = 0;
+                        }, 300);
                     }
 
                     if (GlobalStor.global.isChangedTemplate) {
