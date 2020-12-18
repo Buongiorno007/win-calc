@@ -247,7 +247,7 @@
                                 }, 500);
                             });
                             GlobalStor.global.activePanel = 0;
-                        }, 300);
+                        }, 100);
                     }
 
                     if (GlobalStor.global.isChangedTemplate) {
