@@ -40,8 +40,22 @@
                     .order-value.splice(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
                     .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                 .order-item
-                    .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.profile.translate.en }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.profile.translate.ru }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.profile.translate.ua }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.profile.translate.pl }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.profile.translate.de }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.profile.translate.bg }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.profile.translate.it }}
+
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.profile.translate.en") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.profile.translate.ru") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk' && !product.profile.translate.ua") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl' && !product.profile.translate.pl") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.profile.translate.de") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.profile.translate.bg") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.profile.translate.it") {{ product.profile.name }}
+                    .order-value(ng-if="product.construction_type === 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.doorSashName }}
                     .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
                 .order-item(ng-if="product.glass.length > 1")
                     .order-value {{ product.glass[0].sku + ', ...' }}
@@ -51,7 +65,21 @@
                     .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
                 .order-item
                     .order-value(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
-                    .order-value(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.hardware.translate.en }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.hardware.translate.ru }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.hardware.translate.ua }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.hardware.translate.pl }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.hardware.translate.de }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.hardware.translate.bg }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.hardware.translate.it }}
+
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.hardware.translate.en") {{ product.hardware.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.hardware.translate.ru") {{ product.hardware.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk' && !product.hardware.translate.ua") {{ product.hardware.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl' && !product.hardware.translate.pl") {{ product.hardware.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.hardware.translate.de") {{ product.hardware.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.hardware.translate.bg") {{ product.hardware.name }}
+                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.hardware.translate.it") {{ product.hardware.name }}
                     .order-label {{ ::cartPage.CONFIGMENU_HARDWARE }}
                 .order-item
                     .order-value

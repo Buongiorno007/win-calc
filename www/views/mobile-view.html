@@ -439,14 +439,40 @@
     <div class="profiles-list">
       <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" class="profile-block">
         <div ng-click="profilesPanel.ClickOnFolder($event)" class="producer">
-          <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
-          <div class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'en'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.en }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ru }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ua }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.pl }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'de'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.de }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.bg }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'it'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.it }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.en" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ru" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ua" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.pl" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.de" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.bg" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.it" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
         </div>
         <div class="profile-box">
           <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id} | translate" class="profile-info">
             <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="profile-info-item"><img ng-if="profile.img.length  &amp;&amp; !profilesPanel.G.global.cordova" ng-src="{{profile.img}}" class="profile-img"><img ng-if="profile.img.length &amp;&amp; profilesPanel.G.global.cordova" ng-src="{{profilesPanel.extendUrl(profile.img)}}" class="profile-img">
               <div class="name">
-                <p>{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; profile.translate.en">{{profile.translate.en}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; profile.translate.ru">{{profile.translate.ru}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; profile.translate.ua">{{profile.translate.ua}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; profile.translate.pl">{{profile.translate.pl}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; profile.translate.de">{{profile.translate.de}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; profile.translate.bg">{{profile.translate.bg}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; profile.translate.it">{{profile.translate.it}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profile.translate.en">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profile.translate.ru">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profile.translate.ua">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profile.translate.pl">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profile.translate.de">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profile.translate.bg">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profile.translate.it">{{profile.name}}</p>
               </div>
               <div class="common-info">
                 <p ng-if="profile.cameras === 1 ">                     {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
@@ -534,14 +560,40 @@
     <div class="glass-container">
       <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
         <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" id="anchor{{$index}}" class="button">
-          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }">{{glassPanel.G.global.glassTypes[$index].name}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.en">{{glassPanel.G.global.glassTypes[$index].translate.en}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ru">{{glassPanel.G.global.glassTypes[$index].translate.ru}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ua">{{glassPanel.G.global.glassTypes[$index].translate.ua}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.pl">{{glassPanel.G.global.glassTypes[$index].translate.pl}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.de">{{glassPanel.G.global.glassTypes[$index].translate.de}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.bg">{{glassPanel.G.global.glassTypes[$index].translate.bg}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.it">{{glassPanel.G.global.glassTypes[$index].translate.it}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.en">{{glassPanel.G.global.glassTypes[$index].name}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ru">{{glassPanel.G.global.glassTypes[$index].name}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ua">{{glassPanel.G.global.glassTypes[$index].name}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.pl">{{glassPanel.G.global.glassTypes[$index].name}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.de">{{glassPanel.G.global.glassTypes[$index].name}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.bg">{{glassPanel.G.global.glassTypes[$index].name}}</p>
+          <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.it">{{glassPanel.G.global.glassTypes[$index].name}}</p>
         </div><img ng-if="!(glassPanel.G.global.cordova)" ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" ng-click="glassPanel.OpenGlassFolder($index)"><img ng-if="(glassPanel.G.global.cordova)" ng-src="{{glassPanel.extendUrl(glassPanel.G.global.glassTypes[$index].img)}}" ng-click="glassPanel.OpenGlassFolder($index)">
         <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
           <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" class="glass-item">
             <div ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="title">
-              <p>{{glass.sku}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; glass.translate.en">{{glass.translate.en}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; glass.translate.ru">{{glass.translate.ru}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; glass.translate.ua">{{glass.translate.ua}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; glass.translate.pl">{{glass.translate.pl}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; glass.translate.de">{{glass.translate.de}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; glass.translate.bg">{{glass.translate.bg}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; glass.translate.it">{{glass.translate.it}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glass.translate.en">{{glass.sku}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glass.translate.ru">{{glass.sku}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glass.translate.ua">{{glass.sku}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !glass.translate.pl">{{glass.sku}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glass.translate.de">{{glass.sku}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glass.translate.bg">{{glass.sku}}</p>
+              <p ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glass.translate.it">{{glass.sku}}</p>
             </div>
-            <div ng-if="glass.img.length &amp;&amp; glass.description.length" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
+            <div ng-if="glass.img.length &amp;&amp; glass.description" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
           </div>
         </div>
       </div>
@@ -669,14 +721,40 @@
     <div class="profiles-list">
       <div ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index" class="profile-block">
         <div ng-click="hardwarePanel.ClickOnFolder($event)" class="producer">
-          <div ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].description.length" fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
-          <div class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+          <div ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].description" fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'en' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.en" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.en }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.en" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.ru }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.ua" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.ua }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'pl' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.pl" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.pl }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.de" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.de }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.bg" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.bg }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.it" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.it }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'en' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.en" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ru" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ua" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'pl' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.pl" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.de" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.bg" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.it" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
         </div>
         <div class="profile-box">
           <div ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" class="profile-info">
             <div ng-click="hardwarePanel.selectHardware(hardware.id)" class="profile-info-item"><img ng-if="!hardwarePanel.G.global.cordova" ng-src="{{hardware.img}}" alt="{{hardware.name}}" class="profile-img"><img ng-if="hardwarePanel.G.global.cordova" ng-src="{{hardwarePanel.extendUrl(hardware.img)}}" alt="{{hardware.name}}" class="profile-img">
               <div class="name">
-                <p>{{hardware.name}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'en'">{{hardware.translate.en}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'ru'">{{hardware.translate.ru}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'uk'">{{hardware.translate.ua}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'pl'">{{hardware.translate.pl}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'de'">{{hardware.translate.de}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'bg'">{{hardware.translate.bg}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'it'">{{hardware.translate.it}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'en' &amp;&amp; !hardware.translate.en">{{hardware.name}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' &amp;&amp; !hardware.translate.ru">{{hardware.name}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' &amp;&amp; !hardware.translate.ua">{{hardware.name}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'pl' &amp;&amp; !hardware.translate.pl">{{hardware.name}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; !hardware.translate.de">{{hardware.name}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; !hardware.translate.bg">{{hardware.name}}</p>
+                <p ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; !hardware.translate.it">{{hardware.name}}</p>
               </div>
               <div class="common-info">
                 <p>{{::hardwarePanel.HEAT_TRANSFER}} {{hardware.heat_coeff}}</p>
@@ -684,7 +762,7 @@
               </div>
             </div>
             <div class="info-container">
-              <div ng-if="hardware.img.length &amp;&amp; hardware.description.length" fs-click="hardwarePanel.showInfoBox(hardware.id, producer)" class="information">Information</div>
+              <div ng-if="hardware.img.length &amp;&amp; hardware.description" fs-click="hardwarePanel.showInfoBox(hardware.id, producer)" class="information">Information</div>
             </div>
           </div>
         </div>
@@ -1331,8 +1409,21 @@
             <div class="order-label">{{ ::cartPage.CONFIGMENU_SIZING }}</div>
           </div>
           <div class="order-item">
-            <div ng-if="product.construction_type !== 4" class="order-value">{{ product.profile.name }}</div>
-            <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorSashName }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en'" class="order-value">{{ product.profile.translate.en }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru'" class="order-value">{{ product.profile.translate.ru }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk'" class="order-value">{{ product.profile.translate.ua }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl'" class="order-value">{{ product.profile.translate.pl }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de'" class="order-value">{{ product.profile.translate.de }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg'" class="order-value">{{ product.profile.translate.bg }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it'" class="order-value">{{ product.profile.translate.it }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en' &amp;&amp; !product.profile.translate.en" class="order-value">{{ product.profile.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru' &amp;&amp; !product.profile.translate.ru" class="order-value">{{ product.profile.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk' &amp;&amp; !product.profile.translate.ua" class="order-value">{{ product.profile.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl' &amp;&amp; !product.profile.translate.pl" class="order-value">{{ product.profile.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de' &amp;&amp; !product.profile.translate.de" class="order-value">{{ product.profile.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg' &amp;&amp; !product.profile.translate.bg" class="order-value">{{ product.profile.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it' &amp;&amp; !product.profile.translate.it" class="order-value">{{ product.profile.name }}</div>
+            <div ng-if="product.construction_type === 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en'" class="order-value">{{ product.doorSashName }}</div>
             <div class="order-label">{{ ::cartPage.CONFIGMENU_PROFILE }}</div>
           </div>
           <div ng-if="product.glass.length &gt; 1" class="order-item">
@@ -1345,7 +1436,20 @@
           </div>
           <div class="order-item">
             <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
-            <div ng-if="product.construction_type !== 4" class="order-value">{{ product.hardware.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en'" class="order-value">{{ product.hardware.translate.en }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru'" class="order-value">{{ product.hardware.translate.ru }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk'" class="order-value">{{ product.hardware.translate.ua }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl'" class="order-value">{{ product.hardware.translate.pl }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de'" class="order-value">{{ product.hardware.translate.de }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg'" class="order-value">{{ product.hardware.translate.bg }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it'" class="order-value">{{ product.hardware.translate.it }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en' &amp;&amp; !product.hardware.translate.en" class="order-value">{{ product.hardware.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru' &amp;&amp; !product.hardware.translate.ru" class="order-value">{{ product.hardware.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk' &amp;&amp; !product.hardware.translate.ua" class="order-value">{{ product.hardware.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl' &amp;&amp; !product.hardware.translate.pl" class="order-value">{{ product.hardware.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de' &amp;&amp; !product.hardware.translate.de" class="order-value">{{ product.hardware.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg' &amp;&amp; !product.hardware.translate.bg" class="order-value">{{ product.hardware.name }}</div>
+            <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it' &amp;&amp; !product.hardware.translate.it" class="order-value">{{ product.hardware.name }}</div>
             <div class="order-label">{{ ::cartPage.CONFIGMENU_HARDWARE }}</div>
           </div>
           <div class="order-item">

@@ -3,14 +3,42 @@
     .glass-container
         .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")
             .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" id='anchor{{$index}}')
-                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'en' && glassPanel.G.global.glassTypes[$index].translate.en") {{glassPanel.G.global.glassTypes[$index].translate.en}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'ru' && glassPanel.G.global.glassTypes[$index].translate.ru") {{glassPanel.G.global.glassTypes[$index].translate.ru}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'uk' && glassPanel.G.global.glassTypes[$index].translate.ua") {{glassPanel.G.global.glassTypes[$index].translate.ua}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'pl' && glassPanel.G.global.glassTypes[$index].translate.pl") {{glassPanel.G.global.glassTypes[$index].translate.pl}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'de' && glassPanel.G.global.glassTypes[$index].translate.de") {{glassPanel.G.global.glassTypes[$index].translate.de}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'bg' && glassPanel.G.global.glassTypes[$index].translate.bg") {{glassPanel.G.global.glassTypes[$index].translate.bg}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'it' && glassPanel.G.global.glassTypes[$index].translate.it") {{glassPanel.G.global.glassTypes[$index].translate.it}}
+
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'en' && !glassPanel.G.global.glassTypes[$index].translate.en") {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'ru' && !glassPanel.G.global.glassTypes[$index].translate.ru") {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'uk' && !glassPanel.G.global.glassTypes[$index].translate.ua") {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'pl' && !glassPanel.G.global.glassTypes[$index].translate.pl") {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'de' && !glassPanel.G.global.glassTypes[$index].translate.de") {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'bg' && !glassPanel.G.global.glassTypes[$index].translate.bg") {{glassPanel.G.global.glassTypes[$index].name}}
+                p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }", ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glassPanel.G.global.glassTypes[$index].translate.it") {{glassPanel.G.global.glassTypes[$index].name}}
             img(ng-if='!(glassPanel.G.global.cordova)' ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" ng-click="glassPanel.OpenGlassFolder($index)")
             img(ng-if='(glassPanel.G.global.cordova)' ng-src="{{glassPanel.extendUrl(glassPanel.G.global.glassTypes[$index].img)}}" ng-click="glassPanel.OpenGlassFolder($index)")
             .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
                 .glass-item(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" )
                     .title(ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")
-                        p {{glass.sku}}
-                    .info(ng-if="glass.img.length && glass.description.length", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'en' && glass.translate.en") {{glass.translate.en}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'ru' && glass.translate.ru") {{glass.translate.ru}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'uk' && glass.translate.ua") {{glass.translate.ua}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'pl' && glass.translate.pl") {{glass.translate.pl}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'de' && glass.translate.de") {{glass.translate.de}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'bg' && glass.translate.bg") {{glass.translate.bg}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'it' && glass.translate.it") {{glass.translate.it}}
+
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'en' && !glass.translate.en") {{glass.sku}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'ru' && !glass.translate.ru") {{glass.sku}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'uk' && !glass.translate.ua") {{glass.sku}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'pl' && !glass.translate.pl") {{glass.sku}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'de' && !glass.translate.de") {{glass.sku}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'bg' && !glass.translate.bg") {{glass.sku}}
+                        p(ng-if="glassPanel.U.userInfo.langLabel === 'it' && !glass.translate.it") {{glass.sku}}
+                    .info(ng-if="glass.img.length && glass.description", fs-click="glassPanel.showInfoBox(glass.id, typeGlass)")
     .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
         .close-dialog(fs-click="glassPanel.closeGlassSelectorDialog(1)")
         .dialog-title

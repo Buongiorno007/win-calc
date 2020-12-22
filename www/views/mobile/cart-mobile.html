@@ -52,8 +52,21 @@
           <div class="order-label">{{ ::cartPage.CONFIGMENU_SIZING }}</div>
         </div>
         <div class="order-item">
-          <div ng-if="product.construction_type !== 4" class="order-value">{{ product.profile.name }}</div>
-          <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorSashName }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en'" class="order-value">{{ product.profile.translate.en }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru'" class="order-value">{{ product.profile.translate.ru }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk'" class="order-value">{{ product.profile.translate.ua }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl'" class="order-value">{{ product.profile.translate.pl }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de'" class="order-value">{{ product.profile.translate.de }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg'" class="order-value">{{ product.profile.translate.bg }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it'" class="order-value">{{ product.profile.translate.it }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en' &amp;&amp; !product.profile.translate.en" class="order-value">{{ product.profile.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru' &amp;&amp; !product.profile.translate.ru" class="order-value">{{ product.profile.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk' &amp;&amp; !product.profile.translate.ua" class="order-value">{{ product.profile.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl' &amp;&amp; !product.profile.translate.pl" class="order-value">{{ product.profile.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de' &amp;&amp; !product.profile.translate.de" class="order-value">{{ product.profile.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg' &amp;&amp; !product.profile.translate.bg" class="order-value">{{ product.profile.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it' &amp;&amp; !product.profile.translate.it" class="order-value">{{ product.profile.name }}</div>
+          <div ng-if="product.construction_type === 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en'" class="order-value">{{ product.doorSashName }}</div>
           <div class="order-label">{{ ::cartPage.CONFIGMENU_PROFILE }}</div>
         </div>
         <div ng-if="product.glass.length &gt; 1" class="order-item">
@@ -66,7 +79,20 @@
         </div>
         <div class="order-item">
           <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
-          <div ng-if="product.construction_type !== 4" class="order-value">{{ product.hardware.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en'" class="order-value">{{ product.hardware.translate.en }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru'" class="order-value">{{ product.hardware.translate.ru }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk'" class="order-value">{{ product.hardware.translate.ua }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl'" class="order-value">{{ product.hardware.translate.pl }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de'" class="order-value">{{ product.hardware.translate.de }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg'" class="order-value">{{ product.hardware.translate.bg }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it'" class="order-value">{{ product.hardware.translate.it }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'en' &amp;&amp; !product.hardware.translate.en" class="order-value">{{ product.hardware.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'ru' &amp;&amp; !product.hardware.translate.ru" class="order-value">{{ product.hardware.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'uk' &amp;&amp; !product.hardware.translate.ua" class="order-value">{{ product.hardware.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'pl' &amp;&amp; !product.hardware.translate.pl" class="order-value">{{ product.hardware.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'de' &amp;&amp; !product.hardware.translate.de" class="order-value">{{ product.hardware.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'bg' &amp;&amp; !product.hardware.translate.bg" class="order-value">{{ product.hardware.name }}</div>
+          <div ng-if="product.construction_type !== 4 &amp;&amp; cartPage.U.userInfo.langLabel === 'it' &amp;&amp; !product.hardware.translate.it" class="order-value">{{ product.hardware.name }}</div>
           <div class="order-label">{{ ::cartPage.CONFIGMENU_HARDWARE }}</div>
         </div>
         <div class="order-item">

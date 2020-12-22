@@ -3,18 +3,47 @@
     .profiles-list
         .profile-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index")
             .producer(ng-click='hardwarePanel.ClickOnFolder($event)')
-                .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length && hardwarePanel.G.global.hardwareTypes[$index].description.length", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
-                .title {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .info(ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length && hardwarePanel.G.global.hardwareTypes[$index].description", fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)")
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'en' && hardwarePanel.G.global.hardwareTypes[$index].translate.en") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.en }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' && hardwarePanel.G.global.hardwareTypes[$index].translate.en") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.ru }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' && hardwarePanel.G.global.hardwareTypes[$index].translate.ua") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.ua }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'pl' && hardwarePanel.G.global.hardwareTypes[$index].translate.pl") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.pl }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'de' && hardwarePanel.G.global.hardwareTypes[$index].translate.de") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.de }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' && hardwarePanel.G.global.hardwareTypes[$index].translate.bg") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.bg }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'it' && hardwarePanel.G.global.hardwareTypes[$index].translate.it") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.it }}
+
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'en' && !hardwarePanel.G.global.hardwareTypes[$index].translate.en") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' && !hardwarePanel.G.global.hardwareTypes[$index].translate.ru") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' && !hardwarePanel.G.global.hardwareTypes[$index].translate.ua") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'pl' && !hardwarePanel.G.global.hardwareTypes[$index].translate.pl") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'de' && !hardwarePanel.G.global.hardwareTypes[$index].translate.de") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' && !hardwarePanel.G.global.hardwareTypes[$index].translate.bg") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'it' && !hardwarePanel.G.global.hardwareTypes[$index].translate.it") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+
             .profile-box
                 .profile-info(ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" )
                     .profile-info-item(ng-click="hardwarePanel.selectHardware(hardware.id)")
                         img.profile-img(ng-if='!hardwarePanel.G.global.cordova' ng-src="{{hardware.img}}" alt="{{hardware.name}}")
                         img.profile-img(ng-if='hardwarePanel.G.global.cordova' ng-src="{{hardwarePanel.extendUrl(hardware.img)}}" alt="{{hardware.name}}")
                         .name
-                            p {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'en'") {{hardware.translate.en}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'ru'") {{hardware.translate.ru}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'uk'") {{hardware.translate.ua}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'pl'") {{hardware.translate.pl}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'de'") {{hardware.translate.de}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg'") {{hardware.translate.bg}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'it'") {{hardware.translate.it}}
+
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'en' && !hardware.translate.en") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' && !hardware.translate.ru") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' && !hardware.translate.ua") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'pl' && !hardware.translate.pl") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'de' && !hardware.translate.de") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' && !hardware.translate.bg") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'it' && !hardware.translate.it") {{hardware.name}}
                         .common-info
                             p {{::hardwarePanel.HEAT_TRANSFER}} {{hardware.heat_coeff}}
                             p {{::hardwarePanel.NOICE_INSULATION}} {{hardware.noise_coeff}}
                     .info-container
-                        .information(ng-if="hardware.img.length && hardware.description.length", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
+                        .information(ng-if="hardware.img.length && hardware.description", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
                             | Information

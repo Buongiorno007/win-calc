@@ -70,14 +70,40 @@
   <div class="profiles-list">
     <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" class="profile-block">
       <div ng-click="profilesPanel.ClickOnFolder($event)" class="producer">
-        <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
-        <div class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'en'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.en }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ru }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ua }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.pl }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'de'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.de }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.bg }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'it'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.it }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.en" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ru" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ua" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.pl" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.de" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.bg" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.it" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
       </div>
       <div class="profile-box">
         <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id} | translate" class="profile-info">
           <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="profile-info-item"><img ng-if="profile.img.length  &amp;&amp; !profilesPanel.G.global.cordova" ng-src="{{profile.img}}" class="profile-img"><img ng-if="profile.img.length &amp;&amp; profilesPanel.G.global.cordova" ng-src="{{profilesPanel.extendUrl(profile.img)}}" class="profile-img">
             <div class="name">
-              <p>{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; profile.translate.en">{{profile.translate.en}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; profile.translate.ru">{{profile.translate.ru}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; profile.translate.ua">{{profile.translate.ua}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; profile.translate.pl">{{profile.translate.pl}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; profile.translate.de">{{profile.translate.de}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; profile.translate.bg">{{profile.translate.bg}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; profile.translate.it">{{profile.translate.it}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profile.translate.en">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profile.translate.ru">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profile.translate.ua">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profile.translate.pl">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profile.translate.de">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profile.translate.bg">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profile.translate.it">{{profile.name}}</p>
             </div>
             <div class="common-info">
               <p ng-if="profile.cameras === 1 ">                     {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
