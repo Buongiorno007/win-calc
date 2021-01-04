@@ -14913,8 +14913,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://admin.windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'https://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -28277,1161 +28277,213 @@ function ErrorResult(code, message) {
                         additional_elements.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists);
                         const array_filtered_by_names_additional_elements = additional_elements[0].filter(element => element.table_attr === "name")
                         const array_filtered_by_description_additional_elements = additional_elements[0].filter(element => element.table_attr === "description")
-
-                        let additional_elements_array_first_zero = GlobalStor.global.addElementsAll[1].elementsList[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_zero[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_zero[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
+                        /* Loop for zero element */
+                        let additional_elements_array_first_zero = GlobalStor.global.addElementsAll[1].elementsList;
                         for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_zero[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                   additional_elements_array_first_zero[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_first_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_first_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_first_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
 
-                        let additional_elements_array_first_first = GlobalStor.global.addElementsAll[1].elementsList[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_first[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_first[i]["translate"] = array_filtered_by_names_additional_elements[y]
+                        for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
+                            for(let y = 0; y < additional_elements_array_first_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_first_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_first_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
                                 }
                             }
                         }
-                        //Loop for description
+                        /* Loop for zero element end */
+                        
+                        /* Loop for first element  */
+                        let additional_elements_array_first_first = GlobalStor.global.addElementsAll[1].elementsList;
                         for(let i = 0; i < additional_elements_array_first_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_first[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_first[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_first_first[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_first_first[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_first_first[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
 
-                        let additional_elements_array_first_second = GlobalStor.global.addElementsAll[1].elementsList[2];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_second.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_second[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_second[i]["translate"] = array_filtered_by_names_additional_elements[y]
+                        for(let i = 0; i < additional_elements_array_first_first.length; i++) {
+                            for(let y = 0; y < additional_elements_array_first_first[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_first_first[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_first_first[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
                                 }
                             }
                         }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_second[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_second[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
+                        /* Loop for first element  END*/
 
-                        let additional_elements_array_first_third = GlobalStor.global.addElementsAll[1].elementsList[3];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_third.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_third[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_third[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                         //Loop for description
-                         for(let i = 0; i < additional_elements_array_first_third.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_third[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_third[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_fourth = GlobalStor.global.addElementsAll[1].elementsList[4];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_fourth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_fourth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fourth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_fourth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_fourth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fourth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-
-                        let additional_elements_array_first_fifth = GlobalStor.global.addElementsAll[1].elementsList[5];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_fifth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_fifth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fifth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_fifth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_fifth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fifth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_sixth = GlobalStor.global.addElementsAll[1].elementsList[6];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_sixth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_sixth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_sixth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_sixth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_sixth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_sixth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_seventh = GlobalStor.global.addElementsAll[1].elementsList[7];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_seventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_seventh[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_seventh[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_seventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_seventh[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_seventh[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_eighth = GlobalStor.global.addElementsAll[1].elementsList[8];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_eighth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_eighth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_eighth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_eighth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_eighth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_eighth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_ninth = GlobalStor.global.addElementsAll[1].elementsList[9];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_ninth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_ninth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_ninth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                         //Loop for description
-                         for(let i = 0; i < additional_elements_array_first_ninth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_ninth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_ninth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_tenth = GlobalStor.global.addElementsAll[1].elementsList[10];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_tenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_tenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_tenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_tenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_tenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_tenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_eleventh = GlobalStor.global.addElementsAll[1].elementsList[11];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_eleventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_eleventh[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_eleventh[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_eleventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_eleventh[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_eleventh[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-                        
-                        let additional_elements_array_first_twelfth = GlobalStor.global.addElementsAll[1].elementsList[12];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_twelfth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_twelfth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_twelfth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_twelfth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_twelfth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_twelfth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_thirteenth = GlobalStor.global.addElementsAll[1].elementsList[13];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_thirteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_thirteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_thirteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_thirteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_thirteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_thirteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_fourteenth = GlobalStor.global.addElementsAll[1].elementsList[14];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_fourteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_fourteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fourteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_fourteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_fourteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fourteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_fifteenth = GlobalStor.global.addElementsAll[1].elementsList[15];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_fifteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_fifteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fifteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_fifteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_fifteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_fifteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_sixteenth = GlobalStor.global.addElementsAll[1].elementsList[16];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_sixteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_sixteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_sixteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_sixteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_sixteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_sixteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_seventeenth = GlobalStor.global.addElementsAll[1].elementsList[17];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_seventeenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_seventeenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_seventeenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_seventeenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_seventeenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_seventeenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_eighteenth = GlobalStor.global.addElementsAll[1].elementsList[18];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_eighteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_eighteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_eighteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_eighteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_eighteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_eighteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_first_nineteenth = GlobalStor.global.addElementsAll[1].elementsList[19];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_first_nineteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_first_nineteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_first_nineteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_first_nineteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_first_nineteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_first_nineteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_second = GlobalStor.global.addElementsAll[2].elementsList[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_second.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_second[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_second[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
+                        /* Loop for second element  */
+                        let additional_elements_array_second = GlobalStor.global.addElementsAll[2].elementsList;
                         for(let i = 0; i < additional_elements_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_second[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_second[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_second[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_second[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_second[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
 
-                        let additional_elements_array_second_first = GlobalStor.global.addElementsAll[2].elementsList[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_second_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_second_first[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_second_first[i]["translate"] = array_filtered_by_names_additional_elements[y]
+                        for(let i = 0; i < additional_elements_array_second.length; i++) {
+                            for(let y = 0; y < additional_elements_array_second[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_second[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_second[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
                                 }
                             }
                         }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_second_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_second_first[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_second_first[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
+                        /* Loop for second element end */
 
-                        let additional_elements_array_sixth_zero = GlobalStor.global.addElementsAll[6].elementsList[0];
+                        /* For the sixth element */
+                        let additional_elements_array_sixth_zero = GlobalStor.global.addElementsAll[6].elementsList;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_sixth_zero[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixth_zero[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
                         for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixth_zero[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixth_zero[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_sixth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_sixth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
 
-                        let additional_elements_array_sixth_first = GlobalStor.global.addElementsAll[6].elementsList[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_sixth_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_sixth_first[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixth_first[i]["translate"] = array_filtered_by_names_additional_elements[y]
+                        for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
+                            for(let y = 0; y < additional_elements_array_sixth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_sixth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
                                 }
                             }
                         }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixth_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixth_first[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixth_first[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
+                        /* End loop for sixth element */
 
-                        let additional_elements_array_sixth_second = GlobalStor.global.addElementsAll[6].elementsList[2];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_sixth_second.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_sixth_second[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixth_second[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixth_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixth_second[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixth_second[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_zero = GlobalStor.global.addElementsAll[8].elementsList[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_zero[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_zero[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
+                        /* For the eight element */
+                        let additional_elements_array_eighth_zero = GlobalStor.global.addElementsAll[8].elementsList;
                         for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_zero[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_zero[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_eighth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_eighth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
 
+                        for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
+                            for(let y = 0; y < additional_elements_array_eighth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_eighth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
+                                }
+                            }
+                        }
+                        /* End for eight element */
 
-                        let additional_elements_array_eighth_first = GlobalStor.global.addElementsAll[8].elementsList[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_first[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_first[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_first[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_first[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_second = GlobalStor.global.addElementsAll[8].elementsList[2];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_second.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_second[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_second[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_second[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_second[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_third = GlobalStor.global.addElementsAll[8].elementsList[3];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_third.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_third[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_third[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_third.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_third[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_third[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_fourth = GlobalStor.global.addElementsAll[8].elementsList[4];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_fourth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_fourth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_fourth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_fourth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_fourth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_fourth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_fifth = GlobalStor.global.addElementsAll[8].elementsList[5];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_fifth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_fifth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_fifth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_fifth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_fifth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_fifth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_sixth = GlobalStor.global.addElementsAll[8].elementsList[6];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_sixth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_sixth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_sixth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_sixth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_sixth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_sixth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_seventh = GlobalStor.global.addElementsAll[8].elementsList[7];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_seventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_seventh[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_seventh[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_seventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_seventh[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_seventh[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_eighth = GlobalStor.global.addElementsAll[8].elementsList[8];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_eighth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_eighth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_eighth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_eighth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_eighth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_eighth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_ninth = GlobalStor.global.addElementsAll[8].elementsList[9];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_ninth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_ninth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_ninth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_ninth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_ninth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_ninth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_tenth = GlobalStor.global.addElementsAll[8].elementsList[10];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_tenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_tenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_tenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_tenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_tenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_tenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_eleventh = GlobalStor.global.addElementsAll[8].elementsList[11];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_eleventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_eleventh[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_eleventh[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_eleventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_eleventh[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_eleventh[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-
-                        let additional_elements_array_eighth_twelfth = GlobalStor.global.addElementsAll[8].elementsList[12];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_twelfth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_twelfth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_twelfth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_twelfth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_twelfth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_twelfth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_thirteenth = GlobalStor.global.addElementsAll[8].elementsList[13];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_thirteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_thirteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_thirteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_thirteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_thirteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_thirteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_eighth_fourteenth= GlobalStor.global.addElementsAll[8].elementsList[14];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_eighth_fourteenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_eighth_fourteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_fourteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_eighth_fourteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_eighth_fourteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_eighth_fourteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_ninth = GlobalStor.global.addElementsAll[9].elementsList[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_ninth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_ninth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_ninth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
+                        /* Loop for ninth element */
+                        let additional_elements_array_ninth = GlobalStor.global.addElementsAll[9].elementsList;
                         for(let i = 0; i < additional_elements_array_ninth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_ninth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_ninth[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_ninth[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_ninth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_ninth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
 
-                        let additional_elements_array_teenth = GlobalStor.global.addElementsAll[10].elementsList[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_teenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_teenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_teenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
+                        for(let i = 0; i < additional_elements_array_ninth.length; i++) {
+                            for(let y = 0; y < additional_elements_array_ninth[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_ninth[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_ninth[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
                                 }
                             }
                         }
-                        //Loop for description
+                        /* Loop for ninth element end */
+    
+                        /* Loop for teenth element */
+                        let additional_elements_array_teenth = GlobalStor.global.addElementsAll[10].elementsList;
                         for(let i = 0; i < additional_elements_array_teenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_teenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_teenth[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_teenth[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_teenth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_teenth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
-                        }  
+                        }
 
-                        let additional_elements_array_sixteenth_zero = GlobalStor.global.addElementsAll[16].elementsList[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                        for(let i = 0; i < additional_elements_array_teenth.length; i++) {
+                            for(let y = 0; y < additional_elements_array_teenth[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_teenth[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_teenth[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
+                                }
+                            }
+                        }
+                        /* Loop for teenth element end */
+
+                        /* Loop for sixtenth element */
+                        let additional_elements_array_sixteenth_zero = GlobalStor.global.addElementsAll[16].elementsList;
                         for(let i = 0; i < additional_elements_array_sixteenth_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_zero[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_zero[i]["translate"] = array_filtered_by_names_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_sixteenth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_sixteenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
-                        //Loop for description
+
                         for(let i = 0; i < additional_elements_array_sixteenth_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_zero[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_zero[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_sixteenth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_sixteenth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
                                 }
                             }
                         }
-
-                        let additional_elements_array_sixteenth_first = GlobalStor.global.addElementsAll[16].elementsList[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_first[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_first[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_first[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_first[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_second = GlobalStor.global.addElementsAll[16].elementsList[2];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_second[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_second[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_second[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_second[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_third = GlobalStor.global.addElementsAll[16].elementsList[3];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_third.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_third[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_third[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_third.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_third[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_third[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_fourth = GlobalStor.global.addElementsAll[16].elementsList[4];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_fourth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fourth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fourth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_fourth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fourth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fourth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_fifth = GlobalStor.global.addElementsAll[16].elementsList[5];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_fifth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fifth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fifth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_fifth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fifth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fifth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_sixth = GlobalStor.global.addElementsAll[16].elementsList[6];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_sixth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_sixth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_sixth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_sixth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_sixth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_sixth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_seventh = GlobalStor.global.addElementsAll[16].elementsList[7];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_seventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_seventh[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_seventh[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_seventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_seventh[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_seventh[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_eighth = GlobalStor.global.addElementsAll[16].elementsList[8];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_eighth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_eighth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_eighth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_eighth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_eighth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_eighth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_ninth = GlobalStor.global.addElementsAll[16].elementsList[9];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_ninth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_ninth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_ninth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_ninth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_ninth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_ninth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_teenth = GlobalStor.global.addElementsAll[16].elementsList[10];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_teenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_teenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_teenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_teenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_teenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_teenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_eleventh = GlobalStor.global.addElementsAll[16].elementsList[11];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_eleventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_eleventh[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_eleventh[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_eleventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_eleventh[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_eleventh[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_twelfth = GlobalStor.global.addElementsAll[16].elementsList[12];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_twelfth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_twelfth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_twelfth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_twelfth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_twelfth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_twelfth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
+                        /* Loop for sixtenth element END */
                         
-                        let additional_elements_array_sixteenth_thirteenth = GlobalStor.global.addElementsAll[16].elementsList[13];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_thirteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_thirteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_thirteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_thirteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_thirteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_thirteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_fourteenth = GlobalStor.global.addElementsAll[16].elementsList[14];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_fourteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fourteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fourteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_fourteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fourteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fourteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_fifteenth = GlobalStor.global.addElementsAll[16].elementsList[15];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_fifteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fifteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fifteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_fifteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_fifteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_fifteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_sixteenth = GlobalStor.global.addElementsAll[16].elementsList[16];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_sixteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_sixteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_sixteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_sixteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_sixteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_sixteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_seventeenth = GlobalStor.global.addElementsAll[16].elementsList[17];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_seventeenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_seventeenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_seventeenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_seventeenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_seventeenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_seventeenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_eighteenth = GlobalStor.global.addElementsAll[16].elementsList[18];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_eighteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_eighteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_eighteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_eighteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_eighteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_eighteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_sixteenth_nineteenth = GlobalStor.global.addElementsAll[16].elementsList[19];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixteenth_nineteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_nineteenth[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_nineteenth[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_sixteenth_nineteenth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_sixteenth_nineteenth[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_sixteenth_nineteenth[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
-
-                        let additional_elements_array_seventeenth_zero = GlobalStor.global.addElementsAll[17].elementsList[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_seventeenth_zero[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_seventeenth_zero[i]["translate"] = array_filtered_by_names_additional_elements[y]
-                                }
-                            }
-                        }
-                        //Loop for description
+                        /* Loop for seventh element */
+                        let additional_elements_array_seventeenth_zero = GlobalStor.global.addElementsAll[17].elementsList;
                         for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_seventeenth_zero[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_seventeenth_zero[i]["description"] = array_filtered_by_description_additional_elements[y]
+                            for(let y = 0; y < additional_elements_array_seventeenth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
+                                   if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                    additional_elements_array_seventeenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                   }
                                 }
                             }
                         }
 
-                        let additional_elements_array_seventeenth_first = GlobalStor.global.addElementsAll[17].elementsList[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_elements_array_seventeenth_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_elements.length; y++) {
-                                 if(additional_elements_array_seventeenth_first[i].id === array_filtered_by_names_additional_elements[y].table_id) {
-                                    additional_elements_array_seventeenth_first[i]["translate"] = array_filtered_by_names_additional_elements[y]
+                        for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
+                            for(let y = 0; y < additional_elements_array_seventeenth_zero[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
+                                    if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
+                                        additional_elements_array_seventeenth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
+                                    }
                                 }
                             }
                         }
-                        //Loop for description
-                        for(let i = 0; i < additional_elements_array_seventeenth_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_additional_elements.length; y++) {
-                                if(additional_elements_array_seventeenth_first[i].id === array_filtered_by_description_additional_elements[y].table_id) {
-                                    additional_elements_array_seventeenth_first[i]["description"] = array_filtered_by_description_additional_elements[y]
-                                }
-                            }
-                        }
+                        /* Loop for seventh element  END*/
                         //Block for additional elements end ***
                         
                         //Block for mosquitos start ***
