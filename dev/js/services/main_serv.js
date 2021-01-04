@@ -1811,8 +1811,6 @@
                         }
                         mosquitos.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos)
                         const array_filtered_by_name_mosquitos = mosquitos[0].filter(element => element.table_attr === "name")
-                        console.log(mosquitos, 'mosquitos array')
-                        console.log(array_filtered_by_name_mosquitos, 'array_filtered_by_name_mosquitos')
 
                         let mosquitos_array = GlobalStor.global.addElementsAll[0].elementsList[0];
                         for(let i = 0; i < mosquitos_array.length; i++) {

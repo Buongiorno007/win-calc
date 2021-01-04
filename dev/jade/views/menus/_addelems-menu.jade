@@ -11,7 +11,7 @@
 
             ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
                 //-Conditions to display translations of additional elements 
-                .title(ng-click="elementsMenu.hideMenu($index)", ng-if="elementsMenu.U.userInfo.langLabel === 'en' &&  elementsMenu.A.aux.addElementsType[$index].translate.en") {{ elementsMenu.A.aux.addElementsType[$index].translate.en }}
+                .title(ng-click="elementsMenu.hideMenu($index)", ng-if="elementsMenu.U.userInfo.langLabel === 'en' && elementsMenu.A.aux.addElementsType[$index].translate.en") {{ elementsMenu.A.aux.addElementsType[$index].translate.en }}
                     button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
                     .open-list(id="{{$index + 'open'}}")
                         img(ng-src='img/plus.png')

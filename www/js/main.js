@@ -14913,8 +14913,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://admin.windowscalculator.net/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -29442,8 +29442,6 @@ function ErrorResult(code, message) {
                         }
                         mosquitos.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos)
                         const array_filtered_by_name_mosquitos = mosquitos[0].filter(element => element.table_attr === "name")
-                        console.log(mosquitos, 'mosquitos array')
-                        console.log(array_filtered_by_name_mosquitos, 'array_filtered_by_name_mosquitos')
 
                         let mosquitos_array = GlobalStor.global.addElementsAll[0].elementsList[0];
                         for(let i = 0; i < mosquitos_array.length; i++) {

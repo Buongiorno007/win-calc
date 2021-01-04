@@ -751,8 +751,6 @@
             <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'it' &amp;&amp; !configMenu.P.product.profile.translate.it" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
             <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'de' &amp;&amp; !configMenu.P.product.profile.translate.de" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
             <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'bg' &amp;&amp; !configMenu.P.product.profile.translate.bg" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorName | translate }}</div>
-            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorSashName }}</div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}" fs-click="configMenu.selectConfigPanel(3)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_GLASS }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
@@ -844,7 +842,7 @@
               </li>
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
-              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp;  elementsMenu.A.aux.addElementsType[$index].translate.en" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.en }}
+              <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.en" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.en }}
                 <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
