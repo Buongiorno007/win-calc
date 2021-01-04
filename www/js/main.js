@@ -27940,7 +27940,7 @@ function ErrorResult(code, message) {
                     function(data) {
                         /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
-
+                        /* TODO */ 
 
                         //Block for profiles and profiles descriptions translations ***
                         product.locales_names_addition_folders = data
@@ -28116,8 +28116,6 @@ function ErrorResult(code, message) {
                                 }
                             }
                         }
-
-
                         //Block for hardware folders end ***
 
 
@@ -28487,7 +28485,6 @@ function ErrorResult(code, message) {
                         //Block for additional elements end ***
                         
                         //Block for mosquitos start ***
-
                         const mosquitos = [];
                         for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos; i += array_size) {
                             mosquitos.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos.slice(i, i + array_size));
@@ -28576,252 +28573,31 @@ function ErrorResult(code, message) {
                             system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists.slice(i, i + array_size));
                         }
                         glasses.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists);
-
                         //Filtred array contains only glasses names
                         const array_filtered_by_names_glasses = glasses[0].filter(element => element.table_attr === "name")
-                        let glasses_array_first = GlobalStor.global.glasses[0];
+                        const array_filtered_by_description_glasses_first = glasses[0].filter(element => element.table_attr === "description")
+                        let glasses_array_first = GlobalStor.global.glasses;
 
                         for(let i = 0; i < glasses_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                                if(glasses_array_first[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                    glasses_array_first[i]["translate"] = array_filtered_by_names_glasses[y]
+                            for(let y = 0; y < glasses_array_first[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_names_glasses.length; z++) {
+                                    if(glasses_array_first[i][y].id === array_filtered_by_names_glasses[z].table_id) {
+                                        glasses_array_first[i][y]["translate"] = array_filtered_by_names_glasses[z]
+                                    }
                                 }
                             }
                         }
-                        const array_filtered_by_description_glasses_first = glasses[0].filter(element => element.table_attr === "description")
+
                         for(let i = 0; i < glasses_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                               if(glasses_array_first[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                    glasses_array_first[i]["description"] = array_filtered_by_description_glasses_first[y]
-                               }
-                           }
-                       }
-                       let glasses_array_second = GlobalStor.global.glasses[1];
-                       for(let i = 0; i < glasses_array_second.length; i++) {
-                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                               if(glasses_array_second[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                    glasses_array_second[i]["translate"] = array_filtered_by_names_glasses[y]
-                               }
-                           }
-                       }
-                       for(let i = 0; i < glasses_array_second.length; i++) {
-                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                              if(glasses_array_second[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_second[i]["description"] = array_filtered_by_description_glasses_first[y]
-                              }
-                          }
-                      }
-                      let glasses_array_third = GlobalStor.global.glasses[2];
-                      for(let i = 0; i < glasses_array_third.length; i++) {
-                          for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                              if(glasses_array_third[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_third[i]["translate"] = array_filtered_by_names_glasses[y]
-                              }
-                          }
-                      }
-                      for(let i = 0; i < glasses_array_third.length; i++) {
-                         for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                             if(glasses_array_third[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_third[i]["description"] = array_filtered_by_description_glasses_first[y]
-                             }
-                         }
-                      }
-                      let glasses_array_fourth = GlobalStor.global.glasses[3];
-                      for(let i = 0; i < glasses_array_fourth.length; i++) {
-                          for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                              if(glasses_array_fourth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_fourth[i]["translate"] = array_filtered_by_names_glasses[y]
-                              }
-                          }
-                      }
-                      for(let i = 0; i < glasses_array_fourth.length; i++) {
-                         for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                             if(glasses_array_fourth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_fourth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                             }
-                         }
-                      }
-                      let glasses_array_fifth = GlobalStor.global.glasses[4];
-                      for(let i = 0; i < glasses_array_fifth.length; i++) {
-                          for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                              if(glasses_array_fifth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_fifth[i]["translate"] = array_filtered_by_names_glasses[y]
-                              }
-                          }
-                      }
-                      for(let i = 0; i < glasses_array_fifth.length; i++) {
-                         for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                             if(glasses_array_fifth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_fifth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                             }
-                         }
-                      }
-                      let glasses_array_sixth = GlobalStor.global.glasses[5];
-                      for(let i = 0; i < glasses_array_sixth.length; i++) {
-                          for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                              if(glasses_array_sixth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_sixth[i]["translate"] = array_filtered_by_names_glasses[y]
-                              }
-                          }
-                      }
-                      for(let i = 0; i < glasses_array_sixth.length; i++) {
-                         for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                             if(glasses_array_sixth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_sixth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                             }
-                         }
-                      }
-                       let glasses_array_seventh = GlobalStor.global.glasses[6];
-                       for(let i = 0; i < glasses_array_seventh.length; i++) {
-                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                               if(glasses_array_seventh[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_seventh[i]["translate"] = array_filtered_by_names_glasses[y]
-                               }
-                           }
-                       }
-                       for(let i = 0; i < glasses_array_seventh.length; i++) {
-                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                              if(glasses_array_seventh[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_seventh[i]["description"] = array_filtered_by_description_glasses_first[y]
-                              }
-                          }
-                       }
-                         let glasses_array_eighth = GlobalStor.global.glasses[7];
-                         for(let i = 0; i < glasses_array_eighth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                                 if(glasses_array_eighth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                    glasses_array_eighth[i]["translate"] = array_filtered_by_names_glasses[y]
-                                 }
-                             }
-                         }
-                         for(let i = 0; i < glasses_array_eighth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                                if(glasses_array_eighth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                    glasses_array_eighth[i]["description"] = array_filtered_by_description_glasses_first[y]
+                            for(let y = 0; y < glasses_array_first[i].length; y++) {
+                                for(let z = 0; z < array_filtered_by_description_glasses_first.length; z++) {
+                                    if(glasses_array_first[i][y].id === array_filtered_by_description_glasses_first[z].table_id) {
+                                        glasses_array_first[i][y]["description"] = array_filtered_by_description_glasses_first[z]
+                                    }
                                 }
                             }
-                         }
-                          let glasses_array_ninth = GlobalStor.global.glasses[8];
-                          for(let i = 0; i < glasses_array_ninth.length; i++) {
-                              for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                                  if(glasses_array_ninth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                    glasses_array_ninth[i]["translate"] = array_filtered_by_names_glasses[y]
-                                  }
-                              }
-                          }
-                          for(let i = 0; i < glasses_array_ninth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                                 if(glasses_array_ninth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                    glasses_array_ninth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                                 }
-                             }
                         }
-                          let glasses_array_tenth = GlobalStor.global.glasses[9];
-                          for(let i = 0; i < glasses_array_tenth.length; i++) {
-                              for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                                  if(glasses_array_tenth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                    glasses_array_tenth[i]["translate"] = array_filtered_by_names_glasses[y]
-                                  }
-                              }
-                          }
-                          for(let i = 0; i < glasses_array_tenth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                                 if(glasses_array_tenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                    glasses_array_tenth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                                 }
-                            }
-                        }
-                          let glasses_array_eleventh = GlobalStor.global.glasses[10];
-                          for(let i = 0; i < glasses_array_eleventh.length; i++) {
-                              for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                                  if(glasses_array_eleventh[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                    glasses_array_eleventh[i]["translate"] = array_filtered_by_names_glasses[y]
-                                  }
-                              }
-                          }
-                          for(let i = 0; i < glasses_array_eleventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                                 if(glasses_array_eleventh[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                    glasses_array_eleventh[i]["description"] = array_filtered_by_description_glasses_first[y]
-                                 }
-                            }
-                        }
-                         let glasses_array_twelfth = GlobalStor.global.glasses[11];
-                         for(let i = 0; i < glasses_array_twelfth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                                 if(glasses_array_twelfth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                    glasses_array_twelfth[i]["translate"] = array_filtered_by_names_glasses[y]
-                                 }
-                             }
-                         }
-                         for(let i = 0; i < glasses_array_twelfth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                                if(glasses_array_twelfth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                    glasses_array_twelfth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                                }
-                           }
-                       }
-                       let glasses_array_thirteenth = GlobalStor.global.glasses[12];
-                       for(let i = 0; i < glasses_array_thirteenth.length; i++) {
-                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                               if(glasses_array_thirteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_thirteenth[i]["translate"] = array_filtered_by_names_glasses[y]
-                               }
-                           }
-                       }
-                       for(let i = 0; i < glasses_array_thirteenth.length; i++) {
-                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                              if(glasses_array_thirteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_thirteenth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                              }
-                         }
-                       }
-                       let glasses_array_fourteenth = GlobalStor.global.glasses[13];
-                       for(let i = 0; i < glasses_array_fourteenth.length; i++) {
-                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                               if(glasses_array_fourteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_fourteenth[i]["translate"] = array_filtered_by_names_glasses[y]
-                               }
-                           }
-                       }
-                       for(let i = 0; i < glasses_array_fourteenth.length; i++) {
-                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                              if(glasses_array_fourteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_fourteenth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                              }
-                         }
-                       }
-                       let glasses_array_fifteenth = GlobalStor.global.glasses[14];
-                       for(let i = 0; i < glasses_array_fifteenth.length; i++) {
-                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                               if(glasses_array_fifteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_fifteenth[i]["translate"] = array_filtered_by_names_glasses[y]
-                               }
-                           }
-                       }
-                       for(let i = 0; i < glasses_array_fifteenth.length; i++) {
-                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                              if(glasses_array_fifteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_fifteenth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                              }
-                            }
-                       }
-                       let glasses_array_sixteenth = GlobalStor.global.glasses[15];
-                       for(let i = 0; i < glasses_array_sixteenth.length; i++) {
-                           for(let y = 0; y < array_filtered_by_names_glasses.length; y++) {
-                               if(glasses_array_sixteenth[i].id === array_filtered_by_names_glasses[y].table_id) {
-                                glasses_array_sixteenth[i]["translate"] = array_filtered_by_names_glasses[y]
-                               }
-                           }
-                       }
-                       for(let i = 0; i < glasses_array_sixteenth.length; i++) {
-                          for(let y = 0; y < array_filtered_by_description_glasses_first.length; y++) {
-                              if(glasses_array_sixteenth[i].id === array_filtered_by_description_glasses_first[y].table_id) {
-                                glasses_array_sixteenth[i]["description"] = array_filtered_by_description_glasses_first[y]
-                              }
-                         }
-                       }
-                       //Block for glasses translations end ***
+                        //Block for glasses translations end ***
                     }
                 )
                
