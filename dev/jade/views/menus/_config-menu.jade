@@ -37,7 +37,7 @@
       .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'it' && !configMenu.P.product.profile.translate.it", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'de' && !configMenu.P.product.profile.translate.de", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'bg' && !configMenu.P.product.profile.translate.bg", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      //- .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
+      .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
       //- .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")

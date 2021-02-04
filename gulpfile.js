@@ -38,26 +38,26 @@ gulp.task('clean', function () {
 var random = Math.random();
 var env = args.env || 'windowSiteLocal';
 var server_env = {
-  // "windowSiteTest": "'http://api.windowscalculator.net'",
+  // "windowSiteTest": "'https://api.windowscalculator.net'",
   "windowSiteTest": "'http://api.steko.com.ua'",
-  "windowSiteLocal": "'http://api.windowscalculator.net'",
-  "windowSite": "'http://api.windowscalculator.net'",
+  "windowSiteLocal": "'https://api.windowscalculator.net'",
+  "windowSite": "'https://api.windowscalculator.net'",
   "steko": "'https://api.steko.com.ua'",
   "orange": "'http://api.calc.csokna.ru'",
-  "window": "'http://api.windowscalculator.net'",
+  "window": "'https://api.windowscalculator.net'",
   "windowSteko": "'http://api.steko.com.ua'",
-  "apelsin": "'http://admin.apelsin.windowscalculator.net'"
+  "apelsin": "'https://admin.apelsin.windowscalculator.net'"
 },
   print_env = {
     // "windowSiteTest": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSiteTest": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
-    "windowSiteLocal": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSiteTest": "'https://admin.steko.com.ua/orders/get-order-pdf/'",
+    "windowSiteLocal": "'https://admin.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSite": "'https://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
-    "window": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSteko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
-    "apelsin": "'http://admin.apelsin.windowscalculator.net/orders/get-order-pdf/'"
+    "window": "'https://admin.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSteko": "'https://admin.steko.com.ua/orders/get-order-pdf/'",
+    "apelsin": "'https://admin.apelsin.windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
     "windowSiteTest": "'/calculator/local/'",

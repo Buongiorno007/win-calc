@@ -842,7 +842,7 @@
               if (globalConstants.serverIP === 'http://api.steko.com.ua') {
                 url = `http://export.steko.com.ua/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
               } else {
-                url = `http://windowscalculator.net/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
+                url = `https://windowscalculator.net/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
               }
               $http
                 .get(url)
@@ -943,7 +943,7 @@
             url = "http://export.steko.com.ua/api/wc/?task=region";
             name = thisCtrl.SELECT_REGION;
           } else {
-            url = 'http://windowscalculator.net/api/wc/?task=country';
+            url = 'https://windowscalculator.net/api/wc/?task=country';
             name = thisCtrl.SELECT_COUNTRY;
           }
           $http

@@ -22,7 +22,3 @@
 gulp buildStekoSite && gulp buildWindowSite && gulp buildOrangeSite <<- для сайтов
 
 gulp buildStekoExt && gulp buildWindowExt && gulp buildOrangeExt <<- для расширений
-
-
-
-

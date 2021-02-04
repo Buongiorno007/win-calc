@@ -89,7 +89,7 @@
                         ProductStor.product.hardware.id,
                         ProductStor.product.lamination.lamination_in_id
                     ).then(function () {
-                        if (globalConstants.serverIP === 'http://api.calc.csokna.ru' || globalConstants.serverIP === 'http://api.windowscalculator.net') {
+                        if (globalConstants.serverIP === 'http://api.calc.csokna.ru' || globalConstants.serverIP === 'https://api.windowscalculator.net') {
                             ProductStor.product.template_source.report = ProductStor.product.report;
                         }
                         if (MainServ.inputProductInOrder()) {
