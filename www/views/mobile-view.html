@@ -216,6 +216,7 @@
       <p>{{mobilePage.CART}}</p>
     </div>
   </div>
+  <div ng-click="mobilePage.OpenMenu()" ng-class="{ active: mobilePage.mobMenu }" class="burger"></div>
   <section ng-controller="OrderFormCtrl as orderForm" ng-if="mobilePage.C.cart.isOrderDialog" class="mobile-order-forms">
     <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)" class="order-dialog-mobile scrollFix">
       <div class="cart-dialog-header">

@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1608125598') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1612264145') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1608125598') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1612264145') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1608125598') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1612264145') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1608125598') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1612264145') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1608125598') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1612264145') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1608125598') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1612264145') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -4650,19 +4650,19 @@ textarea.comment-field {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -7247,7 +7247,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1608125599') no-repeat;
+  background: url('../img/login/logo.png?1612264145') no-repeat;
   background-size: cover !important;
 }
 
@@ -10357,7 +10357,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1608125599') no-repeat;
+  background: url('../img/door-arrow.png?1612264145') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -13879,6 +13879,7 @@ body {
 }
 /* line 2250, ../../dev/sass/pages/mobile.scss */
 .mobile .burger {
+  display: none;
   position: absolute;
   top: 15px;
   left: 15px;
@@ -13888,12 +13889,12 @@ body {
   background: url("../img/config-menu/settings.svg") no-repeat;
   background-size: contain;
 }
-/* line 2259, ../../dev/sass/pages/mobile.scss */
+/* line 2260, ../../dev/sass/pages/mobile.scss */
 .mobile .burger.active {
   transition: 2s linear;
   opacity: 0;
 }
-/* line 2265, ../../dev/sass/pages/mobile.scss */
+/* line 2266, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu {
   position: absolute;
   display: inline-flex;
@@ -13908,7 +13909,7 @@ body {
   z-index: 2;
   border-right: 1px solid #bebebe;
 }
-/* line 2278, ../../dev/sass/pages/mobile.scss */
+/* line 2279, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container {
   position: relative;
   display: inline-flex;
@@ -13919,29 +13920,29 @@ body {
   -webkit-box-shadow: #bebebe 0 2px 10px -2px;
   box-shadow: #bebebe 0 2px 10px -2px;
 }
-/* line 2285, ../../dev/sass/pages/mobile.scss */
+/* line 2286, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-info-block {
   position: absolute;
   bottom: 12px;
   right: 10px;
 }
-/* line 2290, ../../dev/sass/pages/mobile.scss */
+/* line 2291, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-location,
 .mobile .mobile-left-menu .user-info-container .user-name {
   text-align: left;
 }
-/* line 2294, ../../dev/sass/pages/mobile.scss */
+/* line 2295, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-foto {
   width: 80px;
   height: 80px;
 }
-/* line 2299, ../../dev/sass/pages/mobile.scss */
+/* line 2300, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu.opened {
   left: 0;
   transition: 0.5s linear;
   box-shadow: 0px 0px 100px 20vw rgba(78, 77, 77, 0.5);
 }
-/* line 2304, ../../dev/sass/pages/mobile.scss */
+/* line 2305, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .burger-inner {
   position: absolute;
   top: 15px;
@@ -13952,14 +13953,14 @@ body {
   background-size: contain;
   transition: 0.5s linear;
 }
-/* line 2313, ../../dev/sass/pages/mobile.scss */
+/* line 2314, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .burger-inner.active {
   transform: rotate(90deg);
   background: url("../img/config-menu/settings.svg") no-repeat;
   background-size: contain;
   transition: 0.5s linear;
 }
-/* line 2320, ../../dev/sass/pages/mobile.scss */
+/* line 2321, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list {
   height: calc(100% - 200px);
   display: inline-flex;
@@ -13968,7 +13969,7 @@ body {
   justify-content: flex-start;
   padding: 10px 0 10px 10px;
 }
-/* line 2327, ../../dev/sass/pages/mobile.scss */
+/* line 2328, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .button, .mobile .mobile-left-menu .buttons-list .ghost-button, .mobile .mobile-left-menu .buttons-list .aux-choose-but, .mobile .mobile-left-menu .buttons-list .parameters-block .aux-params-but, .parameters-block .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .elements-list-container .aux-params-but, .elements-list-container .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .aux-params-but, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .additional-list-container .aux-list-content .aux-params-but, .additional-list-container .aux-list-content .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .cart-page .alladdelements-block .aux-params-but, .cart-page .alladdelements-block .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .cart-page .addelementunit-only .aux-params-but, .cart-page .addelementunit-only .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .nav-menu .new-calc, .nav-menu .mobile .mobile-left-menu .buttons-list .new-calc, .mobile .mobile-left-menu .buttons-list .cart-menu .measure-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .measure-btn, .mobile .mobile-left-menu .buttons-list .big-button, .mobile .mobile-left-menu .buttons-list .orange-big-btn, .mobile .mobile-left-menu .buttons-list .menu-right-general .cart-btn, .menu-right-general .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .order-path .cart-btn, .order-path .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .config-menu .cart-btn, .config-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .cart-btn, .elements-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .cart-menu .cart-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .old-price-tab .cart-btn, .old-price-tab .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .old-price-inst-tab .cart-btn, .old-price-inst-tab .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .cart-menu .order-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .order-btn, .mobile .mobile-left-menu .buttons-list .login-submit, .mobile .mobile-left-menu .buttons-list .middle-button, .mobile .mobile-left-menu .buttons-list .alert-btns button, .alert-btns .mobile .mobile-left-menu .buttons-list button, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-btn, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-btn, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-btn, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-btn, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-save-btn, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-save-btn, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn, .mobile .mobile-left-menu .buttons-list .settings .save, .settings .mobile .mobile-left-menu .buttons-list .save, .mobile .mobile-left-menu .buttons-list .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .mobile .mobile-left-menu .buttons-list .set-grid-all-btn, .mobile .mobile-left-menu .buttons-list .search-block .cancel-search, .search-block .mobile .mobile-left-menu .buttons-list .cancel-search, .mobile .mobile-left-menu .buttons-list .cart-dialogs-container .save, .cart-dialogs-container .mobile .mobile-left-menu .buttons-list .save, .mobile .mobile-left-menu .buttons-list .cart-page .cart-tool, .cart-page .mobile .mobile-left-menu .buttons-list .cart-tool,
 .mobile .mobile-left-menu .buttons-list .light-v .cart-tool,
 .light-v .mobile .mobile-left-menu .buttons-list .cart-tool, .mobile .mobile-left-menu .buttons-list .construction-left-menu .project-default, .construction-left-menu .mobile .mobile-left-menu .buttons-list .project-default, .mobile .mobile-left-menu .buttons-list .small-button, .mobile .mobile-left-menu .buttons-list .cart-page .order-tool, .cart-page .mobile .mobile-left-menu .buttons-list .order-tool,
@@ -13982,7 +13983,7 @@ body {
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close, .mobile .mobile-left-menu .buttons-list .door-config-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab, .mobile .mobile-left-menu .buttons-list .calculator .cell, .calculator .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements {
   margin: 5px 0 5px 0;
 }
-/* line 2329, ../../dev/sass/pages/mobile.scss */
+/* line 2330, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .button p, .mobile .mobile-left-menu .buttons-list .ghost-button p, .mobile .mobile-left-menu .buttons-list .aux-choose-but p, .mobile .mobile-left-menu .buttons-list .parameters-block .aux-params-but p, .parameters-block .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .elements-list-container .aux-params-but p, .elements-list-container .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .aux-params-but p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .additional-list-container .aux-list-content .aux-params-but p, .additional-list-container .aux-list-content .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .cart-page .alladdelements-block .aux-params-but p, .cart-page .alladdelements-block .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .cart-page .addelementunit-only .aux-params-but p, .cart-page .addelementunit-only .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .nav-menu .new-calc p, .nav-menu .mobile .mobile-left-menu .buttons-list .new-calc p, .mobile .mobile-left-menu .buttons-list .cart-menu .measure-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .measure-btn p, .mobile .mobile-left-menu .buttons-list .big-button p, .mobile .mobile-left-menu .buttons-list .orange-big-btn p, .mobile .mobile-left-menu .buttons-list .menu-right-general .cart-btn p, .menu-right-general .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .order-path .cart-btn p, .order-path .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .config-menu .cart-btn p, .config-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .cart-btn p, .elements-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu .cart-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .old-price-tab .cart-btn p, .old-price-tab .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .old-price-inst-tab .cart-btn p, .old-price-inst-tab .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu .order-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .order-btn p, .mobile .mobile-left-menu .buttons-list .login-submit p, .mobile .mobile-left-menu .buttons-list .middle-button p, .mobile .mobile-left-menu .buttons-list .alert-btns button p, .alert-btns .mobile .mobile-left-menu .buttons-list button p, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-btn p, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-btn p, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-btn p, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-btn p, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-save-btn p, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn p, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-save-btn p, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn p, .mobile .mobile-left-menu .buttons-list .settings .save p, .settings .mobile .mobile-left-menu .buttons-list .save p, .mobile .mobile-left-menu .buttons-list .grid-selector-dialog .set-grid-all-btn p, .grid-selector-dialog .mobile .mobile-left-menu .buttons-list .set-grid-all-btn p, .mobile .mobile-left-menu .buttons-list .search-block .cancel-search p, .search-block .mobile .mobile-left-menu .buttons-list .cancel-search p, .mobile .mobile-left-menu .buttons-list .cart-dialogs-container .save p, .cart-dialogs-container .mobile .mobile-left-menu .buttons-list .save p, .mobile .mobile-left-menu .buttons-list .cart-page .cart-tool p, .cart-page .mobile .mobile-left-menu .buttons-list .cart-tool p,
 .mobile .mobile-left-menu .buttons-list .light-v .cart-tool p,
 .light-v .mobile .mobile-left-menu .buttons-list .cart-tool p, .mobile .mobile-left-menu .buttons-list .construction-left-menu .project-default p, .construction-left-menu .mobile .mobile-left-menu .buttons-list .project-default p, .mobile .mobile-left-menu .buttons-list .small-button p, .mobile .mobile-left-menu .buttons-list .cart-page .order-tool p, .cart-page .mobile .mobile-left-menu .buttons-list .order-tool p,
@@ -13996,11 +13997,11 @@ body {
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close p, .mobile .mobile-left-menu .buttons-list .door-config-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info p, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info p, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab p, .mobile .mobile-left-menu .buttons-list .calculator .cell p, .calculator .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info p, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element p, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element p, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements p, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements p {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2333, ../../dev/sass/pages/mobile.scss */
+/* line 2334, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .add_elems {
   color: #cc0000;
 }
-/* line 2337, ../../dev/sass/pages/mobile.scss */
+/* line 2338, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer {
   display: inline-flex;
   flex-direction: column;
@@ -14012,7 +14013,7 @@ body {
   width: 100%;
   background: #d0d0d0;
 }
-/* line 2347, ../../dev/sass/pages/mobile.scss */
+/* line 2348, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .index {
   display: inline-flex;
   justify-content: center;
@@ -14022,15 +14023,15 @@ body {
   background: white;
   border-radius: 25px;
 }
-/* line 2357, ../../dev/sass/pages/mobile.scss */
+/* line 2358, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .index p {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2363, ../../dev/sass/pages/mobile.scss */
+/* line 2364, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .title p {
   font: normal 12px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2370, ../../dev/sass/pages/mobile.scss */
+/* line 2371, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms {
   position: absolute;
   top: 0;
@@ -14042,7 +14043,7 @@ body {
   z-index: 2;
   overflow: hidden;
 }
-/* line 2380, ../../dev/sass/pages/mobile.scss */
+/* line 2381, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile {
   position: absolute;
   top: 0;
@@ -14054,7 +14055,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-/* line 2390, ../../dev/sass/pages/mobile.scss */
+/* line 2391, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header {
   display: inline-flex;
   width: 100%;
@@ -14062,12 +14063,12 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-/* line 2396, ../../dev/sass/pages/mobile.scss */
+/* line 2397, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .col {
   display: inline-flex;
   align-items: center;
 }
-/* line 2400, ../../dev/sass/pages/mobile.scss */
+/* line 2401, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .back-button {
   background: url("../img/calc/back_red.svg") no-repeat;
   background-size: contain;
@@ -14075,25 +14076,25 @@ body {
   height: 25px;
   margin: 0 10px;
 }
-/* line 2407, ../../dev/sass/pages/mobile.scss */
+/* line 2408, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .cart-dialog-title {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2411, ../../dev/sass/pages/mobile.scss */
+/* line 2412, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .cart-dialog-label {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2416, ../../dev/sass/pages/mobile.scss */
+/* line 2417, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-body .cart-dialog-label {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   text-align: center;
   margin: 5px 0;
 }
-/* line 2421, ../../dev/sass/pages/mobile.scss */
+/* line 2422, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-body .bold {
   font: normal 22px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2425, ../../dev/sass/pages/mobile.scss */
+/* line 2426, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .save {
   background: #cc0000;
   color: white;
@@ -14104,7 +14105,7 @@ body {
   border: none;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2435, ../../dev/sass/pages/mobile.scss */
+/* line 2436, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .location-list-tooltip {
   position: absolute;
   background: white;
@@ -14116,7 +14117,7 @@ body {
   -webkit-box-shadow: #bebebe 0px 1px 10px 0px;
   box-shadow: #bebebe 0px 1px 10px 0px;
 }
-/* line 2444, ../../dev/sass/pages/mobile.scss */
+/* line 2445, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .input-field-mobile {
   position: relative;
   display: inline-flex;
@@ -14124,7 +14125,7 @@ body {
   width: 100%;
   margin: 5px 0;
 }
-/* line 2451, ../../dev/sass/pages/mobile.scss */
+/* line 2452, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .user-field, .mobile .mobile-order-forms .order-dialog-mobile .user-select-field {
   border-radius: 25px;
   background: white;
@@ -14133,42 +14134,42 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   padding-left: 15px;
 }
-/* line 2460, ../../dev/sass/pages/mobile.scss */
+/* line 2461, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .error-tooltip, .mobile .mobile-order-forms .order-dialog-mobile .setting-container .set-email-error, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .set-email-error {
   all: unset;
   position: absolute;
   right: 5px;
   font: normal 40px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 2466, ../../dev/sass/pages/mobile.scss */
+/* line 2467, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .error-tooltip:before, .mobile .mobile-order-forms .order-dialog-mobile .setting-container .set-email-error:before, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .set-email-error:before {
   all: unset;
 }
-/* line 2470, ../../dev/sass/pages/mobile.scss */
+/* line 2471, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field {
   border-radius: 25px;
   background: #cc0000;
   color: white;
 }
-/* line 2474, ../../dev/sass/pages/mobile.scss */
+/* line 2475, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: white;
 }
-/* line 2478, ../../dev/sass/pages/mobile.scss */
+/* line 2479, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field ::-moz-placeholder {
   /* Firefox 19+ */
   color: white;
 }
-/* line 2483, ../../dev/sass/pages/mobile.scss */
+/* line 2484, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .street {
   width: 100%;
 }
-/* line 2486, ../../dev/sass/pages/mobile.scss */
+/* line 2487, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .small {
   flex: 0.3;
 }
-/* line 2491, ../../dev/sass/pages/mobile.scss */
+/* line 2492, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container {
   display: -webkit-flex;
   display: flex;
@@ -14185,7 +14186,7 @@ body {
   background-color: #fff;
   overflow-y: auto;
 }
-/* line 2505, ../../dev/sass/pages/mobile.scss */
+/* line 2506, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 {
   -moz-user-select: text;
   -ms-user-select: text;
@@ -14194,15 +14195,15 @@ body {
   width: 100%;
   height: 50%;
 }
-/* line 2509, ../../dev/sass/pages/mobile.scss */
+/* line 2510, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 table {
   width: 100%;
 }
-/* line 2512, ../../dev/sass/pages/mobile.scss */
+/* line 2513, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 th {
   background-color: #c2c2c2;
 }
-/* line 2516, ../../dev/sass/pages/mobile.scss */
+/* line 2517, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-elem {
   text-align: center;
   vertical-align: middle;
@@ -14211,7 +14212,7 @@ body {
   font-size: 10px;
   max-width: 16vw;
 }
-/* line 2524, ../../dev/sass/pages/mobile.scss */
+/* line 2525, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-price-total {
   font: normal 1.875rem/1.42857 roboto-bold, sans-serif, icons;
   padding: 1rem;
@@ -14219,7 +14220,7 @@ body {
   background-color: #c2c2c2;
   text-align: right;
 }
-/* line 2531, ../../dev/sass/pages/mobile.scss */
+/* line 2532, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu {
   width: 100%;
   height: auto;
@@ -14227,7 +14228,7 @@ body {
   display: inline-flex;
   flex-wrap: wrap;
 }
-/* line 2537, ../../dev/sass/pages/mobile.scss */
+/* line 2538, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .back-button-report {
   display: inline-flex;
   height: 45px;
@@ -14238,7 +14239,7 @@ body {
   position: relative;
   margin: 5px;
 }
-/* line 2547, ../../dev/sass/pages/mobile.scss */
+/* line 2548, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item {
   width: 30%;
   height: 45px;
@@ -14253,11 +14254,11 @@ body {
   background-color: white;
   cursor: pointer;
 }
-/* line 2564, ../../dev/sass/pages/mobile.scss */
+/* line 2565, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item.activeAll {
   width: calc(15% - 5px);
 }
-/* line 2567, ../../dev/sass/pages/mobile.scss */
+/* line 2568, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item span {
   width: 90%;
   white-space: nowrap;
@@ -14265,7 +14266,7 @@ body {
   text-overflow: ellipsis;
   text-align: center;
 }
-/* line 2577, ../../dev/sass/pages/mobile.scss */
+/* line 2578, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header {
   display: inline-flex;
   align-items: center;
@@ -14274,14 +14275,14 @@ body {
   height: 80px;
   flex: 0 0 auto;
 }
-/* line 2584, ../../dev/sass/pages/mobile.scss */
+/* line 2585, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header .header-buttons {
   display: inline-flex;
   width: 40%;
   height: 40px;
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2591, ../../dev/sass/pages/mobile.scss */
+/* line 2592, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-title {
   font: normal 25px/1.42857 roboto-light, sans-serif, icons;
   display: inline-flex;
@@ -14290,7 +14291,7 @@ body {
   width: 100%;
   height: 40px;
 }
-/* line 2599, ../../dev/sass/pages/mobile.scss */
+/* line 2600, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-item,
 .mobile .door-config-selected {
   font: normal 18px/1.42857 roboto-light, sans-serif, icons;
@@ -14301,12 +14302,12 @@ body {
   width: 100%;
   margin: 5px 0;
 }
-/* line 2609, ../../dev/sass/pages/mobile.scss */
+/* line 2610, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-item label,
 .mobile .door-config-selected label {
   width: 90%;
 }
-/* line 2613, ../../dev/sass/pages/mobile.scss */
+/* line 2614, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile {
   position: absolute;
   top: 0;
@@ -14318,7 +14319,7 @@ body {
   background: white;
   z-index: 2;
 }
-/* line 2623, ../../dev/sass/pages/mobile.scss */
+/* line 2624, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile .door-congig-scroll {
   position: relative;
   display: inline-flex;
@@ -14328,22 +14329,22 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 2632, ../../dev/sass/pages/mobile.scss */
+/* line 2633, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile .door-config {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   width: 100%;
   padding: 10px 15px;
   flex: 0 0 auto;
 }
-/* line 2639, ../../dev/sass/pages/mobile.scss */
+/* line 2640, ../../dev/sass/pages/mobile.scss */
 .mobile .selected {
   border-radius: 25px;
 }
-/* line 2643, ../../dev/sass/pages/mobile.scss */
+/* line 2644, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history {
   z-index: 1;
 }
-/* line 2645, ../../dev/sass/pages/mobile.scss */
+/* line 2646, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .mobile-order-history-title {
   font: normal 7vw/1.42857 roboto-regular, sans-serif, icons;
   width: 100%;
@@ -14352,15 +14353,15 @@ body {
   justify-content: center;
   height: 30px;
 }
-/* line 2653, ../../dev/sass/pages/mobile.scss */
+/* line 2654, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .tool-btn {
   font: normal 3.75rem/1 icons, sans-serif;
 }
-/* line 2659, ../../dev/sass/pages/mobile.scss */
+/* line 2660, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .config:after {
   content: "";
 }
-/* line 2663, ../../dev/sass/pages/mobile.scss */
+/* line 2664, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order {
   width: 100%;
   display: inline-flex;
@@ -14371,15 +14372,15 @@ body {
   -webkit-box-shadow: #333 0 3px 10px -5px;
   box-shadow: #333 0 3px 10px -5px;
 }
-/* line 2670, ../../dev/sass/pages/mobile.scss */
+/* line 2671, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search {
   position: relative;
 }
-/* line 2673, ../../dev/sass/pages/mobile.scss */
+/* line 2674, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .lupa:after {
   content: "";
 }
-/* line 2677, ../../dev/sass/pages/mobile.scss */
+/* line 2678, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search {
   position: absolute;
   width: 0px;
@@ -14393,18 +14394,18 @@ body {
   overflow: hidden;
   transition: 1s;
 }
-/* line 2689, ../../dev/sass/pages/mobile.scss */
+/* line 2690, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search.active {
   width: 90vw;
   transition: 1s;
   border-radius: 50px;
 }
-/* line 2697, ../../dev/sass/pages/mobile.scss */
+/* line 2698, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .close-dialog {
   top: 2px;
   right: 2px;
 }
-/* line 2701, ../../dev/sass/pages/mobile.scss */
+/* line 2702, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .delete-search {
   position: absolute;
   width: 0px;
@@ -14416,7 +14417,7 @@ body {
   background: url(../img/calc/back_red.svg) no-repeat;
   background-size: contain;
 }
-/* line 2712, ../../dev/sass/pages/mobile.scss */
+/* line 2713, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .search-input {
   margin-left: 5px;
   display: inline-flex;
@@ -14425,14 +14426,14 @@ body {
   font: normal 16px/1.42857 roboto-light, sans-serif, icons;
   border: none;
 }
-/* line 2722, ../../dev/sass/pages/mobile.scss */
+/* line 2723, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings {
   position: relative;
   display: inline-flex;
   height: 35px;
   width: 32px;
 }
-/* line 2727, ../../dev/sass/pages/mobile.scss */
+/* line 2728, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block {
   position: absolute;
   top: 14px;
@@ -14448,7 +14449,7 @@ body {
   padding: 0px;
   transition: 1s;
 }
-/* line 2741, ../../dev/sass/pages/mobile.scss */
+/* line 2742, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block.active {
   top: 50px;
   right: -5px;
@@ -14459,23 +14460,23 @@ body {
   padding: 10px;
   transition: 1s;
 }
-/* line 2754, ../../dev/sass/pages/mobile.scss */
+/* line 2755, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block .filter-divider {
   font: normal 17px/1.42857 roboto-light, sans-serif, icons;
   margin: 5px 0;
   text-align: center;
 }
-/* line 2759, ../../dev/sass/pages/mobile.scss */
+/* line 2760, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block .filter-item {
   font: normal 16px/1.42857 roboto-regular, sans-serif, icons;
   padding: 5px 0 5px 10px;
 }
-/* line 2765, ../../dev/sass/pages/mobile.scss */
+/* line 2766, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit {
   position: relative;
   width: 40vw;
 }
-/* line 2768, ../../dev/sass/pages/mobile.scss */
+/* line 2769, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order select, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product select, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product select, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit select, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit select {
   background: transparent;
   border-radius: 25px;
@@ -14489,7 +14490,7 @@ body {
   /* Safari and Chrome */
   appearance: none;
 }
-/* line 2783, ../../dev/sass/pages/mobile.scss */
+/* line 2784, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order .arrow-down, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product .arrow-down, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product .arrow-down, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit .arrow-down, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit .arrow-down {
   display: inline-flex;
   position: absolute;
@@ -14502,7 +14503,7 @@ body {
   transform: rotate(270deg);
   z-index: -1;
 }
-/* line 2797, ../../dev/sass/pages/mobile.scss */
+/* line 2798, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block {
   display: inline-flex;
   flex-direction: column;
@@ -14512,7 +14513,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 2805, ../../dev/sass/pages/mobile.scss */
+/* line 2806, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card {
   position: relative;
   display: inline-flex;
@@ -14524,7 +14525,7 @@ body {
   border-radius: 15px;
   padding: 10px;
 }
-/* line 2816, ../../dev/sass/pages/mobile.scss */
+/* line 2817, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row {
   display: inline-flex;
   width: 100%;
@@ -14532,20 +14533,20 @@ body {
   margin: 5px 0 0 0;
   flex: 0 0 auto;
 }
-/* line 2822, ../../dev/sass/pages/mobile.scss */
+/* line 2823, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item {
   display: inline-flex;
   flex-direction: column;
 }
-/* line 2825, ../../dev/sass/pages/mobile.scss */
+/* line 2826, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item label {
   font: normal 18px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2828, ../../dev/sass/pages/mobile.scss */
+/* line 2829, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item span {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2834, ../../dev/sass/pages/mobile.scss */
+/* line 2835, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .row-id {
   width: 100%;
   display: inline-flex;
@@ -14553,7 +14554,7 @@ body {
   font: normal 11px/1.42857 roboto-bold, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 2841, ../../dev/sass/pages/mobile.scss */
+/* line 2842, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row-price {
   margin: 10px 0 0 0;
   display: inline-flex;
@@ -14563,7 +14564,7 @@ body {
   font: normal 30px/1.42857 roboto-light, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 2851, ../../dev/sass/pages/mobile.scss */
+/* line 2852, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions {
   position: absolute;
   display: inline-flex;
@@ -14582,7 +14583,7 @@ body {
   padding: 0;
   border: 1px solid transparent;
 }
-/* line 2868, ../../dev/sass/pages/mobile.scss */
+/* line 2869, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions.active {
   padding: 5px 10px;
   width: 80%;
@@ -14593,7 +14594,7 @@ body {
   transition: 1s;
   box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5);
 }
-/* line 2879, ../../dev/sass/pages/mobile.scss */
+/* line 2880, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .btn {
   display: inline-flex;
   align-items: center;
@@ -14605,13 +14606,13 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   margin: 5px 0;
 }
-/* line 2891, ../../dev/sass/pages/mobile.scss */
+/* line 2892, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .delete {
   color: white;
   -webkit-text-fill-color: white;
   background: #cc0000;
 }
-/* line 2896, ../../dev/sass/pages/mobile.scss */
+/* line 2897, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .order-delete {
   position: absolute;
   top: 10px;
@@ -14621,12 +14622,12 @@ body {
   background: url("../img/calc/close-calculator-hover.svg") no-repeat;
   background-size: contain;
 }
-/* line 2907, ../../dev/sass/pages/mobile.scss */
+/* line 2908, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done {
   border: 1px solid #bebebe;
   background: #f3f3f3;
 }
-/* line 2910, ../../dev/sass/pages/mobile.scss */
+/* line 2911, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-row-price {
   display: inline-flex;
   width: 100%;
@@ -14636,26 +14637,26 @@ body {
   font: normal 30px/1.42857 roboto-light, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 2919, ../../dev/sass/pages/mobile.scss */
+/* line 2920, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions {
   justify-content: flex-start;
   background: #f3f3f3;
 }
-/* line 2922, ../../dev/sass/pages/mobile.scss */
+/* line 2923, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions .btn {
   border: 1px solid #bebebe;
 }
-/* line 2925, ../../dev/sass/pages/mobile.scss */
+/* line 2926, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions.active {
   background: #f3f3f3;
   border: 1px solid #363636;
 }
-/* line 2930, ../../dev/sass/pages/mobile.scss */
+/* line 2931, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .tool-btn {
   color: black;
   -webkit-text-fill-color: black;
 }
-/* line 2937, ../../dev/sass/pages/mobile.scss */
+/* line 2938, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount {
   display: inline-flex;
   flex-direction: column;
@@ -14663,7 +14664,7 @@ body {
   align-items: center;
   padding: 25px 0;
 }
-/* line 2943, ../../dev/sass/pages/mobile.scss */
+/* line 2944, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row {
   display: inline-flex;
   width: 85%;
@@ -14676,15 +14677,15 @@ body {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
   text-transform: capitalize;
 }
-/* line 2954, ../../dev/sass/pages/mobile.scss */
+/* line 2955, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row .discount-price-label {
   font: normal 10px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 2957, ../../dev/sass/pages/mobile.scss */
+/* line 2958, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row .discount-price-box {
   width: 50%;
 }
-/* line 2961, ../../dev/sass/pages/mobile.scss */
+/* line 2962, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col {
   display: inline-flex;
   flex-direction: column;
@@ -14695,12 +14696,12 @@ body {
   height: auto;
   flex: 0 0 auto;
 }
-/* line 2970, ../../dev/sass/pages/mobile.scss */
+/* line 2971, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-price-box {
   display: inline-flex;
   flex: 0 0 auto;
 }
-/* line 2974, ../../dev/sass/pages/mobile.scss */
+/* line 2975, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box {
   position: relative;
   display: inline-flex;
@@ -14713,15 +14714,15 @@ body {
   text-align: right;
   padding-left: 5px;
 }
-/* line 2985, ../../dev/sass/pages/mobile.scss */
+/* line 2986, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-label {
   margin-left: 10px;
 }
-/* line 2991, ../../dev/sass/pages/mobile.scss */
+/* line 2992, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discount-data {
   width: 70px;
 }
-/* line 2994, ../../dev/sass/pages/mobile.scss */
+/* line 2995, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-icon-down {
   position: absolute;
   right: 10px;
@@ -14733,7 +14734,7 @@ body {
   display: inline-block;
   transform: rotate(270deg);
 }
-/* line 3005, ../../dev/sass/pages/mobile.scss */
+/* line 3006, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-icon-up {
   position: absolute;
   right: 10px;
@@ -14745,23 +14746,23 @@ body {
   display: inline-block;
   transform: rotate(90deg);
 }
-/* line 3017, ../../dev/sass/pages/mobile.scss */
+/* line 3018, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col #disc-input-main {
   width: 30px;
 }
-/* line 3020, ../../dev/sass/pages/mobile.scss */
+/* line 3021, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .disc-input {
   width: 50px;
   border: none;
   text-align: right;
   margin-right: 4px;
 }
-/* line 3026, ../../dev/sass/pages/mobile.scss */
+/* line 3027, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .disc {
   height: auto;
   flex: 0 0 auto;
 }
-/* line 3031, ../../dev/sass/pages/mobile.scss */
+/* line 3032, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .delete {
   height: 40px;
   color: white;
@@ -16958,133 +16959,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/grid.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/grating.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/visor.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/outside.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/fan.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/handle.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/blind.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17094,133 +17095,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/grid.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/visor.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/grating.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/outside.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/fan.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1608125598');
+  background-image: url('../img/auxiliaries-selected/handle.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1608125598');
+  background-image: url('../img/auxiliaries-focused/blind.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17244,7 +17245,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1608125598');
+  background-image: url('../img/auxiliaries/grid.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17261,7 +17262,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1608125598');
+  background-image: url('../img/auxiliaries/visor.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17278,7 +17279,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1608125598');
+  background-image: url('../img/auxiliaries/visor2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17295,7 +17296,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1608125598');
+  background-image: url('../img/auxiliaries/grating.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17312,7 +17313,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1608125598');
+  background-image: url('../img/auxiliaries/grating2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17329,7 +17330,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1608125598');
+  background-image: url('../img/auxiliaries/shutters.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17346,7 +17347,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1608125598');
+  background-image: url('../img/auxiliaries/shutters2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17363,7 +17364,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1608125598');
+  background-image: url('../img/auxiliaries/spillway.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17380,7 +17381,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1608125598');
+  background-image: url('../img/auxiliaries/spillway2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17397,7 +17398,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1608125598');
+  background-image: url('../img/auxiliaries/outside.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17414,7 +17415,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1608125598');
+  background-image: url('../img/auxiliaries/windowsill.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17431,7 +17432,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1608125598');
+  background-image: url('../img/auxiliaries/blind.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17448,7 +17449,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1608125598');
+  background-image: url('../img/auxiliaries/template1.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17465,7 +17466,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1608125598');
+  background-image: url('../img/auxiliaries/template2.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17489,7 +17490,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1608125598');
+  background-image: url('../img/auxiliaries/louvers-top.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17499,7 +17500,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1608125598');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17526,7 +17527,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1608125598');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17549,7 +17550,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1608125598');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17560,7 +17561,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1608125598');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17571,7 +17572,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1608125598');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17588,7 +17589,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1608125598');
+  background-image: url('../img/auxiliaries/fan.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17611,7 +17612,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1608125598');
+  background-image: url('../img/auxiliaries/force-connector.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17622,7 +17623,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1608125598');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17639,7 +17640,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1608125598');
+  background-image: url('../img/auxiliaries/handle.png?1612264145');
   background-repeat: no-repeat;
   background-size: contain;
 }
