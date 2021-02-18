@@ -20,7 +20,7 @@
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profilesPanel.G.global.profilesType[$index].translate.bg") {{ profilesPanel.G.global.profilesType[$index].name }}
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profilesPanel.G.global.profilesType[$index].translate.it") {{ profilesPanel.G.global.profilesType[$index].name }}
             .profile-box
-                .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id} | translate" )
+                .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
                     .profile-info-item(ng-click="profilesPanel.checkForAddElem(profile.id)")
                         img.profile-img(ng-if="profile.img.length  && !profilesPanel.G.global.cordova", ng-src="{{profile.img}}" )
                         img.profile-img(ng-if="profile.img.length && profilesPanel.G.global.cordova", ng-src="{{profilesPanel.extendUrl(profile.img)}}" )
