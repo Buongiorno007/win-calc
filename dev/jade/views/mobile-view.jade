@@ -32,15 +32,15 @@
 
     .burger(ng-click='mobilePage.OpenMenu()' ng-class="{ active: mobilePage.mobMenu }")
     //- include mobile/left-menu-mobile
-    //- include mobile/door-settings-mobile
-    //- include mobile/heat-coef-mobile
-    //- include mobile/profiles-mobile
-    //- include mobile/glass-mobile
-    //- include mobile/grid-selector-mobile
-    //- include mobile/hardwares-mobile
-    //- include mobile/lamination-mobile
-    //- include mobile/add-elements-mobile
-    //- include mobile/order-history-mobile
+    include mobile/door-settings-mobile
+    include mobile/heat-coef-mobile
+    include mobile/profiles-mobile
+    include mobile/glass-mobile
+    include mobile/grid-selector-mobile
+    include mobile/hardwares-mobile
+    include mobile/lamination-mobile
+    include mobile/add-elements-mobile
+    include mobile/order-history-mobile
     section.mobile-order-forms(ng-controller="OrderFormCtrl as orderForm" ng-if="mobilePage.C.cart.isOrderDialog")
         include mobile/form-order-mobile
     include parts/_alert
