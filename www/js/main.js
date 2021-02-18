@@ -7520,7 +7520,7 @@ if (window.location.hostname !== 'localhost') {
                 }
 
                 $('.main-content').off("keypress").keypress(function (event) {
-                    //      console.log(UserStor.userInfo.user_type);
+                    // console.log(UserStor.userInfo.user_type);
                     //console.log('RRRRRRRRR', event.keyCode);
                     //------ show report only for Plands (5,7)
                     if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
@@ -27941,7 +27941,6 @@ function ErrorResult(code, message) {
                         /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
-
                         //Block for profiles and profiles descriptions translations ***
                         product.locales_names_addition_folders = data
                         GlobalStor.global.locales_names_addition_folders = data
