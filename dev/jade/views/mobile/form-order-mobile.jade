@@ -20,20 +20,20 @@ form.order-dialog-mobile.scrollFix(name='callOrderForm', novalidate, ng-submit="
         .input-field-mobile
             input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.MOBILE }}")
 
-        .input-field-mobile
+        .input-field-mobile(ng-if="orderForm.U.userInfo.user_type !== 8")
             input.user-field(id="impLocation", type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ ::orderForm.CLIENT_LOCATION }}")
             .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') !
             .location-list-tooltip(ng-show="orderForm.C.cart.isCityBox")
                 .location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", fs-click="orderForm.selectCity(location)") {{location.fullLocation}}
 
-        .input-field-mobile
+        .input-field-mobile(ng-if="orderForm.U.userInfo.user_type !== 8")
             input.user-field.street(type="text", name="address", ng-model="orderForm.C.cart.customer.customer_address", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_ADDRESS }}")
-        .input-field-mobile
+        .input-field-mobile(ng-if="orderForm.U.userInfo.user_type !== 8")
             input.user-field.small(type="text", name="house", ng-model="orderForm.C.cart.customer.customer_house", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_HOUSE }}")
             input.user-field.small(type="text", name="flat", ng-model="orderForm.C.cart.customer.customer_flat", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLAT }}")
             input.user-field.small(type="text", name="floor", ng-model="orderForm.C.cart.customer.customer_floor", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLOOR }}")
 
-        .input-field-mobile
+        .input-field-mobile(ng-if="orderForm.U.userInfo.user_type !== 8")
             input.user-field(type="tel", name="phone2", ng-model="orderForm.C.cart.customer.customer_phone_city", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.ADD_PHONE }}")
 
         button.save(type="submit") {{ ::orderForm.READY }}

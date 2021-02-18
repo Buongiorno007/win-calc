@@ -14913,8 +14913,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://api.windowscalculator.net',
-      printIP: 'https://admin.windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'https://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -27942,6 +27942,7 @@ function ErrorResult(code, message) {
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
                         //Block for profiles and profiles descriptions translations ***
+                         console.log(UserStor.userInfo.user_type, 'check');
                         product.locales_names_addition_folders = data
                         GlobalStor.global.locales_names_addition_folders = data
                         //There are only profiles systems here
