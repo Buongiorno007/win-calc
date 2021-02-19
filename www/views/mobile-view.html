@@ -217,6 +217,50 @@
     </div>
   </div>
   <div ng-click="mobilePage.OpenMenu()" ng-class="{ active: mobilePage.mobMenu }" class="burger"></div>
+  <section ng-if="mobilePage.U.userInfo.user_type !== 8" ng-class="burger:active" class="mobile_disable">
+    <div ng-controller="NavMenuCtrl as navMenu" ng-class="{opened : mobilePage.mobMenu}" class="mobile-left-menu">
+      <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container"><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+        <div class="user-info-block">
+          <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+          <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+        </div>
+      </div>
+      <div ng-click="mobilePage.OpenMenu()" ng-class="{ active: mobilePage.mobMenu }" class="burger-inner"></div>
+      <div class="buttons-list">
+        <div ng-click="mobilePage.mobileMenuClick(0)" class="button">
+          <p>{{ ::mobilePage.GO_TO_CALCULATION}}</p>
+        </div>
+        <!--.button(ng-click="mobilePage.mobileMenuClick(1)")p {{ ::mobilePage.GEOLOCATION}}
+        -->
+        <div ng-click="mobilePage.mobileMenuClick(2)" class="button">
+          <p>{{ ::mobilePage.ORDER_HISTORY}}</p>
+        </div>
+        <div ng-click="mobilePage.mobileMenuClick(3)" class="button">
+          <p>{{ ::mobilePage.LANGUAGE}}</p>
+        </div>
+        <!--.button(ng-click="mobilePage.mobileMenuClick(4)")p {{ ::mobilePage.HINTS}}
+        -->
+        <div ng-click="mobilePage.mobileMenuClick(5)" class="button">
+          <p>{{ ::mobilePage.REPORT}}</p>
+        </div>
+        <div ng-click="mobilePage.mobileMenuClick(7)" ng-class="{add_elems : mobilePage.P.product.is_addelem_only}" class="button">
+          <p>{{ ::mobilePage.NAVMENU_ADD_ELEMENTS }}</p>
+        </div>
+        <div ng-click="mobilePage.mobileMenuClick(6)" class="button">
+          <p>{{ ::mobilePage.EXIT}}</p>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="index">
+          <p>{{mobilePage.G.global.getPCPower }}</p>
+        </div>
+        <div class="title">
+          <p>{{mobilePage.PC_POWER_INFO_1}}</p>
+          <p>{{mobilePage.PC_POWER_INFO_2}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
   <div ng-controller="DesignCtrl as designPage" ng-if="mobilePage.D.design.isDoorConfigMobile" class="door-settings-mobile">
     <!--просто скопировал хедер из доставок-->
     <div class="mount-delivery-header"> 

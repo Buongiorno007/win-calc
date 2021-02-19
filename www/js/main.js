@@ -15141,13 +15141,13 @@ function ErrorResult(code, message) {
         /**-------- change point coordinates in templateSource --------*/
         function addNewSizeInTemplate(newLength) {
           var blocks = DesignStor.design.templateSourceTEMP.details,
-            curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
-            curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
-            dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-            startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-            finishSize = +DesignStor.design.oldSize.attributes[12].nodeValue,
-            axis = DesignStor.design.oldSize.attributes[13].nodeValue,
-            level = +DesignStor.design.oldSize.attributes[14].nodeValue,
+            curDimType = DesignStor.design.oldSize.attributes,
+            curBlockId = DesignStor.design.oldSize.attributes,
+            dimId = DesignStor.design.oldSize.attributes,
+            startSize = +DesignStor.design.oldSize.attributes,
+            finishSize = +DesignStor.design.oldSize.attributes,
+            axis = DesignStor.design.oldSize.attributes,
+            level = +DesignStor.design.oldSize.attributes,
             newCoord = startSize + newLength,
             newCoordLast = finishSize - newLength,
             blocksQty = blocks.length,
@@ -15198,7 +15198,7 @@ function ErrorResult(code, message) {
               }
             }
 
-          } else if (dimId.indexOf('qa') + 1) {
+          } else if (dimId + 1) {
             /** changing Arc Height */
 
             for (b = 1; b < blocksQty; b += 1) {
@@ -15309,9 +15309,9 @@ function ErrorResult(code, message) {
         function rebuildPointsOut(newLength) {
           var blocks = DesignStor.design.templateTEMP.details,
             blocksQty = blocks.length,
-            startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-            oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
-            axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+            startSize = +DesignStor.design.oldSize,
+            oldSizeValue = +DesignStor.design.oldSize,
+            axis = DesignStor.design.oldSize,
             newPointsOut, b, pointsOutQty, isRealBlock;
 
           for (b = 1; b < blocksQty; b += 1) {
