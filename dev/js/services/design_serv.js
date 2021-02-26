@@ -328,7 +328,6 @@
 
 
         /**---------- add new size in parent block in order to recalculate overall square -----------*/
-
         function rebuildPointsOut(newLength) {
           var blocks = DesignStor.design.templateTEMP.details,
             blocksQty = blocks.length,
