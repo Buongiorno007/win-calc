@@ -49,6 +49,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.profile.translate.de }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.profile.translate.it }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.profile.translate.bg }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es'") {{ product.profile.translate.es }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.profile.translate.ro }}
                                             //-If there are no translation of the language it's displaying default value
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.profile.translate.en") {{ product.profile.name}}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.profile.translate.ru") {{ product.profile.name }}
@@ -57,6 +59,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.profile.translate.de") {{ product.profile.name }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.profile.translate.it") {{ product.profile.name }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.profile.translate.bg") {{ product.profile.name}}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es' && !product.profile.translate.es") {{ product.profile.name}}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro' && !product.profile.translate.ro") {{ product.profile.name}}
                                             .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
                                             .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
                                         li.order-item(ng-if="product.glass.length > 1")
@@ -74,6 +78,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.hardware.translate.de }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.hardware.translate.bg }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.hardware.translate.it }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es'") {{ product.hardware.translate.es }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.hardware.translate.ro }}
 
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.hardware.translate.en") {{ product.hardware.name }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.hardware.translate.ru") {{ product.hardware.name }}
@@ -82,6 +88,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.hardware.translate.de") {{ product.hardware.name }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.hardware.translate.bg") {{ product.hardware.name }}
                                             .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.hardware.translate.it") {{ product.hardware.name }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es' && !product.hardware.translate.es") {{ product.hardware.name }}
+                                            .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro' && !product.hardware.translate.ro") {{ product.hardware.name }}
                                             .order-label {{ ::cartPage.CONFIGMENU_HARDWARE }}
                                         li.order-item
                                             .order-label {{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}
@@ -121,6 +129,16 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                                 span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'it'") {{ product.lamination.translate_out_id.it }}
                                                 span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'it'") {{ product.lamination.laminat_out_name |translate }}
 
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'es'") {{ product.lamination.translate_in_id.es }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'es'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'es'") {{ product.lamination.translate_out_id.es }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'es'") {{ product.lamination.laminat_out_name |translate }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.lamination.translate_in_id.ro }}
+                                                span(ng-if="product.lamination.lamination_in_id === 1 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.lamination.laminat_in_name |translate }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.lamination.translate_out_id.ro }}
+                                                span(ng-if="product.lamination.lamination_out_id === 1 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.lamination.laminat_out_name |translate }}
+
 
                                                 span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'en' && !product.lamination.translate_in_id.en") {{ product.lamination.laminat_in_name }}
                                                 span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'en' && !product.lamination.translate_out_id.en") {{ product.lamination.laminat_out_name }}
@@ -147,6 +165,12 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
                                                 span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'it' && !product.lamination.translate_in_id.it") {{ product.lamination.laminat_in_name }}
                                                 span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'it' && !product.lamination.translate_out_id.it") {{ product.lamination.laminat_out_name }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'es' && !product.lamination.translate_in_id.es") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'es' && !product.lamination.translate_out_id.es") {{ product.lamination.laminat_out_name }}
+
+                                                span(ng-if="product.lamination.lamination_in_id > 1 && cartPage.U.userInfo.langLabel === 'ro' && !product.lamination.translate_in_id.ro") {{ product.lamination.laminat_in_name }}
+                                                span(ng-if="product.lamination.lamination_out_id > 1 && cartPage.U.userInfo.langLabel === 'ro' && !product.lamination.translate_out_id.ro") {{ product.lamination.laminat_out_name }}
                                        
                                             .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
                                         li.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
@@ -305,6 +329,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'de' && addelement.translate.de") {{ addelement.translate.de }}
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'bg' && addelement.translate.bg") {{ addelement.translate.bg }}
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'it' && addelement.translate.it") {{ addelement.translate.it }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'es' && addelement.translate.es") {{ addelement.translate.es }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'ro' && addelement.translate.ro") {{ addelement.translate.ro }}
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'en' && !addelement.translate.en") {{ addelement.name }}
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'ru' && !addelement.translate.ru") {{ addelement.name }}
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'uk' && !addelement.translate.ua") {{ addelement.name }}
@@ -312,6 +338,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'de' && !addelement.translate.de") {{ addelement.name }}
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'bg' && !addelement.translate.bg") {{ addelement.name }}
                                 .product-value(ng-if="cartPage.U.userInfo.langLabel === 'it' && !addelement.translate.it") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'es' && !addelement.translate.es") {{ addelement.name }}
+                                .product-value(ng-if="cartPage.U.userInfo.langLabel === 'ro' && !addelement.translate.ro") {{ addelement.name }}
                                 .product-value(ng-switch-when="0") {{ ::cartPage.GRID }}
                                 .product-value(ng-switch-when="1") {{ ::cartPage.VISOR }}
                                 .product-value(ng-switch-when="2") {{ ::cartPage.SPILLWAY }}

@@ -53,6 +53,18 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
+                .title(ng-click="elementsMenu.hideMenu($index)", ng-if="elementsMenu.U.userInfo.langLabel === 'es' && elementsMenu.A.aux.addElementsType[$index].translate.es") {{ elementsMenu.A.aux.addElementsType[$index].translate.es }}
+                   button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
+                    .open-list(id="{{$index + 'open'}}")
+                        img(ng-src='img/plus.png')
+                    .open-list2(id="{{$index + 'close'}}")
+                        img(ng-src='img/minus.png')
+                .title(ng-click="elementsMenu.hideMenu($index)", ng-if="elementsMenu.U.userInfo.langLabel === 'ro' && elementsMenu.A.aux.addElementsType[$index].translate.ro") {{ elementsMenu.A.aux.addElementsType[$index].translate.ro }}
+                   button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
+                    .open-list(id="{{$index + 'open'}}")
+                        img(ng-src='img/plus.png')
+                    .open-list2(id="{{$index + 'close'}}")
+                        img(ng-src='img/minus.png')
                     //-Conditions to display default value (data from DB) providing that translation of additional elements missing
                 .title(ng-click="elementsMenu.hideMenu($index)", ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !elementsMenu.A.aux.addElementsType[$index].translate.en") {{ elementsMenu.A.aux.addElementsType[$index].name }}
                     button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
@@ -96,6 +108,18 @@
                         img(ng-src='img/plus.png')
                     .open-list2(id="{{$index + 'close'}}")
                         img(ng-src='img/minus.png')
+                .title(ng-click="elementsMenu.hideMenu($index)", ng-if="elementsMenu.U.userInfo.langLabel === 'es' && !elementsMenu.A.aux.addElementsType[$index].translate.es") {{ elementsMenu.A.aux.addElementsType[$index].name }}
+                    button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
+                    .open-list(id="{{$index + 'open'}}")
+                        img(ng-src='img/plus.png')
+                    .open-list2(id="{{$index + 'close'}}")
+                        img(ng-src='img/minus.png')
+                .title(ng-click="elementsMenu.hideMenu($index)", ng-if="elementsMenu.U.userInfo.langLabel === 'ro' && !elementsMenu.A.aux.addElementsType[$index].translate.ro") {{ elementsMenu.A.aux.addElementsType[$index].name }}
+                    button.element-info(ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length", fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)")
+                    .open-list(id="{{$index + 'open'}}")
+                        img(ng-src='img/plus.png')
+                    .open-list2(id="{{$index + 'close'}}")
+                        img(ng-src='img/minus.png')
                 li.item(ng-repeat="addElement in type track by $index")
                     //-Conditions to display translations of additional elements
                     .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-show="elementsMenu.U.userInfo.langLabel === 'en' && addElement.translate.en") {{ addElement.translate.en }}
@@ -111,6 +135,10 @@
                     .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-show="elementsMenu.U.userInfo.langLabel === 'bg' && addElement.translate.bg") {{ addElement.translate.bg }}
                         button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
                     .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-show="elementsMenu.U.userInfo.langLabel === 'it' && addElement.translate.it") {{ addElement.translate.it }}
+                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-show="elementsMenu.U.userInfo.langLabel === 'es' && addElement.translate.es") {{ addElement.translate.es }}
+                        button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
+                    .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}", ng-show="elementsMenu.U.userInfo.langLabel === 'ro' && addElement.translate.ro") {{ addElement.translate.ro }}
                         button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
                     //-Conditions to display default value (data from DB) providing that translation of additional elements missing
                     .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$parent.$index+'prod'+$index}}") {{ addElement.name }}
@@ -133,6 +161,8 @@
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de'") {{ addElement.translate.de }}
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg'") {{ addElement.translate.bg }}
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it'") {{ addElement.translate.it }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'es'") {{ addElement.translate.es }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ro'") {{ addElement.translate.ro }}
 
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !addElement.translate.en") {{ addElement.name }}
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && !addElement.translate.ru") {{ addElement.name }}
@@ -141,6 +171,8 @@
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && !addElement.translate.de") {{ addElement.name }}
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && !addElement.translate.bg") {{ addElement.name }}
                         .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && !addElement.translate.it") {{ addElement.name }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'es' && !addElement.translate.es") {{ addElement.name }}
+                        .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ro' && !addElement.translate.ro") {{ addElement.name }}
                         .aux-label {{ ::elementsMenu.NAME_LABEL }}
                     .aux-params
                         button.aux-params-but {{ addElement.element_qty }}
@@ -172,6 +204,8 @@
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && addElement.translate.de", data-output="{{ addElement.translate.de }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && addElement.translate.bg", data-output="{{ addElement.translate.bg }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && addElement.translate.it", data-output="{{ addElement.translate.it }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'es' && addElement.translate.es", data-output="{{ addElement.translate.es }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ro' && addElement.translate.ro", data-output="{{ addElement.translate.ro }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
 
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'en' && !addElement.translate.en", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ru' && !addElement.translate.ru", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
@@ -180,6 +214,8 @@
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'de' && !addElement.translate.de", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'bg' && !addElement.translate.bg", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
                     .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'it' && !addElement.translate.it", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'es' && !addElement.translate.es", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+                    .aux-title(ng-if="elementsMenu.U.userInfo.langLabel === 'ro' && !addElement.translate.ro", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
                     .aux-params(ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
                         button.aux-params-but(fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-disabled="!elementsMenu.P.product.is_addelem_only && elementsMenu.A.aux.isFocusedAddElement === 1") {{ addElement.element_qty }}
                         .aux-label {{ ::elementsMenu.QTY_LABEL }}

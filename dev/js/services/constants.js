@@ -53,6 +53,7 @@
         {label: 'it', name: 'Italiano'},
         {label: 'pl', name: 'Polski'},
         {label: 'bg', name: 'Български'},
+        {label: 'es', name: 'Español'}
       ],
 
       currencies: [

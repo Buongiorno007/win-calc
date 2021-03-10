@@ -78,6 +78,8 @@
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.de" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.de }}</div>
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.bg" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.bg }}</div>
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.it" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.it }}</div>
+        <div ng-if="hardwarePanel.U.userInfo.langLabel === 'es' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.es" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.es }}</div>
+        <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' &amp;&amp; hardwarePanel.G.global.hardwareTypes[$index].translate.ro" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].translate.ro }}</div>
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'en' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.en" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ru" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ua" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
@@ -85,6 +87,8 @@
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.de" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.bg" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
         <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.it" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+        <div ng-if="hardwarePanel.U.userInfo.langLabel === 'es' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.es" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
+        <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ro" class="title">{{ hardwarePanel.G.global.hardwareTypes[$index].name }}</div>
       </div>
       <div class="profile-box">
         <div ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" class="profile-info">
@@ -97,6 +101,8 @@
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'de'">{{hardware.translate.de}}</p>
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'bg'">{{hardware.translate.bg}}</p>
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'it'">{{hardware.translate.it}}</p>
+              <p ng-if="hardwarePanel.U.userInfo.langLabel === 'es'">{{hardware.translate.es}}</p>
+              <p ng-if="hardwarePanel.U.userInfo.langLabel === 'ro'">{{hardware.translate.ro}}</p>
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'en' &amp;&amp; !hardware.translate.en">{{hardware.name}}</p>
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' &amp;&amp; !hardware.translate.ru">{{hardware.name}}</p>
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' &amp;&amp; !hardware.translate.ua">{{hardware.name}}</p>
@@ -104,6 +110,8 @@
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; !hardware.translate.de">{{hardware.name}}</p>
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; !hardware.translate.bg">{{hardware.name}}</p>
               <p ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; !hardware.translate.it">{{hardware.name}}</p>
+              <p ng-if="hardwarePanel.U.userInfo.langLabel === 'es' &amp;&amp; !hardware.translate.es">{{hardware.name}}</p>
+              <p ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' &amp;&amp; !hardware.translate.ro">{{hardware.name}}</p>
             </div>
             <div class="common-info">
               <p>{{::hardwarePanel.HEAT_TRANSFER}} {{hardware.heat_coeff}}</p>

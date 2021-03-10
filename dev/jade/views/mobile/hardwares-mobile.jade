@@ -11,6 +11,8 @@
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'de' && hardwarePanel.G.global.hardwareTypes[$index].translate.de") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.de }}
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' && hardwarePanel.G.global.hardwareTypes[$index].translate.bg") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.bg }}
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'it' && hardwarePanel.G.global.hardwareTypes[$index].translate.it") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.it }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'es' && hardwarePanel.G.global.hardwareTypes[$index].translate.es") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.es }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' && hardwarePanel.G.global.hardwareTypes[$index].translate.ro") {{ hardwarePanel.G.global.hardwareTypes[$index].translate.ro }}
 
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'en' && !hardwarePanel.G.global.hardwareTypes[$index].translate.en") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' && !hardwarePanel.G.global.hardwareTypes[$index].translate.ru") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
@@ -19,6 +21,8 @@
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'de' && !hardwarePanel.G.global.hardwareTypes[$index].translate.de") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' && !hardwarePanel.G.global.hardwareTypes[$index].translate.bg") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
                 .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'it' && !hardwarePanel.G.global.hardwareTypes[$index].translate.it") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'es' && !hardwarePanel.G.global.hardwareTypes[$index].translate.es") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
+                .title(ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' && !hardwarePanel.G.global.hardwareTypes[$index].translate.ro") {{ hardwarePanel.G.global.hardwareTypes[$index].name }}
 
             .profile-box
                 .profile-info(ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" )
@@ -33,6 +37,8 @@
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'de'") {{hardware.translate.de}}
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg'") {{hardware.translate.bg}}
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'it'") {{hardware.translate.it}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'es'") {{hardware.translate.es}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'ro'") {{hardware.translate.ro}}
 
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'en' && !hardware.translate.en") {{hardware.name}}
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' && !hardware.translate.ru") {{hardware.name}}
@@ -41,6 +47,8 @@
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'de' && !hardware.translate.de") {{hardware.name}}
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' && !hardware.translate.bg") {{hardware.name}}
                             p(ng-if="hardwarePanel.U.userInfo.langLabel === 'it' && !hardware.translate.it") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'es' && !hardware.translate.es") {{hardware.name}}
+                            p(ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' && !hardware.translate.ro") {{hardware.name}}
                         .common-info
                             p {{::hardwarePanel.HEAT_TRANSFER}} {{hardware.heat_coeff}}
                             p {{::hardwarePanel.NOICE_INSULATION}} {{hardware.noise_coeff}}

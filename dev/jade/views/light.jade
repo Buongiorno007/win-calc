@@ -167,6 +167,8 @@
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'de'") {{ product.profile.translate.de }}
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'bg'") {{ product.profile.translate.bg }}
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'it'") {{ product.profile.translate.it }}
+                        .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'es'") {{ product.profile.translate.es }}
+                        .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'ro'") {{ product.profile.translate.ro }}
 
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'en' && !product.profile.translate.en") {{ product.profile.name }}
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'ru' && !product.profile.translate.ru") {{ product.profile.name }}
@@ -175,6 +177,8 @@
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'de' && !product.profile.translate.de") {{ product.profile.name }}
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'bg' && !product.profile.translate.bg") {{ product.profile.name }}
                         .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'it' && !product.profile.translate.it") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'es' && !product.profile.translate.es") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && lightPage.U.userInfo.langLabel === 'ro' && !product.profile.translate.ro") {{ product.profile.name }}
                         .order-label {{ ::lightPage.CONFIGMENU_PROFILE }}
                       li.order-item(ng-if="product.glass.length > 1")
                         .order-value {{ product.glass[0].sku + ', ...' }}
@@ -448,6 +452,9 @@
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'de' && configMenu.P.product.profile.translate.de", data-output="{{ configMenu.P.product.profile.translate.de }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'bg' && configMenu.P.product.profile.translate.bg", data-output="{{ configMenu.P.product.profile.translate.bg }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'it' && configMenu.P.product.profile.translate.it", data-output="{{ configMenu.P.product.profile.translate.it }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'es' && configMenu.P.product.profile.translate.it", data-output="{{ configMenu.P.product.profile.translate.es }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'ro' && configMenu.P.product.profile.translate.ro", data-output="{{ configMenu.P.product.profile.translate.ro }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'en' && !configMenu.P.product.profile.translate.en", data-output="{{ configMenu.P.product.profile.name}}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'ru' && !configMenu.P.product.profile.translate.ru", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'uk' && !configMenu.P.product.profile.translate.ua", data-output="{{ configMenu.P.product.profile.name}}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -455,6 +462,8 @@
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'de' && !configMenu.P.product.profile.translate.de", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'bg' && !configMenu.P.product.profile.translate.bg", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'it' && !configMenu.P.product.profile.translate.it", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'es' && !configMenu.P.product.profile.translate.es", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+              .value(ng-if="configMenu.P.product.construction_type !== 4 && configMenu.U.userInfo.langLabel === 'ro' && !configMenu.P.product.profile.translate.ro", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
             hr.separator

@@ -166,6 +166,8 @@
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'de'" data-output="{{ profilesPanel.G.global.profilesType[$index].translate.de }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg'" data-output="{{ profilesPanel.G.global.profilesType[$index].translate.bg }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'it'" data-output="{{ profilesPanel.G.global.profilesType[$index].translate.it }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
+                    <div ng-if="profilesPanel.U.userInfo.langLabel === 'es'" data-output="{{ profilesPanel.G.global.profilesType[$index].translate.es }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
+                    <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro'" data-output="{{ profilesPanel.G.global.profilesType[$index].translate.ro }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.en" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ru" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ua" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
@@ -173,6 +175,8 @@
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.de" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.bg" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.it" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
+                    <div ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.es" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
+                    <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ro" data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
                     <div class="group-info">
                       <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
                     </div>
@@ -188,6 +192,8 @@
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'it'" data-output="{{ profile.translate.it }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'de'" data-output="{{ profile.translate.de }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg'" data-output="{{ profile.translate.bg }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                      <div ng-if="profilesPanel.U.userInfo.langLabel === 'es'" data-output="{{ profile.translate.es }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                      <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro'" data-output="{{ profile.translate.ro }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profile.translate.en" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profile.translate.ru" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profile.translate.ua" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
@@ -195,6 +201,8 @@
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profile.translate.it" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profile.translate.de" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profile.translate.bg" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                      <div ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profile.translate.es" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                      <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profile.translate.ro" data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                       <div ng-if="!profile.img.length" class="profile-cameras">
                         <div class="type cam">{{ profile.cameras }}</div>
                         <div class="type-label">
@@ -240,6 +248,8 @@
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.de" class="title">{{glassPanel.G.global.glassTypes[$index].translate.de}}</label>
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.bg" class="title">{{glassPanel.G.global.glassTypes[$index].translate.bg}}</label>
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.it" class="title">{{glassPanel.G.global.glassTypes[$index].translate.it}}</label>
+                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.es" class="title">{{glassPanel.G.global.glassTypes[$index].translate.es}}</label>
+                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; glassPanel.G.global.glassTypes[$index].translate.ro" class="title">{{glassPanel.G.global.glassTypes[$index].translate.ro}}</label>
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.en" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ru" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ua" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
@@ -247,6 +257,8 @@
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.de" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.bg" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
                     <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.it" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
+                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.es" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
+                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glassPanel.G.global.glassTypes[$index].translate.ro" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
                     <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
                   </div>
                   <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
@@ -262,6 +274,8 @@
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'de'">{{glass.translate.de}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'bg'">{{glass.translate.bg}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'it'">{{glass.translate.it}}</label>
+                        <label ng-if="glassPanel.U.userInfo.langLabel === 'es'">{{glass.translate.es}}</label>
+                        <label ng-if="glassPanel.U.userInfo.langLabel === 'ro'">{{glass.translate.ro}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'en' &amp;&amp; !glass.translate.en">{{glass.sku}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !glass.translate.ru">{{glass.sku}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !glass.translate.ua">{{glass.sku}}</label>
@@ -269,6 +283,8 @@
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'de' &amp;&amp; !glass.translate.de">{{glass.sku}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !glass.translate.bg">{{glass.sku}}</label>
                         <label ng-if="glassPanel.U.userInfo.langLabel === 'it' &amp;&amp; !glass.translate.it">{{glass.sku}}</label>
+                        <label ng-if="glassPanel.U.userInfo.langLabel === 'es' &amp;&amp; !glass.translate.es">{{glass.sku}}</label>
+                        <label ng-if="glassPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !glass.translate.ro">{{glass.sku}}</label>
                       </div>
                       <div ng-if="glass.img.length &amp;&amp; glass.description.en" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info item-info">
                         <label>i</label>
@@ -298,6 +314,8 @@
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de'" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.de }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg'" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.bg }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it'" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.it }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
+                    <div ng-if="hardwarePanel.U.userInfo.langLabel === 'es'" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.es }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
+                    <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ro'" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.ro }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'en' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.en" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ru" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ua" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
@@ -305,6 +323,8 @@
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.de" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.bg" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.it" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
+                    <div ng-if="hardwarePanel.U.userInfo.langLabel === 'es' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.es" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
+                    <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' &amp;&amp; !hardwarePanel.G.global.hardwareTypes[$index].translate.ro" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                     <div class="group-info">
                       <div ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].translated_description" fs-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
                     </div>
@@ -324,6 +344,8 @@
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de'" data-output="{{ ::hardware.translate.de }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg'" data-output="{{ ::hardware.translate.bg }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it'" data-output="{{ ::hardware.translate.it }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
+                          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'es'" data-output="{{ ::hardware.translate.es }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
+                          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ro'" data-output="{{ ::hardware.translate.ro }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'en' &amp;&amp; !hardware.translate.en" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ru' &amp;&amp; !hardware.translate.ru" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'uk' &amp;&amp; !hardware.translate.ua" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
@@ -331,6 +353,8 @@
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'de' &amp;&amp; !hardware.translate.de" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'bg' &amp;&amp; !hardware.translate.bg" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div ng-if="hardwarePanel.U.userInfo.langLabel === 'it' &amp;&amp; !hardware.translate.it" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
+                          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'es' &amp;&amp; !hardware.translate.es" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
+                          <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ro' &amp;&amp; !hardware.translate.ro" data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
                           <div class="hardware-data">
                             <div data-output="{{ ::hardware.producer }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-brand"></div>
                             <div data-output="{{ ::hardwarePanel.BRAND }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
@@ -377,6 +401,8 @@
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; lamin.translate.de" data-output="{{ ::lamin.translate.de }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; lamin.translate.bg" data-output="{{ ::lamin.translate.bg }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; lamin.translate.it" data-output="{{ ::lamin.translate.it }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+                      <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; lamin.translate.es" data-output="{{ ::lamin.translate.es }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+                      <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; lamin.translate.ro" data-output="{{ ::lamin.translate.ro }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; !lamin.translate.en" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !lamin.translate.ru" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !lamin.translate.ua" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
@@ -384,6 +410,8 @@
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; !lamin.translate.de" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !lamin.translate.bg" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamin.translate.it" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+                      <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamin.translate.es" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+                      <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamin.translate.ro" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                       <div ng-if="lamin.id === 1" data-output="{{ ::lamin.name | translate}}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                     </div>
                   </div>
@@ -410,6 +438,10 @@
                       <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg'" class="laminat-label">{{ lamCouple.translate_out_id.bg }}</div>
                       <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it'" class="laminat-label">{{ lamCouple.translate_in_id.it }}</div>
                       <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it'" class="laminat-label">{{ lamCouple.translate_out_id.it }}</div>
+                      <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es'" class="laminat-label">{{ lamCouple.translate_in_id.es }}</div>
+                      <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es'" class="laminat-label">{{ lamCouple.translate_out_id.es }}</div>
+                      <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro'" class="laminat-label">{{ lamCouple.translate_in_id.ro }}</div>
+                      <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro'" class="laminat-label">{{ lamCouple.translate_out_id.ro }}</div>
                       <div ng-if="lamCouple.img_in_id === 1" class="laminat-label">{{ lamCouple.laminat_in_name | translate }}</div>
                       <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" class="laminat-label">{{ lamCouple.laminat_out_name | translate }}</div>
                       <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; !lamCouple.translate_in_id.en" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
@@ -426,6 +458,10 @@
                       <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !lamCouple.translate_out_id.bg" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
                       <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamCouple.translate_in_id.it" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
                       <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamCouple.translate_out_id.it" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
+                      <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamCouple.translate_in_id.es" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
+                      <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamCouple.translate_out_id.es" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
+                      <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamCouple.translate_in_id.ro" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
+                      <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamCouple.translate_out_id.ro" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
                     </div>
                   </div>
                 </div>
@@ -484,6 +520,8 @@
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'de'" data-output="{{ addElemGroup[0].translate.de }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'bg'" data-output="{{ addElemGroup[0].translate.bg }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'it'" data-output="{{ addElemGroup[0].translate.it }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                          <div ng-if="elementsPanel.U.userInfo.langLabel === 'es'" data-output="{{ addElemGroup[0].translate.es }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                          <div ng-if="elementsPanel.U.userInfo.langLabel === 'ro'" data-output="{{ addElemGroup[0].translate.ro }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'en' &amp;&amp; !addElemGroup[0].translate.en" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !addElemGroup[0].translate.ru" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !addElemGroup[0].translate.ua" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
@@ -491,6 +529,8 @@
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'de' &amp;&amp; !addElemGroup[0].translate.de" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !addElemGroup[0].translate.bg" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-if="elementsPanel.U.userInfo.langLabel === 'it' &amp;&amp; !addElemGroup[0].translate.it" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                          <div ng-if="elementsPanel.U.userInfo.langLabel === 'es' &amp;&amp; !addElemGroup[0].translate.es" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                          <div ng-if="elementsPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !addElemGroup[0].translate.ro" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                         </div>
                         <div class="aux-sizing-box">
@@ -585,6 +625,8 @@
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'de'" data-output="{{ addElement.translate.de }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'bg'" data-output="{{ addElement.translate.bg }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'it'" data-output="{{ addElement.translate.it }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
+                            <div ng-if="elementsListPanel.U.userInfo.langLabel === 'es'" data-output="{{ addElement.translate.es }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
+                            <div ng-if="elementsListPanel.U.userInfo.langLabel === 'ro'" data-output="{{ addElement.translate.ro }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'en' &amp;&amp; !addElement.translate.en" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !addElement.translate.ru" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !addElement.translate.ua" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
@@ -592,6 +634,8 @@
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'de' &amp;&amp; !addElement.translate.de" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !addElement.translate.bg" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div ng-if="elementsListPanel.U.userInfo.langLabel === 'it' &amp;&amp; !addElement.translate.it" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
+                            <div ng-if="elementsListPanel.U.userInfo.langLabel === 'es' &amp;&amp; !addElement.translate.es" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
+                            <div ng-if="elementsListPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !addElement.translate.ro" data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title"></div>
                             <div data-output="{{ ::elementsListPanel.NAME_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                           </div>
                         </td>
@@ -795,6 +839,8 @@
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'de'" class="order-value">{{ product.profile.translate.de }}</div>
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'bg'" class="order-value">{{ product.profile.translate.bg }}</div>
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'it'" class="order-value">{{ product.profile.translate.it }}</div>
+                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'es'" class="order-value">{{ product.profile.translate.es }}</div>
+                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'ro'" class="order-value">{{ product.profile.translate.ro }}</div>
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'en' &amp;&amp; !product.profile.translate.en" class="order-value">{{ product.profile.name }}</div>
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'ru' &amp;&amp; !product.profile.translate.ru" class="order-value">{{ product.profile.name }}</div>
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'uk' &amp;&amp; !product.profile.translate.ua" class="order-value">{{ product.profile.name }}</div>
@@ -802,6 +848,8 @@
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'de' &amp;&amp; !product.profile.translate.de" class="order-value">{{ product.profile.name }}</div>
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'bg' &amp;&amp; !product.profile.translate.bg" class="order-value">{{ product.profile.name }}</div>
                         <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'it' &amp;&amp; !product.profile.translate.it" class="order-value">{{ product.profile.name }}</div>
+                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'es' &amp;&amp; !product.profile.translate.es" class="order-value">{{ product.profile.name }}</div>
+                        <div ng-if="product.construction_type !== 4 &amp;&amp; lightPage.U.userInfo.langLabel === 'ro' &amp;&amp; !product.profile.translate.ro" class="order-value">{{ product.profile.name }}</div>
                         <div class="order-label">{{ ::lightPage.CONFIGMENU_PROFILE }}</div>
                       </li>
                       <li ng-if="product.glass.length &gt; 1" class="order-item">
@@ -1290,6 +1338,18 @@
                     <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
                   </button>
                 </div>
+                <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'es' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.es" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.es }}
+                  <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info">
+                    <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                    <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+                  </button>
+                </div>
+                <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'ro' &amp;&amp; elementsMenu.A.aux.addElementsType[$index].translate.ro" class="title">{{ elementsMenu.A.aux.addElementsType[$index].translate.ro }}
+                  <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info">
+                    <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                    <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+                  </button>
+                </div>
                 <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.en" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
                   <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                   <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
@@ -1325,6 +1385,16 @@
                   <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
                   <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
                 </div>
+                <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'es' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.es" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                  <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                  <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                  <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+                </div>
+                <div ng-click="elementsMenu.hideMenu($index)" ng-if="elementsMenu.U.userInfo.langLabel === 'ro' &amp;&amp; !elementsMenu.A.aux.addElementsType[$index].translate.ro" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                  <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                  <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                  <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+                </div>
                 <li ng-repeat="addElement in type track by $index" class="item">
                   <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-show="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; addElement.translate.en" class="value">{{ addElement.translate.en }}
                     <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
@@ -1347,6 +1417,12 @@
                   <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-show="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; addElement.translate.it" class="value">{{ addElement.translate.it }}
                     <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
                   </div>
+                  <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-show="elementsMenu.U.userInfo.langLabel === 'es' &amp;&amp; addElement.translate.es" class="value">{{ addElement.translate.es }}
+                    <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                  </div>
+                  <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" ng-show="elementsMenu.U.userInfo.langLabel === 'ro' &amp;&amp; addElement.translate.ro" class="value">{{ addElement.translate.ro }}
+                    <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                  </div>
                   <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}
                     <button ng-if="addElement.img.length || addElement.link.length || addElement.description" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
                   </div>
@@ -1367,6 +1443,8 @@
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'de'" class="aux-title">{{ addElement.translate.de }}</div>
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'bg'" class="aux-title">{{ addElement.translate.bg }}</div>
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'it'" class="aux-title">{{ addElement.translate.it }}</div>
+                    <div ng-if="elementsMenu.U.userInfo.langLabel === 'es'" class="aux-title">{{ addElement.translate.es }}</div>
+                    <div ng-if="elementsMenu.U.userInfo.langLabel === 'ro'" class="aux-title">{{ addElement.translate.ro }}</div>
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; !addElement.translate.en" class="aux-title">{{ addElement.name }}</div>
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; !addElement.translate.ru" class="aux-title">{{ addElement.name }}</div>
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; !addElement.translate.ua" class="aux-title">{{ addElement.name }}</div>
@@ -1374,6 +1452,8 @@
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; !addElement.translate.de" class="aux-title">{{ addElement.name }}</div>
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; !addElement.translate.bg" class="aux-title">{{ addElement.name }}</div>
                     <div ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; !addElement.translate.it" class="aux-title">{{ addElement.name }}</div>
+                    <div ng-if="elementsMenu.U.userInfo.langLabel === 'es' &amp;&amp; !addElement.translate.es" class="aux-title">{{ addElement.name }}</div>
+                    <div ng-if="elementsMenu.U.userInfo.langLabel === 'ro' &amp;&amp; !addElement.translate.ro" class="aux-title">{{ addElement.name }}</div>
                     <div class="aux-label">{{ ::elementsMenu.NAME_LABEL }}</div>
                   </div>
                   <div class="aux-params">
@@ -1414,6 +1494,8 @@
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; addElement.translate.de" data-output="{{ addElement.translate.de }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; addElement.translate.bg" data-output="{{ addElement.translate.bg }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; addElement.translate.it" data-output="{{ addElement.translate.it }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                  <div ng-if="elementsMenu.U.userInfo.langLabel === 'es' &amp;&amp; addElement.translate.es" data-output="{{ addElement.translate.es }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                  <div ng-if="elementsMenu.U.userInfo.langLabel === 'ro' &amp;&amp; addElement.translate.ro" data-output="{{ addElement.translate.ro }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'en' &amp;&amp; !addElement.translate.en" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'ru' &amp;&amp; !addElement.translate.ru" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'uk' &amp;&amp; !addElement.translate.ua" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
@@ -1421,6 +1503,8 @@
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'de' &amp;&amp; !addElement.translate.de" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'bg' &amp;&amp; !addElement.translate.bg" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-if="elementsMenu.U.userInfo.langLabel === 'it' &amp;&amp; !addElement.translate.it" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                  <div ng-if="elementsMenu.U.userInfo.langLabel === 'es' &amp;&amp; !addElement.translate.es" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                  <div ng-if="elementsMenu.U.userInfo.langLabel === 'ro' &amp;&amp; !addElement.translate.ro" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                   <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                     <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_qty }}</button>
                     <div class="aux-label">{{ ::elementsMenu.QTY_LABEL }}</div>
@@ -1568,6 +1652,8 @@
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'de' &amp;&amp; configMenu.P.product.profile.translate.de" data-output="{{ configMenu.P.product.profile.translate.de }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'bg' &amp;&amp; configMenu.P.product.profile.translate.bg" data-output="{{ configMenu.P.product.profile.translate.bg }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'it' &amp;&amp; configMenu.P.product.profile.translate.it" data-output="{{ configMenu.P.product.profile.translate.it }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+              <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'es' &amp;&amp; configMenu.P.product.profile.translate.it" data-output="{{ configMenu.P.product.profile.translate.es }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+              <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'ro' &amp;&amp; configMenu.P.product.profile.translate.ro" data-output="{{ configMenu.P.product.profile.translate.ro }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'en' &amp;&amp; !configMenu.P.product.profile.translate.en" data-output="{{ configMenu.P.product.profile.name}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'ru' &amp;&amp; !configMenu.P.product.profile.translate.ru" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'uk' &amp;&amp; !configMenu.P.product.profile.translate.ua" data-output="{{ configMenu.P.product.profile.name}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
@@ -1575,6 +1661,8 @@
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'de' &amp;&amp; !configMenu.P.product.profile.translate.de" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'bg' &amp;&amp; !configMenu.P.product.profile.translate.bg" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'it' &amp;&amp; !configMenu.P.product.profile.translate.it" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+              <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'es' &amp;&amp; !configMenu.P.product.profile.translate.es" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+              <div ng-if="configMenu.P.product.construction_type !== 4 &amp;&amp; configMenu.U.userInfo.langLabel === 'ro' &amp;&amp; !configMenu.P.product.profile.translate.ro" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorName | translate }}</div>
               <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorSashName }}</div>
             </li>
@@ -2197,6 +2285,8 @@
       <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_title">{{infoBox.G.global.infoTitle.de}}</div>
       <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_title">{{infoBox.G.global.infoTitle.bg}}</div>
       <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_title">{{infoBox.G.global.infoTitle.it}}</div>
+      <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_title">{{infoBox.G.global.infoTitle.es}}</div>
+      <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_title">{{infoBox.G.global.infoTitle.ro}}</div>
       <div ng-if="infoBox.U.userInfo.langLabel === 'en'" class="info_descrip">{{infoBox.G.global.infoDescrip.en}}</div>
       <div ng-if="infoBox.U.userInfo.langLabel === 'ru'" class="info_descrip">{{infoBox.G.global.infoDescrip.ru}}</div>
       <div ng-if="infoBox.U.userInfo.langLabel === 'uk'" class="info_descrip">{{infoBox.G.global.infoDescrip.ua}}</div>
@@ -2204,6 +2294,8 @@
       <div ng-if="infoBox.U.userInfo.langLabel === 'de'" class="info_descrip">{{infoBox.G.global.infoDescrip.de}}</div>
       <div ng-if="infoBox.U.userInfo.langLabel === 'bg'" class="info_descrip">{{infoBox.G.global.infoDescrip.bg}}</div>
       <div ng-if="infoBox.U.userInfo.langLabel === 'it'" class="info_descrip">{{infoBox.G.global.infoDescrip.it}}</div>
+      <div ng-if="infoBox.U.userInfo.langLabel === 'es'" class="info_descrip">{{infoBox.G.global.infoDescrip.es}}</div>
+      <div ng-if="infoBox.U.userInfo.langLabel === 'ro'" class="info_descrip">{{infoBox.G.global.infoDescrip.ro}}</div>
       <!--.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}-->
     </div>
     <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog"></div>

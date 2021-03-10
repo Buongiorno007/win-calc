@@ -11,6 +11,8 @@
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de'") {{ profilesPanel.G.global.profilesType[$index].translate.de }}
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg'") {{ profilesPanel.G.global.profilesType[$index].translate.bg }}
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it'") {{ profilesPanel.G.global.profilesType[$index].translate.it }}
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es'") {{ profilesPanel.G.global.profilesType[$index].translate.es }}
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro'") {{ profilesPanel.G.global.profilesType[$index].translate.ro }}
 
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profilesPanel.G.global.profilesType[$index].translate.en") {{ profilesPanel.G.global.profilesType[$index].name }}
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && !profilesPanel.G.global.profilesType[$index].translate.ru") {{ profilesPanel.G.global.profilesType[$index].name }}
@@ -19,6 +21,8 @@
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && !profilesPanel.G.global.profilesType[$index].translate.de") {{ profilesPanel.G.global.profilesType[$index].name }}
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profilesPanel.G.global.profilesType[$index].translate.bg") {{ profilesPanel.G.global.profilesType[$index].name }}
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profilesPanel.G.global.profilesType[$index].translate.it") {{ profilesPanel.G.global.profilesType[$index].name }}
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profilesPanel.G.global.profilesType[$index].translate.es") {{ profilesPanel.G.global.profilesType[$index].name }}
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profilesPanel.G.global.profilesType[$index].translate.ro") {{ profilesPanel.G.global.profilesType[$index].name }}
             .profile-box
                 .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
                     .profile-info-item(ng-click="profilesPanel.checkForAddElem(profile.id)")
@@ -32,6 +36,8 @@
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && profile.translate.de") {{profile.translate.de}}
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && profile.translate.bg") {{profile.translate.bg}}
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && profile.translate.it") {{profile.translate.it}}
+                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && profile.translate.es") {{profile.translate.es}}
+                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && profile.translate.ro") {{profile.translate.ro}}
 
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profile.translate.en") {{profile.name}}
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && !profile.translate.ru") {{profile.name}}
@@ -40,6 +46,8 @@
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && !profile.translate.de") {{profile.name}}
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profile.translate.bg") {{profile.name}}
                             p(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profile.translate.it") {{profile.name}}
+                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profile.translate.es") {{profile.name}}
+                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profile.translate.ro") {{profile.name}}
                         .common-info
                             p(ng-if="profile.cameras === 1 ")                      {{profile.cameras}} {{::profilesPanel.CAMERa}}
                             p(ng-if="profile.cameras > 2 && profile.cameras < 6")  {{profile.cameras}} {{::profilesPanel.CAMERa}}

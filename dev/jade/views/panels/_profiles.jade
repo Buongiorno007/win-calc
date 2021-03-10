@@ -9,6 +9,8 @@
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de'", data-output="{{ profilesPanel.G.global.profilesType[$index].translate.de }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg'", data-output="{{ profilesPanel.G.global.profilesType[$index].translate.bg }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it'", data-output="{{ profilesPanel.G.global.profilesType[$index].translate.it }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es'", data-output="{{ profilesPanel.G.global.profilesType[$index].translate.es }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro'", data-output="{{ profilesPanel.G.global.profilesType[$index].translate.ro }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
 
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profilesPanel.G.global.profilesType[$index].translate.en", data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && !profilesPanel.G.global.profilesType[$index].translate.ru", data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
@@ -17,6 +19,8 @@
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && !profilesPanel.G.global.profilesType[$index].translate.de", data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profilesPanel.G.global.profilesType[$index].translate.bg", data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
                 .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profilesPanel.G.global.profilesType[$index].translate.it", data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profilesPanel.G.global.profilesType[$index].translate.es", data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
+                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profilesPanel.G.global.profilesType[$index].translate.ro", data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
                 .group-info
                     .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
             .box.profile-box.unvisible(ng-repeat="profile in producer track by $index", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
@@ -39,6 +43,10 @@
                     .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'de'", data-output="{{ profile.translate.de }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
 
                     .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'bg'", data-output="{{ profile.translate.bg }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+                    
+                    .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'es'", data-output="{{ profile.translate.es }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+
+                    .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'ro'", data-output="{{ profile.translate.ro }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
 
                     //-If there are no translation of the language it's displaying default value
                     .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profile.translate.en", data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
@@ -55,7 +63,9 @@
 
                     .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profile.translate.bg", data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
 
+                    .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profile.translate.es", data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
 
+                    .profile-descr(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profile.translate.ro", data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
 
                     .profile-cameras(ng-if="!profile.img.length",)
                         .type.cam {{ profile.cameras }}

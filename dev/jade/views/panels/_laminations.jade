@@ -13,6 +13,8 @@
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'de' && lamin.translate.de", data-output="{{ ::lamin.translate.de }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'bg' && lamin.translate.bg", data-output="{{ ::lamin.translate.bg }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'it' && lamin.translate.it", data-output="{{ ::lamin.translate.it }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+          .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'es' && lamin.translate.es", data-output="{{ ::lamin.translate.es }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+          .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'ro' && lamin.translate.ro", data-output="{{ ::lamin.translate.ro }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'en' && !lamin.translate.en", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'ru' && !lamin.translate.ru", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
@@ -21,6 +23,8 @@
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'de' && !lamin.translate.de", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'bg' && !lamin.translate.bg", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'it' && !lamin.translate.it", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+          .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'es' && !lamin.translate.es", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+          .laminat-label(ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'ro' && !lamin.translate.ro", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label(ng-if="lamin.id === 1", data-output="{{ ::lamin.name | translate}}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
 
@@ -49,6 +53,10 @@
           .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'bg'") {{ lamCouple.translate_out_id.bg }}
           .laminat-label(ng-if="lamCouple.img_in_id > 1 && laminPanel.U.userInfo.langLabel === 'it'") {{ lamCouple.translate_in_id.it }}
           .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'it'") {{ lamCouple.translate_out_id.it }}
+          .laminat-label(ng-if="lamCouple.img_in_id > 1 && laminPanel.U.userInfo.langLabel === 'es'") {{ lamCouple.translate_in_id.es }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'es'") {{ lamCouple.translate_out_id.es }}
+          .laminat-label(ng-if="lamCouple.img_in_id > 1 && laminPanel.U.userInfo.langLabel === 'ro'") {{ lamCouple.translate_in_id.ro }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'ro'") {{ lamCouple.translate_out_id.ro }}
           .laminat-label(ng-if="lamCouple.img_in_id === 1") {{ lamCouple.laminat_in_name | translate }}
           .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1") {{ lamCouple.laminat_out_name | translate }}
 
@@ -66,3 +74,7 @@
           .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'bg' && !lamCouple.translate_out_id.bg") {{ lamCouple.laminat_out_name }}
           .laminat-label(ng-if="lamCouple.img_in_id > 1 && laminPanel.U.userInfo.langLabel === 'it' && !lamCouple.translate_in_id.it") {{ lamCouple.laminat_in_name }}
           .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'it' && !lamCouple.translate_out_id.it") {{ lamCouple.laminat_out_name }}
+          .laminat-label(ng-if="lamCouple.img_in_id > 1 && laminPanel.U.userInfo.langLabel === 'es' && !lamCouple.translate_in_id.es") {{ lamCouple.laminat_in_name }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'es' && !lamCouple.translate_out_id.es") {{ lamCouple.laminat_out_name }}
+          .laminat-label(ng-if="lamCouple.img_in_id > 1 && laminPanel.U.userInfo.langLabel === 'ro' && !lamCouple.translate_in_id.ro") {{ lamCouple.laminat_in_name }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1 && laminPanel.U.userInfo.langLabel === 'ro' && !lamCouple.translate_out_id.ro") {{ lamCouple.laminat_out_name }}

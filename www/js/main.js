@@ -14913,8 +14913,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
+      serverIP: 'https://api.windowscalculator.net',
+      printIP: 'https://admin.windowscalculator.net/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -14961,6 +14961,7 @@ function ErrorResult(code, message) {
         {label: 'it', name: 'Italiano'},
         {label: 'pl', name: 'Polski'},
         {label: 'bg', name: 'Български'},
+        {label: 'es', name: 'Español'}
       ],
 
       currencies: [
@@ -21806,7 +21807,7 @@ function ErrorResult(code, message) {
                     },
                     locales_names: {
                         tableName: "locales_names",
-                        prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, ua, de, ro, it, pl, bg, table_attr VARCHAR(255)",
+                        prop: "id INTEGER, table_name VARCHAR(255), table_id INTEGER, ru, en, ua, de, ro, it, pl, bg, es, table_attr VARCHAR(255)",
                         foreignKey: ""
                     },
                     currencies: { 
@@ -26702,7 +26703,7 @@ function ErrorResult(code, message) {
           .selectLocalDB(
             localDB.tablesLocalDB.locales_names.tableName,
             null, 
-            "id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, table_attr"          
+            "id, table_name, table_id, ru, en, ua, de, ro, it, pl, bg, es, table_attr"          
           )
           .then(function (result) {
             if (result && result.length) {
@@ -38517,6 +38518,8 @@ function ErrorResult(code, message) {
                         break;
                     case 'bg':
                         name = 'Български'
+                    case 'es':
+                        name = 'Español'
                         break;
                 }
                 thisFactory.publicObj = {

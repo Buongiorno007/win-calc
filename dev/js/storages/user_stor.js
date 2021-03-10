@@ -40,6 +40,8 @@
                         break;
                     case 'bg':
                         name = 'Български'
+                    case 'es':
+                        name = 'Español'
                         break;
                 }
                 thisFactory.publicObj = {

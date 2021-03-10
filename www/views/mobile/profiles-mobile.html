@@ -78,6 +78,8 @@
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'de'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.de }}</div>
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.bg }}</div>
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'it'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.it }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'es'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.es }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ro }}</div>
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.en" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ru" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ua" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
@@ -85,6 +87,8 @@
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.de" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.bg" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
         <div ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.it" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.es" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ro" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
       </div>
       <div class="profile-box">
         <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" class="profile-info">
@@ -97,6 +101,8 @@
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; profile.translate.de">{{profile.translate.de}}</p>
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; profile.translate.bg">{{profile.translate.bg}}</p>
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; profile.translate.it">{{profile.translate.it}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; profile.translate.es">{{profile.translate.es}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; profile.translate.ro">{{profile.translate.ro}}</p>
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profile.translate.en">{{profile.name}}</p>
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profile.translate.ru">{{profile.name}}</p>
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profile.translate.ua">{{profile.name}}</p>
@@ -104,6 +110,8 @@
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profile.translate.de">{{profile.name}}</p>
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profile.translate.bg">{{profile.name}}</p>
               <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profile.translate.it">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profile.translate.es">{{profile.name}}</p>
+              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profile.translate.ro">{{profile.name}}</p>
             </div>
             <div class="common-info">
               <p ng-if="profile.cameras === 1 ">                     {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
