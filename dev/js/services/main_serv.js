@@ -7,6 +7,7 @@
             $q,
             $filter,
             $timeout,
+            $rootScope,
             localDB,
             GeneralServ,
             SVGServ,
@@ -291,8 +292,8 @@
                     console.log(UserStor.userInfo.currencies, 'user info (need language)') 
                     console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
-                console.log(product.profile, ' product.profile.')
-                console.log(GlobalStor.global, 'глобалстор')
+                // console.log(product.profile, ' product.profile.')
+                // console.log(GlobalStor.global, 'глобалстор')
                 var data = null
                 function needed_data() {
                     var defer = $q.defer();
@@ -311,7 +312,6 @@
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
                         //Block for profiles and profiles descriptions translations ***
-                         console.log(UserStor.userInfo.user_type, 'check');
                         product.locales_names_addition_folders = data
                         GlobalStor.global.locales_names_addition_folders = data
                         //There are only profiles systems here
@@ -1490,6 +1490,63 @@
                         priceMargin,
                         doorData,
                         tempDoorItems;
+                    $rootScope.priceObjCopy = priceObj;
+
+                    var glassData = null
+                    function glassPricesData() {
+                        var defer = $q.defer();
+                        db.getItem('tables').then(function (value) {
+                            glassPricesData = value;
+                            defer.resolve(glassPricesData);
+                        }).catch(function (err) {
+                            console.log(err);
+                            defer.resolve(0);
+                        });
+                        return defer.promise;
+                    }  
+                    glassPricesData().then(
+                        function(data) {
+                            let glassPricesData = data.glass_prices;
+                            let currentGlassData = $rootScope.priceObjCopy.constrElements;
+
+                            for(var i = 0; i < glassPricesData.length; i++) {
+                                for(var y = 0; y < currentGlassData.length; y++) {
+                                    if(currentGlassData[y].id === glassPricesData[i].element_id) {
+                                        console.log('AYOOOO ACESS')
+                                        // currentGlassData[y]["interval_price"] = glassPricesData[i].col_1_price;
+                                        // console.log(currentGlassData[y].size, 'currentGlassData[y].size')
+                                        // console.log(glassPricesData[i].col_1_range, 'glassPricesData[i].col_1_range')
+                                        // console.log(glassPricesData[i].col_2_range_1, 'glassPricesData[i].col_1_range')
+                                        // console.log(glassPricesData[i].col_3_range_1, 'glassPricesData[i].col_1_range')
+                                        // console.log(glassPricesData[i].col_4_range_1, 'glassPricesData[i].col_1_range')
+                                        if(currentGlassData[y].size <= glassPricesData[i].col_1_range) {
+                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_1_price;
+
+                                        } else if(currentGlassData[y].size >= glassPricesData[i].col_3_range_1 && currentGlassData[y].size <= glassPricesData.col_3_range_2) {
+                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_3_price;
+                                            // return col_3_price;
+                                            
+                                        } else if(currentGlassData[y].size >= glassPricesData[i].col_4_range_1 && currentGlassData[y].size <= glassPricesData.col_4_range_2) {
+                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_4_price;
+                                            // return col_4_price;
+                                            
+                                        } else if(currentGlassData[y].size >= glassPricesData[i].col_5_range) {
+                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_5_price;
+                                            // return col_5_range;
+                                           
+                                        } else {
+                                           console.log('Hih it is error my dear friend something went wrong check out again')
+                                        }
+                                    } else {
+                                        console.error('error')
+                                    }
+                                }
+                            }
+                            console.log(glassPricesData, '<---- Glass prices data')
+                            console.log(currentGlassData, '<----- Current glass prices')
+                        }
+                    )
+                    
                     if (priceObj.priceTotal) {
                         /** DOOR add handle and lock Ids */
                         if (ProductStor.product.construction_type === 4) {
