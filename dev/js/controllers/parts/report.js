@@ -12,7 +12,8 @@
                       GeneralServ,
                       GlobalStor,
                       ProductStor,
-                      UserStor) {
+                      UserStor,
+                      $scope) {
                 /*jshint validthis:true */
                 var thisCtrl = this;
                 thisCtrl.G = GlobalStor;
@@ -75,6 +76,7 @@
 
 
                 function showReport() {
+                    console.info('FINISH=!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', $scope.priceObjCopy);
                     GlobalStor.global.isReport = !GlobalStor.global.isReport;
                     /** cuclulate Total Price of Report */
                     culcReportPriceTotal();
