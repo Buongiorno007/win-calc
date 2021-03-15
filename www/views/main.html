@@ -179,7 +179,7 @@
               <td class="report-elem">{{report.amount}}</td>
               <td class="report-elem">{{ (report.sizeLabel) ? report.sizeLabel : report.size }}</td>
               <td class="report-elem">{{ report.interval_price ? report.interval_price : report.price | number : 2}} </td>
-              <td class="report-elem">{{report.priceReal}}</td>
+              <td class="report-elem">{{ report.new_interval_price ? report.new_interval_price : report.priceReal | number : 2}}</td>
             </tr>
           </table>
           <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>

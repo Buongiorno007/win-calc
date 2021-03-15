@@ -1503,7 +1503,8 @@
                             defer.resolve(0);
                         });
                         return defer.promise;
-                    }  
+                    }
+                    /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to reqalculate the priceReal */
                     glassPricesData().then(
                         function(data) {
                             let glassPricesData = data.glass_prices;
@@ -1511,23 +1512,43 @@
                             for(var i = 0; i < glassPricesData.length; i++) {
                                 for(var y = 0; y < currentGlassData.length; y++) {
                                     if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
-                                        console.log('AYOOOO ACESS')
-                                        console.log(currentGlassData[y], 'currentGlassData[y]')
-                                        console.log(glassPricesData[i], 'glassPricesData[i]')
                                         if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
                                             currentGlassData[y]["interval_price"] = glassPricesData[i].col_1_price;
-                                            console.log("CHECK")
+                                            ProductStor.product.report.forEach((report) => {
+                                                if(report.interval_price) {
+                                                    currentGlassData[y]["new_interval_price"] = (report.size * report.interval_price);
+                                                }
+                                            })
                                         } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
                                             currentGlassData[y]["interval_price"] = glassPricesData[i].col_2_price;
-                                            console.log("CHECK", "CHECK")
+                                            ProductStor.product.report.forEach((report) => {
+                                                if(report.interval_price) {
+                                                    currentGlassData[y]["new_interval_price"] = (report.size * report.interval_price);
+                                                }
+                                            })
+                                            console.log()
                                         } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
                                             currentGlassData[y]["interval_price"] = glassPricesData[i].col_3_price;
-                                            console.log("CHECK", "CHECK", "CHECK")
+                                            ProductStor.product.report.forEach((report) => {
+                                                if(report.interval_price) {
+                                                    currentGlassData[y]["new_interval_price"] = (report.size * report.interval_price);
+                                                }
+                                            })
                                         } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
                                             currentGlassData[y]["interval_price"] = glassPricesData[i].col_4_price;
-                                            console.log("CHECK", "CHECK", "CHECK", "CHECK")
+                                            ProductStor.product.report.forEach((report) => {
+                                                if(report.interval_price) {
+                                                    currentGlassData[y]["new_interval_price"] = r(report.size * report.interval_price);
+                                                   
+                                                }
+                                            })
                                         } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
                                             currentGlassData[y]["interval_price"] = glassPricesData[i].col_5_price;
+                                            ProductStor.product.report.forEach((report) => {
+                                                if(report.interval_price) {
+                                                    currentGlassData[y]["new_interval_price"] = (report.size * report.interval_price);
+                                                }
+                                            })
                                         }
                                     }
                                 }
