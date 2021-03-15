@@ -1504,7 +1504,7 @@
                         });
                         return defer.promise;
                     }
-                    /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to reqalculate the priceReal */
+                    /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
                     glassPricesData().then(
                         function(data) {
                             let glassPricesData = data.glass_prices;
@@ -1538,7 +1538,7 @@
                                             currentGlassData[y]["interval_price"] = glassPricesData[i].col_4_price;
                                             ProductStor.product.report.forEach((report) => {
                                                 if(report.interval_price) {
-                                                    currentGlassData[y]["new_interval_price"] = r(report.size * report.interval_price);
+                                                    currentGlassData[y]["new_interval_price"] = (report.size * report.interval_price);
                                                    
                                                 }
                                             })
