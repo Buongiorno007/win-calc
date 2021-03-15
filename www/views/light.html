@@ -148,7 +148,7 @@
                     <td class="report-elem">{{report.sku}}</td>
                     <td class="report-elem">{{report.amount}}</td>
                     <td class="report-elem">{{ (report.sizeLabel) ? report.sizeLabel : report.size }}</td>
-                    <td class="report-elem">{{report.price  | number : 2 }}</td>
+                    <td class="report-elem">{{ report.interval_price ? report.interval_price : report.price | number : 2}} </td>
                     <td class="report-elem">{{report.priceReal}}</td>
                   </tr>
                 </table>

@@ -1507,43 +1507,31 @@
                     glassPricesData().then(
                         function(data) {
                             let glassPricesData = data.glass_prices;
-                            let currentGlassData = $rootScope.priceObjCopy.constrElements;
-
+                            let currentGlassData = ProductStor.product.report;
                             for(var i = 0; i < glassPricesData.length; i++) {
                                 for(var y = 0; y < currentGlassData.length; y++) {
-                                    if(currentGlassData[y].id === glassPricesData[i].element_id) {
+                                    if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
                                         console.log('AYOOOO ACESS')
-                                        // currentGlassData[y]["interval_price"] = glassPricesData[i].col_1_price;
-                                        // console.log(currentGlassData[y].size, 'currentGlassData[y].size')
-                                        // console.log(glassPricesData[i].col_1_range, 'glassPricesData[i].col_1_range')
-                                        // console.log(glassPricesData[i].col_2_range_1, 'glassPricesData[i].col_1_range')
-                                        // console.log(glassPricesData[i].col_3_range_1, 'glassPricesData[i].col_1_range')
-                                        // console.log(glassPricesData[i].col_4_range_1, 'glassPricesData[i].col_1_range')
-                                        if(currentGlassData[y].size <= glassPricesData[i].col_1_range) {
-                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_1_price;
-
-                                        } else if(currentGlassData[y].size >= glassPricesData[i].col_3_range_1 && currentGlassData[y].size <= glassPricesData.col_3_range_2) {
-                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_3_price;
-                                            // return col_3_price;
-                                            
-                                        } else if(currentGlassData[y].size >= glassPricesData[i].col_4_range_1 && currentGlassData[y].size <= glassPricesData.col_4_range_2) {
-                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_4_price;
-                                            // return col_4_price;
-                                            
-                                        } else if(currentGlassData[y].size >= glassPricesData[i].col_5_range) {
-                                            return currentGlassData[y]["interval_price"] = glassPricesData[i].col_5_price;
-                                            // return col_5_range;
-                                           
-                                        } else {
-                                           console.log('Hih it is error my dear friend something went wrong check out again')
+                                        console.log(currentGlassData[y], 'currentGlassData[y]')
+                                        console.log(glassPricesData[i], 'glassPricesData[i]')
+                                        if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
+                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_1_price;
+                                            console.log("CHECK")
+                                        } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
+                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_2_price;
+                                            console.log("CHECK", "CHECK")
+                                        } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
+                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_3_price;
+                                            console.log("CHECK", "CHECK", "CHECK")
+                                        } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
+                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_4_price;
+                                            console.log("CHECK", "CHECK", "CHECK", "CHECK")
+                                        } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
+                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_5_price;
                                         }
-                                    } else {
-                                        console.error('error')
                                     }
                                 }
                             }
-                            console.log(glassPricesData, '<---- Glass prices data')
-                            console.log(currentGlassData, '<----- Current glass prices')
                         }
                     )
                     

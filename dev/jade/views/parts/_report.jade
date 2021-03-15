@@ -16,7 +16,7 @@
         td.report-elem {{report.sku}}
         td.report-elem {{report.amount}}
         td.report-elem {{ (report.sizeLabel) ? report.sizeLabel : report.size }}
-        td.report-elem {{report.price  | number : 2 }}
+        td.report-elem {{ report.interval_price ? report.interval_price : report.price | number : 2}} 
         td.report-elem {{report.priceReal}}
     .report-price-total {{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}
 

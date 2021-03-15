@@ -76,7 +76,6 @@
 
 
                 function showReport() {
-                    console.info('FINISH=!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', $scope.priceObjCopy);
                     GlobalStor.global.isReport = !GlobalStor.global.isReport;
                     /** cuclulate Total Price of Report */
                     culcReportPriceTotal();
