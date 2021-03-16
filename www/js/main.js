@@ -24342,10 +24342,10 @@ function ErrorResult(code, message) {
                     //console.log(currConsistElem, 'currConsistElem')
                     //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
                     //console.log('Название: ' + currConsistElem.name);
-                    // console.log('Цена: ' + currConsistElem.price);
+                    //console.log('Цена: ' + currConsistElem.price);
                     //console.log('% отхода : ' + wasteValue);
                     //console.log('Поправка на обрезку : ' + pruning);
-                    // console.log('Размер: ' + currSize + ' m');
+                    //console.log('Размер: ' + currSize + ' m');
                     //console.log('parentValue: ' + parentValue);
                     //console.log('Тип округления: ' + currConsist.rounding_type);
                     //console.log('Величина округления: ' + currConsist.rounding_value);
@@ -24476,8 +24476,7 @@ function ErrorResult(code, message) {
                             }
                         }
                     }
-                    // console.info('@@@@@@@@@@@@', objTmp.priceReal, priceReal);
-                    // console.log(priceReal, objTmp, 'price real')
+                    //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
 
@@ -24488,7 +24487,7 @@ function ErrorResult(code, message) {
                     objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
                     objTmp.sizeLabel = sizeLabel;
                     objTmp.qty = qtyReal;
-                    // console.warn('finish -------------- ', objTmp.priceReal);
+                    //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
                     priceObj.constrElements.push(objTmp);
                     priceObj.priceTotal += objTmp.priceReal;
                 }
@@ -29071,7 +29070,7 @@ function ErrorResult(code, message) {
                     result.constrElements.forEach(function (entry) {
                         if (entry.element_group_id != 8) {
                             if (entry.priceReal == 0 || entry.price == 0) {
-                                console.log('name', entry.name);
+                                //console.log('name', entry.name);
                                 GlobalStor.global.isZeroPriceList.push(entry.name);
                             }
                         }
@@ -29123,75 +29122,44 @@ function ErrorResult(code, message) {
                         priceMargin,
                         doorData,
                         tempDoorItems;
-                    $rootScope.priceObjCopy = priceObj;
-
-                    var glassData = null
-                    function glassPricesData() {
-                        var defer = $q.defer();
-                        db.getItem('tables').then(function (value) {
-                            glassPricesData = value;
-                            defer.resolve(glassPricesData);
-                        }).catch(function (err) {
-                            console.log(err);
-                            defer.resolve(0);
-                        });
-                        return defer.promise;
-                    }  
-                    glassPricesData().then(
-                        function(data) {
-                            let glassPricesData = data.glass_prices;
-                            let currentGlassData = ProductStor.product.report;
-                            for(var i = 0; i < glassPricesData.length; i++) {
-                                for(var y = 0; y < currentGlassData.length; y++) {
-                                    if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
-                                        console.log('AYOOOO ACESS')
-                                        if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
-                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_1_price;
-                                            ProductStor.product.report.forEach((e) => {
-                                                if(e.interval_price) {
-                                                    currentGlassData[y]["new_interval_price"] = (e.size * e.interval_price);
-                                                    console.log(currentGlassData, '<--- current glass data')
-                                                }
-                                            })
-                                        } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
-                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_2_price;
-                                            ProductStor.product.report.forEach((e) => {
-                                                if(e.interval_price) {
-                                                    currentGlassData[y]["new_interval_price"] = (e.size * e.interval_price);
-                                                    console.log(currentGlassData, '<--- current glass data')
-                                                }
-                                            })
-                                            console.log()
-                                        } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
-                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_3_price;
-                                            ProductStor.product.report.forEach((e) => {
-                                                if(e.interval_price) {
-                                                    currentGlassData[y]["new_interval_price"] = (e.size * e.interval_price);
-                                                    console.log(currentGlassData, '<--- current glass data')
-                                                }
-                                            })
-                                        } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
-                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_4_price;
-                                            ProductStor.product.report.forEach((e) => {
-                                                if(e.interval_price) {
-                                                    currentGlassData[y]["new_interval_price"] = r(e.size * e.interval_price);
-                                                    console.log(currentGlassData, '<--- current glass data')
-                                                }
-                                            })
-                                        } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
-                                            currentGlassData[y]["interval_price"] = glassPricesData[i].col_5_price;
-                                            ProductStor.product.report.forEach((e) => {
-                                                if(e.interval_price) {
-                                                    currentGlassData[y]["new_interval_price"] = (e.size * e.interval_price);
-                                                    console.log(currentGlassData, '<--- current glass data')
-                                                }
-                                            })
+                        var glassData = null
+                        function glassPricesData() {
+                            var defer = $q.defer();
+                            db.getItem('tables').then(function (value) {
+                                glassPricesData = value;
+                                defer.resolve(glassPricesData);
+                            }).catch(function (err) {
+                                console.log(err);
+                                defer.resolve(0);
+                            });
+                            return defer.promise;
+                        }
+                        /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
+                        glassPricesData().then(
+                            function(data) {
+                                let glassPricesData = data.glass_prices;
+                                let currentGlassData = ProductStor.product.report;
+                                for(var i = 0; i < glassPricesData.length; i++) {
+                                    for(var y = 0; y < currentGlassData.length; y++) {
+                                        if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
+                                            if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
+                                                currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
+                                            } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
+                                                currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
+                                            } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
+                                                currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
+                                            } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
+                                                currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
+                                            } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
+                                                currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
+                                            }
+                                        } else {
+                                            console.log(priceObj.priceTotal)
                                         }
                                     }
                                 }
                             }
-                        }
-                    )
+                        )
                     
                     if (priceObj.priceTotal) {
                         /** DOOR add handle and lock Ids */
@@ -29257,7 +29225,7 @@ function ErrorResult(code, message) {
                 });
                 return deferred.promise;
             }
-
+                       
             function prepareReport(elementList) {
                 var report = [],
                     elementListQty = elementList.length,
