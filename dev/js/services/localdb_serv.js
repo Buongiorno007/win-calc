@@ -2763,20 +2763,17 @@
 
                     if (objTmp.element_group_id === 3) {
                         if (ProductStor.product.door_type_index !== 0) {
-                            if (sizeReal === 1.927) {
-                                if (ProductStor.product.door_type_index === 1) {
-
-                                    // console.log('ProductStor.product.template_height', ProductStor.product.template_height);
-                                    // console.log('ProductStor.product.profileDepths.frameDepth.c', ProductStor.product.profileDepths.frameDepth.c)
-                                    // console.log('pruning', pruning)
-                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 - pruning;
-                                    priceReal = sizeReal * currConsistElem.price * wasteValue;
-                                }
-                                if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
-                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a - 40) / 1000 - pruning;
-                                    priceReal = sizeReal * currConsistElem.price * wasteValue;
-                                }
-                            }
+                            /* Removed unnecessary block of code that calculates to the exact size, I don't know why */
+                            // if (sizeReal === 1.927) {
+                            //     if (ProductStor.product.door_type_index === 1) {
+                            //         sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 - pruning;
+                            //         priceReal = sizeReal * currConsistElem.price * wasteValue;
+                            //     }
+                            //     if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
+                            //         sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a - 40) / 1000 - pruning;
+                            //         priceReal = sizeReal * currConsistElem.price * wasteValue;
+                            //     }
+                            // }
                             var armir = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2 - 20) / 1000 + pruning;
                             if (sizeReal === (Math.round(armir * 1000) / 1000)) {
                                 if (ProductStor.product.door_type_index !== 0) {
@@ -2792,7 +2789,8 @@
                             }
                         }
                     }
-                    //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
+                    //console.info('@@@@@@@@@@@@', objTmp);
+                    //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
 
@@ -3186,7 +3184,7 @@
             /** CONSTRUCTION PRICE **/
 
             function calculationPrice(construction) {
-                console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
+                // console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
                 var deffMain = $q.defer(),
                     priceObj = {},
                     finishPriceObj = {};

@@ -24447,20 +24447,17 @@ function ErrorResult(code, message) {
 
                     if (objTmp.element_group_id === 3) {
                         if (ProductStor.product.door_type_index !== 0) {
-                            if (sizeReal === 1.927) {
-                                if (ProductStor.product.door_type_index === 1) {
-
-                                    // console.log('ProductStor.product.template_height', ProductStor.product.template_height);
-                                    // console.log('ProductStor.product.profileDepths.frameDepth.c', ProductStor.product.profileDepths.frameDepth.c)
-                                    // console.log('pruning', pruning)
-                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 - pruning;
-                                    priceReal = sizeReal * currConsistElem.price * wasteValue;
-                                }
-                                if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
-                                    sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a - 40) / 1000 - pruning;
-                                    priceReal = sizeReal * currConsistElem.price * wasteValue;
-                                }
-                            }
+                            /* Removed unnecessary block of code that calculates to the exact size, I don't know why */
+                            // if (sizeReal === 1.927) {
+                            //     if (ProductStor.product.door_type_index === 1) {
+                            //         sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - 20) / 1000 - pruning;
+                            //         priceReal = sizeReal * currConsistElem.price * wasteValue;
+                            //     }
+                            //     if (ProductStor.product.door_type_index === 2 || ProductStor.product.door_type_index === 3) {
+                            //         sizeReal = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c - ProductStor.product.profileDepths.frameStillDepth.a - 40) / 1000 - pruning;
+                            //         priceReal = sizeReal * currConsistElem.price * wasteValue;
+                            //     }
+                            // }
                             var armir = (ProductStor.product.template_height - ProductStor.product.profileDepths.frameDepth.c * 2 - 20) / 1000 + pruning;
                             if (sizeReal === (Math.round(armir * 1000) / 1000)) {
                                 if (ProductStor.product.door_type_index !== 0) {
@@ -24476,7 +24473,8 @@ function ErrorResult(code, message) {
                             }
                         }
                     }
-                    //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
+                    //console.info('@@@@@@@@@@@@', objTmp);
+                    //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
 
@@ -24870,7 +24868,7 @@ function ErrorResult(code, message) {
             /** CONSTRUCTION PRICE **/
 
             function calculationPrice(construction) {
-                console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
+                // console.log(construction, 'ALLLLLLLLEEEELELELELELLELE')
                 var deffMain = $q.defer(),
                     priceObj = {},
                     finishPriceObj = {};
@@ -29139,80 +29137,82 @@ function ErrorResult(code, message) {
                             function(data) {
                                 let glassPricesData = data.glass_prices;
                                 let currentGlassData = ProductStor.product.report;
-                                for(var i = 0; i < glassPricesData.length; i++) {
-                                    for(var y = 0; y < currentGlassData.length; y++) {
-                                        /* checks if ids the same */
-                                        if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
-                                            /* check range */
-                                            if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
-                                                /* setting a new keys in object */
-                                                /* price from db for this particular range */ 
-                                                currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
-                                                /* calculations the price for report */
-                                                currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                /* The last action is to reassign keys to display correct data in report */
-                                                if(GlobalStor.global.tempPrice) {
-                                                    currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
-                                                    currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                }
-                                            } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
-                                                /* setting a new keys in object */
-                                                /* price from db for this particular range */ 
-                                                currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
-                                                /* calculations the price for report */
-                                                currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                /* The last action is to reassign keys to display correct data in report */
-                                                if(GlobalStor.global.tempPrice) {
-                                                    currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
-                                                    currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                }
-                                            } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
-                                                /* setting a new keys in object */
-                                                /* price from db for this particular range */ 
-                                                currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
-                                                /* calculations the price for report */
-                                                currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                /* The last action is to reassign keys to display correct data in report */
-                                                if(GlobalStor.global.tempPrice) {
-                                                    currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
-                                                    currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                }
-                                            } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
-                                                /* setting a new keys in object */
-                                                /* price from db for this particular range */ 
-                                                currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
-                                                /* calculations the price for report */
-                                                currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                /* The last action is to reassign keys to display correct data in report */
-                                                if(GlobalStor.global.tempPrice) {
-                                                    currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
-                                                    currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                }
-                                            } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
-                                                /* setting a new keys in object */
-                                                /* price from db for this particular range */ 
-                                                currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
-                                                /* calculations the price for report */
-                                                currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                /* The last action is to reassign keys to display correct data in report */
-                                                if(GlobalStor.global.tempPrice) {
-                                                    currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
-                                                    currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                if (glassPricesData) {
+                                    for(var i = 0; i < glassPricesData.length; i++) {
+                                        for(var y = 0; y < currentGlassData.length; y++) {
+                                            /* checks if ids the same */
+                                            if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
+                                                /* check range */
+                                                if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
                                                 }
                                             }
                                         }
@@ -29344,7 +29344,6 @@ function ErrorResult(code, message) {
                     }
                 }
                 // console.timeEnd("prepareReport");
-                console.log(report, 'report !@!!!!')
                 return report;
             }
 
