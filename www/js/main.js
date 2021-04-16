@@ -14914,8 +14914,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://api.windowscalculator.net',
-      printIP: 'https://admin.windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'https://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
