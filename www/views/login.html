@@ -8,8 +8,6 @@
     <div ng-if="loginPage.isOfflineImport" class="attantion">    {{ ::loginPage.OFFLINE_IMPORT }}</div>
     <div ng-if="loginPage.unexpectedError" class="attantion unexpectedError">    {{ ::loginPage.UNEXPECTED_ERROR }}</div>
     <div ng-if="loginPage.consts.serverIP === &quot;https://api.steko.com.ua&quot;" class="logo logo-mobView-steko"></div>
-    <div ng-if="loginPage.consts.serverIP !== &quot;https://api.steko.com.ua&quot;" class="logo logo-mobView"></div>
-    <div class="text-logo">{{ ::loginPage.WINDOW_COST }}</div>
     <div ng-click="loginPage.gotoSettingsPage()" id="jssj" class="lang"></div>
     <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
@@ -48,7 +46,6 @@
       </div>
       <button fs-click="loginPage.selectFactory()" class="login-submit">{{ ::loginPage.SELECT }}</button>
     </div>
-    <div class="buttom-info-box"><span>{{loginPage.CONTACT_US}}</span><span>info@windowscalculator.net</span></div>
   </div>
   <div ng-if="loginPage.isRegistration" fs-click="loginPage.isUserExist = 0;" class="login-container">
     <button type="button" fs-click="loginPage.closeRegistration()" class="close_dialog"></button>

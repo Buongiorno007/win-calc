@@ -11,8 +11,8 @@ section.login-page.login-page-mobView
         .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
         .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
         .logo.logo-mobView-steko(ng-if='loginPage.consts.serverIP === "https://api.steko.com.ua"')
-        .logo.logo-mobView(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"')
-        .text-logo {{ ::loginPage.WINDOW_COST }}
+        //- .logo.logo-mobView(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"')
+        //- .text-logo {{ ::loginPage.WINDOW_COST }}
         .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
 
         form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
@@ -51,9 +51,9 @@ section.login-page.login-page-mobView
                         td.factory_name {{ factory.name }}
                         td.factory_place {{ factory.location }}
             button.login-submit(fs-click="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
-        .buttom-info-box
-            span {{loginPage.CONTACT_US}}
-            span info@windowscalculator.net
+        //- .buttom-info-box
+        //-     span {{loginPage.CONTACT_US}}
+        //-     span info@windowscalculator.net
 
     //------------- Registration Form
     .login-container(ng-if="loginPage.isRegistration", fs-click="loginPage.isUserExist = 0;")
