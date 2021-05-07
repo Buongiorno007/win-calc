@@ -45,6 +45,7 @@ var server_env = {
   "steko": "'https://api.steko.com.ua'",
   "orange": "'http://api.calc.csokna.ru'",
   "window": "'https://api.windowscalculator.net'",
+  "rehau": "'https://admin.rehauselected.baueffect.com'",
   "windowSteko": "'http://api.steko.com.ua'",
   "apelsin": "'https://admin.apelsin.windowscalculator.net'"
 },
@@ -56,6 +57,7 @@ var server_env = {
     "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
     "window": "'https://admin.windowscalculator.net/orders/get-order-pdf/'",
+    "rehau": "'https://admin.rehauselected.baueffect.com/get-order-pdf/'",
     "windowSteko": "'https://admin.steko.com.ua/orders/get-order-pdf/'",
     "apelsin": "'https://admin.apelsin.windowscalculator.net/orders/get-order-pdf/'"
   },
@@ -66,6 +68,7 @@ var server_env = {
     "steko": "'/local/'",
     "orange": "'/local/'",
     "window": "'/local/'",
+    "rehau": "'/local/'",
     "windowSteko": "'/local/'",
     "apelsin": "'/local/'"
   };

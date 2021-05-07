@@ -73,6 +73,37 @@
       margin: 0;
     }
   }
+  // rehau styles
+  .config-title-rehau {
+    margin-top: 2rem;
+    width: 100%;
+    height: 88px;
+    display: inline-block;
+    text-align: center;
+    background-color: $primary_green;
+    padding: 14px;
+    white-space: nowrap;
+    h1 {
+      text-align: left;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 32px;
+      color: white;
+      margin: 0;
+    }
+
+    h3 {
+      text-align: left;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14.5px;
+      line-height: 24px;
+      color: white;
+      margin: 0;
+    }
+  }
+
   .configuration-button {
     cursor: pointer;
     width: 33.3%;
@@ -278,6 +309,91 @@
     top: -3rem;
     left: 12rem;
   }
+  // * Rehau styles ----------------
+  .construction-left-menu-rehau {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    background-color: white;
+    width: 100%;
+    ul {
+      padding: 0;
+    }
+  }
+  .figure-lists-rehau {
+    width: 100%;
+    background-color: white;
+  }
+  .figure-item-rehau-block {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border: none;
+    left: 0;
+    margin: 0 !important;
+    padding: 0px;
+    background-color: transparent;
+    &.selected {
+      background-color: transparent !important;
+    }
+  }
+  .figure-item-rehau-block:hover {
+    background-color: transparent !important;
+  }
+  .selected {
+    color: $main_blue !important;
+  }
+  .figure-item-rehau {
+    height: 90px;
+    width: 110%;
+    display: inline-block; //border-bottom: 1px solid #b1b1b1;
+    padding-top: 2.5rem;
+    padding-bottom: .2rem;
+    &.selected {
+      background-color: rgba(0, 0, 0, 0.07);
+      margin-left: -2rem;
+      padding-left: 2rem;
+    }
+    &.temp-fig-rehau {
+      margin-top: -10px;
+    }
+  }
+  .figure-item-rehau:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+  .figure-label-rehau {
+    @include roboto-bd(rem(30px), rem(24px));
+    color: $primary_green;
+    width: auto;
+    margin: 0 !important;
+    position: relative;
+    top: -3rem;
+    padding: 16px 16px 0 16px;
+    left: 0;
+
+    span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 32px;
+    }
+  }
+
+  .figure-label-rehau-subtitle {
+    margin: 0 !important;
+    position: relative;
+    top: -3rem;
+    padding: 0 16px 0 16px;
+    left: 0;
+
+    span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+  // * End 
   .edit_submenu {
     @include transition(all 0.3s linear);
     @include roboto-lt(rem(36px), rem(65px));

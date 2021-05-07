@@ -345,22 +345,100 @@
         include panels/_add-elements-cart
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
         include menus/_addelems-menu
-        .config-buttons
+        .config-title-rehau(ng-if="UserStor.U.userInfo.factoryLink = 2")
+          h1 Онлайн калькулятор 
+          h3 Задайте параметры вашего окна
+
+        .config-buttons(ng-if="UserStor.U.userInfo.factoryLink !== 2")
           .karkas-button(ng-click="configMenu.karkasButton()", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
-            .img-border(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
-              .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
-            p {{lightPage.KARKAS}}
-          .configuration-button(ng-click="configMenu.configButton()", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
-            .img-border(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
-              .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
-            p {{lightPage.KONFIG}}.
-          .cart-button(ng-click="configMenu.cartButton()", ng-class="{'active': configMenu.G.global.showCart == 1}")
-            .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
-              p {{ configMenu.G.global.construction_count }}
-            .img-border(ng-class="{'active': configMenu.G.global.showCart == 1}")
-              .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
-            p {{lightPage.CART}}
-        .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas")
+              .img-border(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+                .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
+              p {{lightPage.KARKAS}}
+            .configuration-button(ng-click="configMenu.configButton()", ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+              .img-border(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+                .img-configuration(ng-class="{'active': configMenu.G.global.showConfiguration == 1}")
+              p {{lightPage.KONFIG}}.
+            .cart-button(ng-click="configMenu.cartButton()", ng-class="{'active': configMenu.G.global.showCart == 1}")
+              .order-qty-menu(ng-class="{'active': configMenu.G.global.showCart == 1}")
+                p {{ configMenu.G.global.construction_count }}
+              .img-border(ng-class="{'active': configMenu.G.global.showCart == 1}")
+                .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
+              p {{lightPage.CART}}
+
+
+        .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="UserStor.U.userInfo.factoryId = 2")
+         .construction-left-menu-rehau
+            ul.figure-lists-rehau
+              li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
+                .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
+                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Шаблон</span>
+                .figure-label-rehau-subtitle <span>Окно двухстворчатое</span>
+
+              hr.separator
+              li.figure-item-rehau(ng-click="designPage.selectMenuItem(3)")
+                .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
+                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Профиль<span>
+                .figure-label-rehau-subtitle <span>Rehau Selected 70</span>
+              hr.separator
+              li.figure-item-rehau(ng-click="designPage.selectMenuItem(1)")
+                .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
+                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Стеклопакет<span>
+                .figure-label-rehau-subtitle <span>4-16-4</span>
+              hr.separator
+              li.figure-item-rehau(ng-click="designPage.selectMenuItem(2)")
+                .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}") 
+                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Ламинация<span>
+                .figure-label-rehau-subtitle <span>Белый | Белый</span>
+              hr.separator
+              li.figure-item-rehau(ng-click="designPage.selectMenuItem(4)")
+                .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
+                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Доп. элементы<span>
+                .figure-label-rehau-subtitle <span>-</span>
+              hr.separator
+
+            #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
+              .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
+              .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
+              .constr-shape-icon.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(4)")
+              .drop-shape-icon.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(5)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+              .drop-shape-icon.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(6)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+              .drop-shape-icon.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+              .constr-shape-icon.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(8)")
+              .drop-shape-icon.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(9)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+              .drop-shape-icon.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(10)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+              .drop-shape-icon.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(11)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+              .constr-shape-icon.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(12)")
+              .drop-shape-icon.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(13)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
+              //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(14)")
+              //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(15)")
+              .constr-shape-icon.clean(ng-if="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(1)")
+
+            #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
+              .constr-shape-icon.sash-left(ng-click="designPage.insertSash(2)")
+              .drop-shape-icon.sash-right(ng-click="designPage.insertSash(3)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+              .drop-shape-icon.sash-up(ng-click="designPage.insertSash(4)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+              .drop-shape-icon.sash-down(ng-click="designPage.insertSash(5)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+              .constr-shape-icon.sash-right-up(ng-click="designPage.insertSash(6)", ng-hide="designPage.P.product.construction_type === 4")
+              .drop-shape-icon.sash-left-up(ng-click="designPage.insertSash(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}", ng-hide="designPage.P.product.construction_type === 4")
+              .constr-shape-icon(ng-click="designPage.insertSash(8)", ng-class="(designPage.P.product.construction_type === 4) ? 'sash-shtulp-left-door' : 'sash-shtulp-left'")
+              .drop-shape-icon.sash-shtulp-right(ng-click="designPage.insertSash(9)", ng-class="[ (designPage.P.product.construction_type === 4) ? 'sash-shtulp-right-door' : 'sash-shtulp-right' , {'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}]")
+              .constr-shape-icon.clean(ng-click="designPage.insertSash(1)")
+
+            #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
+              .constr-shape-icon.corner(ng-click="designPage.insertCorner(2)")
+              .constr-shape-icon.corner-curv(ng-click="designPage.insertCorner(3)")
+              .constr-shape-icon.clean(ng-click="designPage.insertCorner(1)")
+
+            #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}")
+              .constr-shape-icon.arc(ng-click="designPage.insertArc(2)")
+              .constr-shape-icon.clean(ng-click="designPage.insertArc(1)")
+
+            #position-menu-for-position.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
+              //- .constr-shape-icon.mirror(ng-click="designPage.initMirror()")
+              .constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
+              .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
+
+        .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas" ng-show="UserStor.U.userInfo.factoryLink !== 2")
           .construction-left-menu
             ul.figure-lists
               li.figure-item.temp-fig(ng-click="designPage.selectMenuItem(6)", ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")

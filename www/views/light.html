@@ -1526,7 +1526,11 @@
             </div>
           </div>
         </div>
-        <div class="config-buttons">
+        <div ng-if="UserStor.U.userInfo.factoryLink = 2" class="config-title-rehau">
+          <h1>Онлайн калькулятор </h1>
+          <h3>Задайте параметры вашего окна</h3>
+        </div>
+        <div ng-if="UserStor.U.userInfo.factoryLink !== 2" class="config-buttons">
           <div ng-click="configMenu.karkasButton()" ng-class="{'active': configMenu.G.global.showKarkas == 1}" class="karkas-button">
             <div ng-class="{'active': configMenu.G.global.showKarkas == 1}" class="img-border">
               <div ng-class="{'active': configMenu.G.global.showKarkas == 1}" class="img-karkas"></div>
@@ -1549,7 +1553,84 @@
             <p>{{lightPage.CART}}</p>
           </div>
         </div>
-        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" class="karkas">
+        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="UserStor.U.userInfo.factoryId = 2" class="karkas-rehau">
+          <div class="construction-left-menu-rehau">
+            <ul class="figure-lists-rehau">
+              <li ng-click="designPage.selectMenuItem(6)" class="figure-item-rehau temp-fig-rehau">
+                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item-rehau-block"></div>
+                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Шаблон</span></div>
+                <div class="figure-label-rehau-subtitle"><span>Окно двухстворчатое</span></div>
+              </li>
+              <hr class="separator">
+              <li ng-click="designPage.selectMenuItem(3)" class="figure-item-rehau">
+                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}" class="figure-item-rehau-block"></div>
+                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Профиль<span></div>
+                <div class="figure-label-rehau-subtitle"><span>Rehau Selected 70</span></div>
+              </li>
+              <hr class="separator">
+              <li ng-click="designPage.selectMenuItem(1)" class="figure-item-rehau">
+                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}" class="figure-item-rehau-block"></div>
+                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Стеклопакет<span></div>
+                <div class="figure-label-rehau-subtitle"><span>4-16-4</span></div>
+              </li>
+              <hr class="separator">
+              <li ng-click="designPage.selectMenuItem(2)" class="figure-item-rehau">
+                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}" class="figure-item-rehau-block"> </div>
+                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Ламинация<span></div>
+                <div class="figure-label-rehau-subtitle"><span>Белый | Белый</span></div>
+              </li>
+              <hr class="separator">
+              <li ng-click="designPage.selectMenuItem(4)" class="figure-item-rehau">
+                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}" class="figure-item-rehau-block"></div>
+                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Доп. элементы<span></div>
+                <div class="figure-label-rehau-subtitle"><span>-</span></div>
+              </li>
+              <hr class="separator">
+            </ul>
+            <div id="impost-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}" class="edit_submenu">
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(2)" class="constr-shape-icon impost-vert"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(3)" class="constr-shape-icon impost-hor"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(4)" class="constr-shape-icon impost-inc-hor"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(5)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-hor2"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(6)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(7)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert2"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(8)" class="constr-shape-icon impost-curv-right"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(9)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-left"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(10)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-up"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(11)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-down"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(12)" class="constr-shape-icon impost-curv1"></div>
+              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(13)" ng-class="{'active': designPage.D.design.isDropSubMenu == 12}" class="drop-shape-icon impost-curv3"></div>
+              <!--.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(14)")-->
+              <!--.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(15)")-->
+              <div ng-if="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(1)" class="constr-shape-icon clean"></div>
+            </div>
+            <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}" class="edit_submenu">
+              <div ng-click="designPage.insertSash(2)" class="constr-shape-icon sash-left"></div>
+              <div ng-click="designPage.insertSash(3)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>
+              <div ng-click="designPage.insertSash(4)" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
+              <div ng-click="designPage.insertSash(5)" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
+              <div ng-click="designPage.insertSash(6)" ng-hide="designPage.P.product.construction_type === 4" class="constr-shape-icon sash-right-up"></div>
+              <div ng-click="designPage.insertSash(7)" ng-class="{'active': designPage.D.design.isDropSubMenu == 6}" ng-hide="designPage.P.product.construction_type === 4" class="drop-shape-icon sash-left-up"></div>
+              <div ng-click="designPage.insertSash(8)" ng-class="(designPage.P.product.construction_type === 4) ? 'sash-shtulp-left-door' : 'sash-shtulp-left'" class="constr-shape-icon"></div>
+              <div ng-click="designPage.insertSash(9)" ng-class="[ (designPage.P.product.construction_type === 4) ? 'sash-shtulp-right-door' : 'sash-shtulp-right' , {'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}]" class="drop-shape-icon sash-shtulp-right"></div>
+              <div ng-click="designPage.insertSash(1)" class="constr-shape-icon clean"></div>
+            </div>
+            <div id="angel-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
+              <div ng-click="designPage.insertCorner(2)" class="constr-shape-icon corner"></div>
+              <div ng-click="designPage.insertCorner(3)" class="constr-shape-icon corner-curv"></div>
+              <div ng-click="designPage.insertCorner(1)" class="constr-shape-icon clean"></div>
+            </div>
+            <div id="arc-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
+              <div ng-click="designPage.insertArc(2)" class="constr-shape-icon arc"></div>
+              <div ng-click="designPage.insertArc(1)" class="constr-shape-icon clean"></div>
+            </div>
+            <div id="position-menu-for-position" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
+              <div ng-click="designPage.positionAxis()" class="constr-shape-position">{{::designPage.BY_AXIS}}</div>
+              <div ng-click="designPage.positionGlass()" class="constr-shape-position">{{::designPage.BY_GLASS}}</div>
+            </div>
+          </div>
+        </div>
+        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="UserStor.U.userInfo.factoryLink !== 2" class="karkas">
           <div class="construction-left-menu">
             <ul class="figure-lists">
               <li ng-click="designPage.selectMenuItem(6)" ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item temp-fig">
