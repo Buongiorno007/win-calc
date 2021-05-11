@@ -10039,16 +10039,16 @@ if (window.location.hostname !== 'localhost') {
                                         'block_id': dim.blockId,
                                         'axis': dim.axis
                                     });
-
+                                if(UserStor.userInfo.factory_id === 2) {
                                 dimBlock.append('path')
-                                    .classed('size-line', true)
+                                    .classed('size-line-rehau', true)
                                     .attr('d', lineCreator(lineSideR));
                                 dimBlock.append('path')
-                                    .classed('size-line', true)
+                                    .classed('size-line-rehau', true)
                                     .attr('d', lineCreator(lineSideL));
 
                                 dimBlock.append('path')
-                                    .classed('size-line', true)
+                                    .classed('size-line-rehau', true)
                                     .attr({
                                         'd': lineCreator(lineCenter),
                                         'marker-start': function () {
@@ -10058,12 +10058,33 @@ if (window.location.hostname !== 'localhost') {
                                             return dir ? 'url(#dimVertL)' : 'url(#dimHorR)';
                                         }
                                     });
+                                } else {
+                                    dimBlock.append('path')
+                                    .classed('size-line', true)
+                                    .attr('d', lineCreator(lineSideR));
+                                    dimBlock.append('path')
+                                        .classed('size-line', true)
+                                        .attr('d', lineCreator(lineSideL));
+
+                                    dimBlock.append('path')
+                                        .classed('size-line', true)
+                                        .attr({
+                                            'd': lineCreator(lineCenter),
+                                            'marker-start': function () {
+                                                return dir ? 'url(#dimVertR)' : 'url(#dimHorL)';
+                                            },
+                                            'marker-end': function () {
+                                                return dir ? 'url(#dimVertL)' : 'url(#dimHorR)';
+                                            }
+                                        });
+                                }
+                                
 
                                 sizeBox = dimBlock.append('g')
                                     .classed('size-box', true);
-                                if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+                                if (scope.typeConstruction === globalConstants.SVG_ID_EDIT && UserStor.userInfo.factory_id === 2) {
                                     sizeBox.append('rect')
-                                        .classed('size-rect', true)
+                                        .classed('size-rect-rehau', true)
                                         .attr({
                                             'x': function () {
                                                 if ($location.path() === "/mobile") {
@@ -10093,6 +10114,38 @@ if (window.location.hostname !== 'localhost') {
                                             "height": 46,
                                             "width": 160
                                         });
+                                } else if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+                                    sizeBox.append('rect')
+                                    .classed('size-rect', true)
+                                    .attr({
+                                        'x': function () {
+                                            if ($location.path() === "/mobile") {
+                                                if (dim.dimId === "fp7") {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                }
+                                                // if (dim.dimId === "fp11" ) {
+                                                //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                // }
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                            }
+                                            if (dim.dimId === "fp7") {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            }
+                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                        },
+
+
+                                        'y': function () {
+                                            if ($location.path() === "/mobile") {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
+                                            }
+                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                        },
+                                        'rx': sizeBoxRadius,
+                                        'ry': sizeBoxRadius,
+                                        "height": 46,
+                                        "width": 160
+                                    });
                                 }
 
                                 if (UserStor.userInfo.factory_id === 1966) {
@@ -10103,6 +10156,42 @@ if (window.location.hostname !== 'localhost') {
                                                 return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
                                             },
                                             'x': function () {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
+                                            'y': function () {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'dx': 80,
+                                            'dy': 40,
+                                            'type': 'line',
+                                            'block_id': dim.blockId,
+                                            'size_val': dim.text,
+                                            'min_val': dim.minLimit,
+                                            'max_val': dim.maxLimit,
+                                            'dim_id': dim.dimId,
+                                            'from_point': dim.from,
+                                            'to_point': dim.to,
+                                            'axis': dim.axis,
+                                            'level': dim.level
+                                        });
+                                } else if (UserStor.userInfo.factory_id === 2) {
+                                    sizeBox.append('text')
+                                        .text(dim.text)
+                                        .attr({
+                                            'class': function () {
+                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit-rehau' : 'size-txt-rehau';
+                                            },
+                                            'x': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    let move_left = 40;
+                                                    if (dim.dimId === "fp7") {
+                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                    }
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                }
+                                                if (dim.dimId === "fp7") {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                }
                                                 return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                             },
                                             'y': function () {
@@ -15668,8 +15757,62 @@ function ErrorResult(code, message) {
 
         //------- set click to all Dimensions
         function initAllDimension() {
-          // GlobalStor.global.activePanel = 0;
-          d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+          if (UserStor.userInfo.factory_id === 2) {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+            .each(function () {
+              var size = d3.select(this);
+              size.on(clickEvent, function () {
+                var sizeRect = size.select('.size-rect-rehau'),
+                  isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
+                if (DesignStor.design.tempSize.length) {
+                  /** save new Size when click another size */
+                  closeSizeCaclulator();
+                  cleanTempSize();
+                } else {
+                  if (isActive) {
+                    hideSizeTools();
+                  } else {
+                    deselectAllDimension();
+                    sizeRect.classed('active', true);
+                    var dim = size.select('.size-txt-edit-rehau');
+                    dim.classed('active', true);
+                    DesignStor.design.oldSize = dim[0][0];
+                    DesignStor.design.prevSize = dim[0][0].textContent;
+                    // Internet Explorer 6-11
+
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
+                    //------- show caclulator or voice helper
+                    if (GlobalStor.global.isVoiceHelper) {
+                      DesignStor.design.openVoiceHelper = 1;
+                      startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                    } else {
+                      GlobalStor.global.isSizeCalculator = 1;
+                      DesignStor.design.isMinSizeRestriction = 0;
+                      DesignStor.design.isMaxSizeRestriction = 0;
+                      DesignStor.design.isDimExtra = 0;
+                      DesignStor.design.isSquareExtra = 0;
+                    }
+                  }
+                  $rootScope.$apply();
+                }
+              });
+            });
+
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          } else {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
             .each(function () {
               var size = d3.select(this);
               size.on(clickEvent, function () {
@@ -15715,13 +15858,14 @@ function ErrorResult(code, message) {
               });
             });
 
-          /** switch on keyboard */
-          d3.select(window)
-            .on('keydown', function () {
-              if (GlobalStor.global.isSizeCalculator) {
-                pressCulculator(d3.event);
-              }
-            });
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          }
         }
 
 

@@ -1051,16 +1051,16 @@
                                         'block_id': dim.blockId,
                                         'axis': dim.axis
                                     });
-
+                                if(UserStor.userInfo.factory_id === 2) {
                                 dimBlock.append('path')
-                                    .classed('size-line', true)
+                                    .classed('size-line-rehau', true)
                                     .attr('d', lineCreator(lineSideR));
                                 dimBlock.append('path')
-                                    .classed('size-line', true)
+                                    .classed('size-line-rehau', true)
                                     .attr('d', lineCreator(lineSideL));
 
                                 dimBlock.append('path')
-                                    .classed('size-line', true)
+                                    .classed('size-line-rehau', true)
                                     .attr({
                                         'd': lineCreator(lineCenter),
                                         'marker-start': function () {
@@ -1070,12 +1070,33 @@
                                             return dir ? 'url(#dimVertL)' : 'url(#dimHorR)';
                                         }
                                     });
+                                } else {
+                                    dimBlock.append('path')
+                                    .classed('size-line', true)
+                                    .attr('d', lineCreator(lineSideR));
+                                    dimBlock.append('path')
+                                        .classed('size-line', true)
+                                        .attr('d', lineCreator(lineSideL));
+
+                                    dimBlock.append('path')
+                                        .classed('size-line', true)
+                                        .attr({
+                                            'd': lineCreator(lineCenter),
+                                            'marker-start': function () {
+                                                return dir ? 'url(#dimVertR)' : 'url(#dimHorL)';
+                                            },
+                                            'marker-end': function () {
+                                                return dir ? 'url(#dimVertL)' : 'url(#dimHorR)';
+                                            }
+                                        });
+                                }
+                                
 
                                 sizeBox = dimBlock.append('g')
                                     .classed('size-box', true);
-                                if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+                                if (scope.typeConstruction === globalConstants.SVG_ID_EDIT && UserStor.userInfo.factory_id === 2) {
                                     sizeBox.append('rect')
-                                        .classed('size-rect', true)
+                                        .classed('size-rect-rehau', true)
                                         .attr({
                                             'x': function () {
                                                 if ($location.path() === "/mobile") {
@@ -1105,6 +1126,38 @@
                                             "height": 46,
                                             "width": 160
                                         });
+                                } else if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+                                    sizeBox.append('rect')
+                                    .classed('size-rect', true)
+                                    .attr({
+                                        'x': function () {
+                                            if ($location.path() === "/mobile") {
+                                                if (dim.dimId === "fp7") {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                }
+                                                // if (dim.dimId === "fp11" ) {
+                                                //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                // }
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                            }
+                                            if (dim.dimId === "fp7") {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            }
+                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                        },
+
+
+                                        'y': function () {
+                                            if ($location.path() === "/mobile") {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
+                                            }
+                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                        },
+                                        'rx': sizeBoxRadius,
+                                        'ry': sizeBoxRadius,
+                                        "height": 46,
+                                        "width": 160
+                                    });
                                 }
 
                                 if (UserStor.userInfo.factory_id === 1966) {
@@ -1115,6 +1168,42 @@
                                                 return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
                                             },
                                             'x': function () {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            },
+                                            'y': function () {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                            },
+                                            'dx': 80,
+                                            'dy': 40,
+                                            'type': 'line',
+                                            'block_id': dim.blockId,
+                                            'size_val': dim.text,
+                                            'min_val': dim.minLimit,
+                                            'max_val': dim.maxLimit,
+                                            'dim_id': dim.dimId,
+                                            'from_point': dim.from,
+                                            'to_point': dim.to,
+                                            'axis': dim.axis,
+                                            'level': dim.level
+                                        });
+                                } else if (UserStor.userInfo.factory_id === 2) {
+                                    sizeBox.append('text')
+                                        .text(dim.text)
+                                        .attr({
+                                            'class': function () {
+                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit-rehau' : 'size-txt-rehau';
+                                            },
+                                            'x': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    let move_left = 40;
+                                                    if (dim.dimId === "fp7") {
+                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                    }
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                }
+                                                if (dim.dimId === "fp7") {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                }
                                                 return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                             },
                                             'y': function () {

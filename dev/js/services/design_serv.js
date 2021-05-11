@@ -689,8 +689,62 @@
 
         //------- set click to all Dimensions
         function initAllDimension() {
-          // GlobalStor.global.activePanel = 0;
-          d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+          if (UserStor.userInfo.factory_id === 2) {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
+            .each(function () {
+              var size = d3.select(this);
+              size.on(clickEvent, function () {
+                var sizeRect = size.select('.size-rect-rehau'),
+                  isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active') + 1;
+                if (DesignStor.design.tempSize.length) {
+                  /** save new Size when click another size */
+                  closeSizeCaclulator();
+                  cleanTempSize();
+                } else {
+                  if (isActive) {
+                    hideSizeTools();
+                  } else {
+                    deselectAllDimension();
+                    sizeRect.classed('active', true);
+                    var dim = size.select('.size-txt-edit-rehau');
+                    dim.classed('active', true);
+                    DesignStor.design.oldSize = dim[0][0];
+                    DesignStor.design.prevSize = dim[0][0].textContent;
+                    // Internet Explorer 6-11
+
+                    if (isEdge) {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+                    } else {
+                      DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                      DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                    }
+                    //------- show caclulator or voice helper
+                    if (GlobalStor.global.isVoiceHelper) {
+                      DesignStor.design.openVoiceHelper = 1;
+                      startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                    } else {
+                      GlobalStor.global.isSizeCalculator = 1;
+                      DesignStor.design.isMinSizeRestriction = 0;
+                      DesignStor.design.isMaxSizeRestriction = 0;
+                      DesignStor.design.isDimExtra = 0;
+                      DesignStor.design.isSquareExtra = 0;
+                    }
+                  }
+                  $rootScope.$apply();
+                }
+              });
+            });
+
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          } else {
+            d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-box')
             .each(function () {
               var size = d3.select(this);
               size.on(clickEvent, function () {
@@ -736,13 +790,14 @@
               });
             });
 
-          /** switch on keyboard */
-          d3.select(window)
-            .on('keydown', function () {
-              if (GlobalStor.global.isSizeCalculator) {
-                pressCulculator(d3.event);
-              }
-            });
+            /** switch on keyboard */
+            d3.select(window)
+              .on('keydown', function () {
+                if (GlobalStor.global.isSizeCalculator) {
+                  pressCulculator(d3.event);
+                }
+              });
+          }
         }
 
 

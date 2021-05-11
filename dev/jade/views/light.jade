@@ -365,8 +365,8 @@
                 .img-cart(ng-class="{'active': configMenu.G.global.showCart == 1}")
               p {{lightPage.CART}}
 
-
-        .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="UserStor.U.userInfo.factoryId = 2")
+        //- Rehau template --------------------
+        .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="UserStor.U.userInfo.factory_id = 2")
          .construction-left-menu-rehau
             ul.figure-lists-rehau
               li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
@@ -437,6 +437,7 @@
               //- .constr-shape-icon.mirror(ng-click="designPage.initMirror()")
               .constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
               .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
+         //- Rehau template end ---------------------
 
         .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas" ng-show="UserStor.U.userInfo.factoryLink !== 2")
           .construction-left-menu
@@ -670,24 +671,29 @@
               .name {{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
-        .discount-block(ng-if="configMenu.G.global.showCart == 0")
+
+        //- Reahu template
+        .discount-block-rehau(ng-if="configMenu.G.global.showCart == 0", ng-show="UserStor.U.userInfo.factory_id = 2")
+          .discount-price-rehau
+            .price-text Цена:
+            price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
+        .counter-block-rehau(ng-if="configMenu.G.global.showCart == 0" ng-show="UserStor.U.userInfo.factory_id = 2")
+          .counter-rehau
+            input.prodcounter-rehau(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
+          .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")
+            p {{lightPage.CONFIGMENU_IN_CART}}
+        
+        .discount-block(ng-if="configMenu.G.global.showCart == 0", ng-show="UserStor.U.userInfo.factory_id !== 2")
           .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
           .discount-price
             price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
-        .counter-block(ng-if="configMenu.G.global.showCart == 0")
+        .counter-block(ng-if="configMenu.G.global.showCart == 0", ng-show="UserStor.U.userInfo.factory_id !== 2")
           .counter
-            //.input-minus(ng-click="lightPage.subtractProdQty()") -
             input.prodcounter(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
-            //.input-plus(ng-click="lightPage.addProdQty()") +
           .save-block#save-block(ng-click="lightPage.checkForAddElem()")
             p {{lightPage.CONFIGMENU_IN_CART}}
-        //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-        //  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}
-        //.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-        //  div U = {{ configMenu.P.product.heat_coef_total }}{{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M}}&sup2;&deg;C
-        ////  div
 
-        .curtain(ng-if="configMenu.P.product.is_addelem_only")
+        .curtain(ng-if="configMenu.P.product.is_addelem_only")  
 
         .menu_tooltip(ng-if="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           .close_menu_tooltip

@@ -343,7 +343,7 @@ th {
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
 .light-v .template-window, .cart-page .cart-tool,
 .light-v .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit,
-.light-v .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .light-v .order-qty-menu, .light-v .save-block, .mobile .control-buttons-container .control-button .qty-mobile, .nav-menu [class^='nav-icon-'],
+.light-v .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .light-v .order-qty-menu, .light-v .save-block-rehau, .light-v .save-block, .mobile .control-buttons-container .control-button .qty-mobile, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .config-menu .go-to-cart, .config-menu .save-to-cart, .config-menu #qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-selector-dialog .set-glass-btn, .hardware-container .hardware-box, .lamination-container .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
@@ -2504,7 +2504,7 @@ div.drum figure {
 }
 
 /* line 114, ../../dev/sass/parts/_svg.scss */
-.size-txt, .size-txt-edit, .glass-txt, .light-v .size-txt-edit, .mobile .main-view .size-txt-edit,
+.size-txt, .size-txt-edit, .glass-txt, .light-v .size-txt-edit, .light-v .size-txt-edit-rehau, .mobile .main-view .size-txt-edit,
 .mobile svg-template .size-txt-edit,
 .mobile .svg-template .size-txt-edit {
   font-size: 5.625rem;
@@ -11026,7 +11026,12 @@ tr.factory_item {
   stroke-width: 1.2px !important;
   stroke: #cc0000 !important;
 }
-/* line 502, ../../dev/sass/pages/light.scss */
+/* line 503, ../../dev/sass/pages/light.scss */
+.light-v .size-line-rehau {
+  stroke-width: 1.2px !important;
+  stroke: #37A58C !important;
+}
+/* line 508, ../../dev/sass/pages/light.scss */
 .light-v .size-rect {
   width: 160px;
   height: 70px;
@@ -11036,7 +11041,7 @@ tr.factory_item {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 510, ../../dev/sass/pages/light.scss */
+/* line 516, ../../dev/sass/pages/light.scss */
 .light-v .size-rect.active {
   -moz-fill: #cc0000;
   -moz-fill-opacity: 1;
@@ -11044,8 +11049,8 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #ff0303;
 }
-/* line 518, ../../dev/sass/pages/light.scss */
-.light-v .size-txt, .light-v .glass-txt, .light-v .size-txt-edit, .light-v .mobile .main-view .size-txt-edit, .mobile .main-view .light-v .size-txt-edit,
+/* line 524, ../../dev/sass/pages/light.scss */
+.light-v .size-txt, .light-v .glass-txt, .light-v .size-txt-edit, .light-v .size-txt-edit-rehau, .light-v .mobile .main-view .size-txt-edit, .mobile .main-view .light-v .size-txt-edit,
 .light-v .mobile svg-template .size-txt-edit,
 .mobile svg-template .light-v .size-txt-edit,
 .light-v .mobile .svg-template .size-txt-edit,
@@ -11057,17 +11062,51 @@ tr.factory_item {
   alignment-baseline: middle;
   cursor: pointer;
 }
-/* line 526, ../../dev/sass/pages/light.scss */
+/* line 532, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit {
   stroke: #cc0000;
   fill: #cc0000;
 }
-/* line 530, ../../dev/sass/pages/light.scss */
+/* line 536, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit.active {
   stroke: white;
   fill: white;
 }
-/* line 535, ../../dev/sass/pages/light.scss */
+/* line 542, ../../dev/sass/pages/light.scss */
+.light-v .size-rect-rehau {
+  width: 160px;
+  height: 70px;
+  stroke: #37A58C !important;
+  -moz-stroke: #37A58C;
+  stroke-width: 0px;
+  fill-opacity: 0;
+  cursor: pointer;
+  -moz-fill: #37A58C;
+  -moz-fill-opacity: 1;
+  stroke: #37A58C !important;
+  fill-opacity: 1;
+  fill: #37A58C;
+}
+/* line 557, ../../dev/sass/pages/light.scss */
+.light-v .size-txt-rehau {
+  font-size: 5.625rem;
+  stroke: white;
+  stroke-width: 1px;
+  text-anchor: middle;
+  alignment-baseline: middle;
+  cursor: pointer;
+}
+/* line 565, ../../dev/sass/pages/light.scss */
+.light-v .size-txt-edit-rehau {
+  stroke: white;
+  fill: white;
+}
+/* line 569, ../../dev/sass/pages/light.scss */
+.light-v .size-txt-edit-rehau.active {
+  stroke: white;
+  fill: white;
+}
+/* line 578, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu {
   position: absolute;
   top: .5rem;
@@ -11077,7 +11116,7 @@ tr.factory_item {
   border-radius: 50%;
   background-color: #cc0000;
 }
-/* line 544, ../../dev/sass/pages/light.scss */
+/* line 587, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu p {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
@@ -11085,7 +11124,7 @@ tr.factory_item {
   top: -.2rem;
   left: .1rem;
 }
-/* line 552, ../../dev/sass/pages/light.scss */
+/* line 595, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel {
   position: absolute;
   width: 100%;
@@ -11097,13 +11136,13 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 562, ../../dev/sass/pages/light.scss */
+/* line 605, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel.active {
   top: 69rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 568, ../../dev/sass/pages/light.scss */
+/* line 611, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight {
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem rgba(0, 0, 0, 0.5);
   left: 135rem;
@@ -11117,39 +11156,131 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 580, ../../dev/sass/pages/light.scss */
+/* line 623, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.active {
   height: 90%;
 }
-/* line 583, ../../dev/sass/pages/light.scss */
+/* line 626, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.goLeft {
   left: 64rem;
 }
-/* line 587, ../../dev/sass/pages/light.scss */
+/* line 630, ../../dev/sass/pages/light.scss */
 .light-v input::-webkit-outer-spin-button,
 .light-v input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 592, ../../dev/sass/pages/light.scss */
+/* line 636, ../../dev/sass/pages/light.scss */
+.light-v .discount-block-rehau {
+  width: 100%;
+  margin-bottom: 5rem;
+  margin-left: 2.75rem;
+  margin-top: 1rem;
+}
+/* line 641, ../../dev/sass/pages/light.scss */
+.light-v .discount-block-rehau .discount-price-rehau {
+  font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
+  color: #363636;
+  margin-left: 0rem;
+  margin-top: 90px;
+}
+/* line 648, ../../dev/sass/pages/light.scss */
+.light-v .discount-block-rehau .price-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 40px;
+  margin-bottom: -35px;
+}
+/* line 657, ../../dev/sass/pages/light.scss */
+.light-v .discount-block-rehau .price-qty {
+  font-size: 15px;
+  color: #DD0060;
+}
+/* line 662, ../../dev/sass/pages/light.scss */
+.light-v .discount-block-rehau .price-value {
+  color: #DD0060;
+}
+/* line 666, ../../dev/sass/pages/light.scss */
+.light-v .discount-block-rehau .price-currency {
+  color: #DD0060;
+}
+/* line 670, ../../dev/sass/pages/light.scss */
+.light-v .counter-block-rehau {
+  text-align: center;
+  position: relative;
+  top: -3.5rem;
+  width: 100%;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  margin-left: 2.75rem;
+}
+/* line 679, ../../dev/sass/pages/light.scss */
+.light-v .counter-rehau {
+  width: 40%;
+  height: 5rem;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+/* line 684, ../../dev/sass/pages/light.scss */
+.light-v .counter-rehau input {
+  font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
+  text-align: center;
+  border: 1px solid #cccccc;
+  width: 9rem;
+  height: 5.5rem;
+  margin-right: 4rem;
+  background-image: url(../../img/basket.png);
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  background-position-x: 35%;
+}
+/* line 698, ../../dev/sass/pages/light.scss */
+.light-v .prodcounter-rehau {
+  background-color: #424242;
+  color: white;
+  padding-left: 35px;
+}
+/* line 704, ../../dev/sass/pages/light.scss */
+.light-v .save-block-rehau {
+  cursor: pointer;
+  position: relative;
+  background: #37A58C;
+  width: 85%;
+  height: 5.5rem;
+  display: inline-block;
+  padding-top: 1.5rem;
+}
+/* line 713, ../../dev/sass/pages/light.scss */
+.light-v .save-block-rehau p {
+  color: white;
+  font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
+  width: 5rem;
+  display: inline-block;
+  margin: 0;
+  width: 12rem;
+  vertical-align: middle;
+  padding-bottom: 7px;
+}
+/* line 725, ../../dev/sass/pages/light.scss */
 .light-v .discount-block {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
 }
-/* line 596, ../../dev/sass/pages/light.scss */
+/* line 729, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-priceRed {
   text-decoration: line-through;
   font: normal 2.4rem/2.25rem roboto-regular, sans-serif, icons;
   color: #ff2121;
 }
-/* line 601, ../../dev/sass/pages/light.scss */
+/* line 734, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-price {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
 }
-/* line 607, ../../dev/sass/pages/light.scss */
+/* line 740, ../../dev/sass/pages/light.scss */
 .light-v .counter-block {
   text-align: center;
   position: relative;
@@ -11159,14 +11290,14 @@ tr.factory_item {
   flex-direction: row-reverse;
   margin-left: 2.75rem;
 }
-/* line 616, ../../dev/sass/pages/light.scss */
+/* line 749, ../../dev/sass/pages/light.scss */
 .light-v .counter {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 621, ../../dev/sass/pages/light.scss */
+/* line 754, ../../dev/sass/pages/light.scss */
 .light-v .counter input {
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
   text-align: center;
@@ -11175,30 +11306,30 @@ tr.factory_item {
   height: 7rem;
   margin-right: 4rem;
 }
-/* line 630, ../../dev/sass/pages/light.scss */
+/* line 763, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter {
   color: #cc0000;
 }
-/* line 633, ../../dev/sass/pages/light.scss */
+/* line 766, ../../dev/sass/pages/light.scss */
 .light-v .input-minus,
 .light-v .input-plus {
   cursor: pointer;
   position: relative;
   top: -2rem;
 }
-/* line 639, ../../dev/sass/pages/light.scss */
+/* line 772, ../../dev/sass/pages/light.scss */
 .light-v .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #363636;
 }
-/* line 644, ../../dev/sass/pages/light.scss */
+/* line 777, ../../dev/sass/pages/light.scss */
 .light-v .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 649, ../../dev/sass/pages/light.scss */
+/* line 782, ../../dev/sass/pages/light.scss */
 .light-v .save-block {
   cursor: pointer;
   position: relative;
@@ -11208,7 +11339,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 658, ../../dev/sass/pages/light.scss */
+/* line 791, ../../dev/sass/pages/light.scss */
 .light-v .save-block p {
   color: white;
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -11219,7 +11350,7 @@ tr.factory_item {
   width: 12rem;
   vertical-align: middle;
 }
-/* line 669, ../../dev/sass/pages/light.scss */
+/* line 802, ../../dev/sass/pages/light.scss */
 .light-v .cart-img {
   position: relative;
   width: 4rem;
@@ -11231,14 +11362,14 @@ tr.factory_item {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 680, ../../dev/sass/pages/light.scss */
+/* line 813, ../../dev/sass/pages/light.scss */
 .light-v .cart-btn, .light-v .cart-menu .order-btn, .cart-menu .light-v .order-btn {
   position: relative;
   top: .6rem;
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
 }
-/* line 686, ../../dev/sass/pages/light.scss */
+/* line 819, ../../dev/sass/pages/light.scss */
 .light-v .order, .light-v .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-v .product, .light-v .cart-page .addelementunit, .cart-page .light-v .addelementunit {
   top: 2rem;
   width: 32rem;
@@ -11247,24 +11378,24 @@ tr.factory_item {
   border-bottom-left-radius: 1.25rem;
   border: 1px solid #bebebe;
 }
-/* line 694, ../../dev/sass/pages/light.scss */
+/* line 827, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 698, ../../dev/sass/pages/light.scss */
+/* line 831, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 703, ../../dev/sass/pages/light.scss */
+/* line 836, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 708, ../../dev/sass/pages/light.scss */
+/* line 841, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -11272,14 +11403,14 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 716, ../../dev/sass/pages/light.scss */
+/* line 849, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 723, ../../dev/sass/pages/light.scss */
+/* line 856, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -11288,27 +11419,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 730, ../../dev/sass/pages/light.scss */
+/* line 863, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 735, ../../dev/sass/pages/light.scss */
+/* line 868, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 738, ../../dev/sass/pages/light.scss */
+/* line 871, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 742, ../../dev/sass/pages/light.scss */
+/* line 875, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 747, ../../dev/sass/pages/light.scss */
+/* line 880, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -11316,112 +11447,112 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 752, ../../dev/sass/pages/light.scss */
+/* line 885, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 755, ../../dev/sass/pages/light.scss */
+/* line 888, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 762, ../../dev/sass/pages/light.scss */
+/* line 895, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 767, ../../dev/sass/pages/light.scss */
+/* line 900, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 774, ../../dev/sass/pages/light.scss */
+/* line 907, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 779, ../../dev/sass/pages/light.scss */
+/* line 912, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 782, ../../dev/sass/pages/light.scss */
+/* line 915, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 788, ../../dev/sass/pages/light.scss */
+/* line 921, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 793, ../../dev/sass/pages/light.scss */
+/* line 926, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 798, ../../dev/sass/pages/light.scss */
+/* line 931, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 802, ../../dev/sass/pages/light.scss */
+/* line 935, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 806, ../../dev/sass/pages/light.scss */
+/* line 939, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 809, ../../dev/sass/pages/light.scss */
+/* line 942, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 812, ../../dev/sass/pages/light.scss */
+/* line 945, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 817, ../../dev/sass/pages/light.scss */
+/* line 950, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 822, ../../dev/sass/pages/light.scss */
+/* line 955, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 825, ../../dev/sass/pages/light.scss */
+/* line 958, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 828, ../../dev/sass/pages/light.scss */
+/* line 961, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 834, ../../dev/sass/pages/light.scss */
+/* line 967, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 840, ../../dev/sass/pages/light.scss */
+/* line 973, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 844, ../../dev/sass/pages/light.scss */
+/* line 977, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 848, ../../dev/sass/pages/light.scss */
+/* line 981, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
