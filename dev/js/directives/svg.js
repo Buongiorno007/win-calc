@@ -2697,36 +2697,64 @@
 
                                     if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                                         /** sash open direction */
-                                        if (template.details[i].sashOpenDir && template.details[i].children.length === 0) {
-                                            elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
-                                                .data(template.details[i].sashOpenDir)
-                                                .enter()
-                                                .append('path')
-                                                .classed('sash_mark', true)
-                                                .attr({
-                                                    'd': function (d) {
-                                                        return lineCreator(d.points);
-                                                    },
-                                                    //------- handler
-                                                    'marker-mid': function (d) {
-                                                        return setSashFittings(1, d, template.details[i]);
-                                                    },
-                                                    //------- hinges
-                                                    'marker-start': function (d) {
-                                                        return setSashFittings(0, d, template.details[i]);
-                                                    },
-                                                    'marker-end': function (d) {
-                                                        return setSashFittings(0, d, template.details[i]);
-                                                    }
-                                                });
-                                        } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
-                                            GlobalStor.global.createHandle.push(i)
-                                        }
-                                        if (i + 1 === blocksQty && GlobalStor.global.createHandle.length > 0) {
-                                            var h = GlobalStor.global.createHandle;
-                                            for (var z = 0; z < h.length; z += 1) {
-                                                elementsGroup.selectAll('path.sash_mark.' + template.details[h[z]].id)
-                                                    .data(template.details[h[z]].sashOpenDir)
+                                        // rehau logic
+                                        if (UserStor.userInfo.factory_id === 2) {
+                                            if (template.details[i].sashOpenDir && template.details[i].children.length === 0) {
+                                                elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[i].id)
+                                                    .data(template.details[i].sashOpenDir)
+                                                    .enter()
+                                                    .append('path')
+                                                    .classed('sash_mark-rehau', true)
+                                                    .attr({
+                                                        'd': function (d) {
+                                                            return lineCreator(d.points);
+                                                        },
+                                                        //------- handler
+                                                        'marker-mid': function (d) {
+                                                            return setSashFittings(1, d, template.details[i]);
+                                                        },
+                                                        //------- hinges
+                                                        'marker-start': function (d) {
+                                                            return setSashFittings(0, d, template.details[i]);
+                                                        },
+                                                        'marker-end': function (d) {
+                                                            return setSashFittings(0, d, template.details[i]);
+                                                        }
+                                                    });
+                                            } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
+                                                GlobalStor.global.createHandle.push(i)
+                                            }
+                                            if (i + 1 === blocksQty && GlobalStor.global.createHandle.length > 0 && UserStor.userInfo.factory_id === 2) {
+                                                var h = GlobalStor.global.createHandle;
+                                                for (var z = 0; z < h.length; z += 1) {
+                                                    elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[h[z]].id)
+                                                        .data(template.details[h[z]].sashOpenDir)
+                                                        .enter()
+                                                        .append('path')
+                                                        .classed('sash_mark-rehau', true)
+                                                        .attr({
+                                                            'd': function (d) {
+                                                                return lineCreator(d.points);
+                                                            },
+                                                            //------- handler
+                                                            'marker-mid': function (d) {
+                                                                return setSashFittings(1, d, template.details[h[z]]);
+                                                            },
+                                                            //------- hinges
+                                                            'marker-start': function (d) {
+                                                                return setSashFittings(0, d, template.details[h[z]]);
+                                                            },
+                                                            'marker-end': function (d) {
+                                                                return setSashFittings(0, d, template.details[h[z]]);
+                                                            },
+                                                            "xlink:href": "./img/handle.svg"
+                                                        });
+                                                }
+                                            }
+                                        } else {
+                                            if (template.details[i].sashOpenDir && template.details[i].children.length === 0) {
+                                                elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
+                                                    .data(template.details[i].sashOpenDir)
                                                     .enter()
                                                     .append('path')
                                                     .classed('sash_mark', true)
@@ -2736,19 +2764,48 @@
                                                         },
                                                         //------- handler
                                                         'marker-mid': function (d) {
-                                                            return setSashFittings(1, d, template.details[h[z]]);
+                                                            return setSashFittings(1, d, template.details[i]);
                                                         },
                                                         //------- hinges
                                                         'marker-start': function (d) {
-                                                            return setSashFittings(0, d, template.details[h[z]]);
+                                                            return setSashFittings(0, d, template.details[i]);
                                                         },
                                                         'marker-end': function (d) {
-                                                            return setSashFittings(0, d, template.details[h[z]]);
-                                                        },
-                                                        "xlink:href": "./img/handle.svg"
+                                                            return setSashFittings(0, d, template.details[i]);
+                                                        }
                                                     });
+                                            } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
+                                                GlobalStor.global.createHandle.push(i)
+                                            }
+                                            if (i + 1 === blocksQty && GlobalStor.global.createHandle.length > 0) {
+                                                var h = GlobalStor.global.createHandle;
+                                                for (var z = 0; z < h.length; z += 1) {
+                                                    elementsGroup.selectAll('path.sash_mark.' + template.details[h[z]].id)
+                                                        .data(template.details[h[z]].sashOpenDir)
+                                                        .enter()
+                                                        .append('path')
+                                                        .classed('sash_mark', true)
+                                                        .attr({
+                                                            'd': function (d) {
+                                                                return lineCreator(d.points);
+                                                            },
+                                                            //------- handler
+                                                            'marker-mid': function (d) {
+                                                                return setSashFittings(1, d, template.details[h[z]]);
+                                                            },
+                                                            //------- hinges
+                                                            'marker-start': function (d) {
+                                                                return setSashFittings(0, d, template.details[h[z]]);
+                                                            },
+                                                            'marker-end': function (d) {
+                                                                return setSashFittings(0, d, template.details[h[z]]);
+                                                            },
+                                                            "xlink:href": "./img/handle.svg"
+                                                        });
+                                                }
                                             }
                                         }
+                                        // rehau logic ends
                                         //---- corner markers
                                         if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                                             if (template.details[i].level === 1) {

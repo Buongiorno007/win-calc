@@ -15,8 +15,8 @@
               .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
               include panels/_templatesLight
-              img.infoIcon(ng-src='img/calc/info-button.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
-              img.infoIconGreen(ng-src='img/calc/info-buttonGreen.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+              img.infoIcon(ng-if="lightPage.U.userInfo.factory_id != 2", ng-src='img/calc/info-button.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+              img.infoIconGreen(ng-if="lightPage.U.userInfo.factory_id != 2", ng-src='img/calc/info-buttonGreen.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
               include parts/_room-info
 
             //.product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")

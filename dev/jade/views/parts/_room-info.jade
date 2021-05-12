@@ -1,4 +1,4 @@
-.room-info-container(ng-controller="RoomInfoCtrl as roomInfo", ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}", ng-swipe-up="roomInfo.switchComment($event)", ng-swipe-down="roomInfo.switchComment($event)")
+.room-info-container(ng-controller="RoomInfoCtrl as roomInfo", ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}", ng-swipe-up="roomInfo.switchComment($event)", ng-swipe-down="roomInfo.switchComment($event)", ng-if="roomInfo.U.userInfo.factory_id != 2"))
   .coeff-container
     .coeff-block
       .coeff-info-block(ng-if="roomInfo.G.global.showCoefInfoBlock")

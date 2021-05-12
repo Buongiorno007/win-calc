@@ -538,6 +538,10 @@ gulp.task('buildStekoSite', function () {
   buildSite("steko");
 });
 
+gulp.task('buildRehau', function () {
+  buildSite("rehau");
+});
+
 gulp.task('buildWindowSiteTest', function () {
   buildSite("windowSiteTest");
 });
