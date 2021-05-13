@@ -81,6 +81,29 @@
                     <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
                   </div>
                 </div>
+              </div><img ng-if="lightPage.U.userInfo.factory_id != 2" ng-src="img/calc/info-button.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIcon"><img ng-if="lightPage.U.userInfo.factory_id != 2" ng-src="img/calc/info-buttonGreen.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIconGreen">
+              <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
+                <div ng-if="roomInfo.U.userInfo.factory_id != 2" class="coeff-container">
+                  <div class="coeff-block">
+                    <div ng-if="roomInfo.G.global.showCoefInfoBlock" class="coeff-info-block">
+                      <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}
+                        <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
+                        <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
+                      </div>
+                      <div class="heat-transfer-info_hr">{{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}</div>
+                      <div class="heat-transfer-info">{{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}</div>
+                      <div fs-click="roomInfo.G.global.showCoefInfoBlock=0" class="close-dialog"></div>
+                    </div>
+                    <!--R-->
+                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">R = {{ roomInfo.P.product.heat_coef_total }} {{ ::roomInfo.LETTER_M}}&sup2;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
+                      <div data-output="{{ ::roomInfo.HEAT_TRANSFER_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+                    </div>
+                    <!--U-->
+                    <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
+                      <div data-output="{{ ::roomInfo.HEAT_TRANSFER }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <!--.product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")-->
