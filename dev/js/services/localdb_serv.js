@@ -2790,6 +2790,7 @@
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
+                    // console.log(UserStor.userInfo.factory_id, 'FACTORY ID USER')
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);

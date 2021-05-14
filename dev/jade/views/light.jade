@@ -345,11 +345,11 @@
         include panels/_add-elements-cart
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
         include menus/_addelems-menu
-        .config-title-rehau(ng-if="UserStor.U.userInfo.factoryLink = 2")
+        .config-title-rehau(ng-if="lightPage.U.userInfo.factory_id == 2")
           h1 Онлайн калькулятор 
           h3 Задайте параметры вашего окна
 
-        .config-buttons(ng-if="UserStor.U.userInfo.factoryLink !== 2")
+        .config-buttons(ng-if="lightPage.U.userInfo.factory_id !== 2")
           .karkas-button(ng-click="configMenu.karkasButton()", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
               .img-border(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
                 .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
@@ -366,7 +366,7 @@
               p {{lightPage.CART}}
 
         //- Rehau template --------------------
-        .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="UserStor.U.userInfo.factory_id = 2")
+        .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id == 2")
          .construction-left-menu-rehau
             ul.figure-lists-rehau
               li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
@@ -378,7 +378,7 @@
               li.figure-item-rehau(ng-click="designPage.selectMenuItem(3)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Профиль<span>
-                .figure-label-rehau-subtitle <span>Rehau Selected 70</span>
+                .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.profile.name }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
               li.figure-item-rehau(ng-click="designPage.selectMenuItem(1)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
@@ -439,7 +439,7 @@
               .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
          //- Rehau template end ---------------------
 
-        .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas" ng-show="UserStor.U.userInfo.factoryLink !== 2")
+        .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id !== 2")
           .construction-left-menu
             ul.figure-lists
               li.figure-item.temp-fig(ng-click="designPage.selectMenuItem(6)", ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
@@ -673,21 +673,21 @@
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
 
         //- Reahu template
-        .discount-block-rehau(ng-if="configMenu.G.global.showCart == 0", ng-show="UserStor.U.userInfo.factory_id = 2")
+        .discount-block-rehau(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id == 2")
           .discount-price-rehau
             .price-text Цена:
             price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
-        .counter-block-rehau(ng-if="configMenu.G.global.showCart == 0" ng-show="UserStor.U.userInfo.factory_id = 2")
+        .counter-block-rehau(ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2")
           .counter-rehau
             input.prodcounter-rehau(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
           .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")
             p {{lightPage.CONFIGMENU_IN_CART}}
         
-        .discount-block(ng-if="configMenu.G.global.showCart == 0", ng-show="UserStor.U.userInfo.factory_id !== 2")
+        .discount-block(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id !== 2")
           .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
           .discount-price
             price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
-        .counter-block(ng-if="configMenu.G.global.showCart == 0", ng-show="UserStor.U.userInfo.factory_id !== 2")
+        .counter-block(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id !== 2")
           .counter
             input.prodcounter(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
           .save-block#save-block(ng-click="lightPage.checkForAddElem()")

@@ -1526,11 +1526,11 @@
             </div>
           </div>
         </div>
-        <div ng-if="UserStor.U.userInfo.factoryLink = 2" class="config-title-rehau">
+        <div ng-if="lightPage.U.userInfo.factory_id == 2" class="config-title-rehau">
           <h1>Онлайн калькулятор </h1>
           <h3>Задайте параметры вашего окна</h3>
         </div>
-        <div ng-if="UserStor.U.userInfo.factoryLink !== 2" class="config-buttons">
+        <div ng-if="lightPage.U.userInfo.factory_id !== 2" class="config-buttons">
           <div ng-click="configMenu.karkasButton()" ng-class="{'active': configMenu.G.global.showKarkas == 1}" class="karkas-button">
             <div ng-class="{'active': configMenu.G.global.showKarkas == 1}" class="img-border">
               <div ng-class="{'active': configMenu.G.global.showKarkas == 1}" class="img-karkas"></div>
@@ -1553,7 +1553,7 @@
             <p>{{lightPage.CART}}</p>
           </div>
         </div>
-        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="UserStor.U.userInfo.factory_id = 2" class="karkas-rehau">
+        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="lightPage.U.userInfo.factory_id == 2" class="karkas-rehau">
           <div class="construction-left-menu-rehau">
             <ul class="figure-lists-rehau">
               <li ng-click="designPage.selectMenuItem(6)" class="figure-item-rehau temp-fig-rehau">
@@ -1565,7 +1565,7 @@
               <li ng-click="designPage.selectMenuItem(3)" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Профиль<span></div>
-                <div class="figure-label-rehau-subtitle"><span>Rehau Selected 70</span></div>
+                <div data-output="{{ lightPage.P.product.profile.name }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
               <li ng-click="designPage.selectMenuItem(1)" class="figure-item-rehau">
@@ -1630,7 +1630,7 @@
             </div>
           </div>
         </div>
-        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="UserStor.U.userInfo.factoryLink !== 2" class="karkas">
+        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="lightPage.U.userInfo.factory_id !== 2" class="karkas">
           <div class="construction-left-menu">
             <ul class="figure-lists">
               <li ng-click="designPage.selectMenuItem(6)" ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item temp-fig">
@@ -1908,13 +1908,13 @@
             <button ng-click="cartMenu.openOrderDialog()" class="order-btn">{{ cartMenu.ORDER_LV }}</button>
           </footer>
         </div>
-        <div ng-if="configMenu.G.global.showCart == 0" ng-show="UserStor.U.userInfo.factory_id = 2" class="discount-block-rehau">
+        <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="discount-block-rehau">
           <div class="discount-price-rehau">
             <div class="price-text">Цена:</div>
             <price price-value="lightPage.G.global.tempPrice" price-currency="lightPage.U.userInfo.currency"></price>
           </div>
         </div>
-        <div ng-if="configMenu.G.global.showCart == 0" ng-show="UserStor.U.userInfo.factory_id = 2" class="counter-block-rehau">
+        <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="counter-block-rehau">
           <div class="counter-rehau">
             <input min="1" ng-model="lightPage.G.global.product_qty" ng-click="lightPage.showCalck()" class="prodcounter-rehau">
           </div>
@@ -1922,13 +1922,13 @@
             <p>{{lightPage.CONFIGMENU_IN_CART}}</p>
           </div>
         </div>
-        <div ng-if="configMenu.G.global.showCart == 0" ng-show="UserStor.U.userInfo.factory_id !== 2" class="discount-block">
+        <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id !== 2" class="discount-block">
           <div class="discount-priceRed">{{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}</div>
           <div class="discount-price">
             <price price-value="lightPage.G.global.tempPrice" price-currency="lightPage.U.userInfo.currency"></price>
           </div>
         </div>
-        <div ng-if="configMenu.G.global.showCart == 0" ng-show="UserStor.U.userInfo.factory_id !== 2" class="counter-block">
+        <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id !== 2" class="counter-block">
           <div class="counter">
             <input min="1" ng-model="lightPage.G.global.product_qty" ng-click="lightPage.showCalck()" class="prodcounter">
           </div>
