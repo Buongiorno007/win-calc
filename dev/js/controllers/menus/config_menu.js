@@ -61,6 +61,7 @@
                 thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
                 thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
                 thisCtrl.CONFIGMENU_NO_ADDELEMENTS = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS');
+                thisCtrl.CONFIGMENU_NO_ADDELEMENTS_REHAU = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS_REHAU');
                 thisCtrl.CONFIGMENU_IN_CART = $filter('translate')('mainpage.CONFIGMENU_IN_CART');
                 thisCtrl.SAVE = $filter('translate')('settings.SAVE');
                 thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');

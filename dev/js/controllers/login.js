@@ -1007,7 +1007,7 @@
               OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
               ProductStor.product = JSON.parse(LZString.decompressFromUTF16(product));
               AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
-              console.log("типа все ок");
+              console.log("Данные загружены, приложение работает");
               MainServ.createOrderData();
               return true;
             } else {

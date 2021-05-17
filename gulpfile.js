@@ -428,9 +428,11 @@ gulp.task('buildWindowExt', function () {
 gulp.task('buildOrangeExt', function () {
   buildExt("orange");
 });
+
 gulp.task('buildWindowSiteExt', function () {
   buildExt("windowSiteTest");
 });
+
 gulp.task('buildExt', function () {
   gulp.start('buildStekoExt', 'buildWindowExt', 'buildOrangeExt');
 });

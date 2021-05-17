@@ -380,19 +380,20 @@
   }
 
   .figure-label-rehau-subtitle {
+    text-transform: lowercase;
     margin: 0 !important;
     position: relative;
     top: -3rem;
     padding: 0 16px 0 16px;
     left: 0;
+    font-size: 16px;
+    line-height: 24px;
 
-    span {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 24px;
+    &:first-letter {
+      text-transform: uppercase
     }
   }
+
   // * End 
   .edit_submenu {
     @include transition(all 0.3s linear);
@@ -503,6 +504,10 @@
   .size-line-rehau {
     stroke-width: 1.2px !important;
     stroke: $primary_green !important;
+  }
+  .size-line-arrow-rehau {
+    stroke-width: 1.2px !important;
+    stroke: black !important;
   }
   // rehau styles end ---
   .size-rect {
@@ -648,7 +653,7 @@
     .price-text {
       font-style: normal;
       font-weight: normal;
-      font-size: 26px;
+      font-size: 22px;
       line-height: 40px;
 
       margin-bottom: -35px;

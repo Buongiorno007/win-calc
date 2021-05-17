@@ -372,28 +372,29 @@
               li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Шаблон</span>
-                .figure-label-rehau-subtitle <span>Окно двухстворчатое</span>
+                .figure-label-rehau-subtitle(data-output="{{ lightPage.G.global.SelectedTemplateName }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
 
               hr.separator
-              li.figure-item-rehau(ng-click="designPage.selectMenuItem(3)")
+              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(2)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Профиль<span>
                 .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.profile.name }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
-              li.figure-item-rehau(ng-click="designPage.selectMenuItem(1)")
+              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(3)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Стеклопакет<span>
-                .figure-label-rehau-subtitle <span>4-16-4</span>
+                .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.glass[0].sku }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") <span>4-16-4</span>
               hr.separator
-              li.figure-item-rehau(ng-click="designPage.selectMenuItem(2)")
+              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(5)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}") 
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Ламинация<span>
-                .figure-label-rehau-subtitle <span>Белый | Белый</span>
+                .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
-              li.figure-item-rehau(ng-click="designPage.selectMenuItem(4)")
+              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(6)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Доп. элементы<span>
-                .figure-label-rehau-subtitle <span>-</span>
+                .figure-label-rehau-subtitle(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS_REHAU }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+                .figure-label-rehau-subtitle(ng-show="")
               hr.separator
 
             #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
@@ -682,6 +683,7 @@
             input.prodcounter-rehau(min="1", ng-model="lightPage.G.global.product_qty", ng-click="lightPage.showCalck()")
           .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")
             p {{lightPage.CONFIGMENU_IN_CART}}
+        //- rehau template end  
         
         .discount-block(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id !== 2")
           .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}

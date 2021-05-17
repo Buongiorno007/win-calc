@@ -3367,7 +3367,7 @@ let portrait = false;
               OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
               ProductStor.product = JSON.parse(LZString.decompressFromUTF16(product));
               AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
-              console.log("типа все ок");
+              console.log("Данные загружены, приложение работает");
               MainServ.createOrderData();
               return true;
             } else {
@@ -4133,6 +4133,7 @@ let portrait = false;
                 thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
                 thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
                 thisCtrl.CONFIGMENU_NO_ADDELEMENTS = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS');
+                thisCtrl.CONFIGMENU_NO_ADDELEMENTS_REHAU = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS_REHAU');
                 thisCtrl.CONFIGMENU_IN_CART = $filter('translate')('mainpage.CONFIGMENU_IN_CART');
                 thisCtrl.SAVE = $filter('translate')('settings.SAVE');
                 thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
@@ -11227,11 +11228,23 @@ if (window.location.hostname !== 'localhost') {
                                     // setMarker(defs, 'hingeU', '-1 0 9 4', -16.5,  5, 270, 7,  80, pathHinge, 'hinge-mark');
                                     // setMarker(defs, 'hingeD', '-1 0 9 4', 21.5,   5, 270, 7,  80, pathHinge, 'hinge-mark');
                                     //----- horizontal marker arrow
-                                    setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-                                    setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+                                    if (UserStor.userInfo.factory_id === 2) {
+                                        setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
+                                        setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
+                                    } else {
+                                        setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+                                        setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+                                    }
+                                    
                                     //------- vertical marker arrow
-                                    setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-                                    setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+                                    if (UserStor.userInfo.factory_id === 2) {
+                                        setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
+                                        setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
+                                    } else {
+                                        setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+                                        setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+                                    }
+                                    
 
                                     setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
                                     setGradient(defs);
@@ -11707,7 +11720,7 @@ if (window.location.hostname !== 'localhost') {
                                                         },
                                                         'marker-end': function (d) {
                                                             return setSashFittings(0, d, template.details[i]);
-                                                        }
+                                                        },
                                                     });
                                             } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
                                                 GlobalStor.global.createHandle.push(i)

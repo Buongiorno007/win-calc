@@ -1559,31 +1559,32 @@
               <li ng-click="designPage.selectMenuItem(6)" class="figure-item-rehau temp-fig-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Шаблон</span></div>
-                <div class="figure-label-rehau-subtitle"><span>Окно двухстворчатое</span></div>
+                <div data-output="{{ lightPage.G.global.SelectedTemplateName }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
-              <li ng-click="designPage.selectMenuItem(3)" class="figure-item-rehau">
+              <li fs-click="configMenu.selectConfigPanel(2)" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Профиль<span></div>
                 <div data-output="{{ lightPage.P.product.profile.name }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
-              <li ng-click="designPage.selectMenuItem(1)" class="figure-item-rehau">
+              <li fs-click="configMenu.selectConfigPanel(3)" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Стеклопакет<span></div>
-                <div class="figure-label-rehau-subtitle"><span>4-16-4</span></div>
+                <div data-output="{{ lightPage.P.product.glass[0].sku }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"><span>4-16-4</span></div>
               </li>
               <hr class="separator">
-              <li ng-click="designPage.selectMenuItem(2)" class="figure-item-rehau">
+              <li fs-click="configMenu.selectConfigPanel(5)" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}" class="figure-item-rehau-block"> </div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Ламинация<span></div>
-                <div class="figure-label-rehau-subtitle"><span>Белый | Белый</span></div>
+                <div data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
-              <li ng-click="designPage.selectMenuItem(4)" class="figure-item-rehau">
+              <li fs-click="configMenu.selectConfigPanel(6)" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Доп. элементы<span></div>
-                <div class="figure-label-rehau-subtitle"><span>-</span></div>
+                <div ng-hide="configMenu.P.product.addelem_price &gt; 0" data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS_REHAU }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
+                <div ng-show="" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
             </ul>
