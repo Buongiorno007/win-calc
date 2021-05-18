@@ -1,4 +1,4 @@
-.config-panel.profile-container(ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
+.config-panel.profile-container(ng-show="profilesPanel.U.userInfo.factory_id !== 2", ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
     .panel-inner(ng-if="profilesPanel.G.global.activePanel == 2")
         .profile-block.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles track by $index", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")
             .group-block-header(ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'")
@@ -87,3 +87,12 @@
                             .coef-index
                             .coef-index
                 .info(ng-if="profile.img.length || profile.link.length || profile.description", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
+
+
+
+.config-panel.profile-container-rehau(ng-show="profilesPanel.U.userInfo.factory_id === 2", ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
+    .panel-inner(ng-if="profilesPanel.G.global.activePanel == 2")
+        .profile-block-rehau.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles track by $index", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")
+            .group-block-header-rehau(ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'")
+                .title-rehau(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
+    

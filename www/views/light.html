@@ -155,7 +155,7 @@
                 <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>
               </div>
             </div>
-            <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
+            <div ng-show="profilesPanel.U.userInfo.factory_id !== 2" ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
               <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
                 <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
                   <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header">
@@ -229,6 +229,15 @@
                       </div>
                     </div>
                     <div ng-if="profile.img.length || profile.link.length || profile.description" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-show="profilesPanel.U.userInfo.factory_id === 2" ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container-rehau">
+              <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
+                <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block-rehau clearfix">
+                  <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header-rehau">
+                    <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title-rehau"></div>
                   </div>
                 </div>
               </div>
@@ -1580,11 +1589,9 @@
                 <div data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
-              <li fs-click="configMenu.selectConfigPanel(6)" class="figure-item-rehau">
-                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}" class="figure-item-rehau-block"></div>
-                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Доп. элементы<span></div>
+              <li ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}" fs-click="configMenu.selectConfigPanel(6)" class="figure-item-rehau">
+                <div typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau"><span>Доп. элементы<span></div>
                 <div ng-hide="configMenu.P.product.addelem_price &gt; 0" data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS_REHAU }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
-                <div ng-show="" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
             </ul>
@@ -1917,7 +1924,7 @@
         </div>
         <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="counter-block-rehau">
           <div class="counter-rehau">
-            <input min="1" ng-model="lightPage.G.global.product_qty" ng-click="lightPage.showCalck()" class="prodcounter-rehau">
+            <input readonly ng-model="lightPage.G.global.product_qty" ng-click="configMenu.cartButton()" class="prodcounter-rehau">
           </div>
           <div id="save-block" ng-click="lightPage.checkForAddElem()" class="save-block-rehau">
             <p>{{lightPage.CONFIGMENU_IN_CART}}</p>
@@ -1969,7 +1976,7 @@
                   </div>
                 </td>
               </thead>
-              <tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
                 <td>
                   <button fs-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
                 </td>
@@ -1980,7 +1987,7 @@
                   <button fs-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
                 </td>
               </tr>
-              <tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
                 <td>
                   <button fs-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
                 </td>
@@ -1991,7 +1998,7 @@
                   <button fs-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
                 </td>
               </tr>
-              <tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
                 <td>
                   <button fs-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
                 </td>
@@ -2002,7 +2009,7 @@
                   <button fs-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
                 </td>
               </tr>
-              <tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
                 <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
                   <button fs-click="sizeCalc.setValueSize(0)" class="cell calc-digitLight">0</button>
                 </td>
@@ -2016,7 +2023,57 @@
                   <button fs-click="sizeCalc.setValueSize('.')" class="cell calc-digit">.</button>
                 </td>
                 <td>
-                  <button id="closeSizeCaclulator" fs-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+                  <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id !== 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+                </td>
+              </tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(1)" class="cell-rehau calc-digit">1</button>
+                </td>
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(2)" class="cell-rehau calc-digit">2</button>
+                </td>
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(3)" class="cell-rehau calc-digit">3</button>
+                </td>
+              </tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(4)" class="cell-rehau calc-digit">4</button>
+                </td>
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(5)" class="cell-rehau calc-digit">5</button>
+                </td>
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(6)" class="cell-rehau calc-digit">6</button>
+                </td>
+              </tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(7)" class="cell-rehau calc-digit">7</button>
+                </td>
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(8)" class="cell-rehau calc-digit">8</button>
+                </td>
+                <td>
+                  <button fs-click="sizeCalc.setValueSize(9)" class="cell-rehau calc-digit">9</button>
+                </td>
+              </tr>
+              <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+                <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
+                  <button fs-click="sizeCalc.setValueSize(0)" class="cell-rehau calc-digitLight">0</button>
+                </td>
+                <td ng-if="!sizeCalc.G.global.enterCount">
+                  <button fs-click="sizeCalc.setValueSize(0)" class="cell-rehau calc-digit">0</button>
+                </td>
+                <td ng-if="sizeCalc.U.userInfo.factory_id!==1966 &amp;&amp; !sizeCalc.G.global.enterCount">
+                  <button fs-click="sizeCalc.setValueSize('00')" class="cell-rehau calc-digit">00</button>
+                </td>
+                <td ng-if="sizeCalc.U.userInfo.factory_id==1966">
+                  <button fs-click="sizeCalc.setValueSize('.')" class="cell-rehau calc-digit">.</button>
+                </td>
+                <td>
+                  <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell-rehau calc-ok">OK</button>
                 </td>
               </tr>
             </table>

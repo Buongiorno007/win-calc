@@ -20,6 +20,14 @@
     width: 11rem;
     height: rem(100px);
   }
+  .cell-rehau {
+    @extend .button;
+    @include roboto-lt(rem(36px));
+    @include user-select(none);
+    color: white;
+    width: 11rem;
+    height: rem(100px);
+  }
 
   .calc-interval {
     @include display-flex();

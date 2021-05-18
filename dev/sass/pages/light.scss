@@ -557,6 +557,13 @@
     stroke: $primary_green !important;
     fill-opacity: 1;
     fill: $primary_green;
+    &.active {
+      -moz-fill: $primary_pink;
+      -moz-fill-opacity: 1;
+      stroke: $primary_pink !important;
+      fill-opacity: 1;
+      fill: $primary_pink;
+    }
   }
 
   .size-txt-rehau {
@@ -576,8 +583,6 @@
       fill: white;
     }
   }
-
-
 
   // rehau styles end --------
   .order-qty-menu {
@@ -656,7 +661,7 @@
       font-size: 22px;
       line-height: 40px;
 
-      margin-bottom: -35px;
+      margin-bottom: -38px;
     }
 
     .price-qty {
@@ -666,10 +671,12 @@
 
     .price-value{
       color: $primary_pink;
+      font: bold 4rem/1 roboto-light, sans-serif, icons;
     }
 
     .price-currency {
       color: $primary_pink;
+      font-weight: bold;
     }
   }
   .counter-block-rehau {
@@ -687,6 +694,7 @@
     display: inline-block;
     margin-bottom: 2rem;
     input {
+      cursor: pointer;
       @include roboto-md(rem(36px), rem(60px));
       text-align: center;
       border: 1px solid $main_gray_light;
@@ -717,10 +725,10 @@
     padding-top: 1.5rem;
     p {
       color: white;
-      @include roboto-lt(rem(40px));
+      font: bold 2.5rem/1.42857 roboto-light, sans-serif, icons;
       width: 5rem;
       display: inline-block;
-      margin: 0;
+      margin: -3px;
       width: 12rem;
       vertical-align: middle;
       padding-bottom: 7px;

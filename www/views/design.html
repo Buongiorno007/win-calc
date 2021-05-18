@@ -149,7 +149,7 @@
               </div>
             </td>
           </thead>
-          <tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
             <td>
               <button fs-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
             </td>
@@ -160,7 +160,7 @@
               <button fs-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
             </td>
           </tr>
-          <tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
             <td>
               <button fs-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
             </td>
@@ -171,7 +171,7 @@
               <button fs-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
             </td>
           </tr>
-          <tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
             <td>
               <button fs-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
             </td>
@@ -182,7 +182,7 @@
               <button fs-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
             </td>
           </tr>
-          <tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
             <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
               <button fs-click="sizeCalc.setValueSize(0)" class="cell calc-digitLight">0</button>
             </td>
@@ -196,7 +196,57 @@
               <button fs-click="sizeCalc.setValueSize('.')" class="cell calc-digit">.</button>
             </td>
             <td>
-              <button id="closeSizeCaclulator" fs-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id !== 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+            </td>
+          </tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+            <td>
+              <button fs-click="sizeCalc.setValueSize(1)" class="cell-rehau calc-digit">1</button>
+            </td>
+            <td>
+              <button fs-click="sizeCalc.setValueSize(2)" class="cell-rehau calc-digit">2</button>
+            </td>
+            <td>
+              <button fs-click="sizeCalc.setValueSize(3)" class="cell-rehau calc-digit">3</button>
+            </td>
+          </tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+            <td>
+              <button fs-click="sizeCalc.setValueSize(4)" class="cell-rehau calc-digit">4</button>
+            </td>
+            <td>
+              <button fs-click="sizeCalc.setValueSize(5)" class="cell-rehau calc-digit">5</button>
+            </td>
+            <td>
+              <button fs-click="sizeCalc.setValueSize(6)" class="cell-rehau calc-digit">6</button>
+            </td>
+          </tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+            <td>
+              <button fs-click="sizeCalc.setValueSize(7)" class="cell-rehau calc-digit">7</button>
+            </td>
+            <td>
+              <button fs-click="sizeCalc.setValueSize(8)" class="cell-rehau calc-digit">8</button>
+            </td>
+            <td>
+              <button fs-click="sizeCalc.setValueSize(9)" class="cell-rehau calc-digit">9</button>
+            </td>
+          </tr>
+          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+            <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
+              <button fs-click="sizeCalc.setValueSize(0)" class="cell-rehau calc-digitLight">0</button>
+            </td>
+            <td ng-if="!sizeCalc.G.global.enterCount">
+              <button fs-click="sizeCalc.setValueSize(0)" class="cell-rehau calc-digit">0</button>
+            </td>
+            <td ng-if="sizeCalc.U.userInfo.factory_id!==1966 &amp;&amp; !sizeCalc.G.global.enterCount">
+              <button fs-click="sizeCalc.setValueSize('00')" class="cell-rehau calc-digit">00</button>
+            </td>
+            <td ng-if="sizeCalc.U.userInfo.factory_id==1966">
+              <button fs-click="sizeCalc.setValueSize('.')" class="cell-rehau calc-digit">.</button>
+            </td>
+            <td>
+              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell-rehau calc-ok">OK</button>
             </td>
           </tr>
         </table>

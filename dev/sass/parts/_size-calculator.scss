@@ -17,10 +17,19 @@
       background-color: #6ed44a;
     }
   }
+  .cell-rehau.calc-digit {
+    &:active {
+      background-color: $primary_pink;
+    }
+  }
 }
 
 .calc-equal {
   background-color: $main_green;
+}
+
+.calc-ok {
+  background-color: $primary_green;
 }
 
 .size-calc-container {

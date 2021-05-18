@@ -123,6 +123,7 @@
   }
 
   .calc-equal,
+  .calc-ok,
   .search-element {
     background-color: $aux_big_color;
   }
@@ -192,6 +193,7 @@
   }
 
   .calc-equal,
+  .calc-ok,
   .search-element {
     background-color: $aux_middle_color;
   }
@@ -260,6 +262,7 @@
   }
 
   .calc-equal,
+  .calc-ok,
   .search-element {
     background-color: $aux_connect_color;
   }
@@ -330,6 +333,10 @@
     background-color: $main_green;
   }
 
+  .calc-ok {
+    background-color: $primary_green;
+  }
+
   .group-indicator {
     background-color: $main_green;
     &:before {
@@ -393,6 +400,7 @@
   }
 
   .calc-equal,
+  .calc-ok,
   .search-element {
     background-color: $aux_small_color;
   }
