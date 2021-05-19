@@ -128,7 +128,6 @@
 }
 .config-section {
   width: 98%;
-  //width: 96rem;
   padding: rem(50px) 0 rem(50px) rem(80px);
   border-bottom: 1px solid $main_gray_btn;
   &.selected {
@@ -148,6 +147,11 @@
     @include flex-flow(row wrap);
     @include justify-content(flex-start);
   }
+  .group-block-header-rehau {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(flex-start);
+  }
   .title {
     @include roboto-bd(rem(48px));
 
@@ -161,6 +165,18 @@
       right: 0;
     }
   }
+
+  .group-info-rehau {
+    position: relative;
+    color: gray;
+    align-self: center;
+
+    .info-icon {
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
+
   .profile-cameras{
     width: 100%;
     height: auto;
@@ -244,6 +260,22 @@
           background-color: #57b23c;
         }
       }
+    }
+  }
+
+  .box-rehau {
+    @extend .splash;
+    @include transition(all .3s linear);
+
+    position: relative;
+    float: left;
+    border-radius: rem($radius_profile-box);
+    background-color: #fff;
+    cursor: pointer;
+    &.selected {
+      position: relative;
+      background-color: rgb(209, 209, 209);
+      
     }
   }
 

@@ -20,7 +20,11 @@
     @include justify-content(space-between);
     @include align-items(space-between);
     height: rem(532px);
-
+  }
+  .box_inner-rehau {
+    @include display-flex();
+    @include flex-flow(column wrap);
+    height: 460px;
   }
   .profile-box-top {
     width: 100%;
@@ -36,6 +40,15 @@
     bottom:9rem;
     color: $main_gray_txt;
     width:80%;
+    overflow: hidden;
+  }
+  .profile-descr-rehau {
+    @extend .truncated;
+    @include roboto-md(rem(36px));
+    position:absolute;
+    bottom: 25rem;
+    color: $primary_green;
+    margin-left: 20px;
     overflow: hidden;
   }
   .profile-country {
@@ -54,17 +67,177 @@
     top:7rem;
 
   }
-  .profile-img{
+  .profile-img {
     width:100%;
     max-height: 18rem;
   }
-}
+  .profile-img-rehau {
+    width:100%;
+    max-height: 214px;
+  }
 
-
-.profile-container-rehau {
-  .profile-block-rehau {
-    @extend .config-section;
+  .profile-blocks {
+    margin-top: 70px;
+    margin-left: 17px;
+    margin-right: 20px;
+  }
+  .profile-blocks-green-block {
+    margin-top: 214px;
+    background-color: $primary_green;
+    height: 50px;
     width: 100%;
   }
+
+  .profile-block-noise-rehau {
+    position: absolute;
+    .profile-gray-block {
+      position: absolute;
+      width: 180px;
+      height: 24px;
+      background-color: #4e4e4e;
+
+      .profile-text-block {
+        position: absolute;
+        z-index: 10;
+        font-size: 14px;
+        color: white;
+        padding-left: 9px;
+        padding-top: 2px;
+      }
+      .profile-number-block {
+        position: absolute;
+        z-index: 3;
+        font-size: 14px;
+        color: white;
+        padding-left: 90%;
+        padding-top: 2px;
+      }
+    }
+    .profile-red-block {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+  }
+
+  .profile-block-light-rehau {
+    position: absolute;
+    margin-top: 35px;
+    .profile-gray-block {
+      position: absolute;
+      width: 180px;
+      height: 24px;
+      background-color: #4e4e4e;
+
+      .profile-text-block {
+        position: absolute;
+        z-index: 10;
+        font-size: 14px;
+        color: white;
+        padding-left: 9px;
+        padding-top: 2px;
+      }
+      .profile-number-block {
+        position: absolute;
+        z-index: 3;
+        font-size: 14px;
+        color: white;
+        padding-left: 90%;
+        padding-top: 2px;
+      }
+    }
+    .profile-red-block {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+  }
+
+  .profile-block-warm-rehau {
+    position: absolute;
+    margin-top: 70px;
+    .profile-gray-block {
+      position: absolute;
+      width: 180px;
+      height: 24px;
+      background-color: #4e4e4e;
+
+      .profile-text-block {
+        position: absolute;
+        z-index: 10;
+        font-size: 14px;
+        color: white;
+        padding-left: 9px;
+        padding-top: 2px;
+      }
+      .profile-number-block {
+        position: absolute;
+        z-index: 3;
+        font-size: 14px;
+        color: white;
+        padding-left: 90%;
+        padding-top: 2px;
+      }
+    }
+    .profile-red-block {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+  }
+
+  .profile-block-burglary-rehau {
+    position: absolute;
+    margin-top: 105px;
+    .profile-gray-block {
+      position: absolute;
+      width: 180px;
+      height: 24px;
+      background-color: #4e4e4e;
+
+      .profile-text-block {
+        position: absolute;
+        z-index: 10;
+        font-size: 14px;
+        color: white;
+        padding-left: 9px;
+        padding-top: 2px;
+      }
+      .profile-number-block {
+        position: absolute;
+        z-index: 3;
+        font-size: 14px;
+        color: white;
+        padding-left: 90%;
+        padding-top: 2px;
+      }
+    }
+    .profile-red-block {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+
+    .profile-info-block {
+      position: absolute;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 24px;
+      bottom: -75px;
+      // padding-right: 50px;
+      padding-left: 47px;
+
+      color: white;
+    }
+  }
 }
+
 

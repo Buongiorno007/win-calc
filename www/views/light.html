@@ -233,11 +233,59 @@
                 </div>
               </div>
             </div>
-            <div ng-show="profilesPanel.U.userInfo.factory_id === 2" ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container-rehau">
+            <div ng-show="profilesPanel.U.userInfo.factory_id === 2" ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
               <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
-                <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block-rehau clearfix">
+                <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
                   <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header-rehau">
                     <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title-rehau"></div>
+                    <div class="group-info-rehau"><img ng-src="../../../img/info_rehau.png" ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info-icon"></div>
+                  </div>
+                  <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box-rehau profile-box unvisible">
+                    <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner-rehau"><img ng-if="profile.img.length" ng-src="../../../img/rehau_profile.png" class="profile-img-rehau">
+                      <div ng-if="!profile.img.length" data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
+                      <div ng-if="!profile.img.length" data-output="{{ ::profilesPanel.COUNTRY }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label-country"></div>
+                      <div data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr-rehau"></div>
+                      <div ng-if="!profile.img.length" class="profile-cameras">
+                        <div class="type cam">{{ profile.cameras }}</div>
+                        <div class="type-label">
+                          <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
+                        </div>
+                      </div>
+                      <div class="profile-box-bottom-rehau">
+                        <div class="profile-blocks">
+                          <div class="profile-block-noise-rehau">
+                            <div class="profile-gray-block">
+                              <div class="profile-text-block"><span>Шумоизоляция</span></div>
+                              <div class="profile-number-block"><span>7</span></div>
+                            </div>
+                            <div class="profile-red-block"></div>
+                          </div>
+                          <div class="profile-block-light-rehau">
+                            <div class="profile-gray-block">
+                              <div class="profile-text-block"><span>Светопропускание</span></div>
+                              <div class="profile-number-block"><span>7</span></div>
+                            </div>
+                            <div class="profile-red-block"></div>
+                          </div>
+                          <div class="profile-block-warm-rehau">
+                            <div class="profile-gray-block">
+                              <div class="profile-text-block"><span>Теплоизоляция</span></div>
+                              <div class="profile-number-block"><span>7</span></div>
+                            </div>
+                            <div class="profile-red-block"></div>
+                          </div>
+                          <div class="profile-block-burglary-rehau">
+                            <div class="profile-gray-block">
+                              <div class="profile-text-block"><span>Взломостойкость</span></div>
+                              <div class="profile-number-block"><span>7</span></div>
+                            </div>
+                            <div class="profile-red-block"></div>
+                            <div ng-if="profile.img.length || profile.link.length || profile.description" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="profile-info-block"><span>Подробнее</span></div>
+                          </div>
+                        </div>
+                        <div class="profile-blocks-green-block"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

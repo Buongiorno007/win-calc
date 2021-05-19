@@ -340,7 +340,7 @@ th {
   src: url('../fonts/icons/icomoon.ttf?1620908106') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .profile-container-rehau .profile-block-rehau .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
 .light-v .template-window, .cart-page .cart-tool,
 .light-v .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit,
 .light-v .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .light-v .order-qty-menu, .light-v .save-block-rehau, .light-v .save-block, .mobile .control-buttons-container .control-button .qty-mobile, .nav-menu [class^='nav-icon-'],
@@ -1585,7 +1585,7 @@ body {
 .light-v .light-view .order-value,
 .light-v .light-view .product-value,
 .light-v .light-view .addelement-value,
-.light-v .light-view .cart-page .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .cart-page .addelementunique-header .aux-title {
+.light-v .light-view .cart-page .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .profile-container .profile-descr-rehau, .cart-page .addelementunique-header .aux-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -3429,17 +3429,17 @@ textarea.comment-field {
 }
 
 /* line 129, ../../dev/sass/parts/_config-panel.scss */
-.config-section, .profile-container .profile-block, .profile-container-rehau .profile-block-rehau, .hardware-container .hardware-block {
+.config-section, .profile-container .profile-block, .hardware-container .hardware-block {
   width: 98%;
   padding: 3.125rem 0 3.125rem 5rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 134, ../../dev/sass/parts/_config-panel.scss */
-.config-section.selected, .profile-container .selected.profile-block, .profile-container-rehau .selected.profile-block-rehau, .hardware-container .selected.hardware-block {
+/* line 133, ../../dev/sass/parts/_config-panel.scss */
+.config-section.selected, .profile-container .selected.profile-block, .hardware-container .selected.hardware-block {
   position: relative;
 }
-/* line 136, ../../dev/sass/parts/_config-panel.scss */
-.config-section.selected:before, .profile-container .selected.profile-block:before, .profile-container-rehau .selected.profile-block-rehau:before, .hardware-container .selected.hardware-block:before {
+/* line 135, ../../dev/sass/parts/_config-panel.scss */
+.config-section.selected:before, .profile-container .selected.profile-block:before, .hardware-container .selected.hardware-block:before {
   top: 3.5rem;
   left: -1.6875rem;
   font: normal 5.625rem/3.75rem icons, sans-serif;
@@ -3447,8 +3447,8 @@ textarea.comment-field {
   color: #6ed44a;
   content: "";
 }
-/* line 146, ../../dev/sass/parts/_config-panel.scss */
-.config-section .group-block-header, .profile-container .profile-block .group-block-header, .profile-container-rehau .profile-block-rehau .group-block-header, .hardware-container .hardware-block .group-block-header {
+/* line 145, ../../dev/sass/parts/_config-panel.scss */
+.config-section .group-block-header, .profile-container .profile-block .group-block-header, .hardware-container .hardware-block .group-block-header {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
@@ -3456,73 +3456,93 @@ textarea.comment-field {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 151, ../../dev/sass/parts/_config-panel.scss */
-.config-section .title, .profile-container .profile-block .title, .profile-container-rehau .profile-block-rehau .title, .hardware-container .hardware-block .title {
+/* line 150, ../../dev/sass/parts/_config-panel.scss */
+.config-section .group-block-header-rehau, .profile-container .profile-block .group-block-header-rehau, .hardware-container .hardware-block .group-block-header-rehau {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+/* line 155, ../../dev/sass/parts/_config-panel.scss */
+.config-section .title, .profile-container .profile-block .title, .hardware-container .hardware-block .title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 156, ../../dev/sass/parts/_config-panel.scss */
-.config-section .group-info, .profile-container .profile-block .group-info, .profile-container-rehau .profile-block-rehau .group-info, .hardware-container .hardware-block .group-info {
+/* line 160, ../../dev/sass/parts/_config-panel.scss */
+.config-section .group-info, .profile-container .profile-block .group-info, .hardware-container .hardware-block .group-info {
   position: relative;
 }
-/* line 159, ../../dev/sass/parts/_config-panel.scss */
-.config-section .group-info .info, .profile-container .profile-block .group-info .info, .profile-container-rehau .profile-block-rehau .group-info .info, .hardware-container .hardware-block .group-info .info {
+/* line 163, ../../dev/sass/parts/_config-panel.scss */
+.config-section .group-info .info, .profile-container .profile-block .group-info .info, .hardware-container .hardware-block .group-info .info {
   top: 0;
   right: 0;
 }
-/* line 164, ../../dev/sass/parts/_config-panel.scss */
-.config-section .profile-cameras, .profile-container .profile-block .profile-cameras, .profile-container-rehau .profile-block-rehau .profile-cameras, .hardware-container .hardware-block .profile-cameras {
+/* line 169, ../../dev/sass/parts/_config-panel.scss */
+.config-section .group-info-rehau, .profile-container .profile-block .group-info-rehau, .hardware-container .hardware-block .group-info-rehau {
+  position: relative;
+  color: gray;
+  align-self: center;
+}
+/* line 174, ../../dev/sass/parts/_config-panel.scss */
+.config-section .group-info-rehau .info-icon, .profile-container .profile-block .group-info-rehau .info-icon, .hardware-container .hardware-block .group-info-rehau .info-icon {
+  margin-left: 8px;
+  cursor: pointer;
+}
+/* line 180, ../../dev/sass/parts/_config-panel.scss */
+.config-section .profile-cameras, .profile-container .profile-block .profile-cameras, .hardware-container .hardware-block .profile-cameras {
   width: 100%;
   height: auto;
   display: inline-block;
 }
-/* line 169, ../../dev/sass/parts/_config-panel.scss */
-.config-section .type, .profile-container .profile-block .type, .profile-container-rehau .profile-block-rehau .type, .hardware-container .hardware-block .type {
+/* line 185, ../../dev/sass/parts/_config-panel.scss */
+.config-section .type, .profile-container .profile-block .type, .hardware-container .hardware-block .type {
   font: normal 6rem/3.5rem roboto-medium, sans-serif, icons;
   color: #6ed44a;
   float: left;
 }
-/* line 174, ../../dev/sass/parts/_config-panel.scss */
-.config-section .type-label, .profile-container .profile-block .type-label, .profile-container-rehau .profile-block-rehau .type-label, .hardware-container .hardware-block .type-label {
+/* line 190, ../../dev/sass/parts/_config-panel.scss */
+.config-section .type-label, .profile-container .profile-block .type-label, .hardware-container .hardware-block .type-label {
   position: relative;
   padding-left: 5rem;
   top: 2rem;
   font: normal 2.25rem/2.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 181, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-index, .profile-container .profile-block .coef-index, .profile-container-rehau .profile-block-rehau .coef-index, .hardware-container .hardware-block .coef-index {
+/* line 197, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-index, .profile-container .profile-block .coef-index, .hardware-container .hardware-block .coef-index {
   width: 19%;
   height: 1.5625rem;
   margin-right: 1%;
   margin-left: 1%;
 }
-/* line 186, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .profile-container-rehau .profile-block-rehau .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
+/* line 202, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: #55d995;
 }
-/* line 191, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
+/* line 207, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
   background-color: #5bd883;
 }
-/* line 194, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
+/* line 210, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
   background-color: #61d771;
 }
-/* line 197, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
+/* line 213, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
   background-color: #68d55c;
 }
-/* line 200, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
+/* line 216, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: #6ed44a;
 }
-/* line 206, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box, .profile-container .profile-block .box, .profile-container-rehau .profile-block-rehau .box, .hardware-container .hardware-block .box {
+/* line 222, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;
@@ -3533,86 +3553,103 @@ textarea.comment-field {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 215, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected, .profile-container .profile-block .box.selected, .profile-container-rehau .profile-block-rehau .box.selected, .hardware-container .hardware-block .box.selected {
+/* line 231, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected, .profile-container .profile-block .box.selected, .hardware-container .hardware-block .box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 218, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .profile-container-rehau .profile-block-rehau .box.selected:after, .hardware-container .hardware-block .box.selected:after {
+/* line 234, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .hardware-container .hardware-block .box.selected:after {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
   color: #fff;
   content: '\e61e';
 }
-/* line 224, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .profile-container-rehau .profile-block-rehau .box.selected .label, .hardware-container .hardware-block .box.selected .label, .config-section .box.selected .profile-container .label-country, .profile-container .config-section .box.selected .label-country, .profile-container .profile-block .box.selected .label-country, .profile-container-rehau .profile-block-rehau .box.selected .profile-container .label-country, .profile-container .profile-container-rehau .profile-block-rehau .box.selected .label-country, .hardware-container .hardware-block .box.selected .profile-container .label-country, .profile-container .hardware-container .hardware-block .box.selected .label-country {
+/* line 240, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .hardware-container .hardware-block .box.selected .label, .config-section .box.selected .profile-container .label-country, .profile-container .config-section .box.selected .label-country, .profile-container .profile-block .box.selected .label-country, .hardware-container .hardware-block .box.selected .profile-container .label-country, .profile-container .hardware-container .hardware-block .box.selected .label-country {
   color: #363636;
 }
-/* line 227, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected .cam, .profile-container .profile-block .box.selected .cam, .profile-container-rehau .profile-block-rehau .box.selected .cam, .hardware-container .hardware-block .box.selected .cam {
+/* line 243, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected .cam, .profile-container .profile-block .box.selected .cam, .hardware-container .hardware-block .box.selected .cam {
   color: white;
 }
-/* line 231, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .profile-container-rehau .profile-block-rehau .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
+/* line 247, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
   background-color: #3db26a;
 }
-/* line 234, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
+/* line 250, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
   background-color: #42b260;
 }
-/* line 237, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
+/* line 253, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
   background-color: #4ab253;
 }
-/* line 240, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
+/* line 256, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
   background-color: #51b247;
 }
-/* line 243, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .profile-container-rehau .profile-block-rehau .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
+/* line 259, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
   background-color: #57b23c;
 }
-/* line 250, ../../dev/sass/parts/_config-panel.scss */
-.config-section .box_inner, .profile-container .profile-block .box_inner, .profile-container-rehau .profile-block-rehau .box_inner, .hardware-container .hardware-block .box_inner {
+/* line 266, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau {
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  position: relative;
+  float: left;
+  border-radius: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+}
+/* line 275, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box-rehau.selected, .profile-container .profile-block .box-rehau.selected, .hardware-container .hardware-block .box-rehau.selected {
+  position: relative;
+  background-color: #d1d1d1;
+}
+/* line 282, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box_inner, .profile-container .profile-block .box_inner, .hardware-container .hardware-block .box_inner {
   padding: 2.8125rem;
 }
-/* line 253, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level, .profile-container .profile-block .coef-level, .profile-container-rehau .profile-block-rehau .coef-level, .hardware-container .hardware-block .coef-level {
+/* line 285, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-level, .profile-container .profile-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
 }
-/* line 255, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .profile-container-rehau .profile-block-rehau .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
+/* line 287, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 260, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(2), .config-section .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(3), .config-section .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(4), .config-section .coef-level.coef-level-0 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:last-child {
-  border: 1px solid #b1b1b1;
-  background-color: white;
-}
-/* line 267, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level.coef-level-0 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:first-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:first-child {
-  border: 1px solid #b1b1b1;
-  background-color: white;
-}
-/* line 277, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
-  border: 1px solid #b1b1b1;
-  background-color: white;
-}
 /* line 292, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
+.config-section .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(2), .config-section .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(3), .config-section .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(4), .config-section .coef-level.coef-level-0 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 306, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
+/* line 299, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-level.coef-level-0 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:first-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 323, ../../dev/sass/parts/_config-panel.scss */
-.config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
+/* line 309, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
+  border: 1px solid #b1b1b1;
+  background-color: white;
+}
+/* line 324, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
+  border: 1px solid #b1b1b1;
+  background-color: white;
+}
+/* line 338, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
+  border: 1px solid #b1b1b1;
+  background-color: white;
+}
+/* line 355, ../../dev/sass/parts/_config-panel.scss */
+.config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
@@ -6910,17 +6947,17 @@ div.slider-nav span.left {
 }
 
 /* line 131, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section, .profile-container .profile-block, .profile-container-rehau .profile-block-rehau, .hardware-container .hardware-block {
+.config-section, .profile-container .profile-block, .hardware-container .hardware-block {
   width: 98%;
   padding: 3.125rem 0 3.125rem 5rem;
   border-bottom: 1px solid #bebebe;
 }
 /* line 136, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section.selected, .profile-container .selected.profile-block, .profile-container-rehau .selected.profile-block-rehau, .hardware-container .selected.hardware-block {
+.config-section.selected, .profile-container .selected.profile-block, .hardware-container .selected.hardware-block {
   position: relative;
 }
 /* line 138, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section.selected:before, .profile-container .selected.profile-block:before, .profile-container-rehau .selected.profile-block-rehau:before, .hardware-container .selected.hardware-block:before {
+.config-section.selected:before, .profile-container .selected.profile-block:before, .hardware-container .selected.hardware-block:before {
   top: 3.5rem;
   left: -1.6875rem;
   font: normal 5.625rem/3.75rem icons, sans-serif;
@@ -6928,82 +6965,78 @@ div.slider-nav span.left {
   color: #6ed44a;
   content: "";
 }
-/* line 148, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .group-block-header, .profile-container .profile-block .group-block-header, .profile-container-rehau .profile-block-rehau .group-block-header, .hardware-container .hardware-block .group-block-header {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-}
 /* line 153, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .title, .profile-container .profile-block .title, .profile-container-rehau .profile-block-rehau .title, .hardware-container .hardware-block .title {
+.config-section .title, .profile-container .profile-block .title, .hardware-container .hardware-block .title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 158, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .group-info, .profile-container .profile-block .group-info, .profile-container-rehau .profile-block-rehau .group-info, .hardware-container .hardware-block .group-info {
+/* line 159, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .title-rehau, .profile-container .profile-block .title-rehau, .hardware-container .hardware-block .title-rehau {
+  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
+  color: #37A58C;
+}
+/* line 165, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .group-info, .profile-container .profile-block .group-info, .hardware-container .hardware-block .group-info {
   position: relative;
 }
-/* line 161, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .group-info .info, .profile-container .profile-block .group-info .info, .profile-container-rehau .profile-block-rehau .group-info .info, .hardware-container .hardware-block .group-info .info {
+/* line 168, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .group-info .info, .profile-container .profile-block .group-info .info, .hardware-container .hardware-block .group-info .info {
   top: 0;
   right: 0;
 }
-/* line 166, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .profile-cameras, .profile-container .profile-block .profile-cameras, .profile-container-rehau .profile-block-rehau .profile-cameras, .hardware-container .hardware-block .profile-cameras {
+/* line 173, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .profile-cameras, .profile-container .profile-block .profile-cameras, .hardware-container .hardware-block .profile-cameras {
   width: 100%;
   height: auto;
   display: inline-block;
 }
-/* line 171, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .type, .profile-container .profile-block .type, .profile-container-rehau .profile-block-rehau .type, .hardware-container .hardware-block .type {
+/* line 178, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .type, .profile-container .profile-block .type, .hardware-container .hardware-block .type {
   font: normal 6rem/3.5rem roboto-medium, sans-serif, icons;
   color: #6ed44a;
   float: left;
 }
-/* line 176, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .type-label, .profile-container .profile-block .type-label, .profile-container-rehau .profile-block-rehau .type-label, .hardware-container .hardware-block .type-label {
+/* line 183, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .type-label, .profile-container .profile-block .type-label, .hardware-container .hardware-block .type-label {
   position: relative;
   padding-left: 5rem;
   top: 2rem;
   font: normal 2.25rem/2.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 183, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-index, .profile-container .profile-block .coef-index, .profile-container-rehau .profile-block-rehau .coef-index, .hardware-container .hardware-block .coef-index {
+/* line 190, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-index, .profile-container .profile-block .coef-index, .hardware-container .hardware-block .coef-index {
   width: 19%;
   height: 1.5625rem;
   margin-right: 1%;
   margin-left: 1%;
 }
-/* line 188, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .profile-container-rehau .profile-block-rehau .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
+/* line 195, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: #55d995;
 }
-/* line 193, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
+/* line 200, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
   background-color: #5bd883;
 }
-/* line 196, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
+/* line 203, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
   background-color: #61d771;
 }
-/* line 199, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
+/* line 206, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
   background-color: #68d55c;
 }
-/* line 202, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
+/* line 209, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: #6ed44a;
 }
-/* line 208, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box, .profile-container .profile-block .box, .profile-container-rehau .profile-block-rehau .box, .hardware-container .hardware-block .box {
+/* line 215, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;
@@ -7014,86 +7047,86 @@ div.slider-nav span.left {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 217, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected, .profile-container .profile-block .box.selected, .profile-container-rehau .profile-block-rehau .box.selected, .hardware-container .hardware-block .box.selected {
+/* line 224, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected, .profile-container .profile-block .box.selected, .hardware-container .hardware-block .box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 220, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .profile-container-rehau .profile-block-rehau .box.selected:after, .hardware-container .hardware-block .box.selected:after {
+/* line 227, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .hardware-container .hardware-block .box.selected:after {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
   color: #fff;
   content: '\e61e';
 }
-/* line 226, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .profile-container-rehau .profile-block-rehau .box.selected .label, .hardware-container .hardware-block .box.selected .label, .config-section .box.selected .profile-container .label-country, .profile-container .config-section .box.selected .label-country, .profile-container .profile-block .box.selected .label-country, .profile-container-rehau .profile-block-rehau .box.selected .profile-container .label-country, .profile-container .profile-container-rehau .profile-block-rehau .box.selected .label-country, .hardware-container .hardware-block .box.selected .profile-container .label-country, .profile-container .hardware-container .hardware-block .box.selected .label-country {
+/* line 233, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .hardware-container .hardware-block .box.selected .label, .config-section .box.selected .profile-container .label-country, .profile-container .config-section .box.selected .label-country, .profile-container .profile-block .box.selected .label-country, .hardware-container .hardware-block .box.selected .profile-container .label-country, .profile-container .hardware-container .hardware-block .box.selected .label-country {
   color: #363636;
 }
-/* line 229, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected .cam, .profile-container .profile-block .box.selected .cam, .profile-container-rehau .profile-block-rehau .box.selected .cam, .hardware-container .hardware-block .box.selected .cam {
+/* line 236, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected .cam, .profile-container .profile-block .box.selected .cam, .hardware-container .hardware-block .box.selected .cam {
   color: white;
 }
-/* line 233, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .profile-container-rehau .profile-block-rehau .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
+/* line 240, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
   background-color: #3db26a;
 }
-/* line 236, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
+/* line 243, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
   background-color: #42b260;
 }
-/* line 239, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
+/* line 246, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
   background-color: #4ab253;
 }
-/* line 242, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
+/* line 249, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
   background-color: #51b247;
 }
-/* line 245, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .profile-container-rehau .profile-block-rehau .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
+/* line 252, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
   background-color: #57b23c;
 }
-/* line 252, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .box_inner, .profile-container .profile-block .box_inner, .profile-container-rehau .profile-block-rehau .box_inner, .hardware-container .hardware-block .box_inner {
+/* line 259, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .box_inner, .profile-container .profile-block .box_inner, .hardware-container .hardware-block .box_inner {
   padding: 2.8125rem;
 }
-/* line 255, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level, .profile-container .profile-block .coef-level, .profile-container-rehau .profile-block-rehau .coef-level, .hardware-container .hardware-block .coef-level {
+/* line 262, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-level, .profile-container .profile-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
 }
-/* line 257, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .profile-container-rehau .profile-block-rehau .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
+/* line 264, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 262, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(2), .config-section .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(3), .config-section .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(4), .config-section .coef-level.coef-level-0 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:last-child {
-  border: 1px solid #b1b1b1;
-  background-color: white;
-}
 /* line 269, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level.coef-level-0 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:first-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-0 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:first-child {
+.config-section .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(2), .config-section .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(3), .config-section .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(4), .config-section .coef-level.coef-level-0 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 279, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
+/* line 276, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-level.coef-level-0 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:first-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 294, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
+/* line 286, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 308, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container-rehau .profile-block-rehau .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
+/* line 301, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 325, ../../dev/sass/parts/_config-panelLight.scss */
-.config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .profile-container-rehau .profile-block-rehau .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
+/* line 315, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
+  border: 1px solid #b1b1b1;
+  background-color: white;
+}
+/* line 332, ../../dev/sass/parts/_config-panelLight.scss */
+.config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
@@ -16730,16 +16763,24 @@ input[type='number'] {
   align-items: space-between;
   height: 33.25rem;
 }
-/* line 25, ../../dev/sass/panels/profile.scss */
+/* line 24, ../../dev/sass/panels/profile.scss */
+.profile-container .box_inner-rehau {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: column wrap;
+  flex-flow: column wrap;
+  height: 460px;
+}
+/* line 29, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-box-top {
   width: 100%;
 }
-/* line 28, ../../dev/sass/panels/profile.scss */
+/* line 32, ../../dev/sass/panels/profile.scss */
 .profile-container .info {
   top: -1.875rem;
   right: 2.1875rem;
 }
-/* line 32, ../../dev/sass/panels/profile.scss */
+/* line 36, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-descr {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   position: absolute;
@@ -16748,31 +16789,214 @@ input[type='number'] {
   width: 80%;
   overflow: hidden;
 }
-/* line 41, ../../dev/sass/panels/profile.scss */
+/* line 45, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-descr-rehau {
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
+  position: absolute;
+  bottom: 25rem;
+  color: #37A58C;
+  margin-left: 20px;
+  overflow: hidden;
+}
+/* line 54, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-country {
   font: normal 2.875rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
-/* line 46, ../../dev/sass/panels/profile.scss */
+/* line 59, ../../dev/sass/panels/profile.scss */
 .profile-container .label, .profile-container .label-country {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   margin-left: 0.3125rem;
   color: #8c8c8c;
 }
-/* line 51, ../../dev/sass/panels/profile.scss */
+/* line 64, ../../dev/sass/panels/profile.scss */
 .profile-container .label-country {
   position: absolute;
   top: 7rem;
 }
-/* line 57, ../../dev/sass/panels/profile.scss */
+/* line 70, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-img {
   width: 100%;
   max-height: 18rem;
 }
-
-/* line 65, ../../dev/sass/panels/profile.scss */
-.profile-container-rehau .profile-block-rehau {
+/* line 74, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-img-rehau {
   width: 100%;
+  max-height: 214px;
+}
+/* line 79, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-blocks {
+  margin-top: 70px;
+  margin-left: 17px;
+  margin-right: 20px;
+}
+/* line 84, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-blocks-green-block {
+  margin-top: 214px;
+  background-color: #37A58C;
+  height: 50px;
+  width: 100%;
+}
+/* line 91, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-noise-rehau {
+  position: absolute;
+}
+/* line 93, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-noise-rehau .profile-gray-block {
+  position: absolute;
+  width: 180px;
+  height: 24px;
+  background-color: #4e4e4e;
+}
+/* line 99, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-noise-rehau .profile-gray-block .profile-text-block {
+  position: absolute;
+  z-index: 10;
+  font-size: 14px;
+  color: white;
+  padding-left: 9px;
+  padding-top: 2px;
+}
+/* line 107, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-noise-rehau .profile-gray-block .profile-number-block {
+  position: absolute;
+  z-index: 3;
+  font-size: 14px;
+  color: white;
+  padding-left: 90%;
+  padding-top: 2px;
+}
+/* line 116, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-noise-rehau .profile-red-block {
+  position: absolute;
+  z-index: 2;
+  width: 144px;
+  height: 24px;
+  background-color: #DD0060;
+}
+/* line 125, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-light-rehau {
+  position: absolute;
+  margin-top: 35px;
+}
+/* line 128, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-light-rehau .profile-gray-block {
+  position: absolute;
+  width: 180px;
+  height: 24px;
+  background-color: #4e4e4e;
+}
+/* line 134, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-light-rehau .profile-gray-block .profile-text-block {
+  position: absolute;
+  z-index: 10;
+  font-size: 14px;
+  color: white;
+  padding-left: 9px;
+  padding-top: 2px;
+}
+/* line 142, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-light-rehau .profile-gray-block .profile-number-block {
+  position: absolute;
+  z-index: 3;
+  font-size: 14px;
+  color: white;
+  padding-left: 90%;
+  padding-top: 2px;
+}
+/* line 151, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-light-rehau .profile-red-block {
+  position: absolute;
+  z-index: 2;
+  width: 144px;
+  height: 24px;
+  background-color: #DD0060;
+}
+/* line 160, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-warm-rehau {
+  position: absolute;
+  margin-top: 70px;
+}
+/* line 163, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-warm-rehau .profile-gray-block {
+  position: absolute;
+  width: 180px;
+  height: 24px;
+  background-color: #4e4e4e;
+}
+/* line 169, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-warm-rehau .profile-gray-block .profile-text-block {
+  position: absolute;
+  z-index: 10;
+  font-size: 14px;
+  color: white;
+  padding-left: 9px;
+  padding-top: 2px;
+}
+/* line 177, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-warm-rehau .profile-gray-block .profile-number-block {
+  position: absolute;
+  z-index: 3;
+  font-size: 14px;
+  color: white;
+  padding-left: 90%;
+  padding-top: 2px;
+}
+/* line 186, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-warm-rehau .profile-red-block {
+  position: absolute;
+  z-index: 2;
+  width: 144px;
+  height: 24px;
+  background-color: #DD0060;
+}
+/* line 195, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-burglary-rehau {
+  position: absolute;
+  margin-top: 105px;
+}
+/* line 198, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-burglary-rehau .profile-gray-block {
+  position: absolute;
+  width: 180px;
+  height: 24px;
+  background-color: #4e4e4e;
+}
+/* line 204, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-burglary-rehau .profile-gray-block .profile-text-block {
+  position: absolute;
+  z-index: 10;
+  font-size: 14px;
+  color: white;
+  padding-left: 9px;
+  padding-top: 2px;
+}
+/* line 212, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-burglary-rehau .profile-gray-block .profile-number-block {
+  position: absolute;
+  z-index: 3;
+  font-size: 14px;
+  color: white;
+  padding-left: 90%;
+  padding-top: 2px;
+}
+/* line 221, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-burglary-rehau .profile-red-block {
+  position: absolute;
+  z-index: 2;
+  width: 144px;
+  height: 24px;
+  background-color: #DD0060;
+}
+/* line 229, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-block-burglary-rehau .profile-info-block {
+  position: absolute;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  bottom: -75px;
+  padding-left: 47px;
+  color: white;
 }
 
 /* line 2, ../../dev/sass/panels/glass.scss */

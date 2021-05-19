@@ -90,9 +90,51 @@
 
 
 
-.config-panel.profile-container-rehau(ng-show="profilesPanel.U.userInfo.factory_id === 2", ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
+.config-panel.profile-container(ng-show="profilesPanel.U.userInfo.factory_id === 2", ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
     .panel-inner(ng-if="profilesPanel.G.global.activePanel == 2")
-        .profile-block-rehau.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles track by $index", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")
+        .profile-block.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles track by $index", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")
             .group-block-header-rehau(ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'")
                 .title-rehau(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
-    
+                .group-info-rehau
+                    img.info-icon(ng-src="../../../img/info_rehau.png", ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
+                    
+            .box-rehau.profile-box.unvisible(ng-repeat="profile in producer track by $index", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
+                .box_inner-rehau(ng-click="profilesPanel.checkForAddElem(profile.id)")
+                    img.profile-img-rehau(ng-if="profile.img.length", ng-src="../../../img/rehau_profile.png")
+
+                    .profile-country(ng-if="!profile.img.length",data-output="{{ profile.country }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+                    .label-country(ng-if="!profile.img.length",data-output="{{ ::profilesPanel.COUNTRY }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+                    //-Conditions to display different translations
+                    .profile-descr-rehau(data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+
+                    .profile-cameras(ng-if="!profile.img.length",)
+                        .type.cam {{ profile.cameras }}
+                        .type-label
+                            ng-pluralize(count="profile.cameras",when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}")
+                    .profile-box-bottom-rehau
+                        .profile-blocks
+                            .profile-block-noise-rehau
+                                .profile-gray-block
+                                    .profile-text-block <span>Шумоизоляция</span>
+                                    .profile-number-block <span>7</span>
+                                .profile-red-block
+                            .profile-block-light-rehau
+                                .profile-gray-block
+                                    .profile-text-block <span>Светопропускание</span>
+                                    .profile-number-block <span>7</span>
+                                .profile-red-block
+                            .profile-block-warm-rehau
+                                .profile-gray-block
+                                    .profile-text-block <span>Теплоизоляция</span>
+                                    .profile-number-block <span>7</span>
+                                .profile-red-block
+                            .profile-block-burglary-rehau
+                                .profile-gray-block
+                                    .profile-text-block <span>Взломостойкость</span>
+                                    .profile-number-block <span>7</span>
+                                .profile-red-block
+                                .profile-info-block(ng-if="profile.img.length || profile.link.length || profile.description", ng-click="profilesPanel.showInfoBox(profile.id, producer)") <span>Подробнее</span>
+                        .profile-blocks-green-block
+                                   
+                                     
+                //- .info(ng-if="profile.img.length || profile.link.length || profile.description", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
