@@ -186,7 +186,7 @@
                             }, 500);
                         });
                         GlobalStor.global.activePanel = 0;
-                        //Calling the function one more time to rebuild the template
+                        //Calling the function one more time to rebuild the template for light version
                         setTimeout(() => {
                             ProductStor.product.room_id = templateIndex;
                             GlobalStor.global.MobileTabActive = 0;
@@ -207,16 +207,6 @@
                                     GlobalStor.global.templatesSource = angular.copy(data);
                                     GlobalStor.global.product_qty = 1;
                                     culcPriceNewTemplate(templateIndex);
-                                    //TYT YJE NET vseravno s culcPriceNewTemplate prihodit ne to
-    
-                                    // MainServ.preparePrice(
-                                    //     ProductStor.product.template,
-                                    //     ProductStor.product.profile.id,
-                                    //     ProductStor.product.glass,
-                                    //     ProductStor.product.hardware.id,
-                                    //     ProductStor.product.lamination.lamination_in_id
-                                    // );
-                                    // eto sozdanie constructyon togo formata chto nujno
                                     DesignServ.rebuildSVGTemplate();
                                     var objXFormedPrice = {
                                         laminationId: ProductStor.product.lamination.id,

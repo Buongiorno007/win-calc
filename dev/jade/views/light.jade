@@ -372,7 +372,8 @@
               li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Шаблон</span>
-                .figure-label-rehau-subtitle(data-output="{{ lightPage.G.global.SelectedTemplateName }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+                .figure-label-rehau-subtitle(ng-if="!lightPage.G.global.SelectedTemplateName", data-output="Поворотное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+                .figure-label-rehau-subtitle(ng-if="lightPage.G.global.SelectedTemplateName", data-output="{{ lightPage.G.global.SelectedTemplateName }}"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") 
 
               hr.separator
               li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(2)")

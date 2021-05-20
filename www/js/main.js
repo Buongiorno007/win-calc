@@ -884,114 +884,6 @@ let portrait = false;
                 thisCtrl.AND = $filter('translate')('common_words.AND');
 
                 thisCtrl.DOOR_NAME = $filter('translate')('common_words.DOOR_NAME');
-                thisCtrl.DOOR_NAME_2 = $filter('translate')('common_words.DOOR_NAME_2');
-                thisCtrl.DOOR_NAME_3 = $filter('translate')('common_words.DOOR_NAME_3');
-                thisCtrl.DOOR_NAME_4 = $filter('translate')('common_words.DOOR_NAME_4');
-                thisCtrl.DOOR_NAME_5 = $filter('translate')('common_words.DOOR_NAME_5');
-                thisCtrl.DOOR_NAME_6 = $filter('translate')('common_words.DOOR_NAME_6');
-                thisCtrl.DOOR_NAME_7 = $filter('translate')('common_words.DOOR_NAME_7');
-                thisCtrl.DOOR_NAME_8 = $filter('translate')('common_words.DOOR_NAME_8');
-                thisCtrl.DOOR_NAME_9 = $filter('translate')('common_words.DOOR_NAME_9');
-                thisCtrl.DOOR_NAME_10 = $filter('translate')('common_words.DOOR_NAME_10');
-                thisCtrl.HANDLE_NAME = $filter('translate')('common_words.HANDLE_NAME');
-                thisCtrl.HANDLE_NAME_2 = $filter('translate')('common_words.HANDLE_NAME_2');
-                thisCtrl.HANDLE_NAME_3 = $filter('translate')('common_words.HANDLE_NAME_3');
-                thisCtrl.HANDLE_NAME_4 = $filter('translate')('common_words.HANDLE_NAME_4');
-                thisCtrl.HANDLE_NAME_5 = $filter('translate')('common_words.HANDLE_NAME_5');
-                thisCtrl.HANDLE_NAME_6 = $filter('translate')('common_words.HANDLE_NAME_6');
-                thisCtrl.HANDLE_NAME_7 = $filter('translate')('common_words.HANDLE_NAME_7');
-                thisCtrl.HANDLE_NAME_8 = $filter('translate')('common_words.HANDLE_NAME_8');
-                thisCtrl.HANDLE_NAME_9 = $filter('translate')('common_words.HANDLE_NAME_9');
-                thisCtrl.HANDLE_NAME_10 = $filter('translate')('common_words.HANDLE_NAME_10');
-                thisCtrl.HANDLE_NAME_11 = $filter('translate')('common_words.HANDLE_NAME_11');
-                thisCtrl.HANDLE_NAME_12 = $filter('translate')('common_words.HANDLE_NAME_12');
-                thisCtrl.HANDLE_NAME_13 = $filter('translate')('common_words.HANDLE_NAME_13');
-                thisCtrl.HANDLE_NAME_14 = $filter('translate')('common_words.HANDLE_NAME_14');
-                thisCtrl.HANDLE_NAME_15 = $filter('translate')('common_words.HANDLE_NAME_15');
-                thisCtrl.HANDLE_NAME_16 = $filter('translate')('common_words.HANDLE_NAME_16');
-                thisCtrl.HANDLE_NAME_17 = $filter('translate')('common_words.HANDLE_NAME_17');
-                thisCtrl.HANDLE_NAME_18 = $filter('translate')('common_words.HANDLE_NAME_18');
-                thisCtrl.HANDLE_NAME_19 = $filter('translate')('common_words.HANDLE_NAME_19');
-                thisCtrl.LOCK_NAME = $filter('translate')('common_words.LOCK_NAME');
-                thisCtrl.LOCK_NAME_2 = $filter('translate')('common_words.LOCK_NAME_2');
-                thisCtrl.LOCK_NAME_3 = $filter('translate')('common_words.LOCK_NAME_3');
-                thisCtrl.LOCK_NAME_4 = $filter('translate')('common_words.LOCK_NAME_4');
-                thisCtrl.LOCK_NAME_5 = $filter('translate')('common_words.LOCK_NAME_5');
-                thisCtrl.LOCK_NAME_6 = $filter('translate')('common_words.LOCK_NAME_6');
-                thisCtrl.LOCK_NAME_7 = $filter('translate')('common_words.LOCK_NAME_7');
-                thisCtrl.LOCK_NAME_8 = $filter('translate')('common_words.LOCK_NAME_8');
-                thisCtrl.LOCK_NAME_9 = $filter('translate')('common_words.LOCK_NAME_9');
-                thisCtrl.LOCK_NAME_10 = $filter('translate')('common_words.LOCK_NAME_10');
-                thisCtrl.LOCK_NAME_11 = $filter('translate')('common_words.LOCK_NAME_11');
-                thisCtrl.LOCK_NAME_12 = $filter('translate')('common_words.LOCK_NAME_12');
-                thisCtrl.LOCK_NAME_13 = $filter('translate')('common_words.LOCK_NAME_13');
-                thisCtrl.LOCK_NAME_14 = $filter('translate')('common_words.LOCK_NAME_14');
-                thisCtrl.LOCK_NAME_15 = $filter('translate')('common_words.LOCK_NAME_15');
-                thisCtrl.LOCK_NAME_16 = $filter('translate')('common_words.LOCK_NAME_16');
-                thisCtrl.LOCK_NAME_17 = $filter('translate')('common_words.LOCK_NAME_17');
-                thisCtrl.LOCK_NAME_18 = $filter('translate')('common_words.LOCK_NAME_18');
-                thisCtrl.LOCK_NAME_19 = $filter('translate')('common_words.LOCK_NAME_19');
-                thisCtrl.LOCK_NAME_20 = $filter('translate')('common_words.LOCK_NAME_20');
-                thisCtrl.LOCK_NAME_21 = $filter('translate')('common_words.LOCK_NAME_21');
-                thisCtrl.LOCK_NAME_22 = $filter('translate')('common_words.LOCK_NAME_22');
-                thisCtrl.LOCK_NAME_23 = $filter('translate')('common_words.LOCK_NAME_23');
-                thisCtrl.LOCK_NAME_24 = $filter('translate')('common_words.LOCK_NAME_24');
-                thisCtrl.LOCK_NAME_25 = $filter('translate')('common_words.LOCK_NAME_25');
-                thisCtrl.LOCK_NAME_26 = $filter('translate')('common_words.LOCK_NAME_26');
-                thisCtrl.LOCK_NAME_27 = $filter('translate')('common_words.LOCK_NAME_27');
-                thisCtrl.LOCK_NAME_28 = $filter('translate')('common_words.LOCK_NAME_28');
-                thisCtrl.LOCK_NAME_29 = $filter('translate')('common_words.LOCK_NAME_29');
-                thisCtrl.LOCK_NAME_30 = $filter('translate')('common_words.LOCK_NAME_30');
-                thisCtrl.LOCK_NAME_31 = $filter('translate')('common_words.LOCK_NAME_31');
-                thisCtrl.LOCK_NAME_32 = $filter('translate')('common_words.LOCK_NAME_32');
-                thisCtrl.LOCK_NAME_33 = $filter('translate')('common_words.LOCK_NAME_33');
-                thisCtrl.LOCK_NAME_34 = $filter('translate')('common_words.LOCK_NAME_34');
-                thisCtrl.LOCK_NAME_35 = $filter('translate')('common_words.LOCK_NAME_35');
-                thisCtrl.LOCK_NAME_36 = $filter('translate')('common_words.LOCK_NAME_36');
-                thisCtrl.LOCK_NAME_37 = $filter('translate')('common_words.LOCK_NAME_37');
-                thisCtrl.LOCK_NAME_38 = $filter('translate')('common_words.LOCK_NAME_38');
-                thisCtrl.LOCK_NAME_39 = $filter('translate')('common_words.LOCK_NAME_39');
-                thisCtrl.LOCK_NAME_40 = $filter('translate')('common_words.LOCK_NAME_40');
-                thisCtrl.LOCK_NAME_41 = $filter('translate')('common_words.LOCK_NAME_41');
-                thisCtrl.LOCK_NAME_42 = $filter('translate')('common_words.LOCK_NAME_42');
-                thisCtrl.LOCK_NAME_43 = $filter('translate')('common_words.LOCK_NAME_43');
-                thisCtrl.LOCK_NAME_44 = $filter('translate')('common_words.LOCK_NAME_44');
-                thisCtrl.LOCK_NAME_45 = $filter('translate')('common_words.LOCK_NAME_45');
-                thisCtrl.LOCK_NAME_46 = $filter('translate')('common_words.LOCK_NAME_46');
-                thisCtrl.LOCK_NAME_47 = $filter('translate')('common_words.LOCK_NAME_47');
-                thisCtrl.LOCK_NAME_48 = $filter('translate')('common_words.LOCK_NAME_48');
-                thisCtrl.LOCK_NAME_49 = $filter('translate')('common_words.LOCK_NAME_49');
-                thisCtrl.LOCK_NAME_50 = $filter('translate')('common_words.LOCK_NAME_50');
-                thisCtrl.LOCK_NAME_51 = $filter('translate')('common_words.LOCK_NAME_51');
-                thisCtrl.LOCK_NAME_52 = $filter('translate')('common_words.LOCK_NAME_52');
-                thisCtrl.LOCK_NAME_53 = $filter('translate')('common_words.LOCK_NAME_53');
-                thisCtrl.LOCK_NAME_54 = $filter('translate')('common_words.LOCK_NAME_54');
-                thisCtrl.LOCK_NAME_55 = $filter('translate')('common_words.LOCK_NAME_55');
-                thisCtrl.LOCK_NAME_56 = $filter('translate')('common_words.LOCK_NAME_56');
-                thisCtrl.LOCK_NAME_57 = $filter('translate')('common_words.LOCK_NAME_57');
-                thisCtrl.LOCK_NAME_58 = $filter('translate')('common_words.LOCK_NAME_58');
-                thisCtrl.LOCK_NAME_59 = $filter('translate')('common_words.LOCK_NAME_59');
-                thisCtrl.LOCK_NAME_60 = $filter('translate')('common_words.LOCK_NAME_60');
-                thisCtrl.LOCK_NAME_61 = $filter('translate')('common_words.LOCK_NAME_61');
-                thisCtrl.LOCK_NAME_62 = $filter('translate')('common_words.LOCK_NAME_62');
-                thisCtrl.LOCK_NAME_63 = $filter('translate')('common_words.LOCK_NAME_63');
-                thisCtrl.LOCK_NAME_64 = $filter('translate')('common_words.LOCK_NAME_64');
-                thisCtrl.LOCK_NAME_65 = $filter('translate')('common_words.LOCK_NAME_65');
-                thisCtrl.LOCK_NAME_66 = $filter('translate')('common_words.LOCK_NAME_66');
-                thisCtrl.LOCK_NAME_67 = $filter('translate')('common_words.LOCK_NAME_67');
-                thisCtrl.LOCK_NAME_68 = $filter('translate')('common_words.LOCK_NAME_68');
-                thisCtrl.LOCK_NAME_69 = $filter('translate')('common_words.LOCK_NAME_69');
-                thisCtrl.LOCK_NAME_70 = $filter('translate')('common_words.LOCK_NAME_70');
-                thisCtrl.LOCK_NAME_71 = $filter('translate')('common_words.LOCK_NAME_71');
-                thisCtrl.LOCK_NAME_72 = $filter('translate')('common_words.LOCK_NAME_72');
-                thisCtrl.LOCK_NAME_73 = $filter('translate')('common_words.LOCK_NAME_73');
-                thisCtrl.LOCK_NAME_74 = $filter('translate')('common_words.LOCK_NAME_74');
-                thisCtrl.LOCK_NAME_75 = $filter('translate')('common_words.LOCK_NAME_75');
-                thisCtrl.LOCK_NAME_76 = $filter('translate')('common_words.LOCK_NAME_76');
-                thisCtrl.LOCK_NAME_77 = $filter('translate')('common_words.LOCK_NAME_77');
-                thisCtrl.LOCK_NAME_78 = $filter('translate')('common_words.LOCK_NAME_78');
-                thisCtrl.LOCK_NAME_79 = $filter('translate')('common_words.LOCK_NAME_79');
-                thisCtrl.LOCK_NAME_80 = $filter('translate')('common_words.LOCK_NAME_80');
                 //------ DOOR
                 //DesignServ.setDoorConfigDefault(ProductStor.product);
                 //------ cleaning DesignStor
@@ -15073,8 +14965,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
+      serverIP: 'https://admin.rehauselected.baueffect.com',
+      printIP: 'https://admin.rehauselected.baueffect.com/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -37795,7 +37687,7 @@ function ErrorResult(code, message) {
                             }, 500);
                         });
                         GlobalStor.global.activePanel = 0;
-                        //Calling the function one more time to rebuild the template
+                        //Calling the function one more time to rebuild the template for light version
                         setTimeout(() => {
                             ProductStor.product.room_id = templateIndex;
                             GlobalStor.global.MobileTabActive = 0;
@@ -37816,16 +37708,6 @@ function ErrorResult(code, message) {
                                     GlobalStor.global.templatesSource = angular.copy(data);
                                     GlobalStor.global.product_qty = 1;
                                     culcPriceNewTemplate(templateIndex);
-                                    //TYT YJE NET vseravno s culcPriceNewTemplate prihodit ne to
-    
-                                    // MainServ.preparePrice(
-                                    //     ProductStor.product.template,
-                                    //     ProductStor.product.profile.id,
-                                    //     ProductStor.product.glass,
-                                    //     ProductStor.product.hardware.id,
-                                    //     ProductStor.product.lamination.lamination_in_id
-                                    // );
-                                    // eto sozdanie constructyon togo formata chto nujno
                                     DesignServ.rebuildSVGTemplate();
                                     var objXFormedPrice = {
                                         laminationId: ProductStor.product.lamination.id,
