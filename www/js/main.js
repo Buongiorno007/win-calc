@@ -15100,6 +15100,8 @@ function ErrorResult(code, message) {
         function deselectAllDimension() {
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect').classed('active', false);
           d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit').classed('active', false);
+          d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect-rehau').classed('active', false);
+          d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit-rehau').classed('active', false);
         }
 
 
