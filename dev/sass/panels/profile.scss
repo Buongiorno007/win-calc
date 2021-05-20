@@ -25,6 +25,11 @@
     @include display-flex();
     @include flex-flow(column wrap);
     height: 460px;
+
+    img {
+      width: 100%;
+      min-height: 196px;
+    }
   }
   .profile-box-top {
     width: 100%;

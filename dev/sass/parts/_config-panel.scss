@@ -148,6 +148,7 @@
     @include justify-content(flex-start);
   }
   .group-block-header-rehau {
+    padding-top: 5px;
     @include display-flex();
     @include flex-flow(row wrap);
     @include justify-content(flex-start);

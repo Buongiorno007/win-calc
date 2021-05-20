@@ -100,7 +100,7 @@
                     
             .box-rehau.profile-box.unvisible(ng-repeat="profile in producer track by $index", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
                 .box_inner-rehau(ng-click="profilesPanel.checkForAddElem(profile.id)")
-                    img.profile-img-rehau(ng-if="profile.img.length", ng-src="../../../img/rehau_profile.png")
+                    img.profile-img(ng-if="profile.img.length", ng-src="{{profile.img}}")
 
                     .profile-country(ng-if="!profile.img.length",data-output="{{ profile.country }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
                     .label-country(ng-if="!profile.img.length",data-output="{{ ::profilesPanel.COUNTRY }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
