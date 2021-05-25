@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1620908106') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1621891938') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -2430,36 +2430,31 @@ div.drum figure {
   stroke: #37A58C;
   stroke-width: 6;
 }
-/* line 69, ../../dev/sass/parts/_svg.scss */
-.light-v .check-check {
-  background-image: url(../../img/back-img.png);
-  z-index: 10000;
-}
 
-/* line 75, ../../dev/sass/parts/_svg.scss */
+/* line 71, ../../dev/sass/parts/_svg.scss */
 .corner_mark {
   stroke: none;
   cursor: pointer;
 }
 
-/* line 80, ../../dev/sass/parts/_svg.scss */
+/* line 76, ../../dev/sass/parts/_svg.scss */
 .handle-mark, .hinge-mark {
   fill: #f9f9f9;
   stroke: #817D7D;
   stroke-width: .7;
 }
 
-/* line 85, ../../dev/sass/parts/_svg.scss */
+/* line 81, ../../dev/sass/parts/_svg.scss */
 .hinge-mark {
   stroke-width: .3;
 }
 
-/* line 89, ../../dev/sass/parts/_svg.scss */
+/* line 85, ../../dev/sass/parts/_svg.scss */
 .error_glass {
   fill: #f74f2e;
 }
 
-/* line 93, ../../dev/sass/parts/_svg.scss */
+/* line 89, ../../dev/sass/parts/_svg.scss */
 .dim_blockX, .dim_blockY {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -2467,7 +2462,7 @@ div.drum figure {
   transition: all 0.5s linear;
 }
 
-/* line 96, ../../dev/sass/parts/_svg.scss */
+/* line 92, ../../dev/sass/parts/_svg.scss */
 .dim_shiftX {
   -moz-transform: translate(0, -150px);
   -ms-transform: translate(0, -150px);
@@ -2475,7 +2470,7 @@ div.drum figure {
   transform: translate(0, -150px);
 }
 
-/* line 99, ../../dev/sass/parts/_svg.scss */
+/* line 95, ../../dev/sass/parts/_svg.scss */
 .dim_shiftY {
   -moz-transform: translate(-200px, 0);
   -ms-transform: translate(-200px, 0);
@@ -2483,7 +2478,7 @@ div.drum figure {
   transform: translate(-200px, 0);
 }
 
-/* line 103, ../../dev/sass/parts/_svg.scss */
+/* line 99, ../../dev/sass/parts/_svg.scss */
 .dim_block {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -2493,20 +2488,20 @@ div.drum figure {
   visibility: visible;
 }
 
-/* line 108, ../../dev/sass/parts/_svg.scss */
+/* line 104, ../../dev/sass/parts/_svg.scss */
 .dim_hidden {
   opacity: 0;
   visibility: hidden;
 }
 
-/* line 113, ../../dev/sass/parts/_svg.scss */
+/* line 109, ../../dev/sass/parts/_svg.scss */
 .size-line {
   fill: none;
   stroke: #000;
   stroke-width: 1;
 }
 
-/* line 119, ../../dev/sass/parts/_svg.scss */
+/* line 115, ../../dev/sass/parts/_svg.scss */
 .size-rect {
   width: 160px;
   height: 70px;
@@ -2516,13 +2511,13 @@ div.drum figure {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 127, ../../dev/sass/parts/_svg.scss */
+/* line 123, ../../dev/sass/parts/_svg.scss */
 .size-rect.active {
   fill: #6ed44a;
   fill-opacity: 1;
 }
 
-/* line 132, ../../dev/sass/parts/_svg.scss */
+/* line 128, ../../dev/sass/parts/_svg.scss */
 .size-txt, .size-txt-edit, .glass-txt, .light-v .size-txt-edit, .light-v .size-txt-edit-rehau, .mobile .main-view .size-txt-edit,
 .mobile svg-template .size-txt-edit,
 .mobile .svg-template .size-txt-edit {
@@ -2534,29 +2529,29 @@ div.drum figure {
   cursor: pointer;
 }
 
-/* line 140, ../../dev/sass/parts/_svg.scss */
+/* line 136, ../../dev/sass/parts/_svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 145, ../../dev/sass/parts/_svg.scss */
+/* line 141, ../../dev/sass/parts/_svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 151, ../../dev/sass/parts/_svg.scss */
+/* line 147, ../../dev/sass/parts/_svg.scss */
 .glass-txt {
   font-size: 7rem;
 }
 
-/* line 158, ../../dev/sass/parts/_svg.scss */
+/* line 154, ../../dev/sass/parts/_svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 162, ../../dev/sass/parts/_svg.scss */
+/* line 158, ../../dev/sass/parts/_svg.scss */
 .main-line {
   fill: #363636;
 }
@@ -3607,54 +3602,53 @@ textarea.comment-field {
   transition: all 0.3s linear;
   position: relative;
   float: left;
-  border-radius: 1rem;
   background-color: #fff;
   cursor: pointer;
 }
-/* line 276, ../../dev/sass/parts/_config-panel.scss */
+/* line 275, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box-rehau.selected, .profile-container .profile-block .box-rehau.selected, .hardware-container .hardware-block .box-rehau.selected {
   position: relative;
-  background-color: #d1d1d1;
+  box-shadow: inset 0 0 0 7px #DD0060;
 }
-/* line 283, ../../dev/sass/parts/_config-panel.scss */
+/* line 281, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box_inner, .profile-container .profile-block .box_inner, .hardware-container .hardware-block .box_inner {
   padding: 2.8125rem;
 }
-/* line 286, ../../dev/sass/parts/_config-panel.scss */
+/* line 284, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level, .profile-container .profile-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
 }
-/* line 288, ../../dev/sass/parts/_config-panel.scss */
+/* line 286, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 293, ../../dev/sass/parts/_config-panel.scss */
+/* line 291, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(2), .config-section .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(3), .config-section .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(4), .config-section .coef-level.coef-level-0 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 300, ../../dev/sass/parts/_config-panel.scss */
+/* line 298, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-0 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:first-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 310, ../../dev/sass/parts/_config-panel.scss */
+/* line 308, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 325, ../../dev/sass/parts/_config-panel.scss */
+/* line 323, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 339, ../../dev/sass/parts/_config-panel.scss */
+/* line 337, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 356, ../../dev/sass/parts/_config-panel.scss */
+/* line 354, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
@@ -4728,19 +4722,19 @@ textarea.comment-field {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -7321,7 +7315,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1620908107') no-repeat;
+  background: url('../img/login/logo.png?1621891938') no-repeat;
   background-size: cover !important;
 }
 
@@ -10431,7 +10425,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1620908107') no-repeat;
+  background: url('../img/door-arrow.png?1621891938') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -17526,133 +17520,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/grid.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/grating.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/visor.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/outside.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/fan.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/handle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/blind.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17662,133 +17656,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/grid.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/visor.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/grating.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/outside.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/fan.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/handle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/blind.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17812,7 +17806,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1620908107');
+  background-image: url('../img/auxiliaries/grid.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17829,7 +17823,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1620908107');
+  background-image: url('../img/auxiliaries/visor.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17846,7 +17840,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1620908107');
+  background-image: url('../img/auxiliaries/visor2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17863,7 +17857,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1620908107');
+  background-image: url('../img/auxiliaries/grating.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17880,7 +17874,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1620908107');
+  background-image: url('../img/auxiliaries/grating2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17897,7 +17891,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1620908107');
+  background-image: url('../img/auxiliaries/shutters.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17914,7 +17908,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1620908107');
+  background-image: url('../img/auxiliaries/shutters2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17931,7 +17925,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1620908107');
+  background-image: url('../img/auxiliaries/spillway.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17948,7 +17942,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1620908107');
+  background-image: url('../img/auxiliaries/spillway2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17965,7 +17959,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1620908107');
+  background-image: url('../img/auxiliaries/outside.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17982,7 +17976,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1620908107');
+  background-image: url('../img/auxiliaries/windowsill.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17999,7 +17993,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1620908107');
+  background-image: url('../img/auxiliaries/blind.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18016,7 +18010,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1620908107');
+  background-image: url('../img/auxiliaries/template1.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18033,7 +18027,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1620908107');
+  background-image: url('../img/auxiliaries/template2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18057,7 +18051,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1620908107');
+  background-image: url('../img/auxiliaries/louvers-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18067,7 +18061,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1620908107');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18094,7 +18088,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1620908107');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18117,7 +18111,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1620908107');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18128,7 +18122,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1620908107');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18139,7 +18133,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1620908107');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18156,7 +18150,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1620908107');
+  background-image: url('../img/auxiliaries/fan.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18179,7 +18173,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1620908107');
+  background-image: url('../img/auxiliaries/force-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18190,7 +18184,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1620908107');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18207,7 +18201,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1620908107');
+  background-image: url('../img/auxiliaries/handle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
