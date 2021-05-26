@@ -2420,41 +2420,39 @@ div.drum figure {
 /* line 58, ../../dev/sass/parts/_svg.scss */
 .sash_mark-rehau {
   fill: none;
-  stroke: #f98000;
   stroke-width: 6;
 }
 
-/* line 64, ../../dev/sass/parts/_svg.scss */
+/* line 65, ../../dev/sass/parts/_svg.scss */
 .light-v .sash_mark-rehau {
   fill: none;
-  stroke: #37A58C;
   stroke-width: 6;
 }
 
-/* line 71, ../../dev/sass/parts/_svg.scss */
+/* line 73, ../../dev/sass/parts/_svg.scss */
 .corner_mark {
   stroke: none;
   cursor: pointer;
 }
 
-/* line 76, ../../dev/sass/parts/_svg.scss */
+/* line 78, ../../dev/sass/parts/_svg.scss */
 .handle-mark, .hinge-mark {
   fill: #f9f9f9;
   stroke: #817D7D;
   stroke-width: .7;
 }
 
-/* line 81, ../../dev/sass/parts/_svg.scss */
+/* line 83, ../../dev/sass/parts/_svg.scss */
 .hinge-mark {
   stroke-width: .3;
 }
 
-/* line 85, ../../dev/sass/parts/_svg.scss */
+/* line 87, ../../dev/sass/parts/_svg.scss */
 .error_glass {
   fill: #f74f2e;
 }
 
-/* line 89, ../../dev/sass/parts/_svg.scss */
+/* line 91, ../../dev/sass/parts/_svg.scss */
 .dim_blockX, .dim_blockY {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -2462,7 +2460,7 @@ div.drum figure {
   transition: all 0.5s linear;
 }
 
-/* line 92, ../../dev/sass/parts/_svg.scss */
+/* line 94, ../../dev/sass/parts/_svg.scss */
 .dim_shiftX {
   -moz-transform: translate(0, -150px);
   -ms-transform: translate(0, -150px);
@@ -2470,7 +2468,7 @@ div.drum figure {
   transform: translate(0, -150px);
 }
 
-/* line 95, ../../dev/sass/parts/_svg.scss */
+/* line 97, ../../dev/sass/parts/_svg.scss */
 .dim_shiftY {
   -moz-transform: translate(-200px, 0);
   -ms-transform: translate(-200px, 0);
@@ -2478,7 +2476,7 @@ div.drum figure {
   transform: translate(-200px, 0);
 }
 
-/* line 99, ../../dev/sass/parts/_svg.scss */
+/* line 101, ../../dev/sass/parts/_svg.scss */
 .dim_block {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -2488,20 +2486,20 @@ div.drum figure {
   visibility: visible;
 }
 
-/* line 104, ../../dev/sass/parts/_svg.scss */
+/* line 106, ../../dev/sass/parts/_svg.scss */
 .dim_hidden {
   opacity: 0;
   visibility: hidden;
 }
 
-/* line 109, ../../dev/sass/parts/_svg.scss */
+/* line 111, ../../dev/sass/parts/_svg.scss */
 .size-line {
   fill: none;
   stroke: #000;
   stroke-width: 1;
 }
 
-/* line 115, ../../dev/sass/parts/_svg.scss */
+/* line 117, ../../dev/sass/parts/_svg.scss */
 .size-rect {
   width: 160px;
   height: 70px;
@@ -2511,13 +2509,13 @@ div.drum figure {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 123, ../../dev/sass/parts/_svg.scss */
+/* line 125, ../../dev/sass/parts/_svg.scss */
 .size-rect.active {
   fill: #6ed44a;
   fill-opacity: 1;
 }
 
-/* line 128, ../../dev/sass/parts/_svg.scss */
+/* line 130, ../../dev/sass/parts/_svg.scss */
 .size-txt, .size-txt-edit, .glass-txt, .light-v .size-txt-edit, .light-v .size-txt-edit-rehau, .mobile .main-view .size-txt-edit,
 .mobile svg-template .size-txt-edit,
 .mobile .svg-template .size-txt-edit {
@@ -2529,29 +2527,29 @@ div.drum figure {
   cursor: pointer;
 }
 
-/* line 136, ../../dev/sass/parts/_svg.scss */
+/* line 138, ../../dev/sass/parts/_svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 141, ../../dev/sass/parts/_svg.scss */
+/* line 143, ../../dev/sass/parts/_svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 147, ../../dev/sass/parts/_svg.scss */
+/* line 149, ../../dev/sass/parts/_svg.scss */
 .glass-txt {
   font-size: 7rem;
 }
 
-/* line 154, ../../dev/sass/parts/_svg.scss */
+/* line 156, ../../dev/sass/parts/_svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 158, ../../dev/sass/parts/_svg.scss */
+/* line 160, ../../dev/sass/parts/_svg.scss */
 .main-line {
   fill: #363636;
 }
@@ -17213,8 +17211,244 @@ input[type='number'] {
   color: white;
   font: normal 35px/1.42857 roboto-bold, sans-serif, icons;
 }
+/* line 161, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+  padding-top: 15px;
+}
+/* line 172, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: 95%;
+  height: auto;
+  margin-bottom: 20px;
+}
+/* line 181, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .folder-img {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  padding: 5px;
+}
+/* line 189, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .folder-img img {
+  display: inline-flex;
+  height: 400px;
+  min-width: 729px;
+  object-fit: contain;
+}
+/* line 196, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .button, .glass-container .glass-container-rehau .glass-block .ghost-button, .glass-container .glass-container-rehau .glass-block .aux-choose-but, .glass-container .glass-container-rehau .glass-block .parameters-block .aux-params-but, .parameters-block .glass-container .glass-container-rehau .glass-block .aux-params-but, .glass-container .glass-container-rehau .glass-block .elements-list-container .aux-params-but, .elements-list-container .glass-container .glass-container-rehau .glass-block .aux-params-but, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .aux-params-but, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .aux-params-but, .glass-container .glass-container-rehau .glass-block .additional-list-container .aux-list-content .aux-params-but, .additional-list-container .aux-list-content .glass-container .glass-container-rehau .glass-block .aux-params-but, .glass-container .glass-container-rehau .glass-block .cart-page .alladdelements-block .aux-params-but, .cart-page .alladdelements-block .glass-container .glass-container-rehau .glass-block .aux-params-but, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-only .aux-params-but, .cart-page .addelementunit-only .glass-container .glass-container-rehau .glass-block .aux-params-but, .glass-container .glass-container-rehau .glass-block .nav-menu .new-calc, .nav-menu .glass-container .glass-container-rehau .glass-block .new-calc, .glass-container .glass-container-rehau .glass-block .cart-menu .measure-btn, .cart-menu .glass-container .glass-container-rehau .glass-block .measure-btn, .glass-container .glass-container-rehau .glass-block .big-button, .glass-container .glass-container-rehau .glass-block .orange-big-btn, .glass-container .glass-container-rehau .glass-block .menu-right-general .cart-btn, .menu-right-general .glass-container .glass-container-rehau .glass-block .cart-btn, .glass-container .glass-container-rehau .glass-block .order-path .cart-btn, .order-path .glass-container .glass-container-rehau .glass-block .cart-btn, .glass-container .glass-container-rehau .glass-block .config-menu .cart-btn, .config-menu .glass-container .glass-container-rehau .glass-block .cart-btn, .glass-container .glass-container-rehau .glass-block .elements-menu .cart-btn, .elements-menu .glass-container .glass-container-rehau .glass-block .cart-btn, .glass-container .glass-container-rehau .glass-block .cart-menu .cart-btn, .cart-menu .glass-container .glass-container-rehau .glass-block .cart-btn, .glass-container .glass-container-rehau .glass-block .old-price-tab .cart-btn, .old-price-tab .glass-container .glass-container-rehau .glass-block .cart-btn, .glass-container .glass-container-rehau .glass-block .old-price-inst-tab .cart-btn, .old-price-inst-tab .glass-container .glass-container-rehau .glass-block .cart-btn, .glass-container .glass-container-rehau .glass-block .cart-menu .order-btn, .cart-menu .glass-container .glass-container-rehau .glass-block .order-btn, .glass-container .glass-container-rehau .glass-block .login-submit, .glass-container .glass-container-rehau .glass-block .middle-button, .glass-container .glass-container-rehau .glass-block .alert-btns button, .alert-btns .glass-container .glass-container-rehau .glass-block button, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-btn, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-btn, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-btn, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-btn, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-save-btn, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-save-btn, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn, .glass-container .glass-container-rehau .glass-block .settings .save, .settings .glass-container .glass-container-rehau .glass-block .save, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-all-btn, .glass-container .glass-container-rehau .glass-block .search-block .cancel-search, .search-block .glass-container .glass-container-rehau .glass-block .cancel-search, .glass-container .glass-container-rehau .glass-block .cart-dialogs-container .save, .cart-dialogs-container .glass-container .glass-container-rehau .glass-block .save, .glass-container .glass-container-rehau .glass-block .cart-page .cart-tool, .cart-page .glass-container .glass-container-rehau .glass-block .cart-tool,
+.glass-container .glass-container-rehau .glass-block .light-v .cart-tool,
+.light-v .glass-container .glass-container-rehau .glass-block .cart-tool, .glass-container .glass-container-rehau .glass-block .construction-left-menu .project-default, .construction-left-menu .glass-container .glass-container-rehau .glass-block .project-default, .glass-container .glass-container-rehau .glass-block .small-button, .glass-container .glass-container-rehau .glass-block .cart-page .order-tool, .cart-page .glass-container .glass-container-rehau .glass-block .order-tool,
+.glass-container .glass-container-rehau .glass-block .light-v .order-tool,
+.light-v .glass-container .glass-container-rehau .glass-block .order-tool, .glass-container .glass-container-rehau .glass-block .menu-btn, .glass-container .glass-container-rehau .glass-block .user-info-container .nav-menu-btn, .user-info-container .glass-container .glass-container-rehau .glass-block .nav-menu-btn, .glass-container .glass-container-rehau .glass-block .setting-page .back, .setting-page .glass-container .glass-container-rehau .glass-block .back, .glass-container .glass-container-rehau .glass-block .setting-back, .glass-container .glass-container-rehau .glass-block .cross-btn, .glass-container .glass-container-rehau .glass-block .small-cross-btn, .glass-container .glass-container-rehau .glass-block .close-dialog, .glass-container .glass-container-rehau .glass-block .aux-delete, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-delete, .cart-page .glass-container .glass-container-rehau .glass-block .addelementunit-delete, .glass-container .glass-container-rehau .glass-block .report-container .close_report, .report-container .glass-container .glass-container-rehau .glass-block .close_report, .glass-container .glass-container-rehau .glass-block .close-danger-alert, .glass-container .glass-container-rehau .glass-block .accounts-container .account-delete-btn, .accounts-container .glass-container .glass-container-rehau .glass-block .account-delete-btn, .glass-container .glass-container-rehau .glass-block .cart-page .order-delete, .cart-page .glass-container .glass-container-rehau .glass-block .order-delete,
+.glass-container .glass-container-rehau .glass-block .light-v .order-delete,
+.light-v .glass-container .glass-container-rehau .glass-block .order-delete, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .close-cur-window, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .close-cur-window, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .edit-cur-window, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .edit-cur-window, .glass-container .glass-container-rehau .glass-block .light-v .close-cur-window, .light-v .glass-container .glass-container-rehau .glass-block .close-cur-window, .glass-container .glass-container-rehau .glass-block .light-v .edit-cur-window, .light-v .glass-container .glass-container-rehau .glass-block .edit-cur-window, .glass-container .glass-container-rehau .glass-block .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .menu_tooltip .glass-container .glass-container-rehau .glass-block .close_menu_tooltip, .glass-container .glass-container-rehau .glass-block .save-m, .glass-container .glass-container-rehau .glass-block .close-m, .glass-container .glass-container-rehau .glass-block .construct-tools, .glass-container .glass-container-rehau .glass-block .elements-menu .close-elements-menu, .elements-menu .glass-container .glass-container-rehau .glass-block .close-elements-menu, .glass-container .glass-container-rehau .glass-block .view-switch-tab, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-btn, .glass-container .glass-container-rehau .glass-block .aux-search-content .group-indicator, .aux-search-content .glass-container .glass-container-rehau .glass-block .group-indicator, .glass-container .glass-container-rehau .glass-block .setting-container .phone-btn, .setting-container .glass-container .glass-container-rehau .glass-block .phone-btn, .glass-container .glass-container-rehau .glass-block .accounts-container .tool, .accounts-container .glass-container .glass-container-rehau .glass-block .tool, .glass-container .glass-container-rehau .glass-block .accounts-container .account-tool, .accounts-container .glass-container .glass-container-rehau .glass-block .account-tool, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-edit, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-edit,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close, .glass-container .glass-container-rehau .glass-block .door-config-btn, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab, .glass-container .glass-container-rehau .glass-block .calculator .cell, .calculator .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements {
+  height: 65px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #37A58C;
+  box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
+  z-index: 1;
+}
+/* line 205, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .button .title, .glass-container .glass-container-rehau .glass-block .ghost-button .title, .glass-container .glass-container-rehau .glass-block .aux-choose-but .title, .glass-container .glass-container-rehau .glass-block .parameters-block .aux-params-but .title, .parameters-block .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .elements-list-container .aux-params-but .title, .elements-list-container .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .aux-params-but .title, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .additional-list-container .aux-list-content .aux-params-but .title, .additional-list-container .aux-list-content .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .cart-page .alladdelements-block .aux-params-but .title, .cart-page .alladdelements-block .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-only .aux-params-but .title, .cart-page .addelementunit-only .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .nav-menu .new-calc .title, .nav-menu .glass-container .glass-container-rehau .glass-block .new-calc .title, .glass-container .glass-container-rehau .glass-block .cart-menu .measure-btn .title, .cart-menu .glass-container .glass-container-rehau .glass-block .measure-btn .title, .glass-container .glass-container-rehau .glass-block .big-button .title, .glass-container .glass-container-rehau .glass-block .orange-big-btn .title, .glass-container .glass-container-rehau .glass-block .menu-right-general .cart-btn .title, .menu-right-general .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .order-path .cart-btn .title, .order-path .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .config-menu .cart-btn .title, .config-menu .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .elements-menu .cart-btn .title, .elements-menu .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .cart-menu .cart-btn .title, .cart-menu .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .old-price-tab .cart-btn .title, .old-price-tab .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .old-price-inst-tab .cart-btn .title, .old-price-inst-tab .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .cart-menu .order-btn .title, .cart-menu .glass-container .glass-container-rehau .glass-block .order-btn .title, .glass-container .glass-container-rehau .glass-block .login-submit .title, .glass-container .glass-container-rehau .glass-block .middle-button .title, .glass-container .glass-container-rehau .glass-block .alert-btns button .title, .alert-btns .glass-container .glass-container-rehau .glass-block button .title, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-btn .title, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .title, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-btn .title, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .title, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .title, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .title, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .title, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .title, .glass-container .glass-container-rehau .glass-block .settings .save .title, .settings .glass-container .glass-container-rehau .glass-block .save .title, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-all-btn .title, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-all-btn .title, .glass-container .glass-container-rehau .glass-block .search-block .cancel-search .title, .search-block .glass-container .glass-container-rehau .glass-block .cancel-search .title, .glass-container .glass-container-rehau .glass-block .cart-dialogs-container .save .title, .cart-dialogs-container .glass-container .glass-container-rehau .glass-block .save .title, .glass-container .glass-container-rehau .glass-block .cart-page .cart-tool .title, .cart-page .glass-container .glass-container-rehau .glass-block .cart-tool .title,
+.glass-container .glass-container-rehau .glass-block .light-v .cart-tool .title,
+.light-v .glass-container .glass-container-rehau .glass-block .cart-tool .title, .glass-container .glass-container-rehau .glass-block .construction-left-menu .project-default .title, .construction-left-menu .glass-container .glass-container-rehau .glass-block .project-default .title, .glass-container .glass-container-rehau .glass-block .small-button .title, .glass-container .glass-container-rehau .glass-block .cart-page .order-tool .title, .cart-page .glass-container .glass-container-rehau .glass-block .order-tool .title,
+.glass-container .glass-container-rehau .glass-block .light-v .order-tool .title,
+.light-v .glass-container .glass-container-rehau .glass-block .order-tool .title, .glass-container .glass-container-rehau .glass-block .menu-btn .title, .glass-container .glass-container-rehau .glass-block .user-info-container .nav-menu-btn .title, .user-info-container .glass-container .glass-container-rehau .glass-block .nav-menu-btn .title, .glass-container .glass-container-rehau .glass-block .setting-page .back .title, .setting-page .glass-container .glass-container-rehau .glass-block .back .title, .glass-container .glass-container-rehau .glass-block .setting-back .title, .glass-container .glass-container-rehau .glass-block .cross-btn .title, .glass-container .glass-container-rehau .glass-block .small-cross-btn .title, .glass-container .glass-container-rehau .glass-block .close-dialog .title, .glass-container .glass-container-rehau .glass-block .aux-delete .title, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-delete .title, .cart-page .glass-container .glass-container-rehau .glass-block .addelementunit-delete .title, .glass-container .glass-container-rehau .glass-block .report-container .close_report .title, .report-container .glass-container .glass-container-rehau .glass-block .close_report .title, .glass-container .glass-container-rehau .glass-block .close-danger-alert .title, .glass-container .glass-container-rehau .glass-block .accounts-container .account-delete-btn .title, .accounts-container .glass-container .glass-container-rehau .glass-block .account-delete-btn .title, .glass-container .glass-container-rehau .glass-block .cart-page .order-delete .title, .cart-page .glass-container .glass-container-rehau .glass-block .order-delete .title,
+.glass-container .glass-container-rehau .glass-block .light-v .order-delete .title,
+.light-v .glass-container .glass-container-rehau .glass-block .order-delete .title, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .close-cur-window .title, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .close-cur-window .title, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .edit-cur-window .title, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .edit-cur-window .title, .glass-container .glass-container-rehau .glass-block .light-v .close-cur-window .title, .light-v .glass-container .glass-container-rehau .glass-block .close-cur-window .title, .glass-container .glass-container-rehau .glass-block .light-v .edit-cur-window .title, .light-v .glass-container .glass-container-rehau .glass-block .edit-cur-window .title, .glass-container .glass-container-rehau .glass-block .config-menu .menu_tooltip .close_menu_tooltip .title, .config-menu .menu_tooltip .glass-container .glass-container-rehau .glass-block .close_menu_tooltip .title, .glass-container .glass-container-rehau .glass-block .save-m .title, .glass-container .glass-container-rehau .glass-block .close-m .title, .glass-container .glass-container-rehau .glass-block .construct-tools .title, .glass-container .glass-container-rehau .glass-block .elements-menu .close-elements-menu .title, .elements-menu .glass-container .glass-container-rehau .glass-block .close-elements-menu .title, .glass-container .glass-container-rehau .glass-block .view-switch-tab .title, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-btn .title, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-btn .title, .glass-container .glass-container-rehau .glass-block .aux-search-content .group-indicator .title, .aux-search-content .glass-container .glass-container-rehau .glass-block .group-indicator .title, .glass-container .glass-container-rehau .glass-block .setting-container .phone-btn .title, .setting-container .glass-container .glass-container-rehau .glass-block .phone-btn .title, .glass-container .glass-container-rehau .glass-block .accounts-container .tool .title, .accounts-container .glass-container .glass-container-rehau .glass-block .tool .title, .glass-container .glass-container-rehau .glass-block .accounts-container .account-tool .title, .accounts-container .glass-container .glass-container-rehau .glass-block .account-tool .title, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-edit .title, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .title,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit .title,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .title, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close .title, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close .title,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close .title,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .title, .glass-container .glass-container-rehau .glass-block .door-config-btn .title, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .title, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .title, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .title, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .title, .glass-container .glass-container-rehau .glass-block .calculator .cell .title, .calculator .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .title, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .title, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .title, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .title, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .title, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .title, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .title, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .title, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .title, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .title, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 114px);
+  color: white;
+  font: normal 25px/1.42857 roboto-bold, sans-serif, icons;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: pre-wrap;
+}
+/* line 216, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .button .arrow, .glass-container .glass-container-rehau .glass-block .ghost-button .arrow, .glass-container .glass-container-rehau .glass-block .aux-choose-but .arrow, .glass-container .glass-container-rehau .glass-block .parameters-block .aux-params-but .arrow, .parameters-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .elements-list-container .aux-params-but .arrow, .elements-list-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .aux-params-but .arrow, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .additional-list-container .aux-list-content .aux-params-but .arrow, .additional-list-container .aux-list-content .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .alladdelements-block .aux-params-but .arrow, .cart-page .alladdelements-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-only .aux-params-but .arrow, .cart-page .addelementunit-only .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .nav-menu .new-calc .arrow, .nav-menu .glass-container .glass-container-rehau .glass-block .new-calc .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu .measure-btn .arrow, .cart-menu .glass-container .glass-container-rehau .glass-block .measure-btn .arrow, .glass-container .glass-container-rehau .glass-block .big-button .arrow, .glass-container .glass-container-rehau .glass-block .orange-big-btn .arrow, .glass-container .glass-container-rehau .glass-block .menu-right-general .cart-btn .arrow, .menu-right-general .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .order-path .cart-btn .arrow, .order-path .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .config-menu .cart-btn .arrow, .config-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .elements-menu .cart-btn .arrow, .elements-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu .cart-btn .arrow, .cart-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .old-price-tab .cart-btn .arrow, .old-price-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .old-price-inst-tab .cart-btn .arrow, .old-price-inst-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu .order-btn .arrow, .cart-menu .glass-container .glass-container-rehau .glass-block .order-btn .arrow, .glass-container .glass-container-rehau .glass-block .login-submit .arrow, .glass-container .glass-container-rehau .glass-block .middle-button .arrow, .glass-container .glass-container-rehau .glass-block .alert-btns button .arrow, .alert-btns .glass-container .glass-container-rehau .glass-block button .arrow, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-btn .arrow, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-btn .arrow, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .arrow, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .arrow, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow, .glass-container .glass-container-rehau .glass-block .settings .save .arrow, .settings .glass-container .glass-container-rehau .glass-block .save .arrow, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-all-btn .arrow, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-all-btn .arrow, .glass-container .glass-container-rehau .glass-block .search-block .cancel-search .arrow, .search-block .glass-container .glass-container-rehau .glass-block .cancel-search .arrow, .glass-container .glass-container-rehau .glass-block .cart-dialogs-container .save .arrow, .cart-dialogs-container .glass-container .glass-container-rehau .glass-block .save .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .cart-tool .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .cart-tool .arrow,
+.glass-container .glass-container-rehau .glass-block .light-v .cart-tool .arrow,
+.light-v .glass-container .glass-container-rehau .glass-block .cart-tool .arrow, .glass-container .glass-container-rehau .glass-block .construction-left-menu .project-default .arrow, .construction-left-menu .glass-container .glass-container-rehau .glass-block .project-default .arrow, .glass-container .glass-container-rehau .glass-block .small-button .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .order-tool .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .order-tool .arrow,
+.glass-container .glass-container-rehau .glass-block .light-v .order-tool .arrow,
+.light-v .glass-container .glass-container-rehau .glass-block .order-tool .arrow, .glass-container .glass-container-rehau .glass-block .menu-btn .arrow, .glass-container .glass-container-rehau .glass-block .user-info-container .nav-menu-btn .arrow, .user-info-container .glass-container .glass-container-rehau .glass-block .nav-menu-btn .arrow, .glass-container .glass-container-rehau .glass-block .setting-page .back .arrow, .setting-page .glass-container .glass-container-rehau .glass-block .back .arrow, .glass-container .glass-container-rehau .glass-block .setting-back .arrow, .glass-container .glass-container-rehau .glass-block .cross-btn .arrow, .glass-container .glass-container-rehau .glass-block .small-cross-btn .arrow, .glass-container .glass-container-rehau .glass-block .close-dialog .arrow, .glass-container .glass-container-rehau .glass-block .aux-delete .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-delete .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .addelementunit-delete .arrow, .glass-container .glass-container-rehau .glass-block .report-container .close_report .arrow, .report-container .glass-container .glass-container-rehau .glass-block .close_report .arrow, .glass-container .glass-container-rehau .glass-block .close-danger-alert .arrow, .glass-container .glass-container-rehau .glass-block .accounts-container .account-delete-btn .arrow, .accounts-container .glass-container .glass-container-rehau .glass-block .account-delete-btn .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .order-delete .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .order-delete .arrow,
+.glass-container .glass-container-rehau .glass-block .light-v .order-delete .arrow,
+.light-v .glass-container .glass-container-rehau .glass-block .order-delete .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .close-cur-window .arrow, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .close-cur-window .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .edit-cur-window .arrow, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .edit-cur-window .arrow, .glass-container .glass-container-rehau .glass-block .light-v .close-cur-window .arrow, .light-v .glass-container .glass-container-rehau .glass-block .close-cur-window .arrow, .glass-container .glass-container-rehau .glass-block .light-v .edit-cur-window .arrow, .light-v .glass-container .glass-container-rehau .glass-block .edit-cur-window .arrow, .glass-container .glass-container-rehau .glass-block .config-menu .menu_tooltip .close_menu_tooltip .arrow, .config-menu .menu_tooltip .glass-container .glass-container-rehau .glass-block .close_menu_tooltip .arrow, .glass-container .glass-container-rehau .glass-block .save-m .arrow, .glass-container .glass-container-rehau .glass-block .close-m .arrow, .glass-container .glass-container-rehau .glass-block .construct-tools .arrow, .glass-container .glass-container-rehau .glass-block .elements-menu .close-elements-menu .arrow, .elements-menu .glass-container .glass-container-rehau .glass-block .close-elements-menu .arrow, .glass-container .glass-container-rehau .glass-block .view-switch-tab .arrow, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-btn .arrow, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-btn .arrow, .glass-container .glass-container-rehau .glass-block .aux-search-content .group-indicator .arrow, .aux-search-content .glass-container .glass-container-rehau .glass-block .group-indicator .arrow, .glass-container .glass-container-rehau .glass-block .setting-container .phone-btn .arrow, .setting-container .glass-container .glass-container-rehau .glass-block .phone-btn .arrow, .glass-container .glass-container-rehau .glass-block .accounts-container .tool .arrow, .accounts-container .glass-container .glass-container-rehau .glass-block .tool .arrow, .glass-container .glass-container-rehau .glass-block .accounts-container .account-tool .arrow, .accounts-container .glass-container .glass-container-rehau .glass-block .account-tool .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-edit .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .arrow,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit .arrow,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close .arrow,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow, .glass-container .glass-container-rehau .glass-block .door-config-btn .arrow, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .arrow, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .arrow, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .arrow, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .arrow, .glass-container .glass-container-rehau .glass-block .calculator .cell .arrow, .calculator .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .arrow, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .arrow, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .arrow, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .arrow, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .arrow, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .arrow, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .arrow, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .arrow, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  background: url("../../img/calc/right-arrow-white.svg");
+  background-repeat: no-repeat;
+  transform: rotate(180deg);
+  background-size: contain;
+  transition: 0.5s;
+  margin: 12px;
+}
+/* line 228, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .button .arrow.active, .glass-container .glass-container-rehau .glass-block .ghost-button .arrow.active, .glass-container .glass-container-rehau .glass-block .aux-choose-but .arrow.active, .glass-container .glass-container-rehau .glass-block .parameters-block .aux-params-but .arrow.active, .parameters-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-list-container .aux-params-but .arrow.active, .elements-list-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .aux-params-but .arrow.active, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .additional-list-container .aux-list-content .aux-params-but .arrow.active, .additional-list-container .aux-list-content .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .alladdelements-block .aux-params-but .arrow.active, .cart-page .alladdelements-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-only .aux-params-but .arrow.active, .cart-page .addelementunit-only .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .nav-menu .new-calc .arrow.active, .nav-menu .glass-container .glass-container-rehau .glass-block .new-calc .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu .measure-btn .arrow.active, .cart-menu .glass-container .glass-container-rehau .glass-block .measure-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .big-button .arrow.active, .glass-container .glass-container-rehau .glass-block .orange-big-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .menu-right-general .cart-btn .arrow.active, .menu-right-general .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .order-path .cart-btn .arrow.active, .order-path .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .config-menu .cart-btn .arrow.active, .config-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-menu .cart-btn .arrow.active, .elements-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu .cart-btn .arrow.active, .cart-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .old-price-tab .cart-btn .arrow.active, .old-price-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .old-price-inst-tab .cart-btn .arrow.active, .old-price-inst-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu .order-btn .arrow.active, .cart-menu .glass-container .glass-container-rehau .glass-block .order-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .login-submit .arrow.active, .glass-container .glass-container-rehau .glass-block .middle-button .arrow.active, .glass-container .glass-container-rehau .glass-block .alert-btns button .arrow.active, .alert-btns .glass-container .glass-container-rehau .glass-block button .arrow.active, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-btn .arrow.active, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-btn .arrow.active, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .arrow.active, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .arrow.active, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .settings .save .arrow.active, .settings .glass-container .glass-container-rehau .glass-block .save .arrow.active, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-all-btn .arrow.active, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-all-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .search-block .cancel-search .arrow.active, .search-block .glass-container .glass-container-rehau .glass-block .cancel-search .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-dialogs-container .save .arrow.active, .cart-dialogs-container .glass-container .glass-container-rehau .glass-block .save .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .cart-tool .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .cart-tool .arrow.active,
+.glass-container .glass-container-rehau .glass-block .light-v .cart-tool .arrow.active,
+.light-v .glass-container .glass-container-rehau .glass-block .cart-tool .arrow.active, .glass-container .glass-container-rehau .glass-block .construction-left-menu .project-default .arrow.active, .construction-left-menu .glass-container .glass-container-rehau .glass-block .project-default .arrow.active, .glass-container .glass-container-rehau .glass-block .small-button .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .order-tool .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .order-tool .arrow.active,
+.glass-container .glass-container-rehau .glass-block .light-v .order-tool .arrow.active,
+.light-v .glass-container .glass-container-rehau .glass-block .order-tool .arrow.active, .glass-container .glass-container-rehau .glass-block .menu-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .user-info-container .nav-menu-btn .arrow.active, .user-info-container .glass-container .glass-container-rehau .glass-block .nav-menu-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .setting-page .back .arrow.active, .setting-page .glass-container .glass-container-rehau .glass-block .back .arrow.active, .glass-container .glass-container-rehau .glass-block .setting-back .arrow.active, .glass-container .glass-container-rehau .glass-block .cross-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .small-cross-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .close-dialog .arrow.active, .glass-container .glass-container-rehau .glass-block .aux-delete .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-delete .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .addelementunit-delete .arrow.active, .glass-container .glass-container-rehau .glass-block .report-container .close_report .arrow.active, .report-container .glass-container .glass-container-rehau .glass-block .close_report .arrow.active, .glass-container .glass-container-rehau .glass-block .close-danger-alert .arrow.active, .glass-container .glass-container-rehau .glass-block .accounts-container .account-delete-btn .arrow.active, .accounts-container .glass-container .glass-container-rehau .glass-block .account-delete-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .order-delete .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .order-delete .arrow.active,
+.glass-container .glass-container-rehau .glass-block .light-v .order-delete .arrow.active,
+.light-v .glass-container .glass-container-rehau .glass-block .order-delete .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .close-cur-window .arrow.active, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .close-cur-window .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .full-view .edit-cur-window .arrow.active, .cart-page .full-view .glass-container .glass-container-rehau .glass-block .edit-cur-window .arrow.active, .glass-container .glass-container-rehau .glass-block .light-v .close-cur-window .arrow.active, .light-v .glass-container .glass-container-rehau .glass-block .close-cur-window .arrow.active, .glass-container .glass-container-rehau .glass-block .light-v .edit-cur-window .arrow.active, .light-v .glass-container .glass-container-rehau .glass-block .edit-cur-window .arrow.active, .glass-container .glass-container-rehau .glass-block .config-menu .menu_tooltip .close_menu_tooltip .arrow.active, .config-menu .menu_tooltip .glass-container .glass-container-rehau .glass-block .close_menu_tooltip .arrow.active, .glass-container .glass-container-rehau .glass-block .save-m .arrow.active, .glass-container .glass-container-rehau .glass-block .close-m .arrow.active, .glass-container .glass-container-rehau .glass-block .construct-tools .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-menu .close-elements-menu .arrow.active, .elements-menu .glass-container .glass-container-rehau .glass-block .close-elements-menu .arrow.active, .glass-container .glass-container-rehau .glass-block .view-switch-tab .arrow.active, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-btn .arrow.active, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .aux-search-content .group-indicator .arrow.active, .aux-search-content .glass-container .glass-container-rehau .glass-block .group-indicator .arrow.active, .glass-container .glass-container-rehau .glass-block .setting-container .phone-btn .arrow.active, .setting-container .glass-container .glass-container-rehau .glass-block .phone-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .accounts-container .tool .arrow.active, .accounts-container .glass-container .glass-container-rehau .glass-block .tool .arrow.active, .glass-container .glass-container-rehau .glass-block .accounts-container .account-tool .arrow.active, .accounts-container .glass-container .glass-container-rehau .glass-block .account-tool .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-edit .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .arrow.active,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit .arrow.active,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow.active,
+.glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close .arrow.active,
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow.active, .glass-container .glass-container-rehau .glass-block .door-config-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .arrow.active, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .arrow.active, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .arrow.active, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .cell .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .arrow.active, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .arrow.active, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .arrow.active, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .arrow.active, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .arrow.active {
+  transform: rotate(360deg);
+  transition: 0.5s;
+}
+/* line 235, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder {
+  padding: 10px 10px 0 10px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: white;
+  box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
+  cursor: pointer;
+}
+/* line 244, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
+}
+/* line 252, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-warm {
+  color: black;
+  font-size: 17px;
+}
+/* line 256, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-noise {
+  color: black;
+  font-size: 17px;
+}
+/* line 260, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-width {
+  color: black;
+  font-size: 17px;
+}
+/* line 264, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-title {
+  color: black;
+  font-size: 17px;
+}
+/* line 269, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .item-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 40px;
+  flex: 0 0 auto;
+}
+/* line 277, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected {
+  width: 103%;
+  background-color: #DD0060;
+}
+/* line 280, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-warm {
+  color: white;
+}
+/* line 283, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-noise {
+  color: white;
+}
+/* line 286, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-width {
+  color: white;
+}
+/* line 289, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-title {
+  color: white;
+}
+/* line 295, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info {
+  width: 103%;
+  height: 40px;
+  margin-top: -10px;
+  background-color: gray;
+}
+/* line 301, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info .glass-main-info-block {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 10px 10px;
+}
+/* line 306, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info .glass-main-info-block h4 {
+  align-items: center;
+  align-self: center;
+  font-size: 14px;
+  color: white;
+  margin: 0 0 0 0;
+}
+/* line 316, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .info {
+  display: none;
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 45px;
+  width: 50px;
+  height: 50px;
+  background: gray;
+}
+/* line 326, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .info:before {
+  content: '';
+}
+/* line 329, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .info label {
+  color: white;
+  font: normal 35px/1.42857 roboto-bold, sans-serif, icons;
+  cursor: pointer;
+}
 
-/* line 163, ../../dev/sass/panels/glass.scss */
+/* line 339, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
@@ -17224,13 +17458,13 @@ input[type='number'] {
   z-index: 12;
   text-align: center;
 }
-/* line 171, ../../dev/sass/panels/glass.scss */
+/* line 347, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .dialog-inner {
   height: 90%;
   width: 100%;
   text-align: center;
 }
-/* line 176, ../../dev/sass/panels/glass.scss */
+/* line 352, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .set-glass-btn {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   position: absolute;

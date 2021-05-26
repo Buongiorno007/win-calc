@@ -337,7 +337,7 @@
       </div>
       <div ng-if="mainPage.G.global.activePanel == 3" class="panel-inner">
         <div ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}" class="config-panel glass-container">
-          <div class="glass-container">
+          <div ng-if="glassPanel.U.userInfo.factory_id !== 2" class="glass-container">
             <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
               <div ng-click="glassPanel.OpenGlassFolder($index)" class="folder-img"><img ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" id="anchor{{$index}}"></div>
               <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="button">
@@ -393,6 +393,55 @@
                     <label>i</label>
                   </div>
                   <div ng-if="!(glass.img.length &amp;&amp; glass.description.en)" class="blank-div"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
+            <div class="dialog-inner">
+              <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="glassPanel.constants.SVG_ID_GLASS"></svg-template>
+            </div>
+            <div fs-click="glassPanel.confirmGlass()" class="set-glass-btn">{{glassPanel.APPLY}}</div>
+            <div fs-click="glassPanel.closeGlassSelectorDialog(1)" class="close-dialog"></div>
+          </div>
+          <div ng-if="glassPanel.G.global.showGlassSelectorDialog" class="backDarkView"></div>
+        </div>
+        <div ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}" class="config-panel glass-container">
+          <div ng-if="glassPanel.U.userInfo.factory_id === 2" class="glass-container-rehau">
+            <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
+              <div ng-click="glassPanel.OpenGlassFolder($index)" class="folder-img"><img ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" id="anchor{{$index}}"></div>
+              <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="button">
+                <div ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info folder-info">
+                  <label>i</label>
+                </div>
+                <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
+                <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
+              </div>
+              <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
+                <div class="glass-main-info">
+                  <div class="glass-main-info-block">
+                    <h4>Теплопроводимость</h4>
+                    <h4>Шумоизоляция</h4>
+                    <h4>Ширина </h4>
+                    <h4>Формула стеклопакета </h4>
+                  </div>
+                </div>
+                <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="glass-item">
+                  <div class="glass-warm">
+                    <label>{{glass.transcalency}} м2*С/Вт</label>
+                  </div>
+                  <div class="glass-noise"> 
+                    <label>{{glass.noise_coeff}} Дб</label>
+                  </div>
+                  <div class="glass-width">
+                    <label>{{glass.glass_width}} {{glassPanel.MM}}</label>
+                  </div>
+                  <div class="glass-title">
+                    <label>{{glass.sku}}</label>
+                    <div ng-if="glass.img.length &amp;&amp; glass.description.en" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info item-info">
+                      <label>i</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

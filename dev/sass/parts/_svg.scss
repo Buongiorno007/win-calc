@@ -57,13 +57,15 @@
 // rehau styles
 .sash_mark-rehau {
   fill: none;
-  stroke: $main_orange;
+  // Color for window triangles
+  //stroke: $main_orange;
   stroke-width: 6;
 }
 .light-v {
   .sash_mark-rehau {
     fill: none;
-    stroke: $primary_green;
+    // Color for window triangles
+    //stroke: $primary_green;
     stroke-width: 6;
   }
 }

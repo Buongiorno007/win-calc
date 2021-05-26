@@ -155,9 +155,185 @@
         }
       }
     }
-
   }
 
+  //rehau styles
+  .glass-container-rehau {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+    padding-top: 15px;
+    .glass-block {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      flex-direction: column;
+      flex : 0 0 auto;
+      width: 95%;
+      height: auto;
+      margin-bottom: 20px;
+      .folder-img {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+        padding: 5px;
+        img {
+          display: inline-flex;
+          height: 400px;
+          min-width: 729px;
+          object-fit: contain;
+        }
+      }
+      .button {
+        height: 65px;
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: $primary_green;
+        box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
+        z-index: 1;
+        .title {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: calc(100% - 114px);
+          color: white;
+          @include roboto-bd(25px);
+          text-transform: uppercase;
+          text-align: center;
+          white-space: pre-wrap;
+        }
+        .arrow{
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 25px;
+          height: 25px;
+          background: url("../../img/calc/right-arrow-white.svg");
+          background-repeat: no-repeat;
+          transform: rotate(180deg);
+          background-size: contain;
+          transition: 0.5s;
+          margin: 12px;
+          &.active {
+            transform: rotate(360deg);
+            transition: 0.5s;
+          }
+        }
+
+      }
+      .glass-folder {
+        padding: 10px 10px 0 10px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: white;
+        box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
+        cursor: pointer;
+        .glass-item {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          height: 50px;
+          align-items: center;
+          padding: 10px 10px 10px 10px;
+
+          .glass-warm {
+            color: black;
+            font-size: 17px;
+          }
+          .glass-noise {
+            color: black;
+            font-size: 17px;
+          }
+          .glass-width{
+            color: black;
+            font-size: 17px;
+          }
+          .glass-title{
+            color: black;
+            font-size: 17px;
+          }
+
+          .item-info{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 40px;
+            flex : 0 0 auto;
+          }
+          &.selected {
+            width: 103%;
+            background-color: $primary_pink;
+            .glass-warm {
+              color: white;
+            }
+            .glass-noise {
+              color: white;
+            }
+            .glass-width{
+              color: white;
+            }
+            .glass-title{
+              color: white;
+            }
+          }
+        }
+
+        .glass-main-info {
+          width: 103%;
+          height: 40px;
+          margin-top: -10px;
+          background-color: gray;
+
+          .glass-main-info-block {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 10px 10px 10px;
+
+            h4 {
+              align-items: center;
+              align-self: center;
+              font-size: 14px;
+              color: white;
+              margin: 0 0 0 0;
+            }
+          }
+        }
+      }
+      .info {
+        display: none;
+        all: unset;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 45px;
+        width: 50px;
+        height: 50px;
+        background: gray;
+        &:before {
+          content: '';
+        }
+        label {
+          color: white;
+          @include roboto-bd(35px);
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
 .glass-selector-dialog {
