@@ -91,4 +91,67 @@
     top: rem(-30px);
     right: rem(30px);
   }
+  //rehau styles 
+  .panel-inner-rehau {
+    .lamin-title {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 32px;
+      color: $primary_green;
+
+      text-transform: uppercase;
+    }
+    .laminat-img {
+      @extend .splash;
+      @include transition(all .2s linear);
+      cursor: pointer;
+      img {
+        height: 11.5rem;
+      }
+      &.selected {
+        position: relative;
+        outline: 5px solid $primary_pink;
+        &:after {
+          content: "";
+        }
+      }
+    }
+    .laminat-label-filter {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      
+      cursor: pointer;
+      &.active {
+        color: $primary_pink;
+      }
+    }
+
+    .laminat-row {
+      .laminat-label {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        color: black;
+        &:first-letter {
+          text-transform: uppercase;
+        }
+      }
+      .laminat-label-couples {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+      
+        color: $primary_green;
+  
+        &.active {
+          color: $primary_pink;
+        }
+      } 
+    }
+  }
 }
