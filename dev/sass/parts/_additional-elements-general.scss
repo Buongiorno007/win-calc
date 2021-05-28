@@ -7,6 +7,22 @@
   background-color: transparent;
 }
 
+.aux-choose-but-rehau {
+  width: 100%;
+  height: 48px;
+
+  background: $primary_green;
+  border: none;
+
+  color: white;
+  font-size: 26px;
+  text-align: start;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
 .parameters-block {
   .aux-title {
     @extend .truncated;

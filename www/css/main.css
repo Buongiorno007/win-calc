@@ -3658,37 +3658,52 @@ textarea.comment-field {
   background-color: transparent;
 }
 
-/* line 11, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 10, ../../dev/sass/parts/_additional-elements-general.scss */
+.aux-choose-but-rehau {
+  width: 100%;
+  height: 48px;
+  background: #37A58C;
+  border: none;
+  color: white;
+  font-size: 26px;
+  text-align: start;
+}
+/* line 21, ../../dev/sass/parts/_additional-elements-general.scss */
+.aux-choose-but-rehau:first-letter {
+  text-transform: uppercase;
+}
+
+/* line 27, ../../dev/sass/parts/_additional-elements-general.scss */
 .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 15, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 31, ../../dev/sass/parts/_additional-elements-general.scss */
 .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but {
   padding: 0 1.25rem;
   background-color: transparent;
 }
-/* line 22, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 38, ../../dev/sass/parts/_additional-elements-general.scss */
 .parameters-block .aux-params-but.color-selected, .elements-list-container .aux-params-but.color-selected, .auxiliaries-container .aux-params-but.color-selected, .additional-list-container .aux-list-content .aux-params-but.color-selected, .cart-page .alladdelements-block .aux-params-but.color-selected, .cart-page .addelementunit-only .aux-params-but.color-selected {
   border-color: #8C8C8C;
   color: #8C8C8C;
 }
-/* line 27, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 43, ../../dev/sass/parts/_additional-elements-general.scss */
 .parameters-block .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label, .cart-page .alladdelements-block .aux-label, .cart-page .addelementunit-only .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 
-/* line 34, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 50, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-params {
   float: left;
   margin-right: 0.625rem;
 }
-/* line 39, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 55, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-params.selected .aux-params-but {
   color: #fff;
 }
 
-/* line 47, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 63, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-list-row {
   display: -webkit-flex;
   display: flex;
@@ -3700,18 +3715,18 @@ textarea.comment-field {
   align-items: flex-start;
 }
 
-/* line 53, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 69, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-name {
   max-width: 50%;
 }
 
-/* line 56, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 72, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-title {
   max-width: 90%;
   cursor: pointer;
 }
 
-/* line 60, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 76, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-price, .additional-list-container .aux-total-price, .cart-page .alladdelements-block .aux-total-price, .cart-page .addelementunique-header .aux-total-price, .cart-page .addelementunit-only .aux-total-price {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   min-width: 20%;
@@ -3719,7 +3734,7 @@ textarea.comment-field {
   color: #363636;
 }
 
-/* line 78, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 94, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .aux-choose-but,
 .aux-vis-theme .aux-choose-but,
 .aux-grating-theme .aux-choose-but,
@@ -3728,7 +3743,7 @@ textarea.comment-field {
   color: #4bd963;
   border-color: #4bd963;
 }
-/* line 83, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 99, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme.focused .aux-choose-but,
 .aux-vis-theme.focused .aux-choose-but,
 .aux-grating-theme.focused .aux-choose-but,
@@ -3736,7 +3751,7 @@ textarea.comment-field {
 .aux-windowsill-theme.focused .aux-choose-but {
   background-color: #4bd963;
 }
-/* line 88, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 104, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .aux-params-but,
 .aux-vis-theme .aux-params-but,
 .aux-grating-theme .aux-params-but,
@@ -3745,7 +3760,7 @@ textarea.comment-field {
   color: #4bd963;
   border-color: #4bd963;
 }
-/* line 94, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 110, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .aux-params.selected .aux-params-but,
 .aux-vis-theme .aux-params.selected .aux-params-but,
 .aux-grating-theme .aux-params.selected .aux-params-but,
@@ -3753,7 +3768,7 @@ textarea.comment-field {
 .aux-windowsill-theme .aux-params.selected .aux-params-but {
   background-color: #4bd963;
 }
-/* line 101, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 117, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .item.active,
 .aux-vis-theme .item.active,
 .aux-grating-theme .item.active,
@@ -3761,7 +3776,7 @@ textarea.comment-field {
 .aux-windowsill-theme .item.active {
   background-color: #4bd963;
 }
-/* line 107, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 123, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .aux-list-item.selected .aux-choose-but,
 .aux-vis-theme .aux-list-item.selected .aux-choose-but,
 .aux-grating-theme .aux-list-item.selected .aux-choose-but,
@@ -3771,7 +3786,7 @@ textarea.comment-field {
   border-color: #4bd963;
   background-color: #4bd963;
 }
-/* line 115, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 131, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .frame-tab.active,
 .aux-vis-theme .frame-tab.active,
 .aux-grating-theme .frame-tab.active,
@@ -3779,7 +3794,7 @@ textarea.comment-field {
 .aux-windowsill-theme .frame-tab.active {
   border-top-color: #4bd963;
 }
-/* line 120, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 136, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .aux-title,
 .aux-visor-theme .calc-value-limit,
 .aux-vis-theme .aux-title,
@@ -3792,7 +3807,7 @@ textarea.comment-field {
 .aux-windowsill-theme .calc-value-limit {
   color: #4bd963;
 }
-/* line 125, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 141, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .calc-equal,
 .aux-visor-theme .calc-ok,
 .aux-visor-theme .search-element,
@@ -3810,7 +3825,7 @@ textarea.comment-field {
 .aux-windowsill-theme .search-element {
   background-color: #4bd963;
 }
-/* line 131, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 147, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .group-indicator,
 .aux-vis-theme .group-indicator,
 .aux-grating-theme .group-indicator,
@@ -3818,7 +3833,7 @@ textarea.comment-field {
 .aux-windowsill-theme .group-indicator {
   background-color: #4bd963;
 }
-/* line 133, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 149, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .group-indicator:before,
 .aux-vis-theme .group-indicator:before,
 .aux-grating-theme .group-indicator:before,
@@ -3826,7 +3841,7 @@ textarea.comment-field {
 .aux-windowsill-theme .group-indicator:before {
   border-color: transparent #4bd963;
 }
-/* line 137, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 153, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-visor-theme .search-elem,
 .aux-vis-theme .search-elem,
 .aux-grating-theme .search-elem,
@@ -3835,7 +3850,7 @@ textarea.comment-field {
   background-color: #4bd963;
 }
 
-/* line 148, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 164, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .aux-choose-but,
 .aux-spil-theme .aux-choose-but,
 .aux-blind-theme .aux-choose-but,
@@ -3844,7 +3859,7 @@ textarea.comment-field {
   color: #5755d5;
   border-color: #5755d5;
 }
-/* line 153, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 169, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme.focused .aux-choose-but,
 .aux-spil-theme.focused .aux-choose-but,
 .aux-blind-theme.focused .aux-choose-but,
@@ -3852,7 +3867,7 @@ textarea.comment-field {
 .aux-handle-theme.focused .aux-choose-but {
   background-color: #5755d5;
 }
-/* line 158, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 174, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .aux-params-but,
 .aux-spil-theme .aux-params-but,
 .aux-blind-theme .aux-params-but,
@@ -3861,7 +3876,7 @@ textarea.comment-field {
   color: #5755d5;
   border-color: #5755d5;
 }
-/* line 164, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 180, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .aux-params.selected .aux-params-but,
 .aux-spil-theme .aux-params.selected .aux-params-but,
 .aux-blind-theme .aux-params.selected .aux-params-but,
@@ -3869,7 +3884,7 @@ textarea.comment-field {
 .aux-handle-theme .aux-params.selected .aux-params-but {
   background-color: #5755d5;
 }
-/* line 171, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 187, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .item.active,
 .aux-spil-theme .item.active,
 .aux-blind-theme .item.active,
@@ -3877,7 +3892,7 @@ textarea.comment-field {
 .aux-handle-theme .item.active {
   background-color: #5755d5;
 }
-/* line 177, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 193, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .aux-list-item.selected .aux-choose-but,
 .aux-spil-theme .aux-list-item.selected .aux-choose-but,
 .aux-blind-theme .aux-list-item.selected .aux-choose-but,
@@ -3887,7 +3902,7 @@ textarea.comment-field {
   border-color: #5755d5;
   background-color: #5755d5;
 }
-/* line 185, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 201, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .frame-tab.active,
 .aux-spil-theme .frame-tab.active,
 .aux-blind-theme .frame-tab.active,
@@ -3895,7 +3910,7 @@ textarea.comment-field {
 .aux-handle-theme .frame-tab.active {
   border-top-color: #5755d5;
 }
-/* line 190, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 206, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .aux-title,
 .aux-spillway-theme .calc-value-limit,
 .aux-spil-theme .aux-title,
@@ -3908,7 +3923,7 @@ textarea.comment-field {
 .aux-handle-theme .calc-value-limit {
   color: #5755d5;
 }
-/* line 195, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 211, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .calc-equal,
 .aux-spillway-theme .calc-ok,
 .aux-spillway-theme .search-element,
@@ -3926,7 +3941,7 @@ textarea.comment-field {
 .aux-handle-theme .search-element {
   background-color: #5755d5;
 }
-/* line 201, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 217, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .group-indicator,
 .aux-spil-theme .group-indicator,
 .aux-blind-theme .group-indicator,
@@ -3934,7 +3949,7 @@ textarea.comment-field {
 .aux-handle-theme .group-indicator {
   background-color: #5755d5;
 }
-/* line 203, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 219, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .group-indicator:before,
 .aux-spil-theme .group-indicator:before,
 .aux-blind-theme .group-indicator:before,
@@ -3942,7 +3957,7 @@ textarea.comment-field {
 .aux-handle-theme .group-indicator:before {
   border-color: transparent #5755d5;
 }
-/* line 207, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 223, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-spillway-theme .search-elem,
 .aux-spil-theme .search-elem,
 .aux-blind-theme .search-elem,
@@ -3951,7 +3966,7 @@ textarea.comment-field {
   background-color: #5755d5;
 }
 
-/* line 217, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 233, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .aux-choose-but,
 .aux-shutters-theme .aux-choose-but,
 .aux-shut-theme .aux-choose-but,
@@ -3959,14 +3974,14 @@ textarea.comment-field {
   color: #0079ff;
   border-color: #0079ff;
 }
-/* line 222, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 238, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme.focused .aux-choose-but,
 .aux-shutters-theme.focused .aux-choose-but,
 .aux-shut-theme.focused .aux-choose-but,
 .aux-connectors-theme.focused .aux-choose-but {
   background-color: #0079ff;
 }
-/* line 227, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 243, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .aux-params-but,
 .aux-shutters-theme .aux-params-but,
 .aux-shut-theme .aux-params-but,
@@ -3974,21 +3989,21 @@ textarea.comment-field {
   color: #0079ff;
   border-color: #0079ff;
 }
-/* line 233, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 249, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .aux-params.selected .aux-params-but,
 .aux-shutters-theme .aux-params.selected .aux-params-but,
 .aux-shut-theme .aux-params.selected .aux-params-but,
 .aux-connectors-theme .aux-params.selected .aux-params-but {
   background-color: #0079ff;
 }
-/* line 240, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 256, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .item.active,
 .aux-shutters-theme .item.active,
 .aux-shut-theme .item.active,
 .aux-connectors-theme .item.active {
   background-color: #0079ff;
 }
-/* line 246, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 262, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .aux-list-item.selected .aux-choose-but,
 .aux-shutters-theme .aux-list-item.selected .aux-choose-but,
 .aux-shut-theme .aux-list-item.selected .aux-choose-but,
@@ -3997,14 +4012,14 @@ textarea.comment-field {
   border-color: #0079ff;
   background-color: #0079ff;
 }
-/* line 254, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 270, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .frame-tab.active,
 .aux-shutters-theme .frame-tab.active,
 .aux-shut-theme .frame-tab.active,
 .aux-connectors-theme .frame-tab.active {
   border-top-color: #0079ff;
 }
-/* line 259, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 275, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .aux-title,
 .aux-grid-theme .calc-value-limit,
 .aux-shutters-theme .aux-title,
@@ -4015,7 +4030,7 @@ textarea.comment-field {
 .aux-connectors-theme .calc-value-limit {
   color: #0079ff;
 }
-/* line 264, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 280, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .calc-equal,
 .aux-grid-theme .calc-ok,
 .aux-grid-theme .search-element,
@@ -4030,21 +4045,21 @@ textarea.comment-field {
 .aux-connectors-theme .search-element {
   background-color: #0079ff;
 }
-/* line 270, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 286, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .group-indicator,
 .aux-shutters-theme .group-indicator,
 .aux-shut-theme .group-indicator,
 .aux-connectors-theme .group-indicator {
   background-color: #0079ff;
 }
-/* line 272, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 288, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .group-indicator:before,
 .aux-shutters-theme .group-indicator:before,
 .aux-shut-theme .group-indicator:before,
 .aux-connectors-theme .group-indicator:before {
   border-color: transparent #0079ff;
 }
-/* line 276, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 292, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-grid-theme .search-elem,
 .aux-shutters-theme .search-elem,
 .aux-shut-theme .search-elem,
@@ -4052,127 +4067,127 @@ textarea.comment-field {
   background-color: #0079ff;
 }
 
-/* line 284, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 300, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .aux-choose-but,
 .aux-inside-theme .aux-choose-but {
   color: #6ed44a;
   border-color: #6ed44a;
 }
-/* line 289, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 305, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme.focused .aux-choose-but,
 .aux-inside-theme.focused .aux-choose-but {
   background-color: #6ed44a;
 }
-/* line 294, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 310, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .aux-params-but,
 .aux-inside-theme .aux-params-but {
   color: #6ed44a;
   border-color: #6ed44a;
 }
-/* line 300, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 316, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .aux-params.selected .aux-params-but,
 .aux-inside-theme .aux-params.selected .aux-params-but {
   background-color: #6ed44a;
 }
-/* line 307, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 323, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .item.active,
 .aux-inside-theme .item.active {
   background-color: #6ed44a;
 }
-/* line 313, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 329, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .aux-list-item.selected .aux-choose-but,
 .aux-inside-theme .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #6ed44a;
   background-color: #6ed44a;
 }
-/* line 321, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 337, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .frame-tab.active,
 .aux-inside-theme .frame-tab.active {
   border-top-color: #6ed44a;
 }
-/* line 326, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 342, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .aux-title,
 .aux-outside-theme .calc-value-limit,
 .aux-inside-theme .aux-title,
 .aux-inside-theme .calc-value-limit {
   color: #6ed44a;
 }
-/* line 331, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 347, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .calc-equal,
 .aux-outside-theme .search-element,
 .aux-inside-theme .calc-equal,
 .aux-inside-theme .search-element {
   background-color: #6ed44a;
 }
-/* line 336, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 352, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .calc-ok,
 .aux-inside-theme .calc-ok {
   background-color: #37A58C;
 }
-/* line 340, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 356, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .group-indicator,
 .aux-inside-theme .group-indicator {
   background-color: #6ed44a;
 }
-/* line 342, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 358, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .group-indicator:before,
 .aux-inside-theme .group-indicator:before {
   border-color: transparent #6ed44a;
 }
-/* line 346, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 362, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-outside-theme .search-elem,
 .aux-inside-theme .search-elem {
   background-color: #6ed44a;
 }
 
-/* line 355, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 371, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .aux-choose-but,
 .aux-others-theme .aux-choose-but {
   color: #34aadc;
   border-color: #34aadc;
 }
-/* line 360, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 376, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme.focused .aux-choose-but,
 .aux-others-theme.focused .aux-choose-but {
   background-color: #34aadc;
 }
-/* line 365, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 381, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .aux-params-but,
 .aux-others-theme .aux-params-but {
   color: #34aadc;
   border-color: #34aadc;
 }
-/* line 371, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 387, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .aux-params.selected .aux-params-but,
 .aux-others-theme .aux-params.selected .aux-params-but {
   background-color: #34aadc;
 }
-/* line 378, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 394, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .item.active,
 .aux-others-theme .item.active {
   background-color: #34aadc;
 }
-/* line 384, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 400, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .aux-list-item.selected .aux-choose-but,
 .aux-others-theme .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #34aadc;
   background-color: #34aadc;
 }
-/* line 392, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 408, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .frame-tab.active,
 .aux-others-theme .frame-tab.active {
   border-top-color: #34aadc;
 }
-/* line 397, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 413, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .aux-title,
 .aux-fan-theme .calc-value-limit,
 .aux-others-theme .aux-title,
 .aux-others-theme .calc-value-limit {
   color: #34aadc;
 }
-/* line 402, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 418, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .calc-equal,
 .aux-fan-theme .calc-ok,
 .aux-fan-theme .search-element,
@@ -4181,17 +4196,17 @@ textarea.comment-field {
 .aux-others-theme .search-element {
   background-color: #34aadc;
 }
-/* line 408, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 424, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .group-indicator,
 .aux-others-theme .group-indicator {
   background-color: #34aadc;
 }
-/* line 410, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 426, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .group-indicator:before,
 .aux-others-theme .group-indicator:before {
   border-color: transparent #34aadc;
 }
-/* line 414, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 430, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-fan-theme .search-elem,
 .aux-others-theme .search-elem {
   background-color: #34aadc;
@@ -18660,8 +18675,60 @@ input[type='number'] {
   z-index: 22;
   text-align: center;
 }
+/* line 796, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .arrow {
+  background: url("../img/calc/right-arrow.svg");
+}
+/* line 799, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-windowsill-txt {
+  width: 95rem;
+  top: 15rem;
+  left: 0rem;
+}
+/* line 804, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-grid-txt {
+  width: 95rem;
+  top: 25rem;
+  left: 0rem;
+}
+/* line 809, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-spil-txt {
+  width: 95rem;
+  top: 35rem;
+  left: 0;
+}
+/* line 814, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-spillway-txt {
+  width: 95rem;
+  top: 35rem;
+  left: 0;
+}
+/* line 820, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .numberMenu-rehau {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 32px;
+  text-transform: uppercase;
+  color: #4E4E4E;
+  position: relative;
+  left: 4%;
+  top: 6rem;
+  text-align: center;
+  float: left;
+  height: 5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 25px;
+}
+/* line 840, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .numberMenu-rehau.green {
+  transition: 0.5s;
+  color: #37A58C;
+}
 
-/* line 793, ../../dev/sass/panels/add-elements.scss */
+/* line 848, ../../dev/sass/panels/add-elements.scss */
 .numberMenu {
   position: relative;
   width: 14.7%;
@@ -18680,25 +18747,25 @@ input[type='number'] {
   align-items: center;
   justify-content: center;
 }
-/* line 810, ../../dev/sass/panels/add-elements.scss */
+/* line 865, ../../dev/sass/panels/add-elements.scss */
 .numberMenu.green {
   transition: 0.5s;
   background-color: #6ed44a;
 }
 
-/* line 816, ../../dev/sass/panels/add-elements.scss */
+/* line 871, ../../dev/sass/panels/add-elements.scss */
 .services {
   margin-left: 8rem;
   padding-top: 20rem;
 }
-/* line 820, ../../dev/sass/panels/add-elements.scss */
+/* line 875, ../../dev/sass/panels/add-elements.scss */
 .services .service-block {
   width: 90%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
-/* line 827, ../../dev/sass/panels/add-elements.scss */
+/* line 882, ../../dev/sass/panels/add-elements.scss */
 .services .service-type {
   width: 70%;
   height: 6rem;
@@ -18709,14 +18776,14 @@ input[type='number'] {
   display: inline-flex;
   align-items: center;
 }
-/* line 837, ../../dev/sass/panels/add-elements.scss */
+/* line 892, ../../dev/sass/panels/add-elements.scss */
 .services .service-type.green {
   transition: 0.5s;
   font: normal 26px/1.42857 roboto-regular, sans-serif, icons;
   background-color: #6ed44a;
   color: white;
 }
-/* line 845, ../../dev/sass/panels/add-elements.scss */
+/* line 900, ../../dev/sass/panels/add-elements.scss */
 .services .service-input {
   border-radius: 5px !important;
   box-shadow: inset 1px 1px 1px 0 #bebebe;
@@ -18726,19 +18793,19 @@ input[type='number'] {
   border: 1px solid gray;
   font: normal 25px/1.42857 roboto-thin, sans-serif, icons;
 }
-/* line 855, ../../dev/sass/panels/add-elements.scss */
+/* line 910, ../../dev/sass/panels/add-elements.scss */
 .services label {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-/* line 861, ../../dev/sass/panels/add-elements.scss */
+/* line 916, ../../dev/sass/panels/add-elements.scss */
 .services input::-webkit-inner-spin-button,
 .services input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 5px;
 }
-/* line 867, ../../dev/sass/panels/add-elements.scss */
+/* line 922, ../../dev/sass/panels/add-elements.scss */
 .services input:focus {
   outline: none;
 }
