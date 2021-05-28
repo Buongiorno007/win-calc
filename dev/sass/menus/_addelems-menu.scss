@@ -37,6 +37,7 @@
     background-color: #f8f8f8;
 
     margin-right: 500px;
+    white-space: nowrap;
   }
 
   .open-list {
@@ -65,6 +66,7 @@
     @include roboto-lt(rem(22px));
     max-width: 70%;
     color: #8c8c8c;
+    margin-right: 20px;
   }
   .close-elements-menu {
     @extend .cross-btn;
