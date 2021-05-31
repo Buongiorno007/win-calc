@@ -153,5 +153,27 @@
         }
       } 
     }
+
+    .laminat-filter {
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 2rem;
+  
+      .laminat-inner {
+        @include display-flex();
+        @include align-items(center);
+      }
+  
+      .laminat-box {
+        min-width: 15rem;
+        margin-right: 3rem;
+        float: left;
+      }
+      .laminat-img {
+        img {
+          width: 15rem;
+        }
+      }
+    }
   }
 }

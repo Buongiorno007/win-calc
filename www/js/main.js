@@ -1440,8 +1440,6 @@ let portrait = false;
                     $timeout(function () {
                         ConfigMenuServ.selectConfigPanel(3);
                     }, 2000);
-
-
                 }
 
                 /**----------- close Attantion dialog ----------*/
@@ -8797,7 +8795,37 @@ if (window.location.hostname !== 'localhost') {
                     }
                 }
 
-
+                if (globalConstants.serverIP === "https://admin.rehauselected.baueffect.com") {
+                    return {
+                        restrict: 'E',
+                        replace: true,
+                        transclude: true,
+                        scope: {
+                            priceValue: '=',
+                            priceCurrency: '='
+                        },
+                        template: '<div class="price-rehau clearfix" data-output="priceValue">' +
+                        '<div id="price" class="price-value">' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '</div>' +
+                        '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
+                        '</div>',
+                        link: function (scope, elem, attrs) {
+                            scope.$watchCollection(attrs.output, function (price) {
+                                if(UserStor.userInfo.currencies === '$') {
+                                    changePrice(price / GlobalStor.global.currencies[0].value, elem);
+                                } else if(UserStor.userInfo.currencies === '€') {
+                                    changePrice(price / GlobalStor.global.currencies[2].value, elem);
+                                } else {
+                                    changePrice(price, elem )
+                                }
+                            });
+                        }
+                    };
+                }
                 return {
                     restrict: 'E',
                     replace: true,
@@ -8834,7 +8862,6 @@ if (window.location.hostname !== 'localhost') {
                         });
                     }
                 };
-
                 // event.srcEvent.stopPropagation();
             });
 })();
@@ -14918,8 +14945,12 @@ function ErrorResult(code, message) {
                   }
                 })
               }
+            } if (id === 8) {
+              let someArray = []
+              GlobalStor.global.templatesImgs.forEach(template => {
+                someArray.push(template.src)
+              })
             } else {
-
               // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               if (GlobalStor.global.activePanel === id) {
                 GlobalStor.global.activePanel = 0;
@@ -28028,11 +28059,7 @@ function ErrorResult(code, message) {
                 } else {
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                     product.currencies = angular.copy(GlobalStor.global.currencies);
-                    console.log(UserStor.userInfo.currencies, 'user info (need language)') 
-                    console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
-                // console.log(product.profile, ' product.profile.')
-                // console.log(GlobalStor.global, 'глобалстор')
                 var data = null
                 function needed_data() {
                     var defer = $q.defer();
@@ -29125,12 +29152,13 @@ function ErrorResult(code, message) {
             }
 
             function setProductPriceTOTAL(Product) {
-
-                var deliveryCoeff =
+                var deliveryCoeff = 
                     GlobalStor.global.deliveryCoeff.percents[
                     GlobalStor.global.deliveryCoeff.standart_time
                     ],
-                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+                    priceDis = UserStor.userInfo.factory_id == 2 ? Math.round(GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct)) : GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+                    
+                    
 
 
                 Product.product_price = GeneralServ.roundingValue(
@@ -29144,10 +29172,16 @@ function ErrorResult(code, message) {
                         deliveryCoeff
                     );
                 }
-
-                GlobalStor.global.tempPrice =
-                    Product.productPriceDis * GlobalStor.global.product_qty;
-                GlobalStor.global.isLoader = 0;
+                if (UserStor.userInfo.factory_id === 2) {
+                    GlobalStor.global.tempPrice =
+                        Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
+                    GlobalStor.global.isLoader = 0;
+                    console.log(GlobalStor.global.tempPrice, 'SOME CHECK AGAIN')
+                } else {
+                    GlobalStor.global.tempPrice =
+                        Product.productPriceDis * GlobalStor.global.product_qty;
+                    GlobalStor.global.isLoader = 0;
+                }
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
                     setTimeout(function () {

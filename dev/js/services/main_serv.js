@@ -289,11 +289,7 @@
                 } else {
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                     product.currencies = angular.copy(GlobalStor.global.currencies);
-                    console.log(UserStor.userInfo.currencies, 'user info (need language)') 
-                    console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
-                // console.log(product.profile, ' product.profile.')
-                // console.log(GlobalStor.global, 'глобалстор')
                 var data = null
                 function needed_data() {
                     var defer = $q.defer();
@@ -1386,12 +1382,13 @@
             }
 
             function setProductPriceTOTAL(Product) {
-
-                var deliveryCoeff =
+                var deliveryCoeff = 
                     GlobalStor.global.deliveryCoeff.percents[
                     GlobalStor.global.deliveryCoeff.standart_time
                     ],
-                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+                    priceDis = UserStor.userInfo.factory_id == 2 ? Math.round(GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct)) : GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+                    
+                    
 
 
                 Product.product_price = GeneralServ.roundingValue(
@@ -1405,10 +1402,16 @@
                         deliveryCoeff
                     );
                 }
-
-                GlobalStor.global.tempPrice =
-                    Product.productPriceDis * GlobalStor.global.product_qty;
-                GlobalStor.global.isLoader = 0;
+                if (UserStor.userInfo.factory_id === 2) {
+                    GlobalStor.global.tempPrice =
+                        Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
+                    GlobalStor.global.isLoader = 0;
+                    console.log(GlobalStor.global.tempPrice, 'SOME CHECK AGAIN')
+                } else {
+                    GlobalStor.global.tempPrice =
+                        Product.productPriceDis * GlobalStor.global.product_qty;
+                    GlobalStor.global.isLoader = 0;
+                }
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
                     setTimeout(function () {

@@ -210,7 +210,7 @@
                       button.order-tool(fs-click="lightPage.increaseProductQty($index)") +
                       .order-label.qty-label {{ ::lightPage.PRODUCT_QTY }}
                   .order-footer
-                    .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
+                    .order-price(price-fixed="{{lightPage.P.product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
                     .order-comment-btn(ng-if="product.comment.length", ng-class="{'active': lightPage.config.isProductComment === $index+1}", fs-click="lightPage.switchProductComment($index)")
                   .order-comment(ng-class="{'active': lightPage.config.isProductComment === $index+1}")
                     .order-comment-box
@@ -369,7 +369,7 @@
         .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id == 2")
          .construction-left-menu-rehau
             ul.figure-lists-rehau
-              li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
+              li.figure-item-rehau.temp-fig-rehau(fs-click="configMenu.U.userInfo.factory_id === 2 ? configMenu.selectConfigPanel(8) : configMenu.selectConfigPanel(-1)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Шаблон</span>
                 .figure-label-rehau-subtitle(ng-if="!lightPage.G.global.SelectedTemplateName", data-output="Поворотное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")

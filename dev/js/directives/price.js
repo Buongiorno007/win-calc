@@ -78,7 +78,37 @@
                     }
                 }
 
-
+                if (globalConstants.serverIP === "https://admin.rehauselected.baueffect.com") {
+                    return {
+                        restrict: 'E',
+                        replace: true,
+                        transclude: true,
+                        scope: {
+                            priceValue: '=',
+                            priceCurrency: '='
+                        },
+                        template: '<div class="price-rehau clearfix" data-output="priceValue">' +
+                        '<div id="price" class="price-value">' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '</div>' +
+                        '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
+                        '</div>',
+                        link: function (scope, elem, attrs) {
+                            scope.$watchCollection(attrs.output, function (price) {
+                                if(UserStor.userInfo.currencies === '$') {
+                                    changePrice(price / GlobalStor.global.currencies[0].value, elem);
+                                } else if(UserStor.userInfo.currencies === '€') {
+                                    changePrice(price / GlobalStor.global.currencies[2].value, elem);
+                                } else {
+                                    changePrice(price, elem )
+                                }
+                            });
+                        }
+                    };
+                }
                 return {
                     restrict: 'E',
                     replace: true,
@@ -115,7 +145,6 @@
                         });
                     }
                 };
-
                 // event.srcEvent.stopPropagation();
             });
 })();

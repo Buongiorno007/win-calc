@@ -3217,6 +3217,14 @@ textarea.comment-field {
   margin-left: -5rem;
 }
 /* line 93, ../../dev/sass/parts/_menu-right-general.scss */
+.menu-right-general .price-rehau, .order-path .price-rehau, .config-menu .price-rehau, .elements-menu .price-rehau, .cart-menu .price-rehau, .old-price-tab .price-rehau, .old-price-inst-tab .price-rehau {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin-left: 10rem;
+}
+/* line 98, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-value, .order-path .price-value, .config-menu .price-value, .elements-menu .price-value, .cart-menu .price-value, .old-price-tab .price-value, .old-price-inst-tab .price-value {
   font: normal 4rem/1 roboto-light, sans-serif, icons;
   display: inline-flex;
@@ -3225,20 +3233,20 @@ textarea.comment-field {
   text-align: center;
   color: #363636;
 }
-/* line 102, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 107, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell, .order-path .digit-cell, .config-menu .digit-cell, .elements-menu .digit-cell, .cart-menu .digit-cell, .old-price-tab .digit-cell, .old-price-inst-tab .digit-cell {
   position: relative;
   float: left;
 }
-/* line 105, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 110, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3n+3), .order-path .digit-cell:nth-last-child(3n+3), .config-menu .digit-cell:nth-last-child(3n+3), .elements-menu .digit-cell:nth-last-child(3n+3), .cart-menu .digit-cell:nth-last-child(3n+3), .old-price-tab .digit-cell:nth-last-child(3n+3), .old-price-inst-tab .digit-cell:nth-last-child(3n+3) {
   margin-left: 0.25rem;
 }
-/* line 108, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 113, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3), .order-path .digit-cell:nth-last-child(3), .config-menu .digit-cell:nth-last-child(3), .elements-menu .digit-cell:nth-last-child(3), .cart-menu .digit-cell:nth-last-child(3), .old-price-tab .digit-cell:nth-last-child(3), .old-price-inst-tab .digit-cell:nth-last-child(3) {
   margin-left: 0;
 }
-/* line 112, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 117, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-currency, .order-path .price-currency, .config-menu .price-currency, .elements-menu .price-currency, .cart-menu .price-currency, .old-price-tab .price-currency, .old-price-inst-tab .price-currency {
   font: normal 3.125rem/3.5rem roboto-light, sans-serif, icons;
   margin-left: 0.625rem;
@@ -3246,7 +3254,7 @@ textarea.comment-field {
   padding-top: 0.5rem;
   color: #363636;
 }
-/* line 119, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 124, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn {
   position: relative;
   width: 100%;
@@ -17829,6 +17837,29 @@ input[type='number'] {
 /* line 151, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-row .laminat-label-couples.active {
   color: #DD0060;
+}
+/* line 157, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .laminat-filter {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2rem;
+}
+/* line 162, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .laminat-filter .laminat-inner {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* line 167, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .laminat-filter .laminat-box {
+  min-width: 15rem;
+  margin-right: 3rem;
+  float: left;
+}
+/* line 173, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .laminat-filter .laminat-img img {
+  width: 15rem;
 }
 
 /* line 8, ../../dev/sass/panels/add-elements.scss */

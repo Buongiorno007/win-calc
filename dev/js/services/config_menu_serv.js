@@ -132,8 +132,12 @@
                   }
                 })
               }
+            } if (id === 8) {
+              let someArray = []
+              GlobalStor.global.templatesImgs.forEach(template => {
+                someArray.push(template.src)
+              })
             } else {
-
               // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
               if (GlobalStor.global.activePanel === id) {
                 GlobalStor.global.activePanel = 0;

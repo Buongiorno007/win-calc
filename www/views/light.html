@@ -825,7 +825,6 @@
                   <div fs-click="elementsPanel.click(1111); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===1111}" id="1111" class="numberMenu-rehau">{{::elementsPanel.INSIDES}}</div>
                   <div fs-click="elementsPanel.click(2222); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===2222}" id="2222" class="numberMenu-rehau">{{::elementsPanel.OUTSIDES}}</div>
                   <div fs-click="elementsPanel.click(3333); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===3333}" id="3333" class="numberMenu-rehau">{{::elementsPanel.COMPONENTS}}</div>
-                  <div fs-click="elementsPanel.click(4444); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===4444}" id="4444" class="numberMenu-rehau">{{::elementsPanel.OTHER}}</div>
                   <div fs-click="elementsPanel.click(6666)" ng-class="{'green': elementsPanel.config.colorFilter===6666}" id="6666" class="numberMenu-rehau">{{::elementsPanel.SERVICES}}</div>
                   <div ng-if="elementsPanel.G.global.typeMenuID === 6666" class="services">
                     <div class="service-block">
@@ -1152,7 +1151,7 @@
                     </div>
                   </div>
                   <div class="order-footer">
-                    <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
+                    <div price-fixed="{{lightPage.P.product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
                     <div ng-if="product.comment.length" ng-class="{'active': lightPage.config.isProductComment === $index+1}" fs-click="lightPage.switchProductComment($index)" class="order-comment-btn"></div>
                   </div>
                   <div ng-class="{'active': lightPage.config.isProductComment === $index+1}" class="order-comment">
@@ -1823,7 +1822,7 @@
         <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="lightPage.U.userInfo.factory_id == 2" class="karkas-rehau">
           <div class="construction-left-menu-rehau">
             <ul class="figure-lists-rehau">
-              <li ng-click="designPage.selectMenuItem(6)" class="figure-item-rehau temp-fig-rehau">
+              <li fs-click="configMenu.U.userInfo.factory_id === 2 ? configMenu.selectConfigPanel(8) : configMenu.selectConfigPanel(-1)" class="figure-item-rehau temp-fig-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Шаблон</span></div>
                 <div ng-if="!lightPage.G.global.SelectedTemplateName" data-output="Поворотное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>

@@ -661,8 +661,6 @@
                     $timeout(function () {
                         ConfigMenuServ.selectConfigPanel(3);
                     }, 2000);
-
-
                 }
 
                 /**----------- close Attantion dialog ----------*/
