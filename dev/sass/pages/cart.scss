@@ -165,6 +165,17 @@
     height : 79rem;
   }
 
+  //rehau styles ------
+  .order-rehau {
+    @extend .splash;
+    @include box-shadow(rgba(black, .3) rem(15px) rem(10px) rem(30px) 0);
+    position: relative;
+    margin-right: rem(50px);
+    float: right;
+    height : 85rem;
+  }
+  //rehau styles end
+
   .order-header {
     position: relative;
     background-color: white;
@@ -178,6 +189,20 @@
     background-color: #F98000;
     z-index: 1;
   }
+
+  //rehau styles -----
+
+  .delete-construction {
+    background-image: url(../../img/rehau-img/remove.png);
+    background-position: center;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    border: none;
+  }
+  //rehau styles end
 
   .R-MInfo {
     width: auto;
@@ -211,6 +236,21 @@
     overflow: hidden;
   }
 
+  //rehau styles
+  .order-value-rehau {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 32px;
+
+    text-align: center;
+
+    color: #000000;
+
+    border-bottom: 1px solid black;
+  }
+  //rehau styles end
+
   .addelements-btn {
     cursor: pointer;
   }
@@ -220,10 +260,31 @@
     color: #8c8c8c;
   }
 
+  //rehau styles
+  .order-label-rehau {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    text-align: center;
+
+    color: #4E4E4E;
+  }
+
+
   .order-qty {
     @include display-flex();
     @include align-items(center);
   }
+  //rehau styles end 
+
+  .order-qty {
+    @include display-flex();
+    @include align-items(center);
+  }
+
+  
 
   .order-tool {
     @extend .small-button;
@@ -233,6 +294,28 @@
     background-color: $main_green;
     color: #fff;
   }
+
+  //rehau styles
+  .order-tool-plus-rehau {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../img/rehau-img/+.png);
+    background-position: center;
+    border: none;
+
+    margin-right: 25px;
+  }
+
+  .order-tool-minus-rehau {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../img/rehau-img/-.png);
+    background-position: center;
+    border: none;
+
+    margin-left: 25px;
+  }
+  //rehau styles end
 
   .order-footer {
     @include display-flex();
@@ -248,7 +331,60 @@
     bottom: 0;
     width: 255px;
     text-align: center;
+
+    margin-top: 25px;
   }
+
+  .order-footer-rehau {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+
+    .order-footer-warmcoef {
+      h3 {
+        padding-left: 25px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 140%;
+
+        text-align: center;
+
+        color: #000000;
+      }
+
+      h2 {
+        padding-left: 25px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: $primary_pink;
+        margin: 10px 0 0 0;
+      }
+    }
+    .order-footer-price-rehau {
+      h3 {
+        padding-right: 25px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 140%;
+
+        text-align: center;
+
+        color: #000000;
+      }
+      .order-price {
+        text-align: center;
+        color: $primary_pink;
+        font-size: 24px;
+        font-weight: bold;
+        padding-right: 25px;
+      }
+    }
+  }
+
+
   //------- order comment
   .order-comment-btn {
     @extend .icon-setting;
@@ -321,6 +457,15 @@
       border-bottom-left-radius: rem(20px);
     }
 
+    //rehau styles -----
+    .order-rehau {
+      width: 296px;
+      height: 730px;
+      float: left;
+    }
+
+    //rehau styles end ---------
+
     .order-header {
       height: rem(320px);
     }
@@ -336,6 +481,14 @@
       position: relative;
       top: rem(30px);
     }
+
+    //rehau styles ----
+    .order-template-rehau {
+      text-align: center;
+      position: relative;
+      top: rem(90px);
+    }
+    //rehau styles end ------
 
     .close-cur-window {
       @extend .small-cross-btn;
@@ -371,7 +524,12 @@
       padding: 0 rem(40px) 0 rem(50px);
       background-color: #fff;
     }
-
+    //rehau styles ------
+    .order-content-rehau {
+      padding: 40px;
+      background-color: #fff;
+    }
+    //rehau styles end -----
     .order-list {
       list-style: none;
       margin: 0;
@@ -399,6 +557,12 @@
       @extend .product-light-container;
       max-height: 41.5rem;
     }
+    //rehau styles -----
+    .order-rehau {
+      // @extend .product-light-container;
+      max-height: 41.5rem;
+    }
+    //rehau styles end ------
 
     .order-template {
       cursor: pointer;
@@ -581,6 +745,13 @@
     border-bottom: 1px solid $main_gray_btn;
     overflow: hidden;
   }
+  //rehau styles
+  .order-item-rehau {
+    // padding: rem(7px) 0;
+    // border-bottom: 1px solid $main_gray_btn;
+    overflow: hidden;
+  }
+  //rehau style
   //======== DISCOUNT ========//
   .discount-container {
     width: 90%;
@@ -743,6 +914,17 @@
   z-index: 1;
   top: -1.25rem;
 }
+//rehau styles  -----
+.eddit-construction {
+  cursor: pointer;
+  position: absolute;
+  height: 3.1rem;
+  right: 4rem;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+}
+//rehau styles end ------
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
@@ -793,6 +975,26 @@
     align-items : center;
     justify-content : center;
     border-radius:5rem;
+  }
+  .title{
+    color : $main_gray_btn;
+    font-size: 20px;
+  }
+}
+
+.add-new-product-rehau{
+  height: 705px;
+  flex-direction : column;
+  display : inline-flex;
+  align-items : center;
+  justify-content : center;
+  cursor : pointer;
+  
+  .add-img-rehau {
+    display : inline-flex;
+    align-items : center;
+    justify-content : center;
+    
   }
   .title{
     color : $main_gray_btn;

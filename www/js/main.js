@@ -14996,8 +14996,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://admin.rehauselected.baueffect.com',
-      printIP: 'https://admin.rehauselected.baueffect.com/get-order-pdf/',
+      serverIP: 'https://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,

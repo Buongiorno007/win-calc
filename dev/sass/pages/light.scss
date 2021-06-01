@@ -56,6 +56,13 @@
     background: white;
     box-shadow: none !important;
   }
+
+  //rehau styles
+  .cart-menu-rehau {
+    background: white;
+    box-shadow: none !important;
+  }
+  //rehau styles end
   .price-block {
     background-color: white !important;
   }
@@ -202,6 +209,22 @@
       color: $main_red !important;
     }
   }
+
+  //rehau style
+  .cart-menu-rehau {
+    .item {
+      border: none;
+      margin-top: 1rem;
+      &:after {
+        color: $main_red !important;
+      }
+    }
+    .title {
+      margin: rem(10px) 0;
+      color: $main_red !important;
+    }
+  }
+  //rehau styles end
   .cart-button {
     cursor: pointer;
     width: 33.3%;
@@ -837,6 +860,14 @@
     border-bottom-left-radius: rem(20px);
     border: 1px solid $main_gray_btn;
   }
+  //rehau styles ---------
+  .order-rehau {
+    top: -15px;
+    width: rem(512px);
+    float: left;
+  }
+
+  //rehau styles end ---------
   .order-header {
     cursor: pointer;
     height: rem(320px);
@@ -931,6 +962,14 @@
     padding-left: 1rem;
     padding-top: 1rem;
   }
+  //rehau styles ----
+  .scroll-hor-container-rehau {
+    width: auto;
+    height: 130rem !important;
+    padding-left: 1rem;
+    padding-top: 1rem;
+  }
+  //rehau styles end ----
   .size-calc-container {
     position: relative;
     top: 2rem;

@@ -83,7 +83,7 @@
                 </div>
               </div><img ng-if="lightPage.U.userInfo.factory_id != 2" ng-src="img/calc/info-button.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIcon"><img ng-if="lightPage.U.userInfo.factory_id != 2" ng-src="img/calc/info-buttonGreen.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIconGreen">
               <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
-                <div ng-if="roomInfo.U.userInfo.factory_id != 2" class="coeff-container">
+                <div ng-if="roomInfo.U.userInfo.factory_id !== 2" class="coeff-container">
                   <div class="coeff-block">
                     <div ng-if="roomInfo.G.global.showCoefInfoBlock" class="coeff-info-block">
                       <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}
@@ -99,6 +99,28 @@
                       <div data-output="{{ ::roomInfo.HEAT_TRANSFER_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
                     </div>
                     <!--U-->
+                    <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
+                      <div data-output="{{ ::roomInfo.HEAT_TRANSFER }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+                    </div>
+                  </div>
+                </div>
+                <div ng-if="roomInfo.U.userInfo.factory_id === 2" class="coeff-container">
+                  <div class="coeff-block">
+                    <div ng-if="roomInfo.G.global.showCoefInfoBlock" class="coeff-info-block-rehau">
+                      <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}
+                        <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
+                        <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
+                      </div>
+                      <div class="heat-transfer-info_hr">{{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}</div>
+                      <div class="heat-transfer-info">{{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}</div>
+                      <div fs-click="roomInfo.G.global.showCoefInfoBlock=0" class="close-dialog"></div>
+                    </div>
+                    <!--R-->
+                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer-rehau">
+                      <div class="coeff-number"><h3>7.4</h3></div>
+                      <div class="coeff-mark"><h4>Очень хорошо</h4></div>
+                      <div class="coeff-info"><p>Подробнее о теплопроводимости</p></div>
+                    </div>
                     <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
                       <div data-output="{{ ::roomInfo.HEAT_TRANSFER }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
                     </div>
@@ -1065,7 +1087,7 @@
             </div>
           </section>
         </section>
-        <section ng-if="lightPage.G.global.showCart === 1" class="cart-page">
+        <section ng-if="lightPage.G.global.showCart === 1 &amp;&amp; lightPage.U.userInfo.factory_id !== 2" class="cart-page">
           <section ng-class="{'discount': lightPage.C.cart.isShowDiscount}" class="cart-container full-view">
             <div class="scroll-hor-container">
               <div class="order-block">
@@ -1164,6 +1186,148 @@
                 <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product order">
                   <div class="add-img">+</div>
                   <div class="title">{{lightPage.ADD_ORDER}}</div>
+                  <div class="order-footer"></div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="lightPage.C.cart.showCurrentTemp" class="template-window">
+              <button ng-click="lightPage.C.cart.showCurrentTemp=0" class="close-cur-window"></button><img ng-src="img/copy_edit.png" ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')" class="edit-cur-window">
+              <svg-template template="lightPage.O.order.products[lightPage.C.cart.curProd].template" template-width="630" template-height="630" type-construction="lightPage.constants.SVG_ID_GLASS"></svg-template>
+            </div>
+            <div class="discount-container">
+              <div class="discount-box selected">
+                <div class="discount-data">
+                  <label id="disc-input-main" class="disc-input noPreventDefault">{{lightPage.C.cart.averageDisc | number : 2}}</label>
+                  <label>%</label>
+                </div>
+                <div ng-click="lightPage.toggleDiscount()" class="discount-txt-arrow">
+                  <div class="discounts-label">{{lightPage.DISCOUNT}}</div>
+                  <div ng-if="!lightPage.G.global.toggleDiscount" class="discounts-icon-down"></div>
+                  <div ng-if="lightPage.G.global.toggleDiscount" class="discounts-icon-up"></div>
+                </div>
+              </div>
+              <div ng-if="lightPage.G.global.toggleDiscount" class="disc">
+                <div class="discount-box selected">
+                  <div ng-keyup="lightPage.enterKeyPrice(event)" class="discount-data">
+                    <div ng-show="lightPage.C.cart.tempConstructDisc &gt; lightPage.U.userInfo.discountConstrMax" class="disc-max">{{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%</div>
+                    <input id="disc-input" type="number" value="0" ng-model="lightPage.C.cart.tempConstructDisc" class="disc-input noPreventDefault">%
+                  </div>
+                  <div ng-click="lightPage.approveNewDisc(0)" class="discount-txt">
+                    <div class="discounts-label">{{ ::lightPage.DISCOUNT_WINDOW }}</div>
+                  </div>
+                </div>
+                <div class="discount-box selected">
+                  <div ng-keyup="lightPage.enterKeyDop(event)" class="discount-data">
+                    <div ng-show="lightPage.C.cart.tempAddelemDisc &gt; lightPage.U.userInfo.discountAddElemMax" class="disc-max">{{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%</div>
+                    <input id="disc-input-add" type="number" value="0" ng-model="lightPage.C.cart.tempAddelemDisc" class="disc-input noPreventDefault">%
+                  </div>
+                  <div ng-click="lightPage.approveNewDisc(1)" class="discount-txt">
+                    <div class="discounts-label">{{ ::lightPage.DISCOUNT_ADDELEM }}</div>
+                  </div>
+                </div>
+                <div class="discount-box selected">
+                  <div ng-keyup="lightPage.enterKeyDopService(event)" class="discount-data">
+                    <div ng-show="lightPage.U.userInfo.discount_service &gt; 100" class="disc-max">{{ ::lightPage.MAX }} {{'100'}}%</div>
+                    <input id="disc-input-service" type="number" ng-model="lightPage.C.cart.discount_service" class="disc-input noPreventDefault">%
+                  </div>
+                  <div ng-click="lightPage.approveNewDisc(2)" class="discount-txt">
+                    <div class="discounts-label">{{lightPage.DISCOUNT_SERVICE}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="discount-container">
+              <div class="discount-title">{{ ::lightPage.DISCOUNT }}</div>
+              <div class="discount-price-container">
+                <div class="discount-price-box">
+                  <div class="discount-price-label">{{ ::lightPage.DISCOUNT_WITHOUT }}</div>
+                  <div class="discount-price">{{ lightPage.O.order.order_price }} {{lightPage.U.userInfo.currency}}</div>
+                </div>
+                <div class="discount-price-box">
+                  <div class="discount-price-label">{{ ::lightPage.DISCOUNT_WITH }}</div>
+                  <div class="discount-price">{{ lightPage.O.order.productsPriceDis }} {{lightPage.U.userInfo.currency}}</div>
+                </div>
+                <div class="discount-price-box">
+                  <div class="discount-price-label">{{ ::lightPage.DISCOUNT }}</div>
+                  <div class="discount-price">{{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section ng-if="lightPage.G.global.showCart === 1 &amp;&amp; lightPage.U.userInfo.factory_id === 2" class="cart-page">
+          <section ng-class="{'discount': lightPage.C.cart.isShowDiscount}" class="cart-container-rehau full-view">
+            <div class="scroll-hor-container-rehau">
+              <div class="order-block">
+                <div ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index" class="order-rehau">
+                  <button fs-click="lightPage.clickDeleteProduct($index)" class="delete-construction"></button><img ng-src="img/rehau-img/eddit-construction.png" fs-click="lightPage.box($index, 'product')" class="eddit-construction">
+                  <div ng-click="lightPage.showCartTemplte($index)" class="order-header">
+                    <div class="order-template-rehau">
+                      <svg-template template="product.templateIcon" template-width="lightPage.constants.svgTemplateIconWidthCart" template-height="lightPage.constants.svgTemplateIconHeightCart" type-construction="lightPage.constants.SVG_CLASS_ICON"></svg-template>
+                    </div>
+                    <div ng-if="!lightPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &gt; lightPage.O.order.heat_coef_min}" class="order-u-coeff">
+                      <div>U = {{ product.heat_coef_total }}</div>
+                      <div>{{ ::lightPage.HEATCOEF_VAL }}/{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C</div>
+                    </div>
+                  </div>
+                  <div class="order-content-rehau">
+                    <ul class="order-list">
+                      <li class="order-item-rehau">
+                        <div class="order-label-rehau">Ширина x Высота</div>
+                        <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="order-value-rehau">{{ product.template_width }}x{{ product.template_height }} {{ ::lightPage.MM }} </div>
+                      </li>
+                      <li class="order-item-rehau">
+                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_PROFILE }}</div>
+                        <div ng-if="product.construction_type !== 4" class="order-value-rehau">{{ product.profile.short_name }}</div>
+                      </li>
+                      <li ng-if="product.glass.length &gt; 1" class="order-item-rehau">
+                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
+                        <div class="order-value-rehau">{{ product.glass[0].sku + ', ...' }}</div>
+                      </li>
+                      <li ng-if="product.glass.length &lt;= 1" class="order-item-rehau">
+                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
+                        <div class="order-value-rehau">{{ product.glass[0].sku }}</div>
+                      </li>
+                      <li class="order-item-rehau">
+                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_HARDWARE }}</div>
+                        <div ng-if="product.construction_type === 4" class="order-value-rehau">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
+                        <div ng-if="product.construction_type !== 4" class="order-value-rehau">{{ product.hardware.name }}</div>
+                      </li>
+                      <li class="order-item-rehau">
+                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_LAMINATION }}</div>
+                        <div class="order-value-rehau"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
+                      </li>
+                      <li fs-click="lightPage.showAddElementDetail($index)" class="order-item-rehau addelements-btn">
+                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_ADDITIONAL }}</div>
+                        <div class="order-value-rehau">{{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
+                          <ng-pluralize count="lightPage.C.cart.allAddElements[$index].length" when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}"></ng-pluralize>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="order-qty">
+                      <button fs-click="lightPage.decreaseProductQty($index)" class="order-tool-minus-rehau"></button>
+                      <div class="order-value">{{ product.product_qty }}</div>
+                      <button fs-click="lightPage.increaseProductQty($index)" class="order-tool-plus-rehau"></button>
+                    </div>
+                  </div>
+                  <div class="order-footer-rehau">
+                    <div class="order-footer-warmcoef">
+                      <h3>Оценка<br>теплопроводимости</h3>
+                      <h2>7.4<h2>
+                    </div>
+                    <div class="order-footer-price-rehau"><h3>Стоимость<br>окна</h3>
+                      <div price-fixed="{{lightPage.P.product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
+                    </div>
+                  </div>
+                  <div ng-class="{'active': lightPage.config.isProductComment === $index+1}" class="order-comment">
+                    <div class="order-comment-box">
+                      <div class="order-comment-title">{{ ::lightPage.ORDER_COMMENT }}</div>
+                      <div class="order-comment-content">{{ lightPage.O.order.comment }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product-rehau order-rehau">
+                  <div class="add-img-rehau">+</div>
                   <div class="order-footer"></div>
                 </div>
               </div>
@@ -2014,7 +2178,7 @@
               <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorSashName }}</div>
             </li>
             <hr class="separator">
-            <li ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}" fs-click="configMenu.selectConfigPanel(3)" class="item">
+            <li ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}" fs-click="configMenu.selectConfigPanel(5)" class="item">
               <div data-output="{{ ::configMenu.CONFIGMENU_GLASS }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="titleLight"></div>
               <div ng-if="configMenu.P.product.glass.length == 1" data-output="{{ configMenu.P.product.glass[0].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.glass.length == 2" data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
@@ -2045,7 +2209,7 @@
             </li>
           </ul>
         </div>
-        <div ng-if="configMenu.G.global.showCart" ng-controller="CartMenuCtrl as cartMenu" class="cart-menu">
+        <div ng-if="configMenu.G.global.showCart &amp;&amp; lightPage.U.userInfo.factory_id !== 2" ng-controller="CartMenuCtrl as cartMenu" class="cart-menu">
           <ul class="items-list">
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}" fs-click="cartMenu.selectMenuItem(1)" class="item">
               <div data-output="{{ ::cartMenu.DELIVERY }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
@@ -2172,6 +2336,28 @@
               <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
             <button ng-click="cartMenu.openOrderDialog()" class="order-btn">{{ cartMenu.ORDER_LV }}</button>
+          </footer>
+        </div>
+        <div ng-if="configMenu.G.global.showCart &amp;&amp; lightPage.U.userInfo.factory_id === 2" ng-controller="CartMenuCtrl as cartMenu" class="cart-menu-rehau">
+          <ul class="items-list">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}" fs-click="cartMenu.selectMenuItem(5)" class="item-rehau">
+              <div typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"><h3>Заметка к заказу</h3></div>
+              <div class="cart-item-data-rehau"></div>
+              <div data-output="{{ cartMenu.O.order.comment }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
+            </li>
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu-rehau drop-calendar-rehau">
+              <textarea placeholder="Писать здесь..." ng-model="cartMenu.O.order.comment" class="comment-field noPreventDefault"></textarea>
+            </div>
+          </ul>
+          <footer class="menu-footer">
+            <div ng-class="{'active': cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block-rehau price-with-instalments-rehau">
+              <price price-value="cartMenu.O.order.paymentFirstDis" price-currency="cartMenu.U.userInfo.currency"></price>
+              <price price-value="cartMenu.O.order.paymentMonthlyDis" price-currency="cartMenu.U.userInfo.currency"></price>
+            </div>
+            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block-rehau price-without-instalments-rehau"><h2>Итого:</h2> 
+              <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
+            </div>
+            <button ng-click="cartMenu.openOrderDialog()" class="order-btn-rehau"><h2>Оставить заявку</h2></button>
           </footer>
         </div>
         <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="discount-block-rehau">

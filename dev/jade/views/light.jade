@@ -132,7 +132,7 @@
               .close-dialog(ng-click="lightPage.closeAttantion()")
 
 
-        section.cart-page(ng-if="lightPage.G.global.showCart === 1")
+        section.cart-page(ng-if="lightPage.G.global.showCart === 1 && lightPage.U.userInfo.factory_id !== 2")
           section.cart-container.full-view(ng-class="{'discount': lightPage.C.cart.isShowDiscount}")
             .scroll-hor-container
               .order-block
@@ -273,6 +273,124 @@
                 .discount-price-box
                   .discount-price-label {{ ::lightPage.DISCOUNT }}
                   .discount-price {{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}
+        //-rehau template for cards ---------------------
+        section.cart-page(ng-if="lightPage.G.global.showCart === 1 && lightPage.U.userInfo.factory_id === 2")
+          section.cart-container-rehau.full-view(ng-class="{'discount': lightPage.C.cart.isShowDiscount}")
+            .scroll-hor-container-rehau
+              .order-block
+                .order-rehau(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
+                  button.delete-construction(fs-click="lightPage.clickDeleteProduct($index)")
+                  img.eddit-construction(ng-src='img/rehau-img/eddit-construction.png' fs-click="lightPage.box($index, 'product')")
+                  .order-header(ng-click="lightPage.showCartTemplte($index)")
+                    .order-template-rehau
+                      svg-template(template="product.templateIcon", template-width="lightPage.constants.svgTemplateIconWidthCart", template-height="lightPage.constants.svgTemplateIconHeightCart", type-construction="lightPage.constants.SVG_CLASS_ICON")
+                    .order-u-coeff(ng-if="!lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > lightPage.O.order.heat_coef_min}")
+                      div U = {{ product.heat_coef_total }}
+                      div {{ ::lightPage.HEATCOEF_VAL }}/{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C
+                  .order-content-rehau
+                    ul.order-list
+                      li.order-item-rehau
+                        .order-label-rehau Ширина x Высота
+                        .order-value-rehau(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ product.template_width }}x{{ product.template_height }} {{ ::lightPage.MM }} 
+                      li.order-item-rehau
+                        .order-label-rehau {{ ::lightPage.CONFIGMENU_PROFILE }}
+                        .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.profile.short_name }}
+                      li.order-item-rehau(ng-if="product.glass.length > 1")
+                        .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
+                        .order-value-rehau {{ product.glass[0].sku + ', ...' }}
+                      li.order-item-rehau(ng-if="product.glass.length <= 1")
+                        .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
+                        .order-value-rehau {{ product.glass[0].sku }}
+                      li.order-item-rehau
+                        .order-label-rehau {{ ::lightPage.CONFIGMENU_HARDWARE }}
+                        .order-value-rehau(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
+                        .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
+                      li.order-item-rehau
+                        .order-label-rehau {{ ::lightPage.CONFIGMENU_LAMINATION }}
+                        .order-value-rehau
+                          span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
+                          span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
+                          span /
+                          span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
+                          span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
+                      li.order-item-rehau.addelements-btn(fs-click="lightPage.showAddElementDetail($index)")
+                        .order-label-rehau {{ ::lightPage.CONFIGMENU_ADDITIONAL }}
+                        .order-value-rehau {{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
+                          ng-pluralize(count="lightPage.C.cart.allAddElements[$index].length",
+                          when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}")
+                    .order-qty
+                      button.order-tool-minus-rehau(fs-click="lightPage.decreaseProductQty($index)")
+                      .order-value {{ product.product_qty }}
+                      button.order-tool-plus-rehau(fs-click="lightPage.increaseProductQty($index)")
+                  .order-footer-rehau
+                    .order-footer-warmcoef
+                      <h3>Оценка<br>теплопроводимости</h3>
+                      <h2>7.4<h2>
+                    .order-footer-price-rehau
+                      <h3>Стоимость<br>окна</h3>
+                      .order-price(price-fixed="{{lightPage.P.product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
+                    
+                    
+                  .order-comment(ng-class="{'active': lightPage.config.isProductComment === $index+1}")
+                    .order-comment-box
+                      .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
+                      .order-comment-content {{ lightPage.O.order.comment }}
+                .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
+                  .add-img-rehau +
+                  .order-footer
+
+            .template-window(ng-if="lightPage.C.cart.showCurrentTemp")
+              button.close-cur-window(ng-click="lightPage.C.cart.showCurrentTemp=0")
+              img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
+              svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="lightPage.constants.SVG_ID_GLASS")
+
+            .discount-container
+              .discount-box.selected
+                .discount-data
+                  label.disc-input.noPreventDefault#disc-input-main {{lightPage.C.cart.averageDisc | number : 2}}
+                  label %
+                .discount-txt-arrow(ng-click="lightPage.toggleDiscount()")
+                  .discounts-label {{lightPage.DISCOUNT}}
+                  .discounts-icon-down(ng-if="!lightPage.G.global.toggleDiscount")
+                  .discounts-icon-up(ng-if="lightPage.G.global.toggleDiscount")
+              .disc(ng-if="lightPage.G.global.toggleDiscount")
+                .discount-box.selected
+                  .discount-data(ng-keyup="lightPage.enterKeyPrice(event)")
+                    .disc-max(ng-show="lightPage.C.cart.tempConstructDisc > lightPage.U.userInfo.discountConstrMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%
+                    input.disc-input.noPreventDefault#disc-input(type="number" value="0" ng-model="lightPage.C.cart.tempConstructDisc")
+                    |%
+                  .discount-txt(ng-click="lightPage.approveNewDisc(0)")
+                    .discounts-label {{ ::lightPage.DISCOUNT_WINDOW }}
+
+                .discount-box.selected
+                  .discount-data(ng-keyup="lightPage.enterKeyDop(event)")
+                    .disc-max(ng-show="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
+                    input.disc-input.noPreventDefault#disc-input-add(type="number" value="0" ng-model="lightPage.C.cart.tempAddelemDisc")
+                    |%
+                  .discount-txt(ng-click="lightPage.approveNewDisc(1)")
+                    .discounts-label {{ ::lightPage.DISCOUNT_ADDELEM }}
+
+                .discount-box.selected
+                  .discount-data(ng-keyup="lightPage.enterKeyDopService(event)")
+                    .disc-max(ng-show="lightPage.U.userInfo.discount_service > 100") {{ ::lightPage.MAX }} {{'100'}}%
+                    input.disc-input.noPreventDefault#disc-input-service(type="number" ng-model="lightPage.C.cart.discount_service")
+                    |%
+                  .discount-txt(ng-click="lightPage.approveNewDisc(2)")
+                    .discounts-label {{lightPage.DISCOUNT_SERVICE}}
+
+            .discount-container
+              .discount-title {{ ::lightPage.DISCOUNT }}
+              .discount-price-container
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT_WITHOUT }}
+                  .discount-price {{ lightPage.O.order.order_price }} {{lightPage.U.userInfo.currency}}
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT_WITH }}
+                  .discount-price {{ lightPage.O.order.productsPriceDis }} {{lightPage.U.userInfo.currency}}
+                .discount-price-box
+                  .discount-price-label {{ ::lightPage.DISCOUNT }}
+                  .discount-price {{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}
+            //-rehau template for cards END -------------------------
 
         .addelements-detail(ng-if="lightPage.config.isAddElementDetail")
           .addelements-detail-header
@@ -550,7 +668,7 @@
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
             hr.separator
-            li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")
+            li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(5)")
               .titleLight(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -575,7 +693,7 @@
                   li.additional-item(ng-repeat="addElement in addElementGroup")
                     span.value(data-output="") {{ addElement.name }}
 
-        .cart-menu(ng-if="configMenu.G.global.showCart", ng-controller="CartMenuCtrl as cartMenu")
+        .cart-menu(ng-if="configMenu.G.global.showCart && lightPage.U.userInfo.factory_id !== 2", ng-controller="CartMenuCtrl as cartMenu")
           ul.items-list
             li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
               .title(data-output="{{ ::cartMenu.DELIVERY }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -676,7 +794,27 @@
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ cartMenu.ORDER_LV }}
 
-        //- Reahu template
+
+
+        //-rehau templates ---------------------------
+        .cart-menu-rehau(ng-if="configMenu.G.global.showCart && lightPage.U.userInfo.factory_id === 2", ng-controller="CartMenuCtrl as cartMenu")
+          ul.items-list
+            li.item-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}", fs-click="cartMenu.selectMenuItem(5)")
+              .title-rehau(typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}") <h3>Заметка к заказу</h3>
+              .cart-item-data-rehau
+              .value-rehau(data-output="{{ cartMenu.O.order.comment }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+            .dropdown-cart-menu-rehau.drop-calendar-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 5}")
+              textarea(placeholder="Писать здесь...").comment-field.noPreventDefault(ng-model="cartMenu.O.order.comment")
+
+          footer.menu-footer
+            .price-block-rehau.price-with-instalments-rehau(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
+              price(price-value="cartMenu.O.order.paymentFirstDis", price-currency="cartMenu.U.userInfo.currency")
+              price(price-value="cartMenu.O.order.paymentMonthlyDis", price-currency="cartMenu.U.userInfo.currency")
+            .price-block-rehau.price-without-instalments-rehau(ng-class="{'active': !cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
+              <h2>Итого:</h2> 
+              price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
+            button.order-btn-rehau(ng-click="cartMenu.openOrderDialog()") <h2>Оставить заявку</h2>
+      
         .discount-block-rehau(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id == 2")
           .discount-price-rehau
             .price-text Цена:

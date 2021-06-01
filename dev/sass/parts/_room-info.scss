@@ -77,6 +77,49 @@
       display : inline-block;
     }
   }
+  //rehau styles
+  .coeff-info-block-rehau {
+    position: absolute;
+    top: -30rem;
+    width: 80rem;
+    height: 20rem;
+    left:-23rem;
+    border-radius:2rem;
+    background-color: white;
+    text-align:center;
+    padding: 2rem 0 0 0;
+    text-shadow: none;
+    box-shadow: 0rem 0 0.9375rem 0.1rem rgba(0, 0, 0, 0.5);
+
+    .coeff-max, .heat-transfer{
+      color : $main_green;
+      @include roboto-rg(rem(80px));
+      position:relative;
+      top:0;
+      display: inline-block;
+    }
+    .heat-transfer-info_hr{
+      position:relative;
+      @include roboto-rg(rem(30px));
+      color: #000;
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px solid #ccc;
+      width : 90%;
+      display : inline-block;
+    }
+    .heat-transfer-info{
+
+      position:relative;
+      @include roboto-rg(rem(30px));
+      color: #000;
+      margin: 0;
+      padding: 0;
+      width : 90%;
+      display : inline-block;
+    }
+  }
+  //rehau styles
   .select-window-door{
     @extend .select-rooms;
     @include roboto-lt(rem(40px));
@@ -152,6 +195,40 @@
   .heat-transfer{
     margin-top:0.2rem;
     cursor: pointer;
+  }
+  .heat-transfer-rehau {
+    margin-top: -80px;
+    margin-left: 10px;
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+    .coeff-number {
+      margin: 0;
+      background-color: $primary_pink;
+      margin-left: 79px;
+      max-width: 30%;
+      h3 {
+        color: $primary_pink;
+        font-size: 18px;
+        color: white;
+        padding: 12px 12px 12px 12px;
+      }
+    }
+    .coeff-mark {
+      margin: 0;
+      h4 {
+        color: black;
+        font-size: 16px;
+      }
+    }
+    .coeff-info {
+      p {
+        font-size: 14px;
+        white-space: nowrap;
+        text-decoration: underline;
+        color: rgb(197, 197, 197);
+      }
+    }
   }
   .comment-btn {
     position: absolute;
