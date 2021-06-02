@@ -2762,9 +2762,10 @@ div.drum figure {
   font: normal 5rem/1.42857 roboto-regular, sans-serif, icons;
   position: relative;
   top: 0;
+  padding-left: 15px;
   display: inline-block;
 }
-/* line 100, ../../dev/sass/parts/_room-info.scss */
+/* line 101, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-info-block-rehau .heat-transfer-info_hr {
   position: relative;
   font: normal 1.875rem/1.42857 roboto-regular, sans-serif, icons;
@@ -2775,7 +2776,7 @@ div.drum figure {
   width: 90%;
   display: inline-block;
 }
-/* line 110, ../../dev/sass/parts/_room-info.scss */
+/* line 111, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-info-block-rehau .heat-transfer-info {
   position: relative;
   font: normal 1.875rem/1.42857 roboto-regular, sans-serif, icons;
@@ -2785,7 +2786,7 @@ div.drum figure {
   width: 90%;
   display: inline-block;
 }
-/* line 122, ../../dev/sass/parts/_room-info.scss */
+/* line 123, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .select-window-door {
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
   margin-top: 0;
@@ -2793,18 +2794,18 @@ div.drum figure {
   position: relative;
   top: -2rem;
 }
-/* line 130, ../../dev/sass/parts/_room-info.scss */
+/* line 131, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .powered-by {
   width: 100%;
 }
-/* line 133, ../../dev/sass/parts/_room-info.scss */
+/* line 134, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .powered-by a {
   font: normal 2.1875rem/1.42857 roboto-light, sans-serif, icons;
   color: white;
   text-decoration: none;
   float: right;
 }
-/* line 139, ../../dev/sass/parts/_room-info.scss */
+/* line 140, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-container {
   display: -webkit-flex;
   display: flex;
@@ -2818,22 +2819,22 @@ div.drum figure {
   position: absolute;
   width: 100%;
 }
-/* line 147, ../../dev/sass/parts/_room-info.scss */
+/* line 148, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block {
   margin: 0;
   padding: 0 2.1875rem;
   color: #fff;
   border-left: 2px dotted #fff;
 }
-/* line 152, ../../dev/sass/parts/_room-info.scss */
+/* line 153, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:first-child {
   border-left: none;
 }
-/* line 155, ../../dev/sass/parts/_room-info.scss */
+/* line 156, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:nth-child(2), .room-info-container .coeff-block:last-child {
   max-width: 32.5rem;
 }
-/* line 160, ../../dev/sass/parts/_room-info.scss */
+/* line 161, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max-rehau {
   font: normal 2.25rem/1 roboto-medium, sans-serif, icons;
   position: absolute;
@@ -2841,14 +2842,14 @@ div.drum figure {
   right: 0;
   color: #fff;
 }
-/* line 168, ../../dev/sass/parts/_room-info.scss */
+/* line 169, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
   text-align: center;
   font: normal 3.125rem/1 roboto-regular, sans-serif, icons;
   position: relative;
   float: left;
 }
-/* line 177, ../../dev/sass/parts/_room-info.scss */
+/* line 178, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
   font: normal 2rem/1.42857 roboto-light, sans-serif, icons;
   color: black;
@@ -2866,12 +2867,12 @@ div.drum figure {
   cursor: pointer;
   text-decoration: underline;
 }
-/* line 194, ../../dev/sass/parts/_room-info.scss */
+/* line 195, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer {
   margin-top: 0.2rem;
   cursor: pointer;
 }
-/* line 198, ../../dev/sass/parts/_room-info.scss */
+/* line 199, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau {
   margin-top: -80px;
   margin-left: -25px;
@@ -2880,7 +2881,7 @@ div.drum figure {
   text-align: center;
   cursor: pointer;
 }
-/* line 205, ../../dev/sass/parts/_room-info.scss */
+/* line 206, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-number {
   margin: 0;
   color: #DD0060;
@@ -2889,13 +2890,13 @@ div.drum figure {
   font-size: 24px;
   font-weight: bold;
 }
-/* line 213, ../../dev/sass/parts/_room-info.scss */
+/* line 214, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-number span {
   padding-left: 10px;
   color: black;
   font-size: 18px;
 }
-/* line 220, ../../dev/sass/parts/_room-info.scss */
+/* line 221, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-info p {
   font-size: 14px;
   font-weight: lighter;
@@ -2903,24 +2904,24 @@ div.drum figure {
   text-decoration: underline;
   color: #c5c5c5;
 }
-/* line 229, ../../dev/sass/parts/_room-info.scss */
+/* line 230, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn {
   position: absolute;
   bottom: 0;
   right: 1rem;
 }
-/* line 233, ../../dev/sass/parts/_room-info.scss */
+/* line 234, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn:after {
   font: normal 5rem/1 icons, sans-serif;
   content: "";
   color: #fff;
 }
-/* line 241, ../../dev/sass/parts/_room-info.scss */
+/* line 242, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 25rem;
   height: 90%;
 }
-/* line 245, ../../dev/sass/parts/_room-info.scss */
+/* line 246, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -2933,7 +2934,7 @@ div.drum figure {
   outline: none;
 }
 
-/* line 257, ../../dev/sass/parts/_room-info.scss */
+/* line 258, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -2946,7 +2947,7 @@ textarea.comment-field {
   outline: none;
 }
 
-/* line 270, ../../dev/sass/parts/_room-info.scss */
+/* line 271, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -2959,7 +2960,7 @@ textarea.comment-field-rehau {
   resize: none;
 }
 
-/* line 281, ../../dev/sass/parts/_room-info.scss */
+/* line 282, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -3333,7 +3334,7 @@ textarea.comment-field-rehau {
   display: flex;
   -webkit-justify-content: center;
   justify-content: center;
-  margin-left: 10rem;
+  margin-left: 5rem;
 }
 /* line 98, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-value, .order-path .price-value, .config-menu .price-value, .elements-menu .price-value, .cart-menu .price-value, .cart-menu-rehau .price-value, .old-price-tab .price-value, .old-price-inst-tab .price-value {
@@ -17045,7 +17046,7 @@ input[type='number'] {
   color: #DD0060;
   font-weight: bold;
   margin-top: -3px;
-  margin-left: -16px;
+  margin-left: -27px;
 }
 /* line 686, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu-rehau .price-block-rehau.active .price-rehau .price-currency {

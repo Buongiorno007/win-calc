@@ -93,7 +93,7 @@
   .price-rehau {
     @include display-flex();
     @include justify-content(center);
-    margin-left: 10rem;
+    margin-left: 5rem;
   }
   .price-value {
     font: normal 4rem/1 roboto-light, sans-serif, icons;
