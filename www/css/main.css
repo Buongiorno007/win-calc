@@ -2902,26 +2902,27 @@ div.drum figure {
   font-weight: lighter;
   white-space: nowrap;
   text-decoration: underline;
-  color: #c5c5c5;
+  color: black;
+  font-family: 'roboto-light';
 }
-/* line 230, ../../dev/sass/parts/_room-info.scss */
+/* line 231, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn {
   position: absolute;
   bottom: 0;
   right: 1rem;
 }
-/* line 234, ../../dev/sass/parts/_room-info.scss */
+/* line 235, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn:after {
   font: normal 5rem/1 icons, sans-serif;
   content: "";
   color: #fff;
 }
-/* line 242, ../../dev/sass/parts/_room-info.scss */
+/* line 243, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 25rem;
   height: 90%;
 }
-/* line 246, ../../dev/sass/parts/_room-info.scss */
+/* line 247, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -2934,7 +2935,7 @@ div.drum figure {
   outline: none;
 }
 
-/* line 258, ../../dev/sass/parts/_room-info.scss */
+/* line 259, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -2947,7 +2948,7 @@ textarea.comment-field {
   outline: none;
 }
 
-/* line 271, ../../dev/sass/parts/_room-info.scss */
+/* line 272, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -2960,7 +2961,7 @@ textarea.comment-field-rehau {
   resize: none;
 }
 
-/* line 282, ../../dev/sass/parts/_room-info.scss */
+/* line 283, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
