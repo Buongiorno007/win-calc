@@ -324,7 +324,7 @@
                       button.order-tool-plus-rehau(fs-click="lightPage.increaseProductQty($index)")
                   .order-footer-rehau
                     .order-footer-warmcoef
-                      <h3>Оценка<br>теплопроводимости</h3>
+                      <h3>Оценка<br>энергоэффективности</h3>
                       <h2>7.4<h2>
                     .order-footer-price-rehau
                       <h3>Стоимость<br>окна</h3>
@@ -336,7 +336,8 @@
                       .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
                       .order-comment-content {{ lightPage.O.order.comment }}
                 .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
-                  .add-img-rehau +
+                  .add-img-rehau 
+                    img(src="../../img/rehau-img/plus-gray.svg", alt="")
                   .order-footer
 
             .template-window(ng-if="lightPage.C.cart.showCurrentTemp")
@@ -802,9 +803,9 @@
             li.item-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}", fs-click="cartMenu.selectMenuItem(5)")
               .title-rehau(typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}") <h3>Заметка к заказу</h3>
               .cart-item-data-rehau
-              .value-rehau(data-output="{{ cartMenu.O.order.comment }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+              .value-rehau-comment(data-output="{{ cartMenu.O.order.comment }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu-rehau.drop-calendar-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 5}")
-              textarea(placeholder="Писать здесь...").comment-field.noPreventDefault(ng-model="cartMenu.O.order.comment")
+              textarea(placeholder="Писать здесь...").comment-field-rehau.noPreventDefault(ng-model="cartMenu.O.order.comment")
 
           footer.menu-footer
             .price-block-rehau.price-with-instalments-rehau(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")

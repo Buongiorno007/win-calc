@@ -80,19 +80,18 @@
   //rehau styles
   .coeff-info-block-rehau {
     position: absolute;
-    top: -30rem;
+    top: -33rem;
     width: 80rem;
     height: 20rem;
     left:-23rem;
-    border-radius:2rem;
     background-color: white;
     text-align:center;
     padding: 2rem 0 0 0;
     text-shadow: none;
     box-shadow: 0rem 0 0.9375rem 0.1rem rgba(0, 0, 0, 0.5);
 
-    .coeff-max, .heat-transfer{
-      color : $main_green;
+    .coeff-max-rehau, .heat-transfer-rehau{
+      color : $primary_green;
       @include roboto-rg(rem(80px));
       position:relative;
       top:0;
@@ -158,7 +157,7 @@
       max-width: rem(520px);
     }
   }
-  .coeff-max {
+  .coeff-max-rehau {
     @extend .splash;
     @include roboto-md(rem(36px), 1);
     position: absolute;
@@ -198,32 +197,29 @@
   }
   .heat-transfer-rehau {
     margin-top: -80px;
-    margin-left: 10px;
+    margin-left: -25px;
+    top: 65px;
     width: auto;
     text-align: center;
     cursor: pointer;
     .coeff-number {
       margin: 0;
-      background-color: $primary_pink;
-      margin-left: 79px;
-      max-width: 30%;
-      h3 {
-        color: $primary_pink;
-        font-size: 18px;
-        color: white;
-        padding: 12px 12px 12px 12px;
-      }
-    }
-    .coeff-mark {
-      margin: 0;
-      h4 {
+      color: $primary_pink;
+      max-width: 100%;
+      white-space: nowrap;
+      font-size: 24px;
+      font-weight: bold;
+
+      span {
+        padding-left: 10px;
         color: black;
-        font-size: 16px;
+        font-size: 18px;
       }
     }
     .coeff-info {
       p {
         font-size: 14px;
+        font-weight: lighter;
         white-space: nowrap;
         text-decoration: underline;
         color: rgb(197, 197, 197);
@@ -269,5 +265,30 @@
     border-radius: 1.25rem;
     outline: none;
   }
+
+  //rehau styles
+  textarea.comment-field-rehau {
+    @include roboto-lt(rem(36px));
+    width: 90%;
+    height: 500px;
+    display: block;
+    margin: 0;
+    padding: 2rem;
+    border: none;
+    outline: none;
+    resize: none;
+  }
+  textarea.comment-field-rehau {
+    font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
+    width: 90%;
+    height: 500px;
+    display: -webkit-inline-box;
+    margin: 0;
+    padding: 2rem;
+    border: none;
+    border-radius: 1.25rem;
+    outline: none;
+  }
+  //rehau styles end
 @include behavior-move(moveRoomHeader, rem(2000px), 0, 0, 0);
 @include behavior-move(moveCoeff, 0, rem(2000px), 250, 0);

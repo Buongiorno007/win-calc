@@ -254,6 +254,15 @@ body {
   background-color: $main_orange;
 }
 
+.close-dialog-rehau {
+  background-image: url(../../img/rehau-img/remove.png);
+  width: 33px;
+  height: 33px;
+  position: absolute;
+  top: 1rem;
+  right: 1.3rem;
+}
+
 // Delete element button
 .aux-delete {
   @extend .small-cross-btn;

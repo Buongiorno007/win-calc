@@ -27,23 +27,22 @@
   .coeff-container(ng-if="roomInfo.U.userInfo.factory_id === 2")
     .coeff-block
       .coeff-info-block-rehau(ng-if="roomInfo.G.global.showCoefInfoBlock")
-        .coeff-max {{ roomInfo.O.order.heat_coef_min }}
-          .heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id")
+        .coeff-max-rehau {{ roomInfo.O.order.heat_coef_min }}
+          .heat-transfer-rehau(ng-if="roomInfo.U.userInfo.therm_coeff_id")
             | {{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
-          .heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id")
+          .heat-transfer-rehau(ng-if="!roomInfo.U.userInfo.therm_coeff_id")
             | {{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C
         .heat-transfer-info_hr
           | {{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}
         .heat-transfer-info
           | {{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}
-        .close-dialog(fs-click="roomInfo.G.global.showCoefInfoBlock=0")
+        .close-dialog-rehau(fs-click="roomInfo.G.global.showCoefInfoBlock=0")
       //R
       .coeff.heat-transfer-rehau(ng-if="roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total < roomInfo.O.order.heat_coef_min}",
                             fs-click="roomInfo.showCoefInfoBlock()")
-        .coeff-number<h3>7.4</h3>
-        .coeff-mark<h4>Очень хорошо</h4>
-        .coeff-info<p>Подробнее о теплопроводимости</p>
+        .coeff-number 7.4 <span>Очень хорошо</span>
+        .coeff-info<p>Подробнее об оценке энергоэффективности</p>
       .coeff.heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total > roomInfo.O.order.heat_coef_min}",
                             fs-click="roomInfo.showCoefInfoBlock()")

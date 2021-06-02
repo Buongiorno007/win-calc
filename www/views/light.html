@@ -107,19 +107,18 @@
                 <div ng-if="roomInfo.U.userInfo.factory_id === 2" class="coeff-container">
                   <div class="coeff-block">
                     <div ng-if="roomInfo.G.global.showCoefInfoBlock" class="coeff-info-block-rehau">
-                      <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}
-                        <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
-                        <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
+                      <div class="coeff-max-rehau">{{ roomInfo.O.order.heat_coef_min }}
+                        <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-rehau">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
+                        <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-rehau">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
                       </div>
                       <div class="heat-transfer-info_hr">{{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}</div>
                       <div class="heat-transfer-info">{{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}</div>
-                      <div fs-click="roomInfo.G.global.showCoefInfoBlock=0" class="close-dialog"></div>
+                      <div fs-click="roomInfo.G.global.showCoefInfoBlock=0" class="close-dialog-rehau"></div>
                     </div>
                     <!--R-->
                     <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer-rehau">
-                      <div class="coeff-number"><h3>7.4</h3></div>
-                      <div class="coeff-mark"><h4>Очень хорошо</h4></div>
-                      <div class="coeff-info"><p>Подробнее о теплопроводимости</p></div>
+                      <div class="coeff-number">7.4 <span>Очень хорошо</span></div>
+                      <div class="coeff-info"><p>Подробнее об оценке энергоэффективности</p></div>
                     </div>
                     <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
                       <div data-output="{{ ::roomInfo.HEAT_TRANSFER }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
@@ -1312,7 +1311,7 @@
                   </div>
                   <div class="order-footer-rehau">
                     <div class="order-footer-warmcoef">
-                      <h3>Оценка<br>теплопроводимости</h3>
+                      <h3>Оценка<br>энергоэффективности</h3>
                       <h2>7.4<h2>
                     </div>
                     <div class="order-footer-price-rehau"><h3>Стоимость<br>окна</h3>
@@ -1327,7 +1326,7 @@
                   </div>
                 </div>
                 <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product-rehau order-rehau">
-                  <div class="add-img-rehau">+</div>
+                  <div class="add-img-rehau"> <img src="../../img/rehau-img/plus-gray.svg" alt=""></div>
                   <div class="order-footer"></div>
                 </div>
               </div>
@@ -2343,10 +2342,10 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}" fs-click="cartMenu.selectMenuItem(5)" class="item-rehau">
               <div typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"><h3>Заметка к заказу</h3></div>
               <div class="cart-item-data-rehau"></div>
-              <div data-output="{{ cartMenu.O.order.comment }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
+              <div data-output="{{ cartMenu.O.order.comment }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau-comment"></div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu-rehau drop-calendar-rehau">
-              <textarea placeholder="Писать здесь..." ng-model="cartMenu.O.order.comment" class="comment-field noPreventDefault"></textarea>
+              <textarea placeholder="Писать здесь..." ng-model="cartMenu.O.order.comment" class="comment-field-rehau noPreventDefault"></textarea>
             </div>
           </ul>
           <footer class="menu-footer">

@@ -129,6 +129,23 @@
       border-bottom: 1px solid $main_gray_btn;
     }
   }
+  //rehau styles 
+  .dropdown-cart-menu-rehau {
+    @include transition(all 0.5s linear);
+
+    height: 0;
+    margin-left: rem(-44px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #fff;
+    padding-top: 4rem;
+    &.active {
+      border-top: 1px solid $main_gray_btn;
+      border-bottom: 1px solid $main_gray_btn;
+    }
+  }
+  //rehau styles end
+
   .drop-delivery {
     &.active {
       height: rem(326px);
@@ -145,6 +162,15 @@
       height: 26rem;
     }
   }
+
+  //rehau stylse
+  .drop-calendar-rehau {
+    text-align: center;
+    &.active {
+      height: 26rem;
+    }
+  }
+  //rehau styles end
   .dismounting{
     display : inline-flex;
     align-items : center;

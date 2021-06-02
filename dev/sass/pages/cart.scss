@@ -249,6 +249,15 @@
 
     border-bottom: 1px solid black;
   }
+
+  .value-rehau-comment {
+    margin-left: 15px;
+    font-size: 14px;
+    max-width: 25;
+    text-overflow: ellipsis;
+    width: 190px;
+    overflow: hidden;
+  }
   //rehau styles end
 
   .addelements-btn {
@@ -989,12 +998,17 @@
   align-items : center;
   justify-content : center;
   cursor : pointer;
+  background-color: white;
   
   .add-img-rehau {
     display : inline-flex;
     align-items : center;
     justify-content : center;
-    
+
+    img {
+      height: 100px;
+      width: 100px;
+    }
   }
   .title{
     color : $main_gray_btn;
