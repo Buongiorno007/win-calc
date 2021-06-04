@@ -69,7 +69,7 @@
               <div ng-click="lightPage.G.global.activePanel=0" class="construction-scrollbox">
                 <svg-template template="lightPage.D.design.templateTEMP" template-width="lightPage.constants.svgTemplateWidth" template-height="lightPage.constants.svgTemplateHeight" type-construction="lightPage.constants.SVG_ID_EDIT"></svg-template>
               </div>
-              <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == -1, 'select': templatesPanel.G.global.activePanel == 0, 'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight template-container">
+              <div ng-show="templatesPanel.U.userInfo.factory_id !== 2" ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == -1, 'select': templatesPanel.G.global.activePanel == 0, 'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight template-container">
                 <div class="construction-type">
                   <!--.construction-type.hide(fs-click="templatesPanel.closeTemplates()")-->
                   <div ng-repeat="name in templatesPanel.templateName track by $index" fs-click="templatesPanel.selectNewTemplateType($index+1)" ng-class="{'selected': templatesPanel.selected === $index+1}" class="construction-type type-btn">{{ ::templatesPanel.templateName[$index]|translate }}</div>
@@ -81,7 +81,47 @@
                     <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
                   </div>
                 </div>
-              </div><img ng-if="lightPage.U.userInfo.factory_id != 2" ng-src="img/calc/info-button.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIcon"><img ng-if="lightPage.U.userInfo.factory_id != 2" ng-src="img/calc/info-buttonGreen.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIconGreen">
+              </div>
+              <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == -1, 'select': templatesPanel.G.global.activePanel == 0, 'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
+                <div class="other-template-rehau">
+                  <div class="single-leaf-windows"> 
+                    <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
+                    <div class="single-leaf-windows-templates">
+                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs[0] track by $index" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} " class="other-single-template-rehau">
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="duble-leaf-windows">
+                    <div class="duble-leaf-windows-title"><h1>Окна двухстворчатые</h1></div>
+                    <div class="duble-leaf-windows-templates">
+                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs[1] track by $index" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="three-leaf-windows">
+                    <div class="three-leaf-windows-title"><h1>Окна трёхстворчатые</h1></div>
+                    <div class="three-leaf-windows-templates">
+                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs[2] track by $index" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="three-leaf-windows">
+                    <div class="three-leaf-windows-title"><h1>Двери балконные</h1></div>
+                    <div class="three-leaf-windows-templates">
+                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs[3] track by $index" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><img ng-if="lightPage.U.userInfo.factory_id !== 2" ng-src="img/calc/info-button.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIcon"><img ng-if="lightPage.U.userInfo.factory_id !== 2" ng-src="img/calc/info-buttonGreen.svg" ng-class="{'coeff-low': lightPage.P.product.heat_coef_total &lt; lightPage.O.order.heat_coef_min}" class="infoIconGreen">
               <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
                 <div ng-if="roomInfo.U.userInfo.factory_id !== 2" class="coeff-container">
                   <div class="coeff-block">
@@ -1982,18 +2022,18 @@
             <p>{{lightPage.CART}}</p>
           </div>
         </div>
-        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="lightPage.U.userInfo.factory_id == 2" class="karkas-rehau">
+        <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="lightPage.U.userInfo.factory_id === 2" class="karkas-rehau">
           <div class="construction-left-menu-rehau">
             <ul class="figure-lists-rehau">
-              <li fs-click="configMenu.U.userInfo.factory_id === 2 ? configMenu.selectConfigPanel(8) : configMenu.selectConfigPanel(-1)" class="figure-item-rehau temp-fig-rehau">
+              <li ng-click="designPage.selectMenuItem(6)" class="figure-item-rehau temp-fig-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Шаблон</span></div>
-                <div ng-if="!lightPage.G.global.SelectedTemplateName" data-output="Поворотное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
-                <div ng-if="lightPage.G.global.SelectedTemplateName" data-output="{{ lightPage.G.global.SelectedTemplateName }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"> </div>
+                <div ng-if="!designPage.G.global.SelectedTemplateName" data-output="Поворотное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
+                <div ng-if="designPage.G.global.SelectedTemplateName" data-output="{{ lightPage.G.global.SelectedTemplateName }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"> </div>
               </li>
               <hr class="separator">
               <li fs-click="configMenu.selectConfigPanel(2)" class="figure-item-rehau">
-                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}" class="figure-item-rehau-block"></div>
+                <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Профиль<span></div>
                 <div data-output="{{ lightPage.P.product.profile.name }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
@@ -2177,7 +2217,7 @@
               <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorSashName }}</div>
             </li>
             <hr class="separator">
-            <li ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}" fs-click="configMenu.selectConfigPanel(5)" class="item">
+            <li ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}" fs-click="configMenu.selectConfigPanel(3)" class="item">
               <div data-output="{{ ::configMenu.CONFIGMENU_GLASS }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="titleLight"></div>
               <div ng-if="configMenu.P.product.glass.length == 1" data-output="{{ configMenu.P.product.glass[0].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
               <div ng-if="configMenu.P.product.glass.length == 2" data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>

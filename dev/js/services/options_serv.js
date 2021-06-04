@@ -8,8 +8,75 @@
             function ($filter) {
 
                 return {
-
-
+                    getTemplateImgIconsRehau: function (callback) {
+                        callback(new OkResult({
+                            templateImgsRehau: [
+                                [
+                                    {
+                                        id: 1,
+                                        name: $filter('translate')('panels.1_TYPE'),
+                                        src: 'img/templates/1.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 4,
+                                        name: $filter('translate')('panels.3_TYPE'),
+                                        src: 'img/templates/3.png',
+                                        type: 1
+                                    },
+                                ],
+                                [
+                                    {
+                                        id: 5,
+                                        name: $filter('translate')('panels.4_TYPE'),
+                                        src: 'img/templates/4.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 7,
+                                        name: $filter('translate')('panels.6_TYPE'),
+                                        src: 'img/templates/6.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 9,
+                                        name: $filter('translate')('panels.8_TYPE'),
+                                        src: 'img/templates/8.png',
+                                        type: 1
+                                    },
+                                ],
+                                [
+                                    {
+                                        id: 10,
+                                        name: $filter('translate')('panels.9_TYPE'),
+                                        src: 'img/templates/9.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 12,
+                                        name: $filter('translate')('panels.11_TYPE'),
+                                        src: 'img/templates/11.png',
+                                        type: 1
+                                    },
+                                ],
+                                [
+                                    {
+                                        id: 1,
+                                        name: $filter('translate')('panels.21_TYPE'),
+                                        src: 'img/templates/21.png',
+                                        type: 2
+                                    },
+                                    {
+                                        id: 3,
+                                        name: $filter('translate')('panels.23_TYPE'),
+                                        src: 'img/templates/23.png',
+                                        type: 2
+                                    },
+                                ]
+                            ]
+                        }));
+                    },
+                    
                     getTemplateImgIcons: function (callback) {
                         callback(new OkResult({
                             templateImgs: [

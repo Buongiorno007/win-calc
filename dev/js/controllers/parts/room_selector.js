@@ -35,14 +35,24 @@
         function selectRoom(id) {
           //а тут может быть?
           GlobalStor.global.rooms.length
-          optionsServ.getTemplateImgIcons(function (results) {
-            if (results.status) {
-              GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
-                return data.type === GlobalStor.global.rooms[id].group_id;
-              });
-            }
-            ;
-          });
+          if (UserStor.userInfo.factory_id === 2) {
+            optionsServ.getTemplateImgIconsRehau(function (results) {
+              if (results.status) {
+                GlobalStor.global.templatesImgs = results.data.templateImgsRehau.filter(function (data) {
+                  return data.type === GlobalStor.global.rooms[id].group_id;
+                });
+              };
+            });
+          } else {
+            optionsServ.getTemplateImgIconsRehau(function (results) {
+              if (results.status) {
+                GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
+                  return data.type === GlobalStor.global.rooms[id].group_id;
+                });
+              };
+            });
+          }
+         
           MainServ.downloadAllTemplates(GlobalStor.global.rooms[id].group_id).then(function (data) {
             if (data) {
               GlobalStor.global.templatesSourceSTORE = angular.copy(data);

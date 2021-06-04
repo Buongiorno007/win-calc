@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1621891938') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1620908106') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1621891938') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1620908106') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1621891938') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1620908106') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1621891938') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1620908106') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1621891938') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1620908106') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1621891938') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1620908106') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max-rehau, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -345,7 +345,7 @@ th {
 .light-v .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit,
 .light-v .order, .cart-page .order-rehau,
 .light-v .order-rehau, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .light-v .order-qty-menu, .light-v .save-block-rehau, .light-v .save-block, .mobile .control-buttons-container .control-button .qty-mobile, .nav-menu [class^='nav-icon-'],
-.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .config-menu .go-to-cart, .config-menu .save-to-cart, .config-menu #qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .cart-menu-rehau .calendar-price, .cart-menu-rehau .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-selector-dialog .set-glass-btn, .hardware-container .hardware-box, .lamination-container .laminat-img, .lamination-container .panel-inner-rehau .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
+.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .config-menu .go-to-cart, .config-menu .save-to-cart, .config-menu #qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .cart-menu-rehau .calendar-price, .cart-menu-rehau .measure-btn, .template-container .template-title, .template-container .other-template-img, .template-container-rehau .template-title, .template-container-rehau .other-template-img, .glass-selector-dialog .set-glass-btn, .hardware-container .hardware-box, .lamination-container .laminat-img, .lamination-container .panel-inner-rehau .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
   animation: splashing 0.5s ease 0s 1;
@@ -1586,7 +1586,7 @@ body {
 .light-v .light-view .order-value,
 .light-v .light-view .product-value,
 .light-v .light-view .addelement-value,
-.light-v .light-view .cart-page .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .profile-container .profile-descr-rehau, .cart-page .addelementunique-header .aux-title {
+.light-v .light-view .cart-page .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .template-container-rehau .other-template-subscr, .profile-container .profile-descr, .profile-container .profile-descr-rehau, .cart-page .addelementunique-header .aux-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -3446,12 +3446,49 @@ textarea.comment-field-rehau {
   background: #f74f2e;
   position: absolute;
 }
-/* line 54, ../../dev/sass/parts/_config-panel.scss */
+/* line 55, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type-rehau {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  position: absolute;
+  height: 3rem;
+  left: 2rem;
+  width: 100%;
+}
+/* line 62, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type-rehau .type-btn-rehau {
+  position: relative;
+  height: 100%;
+  width: auto;
+  margin: 0rem 5rem 0rem 0rem;
+  float: left;
+  font-size: large;
+  overflow: hidden;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+/* line 73, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type-rehau .type-btn-rehau.selected {
+  color: #4bd963;
+  text-decoration: underline;
+  margin-top: 50px;
+}
+/* line 79, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type-rehau .hide {
+  height: 2rem;
+  width: 2rem;
+  left: -0.8%;
+  border-radius: 1rem;
+  top: 0.7rem;
+  background: #f74f2e;
+  position: absolute;
+}
+/* line 90, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .info {
   position: absolute;
   cursor: pointer;
 }
-/* line 57, ../../dev/sass/parts/_config-panel.scss */
+/* line 93, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .info:before {
   top: 0.9375rem;
   left: 0.9375rem;
@@ -3460,7 +3497,7 @@ textarea.comment-field-rehau {
   color: #6ed44a;
   content: "";
 }
-/* line 67, ../../dev/sass/parts/_config-panel.scss */
+/* line 103, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .panel-inner {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -3472,7 +3509,7 @@ textarea.comment-field-rehau {
   overflow-y: auto;
 }
 
-/* line 74, ../../dev/sass/parts/_config-panel.scss */
+/* line 110, ../../dev/sass/parts/_config-panel.scss */
 .configur-panel {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -3496,21 +3533,21 @@ textarea.comment-field-rehau {
   background: rgba(255, 255, 255, 0.9);
   z-index: 12;
 }
-/* line 86, ../../dev/sass/parts/_config-panel.scss */
+/* line 122, ../../dev/sass/parts/_config-panel.scss */
 .configur-panel.active {
   top: 75rem;
   left: 0rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 91, ../../dev/sass/parts/_config-panel.scss */
+/* line 127, ../../dev/sass/parts/_config-panel.scss */
 .configur-panel.select {
   top: 91.5625rem;
   left: 0rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 96, ../../dev/sass/parts/_config-panel.scss */
+/* line 132, ../../dev/sass/parts/_config-panel.scss */
 .configur-panel .construction-type {
   display: inline-flex !important;
   flex-direction: row !important;
@@ -3519,7 +3556,7 @@ textarea.comment-field-rehau {
   left: 2rem;
   width: 100%;
 }
-/* line 103, ../../dev/sass/parts/_config-panel.scss */
+/* line 139, ../../dev/sass/parts/_config-panel.scss */
 .configur-panel .construction-type .type-btn {
   position: relative;
   height: 100%;
@@ -3531,12 +3568,12 @@ textarea.comment-field-rehau {
   text-transform: uppercase;
   cursor: pointer;
 }
-/* line 113, ../../dev/sass/parts/_config-panel.scss */
+/* line 149, ../../dev/sass/parts/_config-panel.scss */
 .configur-panel .construction-type .type-btn.selected {
   color: #4bd963;
   text-decoration: underline;
 }
-/* line 118, ../../dev/sass/parts/_config-panel.scss */
+/* line 154, ../../dev/sass/parts/_config-panel.scss */
 .configur-panel .construction-type .hide {
   height: 2rem;
   width: 2rem;
@@ -3546,18 +3583,55 @@ textarea.comment-field-rehau {
   background: #f74f2e;
   position: absolute;
 }
+/* line 165, ../../dev/sass/parts/_config-panel.scss */
+.configur-panel .construction-type-rehau {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  position: absolute;
+  height: 3rem;
+  left: 2rem;
+  width: 100%;
+}
+/* line 172, ../../dev/sass/parts/_config-panel.scss */
+.configur-panel .construction-type-rehau .type-btn-rehau {
+  position: relative;
+  height: 100%;
+  width: auto;
+  margin: 0rem 2rem 0rem 0rem;
+  float: left;
+  font-size: large;
+  overflow: hidden;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+/* line 183, ../../dev/sass/parts/_config-panel.scss */
+.configur-panel .construction-type-rehau .type-btn-rehau.selected {
+  color: #4bd963;
+  text-decoration: underline;
+  margin-top: 50px;
+}
+/* line 189, ../../dev/sass/parts/_config-panel.scss */
+.configur-panel .construction-type-rehau .hide {
+  height: 2rem;
+  width: 2rem;
+  left: -0.8%;
+  border-radius: 1rem;
+  top: 0.7rem;
+  background: #f74f2e;
+  position: absolute;
+}
 
-/* line 129, ../../dev/sass/parts/_config-panel.scss */
+/* line 201, ../../dev/sass/parts/_config-panel.scss */
 .config-section, .profile-container .profile-block, .hardware-container .hardware-block {
   width: 98%;
   padding: 3.125rem 0 3.125rem 5rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 133, ../../dev/sass/parts/_config-panel.scss */
+/* line 205, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected, .profile-container .selected.profile-block, .hardware-container .selected.hardware-block {
   position: relative;
 }
-/* line 135, ../../dev/sass/parts/_config-panel.scss */
+/* line 207, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected:before, .profile-container .selected.profile-block:before, .hardware-container .selected.hardware-block:before {
   top: 3.5rem;
   left: -1.6875rem;
@@ -3566,7 +3640,7 @@ textarea.comment-field-rehau {
   color: #6ed44a;
   content: "";
 }
-/* line 145, ../../dev/sass/parts/_config-panel.scss */
+/* line 217, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-block-header, .profile-container .profile-block .group-block-header, .hardware-container .hardware-block .group-block-header {
   display: -webkit-flex;
   display: flex;
@@ -3575,7 +3649,7 @@ textarea.comment-field-rehau {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 150, ../../dev/sass/parts/_config-panel.scss */
+/* line 222, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-block-header-rehau, .profile-container .profile-block .group-block-header-rehau, .hardware-container .hardware-block .group-block-header-rehau {
   padding-top: 5px;
   display: -webkit-flex;
@@ -3585,44 +3659,44 @@ textarea.comment-field-rehau {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 156, ../../dev/sass/parts/_config-panel.scss */
+/* line 228, ../../dev/sass/parts/_config-panel.scss */
 .config-section .title, .profile-container .profile-block .title, .hardware-container .hardware-block .title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 161, ../../dev/sass/parts/_config-panel.scss */
+/* line 233, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info, .profile-container .profile-block .group-info, .hardware-container .hardware-block .group-info {
   position: relative;
 }
-/* line 164, ../../dev/sass/parts/_config-panel.scss */
+/* line 236, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info .info, .profile-container .profile-block .group-info .info, .hardware-container .hardware-block .group-info .info {
   top: 0;
   right: 0;
 }
-/* line 170, ../../dev/sass/parts/_config-panel.scss */
+/* line 242, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info-rehau, .profile-container .profile-block .group-info-rehau, .hardware-container .hardware-block .group-info-rehau {
   position: relative;
   color: gray;
   align-self: center;
 }
-/* line 175, ../../dev/sass/parts/_config-panel.scss */
+/* line 247, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info-rehau .info-icon, .profile-container .profile-block .group-info-rehau .info-icon, .hardware-container .hardware-block .group-info-rehau .info-icon {
   margin-left: 8px;
   cursor: pointer;
 }
-/* line 181, ../../dev/sass/parts/_config-panel.scss */
+/* line 253, ../../dev/sass/parts/_config-panel.scss */
 .config-section .profile-cameras, .profile-container .profile-block .profile-cameras, .hardware-container .hardware-block .profile-cameras {
   width: 100%;
   height: auto;
   display: inline-block;
 }
-/* line 186, ../../dev/sass/parts/_config-panel.scss */
+/* line 258, ../../dev/sass/parts/_config-panel.scss */
 .config-section .type, .profile-container .profile-block .type, .hardware-container .hardware-block .type {
   font: normal 6rem/3.5rem roboto-medium, sans-serif, icons;
   color: #6ed44a;
   float: left;
 }
-/* line 191, ../../dev/sass/parts/_config-panel.scss */
+/* line 263, ../../dev/sass/parts/_config-panel.scss */
 .config-section .type-label, .profile-container .profile-block .type-label, .hardware-container .hardware-block .type-label {
   position: relative;
   padding-left: 5rem;
@@ -3630,38 +3704,38 @@ textarea.comment-field-rehau {
   font: normal 2.25rem/2.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 198, ../../dev/sass/parts/_config-panel.scss */
+/* line 270, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index, .profile-container .profile-block .coef-index, .hardware-container .hardware-block .coef-index {
   width: 19%;
   height: 1.5625rem;
   margin-right: 1%;
   margin-left: 1%;
 }
-/* line 203, ../../dev/sass/parts/_config-panel.scss */
+/* line 275, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: #55d995;
 }
-/* line 208, ../../dev/sass/parts/_config-panel.scss */
+/* line 280, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
   background-color: #5bd883;
 }
-/* line 211, ../../dev/sass/parts/_config-panel.scss */
+/* line 283, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
   background-color: #61d771;
 }
-/* line 214, ../../dev/sass/parts/_config-panel.scss */
+/* line 286, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
   background-color: #68d55c;
 }
-/* line 217, ../../dev/sass/parts/_config-panel.scss */
+/* line 289, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: #6ed44a;
 }
-/* line 223, ../../dev/sass/parts/_config-panel.scss */
+/* line 295, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -3673,47 +3747,47 @@ textarea.comment-field-rehau {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 232, ../../dev/sass/parts/_config-panel.scss */
+/* line 304, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected, .profile-container .profile-block .box.selected, .hardware-container .hardware-block .box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 235, ../../dev/sass/parts/_config-panel.scss */
+/* line 307, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .hardware-container .hardware-block .box.selected:after {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
   color: #fff;
   content: '\e61e';
 }
-/* line 241, ../../dev/sass/parts/_config-panel.scss */
+/* line 313, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .hardware-container .hardware-block .box.selected .label, .config-section .box.selected .profile-container .label-country, .profile-container .config-section .box.selected .label-country, .profile-container .profile-block .box.selected .label-country, .hardware-container .hardware-block .box.selected .profile-container .label-country, .profile-container .hardware-container .hardware-block .box.selected .label-country {
   color: #363636;
 }
-/* line 244, ../../dev/sass/parts/_config-panel.scss */
+/* line 316, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .cam, .profile-container .profile-block .box.selected .cam, .hardware-container .hardware-block .box.selected .cam {
   color: white;
 }
-/* line 248, ../../dev/sass/parts/_config-panel.scss */
+/* line 320, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
   background-color: #3db26a;
 }
-/* line 251, ../../dev/sass/parts/_config-panel.scss */
+/* line 323, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
   background-color: #42b260;
 }
-/* line 254, ../../dev/sass/parts/_config-panel.scss */
+/* line 326, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
   background-color: #4ab253;
 }
-/* line 257, ../../dev/sass/parts/_config-panel.scss */
+/* line 329, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
   background-color: #51b247;
 }
-/* line 260, ../../dev/sass/parts/_config-panel.scss */
+/* line 332, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
   background-color: #57b23c;
 }
-/* line 267, ../../dev/sass/parts/_config-panel.scss */
+/* line 339, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -3724,50 +3798,50 @@ textarea.comment-field-rehau {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 275, ../../dev/sass/parts/_config-panel.scss */
+/* line 347, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box-rehau.selected, .profile-container .profile-block .box-rehau.selected, .hardware-container .hardware-block .box-rehau.selected {
   position: relative;
   box-shadow: inset 0 0 0 7px #DD0060;
 }
-/* line 281, ../../dev/sass/parts/_config-panel.scss */
+/* line 353, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box_inner, .profile-container .profile-block .box_inner, .hardware-container .hardware-block .box_inner {
   padding: 2.8125rem;
 }
-/* line 284, ../../dev/sass/parts/_config-panel.scss */
+/* line 356, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level, .profile-container .profile-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
 }
-/* line 286, ../../dev/sass/parts/_config-panel.scss */
+/* line 358, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 291, ../../dev/sass/parts/_config-panel.scss */
+/* line 363, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(2), .config-section .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(3), .config-section .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(4), .config-section .coef-level.coef-level-0 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 298, ../../dev/sass/parts/_config-panel.scss */
+/* line 370, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-0 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:first-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 308, ../../dev/sass/parts/_config-panel.scss */
+/* line 380, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 323, ../../dev/sass/parts/_config-panel.scss */
+/* line 395, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 337, ../../dev/sass/parts/_config-panel.scss */
+/* line 409, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 354, ../../dev/sass/parts/_config-panel.scss */
+/* line 426, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
@@ -4856,19 +4930,19 @@ textarea.comment-field-rehau {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -6982,12 +7056,49 @@ div.slider-nav span.left {
   background: #f74f2e;
   position: absolute;
 }
-/* line 54, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 55, ../../dev/sass/parts/_config-panelLight.scss */
+.config-panel .construction-type-rehau {
+  display: inline-flex;
+  flex-direction: row;
+  position: absolute;
+  height: 3rem;
+  left: 2rem;
+  width: 100%;
+}
+/* line 62, ../../dev/sass/parts/_config-panelLight.scss */
+.config-panel .construction-type-rehau .type-btn {
+  position: relative;
+  height: 100%;
+  width: auto;
+  margin: 0rem 5rem 0rem 0rem;
+  float: left;
+  font-size: large;
+  overflow: hidden;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+/* line 73, ../../dev/sass/parts/_config-panelLight.scss */
+.config-panel .construction-type-rehau .type-btn.selected {
+  color: #4bd963;
+  text-decoration: underline;
+  margin-top: 50px;
+}
+/* line 79, ../../dev/sass/parts/_config-panelLight.scss */
+.config-panel .construction-type-rehau .hide {
+  height: 2rem;
+  width: 2rem;
+  left: -0.8%;
+  border-radius: 1rem;
+  top: 0.7rem;
+  background: #f74f2e;
+  position: absolute;
+}
+/* line 90, ../../dev/sass/parts/_config-panelLight.scss */
 .config-panel .info {
   position: absolute;
   cursor: pointer;
 }
-/* line 57, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 93, ../../dev/sass/parts/_config-panelLight.scss */
 .config-panel .info:before {
   top: 0.9375rem;
   left: 0.9375rem;
@@ -6996,7 +7107,7 @@ div.slider-nav span.left {
   color: #6ed44a;
   content: "";
 }
-/* line 67, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 103, ../../dev/sass/parts/_config-panelLight.scss */
 .config-panel .panel-inner {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -7008,7 +7119,7 @@ div.slider-nav span.left {
   overflow-y: auto;
 }
 
-/* line 74, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 110, ../../dev/sass/parts/_config-panelLight.scss */
 .configur-panelLight {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -7033,21 +7144,21 @@ div.slider-nav span.left {
   background: rgba(255, 255, 255, 0.9);
   z-index: 12;
 }
-/* line 87, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 123, ../../dev/sass/parts/_config-panelLight.scss */
 .configur-panelLight.active {
   top: 75rem;
   left: 0rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 92, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 128, ../../dev/sass/parts/_config-panelLight.scss */
 .configur-panelLight.select {
   top: 91.5625rem;
   left: 0rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 97, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 133, ../../dev/sass/parts/_config-panelLight.scss */
 .configur-panelLight .construction-type {
   display: inline-flex;
   flex-direction: column;
@@ -7057,7 +7168,7 @@ div.slider-nav span.left {
   left: 0rem;
   width: 100%;
 }
-/* line 105, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 141, ../../dev/sass/parts/_config-panelLight.scss */
 .configur-panelLight .construction-type .type-btn {
   position: relative;
   height: 100%;
@@ -7069,12 +7180,12 @@ div.slider-nav span.left {
   text-transform: uppercase;
   cursor: pointer;
 }
-/* line 115, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 151, ../../dev/sass/parts/_config-panelLight.scss */
 .configur-panelLight .construction-type .type-btn.selected {
   color: #4bd963;
   text-decoration: underline;
 }
-/* line 120, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 156, ../../dev/sass/parts/_config-panelLight.scss */
 .configur-panelLight .construction-type .hide {
   height: 2rem;
   width: 2rem;
@@ -7084,18 +7195,56 @@ div.slider-nav span.left {
   background: #f74f2e;
   position: absolute;
 }
+/* line 167, ../../dev/sass/parts/_config-panelLight.scss */
+.configur-panelLight .construction-type-rehau {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  position: absolute;
+  height: 20rem;
+  left: 0rem;
+  width: 100%;
+}
+/* line 175, ../../dev/sass/parts/_config-panelLight.scss */
+.configur-panelLight .construction-type-rehau .type-btn-rehau {
+  position: relative;
+  height: 100%;
+  width: auto;
+  margin: 0rem 2rem 0rem 0rem;
+  float: left;
+  font-size: large;
+  overflow: hidden;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+/* line 186, ../../dev/sass/parts/_config-panelLight.scss */
+.configur-panelLight .construction-type-rehau .type-btn-rehau.selected {
+  color: #4bd963;
+  text-decoration: underline;
+  margin-top: 50px;
+}
+/* line 192, ../../dev/sass/parts/_config-panelLight.scss */
+.configur-panelLight .construction-type-rehau .hide {
+  height: 2rem;
+  width: 2rem;
+  left: -0.8%;
+  border-radius: 1rem;
+  top: 0.7rem;
+  background: #f74f2e;
+  position: absolute;
+}
 
-/* line 131, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 204, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section, .profile-container .profile-block, .hardware-container .hardware-block {
   width: 98%;
   padding: 3.125rem 0 3.125rem 5rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 136, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 209, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section.selected, .profile-container .selected.profile-block, .hardware-container .selected.hardware-block {
   position: relative;
 }
-/* line 138, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 211, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section.selected:before, .profile-container .selected.profile-block:before, .hardware-container .selected.hardware-block:before {
   top: 3.5rem;
   left: -1.6875rem;
@@ -7104,38 +7253,38 @@ div.slider-nav span.left {
   color: #6ed44a;
   content: "";
 }
-/* line 153, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 226, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .title, .profile-container .profile-block .title, .hardware-container .hardware-block .title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 159, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 232, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .title-rehau, .profile-container .profile-block .title-rehau, .hardware-container .hardware-block .title-rehau {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #37A58C;
 }
-/* line 165, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 238, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .group-info, .profile-container .profile-block .group-info, .hardware-container .hardware-block .group-info {
   position: relative;
 }
-/* line 168, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 241, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .group-info .info, .profile-container .profile-block .group-info .info, .hardware-container .hardware-block .group-info .info {
   top: 0;
   right: 0;
 }
-/* line 173, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 246, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .profile-cameras, .profile-container .profile-block .profile-cameras, .hardware-container .hardware-block .profile-cameras {
   width: 100%;
   height: auto;
   display: inline-block;
 }
-/* line 178, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 251, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .type, .profile-container .profile-block .type, .hardware-container .hardware-block .type {
   font: normal 6rem/3.5rem roboto-medium, sans-serif, icons;
   color: #6ed44a;
   float: left;
 }
-/* line 183, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 256, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .type-label, .profile-container .profile-block .type-label, .hardware-container .hardware-block .type-label {
   position: relative;
   padding-left: 5rem;
@@ -7143,38 +7292,38 @@ div.slider-nav span.left {
   font: normal 2.25rem/2.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 190, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 263, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-index, .profile-container .profile-block .coef-index, .hardware-container .hardware-block .coef-index {
   width: 19%;
   height: 1.5625rem;
   margin-right: 1%;
   margin-left: 1%;
 }
-/* line 195, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 268, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: #55d995;
 }
-/* line 200, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 273, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
   background-color: #5bd883;
 }
-/* line 203, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 276, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
   background-color: #61d771;
 }
-/* line 206, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 279, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
   background-color: #68d55c;
 }
-/* line 209, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 282, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: #6ed44a;
 }
-/* line 215, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 288, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -7186,85 +7335,85 @@ div.slider-nav span.left {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 224, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 297, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected, .profile-container .profile-block .box.selected, .hardware-container .hardware-block .box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 227, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 300, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .hardware-container .hardware-block .box.selected:after {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
   color: #fff;
   content: '\e61e';
 }
-/* line 233, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 306, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .hardware-container .hardware-block .box.selected .label, .config-section .box.selected .profile-container .label-country, .profile-container .config-section .box.selected .label-country, .profile-container .profile-block .box.selected .label-country, .hardware-container .hardware-block .box.selected .profile-container .label-country, .profile-container .hardware-container .hardware-block .box.selected .label-country {
   color: #363636;
 }
-/* line 236, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 309, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected .cam, .profile-container .profile-block .box.selected .cam, .hardware-container .hardware-block .box.selected .cam {
   color: white;
 }
-/* line 240, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 313, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
   background-color: #3db26a;
 }
-/* line 243, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 316, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
   background-color: #42b260;
 }
-/* line 246, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 319, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
   background-color: #4ab253;
 }
-/* line 249, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 322, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
   background-color: #51b247;
 }
-/* line 252, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 325, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
   background-color: #57b23c;
 }
-/* line 259, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 332, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .box_inner, .profile-container .profile-block .box_inner, .hardware-container .hardware-block .box_inner {
   padding: 2.8125rem;
 }
-/* line 262, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 335, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level, .profile-container .profile-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
 }
-/* line 264, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 337, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 269, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 342, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level.coef-level-0 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(2), .config-section .coef-level.coef-level-0 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(3), .config-section .coef-level.coef-level-0 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-0 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:nth-child(4), .config-section .coef-level.coef-level-0 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 276, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 349, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level.coef-level-0 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-0 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-0 .coef-index:first-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 286, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 359, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 301, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 374, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 315, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 388, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
 }
-/* line 332, ../../dev/sass/parts/_config-panelLight.scss */
+/* line 405, ../../dev/sass/parts/_config-panelLight.scss */
 .config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   border: 1px solid #b1b1b1;
   background-color: white;
@@ -7454,7 +7603,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1621891938') no-repeat;
+  background: url('../img/login/logo.png?1620908107') no-repeat;
   background-size: cover !important;
 }
 
@@ -10763,7 +10912,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1621891938') no-repeat;
+  background: url('../img/door-arrow.png?1620908107') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -11603,26 +11752,56 @@ tr.factory_item {
   left: 64rem;
 }
 /* line 663, ../../dev/sass/pages/light.scss */
+.light-v .configur-panelLight-rehau {
+  left: 135rem;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: white;
+  z-index: 999;
+}
+/* line 673, ../../dev/sass/pages/light.scss */
+.light-v .configur-panelLight-rehau .construction-type-rehau {
+  margin-top: 150px;
+  text-align: start;
+}
+/* line 674, ../../dev/sass/pages/light.scss */
+.light-v .configur-panelLight-rehau .construction-type-rehau:first-child {
+  margin-top: 0;
+}
+/* line 683, ../../dev/sass/pages/light.scss */
+.light-v .configur-panelLight-rehau.active {
+  height: 100%;
+}
+/* line 686, ../../dev/sass/pages/light.scss */
+.light-v .configur-panelLight-rehau.goLeft {
+  left: 0;
+  top: -6rem;
+}
+/* line 691, ../../dev/sass/pages/light.scss */
 .light-v input::-webkit-outer-spin-button,
 .light-v input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 669, ../../dev/sass/pages/light.scss */
+/* line 697, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
   margin-top: 1rem;
 }
-/* line 674, ../../dev/sass/pages/light.scss */
+/* line 702, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .discount-price-rehau {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
   margin-top: 90px;
 }
-/* line 681, ../../dev/sass/pages/light.scss */
+/* line 709, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-text {
   font-style: normal;
   font-weight: normal;
@@ -11630,22 +11809,22 @@ tr.factory_item {
   line-height: 40px;
   margin-bottom: -38px;
 }
-/* line 690, ../../dev/sass/pages/light.scss */
+/* line 718, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-qty {
   font-size: 15px;
   color: #DD0060;
 }
-/* line 695, ../../dev/sass/pages/light.scss */
+/* line 723, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-value {
   color: #DD0060;
   font: bold 4rem/1 roboto-light, sans-serif, icons;
 }
-/* line 700, ../../dev/sass/pages/light.scss */
+/* line 728, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-currency {
   color: #DD0060;
   font-weight: bold;
 }
-/* line 705, ../../dev/sass/pages/light.scss */
+/* line 733, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau {
   text-align: center;
   position: relative;
@@ -11655,14 +11834,14 @@ tr.factory_item {
   flex-direction: row-reverse;
   margin-left: 2.75rem;
 }
-/* line 714, ../../dev/sass/pages/light.scss */
+/* line 742, ../../dev/sass/pages/light.scss */
 .light-v .counter-rehau {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 719, ../../dev/sass/pages/light.scss */
+/* line 747, ../../dev/sass/pages/light.scss */
 .light-v .counter-rehau input {
   cursor: pointer;
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
@@ -11676,13 +11855,13 @@ tr.factory_item {
   background-position-y: 50%;
   background-position-x: 35%;
 }
-/* line 734, ../../dev/sass/pages/light.scss */
+/* line 762, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter-rehau {
   background-color: #424242;
   color: white;
   padding-left: 35px;
 }
-/* line 740, ../../dev/sass/pages/light.scss */
+/* line 768, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau {
   cursor: pointer;
   position: relative;
@@ -11692,7 +11871,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 749, ../../dev/sass/pages/light.scss */
+/* line 777, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau p {
   color: white;
   font: bold 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -11703,25 +11882,25 @@ tr.factory_item {
   vertical-align: middle;
   padding-bottom: 7px;
 }
-/* line 761, ../../dev/sass/pages/light.scss */
+/* line 789, ../../dev/sass/pages/light.scss */
 .light-v .discount-block {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
 }
-/* line 765, ../../dev/sass/pages/light.scss */
+/* line 793, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-priceRed {
   text-decoration: line-through;
   font: normal 2.4rem/2.25rem roboto-regular, sans-serif, icons;
   color: #ff2121;
 }
-/* line 770, ../../dev/sass/pages/light.scss */
+/* line 798, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-price {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
 }
-/* line 776, ../../dev/sass/pages/light.scss */
+/* line 804, ../../dev/sass/pages/light.scss */
 .light-v .counter-block {
   text-align: center;
   position: relative;
@@ -11731,14 +11910,14 @@ tr.factory_item {
   flex-direction: row-reverse;
   margin-left: 2.75rem;
 }
-/* line 785, ../../dev/sass/pages/light.scss */
+/* line 813, ../../dev/sass/pages/light.scss */
 .light-v .counter {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 790, ../../dev/sass/pages/light.scss */
+/* line 818, ../../dev/sass/pages/light.scss */
 .light-v .counter input {
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
   text-align: center;
@@ -11747,30 +11926,30 @@ tr.factory_item {
   height: 7rem;
   margin-right: 4rem;
 }
-/* line 799, ../../dev/sass/pages/light.scss */
+/* line 827, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter {
   color: #cc0000;
 }
-/* line 802, ../../dev/sass/pages/light.scss */
+/* line 830, ../../dev/sass/pages/light.scss */
 .light-v .input-minus,
 .light-v .input-plus {
   cursor: pointer;
   position: relative;
   top: -2rem;
 }
-/* line 808, ../../dev/sass/pages/light.scss */
+/* line 836, ../../dev/sass/pages/light.scss */
 .light-v .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #363636;
 }
-/* line 813, ../../dev/sass/pages/light.scss */
+/* line 841, ../../dev/sass/pages/light.scss */
 .light-v .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 818, ../../dev/sass/pages/light.scss */
+/* line 846, ../../dev/sass/pages/light.scss */
 .light-v .save-block {
   cursor: pointer;
   position: relative;
@@ -11780,7 +11959,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 827, ../../dev/sass/pages/light.scss */
+/* line 855, ../../dev/sass/pages/light.scss */
 .light-v .save-block p {
   color: white;
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -11791,7 +11970,7 @@ tr.factory_item {
   width: 12rem;
   vertical-align: middle;
 }
-/* line 838, ../../dev/sass/pages/light.scss */
+/* line 866, ../../dev/sass/pages/light.scss */
 .light-v .cart-img {
   position: relative;
   width: 4rem;
@@ -11803,14 +11982,14 @@ tr.factory_item {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 849, ../../dev/sass/pages/light.scss */
+/* line 877, ../../dev/sass/pages/light.scss */
 .light-v .cart-btn, .light-v .cart-menu .order-btn, .cart-menu .light-v .order-btn {
   position: relative;
   top: .6rem;
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
 }
-/* line 855, ../../dev/sass/pages/light.scss */
+/* line 883, ../../dev/sass/pages/light.scss */
 .light-v .order, .light-v .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-v .product, .light-v .cart-page .addelementunit, .cart-page .light-v .addelementunit {
   top: 2rem;
   width: 32rem;
@@ -11819,30 +11998,30 @@ tr.factory_item {
   border-bottom-left-radius: 1.25rem;
   border: 1px solid #bebebe;
 }
-/* line 864, ../../dev/sass/pages/light.scss */
+/* line 892, ../../dev/sass/pages/light.scss */
 .light-v .order-rehau {
   top: -15px;
   width: 32rem;
   float: left;
 }
-/* line 871, ../../dev/sass/pages/light.scss */
+/* line 899, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 875, ../../dev/sass/pages/light.scss */
+/* line 903, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 880, ../../dev/sass/pages/light.scss */
+/* line 908, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 885, ../../dev/sass/pages/light.scss */
+/* line 913, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -11850,14 +12029,14 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 893, ../../dev/sass/pages/light.scss */
+/* line 921, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 900, ../../dev/sass/pages/light.scss */
+/* line 928, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -11866,27 +12045,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 907, ../../dev/sass/pages/light.scss */
+/* line 935, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 912, ../../dev/sass/pages/light.scss */
+/* line 940, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 915, ../../dev/sass/pages/light.scss */
+/* line 943, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 919, ../../dev/sass/pages/light.scss */
+/* line 947, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 924, ../../dev/sass/pages/light.scss */
+/* line 952, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -11894,119 +12073,119 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 929, ../../dev/sass/pages/light.scss */
+/* line 957, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 932, ../../dev/sass/pages/light.scss */
+/* line 960, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 939, ../../dev/sass/pages/light.scss */
+/* line 967, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 944, ../../dev/sass/pages/light.scss */
+/* line 972, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 951, ../../dev/sass/pages/light.scss */
+/* line 979, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 956, ../../dev/sass/pages/light.scss */
+/* line 984, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 959, ../../dev/sass/pages/light.scss */
+/* line 987, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 966, ../../dev/sass/pages/light.scss */
+/* line 994, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau {
   width: auto;
   height: 130rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 973, ../../dev/sass/pages/light.scss */
+/* line 1001, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 978, ../../dev/sass/pages/light.scss */
+/* line 1006, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 983, ../../dev/sass/pages/light.scss */
+/* line 1011, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 987, ../../dev/sass/pages/light.scss */
+/* line 1015, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 991, ../../dev/sass/pages/light.scss */
+/* line 1019, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 994, ../../dev/sass/pages/light.scss */
+/* line 1022, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 997, ../../dev/sass/pages/light.scss */
+/* line 1025, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 1002, ../../dev/sass/pages/light.scss */
+/* line 1030, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 1007, ../../dev/sass/pages/light.scss */
+/* line 1035, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 1010, ../../dev/sass/pages/light.scss */
+/* line 1038, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 1013, ../../dev/sass/pages/light.scss */
+/* line 1041, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 1019, ../../dev/sass/pages/light.scss */
+/* line 1047, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 1025, ../../dev/sass/pages/light.scss */
+/* line 1053, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 1029, ../../dev/sass/pages/light.scss */
+/* line 1057, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1033, ../../dev/sass/pages/light.scss */
+/* line 1061, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
@@ -17523,6 +17702,247 @@ input[type='number'] {
   color: #666;
 }
 
+/* line 148, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+/* line 153, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .other-single-template-rehau {
+  display: flex;
+  flex-direction: column;
+  min-width: 184px;
+  min-height: 224px;
+  margin: 0 0.625rem;
+  cursor: pointer;
+}
+/* line 160, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .other-single-template-rehau.selected {
+  background-color: #37A58C;
+}
+/* line 163, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .other-single-template-rehau:hover {
+  background-color: #F5F5F5;
+}
+/* line 167, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .other-single-template-rehau .other-template-img {
+  text-align: center;
+  padding-top: 50px;
+}
+/* line 171, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .other-single-template-rehau .other-template-img img {
+  max-height: 7.6875rem;
+}
+/* line 176, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .other-single-template-rehau .other-template-subscr {
+  font-size: 18px;
+  line-height: 32px;
+  margin: 0 auto;
+  text-align: center;
+  color: #37A58C;
+  white-space: normal;
+  padding-top: 16px;
+}
+/* line 187, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .single-leaf-windows {
+  margin-top: 50px;
+}
+/* line 190, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-title h1 {
+  color: #37A58C;
+  text-align: start;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  text-transform: uppercase;
+}
+/* line 201, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-templates {
+  text-align: start;
+  display: flex;
+}
+/* line 209, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-title h1 {
+  color: #37A58C;
+  text-align: start;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  text-transform: uppercase;
+}
+/* line 220, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-templates {
+  text-align: start;
+  display: flex;
+}
+/* line 228, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-title h1 {
+  color: #37A58C;
+  text-align: start;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  text-transform: uppercase;
+}
+/* line 239, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-templates {
+  text-align: start;
+  display: flex;
+}
+/* line 248, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-header {
+  text-align: center;
+}
+/* line 252, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-title {
+  font: normal 5rem/5rem roboto-light, sans-serif, icons;
+  height: 5.75rem;
+  text-align: center;
+  color: #6ed44a;
+  border: 1px solid #6ed44a;
+  border-radius: 1rem;
+  background-color: transparent;
+  outline: none;
+}
+/* line 262, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-title.active {
+  color: #fff;
+  background-color: #6ed44a;
+}
+/* line 268, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .tempate-type-box {
+  position: relative;
+  display: inline;
+}
+/* line 272, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-type {
+  font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
+  position: absolute;
+  top: -4rem;
+  left: 2rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 1rem;
+  background-color: #242424;
+  color: #fff;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/* line 283, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-type:before {
+  position: absolute;
+  z-index: 1;
+  top: 1.75rem;
+  left: -1.25rem;
+  display: block;
+  width: 0;
+  border-width: 1.25rem 1.25rem 1.25rem 0;
+  border-style: solid;
+  border-color: transparent #242424;
+  content: '';
+}
+/* line 296, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-type-btn {
+  border-bottom: 1px solid #bebebe;
+}
+/* line 298, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-type-btn:last-child {
+  border-bottom: none;
+}
+/* line 303, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-discr {
+  font: normal 5rem/1.42857 roboto-light, sans-serif, icons;
+  text-align: center;
+  color: #363636;
+}
+/* line 309, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-section {
+  height: 62.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+/* line 316, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-footer {
+  display: -webkit-flex;
+  display: flex;
+  overflow: auto;
+  position: relative;
+  top: 5rem;
+  display: flex;
+  overflow: auto;
+}
+/* line 326, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-footerLight {
+  display: none !important;
+  flex-direction: column;
+  left: -1rem;
+  width: 20rem;
+  display: -webkit-flex;
+  display: flex;
+  overflow: auto;
+  position: relative;
+  top: 20rem;
+  display: flex;
+  overflow: auto;
+}
+/* line 337, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .template-footerLight.goLeft {
+  display: inline-flex !important;
+}
+/* line 344, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-templates {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  min-height: 14rem;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+/* line 352, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template {
+  display: inline-block;
+  min-width: 25rem;
+  margin: 0 0.625rem;
+  cursor: pointer;
+}
+/* line 357, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template.selected {
+  background-color: rgba(114, 225, 133, 0.55);
+  border-radius: 1rem;
+}
+/* line 363, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-img {
+  text-align: center;
+}
+/* line 366, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-img img {
+  max-height: 7.6875rem;
+}
+/* line 371, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-label {
+  font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
+  max-width: 9.375rem;
+  margin: 1.25rem auto 0 auto;
+  text-align: center;
+  word-wrap: break-word;
+  color: #666;
+}
+/* line 380, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-subscr {
+  font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
+  max-width: 12.5rem;
+  margin: 0 auto;
+  text-align: center;
+  color: #666;
+}
+
 /* line 2, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-block {
   width: 100%;
@@ -18632,133 +19052,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/grid.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/grating.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/visor.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/outside.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/fan.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/handle.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/blind.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18768,133 +19188,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/grid.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/visor.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/grating.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/outside.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/fan.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1621891938');
+  background-image: url('../img/auxiliaries-selected/handle.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1621891938');
+  background-image: url('../img/auxiliaries-focused/blind.png?1620908106');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18918,7 +19338,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1621891938');
+  background-image: url('../img/auxiliaries/grid.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18935,7 +19355,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1621891938');
+  background-image: url('../img/auxiliaries/visor.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18952,7 +19372,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1621891938');
+  background-image: url('../img/auxiliaries/visor2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18969,7 +19389,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1621891938');
+  background-image: url('../img/auxiliaries/grating.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -18986,7 +19406,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1621891938');
+  background-image: url('../img/auxiliaries/grating2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19003,7 +19423,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1621891938');
+  background-image: url('../img/auxiliaries/shutters.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19020,7 +19440,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1621891938');
+  background-image: url('../img/auxiliaries/shutters2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19037,7 +19457,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1621891938');
+  background-image: url('../img/auxiliaries/spillway.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19054,7 +19474,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1621891938');
+  background-image: url('../img/auxiliaries/spillway2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19071,7 +19491,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1621891938');
+  background-image: url('../img/auxiliaries/outside.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19088,7 +19508,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1621891938');
+  background-image: url('../img/auxiliaries/windowsill.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19105,7 +19525,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1621891938');
+  background-image: url('../img/auxiliaries/blind.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19122,7 +19542,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1621891938');
+  background-image: url('../img/auxiliaries/template1.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19139,7 +19559,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1621891938');
+  background-image: url('../img/auxiliaries/template2.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19163,7 +19583,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1621891938');
+  background-image: url('../img/auxiliaries/louvers-top.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19173,7 +19593,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1621891938');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19200,7 +19620,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1621891938');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19223,7 +19643,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1621891938');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19234,7 +19654,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1621891938');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19245,7 +19665,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1621891938');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19262,7 +19682,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1621891938');
+  background-image: url('../img/auxiliaries/fan.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19285,7 +19705,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1621891938');
+  background-image: url('../img/auxiliaries/force-connector.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19296,7 +19716,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1621891938');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19313,7 +19733,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1621891938');
+  background-image: url('../img/auxiliaries/handle.png?1620908107');
   background-repeat: no-repeat;
   background-size: contain;
 }

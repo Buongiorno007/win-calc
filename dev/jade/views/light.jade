@@ -15,8 +15,8 @@
               .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
               include panels/_templatesLight
-              img.infoIcon(ng-if="lightPage.U.userInfo.factory_id != 2", ng-src='img/calc/info-button.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
-              img.infoIconGreen(ng-if="lightPage.U.userInfo.factory_id != 2", ng-src='img/calc/info-buttonGreen.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+              img.infoIcon(ng-if="lightPage.U.userInfo.factory_id !== 2", ng-src='img/calc/info-button.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
+              img.infoIconGreen(ng-if="lightPage.U.userInfo.factory_id !== 2", ng-src='img/calc/info-buttonGreen.svg', ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
               include parts/_room-info
 
             //.product-u-coeff(ng-if="lightPage.G.global.isConfigMenu && lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': lightPage.P.product.heat_coef_total < lightPage.O.order.heat_coef_min}")
@@ -485,18 +485,18 @@
               p {{lightPage.CART}}
 
         //- Rehau template --------------------
-        .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id == 2")
+        .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id === 2")
          .construction-left-menu-rehau
             ul.figure-lists-rehau
-              li.figure-item-rehau.temp-fig-rehau(fs-click="configMenu.U.userInfo.factory_id === 2 ? configMenu.selectConfigPanel(8) : configMenu.selectConfigPanel(-1)")
+              li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Шаблон</span>
-                .figure-label-rehau-subtitle(ng-if="!lightPage.G.global.SelectedTemplateName", data-output="Поворотное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
-                .figure-label-rehau-subtitle(ng-if="lightPage.G.global.SelectedTemplateName", data-output="{{ lightPage.G.global.SelectedTemplateName }}"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") 
+                .figure-label-rehau-subtitle(ng-if="!designPage.G.global.SelectedTemplateName", data-output="Поворотное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+                .figure-label-rehau-subtitle(ng-if="designPage.G.global.SelectedTemplateName", data-output="{{ lightPage.G.global.SelectedTemplateName }}"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") 
 
               hr.separator
               li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(2)")
-                .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
+                .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Профиль<span>
                 .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.profile.name }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
@@ -669,7 +669,7 @@
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
               .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
             hr.separator
-            li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(5)")
+            li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")
               .titleLight(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
               .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")

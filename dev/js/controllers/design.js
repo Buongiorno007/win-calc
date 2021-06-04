@@ -19,6 +19,7 @@
                       ConfigMenuServ,
                       LightServ,
                       loginServ,
+                      UserStor,
                       AddElementMenuServ) {
                 /*jshint validthis:true */
                 var thisCtrl = this,
@@ -619,6 +620,11 @@
                             $timeout(function () {
                                 DesignStor.design.isImpostDelete = 0;
                             }, 300);
+                        }
+                        if (UserStor.userInfo.factory_id === 2) {
+                            if (id === 6) {
+                                GlobalStor.global.activePanel = 1;
+                            }
                         }
                     }
 

@@ -1406,7 +1406,6 @@
                     GlobalStor.global.tempPrice =
                         Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
                     GlobalStor.global.isLoader = 0;
-                    console.log(GlobalStor.global.tempPrice, 'SOME CHECK AGAIN')
                 } else {
                     GlobalStor.global.tempPrice =
                         Product.productPriceDis * GlobalStor.global.product_qty;

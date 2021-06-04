@@ -2790,7 +2790,9 @@
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
-                    // console.log(UserStor.userInfo.factory_id, 'FACTORY ID USER')
+                    console.log(ProductStor.product, 'Product stor')
+                    console.log(GlobalStor.global, 'Global stor')
+                    console.log(DesignStor.design, 'Design stor')
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);

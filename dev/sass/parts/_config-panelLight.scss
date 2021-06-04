@@ -51,6 +51,42 @@
       position: absolute;
     }
   }
+  //rehau styles
+  .construction-type-rehau {
+    display: inline-flex;
+    flex-direction: row;
+    position: absolute;
+    height: 3rem;
+    left: 2rem;
+    width: 100%;
+    .type-btn {
+      position: relative;
+      height: 100%;
+      width: auto;
+      margin: 0rem 5rem 0rem 0rem;
+      float: left;
+      font-size: large;
+      overflow: hidden;
+      text-transform: uppercase;
+      cursor : pointer;
+      
+      &.selected {
+        color: #4bd963;
+        text-decoration: underline;
+        margin-top: 50px;
+      }
+    }
+    .hide {
+      height: 2rem;
+      width: 2rem;
+      left: -0.8%;
+      border-radius: 1rem;
+      top: 0.7rem;
+      background: #f74f2e;
+      position: absolute;
+    }
+  }
+  //rehau styles end 
   .info {
     position: absolute;
     cursor: pointer;
@@ -127,6 +163,43 @@
       position: absolute;
     }
   }
+  //rehau styles
+  .construction-type-rehau {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    height: 20rem;
+    left: 0rem;
+    width: 100%;
+    .type-btn-rehau {
+      position: relative;
+      height: 100%;
+      width: auto;
+      margin: 0rem 2rem 0rem 0rem;
+      float: left;
+      font-size: large;
+      overflow: hidden;
+      text-transform: uppercase;
+      cursor : pointer;
+      
+      &.selected {
+        color: #4bd963;
+        text-decoration: underline;
+        margin-top: 50px;
+      }
+    }
+    .hide {
+      height: 2rem;
+      width: 2rem;
+      left: -0.8%;
+      border-radius: 1rem;
+      top: 0.7rem;
+      background: #f74f2e;
+      position: absolute;
+    }
+  }
+  //rehau styles end
 }
 .config-section {
   width: 98%;

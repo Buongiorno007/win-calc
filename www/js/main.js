@@ -798,6 +798,7 @@ let portrait = false;
                       ConfigMenuServ,
                       LightServ,
                       loginServ,
+                      UserStor,
                       AddElementMenuServ) {
                 /*jshint validthis:true */
                 var thisCtrl = this,
@@ -1398,6 +1399,11 @@ let portrait = false;
                             $timeout(function () {
                                 DesignStor.design.isImpostDelete = 0;
                             }, 300);
+                        }
+                        if (UserStor.userInfo.factory_id === 2) {
+                            if (id === 6) {
+                                GlobalStor.global.activePanel = 1;
+                            }
                         }
                     }
 
@@ -6012,6 +6018,9 @@ if (window.location.hostname !== 'localhost') {
                     'panels.TEMPLATE_BALCONY_ENTER',
                     'panels.TEMPLATE_DOOR_HAND'
                 ];
+                thisCtrl.templateNameRehau = [
+                    'panels.TEMPLATE_WINDOW_HAND'
+                ]
                 thisCtrl.selected = ProductStor.product.construction_type;
                 //------- translate
                 thisCtrl.TEMPLATE_WINDOW_HAND = $filter('translate')('panels.TEMPLATE_WINDOW_HAND');
@@ -6026,14 +6035,26 @@ if (window.location.hostname !== 'localhost') {
 
 
                 //---------- download templates Img icons
-                optionsServ.getTemplateImgIcons(function (results) {
-                    if (results.status) {
-                        GlobalStor.global.templatesImgs = results.data.templateImgs;
-                        thisCtrl.templateList = results.data.templateImgs;
-                    } else {
-                        console.log(results);
-                    }
-                });
+                if (UserStor.userInfo.factory_id === 2) {
+                    optionsServ.getTemplateImgIconsRehau(function (results) {
+                        if (results.status) {
+                            GlobalStor.global.templatesImgs = results.data.templateImgsRehau;
+                            thisCtrl.templateList = results.data.templateImgsRehau;
+                        } else {
+                            console.log(results);
+                        }
+                    });
+                } else {
+                    optionsServ.getTemplateImgIcons(function (results) {
+                        if (results.status) {
+                            GlobalStor.global.templatesImgs = results.data.templateImgs;
+                            thisCtrl.templateList = results.data.templateImgs;
+                        } else {
+                            console.log(results);
+                        }
+                    });
+                }
+                
 
                 /**============ METHODS ================*/
 
@@ -6045,20 +6066,30 @@ if (window.location.hostname !== 'localhost') {
 
                 //------- Select new Template Type
                 function selectNewTemplateType(marker) {
-                    // setTab(marker);
                     GlobalStor.global.activePanel = -1;
                     GlobalStor.global.selectedTemplate = -1;
                     thisCtrl.selected = marker;
-                    // marker = (marker===3)? 4:marker;
                     GlobalStor.global.templatesType = marker;
-                    optionsServ.getTemplateImgIcons(function (results) {
-                        if (results.status) {
-                            GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
-                                return data.type === marker;
-                            });
-                        }
-                        ;
-                    });
+                    if (UserStor.userInfo.factory_id === 2) {
+                        optionsServ.getTemplateImgIconsRehau(function (results) {
+                            if (results.status) {
+                                console.log(result.status, 'status')
+                                GlobalStor.global.templatesImgs = results.data.templateImgsRehau.filter(function (data) {
+                                    return data.type === marker;
+                                });
+                            }
+                            ;
+                        });
+                    } else {
+                        optionsServ.getTemplateImgIcons(function (results) {
+                            if (results.status) {
+                                GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
+                                    return data.type === marker;
+                                });
+                            }
+                            ;
+                        });
+                    }
                     GlobalStor.global.showTemplates = true;
                     GlobalStor.global.goLeft = true;
                     MainServ.downloadAllTemplates(marker).then(function (data) {
@@ -7602,14 +7633,24 @@ if (window.location.hostname !== 'localhost') {
         function selectRoom(id) {
           //а тут может быть?
           GlobalStor.global.rooms.length
-          optionsServ.getTemplateImgIcons(function (results) {
-            if (results.status) {
-              GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
-                return data.type === GlobalStor.global.rooms[id].group_id;
-              });
-            }
-            ;
-          });
+          if (UserStor.userInfo.factory_id === 2) {
+            optionsServ.getTemplateImgIconsRehau(function (results) {
+              if (results.status) {
+                GlobalStor.global.templatesImgs = results.data.templateImgsRehau.filter(function (data) {
+                  return data.type === GlobalStor.global.rooms[id].group_id;
+                });
+              };
+            });
+          } else {
+            optionsServ.getTemplateImgIconsRehau(function (results) {
+              if (results.status) {
+                GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
+                  return data.type === GlobalStor.global.rooms[id].group_id;
+                });
+              };
+            });
+          }
+         
           MainServ.downloadAllTemplates(GlobalStor.global.rooms[id].group_id).then(function (data) {
             if (data) {
               GlobalStor.global.templatesSourceSTORE = angular.copy(data);
@@ -24619,7 +24660,9 @@ function ErrorResult(code, message) {
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
-                    // console.log(UserStor.userInfo.factory_id, 'FACTORY ID USER')
+                    console.log(ProductStor.product, 'Product stor')
+                    console.log(GlobalStor.global, 'Global stor')
+                    console.log(DesignStor.design, 'Design stor')
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
@@ -29182,7 +29225,6 @@ function ErrorResult(code, message) {
                     GlobalStor.global.tempPrice =
                         Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
                     GlobalStor.global.isLoader = 0;
-                    console.log(GlobalStor.global.tempPrice, 'SOME CHECK AGAIN')
                 } else {
                     GlobalStor.global.tempPrice =
                         Product.productPriceDis * GlobalStor.global.product_qty;
@@ -31296,8 +31338,75 @@ function ErrorResult(code, message) {
             function ($filter) {
 
                 return {
-
-
+                    getTemplateImgIconsRehau: function (callback) {
+                        callback(new OkResult({
+                            templateImgsRehau: [
+                                [
+                                    {
+                                        id: 1,
+                                        name: $filter('translate')('panels.1_TYPE'),
+                                        src: 'img/templates/1.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 4,
+                                        name: $filter('translate')('panels.3_TYPE'),
+                                        src: 'img/templates/3.png',
+                                        type: 1
+                                    },
+                                ],
+                                [
+                                    {
+                                        id: 5,
+                                        name: $filter('translate')('panels.4_TYPE'),
+                                        src: 'img/templates/4.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 7,
+                                        name: $filter('translate')('panels.6_TYPE'),
+                                        src: 'img/templates/6.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 9,
+                                        name: $filter('translate')('panels.8_TYPE'),
+                                        src: 'img/templates/8.png',
+                                        type: 1
+                                    },
+                                ],
+                                [
+                                    {
+                                        id: 10,
+                                        name: $filter('translate')('panels.9_TYPE'),
+                                        src: 'img/templates/9.png',
+                                        type: 1
+                                    },
+                                    {
+                                        id: 12,
+                                        name: $filter('translate')('panels.11_TYPE'),
+                                        src: 'img/templates/11.png',
+                                        type: 1
+                                    },
+                                ],
+                                [
+                                    {
+                                        id: 1,
+                                        name: $filter('translate')('panels.21_TYPE'),
+                                        src: 'img/templates/21.png',
+                                        type: 2
+                                    },
+                                    {
+                                        id: 3,
+                                        name: $filter('translate')('panels.23_TYPE'),
+                                        src: 'img/templates/23.png',
+                                        type: 2
+                                    },
+                                ]
+                            ]
+                        }));
+                    },
+                    
                     getTemplateImgIcons: function (callback) {
                         callback(new OkResult({
                             templateImgs: [
