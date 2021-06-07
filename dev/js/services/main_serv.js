@@ -188,14 +188,17 @@
                     case 1:
                         optionsServ.getTemplatesWindow(function (results) {
                             if (results.status) {
+                                
                                 GlobalStor.global.templateLabel = $filter("translate")(
                                     "panels.TEMPLATE_WINDOW"
                                 );
+                                console.log(GlobalStor.global.templateLabel, 'TEMPLATES LABEl')
                                 deferred.resolve(results.data.windows);
                             } else {
                                 console.log(results);
                             }
                         });
+                        
                         break;
                     case 2:
                         optionsServ.getTemplatesWindowDoor(function (results) {
@@ -1099,6 +1102,7 @@
                 glassName,
                 blockId) {
                 var blocksQty = template.details.length;
+                console.log(blocksQty, 'BLOCKQTY')
                 while (--blocksQty > 0) {
                     if (blockId) {
                         /** set glass to template block by its Id */

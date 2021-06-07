@@ -201,6 +201,7 @@
       .single-leaf-windows-templates {
         text-align: start;
         display: flex;
+        overflow: scroll;
       }
     }
     //duble leaf windows
@@ -220,6 +221,7 @@
       .duble-leaf-windows-templates {
         text-align: start;
         display: flex;
+        overflow: scroll;
       }
     }
     //three leaf windows
@@ -239,6 +241,7 @@
       .three-leaf-windows-templates {
         text-align: start;
         display: flex;
+        overflow: scroll;
       }
     }
 

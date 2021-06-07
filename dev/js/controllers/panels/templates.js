@@ -61,7 +61,7 @@
                     optionsServ.getTemplateImgIconsRehau(function (results) {
                         if (results.status) {
                             GlobalStor.global.templatesImgs = results.data.templateImgsRehau;
-                            thisCtrl.templateList = results.data.templateImgsRehau;
+                            thisCtrl.templateList = results.data.templateImgs;
                         } else {
                             console.log(results);
                         }
@@ -76,6 +76,8 @@
                         }
                     });
                 }
+                
+                
                 
 
                 /**============ METHODS ================*/
@@ -95,7 +97,6 @@
                     if (UserStor.userInfo.factory_id === 2) {
                         optionsServ.getTemplateImgIconsRehau(function (results) {
                             if (results.status) {
-                                console.log(result.status, 'status')
                                 GlobalStor.global.templatesImgs = results.data.templateImgsRehau.filter(function (data) {
                                     return data.type === marker;
                                 });

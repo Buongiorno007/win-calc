@@ -6039,7 +6039,7 @@ if (window.location.hostname !== 'localhost') {
                     optionsServ.getTemplateImgIconsRehau(function (results) {
                         if (results.status) {
                             GlobalStor.global.templatesImgs = results.data.templateImgsRehau;
-                            thisCtrl.templateList = results.data.templateImgsRehau;
+                            thisCtrl.templateList = results.data.templateImgs;
                         } else {
                             console.log(results);
                         }
@@ -6054,6 +6054,8 @@ if (window.location.hostname !== 'localhost') {
                         }
                     });
                 }
+                
+                
                 
 
                 /**============ METHODS ================*/
@@ -6073,7 +6075,6 @@ if (window.location.hostname !== 'localhost') {
                     if (UserStor.userInfo.factory_id === 2) {
                         optionsServ.getTemplateImgIconsRehau(function (results) {
                             if (results.status) {
-                                console.log(result.status, 'status')
                                 GlobalStor.global.templatesImgs = results.data.templateImgsRehau.filter(function (data) {
                                     return data.type === marker;
                                 });
@@ -7642,7 +7643,7 @@ if (window.location.hostname !== 'localhost') {
               };
             });
           } else {
-            optionsServ.getTemplateImgIconsRehau(function (results) {
+            optionsServ.getTemplateImgIcons(function (results) {
               if (results.status) {
                 GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
                   return data.type === GlobalStor.global.rooms[id].group_id;
@@ -7650,7 +7651,6 @@ if (window.location.hostname !== 'localhost') {
               };
             });
           }
-         
           MainServ.downloadAllTemplates(GlobalStor.global.rooms[id].group_id).then(function (data) {
             if (data) {
               GlobalStor.global.templatesSourceSTORE = angular.copy(data);
@@ -28007,14 +28007,17 @@ function ErrorResult(code, message) {
                     case 1:
                         optionsServ.getTemplatesWindow(function (results) {
                             if (results.status) {
+                                
                                 GlobalStor.global.templateLabel = $filter("translate")(
                                     "panels.TEMPLATE_WINDOW"
                                 );
+                                console.log(GlobalStor.global.templateLabel, 'TEMPLATES LABEl')
                                 deferred.resolve(results.data.windows);
                             } else {
                                 console.log(results);
                             }
                         });
+                        
                         break;
                     case 2:
                         optionsServ.getTemplatesWindowDoor(function (results) {
@@ -28918,6 +28921,7 @@ function ErrorResult(code, message) {
                 glassName,
                 blockId) {
                 var blocksQty = template.details.length;
+                console.log(blocksQty, 'BLOCKQTY')
                 while (--blocksQty > 0) {
                     if (blockId) {
                         /** set glass to template block by its Id */
@@ -31341,68 +31345,26 @@ function ErrorResult(code, message) {
                     getTemplateImgIconsRehau: function (callback) {
                         callback(new OkResult({
                             templateImgsRehau: [
-                                [
-                                    {
-                                        id: 1,
-                                        name: $filter('translate')('panels.1_TYPE'),
-                                        src: 'img/templates/1.png',
-                                        type: 1
-                                    },
-                                    {
-                                        id: 4,
-                                        name: $filter('translate')('panels.3_TYPE'),
-                                        src: 'img/templates/3.png',
-                                        type: 1
-                                    },
-                                ],
-                                [
-                                    {
-                                        id: 5,
-                                        name: $filter('translate')('panels.4_TYPE'),
-                                        src: 'img/templates/4.png',
-                                        type: 1
-                                    },
-                                    {
-                                        id: 7,
-                                        name: $filter('translate')('panels.6_TYPE'),
-                                        src: 'img/templates/6.png',
-                                        type: 1
-                                    },
-                                    {
-                                        id: 9,
-                                        name: $filter('translate')('panels.8_TYPE'),
-                                        src: 'img/templates/8.png',
-                                        type: 1
-                                    },
-                                ],
-                                [
-                                    {
-                                        id: 10,
-                                        name: $filter('translate')('panels.9_TYPE'),
-                                        src: 'img/templates/9.png',
-                                        type: 1
-                                    },
-                                    {
-                                        id: 12,
-                                        name: $filter('translate')('panels.11_TYPE'),
-                                        src: 'img/templates/11.png',
-                                        type: 1
-                                    },
-                                ],
-                                [
-                                    {
-                                        id: 1,
-                                        name: $filter('translate')('panels.21_TYPE'),
-                                        src: 'img/templates/21.png',
-                                        type: 2
-                                    },
-                                    {
-                                        id: 3,
-                                        name: $filter('translate')('panels.23_TYPE'),
-                                        src: 'img/templates/23.png',
-                                        type: 2
-                                    },
-                                ]
+                                {
+                                    id: 1,
+                                    name: $filter('translate')('panels.1_TYPE'),
+                                    src: 'img/templates/1.png',
+                                    type: 1
+                                },
+                                {
+                                    id: 3,
+                                    name: $filter('translate')('panels.3_TYPE'),
+                                    src: 'img/templates/3.png',
+                                    type: 1
+                                },
+                                {
+                                    id: 4,
+                                    name: $filter('translate')('panels.4_TYPE'),
+                                    src: 'img/templates/4.png',
+                                    type: 1
+                                },
+
+                               
                             ]
                         }));
                     },

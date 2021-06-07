@@ -17762,8 +17762,9 @@ input[type='number'] {
 .template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-templates {
   text-align: start;
   display: flex;
+  overflow: scroll;
 }
-/* line 209, ../../dev/sass/panels/template-selector.scss */
+/* line 210, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-title h1 {
   color: #37A58C;
   text-align: start;
@@ -17773,12 +17774,13 @@ input[type='number'] {
   line-height: 32px;
   text-transform: uppercase;
 }
-/* line 220, ../../dev/sass/panels/template-selector.scss */
+/* line 221, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-templates {
   text-align: start;
   display: flex;
+  overflow: scroll;
 }
-/* line 228, ../../dev/sass/panels/template-selector.scss */
+/* line 230, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-title h1 {
   color: #37A58C;
   text-align: start;
@@ -17788,16 +17790,17 @@ input[type='number'] {
   line-height: 32px;
   text-transform: uppercase;
 }
-/* line 239, ../../dev/sass/panels/template-selector.scss */
+/* line 241, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-templates {
   text-align: start;
   display: flex;
+  overflow: scroll;
 }
-/* line 248, ../../dev/sass/panels/template-selector.scss */
+/* line 251, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-header {
   text-align: center;
 }
-/* line 252, ../../dev/sass/panels/template-selector.scss */
+/* line 255, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-title {
   font: normal 5rem/5rem roboto-light, sans-serif, icons;
   height: 5.75rem;
@@ -17808,17 +17811,17 @@ input[type='number'] {
   background-color: transparent;
   outline: none;
 }
-/* line 262, ../../dev/sass/panels/template-selector.scss */
+/* line 265, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-title.active {
   color: #fff;
   background-color: #6ed44a;
 }
-/* line 268, ../../dev/sass/panels/template-selector.scss */
+/* line 271, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .tempate-type-box {
   position: relative;
   display: inline;
 }
-/* line 272, ../../dev/sass/panels/template-selector.scss */
+/* line 275, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
   position: absolute;
@@ -17831,7 +17834,7 @@ input[type='number'] {
   white-space: nowrap;
   cursor: pointer;
 }
-/* line 283, ../../dev/sass/panels/template-selector.scss */
+/* line 286, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type:before {
   position: absolute;
   z-index: 1;
@@ -17844,27 +17847,27 @@ input[type='number'] {
   border-color: transparent #242424;
   content: '';
 }
-/* line 296, ../../dev/sass/panels/template-selector.scss */
+/* line 299, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type-btn {
   border-bottom: 1px solid #bebebe;
 }
-/* line 298, ../../dev/sass/panels/template-selector.scss */
+/* line 301, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type-btn:last-child {
   border-bottom: none;
 }
-/* line 303, ../../dev/sass/panels/template-selector.scss */
+/* line 306, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-discr {
   font: normal 5rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #363636;
 }
-/* line 309, ../../dev/sass/panels/template-selector.scss */
+/* line 312, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-section {
   height: 62.5rem;
   text-align: center;
   cursor: pointer;
 }
-/* line 316, ../../dev/sass/panels/template-selector.scss */
+/* line 319, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-footer {
   display: -webkit-flex;
   display: flex;
@@ -17874,7 +17877,7 @@ input[type='number'] {
   display: flex;
   overflow: auto;
 }
-/* line 326, ../../dev/sass/panels/template-selector.scss */
+/* line 329, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-footerLight {
   display: none !important;
   flex-direction: column;
@@ -17888,11 +17891,11 @@ input[type='number'] {
   display: flex;
   overflow: auto;
 }
-/* line 337, ../../dev/sass/panels/template-selector.scss */
+/* line 340, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-footerLight.goLeft {
   display: inline-flex !important;
 }
-/* line 344, ../../dev/sass/panels/template-selector.scss */
+/* line 347, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-templates {
   display: -webkit-flex;
   display: flex;
@@ -17905,27 +17908,27 @@ input[type='number'] {
   overflow-y: hidden;
   overflow-x: auto;
 }
-/* line 352, ../../dev/sass/panels/template-selector.scss */
+/* line 355, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template {
   display: inline-block;
   min-width: 25rem;
   margin: 0 0.625rem;
   cursor: pointer;
 }
-/* line 357, ../../dev/sass/panels/template-selector.scss */
+/* line 360, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template.selected {
   background-color: rgba(114, 225, 133, 0.55);
   border-radius: 1rem;
 }
-/* line 363, ../../dev/sass/panels/template-selector.scss */
+/* line 366, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-img {
   text-align: center;
 }
-/* line 366, ../../dev/sass/panels/template-selector.scss */
+/* line 369, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-img img {
   max-height: 7.6875rem;
 }
-/* line 371, ../../dev/sass/panels/template-selector.scss */
+/* line 374, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-label {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 9.375rem;
@@ -17934,7 +17937,7 @@ input[type='number'] {
   word-wrap: break-word;
   color: #666;
 }
-/* line 380, ../../dev/sass/panels/template-selector.scss */
+/* line 383, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-subscr {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 12.5rem;

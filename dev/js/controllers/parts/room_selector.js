@@ -44,7 +44,7 @@
               };
             });
           } else {
-            optionsServ.getTemplateImgIconsRehau(function (results) {
+            optionsServ.getTemplateImgIcons(function (results) {
               if (results.status) {
                 GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
                   return data.type === GlobalStor.global.rooms[id].group_id;
@@ -52,7 +52,6 @@
               };
             });
           }
-         
           MainServ.downloadAllTemplates(GlobalStor.global.rooms[id].group_id).then(function (data) {
             if (data) {
               GlobalStor.global.templatesSourceSTORE = angular.copy(data);
