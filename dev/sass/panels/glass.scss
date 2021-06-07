@@ -200,7 +200,6 @@
         align-items: center;
         justify-content: center;
         background: $primary_green;
-        box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
         z-index: 1;
         .title {
           display: inline-flex;
@@ -237,9 +236,8 @@
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        width: 100%;
+        width: 99.9%;
         background: white;
-        box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
         cursor: pointer;
         .glass-item {
           display: flex;

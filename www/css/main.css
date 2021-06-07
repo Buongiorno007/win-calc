@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1620908106') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1621891938') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1620908106') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1621891938') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max-rehau, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -4930,19 +4930,19 @@ textarea.comment-field-rehau {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -7603,7 +7603,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1620908107') no-repeat;
+  background: url('../img/login/logo.png?1621891938') no-repeat;
   background-size: cover !important;
 }
 
@@ -10912,7 +10912,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1620908107') no-repeat;
+  background: url('../img/door-arrow.png?1621891938') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -18482,10 +18482,9 @@ input[type='number'] {
   align-items: center;
   justify-content: center;
   background: #37A58C;
-  box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
   z-index: 1;
 }
-/* line 205, ../../dev/sass/panels/glass.scss */
+/* line 204, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .button .title, .glass-container .glass-container-rehau .glass-block .ghost-button .title, .glass-container .glass-container-rehau .glass-block .aux-choose-but .title, .glass-container .glass-container-rehau .glass-block .parameters-block .aux-params-but .title, .parameters-block .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .elements-list-container .aux-params-but .title, .elements-list-container .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .aux-params-but .title, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .additional-list-container .aux-list-content .aux-params-but .title, .additional-list-container .aux-list-content .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .cart-page .alladdelements-block .aux-params-but .title, .cart-page .alladdelements-block .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-only .aux-params-but .title, .cart-page .addelementunit-only .glass-container .glass-container-rehau .glass-block .aux-params-but .title, .glass-container .glass-container-rehau .glass-block .nav-menu .new-calc .title, .nav-menu .glass-container .glass-container-rehau .glass-block .new-calc .title, .glass-container .glass-container-rehau .glass-block .cart-menu .measure-btn .title, .cart-menu .glass-container .glass-container-rehau .glass-block .measure-btn .title, .glass-container .glass-container-rehau .glass-block .cart-menu-rehau .measure-btn .title, .cart-menu-rehau .glass-container .glass-container-rehau .glass-block .measure-btn .title, .glass-container .glass-container-rehau .glass-block .big-button .title, .glass-container .glass-container-rehau .glass-block .orange-big-btn .title, .glass-container .glass-container-rehau .glass-block .menu-right-general .cart-btn .title, .menu-right-general .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .order-path .cart-btn .title, .order-path .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .config-menu .cart-btn .title, .config-menu .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .elements-menu .cart-btn .title, .elements-menu .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .cart-menu .cart-btn .title, .cart-menu .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .cart-menu-rehau .cart-btn .title, .cart-menu-rehau .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .old-price-tab .cart-btn .title, .old-price-tab .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .old-price-inst-tab .cart-btn .title, .old-price-inst-tab .glass-container .glass-container-rehau .glass-block .cart-btn .title, .glass-container .glass-container-rehau .glass-block .cart-menu .order-btn .title, .cart-menu .glass-container .glass-container-rehau .glass-block .order-btn .title, .glass-container .glass-container-rehau .glass-block .login-submit .title, .glass-container .glass-container-rehau .glass-block .middle-button .title, .glass-container .glass-container-rehau .glass-block .alert-btns button .title, .alert-btns .glass-container .glass-container-rehau .glass-block button .title, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-btn .title, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .title, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-btn .title, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .title, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .title, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .title, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .title, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .title, .glass-container .glass-container-rehau .glass-block .settings .save .title, .settings .glass-container .glass-container-rehau .glass-block .save .title, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-all-btn .title, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-all-btn .title, .glass-container .glass-container-rehau .glass-block .search-block .cancel-search .title, .search-block .glass-container .glass-container-rehau .glass-block .cancel-search .title, .glass-container .glass-container-rehau .glass-block .cart-dialogs-container .save .title, .cart-dialogs-container .glass-container .glass-container-rehau .glass-block .save .title, .glass-container .glass-container-rehau .glass-block .cart-page .cart-tool .title, .cart-page .glass-container .glass-container-rehau .glass-block .cart-tool .title,
 .glass-container .glass-container-rehau .glass-block .light-v .cart-tool .title,
 .light-v .glass-container .glass-container-rehau .glass-block .cart-tool .title, .glass-container .glass-container-rehau .glass-block .construction-left-menu .project-default .title, .construction-left-menu .glass-container .glass-container-rehau .glass-block .project-default .title, .glass-container .glass-container-rehau .glass-block .small-button .title, .glass-container .glass-container-rehau .glass-block .cart-page .order-tool .title, .cart-page .glass-container .glass-container-rehau .glass-block .order-tool .title,
@@ -18507,7 +18506,7 @@ input[type='number'] {
   text-align: center;
   white-space: pre-wrap;
 }
-/* line 216, ../../dev/sass/panels/glass.scss */
+/* line 215, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .button .arrow, .glass-container .glass-container-rehau .glass-block .ghost-button .arrow, .glass-container .glass-container-rehau .glass-block .aux-choose-but .arrow, .glass-container .glass-container-rehau .glass-block .parameters-block .aux-params-but .arrow, .parameters-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .elements-list-container .aux-params-but .arrow, .elements-list-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .aux-params-but .arrow, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .additional-list-container .aux-list-content .aux-params-but .arrow, .additional-list-container .aux-list-content .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .alladdelements-block .aux-params-but .arrow, .cart-page .alladdelements-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-only .aux-params-but .arrow, .cart-page .addelementunit-only .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow, .glass-container .glass-container-rehau .glass-block .nav-menu .new-calc .arrow, .nav-menu .glass-container .glass-container-rehau .glass-block .new-calc .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu .measure-btn .arrow, .cart-menu .glass-container .glass-container-rehau .glass-block .measure-btn .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu-rehau .measure-btn .arrow, .cart-menu-rehau .glass-container .glass-container-rehau .glass-block .measure-btn .arrow, .glass-container .glass-container-rehau .glass-block .big-button .arrow, .glass-container .glass-container-rehau .glass-block .orange-big-btn .arrow, .glass-container .glass-container-rehau .glass-block .menu-right-general .cart-btn .arrow, .menu-right-general .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .order-path .cart-btn .arrow, .order-path .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .config-menu .cart-btn .arrow, .config-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .elements-menu .cart-btn .arrow, .elements-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu .cart-btn .arrow, .cart-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu-rehau .cart-btn .arrow, .cart-menu-rehau .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .old-price-tab .cart-btn .arrow, .old-price-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .old-price-inst-tab .cart-btn .arrow, .old-price-inst-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow, .glass-container .glass-container-rehau .glass-block .cart-menu .order-btn .arrow, .cart-menu .glass-container .glass-container-rehau .glass-block .order-btn .arrow, .glass-container .glass-container-rehau .glass-block .login-submit .arrow, .glass-container .glass-container-rehau .glass-block .middle-button .arrow, .glass-container .glass-container-rehau .glass-block .alert-btns button .arrow, .alert-btns .glass-container .glass-container-rehau .glass-block button .arrow, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-btn .arrow, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-btn .arrow, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .arrow, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .arrow, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow, .glass-container .glass-container-rehau .glass-block .settings .save .arrow, .settings .glass-container .glass-container-rehau .glass-block .save .arrow, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-all-btn .arrow, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-all-btn .arrow, .glass-container .glass-container-rehau .glass-block .search-block .cancel-search .arrow, .search-block .glass-container .glass-container-rehau .glass-block .cancel-search .arrow, .glass-container .glass-container-rehau .glass-block .cart-dialogs-container .save .arrow, .cart-dialogs-container .glass-container .glass-container-rehau .glass-block .save .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .cart-tool .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .cart-tool .arrow,
 .glass-container .glass-container-rehau .glass-block .light-v .cart-tool .arrow,
 .light-v .glass-container .glass-container-rehau .glass-block .cart-tool .arrow, .glass-container .glass-container-rehau .glass-block .construction-left-menu .project-default .arrow, .construction-left-menu .glass-container .glass-container-rehau .glass-block .project-default .arrow, .glass-container .glass-container-rehau .glass-block .small-button .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .order-tool .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .order-tool .arrow,
@@ -18531,7 +18530,7 @@ input[type='number'] {
   transition: 0.5s;
   margin: 12px;
 }
-/* line 228, ../../dev/sass/panels/glass.scss */
+/* line 227, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .button .arrow.active, .glass-container .glass-container-rehau .glass-block .ghost-button .arrow.active, .glass-container .glass-container-rehau .glass-block .aux-choose-but .arrow.active, .glass-container .glass-container-rehau .glass-block .parameters-block .aux-params-but .arrow.active, .parameters-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-list-container .aux-params-but .arrow.active, .elements-list-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .aux-params-but .arrow.active, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .additional-list-container .aux-list-content .aux-params-but .arrow.active, .additional-list-container .aux-list-content .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .alladdelements-block .aux-params-but .arrow.active, .cart-page .alladdelements-block .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .addelementunit-only .aux-params-but .arrow.active, .cart-page .addelementunit-only .glass-container .glass-container-rehau .glass-block .aux-params-but .arrow.active, .glass-container .glass-container-rehau .glass-block .nav-menu .new-calc .arrow.active, .nav-menu .glass-container .glass-container-rehau .glass-block .new-calc .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu .measure-btn .arrow.active, .cart-menu .glass-container .glass-container-rehau .glass-block .measure-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu-rehau .measure-btn .arrow.active, .cart-menu-rehau .glass-container .glass-container-rehau .glass-block .measure-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .big-button .arrow.active, .glass-container .glass-container-rehau .glass-block .orange-big-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .menu-right-general .cart-btn .arrow.active, .menu-right-general .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .order-path .cart-btn .arrow.active, .order-path .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .config-menu .cart-btn .arrow.active, .config-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-menu .cart-btn .arrow.active, .elements-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu .cart-btn .arrow.active, .cart-menu .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu-rehau .cart-btn .arrow.active, .cart-menu-rehau .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .old-price-tab .cart-btn .arrow.active, .old-price-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .old-price-inst-tab .cart-btn .arrow.active, .old-price-inst-tab .glass-container .glass-container-rehau .glass-block .cart-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-menu .order-btn .arrow.active, .cart-menu .glass-container .glass-container-rehau .glass-block .order-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .login-submit .arrow.active, .glass-container .glass-container-rehau .glass-block .middle-button .arrow.active, .glass-container .glass-container-rehau .glass-block .alert-btns button .arrow.active, .alert-btns .glass-container .glass-container-rehau .glass-block button .arrow.active, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-btn .arrow.active, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-btn .arrow.active, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .alert-btns .door-configuration .door-config-finish-save-btn .arrow.active, .alert-btns .door-configuration .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .door-configuration .alert-btns .door-config-finish-save-btn .arrow.active, .door-configuration .alert-btns .glass-container .glass-container-rehau .glass-block .door-config-finish-save-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .settings .save .arrow.active, .settings .glass-container .glass-container-rehau .glass-block .save .arrow.active, .glass-container .glass-container-rehau .glass-block .grid-selector-dialog .set-grid-all-btn .arrow.active, .grid-selector-dialog .glass-container .glass-container-rehau .glass-block .set-grid-all-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .search-block .cancel-search .arrow.active, .search-block .glass-container .glass-container-rehau .glass-block .cancel-search .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-dialogs-container .save .arrow.active, .cart-dialogs-container .glass-container .glass-container-rehau .glass-block .save .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .cart-tool .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .cart-tool .arrow.active,
 .glass-container .glass-container-rehau .glass-block .light-v .cart-tool .arrow.active,
 .light-v .glass-container .glass-container-rehau .glass-block .cart-tool .arrow.active, .glass-container .glass-container-rehau .glass-block .construction-left-menu .project-default .arrow.active, .construction-left-menu .glass-container .glass-container-rehau .glass-block .project-default .arrow.active, .glass-container .glass-container-rehau .glass-block .small-button .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .order-tool .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .order-tool .arrow.active,
@@ -18546,18 +18545,17 @@ input[type='number'] {
   transform: rotate(360deg);
   transition: 0.5s;
 }
-/* line 235, ../../dev/sass/panels/glass.scss */
+/* line 234, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder {
   padding: 10px 10px 0 10px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 99.9%;
   background: white;
-  box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
   cursor: pointer;
 }
-/* line 244, ../../dev/sass/panels/glass.scss */
+/* line 242, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item {
   display: flex;
   justify-content: space-between;
@@ -18566,27 +18564,27 @@ input[type='number'] {
   align-items: center;
   padding: 10px 10px 10px 10px;
 }
-/* line 252, ../../dev/sass/panels/glass.scss */
+/* line 250, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-warm {
   color: black;
   font-size: 17px;
 }
-/* line 256, ../../dev/sass/panels/glass.scss */
+/* line 254, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-noise {
   color: black;
   font-size: 17px;
 }
-/* line 260, ../../dev/sass/panels/glass.scss */
+/* line 258, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-width {
   color: black;
   font-size: 17px;
 }
-/* line 264, ../../dev/sass/panels/glass.scss */
+/* line 262, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-title {
   color: black;
   font-size: 17px;
 }
-/* line 269, ../../dev/sass/panels/glass.scss */
+/* line 267, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .item-info {
   display: inline-flex;
   align-items: center;
@@ -18595,41 +18593,41 @@ input[type='number'] {
   height: 40px;
   flex: 0 0 auto;
 }
-/* line 277, ../../dev/sass/panels/glass.scss */
+/* line 275, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected {
   width: 103%;
   background-color: #DD0060;
 }
-/* line 280, ../../dev/sass/panels/glass.scss */
+/* line 278, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-warm {
   color: white;
 }
-/* line 283, ../../dev/sass/panels/glass.scss */
+/* line 281, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-noise {
   color: white;
 }
-/* line 286, ../../dev/sass/panels/glass.scss */
+/* line 284, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-width {
   color: white;
 }
-/* line 289, ../../dev/sass/panels/glass.scss */
+/* line 287, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-title {
   color: white;
 }
-/* line 295, ../../dev/sass/panels/glass.scss */
+/* line 293, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info {
   width: 103%;
   height: 40px;
   margin-top: -10px;
   background-color: gray;
 }
-/* line 301, ../../dev/sass/panels/glass.scss */
+/* line 299, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info .glass-main-info-block {
   display: flex;
   justify-content: space-between;
   padding: 10px 10px 10px 10px;
 }
-/* line 306, ../../dev/sass/panels/glass.scss */
+/* line 304, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info .glass-main-info-block h4 {
   align-items: center;
   align-self: center;
@@ -18637,7 +18635,7 @@ input[type='number'] {
   color: white;
   margin: 0 0 0 0;
 }
-/* line 316, ../../dev/sass/panels/glass.scss */
+/* line 314, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .info {
   display: none;
   all: unset;
@@ -18649,18 +18647,18 @@ input[type='number'] {
   height: 50px;
   background: gray;
 }
-/* line 326, ../../dev/sass/panels/glass.scss */
+/* line 324, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .info:before {
   content: '';
 }
-/* line 329, ../../dev/sass/panels/glass.scss */
+/* line 327, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .info label {
   color: white;
   font: normal 35px/1.42857 roboto-bold, sans-serif, icons;
   cursor: pointer;
 }
 
-/* line 339, ../../dev/sass/panels/glass.scss */
+/* line 337, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
@@ -18670,13 +18668,13 @@ input[type='number'] {
   z-index: 12;
   text-align: center;
 }
-/* line 347, ../../dev/sass/panels/glass.scss */
+/* line 345, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .dialog-inner {
   height: 90%;
   width: 100%;
   text-align: center;
 }
-/* line 352, ../../dev/sass/panels/glass.scss */
+/* line 350, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .set-glass-btn {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   position: absolute;
@@ -19055,133 +19053,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/grid.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/grating.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/visor.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1620908107');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/outside.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/fan.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/handle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/blind.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19191,133 +19189,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/grid.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/visor.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/grating.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/outside.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/fan.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1620908107');
+  background-image: url('../img/auxiliaries-selected/handle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1620908106');
+  background-image: url('../img/auxiliaries-focused/blind.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19341,7 +19339,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1620908107');
+  background-image: url('../img/auxiliaries/grid.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19358,7 +19356,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1620908107');
+  background-image: url('../img/auxiliaries/visor.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19375,7 +19373,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1620908107');
+  background-image: url('../img/auxiliaries/visor2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19392,7 +19390,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1620908107');
+  background-image: url('../img/auxiliaries/grating.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19409,7 +19407,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1620908107');
+  background-image: url('../img/auxiliaries/grating2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19426,7 +19424,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1620908107');
+  background-image: url('../img/auxiliaries/shutters.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19443,7 +19441,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1620908107');
+  background-image: url('../img/auxiliaries/shutters2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19460,7 +19458,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1620908107');
+  background-image: url('../img/auxiliaries/spillway.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19477,7 +19475,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1620908107');
+  background-image: url('../img/auxiliaries/spillway2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19494,7 +19492,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1620908107');
+  background-image: url('../img/auxiliaries/outside.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19511,7 +19509,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1620908107');
+  background-image: url('../img/auxiliaries/windowsill.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19528,7 +19526,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1620908107');
+  background-image: url('../img/auxiliaries/blind.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19545,7 +19543,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1620908107');
+  background-image: url('../img/auxiliaries/template1.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19562,7 +19560,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1620908107');
+  background-image: url('../img/auxiliaries/template2.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19586,7 +19584,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1620908107');
+  background-image: url('../img/auxiliaries/louvers-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19596,7 +19594,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1620908107');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19623,7 +19621,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1620908107');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19646,7 +19644,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1620908107');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19657,7 +19655,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1620908107');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19668,7 +19666,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1620908107');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19685,7 +19683,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1620908107');
+  background-image: url('../img/auxiliaries/fan.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19708,7 +19706,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1620908107');
+  background-image: url('../img/auxiliaries/force-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19719,7 +19717,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1620908107');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19736,7 +19734,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1620908107');
+  background-image: url('../img/auxiliaries/handle.png?1621891938');
   background-repeat: no-repeat;
   background-size: contain;
 }

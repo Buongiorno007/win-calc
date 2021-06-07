@@ -87,7 +87,7 @@
                   <div class="single-leaf-windows"> 
                     <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
                     <div class="single-leaf-windows-templates">
-                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} " class="other-single-template-rehau">
+                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} " class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
                       </div>
@@ -96,7 +96,7 @@
                   <div class="duble-leaf-windows">
                     <div class="duble-leaf-windows-title"><h1>Окна двухстворчатые</h1></div>
                     <div class="duble-leaf-windows-templates">
-                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                      <div fs-click="templatesPanel.selectNewTemplate($index + 4)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(4, 10)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
                       </div>
@@ -105,7 +105,16 @@
                   <div class="three-leaf-windows">
                     <div class="three-leaf-windows-title"><h1>Окна трёхстворчатые</h1></div>
                     <div class="three-leaf-windows-templates">
-                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                      <div fs-click="templatesPanel.selectNewTemplate($index + 10)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(10, 16)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="three-leaf-windows">
+                    <div class="three-leaf-windows-title"><h1>Окна Т-образные</h1></div>
+                    <div class="three-leaf-windows-templates">
+                      <div fs-click="templatesPanel.selectNewTemplate($index + 5)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(5, 7)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
                       </div>

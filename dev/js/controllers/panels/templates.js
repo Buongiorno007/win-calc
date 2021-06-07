@@ -57,25 +57,14 @@
 
 
                 //---------- download templates Img icons
-                if (UserStor.userInfo.factory_id === 2) {
-                    optionsServ.getTemplateImgIconsRehau(function (results) {
-                        if (results.status) {
-                            GlobalStor.global.templatesImgs = results.data.templateImgsRehau;
-                            thisCtrl.templateList = results.data.templateImgs;
-                        } else {
-                            console.log(results);
-                        }
-                    });
-                } else {
-                    optionsServ.getTemplateImgIcons(function (results) {
-                        if (results.status) {
-                            GlobalStor.global.templatesImgs = results.data.templateImgs;
-                            thisCtrl.templateList = results.data.templateImgs;
-                        } else {
-                            console.log(results);
-                        }
-                    });
-                }
+                optionsServ.getTemplateImgIcons(function (results) {
+                    if (results.status) {
+                        GlobalStor.global.templatesImgs = results.data.templateImgs;
+                        thisCtrl.templateList = results.data.templateImgs;
+                    } else {
+                        console.log(results);
+                    }
+                });
                 
                 
                 
@@ -94,25 +83,14 @@
                     GlobalStor.global.selectedTemplate = -1;
                     thisCtrl.selected = marker;
                     GlobalStor.global.templatesType = marker;
-                    if (UserStor.userInfo.factory_id === 2) {
-                        optionsServ.getTemplateImgIconsRehau(function (results) {
-                            if (results.status) {
-                                GlobalStor.global.templatesImgs = results.data.templateImgsRehau.filter(function (data) {
-                                    return data.type === marker;
-                                });
-                            }
-                            ;
-                        });
-                    } else {
-                        optionsServ.getTemplateImgIcons(function (results) {
-                            if (results.status) {
-                                GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
-                                    return data.type === marker;
-                                });
-                            }
-                            ;
-                        });
-                    }
+                    optionsServ.getTemplateImgIcons(function (results) {
+                        if (results.status) {
+                            GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function (data) {
+                                return data.type === marker;
+                            });
+                        }
+                        ;
+                    });
                     GlobalStor.global.showTemplates = true;
                     GlobalStor.global.goLeft = true;
                     MainServ.downloadAllTemplates(marker).then(function (data) {

@@ -2790,9 +2790,10 @@
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
-                    console.log(ProductStor.product, 'Product stor')
-                    console.log(GlobalStor.global, 'Global stor')
-                    console.log(DesignStor.design, 'Design stor')
+                    // console.log(ProductStor.product, 'Product stor')
+                    // console.log(GlobalStor.global, 'Global stor')
+                    // console.log(DesignStor.design, 'Design stor')
+                    console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
