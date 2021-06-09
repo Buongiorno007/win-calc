@@ -39,7 +39,7 @@
     .three-leaf-windows
       .three-leaf-windows-title <h1>Окна Т-образные</h1>
       .three-leaf-windows-templates
-        .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index + 5)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(5, 7)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
+        .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index + 16)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(16, 26)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
           .other-template-img.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
             img(ng-src="{{ templateIcon.src }}")
           .other-template-subscr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}
@@ -47,7 +47,7 @@
     .three-leaf-windows
       .three-leaf-windows-title <h1>Двери балконные</h1>
       .three-leaf-windows-templates
-        .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
+        .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index + 26)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
           .other-template-img.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
             img(ng-src="{{ templateIcon.src }}")
           .other-template-subscr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}
