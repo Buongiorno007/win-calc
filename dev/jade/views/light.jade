@@ -302,10 +302,6 @@
                         .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
                         .order-value-rehau {{ product.glass[0].sku }}
                       li.order-item-rehau
-                        .order-label-rehau {{ ::lightPage.CONFIGMENU_HARDWARE }}
-                        .order-value-rehau(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
-                        .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
-                      li.order-item-rehau
                         .order-label-rehau {{ ::lightPage.CONFIGMENU_LAMINATION }}
                         .order-value-rehau
                           span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}

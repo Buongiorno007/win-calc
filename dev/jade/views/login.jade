@@ -18,7 +18,7 @@ section.login-page.login-page-mobView
         form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
         
             .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
-                input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ loginPage.LOGIN }}", required)
+                input.user-field(id="login", type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ loginPage.LOGIN }}", required)
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
                 .error-tooltip(ng-show="loginPage.isSendEmail") {{ ::loginPage.USER_CHECK_EMAIL }}
@@ -26,7 +26,7 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.isUserNotActive") {{ ::loginPage.USER_NOT_ACTIVE }}
 
             .input-field(ng-class="{ 'has-error' : loginPage.submitted && loginForm.password.$error.required }")
-                input.user-field(type="password", name="password", ng-model="loginPage.user.password", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.PASSWORD }}", required)
+                input.user-field(id="password", type="password", name="password", ng-model="loginPage.user.password", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.PASSWORD }}", required)
                 .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.required') {{ ::loginPage.EMPTY_FIELD }}
                 .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
                 .error-tooltip(ng-show="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}

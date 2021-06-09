@@ -1337,11 +1337,6 @@
                         <div class="order-value-rehau">{{ product.glass[0].sku }}</div>
                       </li>
                       <li class="order-item-rehau">
-                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_HARDWARE }}</div>
-                        <div ng-if="product.construction_type === 4" class="order-value-rehau">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
-                        <div ng-if="product.construction_type !== 4" class="order-value-rehau">{{ product.hardware.name }}</div>
-                      </li>
-                      <li class="order-item-rehau">
                         <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_LAMINATION }}</div>
                         <div class="order-value-rehau"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
                       </li>

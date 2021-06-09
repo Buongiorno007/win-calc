@@ -73,7 +73,7 @@
     display: inline-block;
     text-align: center;
     background-color: white;
-    padding-top: .5rem;
+    padding-top: 0.5rem;
     p {
       @include roboto-lt(rem(20px));
       color: black;
@@ -82,7 +82,6 @@
   }
   // rehau styles
   .config-title-rehau {
-    margin-top: 2rem;
     width: 100%;
     height: 88px;
     display: inline-block;
@@ -120,7 +119,7 @@
     text-align: center;
     background-color: white;
     border: none;
-    border-bottom: .5px solid $main_gray_btn;
+    border-bottom: 0.5px solid $main_gray_btn;
     &.active {
       background-color: white;
     }
@@ -190,7 +189,7 @@
     display: inline-block;
     text-align: center;
     border: none;
-    border-bottom: .5px solid $main_gray_btn;
+    border-bottom: 0.5px solid $main_gray_btn;
     background-color: white;
     &.active {
       background-color: white;
@@ -233,7 +232,7 @@
     display: inline-block;
     text-align: center;
     border: none;
-    border-bottom: .5px solid $main_gray_btn;
+    border-bottom: 0.5px solid $main_gray_btn;
     background-color: white;
     &.active {
       background-color: white;
@@ -305,14 +304,14 @@
     width: 110%;
     display: inline-block; //border-bottom: 1px solid #b1b1b1;
     padding-top: 1rem;
-    padding-bottom: .2rem;
+    padding-bottom: 0.2rem;
     &.selected {
       background-color: rgba(0, 0, 0, 0.07);
       margin-left: -2rem;
       padding-left: 2rem;
     }
     &.temp-fig {
-      height: 7.5rem
+      height: 7.5rem;
     }
   }
   .figure-item:hover {
@@ -371,7 +370,7 @@
     width: 110%;
     display: inline-block; //border-bottom: 1px solid #b1b1b1;
     padding-top: 2.5rem;
-    padding-bottom: .2rem;
+    padding-bottom: 0.2rem;
     &.selected {
       background-color: rgba(0, 0, 0, 0.07);
       margin-left: -2rem;
@@ -413,11 +412,11 @@
     line-height: 24px;
 
     &:first-letter {
-      text-transform: uppercase
+      text-transform: uppercase;
     }
   }
 
-  // * End 
+  // * End
   .edit_submenu {
     @include transition(all 0.3s linear);
     @include roboto-lt(rem(36px), rem(65px));
@@ -523,7 +522,7 @@
     stroke-width: 1.2px !important;
     stroke: $main_red !important;
   }
-  // rehau styles 
+  // rehau styles
   .size-line-rehau {
     stroke-width: 1.2px !important;
     stroke: $primary_green !important;
@@ -611,7 +610,7 @@
   .order-qty-menu {
     @extend .splash;
     position: absolute;
-    top: .5rem;
+    top: 0.5rem;
     right: 1.5rem;
     width: 3rem;
     height: 3rem;
@@ -621,8 +620,8 @@
       @include roboto-lt(rem(36px), rem(60px));
       color: white;
       position: relative;
-      top: -.2rem;
-      left: .1rem;
+      top: -0.2rem;
+      left: 0.1rem;
     }
   }
   .configur-panel {
@@ -633,7 +632,7 @@
     padding-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
-    background: rgba(#fff, .9);
+    background: rgba(#fff, 0.9);
     z-index: 999;
     &.active {
       top: 69rem;
@@ -651,7 +650,7 @@
     padding-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
-    background: rgba(#fff, .9);
+    background: rgba(#fff, 0.9);
     z-index: 999;
     &.active {
       height: 90%;
@@ -676,9 +675,6 @@
       }
       margin-top: 150px;
       text-align: start;
-      .type-btn-rehua {
-
-      }
     }
     &.active {
       height: 100%;
@@ -720,7 +716,7 @@
       color: $primary_pink;
     }
 
-    .price-value{
+    .price-value {
       color: $primary_pink;
       font: bold 4rem/1 roboto-light, sans-serif, icons;
     }
@@ -876,7 +872,7 @@
   }
   .cart-btn {
     position: relative;
-    top: .6rem;
+    top: 0.6rem;
     @include roboto-lt(rem(36px), rem(60px));
     color: white;
   }
@@ -915,7 +911,7 @@
     position: absolute;
     top: rem(-20px);
     right: rem(-20px);
-    background-color: #F98000;
+    background-color: #f98000;
     z-index: 1;
   }
   .edit-cur-window {
@@ -937,7 +933,7 @@
       color: $main_red;
     }
   }
-  .coeff{
+  .coeff {
     color: $main_green;
   }
   .order-content {

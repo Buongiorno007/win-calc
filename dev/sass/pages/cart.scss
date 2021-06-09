@@ -168,7 +168,7 @@
   //rehau styles ------
   .order-rehau {
     @extend .splash;
-    @include box-shadow(rgba(black, .3) rem(15px) rem(10px) rem(30px) 0);
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.24);
     position: relative;
     margin-right: rem(50px);
     float: right;
