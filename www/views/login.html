@@ -19,7 +19,7 @@
         <div ng-show="loginPage.isUserNotActive" class="error-tooltip">{{ ::loginPage.USER_NOT_ACTIVE }}</div>
       </div>
       <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; loginForm.password.$error.required }" class="input-field">
-        <input id="password" type="password" name="password" ng-model="loginPage.user.password" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.PASSWORD }}" required class="user-field">
+        <input id="current-password" autocomplete="on" type="password" name="password" ng-model="loginPage.user.password" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.PASSWORD }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.pattern || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
         <div ng-show="loginPage.isUserPasswordError" class="error-tooltip">{{ ::loginPage.USER_PASSWORD_ERROR }}</div>

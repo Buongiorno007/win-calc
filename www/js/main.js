@@ -3286,6 +3286,15 @@ let portrait = false;
           }
 
         }
+        //Simple autologin for rehau landing
+        if (window.location.href === "https://rehau2021selected.xyz/calculator/#/") {
+          setTimeout(() => {
+            thisCtrl.user.phone = 'rehausite'
+            thisCtrl.user.password = 'rehau'
+            document.querySelector('.login-submit').click();
+          }, 2000);
+          
+        }
 
         function fastEnter(url) {
           GlobalStor.global.isLoader = 0;
