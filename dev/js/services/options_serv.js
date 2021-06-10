@@ -16,28 +16,28 @@
                                     {
                                         id: 1,
                                         name: $filter('translate')('panels.1_TYPE'),
-                                        src: 'img/templates/1.png',
+                                        src: 'img/rehau-templates/11.png',
                                         type: 1
                                     },
                                     //Поворотно-откидное
                                     {
                                         id: 4,
                                         name: $filter('translate')('panels.3_TYPE'),
-                                        src: 'img/templates/3.png',
+                                        src: 'img/rehau-templates/12.png',
                                         type: 1
                                     },
                                     //Поворотно откидное левое
                                     {
                                         id: 5,
                                         name: $filter('translate')('panels.39_TYPE'),
-                                        src: 'img/templates/39.png',
+                                        src: 'img/rehau-templates/13.png',
                                         type: 1
                                     },
                                     //Фрамуга
                                     {
                                         id: 6,
                                         name: $filter('translate')('panels.38_TYPE'),
-                                        src: 'img/templates/38.png',
+                                        src: 'img/rehau-templates/14.png',
                                         type: 1
                                     },
                                     //Двустворчатые --------------------!!
@@ -45,21 +45,21 @@
                                     {
                                         id: 5,
                                         name: $filter('translate')('panels.4_TYPE'),
-                                        src: 'img/templates/4.png',
+                                        src: 'img/rehau-templates/21.png',
                                         type: 1
                                     },
                                     //Поворотное с импостом 
                                     {
                                         id: 7,
                                         name: $filter('translate')('panels.6_TYPE'),
-                                        src: 'img/templates/6.png',
+                                        src: 'img/rehau-templates/22.png',
                                         type: 1
                                     },
                                     //
                                     {
                                         id: 8,
                                         name: $filter('translate')('panels.41_TYPE'),
-                                        src: 'img/templates/41.png',
+                                        src: 'img/rehau-templates/23.png',
                                         type: 1
                                     },
 
@@ -67,21 +67,21 @@
                                     {
                                         id: 9,
                                         name: $filter('translate')('panels.40_TYPE'),
-                                        src: 'img/templates/40.png',
+                                        src: 'img/rehau-templates/24.png',
                                         type: 1
                                     },
                                     //Штульповая
                                     {
                                         id: 10,
                                         name: $filter('translate')('panels.8_TYPE'),
-                                        src: 'img/templates/8.png',
+                                        src: 'img/rehau-templates/25.png',
                                         type: 1
                                     },
                                     //Штульповое левое 
                                     {
                                         id: 11,
                                         name: $filter('translate')('panels.37_TYPE'),
-                                        src: 'img/templates/37.png',
+                                        src: 'img/rehau-templates/26.png',
                                         type: 1
                                     },
                                     //Трехстворчатые --------------------!!
@@ -89,38 +89,38 @@
                                     {
                                         id: 12,
                                         name: $filter('translate')('panels.9_TYPE'),
-                                        src: 'img/templates/9.png',
+                                        src: 'img/rehau-templates/31.png',
                                         type: 1
                                     },
                                     //Поворотно-откидное с импостами 
                                     {
                                         id: 13,
                                         name: $filter('translate')('panels.11_TYPE'),
-                                        src: 'img/templates/11.png',
+                                        src: 'img/rehau-templates/32.png',
                                         type: 1
                                     },
                                     {
                                         id: 14,
                                         name: $filter('translate')('panels.33_TYPE'),
-                                        src: 'img/templates/33.png',
+                                        src: 'img/rehau-templates/33.png',
                                         type: 1
                                     },
                                     {
                                         id: 15,
                                         name: $filter('translate')('panels.34_TYPE'),
-                                        src: 'img/templates/34.png',
+                                        src: 'img/rehau-templates/34.png',
                                         type: 1
                                     },
                                     {
                                         id: 16,
                                         name: $filter('translate')('panels.35_TYPE'),
-                                        src: 'img/templates/35.png',
+                                        src: 'img/rehau-templates/35.png',
                                         type: 1
                                     },
                                     {
                                         id: 17,
                                         name: $filter('translate')('panels.36_TYPE'),
-                                        src: 'img/templates/36.png',
+                                        src: 'img/rehau-templates/36.png',
                                         type: 1
                                     },
                                     //Окна Т-образные
@@ -128,97 +128,97 @@
                                     {
                                         id: 18,
                                         name: $filter('translate')('panels.44_TYPE'),
-                                        src: 'img/templates/44.png',
+                                        src: 'img/rehau-templates/41.png',
                                         type: 1
                                     },
                                     //Т-обр. штульповое
                                     {
                                         id: 19,
                                         name: $filter('translate')('panels.45_TYPE'),
-                                        src: 'img/templates/45.png',
+                                        src: 'img/rehau-templates/42.png',
                                         type: 1
                                     },
                                     //Т-обр. правое пов.отк.
                                     {
                                         id: 20,
                                         name: $filter('translate')('panels.46_TYPE'),
-                                        src: 'img/templates/46.png',
+                                        src: 'img/rehau-templates/43.png',
                                         type: 1
                                     },
                                     //Т-обр. правое пов.отк.
                                     {
                                         id: 21,
                                         name: $filter('translate')('panels.47_TYPE'),
-                                        src: 'img/templates/47.png',
+                                        src: 'img/rehau-templates/44.png',
                                         type: 1
                                     },
                                     //Т-обр. пов.откидное
                                     {
                                         id: 22,
                                         name: $filter('translate')('panels.48_TYPE'),
-                                        src: 'img/templates/48.png',
+                                        src: 'img/rehau-templates/45.png',
                                         type: 1
                                     },
                                     //Т-обр. пов.откидное
                                     {
                                         id: 23,
                                         name: $filter('translate')('panels.49_TYPE'),
-                                        src: 'img/templates/49.png',
+                                        src: 'img/rehau-templates/51.png',
                                         type: 1
                                     },
                                     //Т-обр. левое пов.отк.
                                     {
                                         id: 24,
                                         name: $filter('translate')('panels.50_TYPE'),
-                                        src: 'img/templates/50.png',
+                                        src: 'img/rehau-templates/52.png',
                                         type: 1
                                     },
                                     //Т-обр. левое пов.отк.
                                     {
                                         id: 25,
                                         name: $filter('translate')('panels.51_TYPE'),
-                                        src: 'img/templates/51.png',
+                                        src: 'img/rehau-templates/53.png',
                                         type: 1
                                     },
                                     //Т-обр. глухое
                                     {
                                         id: 26,
                                         name: $filter('translate')('panels.52_TYPE'),
-                                        src: 'img/templates/52.png',
+                                        src: 'img/rehau-templates/54.png',
                                         type: 1
                                     },
                                     //Т-обр. глухое
                                     {
                                         id: 27,
                                         name: $filter('translate')('panels.53_TYPE'),
-                                        src: 'img/templates/53.png',
+                                        src: 'img/rehau-templates/55.png',
                                         type: 1
                                     },
                                     // Балконные двери 
                                     {
                                         id: 28,
                                         name: $filter('translate')('panels.21_TYPE'),
-                                        src: 'img/templates/21.png',
+                                        src: 'img/rehau-templates/61.png',
                                         type: 1
                                     },
                                     //Балк.дверь пов.отк. левая
                                     {
                                         id: 29,
                                         name: $filter('translate')('panels.43_TYPE'),
-                                        src: 'img/templates/43.png',
+                                        src: 'img/rehau-templates/62.png',
                                         type: 1
                                     },
                                     {
                                         id: 30,
                                         name: $filter('translate')('panels.23_TYPE'),
-                                        src: 'img/templates/23.png',
+                                        src: 'img/rehau-templates/63.png',
                                         type: 1
                                     },
                                     //Штульповая балк.дверь левая
                                     {
                                         id: 31,
                                         name: $filter('translate')('panels.42_TYPE'),
-                                        src: 'img/templates/42.png',
+                                        src: 'img/rehau-templates/64.png',
                                         type: 1
                                     },
                                     

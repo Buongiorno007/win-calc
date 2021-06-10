@@ -58,7 +58,8 @@ let portrait = false;
         'CartModule',
         'HistoryModule',
         'LightModule',
-        'SettingsModule'
+        'SettingsModule',
+        'ui.bootstrap'
     ]).config(/*@ngInject*/ configurationApp);
 
     //============== Modules ============//
@@ -76,6 +77,8 @@ let portrait = false;
         .module('SettingsModule', []);
     angular
         .module('LightModule', []);
+    angular
+        .module('ui.bootstrap', []);
 
 
     function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider, $compileProvider) {

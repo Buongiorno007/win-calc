@@ -85,10 +85,10 @@
               <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == -1, 'select': templatesPanel.G.global.activePanel == 0, 'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
                 <div class="other-template-rehau">
                   <div class="single-leaf-windows"> 
-                    <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
+                    <div uib-tooltip="I'm a tooltip!" class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
                     <div class="single-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} " class="other-single-template-rehau">
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}" title="Stack Overflow"></div>
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
                       </div>
                     </div>

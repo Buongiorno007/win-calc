@@ -165,12 +165,14 @@
       }
 
       .other-template-img {
-        // @extend .splash;
-        text-align: center;
-        padding-top: 50px;
+        min-width: 100px;
+        min-height: 100px;
+        text-align: -webkit-center;
+
         img {
-          max-height: rem(123px);
+          width: 100%;
         }
+        
       }
     
       .other-template-subscr {
@@ -181,6 +183,10 @@
         color: $primary_green;
         white-space: normal;
         padding-top: 16px;
+
+        max-height: 50px;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
 
     }
@@ -354,7 +360,7 @@
 
   .other-template {
     display: inline-block;
-    min-width: 25rem;
+    min-width: 190px;
     margin: 0 rem(10px);
     cursor: pointer;
     &.selected {
@@ -367,7 +373,7 @@
     @extend .splash;
     text-align: center;
     img {
-      max-height: rem(123px);
+      max-height: 150px;
     }
   }
 

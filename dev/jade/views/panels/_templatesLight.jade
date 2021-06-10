@@ -13,11 +13,11 @@
 .configur-panelLight-rehau.template-container-rehau(ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-controller="TemplatesCtrl as templatesPanel", ng-class="{'active': templatesPanel.G.global.activePanel == -1, 'select': templatesPanel.G.global.activePanel == 0, 'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}")
   .other-template-rehau
     .single-leaf-windows 
-      .single-leaf-windows-title <h1>Окна одностворчатые</h1>
+      .single-leaf-windows-title(uib-tooltip="I'm a tooltip!") <h1>Окна одностворчатые</h1>
       .single-leaf-windows-templates
         .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} ")
           .other-template-img.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
-            img(ng-src="{{ templateIcon.src }}")
+            img(ng-src="{{ templateIcon.src }}" title="Stack Overflow")
           .other-template-subscr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}
     .duble-leaf-windows
       .duble-leaf-windows-title <h1>Окна двухстворчатые</h1>
