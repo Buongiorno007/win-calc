@@ -1007,7 +1007,7 @@
               OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
               ProductStor.product = JSON.parse(LZString.decompressFromUTF16(product));
               AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
-              console.log("Данные загружены, приложение работает");
+              console.log("Data loaded, the application works");
               MainServ.createOrderData();
               return true;
             } else {
@@ -1024,7 +1024,6 @@
               return false;
             }
           } else {
-            console.log("не все данные сохранены");
             localStorage.clear();
             return false;
           }

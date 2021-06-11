@@ -192,7 +192,6 @@
                                 GlobalStor.global.templateLabel = $filter("translate")(
                                     "panels.TEMPLATE_WINDOW"
                                 );
-                                console.log(GlobalStor.global.templateLabel, 'TEMPLATES LABEl')
                                 deferred.resolve(results.data.windows);
                             } else {
                                 console.log(results);
@@ -307,7 +306,8 @@
                 }  
                 needed_data().then(
                     function(data) {
-                        /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
+                        try {
+/*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
                         //Block for profiles and profiles descriptions translations ***
@@ -966,6 +966,10 @@
                             }
                         }
                         //Block for glasses translations end ***
+                        } catch(err) {
+                            // console.log("Not all translations come from the backend, which is why you see this message")
+                        }
+                        
                     }
                 )
                
@@ -1102,7 +1106,6 @@
                 glassName,
                 blockId) {
                 var blocksQty = template.details.length;
-                console.log(blocksQty, 'BLOCKQTY')
                 while (--blocksQty > 0) {
                     if (blockId) {
                         /** set glass to template block by its Id */

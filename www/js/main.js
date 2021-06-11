@@ -3266,7 +3266,7 @@ let portrait = false;
               OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
               ProductStor.product = JSON.parse(LZString.decompressFromUTF16(product));
               AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
-              console.log("Данные загружены, приложение работает");
+              console.log("Data loaded, the application works");
               MainServ.createOrderData();
               return true;
             } else {
@@ -3283,7 +3283,6 @@ let portrait = false;
               return false;
             }
           } else {
-            console.log("не все данные сохранены");
             localStorage.clear();
             return false;
           }
@@ -23107,7 +23106,6 @@ function ErrorResult(code, message) {
                     .post(globalConstants.serverIP + "/api/insert?login=" + login + "&access_token=" + access, dataToSend)
                     .then(
                         function (result) {
-                            console.log("insertServer", result);
                             defer.resolve(result.data);
                         },
                         function (result) {
@@ -27992,7 +27990,6 @@ function ErrorResult(code, message) {
                                 GlobalStor.global.templateLabel = $filter("translate")(
                                     "panels.TEMPLATE_WINDOW"
                                 );
-                                console.log(GlobalStor.global.templateLabel, 'TEMPLATES LABEl')
                                 deferred.resolve(results.data.windows);
                             } else {
                                 console.log(results);
@@ -28107,7 +28104,8 @@ function ErrorResult(code, message) {
                 }  
                 needed_data().then(
                     function(data) {
-                        /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
+                        try {
+/*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
                         //Block for profiles and profiles descriptions translations ***
@@ -28766,6 +28764,10 @@ function ErrorResult(code, message) {
                             }
                         }
                         //Block for glasses translations end ***
+                        } catch(err) {
+                            // console.log("Not all translations come from the backend, which is why you see this message")
+                        }
+                        
                     }
                 )
                
@@ -28902,7 +28904,6 @@ function ErrorResult(code, message) {
                 glassName,
                 blockId) {
                 var blocksQty = template.details.length;
-                console.log(blocksQty, 'BLOCKQTY')
                 while (--blocksQty > 0) {
                     if (blockId) {
                         /** set glass to template block by its Id */
@@ -39939,7 +39940,6 @@ function ErrorResult(code, message) {
                     } else {
                         //i eto toje
                         GlobalStor.global.noDoorExist = 1
-                        console.log(GlobalStor.global, 'GlobalStor.global')
                         ProductStor.product.template_id = angular.copy(DesignStor.design.template_id);
                         // console.time("setCurrentProfile");
                         //TYT stojal 0 , ja pomen9l na to chto nyjno navernoe, no bl9 vseravno s profaila ne to idet
@@ -40062,7 +40062,6 @@ function ErrorResult(code, message) {
                                 //------- fill objXFormedPrice for sizes
 
                                 // 
-                                console.log(objXFormedPrice, 'objXFormedPrice')
                                 localDB.calculationPrice(objXFormedPrice);
                             }
                             setTimeout(function () {
@@ -40113,7 +40112,6 @@ function ErrorResult(code, message) {
                                     //------- fill objXFormedPrice for sizes
     
                                     // 
-                                    console.log(objXFormedPrice, 'objXFormedPrice')
                                     localDB.calculationPrice(objXFormedPrice);
                                 }
                                 setTimeout(function () {
