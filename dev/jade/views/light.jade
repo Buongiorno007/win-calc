@@ -816,7 +816,7 @@
           .discount-price-rehau
             .price-text Цена:
             price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
-        .counter-block-rehau(ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2")
+        .counter-block-rehau(ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2")
           .counter-rehau
             input.prodcounter-rehau(readonly, ng-model="lightPage.G.global.construction_count", ng-click="configMenu.cartButton()")
           .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")

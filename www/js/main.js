@@ -1392,7 +1392,7 @@ let portrait = false;
                             }
                         } else {
                             //------ if we close menu
-                            // DesignStor.design.activeSubMenuItem = 0;
+                            DesignStor.design.activeSubMenuItem = 0;
                             GlobalStor.global.goLeft = false;
                             GlobalStor.global.showTemplates = false;
                             GlobalStor.global.activePanel = 0;

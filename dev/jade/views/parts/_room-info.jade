@@ -41,8 +41,8 @@
       .coeff.heat-transfer-rehau(ng-if="roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total < roomInfo.O.order.heat_coef_min}",
                             fs-click="roomInfo.showCoefInfoBlock()")
+        .coeff-info<p>Оценка энергоэффективности</p>
         .coeff-number 7.4 <span>Очень хорошо</span>
-        .coeff-info<p>Подробнее об оценке энергоэффективности</p>
       .coeff.heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total > roomInfo.O.order.heat_coef_min}",
                             fs-click="roomInfo.showCoefInfoBlock()")

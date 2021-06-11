@@ -149,14 +149,14 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    //single leaf windows
     .other-single-template-rehau {
       display: flex;
       flex-direction: column;
       min-width: 184px;
       min-height: 224px;
-      margin: 0 rem(10px);
-      cursor: pointer;
+      max-width: 184px;
+      max-height: 224px;
+      align-items: center;
       &.selected {
         background-color: $primary_green;
       }
@@ -165,14 +165,15 @@
       }
 
       .other-template-img {
-        min-width: 100px;
-        min-height: 100px;
-        text-align: -webkit-center;
+        max-width: 150px;
+        max-height: 150px;
+        text-align: center;
 
         img {
-          width: 100%;
+          max-width: 150px;
+          max-height: 150px;
+          text-align: center;
         }
-        
       }
     
       .other-template-subscr {

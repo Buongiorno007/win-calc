@@ -82,14 +82,14 @@
                   </div>
                 </div>
               </div>
-              <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == -1, 'select': templatesPanel.G.global.activePanel == 0, 'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
+              <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
                 <div class="other-template-rehau">
                   <div class="single-leaf-windows"> 
-                    <div uib-tooltip="I'm a tooltip!" class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
+                    <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
                     <div class="single-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} " class="other-single-template-rehau">
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}" title="Stack Overflow"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -97,8 +97,8 @@
                     <div class="duble-leaf-windows-title"><h1>Окна двухстворчатые</h1></div>
                     <div class="duble-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index + 4)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(4, 10)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -106,8 +106,8 @@
                     <div class="three-leaf-windows-title"><h1>Окна трёхстворчатые</h1></div>
                     <div class="three-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index + 10)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(10, 16)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -115,17 +115,17 @@
                     <div class="three-leaf-windows-title"><h1>Окна Т-образные</h1></div>
                     <div class="three-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index + 16)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(16, 26)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
                   <div class="three-leaf-windows">
                     <div class="three-leaf-windows-title"><h1>Двери балконные</h1></div>
                     <div class="three-leaf-windows-templates">
-                      <div fs-click="templatesPanel.selectNewTemplate($index + 26)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+                      <div fs-click="templatesPanel.selectNewTemplate($index + 26)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)" ng-class="{'selected': templatesPanel.G.global.selectedTemplateName === $index}" class="other-single-template-rehau">
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -166,8 +166,8 @@
                     </div>
                     <!--R-->
                     <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer-rehau">
+                      <div class="coeff-info"><p>Оценка энергоэффективности</p></div>
                       <div class="coeff-number">7.4 <span>Очень хорошо</span></div>
-                      <div class="coeff-info"><p>Подробнее об оценке энергоэффективности</p></div>
                     </div>
                     <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
                       <div data-output="{{ ::roomInfo.HEAT_TRANSFER }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
@@ -2409,7 +2409,7 @@
             <price price-value="lightPage.G.global.tempPrice" price-currency="lightPage.U.userInfo.currency"></price>
           </div>
         </div>
-        <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="counter-block-rehau">
+        <div ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="counter-block-rehau">
           <div class="counter-rehau">
             <input readonly ng-model="lightPage.G.global.construction_count" ng-click="configMenu.cartButton()" class="prodcounter-rehau">
           </div>
