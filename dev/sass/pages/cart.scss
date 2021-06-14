@@ -173,6 +173,9 @@
     margin-right: rem(50px);
     float: right;
     height : 85rem;
+
+    display: flex;
+    flex-direction: column;
   }
   //rehau styles end
 
@@ -248,6 +251,19 @@
     color: #000000;
 
     border-bottom: 1px solid black;
+
+    
+  }
+
+  .order-value-qty {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 32px;
+
+    text-align: center;
+
+    color: #000000;
   }
 
   .value-rehau-comment {
@@ -285,6 +301,15 @@
   .order-qty {
     @include display-flex();
     @include align-items(center);
+    margin-top: 10px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+    
+    text-align: center;
+
+    color: #000000;
   }
   //rehau styles end 
 
@@ -347,36 +372,36 @@
   .order-footer-rehau {
     display: flex;
     justify-content: space-between;
-    border: none;
+
+    padding: 0 10px;
+
+    background-color: #F1F1F1;
 
     .order-footer-warmcoef {
-      h3 {
-        padding-left: 25px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 12px;
-        line-height: 140%;
-
-        text-align: center;
-
-        color: #000000;
-      }
-
       h2 {
-        padding-left: 25px;
         text-align: center;
         font-size: 24px;
         font-weight: bold;
         color: $primary_pink;
         margin: 10px 0 0 0;
       }
+
+      h3 {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 140%;
+
+        text-align: center;
+
+        color: #000000;
+      }
     }
     .order-footer-price-rehau {
       h3 {
-        padding-right: 25px;
         font-style: normal;
         font-weight: normal;
-        font-size: 12px;
+        font-size: 13px;
         line-height: 140%;
 
         text-align: center;
@@ -388,7 +413,6 @@
         color: $primary_pink;
         font-size: 24px;
         font-weight: bold;
-        padding-right: 25px;
       }
     }
   }
@@ -495,7 +519,7 @@
     .order-template-rehau {
       text-align: center;
       position: relative;
-      top: rem(90px);
+      top: rem(60px);
     }
     //rehau styles end ------
 
@@ -535,7 +559,7 @@
     }
     //rehau styles ------
     .order-content-rehau {
-      padding: 40px;
+      padding: 40px 40px 58px 40px;
       background-color: #fff;
     }
     //rehau styles end -----
@@ -547,7 +571,7 @@
 
     .order-qty {
       @include flex-flow(row nowrap);
-      @include justify-content(space-between);
+      @include justify-content(space-evenly);
       height: rem(100px);
     }
 
@@ -568,7 +592,7 @@
     }
     //rehau styles -----
     .order-rehau {
-      // @extend .product-light-container;
+      display: flex;
       max-height: 41.5rem;
     }
     //rehau styles end ------
@@ -756,9 +780,8 @@
   }
   //rehau styles
   .order-item-rehau {
-    // padding: rem(7px) 0;
-    // border-bottom: 1px solid $main_gray_btn;
     overflow: hidden;
+    margin-top: 10px;
   }
   //rehau style
   //======== DISCOUNT ========//

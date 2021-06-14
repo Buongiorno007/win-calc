@@ -263,6 +263,17 @@ body {
   right: 1.3rem;
 }
 
+.close-alert-rehau {
+  background-image: url(../../img/rehau-img/close.png);
+  background-repeat: no-repeat;
+  width: 19px;
+  height: 19px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
 // Delete element button
 .aux-delete {
   @extend .small-cross-btn;

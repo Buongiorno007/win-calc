@@ -26,11 +26,47 @@
   padding: 30px 10px;
 }
 
+//rehau styles
 .design-attantion-rehau {
+  @extend .attantion-rehau;
   top: 0;
   left: 25%;
   padding: 30px 10px;
 }
+
+.attantion-rehau {
+  @include roboto-lt(rem(36px));
+  position: absolute;
+  top: -2%;
+  left: 8%;
+  width: 90%;
+  padding: 32px 40px 32px 40px;
+  color: #fff;
+  background: #DE350C;
+  background-image: url(../../img/rehau-img/error.png);
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: 26px;
+  text-align: center;
+  z-index: 2000;
+}
+
+.glass-attantion-rehau {
+  @extend .attantion-rehau;
+  top: 0;
+  left: 30%;
+  width: 60rem;
+  height: 20rem;
+  padding: 30px;
+  overflow: hidden;
+  text-align: left;
+
+  .glass-list {
+    height: 15rem;
+    overflow: auto;
+  }
+}
+// end
 
 .glass-attantion {
   @extend .attantion;

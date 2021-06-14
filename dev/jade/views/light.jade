@@ -123,13 +123,21 @@
                 button.door-config-finish-btn.close-door-config(ng-click="lightPage.closeDoorConfig()")
                 button.door-config-finish-save-btn.save-door-config(ng-if="lightPage.D.design.steps.selectedStep4", ng-click="lightPage.saveDoorConfig()")
 
-            .design-attantion(ng-if="lightPage.G.global.isDesignError") {{ ::lightPage.NOT_AVAILABLE }}
-            .design-attantion(ng-if="lightPage.D.design.isDimExtra") {{ ::lightPage.DIM_EXTRA }}
+            .design-attantion(ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.G.global.isDesignError") {{ ::lightPage.NOT_AVAILABLE }}
+            .design-attantion(ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.D.design.isDimExtra") {{ ::lightPage.DIM_EXTRA }}
               .close-dialog(ng-click="lightPage.closeAttantion()")
-            .design-attantion(ng-if="lightPage.D.design.isSquareExtra") {{ ::lightPage.SQUARE_EXTRA }}
+            .design-attantion(ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.D.design.isSquareExtra") {{ ::lightPage.SQUARE_EXTRA }}
               .close-dialog(ng-click="lightPage.closeAttantion()")
-            .design-attantion(ng-if="lightPage.G.global.isTest") {{ ::lightPage.TEST_STAGE }}
+            .design-attantion(ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.G.global.isTest") {{ ::lightPage.TEST_STAGE }}
               .close-dialog(ng-click="lightPage.closeAttantion()")
+            //-rehau attantions
+            .design-attantion-rehau(ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.G.global.isDesignError") {{ ::lightPage.NOT_AVAILABLE }}
+            .design-attantion-rehau(ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.D.design.isDimExtra") {{ ::lightPage.DIM_EXTRA }}
+              .close-alert-rehau(ng-click="lightPage.closeAttantion()")
+            .design-attantion-rehau(ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.D.design.isSquareExtra") {{ ::lightPage.SQUARE_EXTRA }}
+              .close-alert-rehau(ng-click="lightPage.closeAttantion()")
+            .design-attantion-rehau(ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.G.global.isTest") {{ ::lightPage.TEST_STAGE }}
+              .close-alert-rehau(ng-click="lightPage.closeAttantion()")
 
 
         section.cart-page(ng-if="lightPage.G.global.showCart === 1 && lightPage.U.userInfo.factory_id !== 2")
@@ -316,7 +324,7 @@
                           when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}")
                     .order-qty
                       button.order-tool-minus-rehau(fs-click="lightPage.decreaseProductQty($index)")
-                      .order-value {{ product.product_qty }}
+                      .order-value-qty {{ product.product_qty }}
                       button.order-tool-plus-rehau(fs-click="lightPage.increaseProductQty($index)")
                   .order-footer-rehau
                     .order-footer-warmcoef
@@ -327,10 +335,6 @@
                       .order-price(price-fixed="{{lightPage.P.product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
                     
                     
-                  .order-comment(ng-class="{'active': lightPage.config.isProductComment === $index+1}")
-                    .order-comment-box
-                      .order-comment-title {{ ::lightPage.ORDER_COMMENT }}
-                      .order-comment-content {{ lightPage.O.order.comment }}
                 .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
                   .add-img-rehau 
                     img(src="../../img/rehau-img/plus-gray.svg", alt="")
@@ -801,13 +805,13 @@
               .cart-item-data-rehau
               .value-rehau-comment(data-output="{{ cartMenu.O.order.comment }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu-rehau.drop-calendar-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 5}")
-              textarea(placeholder="Писать здесь...").comment-field-rehau.noPreventDefault(ng-model="cartMenu.O.order.comment")
+              textarea(placeholder="Пишите здесь...").comment-field-rehau.noPreventDefault(ng-model="cartMenu.O.order.comment")
 
           footer.menu-footer
             .price-block-rehau.price-with-instalments-rehau(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
               price(price-value="cartMenu.O.order.paymentFirstDis", price-currency="cartMenu.U.userInfo.currency")
               price(price-value="cartMenu.O.order.paymentMonthlyDis", price-currency="cartMenu.U.userInfo.currency")
-            .price-block-rehau.price-without-instalments-rehau(ng-class="{'active': !cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
+            .price-block-rehau.price-without-instalments-rehau(ng-class="{'active': !cartMenu.O.order.is_instalment}")
               <h2>Итого:</h2> 
               price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
             button.order-btn-rehau(ng-click="cartMenu.openOrderDialog()") <h2>Оставить заявку</h2>

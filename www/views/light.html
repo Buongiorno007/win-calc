@@ -1123,15 +1123,25 @@
                 <button ng-if="lightPage.D.design.steps.selectedStep4" ng-click="lightPage.saveDoorConfig()" class="door-config-finish-save-btn save-door-config"></button>
               </div>
             </section>
-            <div ng-if="lightPage.G.global.isDesignError" class="design-attantion">{{ ::lightPage.NOT_AVAILABLE }}</div>
-            <div ng-if="lightPage.D.design.isDimExtra" class="design-attantion">{{ ::lightPage.DIM_EXTRA }}
+            <div ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.G.global.isDesignError" class="design-attantion">{{ ::lightPage.NOT_AVAILABLE }}</div>
+            <div ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.D.design.isDimExtra" class="design-attantion">{{ ::lightPage.DIM_EXTRA }}
               <div ng-click="lightPage.closeAttantion()" class="close-dialog"></div>
             </div>
-            <div ng-if="lightPage.D.design.isSquareExtra" class="design-attantion">{{ ::lightPage.SQUARE_EXTRA }}
+            <div ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.D.design.isSquareExtra" class="design-attantion">{{ ::lightPage.SQUARE_EXTRA }}
               <div ng-click="lightPage.closeAttantion()" class="close-dialog"></div>
             </div>
-            <div ng-if="lightPage.G.global.isTest" class="design-attantion">{{ ::lightPage.TEST_STAGE }}
+            <div ng-show="lightPage.U.userInfo.factory_id !== 2" ng-if="lightPage.G.global.isTest" class="design-attantion">{{ ::lightPage.TEST_STAGE }}
               <div ng-click="lightPage.closeAttantion()" class="close-dialog"></div>
+            </div>
+            <div ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.G.global.isDesignError" class="design-attantion-rehau">{{ ::lightPage.NOT_AVAILABLE }}</div>
+            <div ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.D.design.isDimExtra" class="design-attantion-rehau">{{ ::lightPage.DIM_EXTRA }}
+              <div ng-click="lightPage.closeAttantion()" class="close-alert-rehau"></div>
+            </div>
+            <div ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.D.design.isSquareExtra" class="design-attantion-rehau">{{ ::lightPage.SQUARE_EXTRA }}
+              <div ng-click="lightPage.closeAttantion()" class="close-alert-rehau"></div>
+            </div>
+            <div ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.G.global.isTest" class="design-attantion-rehau">{{ ::lightPage.TEST_STAGE }}
+              <div ng-click="lightPage.closeAttantion()" class="close-alert-rehau"></div>
             </div>
           </section>
         </section>
@@ -1349,7 +1359,7 @@
                     </ul>
                     <div class="order-qty">
                       <button fs-click="lightPage.decreaseProductQty($index)" class="order-tool-minus-rehau"></button>
-                      <div class="order-value">{{ product.product_qty }}</div>
+                      <div class="order-value-qty">{{ product.product_qty }}</div>
                       <button fs-click="lightPage.increaseProductQty($index)" class="order-tool-plus-rehau"></button>
                     </div>
                   </div>
@@ -1360,12 +1370,6 @@
                     </div>
                     <div class="order-footer-price-rehau"><h3>Стоимость<br>окна</h3>
                       <div price-fixed="{{lightPage.P.product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
-                    </div>
-                  </div>
-                  <div ng-class="{'active': lightPage.config.isProductComment === $index+1}" class="order-comment">
-                    <div class="order-comment-box">
-                      <div class="order-comment-title">{{ ::lightPage.ORDER_COMMENT }}</div>
-                      <div class="order-comment-content">{{ lightPage.O.order.comment }}</div>
                     </div>
                   </div>
                 </div>
@@ -2389,7 +2393,7 @@
               <div data-output="{{ cartMenu.O.order.comment }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau-comment"></div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu-rehau drop-calendar-rehau">
-              <textarea placeholder="Писать здесь..." ng-model="cartMenu.O.order.comment" class="comment-field-rehau noPreventDefault"></textarea>
+              <textarea placeholder="Пишите здесь..." ng-model="cartMenu.O.order.comment" class="comment-field-rehau noPreventDefault"></textarea>
             </div>
           </ul>
           <footer class="menu-footer">
@@ -2397,7 +2401,7 @@
               <price price-value="cartMenu.O.order.paymentFirstDis" price-currency="cartMenu.U.userInfo.currency"></price>
               <price price-value="cartMenu.O.order.paymentMonthlyDis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
-            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block-rehau price-without-instalments-rehau"><h2>Итого:</h2> 
+            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" class="price-block-rehau price-without-instalments-rehau"><h2>Итого:</h2> 
               <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
             <button ng-click="cartMenu.openOrderDialog()" class="order-btn-rehau"><h2>Оставить заявку</h2></button>
