@@ -130,7 +130,7 @@
   <p>{{ ::loginPage.LOADER_TEXT1 }}<br>{{ ::loginPage.LOADER_TEXT2 }} <br>{{ ::loginPage.LOADER_TEXT3 }}</p>
   <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
     <div class="alert-sign"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
@@ -148,7 +148,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert" class="alert-overlay">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
     <div class="alert-sign"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
@@ -162,7 +162,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo" class="alert-overlay">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
     <div class="alert-sign"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
@@ -175,7 +175,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert" class="alert-overlay">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
@@ -187,8 +187,78 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-overlay">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
+    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <!--button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}-->
+      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
+    <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
+    <div class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr-rehau">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns-rehau">
+      <div class="thisAlert">
+        <section class="cart-page">
+          <div fs-click="alertBox.isAlert()" class="order-delete-rehau"></div>
+        </section>
+      </div>
+      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-edit-rehau">{{ ::alertBox.BUTTON_E }}</button>
+      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-copy-rehau">{{ ::alertBox.BUTTON_C }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes-rehau">{{ ::alertBox.BUTTON_Y }}</button>
+      <button ng-click="alertBox.isAlert()" ng-show="!alertBox.G.global.isBox" class="alert-no-rehau">{{ ::alertBox.BUTTON_N }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div class="alert-danger-sign-rehau"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="main-page"></section>
+      </div>
+      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page"></section>
+      </div>
+      <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <button ng-click="alertBox.noSync()" ng-show="loginPage.G.global.isSyncAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.syncNow()" ng-show="loginPage.G.global.isSyncAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
     <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
     <div class="alert-btns">
       <div class="thisAlert">

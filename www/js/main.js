@@ -6652,10 +6652,11 @@ if (window.location.hostname !== 'localhost') {
     .module('MainModule')
     .controller('AlertCtrl',
 
-  function($filter, GlobalStor) {
+  function($filter, GlobalStor, UserStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+    thisCtrl.U = UserStor;
     thisCtrl.BUTTON_N = $filter('translate')('common_words.BUTTON_N');
     thisCtrl.BUTTON_Y = $filter('translate')('common_words.BUTTON_Y');
     thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
