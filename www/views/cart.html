@@ -1357,7 +1357,7 @@
             </div>
           </form>
         </div>
-        <div ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8 " class="cart-dialogs-container">
+        <div ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8" ng-show="orderForm.U.userInfo.factory_id !== 2" class="cart-dialogs-container">
           <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
             <div class="cart-dialog-header">
               <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
@@ -1377,6 +1377,28 @@
                 <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }} *" required class="user-field">
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
+            </div>
+          </form>
+        </div>
+        <div ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8" ng-show="orderForm.U.userInfo.factory_id === 2" class="cart-dialogs-container-rehau">
+          <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
+            <div class="cart-dialog-header">
+              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool"></button>
+              <div class="cart-dialog-title">Оставить заявку на окно</div>
+            </div>
+            <div class="cart-dialog-body">
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                <div class="input-name">Ваше имя</div>
+                <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
+                <div class="input-name">Ваш номер телефона</div>
+                <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
               </div>
               <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
             </div>

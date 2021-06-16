@@ -805,7 +805,7 @@
               .cart-item-data-rehau
               .value-rehau-comment(data-output="{{ cartMenu.O.order.comment }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu-rehau.drop-calendar-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 5}")
-              textarea(placeholder="Пишите здесь...").comment-field-rehau.noPreventDefault(ng-model="cartMenu.O.order.comment")
+              textarea.comment-field-rehau.noPreventDefault(ng-model="cartMenu.O.order.comment", placeholder="Пишите здесь")
 
           footer.menu-footer
             .price-block-rehau.price-with-instalments-rehau(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")

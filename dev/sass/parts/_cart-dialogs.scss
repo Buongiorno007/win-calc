@@ -34,6 +34,189 @@ position: absolute;
   background-color: #800000;
   z-index: 35;
 }
+//rehau styles 
+.cart-dialogs-container-rehau {
+  width: 704px;
+  height: 480px;
+  margin-left: 35%;
+  margin-top: 10%;
+
+  .cart-dialog-header{
+    position: relative;
+    text-align: center;
+    padding-top: 3%;
+    background-color: $primary_green;
+    height: 80px;
+  }
+  .cart-dialog-tool {
+    position: absolute;
+    background-image: url(../../img/rehau-img/close.png);
+    background-color: #DE350C;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    right: 0;
+    top: 0;
+  }
+  // .back {
+  //   &:before {
+  //     background-image: url(../../img/rehau-img/close.png);
+  //     width: 32px;
+  //     height: 32px;
+  //   }
+  // }
+  .print {
+    left: 10%;
+    &:before {
+      content: $printer-icon;
+    }
+  }
+
+  .cart-dialog-title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 32px;
+
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+  .save {
+    // @extend .middle-button;
+    @extend .splash;
+
+    position: absolute;
+    top: 25%;
+    right: 3%;
+    height: rem(70px);
+    padding: 0 rem(28px);
+    color: #fff;
+    background-color: $primary_green;
+  }
+  .save-order{
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+
+    position: inherit;
+    display: block;
+    height: 48px;
+    width: 224px;
+    height: 6rem;
+    padding: 0 1.75rem;
+    color: #fff;
+    background-color: $primary_green;
+    border: none;
+
+    margin-top: 35px;
+  }
+  .cart-dialog-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: rem(60px);
+    background-color: #f0f0f0;
+
+    height: 400px;
+    .user-field {
+      width: 360px;
+      height: 48px;
+      padding: rem(20px);
+      border: 1px solid #8c8c8c;
+      outline: none;
+
+      &.ng-invalid-minlength,
+      &.ng-invalid-pattern {
+        border-color: $error_color;
+      }
+      &.street {
+        display: inline-block;
+        width: 60%;
+      }
+      &.small {
+        display: inline-block;
+        width: 12.5% ;
+      }
+    }
+    .input-field {
+      position: relative;
+      margin-bottom: rem(44px);
+
+      .input-name {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 32px;
+
+        color: #4E4E4E;
+
+        margin: 0;
+      }
+    }
+  }
+  .cart-dialog-descrip {
+    @include roboto-lt(rem(36px));
+
+    margin-bottom: rem(20px);
+    text-align: center;
+    color: $main_gray_txt;
+  }
+
+  .location-list-tooltip {
+    @include top_left_coord(0px, 600px);
+    position: absolute;
+    width: rem(640px);
+    max-height: 33rem;
+    overflow-y: auto;
+    list-style: none;
+    border-radius: rem($radius_login-container);
+    background-color: #f8f8f8;
+    outline: none;
+    z-index: 5;
+  }
+  .location-option {
+    @include roboto-lt(rem(36px), rem(88px));
+
+    border-bottom: 1px solid #c4c3c3;
+    color: $main_gray_txt;
+    cursor: pointer;
+    &:last-child {
+      border-bottom: none;
+    }
+    &:first-letter {
+      color: $main_orange;
+    }
+  }
+  .current-city {
+    position: relative;
+
+    &:after {
+      @extend .icon-setting;
+      @include font-icon(rem(30px), 1);
+
+      position: absolute;
+      top: 35%;
+      right: rem(30px);
+      color: $main_orange;
+      content: $geolocation_filled-icon;
+    }
+  }
+
+  .cart-dialog-label {
+    @include roboto-bd(rem(48px));
+
+    margin-bottom: rem(20px);
+    text-align: center;
+    color: $main_gray_txt;
+  }
+}
+
+//rehau styles end
 
 .cart-dialogs-container {
   @include box-shadow(rgba(98, 67, 48, .5) 0 0 rem(15px) 1px);
@@ -229,37 +412,6 @@ position: absolute;
   }
 }
 
-
-
-
-// Form
-/*
-.input-field {
-  //@include user-select('all');
-  position: relative;
-  margin-bottom: rem(44px);
-  &.has-error > .user-field {
-    border-color: $error_color;
-  }
-}
-
-.user-field {
-  @include roboto-lt(rem(36px));
-  //@include user-select('all');
-
-  display: block;
-  width: 100%;
-  height: rem(112px);
-  padding: rem(20px);
-  border: 1px solid #8c8c8c;
-  border-radius: rem($radius_general-big_button);
-  outline: none;
-  &.ng-invalid-minlength,
-  &.ng-invalid-pattern {
-    border-color: $error_color;
-  }
-}
-*/
 
 .time-block {
   display: inline-block;
