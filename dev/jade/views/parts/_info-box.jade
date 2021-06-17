@@ -29,33 +29,15 @@
           p {{::infoBox.ASKING_PRICE}}
 
     //-rehau templates
-  .info_container(ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2")
+  .info_container-rehau(ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2")
     .info_box-rehau
       .info_box_inner
+        .info-header {{ infoBox.G.global.infoTitle }}
         img(ng-if="infoBox.G.global.infoImg.length  && !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}")
         img(ng-if="infoBox.G.global.infoImg.length && infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}")
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'en'") {{infoBox.G.global.infoTitle.en}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'ru'") {{infoBox.G.global.infoTitle.ru}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'uk'") {{infoBox.G.global.infoTitle.ua}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'pl'") {{infoBox.G.global.infoTitle.pl}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'de'") {{infoBox.G.global.infoTitle.de}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'bg'") {{infoBox.G.global.infoTitle.bg}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'it'") {{infoBox.G.global.infoTitle.it}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'es'") {{infoBox.G.global.infoTitle.es}}
-        .info_title(ng-if="infoBox.U.userInfo.langLabel === 'ro'") {{infoBox.G.global.infoTitle.ro}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'en'") {{infoBox.G.global.infoDescrip.en}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'ru'") {{infoBox.G.global.infoDescrip.ru}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'uk'") {{infoBox.G.global.infoDescrip.ua}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'pl'") {{infoBox.G.global.infoDescrip.pl}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'de'") {{infoBox.G.global.infoDescrip.de}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'bg'") {{infoBox.G.global.infoDescrip.bg}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'it'") {{infoBox.G.global.infoDescrip.it}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'es'") {{infoBox.G.global.infoDescrip.es}}
-        .info_descrip(ng-if="infoBox.U.userInfo.langLabel === 'ro'") {{infoBox.G.global.infoDescrip.ro}}
+        .info_title {{ infoBox.G.global.infoTitle }}
+        .info_descrip {{ infoBox.G.global.infoDescrip }}
         //.info_link(ng-href="{{infoBox.G.global.infoLink}}" target="_blank") {{infoBox.G.global.infoLink}}
-      .close-dialog(ng-click="infoBox.closeInfoBox($event)")
-      .isApply-container(ng-show="infoBox.G.global.showApply === 1" )
-        .isApply(fs-click="infoBox.isApply()" ng-show="infoBox.G.global.showApply === 1" )
-          p {{::infoBox.ASKING_PRICE}}
+      .close-dialog-rehau(ng-click="infoBox.closeInfoBox($event)")
 
 
