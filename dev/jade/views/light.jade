@@ -488,24 +488,24 @@
         .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id === 2")
          .construction-left-menu-rehau
             ul.figure-lists-rehau
-              li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)")
+              li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)" ng-class="{'active': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Шаблон</span>
                 .figure-label-rehau-subtitle(ng-if="!designPage.G.global.SelectedTemplateName", data-output="Поворотное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
                 .figure-label-rehau-subtitle(ng-if="designPage.G.global.SelectedTemplateName", data-output="{{ lightPage.G.global.SelectedTemplateName }}"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") 
 
               hr.separator
-              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(2)")
+              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(2)" ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Профиль<span>
                 .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.profile.name }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
-              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(3)")
+              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(3)" ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Стеклопакет<span>
                 .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.glass[0].sku }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") <span>4-16-4</span>
               hr.separator
-              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(5)")
+              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(5)" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}") 
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Ламинация<span>
                 .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")

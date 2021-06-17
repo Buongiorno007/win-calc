@@ -365,14 +365,27 @@
       <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
     </div>
     <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
-      <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
-        <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-        <div class="glass-list">
-          <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+      <div ng-show="attantBox.U.userInfo.factory_id !== 2" class="glass-block">
+        <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
+          <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+          <div class="glass-list">
+            <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+          </div>
+        </div>
+        <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
+          <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
         </div>
       </div>
-      <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
-        <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+      <div ng-show="attantBox.U.userInfo.factory_id === 2" class="glass-block">
+        <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion-rehau">
+          <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+          <div class="glass-list">
+            <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+          </div>
+        </div>
+        <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
+          <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+        </div>
       </div>
       <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion">
         <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>

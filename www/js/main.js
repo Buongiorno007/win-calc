@@ -6723,11 +6723,12 @@ if (window.location.hostname !== 'localhost') {
     .module('MainModule')
     .controller('AttantCtrl',
 
-  function($filter, DesignStor, HistoryStor) {
+  function($filter, DesignStor, HistoryStor, UserStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.D = DesignStor;
     thisCtrl.H = HistoryStor;
+    thisCtrl.U = UserStor;
 
     //------- translate
     thisCtrl.NO_PRINT = $filter('translate')('history.NO_PRINT');

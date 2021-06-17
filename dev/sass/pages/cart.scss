@@ -193,6 +193,22 @@
     z-index: 1;
   }
 
+  .order-delete-rehau {
+    background-image: url(../../img/rehau-img/close.png);
+    background-repeat: no-repeat;
+    background-position: center;
+
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -50%;
+    right: -40%;
+    z-index: 1;
+
+    background-color: #DE350C;
+  }
+
   //rehau styles -----
 
   .delete-construction {

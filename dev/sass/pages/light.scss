@@ -355,8 +355,8 @@
     margin: 0 !important;
     padding: 0px;
     background-color: transparent;
-    &.selected {
-      background-color: transparent !important;
+    &.active {
+      background-color: red;
     }
   }
   .figure-item-rehau-block:hover {
@@ -371,16 +371,17 @@
     display: inline-block; //border-bottom: 1px solid #b1b1b1;
     padding-top: 2.5rem;
     padding-bottom: 0.2rem;
-    &.selected {
+    &.active {
       background-color: rgba(0, 0, 0, 0.07);
-      margin-left: -2rem;
-      padding-left: 2rem;
     }
     &.temp-fig-rehau {
       margin-top: -10px;
     }
   }
   .figure-item-rehau:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+  .figure-item-rehau:active {
     background-color: rgba(0, 0, 0, 0.07);
   }
   .figure-label-rehau {
@@ -594,10 +595,12 @@
     stroke-width: 1px;
     text-anchor: middle;
     alignment-baseline: middle;
+    dominant-baseline: middle;
     cursor: pointer;
   }
   .size-txt-edit-rehau {
     @extend .size-txt;
+    dominant-baseline: middle;
     stroke: white;
     fill: white;
     &.active {
