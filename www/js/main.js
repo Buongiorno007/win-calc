@@ -24836,7 +24836,6 @@ function ErrorResult(code, message) {
             }
             //console.info('@@@@@@@@@@@@', objTmp);
             // console.log(ProductStor.product, 'Product stor')
-            console.log(GlobalStor.global, "Global stor");
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
             //console.log('REPORT', ProductStor.product.report);
@@ -30632,8 +30631,14 @@ function ErrorResult(code, message) {
                                 tempObj = itemArr[itemArrQty];
                             }
                         }
-                    }
-                    if (!$.isEmptyObject(tempObj)) {
+                    } 
+                    if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
+                        GlobalStor.global.infoTitle = tempObj;
+                        GlobalStor.global.infoImg = tempObj.img;
+                        GlobalStor.global.infoLink = tempObj.link;
+                        GlobalStor.global.infoDescrip = tempObj.description;
+                        GlobalStor.global.isInfoBox = id;
+                    } else {
                         GlobalStor.global.infoTitle = tempObj.translate;
                         GlobalStor.global.infoImg = tempObj.img;
                         GlobalStor.global.infoLink = tempObj.link;

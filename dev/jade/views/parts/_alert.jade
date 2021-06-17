@@ -97,10 +97,9 @@
       button.alert-no(ng-click="alertBox.noSync()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_N }}
       button.alert-yes(ng-click="alertBox.syncNow()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_Y }}
 .alert-overlay-rehau(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isNoChangedProduct && alertBox.U.userInfo.factory_id === 2")
-  .alert-block-rehau
-    .alert-descr {{ alertBox.SAVED_KONSTRUCTION }}
-    .alert-btns
+  .alert-block-ok-rehau
+    .alert-descr-rehau {{ alertBox.SAVED_KONSTRUCTION }}
+    .alert-btns-rehau
       .thisAlert
         section.loginPage
-      //button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}
-      button.alert-yes(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.OK }}
+      button.alert-yes-rehau(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.OK }}

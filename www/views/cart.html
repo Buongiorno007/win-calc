@@ -1264,145 +1264,149 @@
           </form>
         </div>
       </div>
-      <div ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }" ng-if="orderForm.C.cart.isOrderDialog" class="cart-dialogs order-dialog">
-        <div ng-if="orderForm.globalConstants.serverIP !== 'http://api.calc.csokna.ru' &amp;&amp; orderForm.U.userInfo.user_type !== 8" class="cart-dialogs-container">
-          <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
-            <div class="cart-dialog-header">
-              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
-              <div class="cart-dialog-title">{{ ::orderForm.CALL_ORDER }}</div>
-            </div>
-            <div class="cart-dialog-body">
-              <div class="cart-dialog-descrip">{{ ::orderForm.CALL_ORDER_DESCRIP }}</div>
-              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_CLIENT_INFO }}</div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
-                <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME }}" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+      <div class="main-cart-block">
+        <div ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }" ng-if="orderForm.C.cart.isOrderDialog" ng-show="orderForm.U.userInfo.factory_id !== 2" class="cart-dialogs order-dialog">
+          <div ng-if="orderForm.globalConstants.serverIP !== 'http://api.calc.csokna.ru'" class="cart-dialogs-container">
+            <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
+              <div class="cart-dialog-header">
+                <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+                <div class="cart-dialog-title">{{ ::orderForm.CALL_ORDER }}</div>
               </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
-                <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+              <div class="cart-dialog-body">
+                <div class="cart-dialog-descrip">{{ ::orderForm.CALL_ORDER_DESCRIP }}</div>
+                <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_CLIENT_INFO }}</div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                  <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME }}" required class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
+                  <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" required class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+                </div>
+                <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_DELIVERY }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.location.$error.required &amp;&amp; orderForm.G.global.changeLocation === 0}" class="input-field">
+                  <input id="impLocation" type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" required class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD_LOCATION }}</div>
+                  <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
+                    <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                  </ul>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
+                  <input type="text" name="address" ng-model="orderForm.C.cart.customer.customer_address" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ADDRESS }}" required class="user-field street">
+                  <input type="text" name="house" ng-model="orderForm.C.cart.customer.customer_house" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_HOUSE }}" required class="user-field small">
+                  <input type="text" name="flat" ng-model="orderForm.C.cart.customer.customer_flat" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLAT }}" required class="user-field small">
+                  <input type="text" name="floor" ng-model="orderForm.C.cart.customer.customer_floor" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLOOR }}" required class="user-field small">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required" class="error-tooltip street">{{ ::orderForm.EMPTY_FIELD }}</div>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.house.$error.required" class="error-tooltip house">{{ ::orderForm.EMPTY_FIELD }}</div>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.flat.$error.required" class="error-tooltip flat">{{ ::orderForm.EMPTY_FIELD }}</div>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.floor.$error.required" class="error-tooltip floor">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <div ng-if="orderForm.U.userInfo.currencies === '$'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis / orderForm.G.global.currencies[0].value | number: 1.2}} {{ orderForm.U.userInfo.currencies }}</div>
+                <div ng-if="orderForm.U.userInfo.currencies === '€'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis / orderForm.G.global.currencies[2].value | number: 1.2}} {{ orderForm.U.userInfo.currencies }}</div>
+                <div ng-if="orderForm.U.userInfo.currencies === '₴'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currencies }}</div>
+                <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_ADD_INFO }}</div>
+                <div class="input-field">
+                  <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
+                </div>
+                <div class="input-field">
+                  <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
+                </div>
+                <div class="input-field">
+                  <div class="subtitle-field">{{ ::orderForm.CLIENT_SEX }}</div>
+                  <label class="label-field">{{ ::orderForm.CLIENT_SEX_M }}
+                    <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="1" class="radio-field">
+                  </label>
+                  <label class="label-field">{{ ::orderForm.CLIENT_SEX_F }}
+                    <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="2" class="radio-field">
+                  </label>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.age.$error.required }" class="input-field">
+                  <div class="subtitle-field">{{ ::orderForm.CLIENT_AGE }}</div>
+                  <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name | translate for age in orderForm.C.optionAge" required class="user-select-field">
+                    <!--option(value='') {{ ::orderForm.SELECT_AGE }}-->
+                    <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                  </select>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.age.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.education.$error.required }" class="input-field">
+                  <div class="subtitle-field">{{ ::orderForm.CLIENT_EDUCATION }}</div>
+                  <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name | translate for educ in orderForm.C.optionEductaion" required class="user-select-field">
+                    <!--option(value='') {{ ::orderForm.SELECT_ADUCATION }}-->
+                    <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                  </select>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.education.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.occupation.$error.required }" class="input-field">
+                  <div class="subtitle-field">{{ ::orderForm.CLIENT_OCCUPATION }}</div>
+                  <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name | translate for occup in orderForm.C.optionOccupation" required class="user-select-field">
+                    <!--option(value='') {{ ::orderForm.SELECT_OCCUPATION }}-->
+                    <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                  </select>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.occupation.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.infoSource.$error.required }" class="input-field">
+                  <div class="subtitle-field">{{ ::orderForm.CLIENT_INFO_SOURCE }}</div>
+                  <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name | translate for info in orderForm.C.optionInfo" required class="user-select-field">
+                    <!--option(value='') {{ ::orderForm.SELECT_INFO_SOURCE }}-->
+                    <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                  </select>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.infoSource.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <button type="submit" class="save save-order">{{ ::orderForm.READY }}</button>
               </div>
-              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_DELIVERY }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.location.$error.required &amp;&amp; orderForm.G.global.changeLocation === 0}" class="input-field">
-                <input id="impLocation" type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD_LOCATION }}</div>
-                <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
-                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
-                </ul>
+            </form>
+          </div>
+          <div ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8" ng-show="orderForm.U.userInfo.factory_id !== 2" class="cart-dialogs-container">
+            <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
+              <div class="cart-dialog-header">
+                <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+                <div class="cart-dialog-title">{{ ::orderForm.CALL_ORDER_CLIENT_INFO_light }}</div>
               </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
-                <input type="text" name="address" ng-model="orderForm.C.cart.customer.customer_address" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ADDRESS }}" required class="user-field street">
-                <input type="text" name="house" ng-model="orderForm.C.cart.customer.customer_house" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_HOUSE }}" required class="user-field small">
-                <input type="text" name="flat" ng-model="orderForm.C.cart.customer.customer_flat" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLAT }}" required class="user-field small">
-                <input type="text" name="floor" ng-model="orderForm.C.cart.customer.customer_floor" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLOOR }}" required class="user-field small">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required" class="error-tooltip street">{{ ::orderForm.EMPTY_FIELD }}</div>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.house.$error.required" class="error-tooltip house">{{ ::orderForm.EMPTY_FIELD }}</div>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.flat.$error.required" class="error-tooltip flat">{{ ::orderForm.EMPTY_FIELD }}</div>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.floor.$error.required" class="error-tooltip floor">{{ ::orderForm.EMPTY_FIELD }}</div>
+              <div class="cart-dialog-body">
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                  <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME }} *" required class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
+                  <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required }" class="input-field">
+                  <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }} *" required class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
-              <div ng-if="orderForm.U.userInfo.currencies === '$'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis / orderForm.G.global.currencies[0].value | number: 1.2}} {{ orderForm.U.userInfo.currencies }}</div>
-              <div ng-if="orderForm.U.userInfo.currencies === '€'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis / orderForm.G.global.currencies[2].value | number: 1.2}} {{ orderForm.U.userInfo.currencies }}</div>
-              <div ng-if="orderForm.U.userInfo.currencies === '₴'" class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currencies }}</div>
-              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_ADD_INFO }}</div>
-              <div class="input-field">
-                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
-              </div>
-              <div class="input-field">
-                <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
-              </div>
-              <div class="input-field">
-                <div class="subtitle-field">{{ ::orderForm.CLIENT_SEX }}</div>
-                <label class="label-field">{{ ::orderForm.CLIENT_SEX_M }}
-                  <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="1" class="radio-field">
-                </label>
-                <label class="label-field">{{ ::orderForm.CLIENT_SEX_F }}
-                  <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="2" class="radio-field">
-                </label>
-              </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.age.$error.required }" class="input-field">
-                <div class="subtitle-field">{{ ::orderForm.CLIENT_AGE }}</div>
-                <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name | translate for age in orderForm.C.optionAge" required class="user-select-field">
-                  <!--option(value='') {{ ::orderForm.SELECT_AGE }}-->
-                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
-                </select>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.age.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-              </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.education.$error.required }" class="input-field">
-                <div class="subtitle-field">{{ ::orderForm.CLIENT_EDUCATION }}</div>
-                <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name | translate for educ in orderForm.C.optionEductaion" required class="user-select-field">
-                  <!--option(value='') {{ ::orderForm.SELECT_ADUCATION }}-->
-                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
-                </select>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.education.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-              </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.occupation.$error.required }" class="input-field">
-                <div class="subtitle-field">{{ ::orderForm.CLIENT_OCCUPATION }}</div>
-                <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name | translate for occup in orderForm.C.optionOccupation" required class="user-select-field">
-                  <!--option(value='') {{ ::orderForm.SELECT_OCCUPATION }}-->
-                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
-                </select>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.occupation.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-              </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.infoSource.$error.required }" class="input-field">
-                <div class="subtitle-field">{{ ::orderForm.CLIENT_INFO_SOURCE }}</div>
-                <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name | translate for info in orderForm.C.optionInfo" required class="user-select-field">
-                  <!--option(value='') {{ ::orderForm.SELECT_INFO_SOURCE }}-->
-                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
-                </select>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.infoSource.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-              </div>
-              <button type="submit" class="save save-order">{{ ::orderForm.READY }}</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-        <div ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8" ng-show="orderForm.U.userInfo.factory_id !== 2" class="cart-dialogs-container">
-          <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
-            <div class="cart-dialog-header">
-              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
-              <div class="cart-dialog-title">{{ ::orderForm.CALL_ORDER_CLIENT_INFO_light }}</div>
-            </div>
-            <div class="cart-dialog-body">
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
-                <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME }} *" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+        <div ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }" ng-if="orderForm.C.cart.isOrderDialog" ng-show="orderForm.U.userInfo.factory_id === 2" class="cart-dialogs-rehau order-dialog">
+          <div ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8" class="cart-dialogs-container-rehau">
+            <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
+              <div class="cart-dialog-header">
+                <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool"></button>
+                <div class="cart-dialog-title">Оставить заявку на окно</div>
               </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
-                <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+              <div class="cart-dialog-body">
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                  <div class="input-name">Ваше имя</div>
+                  <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
+                  <div class="input-name">Ваш номер телефона</div>
+                  <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+                </div>
+                <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required }" class="input-field">
-                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }} *" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-              </div>
-              <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
-            </div>
-          </form>
-        </div>
-        <div ng-if="orderForm.globalConstants.serverIP === 'http://api.calc.csokna.ru' || orderForm.U.userInfo.user_type === 8" ng-show="orderForm.U.userInfo.factory_id === 2" class="cart-dialogs-container-rehau">
-          <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
-            <div class="cart-dialog-header">
-              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool"></button>
-              <div class="cart-dialog-title">Оставить заявку на окно</div>
-            </div>
-            <div class="cart-dialog-body">
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
-                <div class="input-name">Ваше имя</div>
-                <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-              </div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
-                <div class="input-name">Ваш номер телефона</div>
-                <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
-              </div>
-              <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
       <div ng-class="{ 'unvisible' : !orderForm.C.cart.isCreditDialog }" class="cart-dialogs order-dialog">
@@ -1649,14 +1653,13 @@
   </div>
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
-  <div class="alert-block-rehau">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
-    <div class="alert-btns">
+  <div class="alert-block-ok-rehau">
+    <div class="alert-descr-rehau">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-btns-rehau">
       <div class="thisAlert">
         <section class="loginPage"></section>
       </div>
-      <!--button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}-->
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes">{{ ::alertBox.OK }}</button>
+      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes-rehau">{{ ::alertBox.OK }}</button>
     </div>
   </div>
 </div>

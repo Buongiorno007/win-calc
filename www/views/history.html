@@ -314,9 +314,9 @@
   </div>
   <div ng-show="attantBox.U.userInfo.factory_id === 2" class="glass-block">
     <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion-rehau">
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+      <div fs-click="attantBox.closeAttantion()" class="close-dialog-rehau"></div>
       <div class="glass-list">
-        <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+        <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass-rehau">{{ glassExtra }}</div>
       </div>
     </div>
     <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
@@ -466,14 +466,13 @@
   </div>
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
-  <div class="alert-block-rehau">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
-    <div class="alert-btns">
+  <div class="alert-block-ok-rehau">
+    <div class="alert-descr-rehau">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-btns-rehau">
       <div class="thisAlert">
         <section class="loginPage"></section>
       </div>
-      <!--button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}-->
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes">{{ ::alertBox.OK }}</button>
+      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes-rehau">{{ ::alertBox.OK }}</button>
     </div>
   </div>
 </div>

@@ -260,8 +260,8 @@ body {
   width: 33px;
   height: 33px;
   position: absolute;
-  top: 1rem;
-  right: 1.3rem;
+  top: 0;
+  right: 0
 }
 
 .close-alert-rehau {
@@ -348,6 +348,92 @@ body {
   @extend .backWhiteView;
   opacity: 1.08;
   z-index: 10000;
+}
+
+.alert-block-ok-rehau {
+  @include roboto-lt(2.25rem);
+  display: block;
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  width: 464px;
+  height: 440px;
+  margin-top: -5rem;
+  padding: 3rem;
+
+  background: #FFFFFF;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
+
+  overflow: hidden;
+  text-align: center;
+  z-index: 99999;
+
+  .alert-descr-rehau {
+    margin-top: 95px;
+  }
+  .alert-btns-rehau {
+    @include display-flex();
+    @include justify-content(space-around);
+  }
+  .alert-yes-rehau {
+    background-color: $primary_green;
+
+    padding: 8px 10px;
+    margin-top: 32px;
+
+    border: none;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+
+    color: white;
+
+    width: 80px;
+  }
+  .alert-no-rehau {
+    background: #4E4E4E;
+
+    padding: 8px 10px;
+
+    border: none;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+
+    width: 80px;
+  }
+  .alert-copy-rehau {
+    background-color: $primary_green;
+
+    padding: 8px 10px;
+
+    border: none;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+
+    width: 190px;
+  }
+  .alert-edit-rehau {
+    background-color: $primary_green;
+
+    padding: 8px 10px;
+
+    border: none;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+
+    width: 190px;
+  }
 }
 
 .alert-block-rehau {

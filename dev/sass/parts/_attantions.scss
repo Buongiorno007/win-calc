@@ -38,9 +38,8 @@
   @include roboto-lt(rem(36px));
   position: absolute;
   top: -2%;
-  left: 8%;
+  left: 50px;
   width: 690px;
-  padding: 32px 40px 32px 40px;
   color: #fff;
   background: #DE350C;
   background-image: url(../../img/rehau-img/error.png);
@@ -51,10 +50,40 @@
   z-index: 2000;
 }
 
+.attantion-glass-rehau {
+  @include roboto-lt(rem(36px));
+  position: absolute;
+  top: -2%;
+  left: 50px;
+  width: 690px;
+  height: 159px;
+  color: #fff;
+  background: #DE350C;
+  background-image: url(../../img/rehau-img/error.png);
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: 16px;
+  text-align: center;
+  z-index: 2000;
+}
+
 .glass-attantion-rehau {
-  @extend .attantion-rehau;
+  @extend .attantion-glass-rehau;
   top: 0;
-  padding: 30px 10px;
+}
+
+.extra-glass-rehau {
+  width: 576px;
+  text-align: left;
+  padding: 32px 40px 32px 80px;
+
+  font-family: Brix Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+
+  color: #FFFFFF;
 }
 // end
 
