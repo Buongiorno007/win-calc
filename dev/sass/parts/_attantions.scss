@@ -35,8 +35,11 @@
 }
 
 .attantion-rehau {
-  @include roboto-lt(rem(36px));
+  font-size: 24px;
+
+  color: #FFFFFF;
   position: absolute;
+  padding: 32px 40px 32px 80px;
   top: -2%;
   left: 50px;
   width: 690px;
@@ -73,7 +76,6 @@
 }
 
 .extra-glass-rehau {
-  width: 576px;
   text-align: left;
   padding: 32px 40px 32px 80px;
 

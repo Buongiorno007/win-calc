@@ -839,7 +839,7 @@
 
         .curtain(ng-if="configMenu.P.product.is_addelem_only")  
 
-        .menu_tooltip(ng-if="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+        .menu_tooltip(ng-if="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" ng-show="configMenu.U.userInfo.factory_id !== 2") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           .close_menu_tooltip
         .right-menu-footer
           .calculators-box.size-calculator(ng-class="{'active': lightPage.G.global.isSizeCalculator}" ng-if="lightPage.G.global.isSizeCalculator")
