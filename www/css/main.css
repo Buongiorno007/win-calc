@@ -12004,24 +12004,32 @@ tr.factory_item {
   display: inline-block;
   padding-top: 2.5rem;
   padding-bottom: 0.2rem;
+  background-image: url(../../img/rehau-img/back-button-config-menu.png);
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: -50px;
+  transition: 0.6s all linear;
 }
-/* line 374, ../../dev/sass/pages/light.scss */
+/* line 381, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau.active {
-  background-color: rgba(0, 0, 0, 0.07);
+  background-position-y: center;
+  background-position-x: 10px;
+  padding-left: 35px;
+  transition: 0.6s all linear;
 }
-/* line 377, ../../dev/sass/pages/light.scss */
+/* line 387, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau.temp-fig-rehau {
   margin-top: -10px;
 }
-/* line 381, ../../dev/sass/pages/light.scss */
+/* line 391, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau:hover {
   background-color: rgba(0, 0, 0, 0.07);
 }
-/* line 384, ../../dev/sass/pages/light.scss */
+/* line 394, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau:active {
-  background-color: rgba(0, 0, 0, 0.07);
+  background-color: #E6E6E6;
 }
-/* line 387, ../../dev/sass/pages/light.scss */
+/* line 397, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau {
   font: normal 1.875rem/1.5rem roboto-bold, sans-serif, icons;
   color: #37A58C;
@@ -12032,14 +12040,14 @@ tr.factory_item {
   padding: 16px 16px 0 16px;
   left: 0;
 }
-/* line 397, ../../dev/sass/pages/light.scss */
+/* line 407, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau span {
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 32px;
 }
-/* line 405, ../../dev/sass/pages/light.scss */
+/* line 415, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau-subtitle {
   text-transform: lowercase;
   margin: 0 !important;
@@ -12050,11 +12058,11 @@ tr.factory_item {
   font-size: 16px;
   line-height: 24px;
 }
-/* line 415, ../../dev/sass/pages/light.scss */
+/* line 425, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau-subtitle:first-letter {
   text-transform: uppercase;
 }
-/* line 421, ../../dev/sass/pages/light.scss */
+/* line 431, ../../dev/sass/pages/light.scss */
 .light-v .edit_submenu {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -12072,96 +12080,96 @@ tr.factory_item {
   cursor: pointer;
   z-index: 5;
 }
-/* line 433, ../../dev/sass/pages/light.scss */
+/* line 443, ../../dev/sass/pages/light.scss */
 .light-v .edit_submenu.active {
   left: -30rem;
 }
-/* line 437, ../../dev/sass/pages/light.scss */
+/* line 447, ../../dev/sass/pages/light.scss */
 .light-v #impost-shape-menu {
   top: 9.5rem;
   z-index: -1;
 }
-/* line 441, ../../dev/sass/pages/light.scss */
+/* line 451, ../../dev/sass/pages/light.scss */
 .light-v #sash-shape-menu {
   top: 17.5rem;
   z-index: -1;
 }
-/* line 444, ../../dev/sass/pages/light.scss */
+/* line 454, ../../dev/sass/pages/light.scss */
 .light-v #sash-shape-menu.active {
   left: -28rem;
 }
-/* line 448, ../../dev/sass/pages/light.scss */
+/* line 458, ../../dev/sass/pages/light.scss */
 .light-v .sash-shtulp-right {
   left: 10.5rem;
 }
-/* line 451, ../../dev/sass/pages/light.scss */
+/* line 461, ../../dev/sass/pages/light.scss */
 .light-v .sash-left-up {
   left: 6rem;
 }
-/* line 454, ../../dev/sass/pages/light.scss */
+/* line 464, ../../dev/sass/pages/light.scss */
 .light-v .sash-up,
 .light-v .sash-right,
 .light-v .sash-down {
   left: 1.2rem;
 }
-/* line 459, ../../dev/sass/pages/light.scss */
+/* line 469, ../../dev/sass/pages/light.scss */
 .light-v #angel-shape-menu {
   top: 25rem;
   z-index: -1;
 }
-/* line 462, ../../dev/sass/pages/light.scss */
+/* line 472, ../../dev/sass/pages/light.scss */
 .light-v #angel-shape-menu.active {
   left: -20rem;
 }
-/* line 466, ../../dev/sass/pages/light.scss */
+/* line 476, ../../dev/sass/pages/light.scss */
 .light-v #arc-shape-menu {
   z-index: -1;
   top: 33.5rem;
 }
-/* line 469, ../../dev/sass/pages/light.scss */
+/* line 479, ../../dev/sass/pages/light.scss */
 .light-v #arc-shape-menu.active {
   left: -16rem;
 }
-/* line 473, ../../dev/sass/pages/light.scss */
+/* line 483, ../../dev/sass/pages/light.scss */
 .light-v #position-menu-for-position {
   z-index: -1;
   top: 41.5rem;
 }
-/* line 476, ../../dev/sass/pages/light.scss */
+/* line 486, ../../dev/sass/pages/light.scss */
 .light-v #position-menu-for-position.active {
   left: -29rem;
 }
-/* line 480, ../../dev/sass/pages/light.scss */
+/* line 490, ../../dev/sass/pages/light.scss */
 .light-v .active_svg, .light-v .frame-active, .light-v .glass-active, .light-v .corner_mark,
 .light-v .frame-active,
 .light-v .glass-active,
 .light-v .corner_mark {
   fill: #7d8efb !important;
 }
-/* line 486, ../../dev/sass/pages/light.scss */
+/* line 496, ../../dev/sass/pages/light.scss */
 .light-v .menu-footer {
   position: relative;
   top: -3rem;
   border-top: 1px solid #b1b1b1;
   padding-top: 1rem;
 }
-/* line 492, ../../dev/sass/pages/light.scss */
+/* line 502, ../../dev/sass/pages/light.scss */
 .light-v .figure-icon-top {
   font: normal 5.5rem/1 icons, sans-serif;
   color: gray;
 }
-/* line 496, ../../dev/sass/pages/light.scss */
+/* line 506, ../../dev/sass/pages/light.scss */
 .light-v .template-icon {
   width: 5.5rem;
 }
-/* line 499, ../../dev/sass/pages/light.scss */
+/* line 509, ../../dev/sass/pages/light.scss */
 .light-v .figure-icon-bottom {
   font: normal 5.5rem/1 icons, sans-serif;
   position: relative;
   top: -5.5rem;
   left: 0;
 }
-/* line 505, ../../dev/sass/pages/light.scss */
+/* line 515, ../../dev/sass/pages/light.scss */
 .light-v .product-u-coeff {
   font-size: 3rem !important;
   position: relative;
@@ -12169,7 +12177,7 @@ tr.factory_item {
   left: 41rem;
   cursor: pointer;
 }
-/* line 512, ../../dev/sass/pages/light.scss */
+/* line 522, ../../dev/sass/pages/light.scss */
 .light-v .product-u-coeff-description {
   text-decoration: underline;
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
@@ -12180,22 +12188,22 @@ tr.factory_item {
   left: 35rem;
   cursor: pointer;
 }
-/* line 522, ../../dev/sass/pages/light.scss */
+/* line 532, ../../dev/sass/pages/light.scss */
 .light-v .size-line {
   stroke-width: 1.2px !important;
   stroke: #cc0000 !important;
 }
-/* line 527, ../../dev/sass/pages/light.scss */
+/* line 537, ../../dev/sass/pages/light.scss */
 .light-v .size-line-rehau {
   stroke-width: 1.2px !important;
   stroke: #37A58C !important;
 }
-/* line 531, ../../dev/sass/pages/light.scss */
+/* line 541, ../../dev/sass/pages/light.scss */
 .light-v .size-line-arrow-rehau {
   stroke-width: 1.2px !important;
   stroke: black !important;
 }
-/* line 536, ../../dev/sass/pages/light.scss */
+/* line 546, ../../dev/sass/pages/light.scss */
 .light-v .size-rect {
   width: 160px;
   height: 70px;
@@ -12205,7 +12213,7 @@ tr.factory_item {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 544, ../../dev/sass/pages/light.scss */
+/* line 554, ../../dev/sass/pages/light.scss */
 .light-v .size-rect.active {
   -moz-fill: #cc0000;
   -moz-fill-opacity: 1;
@@ -12213,7 +12221,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #ff0303;
 }
-/* line 552, ../../dev/sass/pages/light.scss */
+/* line 562, ../../dev/sass/pages/light.scss */
 .light-v .size-txt, .light-v .glass-txt, .light-v .size-txt-edit, .light-v .size-txt-edit-rehau, .light-v .mobile .main-view .size-txt-edit, .mobile .main-view .light-v .size-txt-edit,
 .light-v .mobile svg-template .size-txt-edit,
 .mobile svg-template .light-v .size-txt-edit,
@@ -12226,17 +12234,17 @@ tr.factory_item {
   alignment-baseline: middle;
   cursor: pointer;
 }
-/* line 560, ../../dev/sass/pages/light.scss */
+/* line 570, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit {
   stroke: #cc0000;
   fill: #cc0000;
 }
-/* line 564, ../../dev/sass/pages/light.scss */
+/* line 574, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit.active {
   stroke: white;
   fill: white;
 }
-/* line 570, ../../dev/sass/pages/light.scss */
+/* line 580, ../../dev/sass/pages/light.scss */
 .light-v .size-rect-rehau {
   width: 160px;
   height: 70px;
@@ -12251,7 +12259,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #37A58C;
 }
-/* line 583, ../../dev/sass/pages/light.scss */
+/* line 593, ../../dev/sass/pages/light.scss */
 .light-v .size-rect-rehau.active {
   -moz-fill: #DD0060;
   -moz-fill-opacity: 1;
@@ -12259,7 +12267,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #DD0060;
 }
-/* line 592, ../../dev/sass/pages/light.scss */
+/* line 602, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-rehau {
   font-size: 5.625rem;
   stroke: white;
@@ -12269,18 +12277,18 @@ tr.factory_item {
   dominant-baseline: middle;
   cursor: pointer;
 }
-/* line 601, ../../dev/sass/pages/light.scss */
+/* line 611, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit-rehau {
   dominant-baseline: middle;
   stroke: white;
   fill: white;
 }
-/* line 606, ../../dev/sass/pages/light.scss */
+/* line 616, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit-rehau.active {
   stroke: white;
   fill: white;
 }
-/* line 613, ../../dev/sass/pages/light.scss */
+/* line 623, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu {
   position: absolute;
   top: 0.5rem;
@@ -12290,7 +12298,7 @@ tr.factory_item {
   border-radius: 50%;
   background-color: #cc0000;
 }
-/* line 622, ../../dev/sass/pages/light.scss */
+/* line 632, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu p {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
@@ -12298,7 +12306,7 @@ tr.factory_item {
   top: -0.2rem;
   left: 0.1rem;
 }
-/* line 630, ../../dev/sass/pages/light.scss */
+/* line 640, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel {
   position: absolute;
   width: 100%;
@@ -12310,13 +12318,13 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 640, ../../dev/sass/pages/light.scss */
+/* line 650, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel.active {
   top: 69rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 646, ../../dev/sass/pages/light.scss */
+/* line 656, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight {
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem rgba(0, 0, 0, 0.5);
   left: 135rem;
@@ -12330,15 +12338,15 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 658, ../../dev/sass/pages/light.scss */
+/* line 668, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.active {
   height: 90%;
 }
-/* line 661, ../../dev/sass/pages/light.scss */
+/* line 671, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.goLeft {
   left: 64rem;
 }
-/* line 665, ../../dev/sass/pages/light.scss */
+/* line 675, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau {
   left: 135rem;
   position: absolute;
@@ -12351,45 +12359,45 @@ tr.factory_item {
   background: white;
   z-index: 999;
 }
-/* line 676, ../../dev/sass/pages/light.scss */
+/* line 686, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau .construction-type-rehau {
   margin-top: 150px;
   text-align: start;
 }
-/* line 677, ../../dev/sass/pages/light.scss */
+/* line 687, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau .construction-type-rehau:first-child {
   margin-top: 0;
 }
-/* line 683, ../../dev/sass/pages/light.scss */
+/* line 693, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau.active {
   height: 100%;
 }
-/* line 686, ../../dev/sass/pages/light.scss */
+/* line 696, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau.goLeft {
   left: 0;
   top: -6rem;
 }
-/* line 691, ../../dev/sass/pages/light.scss */
+/* line 701, ../../dev/sass/pages/light.scss */
 .light-v input::-webkit-outer-spin-button,
 .light-v input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 697, ../../dev/sass/pages/light.scss */
+/* line 707, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
   margin-top: 1rem;
 }
-/* line 702, ../../dev/sass/pages/light.scss */
+/* line 712, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .discount-price-rehau {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
   margin-top: 90px;
 }
-/* line 709, ../../dev/sass/pages/light.scss */
+/* line 719, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-text {
   font-style: normal;
   font-weight: normal;
@@ -12397,22 +12405,22 @@ tr.factory_item {
   line-height: 40px;
   margin-bottom: -38px;
 }
-/* line 718, ../../dev/sass/pages/light.scss */
+/* line 728, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-qty {
   font-size: 15px;
   color: #DD0060;
 }
-/* line 723, ../../dev/sass/pages/light.scss */
+/* line 733, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-value {
   color: #DD0060;
   font: bold 4rem/1 roboto-light, sans-serif, icons;
 }
-/* line 728, ../../dev/sass/pages/light.scss */
+/* line 738, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-currency {
   color: #DD0060;
   font-weight: bold;
 }
-/* line 733, ../../dev/sass/pages/light.scss */
+/* line 743, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau {
   text-align: center;
   position: relative;
@@ -12423,14 +12431,14 @@ tr.factory_item {
   margin-left: 2.75rem;
   transition: .5s;
 }
-/* line 743, ../../dev/sass/pages/light.scss */
+/* line 753, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau .counter-rehau {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 748, ../../dev/sass/pages/light.scss */
+/* line 758, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau .counter-rehau input {
   transition: .5s;
   cursor: pointer;
@@ -12445,21 +12453,21 @@ tr.factory_item {
   background-position-y: 50%;
   background-position-x: 35%;
 }
-/* line 765, ../../dev/sass/pages/light.scss */
+/* line 775, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau.unactive {
   width: 135%;
 }
-/* line 768, ../../dev/sass/pages/light.scss */
+/* line 778, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau.unactive .counter-rehau input {
   margin-right: -25rem;
 }
-/* line 775, ../../dev/sass/pages/light.scss */
+/* line 785, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter-rehau {
   background-color: #424242;
   color: white;
   padding-left: 35px;
 }
-/* line 781, ../../dev/sass/pages/light.scss */
+/* line 791, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau {
   cursor: pointer;
   position: relative;
@@ -12469,7 +12477,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 790, ../../dev/sass/pages/light.scss */
+/* line 800, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau p {
   color: white;
   font: bold 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -12480,25 +12488,25 @@ tr.factory_item {
   vertical-align: middle;
   padding-bottom: 7px;
 }
-/* line 802, ../../dev/sass/pages/light.scss */
+/* line 812, ../../dev/sass/pages/light.scss */
 .light-v .discount-block {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
 }
-/* line 806, ../../dev/sass/pages/light.scss */
+/* line 816, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-priceRed {
   text-decoration: line-through;
   font: normal 2.4rem/2.25rem roboto-regular, sans-serif, icons;
   color: #ff2121;
 }
-/* line 811, ../../dev/sass/pages/light.scss */
+/* line 821, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-price {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
 }
-/* line 817, ../../dev/sass/pages/light.scss */
+/* line 827, ../../dev/sass/pages/light.scss */
 .light-v .counter-block {
   text-align: center;
   position: relative;
@@ -12508,14 +12516,14 @@ tr.factory_item {
   flex-direction: row-reverse;
   margin-left: 2.75rem;
 }
-/* line 826, ../../dev/sass/pages/light.scss */
+/* line 836, ../../dev/sass/pages/light.scss */
 .light-v .counter {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 831, ../../dev/sass/pages/light.scss */
+/* line 841, ../../dev/sass/pages/light.scss */
 .light-v .counter input {
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
   text-align: center;
@@ -12524,30 +12532,30 @@ tr.factory_item {
   height: 7rem;
   margin-right: 4rem;
 }
-/* line 840, ../../dev/sass/pages/light.scss */
+/* line 850, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter {
   color: #cc0000;
 }
-/* line 843, ../../dev/sass/pages/light.scss */
+/* line 853, ../../dev/sass/pages/light.scss */
 .light-v .input-minus,
 .light-v .input-plus {
   cursor: pointer;
   position: relative;
   top: -2rem;
 }
-/* line 849, ../../dev/sass/pages/light.scss */
+/* line 859, ../../dev/sass/pages/light.scss */
 .light-v .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #363636;
 }
-/* line 854, ../../dev/sass/pages/light.scss */
+/* line 864, ../../dev/sass/pages/light.scss */
 .light-v .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 859, ../../dev/sass/pages/light.scss */
+/* line 869, ../../dev/sass/pages/light.scss */
 .light-v .save-block {
   cursor: pointer;
   position: relative;
@@ -12557,7 +12565,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 868, ../../dev/sass/pages/light.scss */
+/* line 878, ../../dev/sass/pages/light.scss */
 .light-v .save-block p {
   color: white;
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -12568,7 +12576,7 @@ tr.factory_item {
   width: 12rem;
   vertical-align: middle;
 }
-/* line 879, ../../dev/sass/pages/light.scss */
+/* line 889, ../../dev/sass/pages/light.scss */
 .light-v .cart-img {
   position: relative;
   width: 4rem;
@@ -12580,14 +12588,14 @@ tr.factory_item {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 890, ../../dev/sass/pages/light.scss */
+/* line 900, ../../dev/sass/pages/light.scss */
 .light-v .cart-btn, .light-v .cart-menu .order-btn, .cart-menu .light-v .order-btn {
   position: relative;
   top: 0.6rem;
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
 }
-/* line 896, ../../dev/sass/pages/light.scss */
+/* line 906, ../../dev/sass/pages/light.scss */
 .light-v .order, .light-v .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-v .product, .light-v .cart-page .addelementunit, .cart-page .light-v .addelementunit {
   top: 2rem;
   width: 32rem;
@@ -12596,30 +12604,30 @@ tr.factory_item {
   border-bottom-left-radius: 1.25rem;
   border: 1px solid #bebebe;
 }
-/* line 905, ../../dev/sass/pages/light.scss */
+/* line 915, ../../dev/sass/pages/light.scss */
 .light-v .order-rehau {
   top: -15px;
   width: 32rem;
   float: left;
 }
-/* line 912, ../../dev/sass/pages/light.scss */
+/* line 922, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 916, ../../dev/sass/pages/light.scss */
+/* line 926, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 921, ../../dev/sass/pages/light.scss */
+/* line 931, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 926, ../../dev/sass/pages/light.scss */
+/* line 936, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -12627,14 +12635,14 @@ tr.factory_item {
   background-color: #f98000;
   z-index: 1;
 }
-/* line 934, ../../dev/sass/pages/light.scss */
+/* line 944, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 941, ../../dev/sass/pages/light.scss */
+/* line 951, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -12643,27 +12651,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 948, ../../dev/sass/pages/light.scss */
+/* line 958, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 953, ../../dev/sass/pages/light.scss */
+/* line 963, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 956, ../../dev/sass/pages/light.scss */
+/* line 966, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 960, ../../dev/sass/pages/light.scss */
+/* line 970, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 965, ../../dev/sass/pages/light.scss */
+/* line 975, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -12671,119 +12679,119 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 970, ../../dev/sass/pages/light.scss */
+/* line 980, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 973, ../../dev/sass/pages/light.scss */
+/* line 983, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 980, ../../dev/sass/pages/light.scss */
+/* line 990, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 985, ../../dev/sass/pages/light.scss */
+/* line 995, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 992, ../../dev/sass/pages/light.scss */
+/* line 1002, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 997, ../../dev/sass/pages/light.scss */
+/* line 1007, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 1000, ../../dev/sass/pages/light.scss */
+/* line 1010, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1007, ../../dev/sass/pages/light.scss */
+/* line 1017, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau {
   width: auto;
   height: 130rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1014, ../../dev/sass/pages/light.scss */
+/* line 1024, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 1019, ../../dev/sass/pages/light.scss */
+/* line 1029, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 1024, ../../dev/sass/pages/light.scss */
+/* line 1034, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 1028, ../../dev/sass/pages/light.scss */
+/* line 1038, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 1032, ../../dev/sass/pages/light.scss */
+/* line 1042, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 1035, ../../dev/sass/pages/light.scss */
+/* line 1045, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 1038, ../../dev/sass/pages/light.scss */
+/* line 1048, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 1043, ../../dev/sass/pages/light.scss */
+/* line 1053, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 1048, ../../dev/sass/pages/light.scss */
+/* line 1058, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 1051, ../../dev/sass/pages/light.scss */
+/* line 1061, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 1054, ../../dev/sass/pages/light.scss */
+/* line 1064, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 1060, ../../dev/sass/pages/light.scss */
+/* line 1070, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 1066, ../../dev/sass/pages/light.scss */
+/* line 1076, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 1070, ../../dev/sass/pages/light.scss */
+/* line 1080, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1074, ../../dev/sass/pages/light.scss */
+/* line 1084, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
