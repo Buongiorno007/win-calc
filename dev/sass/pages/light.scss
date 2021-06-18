@@ -380,9 +380,10 @@
     transition: 0.6s all linear;
     &.active {
       background-position-y: center;
-      background-position-x: 10px;
+      background-position-x: 20px;
       padding-left: 35px;
       transition: 0.6s all linear;
+      background-color: rgba(0, 0, 0, 0.07);
     }
     &.temp-fig-rehau {
       margin-top: -10px;
