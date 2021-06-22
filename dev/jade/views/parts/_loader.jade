@@ -1,11 +1,13 @@
-.loader-container(ng-controller="LoaderCtrl as loadBox", ng-show="loadBox.G.global.isLoader")
-        p
-                |{{ ::loginPage.LOADER_TEXT1 }}
-                br
-                |{{ ::loginPage.LOADER_TEXT2 }} 
-                br
-                |{{ ::loginPage.LOADER_TEXT3 }}
-        .loader(ng-class="{'active': loadBox.G.global.loader === 2}")
+.main-block-loader
+        .loader-container(ng-controller="LoaderCtrl as loadBox", ng-show="loadBox.G.global.isLoader && loadBox.consts.serverIP !== 'https://admin.rehauselected.baueffect.com'")
+                p
+                        |{{ ::loginPage.LOADER_TEXT1 }}
+                        br
+                        |{{ ::loginPage.LOADER_TEXT2 }} 
+                        br
+                        |{{ ::loginPage.LOADER_TEXT3 }}
+                .loader(ng-class="{'active': loadBox.G.global.loader === 2}")
+
+        .loader-container(ng-controller="LoaderCtrl as loadBox", ng-show="loadBox.G.global.isLoader && loadBox.consts.serverIP === 'https://admin.rehauselected.baueffect.com'")
+                .loader(ng-class="{'active': loadBox.G.global.loader === 2}")
             
-    //- .loader-counter(ng-show='loadBox.G.global.loader !== 2')
-        label {{loadBox.G.global.isLoader2 +'%'}}

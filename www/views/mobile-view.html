@@ -1437,9 +1437,14 @@
       <div ng-click="isErrorProd.close()" class="close-dialog"></div>
     </div>
   </div>
-  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
-    <p>{{ ::loginPage.LOADER_TEXT1 }}<br>{{ ::loginPage.LOADER_TEXT2 }} <br>{{ ::loginPage.LOADER_TEXT3 }}</p>
-    <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  <div class="main-block-loader">
+    <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP !== 'https://admin.rehauselected.baueffect.com'" class="loader-container">
+      <p>{{ ::loginPage.LOADER_TEXT1 }}<br>{{ ::loginPage.LOADER_TEXT2 }} <br>{{ ::loginPage.LOADER_TEXT3 }}</p>
+      <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+    </div>
+    <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP === 'https://admin.rehauselected.baueffect.com'" class="loader-container">
+      <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+    </div>
   </div>
   <div ng-if="mobilePage.G.global.isMobileReport" class="mob-rep">
     <div ng-controller="ReportCtrl as reportBox" ng-show="reportBox.G.global.isReport" class="report-container">

@@ -1,4 +1,4 @@
-section.login-page.login-page-mobView
+section.login-page.login-page-mobView(ng-if='loginPage.consts.serverIP !== "https://admin.rehauselected.baueffect.com"')
     //---------------- LogIn Form
     #login-container.login-container.login-container-mobView(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0")
         .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ ::loginPage.OFFLINE }}
@@ -11,6 +11,7 @@ section.login-page.login-page-mobView
         .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
         .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
         .logo.logo-mobView-steko(ng-if='loginPage.consts.serverIP === "https://api.steko.com.ua"')
+        //- .logo-rehau.logo-mobView-rehau(ng-if='loginPage.consts.serverIP === "https://admin.rehauselected.baueffect.com"')
         //- .logo.logo-mobView(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"')
         //- .text-logo {{ ::loginPage.WINDOW_COST }}
         .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
@@ -88,6 +89,156 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ ::loginPage.WRONG_EMAIL }}
             button.login-submit(type="submit") {{ ::loginPage.OK }}
             
+
+    
+    .backDarkView(ng-if="loginPage.isFactoryId")
+    .backDarkView(ng-if="loginPage.isOffline")
+    .backDarkView(ng-if="loginPage.isConfirmRegistration")
+    .terms-and-conditions(ng-show="loginPage.showTerms")
+        .back
+            a(ng-click="loginPage.ShowTerms()") {{ ::loginPage.BACK }}
+        .text-container
+        h1 {{ ::loginPage.TITLE }}
+        br
+        p {{ ::loginPage.PLAN_A }}
+        p {{ ::loginPage.PLAN_B }} 
+        p {{ ::loginPage.PLAN_C }}
+        p {{ ::loginPage.PLAN_G }}
+        br
+        p {{ ::loginPage.TITLE_INFO }}
+        br
+        h3 {{ ::loginPage.A_TITLE }}
+        br
+        p {{ ::loginPage.A_TITLE_PRETEXT }} 
+        br
+        p {{ ::loginPage.A_TITLE_TEXT_1 }} 
+        
+        p {{ ::loginPage.A_TITLE_TEXT_2 }} 
+        
+        p {{ ::loginPage.A_TITLE_TEXT_3 }} 
+        
+        p {{ ::loginPage.A_TITLE_TEXT_4 }} 
+
+        br
+        h3 {{ ::loginPage.B_TITLE }}
+        br
+        p {{ ::loginPage.B_TITLE_TEXT_1 }}
+        
+        p {{ ::loginPage.B_TITLE_TEXT_2 }}
+        
+        p {{ ::loginPage.B_TITLE_TEXT_3 }}
+        br
+        p {{ ::loginPage.B_TITLE_TEXT_4 }}
+        
+        p {{ ::loginPage.B_TITLE_TEXT_5 }} 
+        
+        p {{ ::loginPage.B_TITLE_TEXT_6 }}
+        br
+        p {{ ::loginPage.B_TITLE_TEXT_7 }} 
+
+        br
+        h3 {{ ::loginPage.C_TITLE }}
+        br
+        p {{ ::loginPage.C_TITLE_TEXT_1 }} 
+        br
+        p {{ ::loginPage.C_TITLE_TEXT_2 }} 
+        br
+        p {{ ::loginPage.C_TITLE_TEXT_3 }}  
+        br
+        p {{ ::loginPage.C_TITLE_TEXT_4 }} 
+        br
+        p {{ ::loginPage.C_TITLE_TEXT_5 }} 
+
+        br
+        h3 {{ ::loginPage.G_TITLE }}
+        br
+        p {{ ::loginPage.G_TITLE_TEXT_1 }}  
+        
+        p {{ ::loginPage.G_TITLE_TEXT_2 }}
+        
+        p {{ ::loginPage.G_TITLE_TEXT_3 }}
+        br
+        p {{ ::loginPage.G_TITLE_TEXT_4 }}
+        br
+        p {{ ::loginPage.G_TITLE_TEXT_5 }}
+        br
+        p {{ ::loginPage.G_TITLE_TEXT_6 }}
+        
+        p {{ ::loginPage.G_TITLE_TEXT_7 }} 
+        
+        p {{ ::loginPage.G_TITLE_TEXT_8 }}
+
+
+
+
+.alert-overlay(ng-show='loginPage.isConfirmRegistration')
+    .alert-block
+        .alert-sign
+        .alert-title {{loginPage.ATENTION}}
+        .alert-descr {{loginPage.REGISTRATION_LOGIN_EMAIL}}
+        .alert-btns
+            button.alert-info.alert-yes(ng-click="loginPage.DemoLogin()") {{ ::loginPage.OK }}
+include parts/_loader
+include parts/_alert
+
+
+
+
+//-rehau template for default version
+section.login-page-rehau.login-page-mobView-rehau(ng-if='loginPage.consts.serverIP === "https://admin.rehauselected.baueffect.com"')
+    //---------------- LogIn Form
+    #login-container.login-container.login-container-mobView(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0")
+        .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ ::loginPage.OFFLINE }}
+            button.inet_ok(fs-click="loginPage.closeOfflineAlert()") {{ ::loginPage.OK }}
+        //- .attantion(ng-if="loginPage.isSendEmail")         {{ ::loginPage.USER_CHECK_EMAIL }}
+        //- .attantion(ng-if="loginPage.isUserNotExist")      {{ ::loginPage.USER_NOT_EXIST }}
+        //- .attantion(ng-if="loginPage.isUserNotActive")     {{ ::loginPage.USER_NOT_ACTIVE }}
+        //- .attantion(ng-if="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
+        .attantion(ng-if="loginPage.isStartImport")       {{ ::loginPage.IMPORT_DB }}
+        .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
+        .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
+        .logo.logo-mobView-steko(ng-if='loginPage.consts.serverIP === "https://api.steko.com.ua"')
+        //- .logo-rehau.logo-mobView-rehau(ng-if='loginPage.consts.serverIP === "https://admin.rehauselected.baueffect.com"')
+        //- .logo.logo-mobView(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"')
+        //- .text-logo {{ ::loginPage.WINDOW_COST }}
+        .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
+
+        form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
+        
+            .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
+                input.user-field(id="login", type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ loginPage.LOGIN }}", required)
+                .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
+                .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
+                .error-tooltip(ng-show="loginPage.isSendEmail") {{ ::loginPage.USER_CHECK_EMAIL }}
+                .error-tooltip(ng-show="loginPage.isUserNotExist") {{ ::loginPage.USER_NOT_EXIST }}
+                .error-tooltip(ng-show="loginPage.isUserNotActive") {{ ::loginPage.USER_NOT_ACTIVE }}
+
+            .input-field(ng-class="{ 'has-error' : loginPage.submitted && loginForm.password.$error.required }")
+                input.user-field(id="current-password", autocomplete="on", type="password", name="password", ng-model="loginPage.user.password", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.PASSWORD }}", required)
+                .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.required') {{ ::loginPage.EMPTY_FIELD }}
+                .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
+                .error-tooltip(ng-show="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
+            .privacy-policy  {{ ::loginPage.BY_PRESSING_ENTER }} <a class="privacy-link" ng-click="loginPage.ShowTerms()"> {{ ::loginPage.PRIVACY_POLICY }}</a>
+            button.login-submit(type="submit") {{ ::loginPage.ENTER }}
+        button.login-submit(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"' ng-click='loginPage.registration()')
+            | {{ ::loginPage.REGISTRATION }}
+
+
+        //button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
+
+        //-------------- Factory List
+        .factory_box(ng-show="loginPage.isFactoryId", fs-click="loginPage.isFactoryNotSelect = 0;")
+            .attantion(ng-show="loginPage.isFactoryNotSelect") {{ ::loginPage.SELECT_FACTORY }}
+            button.close_dialog(type="button", fs-click="loginPage.closeFactoryDialog()")
+            .factory_title {{ ::loginPage.SELECT_PRODUCER }}
+            .factory_list
+                table.factory_table
+                    tr.factory_item(ng-repeat="factory in loginPage.factories track by $index")
+                        td.factory_select
+                            input.radio-field(type="radio", name="factory", ng-model="loginPage.user.factoryId", ng-value="factory.id")
+                        td.factory_name {{ factory.name }}
+                        td.factory_place {{ factory.location }}
+            button.login-submit(fs-click="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
 
     
     .backDarkView(ng-if="loginPage.isFactoryId")

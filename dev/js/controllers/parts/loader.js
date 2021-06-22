@@ -5,10 +5,10 @@
     .module('MainModule')
     .controller('LoaderCtrl',
 
-  function(GlobalStor) {
+  function(GlobalStor, globalConstants) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
-
+    thisCtrl.consts = globalConstants;
   });
 })();

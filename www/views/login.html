@@ -1,5 +1,5 @@
 
-<section class="login-page login-page-mobView">
+<section ng-if="loginPage.consts.serverIP !== &quot;https://admin.rehauselected.baueffect.com&quot;" class="login-page login-page-mobView">
   <div id="login-container" ng-hide="loginPage.isRegistration" fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0" class="login-container login-container-mobView">
     <div ng-hide="loginPage.isOnline || !loginPage.isOffline" class="attantion">{{ ::loginPage.OFFLINE }}
       <button fs-click="loginPage.closeOfflineAlert()" class="inet_ok">{{ ::loginPage.OK }}</button>
@@ -126,9 +126,262 @@
     </div>
   </div>
 </div>
-<div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
-  <p>{{ ::loginPage.LOADER_TEXT1 }}<br>{{ ::loginPage.LOADER_TEXT2 }} <br>{{ ::loginPage.LOADER_TEXT3 }}</p>
-  <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+<div class="main-block-loader">
+  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP !== 'https://admin.rehauselected.baueffect.com'" class="loader-container">
+    <p>{{ ::loginPage.LOADER_TEXT1 }}<br>{{ ::loginPage.LOADER_TEXT2 }} <br>{{ ::loginPage.LOADER_TEXT3 }}</p>
+    <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  </div>
+  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP === 'https://admin.rehauselected.baueffect.com'" class="loader-container">
+    <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page">
+          <div fs-click="alertBox.isAlert()" class="order-delete"></div>
+        </section>
+      </div>
+      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
+      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
+      <button ng-click="alertBox.isAlert()" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="main-page"></section>
+      </div>
+      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page"></section>
+      </div>
+      <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <button ng-click="alertBox.noSync()" ng-show="loginPage.G.global.isSyncAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.syncNow()" ng-show="loginPage.G.global.isSyncAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <!--button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}-->
+      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
+    <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
+    <div class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr-rehau">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns-rehau">
+      <div class="thisAlert">
+        <section class="cart-page">
+          <div fs-click="alertBox.isAlert()" class="order-delete-rehau"></div>
+        </section>
+      </div>
+      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-edit-rehau">{{ ::alertBox.BUTTON_E }}</button>
+      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-copy-rehau">{{ ::alertBox.BUTTON_C }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes-rehau">{{ ::alertBox.BUTTON_Y }}</button>
+      <button ng-click="alertBox.isAlert()" ng-show="!alertBox.G.global.isBox" class="alert-no-rehau">{{ ::alertBox.BUTTON_N }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div class="alert-danger-sign-rehau"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="main-page"></section>
+      </div>
+      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page"></section>
+      </div>
+      <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-rehau">
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <button ng-click="alertBox.noSync()" ng-show="loginPage.G.global.isSyncAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.syncNow()" ng-show="loginPage.G.global.isSyncAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+  <div class="alert-block-ok-rehau">
+    <div class="alert-descr-rehau">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-btns-rehau">
+      <div class="thisAlert">
+        <section class="loginPage"></section>
+      </div>
+      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes-rehau">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>
+<section ng-if="loginPage.consts.serverIP === &quot;https://admin.rehauselected.baueffect.com&quot;" class="login-page-rehau login-page-mobView-rehau">
+  <div id="login-container" ng-hide="loginPage.isRegistration" fs-click="loginPage.isSendEmail = 0; loginPage.unexpectedError = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0" class="login-container login-container-mobView">
+    <div ng-hide="loginPage.isOnline || !loginPage.isOffline" class="attantion">{{ ::loginPage.OFFLINE }}
+      <button fs-click="loginPage.closeOfflineAlert()" class="inet_ok">{{ ::loginPage.OK }}</button>
+    </div>
+    <div ng-if="loginPage.isStartImport" class="attantion">      {{ ::loginPage.IMPORT_DB }}</div>
+    <div ng-if="loginPage.isOfflineImport" class="attantion">    {{ ::loginPage.OFFLINE_IMPORT }}</div>
+    <div ng-if="loginPage.unexpectedError" class="attantion unexpectedError">    {{ ::loginPage.UNEXPECTED_ERROR }}</div>
+    <div ng-if="loginPage.consts.serverIP === &quot;https://api.steko.com.ua&quot;" class="logo logo-mobView-steko"></div>
+    <div ng-click="loginPage.gotoSettingsPage()" id="jssj" class="lang"></div>
+    <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
+        <input id="login" type="text" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ loginPage.LOGIN }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
+        <div ng-show="loginPage.isSendEmail" class="error-tooltip">{{ ::loginPage.USER_CHECK_EMAIL }}</div>
+        <div ng-show="loginPage.isUserNotExist" class="error-tooltip">{{ ::loginPage.USER_NOT_EXIST }}</div>
+        <div ng-show="loginPage.isUserNotActive" class="error-tooltip">{{ ::loginPage.USER_NOT_ACTIVE }}</div>
+      </div>
+      <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; loginForm.password.$error.required }" class="input-field">
+        <input id="current-password" autocomplete="on" type="password" name="password" ng-model="loginPage.user.password" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.PASSWORD }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.pattern || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
+        <div ng-show="loginPage.isUserPasswordError" class="error-tooltip">{{ ::loginPage.USER_PASSWORD_ERROR }}</div>
+      </div>
+      <div class="privacy-policy"> {{ ::loginPage.BY_PRESSING_ENTER }} <a class="privacy-link" ng-click="loginPage.ShowTerms()"> {{ ::loginPage.PRIVACY_POLICY }}</a></div>
+      <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
+    </form>
+    <button ng-if="loginPage.consts.serverIP !== &quot;https://api.steko.com.ua&quot;" ng-click="loginPage.registration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
+    <!--button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}-->
+    <div ng-show="loginPage.isFactoryId" fs-click="loginPage.isFactoryNotSelect = 0;" class="factory_box">
+      <div ng-show="loginPage.isFactoryNotSelect" class="attantion">{{ ::loginPage.SELECT_FACTORY }}</div>
+      <button type="button" fs-click="loginPage.closeFactoryDialog()" class="close_dialog"></button>
+      <div class="factory_title">{{ ::loginPage.SELECT_PRODUCER }}</div>
+      <div class="factory_list">
+        <table class="factory_table">
+          <tr ng-repeat="factory in loginPage.factories track by $index" class="factory_item">
+            <td class="factory_select">
+              <input type="radio" name="factory" ng-model="loginPage.user.factoryId" ng-value="factory.id" class="radio-field">
+            </td>
+            <td class="factory_name">{{ factory.name }}</td>
+            <td class="factory_place">{{ factory.location }}</td>
+          </tr>
+        </table>
+      </div>
+      <button fs-click="loginPage.selectFactory()" class="login-submit">{{ ::loginPage.SELECT }}</button>
+    </div>
+  </div>
+  <div ng-if="loginPage.isFactoryId" class="backDarkView"></div>
+  <div ng-if="loginPage.isOffline" class="backDarkView"></div>
+  <div ng-if="loginPage.isConfirmRegistration" class="backDarkView"></div>
+  <div ng-show="loginPage.showTerms" class="terms-and-conditions">
+    <div class="back"><a ng-click="loginPage.ShowTerms()">{{ ::loginPage.BACK }}</a></div>
+    <div class="text-container"></div>
+    <h1>{{ ::loginPage.TITLE }}</h1><br>
+    <p>{{ ::loginPage.PLAN_A }}</p>
+    <p>{{ ::loginPage.PLAN_B }} </p>
+    <p>{{ ::loginPage.PLAN_C }}</p>
+    <p>{{ ::loginPage.PLAN_G }}</p><br>
+    <p>{{ ::loginPage.TITLE_INFO }}</p><br>
+    <h3>{{ ::loginPage.A_TITLE }}</h3><br>
+    <p>{{ ::loginPage.A_TITLE_PRETEXT }} </p><br>
+    <p>{{ ::loginPage.A_TITLE_TEXT_1 }} </p>
+    <p>{{ ::loginPage.A_TITLE_TEXT_2 }} </p>
+    <p>{{ ::loginPage.A_TITLE_TEXT_3 }} </p>
+    <p>{{ ::loginPage.A_TITLE_TEXT_4 }} </p><br>
+    <h3>{{ ::loginPage.B_TITLE }}</h3><br>
+    <p>{{ ::loginPage.B_TITLE_TEXT_1 }}</p>
+    <p>{{ ::loginPage.B_TITLE_TEXT_2 }}</p>
+    <p>{{ ::loginPage.B_TITLE_TEXT_3 }}</p><br>
+    <p>{{ ::loginPage.B_TITLE_TEXT_4 }}</p>
+    <p>{{ ::loginPage.B_TITLE_TEXT_5 }} </p>
+    <p>{{ ::loginPage.B_TITLE_TEXT_6 }}</p><br>
+    <p>{{ ::loginPage.B_TITLE_TEXT_7 }} </p><br>
+    <h3>{{ ::loginPage.C_TITLE }}</h3><br>
+    <p>{{ ::loginPage.C_TITLE_TEXT_1 }} </p><br>
+    <p>{{ ::loginPage.C_TITLE_TEXT_2 }} </p><br>
+    <p>{{ ::loginPage.C_TITLE_TEXT_3 }}  </p><br>
+    <p>{{ ::loginPage.C_TITLE_TEXT_4 }} </p><br>
+    <p>{{ ::loginPage.C_TITLE_TEXT_5 }} </p><br>
+    <h3>{{ ::loginPage.G_TITLE }}</h3><br>
+    <p>{{ ::loginPage.G_TITLE_TEXT_1 }}  </p>
+    <p>{{ ::loginPage.G_TITLE_TEXT_2 }}</p>
+    <p>{{ ::loginPage.G_TITLE_TEXT_3 }}</p><br>
+    <p>{{ ::loginPage.G_TITLE_TEXT_4 }}</p><br>
+    <p>{{ ::loginPage.G_TITLE_TEXT_5 }}</p><br>
+    <p>{{ ::loginPage.G_TITLE_TEXT_6 }}</p>
+    <p>{{ ::loginPage.G_TITLE_TEXT_7 }} </p>
+    <p>{{ ::loginPage.G_TITLE_TEXT_8 }}</p>
+  </div>
+</section>
+<div ng-show="loginPage.isConfirmRegistration" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{loginPage.ATENTION}}</div>
+    <div class="alert-descr">{{loginPage.REGISTRATION_LOGIN_EMAIL}}</div>
+    <div class="alert-btns">
+      <button ng-click="loginPage.DemoLogin()" class="alert-info alert-yes">{{ ::loginPage.OK }}</button>
+    </div>
+  </div>
+</div>
+<div class="main-block-loader">
+  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP !== 'https://admin.rehauselected.baueffect.com'" class="loader-container">
+    <p>{{ ::loginPage.LOADER_TEXT1 }}<br>{{ ::loginPage.LOADER_TEXT2 }} <br>{{ ::loginPage.LOADER_TEXT3 }}</p>
+    <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  </div>
+  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP === 'https://admin.rehauselected.baueffect.com'" class="loader-container">
+    <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  </div>
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
