@@ -3294,7 +3294,7 @@ let portrait = false;
             thisCtrl.user.phone = 'rehausite'
             thisCtrl.user.password = 'rehau'
             document.querySelector('.login-submit').click();
-          }, 2000);
+          }, 500);
           
         }
 
