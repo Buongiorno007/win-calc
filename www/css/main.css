@@ -8109,18 +8109,18 @@ div.slider-nav span.left {
   display: flex;
   height: 100%;
   background-image: url(../../img/rehau-img/rehau-logo.png);
+  background-position-x: -270px;
   background-size: cover;
-  margin-left: -300px;
 }
-/* line 134, ../../dev/sass/pages/login.scss */
+/* line 133, ../../dev/sass/pages/login.scss */
 .login-page-rehau #no-visible {
   display: none;
 }
-/* line 137, ../../dev/sass/pages/login.scss */
+/* line 136, ../../dev/sass/pages/login.scss */
 .login-page-rehau .user-select-field {
   text-align-last: center;
 }
-/* line 140, ../../dev/sass/pages/login.scss */
+/* line 139, ../../dev/sass/pages/login.scss */
 .login-page-rehau .input-field {
   display: inline-flex;
   flex-direction: column;
@@ -8129,17 +8129,24 @@ div.slider-nav span.left {
   align-items: center;
   position: relative;
   margin-bottom: 1.25rem;
-  opacity: 0;
 }
-/* line 150, ../../dev/sass/pages/login.scss */
+/* line 148, ../../dev/sass/pages/login.scss */
 .login-page-rehau .input-field.has-error > .user-field, .login-page-rehau .input-field.has-error > .user-select-field {
   border-color: #f74f2e;
 }
-/* line 154, ../../dev/sass/pages/login.scss */
+/* line 152, ../../dev/sass/pages/login.scss */
+.login-page-rehau #login {
+  opacity: 0;
+}
+/* line 155, ../../dev/sass/pages/login.scss */
+.login-page-rehau #current-password {
+  opacity: 0;
+}
+/* line 158, ../../dev/sass/pages/login.scss */
 .login-page-rehau .login-submit {
   opacity: 0;
 }
-/* line 157, ../../dev/sass/pages/login.scss */
+/* line 161, ../../dev/sass/pages/login.scss */
 .login-page-rehau .user-field, .login-page-rehau .user-select-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -8151,24 +8158,24 @@ div.slider-nav span.left {
   border-radius: 50px;
   outline: none;
 }
-/* line 168, ../../dev/sass/pages/login.scss */
+/* line 172, ../../dev/sass/pages/login.scss */
 .login-page-rehau .user-field.ng-invalid-minlength, .login-page-rehau .ng-invalid-minlength.user-select-field, .login-page-rehau .user-field.ng-invalid-pattern, .login-page-rehau .ng-invalid-pattern.user-select-field {
   border-color: #f74f2e;
 }
-/* line 174, ../../dev/sass/pages/login.scss */
+/* line 178, ../../dev/sass/pages/login.scss */
 .login-page-rehau .privacy-policy {
   text-align: center;
   color: aliceblue;
   font-size: 15px;
   opacity: 0;
 }
-/* line 179, ../../dev/sass/pages/login.scss */
+/* line 183, ../../dev/sass/pages/login.scss */
 .login-page-rehau .privacy-policy a {
   text-decoration: underline;
   cursor: pointer;
   color: aliceblue;
 }
-/* line 186, ../../dev/sass/pages/login.scss */
+/* line 190, ../../dev/sass/pages/login.scss */
 .login-page-rehau .confirm-registration {
   position: absolute;
   align-self: center;
@@ -8180,22 +8187,22 @@ div.slider-nav span.left {
   z-index: 10;
 }
 
-/* line 200, ../../dev/sass/pages/login.scss */
+/* line 204, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing {
   display: -webkit-flex;
   display: flex;
   height: 100%;
   background-size: cover;
 }
-/* line 206, ../../dev/sass/pages/login.scss */
+/* line 210, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing #no-visible {
   display: none;
 }
-/* line 209, ../../dev/sass/pages/login.scss */
+/* line 213, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .user-select-field {
   text-align-last: center;
 }
-/* line 212, ../../dev/sass/pages/login.scss */
+/* line 216, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .input-field {
   display: inline-flex;
   flex-direction: column;
@@ -8205,11 +8212,11 @@ div.slider-nav span.left {
   position: relative;
   margin-bottom: 1.25rem;
 }
-/* line 221, ../../dev/sass/pages/login.scss */
+/* line 225, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .input-field.has-error > .user-field, .login-page-rehau-landing .input-field.has-error > .user-select-field {
   border-color: #f74f2e;
 }
-/* line 225, ../../dev/sass/pages/login.scss */
+/* line 229, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .user-field, .login-page-rehau-landing .user-select-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -8221,23 +8228,23 @@ div.slider-nav span.left {
   border-radius: 50px;
   outline: none;
 }
-/* line 236, ../../dev/sass/pages/login.scss */
+/* line 240, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .user-field.ng-invalid-minlength, .login-page-rehau-landing .ng-invalid-minlength.user-select-field, .login-page-rehau-landing .user-field.ng-invalid-pattern, .login-page-rehau-landing .ng-invalid-pattern.user-select-field {
   border-color: #f74f2e;
 }
-/* line 242, ../../dev/sass/pages/login.scss */
+/* line 246, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .privacy-policy {
   text-align: center;
   color: aliceblue;
   font-size: 15px;
 }
-/* line 246, ../../dev/sass/pages/login.scss */
+/* line 250, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .privacy-policy a {
   text-decoration: underline;
   cursor: pointer;
   color: aliceblue;
 }
-/* line 253, ../../dev/sass/pages/login.scss */
+/* line 257, ../../dev/sass/pages/login.scss */
 .login-page-rehau-landing .confirm-registration {
   position: absolute;
   align-self: center;
@@ -8249,7 +8256,7 @@ div.slider-nav span.left {
   z-index: 10;
 }
 
-/* line 267, ../../dev/sass/pages/login.scss */
+/* line 271, ../../dev/sass/pages/login.scss */
 .login-container {
   position: relative;
   width: 100%;
@@ -8257,22 +8264,22 @@ div.slider-nav span.left {
   border-radius: 2rem;
   max-width: 500px;
 }
-/* line 274, ../../dev/sass/pages/login.scss */
+/* line 278, ../../dev/sass/pages/login.scss */
 .login-container .text-container {
   font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
   overflow: hidden;
   text-align: center;
   color: #000;
 }
-/* line 280, ../../dev/sass/pages/login.scss */
+/* line 284, ../../dev/sass/pages/login.scss */
 .login-container .text-container.error {
   color: red;
 }
-/* line 285, ../../dev/sass/pages/login.scss */
+/* line 289, ../../dev/sass/pages/login.scss */
 .login-container .user-field, .login-container .user-select-field {
   background-color: white !important;
 }
-/* line 288, ../../dev/sass/pages/login.scss */
+/* line 292, ../../dev/sass/pages/login.scss */
 .login-container .registr-info {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: white;
@@ -8281,7 +8288,7 @@ div.slider-nav span.left {
   width: 90%;
 }
 
-/* line 297, ../../dev/sass/pages/login.scss */
+/* line 301, ../../dev/sass/pages/login.scss */
 .close_dialog {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
@@ -8297,7 +8304,7 @@ div.slider-nav span.left {
   outline: none;
 }
 
-/* line 315, ../../dev/sass/pages/login.scss */
+/* line 319, ../../dev/sass/pages/login.scss */
 .logo {
   width: 32rem;
   height: 32rem;
@@ -8306,7 +8313,7 @@ div.slider-nav span.left {
   background-size: cover !important;
 }
 
-/* line 325, ../../dev/sass/pages/login.scss */
+/* line 329, ../../dev/sass/pages/login.scss */
 .logo-rehau {
   background-image: url(../../img/rehau-img/logo-rehau.png);
   width: 10000px;
@@ -8314,7 +8321,7 @@ div.slider-nav span.left {
   margin-left: -850px;
 }
 
-/* line 335, ../../dev/sass/pages/login.scss */
+/* line 339, ../../dev/sass/pages/login.scss */
 .lang {
   position: absolute;
   top: 3%;
@@ -8323,7 +8330,7 @@ div.slider-nav span.left {
   height: 4.75rem;
 }
 
-/* line 347, ../../dev/sass/pages/login.scss */
+/* line 351, ../../dev/sass/pages/login.scss */
 .user-field-add, .user-select-field-add {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -8334,12 +8341,12 @@ div.slider-nav span.left {
   border-radius: 1rem;
   outline: none;
 }
-/* line 357, ../../dev/sass/pages/login.scss */
+/* line 361, ../../dev/sass/pages/login.scss */
 .user-field-add.ng-invalid-minlength, .ng-invalid-minlength.user-select-field-add, .user-field-add.ng-invalid-pattern, .ng-invalid-pattern.user-select-field-add {
   border-color: #f74f2e;
 }
 
-/* line 363, ../../dev/sass/pages/login.scss */
+/* line 367, ../../dev/sass/pages/login.scss */
 .user-field-m, .user-select-field-m {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -8351,12 +8358,12 @@ div.slider-nav span.left {
   border-radius: 1rem;
   outline: none;
 }
-/* line 374, ../../dev/sass/pages/login.scss */
+/* line 378, ../../dev/sass/pages/login.scss */
 .user-field-m.ng-invalid-minlength, .ng-invalid-minlength.user-select-field-m, .user-field-m.ng-invalid-pattern, .ng-invalid-pattern.user-select-field-m {
   border-color: #f74f2e;
 }
 
-/* line 380, ../../dev/sass/pages/login.scss */
+/* line 384, ../../dev/sass/pages/login.scss */
 .error-tooltip, .setting-container .set-email-error {
   width: 80%;
   text-align: center;
@@ -8371,7 +8378,7 @@ div.slider-nav span.left {
   margin-top: 5px;
 }
 
-/* line 409, ../../dev/sass/pages/login.scss */
+/* line 413, ../../dev/sass/pages/login.scss */
 .login-submit {
   background-color: #cc0000 !important;
   display: block;
@@ -8381,7 +8388,7 @@ div.slider-nav span.left {
   height: 5rem;
 }
 
-/* line 420, ../../dev/sass/pages/login.scss */
+/* line 424, ../../dev/sass/pages/login.scss */
 .text-logo {
   text-align: center;
   margin: 0 auto 15px;
@@ -8389,28 +8396,28 @@ div.slider-nav span.left {
   font-size: 18px;
 }
 
-/* line 427, ../../dev/sass/pages/login.scss */
+/* line 431, ../../dev/sass/pages/login.scss */
 .i {
   width: 100%;
   text-align: center;
   vertical-align: middle;
 }
 
-/* line 433, ../../dev/sass/pages/login.scss */
+/* line 437, ../../dev/sass/pages/login.scss */
 .updateDB {
   font: normal 2.1875rem/1.42857 roboto-light, sans-serif, icons;
   display: inline-block;
   width: 90%;
 }
 
-/* line 439, ../../dev/sass/pages/login.scss */
+/* line 443, ../../dev/sass/pages/login.scss */
 #updateDBcheck {
   margin: 1em 1em auto auto;
   width: 1em;
   height: 1em;
 }
 
-/* line 445, ../../dev/sass/pages/login.scss */
+/* line 449, ../../dev/sass/pages/login.scss */
 .i-info {
   display: inline-block;
   float: right;
@@ -8425,18 +8432,18 @@ div.slider-nav span.left {
   margin: 0.7em auto auto;
 }
 
-/* line 459, ../../dev/sass/pages/login.scss */
+/* line 463, ../../dev/sass/pages/login.scss */
 .inet_ok {
   display: block;
   margin: 1rem auto auto;
 }
 
-/* line 464, ../../dev/sass/pages/login.scss */
+/* line 468, ../../dev/sass/pages/login.scss */
 .placeholder-select {
   color: #A9A9AB;
 }
 
-/* line 468, ../../dev/sass/pages/login.scss */
+/* line 472, ../../dev/sass/pages/login.scss */
 .factory_box {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -8453,52 +8460,52 @@ div.slider-nav span.left {
   z-index: 10;
 }
 
-/* line 484, ../../dev/sass/pages/login.scss */
+/* line 488, ../../dev/sass/pages/login.scss */
 .factory_title {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 0.625rem;
   text-align: center;
 }
 
-/* line 490, ../../dev/sass/pages/login.scss */
+/* line 494, ../../dev/sass/pages/login.scss */
 .factory_list {
   height: 76%;
   overflow: auto;
   padding: 0 2.5rem;
 }
 
-/* line 496, ../../dev/sass/pages/login.scss */
+/* line 500, ../../dev/sass/pages/login.scss */
 table.factory_table {
   border: none;
 }
-/* line 499, ../../dev/sass/pages/login.scss */
+/* line 503, ../../dev/sass/pages/login.scss */
 table.factory_table td {
   padding: 1.5625rem 0;
 }
 
-/* line 504, ../../dev/sass/pages/login.scss */
+/* line 508, ../../dev/sass/pages/login.scss */
 tr.factory_item {
   vertical-align: top;
 }
 
-/* line 508, ../../dev/sass/pages/login.scss */
+/* line 512, ../../dev/sass/pages/login.scss */
 .factory_select {
   width: 5%;
   padding-right: 0.3125rem;
 }
 
-/* line 513, ../../dev/sass/pages/login.scss */
+/* line 517, ../../dev/sass/pages/login.scss */
 .factory_name {
   width: 45%;
 }
 
-/* line 517, ../../dev/sass/pages/login.scss */
+/* line 521, ../../dev/sass/pages/login.scss */
 .factory_name,
 .factory_place {
   text-align: left;
 }
 
-/* line 522, ../../dev/sass/pages/login.scss */
+/* line 526, ../../dev/sass/pages/login.scss */
 .buttom-info-box {
   position: fixed;
   bottom: 0;
@@ -8515,7 +8522,7 @@ tr.factory_item {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
 
-/* line 538, ../../dev/sass/pages/login.scss */
+/* line 542, ../../dev/sass/pages/login.scss */
 .test-top-info-box {
   position: fixed;
   top: 10px;

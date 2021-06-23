@@ -11,7 +11,6 @@ section.login-page.login-page-mobView(ng-if='loginPage.consts.serverIP !== "http
         .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
         .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
         .logo.logo-mobView-steko(ng-if='loginPage.consts.serverIP === "https://api.steko.com.ua"')
-        //- .logo-rehau.logo-mobView-rehau(ng-if='loginPage.consts.serverIP === "https://admin.rehauselected.baueffect.com"')
         //- .logo.logo-mobView(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"')
         //- .text-logo {{ ::loginPage.WINDOW_COST }}
         .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
@@ -198,9 +197,6 @@ section.login-page-rehau.login-page-mobView-rehau(ng-if='loginPage.consts.server
         .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
         .attantion.unexpectedError(ng-if="loginPage.unexpectedError")     {{ ::loginPage.UNEXPECTED_ERROR }}
         .logo.logo-mobView-steko(ng-if='loginPage.consts.serverIP === "https://api.steko.com.ua"')
-        //- .logo-rehau.logo-mobView-rehau(ng-if='loginPage.consts.serverIP === "https://admin.rehauselected.baueffect.com"')
-        //- .logo.logo-mobView(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"')
-        //- .text-logo {{ ::loginPage.WINDOW_COST }}
         .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
 
         form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
