@@ -27922,8 +27922,6 @@ function ErrorResult(code, message) {
                     console.log(UserStor.userInfo.currencies, 'user info (need language)') 
                     console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
-                // console.log(product.profile, ' product.profile.')
-                // console.log(GlobalStor.global, 'глобалстор')
                 var data = null
                 function needed_data() {
                     var defer = $q.defer();
@@ -28597,7 +28595,43 @@ function ErrorResult(code, message) {
                             }
                         }
                         //Block for glasses translations end ***
-                    }
+
+
+                        // Hardware display logic that fits only a certain profile
+                        const windowHardwareProfileSystem = data.window_hardware_profile_systems;
+
+                        for(let element of windowHardwareProfileSystem) {
+                            let currentProfileId = ProductStor.product.profile.id;
+                            
+
+                            if (element.profile_system_id === currentProfileId) {
+                                // console.log(element)
+                                const chec = GlobalStor.global.hardwares[0].filter((item) => element.window_hardware_group_id === item.id)
+                                console.log(chec, '<<<<<<<<<<<<<<<<<<')
+                                GlobalStor.global.hardwares.push(chec)
+                                console.log(GlobalStor.global)
+                                // let globalHardwareAxor = GlobalStor.global.hardwares[0];
+                                // let globalHardwareMaco = GlobalStor.global.hardwares[1];
+                                // let globalHardwareWinkHaus = GlobalStor.global.hardwares[2];
+
+                                // let filtredHardwareAxor = globalHardwareAxor.filter((item) => item.id === element.window_hardware_group_id)
+                                // let filtredHardwareMaco = globalHardwareMaco.filter((item) => item.id === element.window_hardware_group_id)
+                                // let filtredHardwareWinkHaus = globalHardwareWinkHaus.filter((item) => item.id === element.window_hardware_group_id)
+
+                                // console.log(filtredHardwareAxor, "<<------AXOOOOOOOOOOOOOOOOOOOOOOOOOR")
+                                // console.log(filtredHardwareMaco, 'MAAAAAAAAAAAAAAAAAAAAAAACO')
+                                // console.log(filtredHardwareWinkHaus, 'WINKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK ')
+
+                                // GlobalStor.global.hardwares[0] = filtredHardwareAxor;
+                                // GlobalStor.global.hardwares[1] = filtredHardwareMaco
+                                // GlobalStor.global.hardwares[2] = filtredHardwareWinkHaus;
+
+
+                                // console.log(GlobalStor.global)
+                            }
+                        }
+                    },
+                    
                 )
                
                 if (product.lamination.id > 0) {
