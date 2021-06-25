@@ -1,7 +1,7 @@
 .config-panel.hardware-container(ng-controller="HardwaresCtrl as hardwarePanel", ng-class="{'active': hardwarePanel.G.global.activePanel == 4 && hardwarePanel.G.global.isSashesInTemplate}")
   .panel-inner(ng-if="hardwarePanel.G.global.activePanel == 4")
 
-    .hardware-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index", ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}")
+    .hardware-block(ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index", ng-if="producer" ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}")
       .group-block-header
         .hardware-title(ng-if="hardwarePanel.U.userInfo.langLabel === 'en'", data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.en }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START }}")
         .hardware-title(ng-if="hardwarePanel.U.userInfo.langLabel === 'ru'", data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.ru }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START }}")

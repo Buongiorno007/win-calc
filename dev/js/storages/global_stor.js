@@ -108,7 +108,7 @@
                         templatesType: 1,
 
                         //------ Profiles
-                        profiles: [],
+                        profiles: [],                        
                         profilesType: [],
 
                         //------- Glasses
@@ -122,6 +122,7 @@
 
                         //------ Hardwares
                         hardwares: [],
+                        hardwaresDefaultValues: [],
                         hardwareTypes: [],
                         hardwareLimits: [],
 

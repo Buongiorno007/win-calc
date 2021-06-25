@@ -27812,6 +27812,8 @@ function ErrorResult(code, message) {
 
             //-------- get default json template
             function downloadAllTemplates(type) {
+                GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
+                console.log(GlobalStor.global.hardwaresDefaultValues, '<---------')
                 var deferred = $q.defer();
 
                 switch (type) {
@@ -27879,6 +27881,7 @@ function ErrorResult(code, message) {
                     }
                 }
             }
+          
 
             function downloadProfileDepth(elementId) {
                 var defer = $q.defer();
@@ -27900,7 +27903,7 @@ function ErrorResult(code, message) {
                     });
                 return defer.promise;
             }
-
+            
             //-------- set default profile
             function setCurrentProfile(product, id) {
                 var deferred = $q.defer();
@@ -27936,6 +27939,7 @@ function ErrorResult(code, message) {
                 }  
                 needed_data().then(
                     function(data) {
+                        try {
                         /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
@@ -28594,44 +28598,66 @@ function ErrorResult(code, message) {
                                 }
                             }
                         }
-                        //Block for glasses translations end ***
-
-
+                        } catch (e) {
+                            console.log(e)
+                        }
+                        //Block for glasses translations end ****************
                         // Hardware display logic that fits only a certain profile
+
+                        //Download data from backend
                         const windowHardwareProfileSystem = data.window_hardware_profile_systems;
-
-                        for(let element of windowHardwareProfileSystem) {
+                        //Clearing hardwares arrays
+                        GlobalStor.global.hardwares = []
+                        //Loop for windowHardwareProfileSystem elements 
+                        for (let element of windowHardwareProfileSystem) {
+                            //Get current profile id
                             let currentProfileId = ProductStor.product.profile.id;
-                            
-
+                            //Check if current profile id equal to element from backend 
                             if (element.profile_system_id === currentProfileId) {
-                                // console.log(element)
-                                const chec = GlobalStor.global.hardwares[0].filter((item) => element.window_hardware_group_id === item.id)
-                                console.log(chec, '<<<<<<<<<<<<<<<<<<')
-                                GlobalStor.global.hardwares.push(chec)
-                                console.log(GlobalStor.global)
-                                // let globalHardwareAxor = GlobalStor.global.hardwares[0];
-                                // let globalHardwareMaco = GlobalStor.global.hardwares[1];
-                                // let globalHardwareWinkHaus = GlobalStor.global.hardwares[2];
-
-                                // let filtredHardwareAxor = globalHardwareAxor.filter((item) => item.id === element.window_hardware_group_id)
-                                // let filtredHardwareMaco = globalHardwareMaco.filter((item) => item.id === element.window_hardware_group_id)
-                                // let filtredHardwareWinkHaus = globalHardwareWinkHaus.filter((item) => item.id === element.window_hardware_group_id)
-
-                                // console.log(filtredHardwareAxor, "<<------AXOOOOOOOOOOOOOOOOOOOOOOOOOR")
-                                // console.log(filtredHardwareMaco, 'MAAAAAAAAAAAAAAAAAAAAAAACO')
-                                // console.log(filtredHardwareWinkHaus, 'WINKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK ')
-
-                                // GlobalStor.global.hardwares[0] = filtredHardwareAxor;
-                                // GlobalStor.global.hardwares[1] = filtredHardwareMaco
-                                // GlobalStor.global.hardwares[2] = filtredHardwareWinkHaus;
-
-
-                                // console.log(GlobalStor.global)
+                                //Local variables for different manipulation
+                                let globalHardwareAxor = GlobalStor.global.hardwaresDefaultValues[0];
+                                let globalHardwareMaco = GlobalStor.global.hardwaresDefaultValues[1];
+                                let globalHardwareWinkHaus = GlobalStor.global.hardwaresDefaultValues[2];
+                                //Logic for AXOR (we are filtering items inside the GlobalStar.global.HARDWARE[0] searching for matching for window hardware group_id with all hardwares and remain it only if it's match)
+                                let filtredHardwareAxor = globalHardwareAxor.filter((item) => item.id === element.window_hardware_group_id);
+                                if (filtredHardwareAxor.length === 0) {
+                                    filtredHardwareAxor = 0;
+                                } else {
+                                    if (!GlobalStor.global.hardwares[0]) {
+                                        GlobalStor.global.hardwares[0] = []
+                                    }
+                                    GlobalStor.global.hardwares[0].push(filtredHardwareAxor[0])
+                                }
+                                //Logic for MACO
+                                let filtredGlobalHardwareMaco = globalHardwareMaco.filter((item) => item.id === element.window_hardware_group_id);
+                                if (filtredGlobalHardwareMaco.length === 0) {
+                                    filtredGlobalHardwareMaco = 0;
+                                } else {
+                                    if (!GlobalStor.global.hardwares[1]) {
+                                        GlobalStor.global.hardwares[1] = []
+                                    } 
+                                    GlobalStor.global.hardwares[1].push(filtredGlobalHardwareMaco[0])
+                                }
+                                //Logic for WINK HAUS
+                                let filtredGlobalHardwareWinkHaus = globalHardwareWinkHaus.filter((item) => item.id === element.window_hardware_group_id);
+                                if (filtredGlobalHardwareWinkHaus.length === 0) {
+                                    filtredGlobalHardwareWinkHaus = 0;
+                                } else {
+                                    if (!GlobalStor.global.hardwares[2]) {
+                                        GlobalStor.global.hardwares[2] = []
+                                    }
+                                    GlobalStor.global.hardwares[2].push(filtredGlobalHardwareWinkHaus[0])
+                                }
                             }
                         }
-                    },
-                    
+                        setCurrentHardware(ProductStor.product);
+                        preparePrice(
+                            ProductStor.product.template,
+                            ProductStor.product.profile.id,
+                            ProductStor.product.glass,
+                            ProductStor.product.hardware.id,
+                            ProductStor.product.lamination.lamination_in_id)
+                    }
                 )
                
                 if (product.lamination.id > 0) {
@@ -28959,7 +28985,13 @@ function ErrorResult(code, message) {
                 } else {
                     //----- set default hardware in ProductStor
                     if (GlobalStor.global.isSashesInTemplate) {
-                        product.hardware = GlobalStor.global.hardwares[0][0];
+                        for (let currentHardware of GlobalStor.global.hardwares) {
+                            console.log(currentHardware, 'CURRENT HARDWARE SET CURRENT HARDWARE FUNCTION')
+                            if (currentHardware) {
+                                product.hardware = currentHardware[0];
+                                break;
+                            }  
+                        }
                     } else {
                         product.hardware = {};
                     }
@@ -38158,7 +38190,7 @@ function ErrorResult(code, message) {
                         templatesType: 1,
 
                         //------ Profiles
-                        profiles: [],
+                        profiles: [],                        
                         profilesType: [],
 
                         //------- Glasses
@@ -38172,6 +38204,7 @@ function ErrorResult(code, message) {
 
                         //------ Hardwares
                         hardwares: [],
+                        hardwaresDefaultValues: [],
                         hardwareTypes: [],
                         hardwareLimits: [],
 

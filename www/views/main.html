@@ -353,7 +353,7 @@
       <div ng-if="mainPage.G.global.activePanel == 4" class="panel-inner">
         <div ng-controller="HardwaresCtrl as hardwarePanel" ng-class="{'active': hardwarePanel.G.global.activePanel == 4 &amp;&amp; hardwarePanel.G.global.isSashesInTemplate}" class="config-panel hardware-container">
           <div ng-if="hardwarePanel.G.global.activePanel == 4" class="panel-inner">
-            <div ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index" ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}" class="hardware-block">
+            <div ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index" ng-if="producer" ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}" class="hardware-block">
               <div class="group-block-header">
                 <div ng-if="hardwarePanel.U.userInfo.langLabel === 'en'" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.en }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
                 <div ng-if="hardwarePanel.U.userInfo.langLabel === 'ru'" data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].translate.ru }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
