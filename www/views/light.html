@@ -1320,62 +1320,60 @@
                 <div ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index" class="order-rehau">
                   <button fs-click="lightPage.clickDeleteProduct($index)" class="delete-construction"></button><img ng-src="img/rehau-img/eddit-construction.png" fs-click="lightPage.box($index, 'product')" class="eddit-construction">
                   <div ng-click="lightPage.showCartTemplte($index)" class="order-header">
-                    <div class="order-template-rehau">
-                      <svg-template template="product.templateIcon" template-width="lightPage.constants.svgTemplateIconWidthCart" template-height="lightPage.constants.svgTemplateIconHeightCart" type-construction="lightPage.constants.SVG_CLASS_ICON"></svg-template>
-                    </div>
                     <div ng-if="!lightPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &gt; lightPage.O.order.heat_coef_min}" class="order-u-coeff">
                       <div>U = {{ product.heat_coef_total }}</div>
                       <div>{{ ::lightPage.HEATCOEF_VAL }}/{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C</div>
                     </div>
                   </div>
-                  <div class="order-content-rehau">
-                    <ul class="order-list">
-                      <li class="order-item-rehau">
-                        <div class="order-label-rehau">Ширина x Высота</div>
-                        <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="order-value-rehau">{{ product.template_width }}x{{ product.template_height }} {{ ::lightPage.MM }} </div>
-                      </li>
-                      <li class="order-item-rehau">
-                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_PROFILE }}</div>
-                        <div ng-if="product.construction_type !== 4" class="order-value-rehau">{{ product.profile.short_name }}</div>
-                      </li>
-                      <li ng-if="product.glass.length &gt; 1" class="order-item-rehau">
-                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
-                        <div class="order-value-rehau">{{ product.glass[0].sku + ', ...' }}</div>
-                      </li>
-                      <li ng-if="product.glass.length &lt;= 1" class="order-item-rehau">
-                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
-                        <div class="order-value-rehau">{{ product.glass[0].sku }}</div>
-                      </li>
-                      <li class="order-item-rehau">
-                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_LAMINATION }}</div>
-                        <div class="order-value-rehau"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
-                      </li>
-                      <li fs-click="lightPage.showAddElementDetail($index)" class="order-item-rehau addelements-btn">
-                        <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_ADDITIONAL }}</div>
-                        <div class="order-value-rehau">{{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
-                          <ng-pluralize count="lightPage.C.cart.allAddElements[$index].length" when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}"></ng-pluralize>
-                        </div>
-                      </li>
-                    </ul>
-                    <div class="order-qty">
-                      <button fs-click="lightPage.decreaseProductQty($index)" class="order-tool-minus-rehau"></button>
-                      <div class="order-value-qty">{{ product.product_qty }}</div>
-                      <button fs-click="lightPage.increaseProductQty($index)" class="order-tool-plus-rehau"></button>
+                  <div class="order-container">
+                    <div class="order-template-rehau">
+                      <svg-template template="product.templateIcon" template-width="152" template-height="160" type-construction="lightPage.constants.SVG_CLASS_ICON"></svg-template>
+                      <div class="order-qty">
+                        <button fs-click="lightPage.decreaseProductQty($index)" class="order-tool-minus-rehau"></button>
+                        <div class="order-value-qty">{{ product.product_qty }}</div>
+                        <button fs-click="lightPage.increaseProductQty($index)" class="order-tool-plus-rehau"></button>
+                      </div>
+                    </div>
+                    <div class="order-content-rehau">
+                      <ul class="order-list">
+                        <li class="order-item-rehau">
+                          <div class="order-label-rehau">Ширина x Высота</div>
+                          <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="order-value-rehau">{{ product.template_width }}x{{ product.template_height }} {{ ::lightPage.MM }} </div>
+                        </li>
+                        <li class="order-item-rehau">
+                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_PROFILE }}</div>
+                          <div ng-if="product.construction_type !== 4" class="order-value-rehau">{{ product.profile.name }}</div>
+                        </li>
+                        <li ng-if="product.glass.length &gt; 1" class="order-item-rehau">
+                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
+                          <div class="order-value-rehau">{{ product.glass[0].sku + ', ...' }}</div>
+                        </li>
+                        <li ng-if="product.glass.length &lt;= 1" class="order-item-rehau">
+                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
+                          <div class="order-value-rehau">{{ product.glass[0].sku }}</div>
+                        </li>
+                        <li class="order-item-rehau">
+                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_LAMINATION }}</div>
+                          <div class="order-value-rehau"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
+                        </li>
+                        <li fs-click="lightPage.showAddElementDetail($index)" class="order-item-rehau addelements-btn">
+                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_ADDITIONAL }}</div>
+                          <div class="order-value-rehau">{{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
+                            <ng-pluralize count="lightPage.C.cart.allAddElements[$index].length" when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}"></ng-pluralize>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                   <div class="order-footer-rehau">
                     <div class="order-footer-warmcoef">
-                      <h3>Оценка<br>энергоэффективности</h3>
+                      <h3>Оценка энергоэффективности</h3>
                       <h2>7.4<h2>
                     </div>
-                    <div class="order-footer-price-rehau"><h3>Стоимость<br>окна</h3>
+                    <div class="order-footer-price-rehau"><h3>Стоимость изделия</h3>
                       <div price-fixed="{{lightPage.P.product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
                     </div>
                   </div>
-                </div>
-                <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product-rehau order-rehau">
-                  <div class="add-img-rehau"> <img src="../../img/rehau-img/plus-gray.svg" alt=""></div>
-                  <div class="order-footer"></div>
                 </div>
               </div>
             </div>
@@ -2387,13 +2385,11 @@
         </div>
         <div ng-if="configMenu.G.global.showCart &amp;&amp; lightPage.U.userInfo.factory_id === 2" ng-controller="CartMenuCtrl as cartMenu" class="cart-menu-rehau">
           <ul class="items-list">
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}" fs-click="cartMenu.selectMenuItem(5)" class="item-rehau">
-              <div typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"><h3>Заметка к заказу</h3></div>
-              <div class="cart-item-data-rehau"></div>
-              <div data-output="{{ cartMenu.O.order.comment }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau-comment"></div>
-            </li>
-            <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu-rehau drop-calendar-rehau">
-              <textarea ng-model="cartMenu.O.order.comment" placeholder="Пишите здесь" class="comment-field-rehau noPreventDefault"></textarea>
+            <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product-rehau order-rehau">
+              <button>
+                 
+                <h3>Добавить окно</h3> 
+              </button>
             </div>
           </ul>
           <footer class="menu-footer">

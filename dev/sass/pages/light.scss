@@ -914,7 +914,6 @@
   }
   //rehau styles ---------
   .order-rehau {
-    top: -15px;
     width: rem(512px);
     float: left;
   }
@@ -1020,6 +1019,16 @@
     height: 130rem !important;
     padding-left: 1rem;
     padding-top: 1rem;
+
+    .order-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .order-container {
+      display: flex;
+      justify-content: space-between;
+    }
   }
   //rehau styles end ----
   .size-calc-container {

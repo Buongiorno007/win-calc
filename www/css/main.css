@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1623916328') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1623916328') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1623916328') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1623916328') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1623916328') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1623916328') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1623393065') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max-rehau, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container-rehau .save, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -5374,19 +5374,19 @@ textarea.comment-field-rehau {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -8309,7 +8309,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1623916328') no-repeat;
+  background: url('../img/login/logo.png?1623393066') no-repeat;
   background-size: cover !important;
 }
 
@@ -9787,17 +9787,22 @@ tr.factory_item {
   position: relative;
   margin-right: 3.125rem;
   float: right;
-  height: 85rem;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
-/* line 182, ../../dev/sass/pages/cart.scss */
+/* line 180, ../../dev/sass/pages/cart.scss */
+.cart-page .order-rehau .order-header,
+.light-v .order-rehau .order-header {
+  height: 0;
+}
+/* line 186, ../../dev/sass/pages/cart.scss */
 .cart-page .order-header,
 .light-v .order-header {
   position: relative;
   background-color: white;
 }
-/* line 187, ../../dev/sass/pages/cart.scss */
+/* line 191, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete,
 .light-v .order-delete {
   position: absolute;
@@ -9806,7 +9811,7 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 196, ../../dev/sass/pages/cart.scss */
+/* line 200, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete-rehau,
 .light-v .order-delete-rehau {
   background-image: url(../../img/rehau-img/close.png);
@@ -9821,7 +9826,7 @@ tr.factory_item {
   z-index: 1;
   background-color: #DE350C;
 }
-/* line 214, ../../dev/sass/pages/cart.scss */
+/* line 218, ../../dev/sass/pages/cart.scss */
 .cart-page .delete-construction,
 .light-v .delete-construction {
   background-image: url(../../img/rehau-img/remove.png);
@@ -9833,13 +9838,13 @@ tr.factory_item {
   height: 32px;
   border: none;
 }
-/* line 226, ../../dev/sass/pages/cart.scss */
+/* line 230, ../../dev/sass/pages/cart.scss */
 .cart-page .R-MInfo,
 .light-v .R-MInfo {
   width: auto;
   display: inline-block;
 }
-/* line 231, ../../dev/sass/pages/cart.scss */
+/* line 235, ../../dev/sass/pages/cart.scss */
 .cart-page .inner-text,
 .light-v .inner-text {
   position: relative;
@@ -9849,7 +9854,7 @@ tr.factory_item {
   color: #8c8c8c;
   margin: 0;
 }
-/* line 240, ../../dev/sass/pages/cart.scss */
+/* line 244, ../../dev/sass/pages/cart.scss */
 .cart-page .number,
 .light-v .number {
   color: #363636;
@@ -9859,7 +9864,7 @@ tr.factory_item {
   top: 0.3rem;
   margin: 0;
 }
-/* line 249, ../../dev/sass/pages/cart.scss */
+/* line 253, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value,
 .light-v .order-value,
 .light-v .product-value,
@@ -9872,18 +9877,16 @@ tr.factory_item {
   display: inline-block;
   overflow: hidden;
 }
-/* line 259, ../../dev/sass/pages/cart.scss */
+/* line 263, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value-rehau,
 .light-v .order-value-rehau {
   font-style: normal;
   font-weight: normal;
-  font-size: 20px;
-  line-height: 32px;
-  text-align: center;
+  font-size: 18px;
+  line-height: 24px;
   color: #000000;
-  border-bottom: 1px solid black;
 }
-/* line 274, ../../dev/sass/pages/cart.scss */
+/* line 272, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value-qty,
 .light-v .order-value-qty {
   font-style: normal;
@@ -9893,7 +9896,7 @@ tr.factory_item {
   text-align: center;
   color: #000000;
 }
-/* line 285, ../../dev/sass/pages/cart.scss */
+/* line 283, ../../dev/sass/pages/cart.scss */
 .cart-page .value-rehau-comment,
 .light-v .value-rehau-comment {
   margin-left: 15px;
@@ -9903,12 +9906,12 @@ tr.factory_item {
   width: 190px;
   overflow: hidden;
 }
-/* line 295, ../../dev/sass/pages/cart.scss */
+/* line 293, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-btn,
 .light-v .addelements-btn {
   cursor: pointer;
 }
-/* line 299, ../../dev/sass/pages/cart.scss */
+/* line 297, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label, .cart-page .product-icon-label,
 .cart-page .product-label, .cart-page .addelement-label,
 .light-v .order-label,
@@ -9918,17 +9921,16 @@ tr.factory_item {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
-/* line 305, ../../dev/sass/pages/cart.scss */
+/* line 303, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label-rehau,
 .light-v .order-label-rehau {
   font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
+  font-weight: bold;
+  font-size: 18px;
   line-height: 24px;
-  text-align: center;
-  color: #4E4E4E;
+  color: #000000;
 }
-/* line 317, ../../dev/sass/pages/cart.scss */
+/* line 313, ../../dev/sass/pages/cart.scss */
 .cart-page .order-qty,
 .light-v .order-qty {
   display: -webkit-flex;
@@ -9943,7 +9945,7 @@ tr.factory_item {
   text-align: center;
   color: #000000;
 }
-/* line 332, ../../dev/sass/pages/cart.scss */
+/* line 328, ../../dev/sass/pages/cart.scss */
 .cart-page .order-qty,
 .light-v .order-qty {
   display: -webkit-flex;
@@ -9951,7 +9953,7 @@ tr.factory_item {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 339, ../../dev/sass/pages/cart.scss */
+/* line 335, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool,
 .light-v .order-tool {
   width: 4.0625rem;
@@ -9960,27 +9962,27 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 349, ../../dev/sass/pages/cart.scss */
+/* line 345, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool-plus-rehau,
 .light-v .order-tool-plus-rehau {
-  width: 32px;
-  height: 32px;
-  background-image: url(../../img/rehau-img/+.png);
+  width: 40px;
+  height: 40px;
+  background-image: url(../../img/rehau-img/rehau_+.png);
   background-position: center;
   border: none;
   margin-right: 25px;
 }
-/* line 359, ../../dev/sass/pages/cart.scss */
+/* line 355, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool-minus-rehau,
 .light-v .order-tool-minus-rehau {
-  width: 32px;
-  height: 32px;
-  background-image: url(../../img/rehau-img/-.png);
+  width: 40px;
+  height: 40px;
+  background-image: url(../../img/rehau-img/rehua_-.png);
   background-position: center;
   border: none;
   margin-left: 25px;
 }
-/* line 370, ../../dev/sass/pages/cart.scss */
+/* line 366, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer, .cart-page .addelements-detail-footer,
 .light-v .order-footer,
 .light-v .addelements-detail-footer {
@@ -10003,58 +10005,57 @@ tr.factory_item {
   text-align: center;
   margin-top: 25px;
 }
-/* line 388, ../../dev/sass/pages/cart.scss */
+/* line 384, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau,
 .light-v .order-footer-rehau {
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 4px 36px;
   background-color: #F1F1F1;
 }
-/* line 397, ../../dev/sass/pages/cart.scss */
+/* line 393, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-warmcoef h2,
 .light-v .order-footer-rehau .order-footer-warmcoef h2 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
   text-align: center;
-  font-size: 24px;
-  font-weight: bold;
   color: #DD0060;
-  margin: 10px 0 0 0;
 }
-/* line 405, ../../dev/sass/pages/cart.scss */
+/* line 404, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-warmcoef h3,
 .light-v .order-footer-rehau .order-footer-warmcoef h3 {
   font-style: normal;
-  font-weight: normal;
-  font-size: 13px;
-  line-height: 140%;
-  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
   color: #000000;
 }
-/* line 417, ../../dev/sass/pages/cart.scss */
+/* line 414, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-price-rehau h3,
 .light-v .order-footer-rehau .order-footer-price-rehau h3 {
   font-style: normal;
-  font-weight: normal;
-  font-size: 13px;
-  line-height: 140%;
-  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
   color: #000000;
 }
-/* line 427, ../../dev/sass/pages/cart.scss */
+/* line 422, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-price-rehau .order-price,
 .light-v .order-footer-rehau .order-footer-price-rehau .order-price {
   text-align: center;
   color: #DD0060;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
 }
-/* line 438, ../../dev/sass/pages/cart.scss */
+/* line 433, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn,
 .light-v .order-comment-btn {
   font: normal 3.5rem/1.75 icons, sans-serif;
   cursor: pointer;
 }
-/* line 443, ../../dev/sass/pages/cart.scss */
+/* line 438, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn:after,
 .light-v .order-comment-btn:after {
   content: "";
@@ -10062,12 +10063,12 @@ tr.factory_item {
   border-left: 1px dotted #bebebe;
   padding-left: 1rem;
 }
-/* line 450, ../../dev/sass/pages/cart.scss */
+/* line 445, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn.active:after,
 .light-v .order-comment-btn.active:after {
   color: #f98000;
 }
-/* line 455, ../../dev/sass/pages/cart.scss */
+/* line 450, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment,
 .light-v .order-comment {
   -moz-transition: height 2s ease;
@@ -10087,12 +10088,12 @@ tr.factory_item {
   background-color: #fff;
   overflow: hidden;
 }
-/* line 470, ../../dev/sass/pages/cart.scss */
+/* line 465, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment.active,
 .light-v .order-comment.active {
   height: 35rem;
 }
-/* line 474, ../../dev/sass/pages/cart.scss */
+/* line 469, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-box,
 .light-v .order-comment .order-comment-box {
   width: 100%;
@@ -10100,19 +10101,19 @@ tr.factory_item {
   padding: 2rem;
   overflow-y: auto;
 }
-/* line 481, ../../dev/sass/pages/cart.scss */
+/* line 476, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-title,
 .light-v .order-comment .order-comment-title {
   font: normal 2.25rem/1.7 roboto-medium, sans-serif, icons;
   text-align: center;
 }
-/* line 486, ../../dev/sass/pages/cart.scss */
+/* line 481, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-content,
 .light-v .order-comment .order-comment-content {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: justify;
 }
-/* line 493, ../../dev/sass/pages/cart.scss */
+/* line 488, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-block,
 .light-v .full-view .order-block {
   display: -webkit-inline-flex;
@@ -10122,7 +10123,7 @@ tr.factory_item {
   min-height: 45%;
   z-index: 4;
 }
-/* line 502, ../../dev/sass/pages/cart.scss */
+/* line 497, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order, .cart-page .full-view .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .full-view .product, .cart-page .full-view .addelementunit,
 .light-v .full-view .order,
 .light-v .full-view .cart-page .products-selector .products-selector-block .products-block .product,
@@ -10134,40 +10135,52 @@ tr.factory_item {
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 510, ../../dev/sass/pages/cart.scss */
+/* line 505, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-rehau,
 .light-v .full-view .order-rehau {
-  width: 296px;
-  height: 730px;
+  width: 704px;
+  min-height: 384px;
   float: left;
+  margin-bottom: 32px;
 }
-/* line 518, ../../dev/sass/pages/cart.scss */
+/* line 512, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-rehau .order-header,
+.light-v .full-view .order-rehau .order-header {
+  height: 0;
+}
+/* line 519, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-header,
 .light-v .full-view .order-header {
   height: 20rem;
 }
-/* line 522, ../../dev/sass/pages/cart.scss */
+/* line 523, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-header-fon,
 .light-v .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 528, ../../dev/sass/pages/cart.scss */
+/* line 529, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-template,
 .light-v .full-view .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 535, ../../dev/sass/pages/cart.scss */
+/* line 536, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-template-rehau,
 .light-v .full-view .order-template-rehau {
-  text-align: center;
+  text-align: start;
   position: relative;
-  top: 3.75rem;
+  padding-top: 40px;
+  width: 35%;
 }
-/* line 542, ../../dev/sass/pages/cart.scss */
+/* line 544, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-template-rehau div,
+.light-v .full-view .order-template-rehau div {
+  text-align: center;
+}
+/* line 550, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .close-cur-window,
 .light-v .full-view .close-cur-window {
   position: absolute;
@@ -10176,7 +10189,7 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 551, ../../dev/sass/pages/cart.scss */
+/* line 559, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .edit-cur-window,
 .light-v .full-view .edit-cur-window {
   position: absolute;
@@ -10184,7 +10197,7 @@ tr.factory_item {
   z-index: 1;
   top: -1.25rem;
 }
-/* line 559, ../../dev/sass/pages/cart.scss */
+/* line 567, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-u-coeff,
 .light-v .full-view .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
@@ -10194,26 +10207,33 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 572, ../../dev/sass/pages/cart.scss */
+/* line 580, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content,
 .light-v .full-view .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 577, ../../dev/sass/pages/cart.scss */
+/* line 585, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau,
 .light-v .full-view .order-content-rehau {
-  padding: 40px 40px 58px 40px;
   background-color: #fff;
+  width: 448px;
 }
-/* line 582, ../../dev/sass/pages/cart.scss */
+/* line 590, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-content-rehau .order-list,
+.light-v .full-view .order-content-rehau .order-list {
+  list-style: none;
+  margin-left: -35px;
+  padding: 40px 40px 40px 0px;
+}
+/* line 598, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-list,
 .light-v .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 588, ../../dev/sass/pages/cart.scss */
+/* line 604, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-qty,
 .light-v .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
@@ -10222,12 +10242,12 @@ tr.factory_item {
   justify-content: space-evenly;
   height: 6.25rem;
 }
-/* line 594, ../../dev/sass/pages/cart.scss */
+/* line 610, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .qty-label,
 .light-v .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 600, ../../dev/sass/pages/cart.scss */
+/* line 616, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-block,
 .light-v .light-view .order-block {
   display: -webkit-flex;
@@ -10235,7 +10255,7 @@ tr.factory_item {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 605, ../../dev/sass/pages/cart.scss */
+/* line 621, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order, .cart-page .light-view .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-view .product, .cart-page .light-view .addelementunit,
 .light-v .light-view .order,
 .light-v .light-view .cart-page .products-selector .products-selector-block .products-block .product,
@@ -10244,18 +10264,18 @@ tr.factory_item {
 .cart-page .light-v .light-view .addelementunit {
   max-height: 41.5rem;
 }
-/* line 610, ../../dev/sass/pages/cart.scss */
+/* line 626, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-rehau,
 .light-v .light-view .order-rehau {
   display: flex;
   max-height: 41.5rem;
 }
-/* line 616, ../../dev/sass/pages/cart.scss */
+/* line 632, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-template,
 .light-v .light-view .order-template {
   cursor: pointer;
 }
-/* line 620, ../../dev/sass/pages/cart.scss */
+/* line 636, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-header,
 .light-v .light-view .order-header {
   cursor: pointer;
@@ -10263,12 +10283,12 @@ tr.factory_item {
   padding-top: 2.5rem;
   background-color: white;
 }
-/* line 627, ../../dev/sass/pages/cart.scss */
+/* line 643, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-content,
 .light-v .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 635, ../../dev/sass/pages/cart.scss */
+/* line 651, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .addelements-btn,
 .light-v .light-view .addelements-btn {
   margin-top: 0.625rem;
@@ -10276,7 +10296,7 @@ tr.factory_item {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 642, ../../dev/sass/pages/cart.scss */
+/* line 658, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-qty,
 .light-v .light-view .order-qty {
   -webkit-flex-flow: row wrap;
@@ -10285,7 +10305,7 @@ tr.factory_item {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 648, ../../dev/sass/pages/cart.scss */
+/* line 664, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-label, .cart-page .light-view .product-icon-label,
 .cart-page .light-view .product-label, .cart-page .light-view .addelement-label,
 .light-v .light-view .order-label,
@@ -10294,7 +10314,7 @@ tr.factory_item {
 .light-v .light-view .addelement-label {
   padding-top: 0.625rem;
 }
-/* line 653, ../../dev/sass/pages/cart.scss */
+/* line 669, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail,
 .light-v .addelements-detail {
   position: absolute;
@@ -10306,7 +10326,7 @@ tr.factory_item {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-/* line 665, ../../dev/sass/pages/cart.scss */
+/* line 681, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-tools,
 .light-v .addelements-detail-tools {
   display: -webkit-flex;
@@ -10315,7 +10335,7 @@ tr.factory_item {
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-/* line 671, ../../dev/sass/pages/cart.scss */
+/* line 687, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit,
 .light-v .addelements-detail-edit {
   -webkit-flex-grow: 3;
@@ -10324,51 +10344,51 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 679, ../../dev/sass/pages/cart.scss */
+/* line 695, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit:after,
 .light-v .addelements-detail-edit:after {
   font: normal 1.5rem/6.25rem icons, sans-serif;
   content: "";
 }
-/* line 685, ../../dev/sass/pages/cart.scss */
+/* line 701, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close,
 .light-v .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
-/* line 691, ../../dev/sass/pages/cart.scss */
+/* line 707, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close:after,
 .light-v .addelements-detail-close:after {
   font: normal 2.5rem/1 icons, sans-serif;
   color: #fff;
   content: "";
 }
-/* line 698, ../../dev/sass/pages/cart.scss */
+/* line 714, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template,
 .light-v .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 703, ../../dev/sass/pages/cart.scss */
+/* line 719, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template-icon,
 .light-v .product-template-icon {
   margin-bottom: 1.25rem;
 }
-/* line 707, ../../dev/sass/pages/cart.scss */
+/* line 723, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-thumb,
 .light-v .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-/* line 722, ../../dev/sass/pages/cart.scss */
+/* line 738, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-label,
 .light-v .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-/* line 727, ../../dev/sass/pages/cart.scss */
+/* line 743, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-row,
 .light-v .addelements-detail-row {
   display: -webkit-flex;
@@ -10380,7 +10400,7 @@ tr.factory_item {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 734, ../../dev/sass/pages/cart.scss */
+/* line 750, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-content,
 .light-v .addelements-detail-content {
   height: 46.25rem;
@@ -10388,20 +10408,20 @@ tr.factory_item {
   overflow-y: auto;
   margin: 1.875rem 3.125rem;
 }
-/* line 742, ../../dev/sass/pages/cart.scss */
+/* line 758, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-list,
 .light-v .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 748, ../../dev/sass/pages/cart.scss */
+/* line 764, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-item,
 .light-v .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 753, ../../dev/sass/pages/cart.scss */
+/* line 769, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameters,
 .light-v .addelement-parameters {
   display: -webkit-flex;
@@ -10414,60 +10434,67 @@ tr.factory_item {
   align-items: center;
   margin: 1.25rem 0;
 }
-/* line 761, ../../dev/sass/pages/cart.scss */
+/* line 777, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameter,
 .light-v .addelement-parameter {
   margin-right: 1rem;
 }
-/* line 765, ../../dev/sass/pages/cart.scss */
+/* line 781, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value,
 .light-v .addelement-value {
   margin-right: 1.25rem;
 }
-/* line 769, ../../dev/sass/pages/cart.scss */
+/* line 785, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value img,
 .light-v .addelement-value img {
   width: 2.8125rem;
 }
-/* line 778, ../../dev/sass/pages/cart.scss */
+/* line 794, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value,
 .light-v .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
   margin-right: 1.25rem;
 }
-/* line 784, ../../dev/sass/pages/cart.scss */
+/* line 800, ../../dev/sass/pages/cart.scss */
 .cart-page .price-one-product,
 .light-v .price-one-product {
   margin-top: 1.875rem;
 }
-/* line 792, ../../dev/sass/pages/cart.scss */
+/* line 808, ../../dev/sass/pages/cart.scss */
 .cart-page .order-item,
 .light-v .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
   overflow: hidden;
 }
-/* line 798, ../../dev/sass/pages/cart.scss */
+/* line 814, ../../dev/sass/pages/cart.scss */
 .cart-page .order-item-rehau,
 .light-v .order-item-rehau {
   overflow: hidden;
-  margin-top: 10px;
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
 }
-/* line 804, ../../dev/sass/pages/cart.scss */
+/* line 822, ../../dev/sass/pages/cart.scss */
+.cart-page .order-item-rehau:first-child,
+.light-v .order-item-rehau:first-child {
+  margin-top: 0;
+}
+/* line 828, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-container,
 .light-v .discount-container {
   width: 90%;
   margin: 5rem auto auto;
   padding: 5rem 3.75rem 3rem;
 }
-/* line 811, ../../dev/sass/pages/cart.scss */
+/* line 835, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-title,
 .light-v .discount-title {
   font: normal 2.5rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 816, ../../dev/sass/pages/cart.scss */
+/* line 840, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box,
 .light-v .discount-box {
   display: -webkit-flex;
@@ -10476,12 +10503,12 @@ tr.factory_item {
   width: 100%;
   margin-top: 3.125rem;
 }
-/* line 823, ../../dev/sass/pages/cart.scss */
+/* line 847, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box.selected .discount-txt,
 .light-v .discount-box.selected .discount-txt {
   background-color: #6ed44a;
 }
-/* line 826, ../../dev/sass/pages/cart.scss */
+/* line 850, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box.selected .discount-txt:after,
 .light-v .discount-box.selected .discount-txt:after {
   font: normal 7rem/9rem icons, sans-serif;
@@ -10491,13 +10518,13 @@ tr.factory_item {
   color: #fff;
   content: "";
 }
-/* line 838, ../../dev/sass/pages/cart.scss */
+/* line 862, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-curr-data,
 .light-v .disc-curr-data {
   border: none;
   width: 10rem;
 }
-/* line 843, ../../dev/sass/pages/cart.scss */
+/* line 867, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-data,
 .light-v .discount-data {
   display: -webkit-flex;
@@ -10515,7 +10542,7 @@ tr.factory_item {
   justify-content: space-between;
   padding-right: 1rem;
 }
-/* line 858, ../../dev/sass/pages/cart.scss */
+/* line 882, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input-box,
 .light-v .disc-input-box {
   display: -webkit-flex;
@@ -10525,14 +10552,14 @@ tr.factory_item {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 864, ../../dev/sass/pages/cart.scss */
+/* line 888, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-max,
 .light-v .disc-max {
   position: absolute;
   font: normal 2rem/2rem roboto-light, sans-serif, icons;
   color: #f74f2e;
 }
-/* line 870, ../../dev/sass/pages/cart.scss */
+/* line 894, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input,
 .light-v .disc-input {
   min-width: 20px;
@@ -10542,7 +10569,7 @@ tr.factory_item {
   outline: none;
   border: none;
 }
-/* line 879, ../../dev/sass/pages/cart.scss */
+/* line 903, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input::-webkit-inner-spin-button,
 .light-v .disc-input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
@@ -10550,7 +10577,7 @@ tr.factory_item {
   margin: 0;
   /* <-- Apparently some margin are still there even though it's hidden */
 }
-/* line 886, ../../dev/sass/pages/cart.scss */
+/* line 910, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-list,
 .light-v .discounts-list {
   top: -5rem;
@@ -10566,14 +10593,14 @@ tr.factory_item {
   border-radius: 1rem;
   z-index: 5;
 }
-/* line 901, ../../dev/sass/pages/cart.scss */
+/* line 925, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-item.active,
 .light-v .discounts-item.active {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
   color: #f98000;
 }
-/* line 908, ../../dev/sass/pages/cart.scss */
+/* line 932, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-txt,
 .light-v .discount-txt {
   -webkit-flex-grow: 2;
@@ -10588,7 +10615,7 @@ tr.factory_item {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 918, ../../dev/sass/pages/cart.scss */
+/* line 942, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-label,
 .light-v .discounts-label {
   font: normal 2.25rem/5rem roboto-medium, sans-serif, icons;
@@ -10596,7 +10623,7 @@ tr.factory_item {
   width: auto;
   display: inline-block;
 }
-/* line 925, ../../dev/sass/pages/cart.scss */
+/* line 949, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-container,
 .light-v .discount-price-container {
   display: -webkit-flex;
@@ -10607,37 +10634,37 @@ tr.factory_item {
   border-radius: 1rem;
   background-color: #fff;
 }
-/* line 934, ../../dev/sass/pages/cart.scss */
+/* line 958, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-box,
 .light-v .discount-price-box {
   padding: 0 3rem;
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 938, ../../dev/sass/pages/cart.scss */
+/* line 962, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-box:last-child,
 .light-v .discount-price-box:last-child {
   border-left: 1px dashed #363636;
 }
-/* line 943, ../../dev/sass/pages/cart.scss */
+/* line 967, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price,
 .light-v .discount-price {
   font: normal 3rem/6.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 948, ../../dev/sass/pages/cart.scss */
+/* line 972, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-label,
 .light-v .discount-price-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
-/* line 952, ../../dev/sass/pages/cart.scss */
+/* line 976, ../../dev/sass/pages/cart.scss */
 .cart-page .service-block,
 .light-v .service-block {
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
 
-/* line 957, ../../dev/sass/pages/cart.scss */
+/* line 981, ../../dev/sass/pages/cart.scss */
 .imgg {
   cursor: pointer;
   position: absolute;
@@ -10647,7 +10674,7 @@ tr.factory_item {
   top: -1.25rem;
 }
 
-/* line 966, ../../dev/sass/pages/cart.scss */
+/* line 990, ../../dev/sass/pages/cart.scss */
 .eddit-construction {
   cursor: pointer;
   position: absolute;
@@ -10658,34 +10685,34 @@ tr.factory_item {
   height: 32px;
 }
 
-/* line 977, ../../dev/sass/pages/cart.scss */
+/* line 1001, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar {
   -webkit-appearance: none;
 }
 
-/* line 981, ../../dev/sass/pages/cart.scss */
+/* line 1005, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar:vertical {
   width: 12px;
 }
 
-/* line 985, ../../dev/sass/pages/cart.scss */
+/* line 1009, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar:horizontal {
   height: 12px;
 }
 
-/* line 989, ../../dev/sass/pages/cart.scss */
+/* line 1013, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   border: 2px solid #ffffff;
 }
 
-/* line 995, ../../dev/sass/pages/cart.scss */
+/* line 1019, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar-track {
   border-radius: 10px;
 }
 
-/* line 999, ../../dev/sass/pages/cart.scss */
+/* line 1023, ../../dev/sass/pages/cart.scss */
 .add-new-product {
   background: white;
   flex-direction: column;
@@ -10694,7 +10721,7 @@ tr.factory_item {
   justify-content: center;
   cursor: pointer;
 }
-/* line 1006, ../../dev/sass/pages/cart.scss */
+/* line 1030, ../../dev/sass/pages/cart.scss */
 .add-new-product .order-footer, .add-new-product .cart-page .addelements-detail-footer, .cart-page .add-new-product .addelements-detail-footer,
 .add-new-product .light-v .addelements-detail-footer,
 .light-v .add-new-product .addelements-detail-footer {
@@ -10705,7 +10732,7 @@ tr.factory_item {
   left: 0;
   bottom: 0;
 }
-/* line 1015, ../../dev/sass/pages/cart.scss */
+/* line 1039, ../../dev/sass/pages/cart.scss */
 .add-new-product .add-img {
   height: 79rem;
   color: #bebebe;
@@ -10718,37 +10745,37 @@ tr.factory_item {
   justify-content: center;
   border-radius: 5rem;
 }
-/* line 1027, ../../dev/sass/pages/cart.scss */
+/* line 1051, ../../dev/sass/pages/cart.scss */
 .add-new-product .title {
   color: #bebebe;
   font-size: 20px;
 }
 
-/* line 1033, ../../dev/sass/pages/cart.scss */
+/* line 1057, ../../dev/sass/pages/cart.scss */
 .add-new-product-rehau {
-  height: 705px;
-  flex-direction: column;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background-color: white;
+  background: #4E4E4E;
+  background-image: url(../../img/rehau-img/add-new-window.png);
+  background-repeat: no-repeat;
+  height: 23px;
+  width: 48px;
+  background-position: end;
 }
-/* line 1042, ../../dev/sass/pages/cart.scss */
-.add-new-product-rehau .add-img-rehau {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* line 1067, ../../dev/sass/pages/cart.scss */
+.add-new-product-rehau button, .add-new-product-rehau .door-configuration .door-config-finish-btn, .door-configuration .add-new-product-rehau .door-config-finish-btn, .add-new-product-rehau .door-configuration .door-config-finish-save-btn, .door-configuration .add-new-product-rehau .door-config-finish-save-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  height: 80px;
 }
-/* line 1047, ../../dev/sass/pages/cart.scss */
-.add-new-product-rehau .add-img-rehau img {
-  height: 100px;
-  width: 100px;
-}
-/* line 1052, ../../dev/sass/pages/cart.scss */
-.add-new-product-rehau .title {
-  color: #bebebe;
+/* line 1074, ../../dev/sass/pages/cart.scss */
+.add-new-product-rehau button h3, .add-new-product-rehau .door-configuration .door-config-finish-btn h3, .door-configuration .add-new-product-rehau .door-config-finish-btn h3, .add-new-product-rehau .door-configuration .door-config-finish-save-btn h3, .door-configuration .add-new-product-rehau .door-config-finish-save-btn h3 {
+  padding-left: 14px;
+  font-style: normal;
+  font-weight: normal;
   font-size: 20px;
+  line-height: 32px;
+  text-align: start;
+  color: #FFFFFF;
 }
 
 /* line 3, ../../dev/sass/pages/design.scss */
@@ -11657,7 +11684,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1623916328') no-repeat;
+  background: url('../img/door-arrow.png?1623393065') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -12768,28 +12795,27 @@ tr.factory_item {
 }
 /* line 916, ../../dev/sass/pages/light.scss */
 .light-v .order-rehau {
-  top: -15px;
   width: 32rem;
   float: left;
 }
-/* line 923, ../../dev/sass/pages/light.scss */
+/* line 922, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 927, ../../dev/sass/pages/light.scss */
+/* line 926, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 932, ../../dev/sass/pages/light.scss */
+/* line 931, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 937, ../../dev/sass/pages/light.scss */
+/* line 936, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -12797,14 +12823,14 @@ tr.factory_item {
   background-color: #f98000;
   z-index: 1;
 }
-/* line 945, ../../dev/sass/pages/light.scss */
+/* line 944, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 952, ../../dev/sass/pages/light.scss */
+/* line 951, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -12813,27 +12839,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 959, ../../dev/sass/pages/light.scss */
+/* line 958, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 964, ../../dev/sass/pages/light.scss */
+/* line 963, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 967, ../../dev/sass/pages/light.scss */
+/* line 966, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 971, ../../dev/sass/pages/light.scss */
+/* line 970, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 976, ../../dev/sass/pages/light.scss */
+/* line 975, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -12841,119 +12867,129 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 981, ../../dev/sass/pages/light.scss */
+/* line 980, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 984, ../../dev/sass/pages/light.scss */
+/* line 983, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 991, ../../dev/sass/pages/light.scss */
+/* line 990, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 996, ../../dev/sass/pages/light.scss */
+/* line 995, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 1003, ../../dev/sass/pages/light.scss */
+/* line 1002, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 1008, ../../dev/sass/pages/light.scss */
+/* line 1007, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 1011, ../../dev/sass/pages/light.scss */
+/* line 1010, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1018, ../../dev/sass/pages/light.scss */
+/* line 1017, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau {
   width: auto;
   height: 130rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1025, ../../dev/sass/pages/light.scss */
+/* line 1023, ../../dev/sass/pages/light.scss */
+.light-v .scroll-hor-container-rehau .order-block {
+  display: flex;
+  flex-direction: column;
+}
+/* line 1028, ../../dev/sass/pages/light.scss */
+.light-v .scroll-hor-container-rehau .order-container {
+  display: flex;
+  justify-content: space-between;
+}
+/* line 1034, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 1030, ../../dev/sass/pages/light.scss */
+/* line 1039, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 1035, ../../dev/sass/pages/light.scss */
+/* line 1044, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 1039, ../../dev/sass/pages/light.scss */
+/* line 1048, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 1043, ../../dev/sass/pages/light.scss */
+/* line 1052, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 1046, ../../dev/sass/pages/light.scss */
+/* line 1055, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 1049, ../../dev/sass/pages/light.scss */
+/* line 1058, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 1054, ../../dev/sass/pages/light.scss */
+/* line 1063, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 1059, ../../dev/sass/pages/light.scss */
+/* line 1068, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 1062, ../../dev/sass/pages/light.scss */
+/* line 1071, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 1065, ../../dev/sass/pages/light.scss */
+/* line 1074, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 1071, ../../dev/sass/pages/light.scss */
+/* line 1080, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 1077, ../../dev/sass/pages/light.scss */
+/* line 1086, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 1081, ../../dev/sass/pages/light.scss */
+/* line 1090, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1085, ../../dev/sass/pages/light.scss */
+/* line 1094, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
@@ -19829,133 +19865,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -19965,133 +20001,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1623916328');
+  background-image: url('../img/auxiliaries-selected/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1623916328');
+  background-image: url('../img/auxiliaries-focused/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20115,7 +20151,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1623916328');
+  background-image: url('../img/auxiliaries/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20132,7 +20168,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1623916328');
+  background-image: url('../img/auxiliaries/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20149,7 +20185,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1623916328');
+  background-image: url('../img/auxiliaries/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20166,7 +20202,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1623916328');
+  background-image: url('../img/auxiliaries/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20183,7 +20219,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1623916328');
+  background-image: url('../img/auxiliaries/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20200,7 +20236,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1623916328');
+  background-image: url('../img/auxiliaries/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20217,7 +20253,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1623916328');
+  background-image: url('../img/auxiliaries/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20234,7 +20270,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1623916328');
+  background-image: url('../img/auxiliaries/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20251,7 +20287,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1623916328');
+  background-image: url('../img/auxiliaries/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20268,7 +20304,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1623916328');
+  background-image: url('../img/auxiliaries/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20285,7 +20321,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1623916328');
+  background-image: url('../img/auxiliaries/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20302,7 +20338,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1623916328');
+  background-image: url('../img/auxiliaries/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20319,7 +20355,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1623916328');
+  background-image: url('../img/auxiliaries/template1.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20336,7 +20372,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1623916328');
+  background-image: url('../img/auxiliaries/template2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20360,7 +20396,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1623916328');
+  background-image: url('../img/auxiliaries/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20370,7 +20406,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1623916328');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20397,7 +20433,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1623916328');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20420,7 +20456,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1623916328');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20431,7 +20467,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1623916328');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20442,7 +20478,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1623916328');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20459,7 +20495,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1623916328');
+  background-image: url('../img/auxiliaries/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20482,7 +20518,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1623916328');
+  background-image: url('../img/auxiliaries/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20493,7 +20529,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1623916328');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20510,7 +20546,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1623916328');
+  background-image: url('../img/auxiliaries/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
