@@ -1348,6 +1348,11 @@
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
                           <div class="order-value-rehau">{{ product.glass[0].sku + ', ...' }}</div>
                         </li>
+                        <li class="order-item-rehau">
+                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_HARDWARE }}</div>
+                          <div ng-if="product.construction_type === 4" class="order-label-rehau">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
+                          <div ng-if="product.construction_type !== 4" class="order-value-rehau">{{ product.hardware.name }}</div>
+                        </li>
                         <li ng-if="product.glass.length &lt;= 1" class="order-item-rehau">
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
                           <div class="order-value-rehau">{{ product.glass[0].sku }}</div>
@@ -1356,13 +1361,57 @@
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_LAMINATION }}</div>
                           <div class="order-value-rehau"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
                         </li>
-                        <li fs-click="lightPage.showAddElementDetail($index)" class="order-item-rehau addelements-btn">
-                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_ADDITIONAL }}</div>
-                          <div class="order-value-rehau">{{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
-                            <ng-pluralize count="lightPage.C.cart.allAddElements[$index].length" when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}"></ng-pluralize>
-                          </div>
-                        </li>
+                        <div class="addelements-detail-content-rehau"></div>
+                        <div class="underline-rehau"></div>
                       </ul>
+                      <li ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item-rehau">
+                        <div class="addelement-main-container">
+                          <div class="product-value">{{ addelement.name }}</div>
+                          <div ng-switch-when="0" class="product-value">{{ ::lightPage.GRID }}</div>
+                          <div ng-switch-when="1" class="product-value">{{ ::lightPage.VISOR }}</div>
+                          <div ng-switch-when="2" class="product-value">{{ ::lightPage.SPILLWAY }}</div>
+                          <div ng-switch-when="3" class="product-value">{{ ::lightPage.OUTSIDE }}</div>
+                          <div ng-switch-when="4" class="product-value">{{ ::lightPage.LOUVERS }}</div>
+                          <div ng-switch-when="5" class="product-value">{{ ::lightPage.INSIDE }}</div>
+                          <div ng-switch-when="6" class="product-value">{{ ::lightPage.CONNECTORS }}</div>
+                          <div ng-switch-when="7" class="product-value">{{ ::lightPage.FAN }}</div>
+                          <div ng-switch-when="9" class="product-value">{{ ::lightPage.HANDLEL }}</div>
+                          <div ng-switch-when="10" class="product-value">{{ ::lightPage.OTHERS }}</div>
+                          <div class="addelement-parameters-container">
+                            <div class="addelement-parameters">
+                              <div ng-if="addelement.element_width" class="addelement-parameter"></div>
+                              <div class="addelement-label"> Ширина</div>
+                              <div ng-if="lightPage.U.userInfo.factory_id===1966" class="addelement-value">{{ addelement.element_width*0.0393701 | number : 0  }}</div>
+                              <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="addelement-value">{{ addelement.element_width }}</div>
+                            </div>
+                            <div ng-show="addelement.element_height" class="addelement-parameter">
+                              <div class="addelement-label">{{ ::lightPage.HEIGHT_LABEL }}</div>
+                              <div ng-if="lightPage.U.userInfo.factory_id===1966" class="addelement-value">{{ addelement.element_height*0.0393701 | number : 0  }}</div>
+                              <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="addelement-value">{{ addelement.element_height }}</div>
+                            </div>
+                            <div ng-if="addelement.element_qty" class="addelement-parameters">
+                              <div class="addelement-label">Колличество</div>
+                              <div class="addelement-value">{{ addelement.element_qty }}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="addelement-price-container">
+                          <div price-fixed="{{addelement.elementPriceDis}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
+                          <div ng-click="elementsMenu.deleteAddElement($index)" class="aux-delete"></div>
+                        </div>
+                      </li>
+                    </div>
+                    <div class="service-block">
+                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]" class="sb-1">{{lightPage.SERV1}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]}} {{lightPage.U.userInfo.currency}}</div>
+                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]" class="sb-2">{{lightPage.SERV2}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]}} {{lightPage.U.userInfo.currency}}</div>
+                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]" class="sb-3">{{lightPage.SERV3}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]}} {{lightPage.U.userInfo.currency}}</div>
+                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]" class="sb-4">{{lightPage.SERV4}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]}} {{lightPage.U.userInfo.currency}}</div>
+                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]" class="sb-5">{{lightPage.OTHER}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]}} {{lightPage.U.userInfo.currency}}</div>
+                    </div>
+                    <div ng-show="lightPage.C.cart.allAddElements &gt; 0" class="addelements-detail-row price-one-product">
+                      <div price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis+ lightPage.O.order.products[lightPage.config.detailProductIndex].service_price_dis}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
+                      <div class="product-label">{{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}
+                      </div>
                     </div>
                   </div>
                   <div class="order-footer-rehau">

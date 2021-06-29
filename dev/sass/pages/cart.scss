@@ -540,9 +540,16 @@
       padding-top: 40px;
 
       width: 35%;
+      max-height: 50px;
 
       div {
         text-align: center;
+      }
+
+      .addelements-detail-content-rehau {
+        height: 0;
+        overflow-x: hidden;
+        margin: rem(30px) rem(50px);
       }
     }
     //rehau styles end ------
@@ -592,6 +599,86 @@
         margin-left: -35px;
 
         padding: 40px 40px 40px 0px;
+      }
+
+      .underline-rehau {
+        position: absolute;
+        left: 40px;
+        width: 624px;
+        height: 1px;
+
+        top: 285px;
+
+        margin-bottom: 16px;
+        
+
+        border: 1px solid #D9D9D9;
+      }
+
+      .addelements-detail-item-rehau {
+        display: flex;
+        justify-content: space-between;
+
+        margin-left: -212px;
+        margin-bottom: 16px;
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
+
+        .addelement-price-value {
+          margin-right: 40px;
+
+          align-self: center;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 20px;
+          line-height: 32px;
+
+          color: $primary_pink;
+        }
+      }
+
+      .addelement-parameters-container {
+        display: flex;
+
+        margin-left: -10px;
+        margin-top: -10px;
+      }
+
+      .product-value {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+
+        /* identical to box height, or 150% */
+
+        color: #000000;
+      }
+
+      .addelement-label {
+        margin-right: 5px;
+
+        align-self: baseline;
+
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+
+        color: #3333;
+      }
+
+      .addelement-value {
+        margin-right: 25px;
+
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+
+        color: #4E4E4E; 
       }
     }
     //rehau styles end -----
@@ -1061,7 +1148,7 @@
   background-repeat: no-repeat;
   height: 23px;
   width: 48px;
-  background-position: end;
+  background-position: 225px;
 
   
   button {

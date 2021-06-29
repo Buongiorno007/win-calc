@@ -12958,13 +12958,16 @@ function ErrorResult(code, message) {
                 /**-------- Delete AddElement from global object ---------*/
 
                 function deleteAddElement(typeId, elementId) {
+                    console.log('One')
                     if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
                         /** calc Price previous parameter and close caclulators */
                         finishCalculators();
+                        console.log("Two inside if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator)")
                     }
                     /**------- if grid delete --------*/
                     if (!typeId) {
                         deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
+                        console.log("three inside if(ProductStor.product.chosenAddElements[typeId][elementId].block_id)")
                     }
                     ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
                     //------ Set Total Product Price

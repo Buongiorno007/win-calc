@@ -312,6 +312,10 @@
                         li.order-item-rehau(ng-if="product.glass.length > 1")
                           .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
                           .order-value-rehau {{ product.glass[0].sku + ', ...' }}
+                        li.order-item-rehau
+                          .order-label-rehau {{ ::lightPage.CONFIGMENU_HARDWARE }}
+                          .order-label-rehau(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
+                          .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
                         li.order-item-rehau(ng-if="product.glass.length <= 1")
                           .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
                           .order-value-rehau {{ product.glass[0].sku }}
@@ -323,11 +327,57 @@
                             span /
                             span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
                             span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
-                        li.order-item-rehau.addelements-btn(fs-click="lightPage.showAddElementDetail($index)")
-                          .order-label-rehau {{ ::lightPage.CONFIGMENU_ADDITIONAL }}
-                          .order-value-rehau {{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
-                            ng-pluralize(count="lightPage.C.cart.allAddElements[$index].length",
-                            when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}")
+                        .addelements-detail-content-rehau
+                        .underline-rehau
+                      li.addelements-detail-item-rehau(ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
+                        .addelement-main-container
+                          .product-value {{ addelement.name }}
+                          .product-value(ng-switch-when="0") {{ ::lightPage.GRID }}
+                          .product-value(ng-switch-when="1") {{ ::lightPage.VISOR }}
+                          .product-value(ng-switch-when="2") {{ ::lightPage.SPILLWAY }}
+                          .product-value(ng-switch-when="3") {{ ::lightPage.OUTSIDE }}
+                          .product-value(ng-switch-when="4") {{ ::lightPage.LOUVERS }}
+                          .product-value(ng-switch-when="5") {{ ::lightPage.INSIDE }}
+                          .product-value(ng-switch-when="6") {{ ::lightPage.CONNECTORS }}
+                          .product-value(ng-switch-when="7") {{ ::lightPage.FAN }}
+                          .product-value(ng-switch-when="9") {{ ::lightPage.HANDLEL }}
+                          .product-value(ng-switch-when="10") {{ ::lightPage.OTHERS }}
+                          .addelement-parameters-container
+                            .addelement-parameters
+                              .addelement-parameter(ng-if="addelement.element_width")
+                              .addelement-label  Ширина
+                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
+                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
+                            .addelement-parameter(ng-show="addelement.element_height")
+                              .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
+                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
+                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
+                            .addelement-parameters(ng-if="addelement.element_qty")
+                              .addelement-label Колличество
+                              .addelement-value {{ addelement.element_qty }}
+                        .addelement-price-container
+                          .addelement-price-value(price-fixed="{{addelement.elementPriceDis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
+                          .aux-delete(ng-click="elementsMenu.deleteAddElement($index)")
+                    .service-block
+                      .sb-1(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]")
+                        | {{lightPage.SERV1}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]}} {{lightPage.U.userInfo.currency}}
+                      .sb-2(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]")
+                        | {{lightPage.SERV2}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]}} {{lightPage.U.userInfo.currency}}
+                      .sb-3(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]")
+                        | {{lightPage.SERV3}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]}} {{lightPage.U.userInfo.currency}}
+                      .sb-4(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]")
+                        | {{lightPage.SERV4}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]}} {{lightPage.U.userInfo.currency}}
+                      .sb-5(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]")
+                        | {{lightPage.OTHER}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]}} {{lightPage.U.userInfo.currency}}
+                    .addelements-detail-row.price-one-product(ng-show="lightPage.C.cart.allAddElements > 0")
+                      
+                      .addelement-price-value(price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis+ lightPage.O.order.products[lightPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
+                      .product-label {{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}
+                        //- li.order-item-rehau.addelements-btn(fs-click="lightPage.showAddElementDetail($index)")
+                        //-   .order-label-rehau {{ ::lightPage.CONFIGMENU_ADDITIONAL }}
+                        //-   .order-value-rehau {{lightPage.C.cart.allAddElements[$index].length + lightPage.coutNull(lightPage.O.order.products[$index].services_price_arr)}}
+                        //-     ng-pluralize(count="lightPage.C.cart.allAddElements[$index].length",
+                        //-     when="{'0': '{{ lightPage.config.elements }}', '1': '{{ lightPage.config.element }}', '2': '{{ lightPage.config.elementa }}', '3': '{{ lightPage.config.elementa }}', '4': '{{ lightPage.config.elementa }}', 'other': '{{ lightPage.config.elements }}'}")
                   .order-footer-rehau
                     .order-footer-warmcoef
                       <h3>Оценка энергоэффективности</h3>
