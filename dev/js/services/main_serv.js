@@ -1021,12 +1021,14 @@
                             }
                         }
                         setCurrentHardware(ProductStor.product);
-                        preparePrice(
-                            ProductStor.product.template,
-                            ProductStor.product.profile.id,
-                            ProductStor.product.glass,
-                            ProductStor.product.hardware.id,
-                            ProductStor.product.lamination.lamination_in_id)
+                        if (ProductStor.product.profile.id) {
+                            preparePrice(
+                                ProductStor.product.template,
+                                ProductStor.product.profile.id,
+                                ProductStor.product.glass,
+                                ProductStor.product.hardware.id,
+                                ProductStor.product.lamination.lamination_in_id)
+                        } 
                     }
                 )
                
