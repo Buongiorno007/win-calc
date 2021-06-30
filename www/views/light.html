@@ -1362,9 +1362,9 @@
                           <div class="order-value-rehau"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
                         </li>
                         <div class="addelements-detail-content-rehau"></div>
-                        <div class="underline-rehau"></div>
                       </ul>
                       <li ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item-rehau">
+                        <div class="underline-rehau"></div>
                         <div class="addelement-main-container">
                           <div class="product-value">{{ addelement.name }}</div>
                           <div ng-switch-when="0" class="product-value">{{ ::lightPage.GRID }}</div>
@@ -1397,7 +1397,7 @@
                         </div>
                         <div class="addelement-price-container">
                           <div price-fixed="{{addelement.elementPriceDis}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
-                          <div ng-click="elementsMenu.deleteAddElement($index)" class="aux-delete"></div>
+                          <div ng-click="elementsMenu.deleteAddElement($index)" class="aux-delete-rehau"></div>
                         </div>
                       </li>
                     </div>
@@ -1410,8 +1410,7 @@
                     </div>
                     <div ng-show="lightPage.C.cart.allAddElements &gt; 0" class="addelements-detail-row price-one-product">
                       <div price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis+ lightPage.O.order.products[lightPage.config.detailProductIndex].service_price_dis}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
-                      <div class="product-label">{{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}
-                      </div>
+                      <div class="product-label">{{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}</div>
                     </div>
                   </div>
                   <div class="order-footer-rehau">

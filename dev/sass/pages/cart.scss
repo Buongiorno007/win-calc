@@ -627,7 +627,7 @@
         }
 
         .addelement-price-value {
-          margin-right: 40px;
+          margin-right: 24px;
 
           align-self: center;
           font-style: normal;
@@ -679,6 +679,18 @@
         line-height: 24px;
 
         color: #4E4E4E; 
+      }
+
+      .addelement-price-container {
+        display: flex;  
+      }
+
+      .aux-delete-rehau {
+        background-image: url(../../img/rehau-img/delete-cross-for-basket.png);
+        width: 24px;
+        height: 24px;
+        align-self: center;
+        margin-right: 40px;
       }
     }
     //rehau styles end -----
