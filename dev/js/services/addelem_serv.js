@@ -52,7 +52,6 @@
                 function showingAddElemMenu(id) {
                     AuxStor.aux.isFocusedAddElement = id;
                     AuxStor.aux.currAddElementPrice = 0;
-                    //playSound('swip');
                     downloadAddElementsData(id);
                     //------ if add elements list is not empty show menu
                     if (AuxStor.aux.addElementsList.length) {
@@ -130,6 +129,7 @@
                 /**--------- Select additional element group -----------*/
 
                 function selectAddElement(id) {
+                    console.log("I am checking if everythinbg is alright", id)
 
                     
                     if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {

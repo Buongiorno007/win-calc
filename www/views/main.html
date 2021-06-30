@@ -409,9 +409,7 @@
             <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
               <div ng-click="glassPanel.OpenGlassFolder($index)" class="folder-img"><img ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" id="anchor{{$index}}"></div>
               <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="button">
-                <div ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info folder-info">
-                  <label>i</label>
-                </div>
+                <div ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info-rehau folder-info"></div>
                 <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
                 <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
               </div>
