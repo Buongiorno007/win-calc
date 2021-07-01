@@ -55,7 +55,6 @@
                     } else {
                         //i eto toje
                         GlobalStor.global.noDoorExist = 1
-                        console.log(GlobalStor.global, 'GlobalStor.global')
                         ProductStor.product.template_id = angular.copy(DesignStor.design.template_id);
                         // console.time("setCurrentProfile");
                         //TYT stojal 0 , ja pomen9l na to chto nyjno navernoe, no bl9 vseravno s profaila ne to idet
@@ -178,7 +177,6 @@
                                 //------- fill objXFormedPrice for sizes
 
                                 // 
-                                console.log(objXFormedPrice, 'objXFormedPrice')
                                 localDB.calculationPrice(objXFormedPrice);
                             }
                             setTimeout(function () {
@@ -239,7 +237,6 @@
                                     //------- fill objXFormedPrice for sizes
     
                                     // 
-                                    console.log(objXFormedPrice, 'objXFormedPrice')
                                     localDB.calculationPrice(objXFormedPrice);
                                 }
                                 setTimeout(function () {

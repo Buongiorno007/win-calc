@@ -292,8 +292,6 @@
                 } else {
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                     product.currencies = angular.copy(GlobalStor.global.currencies);
-                    console.log(UserStor.userInfo.currencies, 'user info (need language)') 
-                    console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
                 var data = null
                 function needed_data() {
@@ -1358,7 +1356,6 @@
                     //----- set default hardware in ProductStor
                     if (GlobalStor.global.isSashesInTemplate) {
                         for (let currentHardware of GlobalStor.global.hardwares) {
-                            console.log(currentHardware, 'CURRENT HARDWARE SET CURRENT HARDWARE FUNCTION')
                             if (currentHardware) {
                                 if (currentHardware[0] !== 1) {
                                     product.hardware = currentHardware[1];

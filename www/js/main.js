@@ -3367,7 +3367,7 @@ let portrait = false;
               OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
               ProductStor.product = JSON.parse(LZString.decompressFromUTF16(product));
               AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
-              console.log("типа все ок");
+              console.log("Everyghing is all right, you can work");
               MainServ.createOrderData();
               return true;
             } else {
@@ -24474,7 +24474,7 @@ function ErrorResult(code, message) {
                         }
                     }
                     //console.info('@@@@@@@@@@@@', objTmp);
-                    console.log(ProductStor.product)
+                    // console.log(ProductStor.product)
                     //console.log('REPORT', ProductStor.product.report);
                     //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
@@ -27923,8 +27923,6 @@ function ErrorResult(code, message) {
                 } else {
                     product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
                     product.currencies = angular.copy(GlobalStor.global.currencies);
-                    console.log(UserStor.userInfo.currencies, 'user info (need language)') 
-                    console.log(ProductStor.product.productPriceDis, 'product price dis') 
                 }
                 var data = null
                 function needed_data() {
@@ -28989,7 +28987,6 @@ function ErrorResult(code, message) {
                     //----- set default hardware in ProductStor
                     if (GlobalStor.global.isSashesInTemplate) {
                         for (let currentHardware of GlobalStor.global.hardwares) {
-                            console.log(currentHardware, 'CURRENT HARDWARE SET CURRENT HARDWARE FUNCTION')
                             if (currentHardware) {
                                 if (currentHardware[0] !== 1) {
                                     product.hardware = currentHardware[1];
@@ -37523,7 +37520,6 @@ function ErrorResult(code, message) {
                     } else {
                         //i eto toje
                         GlobalStor.global.noDoorExist = 1
-                        console.log(GlobalStor.global, 'GlobalStor.global')
                         ProductStor.product.template_id = angular.copy(DesignStor.design.template_id);
                         // console.time("setCurrentProfile");
                         //TYT stojal 0 , ja pomen9l na to chto nyjno navernoe, no bl9 vseravno s profaila ne to idet
@@ -37646,7 +37642,6 @@ function ErrorResult(code, message) {
                                 //------- fill objXFormedPrice for sizes
 
                                 // 
-                                console.log(objXFormedPrice, 'objXFormedPrice')
                                 localDB.calculationPrice(objXFormedPrice);
                             }
                             setTimeout(function () {
@@ -37707,7 +37702,6 @@ function ErrorResult(code, message) {
                                     //------- fill objXFormedPrice for sizes
     
                                     // 
-                                    console.log(objXFormedPrice, 'objXFormedPrice')
                                     localDB.calculationPrice(objXFormedPrice);
                                 }
                                 setTimeout(function () {
