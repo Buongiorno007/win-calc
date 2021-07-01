@@ -28991,8 +28991,13 @@ function ErrorResult(code, message) {
                         for (let currentHardware of GlobalStor.global.hardwares) {
                             console.log(currentHardware, 'CURRENT HARDWARE SET CURRENT HARDWARE FUNCTION')
                             if (currentHardware) {
-                                product.hardware = currentHardware[0];
-                                break;
+                                if (currentHardware[0] !== 1) {
+                                    product.hardware = currentHardware[1];
+                                    break;
+                                } else {
+                                    product.hardware = currentHardware[0];
+                                    break;
+                                }
                             }  
                         }
                     } else {
