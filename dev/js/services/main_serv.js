@@ -47,6 +47,8 @@
             }
 
             getOnline();
+            //saving default values for hardwares
+            GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
 
             /**---------- Close Room Selector Dialog ---------*/
             function closeRoomSelectorDialog() {
@@ -182,8 +184,6 @@
 
             //-------- get default json template
             function downloadAllTemplates(type) {
-                GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
-                console.log(GlobalStor.global.hardwaresDefaultValues, '<---------')
                 var deferred = $q.defer();
 
                 switch (type) {
