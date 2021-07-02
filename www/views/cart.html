@@ -987,7 +987,7 @@
           </table>
         </div>
       </div>
-      <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
+      <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" ng-show="elementsMenu.U.userInfo.factory_id !== 2" class="elements-list-container">
         <div class="elements-menu">
           <header class="menu-header">
             <div class="tip">{{ ::elementsMenu.TIP }}</div>

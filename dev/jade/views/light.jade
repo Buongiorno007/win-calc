@@ -47,8 +47,7 @@
             include panels/_glasses
             include panels/_hardwares
             include panels/_laminations
-            .add-elements-container(ng-if="lightPage.G.global.activePanel == 6")
-              include panels/_add-elements
+            include panels/_add-elements
             include panels/_add-elements-list
             include parts/_grid-selector
 
@@ -392,52 +391,52 @@
               img.edit-cur-window(ng-src='img/copy_edit.png', ng-click="lightPage.fastEdit(lightPage.C.cart.curProd, 'product')")
               svg-template(template="lightPage.O.order.products[lightPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="lightPage.constants.SVG_ID_GLASS")
 
-            .discount-container
-              .discount-box.selected
-                .discount-data
-                  label.disc-input.noPreventDefault#disc-input-main {{lightPage.C.cart.averageDisc | number : 2}}
-                  label %
-                .discount-txt-arrow(ng-click="lightPage.toggleDiscount()")
-                  .discounts-label {{lightPage.DISCOUNT}}
-                  .discounts-icon-down(ng-if="!lightPage.G.global.toggleDiscount")
-                  .discounts-icon-up(ng-if="lightPage.G.global.toggleDiscount")
-              .disc(ng-if="lightPage.G.global.toggleDiscount")
-                .discount-box.selected
-                  .discount-data(ng-keyup="lightPage.enterKeyPrice(event)")
-                    .disc-max(ng-show="lightPage.C.cart.tempConstructDisc > lightPage.U.userInfo.discountConstrMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%
-                    input.disc-input.noPreventDefault#disc-input(type="number" value="0" ng-model="lightPage.C.cart.tempConstructDisc")
-                    |%
-                  .discount-txt(ng-click="lightPage.approveNewDisc(0)")
-                    .discounts-label {{ ::lightPage.DISCOUNT_WINDOW }}
+            //- .discount-container
+            //-   .discount-box.selected
+            //-     .discount-data
+            //-       label.disc-input.noPreventDefault#disc-input-main {{lightPage.C.cart.averageDisc | number : 2}}
+            //-       label %
+            //-     .discount-txt-arrow(ng-click="lightPage.toggleDiscount()")
+            //-       .discounts-label {{lightPage.DISCOUNT}}
+            //-       .discounts-icon-down(ng-if="!lightPage.G.global.toggleDiscount")
+            //-       .discounts-icon-up(ng-if="lightPage.G.global.toggleDiscount")
+            //-   .disc(ng-if="lightPage.G.global.toggleDiscount")
+            //-     .discount-box.selected
+            //-       .discount-data(ng-keyup="lightPage.enterKeyPrice(event)")
+            //-         .disc-max(ng-show="lightPage.C.cart.tempConstructDisc > lightPage.U.userInfo.discountConstrMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountConstrMax}}%
+            //-         input.disc-input.noPreventDefault#disc-input(type="number" value="0" ng-model="lightPage.C.cart.tempConstructDisc")
+            //-         |%
+            //-       .discount-txt(ng-click="lightPage.approveNewDisc(0)")
+            //-         .discounts-label {{ ::lightPage.DISCOUNT_WINDOW }}
 
-                .discount-box.selected
-                  .discount-data(ng-keyup="lightPage.enterKeyDop(event)")
-                    .disc-max(ng-show="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
-                    input.disc-input.noPreventDefault#disc-input-add(type="number" value="0" ng-model="lightPage.C.cart.tempAddelemDisc")
-                    |%
-                  .discount-txt(ng-click="lightPage.approveNewDisc(1)")
-                    .discounts-label {{ ::lightPage.DISCOUNT_ADDELEM }}
+            //-     .discount-box.selected
+            //-       .discount-data(ng-keyup="lightPage.enterKeyDop(event)")
+            //-         .disc-max(ng-show="lightPage.C.cart.tempAddelemDisc > lightPage.U.userInfo.discountAddElemMax") {{ ::lightPage.MAX }} {{lightPage.U.userInfo.discountAddElemMax}}%
+            //-         input.disc-input.noPreventDefault#disc-input-add(type="number" value="0" ng-model="lightPage.C.cart.tempAddelemDisc")
+            //-         |%
+            //-       .discount-txt(ng-click="lightPage.approveNewDisc(1)")
+            //-         .discounts-label {{ ::lightPage.DISCOUNT_ADDELEM }}
 
-                .discount-box.selected
-                  .discount-data(ng-keyup="lightPage.enterKeyDopService(event)")
-                    .disc-max(ng-show="lightPage.U.userInfo.discount_service > 100") {{ ::lightPage.MAX }} {{'100'}}%
-                    input.disc-input.noPreventDefault#disc-input-service(type="number" ng-model="lightPage.C.cart.discount_service")
-                    |%
-                  .discount-txt(ng-click="lightPage.approveNewDisc(2)")
-                    .discounts-label {{lightPage.DISCOUNT_SERVICE}}
+            //-     .discount-box.selected
+            //-       .discount-data(ng-keyup="lightPage.enterKeyDopService(event)")
+            //-         .disc-max(ng-show="lightPage.U.userInfo.discount_service > 100") {{ ::lightPage.MAX }} {{'100'}}%
+            //-         input.disc-input.noPreventDefault#disc-input-service(type="number" ng-model="lightPage.C.cart.discount_service")
+            //-         |%
+            //-       .discount-txt(ng-click="lightPage.approveNewDisc(2)")
+            //-         .discounts-label {{lightPage.DISCOUNT_SERVICE}}
 
-            .discount-container
-              .discount-title {{ ::lightPage.DISCOUNT }}
-              .discount-price-container
-                .discount-price-box
-                  .discount-price-label {{ ::lightPage.DISCOUNT_WITHOUT }}
-                  .discount-price {{ lightPage.O.order.order_price }} {{lightPage.U.userInfo.currency}}
-                .discount-price-box
-                  .discount-price-label {{ ::lightPage.DISCOUNT_WITH }}
-                  .discount-price {{ lightPage.O.order.productsPriceDis }} {{lightPage.U.userInfo.currency}}
-                .discount-price-box
-                  .discount-price-label {{ ::lightPage.DISCOUNT }}
-                  .discount-price {{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}
+            //- .discount-container
+            //-   .discount-title {{ ::lightPage.DISCOUNT }}
+            //-   .discount-price-container
+            //-     .discount-price-box
+            //-       .discount-price-label {{ ::lightPage.DISCOUNT_WITHOUT }}
+            //-       .discount-price {{ lightPage.O.order.order_price }} {{lightPage.U.userInfo.currency}}
+            //-     .discount-price-box
+            //-       .discount-price-label {{ ::lightPage.DISCOUNT_WITH }}
+            //-       .discount-price {{ lightPage.O.order.productsPriceDis }} {{lightPage.U.userInfo.currency}}
+            //-     .discount-price-box
+            //-       .discount-price-label {{ ::lightPage.DISCOUNT }}
+            //-       .discount-price {{ lightPage.C.cart.discountPriceDiff }} {{lightPage.U.userInfo.currency}}
             //-rehau template for cards END -------------------------
 
         .addelements-detail(ng-if="lightPage.config.isAddElementDetail")

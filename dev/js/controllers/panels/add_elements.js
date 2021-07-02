@@ -14,8 +14,10 @@
                                                  GlobalStor,
                                                  UserStor,
                                                  AuxStor,
-                                                 ProductStor) {
+                                                 ProductStor,
+                                                 MainServ) {
             /*jshint validthis:true */
+              /*jshint validthis:true */
             var thisCtrl = this;
             thisCtrl.constants = globalConstants;
             thisCtrl.G = GlobalStor;
@@ -64,8 +66,159 @@
             $scope.servisesPrice = [0, 0, 0, 0, 0];
 
             thisCtrl.openIndex = -1;
+            
+            //Logic and methods from add-elements-mobile file just to reproduce same behavior of screen
+            thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;
+            thisCtrl.edit = 0;
+            thisCtrl.ChoosenAddElemGroup = -1;
+            thisCtrl.confirmAddElem = 0;
+            thisCtrl.SelectedElement = '';
+            thisCtrl.addElementsList = '';
+            thisCtrl.lastParent = null;
 
+            thisCtrl.AddElementsMobile = [];
+
+            let addElementsAll = angular.copy(GlobalStor.global.addElementsAll);
+            
             /**============ METHODS ================*/
+            addElementsAll.forEach((item, index) => {
+                if (index === 0) {
+                    if (item.elementsList[0])
+                        item.elementsList[0] = filterMoscitos(item.elementsList[0]);
+                }
+                if (GeneralServ.addElementDATA[index].id < 100 && !GeneralServ.addElementDATA[index].disable_mobile) {
+                    if (item.elementType && item.elementsList) {
+                        let tmp;
+                        tmp = GeneralServ.addElementDATA[index];
+                        tmp.folder = merge(angular.copy(item.elementType), angular.copy(item.elementsList));
+                        thisCtrl.AddElementsMobile.push(tmp);
+                    }
+                }
+            });
+            function filterMoscitos(input) {
+                let output = [];
+                if (!ProductStor.product.is_addelem_only) {
+                    output =  angular.copy(input.filter((item) => {
+                        return (item.profile_id == ProductStor.product.profile.id);
+                    }));
+                }
+                else {
+                    output = angular.copy(input.filter(function(item) {
+                        return !item.profile_id;
+                    }));
+                }
+                return output;
+            }
+            function merge(elementType, elementsList) {
+                let result = [];
+                elementType.forEach((item, index) => {
+                    item.subFolder = elementsList[index];
+                    result.push(item);
+                });
+                return result;
+            }
+            function OpenFolder(index, event) {
+                GlobalStor.global.OpenItemFolder = -1;
+                if (GlobalStor.global.OpenSubFolder === index) {
+                    GlobalStor.global.OpenSubFolder = -1;
+                } else {
+                    GlobalStor.global.OpenSubFolder = index;
+                    thisCtrl.ChoosenAddElemGroup = index;
+                    AuxStor.aux.isFocusedAddElement = index + 1;
+                    setTimeout(() => {
+                        $('.add-elements-mobile').animate({
+                            scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 100
+                        }, 'slow');
+                    }, 250);
+                    thisCtrl.lastParent = event;
+                }
+
+            }
+            function showItems(index, event, img) {
+                if (GlobalStor.global.OpenItemFolder === index) {
+                    GlobalStor.global.OpenItemFolder = -1;
+                } else {
+                    GlobalStor.global.OpenItemFolder = index;
+                    if (img) {
+                        setTimeout(() => {
+                            $('.add-elements-mobile').animate({
+                                scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 150
+                            }, 'slow');
+                        }, 250);
+                    } else {
+                        setTimeout(() => {
+                            $('.add-elements-mobile').animate({
+                                scrollTop: $(event.target).offset().top + $('.add-elements-mobile').scrollTop() - 120
+                            }, 'slow');
+                        }, 250);
+                    }
+                }
+            }
+            setTimeout(() => {
+                $(".folders").each((index, item) => {
+                    if (index % 2 === 0) {
+                        $(item).addClass('gray');
+                    }
+                });
+            }, 100);
+
+            /**========== FINISH ==========*/
+            function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
+                // AuxStor.aux.isFocusedAddElement = 0;
+                AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
+                if (thisCtrl.ChoosenAddElemGroup || ProductStor.product.is_addelem_only) {
+                    thisCtrl.confirmAddElem = 1;
+                }
+                thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
+                thisCtrl.addElementsList = addElementsList[0];
+            }
+
+            function closeConfirmAddElem() {
+                thisCtrl.confirmAddElem = 0;
+                thisCtrl.edit = 0;
+                GlobalStor.global.isSizeCalculator = 0;
+                GlobalStor.global.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+                setTimeout(() => {
+                    $('.add-elements-mobile').animate({
+                        scrollTop: $(thisCtrl.lastParent.target).offset().top + $('.add-elements-mobile').scrollTop() - 100
+                    }, 'slow');
+                }, 50);
+            }
+
+            function confirmAddElemDelete(typeId, elementId) {
+                function deleteaddelem() {
+                    AddElementMenuServ.deleteAddElement(typeId, elementId)
+                }
+
+                GeneralServ.confirmAlert(
+                    $filter('translate')('common_words.DELETE_ELEM_TITLE'),
+                    $filter('translate')('common_words.DELETE_ELEM_TXT'),
+                    deleteaddelem
+                );
+            }
+
+            function editEddElem(AddElemGroup, index) {
+                thisCtrl.edit = 1;
+                thisCtrl.confirmAddElem = 1;
+                thisCtrl.SelectedElement = index;
+                thisCtrl.ChoosenAddElemGroup = AddElemGroup;
+            }
+
+            function cancelAddElem(typeId, elementId) {
+                AddElementMenuServ.deleteAddElement(typeId, elementId);
+                thisCtrl.confirmAddElem = 0;
+                thisCtrl.edit = 0;
+                GlobalStor.global.isSizeCalculator = 0;
+                GlobalStor.global.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+                setTimeout(() => {
+                    $('.add-elements-mobile').animate({
+                        scrollTop: $(thisCtrl.lastParent.target).offset().top + $('.add-elements-mobile').scrollTop() - 100
+                    }, 'slow');
+                }, 50);
+            }
+
             // Show Window Scheme Dialog
             function showWindowScheme() {
                 filterAddElem();
@@ -121,5 +274,21 @@
             thisCtrl.showWindowScheme = showWindowScheme;
             thisCtrl.closeWindowScheme = closeWindowScheme;
             thisCtrl.openServiceCalculator = openServiceCalculator;
+            //------ clicking
+            thisCtrl.extendUrl = MainServ.extendUrl;
+            thisCtrl.showItems = showItems;
+            thisCtrl.OpenFolder = OpenFolder;
+            thisCtrl.confirmAddElemDialog = confirmAddElemDialog;
+            thisCtrl.confirmAddElemDelete = confirmAddElemDelete;
+            thisCtrl.closeConfirmAddElem = closeConfirmAddElem;
+            thisCtrl.editEddElem = editEddElem;
+            thisCtrl.cancelAddElem = cancelAddElem;
+
+
+            thisCtrl.showInfoBox = MainServ.showInfoBox;
+            thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
+            thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+
+            thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
         });
 })();

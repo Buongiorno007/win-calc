@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1624607957') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1623393065') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max-rehau, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container-rehau .save, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -5374,19 +5374,19 @@ textarea.comment-field-rehau {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -8309,7 +8309,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1624607957') no-repeat;
+  background: url('../img/login/logo.png?1623393066') no-repeat;
   background-size: cover !important;
 }
 
@@ -11779,7 +11779,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1624607957') no-repeat;
+  background: url('../img/door-arrow.png?1623393065') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -12020,12 +12020,13 @@ tr.factory_item {
 /* line 138, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   background-color: white;
+  overflow: scroll;
 }
-/* line 141, ../../dev/sass/pages/light.scss */
+/* line 143, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   background-color: white;
 }
-/* line 144, ../../dev/sass/pages/light.scss */
+/* line 146, ../../dev/sass/pages/light.scss */
 .light-v .img-configuration {
   width: 3rem;
   height: 3rem;
@@ -12036,7 +12037,7 @@ tr.factory_item {
   padding: 1rem;
   display: inline-block;
 }
-/* line 153, ../../dev/sass/pages/light.scss */
+/* line 155, ../../dev/sass/pages/light.scss */
 .light-v .img-configuration.active {
   width: 3rem;
   height: 3rem;
@@ -12047,7 +12048,7 @@ tr.factory_item {
   padding: 1rem;
   display: inline-block;
 }
-/* line 164, ../../dev/sass/pages/light.scss */
+/* line 166, ../../dev/sass/pages/light.scss */
 .light-v .img-karkas {
   width: 3rem;
   height: 3rem;
@@ -12058,7 +12059,7 @@ tr.factory_item {
   padding: 1rem;
   display: inline-block;
 }
-/* line 173, ../../dev/sass/pages/light.scss */
+/* line 175, ../../dev/sass/pages/light.scss */
 .light-v .img-karkas.active {
   width: 3rem;
   height: 3rem;
@@ -12069,7 +12070,7 @@ tr.factory_item {
   padding: 1rem;
   display: inline-block;
 }
-/* line 184, ../../dev/sass/pages/light.scss */
+/* line 186, ../../dev/sass/pages/light.scss */
 .light-v .karkas-button {
   cursor: pointer;
   width: 33.3%;
@@ -12081,39 +12082,39 @@ tr.factory_item {
   border-bottom: 0.5px solid #bebebe;
   background-color: white;
 }
-/* line 194, ../../dev/sass/pages/light.scss */
+/* line 196, ../../dev/sass/pages/light.scss */
 .light-v .karkas-button.active {
   background-color: white;
 }
-/* line 199, ../../dev/sass/pages/light.scss */
+/* line 201, ../../dev/sass/pages/light.scss */
 .light-v .cart-menu .item {
   border: none;
   margin-top: 1rem;
 }
-/* line 202, ../../dev/sass/pages/light.scss */
+/* line 204, ../../dev/sass/pages/light.scss */
 .light-v .cart-menu .item:after {
   color: #cc0000 !important;
 }
-/* line 206, ../../dev/sass/pages/light.scss */
+/* line 208, ../../dev/sass/pages/light.scss */
 .light-v .cart-menu .title {
   margin: 0.625rem 0;
   color: #cc0000 !important;
 }
-/* line 214, ../../dev/sass/pages/light.scss */
+/* line 216, ../../dev/sass/pages/light.scss */
 .light-v .cart-menu-rehau .item {
   border: none;
   margin-top: 1rem;
 }
-/* line 217, ../../dev/sass/pages/light.scss */
+/* line 219, ../../dev/sass/pages/light.scss */
 .light-v .cart-menu-rehau .item:after {
   color: #cc0000 !important;
 }
-/* line 221, ../../dev/sass/pages/light.scss */
+/* line 223, ../../dev/sass/pages/light.scss */
 .light-v .cart-menu-rehau .title {
   margin: 0.625rem 0;
   color: #cc0000 !important;
 }
-/* line 227, ../../dev/sass/pages/light.scss */
+/* line 229, ../../dev/sass/pages/light.scss */
 .light-v .cart-button {
   cursor: pointer;
   width: 33.3%;
@@ -12125,11 +12126,11 @@ tr.factory_item {
   border-bottom: 0.5px solid #bebebe;
   background-color: white;
 }
-/* line 237, ../../dev/sass/pages/light.scss */
+/* line 239, ../../dev/sass/pages/light.scss */
 .light-v .cart-button.active {
   background-color: white;
 }
-/* line 241, ../../dev/sass/pages/light.scss */
+/* line 243, ../../dev/sass/pages/light.scss */
 .light-v .img-cart {
   width: 3.5rem;
   height: 3.5rem;
@@ -12141,24 +12142,24 @@ tr.factory_item {
   display: inline-block;
   color: #bebebe;
 }
-/* line 251, ../../dev/sass/pages/light.scss */
+/* line 253, ../../dev/sass/pages/light.scss */
 .light-v .img-cart.active {
   background: url(../img/config-menu/cart_active.svg) no-repeat center;
   background-size: contain !important;
 }
-/* line 256, ../../dev/sass/pages/light.scss */
+/* line 258, ../../dev/sass/pages/light.scss */
 .light-v .configuration {
   height: 70%;
   padding-left: 2.75rem;
 }
-/* line 260, ../../dev/sass/pages/light.scss */
+/* line 262, ../../dev/sass/pages/light.scss */
 .light-v .karkas {
   position: relative;
   top: 2rem;
   height: 70%;
   padding-left: 2rem;
 }
-/* line 266, ../../dev/sass/pages/light.scss */
+/* line 268, ../../dev/sass/pages/light.scss */
 .light-v .construction-left-menu {
   position: relative;
   top: 0;
@@ -12166,12 +12167,12 @@ tr.factory_item {
   background-color: white;
   width: 100%;
 }
-/* line 273, ../../dev/sass/pages/light.scss */
+/* line 275, ../../dev/sass/pages/light.scss */
 .light-v .figure-lists {
   width: 100%;
   background-color: white;
 }
-/* line 277, ../../dev/sass/pages/light.scss */
+/* line 279, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-block {
   position: relative;
   width: 13.5rem;
@@ -12182,27 +12183,27 @@ tr.factory_item {
   padding: 0px;
   background-color: transparent;
 }
-/* line 286, ../../dev/sass/pages/light.scss */
+/* line 288, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-block.selected {
   background-color: transparent !important;
 }
-/* line 290, ../../dev/sass/pages/light.scss */
+/* line 292, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-block:hover {
   background-color: transparent !important;
 }
-/* line 293, ../../dev/sass/pages/light.scss */
+/* line 295, ../../dev/sass/pages/light.scss */
 .light-v .selected {
   color: #00219e !important;
 }
-/* line 296, ../../dev/sass/pages/light.scss */
+/* line 298, ../../dev/sass/pages/light.scss */
 .light-v .figure-icon:hover {
   color: #000;
 }
-/* line 299, ../../dev/sass/pages/light.scss */
+/* line 301, ../../dev/sass/pages/light.scss */
 .light-v .separator {
   margin: 0;
 }
-/* line 302, ../../dev/sass/pages/light.scss */
+/* line 304, ../../dev/sass/pages/light.scss */
 .light-v .figure-item {
   height: auto;
   width: 110%;
@@ -12210,27 +12211,27 @@ tr.factory_item {
   padding-top: 1rem;
   padding-bottom: 0.2rem;
 }
-/* line 308, ../../dev/sass/pages/light.scss */
+/* line 310, ../../dev/sass/pages/light.scss */
 .light-v .figure-item.selected {
   background-color: rgba(0, 0, 0, 0.07);
   margin-left: -2rem;
   padding-left: 2rem;
 }
-/* line 313, ../../dev/sass/pages/light.scss */
+/* line 315, ../../dev/sass/pages/light.scss */
 .light-v .figure-item.temp-fig {
   height: 7.5rem;
 }
-/* line 317, ../../dev/sass/pages/light.scss */
+/* line 319, ../../dev/sass/pages/light.scss */
 .light-v .figure-item:hover {
   background-color: rgba(0, 0, 0, 0.07);
   margin-left: -2rem;
   padding-left: 2rem;
 }
-/* line 321, ../../dev/sass/pages/light.scss */
+/* line 323, ../../dev/sass/pages/light.scss */
 .light-v .figure-item:hover .figure-icon {
   color: #fff;
 }
-/* line 325, ../../dev/sass/pages/light.scss */
+/* line 327, ../../dev/sass/pages/light.scss */
 .light-v .figure-label {
   font: normal 1.875rem/1.5rem roboto-bold, sans-serif, icons;
   color: #cc0000;
@@ -12240,7 +12241,7 @@ tr.factory_item {
   top: -3rem;
   left: 12rem;
 }
-/* line 335, ../../dev/sass/pages/light.scss */
+/* line 337, ../../dev/sass/pages/light.scss */
 .light-v .construction-left-menu-rehau {
   position: relative;
   top: 0;
@@ -12248,16 +12249,16 @@ tr.factory_item {
   background-color: white;
   width: 100%;
 }
-/* line 341, ../../dev/sass/pages/light.scss */
+/* line 343, ../../dev/sass/pages/light.scss */
 .light-v .construction-left-menu-rehau ul {
   padding: 0;
 }
-/* line 345, ../../dev/sass/pages/light.scss */
+/* line 347, ../../dev/sass/pages/light.scss */
 .light-v .figure-lists-rehau {
   width: 100%;
   background-color: white;
 }
-/* line 349, ../../dev/sass/pages/light.scss */
+/* line 351, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau-block {
   position: relative;
   width: 100%;
@@ -12268,19 +12269,19 @@ tr.factory_item {
   padding: 0px;
   background-color: transparent;
 }
-/* line 358, ../../dev/sass/pages/light.scss */
+/* line 360, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau-block.active {
   background-color: red;
 }
-/* line 362, ../../dev/sass/pages/light.scss */
+/* line 364, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau-block:hover {
   background-color: transparent !important;
 }
-/* line 365, ../../dev/sass/pages/light.scss */
+/* line 367, ../../dev/sass/pages/light.scss */
 .light-v .selected {
   color: #00219e !important;
 }
-/* line 368, ../../dev/sass/pages/light.scss */
+/* line 370, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau {
   height: 90px;
   width: 110%;
@@ -12293,7 +12294,7 @@ tr.factory_item {
   background-position-x: -50px;
   transition: 0.6s all linear;
 }
-/* line 381, ../../dev/sass/pages/light.scss */
+/* line 383, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau.active {
   background-position-y: center;
   background-position-x: 20px;
@@ -12301,19 +12302,19 @@ tr.factory_item {
   transition: 0.6s all linear;
   background-color: rgba(0, 0, 0, 0.07);
 }
-/* line 388, ../../dev/sass/pages/light.scss */
+/* line 390, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau.temp-fig-rehau {
   margin-top: -10px;
 }
-/* line 392, ../../dev/sass/pages/light.scss */
+/* line 394, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau:hover {
   background-color: rgba(0, 0, 0, 0.07);
 }
-/* line 395, ../../dev/sass/pages/light.scss */
+/* line 397, ../../dev/sass/pages/light.scss */
 .light-v .figure-item-rehau:active {
   background-color: #E6E6E6;
 }
-/* line 398, ../../dev/sass/pages/light.scss */
+/* line 400, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau {
   font: normal 1.875rem/1.5rem roboto-bold, sans-serif, icons;
   color: #37A58C;
@@ -12324,14 +12325,14 @@ tr.factory_item {
   padding: 16px 16px 0 16px;
   left: 0;
 }
-/* line 408, ../../dev/sass/pages/light.scss */
+/* line 410, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau span {
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 32px;
 }
-/* line 416, ../../dev/sass/pages/light.scss */
+/* line 418, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau-subtitle {
   text-transform: lowercase;
   margin: 0 !important;
@@ -12342,11 +12343,11 @@ tr.factory_item {
   font-size: 16px;
   line-height: 24px;
 }
-/* line 426, ../../dev/sass/pages/light.scss */
+/* line 428, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau-subtitle:first-letter {
   text-transform: uppercase;
 }
-/* line 432, ../../dev/sass/pages/light.scss */
+/* line 434, ../../dev/sass/pages/light.scss */
 .light-v .edit_submenu {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -12364,96 +12365,96 @@ tr.factory_item {
   cursor: pointer;
   z-index: 5;
 }
-/* line 444, ../../dev/sass/pages/light.scss */
+/* line 446, ../../dev/sass/pages/light.scss */
 .light-v .edit_submenu.active {
   left: -30rem;
 }
-/* line 448, ../../dev/sass/pages/light.scss */
+/* line 450, ../../dev/sass/pages/light.scss */
 .light-v #impost-shape-menu {
   top: 9.5rem;
   z-index: -1;
 }
-/* line 452, ../../dev/sass/pages/light.scss */
+/* line 454, ../../dev/sass/pages/light.scss */
 .light-v #sash-shape-menu {
   top: 17.5rem;
   z-index: -1;
 }
-/* line 455, ../../dev/sass/pages/light.scss */
+/* line 457, ../../dev/sass/pages/light.scss */
 .light-v #sash-shape-menu.active {
   left: -28rem;
 }
-/* line 459, ../../dev/sass/pages/light.scss */
+/* line 461, ../../dev/sass/pages/light.scss */
 .light-v .sash-shtulp-right {
   left: 10.5rem;
 }
-/* line 462, ../../dev/sass/pages/light.scss */
+/* line 464, ../../dev/sass/pages/light.scss */
 .light-v .sash-left-up {
   left: 6rem;
 }
-/* line 465, ../../dev/sass/pages/light.scss */
+/* line 467, ../../dev/sass/pages/light.scss */
 .light-v .sash-up,
 .light-v .sash-right,
 .light-v .sash-down {
   left: 1.2rem;
 }
-/* line 470, ../../dev/sass/pages/light.scss */
+/* line 472, ../../dev/sass/pages/light.scss */
 .light-v #angel-shape-menu {
   top: 25rem;
   z-index: -1;
 }
-/* line 473, ../../dev/sass/pages/light.scss */
+/* line 475, ../../dev/sass/pages/light.scss */
 .light-v #angel-shape-menu.active {
   left: -20rem;
 }
-/* line 477, ../../dev/sass/pages/light.scss */
+/* line 479, ../../dev/sass/pages/light.scss */
 .light-v #arc-shape-menu {
   z-index: -1;
   top: 33.5rem;
 }
-/* line 480, ../../dev/sass/pages/light.scss */
+/* line 482, ../../dev/sass/pages/light.scss */
 .light-v #arc-shape-menu.active {
   left: -16rem;
 }
-/* line 484, ../../dev/sass/pages/light.scss */
+/* line 486, ../../dev/sass/pages/light.scss */
 .light-v #position-menu-for-position {
   z-index: -1;
   top: 41.5rem;
 }
-/* line 487, ../../dev/sass/pages/light.scss */
+/* line 489, ../../dev/sass/pages/light.scss */
 .light-v #position-menu-for-position.active {
   left: -29rem;
 }
-/* line 491, ../../dev/sass/pages/light.scss */
+/* line 493, ../../dev/sass/pages/light.scss */
 .light-v .active_svg, .light-v .frame-active, .light-v .glass-active, .light-v .corner_mark,
 .light-v .frame-active,
 .light-v .glass-active,
 .light-v .corner_mark {
   fill: #7d8efb !important;
 }
-/* line 497, ../../dev/sass/pages/light.scss */
+/* line 499, ../../dev/sass/pages/light.scss */
 .light-v .menu-footer {
   position: relative;
   top: -3rem;
   border-top: 1px solid #b1b1b1;
   padding-top: 1rem;
 }
-/* line 503, ../../dev/sass/pages/light.scss */
+/* line 505, ../../dev/sass/pages/light.scss */
 .light-v .figure-icon-top {
   font: normal 5.5rem/1 icons, sans-serif;
   color: gray;
 }
-/* line 507, ../../dev/sass/pages/light.scss */
+/* line 509, ../../dev/sass/pages/light.scss */
 .light-v .template-icon {
   width: 5.5rem;
 }
-/* line 510, ../../dev/sass/pages/light.scss */
+/* line 512, ../../dev/sass/pages/light.scss */
 .light-v .figure-icon-bottom {
   font: normal 5.5rem/1 icons, sans-serif;
   position: relative;
   top: -5.5rem;
   left: 0;
 }
-/* line 516, ../../dev/sass/pages/light.scss */
+/* line 518, ../../dev/sass/pages/light.scss */
 .light-v .product-u-coeff {
   font-size: 3rem !important;
   position: relative;
@@ -12461,7 +12462,7 @@ tr.factory_item {
   left: 41rem;
   cursor: pointer;
 }
-/* line 523, ../../dev/sass/pages/light.scss */
+/* line 525, ../../dev/sass/pages/light.scss */
 .light-v .product-u-coeff-description {
   text-decoration: underline;
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
@@ -12472,22 +12473,22 @@ tr.factory_item {
   left: 35rem;
   cursor: pointer;
 }
-/* line 533, ../../dev/sass/pages/light.scss */
+/* line 535, ../../dev/sass/pages/light.scss */
 .light-v .size-line {
   stroke-width: 1.2px !important;
   stroke: #cc0000 !important;
 }
-/* line 538, ../../dev/sass/pages/light.scss */
+/* line 540, ../../dev/sass/pages/light.scss */
 .light-v .size-line-rehau {
   stroke-width: 1.2px !important;
   stroke: #37A58C !important;
 }
-/* line 542, ../../dev/sass/pages/light.scss */
+/* line 544, ../../dev/sass/pages/light.scss */
 .light-v .size-line-arrow-rehau {
   stroke-width: 1.2px !important;
   stroke: black !important;
 }
-/* line 547, ../../dev/sass/pages/light.scss */
+/* line 549, ../../dev/sass/pages/light.scss */
 .light-v .size-rect {
   width: 160px;
   height: 70px;
@@ -12497,7 +12498,7 @@ tr.factory_item {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 555, ../../dev/sass/pages/light.scss */
+/* line 557, ../../dev/sass/pages/light.scss */
 .light-v .size-rect.active {
   -moz-fill: #cc0000;
   -moz-fill-opacity: 1;
@@ -12505,7 +12506,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #ff0303;
 }
-/* line 563, ../../dev/sass/pages/light.scss */
+/* line 565, ../../dev/sass/pages/light.scss */
 .light-v .size-txt, .light-v .glass-txt, .light-v .size-txt-edit, .light-v .size-txt-edit-rehau, .light-v .mobile .main-view .size-txt-edit, .mobile .main-view .light-v .size-txt-edit,
 .light-v .mobile svg-template .size-txt-edit,
 .mobile svg-template .light-v .size-txt-edit,
@@ -12518,17 +12519,17 @@ tr.factory_item {
   alignment-baseline: middle;
   cursor: pointer;
 }
-/* line 571, ../../dev/sass/pages/light.scss */
+/* line 573, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit {
   stroke: #cc0000;
   fill: #cc0000;
 }
-/* line 575, ../../dev/sass/pages/light.scss */
+/* line 577, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit.active {
   stroke: white;
   fill: white;
 }
-/* line 581, ../../dev/sass/pages/light.scss */
+/* line 583, ../../dev/sass/pages/light.scss */
 .light-v .size-rect-rehau {
   width: 160px;
   height: 70px;
@@ -12543,7 +12544,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #37A58C;
 }
-/* line 594, ../../dev/sass/pages/light.scss */
+/* line 596, ../../dev/sass/pages/light.scss */
 .light-v .size-rect-rehau.active {
   -moz-fill: #DD0060;
   -moz-fill-opacity: 1;
@@ -12551,7 +12552,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #DD0060;
 }
-/* line 603, ../../dev/sass/pages/light.scss */
+/* line 605, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-rehau {
   font-size: 5.625rem;
   stroke: white;
@@ -12561,18 +12562,18 @@ tr.factory_item {
   dominant-baseline: middle;
   cursor: pointer;
 }
-/* line 612, ../../dev/sass/pages/light.scss */
+/* line 614, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit-rehau {
   dominant-baseline: middle;
   stroke: white;
   fill: white;
 }
-/* line 617, ../../dev/sass/pages/light.scss */
+/* line 619, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit-rehau.active {
   stroke: white;
   fill: white;
 }
-/* line 624, ../../dev/sass/pages/light.scss */
+/* line 626, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu {
   position: absolute;
   top: 0.5rem;
@@ -12582,7 +12583,7 @@ tr.factory_item {
   border-radius: 50%;
   background-color: #cc0000;
 }
-/* line 633, ../../dev/sass/pages/light.scss */
+/* line 635, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu p {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
@@ -12590,7 +12591,7 @@ tr.factory_item {
   top: -0.2rem;
   left: 0.1rem;
 }
-/* line 641, ../../dev/sass/pages/light.scss */
+/* line 643, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel {
   position: absolute;
   width: 100%;
@@ -12602,13 +12603,13 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 651, ../../dev/sass/pages/light.scss */
+/* line 653, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel.active {
   top: 69rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 657, ../../dev/sass/pages/light.scss */
+/* line 659, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight {
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem rgba(0, 0, 0, 0.5);
   left: 135rem;
@@ -12622,15 +12623,15 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 669, ../../dev/sass/pages/light.scss */
+/* line 671, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.active {
   height: 90%;
 }
-/* line 672, ../../dev/sass/pages/light.scss */
+/* line 674, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.goLeft {
   left: 64rem;
 }
-/* line 676, ../../dev/sass/pages/light.scss */
+/* line 678, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau {
   left: 135rem;
   position: absolute;
@@ -12643,45 +12644,45 @@ tr.factory_item {
   background: white;
   z-index: 999;
 }
-/* line 687, ../../dev/sass/pages/light.scss */
+/* line 689, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau .construction-type-rehau {
   margin-top: 150px;
   text-align: start;
 }
-/* line 688, ../../dev/sass/pages/light.scss */
+/* line 690, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau .construction-type-rehau:first-child {
   margin-top: 0;
 }
-/* line 694, ../../dev/sass/pages/light.scss */
+/* line 696, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau.active {
   height: 100%;
 }
-/* line 697, ../../dev/sass/pages/light.scss */
+/* line 699, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau.goLeft {
   left: 0;
   top: -6rem;
 }
-/* line 702, ../../dev/sass/pages/light.scss */
+/* line 704, ../../dev/sass/pages/light.scss */
 .light-v input::-webkit-outer-spin-button,
 .light-v input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 708, ../../dev/sass/pages/light.scss */
+/* line 710, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
   margin-top: 1rem;
 }
-/* line 713, ../../dev/sass/pages/light.scss */
+/* line 715, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .discount-price-rehau {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
   margin-top: 90px;
 }
-/* line 720, ../../dev/sass/pages/light.scss */
+/* line 722, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-text {
   font-style: normal;
   font-weight: normal;
@@ -12689,22 +12690,22 @@ tr.factory_item {
   line-height: 40px;
   margin-bottom: -38px;
 }
-/* line 729, ../../dev/sass/pages/light.scss */
+/* line 731, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-qty {
   font-size: 15px;
   color: #DD0060;
 }
-/* line 734, ../../dev/sass/pages/light.scss */
+/* line 736, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-value {
   color: #DD0060;
   font: bold 4rem/1 roboto-light, sans-serif, icons;
 }
-/* line 739, ../../dev/sass/pages/light.scss */
+/* line 741, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-currency {
   color: #DD0060;
   font-weight: bold;
 }
-/* line 744, ../../dev/sass/pages/light.scss */
+/* line 746, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau {
   text-align: center;
   position: relative;
@@ -12715,14 +12716,14 @@ tr.factory_item {
   margin-left: 2.75rem;
   transition: .5s;
 }
-/* line 754, ../../dev/sass/pages/light.scss */
+/* line 756, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau .counter-rehau {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 759, ../../dev/sass/pages/light.scss */
+/* line 761, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau .counter-rehau input {
   transition: .5s;
   cursor: pointer;
@@ -12737,21 +12738,21 @@ tr.factory_item {
   background-position-y: 50%;
   background-position-x: 35%;
 }
-/* line 776, ../../dev/sass/pages/light.scss */
+/* line 778, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau.unactive {
   width: 135%;
 }
-/* line 779, ../../dev/sass/pages/light.scss */
+/* line 781, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau.unactive .counter-rehau input {
   margin-right: -25rem;
 }
-/* line 786, ../../dev/sass/pages/light.scss */
+/* line 788, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter-rehau {
   background-color: #424242;
   color: white;
   padding-left: 35px;
 }
-/* line 792, ../../dev/sass/pages/light.scss */
+/* line 794, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau {
   cursor: pointer;
   position: relative;
@@ -12761,7 +12762,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 801, ../../dev/sass/pages/light.scss */
+/* line 803, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau p {
   color: white;
   font: bold 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -12772,25 +12773,25 @@ tr.factory_item {
   vertical-align: middle;
   padding-bottom: 7px;
 }
-/* line 813, ../../dev/sass/pages/light.scss */
+/* line 815, ../../dev/sass/pages/light.scss */
 .light-v .discount-block {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
 }
-/* line 817, ../../dev/sass/pages/light.scss */
+/* line 819, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-priceRed {
   text-decoration: line-through;
   font: normal 2.4rem/2.25rem roboto-regular, sans-serif, icons;
   color: #ff2121;
 }
-/* line 822, ../../dev/sass/pages/light.scss */
+/* line 824, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-price {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
 }
-/* line 828, ../../dev/sass/pages/light.scss */
+/* line 830, ../../dev/sass/pages/light.scss */
 .light-v .counter-block {
   text-align: center;
   position: relative;
@@ -12800,14 +12801,14 @@ tr.factory_item {
   flex-direction: row-reverse;
   margin-left: 2.75rem;
 }
-/* line 837, ../../dev/sass/pages/light.scss */
+/* line 839, ../../dev/sass/pages/light.scss */
 .light-v .counter {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 842, ../../dev/sass/pages/light.scss */
+/* line 844, ../../dev/sass/pages/light.scss */
 .light-v .counter input {
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
   text-align: center;
@@ -12816,30 +12817,30 @@ tr.factory_item {
   height: 7rem;
   margin-right: 4rem;
 }
-/* line 851, ../../dev/sass/pages/light.scss */
+/* line 853, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter {
   color: #cc0000;
 }
-/* line 854, ../../dev/sass/pages/light.scss */
+/* line 856, ../../dev/sass/pages/light.scss */
 .light-v .input-minus,
 .light-v .input-plus {
   cursor: pointer;
   position: relative;
   top: -2rem;
 }
-/* line 860, ../../dev/sass/pages/light.scss */
+/* line 862, ../../dev/sass/pages/light.scss */
 .light-v .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #363636;
 }
-/* line 865, ../../dev/sass/pages/light.scss */
+/* line 867, ../../dev/sass/pages/light.scss */
 .light-v .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 870, ../../dev/sass/pages/light.scss */
+/* line 872, ../../dev/sass/pages/light.scss */
 .light-v .save-block {
   cursor: pointer;
   position: relative;
@@ -12849,7 +12850,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 879, ../../dev/sass/pages/light.scss */
+/* line 881, ../../dev/sass/pages/light.scss */
 .light-v .save-block p {
   color: white;
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -12860,7 +12861,7 @@ tr.factory_item {
   width: 12rem;
   vertical-align: middle;
 }
-/* line 890, ../../dev/sass/pages/light.scss */
+/* line 892, ../../dev/sass/pages/light.scss */
 .light-v .cart-img {
   position: relative;
   width: 4rem;
@@ -12872,14 +12873,14 @@ tr.factory_item {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 901, ../../dev/sass/pages/light.scss */
+/* line 903, ../../dev/sass/pages/light.scss */
 .light-v .cart-btn, .light-v .cart-menu .order-btn, .cart-menu .light-v .order-btn {
   position: relative;
   top: 0.6rem;
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
 }
-/* line 907, ../../dev/sass/pages/light.scss */
+/* line 909, ../../dev/sass/pages/light.scss */
 .light-v .order, .light-v .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-v .product, .light-v .cart-page .addelementunit, .cart-page .light-v .addelementunit {
   top: 2rem;
   width: 32rem;
@@ -12888,29 +12889,29 @@ tr.factory_item {
   border-bottom-left-radius: 1.25rem;
   border: 1px solid #bebebe;
 }
-/* line 916, ../../dev/sass/pages/light.scss */
+/* line 918, ../../dev/sass/pages/light.scss */
 .light-v .order-rehau {
   width: 32rem;
   float: left;
 }
-/* line 922, ../../dev/sass/pages/light.scss */
+/* line 924, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 926, ../../dev/sass/pages/light.scss */
+/* line 928, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 931, ../../dev/sass/pages/light.scss */
+/* line 933, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 936, ../../dev/sass/pages/light.scss */
+/* line 938, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -12918,14 +12919,14 @@ tr.factory_item {
   background-color: #f98000;
   z-index: 1;
 }
-/* line 944, ../../dev/sass/pages/light.scss */
+/* line 946, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 951, ../../dev/sass/pages/light.scss */
+/* line 953, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -12934,27 +12935,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 958, ../../dev/sass/pages/light.scss */
+/* line 960, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 963, ../../dev/sass/pages/light.scss */
+/* line 965, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 966, ../../dev/sass/pages/light.scss */
+/* line 968, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 970, ../../dev/sass/pages/light.scss */
+/* line 972, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 975, ../../dev/sass/pages/light.scss */
+/* line 977, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -12962,130 +12963,130 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 980, ../../dev/sass/pages/light.scss */
+/* line 982, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 983, ../../dev/sass/pages/light.scss */
+/* line 985, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 990, ../../dev/sass/pages/light.scss */
+/* line 992, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 995, ../../dev/sass/pages/light.scss */
+/* line 997, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 1002, ../../dev/sass/pages/light.scss */
+/* line 1004, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 1007, ../../dev/sass/pages/light.scss */
+/* line 1009, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 1010, ../../dev/sass/pages/light.scss */
+/* line 1012, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1017, ../../dev/sass/pages/light.scss */
+/* line 1019, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau {
   width: auto;
   height: 130rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1023, ../../dev/sass/pages/light.scss */
+/* line 1025, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau .order-block {
   display: flex;
   flex-direction: column;
 }
-/* line 1028, ../../dev/sass/pages/light.scss */
+/* line 1030, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau .order-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
 }
-/* line 1036, ../../dev/sass/pages/light.scss */
+/* line 1038, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 1041, ../../dev/sass/pages/light.scss */
+/* line 1043, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 1046, ../../dev/sass/pages/light.scss */
+/* line 1048, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 1050, ../../dev/sass/pages/light.scss */
+/* line 1052, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 1054, ../../dev/sass/pages/light.scss */
+/* line 1056, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 1057, ../../dev/sass/pages/light.scss */
+/* line 1059, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 1060, ../../dev/sass/pages/light.scss */
+/* line 1062, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 1065, ../../dev/sass/pages/light.scss */
+/* line 1067, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 1070, ../../dev/sass/pages/light.scss */
+/* line 1072, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 1073, ../../dev/sass/pages/light.scss */
+/* line 1075, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 1076, ../../dev/sass/pages/light.scss */
+/* line 1078, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 1082, ../../dev/sass/pages/light.scss */
+/* line 1084, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 1088, ../../dev/sass/pages/light.scss */
+/* line 1090, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 1092, ../../dev/sass/pages/light.scss */
+/* line 1094, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1096, ../../dev/sass/pages/light.scss */
+/* line 1098, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
@@ -19951,133 +19952,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20087,133 +20088,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20237,7 +20238,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1624607957');
+  background-image: url('../img/auxiliaries/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20254,7 +20255,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1624607957');
+  background-image: url('../img/auxiliaries/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20271,7 +20272,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1624607957');
+  background-image: url('../img/auxiliaries/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20288,7 +20289,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1624607957');
+  background-image: url('../img/auxiliaries/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20305,7 +20306,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1624607957');
+  background-image: url('../img/auxiliaries/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20322,7 +20323,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1624607957');
+  background-image: url('../img/auxiliaries/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20339,7 +20340,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1624607957');
+  background-image: url('../img/auxiliaries/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20356,7 +20357,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1624607957');
+  background-image: url('../img/auxiliaries/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20373,7 +20374,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1624607957');
+  background-image: url('../img/auxiliaries/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20390,7 +20391,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1624607957');
+  background-image: url('../img/auxiliaries/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20407,7 +20408,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1624607957');
+  background-image: url('../img/auxiliaries/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20424,7 +20425,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1624607957');
+  background-image: url('../img/auxiliaries/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20441,7 +20442,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1624607957');
+  background-image: url('../img/auxiliaries/template1.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20458,7 +20459,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1624607957');
+  background-image: url('../img/auxiliaries/template2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20482,7 +20483,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1624607957');
+  background-image: url('../img/auxiliaries/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20492,7 +20493,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1624607957');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20519,7 +20520,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1624607957');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20542,7 +20543,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1624607957');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20553,7 +20554,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1624607957');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20564,7 +20565,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1624607957');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20581,7 +20582,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1624607957');
+  background-image: url('../img/auxiliaries/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20604,7 +20605,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1624607957');
+  background-image: url('../img/auxiliaries/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20615,7 +20616,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1624607957');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20632,7 +20633,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1624607957');
+  background-image: url('../img/auxiliaries/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20789,60 +20790,91 @@ input[type='number'] {
   z-index: 22;
   text-align: center;
 }
-/* line 796, ../../dev/sass/panels/add-elements.scss */
-.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .arrow {
-  background: url("../img/calc/right-arrow.svg");
+/* line 793, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau {
+  position: relative;
+  top: 6rem;
 }
-/* line 799, ../../dev/sass/panels/add-elements.scss */
-.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-windowsill-txt {
-  width: 95rem;
-  top: 15rem;
-  left: 0rem;
+/* line 797, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .totalNumberAddElements {
+  color: #333;
+  font-size: 24px;
 }
-/* line 804, ../../dev/sass/panels/add-elements.scss */
-.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-grid-txt {
-  width: 95rem;
-  top: 25rem;
-  left: 0rem;
+/* line 802, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders {
+  background-size: contain;
+  transition: 0.5s;
+  margin-right: 32px;
+  cursor: pointer;
 }
 /* line 809, ../../dev/sass/panels/add-elements.scss */
-.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-spil-txt {
-  width: 95rem;
-  top: 35rem;
-  left: 0;
+.auxiliaries-container .auxiliaries-inner-rehau .folders .subfolders {
+  background-size: contain;
+  transition: 0.5s;
+  margin-right: 32px;
 }
 /* line 814, ../../dev/sass/panels/add-elements.scss */
-.auxiliaries-container .auxiliaries-inner-rehau .auxiliary-item-rehau .aux-spillway-txt {
-  width: 95rem;
-  top: 35rem;
-  left: 0;
+.auxiliaries-container .auxiliaries-inner-rehau .folders .subfolders p {
+  background-image: url(../../img/calc/right-arrow-white.svg);
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: center;
 }
-/* line 820, ../../dev/sass/panels/add-elements.scss */
-.auxiliaries-container .auxiliaries-inner-rehau .numberMenu-rehau {
+/* line 821, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .subfolders .subfolders-name {
   font-style: normal;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 32px;
-  text-transform: uppercase;
-  color: #4E4E4E;
-  position: relative;
-  left: 4%;
-  top: 6rem;
-  text-align: center;
-  float: left;
-  height: 5rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 25px;
+  width: 104.5%;
+  padding: 8px 0;
+  color: #FFFFFF;
 }
-/* line 840, ../../dev/sass/panels/add-elements.scss */
-.auxiliaries-container .auxiliaries-inner-rehau .numberMenu-rehau.green {
-  transition: 0.5s;
-  color: #37A58C;
+/* line 833, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .subfolders .subfolders-name .splice, .auxiliaries-container .auxiliaries-inner-rehau .folders .subfolders .subfolders-name .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .auxiliaries-container .auxiliaries-inner-rehau .folders .subfolders .subfolders-name p {
+  background: #2A7E6B;
+  padding: 8px;
+  color: #fff;
+}
+/* line 839, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .subfolders .subfolders-name::first-letter {
+  text-transform: uppercase;
+}
+/* line 845, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders p {
+  margin-bottom: 0;
+  background-image: url(../../img/calc/right-arrow-white.svg);
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: center;
+}
+/* line 853, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .folders-name-rehau {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  background-color: #37A58C;
+  padding: 8px;
+  color: #FFFFFF;
+}
+/* line 865, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .folders-name-rehau::first-letter {
+  text-transform: uppercase;
+}
+/* line 870, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .splice, .auxiliaries-container .auxiliaries-inner-rehau .folders .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .auxiliaries-container .auxiliaries-inner-rehau .folders p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 10px 14px;
+  margin: 0;
+  background-color: #ffff;
+  color: #000000;
 }
 
-/* line 848, ../../dev/sass/panels/add-elements.scss */
+/* line 889, ../../dev/sass/panels/add-elements.scss */
 .numberMenu {
   position: relative;
   width: 14.7%;
@@ -20861,25 +20893,25 @@ input[type='number'] {
   align-items: center;
   justify-content: center;
 }
-/* line 865, ../../dev/sass/panels/add-elements.scss */
+/* line 906, ../../dev/sass/panels/add-elements.scss */
 .numberMenu.green {
   transition: 0.5s;
   background-color: #6ed44a;
 }
 
-/* line 871, ../../dev/sass/panels/add-elements.scss */
+/* line 912, ../../dev/sass/panels/add-elements.scss */
 .services {
   margin-left: 8rem;
   padding-top: 20rem;
 }
-/* line 875, ../../dev/sass/panels/add-elements.scss */
+/* line 916, ../../dev/sass/panels/add-elements.scss */
 .services .service-block {
   width: 90%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
-/* line 882, ../../dev/sass/panels/add-elements.scss */
+/* line 923, ../../dev/sass/panels/add-elements.scss */
 .services .service-type {
   width: 70%;
   height: 6rem;
@@ -20890,14 +20922,14 @@ input[type='number'] {
   display: inline-flex;
   align-items: center;
 }
-/* line 892, ../../dev/sass/panels/add-elements.scss */
+/* line 933, ../../dev/sass/panels/add-elements.scss */
 .services .service-type.green {
   transition: 0.5s;
   font: normal 26px/1.42857 roboto-regular, sans-serif, icons;
   background-color: #6ed44a;
   color: white;
 }
-/* line 900, ../../dev/sass/panels/add-elements.scss */
+/* line 941, ../../dev/sass/panels/add-elements.scss */
 .services .service-input {
   border-radius: 5px !important;
   box-shadow: inset 1px 1px 1px 0 #bebebe;
@@ -20907,19 +20939,19 @@ input[type='number'] {
   border: 1px solid gray;
   font: normal 25px/1.42857 roboto-thin, sans-serif, icons;
 }
-/* line 910, ../../dev/sass/panels/add-elements.scss */
+/* line 951, ../../dev/sass/panels/add-elements.scss */
 .services label {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-/* line 916, ../../dev/sass/panels/add-elements.scss */
+/* line 957, ../../dev/sass/panels/add-elements.scss */
 .services input::-webkit-inner-spin-button,
 .services input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 5px;
 }
-/* line 922, ../../dev/sass/panels/add-elements.scss */
+/* line 963, ../../dev/sass/panels/add-elements.scss */
 .services input:focus {
   outline: none;
 }
