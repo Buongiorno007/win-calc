@@ -79,6 +79,7 @@
   }
   //rehau styles
   .coeff-info-block-rehau {
+    @extend .splash;
     position: absolute;
     top: -33rem;
     width: 80rem;
@@ -91,12 +92,14 @@
     box-shadow: 0rem 0 0.9375rem 0.1rem rgba(0, 0, 0, 0.5);
 
     .coeff-max-rehau, .heat-transfer-rehau{
+
+      @extend .splash;
       color : $primary_green;
       @include roboto-rg(rem(80px));
       position:relative;
       top:0;
       padding-left: 15px;
-      display: inline-block;
+      display: inline-flex;
     }
     .heat-transfer-info_hr{
       position:relative;
@@ -108,8 +111,8 @@
       width : 90%;
       display : inline-block;
     }
-    .heat-transfer-info{
 
+    .heat-transfer-info{
       position:relative;
       @include roboto-rg(rem(30px));
       color: #000;
@@ -158,6 +161,10 @@
       max-width: rem(520px);
     }
   }
+  .coeff-total-heat-mark {
+    @extend .splash;
+    display: flex;
+  }
   .coeff-max-rehau {
     @extend .splash;
     @include roboto-md(rem(36px), 1);
@@ -196,8 +203,8 @@
     margin-top:0.2rem;
     cursor: pointer;
   }
-  .heat-transfer-rehau {
-    margin-top: -120px;
+
+  .heat-transfer-pop-up-rehau {
     top: 65px;
     width: auto;
     text-align: center;
@@ -215,10 +222,40 @@
         font-size: 18px;
       }
     }
+  }
+  .heat-transfer-rehau {
+    margin-top: -120px;
+    top: 65px;
+    left: -270px;
+    padding: 30px 240px;
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+
+    background-color:#F5F5F5;
+    .coeff-number {
+      @extend .splash;
+      margin: 0;
+      margin-right: 16px;
+      color: $primary_pink;
+      max-width: 100%;
+      white-space: nowrap;
+      font-weight: bold;
+
+      span {
+        padding-left: 10px;
+        color: black;
+        font-size: 18px;
+      }
+    }
+    .coeff-mark {
+      @extend .splash;
+      white-space: nowrap;
+      color: #333;
+    }
     .coeff-info {
       p {
         font-size: 16px;
-        line-height: 24px;
         color: #4E4E4E;
         font-weight: lighter;
         white-space: nowrap;

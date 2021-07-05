@@ -311,10 +311,10 @@
                         li.order-item-rehau(ng-if="product.glass.length > 1")
                           .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
                           .order-value-rehau {{ product.glass[0].sku + ', ...' }}
-                        li.order-item-rehau
-                          .order-label-rehau {{ ::lightPage.CONFIGMENU_HARDWARE }}
-                          .order-label-rehau(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
-                          .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
+                        //- li.order-item-rehau
+                        //-   .order-label-rehau {{ ::lightPage.CONFIGMENU_HARDWARE }}
+                        //-   .order-label-rehau(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
+                        //-   .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
                         li.order-item-rehau(ng-if="product.glass.length <= 1")
                           .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
                           .order-value-rehau {{ product.glass[0].sku }}
@@ -375,7 +375,7 @@
                   .order-footer-rehau
                     .order-footer-warmcoef
                       <h3>Оценка энергоэффективности</h3>
-                      <h2>7.4<h2>
+                      <h2>{{lightPage.P.product.heat_coef_total}}<h2>
                     .order-footer-price-rehau
                       <h3>Стоимость изделия</h3>
                       .order-price(price-fixed="{{lightPage.P.product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")

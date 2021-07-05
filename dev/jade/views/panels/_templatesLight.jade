@@ -15,7 +15,7 @@
     .single-leaf-windows 
       .single-leaf-windows-title <h1>Окна одностворчатые</h1>
       .single-leaf-windows-templates
-        .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} ")
+        .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
           .other-template-img(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
             img(ng-src="{{ templateIcon.src }}")
           .other-template-subscr(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}

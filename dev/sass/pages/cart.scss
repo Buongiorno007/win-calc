@@ -385,6 +385,8 @@
     display: flex;
     justify-content: space-between;
 
+    margin-top: 15px;
+
     padding: 4px 36px;
 
     background-color: #F1F1F1;
@@ -598,7 +600,7 @@
         list-style: none;
         margin-left: -35px;
 
-        padding: 40px 40px 40px 0px;
+        padding: 40px 40px 100px 0px;
       }
 
       .underline-rehau {
@@ -691,6 +693,8 @@
         height: 24px;
         align-self: center;
         margin-right: 40px;
+
+        cursor: pointer;
       }
     }
     //rehau styles end -----

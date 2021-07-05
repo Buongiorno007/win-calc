@@ -30065,6 +30065,11 @@ function ErrorResult(code, message) {
                     ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
+                    if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
+                        // console.log(Math.sqrt(ProductStor.product.heat_coef_total) * 10, 'BEGING YOU')
+                        ProductStor.product.heat_coef_total = Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10;
+                        console.log(ProductStor.product.heat_coef_total, "I AM!!!!!окг")
+                    }
                 } else {
                     /** U */
                     ProductStor.product.heat_coef_total =

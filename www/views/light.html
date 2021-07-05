@@ -87,7 +87,7 @@
                   <div class="single-leaf-windows"> 
                     <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
                     <div class="single-leaf-windows-templates">
-                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index} " class="other-single-template-rehau">
+                      <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
@@ -157,17 +157,27 @@
                   <div class="coeff-block">
                     <div ng-if="roomInfo.G.global.showCoefInfoBlock" class="coeff-info-block-rehau">
                       <div class="coeff-max-rehau">{{ roomInfo.O.order.heat_coef_min }}
-                        <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-rehau">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
-                        <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-rehau">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
+                        <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-pop-up-rehau">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
+                        <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-puo-up-rehau">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
                       </div>
                       <div class="heat-transfer-info_hr">{{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}</div>
                       <div class="heat-transfer-info">{{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}</div>
                       <div fs-click="roomInfo.G.global.showCoefInfoBlock=0" class="close-dialog-rehau"></div>
                     </div>
                     <!--R-->
-                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer-rehau">
-                      <div class="coeff-info"><p>Оценка энергоэффективности</p></div>
-                      <div class="coeff-number">7.4 <span>Очень хорошо</span></div>
+                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff heat-transfer-rehau">
+                      <div typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-info"><p>Оценка энергоэффективности</p></div>
+                      <div typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-total-heat-mark">
+                        <div ng-if="roomInfo.P.product.heat_coef_total" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="coeff-number">{{roomInfo.P.product.heat_coef_total}}</div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &lt; 6.1" class="coeff-mark"><span> Для балконов </span></div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &gt; 6.1 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 6.5" class="coeff-mark"><span> Достаточно хорошо </span></div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &gt; 6.5 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 7" class="coeff-mark"><span> Хорошо! </span></div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &gt; 7 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 7.5" class="coeff-mark"><span> Очень хорошо! </span></div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &gt; 7.5 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 8.2" class="coeff-mark"><span> Потрясающе!</span></div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &gt; 8.2 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 9" class="coeff-mark"><span> Превосходно!</span></div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &gt; 9 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 9.4" class="coeff-mark"><span> Великолепно!</span></div>
+                        <div ng-show="roomInfo.P.product.heat_coef_total &gt; 9.4" class="coeff-mark"><span> Лучший выбор</span></div>
+                      </div>
                     </div>
                     <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
                       <div data-output="{{ ::roomInfo.HEAT_TRANSFER }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
@@ -1281,11 +1291,6 @@
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
                           <div class="order-value-rehau">{{ product.glass[0].sku + ', ...' }}</div>
                         </li>
-                        <li class="order-item-rehau">
-                          <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_HARDWARE }}</div>
-                          <div ng-if="product.construction_type === 4" class="order-label-rehau">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
-                          <div ng-if="product.construction_type !== 4" class="order-value-rehau">{{ product.hardware.name }}</div>
-                        </li>
                         <li ng-if="product.glass.length &lt;= 1" class="order-item-rehau">
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
                           <div class="order-value-rehau">{{ product.glass[0].sku }}</div>
@@ -1349,7 +1354,7 @@
                   <div class="order-footer-rehau">
                     <div class="order-footer-warmcoef">
                       <h3>Оценка энергоэффективности</h3>
-                      <h2>7.4<h2>
+                      <h2>{{lightPage.P.product.heat_coef_total}}<h2>
                     </div>
                     <div class="order-footer-price-rehau"><h3>Стоимость изделия</h3>
                       <div price-fixed="{{lightPage.P.product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
