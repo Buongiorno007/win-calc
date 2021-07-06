@@ -92,7 +92,7 @@
     box-shadow: 0rem 0 0.9375rem 0.1rem rgba(0, 0, 0, 0.5);
 
     .coeff-max-rehau, .heat-transfer-rehau{
-
+      z-index: 999999;
       @extend .splash;
       color : $primary_green;
       @include roboto-rg(rem(80px));
@@ -162,8 +162,9 @@
     }
   }
   .coeff-total-heat-mark {
-    @extend .splash;
+    @extend .flashing;
     display: flex;
+    justify-content: space-around
   }
   .coeff-max-rehau {
     @extend .splash;
@@ -216,14 +217,10 @@
       white-space: nowrap;
       font-weight: bold;
 
-      span {
-        padding-left: 10px;
-        color: black;
-        font-size: 18px;
-      }
     }
   }
   .heat-transfer-rehau {
+    z-index: 999999;
     margin-top: -120px;
     top: 65px;
     left: -270px;
@@ -241,18 +238,18 @@
       max-width: 100%;
       white-space: nowrap;
       font-weight: bold;
-
-      span {
-        padding-left: 10px;
-        color: black;
-        font-size: 18px;
+      transition: 0.5s all;
+      &.active {
+        transform: rotate(70deg) scale(1.7);
       }
     }
+
     .coeff-mark {
-      @extend .splash;
+      @extend .flashing;
       white-space: nowrap;
       color: #333;
     }
+
     .coeff-info {
       p {
         font-size: 16px;
@@ -261,6 +258,10 @@
         white-space: nowrap;
         font-family: 'roboto-light';
       }
+    }
+
+    &.animation {
+      @extend .splash;
     }
   }
   .comment-btn {

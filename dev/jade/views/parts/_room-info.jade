@@ -44,15 +44,15 @@
                             typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
         .coeff-info(typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")<p>Оценка энергоэффективности</p>
         .coeff-total-heat-mark(typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
-          .coeff-number(ng-if="roomInfo.P.product.heat_coef_total", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}") {{roomInfo.P.product.heat_coef_total}}
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total < 6.1") <span> Для балконов </span>
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total > 6.1 && roomInfo.P.product.heat_coef_total <= 6.5") <span> Достаточно хорошо </span>
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total > 6.5 && roomInfo.P.product.heat_coef_total <= 7") <span> Хорошо! </span>
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total > 7 && roomInfo.P.product.heat_coef_total <= 7.5") <span> Очень хорошо! </span>
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total > 7.5 && roomInfo.P.product.heat_coef_total <= 8.2") <span> Потрясающе!</span>
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total > 8.2 && roomInfo.P.product.heat_coef_total <= 9") <span> Превосходно!</span>
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total > 9 && roomInfo.P.product.heat_coef_total <= 9.4") <span> Великолепно!</span>
-          .coeff-mark(ng-show="roomInfo.P.product.heat_coef_total > 9.4") <span> Лучший выбор</span>
+          .coeff-number(ng-if="roomInfo.P.product.heat_coef_total") {{roomInfo.P.product.heat_coef_total}}
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total < 6.1") <span>Для балконов</span>
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total > 6.1 && roomInfo.P.product.heat_coef_total <= 6.5") <span>Достаточно хорошо </span>
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total > 6.5 && roomInfo.P.product.heat_coef_total <= 7") <span>Хорошо! </span>
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total > 7 && roomInfo.P.product.heat_coef_total <= 7.5") <span>Очень хорошо! </span>
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total > 7.5 && roomInfo.P.product.heat_coef_total <= 8.2") <span>Потрясающе!</span>
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total > 8.2 && roomInfo.P.product.heat_coef_total <= 9") <span>Превосходно!</span>
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total > 9 && roomInfo.P.product.heat_coef_total <= 9.4") <span>Великолепно!</span>
+          .coeff-mark(ng-if="roomInfo.P.product.heat_coef_total > 9.4") <span>Лучший выбор!</span>
       .coeff.heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total > roomInfo.O.order.heat_coef_min}",
                             fs-click="roomInfo.showCoefInfoBlock()")

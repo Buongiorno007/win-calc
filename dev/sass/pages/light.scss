@@ -1043,6 +1043,9 @@
     &.active {
       top: -6rem;
     }
+    &.lower_z-index {
+      z-index: 1;
+    }
   }
   .grid-selector-dialog {
     &.active {

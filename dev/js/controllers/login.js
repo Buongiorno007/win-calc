@@ -1033,7 +1033,6 @@
         if (window.location.href === "https://rehauselected.baueffect.com/#/") {
           $(document).ready( function() { 
             setTimeout(() => {
-              console.log('check')
               document.querySelector('#login').style.opacity = "1";
               document.querySelector('#current-password').style.opacity = "1";
               document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
@@ -1045,7 +1044,6 @@
         } else if (window.location.href === "http://localhost:8888/#/") {
           $(document).ready( function() { 
             setTimeout(() => {
-              console.log('check')
               document.querySelector('#login').style.opacity = "1";
               document.querySelector('#current-password').style.opacity = "1";
               document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";

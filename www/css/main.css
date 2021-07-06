@@ -317,30 +317,30 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1624607957') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1623393065') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1624607957') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1623393065') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-info-block-rehau, .room-info-container .coeff-info-block-rehau .coeff-max-rehau, .room-info-container .coeff-info-block-rehau .heat-transfer-rehau, .room-info-container .coeff-total-heat-mark, .room-info-container .coeff-max-rehau, .room-info-container .heat-transfer-rehau .coeff-number, .room-info-container .heat-transfer-rehau .coeff-mark, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container-rehau .save, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-info-block-rehau, .room-info-container .coeff-info-block-rehau .coeff-max-rehau, .room-info-container .coeff-info-block-rehau .heat-transfer-rehau, .room-info-container .coeff-max-rehau, .room-info-container .heat-transfer-rehau .coeff-number, .room-info-container .heat-transfer-rehau.animation, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container-rehau .save, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
 .light-v .template-window, .cart-page .cart-tool,
 .light-v .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit,
 .light-v .order,
@@ -349,7 +349,7 @@ th {
 .light-v .cart-page .addelementunit,
 .cart-page .light-v .addelementunit, .cart-page .order-rehau,
 .light-v .order-rehau, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .light-v .order-qty-menu, .light-v .save-block-rehau, .light-v .save-block, .mobile .control-buttons-container .control-button .qty-mobile, .nav-menu [class^='nav-icon-'],
-.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .config-menu .go-to-cart, .config-menu .save-to-cart, .config-menu #qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .cart-menu-rehau .calendar-price, .cart-menu-rehau .measure-btn, .template-container .template-title, .template-container .other-template-img, .template-container-rehau .template-title, .template-container-rehau .other-template-img, .glass-selector-dialog .set-glass-btn, .hardware-container .hardware-box, .lamination-container .laminat-img, .lamination-container .panel-inner-rehau .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
+.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .config-menu .go-to-cart, .config-menu .save-to-cart, .config-menu #qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .cart-menu-rehau .calendar-price, .cart-menu-rehau .measure-btn, .template-container .template-title, .template-container .other-template-img, .template-container-rehau .template-title, .template-container-rehau .other-template-img, .glass-selector-dialog .set-glass-btn, .glass-selector-dialog-rehau .set-glass-btn-rehau, .hardware-container .hardware-box, .lamination-container .laminat-img, .lamination-container .panel-inner-rehau .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
   animation: splashing 0.5s ease 0s 1;
@@ -390,7 +390,7 @@ th {
 }
 /* line 145, ../../dev/sass/base/_animations.scss */
 .flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low,
-.light-v .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .light-v .order-u-coeff.coeff-low, .mobile .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
+.light-v .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .room-info-container .coeff-total-heat-mark, .room-info-container .heat-transfer-rehau .coeff-mark, .light-v .order-u-coeff.coeff-low, .mobile .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s ease 0s 1;
   -webkit-animation: flashing 1.5s ease 0s 1;
   animation: flashing 1.5s ease 0s 1;
@@ -1525,7 +1525,7 @@ body {
 .light-v .full-view .close-cur-window, .cart-page .full-view .edit-cur-window,
 .light-v .full-view .edit-cur-window, .light-v .close-cur-window, .light-v .edit-cur-window, .config-menu .menu_tooltip .close_menu_tooltip, .save-m, .close-m, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .cart-page .addelements-detail-edit,
 .light-v .addelements-detail-edit, .cart-page .addelements-detail-close,
-.light-v .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .cell-rehau, .size-calc-container .cell-rehau, .qty-calc-container .cell-rehau, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .calculator .calc-digitLight, .size-calc-container .calc-digitLight, .qty-calc-container .calc-digitLight, .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
+.light-v .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .cell-rehau, .size-calc-container .cell-rehau, .qty-calc-container .cell-rehau, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .calculator .calc-digitLight, .size-calc-container .calc-digitLight, .qty-calc-container .calc-digitLight, .glass-selector-dialog .set-glass-btn, .glass-selector-dialog-rehau .set-glass-btn-rehau, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -1625,7 +1625,7 @@ body {
 
 /* line 207, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .grid-selector-dialog, .cart-page .template-window,
-.light-v .template-window, .glass-selector-dialog, .auxiliaries-container .scheme-view-dialog {
+.light-v .template-window, .glass-selector-dialog, .glass-selector-dialog-rehau, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
   -moz-transition: all 0.3s linear;
@@ -1640,7 +1640,7 @@ body {
 }
 /* line 218, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .active.grid-selector-dialog, .cart-page .active.template-window,
-.light-v .active.template-window, .active.glass-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
+.light-v .active.template-window, .active.glass-selector-dialog, .active.glass-selector-dialog-rehau, .auxiliaries-container .active.scheme-view-dialog {
   left: 5rem;
 }
 
@@ -3039,6 +3039,7 @@ div.drum figure {
 }
 /* line 94, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-info-block-rehau .coeff-max-rehau, .room-info-container .coeff-info-block-rehau .heat-transfer-rehau {
+  z-index: 999999;
   color: #37A58C;
   font: normal 5rem/1.42857 roboto-regular, sans-serif, icons;
   position: relative;
@@ -3118,8 +3119,9 @@ div.drum figure {
 /* line 164, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-total-heat-mark {
   display: flex;
+  justify-content: space-around;
 }
-/* line 168, ../../dev/sass/parts/_room-info.scss */
+/* line 169, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max-rehau {
   font: normal 2.25rem/1 roboto-medium, sans-serif, icons;
   position: absolute;
@@ -3127,14 +3129,14 @@ div.drum figure {
   right: 0;
   color: #fff;
 }
-/* line 176, ../../dev/sass/parts/_room-info.scss */
+/* line 177, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
   text-align: center;
   font: normal 3.125rem/1 roboto-regular, sans-serif, icons;
   position: relative;
   float: left;
 }
-/* line 185, ../../dev/sass/parts/_room-info.scss */
+/* line 186, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
   font: normal 2rem/1.42857 roboto-light, sans-serif, icons;
   color: black;
@@ -3152,19 +3154,19 @@ div.drum figure {
   cursor: pointer;
   text-decoration: underline;
 }
-/* line 202, ../../dev/sass/parts/_room-info.scss */
+/* line 203, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer {
   margin-top: 0.2rem;
   cursor: pointer;
 }
-/* line 207, ../../dev/sass/parts/_room-info.scss */
+/* line 208, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-pop-up-rehau {
   top: 65px;
   width: auto;
   text-align: center;
   cursor: pointer;
 }
-/* line 212, ../../dev/sass/parts/_room-info.scss */
+/* line 213, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-pop-up-rehau .coeff-number {
   margin: 0;
   color: #DD0060;
@@ -3172,14 +3174,9 @@ div.drum figure {
   white-space: nowrap;
   font-weight: bold;
 }
-/* line 219, ../../dev/sass/parts/_room-info.scss */
-.room-info-container .heat-transfer-pop-up-rehau .coeff-number span {
-  padding-left: 10px;
-  color: black;
-  font-size: 18px;
-}
-/* line 226, ../../dev/sass/parts/_room-info.scss */
+/* line 222, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau {
+  z-index: 999999;
   margin-top: -120px;
   top: 65px;
   left: -270px;
@@ -3189,7 +3186,7 @@ div.drum figure {
   cursor: pointer;
   background-color: #F5F5F5;
 }
-/* line 236, ../../dev/sass/parts/_room-info.scss */
+/* line 233, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-number {
   margin: 0;
   margin-right: 16px;
@@ -3197,19 +3194,18 @@ div.drum figure {
   max-width: 100%;
   white-space: nowrap;
   font-weight: bold;
+  transition: 0.5s all;
 }
-/* line 245, ../../dev/sass/parts/_room-info.scss */
-.room-info-container .heat-transfer-rehau .coeff-number span {
-  padding-left: 10px;
-  color: black;
-  font-size: 18px;
+/* line 242, ../../dev/sass/parts/_room-info.scss */
+.room-info-container .heat-transfer-rehau .coeff-number.active {
+  transform: rotate(70deg) scale(1.7);
 }
-/* line 251, ../../dev/sass/parts/_room-info.scss */
+/* line 247, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-mark {
   white-space: nowrap;
   color: #333;
 }
-/* line 257, ../../dev/sass/parts/_room-info.scss */
+/* line 254, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-info p {
   font-size: 16px;
   color: #4E4E4E;
@@ -3217,24 +3213,24 @@ div.drum figure {
   white-space: nowrap;
   font-family: 'roboto-light';
 }
-/* line 266, ../../dev/sass/parts/_room-info.scss */
+/* line 267, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn {
   position: absolute;
   bottom: 0;
   right: 1rem;
 }
-/* line 270, ../../dev/sass/parts/_room-info.scss */
+/* line 271, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn:after {
   font: normal 5rem/1 icons, sans-serif;
   content: "";
   color: #fff;
 }
-/* line 278, ../../dev/sass/parts/_room-info.scss */
+/* line 279, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 25rem;
   height: 90%;
 }
-/* line 282, ../../dev/sass/parts/_room-info.scss */
+/* line 283, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -3247,7 +3243,7 @@ div.drum figure {
   outline: none;
 }
 
-/* line 294, ../../dev/sass/parts/_room-info.scss */
+/* line 295, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -3260,7 +3256,7 @@ textarea.comment-field {
   outline: none;
 }
 
-/* line 307, ../../dev/sass/parts/_room-info.scss */
+/* line 308, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -3273,7 +3269,7 @@ textarea.comment-field-rehau {
   resize: none;
 }
 
-/* line 318, ../../dev/sass/parts/_room-info.scss */
+/* line 319, ../../dev/sass/parts/_room-info.scss */
 textarea.comment-field-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -5411,19 +5407,19 @@ textarea.comment-field-rehau {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Library/Ruby/Gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -8346,7 +8342,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1624607957') no-repeat;
+  background: url('../img/login/logo.png?1623393066') no-repeat;
   background-size: cover !important;
 }
 
@@ -11818,7 +11814,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1624607957') no-repeat;
+  background: url('../img/door-arrow.png?1623393065') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -13070,62 +13066,66 @@ tr.factory_item {
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 1048, ../../dev/sass/pages/light.scss */
+/* line 1046, ../../dev/sass/pages/light.scss */
+.light-v .config-panel.lower_z-index {
+  z-index: 1;
+}
+/* line 1051, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 1052, ../../dev/sass/pages/light.scss */
+/* line 1055, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 1056, ../../dev/sass/pages/light.scss */
+/* line 1059, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 1059, ../../dev/sass/pages/light.scss */
+/* line 1062, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 1062, ../../dev/sass/pages/light.scss */
+/* line 1065, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 1067, ../../dev/sass/pages/light.scss */
+/* line 1070, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 1072, ../../dev/sass/pages/light.scss */
+/* line 1075, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 1075, ../../dev/sass/pages/light.scss */
+/* line 1078, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 1078, ../../dev/sass/pages/light.scss */
+/* line 1081, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 1084, ../../dev/sass/pages/light.scss */
+/* line 1087, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 1090, ../../dev/sass/pages/light.scss */
+/* line 1093, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 1094, ../../dev/sass/pages/light.scss */
+/* line 1097, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1098, ../../dev/sass/pages/light.scss */
+/* line 1101, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
@@ -13224,7 +13224,7 @@ tr.factory_item {
 .mobile .mobile-glass .glass-container .glass-block .light-v .active.addelements-detail-edit,
 .light-v .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-edit, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.addelements-detail-close, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-close,
 .mobile .mobile-glass .glass-container .glass-block .light-v .active.addelements-detail-close,
-.light-v .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-close, .mobile .mobile-glass .glass-container .glass-block .active.door-config-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .active.element-info, .elements-menu .mobile .mobile-glass .glass-container .glass-block .active.element-info, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .active.frame-tab, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .active.frame-tab, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell-rehau, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell-rehau, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell-rehau, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digit, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digit, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digit, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digitLight, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digitLight, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digitLight, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .active.set-glass-btn, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .active.set-glass-btn, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .active.scheme-info, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .active.scheme-info, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .active.search-element, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .active.search-element, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.close-alladdelements, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.close-alladdelements, .mobile .mobile-glass .glass-container .glass-block .button p.active, .mobile .mobile-glass .glass-container .glass-block .ghost-button p.active, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but p.active, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but p.active, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but p.active, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but p.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but p.active, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but p.active, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but p.active, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc p.active, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu-rehau .measure-btn p.active, .cart-menu-rehau .mobile .mobile-glass .glass-container .glass-block .measure-btn p.active, .mobile .mobile-glass .glass-container .glass-block .big-button p.active, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn p.active, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn p.active, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn p.active, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn p.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu-rehau .cart-btn p.active, .cart-menu-rehau .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn p.active, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn p.active, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-menu .order-btn p.active, .menu-right-general .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .menu-right-general .order-btn p.active, .cart-menu .menu-right-general .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-menu .order-btn p.active, .order-path .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-path .order-btn p.active, .cart-menu .order-path .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-menu .order-btn p.active, .config-menu .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .config-menu .order-btn p.active, .cart-menu .config-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-menu .order-btn p.active, .elements-menu .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .elements-menu .order-btn p.active, .cart-menu .elements-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu-rehau .cart-menu .order-btn p.active, .cart-menu-rehau .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-menu-rehau .order-btn p.active, .cart-menu .cart-menu-rehau .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-menu .order-btn p.active, .old-price-tab .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .old-price-tab .order-btn p.active, .cart-menu .old-price-tab .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-menu .order-btn p.active, .old-price-inst-tab .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .old-price-inst-tab .order-btn p.active, .cart-menu .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .login-submit p.active, .mobile .mobile-glass .glass-container .glass-block .middle-button p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns button p.active, .alert-btns .mobile .mobile-glass .glass-container .glass-block button p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn p.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn p.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn p.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn p.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p.active, .mobile .mobile-glass .glass-container .glass-block .settings .save p.active, .settings .mobile .mobile-glass .glass-container .glass-block .save p.active, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn p.active, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn p.active, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search p.active, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search p.active, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save p.active, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool p.active,
+.light-v .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-close, .mobile .mobile-glass .glass-container .glass-block .active.door-config-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .active.element-info, .elements-menu .mobile .mobile-glass .glass-container .glass-block .active.element-info, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .active.frame-tab, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .active.frame-tab, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell-rehau, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell-rehau, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell-rehau, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digit, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digit, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digit, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digitLight, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digitLight, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digitLight, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .active.set-glass-btn, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .active.set-glass-btn, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog-rehau .active.set-glass-btn-rehau, .glass-selector-dialog-rehau .mobile .mobile-glass .glass-container .glass-block .active.set-glass-btn-rehau, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .active.scheme-info, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .active.scheme-info, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .active.search-element, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .active.search-element, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.close-alladdelements, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.close-alladdelements, .mobile .mobile-glass .glass-container .glass-block .button p.active, .mobile .mobile-glass .glass-container .glass-block .ghost-button p.active, .mobile .mobile-glass .glass-container .glass-block .aux-choose-but p.active, .mobile .mobile-glass .glass-container .glass-block .parameters-block .aux-params-but p.active, .parameters-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .elements-list-container .aux-params-but p.active, .elements-list-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .aux-params-but p.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .aux-list-content .aux-params-but p.active, .additional-list-container .aux-list-content .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .alladdelements-block .aux-params-but p.active, .cart-page .alladdelements-block .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelementunit-only .aux-params-but p.active, .cart-page .addelementunit-only .mobile .mobile-glass .glass-container .glass-block .aux-params-but p.active, .mobile .mobile-glass .glass-container .glass-block .nav-menu .new-calc p.active, .nav-menu .mobile .mobile-glass .glass-container .glass-block .new-calc p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .measure-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .measure-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu-rehau .measure-btn p.active, .cart-menu-rehau .mobile .mobile-glass .glass-container .glass-block .measure-btn p.active, .mobile .mobile-glass .glass-container .glass-block .big-button p.active, .mobile .mobile-glass .glass-container .glass-block .orange-big-btn p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-btn p.active, .menu-right-general .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-btn p.active, .order-path .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-btn p.active, .config-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-btn p.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu-rehau .cart-btn p.active, .cart-menu-rehau .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-btn p.active, .old-price-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-btn p.active, .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .cart-btn p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-general .cart-menu .order-btn p.active, .menu-right-general .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .menu-right-general .order-btn p.active, .cart-menu .menu-right-general .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .order-path .cart-menu .order-btn p.active, .order-path .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-path .order-btn p.active, .cart-menu .order-path .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .config-menu .cart-menu .order-btn p.active, .config-menu .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .config-menu .order-btn p.active, .cart-menu .config-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .cart-menu .order-btn p.active, .elements-menu .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .elements-menu .order-btn p.active, .cart-menu .elements-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .order-btn p.active, .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu-rehau .cart-menu .order-btn p.active, .cart-menu-rehau .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .cart-menu-rehau .order-btn p.active, .cart-menu .cart-menu-rehau .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-tab .cart-menu .order-btn p.active, .old-price-tab .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .old-price-tab .order-btn p.active, .cart-menu .old-price-tab .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .old-price-inst-tab .cart-menu .order-btn p.active, .old-price-inst-tab .cart-menu .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .cart-menu .old-price-inst-tab .order-btn p.active, .cart-menu .old-price-inst-tab .mobile .mobile-glass .glass-container .glass-block .order-btn p.active, .mobile .mobile-glass .glass-container .glass-block .login-submit p.active, .mobile .mobile-glass .glass-container .glass-block .middle-button p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns button p.active, .alert-btns .mobile .mobile-glass .glass-container .glass-block button p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-btn p.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-btn p.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-btn p.active, .mobile .mobile-glass .glass-container .glass-block .alert-btns .door-configuration .door-config-finish-save-btn p.active, .alert-btns .door-configuration .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p.active, .mobile .mobile-glass .glass-container .glass-block .door-configuration .alert-btns .door-config-finish-save-btn p.active, .door-configuration .alert-btns .mobile .mobile-glass .glass-container .glass-block .door-config-finish-save-btn p.active, .mobile .mobile-glass .glass-container .glass-block .settings .save p.active, .settings .mobile .mobile-glass .glass-container .glass-block .save p.active, .mobile .mobile-glass .glass-container .glass-block .grid-selector-dialog .set-grid-all-btn p.active, .grid-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-grid-all-btn p.active, .mobile .mobile-glass .glass-container .glass-block .search-block .cancel-search p.active, .search-block .mobile .mobile-glass .glass-container .glass-block .cancel-search p.active, .mobile .mobile-glass .glass-container .glass-block .cart-dialogs-container .save p.active, .cart-dialogs-container .mobile .mobile-glass .glass-container .glass-block .save p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .cart-tool p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .cart-tool p.active,
 .mobile .mobile-glass .glass-container .glass-block .light-v .cart-tool p.active,
 .light-v .mobile .mobile-glass .glass-container .glass-block .cart-tool p.active, .mobile .mobile-glass .glass-container .glass-block .construction-left-menu .project-default p.active, .construction-left-menu .mobile .mobile-glass .glass-container .glass-block .project-default p.active, .mobile .mobile-glass .glass-container .glass-block .small-button p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .order-tool p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .order-tool p.active,
 .mobile .mobile-glass .glass-container .glass-block .light-v .order-tool p.active,
@@ -13238,7 +13238,7 @@ tr.factory_item {
 .mobile .mobile-glass .glass-container .glass-block .light-v .addelements-detail-edit p.active,
 .light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-edit p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelements-detail-close p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close p.active,
 .mobile .mobile-glass .glass-container .glass-block .light-v .addelements-detail-close p.active,
-.light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close p.active, .mobile .mobile-glass .glass-container .glass-block .door-config-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info p.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab p.active, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .cell p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .cell-rehau p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .cell-rehau p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell-rehau p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell-rehau p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn p.active, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn p.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info p.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info p.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element p.active, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements p.active, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .title.selected, .mobile .glass-selector-dialog .buttons .set-glass-btn p, .mobile .mobile-lamination .laminat-box .laminat-row.active, .mobile .mobile-lamination .laminat-box .laminat-label-button.active, .mobile .mobile-lamination .laminat-box .laminat-label.active, .mobile .add-elements-mobile .folders-container .folders .folders-name.active, .mobile .add-elements-mobile .folders-container .folders .subfolders .subfolders-name.active, .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row-header .name, .mobile .product-u-coeff.coeff-low, .mobile .cart-page .full-view .product-u-coeff.order-u-coeff.coeff-low, .cart-page .full-view .mobile .product-u-coeff.order-u-coeff.coeff-low,
+.light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close p.active, .mobile .mobile-glass .glass-container .glass-block .door-config-btn p.active, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info p.active, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info p.active, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab p.active, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .cell p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .cell-rehau p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .cell-rehau p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell-rehau p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell-rehau p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p.active, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight p.active, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight p.active, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight p.active, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p.active, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn p.active, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn p.active, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau p.active, .glass-selector-dialog-rehau .mobile .mobile-glass .glass-container .glass-block .set-glass-btn-rehau p.active, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info p.active, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info p.active, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element p.active, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element p.active, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements p.active, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements p.active, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .title.selected, .mobile .glass-selector-dialog .buttons .set-glass-btn p, .mobile .mobile-lamination .laminat-box .laminat-row.active, .mobile .mobile-lamination .laminat-box .laminat-label-button.active, .mobile .mobile-lamination .laminat-box .laminat-label.active, .mobile .add-elements-mobile .folders-container .folders .folders-name.active, .mobile .add-elements-mobile .folders-container .folders .subfolders .subfolders-name.active, .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row-header .name, .mobile .product-u-coeff.coeff-low, .mobile .cart-page .full-view .product-u-coeff.order-u-coeff.coeff-low, .cart-page .full-view .mobile .product-u-coeff.order-u-coeff.coeff-low,
 .mobile .light-v .full-view .product-u-coeff.order-u-coeff.coeff-low,
 .light-v .full-view .mobile .product-u-coeff.order-u-coeff.coeff-low, .mobile .cart-mobile .product-container .product .col .prod-heat-coef .coeff-low, .mobile .cart-mobile .product-container .product .col .prod-count .count-button, .mobile .cart-mobile .mount-delivery .mobile-delivery-items, .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .mobile-delivery-selected, .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .selected, .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-header-mobile .add-elem-price, .mobile .info_box .info_title, .mobile .alert-no, .mobile .danger-alert .continued-proc, .mobile .mobile-left-menu .footer .index, .mobile .mobile-left-menu .footer .index p, .mobile .mobile-left-menu .footer .title p, .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .cart-dialog-title, .mobile .mobile-order-forms .order-dialog-mobile .error-tooltip, .mobile .mobile-order-forms .order-dialog-mobile .setting-container .set-email-error, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .set-email-error, .mobile .report-container .report-menu .report-menu-item.active, .mobile .door-config-item,
 .mobile .door-config-selected, .mobile .mobile-order-history .tool-btn, .mobile .mobile-order-history .search-config-order .order select, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product select, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product select, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit select, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit select, .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item span, .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row-price, .mobile .mobile-discount .mobile-discount-col .discount-box .red {
@@ -13651,7 +13651,7 @@ body {
 .mobile .content-container .templates-content .types .light-v .addelements-detail-edit,
 .light-v .mobile .content-container .templates-content .types .addelements-detail-edit, .mobile .content-container .templates-content .types .cart-page .addelements-detail-close, .cart-page .mobile .content-container .templates-content .types .addelements-detail-close,
 .mobile .content-container .templates-content .types .light-v .addelements-detail-close,
-.light-v .mobile .content-container .templates-content .types .addelements-detail-close, .mobile .content-container .templates-content .types .door-config-btn, .mobile .content-container .templates-content .types .elements-menu .element-info, .elements-menu .mobile .content-container .templates-content .types .element-info, .mobile .content-container .templates-content .types .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .content-container .templates-content .types .frame-tab, .mobile .content-container .templates-content .types .calculator .cell, .calculator .mobile .content-container .templates-content .types .cell, .mobile .content-container .templates-content .types .size-calc-container .cell, .size-calc-container .mobile .content-container .templates-content .types .cell, .mobile .content-container .templates-content .types .qty-calc-container .cell, .qty-calc-container .mobile .content-container .templates-content .types .cell, .mobile .content-container .templates-content .types .calculator .cell-rehau, .calculator .mobile .content-container .templates-content .types .cell-rehau, .mobile .content-container .templates-content .types .size-calc-container .cell-rehau, .size-calc-container .mobile .content-container .templates-content .types .cell-rehau, .mobile .content-container .templates-content .types .qty-calc-container .cell-rehau, .qty-calc-container .mobile .content-container .templates-content .types .cell-rehau, .mobile .content-container .templates-content .types .calculator .calc-digit, .calculator .mobile .content-container .templates-content .types .calc-digit, .mobile .content-container .templates-content .types .size-calc-container .calc-digit, .size-calc-container .mobile .content-container .templates-content .types .calc-digit, .mobile .content-container .templates-content .types .qty-calc-container .calc-digit, .qty-calc-container .mobile .content-container .templates-content .types .calc-digit, .mobile .content-container .templates-content .types .calculator .calc-digitLight, .calculator .mobile .content-container .templates-content .types .calc-digitLight, .mobile .content-container .templates-content .types .size-calc-container .calc-digitLight, .size-calc-container .mobile .content-container .templates-content .types .calc-digitLight, .mobile .content-container .templates-content .types .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .content-container .templates-content .types .calc-digitLight, .mobile .content-container .templates-content .types .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .content-container .templates-content .types .set-glass-btn, .mobile .content-container .templates-content .types .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .content-container .templates-content .types .scheme-info, .mobile .content-container .templates-content .types .additional-list-container .search-element, .additional-list-container .mobile .content-container .templates-content .types .search-element, .mobile .content-container .templates-content .types .cart-page .close-alladdelements, .cart-page .mobile .content-container .templates-content .types .close-alladdelements {
+.light-v .mobile .content-container .templates-content .types .addelements-detail-close, .mobile .content-container .templates-content .types .door-config-btn, .mobile .content-container .templates-content .types .elements-menu .element-info, .elements-menu .mobile .content-container .templates-content .types .element-info, .mobile .content-container .templates-content .types .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .content-container .templates-content .types .frame-tab, .mobile .content-container .templates-content .types .calculator .cell, .calculator .mobile .content-container .templates-content .types .cell, .mobile .content-container .templates-content .types .size-calc-container .cell, .size-calc-container .mobile .content-container .templates-content .types .cell, .mobile .content-container .templates-content .types .qty-calc-container .cell, .qty-calc-container .mobile .content-container .templates-content .types .cell, .mobile .content-container .templates-content .types .calculator .cell-rehau, .calculator .mobile .content-container .templates-content .types .cell-rehau, .mobile .content-container .templates-content .types .size-calc-container .cell-rehau, .size-calc-container .mobile .content-container .templates-content .types .cell-rehau, .mobile .content-container .templates-content .types .qty-calc-container .cell-rehau, .qty-calc-container .mobile .content-container .templates-content .types .cell-rehau, .mobile .content-container .templates-content .types .calculator .calc-digit, .calculator .mobile .content-container .templates-content .types .calc-digit, .mobile .content-container .templates-content .types .size-calc-container .calc-digit, .size-calc-container .mobile .content-container .templates-content .types .calc-digit, .mobile .content-container .templates-content .types .qty-calc-container .calc-digit, .qty-calc-container .mobile .content-container .templates-content .types .calc-digit, .mobile .content-container .templates-content .types .calculator .calc-digitLight, .calculator .mobile .content-container .templates-content .types .calc-digitLight, .mobile .content-container .templates-content .types .size-calc-container .calc-digitLight, .size-calc-container .mobile .content-container .templates-content .types .calc-digitLight, .mobile .content-container .templates-content .types .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .content-container .templates-content .types .calc-digitLight, .mobile .content-container .templates-content .types .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .content-container .templates-content .types .set-glass-btn, .mobile .content-container .templates-content .types .glass-selector-dialog-rehau .set-glass-btn-rehau, .glass-selector-dialog-rehau .mobile .content-container .templates-content .types .set-glass-btn-rehau, .mobile .content-container .templates-content .types .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .content-container .templates-content .types .scheme-info, .mobile .content-container .templates-content .types .additional-list-container .search-element, .additional-list-container .mobile .content-container .templates-content .types .search-element, .mobile .content-container .templates-content .types .cart-page .close-alladdelements, .cart-page .mobile .content-container .templates-content .types .close-alladdelements {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -13676,7 +13676,7 @@ body {
 .mobile .content-container .templates-content .types .light-v .addelements-detail-edit p,
 .light-v .mobile .content-container .templates-content .types .addelements-detail-edit p, .mobile .content-container .templates-content .types .cart-page .addelements-detail-close p, .cart-page .mobile .content-container .templates-content .types .addelements-detail-close p,
 .mobile .content-container .templates-content .types .light-v .addelements-detail-close p,
-.light-v .mobile .content-container .templates-content .types .addelements-detail-close p, .mobile .content-container .templates-content .types .door-config-btn p, .mobile .content-container .templates-content .types .elements-menu .element-info p, .elements-menu .mobile .content-container .templates-content .types .element-info p, .mobile .content-container .templates-content .types .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .content-container .templates-content .types .frame-tab p, .mobile .content-container .templates-content .types .calculator .cell p, .calculator .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .size-calc-container .cell p, .size-calc-container .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .qty-calc-container .cell p, .qty-calc-container .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .calculator .cell-rehau p, .calculator .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .size-calc-container .cell-rehau p, .size-calc-container .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .calculator .calc-digit p, .calculator .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .size-calc-container .calc-digit p, .size-calc-container .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .qty-calc-container .calc-digit p, .qty-calc-container .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .calculator .calc-digitLight p, .calculator .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .size-calc-container .calc-digitLight p, .size-calc-container .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .content-container .templates-content .types .set-glass-btn p, .mobile .content-container .templates-content .types .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .content-container .templates-content .types .scheme-info p, .mobile .content-container .templates-content .types .additional-list-container .search-element p, .additional-list-container .mobile .content-container .templates-content .types .search-element p, .mobile .content-container .templates-content .types .cart-page .close-alladdelements p, .cart-page .mobile .content-container .templates-content .types .close-alladdelements p {
+.light-v .mobile .content-container .templates-content .types .addelements-detail-close p, .mobile .content-container .templates-content .types .door-config-btn p, .mobile .content-container .templates-content .types .elements-menu .element-info p, .elements-menu .mobile .content-container .templates-content .types .element-info p, .mobile .content-container .templates-content .types .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .content-container .templates-content .types .frame-tab p, .mobile .content-container .templates-content .types .calculator .cell p, .calculator .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .size-calc-container .cell p, .size-calc-container .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .qty-calc-container .cell p, .qty-calc-container .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .calculator .cell-rehau p, .calculator .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .size-calc-container .cell-rehau p, .size-calc-container .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .calculator .calc-digit p, .calculator .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .size-calc-container .calc-digit p, .size-calc-container .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .qty-calc-container .calc-digit p, .qty-calc-container .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .calculator .calc-digitLight p, .calculator .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .size-calc-container .calc-digitLight p, .size-calc-container .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .content-container .templates-content .types .set-glass-btn p, .mobile .content-container .templates-content .types .glass-selector-dialog-rehau .set-glass-btn-rehau p, .glass-selector-dialog-rehau .mobile .content-container .templates-content .types .set-glass-btn-rehau p, .mobile .content-container .templates-content .types .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .content-container .templates-content .types .scheme-info p, .mobile .content-container .templates-content .types .additional-list-container .search-element p, .additional-list-container .mobile .content-container .templates-content .types .search-element p, .mobile .content-container .templates-content .types .cart-page .close-alladdelements p, .cart-page .mobile .content-container .templates-content .types .close-alladdelements p {
   margin: 25px 0 5px;
 }
 /* line 435, ../../dev/sass/pages/mobile.scss */
@@ -14255,7 +14255,7 @@ body {
 .mobile .mobile-glass .glass-container .glass-block .light-v .addelements-detail-edit,
 .light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-edit, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelements-detail-close, .cart-page .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close,
 .mobile .mobile-glass .glass-container .glass-block .light-v .addelements-detail-close,
-.light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close, .mobile .mobile-glass .glass-container .glass-block .door-config-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab, .mobile .mobile-glass .glass-container .glass-block .calculator .cell, .calculator .mobile .mobile-glass .glass-container .glass-block .cell, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell, .mobile .mobile-glass .glass-container .glass-block .calculator .cell-rehau, .calculator .mobile .mobile-glass .glass-container .glass-block .cell-rehau, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell-rehau, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell-rehau, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements {
+.light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close, .mobile .mobile-glass .glass-container .glass-block .door-config-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab, .mobile .mobile-glass .glass-container .glass-block .calculator .cell, .calculator .mobile .mobile-glass .glass-container .glass-block .cell, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell, .mobile .mobile-glass .glass-container .glass-block .calculator .cell-rehau, .calculator .mobile .mobile-glass .glass-container .glass-block .cell-rehau, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell-rehau, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell-rehau, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau, .glass-selector-dialog-rehau .mobile .mobile-glass .glass-container .glass-block .set-glass-btn-rehau, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements {
   width: 90%;
   height: 60px;
   background: white;
@@ -14283,7 +14283,7 @@ body {
 .mobile .mobile-glass .glass-container .glass-block .light-v .active.addelements-detail-edit,
 .light-v .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-edit, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.addelements-detail-close, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-close,
 .mobile .mobile-glass .glass-container .glass-block .light-v .active.addelements-detail-close,
-.light-v .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-close, .mobile .mobile-glass .glass-container .glass-block .active.door-config-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .active.element-info, .elements-menu .mobile .mobile-glass .glass-container .glass-block .active.element-info, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .active.frame-tab, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .active.frame-tab, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell-rehau, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell-rehau, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell-rehau, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digit, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digit, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digit, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digitLight, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digitLight, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digitLight, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .active.set-glass-btn, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .active.set-glass-btn, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .active.scheme-info, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .active.scheme-info, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .active.search-element, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .active.search-element, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.close-alladdelements, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.close-alladdelements {
+.light-v .mobile .mobile-glass .glass-container .glass-block .active.addelements-detail-close, .mobile .mobile-glass .glass-container .glass-block .active.door-config-btn, .mobile .mobile-glass .glass-container .glass-block .elements-menu .active.element-info, .elements-menu .mobile .mobile-glass .glass-container .glass-block .active.element-info, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .active.frame-tab, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .active.frame-tab, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell, .mobile .mobile-glass .glass-container .glass-block .calculator .active.cell-rehau, .calculator .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.cell-rehau, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.cell-rehau, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.cell-rehau, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digit, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digit, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digit, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digit, .mobile .mobile-glass .glass-container .glass-block .calculator .active.calc-digitLight, .calculator .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .active.calc-digitLight, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .active.calc-digitLight, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .active.calc-digitLight, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .active.set-glass-btn, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .active.set-glass-btn, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog-rehau .active.set-glass-btn-rehau, .glass-selector-dialog-rehau .mobile .mobile-glass .glass-container .glass-block .active.set-glass-btn-rehau, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .active.scheme-info, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .active.scheme-info, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .active.search-element, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .active.search-element, .mobile .mobile-glass .glass-container .glass-block .cart-page .active.close-alladdelements, .cart-page .mobile .mobile-glass .glass-container .glass-block .active.close-alladdelements {
   border: 2px solid #cc0000;
 }
 /* line 971, ../../dev/sass/pages/mobile.scss */
@@ -14297,7 +14297,7 @@ body {
 .mobile .mobile-glass .glass-container .glass-block .light-v .addelements-detail-edit p,
 .light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-edit p, .mobile .mobile-glass .glass-container .glass-block .cart-page .addelements-detail-close p, .cart-page .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close p,
 .mobile .mobile-glass .glass-container .glass-block .light-v .addelements-detail-close p,
-.light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close p, .mobile .mobile-glass .glass-container .glass-block .door-config-btn p, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info p, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info p, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab p, .mobile .mobile-glass .glass-container .glass-block .calculator .cell p, .calculator .mobile .mobile-glass .glass-container .glass-block .cell p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p, .mobile .mobile-glass .glass-container .glass-block .calculator .cell-rehau p, .calculator .mobile .mobile-glass .glass-container .glass-block .cell-rehau p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell-rehau p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit p, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight p, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn p, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info p, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element p, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element p, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements p, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements p {
+.light-v .mobile .mobile-glass .glass-container .glass-block .addelements-detail-close p, .mobile .mobile-glass .glass-container .glass-block .door-config-btn p, .mobile .mobile-glass .glass-container .glass-block .elements-menu .element-info p, .elements-menu .mobile .mobile-glass .glass-container .glass-block .element-info p, .mobile .mobile-glass .glass-container .glass-block .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .mobile-glass .glass-container .glass-block .frame-tab p, .mobile .mobile-glass .glass-container .glass-block .calculator .cell p, .calculator .mobile .mobile-glass .glass-container .glass-block .cell p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell p, .mobile .mobile-glass .glass-container .glass-block .calculator .cell-rehau p, .calculator .mobile .mobile-glass .glass-container .glass-block .cell-rehau p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .cell-rehau p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .cell-rehau p, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digit p, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digit p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digit p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digit p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digit p, .mobile .mobile-glass .glass-container .glass-block .calculator .calc-digitLight p, .calculator .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p, .mobile .mobile-glass .glass-container .glass-block .size-calc-container .calc-digitLight p, .size-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p, .mobile .mobile-glass .glass-container .glass-block .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .mobile-glass .glass-container .glass-block .calc-digitLight p, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .mobile-glass .glass-container .glass-block .set-glass-btn p, .mobile .mobile-glass .glass-container .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau p, .glass-selector-dialog-rehau .mobile .mobile-glass .glass-container .glass-block .set-glass-btn-rehau p, .mobile .mobile-glass .glass-container .glass-block .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .mobile-glass .glass-container .glass-block .scheme-info p, .mobile .mobile-glass .glass-container .glass-block .additional-list-container .search-element p, .additional-list-container .mobile .mobile-glass .glass-container .glass-block .search-element p, .mobile .mobile-glass .glass-container .glass-block .cart-page .close-alladdelements p, .cart-page .mobile .mobile-glass .glass-container .glass-block .close-alladdelements p {
   position: relative;
   top: 2px;
   width: 90%;
@@ -15809,7 +15809,7 @@ body {
 .mobile .mobile-left-menu .buttons-list .light-v .addelements-detail-edit,
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-edit, .mobile .mobile-left-menu .buttons-list .cart-page .addelements-detail-close, .cart-page .mobile .mobile-left-menu .buttons-list .addelements-detail-close,
 .mobile .mobile-left-menu .buttons-list .light-v .addelements-detail-close,
-.light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close, .mobile .mobile-left-menu .buttons-list .door-config-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab, .mobile .mobile-left-menu .buttons-list .calculator .cell, .calculator .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .calculator .cell-rehau, .calculator .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell-rehau, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell-rehau, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements {
+.light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close, .mobile .mobile-left-menu .buttons-list .door-config-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab, .mobile .mobile-left-menu .buttons-list .calculator .cell, .calculator .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .calculator .cell-rehau, .calculator .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell-rehau, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell-rehau, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog-rehau .set-glass-btn-rehau, .glass-selector-dialog-rehau .mobile .mobile-left-menu .buttons-list .set-glass-btn-rehau, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements {
   margin: 5px 0 5px 0;
 }
 /* line 2329, ../../dev/sass/pages/mobile.scss */
@@ -15823,7 +15823,7 @@ body {
 .mobile .mobile-left-menu .buttons-list .light-v .addelements-detail-edit p,
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-edit p, .mobile .mobile-left-menu .buttons-list .cart-page .addelements-detail-close p, .cart-page .mobile .mobile-left-menu .buttons-list .addelements-detail-close p,
 .mobile .mobile-left-menu .buttons-list .light-v .addelements-detail-close p,
-.light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close p, .mobile .mobile-left-menu .buttons-list .door-config-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info p, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info p, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab p, .mobile .mobile-left-menu .buttons-list .calculator .cell p, .calculator .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .calculator .cell-rehau p, .calculator .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell-rehau p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info p, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element p, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element p, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements p, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements p {
+.light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close p, .mobile .mobile-left-menu .buttons-list .door-config-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info p, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info p, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab p, .mobile .mobile-left-menu .buttons-list .calculator .cell p, .calculator .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .calculator .cell-rehau p, .calculator .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell-rehau p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn p, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog-rehau .set-glass-btn-rehau p, .glass-selector-dialog-rehau .mobile .mobile-left-menu .buttons-list .set-glass-btn-rehau p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info p, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element p, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element p, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements p, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements p {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
 /* line 2333, ../../dev/sass/pages/mobile.scss */
@@ -19214,7 +19214,7 @@ input[type='number'] {
 .glass-container .glass-container .glass-block .light-v .addelements-detail-edit,
 .light-v .glass-container .glass-container .glass-block .addelements-detail-edit, .glass-container .glass-container .glass-block .cart-page .addelements-detail-close, .cart-page .glass-container .glass-container .glass-block .addelements-detail-close,
 .glass-container .glass-container .glass-block .light-v .addelements-detail-close,
-.light-v .glass-container .glass-container .glass-block .addelements-detail-close, .glass-container .glass-container .glass-block .door-config-btn, .glass-container .glass-container .glass-block .elements-menu .element-info, .elements-menu .glass-container .glass-container .glass-block .element-info, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab, .glass-container .glass-container .glass-block .calculator .cell, .calculator .glass-container .glass-container .glass-block .cell, .glass-container .glass-container .glass-block .size-calc-container .cell, .size-calc-container .glass-container .glass-container .glass-block .cell, .glass-container .glass-container .glass-block .qty-calc-container .cell, .qty-calc-container .glass-container .glass-container .glass-block .cell, .glass-container .glass-container .glass-block .calculator .cell-rehau, .calculator .glass-container .glass-container .glass-block .cell-rehau, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau, .glass-container .glass-container .glass-block .calculator .calc-digit, .calculator .glass-container .glass-container .glass-block .calc-digit, .glass-container .glass-container .glass-block .size-calc-container .calc-digit, .size-calc-container .glass-container .glass-container .glass-block .calc-digit, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit, .glass-container .glass-container .glass-block .calculator .calc-digitLight, .calculator .glass-container .glass-container .glass-block .calc-digitLight, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info, .glass-container .glass-container .glass-block .additional-list-container .search-element, .additional-list-container .glass-container .glass-container .glass-block .search-element, .glass-container .glass-container .glass-block .cart-page .close-alladdelements, .cart-page .glass-container .glass-container .glass-block .close-alladdelements {
+.light-v .glass-container .glass-container .glass-block .addelements-detail-close, .glass-container .glass-container .glass-block .door-config-btn, .glass-container .glass-container .glass-block .elements-menu .element-info, .elements-menu .glass-container .glass-container .glass-block .element-info, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab, .glass-container .glass-container .glass-block .calculator .cell, .calculator .glass-container .glass-container .glass-block .cell, .glass-container .glass-container .glass-block .size-calc-container .cell, .size-calc-container .glass-container .glass-container .glass-block .cell, .glass-container .glass-container .glass-block .qty-calc-container .cell, .qty-calc-container .glass-container .glass-container .glass-block .cell, .glass-container .glass-container .glass-block .calculator .cell-rehau, .calculator .glass-container .glass-container .glass-block .cell-rehau, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau, .glass-container .glass-container .glass-block .calculator .calc-digit, .calculator .glass-container .glass-container .glass-block .calc-digit, .glass-container .glass-container .glass-block .size-calc-container .calc-digit, .size-calc-container .glass-container .glass-container .glass-block .calc-digit, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit, .glass-container .glass-container .glass-block .calculator .calc-digitLight, .calculator .glass-container .glass-container .glass-block .calc-digitLight, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn, .glass-container .glass-container .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau, .glass-selector-dialog-rehau .glass-container .glass-container .glass-block .set-glass-btn-rehau, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info, .glass-container .glass-container .glass-block .additional-list-container .search-element, .additional-list-container .glass-container .glass-container .glass-block .search-element, .glass-container .glass-container .glass-block .cart-page .close-alladdelements, .cart-page .glass-container .glass-container .glass-block .close-alladdelements {
   border: 2px solid #f98000;
   border-radius: 45px;
   height: 65px;
@@ -19237,7 +19237,7 @@ input[type='number'] {
 .glass-container .glass-container .glass-block .light-v .addelements-detail-edit .title,
 .light-v .glass-container .glass-container .glass-block .addelements-detail-edit .title, .glass-container .glass-container .glass-block .cart-page .addelements-detail-close .title, .cart-page .glass-container .glass-container .glass-block .addelements-detail-close .title,
 .glass-container .glass-container .glass-block .light-v .addelements-detail-close .title,
-.light-v .glass-container .glass-container .glass-block .addelements-detail-close .title, .glass-container .glass-container .glass-block .door-config-btn .title, .glass-container .glass-container .glass-block .elements-menu .element-info .title, .elements-menu .glass-container .glass-container .glass-block .element-info .title, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab .title, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab .title, .glass-container .glass-container .glass-block .calculator .cell .title, .calculator .glass-container .glass-container .glass-block .cell .title, .glass-container .glass-container .glass-block .size-calc-container .cell .title, .size-calc-container .glass-container .glass-container .glass-block .cell .title, .glass-container .glass-container .glass-block .qty-calc-container .cell .title, .qty-calc-container .glass-container .glass-container .glass-block .cell .title, .glass-container .glass-container .glass-block .calculator .cell-rehau .title, .calculator .glass-container .glass-container .glass-block .cell-rehau .title, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau .title, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau .title, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau .title, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau .title, .glass-container .glass-container .glass-block .calculator .calc-digit .title, .calculator .glass-container .glass-container .glass-block .calc-digit .title, .glass-container .glass-container .glass-block .size-calc-container .calc-digit .title, .size-calc-container .glass-container .glass-container .glass-block .calc-digit .title, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit .title, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit .title, .glass-container .glass-container .glass-block .calculator .calc-digitLight .title, .calculator .glass-container .glass-container .glass-block .calc-digitLight .title, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight .title, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight .title, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight .title, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight .title, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn .title, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn .title, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info .title, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info .title, .glass-container .glass-container .glass-block .additional-list-container .search-element .title, .additional-list-container .glass-container .glass-container .glass-block .search-element .title, .glass-container .glass-container .glass-block .cart-page .close-alladdelements .title, .cart-page .glass-container .glass-container .glass-block .close-alladdelements .title {
+.light-v .glass-container .glass-container .glass-block .addelements-detail-close .title, .glass-container .glass-container .glass-block .door-config-btn .title, .glass-container .glass-container .glass-block .elements-menu .element-info .title, .elements-menu .glass-container .glass-container .glass-block .element-info .title, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab .title, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab .title, .glass-container .glass-container .glass-block .calculator .cell .title, .calculator .glass-container .glass-container .glass-block .cell .title, .glass-container .glass-container .glass-block .size-calc-container .cell .title, .size-calc-container .glass-container .glass-container .glass-block .cell .title, .glass-container .glass-container .glass-block .qty-calc-container .cell .title, .qty-calc-container .glass-container .glass-container .glass-block .cell .title, .glass-container .glass-container .glass-block .calculator .cell-rehau .title, .calculator .glass-container .glass-container .glass-block .cell-rehau .title, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau .title, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau .title, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau .title, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau .title, .glass-container .glass-container .glass-block .calculator .calc-digit .title, .calculator .glass-container .glass-container .glass-block .calc-digit .title, .glass-container .glass-container .glass-block .size-calc-container .calc-digit .title, .size-calc-container .glass-container .glass-container .glass-block .calc-digit .title, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit .title, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit .title, .glass-container .glass-container .glass-block .calculator .calc-digitLight .title, .calculator .glass-container .glass-container .glass-block .calc-digitLight .title, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight .title, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight .title, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight .title, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight .title, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn .title, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn .title, .glass-container .glass-container .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau .title, .glass-selector-dialog-rehau .glass-container .glass-container .glass-block .set-glass-btn-rehau .title, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info .title, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info .title, .glass-container .glass-container .glass-block .additional-list-container .search-element .title, .additional-list-container .glass-container .glass-container .glass-block .search-element .title, .glass-container .glass-container .glass-block .cart-page .close-alladdelements .title, .cart-page .glass-container .glass-container .glass-block .close-alladdelements .title {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19259,7 +19259,7 @@ input[type='number'] {
 .glass-container .glass-container .glass-block .light-v .addelements-detail-edit .arrow,
 .light-v .glass-container .glass-container .glass-block .addelements-detail-edit .arrow, .glass-container .glass-container .glass-block .cart-page .addelements-detail-close .arrow, .cart-page .glass-container .glass-container .glass-block .addelements-detail-close .arrow,
 .glass-container .glass-container .glass-block .light-v .addelements-detail-close .arrow,
-.light-v .glass-container .glass-container .glass-block .addelements-detail-close .arrow, .glass-container .glass-container .glass-block .door-config-btn .arrow, .glass-container .glass-container .glass-block .elements-menu .element-info .arrow, .elements-menu .glass-container .glass-container .glass-block .element-info .arrow, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab .arrow, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab .arrow, .glass-container .glass-container .glass-block .calculator .cell .arrow, .calculator .glass-container .glass-container .glass-block .cell .arrow, .glass-container .glass-container .glass-block .size-calc-container .cell .arrow, .size-calc-container .glass-container .glass-container .glass-block .cell .arrow, .glass-container .glass-container .glass-block .qty-calc-container .cell .arrow, .qty-calc-container .glass-container .glass-container .glass-block .cell .arrow, .glass-container .glass-container .glass-block .calculator .cell-rehau .arrow, .calculator .glass-container .glass-container .glass-block .cell-rehau .arrow, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau .arrow, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau .arrow, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow, .glass-container .glass-container .glass-block .calculator .calc-digit .arrow, .calculator .glass-container .glass-container .glass-block .calc-digit .arrow, .glass-container .glass-container .glass-block .size-calc-container .calc-digit .arrow, .size-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit .arrow, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow, .glass-container .glass-container .glass-block .calculator .calc-digitLight .arrow, .calculator .glass-container .glass-container .glass-block .calc-digitLight .arrow, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight .arrow, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight .arrow, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn .arrow, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn .arrow, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info .arrow, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info .arrow, .glass-container .glass-container .glass-block .additional-list-container .search-element .arrow, .additional-list-container .glass-container .glass-container .glass-block .search-element .arrow, .glass-container .glass-container .glass-block .cart-page .close-alladdelements .arrow, .cart-page .glass-container .glass-container .glass-block .close-alladdelements .arrow {
+.light-v .glass-container .glass-container .glass-block .addelements-detail-close .arrow, .glass-container .glass-container .glass-block .door-config-btn .arrow, .glass-container .glass-container .glass-block .elements-menu .element-info .arrow, .elements-menu .glass-container .glass-container .glass-block .element-info .arrow, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab .arrow, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab .arrow, .glass-container .glass-container .glass-block .calculator .cell .arrow, .calculator .glass-container .glass-container .glass-block .cell .arrow, .glass-container .glass-container .glass-block .size-calc-container .cell .arrow, .size-calc-container .glass-container .glass-container .glass-block .cell .arrow, .glass-container .glass-container .glass-block .qty-calc-container .cell .arrow, .qty-calc-container .glass-container .glass-container .glass-block .cell .arrow, .glass-container .glass-container .glass-block .calculator .cell-rehau .arrow, .calculator .glass-container .glass-container .glass-block .cell-rehau .arrow, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau .arrow, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau .arrow, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow, .glass-container .glass-container .glass-block .calculator .calc-digit .arrow, .calculator .glass-container .glass-container .glass-block .calc-digit .arrow, .glass-container .glass-container .glass-block .size-calc-container .calc-digit .arrow, .size-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit .arrow, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow, .glass-container .glass-container .glass-block .calculator .calc-digitLight .arrow, .calculator .glass-container .glass-container .glass-block .calc-digitLight .arrow, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight .arrow, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight .arrow, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn .arrow, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn .arrow, .glass-container .glass-container .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau .arrow, .glass-selector-dialog-rehau .glass-container .glass-container .glass-block .set-glass-btn-rehau .arrow, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info .arrow, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info .arrow, .glass-container .glass-container .glass-block .additional-list-container .search-element .arrow, .additional-list-container .glass-container .glass-container .glass-block .search-element .arrow, .glass-container .glass-container .glass-block .cart-page .close-alladdelements .arrow, .cart-page .glass-container .glass-container .glass-block .close-alladdelements .arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19281,7 +19281,7 @@ input[type='number'] {
 .glass-container .glass-container .glass-block .light-v .addelements-detail-edit .arrow.active,
 .light-v .glass-container .glass-container .glass-block .addelements-detail-edit .arrow.active, .glass-container .glass-container .glass-block .cart-page .addelements-detail-close .arrow.active, .cart-page .glass-container .glass-container .glass-block .addelements-detail-close .arrow.active,
 .glass-container .glass-container .glass-block .light-v .addelements-detail-close .arrow.active,
-.light-v .glass-container .glass-container .glass-block .addelements-detail-close .arrow.active, .glass-container .glass-container .glass-block .door-config-btn .arrow.active, .glass-container .glass-container .glass-block .elements-menu .element-info .arrow.active, .elements-menu .glass-container .glass-container .glass-block .element-info .arrow.active, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab .arrow.active, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab .arrow.active, .glass-container .glass-container .glass-block .calculator .cell .arrow.active, .calculator .glass-container .glass-container .glass-block .cell .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .cell .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .cell .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .cell .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .cell .arrow.active, .glass-container .glass-container .glass-block .calculator .cell-rehau .arrow.active, .calculator .glass-container .glass-container .glass-block .cell-rehau .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow.active, .glass-container .glass-container .glass-block .calculator .calc-digit .arrow.active, .calculator .glass-container .glass-container .glass-block .calc-digit .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .calc-digit .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow.active, .glass-container .glass-container .glass-block .calculator .calc-digitLight .arrow.active, .calculator .glass-container .glass-container .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn .arrow.active, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn .arrow.active, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info .arrow.active, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info .arrow.active, .glass-container .glass-container .glass-block .additional-list-container .search-element .arrow.active, .additional-list-container .glass-container .glass-container .glass-block .search-element .arrow.active, .glass-container .glass-container .glass-block .cart-page .close-alladdelements .arrow.active, .cart-page .glass-container .glass-container .glass-block .close-alladdelements .arrow.active {
+.light-v .glass-container .glass-container .glass-block .addelements-detail-close .arrow.active, .glass-container .glass-container .glass-block .door-config-btn .arrow.active, .glass-container .glass-container .glass-block .elements-menu .element-info .arrow.active, .elements-menu .glass-container .glass-container .glass-block .element-info .arrow.active, .glass-container .glass-container .glass-block .menu-right-tabs .frame-tab .arrow.active, .menu-right-tabs .glass-container .glass-container .glass-block .frame-tab .arrow.active, .glass-container .glass-container .glass-block .calculator .cell .arrow.active, .calculator .glass-container .glass-container .glass-block .cell .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .cell .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .cell .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .cell .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .cell .arrow.active, .glass-container .glass-container .glass-block .calculator .cell-rehau .arrow.active, .calculator .glass-container .glass-container .glass-block .cell-rehau .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .cell-rehau .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .cell-rehau .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .cell-rehau .arrow.active, .glass-container .glass-container .glass-block .calculator .calc-digit .arrow.active, .calculator .glass-container .glass-container .glass-block .calc-digit .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .calc-digit .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .calc-digit .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .calc-digit .arrow.active, .glass-container .glass-container .glass-block .calculator .calc-digitLight .arrow.active, .calculator .glass-container .glass-container .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container .glass-block .size-calc-container .calc-digitLight .arrow.active, .size-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container .glass-block .qty-calc-container .calc-digitLight .arrow.active, .qty-calc-container .glass-container .glass-container .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container .glass-block .glass-selector-dialog .set-glass-btn .arrow.active, .glass-selector-dialog .glass-container .glass-container .glass-block .set-glass-btn .arrow.active, .glass-container .glass-container .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau .arrow.active, .glass-selector-dialog-rehau .glass-container .glass-container .glass-block .set-glass-btn-rehau .arrow.active, .glass-container .glass-container .glass-block .auxiliaries-container .scheme-info .arrow.active, .auxiliaries-container .glass-container .glass-container .glass-block .scheme-info .arrow.active, .glass-container .glass-container .glass-block .additional-list-container .search-element .arrow.active, .additional-list-container .glass-container .glass-container .glass-block .search-element .arrow.active, .glass-container .glass-container .glass-block .cart-page .close-alladdelements .arrow.active, .cart-page .glass-container .glass-container .glass-block .close-alladdelements .arrow.active {
   transform: rotate(90deg);
   transition: 0.5s;
 }
@@ -19424,7 +19424,7 @@ input[type='number'] {
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit,
 .light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close,
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close,
-.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close, .glass-container .glass-container-rehau .glass-block .door-config-btn, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab, .glass-container .glass-container-rehau .glass-block .calculator .cell, .calculator .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements {
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close, .glass-container .glass-container-rehau .glass-block .door-config-btn, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab, .glass-container .glass-container-rehau .glass-block .calculator .cell, .calculator .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau, .glass-selector-dialog-rehau .glass-container .glass-container-rehau .glass-block .set-glass-btn-rehau, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements {
   height: 65px;
   width: 100%;
   display: inline-flex;
@@ -19444,7 +19444,7 @@ input[type='number'] {
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit .title,
 .light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .title, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close .title, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close .title,
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close .title,
-.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .title, .glass-container .glass-container-rehau .glass-block .door-config-btn .title, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .title, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .title, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .title, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .title, .glass-container .glass-container-rehau .glass-block .calculator .cell .title, .calculator .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .title, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .title, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .title, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .title, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .title, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .title, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .title, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .title, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .title, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .title, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .title {
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .title, .glass-container .glass-container-rehau .glass-block .door-config-btn .title, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .title, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .title, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .title, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .title, .glass-container .glass-container-rehau .glass-block .calculator .cell .title, .calculator .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .title, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .title, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .title, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .title, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .title, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .title, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .title, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .title, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .title, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .title, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .title, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau .title, .glass-selector-dialog-rehau .glass-container .glass-container-rehau .glass-block .set-glass-btn-rehau .title, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .title, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .title, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .title, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .title, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .title, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .title {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19466,7 +19466,7 @@ input[type='number'] {
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit .arrow,
 .light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow,
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close .arrow,
-.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow, .glass-container .glass-container-rehau .glass-block .door-config-btn .arrow, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .arrow, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .arrow, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .arrow, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .arrow, .glass-container .glass-container-rehau .glass-block .calculator .cell .arrow, .calculator .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .arrow, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .arrow, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .arrow, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .arrow, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .arrow, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .arrow, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .arrow, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .arrow, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .arrow {
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow, .glass-container .glass-container-rehau .glass-block .door-config-btn .arrow, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .arrow, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .arrow, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .arrow, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .arrow, .glass-container .glass-container-rehau .glass-block .calculator .cell .arrow, .calculator .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .arrow, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .arrow, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .arrow, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .arrow, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .arrow, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .arrow, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .arrow, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau .arrow, .glass-selector-dialog-rehau .glass-container .glass-container-rehau .glass-block .set-glass-btn-rehau .arrow, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .arrow, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .arrow, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .arrow, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .arrow, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .arrow, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19490,7 +19490,7 @@ input[type='number'] {
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-edit .arrow.active,
 .light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-edit .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .addelements-detail-close .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow.active,
 .glass-container .glass-container-rehau .glass-block .light-v .addelements-detail-close .arrow.active,
-.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow.active, .glass-container .glass-container-rehau .glass-block .door-config-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .arrow.active, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .arrow.active, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .arrow.active, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .cell .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .arrow.active, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .arrow.active, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .arrow.active, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .arrow.active, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .arrow.active {
+.light-v .glass-container .glass-container-rehau .glass-block .addelements-detail-close .arrow.active, .glass-container .glass-container-rehau .glass-block .door-config-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .elements-menu .element-info .arrow.active, .elements-menu .glass-container .glass-container-rehau .glass-block .element-info .arrow.active, .glass-container .glass-container-rehau .glass-block .menu-right-tabs .frame-tab .arrow.active, .menu-right-tabs .glass-container .glass-container-rehau .glass-block .frame-tab .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .cell .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .cell-rehau .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .cell-rehau .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .cell-rehau .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .cell-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .calc-digit .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digit .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digit .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digit .arrow.active, .glass-container .glass-container-rehau .glass-block .calculator .calc-digitLight .arrow.active, .calculator .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .size-calc-container .calc-digitLight .arrow.active, .size-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .qty-calc-container .calc-digitLight .arrow.active, .qty-calc-container .glass-container .glass-container-rehau .glass-block .calc-digitLight .arrow.active, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog .set-glass-btn .arrow.active, .glass-selector-dialog .glass-container .glass-container-rehau .glass-block .set-glass-btn .arrow.active, .glass-container .glass-container-rehau .glass-block .glass-selector-dialog-rehau .set-glass-btn-rehau .arrow.active, .glass-selector-dialog-rehau .glass-container .glass-container-rehau .glass-block .set-glass-btn-rehau .arrow.active, .glass-container .glass-container-rehau .glass-block .auxiliaries-container .scheme-info .arrow.active, .auxiliaries-container .glass-container .glass-container-rehau .glass-block .scheme-info .arrow.active, .glass-container .glass-container-rehau .glass-block .additional-list-container .search-element .arrow.active, .additional-list-container .glass-container .glass-container-rehau .glass-block .search-element .arrow.active, .glass-container .glass-container-rehau .glass-block .cart-page .close-alladdelements .arrow.active, .cart-page .glass-container .glass-container-rehau .glass-block .close-alladdelements .arrow.active {
   transform: rotate(360deg);
   transition: 0.5s;
 }
@@ -19615,6 +19615,40 @@ input[type='number'] {
 }
 /* line 343, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .set-glass-btn {
+  font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
+  position: absolute;
+  top: 1.875rem;
+  right: 6rem;
+  border-radius: 5rem;
+  width: 15rem;
+  height: 3rem;
+  background-color: #6ed44a;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* line 367, ../../dev/sass/panels/glass.scss */
+.glass-selector-dialog-rehau {
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  height: 70rem;
+  background-color: #fff;
+  z-index: 12;
+  text-align: center;
+}
+/* line 376, ../../dev/sass/panels/glass.scss */
+.glass-selector-dialog-rehau .dialog-inner {
+  height: 90%;
+  width: 100%;
+  text-align: center;
+}
+/* line 381, ../../dev/sass/panels/glass.scss */
+.glass-selector-dialog-rehau .set-glass-btn-rehau {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   position: absolute;
   top: 1.875rem;
@@ -19992,133 +20026,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20128,133 +20162,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1624607957');
+  background-image: url('../img/auxiliaries-selected/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1624607957');
+  background-image: url('../img/auxiliaries-focused/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20278,7 +20312,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1624607957');
+  background-image: url('../img/auxiliaries/grid.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20295,7 +20329,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1624607957');
+  background-image: url('../img/auxiliaries/visor.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20312,7 +20346,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1624607957');
+  background-image: url('../img/auxiliaries/visor2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20329,7 +20363,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1624607957');
+  background-image: url('../img/auxiliaries/grating.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20346,7 +20380,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1624607957');
+  background-image: url('../img/auxiliaries/grating2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20363,7 +20397,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1624607957');
+  background-image: url('../img/auxiliaries/shutters.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20380,7 +20414,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1624607957');
+  background-image: url('../img/auxiliaries/shutters2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20397,7 +20431,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1624607957');
+  background-image: url('../img/auxiliaries/spillway.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20414,7 +20448,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1624607957');
+  background-image: url('../img/auxiliaries/spillway2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20431,7 +20465,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1624607957');
+  background-image: url('../img/auxiliaries/outside.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20448,7 +20482,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1624607957');
+  background-image: url('../img/auxiliaries/windowsill.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20465,7 +20499,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1624607957');
+  background-image: url('../img/auxiliaries/blind.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20482,7 +20516,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1624607957');
+  background-image: url('../img/auxiliaries/template1.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20499,7 +20533,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1624607957');
+  background-image: url('../img/auxiliaries/template2.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20523,7 +20557,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1624607957');
+  background-image: url('../img/auxiliaries/louvers-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20533,7 +20567,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1624607957');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20560,7 +20594,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1624607957');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20583,7 +20617,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1624607957');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20594,7 +20628,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1624607957');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20605,7 +20639,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1624607957');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20622,7 +20656,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1624607957');
+  background-image: url('../img/auxiliaries/fan.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20645,7 +20679,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1624607957');
+  background-image: url('../img/auxiliaries/force-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20656,7 +20690,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1624607957');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -20673,7 +20707,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1624607957');
+  background-image: url('../img/auxiliaries/handle.png?1623393065');
   background-repeat: no-repeat;
   background-size: contain;
 }

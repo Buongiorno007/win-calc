@@ -363,3 +363,41 @@
     // }
   }
 }
+
+.glass-selector-dialog-rehau {
+  // opacity: 0;
+  @extend .modal-dialog;
+  @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+  height: 70rem;
+  background-color: #fff;
+  z-index: 12;
+  text-align: center;
+
+  .dialog-inner {
+    height: 90%;
+    width: 100%;
+    text-align: center;
+  }
+  .set-glass-btn-rehau {
+    @extend .button;
+    @extend .splash;
+    @include roboto-rg(15px);
+    position: absolute;
+    top: 1.875rem;
+    right: 6rem;
+    border-radius: 5rem;
+    width: 15rem;
+    height: 3rem;
+    background-color: $main_green;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    // &:after {
+    //   color: #fff;
+    //   content: $select-history-icon;
+    // }
+  }
+}
