@@ -139,6 +139,12 @@ position: absolute;
 
     height: 604px;
     .user-field {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 32px;
+
+      color: #000000;
       width: 360px;
       height: 48px;
       padding: rem(20px);
@@ -159,6 +165,12 @@ position: absolute;
       }
     }
     .user-field-comment {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 32px;
+
+      color: #000000;
       width: 600px;
       height: 200px;
       padding: rem(20px);
