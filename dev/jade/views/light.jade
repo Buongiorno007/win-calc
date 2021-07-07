@@ -28,7 +28,7 @@
             //  div U = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::lightPage.HEATCOEF_VAL}}/{{::lightPage.LETTER_M}}&sup2;&deg;C
             //.product-u-coeff-description(ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id") Сопротивление теплопередаче
             .right-menu-header
-              .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1")
+              .nav-tool-box(ng-if="lightPage.D.design.designSteps.length > 0 && lightPage.G.global.showKarkas === 1 && lightPage.U.userInfo.factory_id !== 2")
                 button.construct-tools.step-back(ng-click="lightPage.stepBack()")
                 .nav-tool-label {{ ::lightPage.BACK }}
 

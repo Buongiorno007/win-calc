@@ -15051,7 +15051,8 @@ function ErrorResult(code, message) {
         DesignStor,
         SVGServ,
         DesignServ,
-        AddElementMenuServ) {
+        AddElementMenuServ,
+        UserStor) {
         var thisFactory = this;
 
 
@@ -15063,6 +15064,16 @@ function ErrorResult(code, message) {
             });
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
+            if (DesignStor.design.activeSubMenuItem > 0) {
+              DesignStor.design.activeSubMenuItem = 0;
+              GlobalStor.global.goLeft = false;
+              GlobalStor.global.showTemplates = false;
+              GlobalStor.global.activePanel = 0;
+              $(document).ready(function() {
+                $(".temp-fig-rehau").removeClass("active")
+              })
+            }
+           
           }
 
           GlobalStor.global.configMenuTips++;
@@ -22181,7 +22192,8 @@ function ErrorResult(code, message) {
         GlobalStor,
         DesignStor,
         AuxStor,
-        ProductStor
+        ProductStor,
+        CartStor
       ) {
         var thisFactory = this,
           tablesLocalDB = {
@@ -25150,8 +25162,9 @@ function ErrorResult(code, message) {
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            // console.log(ProductStor.product, 'Product stor');
-            // console.log(GlobalStor.global, 'global stor');
+            console.log(ProductStor.product, 'Product stor');
+            console.log(GlobalStor.global, 'global stor');
+            // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
             //console.log('REPORT', ProductStor.product.report);

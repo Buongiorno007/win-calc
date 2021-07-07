@@ -51,9 +51,9 @@ position: absolute;
 }
 .cart-dialogs-container-rehau {
   width: 704px;
-  height: 480px;
+  height: 604px;
   margin-left: 35%;
-  margin-top: 10%;
+  margin-top: 5%;
 
   .cart-dialog-header{
     position: relative;
@@ -132,18 +132,39 @@ position: absolute;
   .cart-dialog-body {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     padding: rem(60px);
     background-color: white;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
 
-    height: 400px;
+    height: 604px;
     .user-field {
       width: 360px;
       height: 48px;
       padding: rem(20px);
       border: 1px solid #8c8c8c;
       outline: none;
+
+      &.ng-invalid-minlength,
+      &.ng-invalid-pattern {
+        border-color: $error_color;
+      }
+      &.street {
+        display: inline-block;
+        width: 60%;
+      }
+      &.small {
+        display: inline-block;
+        width: 12.5% ;
+      }
+    }
+    .user-field-comment {
+      width: 600px;
+      height: 200px;
+      padding: rem(20px);
+      border: 1px solid #8c8c8c;
+      outline: none;
+      padding-bottom: 150px;
 
       &.ng-invalid-minlength,
       &.ng-invalid-pattern {
@@ -235,7 +256,6 @@ position: absolute;
 
 .cart-dialogs-container {
   @include box-shadow(rgba(98, 67, 48, .5) 0 0 rem(15px) 1px);
-
   width: rem(1000px);
   margin-left: 42%;
 

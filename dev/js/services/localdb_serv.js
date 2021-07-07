@@ -15,7 +15,8 @@
         GlobalStor,
         DesignStor,
         AuxStor,
-        ProductStor
+        ProductStor,
+        CartStor
       ) {
         var thisFactory = this,
           tablesLocalDB = {
@@ -2984,8 +2985,9 @@
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            // console.log(ProductStor.product, 'Product stor');
-            // console.log(GlobalStor.global, 'global stor');
+            console.log(ProductStor.product, 'Product stor');
+            console.log(GlobalStor.global, 'global stor');
+            // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
             //console.log('REPORT', ProductStor.product.report);

@@ -155,14 +155,16 @@
                 </div>
                 <div ng-if="roomInfo.U.userInfo.factory_id === 2" class="coeff-container">
                   <div class="coeff-block">
-                    <div ng-if="roomInfo.G.global.showCoefInfoBlock" class="coeff-info-block-rehau">
-                      <div class="coeff-max-rehau">{{ roomInfo.O.order.heat_coef_min }}
-                        <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-pop-up-rehau">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
-                        <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-puo-up-rehau">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
+                    <div class="info-container-rehau">
+                      <div ng-if="roomInfo.G.global.showInfoBox(roomInfo.HEAT_TRANSFER_INFO_1, roomInfo.HEAT_TRANSFER_INFO_2)" class="coeff-info-block-rehau">
+                        <div class="coeff-max-rehau">{{ roomInfo.O.order.heat_coef_min }}
+                          <div ng-if="roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-pop-up-rehau">{{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}</div>
+                          <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" class="heat-transfer-puo-up-rehau">{{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C</div>
+                        </div>
+                        <div class="heat-transfer-info_hr">{{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}</div>
+                        <div class="heat-transfer-info">{{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}</div>
+                        <div fs-click="roomInfo.G.global.showCoefInfoBlock=0" class="close-dialog-rehau"></div>
                       </div>
-                      <div class="heat-transfer-info_hr">{{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}</div>
-                      <div class="heat-transfer-info">{{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}</div>
-                      <div fs-click="roomInfo.G.global.showCoefInfoBlock=0" class="close-dialog-rehau"></div>
                     </div>
                     <!--R-->
                     <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff heat-transfer-rehau">
@@ -195,7 +197,7 @@
             <!--  div U = {{ lightPage.P.product.heat_coef_total | number :2 }} {{ ::lightPage.HEATCOEF_VAL}}/{{::lightPage.LETTER_M}}&sup2;&deg;C-->
             <!--.product-u-coeff-description(ng-if="lightPage.G.global.isConfigMenu && !lightPage.U.userInfo.therm_coeff_id") Сопротивление теплопередаче-->
             <div class="right-menu-header">
-              <div ng-if="lightPage.D.design.designSteps.length &gt; 0 &amp;&amp; lightPage.G.global.showKarkas === 1" class="nav-tool-box">
+              <div ng-if="lightPage.D.design.designSteps.length &gt; 0 &amp;&amp; lightPage.G.global.showKarkas === 1 &amp;&amp; lightPage.U.userInfo.factory_id !== 2" class="nav-tool-box">
                 <button ng-click="lightPage.stepBack()" class="construct-tools step-back"></button>
                 <div class="nav-tool-label">{{ ::lightPage.BACK }}</div>
               </div>
@@ -861,7 +863,7 @@
                           <p ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}</p>
                         </div>
                         <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-                          <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{'selected': item.id === elementsPanel.P.product.chosenAddElements[$index].id}" class="splice">{{item.name}}</p>
+                          <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{'selected': item.name === elementsPanel.C.cart.allAddElements[lightPage.config.detailProductIndex].name}" class="splice">{{item.name}}</p>
                         </div>
                       </div>
                     </div>
@@ -2834,6 +2836,11 @@
                   <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field">
                   <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                   <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+                </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                  <div class="input-name">Ваш коментарий</div>
+                  <input type="text" name="comment" ng-model="orderForm.C.cart.customer.customer_comment" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-comment">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                 </div>
                 <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>

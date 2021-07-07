@@ -171,6 +171,7 @@
     padding-top: 15px;
     background-color: white;
     .glass-block {
+      @extend .splash;
       position: relative;
       display: inline-flex;
       align-items: center;

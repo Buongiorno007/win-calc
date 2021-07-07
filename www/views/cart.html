@@ -1495,6 +1495,11 @@
                   <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                   <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
                 </div>
+                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                  <div class="input-name">Ваш коментарий</div>
+                  <input type="text" name="comment" ng-model="orderForm.C.cart.customer.customer_comment" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-comment">
+                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                </div>
                 <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
             </form>

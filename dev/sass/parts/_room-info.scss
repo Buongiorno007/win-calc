@@ -79,14 +79,15 @@
   }
   //rehau styles
   .coeff-info-block-rehau {
+    @extend .backWhiteView;
     @extend .splash;
     position: absolute;
-    top: -33rem;
-    width: 80rem;
-    height: 20rem;
-    left:-23rem;
+    top: -70rem;
+    width: 87rem;
+    height: 60rem;
+    left: -31rem;
     background-color: white;
-    text-align:center;
+    text-align: center;
     padding: 2rem 0 0 0;
     text-shadow: none;
     box-shadow: 0rem 0 0.9375rem 0.1rem rgba(0, 0, 0, 0.5);

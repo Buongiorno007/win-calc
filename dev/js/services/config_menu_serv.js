@@ -17,7 +17,8 @@
         DesignStor,
         SVGServ,
         DesignServ,
-        AddElementMenuServ) {
+        AddElementMenuServ,
+        UserStor) {
         var thisFactory = this;
 
 
@@ -29,6 +30,16 @@
             });
             ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
             ProductStor.product.template = DesignStor.design.templateTEMP;
+            if (DesignStor.design.activeSubMenuItem > 0) {
+              DesignStor.design.activeSubMenuItem = 0;
+              GlobalStor.global.goLeft = false;
+              GlobalStor.global.showTemplates = false;
+              GlobalStor.global.activePanel = 0;
+              $(document).ready(function() {
+                $(".temp-fig-rehau").removeClass("active")
+              })
+            }
+           
           }
 
           GlobalStor.global.configMenuTips++;
