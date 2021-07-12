@@ -414,6 +414,10 @@
     }
   }
 
+  .laminatuin-display-block {
+    display: flex;
+  }
+
   .figure-label-rehau-subtitle {
     text-transform: lowercase;
     margin: 0 !important;
@@ -427,6 +431,16 @@
     &:first-letter {
       text-transform: uppercase;
     }
+  }
+
+  .slash-between-laminations {
+    text-transform: lowercase;
+    margin: 0 !important;
+    position: relative;
+    top: -3rem;
+    left: 0;
+    font-size: 16px;
+    line-height: 24px;
   }
 
   // * End

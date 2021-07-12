@@ -22,6 +22,9 @@
     &.has-error > .user-field {
       border-color: $error_color;
     }
+    &.invalid-data > .user-field{
+      border-color: red;
+    }
   }
 
   .template-window {

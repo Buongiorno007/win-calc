@@ -1690,7 +1690,6 @@ body {
 /* line 257, ../../dev/sass/base/general.scss */
 .close-dialog-rehau {
   background-image: url(../../img/rehau-img/remove.png);
-  background-color: #DE350C;
   width: 33px;
   height: 33px;
   position: absolute;
@@ -1699,7 +1698,7 @@ body {
   cursor: pointer;
 }
 
-/* line 269, ../../dev/sass/base/general.scss */
+/* line 268, ../../dev/sass/base/general.scss */
 .close-alert-rehau {
   background-image: url(../../img/rehau-img/close.png);
   background-repeat: no-repeat;
@@ -1711,7 +1710,7 @@ body {
   cursor: pointer;
 }
 
-/* line 281, ../../dev/sass/base/general.scss */
+/* line 280, ../../dev/sass/base/general.scss */
 .aux-delete, .cart-page .addelementunit-delete {
   top: 0rem;
   left: 0rem;
@@ -1719,7 +1718,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 290, ../../dev/sass/base/general.scss */
+/* line 289, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1742,7 +1741,7 @@ body {
   z-index: 1;
 }
 
-/* line 312, ../../dev/sass/base/general.scss */
+/* line 311, ../../dev/sass/base/general.scss */
 .fullViewDiv, .backDarkView, .alert-overlay, .box-menu, .box-menu11, .backWhiteView, .alert-overlay-rehau, .room-info-container .coeff-info-block-rehau, .info_container-rehau, .backLightView, .loader-container, .info_container {
   position: absolute;
   left: 0;
@@ -1753,37 +1752,37 @@ body {
   height: 100%;
 }
 
-/* line 321, ../../dev/sass/base/general.scss */
+/* line 320, ../../dev/sass/base/general.scss */
 .backDarkView, .alert-overlay, .box-menu, .box-menu11 {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 9;
 }
 
-/* line 326, ../../dev/sass/base/general.scss */
+/* line 325, ../../dev/sass/base/general.scss */
 .backWhiteView, .alert-overlay-rehau, .room-info-container .coeff-info-block-rehau, .info_container-rehau {
   background: rgba(255, 255, 255, 0.64);
   backdrop-filter: blur(4px);
 }
 
-/* line 331, ../../dev/sass/base/general.scss */
+/* line 330, ../../dev/sass/base/general.scss */
 .backLightView, .loader-container, .info_container {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 999;
 }
 
-/* line 343, ../../dev/sass/base/general.scss */
+/* line 342, ../../dev/sass/base/general.scss */
 .alert-overlay {
   opacity: 1.08;
   z-index: 10000;
 }
 
-/* line 349, ../../dev/sass/base/general.scss */
+/* line 348, ../../dev/sass/base/general.scss */
 .alert-overlay-rehau {
   opacity: 1.08;
   z-index: 10000;
 }
 
-/* line 355, ../../dev/sass/base/general.scss */
+/* line 354, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -1800,18 +1799,18 @@ body {
   text-align: center;
   z-index: 99999;
 }
-/* line 373, ../../dev/sass/base/general.scss */
+/* line 372, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-descr-rehau {
   font-size: 24px;
 }
-/* line 376, ../../dev/sass/base/general.scss */
+/* line 375, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-btns-rehau {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
-/* line 380, ../../dev/sass/base/general.scss */
+/* line 379, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-yes-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1824,7 +1823,7 @@ body {
   color: white;
   width: 80px;
 }
-/* line 397, ../../dev/sass/base/general.scss */
+/* line 396, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-no-rehau {
   background: #4E4E4E;
   padding: 8px 10px;
@@ -1835,7 +1834,7 @@ body {
   line-height: 32px;
   width: 80px;
 }
-/* line 411, ../../dev/sass/base/general.scss */
+/* line 410, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-copy-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1846,7 +1845,7 @@ body {
   line-height: 32px;
   width: 190px;
 }
-/* line 425, ../../dev/sass/base/general.scss */
+/* line 424, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-edit-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1858,7 +1857,7 @@ body {
   width: 190px;
 }
 
-/* line 441, ../../dev/sass/base/general.scss */
+/* line 440, ../../dev/sass/base/general.scss */
 .alert-block-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -1875,7 +1874,7 @@ body {
   text-align: center;
   z-index: 99999;
 }
-/* line 459, ../../dev/sass/base/general.scss */
+/* line 458, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-question-sign-rehau {
   background-image: url(../../img/rehau-img/question-sign.png);
   background-repeat: no-repeat;
@@ -1885,7 +1884,7 @@ body {
   margin-bottom: 30px;
   margin-top: 40px;
 }
-/* line 471, ../../dev/sass/base/general.scss */
+/* line 470, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-danger-sign-rehau {
   background-image: url(../../img/rehau-img/danger-sign.png);
   background-repeat: no-repeat;
@@ -1895,7 +1894,7 @@ body {
   margin-bottom: 30px;
   margin-top: 25px;
 }
-/* line 483, ../../dev/sass/base/general.scss */
+/* line 482, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-title-rehau {
   font-style: normal;
   font-weight: bold;
@@ -1905,12 +1904,12 @@ body {
   text-transform: uppercase;
   color: #000000;
 }
-/* line 494, ../../dev/sass/base/general.scss */
+/* line 493, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-descr-rehau {
   margin-bottom: 24px;
   margin-top: 8px;
 }
-/* line 498, ../../dev/sass/base/general.scss */
+/* line 497, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-btns-rehau {
   display: -webkit-flex;
   display: flex;
@@ -1918,7 +1917,7 @@ body {
   justify-content: space-around;
   color: white;
 }
-/* line 505, ../../dev/sass/base/general.scss */
+/* line 504, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-no-rehau {
   background-color: #858181;
   padding: 8px 10px;
@@ -1928,7 +1927,7 @@ body {
   font-size: 24px;
   line-height: 32px;
 }
-/* line 517, ../../dev/sass/base/general.scss */
+/* line 516, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-yes-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1939,7 +1938,7 @@ body {
   line-height: 32px;
   width: 80px;
 }
-/* line 531, ../../dev/sass/base/general.scss */
+/* line 530, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-no-rehau {
   background: #4E4E4E;
   padding: 8px 10px;
@@ -1950,7 +1949,7 @@ body {
   line-height: 32px;
   width: 80px;
 }
-/* line 545, ../../dev/sass/base/general.scss */
+/* line 544, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-copy-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1961,7 +1960,7 @@ body {
   line-height: 32px;
   width: 190px;
 }
-/* line 559, ../../dev/sass/base/general.scss */
+/* line 558, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-edit-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1973,7 +1972,7 @@ body {
   width: 190px;
 }
 
-/* line 577, ../../dev/sass/base/general.scss */
+/* line 576, ../../dev/sass/base/general.scss */
 .alert-block {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -1991,35 +1990,35 @@ body {
   z-index: 99999;
 }
 
-/* line 594, ../../dev/sass/base/general.scss */
+/* line 593, ../../dev/sass/base/general.scss */
 .alert-sign {
   font: normal 10rem/1.42857 icons, sans-serif;
 }
-/* line 598, ../../dev/sass/base/general.scss */
+/* line 597, ../../dev/sass/base/general.scss */
 .alert-sign:after {
   -webkit-text-fill-color: #f74f2e;
   color: #f74f2e;
   content: "";
 }
 
-/* line 604, ../../dev/sass/base/general.scss */
+/* line 603, ../../dev/sass/base/general.scss */
 .alert-title {
   font: normal 2rem/1.42857 roboto-bold, sans-serif, icons;
 }
 
-/* line 607, ../../dev/sass/base/general.scss */
+/* line 606, ../../dev/sass/base/general.scss */
 .alert-descr {
   margin: 2rem 0;
 }
 
-/* line 610, ../../dev/sass/base/general.scss */
+/* line 609, ../../dev/sass/base/general.scss */
 .alert-btns {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
-/* line 613, ../../dev/sass/base/general.scss */
+/* line 612, ../../dev/sass/base/general.scss */
 .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .alert-btns .door-configuration .door-config-finish-save-btn, .door-configuration .alert-btns .door-config-finish-save-btn {
   width: 10rem;
   height: 4rem;
@@ -2027,17 +2026,17 @@ body {
   color: white;
 }
 
-/* line 621, ../../dev/sass/base/general.scss */
+/* line 620, ../../dev/sass/base/general.scss */
 .alert-no {
   background-color: #858181;
 }
 
-/* line 624, ../../dev/sass/base/general.scss */
+/* line 623, ../../dev/sass/base/general.scss */
 .alert-yes {
   background-color: #f98000;
 }
 
-/* line 627, ../../dev/sass/base/general.scss */
+/* line 626, ../../dev/sass/base/general.scss */
 .thisAlert {
   left: 86%;
   top: 5%;
@@ -2046,7 +2045,7 @@ body {
   position: absolute;
 }
 
-/* line 638, ../../dev/sass/base/general.scss */
+/* line 637, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .cart-page .addelementunits-container, .scroll-hor-container, .cart-page .addelements-detail-content,
 .light-v .addelements-detail-content, .cart-page .products-selector .products-selector-block .products-block {
   -webkit-overflow-scrolling: touch;
@@ -2056,26 +2055,26 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 641, ../../dev/sass/base/general.scss */
+/* line 640, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container, .cart-page .addelementunits-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 645, ../../dev/sass/base/general.scss */
+/* line 644, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container, .cart-page .products-selector .products-selector-block .products-block {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 649, ../../dev/sass/base/general.scss */
+/* line 648, ../../dev/sass/base/general.scss */
 .scroll-vert-container, .cart-page .addelementunits-container {
   width: 102%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 656, ../../dev/sass/base/general.scss */
+/* line 655, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
@@ -2084,12 +2083,12 @@ body {
   flex-direction: row-reverse;
 }
 
-/* line 670, ../../dev/sass/base/general.scss */
+/* line 669, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
 
-/* line 676, ../../dev/sass/base/general.scss */
+/* line 675, ../../dev/sass/base/general.scss */
 .main-svg-click {
   position: absolute;
   top: 15%;
@@ -3198,7 +3197,7 @@ div.drum figure {
 }
 /* line 243, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-number.active {
-  transform: rotate(70deg) scale(1.7);
+  transform: scale(2);
 }
 /* line 248, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .heat-transfer-rehau .coeff-mark {
@@ -5057,14 +5056,31 @@ textarea.comment-field-rehau {
   color: #4E4E4E;
   margin: 0;
 }
-/* line 210, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 209, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs-container-rehau .cart-dialog-body .privacy-policy-text {
+  display: flex;
+  align-items: center;
+}
+/* line 213, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs-container-rehau .cart-dialog-body .privacy-policy-text .agreement-checkbox {
+  transform: scale(1.5);
+  cursor: pointer;
+  margin-right: 24px;
+}
+/* line 219, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs-container-rehau .cart-dialog-body .privacy-policy-text .agreement {
+  font-size: 14px;
+  font-family: cursive;
+  font-style: italic;
+}
+/* line 226, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .cart-dialog-descrip {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-bottom: 1.25rem;
   text-align: center;
   color: #363636;
 }
-/* line 218, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 234, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .location-list-tooltip {
   top: 0rem;
   left: 37.5rem;
@@ -5078,26 +5094,26 @@ textarea.comment-field-rehau {
   outline: none;
   z-index: 5;
 }
-/* line 230, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 246, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .location-option {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   border-bottom: 1px solid #c4c3c3;
   color: #363636;
   cursor: pointer;
 }
-/* line 236, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 252, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .location-option:last-child {
   border-bottom: none;
 }
-/* line 239, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 255, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .location-option:first-letter {
   color: #f98000;
 }
-/* line 243, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 259, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .current-city {
   position: relative;
 }
-/* line 246, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 262, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .current-city:after {
   font: normal 1.875rem/1 icons, sans-serif;
   position: absolute;
@@ -5106,7 +5122,7 @@ textarea.comment-field-rehau {
   color: #f98000;
   content: "";
 }
-/* line 258, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 274, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .cart-dialog-label {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 1.25rem;
@@ -5114,7 +5130,7 @@ textarea.comment-field-rehau {
   color: #363636;
 }
 
-/* line 269, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 285, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container {
   -moz-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
   -webkit-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
@@ -5122,7 +5138,7 @@ textarea.comment-field-rehau {
   width: 62.5rem;
   margin-left: 42%;
 }
-/* line 274, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 290, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-header {
   position: relative;
   padding: 1.875rem;
@@ -5130,7 +5146,7 @@ textarea.comment-field-rehau {
   border-top-right-radius: 2rem;
   background-color: #fff;
 }
-/* line 281, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 297, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-tool {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
@@ -5143,27 +5159,27 @@ textarea.comment-field-rehau {
   background: transparent;
   outline: none;
 }
-/* line 295, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 311, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-tool:before {
   color: #f98000;
 }
-/* line 299, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 315, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .back {
   left: 3%;
 }
-/* line 301, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 317, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .back:before {
   content: "";
 }
-/* line 305, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 321, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .print {
   left: 10%;
 }
-/* line 307, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 323, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .print:before {
   content: "";
 }
-/* line 312, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 328, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-title {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   width: 60%;
@@ -5171,7 +5187,7 @@ textarea.comment-field-rehau {
   text-align: center;
   color: #363636;
 }
-/* line 320, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 336, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .save {
   position: absolute;
   top: 25%;
@@ -5181,7 +5197,7 @@ textarea.comment-field-rehau {
   color: #fff;
   background-color: #f98000;
 }
-/* line 332, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 348, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .save-order {
   position: inherit;
   display: block;
@@ -5194,18 +5210,18 @@ textarea.comment-field-rehau {
   margin: 0 auto;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
 }
-/* line 344, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 360, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .little {
   background-color: red !important;
 }
-/* line 347, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 363, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body {
   padding: 3.75rem;
   background-color: #f0f0f0;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-/* line 352, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 368, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body .user-field, .cart-dialogs-container .cart-dialog-body .user-select-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: inline-flex;
@@ -5216,33 +5232,33 @@ textarea.comment-field-rehau {
   border-radius: 2rem;
   outline: none;
 }
-/* line 361, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 377, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body .user-field.ng-invalid-minlength, .cart-dialogs-container .cart-dialog-body .ng-invalid-minlength.user-select-field, .cart-dialogs-container .cart-dialog-body .user-field.ng-invalid-pattern, .cart-dialogs-container .cart-dialog-body .ng-invalid-pattern.user-select-field {
   border-color: #f74f2e;
 }
-/* line 365, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 381, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body .user-field.street, .cart-dialogs-container .cart-dialog-body .street.user-select-field {
   display: inline-block;
   width: 60%;
 }
-/* line 369, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 385, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body .user-field.small, .cart-dialogs-container .cart-dialog-body .small.user-select-field {
   display: inline-block;
   width: 12.5%;
 }
-/* line 374, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 390, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body .input-field {
   position: relative;
   margin-bottom: 2.75rem;
 }
-/* line 380, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 396, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-descrip {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-bottom: 1.25rem;
   text-align: center;
   color: #363636;
 }
-/* line 388, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 404, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-list-tooltip {
   top: 0rem;
   left: 37.5rem;
@@ -5256,26 +5272,26 @@ textarea.comment-field-rehau {
   outline: none;
   z-index: 5;
 }
-/* line 413, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 429, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   border-bottom: 1px solid #c4c3c3;
   color: #363636;
   cursor: pointer;
 }
-/* line 419, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 435, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:last-child {
   border-bottom: none;
 }
-/* line 422, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 438, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:first-letter {
   color: #f98000;
 }
-/* line 426, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 442, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city {
   position: relative;
 }
-/* line 429, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 445, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city:after {
   font: normal 1.875rem/1 icons, sans-serif;
   position: absolute;
@@ -5284,7 +5300,7 @@ textarea.comment-field-rehau {
   color: #f98000;
   content: "";
 }
-/* line 441, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 457, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-label {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 1.25rem;
@@ -5292,34 +5308,34 @@ textarea.comment-field-rehau {
   color: #363636;
 }
 
-/* line 451, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 467, ../../dev/sass/parts/_cart-dialogs.scss */
 .master-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
 
-/* line 456, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 472, ../../dev/sass/parts/_cart-dialogs.scss */
 .order-dialog .cart-dialogs-container {
   margin-top: 1%;
   margin-bottom: 1%;
 }
 
-/* line 463, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 479, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block {
   display: inline-block;
 }
-/* line 465, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 481, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block:first-child {
   margin: 0 15% 0 3%;
 }
 
-/* line 469, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 485, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-right: 0.625rem;
   color: #8c8c8c;
 }
 
-/* line 475, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 491, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: inline-block;
@@ -5332,44 +5348,44 @@ textarea.comment-field-rehau {
   outline: none;
 }
 
-/* line 488, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 504, ../../dev/sass/parts/_cart-dialogs.scss */
 .subtitle-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: left;
   color: #363636;
 }
 
-/* line 495, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 511, ../../dev/sass/parts/_cart-dialogs.scss */
 .label-field {
   margin: 10.25rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
 
-/* line 501, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 517, ../../dev/sass/parts/_cart-dialogs.scss */
 .user-select-field {
   -moz-appearance: none;
   -webkit-appearance: none;
   background-color: #fff;
 }
 
-/* line 510, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 526, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip, .cart-dialogs .setting-container .set-email-error, .setting-container .cart-dialogs .set-email-error {
   top: 1rem;
 }
-/* line 512, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 528, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.street, .cart-dialogs .setting-container .street.set-email-error, .setting-container .cart-dialogs .street.set-email-error {
   left: 55rem;
 }
-/* line 515, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 531, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.house, .cart-dialogs .setting-container .house.set-email-error, .setting-container .cart-dialogs .house.set-email-error {
   left: 55rem;
 }
-/* line 518, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 534, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.flat, .cart-dialogs .setting-container .flat.set-email-error, .setting-container .cart-dialogs .flat.set-email-error {
   left: 55rem;
 }
-/* line 521, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 537, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.floor, .cart-dialogs .setting-container .floor.set-email-error, .setting-container .cart-dialogs .floor.set-email-error {
   left: 55rem;
 }
@@ -9648,7 +9664,13 @@ tr.factory_item {
 .light-v .input-field.has-error > .user-select-field {
   border-color: #f74f2e;
 }
-/* line 27, ../../dev/sass/pages/cart.scss */
+/* line 25, ../../dev/sass/pages/cart.scss */
+.cart-page .input-field.invalid-data > .user-field, .cart-page .input-field.invalid-data > .user-select-field,
+.light-v .input-field.invalid-data > .user-field,
+.light-v .input-field.invalid-data > .user-select-field {
+  border-color: red;
+}
+/* line 30, ../../dev/sass/pages/cart.scss */
 .cart-page .template-window,
 .light-v .template-window {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
@@ -9664,7 +9686,7 @@ tr.factory_item {
   z-index: 10;
   border-radius: 1.25rem;
 }
-/* line 42, ../../dev/sass/pages/cart.scss */
+/* line 45, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container,
 .light-v .cart-container {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Q3ZGJkOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
@@ -9678,7 +9700,7 @@ tr.factory_item {
   padding: 3.125rem 0 3.125rem 6.25rem;
   bottom: 0;
 }
-/* line 49, ../../dev/sass/pages/cart.scss */
+/* line 52, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view,
 .light-v .cart-container.full-view {
   top: 0rem;
@@ -9688,23 +9710,23 @@ tr.factory_item {
   -webkit-transition: all 0.5s linear;
   transition: all 0.5s linear;
 }
-/* line 53, ../../dev/sass/pages/cart.scss */
+/* line 56, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view .scroll-hor-container,
 .light-v .cart-container.full-view .scroll-hor-container {
   height: 83rem;
 }
-/* line 56, ../../dev/sass/pages/cart.scss */
+/* line 59, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view .left-position,
 .light-v .cart-container.full-view .left-position {
   justify-content: flex-end;
 }
-/* line 59, ../../dev/sass/pages/cart.scss */
+/* line 62, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view.discount,
 .light-v .cart-container.full-view.discount {
   top: -96.875rem;
   left: 0rem;
 }
-/* line 64, ../../dev/sass/pages/cart.scss */
+/* line 67, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.light-view,
 .light-v .cart-container.light-view {
   top: 0rem;
@@ -9716,7 +9738,7 @@ tr.factory_item {
   height: 100%;
   z-index: 5;
 }
-/* line 71, ../../dev/sass/pages/cart.scss */
+/* line 74, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.alladdelements-view,
 .light-v .cart-container.alladdelements-view {
   top: 0rem;
@@ -9728,7 +9750,7 @@ tr.factory_item {
   height: 100%;
   z-index: 6;
 }
-/* line 78, ../../dev/sass/pages/cart.scss */
+/* line 81, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.addelement-view,
 .light-v .cart-container.addelement-view {
   top: 0rem;
@@ -9740,13 +9762,13 @@ tr.factory_item {
   height: 100%;
   z-index: 7;
 }
-/* line 85, ../../dev/sass/pages/cart.scss */
+/* line 88, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.active,
 .light-v .cart-container.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 90, ../../dev/sass/pages/cart.scss */
+/* line 93, ../../dev/sass/pages/cart.scss */
 .cart-page .disc,
 .light-v .disc {
   -moz-transition: top 0.3s linear;
@@ -9754,7 +9776,7 @@ tr.factory_item {
   -webkit-transition: top 0.3s linear;
   transition: top 0.3s linear;
 }
-/* line 95, ../../dev/sass/pages/cart.scss */
+/* line 98, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-txt-arrow,
 .light-v .discount-txt-arrow {
   -webkit-flex-grow: 2;
@@ -9772,7 +9794,7 @@ tr.factory_item {
   align-items: center;
   justify-content: space-between;
 }
-/* line 108, ../../dev/sass/pages/cart.scss */
+/* line 111, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-icon-down,
 .light-v .discounts-icon-down {
   width: 5rem;
@@ -9781,7 +9803,7 @@ tr.factory_item {
   background-size: contain;
   display: inline-block;
 }
-/* line 116, ../../dev/sass/pages/cart.scss */
+/* line 119, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-icon-up,
 .light-v .discounts-icon-up {
   width: 5rem;
@@ -9791,7 +9813,7 @@ tr.factory_item {
   display: inline-block;
   transform: rotate(180deg);
 }
-/* line 126, ../../dev/sass/pages/cart.scss */
+/* line 129, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-header,
 .light-v .cart-header {
   display: -webkit-flex;
@@ -9806,32 +9828,32 @@ tr.factory_item {
   width: 100%;
   height: 9.375rem;
 }
-/* line 136, ../../dev/sass/pages/cart.scss */
+/* line 139, ../../dev/sass/pages/cart.scss */
 .cart-page .user-info-container,
 .light-v .user-info-container {
   top: 0;
 }
-/* line 140, ../../dev/sass/pages/cart.scss */
+/* line 143, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-tool,
 .light-v .cart-tool {
   position: relative;
   padding: 1.125rem 1.875rem;
   z-index: 2;
 }
-/* line 148, ../../dev/sass/pages/cart.scss */
+/* line 151, ../../dev/sass/pages/cart.scss */
 .cart-page .additional-elements,
 .light-v .additional-elements {
   margin-right: 1.25rem;
   background-color: #dcdcdc;
   color: #363636;
 }
-/* line 154, ../../dev/sass/pages/cart.scss */
+/* line 157, ../../dev/sass/pages/cart.scss */
 .cart-page .new-order,
 .light-v .new-order {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 159, ../../dev/sass/pages/cart.scss */
+/* line 162, ../../dev/sass/pages/cart.scss */
 .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit,
 .light-v .order,
 .light-v .cart-page .products-selector .products-selector-block .products-block .product,
@@ -9846,7 +9868,7 @@ tr.factory_item {
   float: right;
   height: 79rem;
 }
-/* line 169, ../../dev/sass/pages/cart.scss */
+/* line 172, ../../dev/sass/pages/cart.scss */
 .cart-page .order-rehau,
 .light-v .order-rehau {
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.24);
@@ -9857,18 +9879,18 @@ tr.factory_item {
   display: flex;
   flex-direction: column;
 }
-/* line 180, ../../dev/sass/pages/cart.scss */
+/* line 183, ../../dev/sass/pages/cart.scss */
 .cart-page .order-rehau .order-header,
 .light-v .order-rehau .order-header {
   height: 0;
 }
-/* line 186, ../../dev/sass/pages/cart.scss */
+/* line 189, ../../dev/sass/pages/cart.scss */
 .cart-page .order-header,
 .light-v .order-header {
   position: relative;
   background-color: white;
 }
-/* line 191, ../../dev/sass/pages/cart.scss */
+/* line 194, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete,
 .light-v .order-delete {
   position: absolute;
@@ -9877,7 +9899,7 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 200, ../../dev/sass/pages/cart.scss */
+/* line 203, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete-rehau,
 .light-v .order-delete-rehau {
   background-image: url(../../img/rehau-img/close.png);
@@ -9892,7 +9914,7 @@ tr.factory_item {
   z-index: 1;
   background-color: #DE350C;
 }
-/* line 218, ../../dev/sass/pages/cart.scss */
+/* line 221, ../../dev/sass/pages/cart.scss */
 .cart-page .delete-construction,
 .light-v .delete-construction {
   background-image: url(../../img/rehau-img/remove.png);
@@ -9904,13 +9926,13 @@ tr.factory_item {
   height: 32px;
   border: none;
 }
-/* line 230, ../../dev/sass/pages/cart.scss */
+/* line 233, ../../dev/sass/pages/cart.scss */
 .cart-page .R-MInfo,
 .light-v .R-MInfo {
   width: auto;
   display: inline-block;
 }
-/* line 235, ../../dev/sass/pages/cart.scss */
+/* line 238, ../../dev/sass/pages/cart.scss */
 .cart-page .inner-text,
 .light-v .inner-text {
   position: relative;
@@ -9920,7 +9942,7 @@ tr.factory_item {
   color: #8c8c8c;
   margin: 0;
 }
-/* line 244, ../../dev/sass/pages/cart.scss */
+/* line 247, ../../dev/sass/pages/cart.scss */
 .cart-page .number,
 .light-v .number {
   color: #363636;
@@ -9930,7 +9952,7 @@ tr.factory_item {
   top: 0.3rem;
   margin: 0;
 }
-/* line 253, ../../dev/sass/pages/cart.scss */
+/* line 256, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value,
 .light-v .order-value,
 .light-v .product-value,
@@ -9943,7 +9965,7 @@ tr.factory_item {
   display: inline-block;
   overflow: hidden;
 }
-/* line 263, ../../dev/sass/pages/cart.scss */
+/* line 266, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value-rehau,
 .light-v .order-value-rehau {
   font-style: normal;
@@ -9952,7 +9974,7 @@ tr.factory_item {
   line-height: 24px;
   color: #000000;
 }
-/* line 272, ../../dev/sass/pages/cart.scss */
+/* line 275, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value-qty,
 .light-v .order-value-qty {
   font-style: normal;
@@ -9962,7 +9984,7 @@ tr.factory_item {
   text-align: center;
   color: #000000;
 }
-/* line 283, ../../dev/sass/pages/cart.scss */
+/* line 286, ../../dev/sass/pages/cart.scss */
 .cart-page .value-rehau-comment,
 .light-v .value-rehau-comment {
   margin-left: 15px;
@@ -9972,12 +9994,12 @@ tr.factory_item {
   width: 190px;
   overflow: hidden;
 }
-/* line 293, ../../dev/sass/pages/cart.scss */
+/* line 296, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-btn,
 .light-v .addelements-btn {
   cursor: pointer;
 }
-/* line 297, ../../dev/sass/pages/cart.scss */
+/* line 300, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label, .cart-page .product-icon-label,
 .cart-page .product-label, .cart-page .addelement-label,
 .light-v .order-label,
@@ -9987,7 +10009,7 @@ tr.factory_item {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
-/* line 303, ../../dev/sass/pages/cart.scss */
+/* line 306, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label-rehau,
 .light-v .order-label-rehau {
   font-style: normal;
@@ -9996,7 +10018,7 @@ tr.factory_item {
   line-height: 24px;
   color: #000000;
 }
-/* line 313, ../../dev/sass/pages/cart.scss */
+/* line 316, ../../dev/sass/pages/cart.scss */
 .cart-page .order-qty,
 .light-v .order-qty {
   display: -webkit-flex;
@@ -10011,7 +10033,7 @@ tr.factory_item {
   text-align: center;
   color: #000000;
 }
-/* line 328, ../../dev/sass/pages/cart.scss */
+/* line 331, ../../dev/sass/pages/cart.scss */
 .cart-page .order-qty,
 .light-v .order-qty {
   display: -webkit-flex;
@@ -10019,7 +10041,7 @@ tr.factory_item {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 335, ../../dev/sass/pages/cart.scss */
+/* line 338, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool,
 .light-v .order-tool {
   width: 4.0625rem;
@@ -10028,7 +10050,7 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 345, ../../dev/sass/pages/cart.scss */
+/* line 348, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool-plus-rehau,
 .light-v .order-tool-plus-rehau {
   width: 40px;
@@ -10038,7 +10060,7 @@ tr.factory_item {
   border: none;
   margin-right: 25px;
 }
-/* line 355, ../../dev/sass/pages/cart.scss */
+/* line 358, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool-minus-rehau,
 .light-v .order-tool-minus-rehau {
   width: 40px;
@@ -10048,7 +10070,7 @@ tr.factory_item {
   border: none;
   margin-left: 25px;
 }
-/* line 366, ../../dev/sass/pages/cart.scss */
+/* line 369, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer, .cart-page .addelements-detail-footer,
 .light-v .order-footer,
 .light-v .addelements-detail-footer {
@@ -10071,7 +10093,7 @@ tr.factory_item {
   text-align: center;
   margin-top: 25px;
 }
-/* line 384, ../../dev/sass/pages/cart.scss */
+/* line 387, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau,
 .light-v .order-footer-rehau {
   display: flex;
@@ -10080,7 +10102,7 @@ tr.factory_item {
   padding: 4px 36px;
   background-color: #F1F1F1;
 }
-/* line 395, ../../dev/sass/pages/cart.scss */
+/* line 398, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-warmcoef h2,
 .light-v .order-footer-rehau .order-footer-warmcoef h2 {
   font-style: normal;
@@ -10090,7 +10112,7 @@ tr.factory_item {
   text-align: center;
   color: #DD0060;
 }
-/* line 406, ../../dev/sass/pages/cart.scss */
+/* line 409, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-warmcoef h3,
 .light-v .order-footer-rehau .order-footer-warmcoef h3 {
   font-style: normal;
@@ -10099,7 +10121,7 @@ tr.factory_item {
   line-height: 24px;
   color: #000000;
 }
-/* line 416, ../../dev/sass/pages/cart.scss */
+/* line 419, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-price-rehau h3,
 .light-v .order-footer-rehau .order-footer-price-rehau h3 {
   font-style: normal;
@@ -10108,7 +10130,7 @@ tr.factory_item {
   line-height: 24px;
   color: #000000;
 }
-/* line 424, ../../dev/sass/pages/cart.scss */
+/* line 427, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer-rehau .order-footer-price-rehau .order-price,
 .light-v .order-footer-rehau .order-footer-price-rehau .order-price {
   text-align: center;
@@ -10116,13 +10138,13 @@ tr.factory_item {
   font-size: 18px;
   font-weight: bold;
 }
-/* line 435, ../../dev/sass/pages/cart.scss */
+/* line 438, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn,
 .light-v .order-comment-btn {
   font: normal 3.5rem/1.75 icons, sans-serif;
   cursor: pointer;
 }
-/* line 440, ../../dev/sass/pages/cart.scss */
+/* line 443, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn:after,
 .light-v .order-comment-btn:after {
   content: "";
@@ -10130,12 +10152,12 @@ tr.factory_item {
   border-left: 1px dotted #bebebe;
   padding-left: 1rem;
 }
-/* line 447, ../../dev/sass/pages/cart.scss */
+/* line 450, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn.active:after,
 .light-v .order-comment-btn.active:after {
   color: #f98000;
 }
-/* line 452, ../../dev/sass/pages/cart.scss */
+/* line 455, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment,
 .light-v .order-comment {
   -moz-transition: height 2s ease;
@@ -10155,12 +10177,12 @@ tr.factory_item {
   background-color: #fff;
   overflow: hidden;
 }
-/* line 467, ../../dev/sass/pages/cart.scss */
+/* line 470, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment.active,
 .light-v .order-comment.active {
   height: 35rem;
 }
-/* line 471, ../../dev/sass/pages/cart.scss */
+/* line 474, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-box,
 .light-v .order-comment .order-comment-box {
   width: 100%;
@@ -10168,19 +10190,19 @@ tr.factory_item {
   padding: 2rem;
   overflow-y: auto;
 }
-/* line 478, ../../dev/sass/pages/cart.scss */
+/* line 481, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-title,
 .light-v .order-comment .order-comment-title {
   font: normal 2.25rem/1.7 roboto-medium, sans-serif, icons;
   text-align: center;
 }
-/* line 483, ../../dev/sass/pages/cart.scss */
+/* line 486, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-content,
 .light-v .order-comment .order-comment-content {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: justify;
 }
-/* line 490, ../../dev/sass/pages/cart.scss */
+/* line 493, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-block,
 .light-v .full-view .order-block {
   display: -webkit-inline-flex;
@@ -10190,7 +10212,7 @@ tr.factory_item {
   min-height: 45%;
   z-index: 4;
 }
-/* line 499, ../../dev/sass/pages/cart.scss */
+/* line 502, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order, .cart-page .full-view .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .full-view .product, .cart-page .full-view .addelementunit,
 .light-v .full-view .order,
 .light-v .full-view .cart-page .products-selector .products-selector-block .products-block .product,
@@ -10202,7 +10224,7 @@ tr.factory_item {
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 507, ../../dev/sass/pages/cart.scss */
+/* line 510, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-rehau,
 .light-v .full-view .order-rehau {
   width: 704px;
@@ -10210,31 +10232,31 @@ tr.factory_item {
   float: left;
   margin-bottom: 32px;
 }
-/* line 514, ../../dev/sass/pages/cart.scss */
+/* line 517, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-rehau .order-header,
 .light-v .full-view .order-rehau .order-header {
   height: 0;
 }
-/* line 521, ../../dev/sass/pages/cart.scss */
+/* line 524, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-header,
 .light-v .full-view .order-header {
   height: 20rem;
 }
-/* line 525, ../../dev/sass/pages/cart.scss */
+/* line 528, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-header-fon,
 .light-v .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 531, ../../dev/sass/pages/cart.scss */
+/* line 534, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-template,
 .light-v .full-view .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 538, ../../dev/sass/pages/cart.scss */
+/* line 541, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-template-rehau,
 .light-v .full-view .order-template-rehau {
   text-align: start;
@@ -10243,19 +10265,19 @@ tr.factory_item {
   width: 35%;
   max-height: 50px;
 }
-/* line 547, ../../dev/sass/pages/cart.scss */
+/* line 550, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-template-rehau div,
 .light-v .full-view .order-template-rehau div {
   text-align: center;
 }
-/* line 551, ../../dev/sass/pages/cart.scss */
+/* line 554, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-template-rehau .addelements-detail-content-rehau,
 .light-v .full-view .order-template-rehau .addelements-detail-content-rehau {
   height: 0;
   overflow-x: hidden;
   margin: 1.875rem 3.125rem;
 }
-/* line 559, ../../dev/sass/pages/cart.scss */
+/* line 562, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .close-cur-window,
 .light-v .full-view .close-cur-window {
   position: absolute;
@@ -10264,7 +10286,7 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 568, ../../dev/sass/pages/cart.scss */
+/* line 571, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .edit-cur-window,
 .light-v .full-view .edit-cur-window {
   position: absolute;
@@ -10272,7 +10294,7 @@ tr.factory_item {
   z-index: 1;
   top: -1.25rem;
 }
-/* line 576, ../../dev/sass/pages/cart.scss */
+/* line 579, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-u-coeff,
 .light-v .full-view .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
@@ -10282,26 +10304,26 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 589, ../../dev/sass/pages/cart.scss */
+/* line 592, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content,
 .light-v .full-view .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 594, ../../dev/sass/pages/cart.scss */
+/* line 597, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau,
 .light-v .full-view .order-content-rehau {
   background-color: #fff;
   width: 448px;
 }
-/* line 599, ../../dev/sass/pages/cart.scss */
+/* line 602, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .order-list,
 .light-v .full-view .order-content-rehau .order-list {
   list-style: none;
   margin-left: -35px;
   padding: 40px 40px 100px 0px;
 }
-/* line 606, ../../dev/sass/pages/cart.scss */
+/* line 609, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .underline-rehau,
 .light-v .full-view .order-content-rehau .underline-rehau {
   position: absolute;
@@ -10312,7 +10334,7 @@ tr.factory_item {
   margin-bottom: 16px;
   border: 1px solid #D9D9D9;
 }
-/* line 620, ../../dev/sass/pages/cart.scss */
+/* line 623, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .addelements-detail-item-rehau,
 .light-v .full-view .order-content-rehau .addelements-detail-item-rehau {
   display: flex;
@@ -10320,12 +10342,12 @@ tr.factory_item {
   margin-left: -212px;
   margin-bottom: 16px;
 }
-/* line 627, ../../dev/sass/pages/cart.scss */
+/* line 630, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .addelements-detail-item-rehau:last-child,
 .light-v .full-view .order-content-rehau .addelements-detail-item-rehau:last-child {
   margin-bottom: 0px;
 }
-/* line 631, ../../dev/sass/pages/cart.scss */
+/* line 634, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .addelements-detail-item-rehau .addelement-price-value,
 .light-v .full-view .order-content-rehau .addelements-detail-item-rehau .addelement-price-value {
   margin-right: 24px;
@@ -10336,14 +10358,14 @@ tr.factory_item {
   line-height: 32px;
   color: #DD0060;
 }
-/* line 644, ../../dev/sass/pages/cart.scss */
+/* line 647, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .addelement-parameters-container,
 .light-v .full-view .order-content-rehau .addelement-parameters-container {
   display: flex;
   margin-left: -10px;
   margin-top: -10px;
 }
-/* line 651, ../../dev/sass/pages/cart.scss */
+/* line 654, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .product-value,
 .light-v .full-view .order-content-rehau .product-value {
   font-style: normal;
@@ -10353,7 +10375,7 @@ tr.factory_item {
   /* identical to box height, or 150% */
   color: #000000;
 }
-/* line 662, ../../dev/sass/pages/cart.scss */
+/* line 665, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .addelement-label,
 .light-v .full-view .order-content-rehau .addelement-label {
   margin-right: 5px;
@@ -10364,7 +10386,7 @@ tr.factory_item {
   line-height: 24px;
   color: #3333;
 }
-/* line 675, ../../dev/sass/pages/cart.scss */
+/* line 678, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .addelement-value,
 .light-v .full-view .order-content-rehau .addelement-value {
   margin-right: 25px;
@@ -10374,12 +10396,12 @@ tr.factory_item {
   line-height: 24px;
   color: #4E4E4E;
 }
-/* line 686, ../../dev/sass/pages/cart.scss */
+/* line 689, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .addelement-price-container,
 .light-v .full-view .order-content-rehau .addelement-price-container {
   display: flex;
 }
-/* line 690, ../../dev/sass/pages/cart.scss */
+/* line 693, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .aux-delete-rehau,
 .light-v .full-view .order-content-rehau .aux-delete-rehau {
   background-image: url(../../img/rehau-img/delete-cross-for-basket.png);
@@ -10389,14 +10411,14 @@ tr.factory_item {
   margin-right: 40px;
   cursor: pointer;
 }
-/* line 701, ../../dev/sass/pages/cart.scss */
+/* line 704, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-list,
 .light-v .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 707, ../../dev/sass/pages/cart.scss */
+/* line 710, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-qty,
 .light-v .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
@@ -10405,12 +10427,12 @@ tr.factory_item {
   justify-content: space-evenly;
   height: 6.25rem;
 }
-/* line 713, ../../dev/sass/pages/cart.scss */
+/* line 716, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .qty-label,
 .light-v .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 719, ../../dev/sass/pages/cart.scss */
+/* line 722, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-block,
 .light-v .light-view .order-block {
   display: -webkit-flex;
@@ -10418,7 +10440,7 @@ tr.factory_item {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 724, ../../dev/sass/pages/cart.scss */
+/* line 727, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order, .cart-page .light-view .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-view .product, .cart-page .light-view .addelementunit,
 .light-v .light-view .order,
 .light-v .light-view .cart-page .products-selector .products-selector-block .products-block .product,
@@ -10427,18 +10449,18 @@ tr.factory_item {
 .cart-page .light-v .light-view .addelementunit {
   max-height: 41.5rem;
 }
-/* line 729, ../../dev/sass/pages/cart.scss */
+/* line 732, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-rehau,
 .light-v .light-view .order-rehau {
   display: flex;
   max-height: 41.5rem;
 }
-/* line 735, ../../dev/sass/pages/cart.scss */
+/* line 738, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-template,
 .light-v .light-view .order-template {
   cursor: pointer;
 }
-/* line 739, ../../dev/sass/pages/cart.scss */
+/* line 742, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-header,
 .light-v .light-view .order-header {
   cursor: pointer;
@@ -10446,12 +10468,12 @@ tr.factory_item {
   padding-top: 2.5rem;
   background-color: white;
 }
-/* line 746, ../../dev/sass/pages/cart.scss */
+/* line 749, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-content,
 .light-v .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 754, ../../dev/sass/pages/cart.scss */
+/* line 757, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .addelements-btn,
 .light-v .light-view .addelements-btn {
   margin-top: 0.625rem;
@@ -10459,7 +10481,7 @@ tr.factory_item {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 761, ../../dev/sass/pages/cart.scss */
+/* line 764, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-qty,
 .light-v .light-view .order-qty {
   -webkit-flex-flow: row wrap;
@@ -10468,7 +10490,7 @@ tr.factory_item {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 767, ../../dev/sass/pages/cart.scss */
+/* line 770, ../../dev/sass/pages/cart.scss */
 .cart-page .light-view .order-label, .cart-page .light-view .product-icon-label,
 .cart-page .light-view .product-label, .cart-page .light-view .addelement-label,
 .light-v .light-view .order-label,
@@ -10477,7 +10499,7 @@ tr.factory_item {
 .light-v .light-view .addelement-label {
   padding-top: 0.625rem;
 }
-/* line 772, ../../dev/sass/pages/cart.scss */
+/* line 775, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail,
 .light-v .addelements-detail {
   position: absolute;
@@ -10489,7 +10511,7 @@ tr.factory_item {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-/* line 784, ../../dev/sass/pages/cart.scss */
+/* line 787, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-tools,
 .light-v .addelements-detail-tools {
   display: -webkit-flex;
@@ -10498,7 +10520,7 @@ tr.factory_item {
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-/* line 790, ../../dev/sass/pages/cart.scss */
+/* line 793, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit,
 .light-v .addelements-detail-edit {
   -webkit-flex-grow: 3;
@@ -10507,51 +10529,51 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 798, ../../dev/sass/pages/cart.scss */
+/* line 801, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit:after,
 .light-v .addelements-detail-edit:after {
   font: normal 1.5rem/6.25rem icons, sans-serif;
   content: "";
 }
-/* line 804, ../../dev/sass/pages/cart.scss */
+/* line 807, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close,
 .light-v .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
-/* line 810, ../../dev/sass/pages/cart.scss */
+/* line 813, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close:after,
 .light-v .addelements-detail-close:after {
   font: normal 2.5rem/1 icons, sans-serif;
   color: #fff;
   content: "";
 }
-/* line 817, ../../dev/sass/pages/cart.scss */
+/* line 820, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template,
 .light-v .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 822, ../../dev/sass/pages/cart.scss */
+/* line 825, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template-icon,
 .light-v .product-template-icon {
   margin-bottom: 1.25rem;
 }
-/* line 826, ../../dev/sass/pages/cart.scss */
+/* line 829, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-thumb,
 .light-v .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-/* line 841, ../../dev/sass/pages/cart.scss */
+/* line 844, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-label,
 .light-v .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-/* line 846, ../../dev/sass/pages/cart.scss */
+/* line 849, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-row,
 .light-v .addelements-detail-row {
   display: -webkit-flex;
@@ -10563,7 +10585,7 @@ tr.factory_item {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 853, ../../dev/sass/pages/cart.scss */
+/* line 856, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-content,
 .light-v .addelements-detail-content {
   height: 46.25rem;
@@ -10571,20 +10593,20 @@ tr.factory_item {
   overflow-y: auto;
   margin: 1.875rem 3.125rem;
 }
-/* line 861, ../../dev/sass/pages/cart.scss */
+/* line 864, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-list,
 .light-v .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 867, ../../dev/sass/pages/cart.scss */
+/* line 870, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-item,
 .light-v .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 872, ../../dev/sass/pages/cart.scss */
+/* line 875, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameters,
 .light-v .addelement-parameters {
   display: -webkit-flex;
@@ -10597,41 +10619,41 @@ tr.factory_item {
   align-items: center;
   margin: 1.25rem 0;
 }
-/* line 880, ../../dev/sass/pages/cart.scss */
+/* line 883, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameter,
 .light-v .addelement-parameter {
   margin-right: 1rem;
 }
-/* line 884, ../../dev/sass/pages/cart.scss */
+/* line 887, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value,
 .light-v .addelement-value {
   margin-right: 1.25rem;
 }
-/* line 888, ../../dev/sass/pages/cart.scss */
+/* line 891, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value img,
 .light-v .addelement-value img {
   width: 2.8125rem;
 }
-/* line 897, ../../dev/sass/pages/cart.scss */
+/* line 900, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value,
 .light-v .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
   margin-right: 1.25rem;
 }
-/* line 903, ../../dev/sass/pages/cart.scss */
+/* line 906, ../../dev/sass/pages/cart.scss */
 .cart-page .price-one-product,
 .light-v .price-one-product {
   margin-top: 1.875rem;
 }
-/* line 911, ../../dev/sass/pages/cart.scss */
+/* line 914, ../../dev/sass/pages/cart.scss */
 .cart-page .order-item,
 .light-v .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
   overflow: hidden;
 }
-/* line 917, ../../dev/sass/pages/cart.scss */
+/* line 920, ../../dev/sass/pages/cart.scss */
 .cart-page .order-item-rehau,
 .light-v .order-item-rehau {
   overflow: hidden;
@@ -10639,25 +10661,25 @@ tr.factory_item {
   display: flex;
   justify-content: space-between;
 }
-/* line 925, ../../dev/sass/pages/cart.scss */
+/* line 928, ../../dev/sass/pages/cart.scss */
 .cart-page .order-item-rehau:first-child,
 .light-v .order-item-rehau:first-child {
   margin-top: 0;
 }
-/* line 931, ../../dev/sass/pages/cart.scss */
+/* line 934, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-container,
 .light-v .discount-container {
   width: 90%;
   margin: 5rem auto auto;
   padding: 5rem 3.75rem 3rem;
 }
-/* line 938, ../../dev/sass/pages/cart.scss */
+/* line 941, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-title,
 .light-v .discount-title {
   font: normal 2.5rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 943, ../../dev/sass/pages/cart.scss */
+/* line 946, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box,
 .light-v .discount-box {
   display: -webkit-flex;
@@ -10666,12 +10688,12 @@ tr.factory_item {
   width: 100%;
   margin-top: 3.125rem;
 }
-/* line 950, ../../dev/sass/pages/cart.scss */
+/* line 953, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box.selected .discount-txt,
 .light-v .discount-box.selected .discount-txt {
   background-color: #6ed44a;
 }
-/* line 953, ../../dev/sass/pages/cart.scss */
+/* line 956, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box.selected .discount-txt:after,
 .light-v .discount-box.selected .discount-txt:after {
   font: normal 7rem/9rem icons, sans-serif;
@@ -10681,13 +10703,13 @@ tr.factory_item {
   color: #fff;
   content: "";
 }
-/* line 965, ../../dev/sass/pages/cart.scss */
+/* line 968, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-curr-data,
 .light-v .disc-curr-data {
   border: none;
   width: 10rem;
 }
-/* line 970, ../../dev/sass/pages/cart.scss */
+/* line 973, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-data,
 .light-v .discount-data {
   display: -webkit-flex;
@@ -10705,7 +10727,7 @@ tr.factory_item {
   justify-content: space-between;
   padding-right: 1rem;
 }
-/* line 985, ../../dev/sass/pages/cart.scss */
+/* line 988, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input-box,
 .light-v .disc-input-box {
   display: -webkit-flex;
@@ -10715,14 +10737,14 @@ tr.factory_item {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 991, ../../dev/sass/pages/cart.scss */
+/* line 994, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-max,
 .light-v .disc-max {
   position: absolute;
   font: normal 2rem/2rem roboto-light, sans-serif, icons;
   color: #f74f2e;
 }
-/* line 997, ../../dev/sass/pages/cart.scss */
+/* line 1000, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input,
 .light-v .disc-input {
   min-width: 20px;
@@ -10732,7 +10754,7 @@ tr.factory_item {
   outline: none;
   border: none;
 }
-/* line 1006, ../../dev/sass/pages/cart.scss */
+/* line 1009, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input::-webkit-inner-spin-button,
 .light-v .disc-input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
@@ -10740,7 +10762,7 @@ tr.factory_item {
   margin: 0;
   /* <-- Apparently some margin are still there even though it's hidden */
 }
-/* line 1013, ../../dev/sass/pages/cart.scss */
+/* line 1016, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-list,
 .light-v .discounts-list {
   top: -5rem;
@@ -10756,14 +10778,14 @@ tr.factory_item {
   border-radius: 1rem;
   z-index: 5;
 }
-/* line 1028, ../../dev/sass/pages/cart.scss */
+/* line 1031, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-item.active,
 .light-v .discounts-item.active {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
   color: #f98000;
 }
-/* line 1035, ../../dev/sass/pages/cart.scss */
+/* line 1038, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-txt,
 .light-v .discount-txt {
   -webkit-flex-grow: 2;
@@ -10778,7 +10800,7 @@ tr.factory_item {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 1045, ../../dev/sass/pages/cart.scss */
+/* line 1048, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-label,
 .light-v .discounts-label {
   font: normal 2.25rem/5rem roboto-medium, sans-serif, icons;
@@ -10786,7 +10808,7 @@ tr.factory_item {
   width: auto;
   display: inline-block;
 }
-/* line 1052, ../../dev/sass/pages/cart.scss */
+/* line 1055, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-container,
 .light-v .discount-price-container {
   display: -webkit-flex;
@@ -10797,37 +10819,37 @@ tr.factory_item {
   border-radius: 1rem;
   background-color: #fff;
 }
-/* line 1061, ../../dev/sass/pages/cart.scss */
+/* line 1064, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-box,
 .light-v .discount-price-box {
   padding: 0 3rem;
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 1065, ../../dev/sass/pages/cart.scss */
+/* line 1068, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-box:last-child,
 .light-v .discount-price-box:last-child {
   border-left: 1px dashed #363636;
 }
-/* line 1070, ../../dev/sass/pages/cart.scss */
+/* line 1073, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price,
 .light-v .discount-price {
   font: normal 3rem/6.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 1075, ../../dev/sass/pages/cart.scss */
+/* line 1078, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-label,
 .light-v .discount-price-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
-/* line 1079, ../../dev/sass/pages/cart.scss */
+/* line 1082, ../../dev/sass/pages/cart.scss */
 .cart-page .service-block,
 .light-v .service-block {
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
 
-/* line 1084, ../../dev/sass/pages/cart.scss */
+/* line 1087, ../../dev/sass/pages/cart.scss */
 .imgg {
   cursor: pointer;
   position: absolute;
@@ -10837,7 +10859,7 @@ tr.factory_item {
   top: -1.25rem;
 }
 
-/* line 1093, ../../dev/sass/pages/cart.scss */
+/* line 1096, ../../dev/sass/pages/cart.scss */
 .eddit-construction {
   cursor: pointer;
   position: absolute;
@@ -10848,34 +10870,34 @@ tr.factory_item {
   height: 32px;
 }
 
-/* line 1104, ../../dev/sass/pages/cart.scss */
+/* line 1107, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar {
   -webkit-appearance: none;
 }
 
-/* line 1108, ../../dev/sass/pages/cart.scss */
+/* line 1111, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar:vertical {
   width: 12px;
 }
 
-/* line 1112, ../../dev/sass/pages/cart.scss */
+/* line 1115, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar:horizontal {
   height: 12px;
 }
 
-/* line 1116, ../../dev/sass/pages/cart.scss */
+/* line 1119, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   border: 2px solid #ffffff;
 }
 
-/* line 1122, ../../dev/sass/pages/cart.scss */
+/* line 1125, ../../dev/sass/pages/cart.scss */
 ::-webkit-scrollbar-track {
   border-radius: 10px;
 }
 
-/* line 1126, ../../dev/sass/pages/cart.scss */
+/* line 1129, ../../dev/sass/pages/cart.scss */
 .add-new-product {
   background: white;
   flex-direction: column;
@@ -10884,7 +10906,7 @@ tr.factory_item {
   justify-content: center;
   cursor: pointer;
 }
-/* line 1133, ../../dev/sass/pages/cart.scss */
+/* line 1136, ../../dev/sass/pages/cart.scss */
 .add-new-product .order-footer, .add-new-product .cart-page .addelements-detail-footer, .cart-page .add-new-product .addelements-detail-footer,
 .add-new-product .light-v .addelements-detail-footer,
 .light-v .add-new-product .addelements-detail-footer {
@@ -10895,7 +10917,7 @@ tr.factory_item {
   left: 0;
   bottom: 0;
 }
-/* line 1142, ../../dev/sass/pages/cart.scss */
+/* line 1145, ../../dev/sass/pages/cart.scss */
 .add-new-product .add-img {
   height: 79rem;
   color: #bebebe;
@@ -10908,13 +10930,13 @@ tr.factory_item {
   justify-content: center;
   border-radius: 5rem;
 }
-/* line 1154, ../../dev/sass/pages/cart.scss */
+/* line 1157, ../../dev/sass/pages/cart.scss */
 .add-new-product .title {
   color: #bebebe;
   font-size: 20px;
 }
 
-/* line 1160, ../../dev/sass/pages/cart.scss */
+/* line 1163, ../../dev/sass/pages/cart.scss */
 .add-new-product-rehau {
   background: #4E4E4E;
   background-image: url(../../img/rehau-img/add-new-window.png);
@@ -10923,14 +10945,14 @@ tr.factory_item {
   width: 48px;
   background-position: 225px;
 }
-/* line 1170, ../../dev/sass/pages/cart.scss */
+/* line 1173, ../../dev/sass/pages/cart.scss */
 .add-new-product-rehau button, .add-new-product-rehau .door-configuration .door-config-finish-btn, .door-configuration .add-new-product-rehau .door-config-finish-btn, .add-new-product-rehau .door-configuration .door-config-finish-save-btn, .door-configuration .add-new-product-rehau .door-config-finish-save-btn {
   background: none;
   border: none;
   padding: 0;
   height: 80px;
 }
-/* line 1177, ../../dev/sass/pages/cart.scss */
+/* line 1180, ../../dev/sass/pages/cart.scss */
 .add-new-product-rehau button h3, .add-new-product-rehau .door-configuration .door-config-finish-btn h3, .door-configuration .add-new-product-rehau .door-config-finish-btn h3, .add-new-product-rehau .door-configuration .door-config-finish-save-btn h3, .door-configuration .add-new-product-rehau .door-config-finish-save-btn h3 {
   padding-left: 14px;
   font-style: normal;
@@ -12401,6 +12423,10 @@ tr.factory_item {
   line-height: 32px;
 }
 /* line 417, ../../dev/sass/pages/light.scss */
+.light-v .laminatuin-display-block {
+  display: flex;
+}
+/* line 421, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau-subtitle {
   text-transform: lowercase;
   margin: 0 !important;
@@ -12411,11 +12437,21 @@ tr.factory_item {
   font-size: 16px;
   line-height: 24px;
 }
-/* line 427, ../../dev/sass/pages/light.scss */
+/* line 431, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau-subtitle:first-letter {
   text-transform: uppercase;
 }
-/* line 433, ../../dev/sass/pages/light.scss */
+/* line 436, ../../dev/sass/pages/light.scss */
+.light-v .slash-between-laminations {
+  text-transform: lowercase;
+  margin: 0 !important;
+  position: relative;
+  top: -3rem;
+  left: 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+/* line 447, ../../dev/sass/pages/light.scss */
 .light-v .edit_submenu {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -12433,96 +12469,96 @@ tr.factory_item {
   cursor: pointer;
   z-index: 5;
 }
-/* line 445, ../../dev/sass/pages/light.scss */
+/* line 459, ../../dev/sass/pages/light.scss */
 .light-v .edit_submenu.active {
   left: -30rem;
 }
-/* line 449, ../../dev/sass/pages/light.scss */
+/* line 463, ../../dev/sass/pages/light.scss */
 .light-v #impost-shape-menu {
   top: 9.5rem;
   z-index: -1;
 }
-/* line 453, ../../dev/sass/pages/light.scss */
+/* line 467, ../../dev/sass/pages/light.scss */
 .light-v #sash-shape-menu {
   top: 17.5rem;
   z-index: -1;
 }
-/* line 456, ../../dev/sass/pages/light.scss */
+/* line 470, ../../dev/sass/pages/light.scss */
 .light-v #sash-shape-menu.active {
   left: -28rem;
 }
-/* line 460, ../../dev/sass/pages/light.scss */
+/* line 474, ../../dev/sass/pages/light.scss */
 .light-v .sash-shtulp-right {
   left: 10.5rem;
 }
-/* line 463, ../../dev/sass/pages/light.scss */
+/* line 477, ../../dev/sass/pages/light.scss */
 .light-v .sash-left-up {
   left: 6rem;
 }
-/* line 466, ../../dev/sass/pages/light.scss */
+/* line 480, ../../dev/sass/pages/light.scss */
 .light-v .sash-up,
 .light-v .sash-right,
 .light-v .sash-down {
   left: 1.2rem;
 }
-/* line 471, ../../dev/sass/pages/light.scss */
+/* line 485, ../../dev/sass/pages/light.scss */
 .light-v #angel-shape-menu {
   top: 25rem;
   z-index: -1;
 }
-/* line 474, ../../dev/sass/pages/light.scss */
+/* line 488, ../../dev/sass/pages/light.scss */
 .light-v #angel-shape-menu.active {
   left: -20rem;
 }
-/* line 478, ../../dev/sass/pages/light.scss */
+/* line 492, ../../dev/sass/pages/light.scss */
 .light-v #arc-shape-menu {
   z-index: -1;
   top: 33.5rem;
 }
-/* line 481, ../../dev/sass/pages/light.scss */
+/* line 495, ../../dev/sass/pages/light.scss */
 .light-v #arc-shape-menu.active {
   left: -16rem;
 }
-/* line 485, ../../dev/sass/pages/light.scss */
+/* line 499, ../../dev/sass/pages/light.scss */
 .light-v #position-menu-for-position {
   z-index: -1;
   top: 41.5rem;
 }
-/* line 488, ../../dev/sass/pages/light.scss */
+/* line 502, ../../dev/sass/pages/light.scss */
 .light-v #position-menu-for-position.active {
   left: -29rem;
 }
-/* line 492, ../../dev/sass/pages/light.scss */
+/* line 506, ../../dev/sass/pages/light.scss */
 .light-v .active_svg, .light-v .frame-active, .light-v .glass-active, .light-v .corner_mark,
 .light-v .frame-active,
 .light-v .glass-active,
 .light-v .corner_mark {
   fill: #7d8efb !important;
 }
-/* line 498, ../../dev/sass/pages/light.scss */
+/* line 512, ../../dev/sass/pages/light.scss */
 .light-v .menu-footer {
   position: relative;
   top: -3rem;
   border-top: 1px solid #b1b1b1;
   padding-top: 1rem;
 }
-/* line 504, ../../dev/sass/pages/light.scss */
+/* line 518, ../../dev/sass/pages/light.scss */
 .light-v .figure-icon-top {
   font: normal 5.5rem/1 icons, sans-serif;
   color: gray;
 }
-/* line 508, ../../dev/sass/pages/light.scss */
+/* line 522, ../../dev/sass/pages/light.scss */
 .light-v .template-icon {
   width: 5.5rem;
 }
-/* line 511, ../../dev/sass/pages/light.scss */
+/* line 525, ../../dev/sass/pages/light.scss */
 .light-v .figure-icon-bottom {
   font: normal 5.5rem/1 icons, sans-serif;
   position: relative;
   top: -5.5rem;
   left: 0;
 }
-/* line 517, ../../dev/sass/pages/light.scss */
+/* line 531, ../../dev/sass/pages/light.scss */
 .light-v .product-u-coeff {
   font-size: 3rem !important;
   position: relative;
@@ -12530,7 +12566,7 @@ tr.factory_item {
   left: 41rem;
   cursor: pointer;
 }
-/* line 524, ../../dev/sass/pages/light.scss */
+/* line 538, ../../dev/sass/pages/light.scss */
 .light-v .product-u-coeff-description {
   text-decoration: underline;
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
@@ -12541,22 +12577,22 @@ tr.factory_item {
   left: 35rem;
   cursor: pointer;
 }
-/* line 534, ../../dev/sass/pages/light.scss */
+/* line 548, ../../dev/sass/pages/light.scss */
 .light-v .size-line {
   stroke-width: 1.2px !important;
   stroke: #cc0000 !important;
 }
-/* line 539, ../../dev/sass/pages/light.scss */
+/* line 553, ../../dev/sass/pages/light.scss */
 .light-v .size-line-rehau {
   stroke-width: 1.2px !important;
   stroke: #37A58C !important;
 }
-/* line 543, ../../dev/sass/pages/light.scss */
+/* line 557, ../../dev/sass/pages/light.scss */
 .light-v .size-line-arrow-rehau {
   stroke-width: 1.2px !important;
   stroke: black !important;
 }
-/* line 548, ../../dev/sass/pages/light.scss */
+/* line 562, ../../dev/sass/pages/light.scss */
 .light-v .size-rect {
   width: 160px;
   height: 70px;
@@ -12566,7 +12602,7 @@ tr.factory_item {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 556, ../../dev/sass/pages/light.scss */
+/* line 570, ../../dev/sass/pages/light.scss */
 .light-v .size-rect.active {
   -moz-fill: #cc0000;
   -moz-fill-opacity: 1;
@@ -12574,7 +12610,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #ff0303;
 }
-/* line 564, ../../dev/sass/pages/light.scss */
+/* line 578, ../../dev/sass/pages/light.scss */
 .light-v .size-txt, .light-v .glass-txt, .light-v .size-txt-edit, .light-v .size-txt-edit-rehau, .light-v .mobile .main-view .size-txt-edit, .mobile .main-view .light-v .size-txt-edit,
 .light-v .mobile svg-template .size-txt-edit,
 .mobile svg-template .light-v .size-txt-edit,
@@ -12587,17 +12623,17 @@ tr.factory_item {
   alignment-baseline: middle;
   cursor: pointer;
 }
-/* line 572, ../../dev/sass/pages/light.scss */
+/* line 586, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit {
   stroke: #cc0000;
   fill: #cc0000;
 }
-/* line 576, ../../dev/sass/pages/light.scss */
+/* line 590, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit.active {
   stroke: white;
   fill: white;
 }
-/* line 582, ../../dev/sass/pages/light.scss */
+/* line 596, ../../dev/sass/pages/light.scss */
 .light-v .size-rect-rehau {
   width: 160px;
   height: 70px;
@@ -12612,7 +12648,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #37A58C;
 }
-/* line 595, ../../dev/sass/pages/light.scss */
+/* line 609, ../../dev/sass/pages/light.scss */
 .light-v .size-rect-rehau.active {
   -moz-fill: #DD0060;
   -moz-fill-opacity: 1;
@@ -12620,7 +12656,7 @@ tr.factory_item {
   fill-opacity: 1;
   fill: #DD0060;
 }
-/* line 604, ../../dev/sass/pages/light.scss */
+/* line 618, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-rehau {
   font-size: 5.625rem;
   stroke: white;
@@ -12630,18 +12666,18 @@ tr.factory_item {
   dominant-baseline: middle;
   cursor: pointer;
 }
-/* line 613, ../../dev/sass/pages/light.scss */
+/* line 627, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit-rehau {
   dominant-baseline: middle;
   stroke: white;
   fill: white;
 }
-/* line 618, ../../dev/sass/pages/light.scss */
+/* line 632, ../../dev/sass/pages/light.scss */
 .light-v .size-txt-edit-rehau.active {
   stroke: white;
   fill: white;
 }
-/* line 625, ../../dev/sass/pages/light.scss */
+/* line 639, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu {
   position: absolute;
   top: 0.5rem;
@@ -12651,7 +12687,7 @@ tr.factory_item {
   border-radius: 50%;
   background-color: #cc0000;
 }
-/* line 634, ../../dev/sass/pages/light.scss */
+/* line 648, ../../dev/sass/pages/light.scss */
 .light-v .order-qty-menu p {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
@@ -12659,7 +12695,7 @@ tr.factory_item {
   top: -0.2rem;
   left: 0.1rem;
 }
-/* line 642, ../../dev/sass/pages/light.scss */
+/* line 656, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel {
   position: absolute;
   width: 100%;
@@ -12671,13 +12707,13 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 652, ../../dev/sass/pages/light.scss */
+/* line 666, ../../dev/sass/pages/light.scss */
 .light-v .configur-panel.active {
   top: 69rem;
   height: 21rem;
   overflow: hidden;
 }
-/* line 658, ../../dev/sass/pages/light.scss */
+/* line 672, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight {
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem rgba(0, 0, 0, 0.5);
   left: 135rem;
@@ -12691,15 +12727,15 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 999;
 }
-/* line 670, ../../dev/sass/pages/light.scss */
+/* line 684, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.active {
   height: 90%;
 }
-/* line 673, ../../dev/sass/pages/light.scss */
+/* line 687, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight.goLeft {
   left: 64rem;
 }
-/* line 677, ../../dev/sass/pages/light.scss */
+/* line 691, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau {
   left: 135rem;
   position: absolute;
@@ -12712,45 +12748,45 @@ tr.factory_item {
   background: white;
   z-index: 999;
 }
-/* line 688, ../../dev/sass/pages/light.scss */
+/* line 702, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau .construction-type-rehau {
   margin-top: 150px;
   text-align: start;
 }
-/* line 689, ../../dev/sass/pages/light.scss */
+/* line 703, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau .construction-type-rehau:first-child {
   margin-top: 0;
 }
-/* line 695, ../../dev/sass/pages/light.scss */
+/* line 709, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau.active {
   height: 100%;
 }
-/* line 698, ../../dev/sass/pages/light.scss */
+/* line 712, ../../dev/sass/pages/light.scss */
 .light-v .configur-panelLight-rehau.goLeft {
   left: 0;
   top: -6rem;
 }
-/* line 703, ../../dev/sass/pages/light.scss */
+/* line 717, ../../dev/sass/pages/light.scss */
 .light-v input::-webkit-outer-spin-button,
 .light-v input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 709, ../../dev/sass/pages/light.scss */
+/* line 723, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
   margin-top: 1rem;
 }
-/* line 714, ../../dev/sass/pages/light.scss */
+/* line 728, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .discount-price-rehau {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
   margin-top: 90px;
 }
-/* line 721, ../../dev/sass/pages/light.scss */
+/* line 735, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-text {
   font-style: normal;
   font-weight: normal;
@@ -12758,22 +12794,22 @@ tr.factory_item {
   line-height: 40px;
   margin-bottom: -38px;
 }
-/* line 730, ../../dev/sass/pages/light.scss */
+/* line 744, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-qty {
   font-size: 15px;
   color: #DD0060;
 }
-/* line 735, ../../dev/sass/pages/light.scss */
+/* line 749, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-value {
   color: #DD0060;
   font: bold 4rem/1 roboto-light, sans-serif, icons;
 }
-/* line 740, ../../dev/sass/pages/light.scss */
+/* line 754, ../../dev/sass/pages/light.scss */
 .light-v .discount-block-rehau .price-currency {
   color: #DD0060;
   font-weight: bold;
 }
-/* line 745, ../../dev/sass/pages/light.scss */
+/* line 759, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau {
   text-align: center;
   position: relative;
@@ -12784,14 +12820,14 @@ tr.factory_item {
   margin-left: 2.75rem;
   transition: .5s;
 }
-/* line 755, ../../dev/sass/pages/light.scss */
+/* line 769, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau .counter-rehau {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 760, ../../dev/sass/pages/light.scss */
+/* line 774, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau .counter-rehau input {
   transition: .5s;
   cursor: pointer;
@@ -12806,21 +12842,21 @@ tr.factory_item {
   background-position-y: 50%;
   background-position-x: 35%;
 }
-/* line 777, ../../dev/sass/pages/light.scss */
+/* line 791, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau.unactive {
   width: 135%;
 }
-/* line 780, ../../dev/sass/pages/light.scss */
+/* line 794, ../../dev/sass/pages/light.scss */
 .light-v .counter-block-rehau.unactive .counter-rehau input {
   margin-right: -25rem;
 }
-/* line 787, ../../dev/sass/pages/light.scss */
+/* line 801, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter-rehau {
   background-color: #424242;
   color: white;
   padding-left: 35px;
 }
-/* line 793, ../../dev/sass/pages/light.scss */
+/* line 807, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau {
   cursor: pointer;
   position: relative;
@@ -12830,7 +12866,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 802, ../../dev/sass/pages/light.scss */
+/* line 816, ../../dev/sass/pages/light.scss */
 .light-v .save-block-rehau p {
   color: white;
   font: bold 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -12841,25 +12877,25 @@ tr.factory_item {
   vertical-align: middle;
   padding-bottom: 7px;
 }
-/* line 814, ../../dev/sass/pages/light.scss */
+/* line 828, ../../dev/sass/pages/light.scss */
 .light-v .discount-block {
   width: 100%;
   margin-bottom: 5rem;
   margin-left: 2.75rem;
 }
-/* line 818, ../../dev/sass/pages/light.scss */
+/* line 832, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-priceRed {
   text-decoration: line-through;
   font: normal 2.4rem/2.25rem roboto-regular, sans-serif, icons;
   color: #ff2121;
 }
-/* line 823, ../../dev/sass/pages/light.scss */
+/* line 837, ../../dev/sass/pages/light.scss */
 .light-v .discount-block .discount-price {
   font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
   color: #363636;
   margin-left: 0rem;
 }
-/* line 829, ../../dev/sass/pages/light.scss */
+/* line 843, ../../dev/sass/pages/light.scss */
 .light-v .counter-block {
   text-align: center;
   position: relative;
@@ -12869,14 +12905,14 @@ tr.factory_item {
   flex-direction: row-reverse;
   margin-left: 2.75rem;
 }
-/* line 838, ../../dev/sass/pages/light.scss */
+/* line 852, ../../dev/sass/pages/light.scss */
 .light-v .counter {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 843, ../../dev/sass/pages/light.scss */
+/* line 857, ../../dev/sass/pages/light.scss */
 .light-v .counter input {
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
   text-align: center;
@@ -12885,30 +12921,30 @@ tr.factory_item {
   height: 7rem;
   margin-right: 4rem;
 }
-/* line 852, ../../dev/sass/pages/light.scss */
+/* line 866, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter {
   color: #cc0000;
 }
-/* line 855, ../../dev/sass/pages/light.scss */
+/* line 869, ../../dev/sass/pages/light.scss */
 .light-v .input-minus,
 .light-v .input-plus {
   cursor: pointer;
   position: relative;
   top: -2rem;
 }
-/* line 861, ../../dev/sass/pages/light.scss */
+/* line 875, ../../dev/sass/pages/light.scss */
 .light-v .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #363636;
 }
-/* line 866, ../../dev/sass/pages/light.scss */
+/* line 880, ../../dev/sass/pages/light.scss */
 .light-v .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 871, ../../dev/sass/pages/light.scss */
+/* line 885, ../../dev/sass/pages/light.scss */
 .light-v .save-block {
   cursor: pointer;
   position: relative;
@@ -12918,7 +12954,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 880, ../../dev/sass/pages/light.scss */
+/* line 894, ../../dev/sass/pages/light.scss */
 .light-v .save-block p {
   color: white;
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -12929,7 +12965,7 @@ tr.factory_item {
   width: 12rem;
   vertical-align: middle;
 }
-/* line 891, ../../dev/sass/pages/light.scss */
+/* line 905, ../../dev/sass/pages/light.scss */
 .light-v .cart-img {
   position: relative;
   width: 4rem;
@@ -12941,14 +12977,14 @@ tr.factory_item {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 902, ../../dev/sass/pages/light.scss */
+/* line 916, ../../dev/sass/pages/light.scss */
 .light-v .cart-btn, .light-v .cart-menu .order-btn, .cart-menu .light-v .order-btn {
   position: relative;
   top: 0.6rem;
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
 }
-/* line 908, ../../dev/sass/pages/light.scss */
+/* line 922, ../../dev/sass/pages/light.scss */
 .light-v .order, .light-v .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-v .product, .light-v .cart-page .addelementunit, .cart-page .light-v .addelementunit {
   top: 2rem;
   width: 32rem;
@@ -12957,29 +12993,29 @@ tr.factory_item {
   border-bottom-left-radius: 1.25rem;
   border: 1px solid #bebebe;
 }
-/* line 917, ../../dev/sass/pages/light.scss */
+/* line 931, ../../dev/sass/pages/light.scss */
 .light-v .order-rehau {
   width: 32rem;
   float: left;
 }
-/* line 923, ../../dev/sass/pages/light.scss */
+/* line 937, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 927, ../../dev/sass/pages/light.scss */
+/* line 941, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 932, ../../dev/sass/pages/light.scss */
+/* line 946, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 937, ../../dev/sass/pages/light.scss */
+/* line 951, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -12987,14 +13023,14 @@ tr.factory_item {
   background-color: #f98000;
   z-index: 1;
 }
-/* line 945, ../../dev/sass/pages/light.scss */
+/* line 959, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 952, ../../dev/sass/pages/light.scss */
+/* line 966, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -13003,27 +13039,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 959, ../../dev/sass/pages/light.scss */
+/* line 973, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 964, ../../dev/sass/pages/light.scss */
+/* line 978, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 967, ../../dev/sass/pages/light.scss */
+/* line 981, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 971, ../../dev/sass/pages/light.scss */
+/* line 985, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 976, ../../dev/sass/pages/light.scss */
+/* line 990, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -13031,134 +13067,134 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 981, ../../dev/sass/pages/light.scss */
+/* line 995, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 984, ../../dev/sass/pages/light.scss */
+/* line 998, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 991, ../../dev/sass/pages/light.scss */
+/* line 1005, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 996, ../../dev/sass/pages/light.scss */
+/* line 1010, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 1003, ../../dev/sass/pages/light.scss */
+/* line 1017, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 1008, ../../dev/sass/pages/light.scss */
+/* line 1022, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 1011, ../../dev/sass/pages/light.scss */
+/* line 1025, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1018, ../../dev/sass/pages/light.scss */
+/* line 1032, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau {
   width: auto;
   height: 130rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 1024, ../../dev/sass/pages/light.scss */
+/* line 1038, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau .order-block {
   display: flex;
   flex-direction: column;
 }
-/* line 1029, ../../dev/sass/pages/light.scss */
+/* line 1043, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container-rehau .order-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
 }
-/* line 1037, ../../dev/sass/pages/light.scss */
+/* line 1051, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 1042, ../../dev/sass/pages/light.scss */
+/* line 1056, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 1045, ../../dev/sass/pages/light.scss */
+/* line 1059, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.lower_z-index {
   z-index: 1;
 }
-/* line 1050, ../../dev/sass/pages/light.scss */
+/* line 1064, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 1054, ../../dev/sass/pages/light.scss */
+/* line 1068, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 1058, ../../dev/sass/pages/light.scss */
+/* line 1072, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 1061, ../../dev/sass/pages/light.scss */
+/* line 1075, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 1064, ../../dev/sass/pages/light.scss */
+/* line 1078, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 1069, ../../dev/sass/pages/light.scss */
+/* line 1083, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 1074, ../../dev/sass/pages/light.scss */
+/* line 1088, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 1077, ../../dev/sass/pages/light.scss */
+/* line 1091, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 1080, ../../dev/sass/pages/light.scss */
+/* line 1094, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 1086, ../../dev/sass/pages/light.scss */
+/* line 1100, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 1092, ../../dev/sass/pages/light.scss */
+/* line 1106, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 1096, ../../dev/sass/pages/light.scss */
+/* line 1110, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1100, ../../dev/sass/pages/light.scss */
+/* line 1114, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }

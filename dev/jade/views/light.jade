@@ -554,7 +554,10 @@
               li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(5)" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}") 
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Ламинация<span>
-                .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+                .laminatuin-display-block
+                  .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate}}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+                  .slash-between-laminations(data-output="|", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+                  .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.lamination.laminat_out_name | translate}}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
               li.figure-item-rehau(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", fs-click="configMenu.selectConfigPanel(6)")
                 .figure-label-rehau(typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}") <span>Доп. элементы<span>

@@ -9023,8 +9023,6 @@ if (window.location.hostname !== 'localhost') {
                         '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                         '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                         '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                         '</div>' +
                         '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
                         '</div>',
@@ -25163,7 +25161,8 @@ function ErrorResult(code, message) {
             }
             //console.info('@@@@@@@@@@@@', objTmp);
             console.log(ProductStor.product, 'Product stor');
-            console.log(GlobalStor.global, 'global stor');
+            // console.log(GlobalStor.global, 'global stor');
+            console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
@@ -26881,7 +26880,7 @@ function ErrorResult(code, message) {
                   if (/uah/i.test(currencies[currencQty].name)) {
                     UserStor.userInfo.currency = "\u20b4"; //'₴';
                   } else if (/rub/i.test(currencies[currencQty].name)) {
-                    UserStor.userInfo.currency = "\ue906"; // '\u20BD';//'₽';
+                    UserStor.userInfo.currency = "руб"; // '\u20BD';//'₽';
                   } else if (/(usd|\$)/i.test(currencies[currencQty].name)) {
                     UserStor.userInfo.currency = "$";
                   } else if (/eur/i.test(currencies[currencQty].name)) {

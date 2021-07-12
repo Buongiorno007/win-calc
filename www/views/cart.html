@@ -1484,23 +1484,23 @@
                 <div class="cart-dialog-title">Оставить заявку на окно</div>
               </div>
               <div class="cart-dialog-body">
-                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                <div ng-class="{'invalid-data': orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
                   <div class="input-name">Ваше имя</div>
                   <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field">
-                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                 </div>
-                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
+                <div ng-class="{'invalid-data': orderForm.C.cart.customer.customer_phone === 0 }" class="input-field">
                   <div class="input-name">Ваш номер телефона</div>
                   <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field">
-                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
-                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
                 </div>
-                <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                <div class="input-field">
                   <div class="input-name">Ваш коментарий</div>
                   <input type="text" name="comment" ng-model="orderForm.C.cart.customer.customer_comment" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-comment">
-                  <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                 </div>
-                <button type="submit" class="save save-order little">{{ ::orderForm.READY }}</button>
+                <div class="privacy-policy-text">
+                  <input type="checkbox" ng-model="checkedList" ng-init="checkedList=true" class="agreement-checkbox">
+                  <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности</div>
+                </div>
+                <button type="submit" ng-if="checkedList" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
             </form>
           </div>
