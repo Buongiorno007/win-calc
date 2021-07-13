@@ -246,9 +246,13 @@
     }
 
     .coeff-mark {
-      @extend .flashing;
+      @extend .splash;
       white-space: nowrap;
       color: #333;
+
+      &.active {
+        transform: scale(2);
+      }
     }
 
     .coeff-info {

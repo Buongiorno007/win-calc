@@ -2985,9 +2985,9 @@
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            console.log(ProductStor.product, 'Product stor');
-            // console.log(GlobalStor.global, 'global stor');
-            console.log(UserStor.userInfo, 'shshshhs')
+            // console.log(ProductStor.product, 'Product stor');
+            console.log(GlobalStor.global, 'global stor');
+            // console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )

@@ -159,6 +159,7 @@
       align-items: center;
       &.selected {
         background-color: $primary_green;
+        color: white;
       }
       &:hover {
         background-color: #F5F5F5;

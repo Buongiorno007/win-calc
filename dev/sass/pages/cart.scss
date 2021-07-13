@@ -1182,7 +1182,39 @@
 
       font-style: normal;
       font-weight: normal;
-      font-size: 20px;
+      font-size: 18px;
+      line-height: 32px;
+
+      text-align: start;
+
+      color: #FFFFFF;
+    }
+  }
+}
+
+.back-home-rehau {
+  background: $primary_pink;
+
+  background-image: url(../../img/rehau-img/home.png);
+  background-repeat: no-repeat;
+  height: 23px;
+  width: 48px;
+  background-position: 225px;
+
+  
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+
+    height: 80px;
+
+    h3 {
+      padding-left: 14px;
+
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
       line-height: 32px;
 
       text-align: start;

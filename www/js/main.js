@@ -25160,9 +25160,9 @@ function ErrorResult(code, message) {
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            console.log(ProductStor.product, 'Product stor');
-            // console.log(GlobalStor.global, 'global stor');
-            console.log(UserStor.userInfo, 'shshshhs')
+            // console.log(ProductStor.product, 'Product stor');
+            console.log(GlobalStor.global, 'global stor');
+            // console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
@@ -36852,30 +36852,6 @@ function ErrorResult(code, message) {
           selectProfile(newId);
         }
       });
-      //A small crutch that allows you to display the energy efficiency block on other screens
-      $(document).ready(function() { 
-        $(".coeff-number").addClass('active')
-        $(".config-panel").addClass('lower_z-index')
-        $(".heat-transfer-rehau").addClass('animation')
-        setTimeout(() => {
-          $( ".coeff-number" ).removeClass('active')
-        }, 500);
-        setTimeout(() => {
-          $(".heat-transfer-rehau").animate({
-            opacity: 0
-          }, 300)
-        }, 1500);
-        
-        setTimeout(() => {
-          $(".config-panel").removeClass('lower_z-index')
-        }, 2000);
-
-        setTimeout(() => {
-          $(".heat-transfer-rehau").animate({
-            opacity: 1
-          }, 300)
-        }, 2200);  
-      })
     }
 
     /**========== FINISH ==========*/
