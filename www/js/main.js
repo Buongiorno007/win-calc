@@ -24901,7 +24901,9 @@ function ErrorResult(code, message) {
                         ProductStor.product.profile.id === 573 ||
                         ProductStor.product.profile.id === 574 ||
                         ProductStor.product.profile.id === 575 || 
-                        ProductStor.product.profile.id === 576) {
+                        ProductStor.product.profile.id === 576 || 
+                        ProductStor.product.profile.id === 989 ||
+                        ProductStor.product.profile.id === 992) {
                         temp_profile_id = 416727;
                     }
                     if (ProductStor.product.profile.id === 532 ||
@@ -24909,7 +24911,15 @@ function ErrorResult(code, message) {
                         ProductStor.product.profile.id === 534 ||
                         ProductStor.product.profile.id === 535) {
                         temp_profile_id = 416728;
-                    }
+                    } 
+                    if (ProductStor.product.profile.id === 566 ||
+                      ProductStor.product.profile.id === 567 ||
+                      ProductStor.product.profile.id === 990 ||
+                      ProductStor.product.profile.id === 991 || 
+                      ProductStor.product.profile.id === 568) {
+                      temp_profile_id = 436116;
+                    } 
+
 
                     if (temp_profile_id) {
                         if (ProductStor.product.template_square >= 1) {
