@@ -653,11 +653,10 @@
 
       .product-value {
         font-style: normal;
-        font-weight: normal;
+        font-weight: bold;
         font-size: 16px;
         line-height: 24px;
 
-        /* identical to box height, or 150% */
 
         color: #000000;
       }
@@ -672,18 +671,18 @@
         font-size: 16px;
         line-height: 24px;
 
-        color: #3333;
+        color: #4E4E4E;
       }
 
       .addelement-value {
         margin-right: 25px;
 
         font-style: normal;
-        font-weight: normal;
+        font-weight: bold;
         font-size: 16px;
         line-height: 24px;
 
-        color: #4E4E4E; 
+        color: #000000; 
       }
 
       .addelement-price-container {
@@ -882,6 +881,10 @@
 
   .addelement-parameter {
     margin-right: 1rem;
+    display: flex;
+    align-items: center;
+
+    align-self: center;
   }
 
   .addelement-value {

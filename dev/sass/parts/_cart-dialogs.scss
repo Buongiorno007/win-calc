@@ -101,9 +101,7 @@ position: absolute;
     color: #FFFFFF;
   }
   .save {
-    // @extend .middle-button;
     @extend .splash;
-
     position: absolute;
     top: 25%;
     right: 3%;
@@ -111,6 +109,10 @@ position: absolute;
     padding: 0 rem(28px);
     color: #fff;
     background-color: $primary_green;
+
+    &.unactive {
+      background-color:#4e4e4e;
+    }
   }
   .save-order{
     font-weight: bold;

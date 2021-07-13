@@ -344,15 +344,15 @@
                           .addelement-parameters-container
                             .addelement-parameters
                               .addelement-parameter(ng-if="addelement.element_width")
-                              .addelement-label  Ширина
+                              .addelement-label  Ширина:
                               .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
                               .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
                             .addelement-parameter(ng-show="addelement.element_height")
-                              .addelement-label {{ ::lightPage.HEIGHT_LABEL }}
+                              .addelement-label Высота:
                               .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
                               .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
                             .addelement-parameters(ng-if="addelement.element_qty")
-                              .addelement-label Колличество
+                              .addelement-label Кол-во:
                               .addelement-value {{ addelement.element_qty }}
                         .addelement-price-container
                           .addelement-price-value(price-fixed="{{addelement.elementPriceDis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
@@ -553,7 +553,7 @@
               hr.separator
               li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(5)" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}") 
-                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Ламинация<span>
+                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Цвет<span>
                 .laminatuin-display-block
                   .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate}}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
                   .slash-between-laminations(data-output="|", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -849,12 +849,13 @@
         //-rehau templates ---------------------------
         .cart-menu-rehau(ng-if="configMenu.G.global.showCart && lightPage.U.userInfo.factory_id === 2", ng-controller="CartMenuCtrl as cartMenu")
           ul.items-list
-            .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
-              button 
-                <h3>Добавить окно</h3> 
             .back-home-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
               button 
                 <h3>Вернуться на главную</h3> 
+            .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
+              button 
+                <h3>Добавить окно</h3> 
+            
               
 
           footer.menu-footer

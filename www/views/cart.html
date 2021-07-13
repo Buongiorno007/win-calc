@@ -1500,6 +1500,7 @@
                   <input type="checkbox" ng-model="checkedList" ng-init="checkedList=true" class="agreement-checkbox">
                   <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности</div>
                 </div>
+                <button type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled class="save save-order little">{{ ::orderForm.READY }}</button>
                 <button type="submit" ng-if="checkedList" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
             </form>

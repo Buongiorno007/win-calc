@@ -1320,17 +1320,17 @@
                           <div class="addelement-parameters-container">
                             <div class="addelement-parameters">
                               <div ng-if="addelement.element_width" class="addelement-parameter"></div>
-                              <div class="addelement-label"> Ширина</div>
+                              <div class="addelement-label"> Ширина:</div>
                               <div ng-if="lightPage.U.userInfo.factory_id===1966" class="addelement-value">{{ addelement.element_width*0.0393701 | number : 0  }}</div>
                               <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="addelement-value">{{ addelement.element_width }}</div>
                             </div>
                             <div ng-show="addelement.element_height" class="addelement-parameter">
-                              <div class="addelement-label">{{ ::lightPage.HEIGHT_LABEL }}</div>
+                              <div class="addelement-label">Высота:</div>
                               <div ng-if="lightPage.U.userInfo.factory_id===1966" class="addelement-value">{{ addelement.element_height*0.0393701 | number : 0  }}</div>
                               <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="addelement-value">{{ addelement.element_height }}</div>
                             </div>
                             <div ng-if="addelement.element_qty" class="addelement-parameters">
-                              <div class="addelement-label">Колличество</div>
+                              <div class="addelement-label">Кол-во:</div>
                               <div class="addelement-value">{{ addelement.element_qty }}</div>
                             </div>
                           </div>
@@ -1981,7 +1981,7 @@
               <hr class="separator">
               <li fs-click="configMenu.selectConfigPanel(5)" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}" class="figure-item-rehau-block"> </div>
-                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Ламинация<span></div>
+                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Цвет<span></div>
                 <div class="laminatuin-display-block">
                   <div data-output="{{ lightPage.P.product.lamination.laminat_in_name | translate}}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
                   <div data-output="|" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="slash-between-laminations"></div>
@@ -2318,16 +2318,16 @@
         </div>
         <div ng-if="configMenu.G.global.showCart &amp;&amp; lightPage.U.userInfo.factory_id === 2" ng-controller="CartMenuCtrl as cartMenu" class="cart-menu-rehau">
           <ul class="items-list">
-            <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product-rehau order-rehau">
-              <button>
-                 
-                <h3>Добавить окно</h3> 
-              </button>
-            </div>
             <div ng-click="lightPage.addNewProductInOrder()" class="back-home-rehau order-rehau">
               <button>
                  
                 <h3>Вернуться на главную</h3> 
+              </button>
+            </div>
+            <div ng-click="lightPage.addNewProductInOrder()" class="add-new-product-rehau order-rehau">
+              <button>
+                 
+                <h3>Добавить окно</h3> 
               </button>
             </div>
           </ul>
@@ -2852,6 +2852,7 @@
                   <input type="checkbox" ng-model="checkedList" ng-init="checkedList=true" class="agreement-checkbox">
                   <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности</div>
                 </div>
+                <button type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled class="save save-order little">{{ ::orderForm.READY }}</button>
                 <button type="submit" ng-if="checkedList" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
             </form>

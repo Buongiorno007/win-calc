@@ -209,4 +209,5 @@
           .privacy-policy-text
             input.agreement-checkbox(type="checkbox" ng-model="checkedList" ng-init="checkedList=true")
             .agreement Я соглашаюсь с правилами пользования и политикой конфиденциальности
+          button.save.save-order.little(type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled) {{ ::orderForm.READY }}
           button.save.save-order.little(type="submit" ng-if="checkedList") {{ ::orderForm.READY }}
