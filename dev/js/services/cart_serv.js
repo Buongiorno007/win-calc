@@ -519,7 +519,7 @@
                     }
                     setTimeout(() => {
                         // $.mask.definitions['N'] = '[/0-6|9/]';
-                        $(".user-field").mask("+7(999) 999-99-99");
+                        $(".user-field-phone").mask("+7(999) 999-99-99");
                     }, 200);
                 }
 
