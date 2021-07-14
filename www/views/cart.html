@@ -1490,14 +1490,14 @@
                 </div>
                 <div ng-class="{'invalid-data': orderForm.C.cart.customer.customer_phone === 0 }" class="input-field">
                   <div class="input-name">Ваш номер телефона</div>
-                  <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field">
+                  <input id="phone" placeholder="+7(___) ___-__-__" type="phone" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field">
                 </div>
                 <div class="input-field">
                   <div class="input-name">Ваш коментарий</div>
-                  <input type="text" name="comment" ng-model="orderForm.C.cart.customer.customer_comment" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-comment">
+                  <input type="text" name="comment" ng-model="orderForm.C.cart.customer.customer_comment" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field-comment">
                 </div>
                 <div class="privacy-policy-text">
-                  <input type="checkbox" ng-model="checkedList" ng-init="checkedList=true" class="agreement-checkbox">
+                  <input type="checkbox" ng-model="checkedList" ng-init="checkedList=false" class="agreement-checkbox">
                   <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности</div>
                 </div>
                 <button type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled class="save save-order little">{{ ::orderForm.READY }}</button>

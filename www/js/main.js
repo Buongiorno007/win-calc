@@ -3975,7 +3975,6 @@ let portrait = false;
 
                 }
 
-
                 /**========== FINISH ==========*/
 
                 //------ clicking
@@ -14998,6 +14997,10 @@ function ErrorResult(code, message) {
                             CartStor.cart.isOrderDialog = 1;
                         }
                     }
+                    setTimeout(() => {
+                        // $.mask.definitions['N'] = '[/0-6|9/]';
+                        $(".user-field").mask("+7(999) 999-99-99");
+                    }, 200);
                 }
 
                 /**========== FINISH ==========*/

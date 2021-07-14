@@ -202,12 +202,12 @@
             input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", required)
           .input-field(ng-class="{'invalid-data': orderForm.C.cart.customer.customer_phone === 0 }")
             .input-name Ваш номер телефона
-            input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0")
+            input.user-field(id="phone" placeholder="+7(___) ___-__-__" type="phone", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0")
           .input-field
             .input-name Ваш коментарий
-            input.user-field-comment(type="text", name="comment", ng-model="orderForm.C.cart.customer.customer_comment", ng-focus="orderForm.C.cart.isCityBox = 0", required)
+            input.user-field-comment(type="text", name="comment", ng-model="orderForm.C.cart.customer.customer_comment", ng-focus="orderForm.C.cart.isCityBox = 0")
           .privacy-policy-text
-            input.agreement-checkbox(type="checkbox" ng-model="checkedList" ng-init="checkedList=true")
+            input.agreement-checkbox(type="checkbox" ng-model="checkedList" ng-init="checkedList=false")
             .agreement Я соглашаюсь с правилами пользования и политикой конфиденциальности
           button.save.save-order.little(type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled) {{ ::orderForm.READY }}
           button.save.save-order.little(type="submit" ng-if="checkedList") {{ ::orderForm.READY }}
