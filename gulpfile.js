@@ -57,7 +57,7 @@ var server_env = {
     "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
     "window": "'https://admin.windowscalculator.net/orders/get-order-pdf/'",
-    "rehau": "'https://admin.rehauselected.baueffect.com/get-order-pdf/'",
+    "rehau": "'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/'",
     "windowSteko": "'https://admin.steko.com.ua/orders/get-order-pdf/'",
     "apelsin": "'https://admin.apelsin.windowscalculator.net/orders/get-order-pdf/'"
   },

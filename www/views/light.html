@@ -320,7 +320,7 @@
                 <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
                   <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header-rehau">
                     <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title-rehau"></div>
-                    <div class="group-info-rehau"><img ng-src="../../../img/info_rehau.png" ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info-icon"></div>
+                    <div class="group-info-rehau"><img ng-src="../img/rehau-img/info_rehau.png" ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info-icon"></div>
                   </div>
                   <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box-rehau profile-box unvisible">
                     <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner-rehau"><img ng-if="profile.img.length" ng-src="{{profile.img}}" class="profile-img">
@@ -2846,7 +2846,7 @@
                 </div>
                 <div class="input-field">
                   <div class="input-name">Ваш коментарий</div>
-                  <input type="text" name="comment" ng-model="orderForm.C.cart.customer.customer_comment" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field-comment">
+                  <input type="text" name="comment" ng-model="orderForm.O.order.comment" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field-comment">
                 </div>
                 <div class="privacy-policy-text">
                   <input type="checkbox" ng-model="checkedList" ng-init="checkedList=false" class="agreement-checkbox">

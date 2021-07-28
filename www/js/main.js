@@ -15230,7 +15230,7 @@ function ErrorResult(code, message) {
     .constant('globalConstants', {
 
       serverIP: 'https://admin.rehauselected.baueffect.com',
-      printIP: 'https://admin.rehauselected.baueffect.com/get-order-pdf/',
+      printIP: 'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -22196,7 +22196,8 @@ function ErrorResult(code, message) {
         DesignStor,
         AuxStor,
         ProductStor,
-        CartStor
+        CartStor,
+        OrderStor
       ) {
         var thisFactory = this,
           tablesLocalDB = {
@@ -23520,6 +23521,38 @@ function ErrorResult(code, message) {
           return defer.promise;
         }
 
+        function insertRehau(data, comment) {
+          var defer = $q.defer(),
+            dataToSend = {
+              contact: {
+                  "name": CartStor.cart.customer.customer_name,
+                  "phone": CartStor.cart.customer.customer_phone,
+                  "lead_type": 4,
+                  "comment": comment
+              },
+              calculation_id: data,
+              status: "mw send",
+            };
+            console.log(OrderStor)
+            console.log(dataToSend, 'Эти данные уходят на бэк')
+          $http
+            .post(
+              "https://service.rehauselected.baueffect.com/api/rehau/request",
+               dataToSend
+            )
+            .then(
+              function (result) {
+                defer.resolve(result.data);
+                console.log(result, 'result from rehau ')
+              },
+              function (result) {
+                console.log("send changes to server failed");
+                defer.resolve(result.data);
+              }
+            );
+          return defer.promise;
+        }
+
         function insertServer(login, access, table, data) {
           const ordered = {};
           Object.keys(data)
@@ -23544,7 +23577,12 @@ function ErrorResult(code, message) {
             )
             .then(
               function (result) {
-                defer.resolve(result.data);
+                setTimeout(() => {
+                  defer.resolve(result.data);
+                }, 2700);
+                if (result.data.order_number && result.data.order_number !== undefined) {
+                  insertRehau(data.id, data.comment)
+                }
               },
               function (result) {
                 console.log("send changes to server failed");
@@ -25166,7 +25204,7 @@ function ErrorResult(code, message) {
             }
             //console.info('@@@@@@@@@@@@', objTmp);
             // console.log(ProductStor.product, 'Product stor');
-            console.log(GlobalStor.global, 'global stor');
+            //console.log(GlobalStor.global, 'global stor');
             // console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
