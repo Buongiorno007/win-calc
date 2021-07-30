@@ -1350,7 +1350,7 @@
                   "lead_type": 4,
                   "comment": comment,
                   "location": localStorage.getItem('location'),
-                  "kladr_region_id": localStorage.getItem('kladr_region_id')
+                  "region_kladr_id": localStorage.getItem('region_kladr_id')
               },
               calculation_id: data,
               status: "mw send",
