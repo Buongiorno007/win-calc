@@ -1349,7 +1349,7 @@
                   "phone": CartStor.cart.customer.customer_phone,
                   "lead_type": 4,
                   "comment": comment,
-                  "location": localStorage.getItem('location'),
+                  "address": localStorage.getItem('location'),
                   "region_kladr_id": localStorage.getItem('region_kladr_id')
               },
               calculation_id: data,
