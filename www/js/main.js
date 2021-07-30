@@ -3311,12 +3311,12 @@ let portrait = false;
               document.querySelector('.privacy-policy').style.opacity = "1";
             }, 1);
           })
-        } else if (window.location.href === "https://rehau2021selected.xyz/calculator/#/") {
+        } else if (window.location.href === "https://rehau2021selected.xyz/calculator/rehau/#/") {
           setTimeout(() => {   
             thisCtrl.user.phone = 'rehausite';
             thisCtrl.user.password = 'rehau';
             document.querySelector('.login-submit').click();
-          }, 1);
+          }, 2500);
         }
 
         function fastEnter(url) {
@@ -23528,11 +23528,13 @@ function ErrorResult(code, message) {
                   "name": CartStor.cart.customer.customer_name,
                   "phone": CartStor.cart.customer.customer_phone,
                   "lead_type": 4,
-                  "comment": comment
+                  "comment": comment,
+                  "location": localStorage.getItem('location')
               },
               calculation_id: data,
               status: "mw send",
             };
+            console.log(localStorage.getItem('location'), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             console.log(OrderStor)
             console.log(dataToSend, 'Эти данные уходят на бэк')
           $http

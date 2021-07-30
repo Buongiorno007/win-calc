@@ -1348,13 +1348,14 @@
                   "name": CartStor.cart.customer.customer_name,
                   "phone": CartStor.cart.customer.customer_phone,
                   "lead_type": 4,
-                  "comment": comment
+                  "comment": comment,
+                  "location": localStorage.getItem('location'),
+                  "kladr_region_id": localStorage.getItem('kladr_region_id')
               },
               calculation_id: data,
               status: "mw send",
             };
-            console.log(OrderStor)
-            console.log(dataToSend, 'Эти данные уходят на бэк')
+
           $http
             .post(
               "https://service.rehauselected.baueffect.com/api/rehau/request",

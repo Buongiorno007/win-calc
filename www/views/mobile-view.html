@@ -1391,6 +1391,19 @@
         <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog-rehau"></div>
       </div>
     </div>
+    <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2" class="info_container-rehau">
+      <div class="info_box-rehau">
+        <div class="info_box_inner">
+          <div class="info-header">
+            <div class="info_title">{{ infoBox.G.global.infoTitle.name }}</div>
+          </div>
+          <div class="info-body"> <img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
+            <div class="info_descrip">{{ infoBox.G.global.infoDescrip }}</div>
+          </div>
+        </div>
+        <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog-rehau"></div>
+      </div>
+    </div>
   </div>
   <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
     <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">

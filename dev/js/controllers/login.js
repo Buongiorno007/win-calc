@@ -1052,12 +1052,12 @@
               document.querySelector('.privacy-policy').style.opacity = "1";
             }, 1);
           })
-        } else if (window.location.href === "https://rehau2021selected.xyz/calculator/_product/#/") {
+        } else if (window.location.href === "https://rehau2021selected.xyz/calculator/rehau/#/") {
           setTimeout(() => {   
             thisCtrl.user.phone = 'rehausite';
             thisCtrl.user.password = 'rehau';
             document.querySelector('.login-submit').click();
-          }, 1);
+          }, 2500);
         }
 
         function fastEnter(url) {
