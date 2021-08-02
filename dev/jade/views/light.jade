@@ -879,6 +879,12 @@
             input.prodcounter-rehau(readonly, ng-model="lightPage.G.global.construction_count", ng-click="configMenu.cartButton()")
           .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")
             p {{lightPage.CONFIGMENU_IN_CART}}
+        //-This block was added in order to be able to manipulate buttons from the landing page. By default class disabled.
+        .counter-block-rehau-for-landing.disabled(ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2")
+          .counter-rehau-for-landing
+            input.prodcounter-rehau-for-landing(readonly, ng-model="lightPage.G.global.construction_count")
+          .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")
+            p {{lightPage.CONFIGMENU_IN_CART}}
         //- rehau template end  
         
         .discount-block(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id !== 2")

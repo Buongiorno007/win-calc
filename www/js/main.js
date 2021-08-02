@@ -23529,14 +23529,14 @@ function ErrorResult(code, message) {
                   "phone": CartStor.cart.customer.customer_phone,
                   "lead_type": 4,
                   "comment": comment,
-                  "location": localStorage.getItem('location')
+                  "address": localStorage.getItem('location'),
+                  "region_kladr_id": localStorage.getItem('region_kladr_id'),
+                  "utm": window.location.href
               },
               calculation_id: data,
               status: "mw send",
             };
-            console.log(localStorage.getItem('location'), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-            console.log(OrderStor)
-            console.log(dataToSend, 'Эти данные уходят на бэк')
+
           $http
             .post(
               "https://service.rehauselected.baueffect.com/api/rehau/request",

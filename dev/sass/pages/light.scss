@@ -797,9 +797,66 @@
         }
       }
     }
+    &.disabled {
+      position:absolute;
+      top:-9999px;
+    }
+  }
+
+  .counter-block-rehau-for-landing {
+    text-align: center;
+    position: relative;
+    top: -3.5rem;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    margin-left: 2.75rem;
+    transition: .5s;
+
+    .counter-rehau-for-landing {
+      width: 40%;
+      height: 5rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+      input {
+        transition: .5s;
+        cursor: pointer;
+        @include roboto-md(rem(36px), rem(60px));
+        text-align: center;
+        border: none;
+        width: 9rem;
+        height: 5.5rem;
+        margin-right: 4rem;
+  
+        background-image: url(../img/rehau-img/basket.png);
+        background-repeat: no-repeat;
+        background-position-y: 50%;
+        background-position-x: 35%;
+      }
+    }
+
+    &.unactive {
+      width: 135%;
+      .counter-rehau-for-landing {
+        input {
+          margin-right: -25rem;
+        }
+      }
+    }
+
+    &.disabled {
+      position:absolute;
+      top:-9999px; 
+    }
   }
   
   .prodcounter-rehau {
+    background-color: #424242;
+    color: white;
+    padding-left: 35px;
+  }
+
+  .prodcounter-rehau-for-landing {
     background-color: #424242;
     color: white;
     padding-left: 35px;
