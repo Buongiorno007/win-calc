@@ -1340,6 +1340,37 @@
             );
           return defer.promise;
         }
+        //This is a duplicated function, it is needed to display the final pop-up with the order ID
+        function showInfoBox(id, itemArr) {
+          if (GlobalStor.global.isInfoBox !== id) {
+              var itemArrQty = itemArr.length,
+                  tempObj = {};
+              while (--itemArrQty > -1) {
+                  if (itemArr[itemArrQty].lamination_type_id) {
+                      if (itemArr[itemArrQty].lamination_type_id === id) {
+                          tempObj = itemArr[itemArrQty];
+                      }
+                  } else {
+                      if (itemArr[itemArrQty].id === id) {
+                          tempObj = itemArr[itemArrQty];
+                      }
+                  }
+              } 
+              if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
+                  GlobalStor.global.infoTitle = tempObj;
+                  GlobalStor.global.infoImg = tempObj.img;
+                  GlobalStor.global.infoLink = tempObj.link;
+                  GlobalStor.global.infoDescrip = tempObj.description;
+                  GlobalStor.global.isInfoBox = id;
+              } else {
+                  GlobalStor.global.infoTitle = tempObj.translate;
+                  GlobalStor.global.infoImg = tempObj.img;
+                  GlobalStor.global.infoLink = tempObj.link;
+                  GlobalStor.global.infoDescrip = tempObj.description;
+                  GlobalStor.global.isInfoBox = id;
+              }
+          }
+      }
 
         function insertRehau(data, comment) {
           var defer = $q.defer(),
@@ -1364,8 +1395,13 @@
             )
             .then(
               function (result) {
-                defer.resolve(result.data);
-                console.log(result, 'result from rehau ')
+                defer.resolve(result.data); 
+                showInfoBox(1, GlobalStor.global.profilesType)
+                const guidFromBackend = JSON.stringify(result.data.guid) 
+                GlobalStor.global.infoDescrip = `Её уникальный номер ${guidFromBackend}`
+                GlobalStor.global.infoTitle = {
+                  name: 'Спасибо за вашу заявку!'
+                }
               },
               function (result) {
                 console.log("send changes to server failed");
