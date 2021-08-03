@@ -1431,7 +1431,7 @@ body {
   position: relative;
   width: 128rem;
   height: 96rem;
-  margin: 5rem auto;
+  margin: auto;
   overflow: hidden;
 }
 
@@ -10975,7 +10975,7 @@ tr.factory_item {
 
 /* line 1167, ../../dev/sass/pages/cart.scss */
 .back-home-rehau {
-  background: #DD0060;
+  background-color: #DD0060;
   background-image: url(../img/rehau-img/home.png);
   background-repeat: no-repeat;
   height: 23px;
@@ -11001,23 +11001,23 @@ tr.factory_item {
 }
 
 /* line 1199, ../../dev/sass/pages/cart.scss */
-.back-home-rehau2 {
-  background: #37A58C;
-  background-image: url(../img/rehau-img/home.png);
+.add-new-window {
+  background-color: #4E4E4E;
+  background-image: url(../img/rehau-img/add-new-window.png);
   background-repeat: no-repeat;
   height: 23px;
   width: 48px;
   background-position: 225px;
 }
 /* line 1209, ../../dev/sass/pages/cart.scss */
-.back-home-rehau2 button, .back-home-rehau2 .door-configuration .door-config-finish-btn, .door-configuration .back-home-rehau2 .door-config-finish-btn, .back-home-rehau2 .door-configuration .door-config-finish-save-btn, .door-configuration .back-home-rehau2 .door-config-finish-save-btn {
+.add-new-window button, .add-new-window .door-configuration .door-config-finish-btn, .door-configuration .add-new-window .door-config-finish-btn, .add-new-window .door-configuration .door-config-finish-save-btn, .door-configuration .add-new-window .door-config-finish-save-btn {
   background: none;
   border: none;
   padding: 0;
   height: 80px;
 }
 /* line 1216, ../../dev/sass/pages/cart.scss */
-.back-home-rehau2 button h3, .back-home-rehau2 .door-configuration .door-config-finish-btn h3, .door-configuration .back-home-rehau2 .door-config-finish-btn h3, .back-home-rehau2 .door-configuration .door-config-finish-save-btn h3, .door-configuration .back-home-rehau2 .door-config-finish-save-btn h3 {
+.add-new-window button h3, .add-new-window .door-configuration .door-config-finish-btn h3, .door-configuration .add-new-window .door-config-finish-btn h3, .add-new-window .door-configuration .door-config-finish-save-btn h3, .door-configuration .add-new-window .door-config-finish-save-btn h3 {
   padding-left: 14px;
   font-style: normal;
   font-weight: normal;

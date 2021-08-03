@@ -852,15 +852,11 @@
             .back-home-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
               button 
                 <h3>Вернуться на главную</h3> 
-            .back-home-rehau2.order-rehau(ng-click="lightPage.addNewProductInOrder()")
+            .add-new-window.order-rehau(ng-click="lightPage.addNewProductInOrder()")
               button 
-                <h3>Вернуться на главную</h3>
+                <h3>Добавить окно</h3>
            
             
-          
-            
-              
-
           footer.menu-footer
             .price-block-rehau.price-with-instalments-rehau(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
               price(price-value="cartMenu.O.order.paymentFirstDis", price-currency="cartMenu.U.userInfo.currency")
