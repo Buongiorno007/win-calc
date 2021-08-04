@@ -849,12 +849,51 @@
         //-rehau templates ---------------------------
         .cart-menu-rehau(ng-if="configMenu.G.global.showCart && lightPage.U.userInfo.factory_id === 2", ng-controller="CartMenuCtrl as cartMenu")
           ul.items-list
-            .back-home-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
+            li.back-home-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
               button 
                 <h3>Вернуться на главную</h3> 
-            .add-new-window.order-rehau(ng-click="lightPage.addNewProductInOrder()")
+            li.add-new-window.order-rehau(ng-click="lightPage.addNewProductInOrder()")
               button 
                 <h3>Добавить окно</h3>
+            li.item-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
+              .title-rehau(data-output="{{ ::cartMenu.DELIVERY }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+              .cart-item-data-rehau
+                .value-rehau(ng-show="!cartMenu.O.order.floor_id && !cartMenu.O.order.delivery_garbage_removal && !cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value-rehau(ng-show="cartMenu.O.order.floor_id", data-output="{{cartMenu.O.order.floorName}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value-rehau(ng-show="cartMenu.O.order.delivery_garbage_removal", data-output="{{ ::cartMenu.GARBAGE_REMOVE  }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value-rehau(ng-show="cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.DELIVERY}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                span.name.aside-rehau(ng-show="cartMenu.O.order.floor_id", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                span.name.aside-rehau(ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add",
+                data-output=" ~ {{ cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add}} {{ cartMenu.U.userInfo.currency }}",
+                typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+            .dropdown-cart-menu.drop-delivery-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length}")
+              ul.dropdown-items-list
+                li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(0)")
+                  .dropdown-item-inner
+                    .value.drop-txt {{ ::cartMenu.SELF_EXPORT }}
+                    .name.drop-txt
+                li.dropdown-item(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(supplyList)")
+                  .dropdown-item-inner
+                    .value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
+                    .name.drop-txt + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
+            hr.separator
+            li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}", fs-click="cartMenu.selectMenuItem(2)")
+              .title-rehau(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+              .cart-item-data-rehau
+                .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .value(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                span.name.aside(ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+            .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")
+              ul.dropdown-items-list
+                li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(0)")
+                  .dropdown-item-inner
+                    .value.drop-txt {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+                    .name.drop-txt {{ ::cartMenu.FREE }}
+                li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(assemb)")
+                  .dropdown-item-inner
+                    .value.drop-txt {{ assemb.name }}
+                    .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
+            hr.separator
            
             
           footer.menu-footer

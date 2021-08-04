@@ -151,6 +151,13 @@
       height: rem(326px);
     }
   }
+  .drop-delivery-rehau {
+    margin-left: 2px;
+    &.active {
+      height: rem(326px);
+      min-width: 280px;
+    }
+  }
   .drop-assembling {
     &.active {
       height: rem(265px);
@@ -389,16 +396,63 @@
 
   .item-rehau {
     position: relative;
-   
+    height: 80px;
+    width: 255px;
+
+    background-image: url(../../img/rehau-img/arrow-top.png);
+    background-repeat: no-repeat;
+    background-position: 225px;
+
+    .title-rehau {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 32px;
+
+      color: $primary_green;
+    }
+
+    .value-rehau {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 32px;
+    }
+
+    .dropdown-item {
+
+    }
+
+    &.active {
+      background-image: url(../../img/rehau-img/arrow-top.png);
+      background-repeat: no-repeat;
+      background-position: 225px;
+    }
   }
 
   .cart-item-data-rehau {
     @include display-flex();
     @include flex-flow(row wrap);
     @include align-items(center);
-    .value {
+    .value-rehau {
       display : inline;
       width : 25rem;
+      margin: 0px 0px 0px 15px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      
+
+      color: #000000;
+      
+      white-space: nowrap;
+      text-overflow: hidden;
+      text-overflow: ellipsis;
+
+      &::first-letter{
+        text-transform: uppercase;
+      }
     }
   }
   .check-switcher {
@@ -481,6 +535,13 @@
   .drop-delivery {
     &.active {
       height: rem(326px);
+    }
+  }
+  .drop-delivery-rehau {
+    margin-left: 2px;
+    &.active {
+      height: rem(326px);
+      min-width: 280px;
     }
   }
   .drop-assembling {

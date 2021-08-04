@@ -73,9 +73,21 @@
 
     color: #8c8c8c;
     &.aside {
-      @extend .name;
+      @extend .name;  
 
       margin-left: rem(10px);
+      word-wrap: break-word;
+    }
+    &.aside-rehau {
+      @extend .name;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 24px;
+
+      color: #000000;
+
+      margin-left: -3rem;
       word-wrap: break-word;
     }
   }
