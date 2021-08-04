@@ -2331,7 +2331,10 @@
               </button>
             </li>
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}" fs-click="cartMenu.selectMenuItem(1)" class="item-rehau">
-              <div data-output="{{ ::cartMenu.DELIVERY }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"></div>
+              <div class="title-box">
+                <div typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau">Доставка</div>
+                <div class="tooltip"><img ng-src="../../img/rehau-img/tooltip-question.png"><span class="tooltiptext"> Стоимость уточняется менеджером</span></div>
+              </div>
               <div class="cart-item-data-rehau">
                 <div ng-show="!cartMenu.O.order.floor_id &amp;&amp; !cartMenu.O.order.delivery_garbage_removal &amp;&amp; !cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.SELF_EXPORT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
                 <div ng-show="cartMenu.O.order.floor_id" data-output="{{cartMenu.O.order.floorName}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
@@ -2339,47 +2342,44 @@
                 <div ng-show="cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.DELIVERY}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div><span ng-show="cartMenu.O.order.floor_id" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside-rehau"></span><span ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add" data-output=" ~ {{ cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add}} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside-rehau"></span>
               </div>
             </li>
-            <div ng-class="{'active': cartMenu.config.activeMenuItem == 1 &amp;&amp; cartMenu.G.global.supplyData.length}" class="dropdown-cart-menu drop-delivery-rehau">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 1 &amp;&amp; cartMenu.G.global.supplyData.length}" class="dropdown-cart-menu-rehau drop-delivery-rehau">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(0)" class="dropdown-item">
-                  <div class="dropdown-item-inner">
-                    <div class="value drop-txt">{{ ::cartMenu.SELF_EXPORT }}</div>
-                    <div class="name drop-txt"></div>
+                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(0)" class="dropdown-item-rehau">
+                  <div class="dropdown-item-inner-rehau">
+                    <div class="value drop-txt-rehau">{{ ::cartMenu.SELF_EXPORT }}</div>
+                    <div class="name-rehau drop-txt-rehau"></div>
                   </div>
                 </li>
-                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
-                  <div class="dropdown-item-inner">
-                    <div class="value drop-txt">{{supplyList.name}} {{ ::cartMenu.FLOOR }}</div>
-                    <div class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
+                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item-rehau">
+                  <div class="dropdown-item-inner-rehau">
+                    <div class="value drop-txt-rehau">{{supplyList.name}} {{ ::cartMenu.FLOOR }}</div>
+                    <div class="name-rehau drop-txt-rehau">~ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
                   </div>
                 </li>
               </ul>
             </div>
-            <hr class="separator">
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}" fs-click="cartMenu.selectMenuItem(2)" class="item">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}" fs-click="cartMenu.selectMenuItem(2)" class="item-rehau">
               <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"></div>
               <div class="cart-item-data-rehau">
-                <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
-                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.mounting_id" data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+                <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
+                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div><span ng-show="cartMenu.O.order.mounting_id" data-output=" ~ {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside-rehau"></span>
               </div>
             </li>
-            <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu drop-assembling">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu-rehau drop-assembling-rehau">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(0)" class="dropdown-item">
-                  <div class="dropdown-item-inner">
-                    <div class="value drop-txt">{{ ::cartMenu.WITHOUT_ASSEMBLING }}</div>
-                    <div class="name drop-txt">{{ ::cartMenu.FREE }}</div>
+                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(0)" class="dropdown-item-rehau">
+                  <div class="dropdown-item-inner-rehau">
+                    <div class="value drop-txt-rehau">{{ ::cartMenu.WITHOUT_ASSEMBLING }}</div>
                   </div>
                 </li>
-                <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(assemb)" class="dropdown-item">
-                  <div class="dropdown-item-inner">
-                    <div class="value drop-txt">{{ assemb.name }}</div>
-                    <div class="name drop-txt">+ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
+                <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(assemb)" class="dropdown-item-rehau">
+                  <div class="dropdown-item-inner-rehau">
+                    <div class="value drop-txt-rehau">{{ assemb.name }}</div>
+                    <div class="name-rehau drop-txt-rehau">~ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
                   </div>
                 </li>
               </ul>
             </div>
-            <hr class="separator">
           </ul>
           <footer class="menu-footer">
             <div ng-class="{'active': cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block-rehau price-with-instalments-rehau">

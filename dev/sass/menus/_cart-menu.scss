@@ -28,7 +28,6 @@
       background-color: #f0f0f0;
       border-bottom: none;
       &:after {
-
         @include rotate(270deg);
       }
     }
@@ -53,8 +52,8 @@
     @include flex-flow(row wrap);
     @include align-items(center);
     .value {
-      display : inline;
-      width : 25rem;
+      display: inline;
+      width: 25rem;
     }
   }
   .check-switcher {
@@ -96,7 +95,7 @@
   }
   .check-handle {
     @include transition(all 0.5s linear);
-    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
+    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
 
     top: 41%; //26%
     right: rem(62px);
@@ -111,8 +110,6 @@
     margin: rem(10px) 0;
     color: $main_orange;
   }
-
-
 
   // Dropdown menu list
 
@@ -129,7 +126,7 @@
       border-bottom: 1px solid $main_gray_btn;
     }
   }
-  //rehau styles 
+  //rehau styles
   .dropdown-cart-menu-rehau {
     @include transition(all 0.5s linear);
 
@@ -140,8 +137,8 @@
     background-color: #fff;
     padding-top: 4rem;
     &.active {
-      border-top: 1px solid $main_gray_btn;
-      border-bottom: 1px solid $main_gray_btn;
+      border-top: none;
+      border-bottom: none;
     }
   }
   //rehau styles end
@@ -163,6 +160,12 @@
       height: rem(265px);
     }
   }
+  .drop-assembling-rehau {
+    margin-left: 2px;
+    &.active {
+      height: rem(265px);
+    }
+  }
   .drop-calendar {
     text-align: center;
     &.active {
@@ -178,23 +181,23 @@
     }
   }
   //rehau styles end
-  .dismounting{
-    display : inline-flex;
-    align-items : center;
-    justify-content : space-between;
+  .dismounting {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
     .drop-calendar {
       &.active {
         height: 5.5rem;
       }
       input {
         width: 85%;
-        height : 5rem;
-        font-size : 24px;
-        border : none;
-        outline : none;
+        height: 5rem;
+        font-size: 24px;
+        border: none;
+        outline: none;
       }
       label {
-        font-size : 20px;
+        font-size: 20px;
       }
     }
     input::-webkit-outer-spin-button,
@@ -203,11 +206,11 @@
       margin: 0;
     }
     label {
-      font-size : 15px;
+      font-size: 15px;
     }
     .value {
       min-width: 5rem;
-      width : auto;
+      width: auto;
       margin-right: 1rem;
     }
   }
@@ -232,10 +235,10 @@
     }
     input {
       width: 10rem;
-      border : none;
-      outline : none;
-      text-align : right;
-      padding-right : .5rem;
+      border: none;
+      outline: none;
+      text-align: right;
+      padding-right: 0.5rem;
     }
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
@@ -340,10 +343,9 @@
   // Footer menu
   .menu-footer {
     position: relative;
-
   }
   .price-block {
-    @include transition(left .5s ease);
+    @include transition(left 0.5s ease);
 
     position: absolute;
     left: rem(500px);
@@ -382,7 +384,7 @@
   }
 }
 
-//rehau styles 
+//rehau styles
 .cart-menu-rehau {
   @extend .menu-right-general;
   @include justify-content(space-between);
@@ -402,6 +404,13 @@
     background-image: url(../../img/rehau-img/arrow-top.png);
     background-repeat: no-repeat;
     background-position: 225px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
+
+    .title-box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
 
     .title-rehau {
       font-style: normal;
@@ -411,6 +420,49 @@
 
       color: $primary_green;
     }
+    .tooltip {
+      width: 10px;
+      height: 10px;
+      margin-left: 10px;
+      // border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      visibility: hidden;
+      width: 300px;
+      height: 56px;
+      background-color: #818181;
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 1s;
+
+      /* Position the tooltip */
+      position: absolute;
+      top: -5px;
+      right: 75%;
+      z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+
+    .tooltip .tooltiptext::after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      left: 100%; /* To the right of the tooltip */
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent transparent #818181;
+    }
 
     .value-rehau {
       font-style: normal;
@@ -418,11 +470,6 @@
       font-size: 14px;
       line-height: 32px;
     }
-
-    .dropdown-item {
-
-    }
-
     &.active {
       background-image: url(../../img/rehau-img/arrow-top.png);
       background-repeat: no-repeat;
@@ -431,26 +478,25 @@
   }
 
   .cart-item-data-rehau {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include align-items(center);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
     .value-rehau {
-      display : inline;
-      width : 25rem;
+      display: inline;
+      width: 25rem;
       margin: 0px 0px 0px 15px;
       font-style: normal;
       font-weight: normal;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 24px;
-      
 
       color: #000000;
-      
+
       white-space: nowrap;
       text-overflow: hidden;
       text-overflow: ellipsis;
 
-      &::first-letter{
+      &::first-letter {
         text-transform: uppercase;
       }
     }
@@ -494,7 +540,7 @@
   }
   .check-handle {
     @include transition(all 0.5s linear);
-    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
+    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px));
 
     top: 41%; //26%
     right: rem(62px);
@@ -514,7 +560,7 @@
 
     color: $primary_green;
   }
-  
+
   //rehau styles end
 
   // Dropdown menu list
@@ -532,6 +578,20 @@
       border-bottom: 1px solid $main_gray_btn;
     }
   }
+
+  .dropdown-cart-menu-rehau {
+    @include transition(all 0.5s linear);
+
+    height: 0;
+    margin-left: rem(-44px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #fff;
+    &.active {
+      border-top: none;
+      border-bottom: none;
+    }
+  }
   .drop-delivery {
     &.active {
       height: rem(326px);
@@ -542,6 +602,12 @@
     &.active {
       height: rem(326px);
       min-width: 280px;
+    }
+  }
+  .drop-assembling-rehau {
+    margin-left: 2px;
+    &.active {
+      height: rem(265px);
     }
   }
   .drop-assembling {
@@ -555,23 +621,23 @@
       height: 26rem;
     }
   }
-  .dismounting{
-    display : inline-flex;
-    align-items : center;
-    justify-content : space-between;
+  .dismounting {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
     .drop-calendar {
       &.active {
         height: 5.5rem;
       }
       input {
         width: 85%;
-        height : 5rem;
-        font-size : 24px;
-        border : none;
-        outline : none;
+        height: 5rem;
+        font-size: 24px;
+        border: none;
+        outline: none;
       }
       label {
-        font-size : 20px;
+        font-size: 20px;
       }
     }
     input::-webkit-outer-spin-button,
@@ -580,11 +646,11 @@
       margin: 0;
     }
     label {
-      font-size : 15px;
+      font-size: 15px;
     }
     .value {
       min-width: 5rem;
-      width : auto;
+      width: auto;
       margin-right: 1rem;
     }
   }
@@ -609,10 +675,10 @@
     }
     input {
       width: 10rem;
-      border : none;
-      outline : none;
-      text-align : right;
-      padding-right : .5rem;
+      border: none;
+      outline: none;
+      text-align: right;
+      padding-right: 0.5rem;
     }
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
@@ -632,6 +698,42 @@
 
     .value {
       width: 75%;
+    }
+  }
+
+  .dropdown-item-rehau {
+    &.selected {
+      background-color: $primary_green;
+      .drop-txt-rehau {
+        color: white;
+      }
+    }
+  }
+
+  .dropdown-item-inner-rehau {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    color: #000000;
+
+    width: 240px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+
+    height: 48px;
+    padding: 0 0 0 15px;
+
+    .value {
+      width: 75%;
+      &::first-letter {
+        text-transform: uppercase;
+      }
     }
   }
 
@@ -717,11 +819,9 @@
   // Footer menu
   .menu-footer {
     position: relative;
-
   }
   .price-block-rehau {
-    @include transition(left .5s ease);
-    
+    @include transition(left 0.5s ease);
 
     position: absolute;
     left: rem(500px);
@@ -759,7 +859,6 @@
 
         color: #000000;
       }
-
     }
   }
   .price-without-instalments-rehau {
@@ -786,7 +885,7 @@
       margin-top: 0;
       margin-bottom: -2px;
 
-      text-align: center
+      text-align: center;
     }
   }
   .measure-btn {
@@ -808,7 +907,7 @@
 // Price Tab
 .old-price-tab {
   @extend .menu-right-general;
-  @include transition(left .5s ease);
+  @include transition(left 0.5s ease);
 
   position: absolute;
   bottom: rem(248px);
@@ -817,7 +916,7 @@
   max-height: rem(200px);
   padding: rem(30px);
   text-align: center;
-  background: rgba(#f8f8f8, .95);
+  background: rgba(#f8f8f8, 0.95);
   border-top-left-radius: rem($radius_order);
   border-bottom-left-radius: rem($radius_order);
   z-index: 1;
@@ -828,6 +927,18 @@
   .name {
     @include roboto-lt(rem(22px));
     color: #8c8c8c;
+  }
+  .name-rehau {
+    @extend .name;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+
+    // margin-left: -4rem;
+    word-wrap: break-word;
   }
   .price {
     position: relative;
@@ -847,7 +958,7 @@
   max-height: rem(300px);
 }
 /***/
-.add-prod{
+.add-prod {
   padding: 2.5rem rem($config_menu-side_padding) 2.5rem 0rem;
   border-bottom: 1px solid $main_gray_btn;
 }
@@ -857,30 +968,30 @@
   background-color: #f0f0f0;
   border-bottom: none;
 }
-.add-prod:after{
+.add-prod:after {
   content: none !important;
 }
 
-.prod-img{
-  float:right;
-  height:rem(90px);
-  width:rem(90px);
+.prod-img {
+  float: right;
+  height: rem(90px);
+  width: rem(90px);
 }
-.prod-btn{
+.prod-btn {
   @include roboto-rg(rem(36px), 1);
   color: $main_orange;
   margin: 0;
-  width:50%;
-  float:left;
+  width: 50%;
+  float: left;
   position: relative;
-  top:1rem;
+  top: 1rem;
 }
-.hide-block{
-  height:250px;
-  width:100%;
-  background: rgba(#f8f8f8,1);
-  position:absolute;
-  bottom:0;
-  z-index:2;
+.hide-block {
+  height: 250px;
+  width: 100%;
+  background: rgba(#f8f8f8, 1);
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
 }
 /****/

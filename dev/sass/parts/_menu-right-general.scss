@@ -9,8 +9,8 @@
 
   height: 100%;
   padding-left: rem($config_menu-side_padding);
-  background: rgba(#f8f8f8, .95);
-  box-shadow: rem(-3px) 0 rem(15px) rem(-5px) rgba(0, 0, 0, .5);
+  background: rgba(#f8f8f8, 0.95);
+  box-shadow: rem(-3px) 0 rem(15px) rem(-5px) rgba(0, 0, 0, 0.5);
 
   .items-list {
     @include display-flex();
@@ -73,7 +73,7 @@
 
     color: #8c8c8c;
     &.aside {
-      @extend .name;  
+      @extend .name;
 
       margin-left: rem(10px);
       word-wrap: break-word;
@@ -82,12 +82,12 @@
       @extend .name;
       font-style: normal;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 24px;
 
       color: #000000;
 
-      margin-left: -3rem;
+      margin-left: -4rem;
       word-wrap: break-word;
     }
   }
@@ -119,7 +119,7 @@
   .digit-cell {
     position: relative;
     float: left;
-    &:nth-last-child(3n+3) {
+    &:nth-last-child(3n + 3) {
       margin-left: rem(4px);
     }
     &:nth-last-child(3) {
