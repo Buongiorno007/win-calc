@@ -2333,7 +2333,8 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}" fs-click="cartMenu.selectMenuItem(1)" class="item-rehau">
               <div class="title-box">
                 <div typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau">Доставка</div>
-                <div class="tooltip"><img ng-src="../../img/rehau-img/tooltip-question.png"><span class="tooltiptext"> Стоимость уточняется менеджером</span></div>
+                <div class="tooltip"><img ng-src="/img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
+                <div class="arrow"><img ng-src="/img/rehau-img/arrow-top.png"></div>
               </div>
               <div class="cart-item-data-rehau">
                 <div ng-show="!cartMenu.O.order.floor_id &amp;&amp; !cartMenu.O.order.delivery_garbage_removal &amp;&amp; !cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.SELF_EXPORT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
@@ -2359,7 +2360,11 @@
               </ul>
             </div>
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}" fs-click="cartMenu.selectMenuItem(2)" class="item-rehau">
-              <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"></div>
+              <div class="title-box">
+                <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"></div>
+                <div class="tooltip"><img ng-src="/img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
+                <div class="arrow"><img ng-src="/img/rehau-img/arrow-top.png"></div>
+              </div>
               <div class="cart-item-data-rehau">
                 <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
                 <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div><span ng-show="cartMenu.O.order.mounting_id" data-output=" ~ {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside-rehau"></span>
