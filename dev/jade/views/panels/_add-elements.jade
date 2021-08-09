@@ -125,7 +125,10 @@
      .folders-container
         .totalNumberAddElements Общее колличество доп. элементов
         .folders(ng-repeat="folders in elementsPanel.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" )
-            p.folders-name-rehau(ng-click="elementsPanel.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}') {{folders.name | translate}}
+            .title-box(ng-click="elementsPanel.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}')
+              p.folders-name-rehau {{folders.name | translate}}
+              .arrow
+                  img(ng-src="../../../img/rehau-img/white-arrow-top.png")
             .choosen-add-elem(ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index")
                 //- .row-header
                 //-     p.name {{chosenAddElem.name}}
@@ -145,7 +148,9 @@
                 //-         p {{elementsPanel.PRICE }}
             .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index")
                 .subfolders-name( ng-class='{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
-                    p.splice(ng-click='elementsPanel.showItems($index, $event, 0)' ) {{subfolder.name}}
+                    .splice(ng-click='elementsPanel.showItems($index, $event, 0)' ) {{subfolder.name}}
+                      .arrow 
+                        img(ng-src="../../../img/rehau-img/white-arrow-top.png")
                     //- .info(fs-click="elementsPanel.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
                 //- img.subfolders-image(ng-click='elementsPanel.showItems($index, $event, 1)' ng-if='subfolder.img && elementsPanel.G.global.cordova' ng-src='{{elementsPanel.extendUrl(subfolder.img)}}')
                 //- img.subfolders-image(ng-click='elementsPanel.showItems($index, $event, 1)' ng-if='subfolder.img && !(elementsPanel.G.global.cordova)' ng-src='{{subfolder.img}}')

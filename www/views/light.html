@@ -855,12 +855,17 @@
                   <div class="folders-container">
                     <div class="totalNumberAddElements">Общее колличество доп. элементов</div>
                     <div ng-repeat="folders in elementsPanel.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" class="folders">
-                      <p ng-click="elementsPanel.OpenFolder($index, $event)" ng-class="{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}" class="folders-name-rehau">{{folders.name | translate}}</p>
+                      <div ng-click="elementsPanel.OpenFolder($index, $event)" ng-class="{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}" class="title-box">
+                        <p class="folders-name-rehau">{{folders.name | translate}}</p>
+                        <div class="arrow"><img ng-src="../../../img/rehau-img/white-arrow-top.png"></div>
+                      </div>
                       <div ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index" class="choosen-add-elem">
                       </div>
                       <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders">
                         <div ng-class="{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
-                          <p ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}</p>
+                          <div ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}
+                            <div class="arrow"> <img ng-src="../../../img/rehau-img/white-arrow-top.png"></div>
+                          </div>
                         </div>
                         <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
                           <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{'selected': item.name === elementsPanel.C.cart.allAddElements[lightPage.config.detailProductIndex].name}" class="splice">{{item.name}}</p>
