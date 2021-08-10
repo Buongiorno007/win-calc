@@ -859,10 +859,10 @@
               .title-box
                 .title-rehau(typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}") Доставка
                 .tooltip
-                  img(ng-src="/img/rehau-img/tooltip-question.png")
+                  img(ng-src="../img/rehau-img/tooltip-question.png")
                   span.tooltiptext Точная стоимость уточняется менеджером
                 .arrow
-                  img(ng-src="/img/rehau-img/arrow-top.png")
+                  img(ng-src="../img/rehau-img/arrow-top.png")
               .cart-item-data-rehau
                 .value-rehau(ng-show="!cartMenu.O.order.floor_id && !cartMenu.O.order.delivery_garbage_removal && !cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
                 .value-rehau(ng-show="cartMenu.O.order.floor_id", data-output="{{cartMenu.O.order.floorName}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -886,7 +886,7 @@
               .title-box
                 .title-rehau(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
                 .tooltip
-                  img(ng-src="/img/rehau-img/tooltip-question.png")
+                  img(ng-src="../img/rehau-img/tooltip-question.png")
                   span.tooltiptext Точная стоимость уточняется менеджером
                 .arrow
                   img(ng-src="/img/rehau-img/arrow-top.png")

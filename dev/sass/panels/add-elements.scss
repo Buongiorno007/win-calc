@@ -76,41 +76,31 @@ $aux-img-select-path: "auxiliaries-selected";
       }
 
       .aux-louver-midle {
-        background-image: image-url(
-          $aux-img-focus-path + "/louvers-middle.png"
-        );
+        background-image: image-url($aux-img-focus-path + "/louvers-middle.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-louver-bottom {
-        background-image: image-url(
-          $aux-img-focus-path + "/louvers-bottom.png"
-        );
+        background-image: image-url($aux-img-focus-path + "/louvers-bottom.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-inside-top {
-        background-image: image-url(
-          $aux-img-focus-path + "/inside-slope-top.png"
-        );
+        background-image: image-url($aux-img-focus-path + "/inside-slope-top.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-inside-right {
-        background-image: image-url(
-          $aux-img-focus-path + "/inside-slope-right.png"
-        );
+        background-image: image-url($aux-img-focus-path + "/inside-slope-right.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-inside-left {
-        background-image: image-url(
-          $aux-img-focus-path + "/inside-slope-left.png"
-        );
+        background-image: image-url($aux-img-focus-path + "/inside-slope-left.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -128,17 +118,13 @@ $aux-img-select-path: "auxiliaries-selected";
       }
 
       .aux-force-connect {
-        background-image: image-url(
-          $aux-img-focus-path + "/force-connector.png"
-        );
+        background-image: image-url($aux-img-focus-path + "/force-connector.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-balcon-connect {
-        background-image: image-url(
-          $aux-img-focus-path + "/balcon-connector.png"
-        );
+        background-image: image-url($aux-img-focus-path + "/balcon-connector.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -228,41 +214,31 @@ $aux-img-select-path: "auxiliaries-selected";
       }
 
       .aux-louver-midle {
-        background-image: image-url(
-          $aux-img-select-path + "/louvers-middle.png"
-        );
+        background-image: image-url($aux-img-select-path + "/louvers-middle.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-louver-bottom {
-        background-image: image-url(
-          $aux-img-select-path + "/louvers-bottom.png"
-        );
+        background-image: image-url($aux-img-select-path + "/louvers-bottom.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-inside-top {
-        background-image: image-url(
-          $aux-img-select-path + "/inside-slope-top.png"
-        );
+        background-image: image-url($aux-img-select-path + "/inside-slope-top.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-inside-right {
-        background-image: image-url(
-          $aux-img-select-path + "/inside-slope-right.png"
-        );
+        background-image: image-url($aux-img-select-path + "/inside-slope-right.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-inside-left {
-        background-image: image-url(
-          $aux-img-select-path + "/inside-slope-left.png"
-        );
+        background-image: image-url($aux-img-select-path + "/inside-slope-left.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -280,17 +256,13 @@ $aux-img-select-path: "auxiliaries-selected";
       }
 
       .aux-force-connect {
-        background-image: image-url(
-          $aux-img-select-path + "/force-connector.png"
-        );
+        background-image: image-url($aux-img-select-path + "/force-connector.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
 
       .aux-balcon-connect {
-        background-image: image-url(
-          $aux-img-select-path + "/balcon-connector.png"
-        );
+        background-image: image-url($aux-img-select-path + "/balcon-connector.png");
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -934,21 +906,26 @@ $aux-img-select-path: "auxiliaries-selected";
         }
       }
 
+      .items {
+        width: 104.5%;
+      }
+
       .splice {
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
         line-height: 24px;
 
-        padding: 10px 14px;
+        padding: 8px;
         margin: 0;
 
         background-color: #ffff;
 
         color: #000000;
 
-        &.selected {
-          background-color: #6ed44a;
+        &.active {
+          background-color: #dd0060;
+          color: #fff;
         }
       }
     }

@@ -1121,7 +1121,7 @@
             db.removeItem("tables")
               .then(() => {
                 db.setItem("tables", LocalDataBase)
-                  .then((value) => {})
+                  .then((value) => { })
                   .catch(function (err) {
                     // This code runs if there were any errors
                     console.log(err);
@@ -1143,10 +1143,10 @@
           $http
             .post(
               globalConstants.serverIP +
-                "/api/remove-order-properties?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/remove-order-properties?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataSend
             )
             .then(
@@ -1216,10 +1216,10 @@
           $http
             .get(
               globalConstants.serverIP +
-                "/api/get/locations?login=" +
-                login +
-                "&access_token=" +
-                access
+              "/api/get/locations?login=" +
+              login +
+              "&access_token=" +
+              access
             )
             .then(
               function (result) {
@@ -1262,12 +1262,12 @@
           $http
             .get(
               globalConstants.serverIP +
-                "/api/get/factories-by-country?login=" +
-                login +
-                "&access_token=" +
-                access +
-                "&cities_ids=" +
-                cityIds
+              "/api/get/factories-by-country?login=" +
+              login +
+              "&access_token=" +
+              access +
+              "&cities_ids=" +
+              cityIds
             )
             .then(
               function (result) {
@@ -1290,12 +1290,12 @@
           $http
             .get(
               globalConstants.serverIP +
-                "/api/sync?login=" +
-                login +
-                "&access_token=" +
-                access +
-                "&" +
-                Math.random()
+              "/api/sync?login=" +
+              login +
+              "&access_token=" +
+              access +
+              "&" +
+              Math.random()
             )
             .then(
               function (result) {
@@ -1343,46 +1343,46 @@
         //This is a duplicated function, it is needed to display the final pop-up with the order ID
         function showInfoBox(id, itemArr) {
           if (GlobalStor.global.isInfoBox !== id) {
-              var itemArrQty = itemArr.length,
-                  tempObj = {};
-              while (--itemArrQty > -1) {
-                  if (itemArr[itemArrQty].lamination_type_id) {
-                      if (itemArr[itemArrQty].lamination_type_id === id) {
-                          tempObj = itemArr[itemArrQty];
-                      }
-                  } else {
-                      if (itemArr[itemArrQty].id === id) {
-                          tempObj = itemArr[itemArrQty];
-                      }
-                  }
-              } 
-              if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
-                  GlobalStor.global.infoTitle = tempObj;
-                  GlobalStor.global.infoImg = tempObj.img;
-                  GlobalStor.global.infoLink = tempObj.link;
-                  GlobalStor.global.infoDescrip = tempObj.description;
-                  GlobalStor.global.isInfoBox = id;
+            var itemArrQty = itemArr.length,
+              tempObj = {};
+            while (--itemArrQty > -1) {
+              if (itemArr[itemArrQty].lamination_type_id) {
+                if (itemArr[itemArrQty].lamination_type_id === id) {
+                  tempObj = itemArr[itemArrQty];
+                }
               } else {
-                  GlobalStor.global.infoTitle = tempObj.translate;
-                  GlobalStor.global.infoImg = tempObj.img;
-                  GlobalStor.global.infoLink = tempObj.link;
-                  GlobalStor.global.infoDescrip = tempObj.description;
-                  GlobalStor.global.isInfoBox = id;
+                if (itemArr[itemArrQty].id === id) {
+                  tempObj = itemArr[itemArrQty];
+                }
               }
+            }
+            if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
+              GlobalStor.global.infoTitle = tempObj;
+              GlobalStor.global.infoImg = tempObj.img;
+              GlobalStor.global.infoLink = tempObj.link;
+              GlobalStor.global.infoDescrip = tempObj.description;
+              GlobalStor.global.isInfoBox = id;
+            } else {
+              GlobalStor.global.infoTitle = tempObj.translate;
+              GlobalStor.global.infoImg = tempObj.img;
+              GlobalStor.global.infoLink = tempObj.link;
+              GlobalStor.global.infoDescrip = tempObj.description;
+              GlobalStor.global.isInfoBox = id;
+            }
           }
-      }
+        }
 
         function insertRehau(data, comment) {
           var defer = $q.defer(),
             dataToSend = {
               contact: {
-                  "name": CartStor.cart.customer.customer_name,
-                  "phone": CartStor.cart.customer.customer_phone,
-                  "lead_type": 4,
-                  "comment": comment,
-                  "address": localStorage.getItem('location'),
-                  "region_kladr_id": localStorage.getItem('region_kladr_id'),
-                  "utm": window.location.href
+                "name": CartStor.cart.customer.customer_name,
+                "phone": CartStor.cart.customer.customer_phone,
+                "lead_type": 4,
+                "comment": comment,
+                "address": localStorage.getItem('location'),
+                "region_kladr_id": localStorage.getItem('region_kladr_id'),
+                "utm": window.location.href
               },
               calculation_id: data,
               status: "mw send",
@@ -1391,13 +1391,13 @@
           $http
             .post(
               "https://service.rehauselected.baueffect.com/api/rehau/request",
-               dataToSend
+              dataToSend
             )
             .then(
               function (result) {
-                defer.resolve(result.data); 
+                defer.resolve(result.data);
                 showInfoBox(1, GlobalStor.global.profilesType)
-                const guidFromBackend = JSON.stringify(result.data.guid) 
+                const guidFromBackend = JSON.stringify(result.data.guid)
                 GlobalStor.global.infoDescrip = `Её уникальный номер ${guidFromBackend}`
                 GlobalStor.global.infoTitle = {
                   name: 'Спасибо за вашу заявку!'
@@ -1427,10 +1427,10 @@
           $http
             .post(
               globalConstants.serverIP +
-                "/api/insert?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/insert?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataToSend
             )
             .then(
@@ -1466,10 +1466,10 @@
           $http
             .post(
               globalConstants.serverIP +
-                "/api/update?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/update?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataToSend
             )
             .then(
@@ -1491,10 +1491,10 @@
             $http
               .post(
                 globalConstants.serverIP +
-                  "/api/update?login=" +
-                  login +
-                  "&access_token=" +
-                  access,
+                "/api/update?login=" +
+                login +
+                "&access_token=" +
+                access,
                 item
               )
               .then(
@@ -1528,12 +1528,12 @@
           $http
             .get(
               globalConstants.serverIP +
-                "/api/signed?login=" +
-                login +
-                "&access_token=" +
-                access +
-                "&date=" +
-                currTime
+              "/api/signed?login=" +
+              login +
+              "&access_token=" +
+              access +
+              "&date=" +
+              currTime
             )
             .then(
               function () {
@@ -1552,10 +1552,10 @@
           $http
             .post(
               globalConstants.serverIP +
-                "/api/remove-order?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/remove-order?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataSend
             )
             .then(
@@ -2648,7 +2648,7 @@
                   if (
                     sizeTemp ===
                     ProductStor.product.template_height / 1000 +
-                      kits.amendment_pruning
+                    kits.amendment_pruning
                   ) {
                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                     priceTemp = sizeTemp * constrElem.price * waste;
@@ -2660,8 +2660,8 @@
                     sizeTemp ===
                     (ProductStor.product.template_height -
                       ProductStor.product.profileDepths.frameStillDepth.a) /
-                      1000 +
-                      kits.amendment_pruning
+                    1000 +
+                    kits.amendment_pruning
                   ) {
                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                     priceTemp = sizeTemp * constrElem.price * waste;
@@ -2670,8 +2670,8 @@
                     sizeTemp ===
                     (ProductStor.product.template_height -
                       ProductStor.product.profileDepths.frameDepth.c * 2) /
-                      1000 +
-                      kits.amendment_pruning
+                    1000 +
+                    kits.amendment_pruning
                   ) {
                     if (ProductStor.product.door_type_index !== 0) {
                       if (ProductStor.product.door_type_index === 1) {
@@ -2679,7 +2679,7 @@
                           (ProductStor.product.template_height -
                             ProductStor.product.profileDepths.frameDepth.c -
                             20) /
-                            1000 +
+                          1000 +
                           kits.amendment_pruning;
                         priceTemp = sizeTemp * constrElem.price * waste;
                       }
@@ -2692,7 +2692,7 @@
                             ProductStor.product.profileDepths.frameDepth.c -
                             ProductStor.product.profileDepths.frameStillDepth
                               .a) /
-                            1000 +
+                          1000 +
                           kits.amendment_pruning;
                         priceTemp = sizeTemp * constrElem.price * waste;
                       }
@@ -3030,7 +3030,7 @@
                   (ProductStor.product.template_height -
                     ProductStor.product.profileDepths.frameDepth.c * 2 -
                     20) /
-                    1000 +
+                  1000 +
                   pruning;
                 if (sizeReal === Math.round(armir * 1000) / 1000) {
                   if (ProductStor.product.door_type_index !== 0) {
@@ -3039,7 +3039,7 @@
                         (ProductStor.product.template_height -
                           ProductStor.product.profileDepths.frameDepth.c -
                           40) /
-                          1000 +
+                        1000 +
                         pruning;
                       priceReal = sizeReal * currConsistElem.price * wasteValue;
                     }
@@ -3052,7 +3052,7 @@
                           ProductStor.product.profileDepths.frameDepth.c -
                           ProductStor.product.profileDepths.frameStillDepth.a -
                           20) /
-                          1000 +
+                        1000 +
                         pruning;
                       priceReal = sizeReal * currConsistElem.price * wasteValue;
                     }
@@ -3062,6 +3062,9 @@
             }
             //console.info('@@@@@@@@@@@@', objTmp);
             // console.log(ProductStor.product, 'Product stor');
+            // console.log(ProductStor.product.chosenAddElements[1])
+            console.log(GlobalStor.global)
+            // console.log(ProductStor.product)
             //console.log(GlobalStor.global, 'global stor');
             // console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
@@ -3157,8 +3160,8 @@
                 currConsist.parentId === consistArr[el].id
               ) {
                 var wasteValue = consistArr[el].waste
-                    ? 1 + consistArr[el].waste / 100
-                    : 1,
+                  ? 1 + consistArr[el].waste / 100
+                  : 1,
                   newValue = 1;
                 if (currConsist.child_type === "list") {
                   //console.log(consistArr[el], currConsist, currConsist, 'fix1')
@@ -3255,9 +3258,9 @@
                         for (var el = 0; el < hwElemQty2; el += 1) {
                           if (
                             currConsist[hwInd][hwInd2].parent_list_id ===
-                              currConsist[hwInd][el].child_id &&
+                            currConsist[hwInd][el].child_id &&
                             currConsist[hwInd][hwInd2].parentId ===
-                              currConsist[hwInd][el].id
+                            currConsist[hwInd][el].id
                           ) {
                             //                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
                             if (
@@ -3888,8 +3891,8 @@
                           sizeTemp = GeneralServ.roundingValue(
                             (AddElement.elementWidth +
                               priceObj.kits.amendment_pruning) *
-                              (AddElement.elementHeight +
-                                priceObj.kits.amendment_pruning),
+                            (AddElement.elementHeight +
+                              priceObj.kits.amendment_pruning),
                             3
                           );
                         } else {
@@ -3899,8 +3902,8 @@
                             priceObj.kits.amendment_pruning;
                         }
                         var wasteValue = priceObj.kits.waste
-                            ? 1 + priceObj.kits.waste / 100
-                            : 1,
+                          ? 1 + priceObj.kits.waste / 100
+                          : 1,
                           constrElem = angular.copy(priceObj.kitsElem),
                           priceTemp = GeneralServ.roundingValue(
                             sizeTemp * constrElem.price * wasteValue
@@ -3958,9 +3961,9 @@
                                   for (var el = 0; el < consistQty; el++) {
                                     if (
                                       priceObj.consist[cons].parent_list_id ===
-                                        priceObj.consist[el].child_id &&
+                                      priceObj.consist[el].child_id &&
                                       priceObj.consist[cons].parentId ===
-                                        priceObj.consist[el].id
+                                      priceObj.consist[el].id
                                     ) {
                                       //                                  console.warn('parent++++', priceObj.consist[el]);
                                       wasteValue = priceObj.consist[el].waste
@@ -4044,12 +4047,12 @@
                 getElementByListId(0, kits[1].parent_element_id),
               ]).then(function (kitsElem) {
                 var wasteList = [
-                    grid.cloth_waste,
-                    grid.top_waste,
-                    grid.right_waste,
-                    grid.bottom_waste,
-                    grid.left_waste,
-                  ],
+                  grid.cloth_waste,
+                  grid.top_waste,
+                  grid.right_waste,
+                  grid.bottom_waste,
+                  grid.left_waste,
+                ],
                   kitsQty = wasteList.length,
                   k,
                   tempW,
@@ -4242,7 +4245,7 @@
           image.setAttribute("crossOrigin", "anonymous");
           try {
             image.src = url;
-          } catch (e) {}
+          } catch (e) { }
         }
 
         function downloadFile(url, fileURL) {
@@ -4330,7 +4333,7 @@
                   let is_cordova = false;
                   try {
                     is_cordova = window.cordova;
-                  } catch (err) {}
+                  } catch (err) { }
                   if (is_cordova) {
                     downloadFile(
                       globalConstants.serverIP + curr_row[kndex],

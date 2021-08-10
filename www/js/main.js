@@ -7650,127 +7650,144 @@ if (window.location.hostname !== 'localhost') {
 
 // controllers/parts/room_info.js
 
-(function(){
+(function () {
   'use strict';
   /**@ngInject*/
   angular
     .module('MainModule')
     .controller('RoomInfoCtrl',
 
-  function(
-    $filter,
-    globalConstants,
-    TemplatesServ,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    UserStor
-  ) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.O = OrderStor;
-    thisCtrl.P = ProductStor;
-    thisCtrl.U = UserStor;
+      function (
+        $filter,
+        globalConstants,
+        TemplatesServ,
+        GlobalStor,
+        OrderStor,
+        ProductStor,
+        UserStor,
+        MainServ
+      ) {
+        /*jshint validthis:true */
+        var thisCtrl = this;
+        thisCtrl.G = GlobalStor;
+        thisCtrl.O = OrderStor;
+        thisCtrl.P = ProductStor;
+        thisCtrl.U = UserStor;
 
-    thisCtrl.config = {
-      DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
-      DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
-      typing: 'on',
-      TOOLTIP: [
-        '',
-        $filter('translate')('mainpage.TEMPLATE_TIP'),
-        $filter('translate')('mainpage.PROFILE_TIP'),
-        $filter('translate')('mainpage.GLASS_TIP')
-      ],
-    };
+        thisCtrl.config = {
+          DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
+          DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
+          typing: 'on',
+          TOOLTIP: [
+            '',
+            $filter('translate')('mainpage.TEMPLATE_TIP'),
+            $filter('translate')('mainpage.PROFILE_TIP'),
+            $filter('translate')('mainpage.GLASS_TIP')
+          ],
+        };
 
-    //------- translate
-    thisCtrl.CLIMATE_ZONE = $filter('translate')('mainpage.CLIMATE_ZONE');
-    thisCtrl.HEAT_TRANSFER_RESISTANCE = $filter('translate')('mainpage.HEAT_TRANSFER_RESISTANCE');
-    thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
-    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
-    thisCtrl.WINDOW_DOOR_SELECTION = $filter('translate')('mainpage.WINDOW_DOOR_SELECTION');
-    thisCtrl.POWERED_BY_1 = $filter('translate')('mainpage.POWERED_BY_1');
-    thisCtrl.POWERED_BY_2 = $filter('translate')('mainpage.POWERED_BY_2');
-    thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
-    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
-    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
-    thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
-    thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
-
-
-
-    /**============ METHODS ================*/
-
-    //------ Show/Close Room Selector Dialog
-    function showRoomSelectorDialog() {
-      //----- open if comment block is closed
-      if(!GlobalStor.global.isShowCommentBlock) {
-        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
-        //GlobalStor.global.showRoomSelectorDialog = 1;
-        //playSound('fly');
-      }
-    }
-    function showCoefInfoBlock() {
-      GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
-    }
-    //----- Show Comments
-    function switchComment() {
-      //playSound('swip');
-      GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
-    }
-
-
-    //TODO Alexandr
-
-    //function toggleTemplateType() {
-    //  GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
-    //}
-
-    //================== Select new Template Type ========================//
-  
-
-    //function selectNewTemplateType(marker) {
-    //  GlobalStor.global.isTemplateTypeMenu = 0;
-    //
-    //  function goToNewTemplateType() {
-    //    if (marker === 4) {
-    //      MainServ.setDefaultDoorConfig();
-    //    }
-    //    GlobalStor.global.isChangedTemplate = 0;
-    //    TemplatesServ.initNewTemplateType(marker);
-    //  }
-    //
-    //  if (GlobalStor.global.isChangedTemplate) {
-    //    //----- если выбран новый шаблон после изменения предыдущего
-    //    GeneralServ.confirmAlert(
-    //      $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-    //      $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-    //      goToNewTemplateType
-    //    );
-    //  } else {
-    //    TemplatesServ.initNewTemplateType(marker);
-    //  }
-    //
-    //}
-
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
-    thisCtrl.switchComment = switchComment;
-    thisCtrl.showCoefInfoBlock = showCoefInfoBlock;
-    //TODO Alexandr
-    //thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
-    //thisCtrl.toggleTemplateType = toggleTemplateType;
-    //thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    
+        //------- translate
+        thisCtrl.CLIMATE_ZONE = $filter('translate')('mainpage.CLIMATE_ZONE');
+        thisCtrl.HEAT_TRANSFER_RESISTANCE = $filter('translate')('mainpage.HEAT_TRANSFER_RESISTANCE');
+        thisCtrl.HEAT_TRANSFER = $filter('translate')('mainpage.HEAT_TRANSFER');
+        thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
+        thisCtrl.WINDOW_DOOR_SELECTION = $filter('translate')('mainpage.WINDOW_DOOR_SELECTION');
+        thisCtrl.POWERED_BY_1 = $filter('translate')('mainpage.POWERED_BY_1');
+        thisCtrl.POWERED_BY_2 = $filter('translate')('mainpage.POWERED_BY_2');
+        thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
+        thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+        thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+        thisCtrl.HEAT_TRANSFER_INFO_1 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_1');
+        thisCtrl.HEAT_TRANSFER_INFO_2 = $filter('translate')('mainpage.HEAT_TRANSFER_INFO_2');
 
 
 
-  });
+        /**============ METHODS ================*/
+
+        //------ Show/Close Room Selector Dialog
+        function showRoomSelectorDialog() {
+          //----- open if comment block is closed
+          if (!GlobalStor.global.isShowCommentBlock) {
+            GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
+            //GlobalStor.global.showRoomSelectorDialog = 1;
+            //playSound('fly');
+          }
+        }
+        function showCoefInfoBlock() {
+          GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
+        }
+        //----- Show Comments
+        function switchComment() {
+          //playSound('swip');
+          GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
+        }
+
+        GlobalStor.global.infoDescrip = 'AAAAA'
+
+        GlobalStor.global.infoTitle = 'TITLE MAN '
+
+        //         imgLink: ""
+        // ​
+        // infoDescrip: ""
+        // ​
+        // infoImg: ""
+        // ​
+        // infoLink: ""
+        // ​
+        // infoTitle: ""
+
+
+        //TODO Alexandr
+
+        //function toggleTemplateType() {
+        //  GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
+        //}
+
+        //================== Select new Template Type ========================//
+
+
+        //function selectNewTemplateType(marker) {
+        //  GlobalStor.global.isTemplateTypeMenu = 0;
+        //
+        //  function goToNewTemplateType() {
+        //    if (marker === 4) {
+        //      MainServ.setDefaultDoorConfig();
+        //    }
+        //    GlobalStor.global.isChangedTemplate = 0;
+        //    TemplatesServ.initNewTemplateType(marker);
+        //  }
+        //
+        //  if (GlobalStor.global.isChangedTemplate) {
+        //    //----- если выбран новый шаблон после изменения предыдущего
+        //    GeneralServ.confirmAlert(
+        //      $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+        //      $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+        //      goToNewTemplateType
+        //    );
+        //  } else {
+        //    TemplatesServ.initNewTemplateType(marker);
+        //  }
+        //
+        //}
+
+
+        /**========== FINISH ==========*/
+
+        //------ clicking
+        thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
+        thisCtrl.switchComment = switchComment;
+        thisCtrl.showCoefInfoBlock = showCoefInfoBlock;
+        thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+        //TODO Alexandr
+        //thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+        //thisCtrl.toggleTemplateType = toggleTemplateType;
+        //thisCtrl.selectNewTemplateType = selectNewTemplateType;
+
+
+
+
+      });
 })();
 
 
@@ -23301,7 +23318,7 @@ function ErrorResult(code, message) {
             db.removeItem("tables")
               .then(() => {
                 db.setItem("tables", LocalDataBase)
-                  .then((value) => {})
+                  .then((value) => { })
                   .catch(function (err) {
                     // This code runs if there were any errors
                     console.log(err);
@@ -23323,10 +23340,10 @@ function ErrorResult(code, message) {
           $http
             .post(
               globalConstants.serverIP +
-                "/api/remove-order-properties?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/remove-order-properties?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataSend
             )
             .then(
@@ -23396,10 +23413,10 @@ function ErrorResult(code, message) {
           $http
             .get(
               globalConstants.serverIP +
-                "/api/get/locations?login=" +
-                login +
-                "&access_token=" +
-                access
+              "/api/get/locations?login=" +
+              login +
+              "&access_token=" +
+              access
             )
             .then(
               function (result) {
@@ -23442,12 +23459,12 @@ function ErrorResult(code, message) {
           $http
             .get(
               globalConstants.serverIP +
-                "/api/get/factories-by-country?login=" +
-                login +
-                "&access_token=" +
-                access +
-                "&cities_ids=" +
-                cityIds
+              "/api/get/factories-by-country?login=" +
+              login +
+              "&access_token=" +
+              access +
+              "&cities_ids=" +
+              cityIds
             )
             .then(
               function (result) {
@@ -23470,12 +23487,12 @@ function ErrorResult(code, message) {
           $http
             .get(
               globalConstants.serverIP +
-                "/api/sync?login=" +
-                login +
-                "&access_token=" +
-                access +
-                "&" +
-                Math.random()
+              "/api/sync?login=" +
+              login +
+              "&access_token=" +
+              access +
+              "&" +
+              Math.random()
             )
             .then(
               function (result) {
@@ -23523,46 +23540,46 @@ function ErrorResult(code, message) {
         //This is a duplicated function, it is needed to display the final pop-up with the order ID
         function showInfoBox(id, itemArr) {
           if (GlobalStor.global.isInfoBox !== id) {
-              var itemArrQty = itemArr.length,
-                  tempObj = {};
-              while (--itemArrQty > -1) {
-                  if (itemArr[itemArrQty].lamination_type_id) {
-                      if (itemArr[itemArrQty].lamination_type_id === id) {
-                          tempObj = itemArr[itemArrQty];
-                      }
-                  } else {
-                      if (itemArr[itemArrQty].id === id) {
-                          tempObj = itemArr[itemArrQty];
-                      }
-                  }
-              } 
-              if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
-                  GlobalStor.global.infoTitle = tempObj;
-                  GlobalStor.global.infoImg = tempObj.img;
-                  GlobalStor.global.infoLink = tempObj.link;
-                  GlobalStor.global.infoDescrip = tempObj.description;
-                  GlobalStor.global.isInfoBox = id;
+            var itemArrQty = itemArr.length,
+              tempObj = {};
+            while (--itemArrQty > -1) {
+              if (itemArr[itemArrQty].lamination_type_id) {
+                if (itemArr[itemArrQty].lamination_type_id === id) {
+                  tempObj = itemArr[itemArrQty];
+                }
               } else {
-                  GlobalStor.global.infoTitle = tempObj.translate;
-                  GlobalStor.global.infoImg = tempObj.img;
-                  GlobalStor.global.infoLink = tempObj.link;
-                  GlobalStor.global.infoDescrip = tempObj.description;
-                  GlobalStor.global.isInfoBox = id;
+                if (itemArr[itemArrQty].id === id) {
+                  tempObj = itemArr[itemArrQty];
+                }
               }
+            }
+            if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
+              GlobalStor.global.infoTitle = tempObj;
+              GlobalStor.global.infoImg = tempObj.img;
+              GlobalStor.global.infoLink = tempObj.link;
+              GlobalStor.global.infoDescrip = tempObj.description;
+              GlobalStor.global.isInfoBox = id;
+            } else {
+              GlobalStor.global.infoTitle = tempObj.translate;
+              GlobalStor.global.infoImg = tempObj.img;
+              GlobalStor.global.infoLink = tempObj.link;
+              GlobalStor.global.infoDescrip = tempObj.description;
+              GlobalStor.global.isInfoBox = id;
+            }
           }
-      }
+        }
 
         function insertRehau(data, comment) {
           var defer = $q.defer(),
             dataToSend = {
               contact: {
-                  "name": CartStor.cart.customer.customer_name,
-                  "phone": CartStor.cart.customer.customer_phone,
-                  "lead_type": 4,
-                  "comment": comment,
-                  "address": localStorage.getItem('location'),
-                  "region_kladr_id": localStorage.getItem('region_kladr_id'),
-                  "utm": window.location.href
+                "name": CartStor.cart.customer.customer_name,
+                "phone": CartStor.cart.customer.customer_phone,
+                "lead_type": 4,
+                "comment": comment,
+                "address": localStorage.getItem('location'),
+                "region_kladr_id": localStorage.getItem('region_kladr_id'),
+                "utm": window.location.href
               },
               calculation_id: data,
               status: "mw send",
@@ -23571,13 +23588,13 @@ function ErrorResult(code, message) {
           $http
             .post(
               "https://service.rehauselected.baueffect.com/api/rehau/request",
-               dataToSend
+              dataToSend
             )
             .then(
               function (result) {
-                defer.resolve(result.data); 
+                defer.resolve(result.data);
                 showInfoBox(1, GlobalStor.global.profilesType)
-                const guidFromBackend = JSON.stringify(result.data.guid) 
+                const guidFromBackend = JSON.stringify(result.data.guid)
                 GlobalStor.global.infoDescrip = `Её уникальный номер ${guidFromBackend}`
                 GlobalStor.global.infoTitle = {
                   name: 'Спасибо за вашу заявку!'
@@ -23607,10 +23624,10 @@ function ErrorResult(code, message) {
           $http
             .post(
               globalConstants.serverIP +
-                "/api/insert?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/insert?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataToSend
             )
             .then(
@@ -23646,10 +23663,10 @@ function ErrorResult(code, message) {
           $http
             .post(
               globalConstants.serverIP +
-                "/api/update?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/update?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataToSend
             )
             .then(
@@ -23671,10 +23688,10 @@ function ErrorResult(code, message) {
             $http
               .post(
                 globalConstants.serverIP +
-                  "/api/update?login=" +
-                  login +
-                  "&access_token=" +
-                  access,
+                "/api/update?login=" +
+                login +
+                "&access_token=" +
+                access,
                 item
               )
               .then(
@@ -23708,12 +23725,12 @@ function ErrorResult(code, message) {
           $http
             .get(
               globalConstants.serverIP +
-                "/api/signed?login=" +
-                login +
-                "&access_token=" +
-                access +
-                "&date=" +
-                currTime
+              "/api/signed?login=" +
+              login +
+              "&access_token=" +
+              access +
+              "&date=" +
+              currTime
             )
             .then(
               function () {
@@ -23732,10 +23749,10 @@ function ErrorResult(code, message) {
           $http
             .post(
               globalConstants.serverIP +
-                "/api/remove-order?login=" +
-                login +
-                "&access_token=" +
-                access,
+              "/api/remove-order?login=" +
+              login +
+              "&access_token=" +
+              access,
               dataSend
             )
             .then(
@@ -24828,7 +24845,7 @@ function ErrorResult(code, message) {
                   if (
                     sizeTemp ===
                     ProductStor.product.template_height / 1000 +
-                      kits.amendment_pruning
+                    kits.amendment_pruning
                   ) {
                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                     priceTemp = sizeTemp * constrElem.price * waste;
@@ -24840,8 +24857,8 @@ function ErrorResult(code, message) {
                     sizeTemp ===
                     (ProductStor.product.template_height -
                       ProductStor.product.profileDepths.frameStillDepth.a) /
-                      1000 +
-                      kits.amendment_pruning
+                    1000 +
+                    kits.amendment_pruning
                   ) {
                     sizeTemp = sizes[siz] + kits.amendment_pruning / 2;
                     priceTemp = sizeTemp * constrElem.price * waste;
@@ -24850,8 +24867,8 @@ function ErrorResult(code, message) {
                     sizeTemp ===
                     (ProductStor.product.template_height -
                       ProductStor.product.profileDepths.frameDepth.c * 2) /
-                      1000 +
-                      kits.amendment_pruning
+                    1000 +
+                    kits.amendment_pruning
                   ) {
                     if (ProductStor.product.door_type_index !== 0) {
                       if (ProductStor.product.door_type_index === 1) {
@@ -24859,7 +24876,7 @@ function ErrorResult(code, message) {
                           (ProductStor.product.template_height -
                             ProductStor.product.profileDepths.frameDepth.c -
                             20) /
-                            1000 +
+                          1000 +
                           kits.amendment_pruning;
                         priceTemp = sizeTemp * constrElem.price * waste;
                       }
@@ -24872,7 +24889,7 @@ function ErrorResult(code, message) {
                             ProductStor.product.profileDepths.frameDepth.c -
                             ProductStor.product.profileDepths.frameStillDepth
                               .a) /
-                            1000 +
+                          1000 +
                           kits.amendment_pruning;
                         priceTemp = sizeTemp * constrElem.price * waste;
                       }
@@ -25210,7 +25227,7 @@ function ErrorResult(code, message) {
                   (ProductStor.product.template_height -
                     ProductStor.product.profileDepths.frameDepth.c * 2 -
                     20) /
-                    1000 +
+                  1000 +
                   pruning;
                 if (sizeReal === Math.round(armir * 1000) / 1000) {
                   if (ProductStor.product.door_type_index !== 0) {
@@ -25219,7 +25236,7 @@ function ErrorResult(code, message) {
                         (ProductStor.product.template_height -
                           ProductStor.product.profileDepths.frameDepth.c -
                           40) /
-                          1000 +
+                        1000 +
                         pruning;
                       priceReal = sizeReal * currConsistElem.price * wasteValue;
                     }
@@ -25232,7 +25249,7 @@ function ErrorResult(code, message) {
                           ProductStor.product.profileDepths.frameDepth.c -
                           ProductStor.product.profileDepths.frameStillDepth.a -
                           20) /
-                          1000 +
+                        1000 +
                         pruning;
                       priceReal = sizeReal * currConsistElem.price * wasteValue;
                     }
@@ -25242,6 +25259,9 @@ function ErrorResult(code, message) {
             }
             //console.info('@@@@@@@@@@@@', objTmp);
             // console.log(ProductStor.product, 'Product stor');
+            // console.log(ProductStor.product.chosenAddElements[1])
+            console.log(GlobalStor.global)
+            // console.log(ProductStor.product)
             //console.log(GlobalStor.global, 'global stor');
             // console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
@@ -25337,8 +25357,8 @@ function ErrorResult(code, message) {
                 currConsist.parentId === consistArr[el].id
               ) {
                 var wasteValue = consistArr[el].waste
-                    ? 1 + consistArr[el].waste / 100
-                    : 1,
+                  ? 1 + consistArr[el].waste / 100
+                  : 1,
                   newValue = 1;
                 if (currConsist.child_type === "list") {
                   //console.log(consistArr[el], currConsist, currConsist, 'fix1')
@@ -25435,9 +25455,9 @@ function ErrorResult(code, message) {
                         for (var el = 0; el < hwElemQty2; el += 1) {
                           if (
                             currConsist[hwInd][hwInd2].parent_list_id ===
-                              currConsist[hwInd][el].child_id &&
+                            currConsist[hwInd][el].child_id &&
                             currConsist[hwInd][hwInd2].parentId ===
-                              currConsist[hwInd][el].id
+                            currConsist[hwInd][el].id
                           ) {
                             //                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
                             if (
@@ -26068,8 +26088,8 @@ function ErrorResult(code, message) {
                           sizeTemp = GeneralServ.roundingValue(
                             (AddElement.elementWidth +
                               priceObj.kits.amendment_pruning) *
-                              (AddElement.elementHeight +
-                                priceObj.kits.amendment_pruning),
+                            (AddElement.elementHeight +
+                              priceObj.kits.amendment_pruning),
                             3
                           );
                         } else {
@@ -26079,8 +26099,8 @@ function ErrorResult(code, message) {
                             priceObj.kits.amendment_pruning;
                         }
                         var wasteValue = priceObj.kits.waste
-                            ? 1 + priceObj.kits.waste / 100
-                            : 1,
+                          ? 1 + priceObj.kits.waste / 100
+                          : 1,
                           constrElem = angular.copy(priceObj.kitsElem),
                           priceTemp = GeneralServ.roundingValue(
                             sizeTemp * constrElem.price * wasteValue
@@ -26138,9 +26158,9 @@ function ErrorResult(code, message) {
                                   for (var el = 0; el < consistQty; el++) {
                                     if (
                                       priceObj.consist[cons].parent_list_id ===
-                                        priceObj.consist[el].child_id &&
+                                      priceObj.consist[el].child_id &&
                                       priceObj.consist[cons].parentId ===
-                                        priceObj.consist[el].id
+                                      priceObj.consist[el].id
                                     ) {
                                       //                                  console.warn('parent++++', priceObj.consist[el]);
                                       wasteValue = priceObj.consist[el].waste
@@ -26224,12 +26244,12 @@ function ErrorResult(code, message) {
                 getElementByListId(0, kits[1].parent_element_id),
               ]).then(function (kitsElem) {
                 var wasteList = [
-                    grid.cloth_waste,
-                    grid.top_waste,
-                    grid.right_waste,
-                    grid.bottom_waste,
-                    grid.left_waste,
-                  ],
+                  grid.cloth_waste,
+                  grid.top_waste,
+                  grid.right_waste,
+                  grid.bottom_waste,
+                  grid.left_waste,
+                ],
                   kitsQty = wasteList.length,
                   k,
                   tempW,
@@ -26422,7 +26442,7 @@ function ErrorResult(code, message) {
           image.setAttribute("crossOrigin", "anonymous");
           try {
             image.src = url;
-          } catch (e) {}
+          } catch (e) { }
         }
 
         function downloadFile(url, fileURL) {
@@ -26510,7 +26530,7 @@ function ErrorResult(code, message) {
                   let is_cordova = false;
                   try {
                     is_cordova = window.cordova;
-                  } catch (err) {}
+                  } catch (err) { }
                   if (is_cordova) {
                     downloadFile(
                       globalConstants.serverIP + curr_row[kndex],

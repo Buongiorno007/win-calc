@@ -41,7 +41,7 @@
       //R
       .coeff.heat-transfer-rehau(ng-if="roomInfo.U.userInfo.therm_coeff_id",
                             ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total < roomInfo.O.order.heat_coef_min}",
-                            fs-click="roomInfo.showCoefInfoBlock()"
+                            fs-click="roomInfo.showInfoBox(roomInfo.P.product.heat_coef_total, roomInfo.P.product.profile.name)"
                             typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
         .coeff-info(typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")<p>Оценка энергоэффективности</p>
         .coeff-total-heat-mark(typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")

@@ -167,7 +167,7 @@
                       </div>
                     </div>
                     <!--R-->
-                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff heat-transfer-rehau">
+                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showInfoBox(roomInfo.P.product.heat_coef_total, roomInfo.P.product.profile.name)" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff heat-transfer-rehau">
                       <div typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-info"><p>Оценка энергоэффективности</p></div>
                       <div typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-total-heat-mark">
                         <div ng-if="roomInfo.P.product.heat_coef_total" class="coeff-number">{{roomInfo.P.product.heat_coef_total}}</div>
@@ -864,11 +864,11 @@
                       <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders">
                         <div ng-class="{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
                           <div ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}
-                            <div class="arrow"> <img ng-src="../../../img/rehau-img/white-arrow-top.png"></div>
+                            <div class="arrow"> <img ng-src="../img/rehau-img/white-arrow-top.png"></div>
                           </div>
                         </div>
                         <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-                          <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{'selected': item.name === elementsPanel.C.cart.allAddElements[lightPage.config.detailProductIndex].name}" class="splice">{{item.name}}</p>
+                          <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{ active : item.name === elementsPanel.P.product.chosenAddElements[1][$index].name }" class="splice">{{item.name}}</p>
                         </div>
                       </div>
                     </div>
@@ -2338,8 +2338,8 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}" fs-click="cartMenu.selectMenuItem(1)" class="item-rehau">
               <div class="title-box">
                 <div typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau">Доставка</div>
-                <div class="tooltip"><img ng-src="/img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
-                <div class="arrow"><img ng-src="/img/rehau-img/arrow-top.png"></div>
+                <div class="tooltip"><img ng-src="../img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
+                <div class="arrow"><img ng-src="../img/rehau-img/arrow-top.png"></div>
               </div>
               <div class="cart-item-data-rehau">
                 <div ng-show="!cartMenu.O.order.floor_id &amp;&amp; !cartMenu.O.order.delivery_garbage_removal &amp;&amp; !cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.SELF_EXPORT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
@@ -2367,7 +2367,7 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}" fs-click="cartMenu.selectMenuItem(2)" class="item-rehau">
               <div class="title-box">
                 <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"></div>
-                <div class="tooltip"><img ng-src="/img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
+                <div class="tooltip"><img ng-src="../img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
                 <div class="arrow"><img ng-src="/img/rehau-img/arrow-top.png"></div>
               </div>
               <div class="cart-item-data-rehau">

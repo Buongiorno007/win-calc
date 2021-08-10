@@ -834,11 +834,11 @@
                   <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders">
                     <div ng-class="{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
                       <div ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}
-                        <div class="arrow"> <img ng-src="../../../img/rehau-img/white-arrow-top.png"></div>
+                        <div class="arrow"> <img ng-src="../img/rehau-img/white-arrow-top.png"></div>
                       </div>
                     </div>
                     <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-                      <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{'selected': item.name === elementsPanel.C.cart.allAddElements[lightPage.config.detailProductIndex].name}" class="splice">{{item.name}}</p>
+                      <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{ active : item.name === elementsPanel.P.product.chosenAddElements[1][$index].name }" class="splice">{{item.name}}</p>
                     </div>
                   </div>
                 </div>
