@@ -128,7 +128,7 @@
             .title-box(ng-click="elementsPanel.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}')
               p.folders-name-rehau {{folders.name | translate}}
               .arrow
-                  img(ng-src="../../../img/rehau-img/white-arrow-top.png")
+                  img(ng-src="../img/rehau-img/white-arrow-top.png")
             .choosen-add-elem(ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index")
                 //- .row-header
                 //-     p.name {{chosenAddElem.name}}

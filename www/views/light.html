@@ -857,7 +857,7 @@
                     <div ng-repeat="folders in elementsPanel.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" class="folders">
                       <div ng-click="elementsPanel.OpenFolder($index, $event)" ng-class="{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}" class="title-box">
                         <p class="folders-name-rehau">{{folders.name | translate}}</p>
-                        <div class="arrow"><img ng-src="../../../img/rehau-img/white-arrow-top.png"></div>
+                        <div class="arrow"><img ng-src="../img/rehau-img/white-arrow-top.png"></div>
                       </div>
                       <div ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index" class="choosen-add-elem">
                       </div>
@@ -2368,7 +2368,7 @@
               <div class="title-box">
                 <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"></div>
                 <div class="tooltip"><img ng-src="../img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
-                <div class="arrow"><img ng-src="/img/rehau-img/arrow-top.png"></div>
+                <div class="arrow"><img ng-src="../img/rehau-img/arrow-top.png"></div>
               </div>
               <div class="cart-item-data-rehau">
                 <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
