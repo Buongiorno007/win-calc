@@ -7713,18 +7713,26 @@ if (window.location.hostname !== 'localhost') {
             //playSound('fly');
           }
         }
+        
         function showCoefInfoBlock() {
           GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
+          GlobalStor.global.infoTitle = {
+            name: 'Оценка энергоэффективности'
+          }
+          GlobalStor.global.infoImg = "../img/rehau-img/thermo.png"
+          GlobalStor.global.infoDescrip = `Текущая оценка энергоэффективности соответствует коэфициенту сопротивления теплопередаче ${ProductStor.product.heat_coef_total} 
+          При остеклении жилых помещений данный коэфициент должен быть более ${UserStor.userInfo.heat_transfer} Вы можете улучшить этот показатель редактируя следующие элементы
+          • ПРОФИЛЬ
+          • СТЕКЛОПАКЕТ`
         }
+        
         //----- Show Comments
         function switchComment() {
           //playSound('swip');
           GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
         }
 
-        GlobalStor.global.infoDescrip = 'AAAAA'
-
-        GlobalStor.global.infoTitle = 'TITLE MAN '
+        
 
         //         imgLink: ""
         // ​
@@ -30299,7 +30307,7 @@ function ErrorResult(code, message) {
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
                     if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
-                        ProductStor.product.heat_coef_total = Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10;
+                        ProductStor.product.heat_coef_expert_mark = Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10;
                     }
                 } else {
                     /** U */
@@ -41656,6 +41664,7 @@ function ErrorResult(code, message) {
             room_id: 0,
             construction_type: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
             heat_coef_total: 0,
+            heat_coef_expert_mark: 0,
 
             template_id: 0,
             template_source: {},

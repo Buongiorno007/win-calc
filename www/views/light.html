@@ -167,21 +167,21 @@
                       </div>
                     </div>
                     <!--R-->
-                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showInfoBox(roomInfo.P.product.heat_coef_total, roomInfo.P.product.profile.name)" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff heat-transfer-rehau">
+                    <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_expert_mark &lt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showInfoBox(1, 2); roomInfo.showCoefInfoBlock()" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff heat-transfer-rehau">
                       <div typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-info"><p>Оценка энергоэффективности</p></div>
                       <div typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-total-heat-mark">
-                        <div ng-if="roomInfo.P.product.heat_coef_total" class="coeff-number">{{roomInfo.P.product.heat_coef_total}}</div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &lt; 6.1" class="coeff-mark"><span>Для балконов</span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &gt; 6.1 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 6.5" class="coeff-mark"><span>Достаточно хорошо </span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &gt; 6.5 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 7" class="coeff-mark"><span>Хорошо! </span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &gt; 7 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 7.5" class="coeff-mark"><span>Очень хорошо! </span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &gt; 7.5 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 8.2" class="coeff-mark"><span>Потрясающе!</span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &gt; 8.2 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 9" class="coeff-mark"><span>Превосходно!</span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &gt; 9 &amp;&amp; roomInfo.P.product.heat_coef_total &lt;= 9.4" class="coeff-mark"><span>Великолепно!</span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_total &gt; 9.4" class="coeff-mark"><span>Лучший выбор!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark" class="coeff-number">{{roomInfo.P.product.heat_coef_expert_mark}}</div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &lt; 6.1" class="coeff-mark"><span>Для балконов</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 6.5" class="coeff-mark"><span>Достаточно хорошо </span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 7" class="coeff-mark"><span>Хорошо! </span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 7.5" class="coeff-mark"><span>Очень хорошо! </span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 8.2" class="coeff-mark"><span>Потрясающе!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 9" class="coeff-mark"><span>Превосходно!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 9.4" class="coeff-mark"><span>Великолепно!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 9.4" class="coeff-mark"><span>Лучший выбор!</span></div>
                       </div>
                     </div>
-                    <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
+                    <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_expert_mark &gt; roomInfo.O.order.heat_coef_min}" fs-click="roomInfo.showCoefInfoBlock()" class="coeff heat-transfer">U = {{ roomInfo.P.product.heat_coef_expert_mark }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
                       <div data-output="{{ ::roomInfo.HEAT_TRANSFER }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
                     </div>
                   </div>
@@ -868,7 +868,7 @@
                           </div>
                         </div>
                         <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-                          <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{ active : item.name === elementsPanel.P.product.chosenAddElements[1][$index].name }" class="splice">{{item.name}}</p>
+                          <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" class="splice">{{item.name}}</p>
                         </div>
                       </div>
                     </div>
@@ -1361,7 +1361,7 @@
                   <div class="order-footer-rehau">
                     <div class="order-footer-warmcoef">
                       <h3>Оценка энергоэффективности</h3>
-                      <h2>{{lightPage.P.product.heat_coef_total}}<h2>
+                      <h2>{{lightPage.P.product.heat_coef_expert_mark}}<h2>
                     </div>
                     <div class="order-footer-price-rehau"><h3>Стоимость изделия</h3>
                       <div price-fixed="{{lightPage.P.product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
@@ -3069,19 +3069,6 @@
           <p>{{::infoBox.ASKING_PRICE}}</p>
         </div>
       </div>
-    </div>
-  </div>
-  <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2" class="info_container-rehau">
-    <div class="info_box-rehau">
-      <div class="info_box_inner">
-        <div class="info-header">
-          <div class="info_title">{{ infoBox.G.global.infoTitle.name }}</div>
-        </div>
-        <div class="info-body"> <img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-          <div class="info_descrip">{{ infoBox.G.global.infoDescrip }}</div>
-        </div>
-      </div>
-      <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog-rehau"></div>
     </div>
   </div>
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2" class="info_container-rehau">

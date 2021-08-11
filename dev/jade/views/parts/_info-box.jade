@@ -40,15 +40,4 @@
           .info_descrip {{ infoBox.G.global.infoDescrip }}
       .close-dialog-rehau(ng-click="infoBox.closeInfoBox($event)")
 
-  .info_container-rehau(ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2")
-    .info_box-rehau
-      .info_box_inner
-        .info-header
-          .info_title {{ infoBox.G.global.infoTitle.name }}
-        .info-body 
-          img(ng-if="infoBox.G.global.infoImg.length  && !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}")
-          img(ng-if="infoBox.G.global.infoImg.length && infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}")
-          .info_descrip {{ infoBox.G.global.infoDescrip }}
-      .close-dialog-rehau(ng-click="infoBox.closeInfoBox($event)")
-
 

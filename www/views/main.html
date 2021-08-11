@@ -838,7 +838,7 @@
                       </div>
                     </div>
                     <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-                      <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" ng-class="{ active : item.name === elementsPanel.P.product.chosenAddElements[1][$index].name }" class="splice">{{item.name}}</p>
+                      <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" class="splice">{{item.name}}</p>
                     </div>
                   </div>
                 </div>
@@ -1699,19 +1699,6 @@
           <p>{{::infoBox.ASKING_PRICE}}</p>
         </div>
       </div>
-    </div>
-  </div>
-  <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2" class="info_container-rehau">
-    <div class="info_box-rehau">
-      <div class="info_box_inner">
-        <div class="info-header">
-          <div class="info_title">{{ infoBox.G.global.infoTitle.name }}</div>
-        </div>
-        <div class="info-body"> <img ng-if="infoBox.G.global.infoImg.length  &amp;&amp; !infoBox.G.global.cordova" ng-src="{{infoBox.G.global.infoImg}}"><img ng-if="infoBox.G.global.infoImg.length &amp;&amp; infoBox.G.global.cordova" ng-src="{{infoBox.extendUrl(infoBox.G.global.infoImg)}}">
-          <div class="info_descrip">{{ infoBox.G.global.infoDescrip }}</div>
-        </div>
-      </div>
-      <div ng-click="infoBox.closeInfoBox($event)" class="close-dialog-rehau"></div>
     </div>
   </div>
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2" class="info_container-rehau">

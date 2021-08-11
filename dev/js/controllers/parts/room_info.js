@@ -61,18 +61,26 @@
             //playSound('fly');
           }
         }
+        
         function showCoefInfoBlock() {
           GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
+          GlobalStor.global.infoTitle = {
+            name: 'Оценка энергоэффективности'
+          }
+          GlobalStor.global.infoImg = "../img/rehau-img/thermo.png"
+          GlobalStor.global.infoDescrip = `Текущая оценка энергоэффективности соответствует коэфициенту сопротивления теплопередаче ${ProductStor.product.heat_coef_total} 
+          При остеклении жилых помещений данный коэфициент должен быть более ${UserStor.userInfo.heat_transfer} Вы можете улучшить этот показатель редактируя следующие элементы
+          • ПРОФИЛЬ
+          • СТЕКЛОПАКЕТ`
         }
+        
         //----- Show Comments
         function switchComment() {
           //playSound('swip');
           GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
         }
 
-        GlobalStor.global.infoDescrip = 'AAAAA'
-
-        GlobalStor.global.infoTitle = 'TITLE MAN '
+        
 
         //         imgLink: ""
         // ​

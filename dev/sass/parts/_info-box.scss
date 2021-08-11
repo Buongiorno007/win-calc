@@ -82,7 +82,7 @@
 .info_container-rehau {
   @extend .backWhiteView;
   visibility: hidden;
-  
+
   &.active {
     visibility: visible;
   }
@@ -104,7 +104,6 @@
     overflow-y: auto;
     text-align: center;
     color: $main_gray_txt;
-
 
     .info-header {
       height: 80px;
