@@ -356,7 +356,6 @@
                               .addelement-value {{ addelement.element_qty }}
                         .addelement-price-container
                           .addelement-price-value(price-fixed="{{addelement.elementPriceDis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
-                          .aux-delete-rehau(ng-click="elementsMenu.deleteAddElement($index)")
                     .service-block
                       .sb-1(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]")
                         | {{lightPage.SERV1}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]}} {{lightPage.U.userInfo.currency}}

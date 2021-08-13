@@ -394,6 +394,8 @@
   padding: 0px;
   .items-list {
     @include flex-grow(0);
+    position: relative;
+    top: -85px;
   }
 
   .item-rehau {
