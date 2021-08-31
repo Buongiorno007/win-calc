@@ -1115,6 +1115,7 @@
   .config-panel {
     &.active {
       top: -6rem;
+      overflow: auto;
     }
     &.lower_z-index {
       z-index: 1;

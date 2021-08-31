@@ -5361,7 +5361,11 @@ if (window.location.hostname !== 'localhost') {
                                                  UserStor,
                                                  AuxStor,
                                                  ProductStor,
-                                                 MainServ) {
+                                                 MainServ,
+                                                 OrderStor,
+                                                 loginServ,
+                                                 SVGServ,
+                                                 DesignStor) {
             /*jshint validthis:true */
               /*jshint validthis:true */
             var thisCtrl = this;
@@ -5508,6 +5512,161 @@ if (window.location.hostname !== 'localhost') {
                 });
             }, 100);
 
+            function deleteGridsInTemplate(blockID) {
+                var blocksQty = ProductStor.product.template_source.details.length;
+                while (--blocksQty > 0) {
+                    if (blockID) {
+                        if (ProductStor.product.template_source.details[blocksQty].gridId) {
+                            if (ProductStor.product.template_source.details[blocksQty].id === blockID) {
+                                delete ProductStor.product.template_source.details[blocksQty].gridId;
+                                delete ProductStor.product.template_source.details[blocksQty].gridTxt;
+                                break;
+                            }
+                        }
+                    } else {
+                        if (ProductStor.product.template_source.details[blocksQty].gridId) {
+                            delete ProductStor.product.template_source.details[blocksQty].gridId;
+                            delete ProductStor.product.template_source.details[blocksQty].gridTxt;
+                        }
+                    }
+                }
+                changeSVGTemplateAsNewGrid();
+            }
+
+            function closeGridSelectorDialog() {
+                DesignServ.removeGlassEventsInSVG();
+                DesignStor.design.selectedGlass.length = 0;
+                AuxStor.aux.selectedGrid = 0;
+                AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
+            }
+
+            function changeSVGTemplateAsNewGrid() {
+                SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+                    .then(function (result) {
+                        ProductStor.product.template = angular.copy(result);
+                        //------ save analytics data
+                        //TODO ?? AnalyticsServ.saveAnalyticDB(
+                        // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+                    });
+            }
+
+            function pushSelectedAddElement(currProduct, currElement) {
+                var index = (AuxStor.aux.isFocusedAddElement - 1),
+                    existedElement;
+                if (index !== 0) {
+                    existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+                }
+                if (!existedElement || index == 0) {
+                    var newElementSource = {
+                            element_type: index,
+                            element_width: 0,
+                            element_height: 0,
+                            block_id: 0
+                        },
+                        newElement = angular.extend(newElementSource, currElement);
+                    currProduct.chosenAddElements[index].push(newElement);
+                    //---- open TABFrame when second element selected
+                    if (currProduct.chosenAddElements[index].length === 2) {
+                        AuxStor.aux.isTabFrame = 1;
+                    }
+                }
+            }
+
+            function insertGrids(grids) {
+                loginServ.getGridPrice(grids).then(function (data) {
+                    var dataQty = data.length;
+                    AuxStor.aux.currAddElementPrice = 0;
+                    if (dataQty) {
+                        while (--dataQty > -1) {
+                            pushSelectedAddElement(ProductStor.product, data[dataQty]);
+                            AuxStor.aux.currAddElementPrice += data[dataQty].elementPriceDis;
+                        }
+                        AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(AuxStor.aux.currAddElementPrice);
+                        //------ show element price
+                        AuxStor.aux.isAddElement = AuxStor.aux.selectedGrid[0] + '-' + AuxStor.aux.selectedGrid[1];
+                        //------ Set Total Product Price
+                        setAddElementsTotalPrice(ProductStor.product);
+                        //------ change SVG
+                        changeSVGTemplateAsNewGrid();
+                        //------ close Grid Dialog
+                        closeGridSelectorDialog();
+                    }
+                });
+            }
+
+            function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
+                var sizeGridX = _.map(ProductStor.product.template.details[blockIndex].pointsLight, function (item) {
+                        return item.x;
+                    }),
+                    sizeGridY = _.map(ProductStor.product.template.details[blockIndex].pointsLight, function (item) {
+                        return item.y;
+                    }),
+                    gridTemp;
+                //------- insert grid in block
+                ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+                ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+
+                ProductStor.product.template.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+                ProductStor.product.template.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+                //-------- add sizes in grid object
+                gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
+                gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+                gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
+                gridTemp.block_id = blockId;
+                return gridTemp;
+            }
+
+            function deleteOldGridInList(blockIndex) {
+                var chosenGridsQty;
+                if (ProductStor.product.template_source.details[blockIndex].gridId) {
+                    chosenGridsQty = ProductStor.product.chosenAddElements[0].length;
+                    while (--chosenGridsQty > -1) {
+                        if (ProductStor.product.chosenAddElements[0][chosenGridsQty].block_id === ProductStor.product.template_source.details[blockIndex].id) {
+                            if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty === 1) {
+                                ProductStor.product.chosenAddElements[0].splice(chosenGridsQty, 1);
+                            } else if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty > 1) {
+                                ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty -= 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            function collectGridsAsBlock(blockId, gridIndex) {
+                var blocksQty = ProductStor.product.template_source.details.length,
+                    gridElements = [];
+                while (--blocksQty > 0) {
+                    if (blockId) {
+                        /** set grid to template block by its Id */
+                        if (ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            /** check block to old grid
+                             * delete in product.choosenAddElements if exist
+                             * */
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
+                            break;
+                        }
+                    } else {
+                        /** set grid to all template blocks */
+                        if (ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(
+                                ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+                            ));
+                        }
+                    }
+                }
+                return gridElements;
+            }
+
+            function setGridToAll() {
+                var grids = collectGridsAsBlock(0, AuxStor.aux.selectedGrid);
+                insertGrids(grids);
+                GlobalStor.global.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+            }
+
             /**========== FINISH ==========*/
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
                 // AuxStor.aux.isFocusedAddElement = 0;
@@ -5517,6 +5676,8 @@ if (window.location.hostname !== 'localhost') {
                 }
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
+                //We are not displaying glass selector block becouse we do not need it, just calling the function
+                setGridToAll()
             }
 
             function closeConfirmAddElem() {
@@ -5542,6 +5703,48 @@ if (window.location.hostname !== 'localhost') {
                     $filter('translate')('common_words.DELETE_ELEM_TXT'),
                     deleteaddelem
                 );
+            }
+
+            function setAddElementsTotalPrice(currProduct) {
+                var elemTypeQty = currProduct.chosenAddElements.length,
+                    elemQty;
+                currProduct.addelem_price = 0;
+                currProduct.addelemPriceDis = 0;
+                while (--elemTypeQty > -1) {
+                    elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+                    if (elemQty > 0) {
+                        while (--elemQty > -1) {
+                            currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
+
+                        }
+                    }
+                }
+                currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
+                currProduct.addelemPriceDis = GeneralServ.setPriceDis(
+                    currProduct.addelem_price, OrderStor.order.discount_addelem
+                );
+                $timeout(function () {
+                    if (GlobalStor.global.currOpenPage !== 'history') {
+                        MainServ.setProductPriceTOTAL(currProduct);
+                    }
+                }, 50);
+            }
+
+            function deleteAddElement(typeId, elementId) {
+                console.log('One')
+                if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+                    /** calc Price previous parameter and close caclulators */
+                    finishCalculators();
+                    console.log("Two inside if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator)")
+                }
+                /**------- if grid delete --------*/
+                if (!typeId) {
+                    deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
+                    console.log("three inside if(ProductStor.product.chosenAddElements[typeId][elementId].block_id)")
+                }
+                ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
+                //------ Set Total Product Price
+                setAddElementsTotalPrice(ProductStor.product);
             }
 
             function editEddElem(AddElemGroup, index) {
@@ -5620,6 +5823,9 @@ if (window.location.hostname !== 'localhost') {
             thisCtrl.showWindowScheme = showWindowScheme;
             thisCtrl.closeWindowScheme = closeWindowScheme;
             thisCtrl.openServiceCalculator = openServiceCalculator;
+            thisCtrl.deleteAddElement = deleteAddElement;
+            thisCtrl.setAddElementsTotalPrice = setAddElementsTotalPrice;
+            thisCtrl.setGridToAll = setGridToAll;
             //------ clicking
             thisCtrl.extendUrl = MainServ.extendUrl;
             thisCtrl.showItems = showItems;
@@ -7497,7 +7703,7 @@ if (window.location.hostname !== 'localhost') {
     .module('MainModule')
     .controller('qtyCalculatorCtrl',
 
-  function($filter, AddElementMenuServ, EditAddElementCartServ, GlobalStor) {
+  function($filter, AddElementMenuServ, EditAddElementCartServ, GlobalStor, UserStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
 
@@ -19961,7 +20167,7 @@ function ErrorResult(code, message) {
                     //----- open glass selector dialog
                     GlobalStor.global.showGlassSelectorDialog = 1;
                     DesignServ.initAllGlassXGlass();
-                    //We are not displaying glass selector block becouse we do not need it, calling function fast
+                    //We are not displaying glass selector block becouse we do not need it, just calling the function
                     confirmGlass();
                     //A small crutch that allows you to display the energy efficiency block on other screens
                     $(document).ready(function() { 
@@ -25266,9 +25472,10 @@ function ErrorResult(code, message) {
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            // console.log(ProductStor.product, 'Product stor');
-            // console.log(ProductStor.product.chosenAddElements[1])
-            console.log(GlobalStor.global)
+            console.log(ProductStor.product, 'Product stor');
+            // console.log(OrderStor.order, 'order stor')
+            // console.log(GlobalStor.global)
+            // console.log(UserStor.userInfo, 'userInfo')
             // console.log(ProductStor.product)
             //console.log(GlobalStor.global, 'global stor');
             // console.log(UserStor.userInfo, 'shshshhs')

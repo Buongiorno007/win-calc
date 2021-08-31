@@ -130,30 +130,23 @@
               .arrow
                   img(ng-src="../img/rehau-img/white-arrow-top.png")
             .choosen-add-elem(ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index")
-                //- .row-header
-                //-     p.name {{chosenAddElem.name}}
-                //-     .close-dialog(ng-click='elementsPanel.confirmAddElemDelete($parent.$index, $index)')
-                //- .row(ng-click='elementsPanel.editEddElem($parent.$index,$index)')
-                //-     .item
-                //-         p.val {{chosenAddElem.element_qty}}
-                //-         p {{elementsPanel.QTY_LABEL}}
-                //-     .item(ng-if='chosenAddElem.element_width')
-                //-         p.val {{chosenAddElem.element_width}}
-                //-         p {{elementsPanel.WIDTH_LABEL}}
-                //-     .item(ng-if='chosenAddElem.element_height')
-                //-         p.val {{chosenAddElem.element_height}}
-                //-         p {{elementsPanel.LENGTH_LABEL}}
-                //-     .item
-                //-         p.val {{chosenAddElem.element_price | number : 2}}
-                //-         p {{elementsPanel.PRICE }}
+                .row(ng-click='elementsPanel.editEddElem($parent.$index,$index)')
+                    .aux-title(data-output="{{ chosenAddElem.name }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_START }}")
+                    .aux-params(ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index && elementsPanel.A.aux.currentAddElementId === $index}")
+                        button.aux-params-but(fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsPanel.pressCulculator($event)", ng-disabled="!elementsPanel.P.product.is_addelem_only && elementsPanel.A.aux.isFocusedAddElement === 1") {{ chosenAddElem.element_qty }}
+                          .aux-label {{ ::elementsPanel.QTY_LABEL }}
+                    .aux-params(ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index && elementsPanel.A.aux.currentAddElementId === $index}")
+                        .aux-label Длина:
+                        button.aux-params-but(fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 2, $index)", ng-keyup="elementsPanel.pressCulculator($event)", ng-disabled="!elementsPanel.P.product.is_addelem_only && elementsPanel.A.aux.isFocusedAddElement === 1") {{ chosenAddElem.element_width }}
+                    .aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsPanel.A.aux.currentAddElementId === $index}")
+                        .aux-label Высота:
+                        button.aux-params-but(fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsPanel.pressCulculator($event)", ng-disabled="!elementsPanel.P.product.is_addelem_only && elementsPanel.A.aux.isFocusedAddElement === 1") {{ chosenAddElem.element_height }}
+                    .tab-aux-price(ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis}}", qty-element="{{chosenAddElem.element_qty}}", currency-element="{{elementsPanel.U.userInfo.currency}}")
+                    .aux-delete-rehau(fs-click="elementsPanel.deleteAddElement($parent.$index, $index)")
             .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index")
                 .subfolders-name( ng-class='{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
                     .splice(ng-click='elementsPanel.showItems($index, $event, 0)' ) {{subfolder.name}}
                       .arrow 
                         img(ng-src="../img/rehau-img/white-arrow-top.png")
-                    //- .info(fs-click="elementsPanel.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
-                //- img.subfolders-image(ng-click='elementsPanel.showItems($index, $event, 1)' ng-if='subfolder.img && elementsPanel.G.global.cordova' ng-src='{{elementsPanel.extendUrl(subfolder.img)}}')
-                //- img.subfolders-image(ng-click='elementsPanel.showItems($index, $event, 1)' ng-if='subfolder.img && !(elementsPanel.G.global.cordova)' ng-src='{{subfolder.img}}')
                 .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
                   p.splice(ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
-                  //- ng-class='{ active : item.name === chosenAddElem[$index].name }'

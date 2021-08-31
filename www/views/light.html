@@ -860,6 +860,24 @@
                         <div class="arrow"><img ng-src="../img/rehau-img/white-arrow-top.png"></div>
                       </div>
                       <div ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index" class="choosen-add-elem">
+                        <div ng-click="elementsPanel.editEddElem($parent.$index,$index)" class="row">
+                          <div data-output="{{ chosenAddElem.name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                          <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_qty }}
+                              <div class="aux-label">{{ ::elementsPanel.QTY_LABEL }}</div>
+                            </button>
+                          </div>
+                          <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                            <div class="aux-label">Длина:</div>
+                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_width }}</button>
+                          </div>
+                          <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                            <div class="aux-label">Высота:</div>
+                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_height }}</button>
+                          </div>
+                          <div ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis}}" qty-element="{{chosenAddElem.element_qty}}" currency-element="{{elementsPanel.U.userInfo.currency}}" class="tab-aux-price"></div>
+                          <div fs-click="elementsPanel.deleteAddElement($parent.$index, $index)" class="aux-delete-rehau"></div>
+                        </div>
                       </div>
                       <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders">
                         <div ng-class="{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
@@ -2572,35 +2590,68 @@
             </table>
           </div>
           <div ng-class="{'active': lightPage.G.global.isQtyCalculator}" class="calculators-box qty-calculator">
-            <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container">
-              <tr>
-                <td>
-                  <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
-                </td>
-                <td>
-                  <div class="calc-interval">
-                    <div class="interval">
-                      <div class="calc-qty-limit">1000</div>
-                      <div class="calc-label-limit">{{ ::qtyCalc.QTY_LABEL }}</div>
+            <div ng-if="qtyCalc.U.userInfo.factory_id === 2" class="container">
+              <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container">
+                <tr>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
+                  </td>
+                  <td>
+                    <div class="calc-interval">
+                      <div class="interval">
+                        <div class="calc-qty-limit">1000</div>
+                        <div class="calc-label-limit">{{ ::qtyCalc.QTY_LABEL }}</div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
-                </td>
-                <td>
-                  <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">=</button>
-                </td>
-                <td>
-                  <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
-                </td>
-              </tr>
-            </table>
+                  </td>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
+                  </td>
+                  <td>
+                    <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">=</button>
+                  </td>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <!--rehau template-->
+            <div ng-if="qtyCalc.U.userInfo.factory_id !== 2" class="container">
+              <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container-rehau">
+                <tr>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
+                  </td>
+                  <td>
+                    <div class="calc-interval">
+                      <div class="interval">
+                        <div class="calc-qty-limit">Кол-во</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
+                  </td>
+                  <td>
+                    <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">OK</button>
+                  </td>
+                  <td>
+                    <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
           <div ng-class="{'active': lightPage.G.global.isServiceCalculator}" ng-if="lightPage.G.global.isServiceCalculator" class="calculators-box serv-calculator">
             <div ng-controller="ServiсeCalclulatorCtrl as servCalc" class="service-calculator">

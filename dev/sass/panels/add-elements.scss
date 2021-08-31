@@ -757,7 +757,7 @@ $aux-img-select-path: "auxiliaries-selected";
   }
 
   .aux-title {
-    color: $main_gray_txt;
+    color: #fff;
     cursor: pointer;
   }
 
@@ -794,6 +794,50 @@ $aux-img-select-path: "auxiliaries-selected";
     position: relative;
     top: 6rem;
 
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 8px;
+      margin-top: 8px;
+
+      background-color: $primary_pink;
+      // color: white;
+
+      .aux-params {
+        display: flex;
+        align-items: center;
+        border-radius: 0;
+        padding: 0 8px 0 8px;
+
+        background-color: #D9D9D9;
+        border-color: #D9D9D9;
+      }
+      .aux-params-but {
+        display: flex;
+        border: none;
+        
+        padding: 0;
+      }
+      .tab-aux-price {
+        color: #fff;
+        font-size: 16px;
+      }
+      .aux-label {
+        font-size: 16px;
+        align-self: center;
+      }
+      .aux-delete-rehau {
+        background-image: url(../../img/rehau-img/delete-cross-for-add-elems.png);
+        width: 24px;
+        height: 24px;
+        align-self: center;
+
+        cursor: pointer;
+      }
+    }
+
     .totalNumberAddElements {
       color: #333;
       font-size: 24px;
@@ -817,6 +861,8 @@ $aux-img-select-path: "auxiliaries-selected";
           // background-position-x: 98%;
           // background-position-y: center;
         }
+
+        
 
         .subfolders-name {
           font-style: normal;
@@ -843,6 +889,11 @@ $aux-img-select-path: "auxiliaries-selected";
             background-color: #2a7e6b;
             .arrow {
               transform: rotate(180deg);
+            }
+            p {
+              &:active {
+                background-color: #000000;
+              }
             }
           }
 
@@ -908,6 +959,13 @@ $aux-img-select-path: "auxiliaries-selected";
 
       .items {
         width: 104.5%;
+
+        .splice {
+          &:active {
+            color: #fff;
+            background-color: $primary_pink;
+          }
+        }
       }
 
       .splice {

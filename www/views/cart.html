@@ -956,35 +956,68 @@
           </table>
         </div>
         <div ng-class="{'active': cartPage.G.global.isQtyCalculator}" class="calculators-box qty-calculator">
-          <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container">
-            <tr>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
-              </td>
-              <td>
-                <div class="calc-interval">
-                  <div class="interval">
-                    <div class="calc-qty-limit">1000</div>
-                    <div class="calc-label-limit">{{ ::qtyCalc.QTY_LABEL }}</div>
+          <div ng-if="qtyCalc.U.userInfo.factory_id === 2" class="container">
+            <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container">
+              <tr>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
+                </td>
+                <td>
+                  <div class="calc-interval">
+                    <div class="interval">
+                      <div class="calc-qty-limit">1000</div>
+                      <div class="calc-label-limit">{{ ::qtyCalc.QTY_LABEL }}</div>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
-              </td>
-              <td>
-                <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">=</button>
-              </td>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
-              </td>
-            </tr>
-          </table>
+                </td>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
+                </td>
+                <td>
+                  <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">=</button>
+                </td>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--rehau template-->
+          <div ng-if="qtyCalc.U.userInfo.factory_id !== 2" class="container">
+            <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container-rehau">
+              <tr>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
+                </td>
+                <td>
+                  <div class="calc-interval">
+                    <div class="interval">
+                      <div class="calc-qty-limit">Кол-во</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
+                </td>
+                <td>
+                  <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">OK</button>
+                </td>
+                <td>
+                  <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
       <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" ng-show="elementsMenu.U.userInfo.factory_id !== 2" class="elements-list-container">

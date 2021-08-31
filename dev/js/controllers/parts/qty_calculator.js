@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('qtyCalculatorCtrl',
 
-  function($filter, AddElementMenuServ, EditAddElementCartServ, GlobalStor) {
+  function($filter, AddElementMenuServ, EditAddElementCartServ, GlobalStor, UserStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
 

@@ -3061,9 +3061,10 @@
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            // console.log(ProductStor.product, 'Product stor');
-            // console.log(ProductStor.product.chosenAddElements[1])
-            console.log(GlobalStor.global)
+            console.log(ProductStor.product, 'Product stor');
+            // console.log(OrderStor.order, 'order stor')
+            // console.log(GlobalStor.global)
+            // console.log(UserStor.userInfo, 'userInfo')
             // console.log(ProductStor.product)
             //console.log(GlobalStor.global, 'global stor');
             // console.log(UserStor.userInfo, 'shshshhs')

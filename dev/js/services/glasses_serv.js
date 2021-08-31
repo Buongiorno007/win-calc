@@ -124,7 +124,7 @@
                     //----- open glass selector dialog
                     GlobalStor.global.showGlassSelectorDialog = 1;
                     DesignServ.initAllGlassXGlass();
-                    //We are not displaying glass selector block becouse we do not need it, calling function fast
+                    //We are not displaying glass selector block becouse we do not need it, just calling the function
                     confirmGlass();
                     //A small crutch that allows you to display the energy efficiency block on other screens
                     $(document).ready(function() { 

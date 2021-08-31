@@ -1,18 +1,39 @@
-table.qty-calc-container(ng-controller="qtyCalculatorCtrl as qtyCalc", ng-keyup="qtyCalc.pressCulculator($event)")
-  tr
-    td
-      button.cell.calc-digit(fs-click="qtyCalc.setValueQty(-1)") -1
-    td
-      .calc-interval
-        .interval
-          .calc-qty-limit 1000
-          .calc-label-limit {{ ::qtyCalc.QTY_LABEL }}
-    td
-      button.cell.calc-digit(fs-click="qtyCalc.setValueQty(+1)") +1
-  tr
-    td
-      button.cell.calc-digit(fs-click="qtyCalc.setValueQty(-5)") -5
-    td
-      button.cell.calc-equal(fs-click="qtyCalc.closeQtyCaclulator()") =
-    td
-      button.cell.calc-digit(fs-click="qtyCalc.setValueQty(+5)") +5
+.container(ng-if="qtyCalc.U.userInfo.factory_id === 2")
+  table.qty-calc-container(ng-controller="qtyCalculatorCtrl as qtyCalc", ng-keyup="qtyCalc.pressCulculator($event)")
+    tr
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(-1)") -1
+      td
+        .calc-interval
+          .interval
+            .calc-qty-limit 1000
+            .calc-label-limit {{ ::qtyCalc.QTY_LABEL }}
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(+1)") +1
+    tr
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(-5)") -5
+      td
+        button.cell.calc-equal(fs-click="qtyCalc.closeQtyCaclulator()") =
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(+5)") +5
+//rehau template
+.container(ng-if="qtyCalc.U.userInfo.factory_id !== 2")
+  table.qty-calc-container-rehau(ng-controller="qtyCalculatorCtrl as qtyCalc", ng-keyup="qtyCalc.pressCulculator($event)")
+    tr
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(-1)") -1
+      td
+        .calc-interval
+          .interval
+            .calc-qty-limit Кол-во
+            //- .calc-label-limit {{ ::qtyCalc.QTY_LABEL }}
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(+1)") +1
+    tr
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(-5)") -5
+      td
+        button.cell.calc-equal(fs-click="qtyCalc.closeQtyCaclulator()") OK
+      td
+        button.cell.calc-digit(fs-click="qtyCalc.setValueQty(+5)") +5

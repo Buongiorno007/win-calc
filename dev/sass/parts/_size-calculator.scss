@@ -1,7 +1,7 @@
 .calculators-box {
-  @include transition(all 0.5s linear);
+  // @include transition(all 0.5s linear);
   position: absolute;
-  bottom: -150rem;
+  bottom: 150rem;
   border-left: 1px solid $main_gray_btn;
   z-index: 4;
   &.active {
