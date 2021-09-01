@@ -25472,7 +25472,9 @@ function ErrorResult(code, message) {
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            console.log(ProductStor.product, 'Product stor');
+            // console.log(ProductStor.product, 'Product stor');
+            // console.log(OrderStor.order)
+            // console.log(CartStor.cart)
             // console.log(OrderStor.order, 'order stor')
             // console.log(GlobalStor.global)
             // console.log(UserStor.userInfo, 'userInfo')

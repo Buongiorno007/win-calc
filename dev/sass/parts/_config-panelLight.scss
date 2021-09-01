@@ -8,7 +8,7 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  background: rgba(#fff, .9);
+  background-color: #fff;
   z-index: 12;
   &.active {
     @include top_left_coord(0px, 0px);
@@ -218,11 +218,6 @@
     }
   }
 
-  .group-block-header {
-    // @include display-flex();
-    // @include flex-flow(row wrap);
-    // @include justify-content(flex-start);
-  }
   .title {
     @include roboto-bd(rem(48px));
 

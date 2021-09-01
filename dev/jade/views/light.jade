@@ -368,16 +368,15 @@
                       .sb-5(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]")
                         | {{lightPage.OTHER}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]}} {{lightPage.U.userInfo.currency}}
                     .addelements-detail-row.price-one-product(ng-show="lightPage.C.cart.allAddElements > 0")
-                      
                       .addelement-price-value(price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis+ lightPage.O.order.products[lightPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
                       .product-label {{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}
                   .order-footer-rehau
                     .order-footer-warmcoef
                       <h3>Оценка энергоэффективности</h3>
-                      <h2>{{lightPage.P.product.heat_coef_expert_mark}}<h2>
+                      <h2>{{product.heat_coef_expert_mark}}<h2>
                     .order-footer-price-rehau
                       <h3>Стоимость изделия</h3>
-                      .order-price(price-fixed="{{lightPage.P.product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
+                      .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
                     
                     
                 //- .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
