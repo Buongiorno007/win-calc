@@ -367,7 +367,7 @@
     color: $main_blue !important;
   }
   .figure-item-rehau {
-    height: 90px;
+    height: 100%;
     width: 110%;
     display: inline-block; //border-bottom: 1px solid #b1b1b1;
     padding-top: 2.5rem;
@@ -427,7 +427,6 @@
     left: 0;
     font-size: 16px;
     line-height: 24px;
-    white-space: nowrap;
 
     &:first-letter {
       text-transform: uppercase;
