@@ -10549,7 +10549,7 @@ if (window.location.hostname !== 'localhost') {
                                             },
                                             'x': function () {
                                                 if ($location.path() === "/mobile") {
-                                                    let move_left = 40;
+                                                    let move_left = 60;
                                                     if (dim.dimId === "fp7") {
                                                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                                                     }
@@ -10563,8 +10563,20 @@ if (window.location.hostname !== 'localhost') {
                                             'y': function () {
                                                 return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                                             },
-                                            'dx': 80,
-                                            'dy': 40,
+                                            'dx': function () {
+                                                if ($location.path() === "/mobile") {
+                                                   return 110
+                                                } else {
+                                                    return 80
+                                                }
+                                            },
+                                            'dy': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    return 25
+                                                 } else {
+                                                     return 40
+                                                 }
+                                            },
                                             'type': 'line',
                                             'block_id': dim.blockId,
                                             'size_val': dim.text,
@@ -30516,7 +30528,7 @@ function ErrorResult(code, message) {
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
                     if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
-                        ProductStor.product.heat_coef_expert_mark = Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10;
+                        ProductStor.product.heat_coef_expert_mark = (Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10).toFixed(1);
                     }
                 } else {
                     /** U */

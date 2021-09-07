@@ -196,7 +196,6 @@ body {
     display: inline-block;
     position: relative;
     left: -2vh;
-    top: -4vh;
   }
   .main-view,
   svg-template,
@@ -237,8 +236,8 @@ body {
     }
     // rehau-styles
     .size-rect-rehau {
-      width: 160px;
-      height: 70px;
+      width: 240px;
+      height: 90px;
       stroke: $primary_green !important;
       -moz-stroke: $primary_green;
       stroke-width: 0px;
@@ -257,13 +256,35 @@ body {
         fill: $primary_pink;
       }
     }
+  
+    .size-txt-rehau {
+      font-size: rem(90px);
+      stroke: white;
+      stroke-width: 1px;
+      text-anchor: middle;
+      alignment-baseline: middle;
+      dominant-baseline: middle;
+      cursor: pointer;
+    }
+    .size-txt-edit-rehau {
+      @extend .size-txt;
+      font-size: 62px;
+      dominant-baseline: middle;
+      stroke: white;
+      fill: white;
+      &.active {
+        stroke: white;
+        fill: white;
+      }
+    }
   }
   .mobile-price {
+    display: none;
     position: absolute;
     bottom: calc(10vh + 65px);
     height: 50px;
     width: 100%;
-    display: inline-flex;
+    // display: inline-flex;
     align-items: center;
     justify-content: space-around;
     .go-to-cart {
@@ -1210,6 +1231,32 @@ body {
         }
       }
     }
+    // // rehau styles
+    // .heat-coef-block-mobile-rehau {
+    //   // position: absolute;
+    //   // bottom: 65px;
+    //   // height: 20px;
+    //   // width: 100%;
+    //   // display: inline-flex;
+    //   // align-items: center;
+    //   // justify-content: center;
+    //   .product-u-coeff-rehau {
+    //     display: inline-flex;
+    //     align-items: flex-end;
+    //     white-space: nowrap;
+    //     margin: 5px;
+    //   }
+    //   .title-rehau {
+    //     display: inline-flex;
+    //     align-items: flex-end;
+    //     margin: 5px;
+    //     p {
+    //       color: #000;
+    //       -webkit-text-fill-color: $main_gray_dark;
+    //       @include roboto-rg(18px);
+    //     }
+    //   }
+    // }
   }
   .mobile-lamination {
     .laminat-filter {
@@ -2045,6 +2092,15 @@ body {
     stroke-width: 1.2px !important;
     stroke: $main_red !important;
   }
+  // rehau styles
+  .size-line-rehau {
+    stroke-width: 1.2px !important;
+    stroke: $primary_green !important;
+  }
+  .size-line-arrow-rehau {
+    stroke-width: 1.2px !important;
+    stroke: black !important;
+  }
   .gray {
     background: $main_f7;
   }
@@ -2071,6 +2127,47 @@ body {
         -webkit-text-fill-color: $main_gray_dark;
         @include roboto-rg(12px);
       }
+    }
+  }
+  // rehau styles
+  .heat-coef-block-mobile-rehau {
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .product-u-coeff-rehau {
+      display: inline-flex;
+      align-items: flex-end;
+      white-space: nowrap;
+      margin: 5px;
+      .coeff-expert-mark {
+        background-color: $primary_pink;
+        height: 40px;
+        width: 40px;
+        padding: 8px;
+        font-size: 18px;
+        color: #fff;
+      }
+    }
+    .title-rehau {
+      display: inline-flex;
+      align-items: flex-end;
+      margin: 5px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .subtitle-rehau {
+      font-size: 14px;
+      line-height: 16px;
+
+      text-align: center;
+      text-decoration-line: underline;
+
+      color: #4E4E4E;
+
     }
   }
   .coeff-info-block {
