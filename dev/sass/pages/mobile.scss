@@ -210,6 +210,17 @@ body {
         fill: #fff;
       }
     }
+    .size-txt-edit-rehau {
+      @extend .size-txt;
+      dominant-baseline: middle;
+      stroke: white;
+      fill: white;
+      &.active {
+        stroke: white;
+        fill: white;
+      }
+    }
+
     .size-rect {
       width: 0;
       height: 0;
@@ -222,6 +233,28 @@ body {
         height: 110px;
         fill: $main_red;
         fill-opacity: 1;
+      }
+    }
+    // rehau-styles
+    .size-rect-rehau {
+      width: 160px;
+      height: 70px;
+      stroke: $primary_green !important;
+      -moz-stroke: $primary_green;
+      stroke-width: 0px;
+      fill-opacity: 0;
+      cursor: pointer;
+      -moz-fill: $primary_green;
+      -moz-fill-opacity: 1;
+      stroke: $primary_green !important;
+      fill-opacity: 1;
+      fill: $primary_green;
+      &.active {
+        -moz-fill: $primary_pink;
+        -moz-fill-opacity: 1;
+        stroke: $primary_pink !important;
+        fill-opacity: 1;
+        fill: $primary_pink;
       }
     }
   }

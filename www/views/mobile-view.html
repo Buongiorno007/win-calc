@@ -216,7 +216,6 @@
       <p>{{mobilePage.CART}}</p>
     </div>
   </div>
-  <div ng-click="mobilePage.OpenMenu()" ng-class="{ active: mobilePage.mobMenu }" class="burger"></div>
   <section ng-if="mobilePage.U.userInfo.user_type !== 8" ng-class="burger:active" class="mobile_disable">
     <div ng-controller="NavMenuCtrl as navMenu" ng-class="{opened : mobilePage.mobMenu}" class="mobile-left-menu">
       <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container"><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
