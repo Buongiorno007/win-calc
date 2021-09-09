@@ -1,5 +1,5 @@
 
-<div ng-click="mobilePage.showCoefInfoBlock()" ng-if="mobilePage.U.userInfo.factory_id !== 2" class="heat-coef-block-mobile">
+<div ng-click="mobilePage.showCoefInfoBlock()" ng-show="mobilePage.U.userInfo.factory_id !== 2" class="heat-coef-block-mobile">
   <div class="title">
     <p>{{::mobilePage.HEAT_TRANSFER}}</p>
   </div>
@@ -35,7 +35,7 @@
     </div>
   </div>
 </div>
-<div ng-click="mobilePage.showCoefInfoBlock()" ng-if="mobilePage.U.userInfo.factory_id === 2" class="heat-coef-block-mobile-rehau">
+<div ng-click="mobilePage.showCoefInfoBlock()" ng-show="mobilePage.U.userInfo.factory_id === 2" class="heat-coef-block-mobile-rehau">
   <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff-rehau">
     <div class="coeff-expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}}</div>
   </div>

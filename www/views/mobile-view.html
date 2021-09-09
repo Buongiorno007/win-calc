@@ -7,10 +7,15 @@
     </div>
   </div>
   <div ng-controller="ConfigMenuCtrl as configMenu" class="mobile-price">
-    <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
-    <div class="go-to-cart">
-      <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
-      <div ng-click="configMenu.showCalck()" class="product-counter">{{configMenu.G.global.product_qty}}</div>
+    <div ng-if="configMenu.U.userInfo.factory_id !== 2" class="mobile-price-block">
+      <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
+      <div class="go-to-cart">
+        <div id="checkForAddElem" ng-click="configMenu.checkForAddElem()" class="go-to-cart-title">{{configMenu.CONFIGMENU_IN_CART}}</div>
+        <div ng-click="configMenu.showCalck()" class="product-counter">{{configMenu.G.global.product_qty}}</div>
+      </div>
+    </div>
+    <div ng-if="configMenu.U.userInfo.factory_id === 2" class="mobile-price-block-rehau"><span>Цена: </span>
+      <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
     </div>
   </div>
   <div ng-if="!mobilePage.isSet(0)" class="content-container">
@@ -196,7 +201,7 @@
       </div>
     </div>
   </div>
-  <div class="control-buttons-container">
+  <div ng-if="mobilePage.U.userInfo.factory_id !== 2" class="control-buttons-container">
     <div ng-click="mobilePage.setTab(1)" class="templates control-button">
       <div ng-class="{ active: mobilePage.isSet(1) }" class="img-common templates-img"></div>
       <p>{{mobilePage.ROOM_SELECTION}}</p>
@@ -215,6 +220,11 @@
       </div>
       <p>{{mobilePage.CART}}</p>
     </div>
+  </div>
+  <div ng-if="mobilePage.U.userInfo.factory_id === 2" class="control-buttons-container-rehau">
+    <div ng-if="mobilePage.U.userInfo.factory_id === 2" class="mobile-price-block-rehau"><span>Цена: </span>
+      <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
+    </div><span>Редактировать</span>
   </div>
   <section ng-if="mobilePage.U.userInfo.user_type !== 8" ng-class="burger:active" class="mobile_disable">
     <div ng-controller="NavMenuCtrl as navMenu" ng-class="{opened : mobilePage.mobMenu}" class="mobile-left-menu">
@@ -333,7 +343,7 @@
       </div>
     </div>
   </div>
-  <div ng-click="mobilePage.showCoefInfoBlock()" ng-if="mobilePage.U.userInfo.factory_id !== 2" class="heat-coef-block-mobile">
+  <div ng-click="mobilePage.showCoefInfoBlock()" ng-show="mobilePage.U.userInfo.factory_id !== 2" class="heat-coef-block-mobile">
     <div class="title">
       <p>{{::mobilePage.HEAT_TRANSFER}}</p>
     </div>
@@ -369,7 +379,7 @@
       </div>
     </div>
   </div>
-  <div ng-click="mobilePage.showCoefInfoBlock()" ng-if="mobilePage.U.userInfo.factory_id === 2" class="heat-coef-block-mobile-rehau">
+  <div ng-click="mobilePage.showCoefInfoBlock()" ng-show="mobilePage.U.userInfo.factory_id === 2" class="heat-coef-block-mobile-rehau">
     <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff-rehau">
       <div class="coeff-expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}}</div>
     </div>
