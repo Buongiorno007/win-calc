@@ -48,6 +48,8 @@
               span  Лучший выбор!
         price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-click='configMenu.checkForAddElem()')
     .to-basket-block
-      button.add-to-basket(ng-click="mobilePage.setTab(4)" ng-class="{ active: mobilePage.isSet(4) }") В корзину 
+      button.add-to-basket(ng-click="configMenu.checkForAddElem()") В корзину
+      .counter-rehau-for-landing
+        input.prodcounter-rehau-for-landing(readonly, ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)")
 
     

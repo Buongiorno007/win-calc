@@ -191,6 +191,7 @@ body {
     1);
     @extend .red-color;
     margin: 0 1vw;
+    font-weight: bold;
   }
   #tamlateSVG {
     all: unset;
@@ -1057,10 +1058,32 @@ body {
             background: $primary_green;
           }
 
-          // .go-to-basket {
-          //   position: absolute;
-          //   right: 400px;
-          // }
+          .counter-rehau-for-landing {
+            width: auto;
+            height: 5rem;
+            display: inline-block;
+
+            .prodcounter-rehau-for-landing {
+              background-color: #424242;
+              color: white;
+              padding-left: 35px;
+              height: 48px;
+            }
+            input {
+              transition: .5s;
+              cursor: pointer;
+              @include roboto-md(rem(36px), rem(60px));
+              text-align: center;
+              border: none;
+              width: 9rem;
+              height: 5.5rem;
+        
+              background-image: url(../img/rehau-img/basket.png);
+              background-repeat: no-repeat;
+              background-position-y: 50%;
+              background-position-x: 35%;
+            }
+          }
         }
       }
     }
