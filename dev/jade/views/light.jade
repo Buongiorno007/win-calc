@@ -355,7 +355,7 @@
                               .addelement-label Кол-во:
                               .addelement-value {{ addelement.element_qty }}
                         .addelement-price-container
-                          .addelement-price-value(price-fixed="{{addelement.elementPriceDis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
+                          .addelement-price-value(price-fixed="{{addelement.elementPriceDis.toFixed(0)}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
                     .service-block
                       .sb-1(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]")
                         | {{lightPage.SERV1}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]}} {{lightPage.U.userInfo.currency}}
@@ -376,7 +376,7 @@
                       <h2>{{product.heat_coef_expert_mark}}<h2>
                     .order-footer-price-rehau
                       <h3>Стоимость изделия</h3>
-                      .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
+                      .order-price(price-fixed="{{product.productPriceDis.toFixed(0)}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
                     
                     
                 //- .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")

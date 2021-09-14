@@ -141,7 +141,7 @@
                     .aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsPanel.A.aux.currentAddElementId === $index}")
                         .aux-label Высота:
                         button.aux-params-but(fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsPanel.pressCulculator($event)", ng-disabled="!elementsPanel.P.product.is_addelem_only && elementsPanel.A.aux.isFocusedAddElement === 1") {{ chosenAddElem.element_height }}
-                    .tab-aux-price(ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis}}", qty-element="{{chosenAddElem.element_qty}}", currency-element="{{elementsPanel.U.userInfo.currency}}")
+                    .tab-aux-price(ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis.toFixed(0)}}", qty-element="{{chosenAddElem.element_qty}}", currency-element="{{elementsPanel.U.userInfo.currency}}")
                     .aux-delete-rehau(fs-click="elementsPanel.deleteAddElement($parent.$index, $index)")
             .subfolders(ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index")
                 .subfolders-name( ng-class='{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')

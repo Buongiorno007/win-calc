@@ -203,12 +203,12 @@
           <div class="conf-top-item">
             <div class="conf-header">
               <div class="conf-item-title">Конфигурация</div>
-              <div class="conf-item-subtitle">Задайте параметры вашему окну</div>
+              <div class="conf-item-subtitle">Задайте параметры вашего окна</div>
             </div>
             <button ng-click="mobilePage.closePanelMobile()" class="conf-close"></button>
           </div>
           <div fs-click="mobilePage.setTab(1)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item-rehau">
-            <div class="item-title">Шаблон</div>
+            <div class="item-title">Выбор шаблона</div>
             <div ng-if="!configMenu.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="conf-item-text"></div>
             <div ng-if="configMenu.G.global.SelectedTemplateName" class="conf-item-text">{{ configMenu.G.global.SelectedTemplateName }}</div>
           </div>

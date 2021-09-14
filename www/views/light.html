@@ -875,7 +875,7 @@
                             <div class="aux-label">Высота:</div>
                             <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_height }}</button>
                           </div>
-                          <div ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis}}" qty-element="{{chosenAddElem.element_qty}}" currency-element="{{elementsPanel.U.userInfo.currency}}" class="tab-aux-price"></div>
+                          <div ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis.toFixed(0)}}" qty-element="{{chosenAddElem.element_qty}}" currency-element="{{elementsPanel.U.userInfo.currency}}" class="tab-aux-price"></div>
                           <div fs-click="elementsPanel.deleteAddElement($parent.$index, $index)" class="aux-delete-rehau"></div>
                         </div>
                       </div>
@@ -1359,7 +1359,7 @@
                           </div>
                         </div>
                         <div class="addelement-price-container">
-                          <div price-fixed="{{addelement.elementPriceDis}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
+                          <div price-fixed="{{addelement.elementPriceDis.toFixed(0)}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
                         </div>
                       </li>
                     </div>
@@ -1381,7 +1381,7 @@
                       <h2>{{product.heat_coef_expert_mark}}<h2>
                     </div>
                     <div class="order-footer-price-rehau"><h3>Стоимость изделия</h3>
-                      <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
+                      <div price-fixed="{{product.productPriceDis.toFixed(0)}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
                     </div>
                   </div>
                 </div>

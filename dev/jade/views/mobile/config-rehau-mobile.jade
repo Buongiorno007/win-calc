@@ -3,10 +3,10 @@
     .conf-top-item
       .conf-header
         .conf-item-title Конфигурация
-        .conf-item-subtitle Задайте параметры вашему окну
+        .conf-item-subtitle Задайте параметры вашего окна
       button.conf-close(ng-click="mobilePage.closePanelMobile()")
     .conf-item-rehau(fs-click="mobilePage.setTab(1)" ng-class="{active : configMenu.G.global.activePanel===2}")
-      .item-title Шаблон
+      .item-title Выбор шаблона
       .conf-item-text(ng-if="!configMenu.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
       .conf-item-text(ng-if="configMenu.G.global.SelectedTemplateName") {{ configMenu.G.global.SelectedTemplateName }}
     .conf-item-rehau(fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}")
