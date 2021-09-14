@@ -4582,7 +4582,7 @@ let portrait = false;
             thisCtrl.mobMenu = 0;
             thisCtrl.mobSize = 0;
 
-            thisCtrl.mobWidth = self.innerWidth + 70;
+            thisCtrl.mobWidth = self.innerWidth + 80;
             thisCtrl.mobHeight = self.innerHeight * 0.7;
 
             thisCtrl.mobWidthGlass = self.innerWidth;

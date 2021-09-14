@@ -127,6 +127,7 @@ body {
   .price-value {
     @include roboto-lt(rem($price_container-height-mobile),
     1);
+    font-weight: bold;
     display: inline-flex;
     overflow: hidden;
     height: rem($price_container-height-mobile);
@@ -287,27 +288,6 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    .mobile-price-block-rehau {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding: 16px;
-
-      span {
-        font-size: 24px;
-        line-height: 32px;
-        /* identical to box height, or 133% */
-
-
-        color: #000000;
-      }
-
-      .price-rehau {
-        display: flex;
-        color: $primary_pink;
-      }
-    }
-
     .go-to-cart {
       width: 165px;
       height: 45px;
@@ -430,13 +410,52 @@ body {
   .control-buttons-container-rehau {
     position: absolute;
     bottom: 0;
-    height: 120px;
     width: 100%;
-    // display: inline-flex;
-    // flex-direction: row;
     align-items: center;
-    // border-top: 1px solid $main_gray_light;
     background-color: #EDEDED;
+    padding: 16px;
+
+    .eddit-mobile-button {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 32px;
+
+      text-align: center;
+
+      color: #FFFFFF;
+
+      border: none;
+      
+      padding: 8px 24px;
+      margin: auto;
+      width: 100%;
+
+      background: $primary_green;
+    }
+
+    .mobile-price-block-rehau {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0px 0 16px 0;
+
+      span {
+        font-size: 24px;
+        line-height: 32px;
+
+        color: #000000;
+      }
+
+      .price-rehau {
+        display: flex;
+        color: $primary_pink;
+        font-weight: bold;
+      }
+    }
+
+    
     .control-button {
       display: inline-flex;
       flex-direction: column;
@@ -510,11 +529,12 @@ body {
 
   .content-container {
     display: inline-flex;
-    height: auto;
+    height: 100%;
     width: 100%;
     position: absolute;
-    bottom: 60px;
+    bottom: 0;
     background: white;
+    z-index: 1;
     .common-content-style {
       width: 100%;
       height: 10vh;
@@ -847,6 +867,200 @@ body {
             background: url("../img/config-menu/add-elems_active.svg") no-repeat center;
             background-size: contain;
           }
+        }
+      }
+    }
+    // rehau styles
+    .config-content-rehau {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+      .common-scroll-container-rehau {
+        width: 100%;
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        box-sizing: content-box;
+
+        .conf-top-item {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          background-color: $primary_green;
+
+          padding: 12px 16px;
+
+          .conf-header {
+            height: auto;
+            width: 100%;
+    
+            background: $primary_green;
+    
+            .conf-item-title {
+              font-style: normal;
+              font-weight: bold;
+              font-size: 20px;
+              line-height: 24px;
+    
+              color: #FFFFFF;
+            }
+    
+            .conf-item-subtitle {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 24px;
+    
+              color: #FFFFFF;
+            }
+          }
+
+          .conf-close {
+            background-image: url("/img/rehau-img/close.png");
+            background-repeat: no-repeat;
+            width: 19px;
+            height: 19px;
+
+            background-color: $primary_green;
+            border: none;
+
+            align-self: center;
+          }
+        }
+      }
+      .conf-item-rehau {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 10vh;
+        width: 100%;
+
+        padding: 8px 16px;
+
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
+
+        .item-title {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 24px;
+
+          color: $primary_green;
+        }
+
+        &.active {
+          background: white;
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+
+        .conf-item-text {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 24px;
+
+          color: #000000;
+        }
+      }
+
+      .bottom-block {
+        width: 100%;
+        height: 120px;
+        left: 0px;
+        top: 520px;
+        
+        background: #EDEDED;
+        padding: 8px 16px 16px 16px;
+
+        .heat-coeff-txt {
+          span {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 16px;
+
+            color: #4E4E4E;
+          }
+        }
+
+        .price-and-heat-coeff {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+
+          margin-bottom: 8px;
+
+          .expert-mark-row {
+            display: flex;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+
+            color: #000000;
+
+            .title-rehau {
+              padding-left: 6px;
+            }
+          }
+
+          .price-rehau {
+            display: flex;
+          }
+        }
+
+        .to-basket {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 32px;
+
+          text-align: center;
+
+          color: #FFFFFF;
+
+          border: none;
+          
+          padding: 8px 24px;
+          margin: auto;
+          width: 100%;
+
+          background: $primary_green;
+        }
+
+        .to-basket-block {
+          display: flex;
+
+          .add-to-basket {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 32px;
+  
+            text-align: center;
+  
+            color: #FFFFFF;
+  
+            border: none;
+            
+            padding: 8px 24px;
+            margin: auto;
+            width: 100%;
+  
+            background: $primary_green;
+          }
+
+          // .go-to-basket {
+          //   position: absolute;
+          //   right: 400px;
+          // }
         }
       }
     }
@@ -2235,12 +2449,12 @@ body {
   // rehau styles
   .heat-coef-block-mobile-rehau {
     position: absolute;
-    height: 20px;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-top: -50px;
     .product-u-coeff-rehau {
       display: inline-flex;
       align-items: flex-end;

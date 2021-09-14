@@ -1,0 +1,53 @@
+.config-content-rehau(ng-controller="ConfigMenuCtrl as configMenu")
+  .common-scroll-container-rehau
+    .conf-top-item
+      .conf-header
+        .conf-item-title Конфигурация
+        .conf-item-subtitle Задайте параметры вашему окну
+      button.conf-close(ng-click="mobilePage.closePanelMobile()")
+    .conf-item-rehau(fs-click="mobilePage.setTab(1)" ng-class="{active : configMenu.G.global.activePanel===2}")
+      .item-title Шаблон
+      .conf-item-text(ng-if="!configMenu.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+      .conf-item-text(ng-if="configMenu.G.global.SelectedTemplateName") {{ configMenu.G.global.SelectedTemplateName }}
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}")
+      .item-title Профиль
+      .conf-item-text {{ configMenu.P.product.profile.name }}
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}")
+      .item-title Стеклопакет
+      .conf-item-text {{ configMenu.P.product.glass[0].sku }}
+    //- .conf-item-rehau(fs-click="configMenu.selectConfigPanel(4)" ng-class="{active : configMenu.G.global.activePanel===4}")
+    //-   .item-title Фурнитура
+    //-   .conf-item-text {{ ::configMenu.CONFIGMENU_HARDWARE }}
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}")
+      .item-title Цвет (В комнате | фасад)
+      .conf-item-text {{ configMenu.P.product.lamination.laminat_out_name | translate }}
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}")
+      .item-title Доп. элементы
+      .conf-item-text 
+  .bottom-block
+    .heat-coeff-txt
+      span Оценка энергоэффективности
+    .price-and-heat-coeff
+        .expert-mark-row
+          .expert-mark {{mobilePage.P.product.heat_coef_expert_mark}} ⸺ 
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark < 6.1")
+              span  Для балконов
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark> 6.1 && mobilePage.P.product.heat_coef_expert_mark <= 6.5")
+              span  Достаточно хорошо
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 6.5 && mobilePage.P.product.heat_coef_expert_mark <= 7")
+              span  Хорошо!
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 7 && mobilePage.P.product.heat_coef_expert_mark <= 7.5")
+              span  Очень хорошо!
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 7.5 && mobilePage.P.product.heat_coef_expert_mark <= 8.2")
+              span  Потрясающе!
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 8.2 && mobilePage.P.product.heat_coef_expert_mark <= 9")
+              span  Превосходно!
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 9 && mobilePage.P.product.heat_coef_expert_mark <= 9.4")
+              span  Великолепно!
+          .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 9.4")
+              span  Лучший выбор!
+        price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-click='configMenu.checkForAddElem()')
+    .to-basket-block
+      button.add-to-basket(ng-click="mobilePage.setTab(4)" ng-class="{ active: mobilePage.isSet(4) }") В корзину 
+
+    

@@ -1,0 +1,53 @@
+
+<div ng-controller="ConfigMenuCtrl as configMenu" class="config-content-rehau">
+  <div class="common-scroll-container-rehau">
+    <div class="conf-top-item">
+      <div class="conf-header">
+        <div class="conf-item-title">Конфигурация</div>
+        <div class="conf-item-subtitle">Задайте параметры вашему окну</div>
+      </div>
+      <button ng-click="mobilePage.closePanelMobile()" class="conf-close"></button>
+    </div>
+    <div fs-click="mobilePage.setTab(1)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item-rehau">
+      <div class="item-title">Шаблон</div>
+      <div ng-if="!configMenu.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="conf-item-text"></div>
+      <div ng-if="configMenu.G.global.SelectedTemplateName" class="conf-item-text">{{ configMenu.G.global.SelectedTemplateName }}</div>
+    </div>
+    <div fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}" class="conf-item-rehau">
+      <div class="item-title">Профиль</div>
+      <div class="conf-item-text">{{ configMenu.P.product.profile.name }}</div>
+    </div>
+    <div fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}" class="conf-item-rehau">
+      <div class="item-title">Стеклопакет</div>
+      <div class="conf-item-text">{{ configMenu.P.product.glass[0].sku }}</div>
+    </div>
+    <div fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}" class="conf-item-rehau">
+      <div class="item-title">Цвет (В комнате | фасад)</div>
+      <div class="conf-item-text">{{ configMenu.P.product.lamination.laminat_out_name | translate }}</div>
+    </div>
+    <div fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}" class="conf-item-rehau">
+      <div class="item-title">Доп. элементы</div>
+      <div class="conf-item-text"> </div>
+    </div>
+  </div>
+  <div class="bottom-block">
+    <div class="heat-coeff-txt"><span>Оценка энергоэффективности</span></div>
+    <div class="price-and-heat-coeff">
+      <div class="expert-mark-row">
+        <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} ⸺ </div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Достаточно хорошо</span></div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Хорошо!</span></div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Очень хорошо!</span></div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Потрясающе!</span></div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Превосходно!</span></div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Великолепно!</span></div>
+        <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+      </div>
+      <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
+    </div>
+    <div class="to-basket-block">
+      <button ng-click="mobilePage.setTab(4)" ng-class="{ active: mobilePage.isSet(4) }" class="add-to-basket">В корзину </button>
+    </div>
+  </div>
+</div>
