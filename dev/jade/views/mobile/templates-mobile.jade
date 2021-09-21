@@ -1,13 +1,41 @@
-.scroll-container(ng-controller="TemplatesCtrl as templatesPanel")
-    include accept-container
-    .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}")
-        .button
-            p {{ ::templatesPanel.templateName[$index]|translate }}
-        .templates-list
-            .template(ng-repeat="templateIcon in templatesPanel.templateList track by $index"
-            ng-if="templateIcon.type === Pindex"  ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)"
-            ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}")
-                img.template-img(ng-src="{{ templateIcon.src }}" )
-                .name {{templateIcon.name}}
-    //.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")
-        | Add elements only
+.box(ng-controller="TemplatesCtrl as templatesPanel")
+  .scroll-container(ng-if="templatesPanel.U.userInfo.factory_id !== 2")
+      include accept-container
+      .types(ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}")
+          .button
+              p {{ ::templatesPanel.templateName[$index]|translate }}
+          .templates-list
+              .template(ng-repeat="templateIcon in templatesPanel.templateList track by $index"
+              ng-if="templateIcon.type === Pindex"  ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)"
+              ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}")
+                  img.template-img(ng-src="{{ templateIcon.src }}" )
+                  .name {{templateIcon.name}}
+      //.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")
+          | Add elements only
+  // rehau templates
+  .common-scroll-container-rehau(ng-if="templatesPanel.U.userInfo.factory_id === 2")
+    .template-top-item
+      .template-header
+        .template-item-title Выбор шаблона
+        .template-item-subtitle(ng-if="!templatesPanel.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+        .template-item-subtitle(ng-if="templatesPanel.G.global.SelectedTemplateName") {{ templatesPanel.G.global.SelectedTemplateName }}
+      button.template-close(ng-click="mobilePage.closePanelMobile()")
+    .template-main-item
+      .single-leaf-windows-mobile(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-init="Pindex = $index+1" fs-click="templatesPanel.selectNewTemplate($index)",)
+          .single-leaf-windows-title
+              p Окна одностворчатые
+          .templates-list
+              .template(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)"
+              ng-if="templateIcon.type === Pindex"  ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)"
+              ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}")
+                  img.template-img(ng-src="{{ templateIcon.src }}" )
+                  .name {{templateIcon.name}}
+      
+
+
+
+
+
+
+
+

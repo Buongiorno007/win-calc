@@ -258,7 +258,7 @@ body {
         fill: $primary_pink;
       }
     }
-  
+
     .size-txt-rehau {
       font-size: rem(90px);
       stroke: white;
@@ -427,7 +427,7 @@ body {
       color: #FFFFFF;
 
       border: none;
-      
+
       padding: 8px 24px;
       margin: auto;
       width: 100%;
@@ -456,7 +456,7 @@ body {
       }
     }
 
-    
+
     .control-button {
       display: inline-flex;
       flex-direction: column;
@@ -555,19 +555,109 @@ body {
       overflow-y: hidden;
       box-sizing: content-box;
     }
-    .scroll-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: white;
+    .box {
       width: 100%;
-      height: calc(100% - 100px);
-      z-index: 1;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      padding-top: 100px;
-      box-sizing: content-box;
+      .scroll-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: white;
+        width: 100%;
+        height: calc(100% - 100px);
+        z-index: 1;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-top: 100px;
+        box-sizing: content-box;
+      }
+
+      .common-scroll-container-rehau {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: white;
+        width: 100%;
+        height: calc(100% - 100px);
+        z-index: 1;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        box-sizing: content-box;
+
+        .template-top-item {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          background-color: $primary_green;
+
+          padding: 12px 16px;
+
+          .template-header {
+            height: auto;
+            width: 100%;
+
+            background: $primary_green;
+
+            .template-item-title {
+              font-style: normal;
+              font-weight: bold;
+              font-size: 20px;
+              line-height: 24px;
+
+              color: #FFFFFF;
+            }
+
+            .template-item-subtitle {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 24px;
+
+              color: #FFFFFF;
+            }
+          }
+
+          .template-close {
+            background-image: url("/img/rehau-img/close.png");
+            background-repeat: no-repeat;
+            width: 19px;
+            height: 19px;
+
+            background-color: $primary_green;
+            border: none;
+
+            align-self: center;
+          }
+        }
+        //main container
+        .template-main-item {
+
+          .single-leaf-windows-mobile {
+            padding: 16px;
+            display: inline-flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            // align-items: center;
+            justify-content: center;
+            .single-leaf-windows-title {
+              p {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 24px;
+
+                text-transform: uppercase;
+
+                text-align: left;
+                color: $primary_green;
+              }
+            }
+          }
+        }
+      }
     }
+
     .swiper-container {
       width: 100% !important;
     }
@@ -616,10 +706,8 @@ body {
         display: inline-block;
         white-space: nowrap;
         height: auto;
-        overflow: scroll; //overflow-x: hidden;
-        //overflow-y: hidden;
-        //-webkit-overflow-scrolling: touch;
-        //-ms-overflow-style: -ms-autohiding-scrollbar;
+        overflow: scroll; 
+
         .template {
           flex: 0 0 auto;
           padding: 10px 0 0 0;
@@ -628,7 +716,7 @@ body {
           height: auto;
           line-height: 80px;
           text-align: center;
-          margin: 0 15px;
+          // margin: 0 15px;
           position: relative;
           display: inline-flex;
           flex-direction: column;
@@ -637,13 +725,25 @@ body {
           box-sizing: content-box;
           .template-img {
             display: inline-block;
-            height: 70px;
+            height: 128px;
+            width: auto;
             object-fit: contain;
           }
           .name {
             margin: 10px 0px;
             @include roboto-lt(rem(25px),
             1);
+            white-space: pre-wrap;
+
+            max-width: 128px;
+            
+
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+
+            color: $primary_green;
           }
           &.active {
             border: 2px solid $main_red;
@@ -900,24 +1000,24 @@ body {
           .conf-header {
             height: auto;
             width: 100%;
-    
+
             background: $primary_green;
-    
+
             .conf-item-title {
               font-style: normal;
               font-weight: bold;
               font-size: 20px;
               line-height: 24px;
-    
+
               color: #FFFFFF;
             }
-    
+
             .conf-item-subtitle {
               font-style: normal;
               font-weight: normal;
               font-size: 14px;
               line-height: 24px;
-    
+
               color: #FFFFFF;
             }
           }
@@ -976,7 +1076,7 @@ body {
         height: 120px;
         left: 0px;
         top: 520px;
-        
+
         background: #EDEDED;
         padding: 8px 16px 16px 16px;
 
@@ -1028,7 +1128,7 @@ body {
           color: #FFFFFF;
 
           border: none;
-          
+
           padding: 8px 24px;
           margin: auto;
           width: 100%;
@@ -1044,17 +1144,17 @@ body {
             font-weight: bold;
             font-size: 24px;
             line-height: 32px;
-  
+
             text-align: center;
-  
+
             color: #FFFFFF;
-  
+
             border: none;
-            
+
             padding: 8px 24px;
             margin: auto;
             width: 100%;
-  
+
             background: $primary_green;
           }
 
@@ -1077,7 +1177,7 @@ body {
               border: none;
               width: 9rem;
               height: 5.5rem;
-        
+
               background-image: url(../img/rehau-img/basket.png);
               background-repeat: no-repeat;
               background-position-y: 50%;
