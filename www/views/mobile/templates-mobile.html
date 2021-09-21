@@ -83,22 +83,86 @@
   </div>
   <!-- rehau templates-->
   <div ng-if="templatesPanel.U.userInfo.factory_id === 2" class="common-scroll-container-rehau">
-    <div class="template-top-item">
-      <div class="template-header">
-        <div class="template-item-title">Выбор шаблона</div>
-        <div ng-if="!templatesPanel.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="template-item-subtitle"></div>
-        <div ng-if="templatesPanel.G.global.SelectedTemplateName" class="template-item-subtitle">{{ templatesPanel.G.global.SelectedTemplateName }}</div>
-      </div>
-      <button ng-click="mobilePage.closePanelMobile()" class="template-close"></button>
-    </div>
-    <div class="template-main-item">
-      <div ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-init="Pindex = $index+1" fs-click="templatesPanel.selectNewTemplate($index)" class="single-leaf-windows-mobile">
-        <div class="single-leaf-windows-title">
-          <p>Окна одностворчатые</p>
+    <div class="template-content-rehau">
+      <div class="template-top-item">
+        <div class="template-header">
+          <div class="template-item-title">Выбор шаблона</div>
+          <div ng-if="!templatesPanel.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="template-item-subtitle"></div>
+          <div ng-if="templatesPanel.G.global.SelectedTemplateName" class="template-item-subtitle">{{ templatesPanel.G.global.SelectedTemplateName }}</div>
         </div>
-        <div class="templates-list">
-          <div ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-if="templateIcon.type === Pindex" ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)" ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}" class="template"><img ng-src="{{ templateIcon.src }}" class="template-img">
-            <div class="name">{{templateIcon.name}}</div>
+        <button ng-click="mobilePage.closePanelMobile()" class="template-close"></button>
+      </div>
+      <div class="template-main-item">
+        <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
+          <div class="other-template-rehau">
+            <div class="single-leaf-windows"> 
+              <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
+              <div class="single-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="duble-leaf-windows">
+              <div class="duble-leaf-windows-title"><h1>Окна двухстворчатые</h1></div>
+              <div class="duble-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 4)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(4, 10)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="three-leaf-windows">
+              <div class="three-leaf-windows-title"><h1>Окна трёхстворчатые</h1></div>
+              <div class="three-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 10)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(10, 16)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="three-leaf-windows">
+              <div class="three-leaf-windows-title"><h1>Окна Т-образные</h1></div>
+              <div class="three-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 16)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(16, 26)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="three-leaf-windows">
+              <div class="three-leaf-windows-title"><h1>Двери балконные</h1></div>
+              <div class="three-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 26)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)" ng-class="{'selected': templatesPanel.G.global.selectedTemplateName === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-block">
+        <div class="heat-coeff-txt"><span>Оценка энергоэффективности</span></div>
+        <div class="price-and-heat-coeff">
+          <div class="expert-mark-row">
+            <div class="expert-mark">{{templatesPanel.P.product.heat_coef_expert_mark}} ⸺ </div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Достаточно хорошо</span></div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Хорошо!</span></div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Очень хорошо!</span></div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Потрясающе!</span></div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Превосходно!</span></div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Великолепно!</span></div>
+            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+          </div>
+          <price price-value="templatesPanel.G.global.tempPrice" price-currency="templatesPanel.U.userInfo.currency" ng-click="templatesPanel.checkForAddElem()"></price>
+        </div>
+        <div class="to-basket-block">
+          <button ng-click="templatesPanel.checkForAddElem()" class="add-to-basket">В корзину</button>
+          <div class="counter-rehau-for-landing">
+            <input readonly ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
           </div>
         </div>
       </div>

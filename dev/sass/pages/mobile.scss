@@ -577,80 +577,433 @@ body {
         left: 0;
         background: white;
         width: 100%;
-        height: calc(100% - 100px);
+        height: 100%;
         z-index: 1;
         overflow-y: scroll;
         overflow-x: hidden;
         box-sizing: content-box;
 
-        .template-top-item {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-
-          background-color: $primary_green;
-
-          padding: 12px 16px;
-
-          .template-header {
-            height: auto;
+        .template-content-rehau {
+          .template-top-item {
+            display: flex;
+            justify-content: space-between;
             width: 100%;
-
-            background: $primary_green;
-
-            .template-item-title {
-              font-style: normal;
-              font-weight: bold;
-              font-size: 20px;
-              line-height: 24px;
-
-              color: #FFFFFF;
-            }
-
-            .template-item-subtitle {
-              font-style: normal;
-              font-weight: normal;
-              font-size: 14px;
-              line-height: 24px;
-
-              color: #FFFFFF;
-            }
-          }
-
-          .template-close {
-            background-image: url("/img/rehau-img/close.png");
-            background-repeat: no-repeat;
-            width: 19px;
-            height: 19px;
 
             background-color: $primary_green;
-            border: none;
 
-            align-self: center;
-          }
-        }
-        //main container
-        .template-main-item {
+            padding: 12px 16px;
 
-          .single-leaf-windows-mobile {
-            padding: 16px;
-            display: inline-flex;
-            flex-direction: column;
-            height: auto;
-            width: 100%;
-            // align-items: center;
-            justify-content: center;
-            .single-leaf-windows-title {
-              p {
+            .template-header {
+              height: auto;
+              width: 100%;
+
+              background: $primary_green;
+
+              .template-item-title {
                 font-style: normal;
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 20px;
                 line-height: 24px;
 
-                text-transform: uppercase;
+                color: #FFFFFF;
+              }
 
-                text-align: left;
-                color: $primary_green;
+              .template-item-subtitle {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 24px;
+
+                color: #FFFFFF;
+              }
+            }
+
+            .template-close {
+              background-image: url("/img/rehau-img/close.png");
+              background-repeat: no-repeat;
+              width: 19px;
+              height: 19px;
+
+              background-color: $primary_green;
+              border: none;
+
+              align-self: center;
+            }
+          }
+          .bottom-block {
+            width: 100%;
+            height: 120px;
+            left: 0px;
+            bottom: 0;
+
+            background: #EDEDED;
+            padding: 8px 16px 16px 16px;
+            position: fixed;
+
+            .heat-coeff-txt {
+              span {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 16px;
+
+                color: #4E4E4E;
+              }
+            }
+
+            .price-and-heat-coeff {
+              display: flex;
+              justify-content: space-between;
+              flex-direction: row;
+
+              margin-bottom: 8px;
+
+              .expert-mark-row {
+                display: flex;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 24px;
+
+                color: #000000;
+
+                .title-rehau {
+                  padding-left: 6px;
+                }
+              }
+
+              .price-rehau {
+                display: flex;
+              }
+            }
+
+            .to-basket {
+              font-style: normal;
+              font-weight: bold;
+              font-size: 24px;
+              line-height: 32px;
+
+              text-align: center;
+
+              color: #FFFFFF;
+
+              border: none;
+
+              padding: 8px 24px;
+              margin: auto;
+              width: 100%;
+
+              background: $primary_green;
+            }
+
+            .to-basket-block {
+              display: flex;
+
+              .add-to-basket {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 24px;
+                line-height: 32px;
+
+                text-align: center;
+
+                color: #FFFFFF;
+
+                border: none;
+
+                padding: 8px 24px;
+                margin: auto;
+                width: 100%;
+
+                background: $primary_green;
+              }
+
+              .counter-rehau-for-landing {
+                width: auto;
+                height: 5rem;
+                display: inline-block;
+
+                .prodcounter-rehau-for-landing {
+                  background-color: #424242;
+                  color: white;
+                  padding-left: 35px;
+                  height: 48px;
+                }
+                input {
+                  transition: .5s;
+                  cursor: pointer;
+                  @include roboto-md(rem(36px), rem(60px));
+                  text-align: center;
+                  border: none;
+                  width: 9rem;
+                  height: 5.5rem;
+
+                  background-image: url(../img/rehau-img/basket.png);
+                  background-repeat: no-repeat;
+                  background-position-y: 50%;
+                  background-position-x: 35%;
+                }
+              }
+            }
+          }
+          //main container
+          .template-main-item {
+            padding: 16px;
+            .template-container-rehau {
+              .other-template-rehau {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                .other-single-template-rehau {
+                  display: flex;
+                  flex-direction: column;
+                  min-width: 184px;
+                  min-height: 224px;
+                  max-width: 184px;
+                  max-height: 224px;
+                  align-items: center;
+
+                  margin: 10px;
+
+                  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
+                  &.selected {
+                    background-color: $primary_green;
+                    color: white;
+                  }
+                  &:hover {
+                    background-color: #F5F5F5;
+                  }
+
+                  .other-template-img {
+                    max-width: 125px;
+                    max-height: 125px;
+                    text-align: center;
+
+                    img {
+                      max-width: 125px;
+                      max-height: 125px;
+                      text-align: center;
+                    }
+                  }
+
+                  .other-template-subscr {
+                    font-size: 18px;
+                    line-height: 32px;
+                    margin: 0 auto;
+                    text-align: center;
+                    color: $primary_green;
+                    white-space: normal;
+                    padding-top: 16px;
+
+                    max-height: 50px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                  }
+
+                }
+                .single-leaf-windows {
+                  margin-top: 0px;
+                  .single-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .single-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+                //duble leaf windows
+                .duble-leaf-windows {
+                  .duble-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .duble-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+                //three leaf windows
+                .three-leaf-windows {
+                  .three-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .three-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+
+              }
+
+
+              .template-header {
+                text-align: center;
+              }
+
+              .template-title {
+                @extend .splash;
+                @include roboto-lt(rem(80px), rem(80px));
+                height: rem(92px);
+                text-align: center;
+                color: $main_green;
+                border: 1px solid $main_green;
+                border-radius: rem(16px);
+                background-color: transparent;
+                outline: none;
+                &.active {
+                  color: #fff;
+                  background-color: $main_green;
+                }
+              }
+
+              .tempate-type-box {
+                position: relative;
+                display: inline;
+              }
+              .template-type {
+                @include roboto-lt(rem(36px), rem(65px));
+                position: absolute;
+                top: -4rem;
+                left: 2rem;
+                padding: rem(10px) rem(20px);
+                border-radius: rem(16px);
+                background-color: #242424;
+                color: #fff;
+                white-space: nowrap;
+                cursor: pointer;
+                &:before {
+                  position: absolute;
+                  z-index: 1;
+                  top: 1.75rem;
+                  left: -1.25rem;
+                  display: block;
+                  width: 0;
+                  border-width: 1.25rem 1.25rem 1.25rem 0;
+                  border-style: solid;
+                  border-color: transparent #242424;
+                  content: '';
+                }
+              }
+              .template-type-btn {
+                border-bottom: 1px solid $main_gray_btn;
+                &:last-child {
+                  border-bottom: none;
+                }
+              }
+
+              .template-discr {
+                @include roboto-lt(rem(80px));
+                text-align: center;
+                color: $main_gray_txt;
+              }
+
+              .template-section {
+                //width: rem(1500px);
+                height: rem(1000px);
+                text-align: center;
+                cursor: pointer;
+              }
+
+              .template-footer {
+                  @include display-flex();
+                  overflow: auto;
+                  position: relative;
+                  top: 5rem;
+                  display: flex;
+                  overflow: auto;
+            //    @include flex-flow(row nowrap);
+            //    @include justify-content(center);
+              }
+              .template-footerLight {
+                display: none !important;
+                flex-direction: column;
+                left: -1rem;
+                width: 20rem;
+                @include display-flex();
+                overflow: auto;
+                position: relative;
+                top: 20rem;
+                display: flex;
+                overflow: auto;
+                &.goLeft{
+                  display: inline-flex !important;
+                }
+                //    @include flex-flow(row nowrap);
+                //    @include justify-content(center);
+              }
+
+              .other-templates {
+                @include display-flex();
+                @include overflow-scroll();
+                min-height: 14rem;
+                overflow-y: hidden;
+                overflow-x: auto;
+              }
+
+              .other-template {
+                display: inline-block;
+                min-width: 190px;
+                margin: 0 rem(10px);
+                cursor: pointer;
+                &.selected {
+                  background-color: rgba(114, 225, 133, 0.55);
+                  border-radius: 1rem;
+                }
+              }
+
+              .other-template-img {
+                @extend .splash;
+                text-align: center;
+                img {
+                  max-height: 150px;
+                }
+              }
+
+              .other-template-label {
+                @include roboto-lt(rem(24px));
+                max-width: rem(150px);
+                margin: rem(20px) auto 0 auto;
+                text-align: center;
+                word-wrap: break-word;
+                color: #666;
+              }
+
+              .other-template-subscr {
+                @extend .truncated;
+                @include roboto-lt(rem(24px));
+                max-width: rem(200px);
+                margin: 0 auto;
+                text-align: center;
+                color: #666;
               }
             }
           }
@@ -706,17 +1059,24 @@ body {
         display: inline-block;
         white-space: nowrap;
         height: auto;
-        overflow: scroll; 
+        overflow: scroll;
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+          }
 
         .template {
           flex: 0 0 auto;
           padding: 10px 0 0 0;
           min-width: 100px;
-          width: auto;
+          width: 150px;
           height: auto;
           line-height: 80px;
           text-align: center;
-          // margin: 0 15px;
           position: relative;
           display: inline-flex;
           flex-direction: column;
@@ -736,7 +1096,7 @@ body {
             white-space: pre-wrap;
 
             max-width: 128px;
-            
+
 
             font-style: normal;
             font-weight: normal;
@@ -1075,10 +1435,11 @@ body {
         width: 100%;
         height: 120px;
         left: 0px;
-        top: 520px;
+        bottom: 0;
 
         background: #EDEDED;
         padding: 8px 16px 16px 16px;
+        position: fixed;
 
         .heat-coeff-txt {
           span {

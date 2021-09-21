@@ -6449,9 +6449,9 @@ if (window.location.hostname !== 'localhost') {
                         console.log(results);
                     }
                 });
-                
-                
-                
+
+
+
 
                 /**============ METHODS ================*/
 
@@ -6498,7 +6498,84 @@ if (window.location.hostname !== 'localhost') {
                         selected_id = id - 14;
                     }
                     TemplatesServ.selectNewTemplate(selected_id, id);
+                }
 
+                function saveProduct() {
+                    GlobalStor.global.showCoefInfoBlock = 0;
+                    GlobalStor.global.servicesPriceIndex = -1;
+                    GlobalStor.global.continued = 0;
+                    ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
+                    MainServ.preparePrice(
+                        ProductStor.product.template,
+                        ProductStor.product.profile.id,
+                        ProductStor.product.glass,
+                        ProductStor.product.hardware.id,
+                        ProductStor.product.lamination.lamination_in_id
+                    ).then(function () {
+                        if (globalConstants.serverIP === 'http://api.calc.csokna.ru' || globalConstants.serverIP === 'https://api.windowscalculator.net') {
+                            ProductStor.product.template_source.report = ProductStor.product.report;
+                        }
+                        if (MainServ.inputProductInOrder()) {
+                            GlobalStor.global.construction_count = 0;
+                            OrderStor.order.products.forEach(function (product) {
+                                GlobalStor.global.construction_count += parseInt(product.product_qty);
+                            });
+                            GlobalStor.global.product_qty = 1;
+                            if (ProductStor.product.is_addelem_only) {
+                                if ($location.path() === "/mobile") {
+                                    GlobalStor.global.MobileTabActive = 4;
+                                }
+                                GlobalStor.global.isLoader = 0;
+                                if ($location.path() !== "/mobile") {
+                                    MainServ.createNewProduct();
+                                    $timeout(() => {
+                                        NavMenuServ.createAddElementsProduct();
+                                    }, 100);
+                                }
+
+                            }
+                        }
+                    });
+
+                }
+
+
+                function checkForAddElem() {
+                  if (!GlobalStor.global.isChangedTemplate) {
+                    GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
+                  }
+                  if (!GlobalStor.global.isZeroPriceList.length) {
+                    if (!ProductStor.product.is_addelem_only) {
+                      // alert();
+                      if (GlobalStor.global.dangerAlert < 1) {
+                        if (ProductStor.product.beadsData.length > 0) {
+                          if (OrderStor.order.products.length === 0) {
+                            saveProduct();
+                          } else if (GlobalStor.global.isNewTemplate === 1) {
+                            saveProduct();
+                          } else if (GlobalStor.global.isChangedTemplate === 0) {
+                            //  ALERT
+                            GlobalStor.global.isNoChangedProduct = 1;
+                          } else {
+                            saveProduct();
+                          }
+                        } else {
+                          GeneralServ.isErrorProd(
+                            $filter("translate")("common_words.ERROR_PROD_BEADS")
+                          );
+                        }
+                      }
+                    } else {
+                      saveAddElems();
+                    }
+                  } else {
+                    var msg = thisCtrl.ATENTION_MSG1; //+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                    GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                      msg += " " + ZeroElem + "\n";
+                    });
+                    msg += " \n" + thisCtrl.ATENTION_MSG2;
+                    GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
+                  }
                 }
 
                 function setTab(newTab) {
@@ -6527,6 +6604,8 @@ if (window.location.hostname !== 'localhost') {
                 //------ clicking
                 thisCtrl.setTab = setTab;
                 thisCtrl.isSet = isSet;
+                thisCtrl.checkForAddElem = checkForAddElem;
+                thisCtrl.saveProduct = saveProduct;
                 thisCtrl.downloadTemplateForMobile = downloadTemplateForMobile;
                 thisCtrl.closeTemplatePanelMobile = closeTemplatePanelMobile;
                 thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;

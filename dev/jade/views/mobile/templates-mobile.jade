@@ -14,28 +14,79 @@
           | Add elements only
   // rehau templates
   .common-scroll-container-rehau(ng-if="templatesPanel.U.userInfo.factory_id === 2")
-    .template-top-item
-      .template-header
-        .template-item-title Выбор шаблона
-        .template-item-subtitle(ng-if="!templatesPanel.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
-        .template-item-subtitle(ng-if="templatesPanel.G.global.SelectedTemplateName") {{ templatesPanel.G.global.SelectedTemplateName }}
-      button.template-close(ng-click="mobilePage.closePanelMobile()")
-    .template-main-item
-      .single-leaf-windows-mobile(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-init="Pindex = $index+1" fs-click="templatesPanel.selectNewTemplate($index)",)
-          .single-leaf-windows-title
-              p Окна одностворчатые
-          .templates-list
-              .template(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)"
-              ng-if="templateIcon.type === Pindex"  ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)"
-              ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}")
-                  img.template-img(ng-src="{{ templateIcon.src }}" )
-                  .name {{templateIcon.name}}
-      
+    .template-content-rehau
+      .template-top-item
+        .template-header
+          .template-item-title Выбор шаблона
+          .template-item-subtitle(ng-if="!templatesPanel.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+          .template-item-subtitle(ng-if="templatesPanel.G.global.SelectedTemplateName") {{ templatesPanel.G.global.SelectedTemplateName }}
+        button.template-close(ng-click="mobilePage.closePanelMobile()")
+      .template-main-item
+        .configur-panelLight-rehau.template-container-rehau(ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}")
+          .other-template-rehau
+            .single-leaf-windows 
+              .single-leaf-windows-title <h1>Окна одностворчатые</h1>
+              .single-leaf-windows-templates
+                .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
+                  .other-template-img(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+                    img(ng-src="{{ templateIcon.src }}")
+                  .other-template-subscr(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}
+            .duble-leaf-windows
+              .duble-leaf-windows-title <h1>Окна двухстворчатые</h1>
+              .duble-leaf-windows-templates
+                .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index + 4)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(4, 10)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
+                  .other-template-img(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+                    img(ng-src="{{ templateIcon.src }}")
+                  .other-template-subscr(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}
+
+            .three-leaf-windows
+              .three-leaf-windows-title <h1>Окна трёхстворчатые</h1>
+              .three-leaf-windows-templates
+                .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index + 10)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(10, 16)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
+                  .other-template-img(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+                    img(ng-src="{{ templateIcon.src }}")
+                  .other-template-subscr(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}
 
 
+            .three-leaf-windows
+              .three-leaf-windows-title <h1>Окна Т-образные</h1>
+              .three-leaf-windows-templates
+                .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index + 16)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(16, 26)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
+                  .other-template-img(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+                    img(ng-src="{{ templateIcon.src }}")
+                  .other-template-subscr(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}
 
-
-
-
-
-
+            .three-leaf-windows
+              .three-leaf-windows-title <h1>Двери балконные</h1>
+              .three-leaf-windows-templates
+                .other-single-template-rehau(fs-click="templatesPanel.selectNewTemplate($index + 26)", ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)", ng-class="{'selected': templatesPanel.G.global.selectedTemplateName === $index}")
+                  .other-template-img(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+                    img(ng-src="{{ templateIcon.src }}")
+                  .other-template-subscr(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}    
+      .bottom-block
+        .heat-coeff-txt
+          span Оценка энергоэффективности
+        .price-and-heat-coeff
+            .expert-mark-row
+              .expert-mark {{templatesPanel.P.product.heat_coef_expert_mark}} ⸺ 
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark < 6.1")
+                  span  Для балконов
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark> 6.1 && templatesPanel.P.product.heat_coef_expert_mark <= 6.5")
+                  span  Достаточно хорошо
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark > 6.5 && templatesPanel.P.product.heat_coef_expert_mark <= 7")
+                  span  Хорошо!
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark > 7 && templatesPanel.P.product.heat_coef_expert_mark <= 7.5")
+                  span  Очень хорошо!
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark > 7.5 && templatesPanel.P.product.heat_coef_expert_mark <= 8.2")
+                  span  Потрясающе!
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark > 8.2 && templatesPanel.P.product.heat_coef_expert_mark <= 9")
+                  span  Превосходно!
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark > 9 && templatesPanel.P.product.heat_coef_expert_mark <= 9.4")
+                  span  Великолепно!
+              .title-rehau(ng-if="templatesPanel.P.product.heat_coef_expert_mark > 9.4")
+                  span  Лучший выбор!
+            price(price-value="templatesPanel.G.global.tempPrice", price-currency="templatesPanel.U.userInfo.currency" ng-click='templatesPanel.checkForAddElem()')
+        .to-basket-block
+          button.add-to-basket(ng-click="templatesPanel.checkForAddElem()") В корзину
+          .counter-rehau-for-landing
+            input.prodcounter-rehau-for-landing(readonly, ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)")
