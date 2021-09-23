@@ -1,58 +1,100 @@
 .mobile-profiles.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 2" ng-controller="ProfilesCtrl as profilesPanel")
-    include accept-container
-    .profiles-list
-        .profile-block(ng-repeat="producer in profilesPanel.G.global.profiles track by $index")
-            .producer(ng-click='profilesPanel.ClickOnFolder($event)')
-                .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'en'") {{ profilesPanel.G.global.profilesType[$index].translate.en }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ru'") {{ profilesPanel.G.global.profilesType[$index].translate.ru }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'uk'") {{ profilesPanel.G.global.profilesType[$index].translate.ua }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'pl'") {{ profilesPanel.G.global.profilesType[$index].translate.pl }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de'") {{ profilesPanel.G.global.profilesType[$index].translate.de }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg'") {{ profilesPanel.G.global.profilesType[$index].translate.bg }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it'") {{ profilesPanel.G.global.profilesType[$index].translate.it }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es'") {{ profilesPanel.G.global.profilesType[$index].translate.es }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro'") {{ profilesPanel.G.global.profilesType[$index].translate.ro }}
+    .box(ng-if="profilesPanel.U.userInfo.factory_id !== 2")
+        include accept-container
+        .profiles-list
+            .profile-block(ng-repeat="producer in profilesPanel.G.global.profiles track by $index")
+                .producer(ng-click='profilesPanel.ClickOnFolder($event)')
+                    .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'en'") {{ profilesPanel.G.global.profilesType[$index].translate.en }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ru'") {{ profilesPanel.G.global.profilesType[$index].translate.ru }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'uk'") {{ profilesPanel.G.global.profilesType[$index].translate.ua }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'pl'") {{ profilesPanel.G.global.profilesType[$index].translate.pl }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de'") {{ profilesPanel.G.global.profilesType[$index].translate.de }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg'") {{ profilesPanel.G.global.profilesType[$index].translate.bg }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it'") {{ profilesPanel.G.global.profilesType[$index].translate.it }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es'") {{ profilesPanel.G.global.profilesType[$index].translate.es }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro'") {{ profilesPanel.G.global.profilesType[$index].translate.ro }}
 
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profilesPanel.G.global.profilesType[$index].translate.en") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && !profilesPanel.G.global.profilesType[$index].translate.ru") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'uk' && !profilesPanel.G.global.profilesType[$index].translate.ua") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'pl' && !profilesPanel.G.global.profilesType[$index].translate.pl") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && !profilesPanel.G.global.profilesType[$index].translate.de") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profilesPanel.G.global.profilesType[$index].translate.bg") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profilesPanel.G.global.profilesType[$index].translate.it") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profilesPanel.G.global.profilesType[$index].translate.es") {{ profilesPanel.G.global.profilesType[$index].name }}
-                .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profilesPanel.G.global.profilesType[$index].translate.ro") {{ profilesPanel.G.global.profilesType[$index].name }}
-            .profile-box
-                .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
-                    .profile-info-item(ng-click="profilesPanel.checkForAddElem(profile.id)")
-                        img.profile-img(ng-if="profile.img.length  && !profilesPanel.G.global.cordova", ng-src="{{profile.img}}" )
-                        img.profile-img(ng-if="profile.img.length && profilesPanel.G.global.cordova", ng-src="{{profilesPanel.extendUrl(profile.img)}}" )
-                        .name
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && profile.translate.en") {{profile.translate.en}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && profile.translate.ru") {{profile.translate.ru}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'uk' && profile.translate.ua") {{profile.translate.ua}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'pl' && profile.translate.pl") {{profile.translate.pl}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && profile.translate.de") {{profile.translate.de}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && profile.translate.bg") {{profile.translate.bg}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && profile.translate.it") {{profile.translate.it}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && profile.translate.es") {{profile.translate.es}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && profile.translate.ro") {{profile.translate.ro}}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profilesPanel.G.global.profilesType[$index].translate.en") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && !profilesPanel.G.global.profilesType[$index].translate.ru") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'uk' && !profilesPanel.G.global.profilesType[$index].translate.ua") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'pl' && !profilesPanel.G.global.profilesType[$index].translate.pl") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && !profilesPanel.G.global.profilesType[$index].translate.de") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profilesPanel.G.global.profilesType[$index].translate.bg") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profilesPanel.G.global.profilesType[$index].translate.it") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profilesPanel.G.global.profilesType[$index].translate.es") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profilesPanel.G.global.profilesType[$index].translate.ro") {{ profilesPanel.G.global.profilesType[$index].name }}
+                .profile-box
+                    .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
+                        .profile-info-item(ng-click="profilesPanel.checkForAddElem(profile.id)")
+                            img.profile-img(ng-if="profile.img.length  && !profilesPanel.G.global.cordova", ng-src="{{profile.img}}" )
+                            img.profile-img(ng-if="profile.img.length && profilesPanel.G.global.cordova", ng-src="{{profilesPanel.extendUrl(profile.img)}}" )
+                            .name
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && profile.translate.en") {{profile.translate.en}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && profile.translate.ru") {{profile.translate.ru}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'uk' && profile.translate.ua") {{profile.translate.ua}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'pl' && profile.translate.pl") {{profile.translate.pl}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && profile.translate.de") {{profile.translate.de}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && profile.translate.bg") {{profile.translate.bg}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && profile.translate.it") {{profile.translate.it}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && profile.translate.es") {{profile.translate.es}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && profile.translate.ro") {{profile.translate.ro}}
 
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profile.translate.en") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && !profile.translate.ru") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'uk' && !profile.translate.ua") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'pl' && !profile.translate.pl") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && !profile.translate.de") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profile.translate.bg") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profile.translate.it") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profile.translate.es") {{profile.name}}
-                            p(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profile.translate.ro") {{profile.name}}
-                        .common-info
-                            p(ng-if="profile.cameras === 1 ")                      {{profile.cameras}} {{::profilesPanel.CAMERa}}
-                            p(ng-if="profile.cameras > 2 && profile.cameras < 6")  {{profile.cameras}} {{::profilesPanel.CAMERa}}
-                            p(ng-if="profile.cameras > 5")                         {{profile.cameras}} {{::profilesPanel.CAMERa}}
-                            p {{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}
-                    .info-container
-                        .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
-                            | Information
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'en' && !profile.translate.en") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'ru' && !profile.translate.ru") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'uk' && !profile.translate.ua") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'pl' && !profile.translate.pl") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'de' && !profile.translate.de") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'bg' && !profile.translate.bg") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'it' && !profile.translate.it") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'es' && !profile.translate.es") {{profile.name}}
+                                p(ng-if="profilesPanel.U.userInfo.langLabel === 'ro' && !profile.translate.ro") {{profile.name}}
+                            .common-info
+                                p(ng-if="profile.cameras === 1 ")                      {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                                p(ng-if="profile.cameras > 2 && profile.cameras < 6")  {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                                p(ng-if="profile.cameras > 5")                         {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                                p {{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}
+                        .info-container
+                            .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
+                                | Information
+    .box(ng-if="profilesPanel.U.userInfo.factory_id === 2")
+        include top-block 
+        .profiles-list-rehau
+            .profile-block(ng-repeat="producer in profilesPanel.G.global.profiles track by $index")
+                .producer(ng-click='profilesPanel.ClickOnFolder($event)')
+                    .title(ng-if="profilesPanel.U.userInfo.langLabel === 'en'") {{ profilesPanel.G.global.profilesType[$index].name }}
+                    .info-rehau(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
+                .profile-box
+                    .profile-info(ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" )
+                        .profile-info-item(ng-click="profilesPanel.checkForAddElem(profile.id)")
+                            img.profile-img(ng-if="profile.img.length && !profilesPanel.G.global.cordova", ng-src="{{profile.img}}" )
+                            img.profile-img(ng-if="profile.img.length && profilesPanel.G.global.cordova", ng-src="{{profilesPanel.extendUrl(profile.img)}}" )
+                            .name
+                                p {{profile.short_name}}
+                            .common-info
+                                .profile-blocks
+                                  .noise-block
+                                    .profile-gray-block
+                                      .profile-text-block Шумоизоляция
+                                      .profile-number-block 7
+                                      .profile-red-block
+                                  .light-block
+                                    .profile-gray-block
+                                      .profile-text-block Светопропускание
+                                      .profile-number-block 9
+                                      .profile-red-block
+                                  .warm-block
+                                    .profile-gray-block
+                                      .profile-text-block Теплоизоляция
+                                      .profile-number-block 7
+                                      .profile-red-block
+                                  .burglary-block
+                                    .profile-gray-block
+                                      .profile-text-block Взломостойкость
+                                      .profile-number-block 9
+                                      .profile-red-block
+                        .info-container
+                            .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
+                                | Подробнее
+
+        include bottom-block

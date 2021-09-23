@@ -27,7 +27,7 @@
     </div>
     <div fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}" class="conf-item-rehau">
       <div class="item-title">Доп. элементы</div>
-      <div class="conf-item-text"> </div>
+      <div class="conf-item-text"></div>
     </div>
   </div>
   <div class="bottom-block">
@@ -44,12 +44,27 @@
         <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Великолепно!</span></div>
         <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
       </div>
-      <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency" ng-click="configMenu.checkForAddElem()"></price>
+      <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
     </div>
-    <div class="to-basket-block">
+    <!--templates-->
+    <div ng-if="mobilePage.isSet(1)" class="to-basket-block">
+      <button ng-click="templatesPanel.checkForAddElem()" class="add-to-basket">В корзину</button>
+      <div class="counter-rehau-for-landing">
+        <input readonly ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
+      </div>
+    </div>
+    <!--configuration-->
+    <div ng-if="mobilePage.isSet(5) &amp;&amp; mobilePage.G.global.activePanel !== 2" class="to-basket-block">
       <button ng-click="configMenu.checkForAddElem()" class="add-to-basket">В корзину</button>
       <div class="counter-rehau-for-landing">
         <input readonly ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
+      </div>
+    </div>
+    <!--profiles-->
+    <div ng-if="mobilePage.G.global.activePanel === 2" class="to-basket-block">
+      <button ng-click="profilesPanel.checkForAddElemScreen()" class="add-to-basket">В корзину</button>
+      <div class="counter-rehau-for-landing">
+        <input readonly ng-model="profilesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
       </div>
     </div>
   </div>

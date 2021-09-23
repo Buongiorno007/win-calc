@@ -1,0 +1,26 @@
+
+<div class="top-container">
+  <div ng-if="mobilePage.isSet(1)" class="top-container-item">
+    <div class="top-container-header">
+      <div class="top-container-title">Выбор шаблона</div>
+      <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+      <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
+    </div>
+    <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+  </div>
+  <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
+    <div class="top-container-header">
+      <div class="top-container-title">Профиль</div>
+      <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
+    </div>
+    <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+  </div>
+  <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
+    <div class="top-container-header">
+      <div class="top-container-title">Стелопакет</div>
+      <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+      <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
+    </div>
+    <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+  </div>
+</div>

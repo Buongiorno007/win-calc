@@ -83,15 +83,32 @@
   </div>
   <!-- rehau templates-->
   <div ng-if="templatesPanel.U.userInfo.factory_id === 2" class="common-scroll-container-rehau">
-    <div class="template-content-rehau">
-      <div class="template-top-item">
-        <div class="template-header">
-          <div class="template-item-title">Выбор шаблона</div>
-          <div ng-if="!templatesPanel.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="template-item-subtitle"></div>
-          <div ng-if="templatesPanel.G.global.SelectedTemplateName" class="template-item-subtitle">{{ templatesPanel.G.global.SelectedTemplateName }}</div>
+    <div class="top-container">
+      <div ng-if="mobilePage.isSet(1)" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Выбор шаблона</div>
+          <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+          <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
         </div>
-        <button ng-click="mobilePage.closePanelMobile()" class="template-close"></button>
+        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
       </div>
+      <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Профиль</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Стелопакет</div>
+          <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+          <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+      </div>
+    </div>
+    <div class="template-content-rehau">
       <div class="template-main-item">
         <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
           <div class="other-template-rehau">
@@ -136,34 +153,49 @@
               <div class="three-leaf-windows-templates">
                 <div fs-click="templatesPanel.selectNewTemplate($index + 26)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)" ng-class="{'selected': templatesPanel.G.global.selectedTemplateName === $index}" class="other-single-template-rehau">
                   <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
-                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}    </div>
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="bottom-block">
-        <div class="heat-coeff-txt"><span>Оценка энергоэффективности</span></div>
-        <div class="price-and-heat-coeff">
-          <div class="expert-mark-row">
-            <div class="expert-mark">{{templatesPanel.P.product.heat_coef_expert_mark}} ⸺ </div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Достаточно хорошо</span></div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Хорошо!</span></div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Очень хорошо!</span></div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Потрясающе!</span></div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Превосходно!</span></div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; templatesPanel.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Великолепно!</span></div>
-            <div ng-if="templatesPanel.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
-          </div>
-          <price price-value="templatesPanel.G.global.tempPrice" price-currency="templatesPanel.U.userInfo.currency" ng-click="templatesPanel.checkForAddElem()"></price>
+    </div>
+    <div class="bottom-block">
+      <div class="heat-coeff-txt"><span>Оценка энергоэффективности</span></div>
+      <div class="price-and-heat-coeff">
+        <div class="expert-mark-row">
+          <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} ⸺ </div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Достаточно хорошо</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Хорошо!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Очень хорошо!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Потрясающе!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Превосходно!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Великолепно!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
         </div>
-        <div class="to-basket-block">
-          <button ng-click="templatesPanel.checkForAddElem()" class="add-to-basket">В корзину</button>
-          <div class="counter-rehau-for-landing">
-            <input readonly ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
-          </div>
+        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
+      </div>
+      <!--templates-->
+      <div ng-if="mobilePage.isSet(1)" class="to-basket-block">
+        <button ng-click="templatesPanel.checkForAddElem()" class="add-to-basket">В корзину</button>
+        <div class="counter-rehau-for-landing">
+          <input readonly ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
+        </div>
+      </div>
+      <!--configuration-->
+      <div ng-if="mobilePage.isSet(5) &amp;&amp; mobilePage.G.global.activePanel !== 2" class="to-basket-block">
+        <button ng-click="configMenu.checkForAddElem()" class="add-to-basket">В корзину</button>
+        <div class="counter-rehau-for-landing">
+          <input readonly ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
+        </div>
+      </div>
+      <!--profiles-->
+      <div ng-if="mobilePage.G.global.activePanel === 2" class="to-basket-block">
+        <button ng-click="profilesPanel.checkForAddElemScreen()" class="add-to-basket">В корзину</button>
+        <div class="counter-rehau-for-landing">
+          <input readonly ng-model="profilesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
         </div>
       </div>
     </div>

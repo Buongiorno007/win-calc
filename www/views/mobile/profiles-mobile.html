@@ -1,128 +1,247 @@
 
 <div ng-if="mobilePage.G.global.activePanel === 2" ng-controller="ProfilesCtrl as profilesPanel" class="mobile-profiles mobile-common-panel">
-  <div class="accept-container">
-    <div ng-if="!mobilePage.isSet(1)" class="row">
-      <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
-        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
+  <div ng-if="profilesPanel.U.userInfo.factory_id !== 2" class="box">
+    <div class="accept-container">
+      <div ng-if="!mobilePage.isSet(1)" class="row">
+        <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
+          <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
+        </div>
+        <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
+          <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
+        </div>
+        <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
       </div>
-      <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
-        <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
+      <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
+        <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
+          <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
+        </div>
+        <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
+          <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
+        </div>
+        <!--СТЕКЛОПАКЕТ-->
+        <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
+          <div ng-if="mobilePage.P.product.glass.length == 1" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.glass.length == 2" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</p>
+          </div>
+        </div>
+        <!--ФУРНИТУРА-->
+        <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
+            <p>{{ mobilePage.P.product.hardware.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorHandle.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorLock.name }}</p>
+          </div>
+        </div>
+        <!--ПРОФИЛЬ-->
+        <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
+            <p>{{ mobilePage.P.product.profile.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorName | translate }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorSashName }}</p>
+          </div>
+        </div>
+        <!--ЛАМИНАЦИЯ-->
+        <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
+          <div class="value">
+            <p>{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</p>
+          </div>
+        </div>
       </div>
-      <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
+      <div ng-if="mobilePage.isSet(1)" class="row">
+        <div ng-click="mobilePage.closePanelMobile()" class="back-button"></div>
+        <div class="row-title">
+          <p>{{mobilePage.TEMPLATE_SELECTION}}</p>
+        </div>
+      </div>
     </div>
-    <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
-      <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-        <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
-      </div>
-      <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-        <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
-      </div>
-      <!--СТЕКЛОПАКЕТ-->
-      <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
-        <div ng-if="mobilePage.P.product.glass.length == 1" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku }}</p>
+    <div class="profiles-list">
+      <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" class="profile-block">
+        <div ng-click="profilesPanel.ClickOnFolder($event)" class="producer">
+          <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'en'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.en }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ru }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ua }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.pl }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'de'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.de }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.bg }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'it'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.it }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'es'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.es }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ro }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.en" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ru" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ua" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.pl" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.de" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.bg" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.it" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.es" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ro" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
         </div>
-        <div ng-if="mobilePage.P.product.glass.length == 2" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</p>
+        <div class="profile-box">
+          <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" class="profile-info">
+            <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="profile-info-item"><img ng-if="profile.img.length  &amp;&amp; !profilesPanel.G.global.cordova" ng-src="{{profile.img}}" class="profile-img"><img ng-if="profile.img.length &amp;&amp; profilesPanel.G.global.cordova" ng-src="{{profilesPanel.extendUrl(profile.img)}}" class="profile-img">
+              <div class="name">
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; profile.translate.en">{{profile.translate.en}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; profile.translate.ru">{{profile.translate.ru}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; profile.translate.ua">{{profile.translate.ua}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; profile.translate.pl">{{profile.translate.pl}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; profile.translate.de">{{profile.translate.de}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; profile.translate.bg">{{profile.translate.bg}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; profile.translate.it">{{profile.translate.it}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; profile.translate.es">{{profile.translate.es}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; profile.translate.ro">{{profile.translate.ro}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profile.translate.en">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profile.translate.ru">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profile.translate.ua">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profile.translate.pl">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profile.translate.de">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profile.translate.bg">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profile.translate.it">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profile.translate.es">{{profile.name}}</p>
+                <p ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profile.translate.ro">{{profile.name}}</p>
+              </div>
+              <div class="common-info">
+                <p ng-if="profile.cameras === 1 ">                     {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
+                <p ng-if="profile.cameras &gt; 2 &amp;&amp; profile.cameras &lt; 6"> {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
+                <p ng-if="profile.cameras &gt; 5">                        {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
+                <p>{{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}</p>
+              </div>
+            </div>
+            <div class="info-container">
+              <div ng-if="profile.img.length || profile.link.length || profile.description.length" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="information">Information</div>
+            </div>
+          </div>
         </div>
-        <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</p>
-        </div>
-      </div>
-      <!--ФУРНИТУРА-->
-      <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
-          <p>{{ mobilePage.P.product.hardware.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorHandle.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorLock.name }}</p>
-        </div>
-      </div>
-      <!--ПРОФИЛЬ-->
-      <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
-          <p>{{ mobilePage.P.product.profile.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorName | translate }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorSashName }}</p>
-        </div>
-      </div>
-      <!--ЛАМИНАЦИЯ-->
-      <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
-        <div class="value">
-          <p>{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</p>
-        </div>
-      </div>
-    </div>
-    <div ng-if="mobilePage.isSet(1)" class="row">
-      <div ng-click="mobilePage.closePanelMobile()" class="back-button"></div>
-      <div class="row-title">
-        <p>{{mobilePage.TEMPLATE_SELECTION}}</p>
       </div>
     </div>
   </div>
-  <div class="profiles-list">
-    <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" class="profile-block">
-      <div ng-click="profilesPanel.ClickOnFolder($event)" class="producer">
-        <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'en'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.en }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ru }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ua }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.pl }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'de'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.de }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.bg }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'it'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.it }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'es'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.es }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro'" class="title">{{ profilesPanel.G.global.profilesType[$index].translate.ro }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.en" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ru" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ua" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.pl" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.de" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.bg" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.it" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.es" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
-        <div ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profilesPanel.G.global.profilesType[$index].translate.ro" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+  <div ng-if="profilesPanel.U.userInfo.factory_id === 2" class="box">
+    <div class="top-container">
+      <div ng-if="mobilePage.isSet(1)" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Выбор шаблона</div>
+          <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+          <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
       </div>
-      <div class="profile-box">
-        <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" class="profile-info">
-          <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="profile-info-item"><img ng-if="profile.img.length  &amp;&amp; !profilesPanel.G.global.cordova" ng-src="{{profile.img}}" class="profile-img"><img ng-if="profile.img.length &amp;&amp; profilesPanel.G.global.cordova" ng-src="{{profilesPanel.extendUrl(profile.img)}}" class="profile-img">
-            <div class="name">
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; profile.translate.en">{{profile.translate.en}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; profile.translate.ru">{{profile.translate.ru}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; profile.translate.ua">{{profile.translate.ua}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; profile.translate.pl">{{profile.translate.pl}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; profile.translate.de">{{profile.translate.de}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; profile.translate.bg">{{profile.translate.bg}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; profile.translate.it">{{profile.translate.it}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; profile.translate.es">{{profile.translate.es}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; profile.translate.ro">{{profile.translate.ro}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'en' &amp;&amp; !profile.translate.en">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !profile.translate.ru">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !profile.translate.ua">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !profile.translate.pl">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'de' &amp;&amp; !profile.translate.de">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !profile.translate.bg">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'it' &amp;&amp; !profile.translate.it">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'es' &amp;&amp; !profile.translate.es">{{profile.name}}</p>
-              <p ng-if="profilesPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !profile.translate.ro">{{profile.name}}</p>
+      <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Профиль</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Стелопакет</div>
+          <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+          <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+      </div>
+    </div>
+    <div class="profiles-list-rehau">
+      <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" class="profile-block">
+        <div ng-click="profilesPanel.ClickOnFolder($event)" class="producer">
+          <div ng-if="profilesPanel.U.userInfo.langLabel === 'en'" class="title">{{ profilesPanel.G.global.profilesType[$index].name }}</div>
+          <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info-rehau"></div>
+        </div>
+        <div class="profile-box">
+          <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" class="profile-info">
+            <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="profile-info-item"><img ng-if="profile.img.length &amp;&amp; !profilesPanel.G.global.cordova" ng-src="{{profile.img}}" class="profile-img"><img ng-if="profile.img.length &amp;&amp; profilesPanel.G.global.cordova" ng-src="{{profilesPanel.extendUrl(profile.img)}}" class="profile-img">
+              <div class="name">
+                <p>{{profile.short_name}}</p>
+              </div>
+              <div class="common-info">
+                <div class="profile-blocks">
+                  <div class="noise-block">
+                    <div class="profile-gray-block">
+                      <div class="profile-text-block">Шумоизоляция</div>
+                      <div class="profile-number-block">7</div>
+                      <div class="profile-red-block"></div>
+                    </div>
+                  </div>
+                  <div class="light-block">
+                    <div class="profile-gray-block">
+                      <div class="profile-text-block">Светопропускание</div>
+                      <div class="profile-number-block">9</div>
+                      <div class="profile-red-block"></div>
+                    </div>
+                  </div>
+                  <div class="warm-block">
+                    <div class="profile-gray-block">
+                      <div class="profile-text-block">Теплоизоляция</div>
+                      <div class="profile-number-block">7</div>
+                      <div class="profile-red-block"></div>
+                    </div>
+                  </div>
+                  <div class="burglary-block">
+                    <div class="profile-gray-block">
+                      <div class="profile-text-block">Взломостойкость</div>
+                      <div class="profile-number-block">9</div>
+                      <div class="profile-red-block"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="common-info">
-              <p ng-if="profile.cameras === 1 ">                     {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
-              <p ng-if="profile.cameras &gt; 2 &amp;&amp; profile.cameras &lt; 6"> {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
-              <p ng-if="profile.cameras &gt; 5">                        {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
-              <p>{{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}</p>
+            <div class="info-container">
+              <div ng-if="profile.img.length || profile.link.length || profile.description.length" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="information">Подробнее</div>
             </div>
           </div>
-          <div class="info-container">
-            <div ng-if="profile.img.length || profile.link.length || profile.description.length" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="information">Information</div>
-          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-block">
+      <div class="heat-coeff-txt"><span>Оценка энергоэффективности</span></div>
+      <div class="price-and-heat-coeff">
+        <div class="expert-mark-row">
+          <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} ⸺ </div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Достаточно хорошо</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Хорошо!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Очень хорошо!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Потрясающе!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Превосходно!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Великолепно!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+        </div>
+        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
+      </div>
+      <!--templates-->
+      <div ng-if="mobilePage.isSet(1)" class="to-basket-block">
+        <button ng-click="templatesPanel.checkForAddElem()" class="add-to-basket">В корзину</button>
+        <div class="counter-rehau-for-landing">
+          <input readonly ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
+        </div>
+      </div>
+      <!--configuration-->
+      <div ng-if="mobilePage.isSet(5) &amp;&amp; mobilePage.G.global.activePanel !== 2" class="to-basket-block">
+        <button ng-click="configMenu.checkForAddElem()" class="add-to-basket">В корзину</button>
+        <div class="counter-rehau-for-landing">
+          <input readonly ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
+        </div>
+      </div>
+      <!--profiles-->
+      <div ng-if="mobilePage.G.global.activePanel === 2" class="to-basket-block">
+        <button ng-click="profilesPanel.checkForAddElemScreen()" class="add-to-basket">В корзину</button>
+        <div class="counter-rehau-for-landing">
+          <input readonly ng-model="profilesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
         </div>
       </div>
     </div>

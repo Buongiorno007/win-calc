@@ -1,0 +1,39 @@
+.bottom-block
+    .heat-coeff-txt
+        span Оценка энергоэффективности
+    .price-and-heat-coeff
+        .expert-mark-row
+            .expert-mark {{mobilePage.P.product.heat_coef_expert_mark}} ⸺ 
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark < 6.1")
+                span  Для балконов
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark> 6.1 && mobilePage.P.product.heat_coef_expert_mark <= 6.5")
+                span  Достаточно хорошо
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 6.5 && mobilePage.P.product.heat_coef_expert_mark <= 7")
+                span  Хорошо!
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 7 && mobilePage.P.product.heat_coef_expert_mark <= 7.5")
+                span  Очень хорошо!
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 7.5 && mobilePage.P.product.heat_coef_expert_mark <= 8.2")
+                span  Потрясающе!
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 8.2 && mobilePage.P.product.heat_coef_expert_mark <= 9")
+                span  Превосходно!
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 9 && mobilePage.P.product.heat_coef_expert_mark <= 9.4")
+                span  Великолепно!
+            .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 9.4")
+                span  Лучший выбор!
+        price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency" ng-click='mobilePage.checkForAddElem()')
+    //templates
+    .to-basket-block(ng-if="mobilePage.isSet(1)")
+        button.add-to-basket(ng-click="templatesPanel.checkForAddElem()") В корзину
+        .counter-rehau-for-landing
+            input.prodcounter-rehau-for-landing(readonly, ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)")
+    //configuration
+    .to-basket-block(ng-if="mobilePage.isSet(5) && mobilePage.G.global.activePanel !== 2")
+        button.add-to-basket(ng-click="configMenu.checkForAddElem()") В корзину
+        .counter-rehau-for-landing
+            input.prodcounter-rehau-for-landing(readonly, ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)")
+    //profiles
+    .to-basket-block(ng-if="mobilePage.G.global.activePanel === 2")
+        button.add-to-basket(ng-click="profilesPanel.checkForAddElemScreen()") В корзину
+        .counter-rehau-for-landing
+            input.prodcounter-rehau-for-landing(readonly, ng-model="profilesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)")
+    
