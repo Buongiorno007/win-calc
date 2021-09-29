@@ -4,12 +4,12 @@
             .top-container-title Выбор шаблона
             .top-container-subtitle(ng-if="!mobilePage.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
             .top-container-subtitle(ng-if="mobilePage.G.global.SelectedTemplateName") {{ mobilePage.G.global.SelectedTemplateName }}
-        button.top-container-close(ng-click="mobilePage.closePanelMobile()")
+        button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 2")
         .top-container-header
             .top-container-title Профиль
             .top-container-subtitle {{ mobilePage.P.product.profile.name  }}
-        button.top-container-close(ng-click="mobilePage.closePanelMobile()")
+        button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 3")
         .top-container-header
             .top-container-title Стелопакет

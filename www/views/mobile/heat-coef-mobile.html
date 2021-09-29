@@ -35,20 +35,23 @@
     </div>
   </div>
 </div>
+<!--rehau templates-->
 <div ng-click="mobilePage.showCoefInfoBlock()" ng-show="mobilePage.U.userInfo.factory_id === 2" class="heat-coef-block-mobile-rehau">
   <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff-rehau">
     <div class="coeff-expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}}</div>
+    <div class="info-coeff-block">
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span>Для балконов</span></div>
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span>Достаточно хорошо</span></div>
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span>Хорошо!</span></div>
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span>Очень хорошо!</span></div>
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span>Потрясающе!</span></div>
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span>Превосходно!</span></div>
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span>Великолепно!</span></div>
+      <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span>Лучший выбор!</span></div>
+      <div class="subtitle-rehau"><span>Оценка энергоэффективности</span></div>
+      <!--.info-->
+    </div>
   </div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span>Для балконов</span></div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span>Достаточно хорошо</span></div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span>Хорошо!</span></div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span>Очень хорошо!</span></div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span>Потрясающе!</span></div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span>Превосходно!</span></div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span>Великолепно!</span></div>
-  <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span>Лучший выбор!</span></div>
-  <div class="subtitle-rehau"><span>Оценка энергоэффективности</span></div>
-  <!--.info-->
 </div>
 <div ng-if="mobilePage.G.global.showCoefInfoBlock" class="coeff-info-block">
   <div class="coeff-info-block-inner">

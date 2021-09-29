@@ -137,14 +137,14 @@
           <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
           <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
         </div>
-        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
       </div>
       <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
         <div class="top-container-header">
           <div class="top-container-title">Профиль</div>
           <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
         </div>
-        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
       </div>
       <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
         <div class="top-container-header">
@@ -168,36 +168,10 @@
                 <p>{{profile.short_name}}</p>
               </div>
               <div class="common-info">
-                <div class="profile-blocks">
-                  <div class="noise-block">
-                    <div class="profile-gray-block">
-                      <div class="profile-text-block">Шумоизоляция</div>
-                      <div class="profile-number-block">7</div>
-                      <div class="profile-red-block"></div>
-                    </div>
-                  </div>
-                  <div class="light-block">
-                    <div class="profile-gray-block">
-                      <div class="profile-text-block">Светопропускание</div>
-                      <div class="profile-number-block">9</div>
-                      <div class="profile-red-block"></div>
-                    </div>
-                  </div>
-                  <div class="warm-block">
-                    <div class="profile-gray-block">
-                      <div class="profile-text-block">Теплоизоляция</div>
-                      <div class="profile-number-block">7</div>
-                      <div class="profile-red-block"></div>
-                    </div>
-                  </div>
-                  <div class="burglary-block">
-                    <div class="profile-gray-block">
-                      <div class="profile-text-block">Взломостойкость</div>
-                      <div class="profile-number-block">9</div>
-                      <div class="profile-red-block"></div>
-                    </div>
-                  </div>
-                </div>
+                <p ng-if="profile.cameras === 1 ">                     {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
+                <p ng-if="profile.cameras &gt; 2 &amp;&amp; profile.cameras &lt; 6"> {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
+                <p ng-if="profile.cameras &gt; 5">                        {{profile.cameras}} {{::profilesPanel.CAMERa}}</p>
+                <p>{{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}</p>
               </div>
             </div>
             <div class="info-container">
@@ -211,7 +185,7 @@
       <div class="heat-coeff-txt"><span>Оценка энергоэффективности</span></div>
       <div class="price-and-heat-coeff">
         <div class="expert-mark-row">
-          <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} ⸺ </div>
+          <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
           <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
           <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Достаточно хорошо</span></div>
           <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Хорошо!</span></div>

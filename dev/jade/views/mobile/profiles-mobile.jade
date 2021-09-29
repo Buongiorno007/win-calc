@@ -72,27 +72,32 @@
                             .name
                                 p {{profile.short_name}}
                             .common-info
-                                .profile-blocks
-                                  .noise-block
-                                    .profile-gray-block
-                                      .profile-text-block Шумоизоляция
-                                      .profile-number-block 7
-                                      .profile-red-block
-                                  .light-block
-                                    .profile-gray-block
-                                      .profile-text-block Светопропускание
-                                      .profile-number-block 9
-                                      .profile-red-block
-                                  .warm-block
-                                    .profile-gray-block
-                                      .profile-text-block Теплоизоляция
-                                      .profile-number-block 7
-                                      .profile-red-block
-                                  .burglary-block
-                                    .profile-gray-block
-                                      .profile-text-block Взломостойкость
-                                      .profile-number-block 9
-                                      .profile-red-block
+                                p(ng-if="profile.cameras === 1 ")                      {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                                p(ng-if="profile.cameras > 2 && profile.cameras < 6")  {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                                p(ng-if="profile.cameras > 5")                         {{profile.cameras}} {{::profilesPanel.CAMERa}}
+                                p {{::profilesPanel.HEAT_TRANSFER}} {{profile.heat_coeff_value}}
+                            //- .common-info
+                            //-     .profile-blocks
+                            //-       .noise-block
+                            //-         .profile-gray-block
+                            //-           .profile-text-block Шумоизоляция
+                            //-           .profile-number-block 7
+                            //-           .profile-red-block
+                            //-       .light-block
+                            //-         .profile-gray-block
+                            //-           .profile-text-block Светопропускание
+                            //-           .profile-number-block 9
+                            //-           .profile-red-block
+                            //-       .warm-block
+                            //-         .profile-gray-block
+                            //-           .profile-text-block Теплоизоляция
+                            //-           .profile-number-block 7
+                            //-           .profile-red-block
+                            //-       .burglary-block
+                            //-         .profile-gray-block
+                            //-           .profile-text-block Взломостойкость
+                            //-           .profile-number-block 9
+                            //-           .profile-red-block
                         .info-container
                             .information(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")
                                 | Подробнее
