@@ -2318,6 +2318,53 @@
             },
             "id, sku, currency_id, price, name, element_group_id"
           ).then(function (result) {
+            result.map((element) => {
+              if (element.element_group_id === 8) {
+                var array = [];
+                selectLocalDB(tablesLocalDB.glass_prices.tableName, {
+                  
+                }).then(function(result) {
+                  var glassPrices = result[0]
+                  
+                  var glassArray = ProductStor.product.report.map((element) => {
+                    if (element.element_group_id === 8) {                 
+                      if (glassPrices.col_1_range > 0) {
+                        if (element.size < glassPrices.col_1_range) {
+                          element.price = glassPrices.col_1_price
+                          array.push(element)
+                        } 
+                      } if (glassPrices.col_2_range_1 > 0) {
+                        if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                          element.price = glassPrices.col_2_price
+                          array.push(element)
+                        }
+                      } if (glassPrices.col_3_range_1 > 0) {
+                        if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                          element.price = glassPrices.col_3_price
+                          array.push(element)
+                        }
+                      } if (glassPrices.col_4_range_1 > 0) {
+                        if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                          element.price = glassPrices.col_4_price
+                          array.push(element)
+                        }
+                      }
+                      if (glassPrices.col_5_range > 0) {
+                        if (element.size > glassPrices.col_5_range) {
+                          element.price = glassPrices.col_5_price
+                          array.push(element)
+                        }
+                      }
+                      console.log(deff.resolve(result), '!!!!!!!!!!!')
+                      return deff.resolve(array);
+                    } else {
+                      return false
+                    }
+                  })
+                  
+                })
+              }
+            })
             //ШТУЛЬП ВОТ ТУТ НАЧАЛО ИЩИТЕ
             if (result.length) {
               if (isArray) {
