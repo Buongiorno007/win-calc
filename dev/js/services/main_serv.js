@@ -1388,6 +1388,7 @@
                 return deff.promise;
             }
 
+            var glassPrices = []
             function setProductPriceTOTAL(Product) {
                 var deliveryCoeff = 
                     GlobalStor.global.deliveryCoeff.percents[
@@ -1402,6 +1403,43 @@
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
+                Product.report.map((element) => {
+                    if (element.element_group_id === 8) {
+                        localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                        }).then(function(result) {
+                            glassPrices = result[0]
+                        })
+
+                        if (glassPrices.col_1_range > 0) {
+                            if (element.size < glassPrices.col_1_range) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;
+                            } 
+                        } if (glassPrices.col_2_range_1 > 0) {
+                            if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        } if (glassPrices.col_3_range_1 > 0) {
+                            if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        } if (glassPrices.col_4_range_1 > 0) {
+                            if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        }
+                        if (glassPrices.col_5_range > 0) {
+                            if (element.size > glassPrices.col_5_range) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        }
+                    }
+                })
+                // Product.productPriceDis -= 1000;
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(

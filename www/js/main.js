@@ -7934,9 +7934,9 @@ if (window.location.hostname !== 'localhost') {
                 if ($location.path() === "/mobile") {
                     showReport();
                 }
-
+                var glassPrices = []
                 function culcReportPriceTotal(group) {
-                    var currReportList;
+                    var currReportList = [];
                     if (group) {
                         currReportList = ProductStor.product.report.filter(function (item) {
                             return item.element_group_id === group;
@@ -7944,13 +7944,49 @@ if (window.location.hostname !== 'localhost') {
                     } else {
                         currReportList = angular.copy(ProductStor.product.report);
                     }
+
                     if (currReportList.length) {
-                        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
-                            return {priceReal: sum.priceReal + item.priceReal};
-                        }).priceReal, 2);
+                        localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                        }).then(function(result) {
+                            glassPrices = result[0]
+                        })
+                        currReportList.map((element) => {
+                            if (element.element_group_id === 8) {
+                                if (glassPrices.col_1_range > 0) {
+                                    if (element.size < glassPrices.col_1_range) {
+                                        element.price = glassPrices.col_1_price
+                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                    } 
+                                } if (glassPrices.col_2_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                        element.price = glassPrices.col_2_price
+                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                    }
+                                } if (glassPrices.col_3_range_1 > 0) {
+                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                        element.price = glassPrices.col_3_price
+                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                    }
+                                } if (glassPrices.col_4_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                        element.price = glassPrices.col_4_price
+                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                    }
+                                }
+                                if (glassPrices.col_5_range > 0) {
+                                    if (element.size > glassPrices.col_5_range) {
+                                        element.price = glassPrices.col_5_price
+                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                    }
+                                }
+                            } 
+                        })
                         thisCtrl.config.reportPriceBase = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
                             return {price: sum.price + item.price};
                         }).price, 2);
+                        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+                            return {priceReal: sum.priceReal + item.priceReal};
+                        }).priceReal, 2);
                     } else {
                         thisCtrl.config.reportPriceTotal = 0;
                         thisCtrl.config.reportPriceBase = 0;
@@ -24907,46 +24943,6 @@ function ErrorResult(code, message) {
             },
             "id, sku, currency_id, price, name, element_group_id"
           ).then(function (result) {
-            result.map((element) => {
-              if (element.element_group_id === 8) {
-                var array = [];
-                selectLocalDB(tablesLocalDB.glass_prices.tableName, {
-                  
-                }).then(function(result) {
-                  var glassPrices = result[0]
-                  
-                  ProductStor.product.report.map((item) => {
-                    if (item.element_group_id === 8) {                 
-                      if (glassPrices.col_1_range > 0) {
-                        if (item.size < glassPrices.col_1_range) {
-                          element.price = glassPrices.col_1_price
-                        } 
-                      } if (glassPrices.col_2_range_1 > 0) {
-                        if ((item.size > glassPrices.col_2_range_1) && (item.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
-                          element.price = glassPrices.col_2_price
-                        }
-                      } if (glassPrices.col_3_range_1 > 0) {
-                        if (item.size > glassPrices.col_3_range_1 && (item.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
-                          element.price = glassPrices.col_3_price
-                        }
-                      } if (glassPrices.col_4_range_1 > 0) {
-                        if ((item.size > glassPrices.col_4_range_1) && (item.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
-                          element.price = glassPrices.col_4_price  
-                        }
-                      }
-                      if (glassPrices.col_5_range > 0) {
-                        if (item.size > glassPrices.col_5_range) {
-                          element.price = glassPrices.col_5_price
-                        }
-                      }
-                    } else {
-                      return false
-                    }
-                  })
-                  
-                })
-              }
-            })
             //ШТУЛЬП ВОТ ТУТ НАЧАЛО ИЩИТЕ
             if (result.length) {
               if (isArray) {
@@ -25224,7 +25220,6 @@ function ErrorResult(code, message) {
                     3
                   );
                   priceObj.priceTotal += priceTemp;
-                  //              console.warn('finish bead-________',constrElem);
                   constrElements.push(constrElem);
                 }
               }
@@ -30301,6 +30296,7 @@ function ErrorResult(code, message) {
                 return deff.promise;
             }
 
+            var glassPrices = []
             function setProductPriceTOTAL(Product) {
                 var deliveryCoeff = 
                     GlobalStor.global.deliveryCoeff.percents[
@@ -30315,6 +30311,43 @@ function ErrorResult(code, message) {
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
+                Product.report.map((element) => {
+                    if (element.element_group_id === 8) {
+                        localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                        }).then(function(result) {
+                            glassPrices = result[0]
+                        })
+
+                        if (glassPrices.col_1_range > 0) {
+                            if (element.size < glassPrices.col_1_range) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;
+                            } 
+                        } if (glassPrices.col_2_range_1 > 0) {
+                            if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        } if (glassPrices.col_3_range_1 > 0) {
+                            if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        } if (glassPrices.col_4_range_1 > 0) {
+                            if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        }
+                        if (glassPrices.col_5_range > 0) {
+                            if (element.size > glassPrices.col_5_range) {
+                                Product.productPriceDis -= element.priceReal;
+                                Product.productPriceDis += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;
+                            }
+                        }
+                    }
+                })
+                // Product.productPriceDis -= 1000;
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
