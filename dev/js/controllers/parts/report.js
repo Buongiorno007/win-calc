@@ -58,32 +58,36 @@
                         })
                         currReportList.map((element) => {
                             if (element.element_group_id === 8) {
-                                if (glassPrices.col_1_range > 0) {
-                                    if (element.size < glassPrices.col_1_range) {
-                                        element.price = glassPrices.col_1_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
-                                    } 
-                                } if (glassPrices.col_2_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
-                                        element.price = glassPrices.col_2_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                if (element.element_id === glassPrices.element_id) {
+                                    if (glassPrices.col_1_range > 0) {
+                                        if (element.size < glassPrices.col_1_range) {
+                                            element.price = glassPrices.col_1_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        } 
+                                    } if (glassPrices.col_2_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                            element.price = glassPrices.col_2_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_3_range_1 > 0) {
+                                        if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                            element.price = glassPrices.col_3_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_4_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                            element.price = glassPrices.col_4_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
                                     }
-                                } if (glassPrices.col_3_range_1 > 0) {
-                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
-                                        element.price = glassPrices.col_3_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                    if (glassPrices.col_5_range > 0) {
+                                        if (element.size > glassPrices.col_5_range) {
+                                            element.price = glassPrices.col_5_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
                                     }
-                                } if (glassPrices.col_4_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
-                                        element.price = glassPrices.col_4_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
-                                    }
-                                }
-                                if (glassPrices.col_5_range > 0) {
-                                    if (element.size > glassPrices.col_5_range) {
-                                        element.price = glassPrices.col_5_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
-                                    }
+                                } else {
+                                    console.log("No match ")
                                 }
                             } 
                         })

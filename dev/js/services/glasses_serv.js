@@ -150,6 +150,10 @@
                           }, 2200);
                         }, 800);
                       })
+                      //Sorry about that, but to calculate correct price for glass with ranges I need to call this function
+                      setTimeout(() => {
+                        MainServ.setProductPriceTOTAL(ProductStor.product)
+                      }, 1);
                 }
 
                 /**========== FINISH ==========*/

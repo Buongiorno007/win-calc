@@ -7952,32 +7952,36 @@ if (window.location.hostname !== 'localhost') {
                         })
                         currReportList.map((element) => {
                             if (element.element_group_id === 8) {
-                                if (glassPrices.col_1_range > 0) {
-                                    if (element.size < glassPrices.col_1_range) {
-                                        element.price = glassPrices.col_1_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
-                                    } 
-                                } if (glassPrices.col_2_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
-                                        element.price = glassPrices.col_2_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                if (element.element_id === glassPrices.element_id) {
+                                    if (glassPrices.col_1_range > 0) {
+                                        if (element.size < glassPrices.col_1_range) {
+                                            element.price = glassPrices.col_1_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        } 
+                                    } if (glassPrices.col_2_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                            element.price = glassPrices.col_2_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_3_range_1 > 0) {
+                                        if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                            element.price = glassPrices.col_3_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_4_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                            element.price = glassPrices.col_4_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
                                     }
-                                } if (glassPrices.col_3_range_1 > 0) {
-                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
-                                        element.price = glassPrices.col_3_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                    if (glassPrices.col_5_range > 0) {
+                                        if (element.size > glassPrices.col_5_range) {
+                                            element.price = glassPrices.col_5_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
                                     }
-                                } if (glassPrices.col_4_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
-                                        element.price = glassPrices.col_4_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
-                                    }
-                                }
-                                if (glassPrices.col_5_range > 0) {
-                                    if (element.size > glassPrices.col_5_range) {
-                                        element.price = glassPrices.col_5_price
-                                        element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
-                                    }
+                                } else {
+                                    console.log("No match ")
                                 }
                             } 
                         })
@@ -20407,6 +20411,10 @@ function ErrorResult(code, message) {
                           }, 2200);
                         }, 800);
                       })
+                      //Sorry about that, but to calculate correct price for glass with ranges I need to call this function
+                      setTimeout(() => {
+                        MainServ.setProductPriceTOTAL(ProductStor.product)
+                      }, 1);
                 }
 
                 /**========== FINISH ==========*/
@@ -30298,6 +30306,7 @@ function ErrorResult(code, message) {
 
             var glassPrices = []
             function setProductPriceTOTAL(Product) {
+                console.log('check')
                 var deliveryCoeff = 
                     GlobalStor.global.deliveryCoeff.percents[
                     GlobalStor.global.deliveryCoeff.standart_time
@@ -30311,43 +30320,49 @@ function ErrorResult(code, message) {
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
-                Product.report.map((element) => {
-                    if (element.element_group_id === 8) {
-                        localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
-                        }).then(function(result) {
-                            glassPrices = result[0]
-                        })
-
-                        if (glassPrices.col_1_range > 0) {
-                            if (element.size < glassPrices.col_1_range) {
-                                Product.productPriceDis -= element.priceReal;
-                                Product.productPriceDis += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;
-                            } 
-                        } if (glassPrices.col_2_range_1 > 0) {
-                            if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
-                                Product.productPriceDis -= element.priceReal;
-                                Product.productPriceDis += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;
+                if (ProductStor.product.report.length > 0) {
+                    Product.report.map((element) => {
+                        if (element.element_group_id === 8) {
+                            localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                            }).then(function(result) {
+                                glassPrices = result[0]
+                            })
+                            if (element.element_id === glassPrices.element_id) {
+                                if (glassPrices.col_1_range > 0) {
+                                    if (element.size < glassPrices.col_1_range) {
+                                        Product.productPriceDis -= element.priceReal;
+                                        Product.productPriceDis += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;
+                                    } 
+                                } if (glassPrices.col_2_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                        Product.productPriceDis -= element.priceReal;
+                                        Product.productPriceDis += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;
+                                    }
+                                } if (glassPrices.col_3_range_1 > 0) {
+                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                        Product.productPriceDis -= element.priceReal;
+                                        Product.productPriceDis += (glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff;
+                                    }
+                                } if (glassPrices.col_4_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                        Product.productPriceDis -= element.priceReal;
+                                        Product.productPriceDis += (glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff;
+                                    }
+                                }
+                                if (glassPrices.col_5_range > 0) {
+                                    if (element.size > glassPrices.col_5_range) {
+                                        Product.productPriceDis -= element.priceReal;
+                                        Product.productPriceDis += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;
+                                    }
+                                }
                             }
-                        } if (glassPrices.col_3_range_1 > 0) {
-                            if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
-                                Product.productPriceDis -= element.priceReal;
-                                Product.productPriceDis += (glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff;
-                            }
-                        } if (glassPrices.col_4_range_1 > 0) {
-                            if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
-                                Product.productPriceDis -= element.priceReal;
-                                Product.productPriceDis += (glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff;
+                            else {
+                                console.log("no Match") 
                             }
                         }
-                        if (glassPrices.col_5_range > 0) {
-                            if (element.size > glassPrices.col_5_range) {
-                                Product.productPriceDis -= element.priceReal;
-                                Product.productPriceDis += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;
-                            }
-                        }
-                    }
-                })
-                // Product.productPriceDis -= 1000;
+                    })
+                }
+                
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -37321,6 +37336,10 @@ function ErrorResult(code, message) {
           selectProfile(newId);
         }
       });
+      //Sorry about that, but to calculate correct price for glass with ranges I need to call this function
+      setTimeout(() => {
+        MainServ.setProductPriceTOTAL(ProductStor.product)
+      }, 1);
     }
 
     /**========== FINISH ==========*/
