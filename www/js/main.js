@@ -19344,6 +19344,10 @@ function ErrorResult(code, message) {
             });
           }
           // console.log("ProductStor.product", ProductStor.product);
+          // Calculating the sum of construction
+          setTimeout(() => {
+            MainServ.setProductPriceTOTAL(ProductStor.product)
+          }, 100);
         }
 
 
@@ -30319,6 +30323,8 @@ function ErrorResult(code, message) {
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
+                /* This piece of code allows us to calculate glass price with ranges https://trello.com/c/egf7LTSn/586
+                It's not so clear and should be refactored some time*/
                 if (ProductStor.product.report.length > 0) {
                     Product.report.map((element) => {
                         if (element.element_group_id === 8) {
@@ -30333,8 +30339,8 @@ function ErrorResult(code, message) {
                                             Product.product_price -= element.priceReal;
                                             Product.product_price += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;  
 
-                                            let check =  Product.product_price - ((Product.product_price / 100) * 5);
-                                            Product.productPriceDis = check
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            Product.productPriceDis = ProductPriceWithDiscount
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
                                             Product.productPriceDis += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;  
@@ -30346,7 +30352,7 @@ function ErrorResult(code, message) {
                                             Product.product_price -= element.priceReal;
                                             Product.product_price += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;  
 
-                                            let check =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            let Product =  Product.product_price - ((Product.product_price / 100) * 5);
                                             Product.productPriceDis = check
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
@@ -30358,9 +30364,8 @@ function ErrorResult(code, message) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
                                             Product.product_price += (glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff;
-                                            
-                                            let check =  Product.product_price - ((Product.product_price / 100) * 5);
-                                            Product.productPriceDis = check
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            Product.productPriceDis = ProductPriceWithDiscount
                                             
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
@@ -30372,9 +30377,8 @@ function ErrorResult(code, message) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
                                             Product.product_price += (glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff;  
-
-                                            let check =  Product.product_price - ((Product.product_price / 100) * 5);
-                                            Product.productPriceDis = check
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            Product.productPriceDis = ProductPriceWithDiscount
                                             
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
@@ -30387,9 +30391,8 @@ function ErrorResult(code, message) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
                                             Product.product_price += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;  
-
-                                            let check =  Product.product_price - ((Product.product_price / 100) * 5);
-                                            Product.productPriceDis = check
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            Product.productPriceDis = ProductPriceWithDiscount
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
                                             Product.productPriceDis += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;

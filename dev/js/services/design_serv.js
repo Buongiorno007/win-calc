@@ -3601,6 +3601,10 @@
             });
           }
           // console.log("ProductStor.product", ProductStor.product);
+          // Calculating the sum of construction
+          setTimeout(() => {
+            MainServ.setProductPriceTOTAL(ProductStor.product)
+          }, 100);
         }
 
 
