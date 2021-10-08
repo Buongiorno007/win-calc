@@ -464,6 +464,8 @@
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
+                          //We have call this function to recalculate price with glass ranges
+                          MainServ.setProductPriceTOTAL(ProductStor.product)
                         });
                       });
                     }, 250);
