@@ -22,18 +22,17 @@
                 span  Лучший выбор!
         price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency" ng-click='mobilePage.checkForAddElem()')
     //templates
-    .to-basket-block(ng-if="mobilePage.isSet(1)")
-        button.add-to-basket(ng-click="templatesPanel.checkForAddElem()") В корзину
-        .counter-rehau-for-landing
-            input.prodcounter-rehau-for-landing(readonly, ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)")
+    .accept(ng-if="mobilePage.isSet(1)")
+        button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить
+        
     //configuration
-    .to-basket-block(ng-if="mobilePage.isSet(5) && mobilePage.G.global.activePanel !== 2")
+    .to-basket-block(ng-if="mobilePage.isSet(5) && mobilePage.G.global.activePanel !== 2 &&  mobilePage.G.global.activePanel !== 3")
         button.add-to-basket(ng-click="configMenu.checkForAddElem()") В корзину
         .counter-rehau-for-landing
             input.prodcounter-rehau-for-landing(readonly, ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)")
     //profiles
-    .to-basket-block(ng-if="mobilePage.G.global.activePanel === 2")
-        button.add-to-basket(ng-click="profilesPanel.checkForAddElemScreen()") В корзину
-        .counter-rehau-for-landing
-            input.prodcounter-rehau-for-landing(readonly, ng-model="profilesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)")
-    
+    .accept(ng-if="mobilePage.G.global.activePanel === 2")
+        button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить
+        
+    .accept(ng-if="mobilePage.G.global.activePanel === 3")
+        button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить

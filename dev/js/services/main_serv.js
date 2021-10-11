@@ -1429,8 +1429,8 @@
                                             Product.product_price -= element.priceReal;
                                             Product.product_price += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;  
 
-                                            let Product =  Product.product_price - ((Product.product_price / 100) * 5);
-                                            Product.productPriceDis = check
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            Product.productPriceDis = ProductPriceWithDiscount
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
                                             Product.productPriceDis += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;

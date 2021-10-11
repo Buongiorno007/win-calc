@@ -13,7 +13,6 @@
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 3")
         .top-container-header
             .top-container-title Стелопакет
-            .top-container-subtitle(ng-if="!mobilePage.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
-            .top-container-subtitle(ng-if="mobilePage.G.global.SelectedTemplateName") {{ mobilePage.G.global.SelectedTemplateName }}
-        button.top-container-close(ng-click="mobilePage.closePanelMobile()")
+            .top-container-subtitle {{ mobilePage.P.product.glass[0].sku }}
+        button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
         

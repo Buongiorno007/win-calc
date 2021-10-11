@@ -16,24 +16,21 @@
     <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
   </div>
   <!--templates-->
-  <div ng-if="mobilePage.isSet(1)" class="to-basket-block">
-    <button ng-click="templatesPanel.checkForAddElem()" class="add-to-basket">В корзину</button>
-    <div class="counter-rehau-for-landing">
-      <input readonly ng-model="templatesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
-    </div>
+  <div ng-if="mobilePage.isSet(1)" class="accept">
+    <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить</button>
   </div>
   <!--configuration-->
-  <div ng-if="mobilePage.isSet(5) &amp;&amp; mobilePage.G.global.activePanel !== 2" class="to-basket-block">
+  <div ng-if="mobilePage.isSet(5) &amp;&amp; mobilePage.G.global.activePanel !== 2 &amp;&amp;  mobilePage.G.global.activePanel !== 3" class="to-basket-block">
     <button ng-click="configMenu.checkForAddElem()" class="add-to-basket">В корзину</button>
     <div class="counter-rehau-for-landing">
       <input readonly ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
     </div>
   </div>
   <!--profiles-->
-  <div ng-if="mobilePage.G.global.activePanel === 2" class="to-basket-block">
-    <button ng-click="profilesPanel.checkForAddElemScreen()" class="add-to-basket">В корзину</button>
-    <div class="counter-rehau-for-landing">
-      <input readonly ng-model="profilesPanel.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
-    </div>
+  <div ng-if="mobilePage.G.global.activePanel === 2" class="accept">
+    <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить</button>
+  </div>
+  <div ng-if="mobilePage.G.global.activePanel === 3" class="accept">
+    <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить</button>
   </div>
 </div>
