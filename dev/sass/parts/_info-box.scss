@@ -80,6 +80,7 @@
 
 //rehau templates
 .info_container-rehau {
+  z-index: 10;
   @extend .backWhiteView;
   visibility: hidden;
 
@@ -112,6 +113,10 @@
 
     .info-body {
       padding: 24px 48px 59px 48px;
+
+      @media screen and (max-device-width:735px) {
+        padding: 16px;
+      }
     }
   }
   img {
@@ -130,6 +135,10 @@
     text-align: center;
 
     padding-top: 23px;
+
+    @media screen and (max-device-width:735px) {
+      font-size: 23px;
+    }
   }
   .info_link {
     @include roboto-lt(rem(36px));
@@ -145,6 +154,11 @@
     padding-top: 16px;
 
     color: #000000;
+
+    @media screen and (max-device-width:735px) {
+      text-align: left;
+      font-size: 16px;
+    }
   }
   .close-dialog-rehau {
     top: 0;

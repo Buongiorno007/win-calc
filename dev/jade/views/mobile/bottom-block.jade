@@ -1,7 +1,7 @@
 .bottom-block
-    .heat-coeff-txt
+    .heat-coeff-txt(ng-if="!mobilePage.isSet(4)")
         span Оценка энергоэффективности
-    .price-and-heat-coeff
+    .price-and-heat-coeff(ng-if="!mobilePage.isSet(4)")
         .expert-mark-row
             .expert-mark {{mobilePage.P.product.heat_coef_expert_mark}} -
             .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark < 6.1")
@@ -21,18 +21,30 @@
             .title-rehau(ng-if="mobilePage.P.product.heat_coef_expert_mark > 9.4")
                 span  Лучший выбор!
         price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency" ng-click='mobilePage.checkForAddElem()')
+    .price-total(ng-if="mobilePage.isSet(4)")
+        .total-txt
+            span Итого:
+        price(price-value="mobilePage.G.global.tempPrice", price-currency="mobilePage.U.userInfo.currency" ng-click='mobilePage.checkForAddElem()')
     //templates
     .accept(ng-if="mobilePage.isSet(1)")
-        button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить
-        
+        button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить  
     //configuration
-    .to-basket-block(ng-if="mobilePage.isSet(5) && mobilePage.G.global.activePanel !== 2 &&  mobilePage.G.global.activePanel !== 3")
+    .to-basket-block(ng-if="mobilePage.isSet(5) && mobilePage.G.global.activePanel !== 2 && mobilePage.G.global.activePanel !== 3 && mobilePage.G.global.activePanel !== 5 && mobilePage.G.global.activePanel !== 6 && !mobilePage.isSet(4)")
         button.add-to-basket(ng-click="configMenu.checkForAddElem()") В корзину
         .counter-rehau-for-landing
             input.prodcounter-rehau-for-landing(readonly, ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)")
     //profiles
     .accept(ng-if="mobilePage.G.global.activePanel === 2")
         button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить
-        
+    //glasses
     .accept(ng-if="mobilePage.G.global.activePanel === 3")
         button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить
+    //laminations
+    .accept(ng-if="mobilePage.G.global.activePanel === 5")
+        button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить
+    //add elements
+    .accept(ng-if="mobilePage.G.global.activePanel === 6")
+        button.add-to-basket(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)") Применить
+    //basket
+    .go-to-spec(ng-if="mobilePage.isSet(4)")
+        button.spec(ng-click="cartPage.openOrderDialog();") Оставить заявку

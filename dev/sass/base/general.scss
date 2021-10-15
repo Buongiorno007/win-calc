@@ -493,6 +493,10 @@ body {
   .alert-descr-rehau {
     margin-bottom: 24px;
     margin-top: 8px;
+
+    @media screen and (max-device-width:735px) {
+      font-size: 16px;
+    }
   }
   .alert-btns-rehau {
     @include display-flex();
@@ -526,6 +530,10 @@ body {
     line-height: 32px;
 
     width: 80px;
+
+    @media screen and (max-device-width:735px) {
+      margin-right: 16px;
+    }
   }
   .alert-no-rehau {
     background: #4E4E4E;
@@ -569,6 +577,8 @@ body {
 
     width: 190px;
   }
+
+  
 }
 
 

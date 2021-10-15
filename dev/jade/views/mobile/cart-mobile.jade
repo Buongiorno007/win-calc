@@ -1,192 +1,338 @@
 .cart-mobile.mobile-common-panel(ng-controller='CartCtrl as cartPage' ng-if="mobilePage.isSet(4)")
-    .cart-header
-        .back-button(ng-click="mobilePage.closePanelMobile(1)")
-        .header-buttons.alert-no(ng-click='cartPage.showAllAddElements()')
-            label {{cartPage.SORT_SHOW}}
-            label {{cartPage.NAVMENU_ADD_ELEMENTS}}
-        .header-buttons.alert-no(ng-click='cartPage.showMoundDeliveryFunc()')
-            label {{cartPage.ADD}}
-            label {{cartPage.DELIVERY_MOUNTINGS}}
-    .product-container
-        .add-product.alert-no(ng-click="cartPage.addNewProductInOrder()")
-            label {{'+ '+cartPage.ADD_PRODUCT}}
-        .product(ng-repeat="product in cartPage.O.order.products track by $index")
-            .col
-                .order-delete(ng-click="cartPage.clickDeleteProduct($index)")
-                .prod-number
-                    label {{$index+1+"."}}
-                .prod-template(ng-click="cartPage.showCartTemplte($index)")
-                    svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
-                .prod-heat-coef
-                    .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
-                        div.R-MInfo {{ product.heat_coef_total | number : 2 }} {{"\u00A0"+"\u00A0"}}
-                        div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
-                    .order-u-coeff(ng-if="!cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > cartPage.O.order.heat_coef_min}")
-                        div U = {{ product.heat_coef_total | number : 2}}
-                        div {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
+    .box(ng-if="mobilePage.U.userInfo.factory_id !== 2")
+        .cart-header
+            .back-button(ng-click="mobilePage.closePanelMobile(1)")
+            .header-buttons.alert-no(ng-click='cartPage.showAllAddElements()')
+                label {{cartPage.SORT_SHOW}}
+                label {{cartPage.NAVMENU_ADD_ELEMENTS}}
+            .header-buttons.alert-no(ng-click='cartPage.showMoundDeliveryFunc()')
+                label {{cartPage.ADD}}
+                label {{cartPage.DELIVERY_MOUNTINGS}}
+        .product-container
+            .add-product.alert-no(ng-click="cartPage.addNewProductInOrder()")
+                label {{'+ '+cartPage.ADD_PRODUCT}}
+            .product(ng-repeat="product in cartPage.O.order.products track by $index")
+                .col
+                    .order-delete(ng-click="cartPage.clickDeleteProduct($index)")
+                    .prod-number
+                        label {{$index+1+"."}}
+                    .prod-template(ng-click="cartPage.showCartTemplte($index)")
+                        svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
+                    .prod-heat-coef
+                        .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
+                            div.R-MInfo {{ product.heat_coef_total | number : 2 }} {{"\u00A0"+"\u00A0"}}
+                            div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
+                        .order-u-coeff(ng-if="!cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > cartPage.O.order.heat_coef_min}")
+                            div U = {{ product.heat_coef_total | number : 2}}
+                            div {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
 
-                .prod-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+                    .prod-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
 
-                .prod-count
-                    .count-button(ng-click="cartPage.decreaseProductQty($index)")
-                        label -
-                    .count {{ product.product_qty }} {{cartPage.QTY_LABEL}}
-                    .count-button(ng-click="cartPage.increaseProductQty($index)")
-                        label +
+                    .prod-count
+                        .count-button(ng-click="cartPage.decreaseProductQty($index)")
+                            label -
+                        .count {{ product.product_qty }} {{cartPage.QTY_LABEL}}
+                        .count-button(ng-click="cartPage.increaseProductQty($index)")
+                            label +
 
-            .col
-                .order-item
-                    .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"*"}} {{ product.template_height }} {{ ::cartPage.MM }}
-                    .order-value.splice(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
-                    .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
-                .order-item
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.profile.translate.en }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.profile.translate.ru }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.profile.translate.ua }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.profile.translate.pl }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.profile.translate.de }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.profile.translate.bg }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.profile.translate.it }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es'") {{ product.profile.translate.es }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.profile.translate.ro }}
+                .col
+                    .order-item
+                        .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"*"}} {{ product.template_height }} {{ ::cartPage.MM }}
+                        .order-value.splice(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
+                        .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
+                    .order-item
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.profile.translate.en }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.profile.translate.ru }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.profile.translate.ua }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.profile.translate.pl }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.profile.translate.de }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.profile.translate.bg }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.profile.translate.it }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es'") {{ product.profile.translate.es }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.profile.translate.ro }}
 
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.profile.translate.en") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.profile.translate.ru") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk' && !product.profile.translate.ua") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl' && !product.profile.translate.pl") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.profile.translate.de") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.profile.translate.bg") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.profile.translate.it") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es' && !product.profile.translate.es") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro' && !product.profile.translate.ro") {{ product.profile.name }}
-                    .order-value(ng-if="product.construction_type === 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.doorSashName }}
-                    .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
-                .order-item(ng-if="product.glass.length > 1")
-                    .order-value {{ product.glass[0].sku + ', ...' }}
-                    .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
-                .order-item(ng-if="product.glass.length <= 1")
-                    .order-value {{ product.glass[0].sku }}
-                    .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
-                .order-item
-                    .order-value(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.hardware.translate.en }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.hardware.translate.ru }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.hardware.translate.ua }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.hardware.translate.pl }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.hardware.translate.de }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.hardware.translate.bg }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.hardware.translate.it }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es'") {{ product.hardware.translate.es }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.hardware.translate.ro }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.profile.translate.en") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.profile.translate.ru") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk' && !product.profile.translate.ua") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl' && !product.profile.translate.pl") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.profile.translate.de") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.profile.translate.bg") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.profile.translate.it") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es' && !product.profile.translate.es") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro' && !product.profile.translate.ro") {{ product.profile.name }}
+                        .order-value(ng-if="product.construction_type === 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.doorSashName }}
+                        .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
+                    .order-item(ng-if="product.glass.length > 1")
+                        .order-value {{ product.glass[0].sku + ', ...' }}
+                        .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                    .order-item(ng-if="product.glass.length <= 1")
+                        .order-value {{ product.glass[0].sku }}
+                        .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                    .order-item
+                        .order-value(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en'") {{ product.hardware.translate.en }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru'") {{ product.hardware.translate.ru }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk'") {{ product.hardware.translate.ua }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl'") {{ product.hardware.translate.pl }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de'") {{ product.hardware.translate.de }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg'") {{ product.hardware.translate.bg }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it'") {{ product.hardware.translate.it }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es'") {{ product.hardware.translate.es }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro'") {{ product.hardware.translate.ro }}
 
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.hardware.translate.en") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.hardware.translate.ru") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk' && !product.hardware.translate.ua") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl' && !product.hardware.translate.pl") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.hardware.translate.de") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.hardware.translate.bg") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.hardware.translate.it") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es' && !product.hardware.translate.es") {{ product.hardware.name }}
-                    .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro' && !product.hardware.translate.ro") {{ product.hardware.name }}
-                    .order-label {{ ::cartPage.CONFIGMENU_HARDWARE }}
-                .order-item
-                    .order-value
-                        span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
-                        span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
-                        span /
-                        span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
-                        span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
-                    .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
-                //.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
-                .order-item.addelements-btn
-                    .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}
-                        ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
-                        when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
-                    .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
-                .order-edit.alert-no(ng-click="cartPage.mobileBox($index, 'product')")
-                    span {{::cartPage.BUTTON_E}}
-        .empty(ng-if='cartPage.O.order.products.length === 1')
-    .cart-footer-container
-        .cart-footer
-            .price(ng-click='cartPage.swipeDiscountBlock()')
-                price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
-            .spesification(ng-click='cartPage.openOrderDialog()')
-                label {{cartPage.ORDER_LV}}
-    .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
-        .order-delete(ng-click="cartPage.C.cart.showCurrentTemp=0")
-        .order-edit.alert-no(ng-click="cartPage.mobileBox(cartPage.C.cart.curProd, 'product')")
-            span {{::cartPage.BUTTON_E}}
-        svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="cartPage.constants.SVG_ID_GLASS")
-    .addelements-detail(ng-if="cartPage.config.isAddElementDetail")
-        .addelements-detail-header
-            .addelements-detail-tools
-                button.addelements-detail-edit(fs-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')") {{ ::cartPage.ADDELEMENTS_EDIT_LIST }}
-                .order-delete(fs-click="cartPage.closeAddElementDetail()")
-            .product-template(ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only")
-                .addelements-detail-row
-                    .product-value
-                        .product-icon-thumb
-                            svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
-                        span.product-template-qty X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}
-                    .product-icon-label {{ ::cartPage.PRODUCT_QTY }}
-                .addelements-detail-row
-                    .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ ::cartPage.MM }} *
-                    .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::cartPage.INCH }} *
-                    .product-label {{ ::cartPage.WIDTH_LABEL }}
-                .addelements-detail-row
-                    .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}
-                    .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::cartPage.INCH }}
-                    .product-label {{ ::cartPage.HEIGHT_LABEL }}
-        //.addelements-detail-content
-            .addelements-detail-list
-                .addelements-detail-item(ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
-                    .product-value {{ addelement.name }}
-                    .product-value(ng-switch-when="0") {{ ::cartPage.GRID }}
-                    .product-value(ng-switch-when="1") {{ ::cartPage.VISOR }}
-                    .product-value(ng-switch-when="2") {{ ::cartPage.SPILLWAY }}
-                    .product-value(ng-switch-when="3") {{ ::cartPage.OUTSIDE }}
-                    .product-value(ng-switch-when="4") {{ ::cartPage.LOUVERS }}
-                    .product-value(ng-switch-when="5") {{ ::cartPage.INSIDE }}
-                    .product-value(ng-switch-when="6") {{ ::cartPage.CONNECTORS }}
-                    .product-value(ng-switch-when="7") {{ ::cartPage.FAN }}
-                    .product-value(ng-switch-when="8") {{ ::cartPage.WINDOWSILL }}
-                    .product-value(ng-switch-when="9") {{ ::cartPage.HANDLEL }}
-                    .product-value(ng-switch-when="10") {{ ::cartPage.OTHERS }}
-                    .addelement-parameters
-                        .addelement-parameter(ng-show="addelement.element_width")
-                            .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
-                            .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
-                            .addelement-label {{ ::cartPage.WIDTH_LABEL }}
-                        .addelement-parameter(ng-show="addelement.element_height")
-                            .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
-                            .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
-                            .addelement-label {{ ::cartPage.HEIGHT_LABEL }}
-                        .addelement-parameter(ng-show="addelement.element_qty")
-                            .addelement-value {{ addelement.element_qty }}
-                            .addelement-label {{ ::cartPage.QTY_LABEL }}
-                    .addelement-parameters
-                        .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
-                        .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currency }})
-            .service-block
-                .sb-1(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]")
-                    | {{cartPage.SERV1}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]}} {{cartPage.U.userInfo.currency}}
-                .sb-2(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]")
-                    | {{cartPage.SERV2}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]}} {{cartPage.U.userInfo.currency}}
-                .sb-3(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]")
-                    | {{cartPage.SERV3}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]}} {{cartPage.U.userInfo.currency}}
-                .sb-4(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]")
-                    | {{cartPage.SERV4}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]}} {{cartPage.U.userInfo.currency}}
-                .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]")
-                    | {{cartPage.OTHER }}- {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}
-            .addelements-detail-row.price-one-product
-                .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")
-                .product-label {{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}
-        .addelements-detail-footer
-            div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis + cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
-            div &#8721;
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'en' && !product.hardware.translate.en") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ru' && !product.hardware.translate.ru") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'uk' && !product.hardware.translate.ua") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'pl' && !product.hardware.translate.pl") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'de' && !product.hardware.translate.de") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'bg' && !product.hardware.translate.bg") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'it' && !product.hardware.translate.it") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'es' && !product.hardware.translate.es") {{ product.hardware.name }}
+                        .order-value(ng-if="product.construction_type !== 4 && cartPage.U.userInfo.langLabel === 'ro' && !product.hardware.translate.ro") {{ product.hardware.name }}
+                        .order-label {{ ::cartPage.CONFIGMENU_HARDWARE }}
+                    .order-item
+                        .order-value
+                            span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
+                            span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
+                            span /
+                            span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
+                            span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
+                        .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
+                    //.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
+                    .order-item.addelements-btn
+                        .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}
+                            ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
+                            when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
+                        .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
+                    .order-edit.alert-no(ng-click="cartPage.mobileBox($index, 'product')")
+                        span {{::cartPage.BUTTON_E}}
+            .empty(ng-if='cartPage.O.order.products.length === 1')
+        .cart-footer-container
+            .cart-footer
+                .price(ng-click='cartPage.swipeDiscountBlock()')
+                    price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
+                .spesification(ng-click='cartPage.openOrderDialog()')
+                    label {{cartPage.ORDER_LV}}
+        .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
+            .order-delete(ng-click="cartPage.C.cart.showCurrentTemp=0")
+            .order-edit.alert-no(ng-click="cartPage.mobileBox(cartPage.C.cart.curProd, 'product')")
+                span {{::cartPage.BUTTON_E}}
+            svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="cartPage.constants.SVG_ID_GLASS")
+        .addelements-detail(ng-if="cartPage.config.isAddElementDetail")
+            .addelements-detail-header
+                .addelements-detail-tools
+                    button.addelements-detail-edit(fs-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')") {{ ::cartPage.ADDELEMENTS_EDIT_LIST }}
+                    .order-delete(fs-click="cartPage.closeAddElementDetail()")
+                .product-template(ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only")
+                    .addelements-detail-row
+                        .product-value
+                            .product-icon-thumb
+                                svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
+                            span.product-template-qty X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}
+                        .product-icon-label {{ ::cartPage.PRODUCT_QTY }}
+                    .addelements-detail-row
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ ::cartPage.MM }} *
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::cartPage.INCH }} *
+                        .product-label {{ ::cartPage.WIDTH_LABEL }}
+                    .addelements-detail-row
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::cartPage.INCH }}
+                        .product-label {{ ::cartPage.HEIGHT_LABEL }}
+            //.addelements-detail-content
+                .addelements-detail-list
+                    .addelements-detail-item(ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
+                        .product-value {{ addelement.name }}
+                        .product-value(ng-switch-when="0") {{ ::cartPage.GRID }}
+                        .product-value(ng-switch-when="1") {{ ::cartPage.VISOR }}
+                        .product-value(ng-switch-when="2") {{ ::cartPage.SPILLWAY }}
+                        .product-value(ng-switch-when="3") {{ ::cartPage.OUTSIDE }}
+                        .product-value(ng-switch-when="4") {{ ::cartPage.LOUVERS }}
+                        .product-value(ng-switch-when="5") {{ ::cartPage.INSIDE }}
+                        .product-value(ng-switch-when="6") {{ ::cartPage.CONNECTORS }}
+                        .product-value(ng-switch-when="7") {{ ::cartPage.FAN }}
+                        .product-value(ng-switch-when="8") {{ ::cartPage.WINDOWSILL }}
+                        .product-value(ng-switch-when="9") {{ ::cartPage.HANDLEL }}
+                        .product-value(ng-switch-when="10") {{ ::cartPage.OTHERS }}
+                        .addelement-parameters
+                            .addelement-parameter(ng-show="addelement.element_width")
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
+                                .addelement-label {{ ::cartPage.WIDTH_LABEL }}
+                            .addelement-parameter(ng-show="addelement.element_height")
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
+                                .addelement-label {{ ::cartPage.HEIGHT_LABEL }}
+                            .addelement-parameter(ng-show="addelement.element_qty")
+                                .addelement-value {{ addelement.element_qty }}
+                                .addelement-label {{ ::cartPage.QTY_LABEL }}
+                        .addelement-parameters
+                            .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
+                            .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currency }})
+                .service-block
+                    .sb-1(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]")
+                        | {{cartPage.SERV1}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]}} {{cartPage.U.userInfo.currency}}
+                    .sb-2(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]")
+                        | {{cartPage.SERV2}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]}} {{cartPage.U.userInfo.currency}}
+                    .sb-3(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]")
+                        | {{cartPage.SERV3}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]}} {{cartPage.U.userInfo.currency}}
+                    .sb-4(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]")
+                        | {{cartPage.SERV4}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]}} {{cartPage.U.userInfo.currency}}
+                    .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]")
+                        | {{cartPage.OTHER }}- {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}
+                .addelements-detail-row.price-one-product
+                    .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")
+                    .product-label {{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}
+            .addelements-detail-footer
+                div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis + cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+                div &#8721;
 
-    include mount-delivery
-    include discount-mobile
-    include all-add-elems-cart
-    .backDarkView(ng-show="cartPage.C.cart.showCurrentTemp || cartPage.config.isAddElementDetail")
+        include mount-delivery
+        include discount-mobile
+        include all-add-elems-cart
+        .backDarkView(ng-show="cartPage.C.cart.showCurrentTemp || cartPage.config.isAddElementDetail")
 
+    .box-rehau(ng-if="mobilePage.U.userInfo.factory_id === 2")
+        include top-block
+        .product-container
+            .add-product-rehau(ng-click="cartPage.addNewProductInOrder()")
+                label Добавить окно
+            .product-rehau(ng-repeat="product in cartPage.O.order.products track by $index")
+                .col
+                    .order-delete-rehau(ng-click="cartPage.clickDeleteProduct($index)")
+                    .prod-number {{$index+1}}
+                    .prod-template(ng-click="cartPage.showCartTemplte($index)")
+                        svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
+                    .prod-heat-coef
+                        .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
+                            .coeff-mark
+                                div Оценка 
+                                div энергоэфф
+                                span {{product.heat_coef_expert_mark}}
+                            .price-info
+                                div Стоимость
+                                span(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+
+                    .prod-count
+                        .count-button(ng-click="cartPage.decreaseProductQty($index)")
+                            img(src="/img/rehau-img/rehua_-.png", alt="")
+                        .count {{ product.product_qty }}
+                        .count-button(ng-click="cartPage.increaseProductQty($index)")
+                            img(src="/img/rehau-img/+.png", alt="")
+
+                .col
+                    .order-item
+                        .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
+                        .order-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ product.template_width }} {{ ::cartPage.MM +"*"}} {{ product.template_height }} {{ ::cartPage.MM }}
+                        .order-value.splice(ng-if='cartPage.U.userInfo.factory_id===1966') {{ product.template_width *0.0393701 | number : 0}} {{ ::cartPage.INCH +"\u00A0 *\u00A0"}} {{ product.template_height *0.0393701 | number : 0}} {{ ::cartPage.INCH }}
+                    .order-item
+                        .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
+                        .order-value {{ product.profile.name }}
+                    .order-item(ng-if="product.glass.length > 1")
+                        .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                        .order-value {{ product.glass[0].sku + ', ...' }}
+                    .order-item(ng-if="product.glass.length <= 1")
+                        .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                        .order-value {{ product.glass[0].sku }}
+                    .order-item
+                        .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
+                        .order-value
+                            span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
+                            span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
+                            span | 
+                            span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
+                            span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
+                        
+                    //.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
+                    .order-item.addelements-btn
+                        .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
+                        .order-value {{cartPage.C.cart.allAddElements[$index].length + cartPage.coutNull(cartPage.O.order.products[$index].services_price_arr)}}
+                            ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
+                            when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
+                    .order-edit-rehau(ng-click="cartPage.mobileBox($index, 'product')")
+                        span Изменить 
+            .empty(ng-if='cartPage.O.order.products.length === 1')
+        .cart-footer-container
+            .cart-footer
+                .price(ng-click='cartPage.swipeDiscountBlock()')
+                    price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
+                .spesification(ng-click='cartPage.openOrderDialog()')
+                    label {{cartPage.ORDER_LV}}
+        .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
+            .order-delete-rehau(ng-click="cartPage.C.cart.showCurrentTemp=0")
+            .order-edit.alert-no(ng-click="cartPage.mobileBox(cartPage.C.cart.curProd, 'product')")
+                span {{::cartPage.BUTTON_E}}
+            svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="mobilePage.mobWidthGlass", template-height="mobilePage.mobWidthGlass", type-construction="cartPage.constants.SVG_ID_GLASS")
+        .addelements-detail(ng-if="cartPage.config.isAddElementDetail")
+            .addelements-detail-header
+                .addelements-detail-tools
+                    button.addelements-detail-edit(fs-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')") {{ ::cartPage.ADDELEMENTS_EDIT_LIST }}
+                    .order-delete-rehau(fs-click="cartPage.closeAddElementDetail()")
+                .product-template(ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only")
+                    .addelements-detail-row
+                        .product-value
+                            .product-icon-thumb
+                                svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
+                            span.product-template-qty X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}
+                        .product-icon-label {{ ::cartPage.PRODUCT_QTY }}
+                    .addelements-detail-row
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ ::cartPage.MM }} *
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width*0.0393701 | number : 0 }} {{ ::cartPage.INCH }} *
+                        .product-label {{ ::cartPage.WIDTH_LABEL }}
+                    .addelements-detail-row
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}
+                        .product-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height*0.0393701 | number : 0 }} {{ ::cartPage.INCH }}
+                        .product-label {{ ::cartPage.HEIGHT_LABEL }}
+            //.addelements-detail-content
+                .addelements-detail-list
+                    .addelements-detail-item(ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
+                        .product-value {{ addelement.name }}
+                        .product-value(ng-switch-when="0") {{ ::cartPage.GRID }}
+                        .product-value(ng-switch-when="1") {{ ::cartPage.VISOR }}
+                        .product-value(ng-switch-when="2") {{ ::cartPage.SPILLWAY }}
+                        .product-value(ng-switch-when="3") {{ ::cartPage.OUTSIDE }}
+                        .product-value(ng-switch-when="4") {{ ::cartPage.LOUVERS }}
+                        .product-value(ng-switch-when="5") {{ ::cartPage.INSIDE }}
+                        .product-value(ng-switch-when="6") {{ ::cartPage.CONNECTORS }}
+                        .product-value(ng-switch-when="7") {{ ::cartPage.FAN }}
+                        .product-value(ng-switch-when="8") {{ ::cartPage.WINDOWSILL }}
+                        .product-value(ng-switch-when="9") {{ ::cartPage.HANDLEL }}
+                        .product-value(ng-switch-when="10") {{ ::cartPage.OTHERS }}
+                        .addelement-parameters
+                            .addelement-parameter(ng-show="addelement.element_width")
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
+                                .addelement-label {{ ::cartPage.WIDTH_LABEL }}
+                            .addelement-parameter(ng-show="addelement.element_height")
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
+                                .addelement-value(ng-if='cartPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
+                                .addelement-label {{ ::cartPage.HEIGHT_LABEL }}
+                            .addelement-parameter(ng-show="addelement.element_qty")
+                                .addelement-value {{ addelement.element_qty }}
+                                .addelement-label {{ ::cartPage.QTY_LABEL }}
+                        .addelement-parameters
+                            .addelement-price-value + {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
+                            .addelement-label ({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currency }})
+                .service-block
+                    .sb-1(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]")
+                        | {{cartPage.SERV1}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[0]}} {{cartPage.U.userInfo.currency}}
+                    .sb-2(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]")
+                        | {{cartPage.SERV2}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[1]}} {{cartPage.U.userInfo.currency}}
+                    .sb-3(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]")
+                        | {{cartPage.SERV3}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[2]}} {{cartPage.U.userInfo.currency}}
+                    .sb-4(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]")
+                        | {{cartPage.SERV4}} - {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[3]}} {{cartPage.U.userInfo.currency}}
+                    .sb-5(ng-if="cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]")
+                        | {{cartPage.OTHER }}- {{cartPage.O.order.products[cartPage.config.detailProductIndex].services_price_arr[4]}} {{cartPage.U.userInfo.currency}}
+                .addelements-detail-row.price-one-product
+                    .addelement-price-value(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis+ cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{cartPage.U.userInfo.currency}}")
+                    .product-label {{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}
+            .addelements-detail-footer
+                div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis + cartPage.O.order.products[cartPage.config.detailProductIndex].service_price_dis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+                div &#8721;
+
+        include mount-delivery
+        include discount-mobile
+        include all-add-elems-cart
+        .backDarkView(ng-show="cartPage.C.cart.showCurrentTemp || cartPage.config.isAddElementDetail")
+    include bottom-block
+        

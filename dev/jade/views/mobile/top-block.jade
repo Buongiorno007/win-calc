@@ -15,4 +15,18 @@
             .top-container-title Стелопакет
             .top-container-subtitle {{ mobilePage.P.product.glass[0].sku }}
         button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
-        
+    .top-container-item(ng-if="mobilePage.G.global.activePanel === 5")
+        .top-container-header
+            .top-container-title Ламинация (в комнате | фасад)
+            .top-container-subtitle {{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}
+        button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
+    .top-container-item(ng-if="mobilePage.G.global.activePanel === 6")
+        .top-container-header
+            .top-container-title Доп. элементы
+            .top-container-subtitle 1 компонент
+        button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
+    .top-container-item(ng-if="mobilePage.isSet(4)")
+        .top-container-header
+            .top-container-title Корзина
+            .top-container-subtitle Расчёт стоимости и услуги
+        button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")

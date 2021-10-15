@@ -25700,7 +25700,7 @@ function ErrorResult(code, message) {
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            // console.log(ProductStor.product, 'Product stor');
+            console.log(ProductStor.product, 'Product stor');
             // console.log(OrderStor.order)
             // console.log(CartStor.cart)
             // console.log(OrderStor.order, 'order stor')
@@ -30337,52 +30337,53 @@ function ErrorResult(code, message) {
                                     if (element.size < glassPrices.col_1_range) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
-                                            Product.product_price += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;  
+                                            Product.product_price += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
 
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
                                             Product.productPriceDis = ProductPriceWithDiscount
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += (glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff;  
+                                            Product.productPriceDis += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
                                         }
                                     } 
                                 } if (glassPrices.col_2_range_1 > 0) {
                                     if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
-                                            Product.product_price += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;  
+                                            Product.product_price += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;  
 
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
                                             Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
+                                        } else  {
                                             Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += (glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff;
+                                            Product.productPriceDis += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
                                         }
                                     }
                                 } if (glassPrices.col_3_range_1 > 0) {
                                     if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
-                                            Product.product_price += (glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff;
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            Product.product_price += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
                                             Product.productPriceDis = ProductPriceWithDiscount
                                             
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += (glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff;
+                                            Product.productPriceDis += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
                                         }
                                     }
                                 } if (glassPrices.col_4_range_1 > 0) {
                                     if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
-                                            Product.product_price += (glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff;  
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
-                                            Product.productPriceDis = ProductPriceWithDiscount
+                                            Product.product_price += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
                                             
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += (glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff;
+                                            Product.productPriceDis += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
                                         }
                                     }
                                 }
@@ -30390,12 +30391,13 @@ function ErrorResult(code, message) {
                                     if (element.size > glassPrices.col_5_range) {
                                         if (UserStor.userInfo.discountConstr > 0) {
                                             Product.product_price -= element.priceReal;
-                                            Product.product_price += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;  
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * 5);
+                                            Product.product_price += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
                                             Product.productPriceDis = ProductPriceWithDiscount
                                         } else {
                                             Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += (glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff;
+                                            Product.productPriceDis += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
                                         }
                                     }
                                 }

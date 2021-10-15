@@ -22,4 +22,25 @@
     </div>
     <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
   </div>
+  <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
+    <div class="top-container-header">
+      <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+      <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
+    </div>
+    <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+  </div>
+  <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
+    <div class="top-container-header">
+      <div class="top-container-title">Доп. элементы</div>
+      <div class="top-container-subtitle">1 компонент</div>
+    </div>
+    <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+  </div>
+  <div ng-if="mobilePage.isSet(4)" class="top-container-item">
+    <div class="top-container-header">
+      <div class="top-container-title">Корзина</div>
+      <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+    </div>
+    <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+  </div>
 </div>

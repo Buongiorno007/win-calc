@@ -869,7 +869,7 @@
                           </div>
                           <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                             <div class="aux-label">Длина:</div>
-                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_width }}</button>
+                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ ProductStor.produt.template_width }}</button>
                           </div>
                           <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                             <div class="aux-label">Высота:</div>

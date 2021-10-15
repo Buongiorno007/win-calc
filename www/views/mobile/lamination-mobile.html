@@ -1,96 +1,227 @@
 
 <div ng-if="mobilePage.G.global.activePanel === 5" ng-controller="LaminationsCtrl as laminPanel" class="mobile-lamination mobile-common-panel">
-  <div class="accept-container">
-    <div ng-if="!mobilePage.isSet(1)" class="row">
-      <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
-        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
+  <div ng-if="mobilePage.U.userInfo.factory_id !== 2" class="box">
+    <div class="accept-container">
+      <div ng-if="!mobilePage.isSet(1)" class="row">
+        <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
+          <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
+        </div>
+        <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
+          <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
+        </div>
+        <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
       </div>
-      <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
-        <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
+      <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
+        <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
+          <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
+        </div>
+        <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
+          <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
+        </div>
+        <!--СТЕКЛОПАКЕТ-->
+        <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
+          <div ng-if="mobilePage.P.product.glass.length == 1" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.glass.length == 2" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</p>
+          </div>
+        </div>
+        <!--ФУРНИТУРА-->
+        <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
+            <p>{{ mobilePage.P.product.hardware.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorHandle.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorLock.name }}</p>
+          </div>
+        </div>
+        <!--ПРОФИЛЬ-->
+        <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
+            <p>{{ mobilePage.P.product.profile.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorName | translate }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorSashName }}</p>
+          </div>
+        </div>
+        <!--ЛАМИНАЦИЯ-->
+        <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
+          <div class="value">
+            <p>{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</p>
+          </div>
+        </div>
       </div>
-      <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
+      <div ng-if="mobilePage.isSet(1)" class="row">
+        <div ng-click="mobilePage.closePanelMobile()" class="back-button"></div>
+        <div class="row-title">
+          <p>{{mobilePage.TEMPLATE_SELECTION}}</p>
+        </div>
+      </div>
     </div>
-    <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
-      <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-        <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
-      </div>
-      <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-        <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
-      </div>
-      <!--СТЕКЛОПАКЕТ-->
-      <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
-        <div ng-if="mobilePage.P.product.glass.length == 1" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku }}</p>
+    <div class="laminat-filter">
+      <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'id' track by $index" ng-class="{gray : $index%2 === 0 }" class="laminat-box">
+        <div class="laminat-folder-header">
+          <div ng-if="lamin.id &gt; 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}" class="laminat-label-button">
+            <p>{{ ::lamin.name }}</p>
+          </div>
+          <div ng-if="lamin.id === 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}" class="laminat-label-button">
+            <p>{{ ::lamin.name | translate}}</p>
+          </div>
+          <div ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,1)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg"></div>
         </div>
-        <div ng-if="mobilePage.P.product.glass.length == 2" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</p>
+        <div ng-if="laminPanel.OpenFolder === $index" class="laminat-folder">
+          <div class="laminat-row-descr">
+            <div class="laminat-label">{{laminPanel.INTERIOR}} / {{laminPanel.FACADE}}</div>
+          </div>
+          <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if="laminPanel.OpenFolder !==0" class="laminat-row">
+            <div ng-if="lamCouple.img_in_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
+            <div ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name | translate }}</div>
+            <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
+            <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name | translate }}</div>
+          </div>
+          <div ng-if="laminPanel.OpenFolder === 0" ng-click="laminPanel.selectLaminat(0)" class="laminat-row">
+            <div class="laminat-label">{{ laminPanel.WHITE_LAMINATION | translate}}</div>
+          </div>
         </div>
-        <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</p>
-        </div>
-      </div>
-      <!--ФУРНИТУРА-->
-      <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
-          <p>{{ mobilePage.P.product.hardware.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorHandle.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorLock.name }}</p>
-        </div>
-      </div>
-      <!--ПРОФИЛЬ-->
-      <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
-          <p>{{ mobilePage.P.product.profile.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorName | translate }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorSashName }}</p>
-        </div>
-      </div>
-      <!--ЛАМИНАЦИЯ-->
-      <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
-        <div class="value">
-          <p>{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</p>
-        </div>
-      </div>
-    </div>
-    <div ng-if="mobilePage.isSet(1)" class="row">
-      <div ng-click="mobilePage.closePanelMobile()" class="back-button"></div>
-      <div class="row-title">
-        <p>{{mobilePage.TEMPLATE_SELECTION}}</p>
       </div>
     </div>
   </div>
-  <div class="laminat-filter">
-    <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'id' track by $index" ng-class="{gray : $index%2 === 0 }" class="laminat-box">
-      <div class="laminat-folder-header">
-        <div ng-if="lamin.id &gt; 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}" class="laminat-label-button">
-          <p>{{ ::lamin.name }}</p>
+  <div ng-if="mobilePage.U.userInfo.factory_id === 2" class="box-rehau">
+    <div class="top-container">
+      <div ng-if="mobilePage.isSet(1)" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Выбор шаблона</div>
+          <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+          <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
         </div>
-        <div ng-if="lamin.id === 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}" class="laminat-label-button">
-          <p>{{ ::lamin.name | translate}}</p>
-        </div>
-        <div ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,1)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg"></div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
       </div>
-      <div ng-if="laminPanel.OpenFolder === $index" class="laminat-folder">
-        <div class="laminat-row-descr">
-          <div class="laminat-label">{{laminPanel.INTERIOR}} / {{laminPanel.FACADE}}</div>
+      <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Профиль</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
         </div>
-        <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if="laminPanel.OpenFolder !==0" class="laminat-row">
-          <div ng-if="lamCouple.img_in_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-          <div ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name | translate }}</div>
-          <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-          <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name | translate }}</div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Стелопакет</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].sku }}</div>
         </div>
-        <div ng-if="laminPanel.OpenFolder === 0" ng-click="laminPanel.selectLaminat(0)" class="laminat-row">
-          <div class="laminat-label">{{ laminPanel.WHITE_LAMINATION | translate}}</div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
         </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Доп. элементы</div>
+          <div class="top-container-subtitle">1 компонент</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.isSet(4)" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Корзина</div>
+          <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+    </div>
+    <div class="laminat-filter">
+      <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'id' track by $index" class="laminat-box">
+        <div class="laminat-folder-header">
+          <div ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,1)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg"></div>
+          <div ng-if="lamin.id &gt; 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}" class="laminat-label-button">
+            <p>{{ ::lamin.name }}</p>
+            <div ng-class="{'active': lamin.isActive}" class="arrow"><img ng-src="img/rehau-img/white-arrow-top.png"></div>
+          </div>
+          <div ng-if="lamin.id === 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}" class="laminat-label-button">
+            <p>{{ ::lamin.name | translate}}</p>
+            <div class="arrow"><img ng-src="img/rehau-img/white-arrow-top.png"></div>
+          </div>
+        </div>
+        <div ng-if="laminPanel.OpenFolder === $index" class="laminat-folder">
+          <div class="laminat-row-descr">
+            <div class="laminat-label-where">{{laminPanel.INTERIOR}}</div>
+            <div class="laminat-label-where">{{laminPanel.FACADE}}</div>
+          </div>
+          <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if="laminPanel.OpenFolder !==0" class="laminat-row">
+            <div ng-if="lamCouple.img_in_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
+            <div ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name | translate }}</div>
+            <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
+            <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name | translate }}</div>
+          </div>
+          <div ng-if="laminPanel.OpenFolder === 0" ng-click="laminPanel.selectLaminat(0)" class="laminat-row">
+            <div class="laminat-label">{{ laminPanel.WHITE_LAMINATION | translate}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-block">
+      <div ng-if="!mobilePage.isSet(4)" class="heat-coeff-txt"><span>Оценка энергоэффективности</span></div>
+      <div ng-if="!mobilePage.isSet(4)" class="price-and-heat-coeff">
+        <div class="expert-mark-row">
+          <div class="expert-mark">{{mobilePage.P.product.heat_coef_expert_mark}} -</div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &lt; 6.1" class="title-rehau"><span> Для балконов</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 6.5" class="title-rehau"><span> Достаточно хорошо</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7" class="title-rehau"><span> Хорошо!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 7.5" class="title-rehau"><span> Очень хорошо!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 8.2" class="title-rehau"><span> Потрясающе!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9" class="title-rehau"><span> Превосходно!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; mobilePage.P.product.heat_coef_expert_mark &lt;= 9.4" class="title-rehau"><span> Великолепно!</span></div>
+          <div ng-if="mobilePage.P.product.heat_coef_expert_mark &gt; 9.4" class="title-rehau"><span> Лучший выбор!</span></div>
+        </div>
+        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
+      </div>
+      <div ng-if="mobilePage.isSet(4)" class="price-total">
+        <div class="total-txt"><span>Итого:</span></div>
+        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency" ng-click="mobilePage.checkForAddElem()"></price>
+      </div>
+      <!--templates-->
+      <div ng-if="mobilePage.isSet(1)" class="accept">
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить  </button>
+      </div>
+      <!--configuration-->
+      <div ng-if="mobilePage.isSet(5) &amp;&amp; mobilePage.G.global.activePanel !== 2 &amp;&amp; mobilePage.G.global.activePanel !== 3 &amp;&amp; mobilePage.G.global.activePanel !== 5 &amp;&amp; mobilePage.G.global.activePanel !== 6 &amp;&amp; !mobilePage.isSet(4)" class="to-basket-block">
+        <button ng-click="configMenu.checkForAddElem()" class="add-to-basket">В корзину</button>
+        <div class="counter-rehau-for-landing">
+          <input readonly ng-model="configMenu.G.global.construction_count" ng-click="mobilePage.setTab(4)" class="prodcounter-rehau-for-landing">
+        </div>
+      </div>
+      <!--profiles-->
+      <div ng-if="mobilePage.G.global.activePanel === 2" class="accept">
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить</button>
+      </div>
+      <!--glasses-->
+      <div ng-if="mobilePage.G.global.activePanel === 3" class="accept">
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить</button>
+      </div>
+      <!--laminations-->
+      <div ng-if="mobilePage.G.global.activePanel === 5" class="accept">
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить</button>
+      </div>
+      <!--add elements-->
+      <div ng-if="mobilePage.G.global.activePanel === 6" class="accept">
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="add-to-basket">Применить</button>
+      </div>
+      <!--basket-->
+      <div ng-if="mobilePage.isSet(4)" class="go-to-spec">
+        <button ng-click="cartPage.openOrderDialog();" class="spec">Оставить заявку</button>
       </div>
     </div>
   </div>
