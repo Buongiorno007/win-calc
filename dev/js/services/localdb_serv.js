@@ -1382,6 +1382,7 @@
                 "comment": comment,
                 "address": localStorage.getItem('location'),
                 "region_kladr_id": localStorage.getItem('region_kladr_id'),
+                "fias_id": localStorage.getItem('fias_id'),
                 "utm": window.location.href
               },
               calculation_id: data,
@@ -1390,7 +1391,7 @@
 
           $http
             .post(
-              "https://service.rehauselected.baueffect.com/api/rehau/request",
+              "https://dev.rehau2021selected.xyz/api/rehau/request",
               dataToSend
             )
             .then(
@@ -3064,7 +3065,7 @@
             // console.log(OrderStor.order)
             // console.log(CartStor.cart)
             // console.log(OrderStor.order, 'order stor')
-            // console.log(GlobalStor.global)
+            console.log(GlobalStor.global)
             // console.log(UserStor.userInfo, 'userInfo')
             // console.log(ProductStor.product)
             //console.log(GlobalStor.global, 'global stor');

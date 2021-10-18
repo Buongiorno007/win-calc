@@ -24221,7 +24221,7 @@ function ErrorResult(code, message) {
 
           $http
             .post(
-              "https://service.rehauselected.baueffect.com/api/rehau/request",
+              "https://dev.rehau2021selected.xyz/api/rehau/request",
               dataToSend
             )
             .then(
@@ -25895,7 +25895,7 @@ function ErrorResult(code, message) {
             // console.log(OrderStor.order)
             // console.log(CartStor.cart)
             // console.log(OrderStor.order, 'order stor')
-            // console.log(GlobalStor.global)
+            console.log(GlobalStor.global)
             // console.log(UserStor.userInfo, 'userInfo')
             // console.log(ProductStor.product)
             //console.log(GlobalStor.global, 'global stor');
