@@ -44,11 +44,13 @@
                     .laminat-row(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index"
                                 ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }"
                                 ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if='laminPanel.OpenFolder !==0')
+                        .laminat-label(ng-if="lamCouple.laminat_in_name === lamCouple.laminat_out_name" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name }}
                         .laminat-label(ng-if="lamCouple.img_in_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name }}
                         .laminat-label(ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name | translate }}
                         .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name }}
                         .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name | translate }}
                     .laminat-row(ng-if='laminPanel.OpenFolder === 0' ng-click="laminPanel.selectLaminat(0)")
+                        .laminat-label {{ laminPanel.WHITE_LAMINATION | translate}}
                         .laminat-label {{ laminPanel.WHITE_LAMINATION | translate}}
         include bottom-block
 

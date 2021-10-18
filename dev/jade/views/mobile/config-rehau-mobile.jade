@@ -20,8 +20,12 @@
     //-   .conf-item-text {{ ::configMenu.CONFIGMENU_HARDWARE }}
     .conf-item-rehau(fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}")
       .item-title Цвет (В комнате | фасад)
-      .conf-item-text {{ configMenu.P.product.lamination.laminat_out_name | translate }}
+      .conf-item-text {{ configMenu.P.product.lamination.laminat_in_name | translate }} | {{ configMenu.P.product.lamination.laminat_out_name | translate}}
+      
     .conf-item-rehau(fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}")
       .item-title Доп. элементы
-      .conf-item-text
+      .conf-item-box
+      
+
+      .conf-item-tex
   include bottom-block

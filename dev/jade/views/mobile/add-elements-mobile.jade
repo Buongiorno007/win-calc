@@ -96,7 +96,7 @@
                             img(ng-src="../img/rehau-img/white-arrow-top.png")
                         .info(fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
                     .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
-                        p.splice(ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item); mobPage.setGridToAll() && mobPage.closeConfirmAddElem();") {{item.name}}
+                        p.splice(ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}
                         .info(ng-if='item.img && item.description' fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)")
                             
         //- .confirm-add-elem(ng-if='mobPage.confirmAddElem')

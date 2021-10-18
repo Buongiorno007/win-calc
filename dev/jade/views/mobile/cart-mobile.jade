@@ -200,7 +200,7 @@
                 .col
                     .order-delete-rehau(ng-click="cartPage.clickDeleteProduct($index)")
                     .prod-number {{$index+1}}
-                    .prod-template(ng-click="cartPage.showCartTemplte($index)")
+                    .prod-template
                         svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
                     .prod-heat-coef
                         .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")

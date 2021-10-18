@@ -63,8 +63,11 @@
         <button fs-click="mobilePage.G.global.showCoefInfoBlock=0" class="coeff-info-block-close"></button>
       </div>
       <div class="coeff-info-block-body">
-        <div class="coeff-txt">Данный показатель отображает насколько хорошо окно сохраняет тепло внутри помещения.</div>
+        <div class="coeff-img"> <img src="/img/rehau-img/thermo.png" alt="Thermo img"></div>
+        <div class="coeff-txt">Данный показатель отображает насколько хорошо окно сохраняет тепло внутри помещения.</div><br />
         <div class="coeff-txt">Вы можете изменять этот показатель редактируя следующие элементы:</div>
+        <div ng-click="mobilePage.OpenPanel(3)" class="heat-transfer-info2">{{ ::mobilePage.HEAT_TRANSFER_INFO_6 }}</div>
+        <div ng-click="mobilePage.OpenPanel(2)" class="heat-transfer-info2">{{ ::mobilePage.HEAT_TRANSFER_INFO_9 }}</div>
       </div>
     </div>
   </div>

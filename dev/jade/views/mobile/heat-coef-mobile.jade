@@ -70,8 +70,14 @@
                     .coeff-info-block-title Оценка <br /> энергоэффективности
                     button.coeff-info-block-close(fs-click="mobilePage.G.global.showCoefInfoBlock=0")
                 .coeff-info-block-body
-                    //- .coeff-img 
-                    //-     img(src="/img/rehau-img/thermo.png", alt="Thermo img")
+                    .coeff-img 
+                        img(src="/img/rehau-img/thermo.png", alt="Thermo img")
                     .coeff-txt Данный показатель отображает насколько хорошо окно сохраняет тепло внутри помещения.
+                    <br />
                     .coeff-txt Вы можете изменять этот показатель редактируя следующие элементы:
+                    .heat-transfer-info2(ng-click='mobilePage.OpenPanel(3)')
+                        | {{ ::mobilePage.HEAT_TRANSFER_INFO_6 }}
+                    .heat-transfer-info2(ng-click='mobilePage.OpenPanel(2)')
+                        | {{ ::mobilePage.HEAT_TRANSFER_INFO_9 }}
+                    
                 

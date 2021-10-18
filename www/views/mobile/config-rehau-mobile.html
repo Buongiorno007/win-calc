@@ -23,11 +23,12 @@
     </div>
     <div fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}" class="conf-item-rehau">
       <div class="item-title">Цвет (В комнате | фасад)</div>
-      <div class="conf-item-text">{{ configMenu.P.product.lamination.laminat_out_name | translate }}</div>
+      <div class="conf-item-text">{{ configMenu.P.product.lamination.laminat_in_name | translate }} | {{ configMenu.P.product.lamination.laminat_out_name | translate}}</div>
     </div>
     <div fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}" class="conf-item-rehau">
       <div class="item-title">Доп. элементы</div>
-      <div class="conf-item-text"></div>
+      <div class="conf-item-box"></div>
+      <div class="conf-item-tex"></div>
     </div>
   </div>
   <div class="bottom-block">

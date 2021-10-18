@@ -65,7 +65,7 @@
                     p {{ ::glassPanel.SELECT_CURRENT }}
                 .set-glass-all-btn(fs-click="glassPanel.confirmGlass()")
                     p {{ ::glassPanel.SELECT_ALL_CONSTRUCTION }}
-    .box(ng-if="glassPanel.U.userInfo.factory_id === 2")
+    .box-rehau(ng-if="glassPanel.U.userInfo.factory_id === 2")
         include top-block
         .glass-container
             .glass-block-rehau(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }"  ng-init="FolderIndex = $index")

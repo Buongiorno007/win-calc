@@ -163,7 +163,7 @@ body {
     top: 5%;
     left: 5%;
     height: 90%;
-    width: 90%;
+    width: 91%;
     .alert-btns {
       button {
         display: inline-flex;
@@ -1686,6 +1686,7 @@ body {
     background: white;
     overflow-y: auto;
     z-index: 1;
+    overflow-x:hidden;
   }
   .mobile-profiles {
     .profiles-list {
@@ -2868,6 +2869,16 @@ body {
               left: 0;
               height: 20px;
               width: 20px;
+            }
+            .close-dialog-rehau {
+              background-image: url(../img/rehau-img/remove.png);
+              width: 33px;
+              height: 33px;
+              position: absolute;
+              top: 0;
+              right: 0;
+            
+              cursor: pointer;
             }
             .name {
               @extend .red-color;
@@ -4232,6 +4243,11 @@ body {
     margin: 0;
     background: white;
     z-index: 10;
+    padding: 0;
+
+    @media screen and (max-device-width:735px) {
+      font-size: 16px;
+    }
 
     .coeff-info-block-inner {
       background-color: #fff;
@@ -4276,17 +4292,31 @@ body {
 
         align-self: center;
       }
+    }
 
-      .coeff-info-block-body {
-        .coeff-img {
-          img {
-            width: 100%;
-            height: 100px;
-          }
-          
+    .coeff-info-block-body {
+      text-align: left;
+      .coeff-img {
+        img {
+          width: 100%;
+          height: 350px;
+          margin-top: -85px;
         }
       }
 
+      .heat-transfer-info2 {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 24px;
+
+        color: $primary_pink;
+        &::before {
+          content: "•";
+          margin-right: 14px;
+          margin-left: 10px;
+        }
+      }
     }
   }
 
@@ -4392,6 +4422,72 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .attention {
+      @include roboto-rg(35px);
+      color: white;
+      -webkit-text-fill-color: white;
+      margin-bottom: 25px;
+    }
+    .glass-list {
+      width: 100%;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      @include roboto-rg(20px);
+      color: white;
+      -webkit-text-fill-color: white;
+      margin: 50px 0 25px 0;
+      height: auto;
+    }
+    .extra-glass,
+    span {
+      width: 100%;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .close-dialog-button {
+      position: relative;
+      width: 60%;
+      height: 45px;
+      border-radius: 25px;
+      background: white;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 35px;
+      .close-dialog-title {
+        @include roboto-rg(20px);
+      }
+      .close-dialog {
+        right: 1px;
+        top: 1px;
+        width: 43px;
+        height: 43px;
+      }
+    }
+  }
+
+  //rehau styles 
+  .glass-attantion-rehau {
+    all: unset;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    background: #DE350C;
+    z-index: 2;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    text-align: left;
     .attention {
       @include roboto-rg(35px);
       color: white;

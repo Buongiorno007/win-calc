@@ -321,11 +321,12 @@
           </div>
           <div fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}" class="conf-item-rehau">
             <div class="item-title">Цвет (В комнате | фасад)</div>
-            <div class="conf-item-text">{{ configMenu.P.product.lamination.laminat_out_name | translate }}</div>
+            <div class="conf-item-text">{{ configMenu.P.product.lamination.laminat_in_name | translate }} | {{ configMenu.P.product.lamination.laminat_out_name | translate}}</div>
           </div>
           <div fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}" class="conf-item-rehau">
             <div class="item-title">Доп. элементы</div>
-            <div class="conf-item-text"></div>
+            <div class="conf-item-box"></div>
+            <div class="conf-item-tex"></div>
           </div>
         </div>
         <div class="bottom-block">
@@ -590,8 +591,11 @@
           <button fs-click="mobilePage.G.global.showCoefInfoBlock=0" class="coeff-info-block-close"></button>
         </div>
         <div class="coeff-info-block-body">
-          <div class="coeff-txt">Данный показатель отображает насколько хорошо окно сохраняет тепло внутри помещения.</div>
+          <div class="coeff-img"> <img src="/img/rehau-img/thermo.png" alt="Thermo img"></div>
+          <div class="coeff-txt">Данный показатель отображает насколько хорошо окно сохраняет тепло внутри помещения.</div><br />
           <div class="coeff-txt">Вы можете изменять этот показатель редактируя следующие элементы:</div>
+          <div ng-click="mobilePage.OpenPanel(3)" class="heat-transfer-info2">{{ ::mobilePage.HEAT_TRANSFER_INFO_6 }}</div>
+          <div ng-click="mobilePage.OpenPanel(2)" class="heat-transfer-info2">{{ ::mobilePage.HEAT_TRANSFER_INFO_9 }}</div>
         </div>
       </div>
     </div>
@@ -998,7 +1002,7 @@
         </div>
       </div>
     </div>
-    <div ng-if="glassPanel.U.userInfo.factory_id === 2" class="box">
+    <div ng-if="glassPanel.U.userInfo.factory_id === 2" class="box-rehau">
       <div class="top-container">
         <div ng-if="mobilePage.isSet(1)" class="top-container-item">
           <div class="top-container-header">
@@ -1465,12 +1469,14 @@
               <div class="laminat-label-where">{{laminPanel.FACADE}}</div>
             </div>
             <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if="laminPanel.OpenFolder !==0" class="laminat-row">
+              <div ng-if="lamCouple.laminat_in_name === lamCouple.laminat_out_name" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
               <div ng-if="lamCouple.img_in_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
               <div ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name | translate }}</div>
               <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
               <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name | translate }}</div>
             </div>
             <div ng-if="laminPanel.OpenFolder === 0" ng-click="laminPanel.selectLaminat(0)" class="laminat-row">
+              <div class="laminat-label">{{ laminPanel.WHITE_LAMINATION | translate}}</div>
               <div class="laminat-label">{{ laminPanel.WHITE_LAMINATION | translate}}</div>
             </div>
           </div>
@@ -1811,7 +1817,7 @@
               <div fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if="subfolder.img &amp;&amp; subfolder.description" class="info"></div>
             </div>
             <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-              <p ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item); mobPage.setGridToAll() &amp;&amp; mobPage.closeConfirmAddElem();" class="splice">{{item.name}}</p>
+              <p ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" class="splice">{{item.name}}</p>
               <div ng-if="item.img &amp;&amp; item.description" fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)" class="info"></div>
             </div>
           </div>
@@ -2101,7 +2107,7 @@
           <div class="phone-input"> 
             <div class="input-label">Ваш номер телефона</div>
             <div class="input-field-mobile">
-              <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field-rehau">
+              <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field-phone">
             </div>
           </div>
           <div class="comment-input">
@@ -2318,28 +2324,49 @@
     </div>
   </div>
   <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
-    <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-      <div class="glass-list">
-        <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+    <div ng-if="attantBox.U.userInfo.factory_id !== 2" class="box">
+      <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
+        <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+        <div class="glass-list">
+          <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+        </div>
+      </div>
+      <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
+        <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+      </div>
+      <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion">
+        <div class="attention">{{mobilePage.ATENTION}}</div>
+        <div class="glass-list">{{ ::attantBox.EXTRA_SASH }}
+          <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
+          <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+        </div>
+        <div fs-click="attantBox.closeAttantion()" class="close-dialog-button">
+          <div class="close-dialog-title">{{::mobilePage.HEAT_TRANSFER_INFO_11}}</div>
+          <div class="close-dialog"></div>
+        </div>
+      </div>
+      <div ng-show="attantBox.D.design.isNoDoors" class="design-attantion">{{ ::attantBox.DOOR_ERROR }}
+        <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
       </div>
     </div>
-    <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-    </div>
-    <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion">
-      <div class="attention">{{mobilePage.ATENTION}}</div>
-      <div class="glass-list">{{ ::attantBox.EXTRA_SASH }}
-        <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
-        <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+    <div ng-if="attantBox.U.userInfo.factory_id === 2" class="box-rehau">
+      <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion-rehau">
+        <div fs-click="attantBox.closeAttantion()" class="close-dialog-rehau"></div>
+        <div class="glass-list">
+          <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+        </div>
       </div>
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog-button">
-        <div class="close-dialog-title">{{::mobilePage.HEAT_TRANSFER_INFO_11}}</div>
-        <div class="close-dialog"></div>
+      <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
+        <div fs-click="attantBox.closeAttantion()" class="close-dialog-rehau"></div>
       </div>
-    </div>
-    <div ng-show="attantBox.D.design.isNoDoors" class="design-attantion">{{ ::attantBox.DOOR_ERROR }}
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+      <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion-rehau">
+        <div class="attention">{{mobilePage.ATENTION}}</div>
+        <div class="glass-list">{{ ::attantBox.EXTRA_SASH }}
+          <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
+          <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+        </div>
+        <div fs-click="attantBox.closeAttantion()" class="close-dialog-rehau"></div>
+      </div>
     </div>
   </div>
   <div ng-controller="DangerAlertCtrl as dangerAlert" ng-show="dangerAlert.G.global.dangerAlert===1" class="danger-alert-fon">
@@ -2923,7 +2950,7 @@
           <div class="col">
             <div ng-click="cartPage.clickDeleteProduct($index)" class="order-delete-rehau"></div>
             <div class="prod-number">{{$index+1}}</div>
-            <div ng-click="cartPage.showCartTemplte($index)" class="prod-template">
+            <div class="prod-template">
               <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidthCart" template-height="cartPage.constants.svgTemplateIconHeightCart" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
             </div>
             <div class="prod-heat-coef">

@@ -6954,7 +6954,10 @@ if (window.location.hostname !== 'localhost') {
             GlobalStor,
             UserStor,
             AuxStor,
-            ProductStor) {
+            ProductStor,
+            OrderStor,
+            SVGServ, 
+            DesignStor) {
             /*jshint validthis:true */
             var thisCtrl = this;
             thisCtrl.constants = globalConstants;
@@ -7086,6 +7089,192 @@ if (window.location.hostname !== 'localhost') {
             }, 100);
 
             /**========== FINISH ==========*/
+            //we are adding all these functions from add_elements.js just to have "set all grids" functionality
+            function closeGridSelectorDialog() {
+                DesignServ.removeGlassEventsInSVG();
+                DesignStor.design.selectedGlass.length = 0;
+                AuxStor.aux.selectedGrid = 0;
+                AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
+            }
+
+            function changeSVGTemplateAsNewGrid() {
+                SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+                    .then(function (result) {
+                        ProductStor.product.template = angular.copy(result);
+                        //------ save analytics data
+                        //TODO ?? AnalyticsServ.saveAnalyticDB(
+                        // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+                    });
+            }
+
+            function setAddElementsTotalPrice(currProduct) {
+                var elemTypeQty = currProduct.chosenAddElements.length,
+                    elemQty;
+                currProduct.addelem_price = 0;
+                currProduct.addelemPriceDis = 0;
+                while (--elemTypeQty > -1) {
+                    elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+                    if (elemQty > 0) {
+                        while (--elemQty > -1) {
+                            currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
+
+                        }
+                    }
+                }
+                currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
+                currProduct.addelemPriceDis = GeneralServ.setPriceDis(
+                    currProduct.addelem_price, OrderStor.order.discount_addelem
+                );
+                $timeout(function () {
+                    if (GlobalStor.global.currOpenPage !== 'history') {
+                        MainServ.setProductPriceTOTAL(currProduct);
+                    }
+                }, 50);
+            }
+
+            function pushSelectedAddElement(currProduct, currElement) {
+                var index = (AuxStor.aux.isFocusedAddElement - 1),
+                    existedElement;
+                if (index !== 0) {
+                    existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+                }
+                if (!existedElement || index == 0) {
+                    var newElementSource = {
+                            element_type: index,
+                            element_width: 0,
+                            element_height: 0,
+                            block_id: 0
+                        },
+                        newElement = angular.extend(newElementSource, currElement);
+                    currProduct.chosenAddElements[index].push(newElement);
+                    //---- open TABFrame when second element selected
+                    if (currProduct.chosenAddElements[index].length === 2) {
+                        AuxStor.aux.isTabFrame = 1;
+                    }
+                }
+            }
+
+            function insertGrids(grids) {
+                loginServ.getGridPrice(grids).then(function (data) {
+                    var dataQty = data.length;
+                    AuxStor.aux.currAddElementPrice = 0;
+                    if (dataQty) {
+                        while (--dataQty > -1) {
+                            pushSelectedAddElement(ProductStor.product, data[dataQty]);
+                            AuxStor.aux.currAddElementPrice += data[dataQty].elementPriceDis;
+                        }
+                        AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(AuxStor.aux.currAddElementPrice);
+                        //------ show element price
+                        AuxStor.aux.isAddElement = AuxStor.aux.selectedGrid[0] + '-' + AuxStor.aux.selectedGrid[1];
+                        //------ Set Total Product Price
+                        setAddElementsTotalPrice(ProductStor.product);
+                        //------ change SVG
+                        changeSVGTemplateAsNewGrid();
+                        //------ close Grid Dialog
+                        closeGridSelectorDialog();
+                    }
+                });
+            }
+
+            function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
+                var sizeGridX = _.map(ProductStor.product.template.details[blockIndex].pointsLight, function (item) {
+                        return item.x;
+                    }),
+                    sizeGridY = _.map(ProductStor.product.template.details[blockIndex].pointsLight, function (item) {
+                        return item.y;
+                    }),
+                    gridTemp;
+                //------- insert grid in block
+                ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+                ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+
+                ProductStor.product.template.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+                ProductStor.product.template.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+                //-------- add sizes in grid object
+                gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
+                gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+                gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
+                gridTemp.block_id = blockId;
+                return gridTemp;
+            }
+
+            function collectGridsAsBlock(blockId, gridIndex) {
+                var blocksQty = ProductStor.product.template_source.details.length,
+                    gridElements = [];
+                while (--blocksQty > 0) {
+                    if (blockId) {
+                        /** set grid to template block by its Id */
+                        if (ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            /** check block to old grid
+                             * delete in product.choosenAddElements if exist
+                             * */
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
+                            break;
+                        }
+                    } else {
+                        /** set grid to all template blocks */
+                        if (ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(
+                                ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+                            ));
+                        }
+                    }
+                }
+                return gridElements;
+            }
+
+            function deleteOldGridInList(blockIndex) {
+                var chosenGridsQty;
+                if (ProductStor.product.template_source.details[blockIndex].gridId) {
+                    chosenGridsQty = ProductStor.product.chosenAddElements[0].length;
+                    while (--chosenGridsQty > -1) {
+                        if (ProductStor.product.chosenAddElements[0][chosenGridsQty].block_id === ProductStor.product.template_source.details[blockIndex].id) {
+                            if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty === 1) {
+                                ProductStor.product.chosenAddElements[0].splice(chosenGridsQty, 1);
+                            } else if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty > 1) {
+                                ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty -= 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            function collectGridsAsBlock(blockId, gridIndex) {
+                var blocksQty = ProductStor.product.template_source.details.length,
+                    gridElements = [];
+                while (--blocksQty > 0) {
+                    if (blockId) {
+                        /** set grid to template block by its Id */
+                        if (ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            /** check block to old grid
+                             * delete in product.choosenAddElements if exist
+                             * */
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
+                            break;
+                        }
+                    } else {
+                        /** set grid to all template blocks */
+                        if (ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(
+                                ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+                            ));
+                        }
+                    }
+                }
+                return gridElements;
+            }
+
+            function setGridToAll() {
+                var grids = collectGridsAsBlock(0, AuxStor.aux.selectedGrid);
+                insertGrids(grids);
+                GlobalStor.global.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+            }
+
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
                 // AuxStor.aux.isFocusedAddElement = 0;
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
@@ -7094,6 +7283,7 @@ if (window.location.hostname !== 'localhost') {
                 }
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
+                setGridToAll()
             }
 
             function closeConfirmAddElem() {
@@ -7147,6 +7337,7 @@ if (window.location.hostname !== 'localhost') {
             thisCtrl.showItems = showItems;
             thisCtrl.OpenFolder = OpenFolder;
             thisCtrl.confirmAddElemDialog = confirmAddElemDialog;
+            thisCtrl.setGridToAll = setGridToAll;
             thisCtrl.confirmAddElemDelete = confirmAddElemDelete;
             thisCtrl.closeConfirmAddElem = closeConfirmAddElem;
             thisCtrl.editEddElem = editEddElem;
@@ -25700,7 +25891,7 @@ function ErrorResult(code, message) {
               }
             }
             //console.info('@@@@@@@@@@@@', objTmp);
-            console.log(ProductStor.product, 'Product stor');
+            // console.log(ProductStor.product, 'Product stor');
             // console.log(OrderStor.order)
             // console.log(CartStor.cart)
             // console.log(OrderStor.order, 'order stor')

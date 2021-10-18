@@ -161,12 +161,14 @@
             <div class="laminat-label-where">{{laminPanel.FACADE}}</div>
           </div>
           <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if="laminPanel.OpenFolder !==0" class="laminat-row">
+            <div ng-if="lamCouple.laminat_in_name === lamCouple.laminat_out_name" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
             <div ng-if="lamCouple.img_in_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
             <div ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_in_name | translate }}</div>
             <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
             <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }" class="laminat-label">{{ lamCouple.laminat_out_name | translate }}</div>
           </div>
           <div ng-if="laminPanel.OpenFolder === 0" ng-click="laminPanel.selectLaminat(0)" class="laminat-row">
+            <div class="laminat-label">{{ laminPanel.WHITE_LAMINATION | translate}}</div>
             <div class="laminat-label">{{ laminPanel.WHITE_LAMINATION | translate}}</div>
           </div>
         </div>

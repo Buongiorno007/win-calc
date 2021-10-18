@@ -280,7 +280,7 @@
             <div fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if="subfolder.img &amp;&amp; subfolder.description" class="info"></div>
           </div>
           <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-            <p ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item); mobPage.setGridToAll() &amp;&amp; mobPage.closeConfirmAddElem();" class="splice">{{item.name}}</p>
+            <p ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" class="splice">{{item.name}}</p>
             <div ng-if="item.img &amp;&amp; item.description" fs-click="mobPage.showInfoBox(item.id, subfolder.subFolder)" class="info"></div>
           </div>
         </div>
