@@ -24213,6 +24213,7 @@ function ErrorResult(code, message) {
                 "comment": comment,
                 "address": localStorage.getItem('location'),
                 "region_kladr_id": localStorage.getItem('region_kladr_id'),
+                "fias_id": localStorage.getItem('fias_id'),
                 "utm": window.location.href
               },
               calculation_id: data,

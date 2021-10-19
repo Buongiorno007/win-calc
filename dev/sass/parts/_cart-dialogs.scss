@@ -34,7 +34,7 @@ position: absolute;
   background-color: #800000;
   z-index: 35;
 }
-//rehau styles 
+//rehau styles
 .cart-dialogs-rehau {
   @include transition(all 1.5s linear);
   @include overflow-scroll();
@@ -65,11 +65,11 @@ position: absolute;
   .cart-dialog-tool {
     position: absolute;
     background-image: url(../img/rehau-img/close.png);
-    background-color: #DE350C;
+    background-color: $primary_green;
     background-repeat: no-repeat;
     background-position: center;
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
 
     border: none;
 

@@ -195,7 +195,7 @@
       form(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
         .cart-dialog-header
           button.cart-dialog-tool(fs-click="orderForm.closeOrderDialog()", type="button")
-          .cart-dialog-title Оставить заявку на окно
+          .cart-dialog-title Оставить заявку
         .cart-dialog-body
           .input-field(ng-class="{'invalid-data': orderForm.C.cart.submitted && callOrderForm.name.$error.required }")
             .input-name Ваше имя
