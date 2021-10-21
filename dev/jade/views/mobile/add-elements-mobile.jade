@@ -71,7 +71,7 @@
                 .folders-name-box(ng-click="mobPage.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}')
                     p.folders-name() {{folders.name | translate}}
                         .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
-                            img(ng-src="../img/rehau-img/white-arrow-top.png")
+                            img(ng-src="/img/rehau-img/white-arrow-top.png")
                 .choosen-add-elem(ng-repeat="chosenAddElem in mobPage.P.product.chosenAddElements[$index] track by $index")
                     .row-header
                         p.name {{chosenAddElem.name}}
@@ -93,7 +93,7 @@
                     .subfolders-name( ng-class='{active : mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
                         p.splice(ng-click='mobPage.showItems($index, $event, 0)' ) {{subfolder.name}}
                         .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
-                            img(ng-src="../img/rehau-img/white-arrow-top.png")
+                            img(ng-src="/img/rehau-img/white-arrow-top.png")
                         .info(fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if='subfolder.img && subfolder.description')
                     .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
                         p.splice(ng-click="mobPage.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}

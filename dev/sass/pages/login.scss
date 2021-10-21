@@ -126,7 +126,7 @@ $img_logo-rehau: '/rehau-img/logo-rehau';
 .login-page-rehau {
   @include display-flex();
   height: 100%;
-  background-image: url(../img/rehau-img/rehau-logo.png);
+  background-image: url(/img/rehau-img/rehau-logo.png);
   background-position-x: -270px;
   background-size: cover;
 
@@ -327,7 +327,7 @@ $img_logo-rehau: '/rehau-img/logo-rehau';
 
 //rehau styles
 .logo-rehau {
-  background-image: url(../img/rehau-img/logo-rehau.png);
+  background-image: url(/img/rehau-img/logo-rehau.png);
 
   width: 10000px;
   height: 10000px;

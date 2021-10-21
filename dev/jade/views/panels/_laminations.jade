@@ -107,8 +107,11 @@
           .laminat-label-filter(ng-class="{'active': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'es' && !lamin.translate.es" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label-filter(ng-class="{'active': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" ng-if="lamin.id > 1 && laminPanel.U.userInfo.langLabel === 'ro' && !lamin.translate.ro" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}")
           .laminat-label-filter(ng-class="{'active': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" ng-if="lamin.id === 1" data-output="{{ ::lamin.name | translate}}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}")
-
-    .lamin-title <h1>Доступные комбинации</h1>
+    .box-title
+      .lamin-title <h1>Доступные комбинации</h1> 
+      .tooltip
+          img(ng-src="/img/rehau-img/tooltip-question.png")
+          span.tooltiptext Для заказа также доступны и другие виды ламинации, просьба указать Ваши пожелания в комментариях к заказу.
     .laminat-groups
       .laminat-box(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index")
         .laminat-row

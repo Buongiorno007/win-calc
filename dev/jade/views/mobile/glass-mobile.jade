@@ -74,7 +74,7 @@
                 .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" id='anchor{{$index}}')
                     p(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }") {{glassPanel.G.global.glassTypes[$index].name}}
                     .arrow(ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")
-                        img(ng-src="../img/rehau-img/white-arrow-top.png")
+                        img(ng-src="/img/rehau-img/white-arrow-top.png")
                 .glass-folder(ng-if="glassPanel.OpenFolder === FolderIndex")
                     .glass-item-rehau(ng-repeat="glass in typeGlass track by $index", ng-class="{'active': glass.id == glassPanel.G.global.selectGlassId }" )
                         .title(ng-class="{'active': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)")

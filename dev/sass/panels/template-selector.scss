@@ -195,6 +195,7 @@
     .single-leaf-windows {
       margin-top: 50px;
       .single-leaf-windows-title {
+        h1 {
           color: $primary_green;
           text-align: start;
           font-style: normal;
@@ -203,6 +204,8 @@
           line-height: 32px;
 
           text-transform: uppercase;
+        }
+          
       }
       .single-leaf-windows-templates {
         text-align: start;

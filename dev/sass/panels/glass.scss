@@ -244,11 +244,13 @@
         .glass-item {
           display: flex;
           justify-content: space-between;
-          width: 100%;
+          width: 103%;
           height: 50px;
           align-items: center;
           padding: 10px 10px 10px 10px;
 
+          border: 1px solid darkgray;
+          margin: 2px;
           .glass-warm {
             color: black;
             font-size: 17px;
@@ -278,16 +280,39 @@
             width: 103%;
             background-color: $primary_pink;
             .glass-warm {
-              color: white;
+              color: #fff;
             }
             .glass-noise {
-              color: white;
+              color: #fff;
             }
             .glass-width{
-              color: white;
+              color: #fff;
             }
             .glass-title{
-              color: white;
+              color: #fff;
+            }
+          }
+
+          transition: 0.4s all linear;
+
+          &:hover {
+            background-color: #424242;
+
+            .glass-warm {
+              color: #fff;
+              font-size: 17px;
+            }
+            .glass-noise {
+              color: #fff;
+              font-size: 17px;
+            }
+            .glass-width{
+              color: #fff;
+              font-size: 17px;
+            }
+            .glass-title{
+              color: #fff;
+              font-size: 17px;
             }
           }
         }
@@ -320,7 +345,7 @@
         align-items: center;
         justify-content: center;
         border-radius: 45px;
-        background-image: url(../img/rehau-img/information-icon-rehau.png);
+        background-image: url(/img/rehau-img/information-icon-rehau.png);
         width: 24px;
         height: 24px;
       }

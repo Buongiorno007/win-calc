@@ -208,7 +208,7 @@
             input.user-field-comment(type="text", name="comment", ng-model="orderForm.O.order.comment", ng-focus="orderForm.C.cart.isCityBox = 0")
           .privacy-policy-text
             input.agreement-checkbox(type="checkbox" ng-model="checkedList" ng-init="checkedList=false")
-            .agreement Я соглашаюсь с правилами пользования и политикой конфиденциальности
+            .agreement Я соглашаюсь с правилами пользования и политикой конфиденциальности. <br />*После дистанционного подписания договора, заказ может быть выслан по размерам клиента без замера
            
           button.save.save-order.little(type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled) {{ ::orderForm.READY }}
           button.save.save-order.little(type="submit" ng-if="checkedList") {{ ::orderForm.READY }}

@@ -128,16 +128,16 @@
             .title-box(ng-click="elementsPanel.OpenFolder($index, $event)" ng-class='{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}')
               p.folders-name-rehau {{folders.name | translate}}
               .arrow
-                  img(ng-src="../img/rehau-img/white-arrow-top.png")
+                  img(ng-src="/img/rehau-img/white-arrow-top.png")
             .choosen-add-elem(ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index")
                 .row(ng-click='elementsPanel.editEddElem($parent.$index,$index)')
                     .aux-title(data-output="{{ chosenAddElem.name }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_START }}")
                     .aux-params(ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index && elementsPanel.A.aux.currentAddElementId === $index}")
-                        button.aux-params-but(fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsPanel.pressCulculator($event)", ng-disabled="!elementsPanel.P.product.is_addelem_only && elementsPanel.A.aux.isFocusedAddElement === 1") {{ chosenAddElem.element_qty }}
+                        button.aux-params-but() {{ chosenAddElem.element_qty }}
                           .aux-label {{ ::elementsPanel.QTY_LABEL }}
                     .aux-params(ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index && elementsPanel.A.aux.currentAddElementId === $index}")
                         .aux-label Длина:
-                        button.aux-params-but(fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 2, $index)", ng-keyup="elementsPanel.pressCulculator($event)", ng-disabled="!elementsPanel.P.product.is_addelem_only && elementsPanel.A.aux.isFocusedAddElement === 1") {{ ProductStor.produt.template_width }}
+                        button.aux-params-but() {{ chosenAddElem.element_width }}
                     .aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsPanel.A.aux.currentAddElementId === $index}")
                         .aux-label Высота:
                         button.aux-params-but(fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsPanel.pressCulculator($event)", ng-disabled="!elementsPanel.P.product.is_addelem_only && elementsPanel.A.aux.isFocusedAddElement === 1") {{ chosenAddElem.element_height }}
@@ -147,6 +147,6 @@
                 .subfolders-name( ng-class='{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}' ng-if='subfolder.name && subfolder.id')
                     .splice(ng-click='elementsPanel.showItems($index, $event, 0)' ) {{subfolder.name}}
                       .arrow 
-                        img(ng-src="../img/rehau-img/white-arrow-top.png")
-                .items(ng-repeat="item in subfolder.subFolder track by $index"  ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
+                        img(ng-src="/img/rehau-img/white-arrow-top.png")
+                .items(ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1")
                   p.splice(ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)") {{item.name}}

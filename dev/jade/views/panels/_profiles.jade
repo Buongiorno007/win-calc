@@ -96,7 +96,7 @@
             .group-block-header-rehau(ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'")
                 .title-rehau(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
                 .group-info-rehau
-                    img.info-icon(ng-src="../img/rehau-img/info_rehau.png", ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
+                    img.info-icon(ng-src="/img/rehau-img/info_rehau.png", ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
                     
             .box-rehau.profile-box.unvisible(ng-repeat="profile in producer track by $index", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
                 .box_inner-rehau(ng-click="profilesPanel.checkForAddElem(profile.id)")

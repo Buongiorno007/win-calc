@@ -1052,7 +1052,7 @@
         <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block-rehau"><img ng-if="!(glassPanel.G.global.cordova)" ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" ng-click="glassPanel.OpenGlassFolder($index)"><img ng-if="(glassPanel.G.global.cordova)" ng-src="{{glassPanel.extendUrl(glassPanel.G.global.glassTypes[$index].img)}}" ng-click="glassPanel.OpenGlassFolder($index)">
           <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" id="anchor{{$index}}" class="button">
             <p ng-class="{'active': glassPanel.OpenFolder === FolderIndex }">{{glassPanel.G.global.glassTypes[$index].name}}</p>
-            <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"><img ng-src="../img/rehau-img/white-arrow-top.png"></div>
+            <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"><img ng-src="/img/rehau-img/white-arrow-top.png"></div>
           </div>
           <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
             <div ng-repeat="glass in typeGlass track by $index" ng-class="{'active': glass.id == glassPanel.G.global.selectGlassId }" class="glass-item-rehau">
@@ -1786,7 +1786,7 @@
         <div ng-repeat="folders in mobPage.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" class="folders">
           <div ng-click="mobPage.OpenFolder($index, $event)" ng-class="{active : OpenSubFolder === mobPage.G.global.OpenSubFolder}" class="folders-name-box">
             <p class="folders-name">{{folders.name | translate}}
-              <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"><img ng-src="../img/rehau-img/white-arrow-top.png"></div>
+              <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"><img ng-src="/img/rehau-img/white-arrow-top.png"></div>
             </p>
           </div>
           <div ng-repeat="chosenAddElem in mobPage.P.product.chosenAddElements[$index] track by $index" class="choosen-add-elem">
@@ -1813,7 +1813,7 @@
           <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === mobPage.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders"><img ng-click="mobPage.showItems($index, $event, 1)" ng-if="subfolder.img &amp;&amp; mobPage.G.global.cordova" ng-src="{{mobPage.extendUrl(subfolder.img)}}" class="subfolders-image"><img ng-click="mobPage.showItems($index, $event, 1)" ng-if="subfolder.img &amp;&amp; !(mobPage.G.global.cordova)" ng-src="{{subfolder.img}}" class="subfolders-image">
             <div ng-class="{active : mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
               <p ng-click="mobPage.showItems($index, $event, 0)" class="splice">{{subfolder.name}}</p>
-              <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"><img ng-src="../img/rehau-img/white-arrow-top.png"></div>
+              <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"><img ng-src="/img/rehau-img/white-arrow-top.png"></div>
               <div fs-click="mobPage.showInfoBox(subfolder.id, folders.folder)" ng-if="subfolder.img &amp;&amp; subfolder.description" class="info"></div>
             </div>
             <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="mobPage.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">

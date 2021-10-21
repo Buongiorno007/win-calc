@@ -201,7 +201,7 @@
   }
 
   .order-delete-rehau {
-    background-image: url(../img/rehau-img/close.png);
+    background-image: url(/img/rehau-img/close.png);
     background-repeat: no-repeat;
     background-position: center;
 
@@ -219,7 +219,7 @@
   //rehau styles -----
 
   .delete-construction {
-    background-image: url(../../img/rehau-img/trash.png);
+    background-image: url(/img/rehau-img/trash.png);
     background-position: center;
     position: absolute;
     right: 0;
@@ -348,7 +348,7 @@
   .order-tool-plus-rehau {
     width: 40px;
     height: 40px;
-    background-image: url(../img/rehau-img/rehau_+.png);
+    background-image: url(/img/rehau-img/rehau_+.png);
     background-position: center;
     border: none;
 
@@ -358,7 +358,7 @@
   .order-tool-minus-rehau {
     width: 40px;
     height: 40px;
-    background-image: url(../img/rehau-img/rehua_-.png);
+    background-image: url(/img/rehau-img/rehua_-.png);
     background-position: center;
     border: none;
 
@@ -690,7 +690,7 @@
       }
 
       .aux-delete-rehau {
-        background-image: url(../img/rehau-img/delete-cross-for-basket.png);
+        background-image: url(/img/rehau-img/delete-cross-for-basket.png);
         width: 24px;
         height: 24px;
         align-self: center;
@@ -1167,7 +1167,7 @@
 .back-home-rehau {
   background-color: $primary_pink;
 
-  background-image: url(../img/rehau-img/home.png);
+  background-image: url(/img/rehau-img/home.png);
   background-repeat: no-repeat;
   height: 23px;
   width: 48px;
@@ -1199,7 +1199,7 @@
 .add-new-window {
   background-color: $primary_brown;
 
-  background-image: url(../img/rehau-img/add-new-window.png);
+  background-image: url(/img/rehau-img/add-new-window.png);
   background-repeat: no-repeat;
   height: 23px;
   width: 48px;

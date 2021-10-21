@@ -1621,7 +1621,7 @@ body {
           width: 9rem;
           height: 5.5rem;
 
-          background-image: url(../img/rehau-img/basket.png);
+          background-image: url(/img/rehau-img/basket.png);
           background-repeat: no-repeat;
           background-position-y: 50%;
           background-position-x: 35%;
@@ -2871,7 +2871,7 @@ body {
               width: 20px;
             }
             .close-dialog-rehau {
-              background-image: url(../img/rehau-img/remove.png);
+              background-image: url(/img/rehau-img/remove.png);
               width: 33px;
               height: 33px;
               position: absolute;
@@ -3301,7 +3301,7 @@ body {
     }
   }
   .aux-delete-rehau {
-    background-image: url(../../img/rehau-img/delete-cross-for-add-elems.png);
+    background-image: url(/img/rehau-img/delete-cross-for-add-elems.png);
     width: 24px;
     height: 24px;
     align-self: center;
@@ -4362,7 +4362,7 @@ body {
     display: inline-flex;
     align-items: flex-start;
     justify-content: center; //background: url("../img/calc/info.svg") no-repeat;
-    background: url("../../img/rehau-img/info_rehau.png") no-repeat;
+    background: url("/img/rehau-img/info_rehau.png") no-repeat;
     background-size: contain;
   }
   .attantion-block {

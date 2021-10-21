@@ -255,7 +255,9 @@ body {
 }
 
 .close-dialog-rehau {
-  background-image: url(../img/rehau-img/remove.png);
+  background-image: url(/img/rehau-img/close.png);
+  background-repeat: no-repeat;
+  background-position: center;
   width: 33px;
   height: 33px;
   position: absolute;
@@ -265,8 +267,23 @@ body {
   cursor: pointer;
 }
 
+.close-screen-button {
+  background-image: url(/img/rehau-img/close.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 33px;
+  height: 33px;
+  background-color: #4E4E4E;
+  border-radius: 50%;
+  position: absolute;
+  top: 36px;
+  right: 0;
+
+  cursor: pointer;
+}
+
 .close-alert-rehau {
-  background-image: url(../img/rehau-img/close.png);
+  background-image: url(/img/rehau-img/close.png);
   background-repeat: no-repeat;
   width: 19px;
   height: 19px;
@@ -456,7 +473,7 @@ body {
   z-index: 99999;
 
   .alert-question-sign-rehau {
-    background-image: url(../img/rehau-img/question-sign.png);
+    background-image: url(/img/rehau-img/question-sign.png);
     background-repeat: no-repeat;
     background-position-x: center;
     
@@ -468,7 +485,7 @@ body {
   }
 
   .alert-danger-sign-rehau {
-    background-image: url(../img/rehau-img/danger-sign.png);
+    background-image: url(/img/rehau-img/danger-sign.png);
     background-repeat: no-repeat;
     background-position-x: center;
     

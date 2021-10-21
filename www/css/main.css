@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1631094401') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1627461167') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1631094401') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1627461167') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1631094401') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1627461167') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1631094401') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1627461167') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1631094401') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1627461167') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1631094401') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1627461167') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-info-block-rehau, .room-info-container .coeff-info-block-rehau .coeff-max-rehau, .room-info-container .coeff-info-block-rehau .heat-transfer-rehau, .room-info-container .coeff-max-rehau, .room-info-container .heat-transfer-rehau .coeff-number, .room-info-container .heat-transfer-rehau .coeff-mark, .room-info-container .heat-transfer-rehau.animation, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container-rehau .save, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -1689,7 +1689,9 @@ body {
 
 /* line 257, ../../dev/sass/base/general.scss */
 .close-dialog-rehau {
-  background-image: url(../img/rehau-img/remove.png);
+  background-image: url(/img/rehau-img/close.png);
+  background-repeat: no-repeat;
+  background-position: center;
   width: 33px;
   height: 33px;
   position: absolute;
@@ -1698,9 +1700,24 @@ body {
   cursor: pointer;
 }
 
-/* line 268, ../../dev/sass/base/general.scss */
+/* line 270, ../../dev/sass/base/general.scss */
+.close-screen-button {
+  background-image: url(/img/rehau-img/close.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 33px;
+  height: 33px;
+  background-color: #4E4E4E;
+  border-radius: 50%;
+  position: absolute;
+  top: 36px;
+  right: 0;
+  cursor: pointer;
+}
+
+/* line 285, ../../dev/sass/base/general.scss */
 .close-alert-rehau {
-  background-image: url(../img/rehau-img/close.png);
+  background-image: url(/img/rehau-img/close.png);
   background-repeat: no-repeat;
   width: 19px;
   height: 19px;
@@ -1710,7 +1727,7 @@ body {
   cursor: pointer;
 }
 
-/* line 280, ../../dev/sass/base/general.scss */
+/* line 297, ../../dev/sass/base/general.scss */
 .aux-delete, .cart-page .addelementunit-delete {
   top: 0rem;
   left: 0rem;
@@ -1718,7 +1735,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 289, ../../dev/sass/base/general.scss */
+/* line 306, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1741,7 +1758,7 @@ body {
   z-index: 1;
 }
 
-/* line 311, ../../dev/sass/base/general.scss */
+/* line 328, ../../dev/sass/base/general.scss */
 .fullViewDiv, .backDarkView, .alert-overlay, .box-menu, .box-menu11, .backWhiteView, .alert-overlay-rehau, .room-info-container .coeff-info-block-rehau, .info_container-rehau, .backLightView, .loader-container, .info_container {
   position: absolute;
   left: 0;
@@ -1752,37 +1769,37 @@ body {
   height: 100%;
 }
 
-/* line 320, ../../dev/sass/base/general.scss */
+/* line 337, ../../dev/sass/base/general.scss */
 .backDarkView, .alert-overlay, .box-menu, .box-menu11 {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 9;
 }
 
-/* line 325, ../../dev/sass/base/general.scss */
+/* line 342, ../../dev/sass/base/general.scss */
 .backWhiteView, .alert-overlay-rehau, .room-info-container .coeff-info-block-rehau, .info_container-rehau {
   background: rgba(255, 255, 255, 0.64);
   backdrop-filter: blur(4px);
 }
 
-/* line 330, ../../dev/sass/base/general.scss */
+/* line 347, ../../dev/sass/base/general.scss */
 .backLightView, .loader-container, .info_container {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 999;
 }
 
-/* line 342, ../../dev/sass/base/general.scss */
+/* line 359, ../../dev/sass/base/general.scss */
 .alert-overlay {
   opacity: 1.08;
   z-index: 10000;
 }
 
-/* line 348, ../../dev/sass/base/general.scss */
+/* line 365, ../../dev/sass/base/general.scss */
 .alert-overlay-rehau {
   opacity: 1.08;
   z-index: 10000;
 }
 
-/* line 354, ../../dev/sass/base/general.scss */
+/* line 371, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -1799,18 +1816,18 @@ body {
   text-align: center;
   z-index: 99999;
 }
-/* line 372, ../../dev/sass/base/general.scss */
+/* line 389, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-descr-rehau {
   font-size: 24px;
 }
-/* line 375, ../../dev/sass/base/general.scss */
+/* line 392, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-btns-rehau {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
-/* line 379, ../../dev/sass/base/general.scss */
+/* line 396, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-yes-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1823,7 +1840,7 @@ body {
   color: white;
   width: 80px;
 }
-/* line 396, ../../dev/sass/base/general.scss */
+/* line 413, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-no-rehau {
   background: #4E4E4E;
   padding: 8px 10px;
@@ -1834,7 +1851,7 @@ body {
   line-height: 32px;
   width: 80px;
 }
-/* line 410, ../../dev/sass/base/general.scss */
+/* line 427, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-copy-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1845,7 +1862,7 @@ body {
   line-height: 32px;
   width: 190px;
 }
-/* line 424, ../../dev/sass/base/general.scss */
+/* line 441, ../../dev/sass/base/general.scss */
 .alert-block-ok-rehau .alert-edit-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1857,7 +1874,7 @@ body {
   width: 190px;
 }
 
-/* line 440, ../../dev/sass/base/general.scss */
+/* line 457, ../../dev/sass/base/general.scss */
 .alert-block-rehau {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -1874,9 +1891,9 @@ body {
   text-align: center;
   z-index: 99999;
 }
-/* line 458, ../../dev/sass/base/general.scss */
+/* line 475, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-question-sign-rehau {
-  background-image: url(../img/rehau-img/question-sign.png);
+  background-image: url(/img/rehau-img/question-sign.png);
   background-repeat: no-repeat;
   background-position-x: center;
   width: 100%;
@@ -1884,9 +1901,9 @@ body {
   margin-bottom: 30px;
   margin-top: 40px;
 }
-/* line 470, ../../dev/sass/base/general.scss */
+/* line 487, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-danger-sign-rehau {
-  background-image: url(../img/rehau-img/danger-sign.png);
+  background-image: url(/img/rehau-img/danger-sign.png);
   background-repeat: no-repeat;
   background-position-x: center;
   width: 100%;
@@ -1894,7 +1911,7 @@ body {
   margin-bottom: 30px;
   margin-top: 25px;
 }
-/* line 482, ../../dev/sass/base/general.scss */
+/* line 499, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-title-rehau {
   font-style: normal;
   font-weight: bold;
@@ -1904,19 +1921,19 @@ body {
   text-transform: uppercase;
   color: #000000;
 }
-/* line 493, ../../dev/sass/base/general.scss */
+/* line 510, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-descr-rehau {
   margin-bottom: 24px;
   margin-top: 8px;
 }
 @media screen and (max-device-width: 735px) {
-  /* line 493, ../../dev/sass/base/general.scss */
+  /* line 510, ../../dev/sass/base/general.scss */
   .alert-block-rehau .alert-descr-rehau {
     font-size: 16px;
     text-align: center;
   }
 }
-/* line 502, ../../dev/sass/base/general.scss */
+/* line 519, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-btns-rehau {
   display: -webkit-flex;
   display: flex;
@@ -1924,7 +1941,7 @@ body {
   justify-content: space-around;
   color: white;
 }
-/* line 509, ../../dev/sass/base/general.scss */
+/* line 526, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-no-rehau {
   background-color: #858181;
   padding: 8px 10px;
@@ -1934,7 +1951,7 @@ body {
   font-size: 24px;
   line-height: 32px;
 }
-/* line 521, ../../dev/sass/base/general.scss */
+/* line 538, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-yes-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1946,12 +1963,12 @@ body {
   width: 80px;
 }
 @media screen and (max-device-width: 735px) {
-  /* line 521, ../../dev/sass/base/general.scss */
+  /* line 538, ../../dev/sass/base/general.scss */
   .alert-block-rehau .alert-yes-rehau {
     margin-right: 76px;
   }
 }
-/* line 539, ../../dev/sass/base/general.scss */
+/* line 556, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-no-rehau {
   background: #4E4E4E;
   padding: 8px 10px;
@@ -1962,7 +1979,7 @@ body {
   line-height: 32px;
   width: 80px;
 }
-/* line 553, ../../dev/sass/base/general.scss */
+/* line 570, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-copy-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1973,7 +1990,7 @@ body {
   line-height: 32px;
   width: 190px;
 }
-/* line 567, ../../dev/sass/base/general.scss */
+/* line 584, ../../dev/sass/base/general.scss */
 .alert-block-rehau .alert-edit-rehau {
   background-color: #37A58C;
   padding: 8px 10px;
@@ -1985,7 +2002,7 @@ body {
   width: 190px;
 }
 
-/* line 587, ../../dev/sass/base/general.scss */
+/* line 604, ../../dev/sass/base/general.scss */
 .alert-block {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -2003,35 +2020,35 @@ body {
   z-index: 99999;
 }
 
-/* line 604, ../../dev/sass/base/general.scss */
+/* line 621, ../../dev/sass/base/general.scss */
 .alert-sign {
   font: normal 10rem/1.42857 icons, sans-serif;
 }
-/* line 608, ../../dev/sass/base/general.scss */
+/* line 625, ../../dev/sass/base/general.scss */
 .alert-sign:after {
   -webkit-text-fill-color: #f74f2e;
   color: #f74f2e;
   content: "";
 }
 
-/* line 614, ../../dev/sass/base/general.scss */
+/* line 631, ../../dev/sass/base/general.scss */
 .alert-title {
   font: normal 2rem/1.42857 roboto-bold, sans-serif, icons;
 }
 
-/* line 617, ../../dev/sass/base/general.scss */
+/* line 634, ../../dev/sass/base/general.scss */
 .alert-descr {
   margin: 2rem 0;
 }
 
-/* line 620, ../../dev/sass/base/general.scss */
+/* line 637, ../../dev/sass/base/general.scss */
 .alert-btns {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
-/* line 623, ../../dev/sass/base/general.scss */
+/* line 640, ../../dev/sass/base/general.scss */
 .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .alert-btns .door-configuration .door-config-finish-save-btn, .door-configuration .alert-btns .door-config-finish-save-btn {
   width: 10rem;
   height: 4rem;
@@ -2039,17 +2056,17 @@ body {
   color: white;
 }
 
-/* line 631, ../../dev/sass/base/general.scss */
+/* line 648, ../../dev/sass/base/general.scss */
 .alert-no {
   background-color: #858181;
 }
 
-/* line 634, ../../dev/sass/base/general.scss */
+/* line 651, ../../dev/sass/base/general.scss */
 .alert-yes {
   background-color: #f98000;
 }
 
-/* line 637, ../../dev/sass/base/general.scss */
+/* line 654, ../../dev/sass/base/general.scss */
 .thisAlert {
   left: 86%;
   top: 5%;
@@ -2058,7 +2075,7 @@ body {
   position: absolute;
 }
 
-/* line 648, ../../dev/sass/base/general.scss */
+/* line 665, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .cart-page .addelementunits-container, .scroll-hor-container, .cart-page .addelements-detail-content,
 .light-v .addelements-detail-content, .cart-page .products-selector .products-selector-block .products-block {
   -webkit-overflow-scrolling: touch;
@@ -2068,26 +2085,26 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 651, ../../dev/sass/base/general.scss */
+/* line 668, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container, .cart-page .addelementunits-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 655, ../../dev/sass/base/general.scss */
+/* line 672, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container, .cart-page .products-selector .products-selector-block .products-block {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 659, ../../dev/sass/base/general.scss */
+/* line 676, ../../dev/sass/base/general.scss */
 .scroll-vert-container, .cart-page .addelementunits-container {
   width: 102%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 666, ../../dev/sass/base/general.scss */
+/* line 683, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
@@ -2096,12 +2113,12 @@ body {
   flex-direction: row-reverse;
 }
 
-/* line 680, ../../dev/sass/base/general.scss */
+/* line 697, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
 
-/* line 686, ../../dev/sass/base/general.scss */
+/* line 703, ../../dev/sass/base/general.scss */
 .main-svg-click {
   position: absolute;
   top: 15%;
@@ -2581,7 +2598,7 @@ div.drum figure {
   width: 690px;
   color: #fff;
   background: #DE350C;
-  background-image: url(../img/rehau-img/error.png);
+  background-image: url(/img/rehau-img/error.png);
   background-repeat: no-repeat;
   background-position-y: center;
   background-position-x: 26px;
@@ -2599,7 +2616,7 @@ div.drum figure {
   height: 159px;
   color: #fff;
   background: #DE350C;
-  background-image: url(../img/rehau-img/error.png);
+  background-image: url(/img/rehau-img/error.png);
   background-repeat: no-repeat;
   background-position-y: center;
   background-position-x: 16px;
@@ -4953,7 +4970,7 @@ textarea.comment-field-rehau {
 /* line 65, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .cart-dialog-tool {
   position: absolute;
-  background-image: url(../img/rehau-img/close.png);
+  background-image: url(/img/rehau-img/close.png);
   background-color: #37A58C;
   background-repeat: no-repeat;
   background-position: center;
@@ -5018,7 +5035,7 @@ textarea.comment-field-rehau {
   padding: 3.75rem;
   background-color: white;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
-  height: 604px;
+  height: 630px;
 }
 /* line 143, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .cart-dialog-body .user-field, .cart-dialogs-container-rehau .cart-dialog-body .user-select-field {
@@ -5130,7 +5147,6 @@ textarea.comment-field-rehau {
 /* line 247, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container-rehau .cart-dialog-body .privacy-policy-text .agreement {
   font-size: 14px;
-  font-family: cursive;
   font-style: italic;
 }
 /* line 254, ../../dev/sass/parts/_cart-dialogs.scss */
@@ -5516,19 +5532,19 @@ textarea.comment-field-rehau {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../usr/local/lib/ruby/gems/3.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../usr/local/lib/ruby/gems/3.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../usr/local/lib/ruby/gems/3.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../usr/local/lib/ruby/gems/3.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -8270,7 +8286,7 @@ div.slider-nav span.left {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background-image: url(../img/rehau-img/rehau-logo.png);
+  background-image: url(/img/rehau-img/rehau-logo.png);
   background-position-x: -270px;
   background-size: cover;
 }
@@ -8471,13 +8487,13 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1631094401') no-repeat;
+  background: url('../img/login/logo.png?1627461168') no-repeat;
   background-size: cover !important;
 }
 
 /* line 329, ../../dev/sass/pages/login.scss */
 .logo-rehau {
-  background-image: url(../img/rehau-img/logo-rehau.png);
+  background-image: url(/img/rehau-img/logo-rehau.png);
   width: 10000px;
   height: 10000px;
   margin-left: -850px;
@@ -9982,7 +9998,7 @@ tr.factory_item {
 /* line 203, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete-rehau,
 .light-v .order-delete-rehau {
-  background-image: url(../img/rehau-img/close.png);
+  background-image: url(/img/rehau-img/close.png);
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
@@ -9997,7 +10013,7 @@ tr.factory_item {
 /* line 221, ../../dev/sass/pages/cart.scss */
 .cart-page .delete-construction,
 .light-v .delete-construction {
-  background-image: url(../../img/rehau-img/trash.png);
+  background-image: url(/img/rehau-img/trash.png);
   background-position: center;
   position: absolute;
   right: 0;
@@ -10135,7 +10151,7 @@ tr.factory_item {
 .light-v .order-tool-plus-rehau {
   width: 40px;
   height: 40px;
-  background-image: url(../img/rehau-img/rehau_+.png);
+  background-image: url(/img/rehau-img/rehau_+.png);
   background-position: center;
   border: none;
   margin-right: 25px;
@@ -10145,7 +10161,7 @@ tr.factory_item {
 .light-v .order-tool-minus-rehau {
   width: 40px;
   height: 40px;
-  background-image: url(../img/rehau-img/rehua_-.png);
+  background-image: url(/img/rehau-img/rehua_-.png);
   background-position: center;
   border: none;
   margin-left: 25px;
@@ -10483,7 +10499,7 @@ tr.factory_item {
 /* line 692, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content-rehau .aux-delete-rehau,
 .light-v .full-view .order-content-rehau .aux-delete-rehau {
-  background-image: url(../img/rehau-img/delete-cross-for-basket.png);
+  background-image: url(/img/rehau-img/delete-cross-for-basket.png);
   width: 24px;
   height: 24px;
   align-self: center;
@@ -11021,7 +11037,7 @@ tr.factory_item {
 /* line 1167, ../../dev/sass/pages/cart.scss */
 .back-home-rehau {
   background-color: #DD0060;
-  background-image: url(../img/rehau-img/home.png);
+  background-image: url(/img/rehau-img/home.png);
   background-repeat: no-repeat;
   height: 23px;
   width: 48px;
@@ -11048,7 +11064,7 @@ tr.factory_item {
 /* line 1199, ../../dev/sass/pages/cart.scss */
 .add-new-window {
   background-color: #4E4E4E;
-  background-image: url(../img/rehau-img/add-new-window.png);
+  background-image: url(/img/rehau-img/add-new-window.png);
   background-repeat: no-repeat;
   height: 23px;
   width: 48px;
@@ -11978,7 +11994,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1631094401') no-repeat;
+  background: url('../img/door-arrow.png?1627461167') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -12487,7 +12503,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 2.5rem;
   padding-bottom: 0.2rem;
-  background-image: url(../img/rehau-img/back-button-config-menu.png);
+  background-image: url(/img/rehau-img/back-button-config-menu.png);
   background-repeat: no-repeat;
   background-position-y: center;
   background-position-x: -50px;
@@ -12537,7 +12553,6 @@ tr.factory_item {
 }
 /* line 421, ../../dev/sass/pages/light.scss */
 .light-v .figure-label-rehau-subtitle {
-  text-transform: lowercase;
   margin: 0 !important;
   position: relative;
   top: -3rem;
@@ -12950,7 +12965,7 @@ tr.factory_item {
   width: 9rem;
   height: 5.5rem;
   margin-right: 4rem;
-  background-image: url(../img/rehau-img/basket.png);
+  background-image: url(/img/rehau-img/basket.png);
   background-repeat: no-repeat;
   background-position-y: 50%;
   background-position-x: 35%;
@@ -12997,7 +13012,7 @@ tr.factory_item {
   width: 9rem;
   height: 5.5rem;
   margin-right: 4rem;
-  background-image: url(../img/rehau-img/basket.png);
+  background-image: url(/img/rehau-img/basket.png);
   background-repeat: no-repeat;
   background-position-y: 50%;
   background-position-x: 35%;
@@ -15116,7 +15131,7 @@ body {
   border: none;
   width: 9rem;
   height: 5.5rem;
-  background-image: url(../img/rehau-img/basket.png);
+  background-image: url(/img/rehau-img/basket.png);
   background-repeat: no-repeat;
   background-position-y: 50%;
   background-position-x: 35%;
@@ -16299,7 +16314,7 @@ body {
 }
 /* line 2873, ../../dev/sass/pages/mobile.scss */
 .mobile .add-elements-mobile .folders-container .folders .choosen-add-elem .row-header .close-dialog-rehau {
-  background-image: url(../img/rehau-img/remove.png);
+  background-image: url(/img/rehau-img/remove.png);
   width: 33px;
   height: 33px;
   position: absolute;
@@ -16753,7 +16768,7 @@ body {
 }
 /* line 3303, ../../dev/sass/pages/mobile.scss */
 .mobile .aux-delete-rehau {
-  background-image: url(../../img/rehau-img/delete-cross-for-add-elems.png);
+  background-image: url(/img/rehau-img/delete-cross-for-add-elems.png);
   width: 24px;
   height: 24px;
   align-self: center;
@@ -17891,7 +17906,7 @@ body {
   display: inline-flex;
   align-items: flex-start;
   justify-content: center;
-  background: url("../../img/rehau-img/info_rehau.png") no-repeat;
+  background: url("/img/rehau-img/info_rehau.png") no-repeat;
   background-size: contain;
 }
 /* line 4369, ../../dev/sass/pages/mobile.scss */
@@ -19404,7 +19419,17 @@ body {
   margin: 0;
   padding: 0;
 }
-/* line 74, ../../dev/sass/menus/_config-menu.scss */
+/* line 71, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .additional-items-list-rehau {
+  font-size: 16px;
+  margin-left: 15px;
+  text-overflow: ellipsis;
+  max-width: 240px;
+  margin-top: -20px;
+  max-height: 100px;
+  overflow-y: scroll;
+}
+/* line 85, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   position: relative;
@@ -19418,11 +19443,11 @@ body {
   background-color: #f98000;
   display: inline-block;
 }
-/* line 88, ../../dev/sass/menus/_config-menu.scss */
+/* line 99, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty.active {
   left: -3.5rem;
 }
-/* line 93, ../../dev/sass/menus/_config-menu.scss */
+/* line 104, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .curtain {
   position: absolute;
   top: 0;
@@ -19432,7 +19457,7 @@ body {
   background: rgba(248, 248, 248, 0.95);
   z-index: 3;
 }
-/* line 103, ../../dev/sass/menus/_config-menu.scss */
+/* line 114, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff {
   font: normal 2.1875rem/1.42857 roboto-light, sans-serif, icons;
   width: auto;
@@ -19445,21 +19470,21 @@ body {
   color: #6ed44a;
   z-index: 2;
 }
-/* line 121, ../../dev/sass/menus/_config-menu.scss */
+/* line 132, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page {
   position: relative;
   top: 1rem;
   width: 100%;
   height: auto;
 }
-/* line 126, ../../dev/sass/menus/_config-menu.scss */
+/* line 137, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page input::-webkit-outer-spin-button,
 .config-menu .counter-main-page input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
   border-radius: 5px;
 }
-/* line 132, ../../dev/sass/menus/_config-menu.scss */
+/* line 143, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter-block {
   text-align: center;
   position: relative;
@@ -19469,7 +19494,7 @@ body {
   align-items: center;
   width: 100%;
 }
-/* line 140, ../../dev/sass/menus/_config-menu.scss */
+/* line 151, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter-block p {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
@@ -19478,7 +19503,7 @@ body {
   float: left;
   display: inline-block;
 }
-/* line 150, ../../dev/sass/menus/_config-menu.scss */
+/* line 161, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter {
   height: 5rem;
   display: inline-flex;
@@ -19486,14 +19511,14 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-/* line 156, ../../dev/sass/menus/_config-menu.scss */
+/* line 167, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter input {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   text-align: center;
   border: 1px solid #b1b1b1;
   width: 5rem;
 }
-/* line 163, ../../dev/sass/menus/_config-menu.scss */
+/* line 174, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-minus, .config-menu .counter-main-page .input-plus {
   cursor: pointer;
   position: relative;
@@ -19501,19 +19526,19 @@ body {
   margin-left: 1rem;
   margin-right: 1rem;
 }
-/* line 170, ../../dev/sass/menus/_config-menu.scss */
+/* line 181, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #bebebe;
 }
-/* line 176, ../../dev/sass/menus/_config-menu.scss */
+/* line 187, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 182, ../../dev/sass/menus/_config-menu.scss */
+/* line 193, ../../dev/sass/menus/_config-menu.scss */
 .config-menu input::-webkit-outer-spin-button,
 .config-menu input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
@@ -19521,12 +19546,12 @@ body {
   margin: 0;
   /* <-- Apparently some margin are still there even though it's hidden */
 }
-/* line 189, ../../dev/sass/menus/_config-menu.scss */
+/* line 200, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .prodCounter {
   border-radius: 5px !important;
   box-shadow: inset 1px 1px 1px 0px #bebebe;
 }
-/* line 193, ../../dev/sass/menus/_config-menu.scss */
+/* line 204, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .cart-btns {
   width: 130%;
   display: inline-flex;
@@ -19534,12 +19559,12 @@ body {
   position: relative;
   left: 4rem;
 }
-/* line 199, ../../dev/sass/menus/_config-menu.scss */
+/* line 210, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .cart-btns.active {
   transition: all 1s ease;
   left: 0;
 }
-/* line 205, ../../dev/sass/menus/_config-menu.scss */
+/* line 216, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart, .config-menu .save-to-cart {
   cursor: pointer;
   border-radius: 1rem;
@@ -19548,7 +19573,7 @@ body {
   top: 0;
   height: 5rem;
 }
-/* line 213, ../../dev/sass/menus/_config-menu.scss */
+/* line 224, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart img, .config-menu .save-to-cart img {
   width: 4.5rem;
   height: 4.5rem;
@@ -19558,13 +19583,13 @@ body {
   top: -.2rem !important;
   background-size: contain;
 }
-/* line 224, ../../dev/sass/menus/_config-menu.scss */
+/* line 235, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart {
   background-color: #f98000;
   display: inline-flex;
   width: 20rem;
 }
-/* line 228, ../../dev/sass/menus/_config-menu.scss */
+/* line 239, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart .save-to-cart-p {
   display: inline-block;
   width: 100%;
@@ -19573,24 +19598,24 @@ body {
   position: relative;
   margin: 1rem;
 }
-/* line 236, ../../dev/sass/menus/_config-menu.scss */
+/* line 247, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart img {
   float: left;
   margin: .5rem;
   position: relative;
   top: -.1rem;
 }
-/* line 245, ../../dev/sass/menus/_config-menu.scss */
+/* line 256, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart {
   width: 25%;
   position: relative;
   left: 4rem;
 }
-/* line 249, ../../dev/sass/menus/_config-menu.scss */
+/* line 260, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart.active {
   left: 0;
 }
-/* line 260, ../../dev/sass/menus/_config-menu.scss */
+/* line 271, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -19607,7 +19632,7 @@ body {
   opacity: 0;
   z-index: 1;
 }
-/* line 273, ../../dev/sass/menus/_config-menu.scss */
+/* line 284, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:after {
   position: absolute;
   right: -1.4rem;
@@ -19619,28 +19644,28 @@ body {
   border-color: transparent rgba(255, 255, 255, 0.85);
   content: '';
 }
-/* line 284, ../../dev/sass/menus/_config-menu.scss */
+/* line 295, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:hover {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 287, ../../dev/sass/menus/_config-menu.scss */
+/* line 298, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.tempate_tip {
   top: 2rem;
   opacity: 1;
 }
-/* line 291, ../../dev/sass/menus/_config-menu.scss */
+/* line 302, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.profile_tip {
   top: 22rem;
   opacity: 1;
 }
-/* line 295, ../../dev/sass/menus/_config-menu.scss */
+/* line 306, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.glass_tip {
   top: 29rem;
   opacity: 1;
 }
-/* line 305, ../../dev/sass/menus/_config-menu.scss */
+/* line 316, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip .close_menu_tooltip {
   position: absolute;
   top: 4%;
@@ -19648,7 +19673,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 316, ../../dev/sass/menus/_config-menu.scss */
+/* line 327, ../../dev/sass/menus/_config-menu.scss */
 .light-v .titleLight {
   font-weight: bold;
   font-size: 1.7rem;
@@ -19656,7 +19681,7 @@ body {
   color: #cc0000 !important;
 }
 
-/* line 323, ../../dev/sass/menus/_config-menu.scss */
+/* line 334, ../../dev/sass/menus/_config-menu.scss */
 input[type='number'] {
   -moz-appearance: textfield;
 }
@@ -20165,7 +20190,7 @@ input[type='number'] {
 }
 /* line 153, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu .drop-delivery-rehau.active {
-  height: 20.375rem;
+  height: 13.75rem;
   min-width: 280px;
 }
 /* line 159, ../../dev/sass/menus/_cart-menu.scss */
@@ -20654,7 +20679,7 @@ input[type='number'] {
 }
 /* line 621, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu-rehau .drop-delivery-rehau.active {
-  height: 20.375rem;
+  height: 13.75rem;
   min-width: 280px;
 }
 /* line 626, ../../dev/sass/menus/_cart-menu.scss */
@@ -21463,8 +21488,8 @@ input[type='number'] {
 .template-container-rehau .other-template-rehau .single-leaf-windows {
   margin-top: 50px;
 }
-/* line 197, ../../dev/sass/panels/template-selector.scss */
-.template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-title {
+/* line 198, ../../dev/sass/panels/template-selector.scss */
+.template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-title h1 {
   color: #37A58C;
   text-align: start;
   font-style: normal;
@@ -21473,13 +21498,13 @@ input[type='number'] {
   line-height: 32px;
   text-transform: uppercase;
 }
-/* line 207, ../../dev/sass/panels/template-selector.scss */
+/* line 210, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 216, ../../dev/sass/panels/template-selector.scss */
+/* line 219, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-title h1 {
   color: #37A58C;
   text-align: start;
@@ -21489,13 +21514,13 @@ input[type='number'] {
   line-height: 32px;
   text-transform: uppercase;
 }
-/* line 227, ../../dev/sass/panels/template-selector.scss */
+/* line 230, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 236, ../../dev/sass/panels/template-selector.scss */
+/* line 239, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-title h1 {
   color: #37A58C;
   text-align: start;
@@ -21505,17 +21530,17 @@ input[type='number'] {
   line-height: 32px;
   text-transform: uppercase;
 }
-/* line 247, ../../dev/sass/panels/template-selector.scss */
+/* line 250, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 257, ../../dev/sass/panels/template-selector.scss */
+/* line 260, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-header {
   text-align: center;
 }
-/* line 261, ../../dev/sass/panels/template-selector.scss */
+/* line 264, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-title {
   font: normal 5rem/5rem roboto-light, sans-serif, icons;
   height: 5.75rem;
@@ -21526,17 +21551,17 @@ input[type='number'] {
   background-color: transparent;
   outline: none;
 }
-/* line 271, ../../dev/sass/panels/template-selector.scss */
+/* line 274, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-title.active {
   color: #fff;
   background-color: #6ed44a;
 }
-/* line 277, ../../dev/sass/panels/template-selector.scss */
+/* line 280, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .tempate-type-box {
   position: relative;
   display: inline;
 }
-/* line 281, ../../dev/sass/panels/template-selector.scss */
+/* line 284, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
   position: absolute;
@@ -21549,7 +21574,7 @@ input[type='number'] {
   white-space: nowrap;
   cursor: pointer;
 }
-/* line 292, ../../dev/sass/panels/template-selector.scss */
+/* line 295, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type:before {
   position: absolute;
   z-index: 1;
@@ -21562,27 +21587,27 @@ input[type='number'] {
   border-color: transparent #242424;
   content: '';
 }
-/* line 305, ../../dev/sass/panels/template-selector.scss */
+/* line 308, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type-btn {
   border-bottom: 1px solid #bebebe;
 }
-/* line 307, ../../dev/sass/panels/template-selector.scss */
+/* line 310, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-type-btn:last-child {
   border-bottom: none;
 }
-/* line 312, ../../dev/sass/panels/template-selector.scss */
+/* line 315, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-discr {
   font: normal 5rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #363636;
 }
-/* line 318, ../../dev/sass/panels/template-selector.scss */
+/* line 321, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-section {
   height: 62.5rem;
   text-align: center;
   cursor: pointer;
 }
-/* line 325, ../../dev/sass/panels/template-selector.scss */
+/* line 328, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-footer {
   display: -webkit-flex;
   display: flex;
@@ -21592,7 +21617,7 @@ input[type='number'] {
   display: flex;
   overflow: auto;
 }
-/* line 335, ../../dev/sass/panels/template-selector.scss */
+/* line 338, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-footerLight {
   display: none !important;
   flex-direction: column;
@@ -21606,11 +21631,11 @@ input[type='number'] {
   display: flex;
   overflow: auto;
 }
-/* line 346, ../../dev/sass/panels/template-selector.scss */
+/* line 349, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .template-footerLight.goLeft {
   display: inline-flex !important;
 }
-/* line 353, ../../dev/sass/panels/template-selector.scss */
+/* line 356, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-templates {
   display: -webkit-flex;
   display: flex;
@@ -21623,27 +21648,27 @@ input[type='number'] {
   overflow-y: hidden;
   overflow-x: auto;
 }
-/* line 361, ../../dev/sass/panels/template-selector.scss */
+/* line 364, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template {
   display: inline-block;
   min-width: 190px;
   margin: 0 0.625rem;
   cursor: pointer;
 }
-/* line 366, ../../dev/sass/panels/template-selector.scss */
+/* line 369, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template.selected {
   background-color: rgba(114, 225, 133, 0.55);
   border-radius: 1rem;
 }
-/* line 372, ../../dev/sass/panels/template-selector.scss */
+/* line 375, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-img {
   text-align: center;
 }
-/* line 375, ../../dev/sass/panels/template-selector.scss */
+/* line 378, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-img img {
   max-height: 150px;
 }
-/* line 380, ../../dev/sass/panels/template-selector.scss */
+/* line 383, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-label {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 9.375rem;
@@ -21652,7 +21677,7 @@ input[type='number'] {
   word-wrap: break-word;
   color: #666;
 }
-/* line 389, ../../dev/sass/panels/template-selector.scss */
+/* line 392, ../../dev/sass/panels/template-selector.scss */
 .template-container-rehau .other-template-subscr {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 12.5rem;
@@ -22275,32 +22300,35 @@ input[type='number'] {
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 103%;
   height: 50px;
   align-items: center;
   padding: 10px 10px 10px 10px;
+  border: 1px solid darkgray;
+  margin: 2px;
+  transition: 0.4s all linear;
 }
-/* line 252, ../../dev/sass/panels/glass.scss */
+/* line 254, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-warm {
   color: black;
   font-size: 17px;
 }
-/* line 256, ../../dev/sass/panels/glass.scss */
+/* line 258, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-noise {
   color: black;
   font-size: 17px;
 }
-/* line 260, ../../dev/sass/panels/glass.scss */
+/* line 262, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-width {
   color: black;
   font-size: 17px;
 }
-/* line 264, ../../dev/sass/panels/glass.scss */
+/* line 266, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .glass-title {
   color: black;
   font-size: 17px;
 }
-/* line 269, ../../dev/sass/panels/glass.scss */
+/* line 271, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item .item-info {
   display: inline-flex;
   align-items: center;
@@ -22309,41 +22337,65 @@ input[type='number'] {
   height: 40px;
   flex: 0 0 auto;
 }
-/* line 277, ../../dev/sass/panels/glass.scss */
+/* line 279, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected {
   width: 103%;
   background-color: #DD0060;
 }
-/* line 280, ../../dev/sass/panels/glass.scss */
+/* line 282, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-warm {
-  color: white;
+  color: #fff;
 }
-/* line 283, ../../dev/sass/panels/glass.scss */
+/* line 285, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-noise {
-  color: white;
+  color: #fff;
 }
-/* line 286, ../../dev/sass/panels/glass.scss */
+/* line 288, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-width {
-  color: white;
+  color: #fff;
 }
-/* line 289, ../../dev/sass/panels/glass.scss */
+/* line 291, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-item.selected .glass-title {
-  color: white;
+  color: #fff;
 }
-/* line 295, ../../dev/sass/panels/glass.scss */
+/* line 298, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item:hover {
+  background-color: #424242;
+}
+/* line 301, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item:hover .glass-warm {
+  color: #fff;
+  font-size: 17px;
+}
+/* line 305, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item:hover .glass-noise {
+  color: #fff;
+  font-size: 17px;
+}
+/* line 309, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item:hover .glass-width {
+  color: #fff;
+  font-size: 17px;
+}
+/* line 313, ../../dev/sass/panels/glass.scss */
+.glass-container .glass-container-rehau .glass-block .glass-folder .glass-item:hover .glass-title {
+  color: #fff;
+  font-size: 17px;
+}
+/* line 320, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info {
   width: 103%;
   height: 40px;
   margin-top: -10px;
   background: #2A7E6B;
 }
-/* line 301, ../../dev/sass/panels/glass.scss */
+/* line 326, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info .glass-main-info-block {
   display: flex;
   justify-content: space-between;
   padding: 10px 10px 10px 10px;
 }
-/* line 306, ../../dev/sass/panels/glass.scss */
+/* line 331, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .glass-folder .glass-main-info .glass-main-info-block h4 {
   align-items: center;
   align-self: center;
@@ -22351,7 +22403,7 @@ input[type='number'] {
   color: white;
   margin: 0 0 0 0;
 }
-/* line 316, ../../dev/sass/panels/glass.scss */
+/* line 341, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-container-rehau .glass-block .info-rehau {
   display: none;
   all: unset;
@@ -22359,12 +22411,12 @@ input[type='number'] {
   align-items: center;
   justify-content: center;
   border-radius: 45px;
-  background-image: url(../img/rehau-img/information-icon-rehau.png);
+  background-image: url(/img/rehau-img/information-icon-rehau.png);
   width: 24px;
   height: 24px;
 }
 
-/* line 331, ../../dev/sass/panels/glass.scss */
+/* line 356, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
@@ -22374,13 +22426,13 @@ input[type='number'] {
   z-index: 12;
   text-align: center;
 }
-/* line 339, ../../dev/sass/panels/glass.scss */
+/* line 364, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .dialog-inner {
   height: 90%;
   width: 100%;
   text-align: center;
 }
-/* line 344, ../../dev/sass/panels/glass.scss */
+/* line 369, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog .set-glass-btn {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   position: absolute;
@@ -22398,7 +22450,7 @@ input[type='number'] {
   align-items: center;
 }
 
-/* line 368, ../../dev/sass/panels/glass.scss */
+/* line 393, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog-rehau {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
@@ -22408,13 +22460,13 @@ input[type='number'] {
   z-index: 12;
   text-align: center;
 }
-/* line 377, ../../dev/sass/panels/glass.scss */
+/* line 402, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog-rehau .dialog-inner {
   height: 90%;
   width: 100%;
   text-align: center;
 }
-/* line 382, ../../dev/sass/panels/glass.scss */
+/* line 407, ../../dev/sass/panels/glass.scss */
 .glass-selector-dialog-rehau .set-glass-btn-rehau {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   position: absolute;
@@ -22697,7 +22749,16 @@ input[type='number'] {
   top: -1.875rem;
   right: 1.875rem;
 }
+/* line 95, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau {
+  /* Tooltip text */
+  /* Show the tooltip text when you mouse over the tooltip container */
+}
 /* line 96, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .box-title {
+  display: flex;
+}
+/* line 100, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .lamin-title {
   font-style: normal;
   font-weight: bold;
@@ -22706,7 +22767,52 @@ input[type='number'] {
   color: #37A58C;
   text-transform: uppercase;
 }
-/* line 105, ../../dev/sass/panels/lamination.scss */
+/* line 109, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .tooltip {
+  position: relative;
+  display: inline-block;
+  align-self: center;
+  margin-left: 10px;
+}
+/* line 118, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .tooltip .tooltiptext {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+  visibility: hidden;
+  width: 300px;
+  top: 140%;
+  left: 50%;
+  margin-left: -250px;
+  /* Use half of the width (120/2 = 60), to center the tooltip */
+  background-color: #818181;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+/* line 141, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+/* line 146, ../../dev/sass/panels/lamination.scss */
+.lamination-container .panel-inner-rehau .tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  /* At the top of the tooltip */
+  left: 84%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #818181 transparent;
+}
+/* line 156, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-img {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -22714,20 +22820,20 @@ input[type='number'] {
   transition: all 0.2s linear;
   cursor: pointer;
 }
-/* line 109, ../../dev/sass/panels/lamination.scss */
+/* line 160, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-img img {
   height: 11.5rem;
 }
-/* line 112, ../../dev/sass/panels/lamination.scss */
+/* line 163, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-img.selected {
   position: relative;
   outline: 5px solid #DD0060;
 }
-/* line 115, ../../dev/sass/panels/lamination.scss */
+/* line 166, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-img.selected:after {
   content: "";
 }
-/* line 120, ../../dev/sass/panels/lamination.scss */
+/* line 171, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-label-filter {
   font-style: normal;
   font-weight: normal;
@@ -22735,11 +22841,11 @@ input[type='number'] {
   line-height: 24px;
   cursor: pointer;
 }
-/* line 127, ../../dev/sass/panels/lamination.scss */
+/* line 178, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-label-filter.active {
   color: #DD0060;
 }
-/* line 133, ../../dev/sass/panels/lamination.scss */
+/* line 184, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-row .laminat-label {
   font-style: normal;
   font-weight: normal;
@@ -22747,11 +22853,11 @@ input[type='number'] {
   line-height: 24px;
   color: black;
 }
-/* line 139, ../../dev/sass/panels/lamination.scss */
+/* line 190, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-row .laminat-label:first-letter {
   text-transform: uppercase;
 }
-/* line 143, ../../dev/sass/panels/lamination.scss */
+/* line 194, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-row .laminat-label-couples {
   font-style: normal;
   font-weight: normal;
@@ -22759,30 +22865,30 @@ input[type='number'] {
   line-height: 24px;
   color: #37A58C;
 }
-/* line 151, ../../dev/sass/panels/lamination.scss */
+/* line 202, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-row .laminat-label-couples.active {
   color: #DD0060;
 }
-/* line 157, ../../dev/sass/panels/lamination.scss */
+/* line 208, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-filter {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 2rem;
 }
-/* line 162, ../../dev/sass/panels/lamination.scss */
+/* line 213, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-filter .laminat-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 167, ../../dev/sass/panels/lamination.scss */
+/* line 218, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-filter .laminat-box {
   min-width: 15rem;
   margin-right: 3rem;
   float: left;
 }
-/* line 173, ../../dev/sass/panels/lamination.scss */
+/* line 224, ../../dev/sass/panels/lamination.scss */
 .lamination-container .panel-inner-rehau .laminat-filter .laminat-img img {
   width: 15rem;
 }
@@ -22793,133 +22899,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/grid.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/grating.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/visor.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/outside.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/fan.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/handle.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/blind.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -22929,133 +23035,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/grid.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/visor.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/grating.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/outside.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/fan.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1631094401');
+  background-image: url('../img/auxiliaries-selected/handle.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1631094401');
+  background-image: url('../img/auxiliaries-focused/blind.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23079,7 +23185,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1631094401');
+  background-image: url('../img/auxiliaries/grid.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23096,7 +23202,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1631094401');
+  background-image: url('../img/auxiliaries/visor.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23113,7 +23219,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1631094401');
+  background-image: url('../img/auxiliaries/visor2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23130,7 +23236,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1631094401');
+  background-image: url('../img/auxiliaries/grating.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23147,7 +23253,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1631094401');
+  background-image: url('../img/auxiliaries/grating2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23164,7 +23270,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1631094401');
+  background-image: url('../img/auxiliaries/shutters.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23181,7 +23287,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1631094401');
+  background-image: url('../img/auxiliaries/shutters2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23198,7 +23304,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1631094401');
+  background-image: url('../img/auxiliaries/spillway.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23215,7 +23321,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1631094401');
+  background-image: url('../img/auxiliaries/spillway2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23232,7 +23338,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1631094401');
+  background-image: url('../img/auxiliaries/outside.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23249,7 +23355,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1631094401');
+  background-image: url('../img/auxiliaries/windowsill.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23266,7 +23372,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1631094401');
+  background-image: url('../img/auxiliaries/blind.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23283,7 +23389,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1631094401');
+  background-image: url('../img/auxiliaries/template1.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23300,7 +23406,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1631094401');
+  background-image: url('../img/auxiliaries/template2.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23324,7 +23430,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1631094401');
+  background-image: url('../img/auxiliaries/louvers-top.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23334,7 +23440,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1631094401');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23361,7 +23467,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1631094401');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23384,7 +23490,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1631094401');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23395,7 +23501,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1631094401');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23406,7 +23512,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1631094401');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23423,7 +23529,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1631094401');
+  background-image: url('../img/auxiliaries/fan.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23446,7 +23552,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1631094401');
+  background-image: url('../img/auxiliaries/force-connector.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23457,7 +23563,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1631094401');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23474,7 +23580,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1631094401');
+  background-image: url('../img/auxiliaries/handle.png?1627461167');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -23643,7 +23749,7 @@ input[type='number'] {
   align-items: center;
   padding: 8px;
   margin-top: 8px;
-  background-color: #DD0060;
+  background-color: #424242;
 }
 /* line 808, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliaries-inner-rehau .row .aux-params {
@@ -23672,7 +23778,7 @@ input[type='number'] {
 }
 /* line 831, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliaries-inner-rehau .row .aux-delete-rehau {
-  background-image: url(../../img/rehau-img/delete-cross-for-add-elems.png);
+  background-image: url(/img/rehau-img/delete-cross-for-add-elems.png);
   width: 24px;
   height: 24px;
   align-self: center;
@@ -23776,13 +23882,24 @@ input[type='number'] {
 /* line 960, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliaries-inner-rehau .folders .items {
   width: 104.5%;
+  border: 1px solid darkgray;
+  margin: 2px;
 }
-/* line 964, ../../dev/sass/panels/add-elements.scss */
+/* line 966, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .items .splice, .auxiliaries-container .auxiliaries-inner-rehau .folders .items .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .auxiliaries-container .auxiliaries-inner-rehau .folders .items p {
+  transition: 0.4s all linear;
+}
+/* line 968, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliaries-inner-rehau .folders .items .splice:active, .auxiliaries-container .auxiliaries-inner-rehau .folders .items .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p:active, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .auxiliaries-container .auxiliaries-inner-rehau .folders .items p:active {
   color: #fff;
   background-color: #DD0060;
 }
-/* line 971, ../../dev/sass/panels/add-elements.scss */
+/* line 973, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliaries-inner-rehau .folders .items .splice:hover, .auxiliaries-container .auxiliaries-inner-rehau .folders .items .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p:hover, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .auxiliaries-container .auxiliaries-inner-rehau .folders .items p:hover {
+  color: #fff;
+  background-color: #424242;
+}
+/* line 980, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliaries-inner-rehau .folders .splice, .auxiliaries-container .auxiliaries-inner-rehau .folders .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .auxiliaries-container .auxiliaries-inner-rehau .folders p {
   font-style: normal;
   font-weight: normal;
@@ -23793,13 +23910,13 @@ input[type='number'] {
   background-color: #ffff;
   color: #000000;
 }
-/* line 984, ../../dev/sass/panels/add-elements.scss */
+/* line 993, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliaries-inner-rehau .folders .splice.active, .auxiliaries-container .auxiliaries-inner-rehau .folders .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p.active, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item .auxiliaries-container .auxiliaries-inner-rehau .folders p.active {
   background-color: #dd0060;
   color: #fff;
 }
 
-/* line 993, ../../dev/sass/panels/add-elements.scss */
+/* line 1002, ../../dev/sass/panels/add-elements.scss */
 .numberMenu {
   position: relative;
   width: 14.7%;
@@ -23818,25 +23935,25 @@ input[type='number'] {
   align-items: center;
   justify-content: center;
 }
-/* line 1010, ../../dev/sass/panels/add-elements.scss */
+/* line 1019, ../../dev/sass/panels/add-elements.scss */
 .numberMenu.green {
   transition: 0.5s;
   background-color: #6ed44a;
 }
 
-/* line 1016, ../../dev/sass/panels/add-elements.scss */
+/* line 1025, ../../dev/sass/panels/add-elements.scss */
 .services {
   margin-left: 8rem;
   padding-top: 20rem;
 }
-/* line 1020, ../../dev/sass/panels/add-elements.scss */
+/* line 1029, ../../dev/sass/panels/add-elements.scss */
 .services .service-block {
   width: 90%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
-/* line 1027, ../../dev/sass/panels/add-elements.scss */
+/* line 1036, ../../dev/sass/panels/add-elements.scss */
 .services .service-type {
   width: 70%;
   height: 6rem;
@@ -23847,14 +23964,14 @@ input[type='number'] {
   display: inline-flex;
   align-items: center;
 }
-/* line 1037, ../../dev/sass/panels/add-elements.scss */
+/* line 1046, ../../dev/sass/panels/add-elements.scss */
 .services .service-type.green {
   transition: 0.5s;
   font: normal 26px/1.42857 roboto-regular, sans-serif, icons;
   background-color: #6ed44a;
   color: white;
 }
-/* line 1045, ../../dev/sass/panels/add-elements.scss */
+/* line 1054, ../../dev/sass/panels/add-elements.scss */
 .services .service-input {
   border-radius: 5px !important;
   box-shadow: inset 1px 1px 1px 0 #bebebe;
@@ -23864,19 +23981,19 @@ input[type='number'] {
   border: 1px solid gray;
   font: normal 25px/1.42857 roboto-thin, sans-serif, icons;
 }
-/* line 1055, ../../dev/sass/panels/add-elements.scss */
+/* line 1064, ../../dev/sass/panels/add-elements.scss */
 .services label {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-/* line 1061, ../../dev/sass/panels/add-elements.scss */
+/* line 1070, ../../dev/sass/panels/add-elements.scss */
 .services input::-webkit-inner-spin-button,
 .services input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 5px;
 }
-/* line 1067, ../../dev/sass/panels/add-elements.scss */
+/* line 1076, ../../dev/sass/panels/add-elements.scss */
 .services input:focus {
   outline: none;
 }
