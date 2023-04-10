@@ -2369,220 +2369,239 @@ let portrait = false;
 (function () {
   'use strict';
   /**@ngInject*/
-  angular
-    .module('LoginModule')
-    .controller('LoginCtrl',
-      function ($location,
-        $timeout,
-        $rootScope,
-        $route,
-        $http,
-        // $cordovaNetwork,
-        $filter,
-        $translate,
-        $q,
-        GlobalStor,
-        ProductStor,
-        OrderStor,
-        AuxStor,
-        DesignStor,
-        UserStor,
-        HistoryStor,
-        CartStor,
-        globalConstants,
-        localDB,
-        loginServ,
-        MainServ,
-        SettingServ,
-        HistoryServ,
-        GeneralServ) {
-        /*jshint validthis:true */
-        var thisCtrl = this;
-        thisCtrl.G = GlobalStor;
-        thisCtrl.consts = globalConstants;
+  angular.module('LoginModule').controller(
+    'LoginCtrl',
+    function (
+      $location,
+      $timeout,
+      $rootScope,
+      $route,
+      $http,
+      // $cordovaNetwork,
+      $filter,
+      $translate,
+      $q,
+      GlobalStor,
+      ProductStor,
+      OrderStor,
+      AuxStor,
+      DesignStor,
+      UserStor,
+      HistoryStor,
+      CartStor,
+      globalConstants,
+      localDB,
+      loginServ,
+      MainServ,
+      SettingServ,
+      HistoryServ,
+      GeneralServ
+    ) {
+      /*jshint validthis:true */
+      var thisCtrl = this;
+      thisCtrl.G = GlobalStor;
+      thisCtrl.consts = globalConstants;
 
+      //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
 
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+      thisCtrl.showTerms = false;
+      thisCtrl.isOnline = 1;
+      thisCtrl.isOffline = 0;
+      thisCtrl.isOfflineImport = 0;
+      thisCtrl.isAutoSyncInfo = 0;
+      thisCtrl.isLocalDB = 0;
+      thisCtrl.isRegistration = 0;
+      thisCtrl.submitted = 0;
+      thisCtrl.isUserExist = 0;
+      thisCtrl.isUserNotExist = 0;
+      thisCtrl.isUserPasswordError = 0;
+      thisCtrl.isSendEmail = 0;
+      thisCtrl.isUserNotActive = 0;
+      thisCtrl.isFactoryId = 0;
+      thisCtrl.isFactoryNotSelect = 0;
+      thisCtrl.isStartImport = 0;
+      thisCtrl.user = {};
+      thisCtrl.factories = 0;
+      GlobalStor.global.loader = 0;
+      thisCtrl.unexpectedError = 0;
+      thisCtrl.countries = 0;
+      thisCtrl.registration_data = {
+        email: '',
+        name: ''
+      };
+      thisCtrl.selected_country = 0;
+      thisCtrl.email_required = 0;
+      thisCtrl.isConfirmRegistration = 0;
 
-        thisCtrl.showTerms = false;
-        thisCtrl.isOnline = 1;
-        thisCtrl.isOffline = 0;
-        thisCtrl.isOfflineImport = 0;
-        thisCtrl.isAutoSyncInfo = 0;
-        thisCtrl.isLocalDB = 0;
-        thisCtrl.isRegistration = 0;
-        thisCtrl.submitted = 0;
-        thisCtrl.isUserExist = 0;
-        thisCtrl.isUserNotExist = 0;
-        thisCtrl.isUserPasswordError = 0;
-        thisCtrl.isSendEmail = 0;
-        thisCtrl.isUserNotActive = 0;
-        thisCtrl.isFactoryId = 0;
-        thisCtrl.isFactoryNotSelect = 0;
-        thisCtrl.isStartImport = 0;
-        thisCtrl.user = {};
-        thisCtrl.factories = 0;
-        GlobalStor.global.loader = 0;
-        thisCtrl.unexpectedError = 0;
-        thisCtrl.countries = 0;
-        thisCtrl.registration_data = {
-          email: '',
-          name: ''
-        }
-        thisCtrl.selected_country = 0;
-        thisCtrl.email_required = 0;
-        thisCtrl.isConfirmRegistration = 0;
+      /** PING SERVER*/
+      MainServ.getOnline();
+      //------- translate
+      thisCtrl.TITLE = $filter('translate')('login.TITLE');
+      thisCtrl.PLAN_A = $filter('translate')('login.PLAN_A');
+      thisCtrl.PLAN_B = $filter('translate')('login.PLAN_B');
+      thisCtrl.PLAN_C = $filter('translate')('login.PLAN_C');
+      thisCtrl.PLAN_G = $filter('translate')('login.PLAN_G');
+      thisCtrl.TITLE_INFO = $filter('translate')('login.TITLE_INFO');
+      thisCtrl.A_TITLE = $filter('translate')('login.A_TITLE');
+      thisCtrl.A_TITLE_PRETEXT = $filter('translate')('login.A_TITLE_PRETEXT');
+      thisCtrl.A_TITLE_TEXT_1 = $filter('translate')('login.A_TITLE_TEXT_1');
+      thisCtrl.A_TITLE_TEXT_2 = $filter('translate')('login.A_TITLE_TEXT_2');
+      thisCtrl.A_TITLE_TEXT_3 = $filter('translate')('login.A_TITLE_TEXT_3');
+      thisCtrl.A_TITLE_TEXT_4 = $filter('translate')('login.A_TITLE_TEXT_4');
+      thisCtrl.B_TITLE = $filter('translate')('login.B_TITLE');
+      thisCtrl.B_TITLE_TEXT_1 = $filter('translate')('login.B_TITLE_TEXT_1');
+      thisCtrl.B_TITLE_TEXT_2 = $filter('translate')('login.B_TITLE_TEXT_2');
+      thisCtrl.B_TITLE_TEXT_3 = $filter('translate')('login.B_TITLE_TEXT_3');
+      thisCtrl.B_TITLE_TEXT_4 = $filter('translate')('login.B_TITLE_TEXT_4');
+      thisCtrl.B_TITLE_TEXT_5 = $filter('translate')('login.B_TITLE_TEXT_5');
+      thisCtrl.B_TITLE_TEXT_6 = $filter('translate')('login.B_TITLE_TEXT_6');
+      thisCtrl.B_TITLE_TEXT_7 = $filter('translate')('login.B_TITLE_TEXT_7');
+      thisCtrl.C_TITLE = $filter('translate')('login.C_TITLE');
+      thisCtrl.C_TITLE_TEXT_1 = $filter('translate')('login.C_TITLE_TEXT_1');
+      thisCtrl.C_TITLE_TEXT_2 = $filter('translate')('login.C_TITLE_TEXT_2');
+      thisCtrl.C_TITLE_TEXT_3 = $filter('translate')('login.C_TITLE_TEXT_3');
+      thisCtrl.C_TITLE_TEXT_4 = $filter('translate')('login.C_TITLE_TEXT_4');
+      thisCtrl.C_TITLE_TEXT_5 = $filter('translate')('login.C_TITLE_TEXT_5');
+      thisCtrl.G_TITLE = $filter('translate')('login.G_TITLE');
+      thisCtrl.G_TITLE_TEXT_1 = $filter('translate')('login.G_TITLE_TEXT_1');
+      thisCtrl.G_TITLE_TEXT_2 = $filter('translate')('login.G_TITLE_TEXT_2');
+      thisCtrl.G_TITLE_TEXT_3 = $filter('translate')('login.G_TITLE_TEXT_3');
+      thisCtrl.G_TITLE_TEXT_4 = $filter('translate')('login.G_TITLE_TEXT_4');
+      thisCtrl.G_TITLE_TEXT_5 = $filter('translate')('login.G_TITLE_TEXT_5');
+      thisCtrl.G_TITLE_TEXT_6 = $filter('translate')('login.G_TITLE_TEXT_6');
+      thisCtrl.G_TITLE_TEXT_7 = $filter('translate')('login.G_TITLE_TEXT_7');
+      thisCtrl.G_TITLE_TEXT_8 = $filter('translate')('login.G_TITLE_TEXT_8');
+      thisCtrl.BACK = $filter('translate')('login.BACK');
+      thisCtrl.LOADER_TEXT1 = $filter('translate')('login.LOADER_TEXT1');
+      thisCtrl.LOADER_TEXT2 = $filter('translate')('login.LOADER_TEXT2');
+      thisCtrl.LOADER_TEXT3 = $filter('translate')('login.LOADER_TEXT3');
+      thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
+      thisCtrl.OK = $filter('translate')('common_words.OK');
+      thisCtrl.USER_CHECK_EMAIL = $filter('translate')(
+        'login.USER_CHECK_EMAIL'
+      );
+      thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
+      thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
+      thisCtrl.USER_PASSWORD_ERROR = $filter('translate')(
+        'login.USER_PASSWORD_ERROR'
+      );
+      thisCtrl.BY_PRESSING_ENTER = $filter('translate')(
+        'login.BY_PRESSING_ENTER'
+      );
+      thisCtrl.PRIVACY_POLICY = $filter('translate')('login.PRIVACY_POLICY');
+      thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
+      thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
+      thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
+      thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+      thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
+      thisCtrl.ENTER = $filter('translate')('login.ENTER');
+      thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
+      thisCtrl.REGISTRATION_INFO = $filter('translate')(
+        'login.REGISTRATION_INFO'
+      );
+      thisCtrl.REGISTRATION_LOGIN_EMAIL = $filter('translate')(
+        'login.REGISTRATION_LOGIN_EMAIL'
+      );
+      thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
+      thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
+      thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
+      thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
+      thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+      thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
+      thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
+      thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
+      thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
+      thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
+      thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+      thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
+      thisCtrl.OFFLINE_IMPORT = $filter('translate')('login.OFFLINE_IMPORT');
+      thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')(
+        'login.AUTO_SYNCHRONIZE'
+      );
+      thisCtrl.SYNCHRONIZE_INFO = $filter('translate')(
+        'login.SYNCHRONIZE_INFO'
+      );
+      thisCtrl.UNEXPECTED_ERROR = $filter('translate')(
+        'login.UNEXPECTED_ERROR'
+      );
+      thisCtrl.SYNC_INFO_P1 = $filter('translate')('login.SYNC_INFO_P1');
+      thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
+      thisCtrl.WINDOW_COST = $filter('translate')('login.WINDOW_COST');
+      thisCtrl.CONTACT_US = $filter('translate')('login.CONTACT_US');
 
+      thisCtrl.TEST_USER = $filter('translate')('login.TEST_USER');
+      thisCtrl.TEST_USER_LOGIN = $filter('translate')('login.TEST_USER_LOGIN');
+      thisCtrl.TEST_USER_PASS = $filter('translate')('login.TEST_USER_PASS');
 
-        /** PING SERVER*/
-        MainServ.getOnline();
-        //------- translate
-        thisCtrl.TITLE = $filter('translate')('login.TITLE');
-        thisCtrl.PLAN_A = $filter('translate')('login.PLAN_A');
-        thisCtrl.PLAN_B = $filter('translate')('login.PLAN_B');
-        thisCtrl.PLAN_C = $filter('translate')('login.PLAN_C');
-        thisCtrl.PLAN_G = $filter('translate')('login.PLAN_G');
-        thisCtrl.TITLE_INFO = $filter('translate')('login.TITLE_INFO');
-        thisCtrl.A_TITLE = $filter('translate')('login.A_TITLE');
-        thisCtrl.A_TITLE_PRETEXT = $filter('translate')('login.A_TITLE_PRETEXT');
-        thisCtrl.A_TITLE_TEXT_1 = $filter('translate')('login.A_TITLE_TEXT_1');
-        thisCtrl.A_TITLE_TEXT_2 = $filter('translate')('login.A_TITLE_TEXT_2');
-        thisCtrl.A_TITLE_TEXT_3 = $filter('translate')('login.A_TITLE_TEXT_3');
-        thisCtrl.A_TITLE_TEXT_4 = $filter('translate')('login.A_TITLE_TEXT_4');
-        thisCtrl.B_TITLE = $filter('translate')('login.B_TITLE');
-        thisCtrl.B_TITLE_TEXT_1 = $filter('translate')('login.B_TITLE_TEXT_1');
-        thisCtrl.B_TITLE_TEXT_2 = $filter('translate')('login.B_TITLE_TEXT_2');
-        thisCtrl.B_TITLE_TEXT_3 = $filter('translate')('login.B_TITLE_TEXT_3');
-        thisCtrl.B_TITLE_TEXT_4 = $filter('translate')('login.B_TITLE_TEXT_4');
-        thisCtrl.B_TITLE_TEXT_5 = $filter('translate')('login.B_TITLE_TEXT_5');
-        thisCtrl.B_TITLE_TEXT_6 = $filter('translate')('login.B_TITLE_TEXT_6');
-        thisCtrl.B_TITLE_TEXT_7 = $filter('translate')('login.B_TITLE_TEXT_7');
-        thisCtrl.C_TITLE = $filter('translate')('login.C_TITLE');
-        thisCtrl.C_TITLE_TEXT_1 = $filter('translate')('login.C_TITLE_TEXT_1');
-        thisCtrl.C_TITLE_TEXT_2 = $filter('translate')('login.C_TITLE_TEXT_2');
-        thisCtrl.C_TITLE_TEXT_3 = $filter('translate')('login.C_TITLE_TEXT_3');
-        thisCtrl.C_TITLE_TEXT_4 = $filter('translate')('login.C_TITLE_TEXT_4');
-        thisCtrl.C_TITLE_TEXT_5 = $filter('translate')('login.C_TITLE_TEXT_5');
-        thisCtrl.G_TITLE = $filter('translate')('login.G_TITLE');
-        thisCtrl.G_TITLE_TEXT_1 = $filter('translate')('login.G_TITLE_TEXT_1');
-        thisCtrl.G_TITLE_TEXT_2 = $filter('translate')('login.G_TITLE_TEXT_2');
-        thisCtrl.G_TITLE_TEXT_3 = $filter('translate')('login.G_TITLE_TEXT_3');
-        thisCtrl.G_TITLE_TEXT_4 = $filter('translate')('login.G_TITLE_TEXT_4');
-        thisCtrl.G_TITLE_TEXT_5 = $filter('translate')('login.G_TITLE_TEXT_5');
-        thisCtrl.G_TITLE_TEXT_6 = $filter('translate')('login.G_TITLE_TEXT_6');
-        thisCtrl.G_TITLE_TEXT_7 = $filter('translate')('login.G_TITLE_TEXT_7');
-        thisCtrl.G_TITLE_TEXT_8 = $filter('translate')('login.G_TITLE_TEXT_8');
-        thisCtrl.BACK = $filter('translate')('login.BACK');
-        thisCtrl.LOADER_TEXT1 = $filter('translate')('login.LOADER_TEXT1');
-        thisCtrl.LOADER_TEXT2 = $filter('translate')('login.LOADER_TEXT2');
-        thisCtrl.LOADER_TEXT3 = $filter('translate')('login.LOADER_TEXT3');
-        thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
-        thisCtrl.OK = $filter('translate')('common_words.OK');
-        thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
-        thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
-        thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
-        thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
-        thisCtrl.BY_PRESSING_ENTER = $filter('translate')('login.BY_PRESSING_ENTER');
-        thisCtrl.PRIVACY_POLICY = $filter('translate')('login.PRIVACY_POLICY');
-        thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
-        thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
-        thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
-        thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
-        thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
-        thisCtrl.ENTER = $filter('translate')('login.ENTER');
-        thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
-        thisCtrl.REGISTRATION_INFO = $filter('translate')('login.REGISTRATION_INFO');
-        thisCtrl.REGISTRATION_LOGIN_EMAIL = $filter('translate')('login.REGISTRATION_LOGIN_EMAIL');
-        thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
-        thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
-        thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
-        thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
-        thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
-        thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
-        thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
-        thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
-        thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
-        thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
-        thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
-        thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
-        thisCtrl.OFFLINE_IMPORT = $filter('translate')('login.OFFLINE_IMPORT');
-        thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')('login.AUTO_SYNCHRONIZE');
-        thisCtrl.SYNCHRONIZE_INFO = $filter('translate')('login.SYNCHRONIZE_INFO');
-        thisCtrl.UNEXPECTED_ERROR = $filter('translate')('login.UNEXPECTED_ERROR');
-        thisCtrl.SYNC_INFO_P1 = $filter('translate')('login.SYNC_INFO_P1');
-        thisCtrl.SYNC_INFO_P2 = $filter('translate')('login.SYNC_INFO_P2');
-        thisCtrl.WINDOW_COST = $filter('translate')('login.WINDOW_COST');
-        thisCtrl.CONTACT_US = $filter('translate')('login.CONTACT_US');
+      thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
+      /** reload room img */
 
-        thisCtrl.TEST_USER = $filter('translate')('login.TEST_USER');
-        thisCtrl.TEST_USER_LOGIN = $filter('translate')('login.TEST_USER_LOGIN');
-        thisCtrl.TEST_USER_PASS = $filter('translate')('login.TEST_USER_PASS');
+      //$("<img />").attr("src", "img/room/1.png");
+      //$("<img />").attr("src", "img/room/33.gif");
+      //$("<img />").attr("src", "img/room/333.gif");
+      let app =
+        document.URL.indexOf('http://') === -1 &&
+        document.URL.indexOf('https://') === -1;
 
-        thisCtrl.ATENTION = $filter('translate')('natification.ATENTION');
-        /** reload room img */
-
-        //$("<img />").attr("src", "img/room/1.png");
-        //$("<img />").attr("src", "img/room/33.gif");
-        //$("<img />").attr("src", "img/room/333.gif");
-        let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
-
-        function preloadImages(array) {
-          if (!app) {
-            if (!preloadImages.list) {
-              preloadImages.list = [];
-            }
-            var list = preloadImages.list,
-              i, img;
-            for (i = 0; i < array.length; i += 1) {
-              img = new Image();
-              img.onload = function () {
-                var index = list.indexOf(this);
-                if (index !== -1) {
-                  // remove image from the array once it's loaded
-                  // for memory consumption reasons
-                  list.splice(index, 1);
-                }
-              };
-              list.push(img);
-              img.src = array[i];
-            }
+      function preloadImages(array) {
+        if (!app) {
+          if (!preloadImages.list) {
+            preloadImages.list = [];
+          }
+          var list = preloadImages.list,
+            i,
+            img;
+          for (i = 0; i < array.length; i += 1) {
+            img = new Image();
+            img.onload = function () {
+              var index = list.indexOf(this);
+              if (index !== -1) {
+                // remove image from the array once it's loaded
+                // for memory consumption reasons
+                list.splice(index, 1);
+              }
+            };
+            list.push(img);
+            img.src = array[i];
           }
         }
+      }
 
-        preloadImages([
-          "./img/room/1.png",
-          "./img/room/4.png",
-          "./img/room/6.png",
-          "./img/room/7.png",
-          "./img/room/8.png",
-          "./img/room/9.png",
-          "./img/room/10.png",
-          "./img/room/11.png",
-          "./img/room/12.png",
-          "./img/room/26.png",
-          "./img/room/121.png",
-          "./img/room/122.png",
-          "./img/room/123.png",
-          "./img/room/fon.jpg",
-          "./img/room/3333.png"
-        ]);
+      preloadImages([
+        './img/room/1.png',
+        './img/room/4.png',
+        './img/room/6.png',
+        './img/room/7.png',
+        './img/room/8.png',
+        './img/room/9.png',
+        './img/room/10.png',
+        './img/room/11.png',
+        './img/room/12.png',
+        './img/room/26.png',
+        './img/room/121.png',
+        './img/room/122.png',
+        './img/room/123.png',
+        './img/room/fon.jpg',
+        './img/room/3333.png'
+      ]);
 
-        /**============ METHODS ================*/
+      /**============ METHODS ================*/
 
-        function startProgramm() {
-          //console.time('prog');
-          /** save first User entrance */
-          MainServ.saveUserEntry();
-          /** create order date */
-          MainServ.createOrderData();
-          /** set Curr Discounts */
-          MainServ.setCurrDiscounts();
+      function startProgramm() {
+        //console.time('prog');
+        /** save first User entrance */
+        MainServ.saveUserEntry();
+        /** create order date */
+        MainServ.createOrderData();
+        /** set Curr Discounts */
+        MainServ.setCurrDiscounts();
 
-          /** set first Template */
-          MainServ.setCurrTemplate();
-          /** set Templates */
-          // console.time('prepareTemplates');
-          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function () {
+        /** set first Template */
+        MainServ.setCurrTemplate();
+        /** set Templates */
+        // console.time('prepareTemplates');
+        MainServ.prepareTemplates(ProductStor.product.construction_type).then(
+          function () {
             // console.timeEnd('prepareTemplates');
             MainServ.prepareMainPage();
             /** start lamination filtering */
@@ -2594,7 +2613,7 @@ let portrait = false;
             //console.timeEnd('prog');
 
             if (UserStor.userInfo.user_type === 8) {
-              if (window.matchMedia("(orientation: portrait)").matches) {
+              if (window.matchMedia('(orientation: portrait)').matches) {
                 GlobalStor.global.currOpenPage = 'mobile';
               } else {
                 GlobalStor.global.currOpenPage = 'light';
@@ -2602,7 +2621,7 @@ let portrait = false;
               }
             } else {
               GlobalStor.global.isLightVersion = 0;
-              if (window.matchMedia("(orientation: portrait)").matches) {
+              if (window.matchMedia('(orientation: portrait)').matches) {
                 GlobalStor.global.currOpenPage = 'mobile';
               } else {
                 GlobalStor.global.currOpenPage = 'main';
@@ -2611,7 +2630,16 @@ let portrait = false;
 
             /** !!!! **/
 
-            let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
+            let deviceType =
+              navigator.userAgent.match(/iPad/i) == 'iPad'
+                ? 'iPad'
+                : navigator.userAgent.match(/iPhone/i) == 'iPhone'
+                ? 'iPhone'
+                : navigator.userAgent.match(/Android/i) == 'Android'
+                ? 'Android'
+                : navigator.userAgent.match(/BlackBerry/i) == 'BlackBerry'
+                ? 'BlackBerry'
+                : 'null';
             if (app) {
               if (deviceType !== 'iPad' && deviceType !== 'iPhone') {
                 saveCache();
@@ -2620,34 +2648,45 @@ let portrait = false;
               saveCache();
             }
 
-            $location.path("/" + GlobalStor.global.currOpenPage);
+            $location.path('/' + GlobalStor.global.currOpenPage);
             GlobalStor.global.ISLOGIN = 0;
-          });
-        }
+          }
+        );
+      }
 
-        function saveCache() {
-          GlobalStor.global.loadDate = new Date();
-          var global = LZString.compressToUTF16(JSON.stringify(GlobalStor.global));
-          var product = LZString.compressToUTF16(JSON.stringify(ProductStor.product));
-          var userInfo = LZString.compressToUTF16(JSON.stringify(UserStor.userInfo));
-          var design = LZString.compressToUTF16(JSON.stringify(DesignStor.design));
-          var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
-          var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
-          console.log("configuration finished. get ready to rock");
-          window.localStorage.clear();
-          window.localStorage.setItem('GlobalStor', global);
-          window.localStorage.setItem('ProductStor', product);
-          window.localStorage.setItem('UserStor', userInfo);
-          window.localStorage.setItem('AuxStor', aux);
-          window.localStorage.setItem('DesignStor', design);
-          window.localStorage.setItem('OrderStor', order);
-        }
+      function saveCache() {
+        GlobalStor.global.loadDate = new Date();
+        var global = LZString.compressToUTF16(
+          JSON.stringify(GlobalStor.global)
+        );
+        var product = LZString.compressToUTF16(
+          JSON.stringify(ProductStor.product)
+        );
+        var userInfo = LZString.compressToUTF16(
+          JSON.stringify(UserStor.userInfo)
+        );
+        var design = LZString.compressToUTF16(
+          JSON.stringify(DesignStor.design)
+        );
+        var aux = LZString.compressToUTF16(JSON.stringify(AuxStor.aux));
+        var order = LZString.compressToUTF16(JSON.stringify(OrderStor.order));
+        console.log('configuration finished. get ready to rock');
+        window.localStorage.clear();
+        window.localStorage.setItem('GlobalStor', global);
+        window.localStorage.setItem('ProductStor', product);
+        window.localStorage.setItem('UserStor', userInfo);
+        window.localStorage.setItem('AuxStor', aux);
+        window.localStorage.setItem('DesignStor', design);
+        window.localStorage.setItem('OrderStor', order);
+      }
 
-        function importDBfromServer() {
-          //thisCtrl.isStartImport = 1;
-          //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
-          // console.time('importAllDB');
-          localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
+      function importDBfromServer() {
+        //thisCtrl.isStartImport = 1;
+        //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+        // console.time('importAllDB');
+        localDB
+          .importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code)
+          .then(function (data) {
             if (data) {
               /** download all data */
               loginServ.downloadAllData().then(function () {
@@ -2659,811 +2698,856 @@ let portrait = false;
               thisCtrl.unexpectedError = 1;
             }
           });
-        }
+      }
 
-
-        function setFactoryLocation(factories) {
-          var factoryQty = factories.length,
-            locationQty;
-          while (--factoryQty > -1) {
-            locationQty = GlobalStor.global.locations.cities.length;
-            while (--locationQty > -1) {
-              if (factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
-                factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
-              }
+      function setFactoryLocation(factories) {
+        var factoryQty = factories.length,
+          locationQty;
+        while (--factoryQty > -1) {
+          locationQty = GlobalStor.global.locations.cities.length;
+          while (--locationQty > -1) {
+            if (
+              factories[factoryQty].city_id ===
+              GlobalStor.global.locations.cities[locationQty].cityId
+            ) {
+              factories[factoryQty].location =
+                GlobalStor.global.locations.cities[locationQty].fullLocation;
             }
           }
-          return factories;
         }
+        return factories;
+      }
 
-
-        function checkingFactory() {
-          //------- set User Location
-          loginServ.setUserLocation();
-          if ((+UserStor.userInfo.factory_id) > 0) {
-            // console.time('isLocalDBExist');
-            // console.timeEnd('isLocalDBExist');
-            if (thisCtrl.isLocalDB) {
-              //------- current FactoryId matches to user FactoryId, go to main page without importDB
-              //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-              /** download all data */
-              // console.time('downloadAllData');
-              loginServ.downloadAllData().then(function () {
-                // console.timeEnd('downloadAllData');
-                startProgramm();
-              });
-              //});
-            } else {
-              //------ LocalDB is empty
-              importDBfromServer(UserStor.userInfo.factory_id);
-            }
-          } else {
-            //---- show Factory List
-            //----- collect city Ids regarding to user country
-            loginServ.collectCityIdsAsCountry().then(function (cityIds) {
-              localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
-                .then(function (result) {
-                  //            console.log('Factories++++++', result);
-                  GlobalStor.global.startSlider = 0;
-                  GlobalStor.global.isLoader = 0;
-                  if (result.status) {
-                    thisCtrl.factories = setFactoryLocation(result.factories);
-                    //-------- close Factory Dialog
-                    thisCtrl.isFactoryId = 1;
-                  } else {
-                    console.log('can not get factories!');
-                  }
-                });
+      function checkingFactory() {
+        //------- set User Location
+        loginServ.setUserLocation();
+        if (+UserStor.userInfo.factory_id > 0) {
+          // console.time('isLocalDBExist');
+          // console.timeEnd('isLocalDBExist');
+          if (thisCtrl.isLocalDB) {
+            //------- current FactoryId matches to user FactoryId, go to main page without importDB
+            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+            /** download all data */
+            // console.time('downloadAllData');
+            loginServ.downloadAllData().then(function () {
+              // console.timeEnd('downloadAllData');
+              startProgramm();
             });
+            //});
+          } else {
+            //------ LocalDB is empty
+            importDBfromServer(UserStor.userInfo.factory_id);
           }
+        } else {
+          //---- show Factory List
+          //----- collect city Ids regarding to user country
+          loginServ.collectCityIdsAsCountry().then(function (cityIds) {
+            localDB
+              .importFactories(
+                UserStor.userInfo.phone,
+                UserStor.userInfo.device_code,
+                cityIds
+              )
+              .then(function (result) {
+                //            console.log('Factories++++++', result);
+                GlobalStor.global.startSlider = 0;
+                GlobalStor.global.isLoader = 0;
+                if (result.status) {
+                  thisCtrl.factories = setFactoryLocation(result.factories);
+                  //-------- close Factory Dialog
+                  thisCtrl.isFactoryId = 1;
+                } else {
+                  console.log('can not get factories!');
+                }
+              });
+          });
         }
+      }
 
-
-        function importDBProsses(user) {
-          //----- checking user activation
-          if (user.locked) {
-            angular.extend(UserStor.userInfo, user);
-            //------- import Location
-            // console.time('importLocation');
-            localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function (data) {
+      function importDBProsses(user) {
+        //----- checking user activation
+        if (user.locked) {
+          angular.extend(UserStor.userInfo, user);
+          //------- import Location
+          // console.time('importLocation');
+          localDB
+            .importLocation(
+              UserStor.userInfo.phone,
+              UserStor.userInfo.device_code
+            )
+            .then(function (data) {
               if (data) {
                 //------ save Location Data in local obj
                 // console.time('prepareLocationToUse');
                 loginServ.prepareLocationToUse(data).then(function () {
                   checkingFactory();
                 });
-                var key = "UserStor.userInfo.phone";
+                var key = 'UserStor.userInfo.phone';
                 var value = UserStor.userInfo.phone;
-                localDB.db.setItem(key, value, function (err, value) { });
-                var key = "UserStor.userInfo.device_code";
+                localDB.db.setItem(key, value, function (err, value) {});
+                var key = 'UserStor.userInfo.device_code';
                 var value = UserStor.userInfo.device_code;
-                localDB.db.setItem(key, value, function (err, value) { });
+                localDB.db.setItem(key, value, function (err, value) {});
               } else {
                 GlobalStor.global.isLoader = 0;
                 GlobalStor.global.startSlider = 0;
                 thisCtrl.unexpectedError = 1;
               }
             });
-          } else {
-            GlobalStor.global.isLoader = 0;
-            GlobalStor.global.startSlider = 0;
-            //---- show attantion
-            thisCtrl.isUserNotActive = 1;
-          }
+        } else {
+          GlobalStor.global.isLoader = 0;
+          GlobalStor.global.startSlider = 0;
+          //---- show attantion
+          thisCtrl.isUserNotActive = 1;
+        }
+      }
+
+      function checkingUser(DemoLogin, DemoPass) {
+        GlobalStor.global.ISLOGIN = 1;
+        localDB.db.setItem('FirstIn', 'true', function (err, value) {});
+        // console.log('importUser');
+        let login = 'DemoRU';
+        let pass = 'DemoRU';
+        if (DemoLogin) {
+          login = DemoLogin;
+          pass = DemoPass;
+        } else {
+          login = thisCtrl.user.phone;
+          pass = thisCtrl.user.password;
         }
 
-
-        function checkingUser(DemoLogin, DemoPass) {
-          GlobalStor.global.ISLOGIN = 1;
-          localDB.db.setItem("FirstIn", "true", function (err, value) { });
-          // console.log('importUser');
-          let login = 'DemoRU';
-          let pass = 'DemoRU';
-          if (DemoLogin) {
-            login = DemoLogin;
-            pass = DemoPass;
-          } else {
-            login = thisCtrl.user.phone;
-            pass = thisCtrl.user.password;
-          }
-
-          localDB.importUser(login).then(function (result) {
-            if (result.status) {
-              var userTemp = angular.copy(result.user);
-              //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
-              //---------- check user password
-              var newUserPassword = localDB.md5(pass);
-              if (newUserPassword === userTemp.password) {
-                importDBProsses(userTemp);
-                GlobalStor.global.startSlider = 1;
-              } else {
-                GlobalStor.global.isLoader = 0;
-                GlobalStor.global.startSlider = 0;
-                //---- user not exists
-                thisCtrl.isUserPasswordError = 1;
-              }
+        localDB.importUser(login).then(function (result) {
+          if (result.status) {
+            var userTemp = angular.copy(result.user);
+            //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+            //---------- check user password
+            var newUserPassword = localDB.md5(pass);
+            if (newUserPassword === userTemp.password) {
+              importDBProsses(userTemp);
+              GlobalStor.global.startSlider = 1;
             } else {
               GlobalStor.global.isLoader = 0;
               GlobalStor.global.startSlider = 0;
               //---- user not exists
-              thisCtrl.isUserNotExist = 1;
+              thisCtrl.isUserPasswordError = 1;
             }
-          });
-
-        }
-
-        /**============== ENTRY BY LINK ===============*/
-        function entryWithoutLogin() {
-          var url = $location.search(),
-            accessArr = [
-              '7d537b6746f925b1703aefa9b8a9a4bc',
-              '3f5f0c7d46d318e026f9ba60dceffc65',
-              '799e078b084c6d57cea0b0d53a7e3008',
-              '9aefeef9c7e53f9de9bb36f32649dc3f',
-              'a2da6d85764368b24392740020efbc92',
-              'ceb60bfed037baaa484bd7b88d274c98',
-              '632b3213660804acb71fe045c6e321ed',
-              'd11758b674ac02f0fcf128dcc906dbef',
-              '8155bc545f84d9652f1012ef2bdfb6eb',
-              '59e711d152de7bec7304a8c2ecaf9f0f',
-              '877466ffd21fe26dd1b3366330b7b560',
-              'f31c147335274c56d801f833d3c26a70',
-              'f68ec4f0c6df90137749af75a929a3eb',
-              '0f190e6e164eafe66f011073b4486975',
-              'a9588aa82388c0579d8f74b4d02b895f',
-              '66a516f865fca1c921dba625ede4a693',
-              '7cebd0178b69b2e88774529e1e59a7b0',
-              'ad1df793247a0e650d0d7166341b8d97',
-              'ffc14b7acfd31440e19d0431d4ab0cba',
-              '4736b2b496ba3de748c6eea6c6b9ca65',
-              '15bbb9d0bbf25e8d2978de1168c749dc',
-
-              '04fc711301f3c784d66955d98d399afb',
-              '768c1c687efe184ae6dd2420710b8799',
-              'f7a5c99c58103f6b65c451efd0f81826',
-              '27701bd8dd141b953b94a5c9a44697c0',
-              '7f7d5f9f3a660f2b09e3aae62a15e29b',
-              '23ff17389acbfd020043268fb49e7048',
-              'cd714cc33cfd23e74f414cbb8b9787fe',
-              '2959f1aea8db0f7fbba61f0f8474d0ef',
-              'a28a19e19b283845c851b4876b97cef4',
-              '661e67f8ce5eaf9d63c1b5be6fce1afb',
-              '0653e359db756493450c3fb1fc6790b2',
-              'ec5fefce8d1d81849b47923d6d1b52c0',
-              'd4ccb0f347163d9ee1cd5a106e1ec48b',
-              'c500ea6c5baf3deb447be25b90cf5f1c',
-              '59a6670111970ede6a77e9b43a5c4787',
-              '266021e24dd0bfaaa96f2b5e21d7c800',
-              'b8c4b7f74db12fadbe2d979ed93f392b',
-              '2482b711a07d1da3efa733aa7014f947',
-              '573b8926f015aa477cb6604901b92aea',
-              'b54d11c86eb7c8955a50d20f6b3be2f2',
-              '3a55b7218a5ca395ac71b3ec9904b6ed',
-              '3615d9213b1b3d5fe760901f43a8405f',
-              'e50137601a90943ce98b03e90d73272e',
-              'd4651afb4e1c749f0bacc7ff5d101982',
-              '988a8fa4855bf7ea54057717655d3fc9',
-              '82deec386376c6f81845e561f491e19a',
-              'f427fe660e069c2a1d03db07126c95b7'
-
-            ],
-            phoneArr = [
-              '0950604425',
-              '0500505500',
-              '78124541170',
-              '22274313',
-              '9201922876',
-              '903528981',
-              '9301600441',
-              '89324310961',
-              '1000000',
-              '1000001',
-              '1000002',
-              '1000003',
-              '1000004',
-              '1000005',
-              '1000006',
-              '1000007',
-              '1000008',
-              '1000009',
-              'wd-op',
-              'op1',
-              'Website',
-
-              '000001',
-              '000002',
-              '000003',
-              '000007',
-              '000008',
-              '000009',
-              '000010',
-              '000011',
-              '000012',
-              '000013',
-              '000014',
-              '000015',
-              '000016',
-              '000017',
-              '000018',
-              '000019',
-              '000020',
-              '000021',
-              '000022',
-              '000023',
-              '000024',
-              '000025',
-              '000026',
-              '000027',
-              '000028',
-              'vikna',
-              '5371'
-            ],
-            passwordArr = [
-              '0950604425',
-              '0500505500',
-              '78124541170',
-              '22274313',
-              '9201922876',
-              '903528981',
-              '9301600441',
-              '89324310961',
-              '1000000',
-              '1000001',
-              '1000002',
-              '1000003',
-              '1000004',
-              '1000005',
-              '1000006',
-              '1000007',
-              '1000008',
-              '1000009',
-              'wd-op',
-              'op1op1',
-              'Website',
-
-              '000001',
-              '000002',
-              '000003',
-              '000007',
-              '000008',
-              '000009',
-              '000010',
-              '000011',
-              '000012',
-              '000013',
-              '000014',
-              '000015',
-              '000016',
-              '000017',
-              '000018',
-              '000019',
-              '000020',
-              '000021',
-              '000022',
-              '000023',
-              '000024',
-              '000025',
-              '000026',
-              '000027',
-              '000028',
-              'vikna',
-              '5371'
-            ],
-            accessQty = accessArr.length,
-            isCustomer = 0;
-          if (checkSavedData()) {
-            fastEnter(url);
           } else {
-            if (url.access) {
-              //setTimeout(function () {
-              while (accessQty > -1) {
-                accessQty -= 1;
-                if (accessArr[accessQty] === url.access) {
-                  thisCtrl.user.phone = phoneArr[accessQty];
-                  thisCtrl.user.password = passwordArr[accessQty];
-                  isCustomer = 1;
-                }
-              }
+            GlobalStor.global.isLoader = 0;
+            GlobalStor.global.startSlider = 0;
+            //---- user not exists
+            thisCtrl.isUserNotExist = 1;
+          }
+        });
+      }
 
-              if (isCustomer) {
-                if (thisCtrl.user.phone && thisCtrl.user.password) {
-                  GlobalStor.global.loadDate = new Date();
-                  GlobalStor.global.isLoader = 1;
-                  GlobalStor.global.startSlider = 1;
-                  // loader();
-                  checkingUser();
-                }
-              } else {
+      /**============== ENTRY BY LINK ===============*/
+      function entryWithoutLogin() {
+        var url = $location.search(),
+          accessArr = [
+            '7d537b6746f925b1703aefa9b8a9a4bc',
+            '3f5f0c7d46d318e026f9ba60dceffc65',
+            '799e078b084c6d57cea0b0d53a7e3008',
+            '9aefeef9c7e53f9de9bb36f32649dc3f',
+            'a2da6d85764368b24392740020efbc92',
+            'ceb60bfed037baaa484bd7b88d274c98',
+            '632b3213660804acb71fe045c6e321ed',
+            'd11758b674ac02f0fcf128dcc906dbef',
+            '8155bc545f84d9652f1012ef2bdfb6eb',
+            '59e711d152de7bec7304a8c2ecaf9f0f',
+            '877466ffd21fe26dd1b3366330b7b560',
+            'f31c147335274c56d801f833d3c26a70',
+            'f68ec4f0c6df90137749af75a929a3eb',
+            '0f190e6e164eafe66f011073b4486975',
+            'a9588aa82388c0579d8f74b4d02b895f',
+            '66a516f865fca1c921dba625ede4a693',
+            '7cebd0178b69b2e88774529e1e59a7b0',
+            'ad1df793247a0e650d0d7166341b8d97',
+            'ffc14b7acfd31440e19d0431d4ab0cba',
+            '4736b2b496ba3de748c6eea6c6b9ca65',
+            '15bbb9d0bbf25e8d2978de1168c749dc',
+
+            '04fc711301f3c784d66955d98d399afb',
+            '768c1c687efe184ae6dd2420710b8799',
+            'f7a5c99c58103f6b65c451efd0f81826',
+            '27701bd8dd141b953b94a5c9a44697c0',
+            '7f7d5f9f3a660f2b09e3aae62a15e29b',
+            '23ff17389acbfd020043268fb49e7048',
+            'cd714cc33cfd23e74f414cbb8b9787fe',
+            '2959f1aea8db0f7fbba61f0f8474d0ef',
+            'a28a19e19b283845c851b4876b97cef4',
+            '661e67f8ce5eaf9d63c1b5be6fce1afb',
+            '0653e359db756493450c3fb1fc6790b2',
+            'ec5fefce8d1d81849b47923d6d1b52c0',
+            'd4ccb0f347163d9ee1cd5a106e1ec48b',
+            'c500ea6c5baf3deb447be25b90cf5f1c',
+            '59a6670111970ede6a77e9b43a5c4787',
+            '266021e24dd0bfaaa96f2b5e21d7c800',
+            'b8c4b7f74db12fadbe2d979ed93f392b',
+            '2482b711a07d1da3efa733aa7014f947',
+            '573b8926f015aa477cb6604901b92aea',
+            'b54d11c86eb7c8955a50d20f6b3be2f2',
+            '3a55b7218a5ca395ac71b3ec9904b6ed',
+            '3615d9213b1b3d5fe760901f43a8405f',
+            'e50137601a90943ce98b03e90d73272e',
+            'd4651afb4e1c749f0bacc7ff5d101982',
+            '988a8fa4855bf7ea54057717655d3fc9',
+            '82deec386376c6f81845e561f491e19a',
+            'f427fe660e069c2a1d03db07126c95b7'
+          ],
+          phoneArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+            '9201922876',
+            '903528981',
+            '9301600441',
+            '89324310961',
+            '1000000',
+            '1000001',
+            '1000002',
+            '1000003',
+            '1000004',
+            '1000005',
+            '1000006',
+            '1000007',
+            '1000008',
+            '1000009',
+            'wd-op',
+            'op1',
+            'Website',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028',
+            'vikna',
+            '5371'
+          ],
+          passwordArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+            '9201922876',
+            '903528981',
+            '9301600441',
+            '89324310961',
+            '1000000',
+            '1000001',
+            '1000002',
+            '1000003',
+            '1000004',
+            '1000005',
+            '1000006',
+            '1000007',
+            '1000008',
+            '1000009',
+            'wd-op',
+            'op1op1',
+            'Website',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028',
+            'vikna',
+            '5371'
+          ],
+          accessQty = accessArr.length,
+          isCustomer = 0;
+        if (checkSavedData()) {
+          fastEnter(url);
+        } else {
+          if (url.access) {
+            //setTimeout(function () {
+            while (accessQty > -1) {
+              accessQty -= 1;
+              if (accessArr[accessQty] === url.access) {
+                thisCtrl.user.phone = phoneArr[accessQty];
+                thisCtrl.user.password = passwordArr[accessQty];
+                isCustomer = 1;
+              }
+            }
+
+            if (isCustomer) {
+              if (thisCtrl.user.phone && thisCtrl.user.password) {
                 GlobalStor.global.loadDate = new Date();
                 GlobalStor.global.isLoader = 1;
                 GlobalStor.global.startSlider = 1;
                 // loader();
-                localDB.importUser(url.access, 1).then(function (result) {
-                  var userTemp = angular.copy(result.user);
-                  GlobalStor.global.isLoader = 1;
-                  GlobalStor.global.startSlider = 1;
-                  importDBProsses(userTemp);
-                });
+                checkingUser();
               }
-              //},1000);
-            }
-            if (url.autologin) {
+            } else {
               GlobalStor.global.loadDate = new Date();
               GlobalStor.global.isLoader = 1;
               GlobalStor.global.startSlider = 1;
               // loader();
-              localDB.importUser(url.autologin, 1).then(function (result) {
-                if (result.status) {
-                  var userTemp = angular.copy(result.user);
-                  GlobalStor.global.isLoader = 1;
-                  GlobalStor.global.startSlider = 1;
-                  importDBProsses(userTemp);
-                } else {
-                  thisCtrl.isUserNotExist = 1;
-                  GlobalStor.global.isLoader = 0;
-                  GlobalStor.global.startSlider = 0;
-                }
+              localDB.importUser(url.access, 1).then(function (result) {
+                var userTemp = angular.copy(result.user);
+                GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
+                importDBProsses(userTemp);
               });
             }
+            //},1000);
           }
-        }
-
-        function closeOfflineAlert() {
-          thisCtrl.isOffline = false;
-        }
-
-        function loaderChange(state, time) {
-          GlobalStor.global.isLoader2 = state;
-          if (state <= 98) {
-            $timeout(function () {
-              loaderChange(++state)
-            }, temp)
-          }
-        }
-
-        let temp;
-
-        /** =========== SIGN IN ======== */
-        function loader() {
-          if (GlobalStor.global.isLoader3 === 1) {
-            if (GlobalStor.global.isLoader === 1) {
-              GlobalStor.global.isLoader3 = 0
-            }
-          }
-          if (GlobalStor.global.isLoader3 === 0) {
-            $timeout(function () {
-              GlobalStor.global.isLoader3 = 1
-            }, 1)
-            temp = (240 / 99) * 1000;
-            loaderChange(1, temp)
-          }
-        }
-
-
-        if (window.location.hash.length > 10) {
-          // loader()
-        }
-        if (!GlobalStor.global.onlineMode && !navigator.onLine) {
-          localDB.db.getItem("UserStor.userInfo.phone", function (err, value) {
-            UserStor.userInfo.phone = value;
-          });
-
-          localDB.db.getItem("UserStor.userInfo.device_code", function (err, value) {
-            UserStor.userInfo.device_code = value;
-          });
-        }
-        //$(".i").hide();
-        $(".print-conteiner").hide();
-        var FirstIn = "true";
-        localDB.db.getItem("FirstIn", function (err, value) {
-          if (value !== "true") {
+          if (url.autologin) {
             GlobalStor.global.loadDate = new Date();
-            localDB.db.setItem("loadDate", GlobalStor.global.loadDate, function (err, value) { });
-            /** **/
-          } else {
-            localDB.db.getItem("loadDate", function (err, value) {
-              GlobalStor.global.loadDate = new Date(value);
+            GlobalStor.global.isLoader = 1;
+            GlobalStor.global.startSlider = 1;
+            // loader();
+            localDB.importUser(url.autologin, 1).then(function (result) {
+              if (result.status) {
+                var userTemp = angular.copy(result.user);
+                GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
+                importDBProsses(userTemp);
+              } else {
+                thisCtrl.isUserNotExist = 1;
+                GlobalStor.global.isLoader = 0;
+                GlobalStor.global.startSlider = 0;
+              }
             });
           }
+        }
+      }
+
+      function closeOfflineAlert() {
+        thisCtrl.isOffline = false;
+      }
+
+      function loaderChange(state, time) {
+        GlobalStor.global.isLoader2 = state;
+        if (state <= 98) {
+          $timeout(function () {
+            loaderChange(++state);
+          }, temp);
+        }
+      }
+
+      let temp;
+
+      /** =========== SIGN IN ======== */
+      function loader() {
+        if (GlobalStor.global.isLoader3 === 1) {
+          if (GlobalStor.global.isLoader === 1) {
+            GlobalStor.global.isLoader3 = 0;
+          }
+        }
+        if (GlobalStor.global.isLoader3 === 0) {
+          $timeout(function () {
+            GlobalStor.global.isLoader3 = 1;
+          }, 1);
+          temp = (240 / 99) * 1000;
+          loaderChange(1, temp);
+        }
+      }
+
+      if (window.location.hash.length > 10) {
+        // loader()
+      }
+      if (!GlobalStor.global.onlineMode && !navigator.onLine) {
+        localDB.db.getItem('UserStor.userInfo.phone', function (err, value) {
+          UserStor.userInfo.phone = value;
         });
 
-
-        function enterForm(form) {
-          thisCtrl.submitted = 1;
-
-          if (form.$valid) {
-
-
-            if (navigator.onLine) {
-              GlobalStor.global.loadDate = new Date();
-              GlobalStor.global.isLoader = 1;
-              GlobalStor.global.startSlider = 1;
-              checkingUser();
-              // if (new Date("2018-08-01") >= new Date()) {
-              // } else {
-              //     GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
-              // }
-            } else {
-              thisCtrl.isOfflineImport = 1;
-            }
-
-            // localforage.getItem("analitics", function (err, value) {
-            //   if (value) {
-            //     GlobalStor.global.analitics_storage.push(value);
-            //     // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
-            //     // console.log(GlobalStor.global.analitics_storage);
-            //   }
-            // });
+        localDB.db.getItem(
+          'UserStor.userInfo.device_code',
+          function (err, value) {
+            UserStor.userInfo.device_code = value;
           }
+        );
+      }
+      //$(".i").hide();
+      $('.print-conteiner').hide();
+      var FirstIn = 'true';
+      localDB.db.getItem('FirstIn', function (err, value) {
+        if (value !== 'true') {
+          GlobalStor.global.loadDate = new Date();
+          localDB.db.setItem(
+            'loadDate',
+            GlobalStor.global.loadDate,
+            function (err, value) {}
+          );
+          /** **/
+        } else {
+          localDB.db.getItem('loadDate', function (err, value) {
+            GlobalStor.global.loadDate = new Date(value);
+          });
         }
+      });
 
-        document.addEventListener("deviceready", onDeviceReady, false);
+      function enterForm(form) {
+        thisCtrl.submitted = 1;
 
-        function onDeviceReady() {
-          GlobalStor.global.cordova = window.cordova;
-        }
-
-        //********************
-
-
-        /**--------- FACTORIES ------------*/
-
-        function selectFactory() {
-          if (thisCtrl.user.factoryId > 0) {
-            //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-            if (thisCtrl.isOnline) {
-              GlobalStor.global.startSlider = 1;
-              GlobalStor.global.isLoader = 1;
-              //-------- send selected Factory Id in Server
-              UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-              //                  console.log(UserStor.userInfo.factory_id);
-              //----- update factoryId in LocalDB & Server
-              localDB.updateLocalServerDBs(
-                "users", UserStor.userInfo.id, {
-                  factory_id: UserStor.userInfo.factory_id
-                }
-              ).then(function () {
-                //-------- close Factory Dialog
-                thisCtrl.isFactoryId = 0;
-                importDBfromServer();
-              });
-            } else {
-              thisCtrl.isOffline = 1;
-            }
-          } else {
-            //---- show attantion if any factory was chosen
-            thisCtrl.isFactoryNotSelect = 1;
-          }
-
-        }
-
-        function closeFactoryDialog() {
-          thisCtrl.isFactoryNotSelect = 0;
-          thisCtrl.isFactoryId = 0;
-          delete thisCtrl.user.factoryId;
-        }
-
-
-        /**============ Registration ============*/
-
-
-        function switchRegistration() {
-          //------ check Internet
-          //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-          if (thisCtrl.isOnline) {
-            //------- check available Local DB
-            loginServ.isLocalDBExist().then(function (data) {
-              thisCtrl.isLocalDB = data;
-              //          console.log('REG', data);
-              //------ if locations is not exists refresh Location and Users
-              if (thisCtrl.isLocalDB) {
-                GlobalStor.global.isLoader = 1;
-                loginServ.prepareLocationToUse(1).then(function () {
-                  GlobalStor.global.isLoader = 0;
-                  thisCtrl.isRegistration = 1;
-                });
-              } else {
-                GlobalStor.global.isLoader = 1;
-                //------- clean all tables in LocalDB
-                // localDB.cleanLocalDB(localDB.tablesLocalDB).then(function (data) {
-                //   if (data) {
-                //     //------- creates all tables in LocalDB
-                //     localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
-                //       if (data) {
-                //         //------- import Location
-                //         localDB.importLocation().then(function (data) {
-                //           if (data) {
-                //             //------ save Location Data in local obj
-                //             loginServ.prepareLocationToUse(1).then(function () {
-                //               GlobalStor.global.isLoader = 0;
-                //               thisCtrl.isRegistration = 1;
-                //             });
-                //           }
-                //         });
-                //       }
-                //     });
-                //   }
-                // });
-              }
-              thisCtrl.user = {};
-              //angular.element('#first_input').focus();
-            });
-          } else {
-            thisCtrl.isOffline = 1;
-          }
-        }
-
-
-        function closeRegistration() {
-          thisCtrl.user = {};
-          thisCtrl.isRegistration = 0;
-          thisCtrl.email_required = 0;
-        }
-
-        function registrForm(form) {
-          // Trigger validation flag.
-          thisCtrl.submitted = true;
-          if (form.$valid) {
-            if (thisCtrl.registration_data.selected_country > 0) {
-              GlobalStor.global.isLoader = 1;
-              let url;
-              if (globalConstants.serverIP === 'http://api.steko.com.ua') {
-                url = `http://export.steko.com.ua/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
-              } else {
-                url = `https://windowscalculator.net/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
-              }
-              $http
-                .get(url)
-                .then(
-                  (result) => {
-                    GlobalStor.global.isLoader = 0;
-                    thisCtrl.isRegistration = 0;
-                    thisCtrl.isConfirmRegistration = 1;
-                  },
-                  function () {
-
-                  }
-                );
-            } else {
-              thisCtrl.email_required = 1;
-            }
-          } else {
-            if (thisCtrl.registration_data.selected_country === 0) {
-              thisCtrl.email_required = 1;
-            }
-          }
-        }
-
-        function ShowTerms() {
-          thisCtrl.showTerms = !thisCtrl.showTerms;
-          console.log(thisCtrl.showTerms)
-        }
-
-        function DemoLogin() {
-          let login, pass;
-
-          switch (+thisCtrl.registration_data.selected_country) {
-            case 1:
-              login = '000003';
-              pass = '000003';
-              break;
-            case 2:
-            case 3:
-            case 5:
-            case 9:
-            case 12:
-            case 25:
-            case 72:
-            case 145:
-            case 173:
-            case 203:
-            case 214:
-            case 217:
-              {
-                login = 'DemoRU';
-                pass = 'DemoRU';
-                break;
-              }
-            case 7:
-            case 10:
-            case 97:
-            case 139:
-            case 154:
-              {
-                login = '2222';
-                pass = '2222';
-                break;
-              }
-
-            default:
-              {
-                login = 'Website';
-                pass = 'Website';
-                break;
-              }
-
-          }
-
-          if (globalConstants.serverIP == 'http://api.steko.com.ua') {
-            login = '000003';
-            pass = '000003';
-          }
+        if (form.$valid) {
           if (navigator.onLine) {
             GlobalStor.global.loadDate = new Date();
             GlobalStor.global.isLoader = 1;
             GlobalStor.global.startSlider = 1;
-            thisCtrl.isConfirmRegistration = 0;
-            console.log('login, pass', login, pass)
-            checkingUser(login, pass);
-          }
-        }
-        //--------- if was empty option selected in select after choosing
-        function selectLocation(id) {
-          thisCtrl.email_required = 0;
-          thisCtrl.registration_data.selected_country = thisCtrl.selected_country.id;
-          console.log('country id ', thisCtrl.registration_data.selected_country);
-        }
-
-        function registration() {
-          GlobalStor.global.isLoader = 1;
-          let url, name;
-          if (globalConstants.serverIP == 'http://api.steko.com.ua') {
-            url = "http://export.steko.com.ua/api/wc/?task=region";
-            name = thisCtrl.SELECT_REGION;
+            checkingUser();
+            // if (new Date("2018-08-01") >= new Date()) {
+            // } else {
+            //     GeneralServ.infoAlert(thisCtrl.ATENTION, 'Тестовое время работы истекло. Установите актуальную версию приложения');
+            // }
           } else {
-            url = 'https://windowscalculator.net/api/wc/?task=country';
-            name = thisCtrl.SELECT_COUNTRY;
+            thisCtrl.isOfflineImport = 1;
           }
-          $http
-            .post(url)
-            .then(
-              function (result) {
-                console.log("result", result)
-                thisCtrl.countries = result.data;
-                thisCtrl.countries.unshift({
-                  'id': '0',
-                  'name': name
-                });
-                thisCtrl.registration_data.selected_country = 0;
-                thisCtrl.isRegistration = 1;
-                GlobalStor.global.isLoader = 0;
 
-              },
-              function () {
+          // localforage.getItem("analitics", function (err, value) {
+          //   if (value) {
+          //     GlobalStor.global.analitics_storage.push(value);
+          //     // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
+          //     // console.log(GlobalStor.global.analitics_storage);
+          //   }
+          // });
+        }
+      }
 
-              }
+      document.addEventListener('deviceready', onDeviceReady, false);
+
+      function onDeviceReady() {
+        GlobalStor.global.cordova = window.cordova;
+      }
+
+      //********************
+
+      /**--------- FACTORIES ------------*/
+
+      function selectFactory() {
+        if (thisCtrl.user.factoryId > 0) {
+          //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+          if (thisCtrl.isOnline) {
+            GlobalStor.global.startSlider = 1;
+            GlobalStor.global.isLoader = 1;
+            //-------- send selected Factory Id in Server
+            UserStor.userInfo.factory_id = angular.copy(
+              thisCtrl.user.factoryId
             );
+            //                  console.log(UserStor.userInfo.factory_id);
+            //----- update factoryId in LocalDB & Server
+            localDB
+              .updateLocalServerDBs('users', UserStor.userInfo.id, {
+                factory_id: UserStor.userInfo.factory_id
+              })
+              .then(function () {
+                //-------- close Factory Dialog
+                thisCtrl.isFactoryId = 0;
+                importDBfromServer();
+              });
+          } else {
+            thisCtrl.isOffline = 1;
+          }
+        } else {
+          //---- show attantion if any factory was chosen
+          thisCtrl.isFactoryNotSelect = 1;
+        }
+      }
+
+      function closeFactoryDialog() {
+        thisCtrl.isFactoryNotSelect = 0;
+        thisCtrl.isFactoryId = 0;
+        delete thisCtrl.user.factoryId;
+      }
+
+      /**============ Registration ============*/
+
+      function switchRegistration() {
+        //------ check Internet
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if (thisCtrl.isOnline) {
+          //------- check available Local DB
+          loginServ.isLocalDBExist().then(function (data) {
+            thisCtrl.isLocalDB = data;
+            //          console.log('REG', data);
+            //------ if locations is not exists refresh Location and Users
+            if (thisCtrl.isLocalDB) {
+              GlobalStor.global.isLoader = 1;
+              loginServ.prepareLocationToUse(1).then(function () {
+                GlobalStor.global.isLoader = 0;
+                thisCtrl.isRegistration = 1;
+              });
+            } else {
+              GlobalStor.global.isLoader = 1;
+              //------- clean all tables in LocalDB
+              // localDB.cleanLocalDB(localDB.tablesLocalDB).then(function (data) {
+              //   if (data) {
+              //     //------- creates all tables in LocalDB
+              //     localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
+              //       if (data) {
+              //         //------- import Location
+              //         localDB.importLocation().then(function (data) {
+              //           if (data) {
+              //             //------ save Location Data in local obj
+              //             loginServ.prepareLocationToUse(1).then(function () {
+              //               GlobalStor.global.isLoader = 0;
+              //               thisCtrl.isRegistration = 1;
+              //             });
+              //           }
+              //         });
+              //       }
+              //     });
+              //   }
+              // });
+            }
+            thisCtrl.user = {};
+            //angular.element('#first_input').focus();
+          });
+        } else {
+          thisCtrl.isOffline = 1;
+        }
+      }
+
+      function closeRegistration() {
+        thisCtrl.user = {};
+        thisCtrl.isRegistration = 0;
+        thisCtrl.email_required = 0;
+      }
+
+      function registrForm(form) {
+        // Trigger validation flag.
+        thisCtrl.submitted = true;
+        if (form.$valid) {
+          if (thisCtrl.registration_data.selected_country > 0) {
+            GlobalStor.global.isLoader = 1;
+            let url;
+            if (globalConstants.serverIP === 'http://api.steko.com.ua') {
+              url = `http://export.steko.com.ua/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
+            } else {
+              url = `https://windowscalculator.net/api/wc/?name=${thisCtrl.registration_data.name}&country=${thisCtrl.registration_data.selected_country}&email=${thisCtrl.registration_data.email}`;
+            }
+            $http.get(url).then(
+              (result) => {
+                GlobalStor.global.isLoader = 0;
+                thisCtrl.isRegistration = 0;
+                thisCtrl.isConfirmRegistration = 1;
+              },
+              function () {}
+            );
+          } else {
+            thisCtrl.email_required = 1;
+          }
+        } else {
+          if (thisCtrl.registration_data.selected_country === 0) {
+            thisCtrl.email_required = 1;
+          }
+        }
+      }
+
+      function ShowTerms() {
+        thisCtrl.showTerms = !thisCtrl.showTerms;
+        console.log(thisCtrl.showTerms);
+      }
+
+      function DemoLogin() {
+        let login, pass;
+
+        switch (+thisCtrl.registration_data.selected_country) {
+          case 1:
+            login = '000003';
+            pass = '000003';
+            break;
+          case 2:
+          case 3:
+          case 5:
+          case 9:
+          case 12:
+          case 25:
+          case 72:
+          case 145:
+          case 173:
+          case 203:
+          case 214:
+          case 217: {
+            login = 'DemoRU';
+            pass = 'DemoRU';
+            break;
+          }
+          case 7:
+          case 10:
+          case 97:
+          case 139:
+          case 154: {
+            login = '2222';
+            pass = '2222';
+            break;
+          }
+
+          default: {
+            login = 'Website';
+            pass = 'Website';
+            break;
+          }
         }
 
-        function gotoSettingsPage() {
-          let app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
-          if (window.location.hash.length < 10 || app) {
-            if (GlobalStor.global.gotoSettingsPage === 0) {
-              $timeout(function () {
-                $location.path('/change-lang');
-              }, 1);
-              $timeout(function () {
-                $location.path("/");
-              }, 1);
-              GlobalStor.global.gotoSettingsPage = 1;
-            }
-          } else {
+        if (globalConstants.serverIP == 'http://api.steko.com.ua') {
+          login = '000003';
+          pass = '000003';
+        }
+        if (navigator.onLine) {
+          GlobalStor.global.loadDate = new Date();
+          GlobalStor.global.isLoader = 1;
+          GlobalStor.global.startSlider = 1;
+          thisCtrl.isConfirmRegistration = 0;
+          console.log('login, pass', login, pass);
+          checkingUser(login, pass);
+        }
+      }
+      //--------- if was empty option selected in select after choosing
+      function selectLocation(id) {
+        thisCtrl.email_required = 0;
+        thisCtrl.registration_data.selected_country =
+          thisCtrl.selected_country.id;
+        console.log('country id ', thisCtrl.registration_data.selected_country);
+      }
+
+      function registration() {
+        GlobalStor.global.isLoader = 1;
+        let url, name;
+        if (globalConstants.serverIP == 'http://api.steko.com.ua') {
+          url = 'http://export.steko.com.ua/api/wc/?task=region';
+          name = thisCtrl.SELECT_REGION;
+        } else {
+          url = 'https://windowscalculator.net/api/wc/?task=country';
+          name = thisCtrl.SELECT_COUNTRY;
+        }
+        $http.post(url).then(
+          function (result) {
+            console.log('result', result);
+            thisCtrl.countries = result.data;
+            thisCtrl.countries.unshift({
+              id: '0',
+              name: name
+            });
+            thisCtrl.registration_data.selected_country = 0;
+            thisCtrl.isRegistration = 1;
+            GlobalStor.global.isLoader = 0;
+          },
+          function () {}
+        );
+      }
+
+      function gotoSettingsPage() {
+        let app =
+          document.URL.indexOf('http://') === -1 &&
+          document.URL.indexOf('https://') === -1;
+        if (window.location.hash.length < 10 || app) {
+          if (GlobalStor.global.gotoSettingsPage === 0) {
+            $timeout(function () {
+              $location.path('/change-lang');
+            }, 1);
+            $timeout(function () {
+              $location.path('/');
+            }, 1);
             GlobalStor.global.gotoSettingsPage = 1;
           }
+        } else {
+          GlobalStor.global.gotoSettingsPage = 1;
         }
+      }
 
-        setTimeout(function () {
-          $('#jssj').trigger('click');
-        }, 500);
+      setTimeout(function () {
+        $('#jssj').trigger('click');
+      }, 500);
 
-        function checkSavedData() {
-          var order = window.localStorage.getItem("OrderStor");
-          var product = window.localStorage.getItem("ProductStor");
-          var aux = window.localStorage.getItem("AuxStor");
-          var design = window.localStorage.getItem("DesignStor");
-          var user = window.localStorage.getItem("UserStor");
-          var global = window.localStorage.getItem("GlobalStor");
+      function checkSavedData() {
+        var order = window.localStorage.getItem('OrderStor');
+        var product = window.localStorage.getItem('ProductStor');
+        var aux = window.localStorage.getItem('AuxStor');
+        var design = window.localStorage.getItem('DesignStor');
+        var user = window.localStorage.getItem('UserStor');
+        var global = window.localStorage.getItem('GlobalStor');
 
-          if (product && user && global && design && order && aux) {
-            localDB.getSavedLocation();
-            var loadDate = new Date(Date.parse(JSON.parse(LZString.decompressFromUTF16(global)).loadDate));
-            var checkDate = loadDate.getFullYear() + "" + loadDate.getMonth() + "" + loadDate.getDate();
-            var curDate = new Date().getFullYear() + "" + new Date().getMonth() + "" + new Date().getDate();
-            if ((curDate === checkDate) || GlobalStor.global.ISEXT) {
-              UserStor.userInfo = JSON.parse(LZString.decompressFromUTF16(user));
-              GlobalStor.global = JSON.parse(LZString.decompressFromUTF16(global));
-              OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
-              ProductStor.product = JSON.parse(LZString.decompressFromUTF16(product));
-              AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
-              console.log("Everyghing is all right, you can work");
-              MainServ.createOrderData();
-              return true;
-            } else {
-              localStorage.clear();
-              localDB.db.clear().then(function () {
+        if (product && user && global && design && order && aux) {
+          localDB.getSavedLocation();
+          var loadDate = new Date(
+            Date.parse(
+              JSON.parse(LZString.decompressFromUTF16(global)).loadDate
+            )
+          );
+          var checkDate =
+            loadDate.getFullYear() +
+            '' +
+            loadDate.getMonth() +
+            '' +
+            loadDate.getDate();
+          var curDate =
+            new Date().getFullYear() +
+            '' +
+            new Date().getMonth() +
+            '' +
+            new Date().getDate();
+          if (curDate === checkDate || GlobalStor.global.ISEXT) {
+            UserStor.userInfo = JSON.parse(LZString.decompressFromUTF16(user));
+            GlobalStor.global = JSON.parse(
+              LZString.decompressFromUTF16(global)
+            );
+            OrderStor.order = JSON.parse(LZString.decompressFromUTF16(order));
+            ProductStor.product = JSON.parse(
+              LZString.decompressFromUTF16(product)
+            );
+            AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
+            console.log('Everyghing is all right, you can work');
+            MainServ.createOrderData();
+            return true;
+          } else {
+            localStorage.clear();
+            localDB.db
+              .clear()
+              .then(function () {
                 // Run this code once the database has been entirely deleted.
                 console.log('Database is now empty.');
-              }).catch(function (err) {
+              })
+              .catch(function (err) {
                 // This code runs if there were any errors
                 console.log(err);
               });
-              $location.path('/');
-              console.log("разные даты");
-              return false;
-            }
-          } else {
-            console.log("не все данные сохранены");
-            localStorage.clear();
+            $location.path('/');
+            console.log('разные даты');
             return false;
           }
-
+        } else {
+          console.log('не все данные сохранены');
+          localStorage.clear();
+          return false;
         }
+      }
 
-        function fastEnter(url) {
-          GlobalStor.global.isLoader = 0;
-          GlobalStor.global.startSlider = 0;
-          GlobalStor.global.ISLOGIN = 0;
-          if (url.orderEdit) {
-            HistoryStor.history.orderEdit = 2;
-            HistoryServ.reqResult().then(function () {
-              HistoryServ.editOrder(1, url.orderEdit);
-            });
-          } else {
-            $location.path("/" + GlobalStor.global.currOpenPage);
-          }
-        }
-
-
-        /**========== FINISH ==========*/
-
-        //------ clicking
-        thisCtrl.gotoSettingsPage = gotoSettingsPage;
-        thisCtrl.switchRegistration = switchRegistration;
-        thisCtrl.closeRegistration = closeRegistration;
-        thisCtrl.enterForm = enterForm;
-        thisCtrl.loader = loader;
-        thisCtrl.registrForm = registrForm;
-        thisCtrl.selectLocation = selectLocation;
-        thisCtrl.selectFactory = selectFactory;
-        thisCtrl.closeFactoryDialog = closeFactoryDialog;
-        thisCtrl.closeOfflineAlert = closeOfflineAlert;
-        thisCtrl.DemoLogin = DemoLogin;
-        thisCtrl.registration = registration;
-        thisCtrl.ShowTerms = ShowTerms;
-
-
-        //------- defined system language
-        setTimeout(function () {
-          loginServ.getDeviceLanguage();
-        }, 1000);
-        //------- export data
-        if (thisCtrl.isOnline) {
-          // loginServ.initExport();
-          entryWithoutLogin();
-        }
-        if (app) {
-          // console.log("PhoneGap application");
-          let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
-          if (deviceType === 'iPad' || deviceType === 'iPhone') {
-            try {
-              console.log('device', device.model);
-              console.log('device', window.device);
-              console.log('device', $(window).height());
-
-            } catch (e) { }
-            $('body').addClass('padding-top-ios')
-          }
-        }
-        $("#main-frame").addClass("main-frame-mobView");
-        $("#app-container").addClass("app-container-mobView");
-        let obj = $("#main-frame");
-        obj.css({
-          "transform": "scale(1)",
-          "left": "0px",
-          "top": "0px",
+      //Simple autologin for rehau landing, sorry have no time to do it better
+      if (window.location.href === 'http://localhost:8888/#/') {
+        $(document).ready(function () {
+          document.querySelector('.login-page-mobView').style.opacity = '1';
+        });
+      } else if (
+        window.location.href === 'https://okoshko.ua/en/calculators/#/' ||
+        window.location.href === 'https://okoshko.ua/ua/calculators/#/'
+      ) {
+        GlobalStor.global.isLoader = 1;
+        setTimeout(() => {
+          thisCtrl.user.phone = 'okna';
+          thisCtrl.user.password = 'okna';
+          document.querySelector('.login-submit').click();
+        }, 2500);
+      } else {
+        $(document).ready(function () {
+          document.querySelector('.login-page-mobView').style.opacity = '1';
         });
       }
-    );
+
+      function fastEnter(url) {
+        GlobalStor.global.isLoader = 0;
+        GlobalStor.global.startSlider = 0;
+        GlobalStor.global.ISLOGIN = 0;
+        if (url.orderEdit) {
+          HistoryStor.history.orderEdit = 2;
+          HistoryServ.reqResult().then(function () {
+            HistoryServ.editOrder(1, url.orderEdit);
+          });
+        } else {
+          $location.path('/' + GlobalStor.global.currOpenPage);
+        }
+      }
+
+      /**========== FINISH ==========*/
+
+      //------ clicking
+      thisCtrl.gotoSettingsPage = gotoSettingsPage;
+      thisCtrl.switchRegistration = switchRegistration;
+      thisCtrl.closeRegistration = closeRegistration;
+      thisCtrl.enterForm = enterForm;
+      thisCtrl.loader = loader;
+      thisCtrl.registrForm = registrForm;
+      thisCtrl.selectLocation = selectLocation;
+      thisCtrl.selectFactory = selectFactory;
+      thisCtrl.closeFactoryDialog = closeFactoryDialog;
+      thisCtrl.closeOfflineAlert = closeOfflineAlert;
+      thisCtrl.DemoLogin = DemoLogin;
+      thisCtrl.registration = registration;
+      thisCtrl.ShowTerms = ShowTerms;
+
+      //------- defined system language
+      setTimeout(function () {
+        loginServ.getDeviceLanguage();
+      }, 1000);
+      //------- export data
+      if (thisCtrl.isOnline) {
+        // loginServ.initExport();
+        entryWithoutLogin();
+      }
+      if (app) {
+        // console.log("PhoneGap application");
+        let deviceType =
+          navigator.userAgent.match(/iPad/i) == 'iPad'
+            ? 'iPad'
+            : navigator.userAgent.match(/iPhone/i) == 'iPhone'
+            ? 'iPhone'
+            : navigator.userAgent.match(/Android/i) == 'Android'
+            ? 'Android'
+            : navigator.userAgent.match(/BlackBerry/i) == 'BlackBerry'
+            ? 'BlackBerry'
+            : 'null';
+        if (deviceType === 'iPad' || deviceType === 'iPhone') {
+          try {
+            console.log('device', device.model);
+            console.log('device', window.device);
+            console.log('device', $(window).height());
+          } catch (e) {}
+          $('body').addClass('padding-top-ios');
+        }
+      }
+      $('#main-frame').addClass('main-frame-mobView');
+      $('#app-container').addClass('app-container-mobView');
+      let obj = $('#main-frame');
+      obj.css({
+        transform: 'scale(1)',
+        left: '0px',
+        top: '0px'
+      });
+    }
+  );
 })();
 
 
@@ -22949,7 +23033,6 @@ function ErrorResult(code, message) {
                     .post(globalConstants.serverIP + "/api/insert?login=" + login + "&access_token=" + access, dataToSend)
                     .then(
                         function (result) {
-                            console.log("insertServer", result);
                             defer.resolve(result.data);
                         },
                         function (result) {
@@ -27648,3398 +27731,4401 @@ function ErrorResult(code, message) {
 // services/main_serv.js
 
 (function () {
-    "use strict";
-    /**@ngInject*/
-    angular
-        .module("MainModule")
-        .factory("MainServ", function ($location,
-            $q,
-            $filter,
-            $timeout,
-            $rootScope,
-            localDB,
-            GeneralServ,
-            SVGServ,
-            loginServ,
-            optionsServ,
-            AnalyticsServ,
-            GlobalStor,
-            OrderStor,
-            ProductStor,
-            UserStor,
-            AuxStor,
-            CartStor,
-            DesignStor,
-            HistoryStor,
-            globalConstants) {
-            /*jshint validthis:true */
-            var thisFactory = this;
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .factory(
+      'MainServ',
+      function (
+        $location,
+        $q,
+        $filter,
+        $timeout,
+        $rootScope,
+        localDB,
+        GeneralServ,
+        SVGServ,
+        loginServ,
+        optionsServ,
+        AnalyticsServ,
+        GlobalStor,
+        OrderStor,
+        ProductStor,
+        UserStor,
+        AuxStor,
+        CartStor,
+        DesignStor,
+        HistoryStor,
+        globalConstants
+      ) {
+        /*jshint validthis:true */
+        var thisFactory = this;
 
-            /**============ METHODS ================*/
-            var db = localforage.createInstance({
-                driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
-                name: 'bauvoice',
-                version: 2.0,
-                size: 4980736, // Size of database, in bytes. WebSQL-only for now.
-                storeName: 'bauvoice', // Should be alphanumeric, with underscores.
-                description: 'some description'
+        /**============ METHODS ================*/
+        var db = localforage.createInstance({
+          driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+          name: 'bauvoice',
+          version: 2.0,
+          size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+          storeName: 'bauvoice', // Should be alphanumeric, with underscores.
+          description: 'some description'
+        });
+
+        function getOnline() {
+          $.get(globalConstants.serverIP, function () {
+            GlobalStor.global.onlineMode = true;
+            return true;
+          }).fail(function () {
+            GlobalStor.global.onlineMode = false;
+            return false;
+          });
+        }
+
+        getOnline();
+        //saving default values for hardwares
+        GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
+
+        /**---------- Close Room Selector Dialog ---------*/
+        function closeRoomSelectorDialog() {
+          GlobalStor.global.showRoomSelectorDialog = 0;
+          GlobalStor.global.selectRoom = 1;
+          GlobalStor.global.configMenuTips = GlobalStor.global.startProgramm
+            ? 1
+            : 0;
+          //playSound('fly');
+        }
+
+        function setDefaultDoorConfig() {
+          ProductStor.product.door_shape_id = 0;
+          ProductStor.product.door_type_index = 0;
+          ProductStor.product.door_sash_shape_id = 0;
+          ProductStor.product.door_handle_shape_id = 0;
+          ProductStor.product.door_lock_shape_id = 0;
+          ProductStor.product.doorName = '';
+          ProductStor.product.doorSashName = '';
+          ProductStor.product.doorHandle = {};
+          ProductStor.product.doorLock = {};
+          DesignStor.design.steps.selectedStep1 = 0;
+          DesignStor.design.steps.selectedStep2 = 0;
+          DesignStor.design.steps.selectedStep3 = 0;
+          DesignStor.design.steps.selectedStep4 = 0;
+          DesignStor.designSource.steps.selectedStep1 = 0;
+          DesignStor.designSource.steps.selectedStep2 = 0;
+          DesignStor.designSource.steps.selectedStep3 = 0;
+          DesignStor.designSource.steps.selectedStep4 = 0;
+        }
+
+        function setDefaultAuxParam() {
+          AuxStor.aux.isWindowSchemeDialog = 0;
+          AuxStor.aux.isAddElementListView = 0;
+          AuxStor.aux.isFocusedAddElement = 0;
+          AuxStor.aux.isTabFrame = 0;
+          AuxStor.aux.isAddElementListView = 0;
+          AuxStor.aux.showAddElementsMenu = 0;
+          AuxStor.aux.addElementGroups.length = 0;
+          AuxStor.aux.searchingWord = '';
+          AuxStor.aux.isGridSelectorDialog = 0;
+        }
+
+        function prepareMainPage() {
+          GlobalStor.global.isNavMenu = 0;
+          GlobalStor.global.isConfigMenu = 1;
+          GlobalStor.global.activePanel = 0;
+          setDefaultAuxParam();
+          // if (GlobalStor.global.startProgramm) {
+          //   $timeout(function () {
+          //     GlobalStor.global.showRoomSelectorDialog = 1;
+          //   }, 2000);
+          //   // $timeout(closeRoomSelectorDialog, 5000);
+          // }
+        }
+
+        function saveUserEntry() {
+          $timeout(function () {
+            localDB.exportUserEntrance(
+              UserStor.userInfo.phone,
+              UserStor.userInfo.device_code
+            );
+          }, 5000);
+
+          //TODO offline
+          //      ++UserStor.userInfo.entries;
+          //      var data = {entries: UserStor.userInfo.entries},
+          //          dataToSend = [
+          //            {
+          //              model: 'users',
+          //              rowId: UserStor.userInfo.id,
+          //              field: JSON.stringify(data)
+          //            }
+          //          ];
+          //       localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
+          //       localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
+          //        if(!data) {
+          //          //----- if no connect with Server save in Export LocalDB
+          //          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
+          //        }
+          //      });
+        }
+
+        /**  Create Order Id and Date */
+
+        function createOrderID() {
+          var currTime = new Date().getTime().toString();
+          return (
+            (UserStor.userInfo.id + '' + currTime.slice(4, currTime.length)) * 1
+          );
+        }
+
+        function createOrderData() {
+          var productDay;
+          //----------- create order number for new project
+          OrderStor.order.id = createOrderID();
+          //------ set delivery day
+          OrderStor.order.order_date = new Date().getTime();
+          productDay =
+            new Date(OrderStor.order.order_date).getDate() +
+            GlobalStor.global.deliveryCoeff.standart_time;
+          OrderStor.order.delivery_date = new Date().setDate(productDay);
+          OrderStor.order.new_delivery_date = angular.copy(
+            OrderStor.order.delivery_date
+          );
+        }
+
+        function setCurrDiscounts() {
+          OrderStor.order.discount_construct = angular.copy(
+            UserStor.userInfo.discountConstr
+          );
+          OrderStor.order.discount_addelem = angular.copy(
+            UserStor.userInfo.discountAddElem
+          );
+        }
+
+        function setCurrTemplate() {
+          let room = 6;
+          if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
+            room = 0;
+          }
+          if (!GlobalStor.global.rooms[room]) {
+            room = 0;
+          }
+          ProductStor.product.construction_type =
+            GlobalStor.global.rooms[room].group_id;
+          ProductStor.product.template_id =
+            GlobalStor.global.rooms[room].template_id - 1;
+          ProductStor.product.room_id =
+            GlobalStor.global.rooms[room].template_id - 1;
+        }
+
+        //-------- get default json template
+        function downloadAllTemplates(type) {
+          var deferred = $q.defer();
+
+          switch (type) {
+            case 1:
+              optionsServ.getTemplatesWindow(function (results) {
+                if (results.status) {
+                  GlobalStor.global.templateLabel = $filter('translate')(
+                    'panels.TEMPLATE_WINDOW'
+                  );
+                  deferred.resolve(results.data.windows);
+                } else {
+                  console.log(results);
+                }
+              });
+              break;
+            case 2:
+              optionsServ.getTemplatesWindowDoor(function (results) {
+                if (results.status) {
+                  GlobalStor.global.templateLabel = $filter('translate')(
+                    'panels.TEMPLATE_BALCONY_ENTER'
+                  );
+                  deferred.resolve(results.data.windowDoor);
+                } else {
+                  console.log(results);
+                }
+              });
+              break;
+            case 3:
+              optionsServ.getTemplatesBalcony(function (results) {
+                if (results.status) {
+                  GlobalStor.global.templateLabel = $filter('translate')(
+                    'panels.TEMPLATE_BALCONY'
+                  );
+                  deferred.resolve(results.data.balconies);
+                } else {
+                  console.log(results);
+                }
+              });
+              break;
+            case 4:
+              optionsServ.getTemplatesDoor(function (results) {
+                if (results.status) {
+                  GlobalStor.global.templateLabel = $filter('translate')(
+                    'panels.TEMPLATE_DOOR'
+                  );
+                  deferred.resolve(results.data.doors);
+                } else {
+                  console.log(results);
+                }
+              });
+              break;
+          }
+          return deferred.promise;
+        }
+
+        function fineItemById(id, list) {
+          var typeQty = list.length,
+            itemQty;
+          while (--typeQty > -1) {
+            itemQty = list[typeQty].length;
+            while (--itemQty > -1) {
+              if (list[typeQty][itemQty].id === id) {
+                return list[typeQty][itemQty];
+              }
+            }
+          }
+        }
+
+        function downloadProfileDepth(elementId) {
+          var defer = $q.defer();
+          // console.time("selectLocalDB");
+          localDB
+            .selectLocalDB('lists', {
+              id: elementId
+            })
+            .then(function (result) {
+              // console.timeEnd("selectLocalDB");
+              var resultObj = {};
+              if (result.length) {
+                resultObj.a = result[0].a;
+                resultObj.b = result[0].b;
+                resultObj.c = result[0].c;
+                resultObj.d = result[0].d;
+              }
+              defer.resolve(resultObj);
+            });
+          return defer.promise;
+        }
+
+        //-------- set default profile
+        function setCurrentProfile(product, id) {
+          var deferred = $q.defer();
+          var laminat = 0;
+          for (var i = 0; i < GlobalStor.global.laminatCouples.length; i++) {
+            if (
+              GlobalStor.global.laminatCouples[i].lamination_in_id ===
+                product.lamination.lamination_in_id &&
+              GlobalStor.global.laminatCouples[i].lamination_out_id ===
+                product.lamination.lamination_out_id &&
+              id === GlobalStor.global.laminatCouples[i].profile_id
+            ) {
+              laminat = angular.copy(GlobalStor.global.laminatCouples[i]);
+              break;
+            }
+          }
+          if (id) {
+            product.profile = angular.copy(
+              fineItemById(id, GlobalStor.global.profiles)
+            );
+          } else {
+            product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
+            product.currencies = angular.copy(GlobalStor.global.currencies);
+          }
+          var data = null;
+          function needed_data() {
+            var defer = $q.defer();
+            db.getItem('tables')
+              .then(function (value) {
+                data = value;
+                defer.resolve(data);
+              })
+              .catch(function (err) {
+                console.log(err);
+                defer.resolve(0);
+              });
+            return defer.promise;
+          }
+          needed_data().then(function (data) {
+            try {
+              /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
+                        Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
+              /* TODO */
+              //Block for profiles and profiles descriptions translations ***
+              product.locales_names_addition_folders = data;
+              GlobalStor.global.locales_names_addition_folders = data;
+              //There are only profiles systems here
+              const array_size = 100;
+              const profiles_systems = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_profile_systems.length;
+                i += array_size
+              ) {
+                profiles_systems.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(
+                profiles_systems
+              );
+              const filtered_array_by_name = profiles_systems[0].filter(
+                (element) => element.table_attr === 'name'
+              );
+              let profiles_data_profiles_types_array =
+                GlobalStor.global.profiles[0];
+              let profiles_data_second_array = GlobalStor.global.profiles[1];
+              //Loop that runs through the profiles and pushes there translations from a filtered array
+              for (
+                let i = 0;
+                i < profiles_data_profiles_types_array.length;
+                i++
+              ) {
+                for (let y = 0; y < filtered_array_by_name.length; y++) {
+                  if (
+                    profiles_data_profiles_types_array[i].id ===
+                    filtered_array_by_name[y].table_id
+                  ) {
+                    profiles_data_profiles_types_array[i]['translate'] =
+                      filtered_array_by_name[y];
+                  }
+                }
+              }
+              //Loop that runs through the profiles and pushes there translations from a filtered array. Second one
+              for (let i = 0; i < profiles_data_second_array.length; i++) {
+                for (let y = 0; y < filtered_array_by_name.length; y++) {
+                  if (
+                    profiles_data_second_array[i].id ===
+                    filtered_array_by_name[y].table_id
+                  ) {
+                    profiles_data_second_array[i]['translate'] =
+                      filtered_array_by_name[y];
+                  }
+                }
+              }
+              //Filtred array contains only descriptions translations
+              const filtered_array_by_description = profiles_systems[0].filter(
+                (element) => element.table_attr === 'description'
+              );
+              for (
+                let i = 0;
+                i < profiles_data_profiles_types_array.length;
+                i++
+              ) {
+                for (let y = 0; y < filtered_array_by_description.length; y++) {
+                  if (
+                    profiles_data_profiles_types_array[i].id ===
+                    filtered_array_by_description[y].table_id
+                  ) {
+                    profiles_data_profiles_types_array[i]['description'] =
+                      filtered_array_by_description[y];
+                  }
+                }
+              }
+
+              for (let i = 0; i < profiles_data_second_array.length; i++) {
+                for (let y = 0; y < filtered_array_by_description.length; y++) {
+                  if (
+                    profiles_data_second_array[i].id ===
+                    filtered_array_by_description[y].table_id
+                  ) {
+                    profiles_data_second_array[i]['description'] =
+                      filtered_array_by_description[y];
+                  }
+                }
+              }
+              //Block for profiles and profiles descriptions translations end ***
+
+              //Block for systems_folders translation start ***
+              const system_folders = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_profile_system_folders;
+                i += array_size
+              ) {
+                system_folders.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              system_folders.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_profile_system_folders
+              );
+              //Filtred array contains only system_folders names
+              const filtered_array = system_folders[0].filter(
+                (element) => element.table_attr === 'name'
+              );
+              let profiles_types_array = GlobalStor.global.profilesType;
+              for (let i = 0; i < profiles_types_array.length; i++) {
+                for (let y = 0; y < filtered_array.length; y++) {
+                  if (
+                    profiles_types_array[i].id === filtered_array[y].table_id
+                  ) {
+                    profiles_types_array[i]['translate'] = filtered_array[y];
+                  }
+                }
+              }
+              const array_filtered_by_description_profile_system_folder =
+                system_folders[0].filter(
+                  (element) => element.table_attr === 'description'
+                );
+              for (let i = 0; i < profiles_types_array.length; i++) {
+                for (
+                  let y = 0;
+                  y <
+                  array_filtered_by_description_profile_system_folder.length;
+                  y++
+                ) {
+                  if (
+                    profiles_types_array[i].id ===
+                    array_filtered_by_description_profile_system_folder[y]
+                      .table_id
+                  ) {
+                    profiles_types_array[i]['description'] =
+                      array_filtered_by_description_profile_system_folder[y];
+                  }
+                }
+              }
+
+              //Block for systems_folders translation end ***
+
+              //Block for glasses folder starts ***
+              const glasses_folders = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_glass_folders;
+                i += array_size
+              ) {
+                glasses_folders.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              glasses_folders.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_glass_folders
+              );
+              const array_filtered_by_names_glasses_folders =
+                glasses_folders[0].filter(
+                  (element) => element.table_attr === 'name'
+                );
+              let glasses_folders_array_first = GlobalStor.global.glassTypes;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < glasses_folders_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_glasses_folders.length;
+                  y++
+                ) {
+                  if (
+                    glasses_folders_array_first[i].id ===
+                    array_filtered_by_names_glasses_folders[y].table_id
+                  ) {
+                    glasses_folders_array_first[i]['translate'] =
+                      array_filtered_by_names_glasses_folders[y];
+                  }
+                }
+              }
+              const array_filtered_by_description_folders =
+                glasses_folders[0].filter(
+                  (element) => element.table_attr === 'description'
+                );
+              for (let i = 0; i < glasses_folders_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_description_folders.length;
+                  y++
+                ) {
+                  if (
+                    glasses_folders_array_first[i].id ===
+                    array_filtered_by_description_folders[y].table_id
+                  ) {
+                    glasses_folders_array_first[i]['description'] =
+                      array_filtered_by_description_folders[y];
+                  }
+                }
+              }
+              //Block for glasses folder end ***
+
+              //Block for hardware groups start***
+              const hardware_groups = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_window_hardware_groups;
+                i += array_size
+              ) {
+                hardware_groups.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              hardware_groups.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_window_hardware_groups
+              );
+              const array_filtered_by_names_hardware_groups =
+                hardware_groups[0].filter(
+                  (element) => element.table_attr === 'name'
+                );
+              //First looop for first array
+              let hardware_groups_array_first = GlobalStor.global.hardwares[0];
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_hardware_groups.length;
+                  y++
+                ) {
+                  if (
+                    hardware_groups_array_first[i].id ===
+                    array_filtered_by_names_hardware_groups[y].table_id
+                  ) {
+                    hardware_groups_array_first[i]['translate'] =
+                      array_filtered_by_names_hardware_groups[y];
+                  }
+                }
+              }
+              //Second loop for second array
+              let hardware_groups_array_second = GlobalStor.global.hardwares[1];
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_hardware_groups.length;
+                  y++
+                ) {
+                  if (
+                    hardware_groups_array_second[i].id ===
+                    array_filtered_by_names_hardware_groups[y].table_id
+                  ) {
+                    hardware_groups_array_second[i]['translate'] =
+                      array_filtered_by_names_hardware_groups[y];
+                  }
+                }
+              }
+
+              const array_filtered_by_description_hardware_groups =
+                hardware_groups[0].filter(
+                  (element) => element.table_attr === 'description'
+                );
+              for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_description_hardware_groups.length;
+                  y++
+                ) {
+                  if (
+                    hardware_groups_array_first[i].id ===
+                    array_filtered_by_description_hardware_groups[y].table_id
+                  ) {
+                    hardware_groups_array_first[i]['description'] =
+                      array_filtered_by_description_hardware_groups[y];
+                  }
+                }
+              }
+              for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_description_hardware_groups.length;
+                  y++
+                ) {
+                  if (
+                    hardware_groups_array_second[i].id ===
+                    array_filtered_by_description_hardware_groups[y].table_id
+                  ) {
+                    hardware_groups_array_second[i]['description'] =
+                      array_filtered_by_description_hardware_groups[y];
+                  }
+                }
+              }
+              //Block for hardware goups end ***
+
+              //Block for hardware folders start ***
+              const hardware_folders = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_window_hardware_folders;
+                i += array_size
+              ) {
+                hardware_folders.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              hardware_folders.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_window_hardware_folders
+              );
+              const array_filtered_by_names_hardware_folders =
+                hardware_folders[0].filter(
+                  (element) => element.table_attr === 'name'
+                );
+              //First looop for first array
+              let hardware_folders_array_first =
+                GlobalStor.global.hardwareTypes;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < hardware_folders_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_hardware_folders.length;
+                  y++
+                ) {
+                  if (
+                    hardware_folders_array_first[i].id ===
+                    array_filtered_by_names_hardware_folders[y].table_id
+                  ) {
+                    hardware_folders_array_first[i]['translate'] =
+                      array_filtered_by_names_hardware_folders[y];
+                  }
+                }
+              }
+              const array_filtered_by_description_hardware_folders =
+                hardware_folders[0].filter(
+                  (element) => element.table_attr === 'description'
+                );
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < hardware_folders_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_description_hardware_folders.length;
+                  y++
+                ) {
+                  if (
+                    hardware_folders_array_first[i].id ===
+                    array_filtered_by_description_hardware_folders[y].table_id
+                  ) {
+                    hardware_folders_array_first[i]['description'] =
+                      array_filtered_by_description_hardware_folders[y];
+                  }
+                }
+              }
+              //Block for hardware folders end ***
+
+              //Block for additional folders elements starts ***
+              const additional_folders = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_addition_folders;
+                i += array_size
+              ) {
+                additional_folders.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_addition_folders.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              additional_folders.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_addition_folders
+              );
+              const array_filtered_by_names_additional_folders =
+                additional_folders[0].filter(
+                  (element) => element.table_attr === 'name'
+                );
+              const array_filtered_by_descriptions_additional_folders =
+                additional_folders[0].filter(
+                  (element) => element.table_attr === 'description'
+                );
+
+              let additional_folders_array_zero =
+                GlobalStor.global.addElementsAll[1].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < additional_folders_array_zero.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_zero[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_zero[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (let i = 0; i < additional_folders_array_zero.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_zero[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_zero[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              let additional_folders_array_first =
+                GlobalStor.global.addElementsAll[2].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < additional_folders_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_first[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_first[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (let i = 0; i < additional_folders_array_first.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_first[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_first[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              let additional_folders_array_second =
+                GlobalStor.global.addElementsAll[6].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < additional_folders_array_second.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_second[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_second[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (let i = 0; i < additional_folders_array_second.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_second[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_second[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              let additional_folders_array_third =
+                GlobalStor.global.addElementsAll[8].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < additional_folders_array_third.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_third[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_third[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (let i = 0; i < additional_folders_array_third.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_third[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_third[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              let additional_folders_array_fourth =
+                GlobalStor.global.addElementsAll[9].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < additional_folders_array_fourth.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_fourth[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_fourth[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (let i = 0; i < additional_folders_array_fourth.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_fourth[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_fourth[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              let additional_folders_array_fifth =
+                GlobalStor.global.addElementsAll[10].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < additional_folders_array_fifth.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_fifth[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_fifth[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (let i = 0; i < additional_folders_array_fifth.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_fifth[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_fifth[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              let additional_folders_array_sixth =
+                GlobalStor.global.addElementsAll[16].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < additional_folders_array_sixth.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_sixth[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_sixth[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (let i = 0; i < additional_folders_array_sixth.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_sixth[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_sixth[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              let additional_folders_array_seventh =
+                GlobalStor.global.addElementsAll[17].elementType;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (
+                let i = 0;
+                i < additional_folders_array_seventh.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_seventh[i].id ===
+                    array_filtered_by_names_additional_folders[y].table_id
+                  ) {
+                    additional_folders_array_seventh[i]['translate'] =
+                      array_filtered_by_names_additional_folders[y];
+                  }
+                }
+              }
+              // Loop for description
+              for (
+                let i = 0;
+                i < additional_folders_array_seventh.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_descriptions_additional_folders.length;
+                  y++
+                ) {
+                  if (
+                    additional_folders_array_seventh[i].id ===
+                    array_filtered_by_descriptions_additional_folders[y]
+                      .table_id
+                  ) {
+                    additional_folders_array_seventh[i]['description'] =
+                      array_filtered_by_descriptions_additional_folders[y];
+                  }
+                }
+              }
+              //Block for additional folders elements end  ***
+
+              //Block for additional elements start ***
+              const additional_elements = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lists;
+                i += array_size
+              ) {
+                additional_elements.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_lists.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              additional_elements.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lists
+              );
+              const array_filtered_by_names_additional_elements =
+                additional_elements[0].filter(
+                  (element) => element.table_attr === 'name'
+                );
+              const array_filtered_by_description_additional_elements =
+                additional_elements[0].filter(
+                  (element) => element.table_attr === 'description'
+                );
+              /* Loop for zero element */
+              let additional_elements_array_first_zero =
+                GlobalStor.global.addElementsAll[1].elementsList;
+              for (
+                let i = 0;
+                i < additional_elements_array_first_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_first_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_first_zero[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_first_zero[i][y]['translate'] =
+                        array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_first_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_first_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_first_zero[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_first_zero[i][y][
+                        'description'
+                      ] = array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* Loop for zero element end */
+
+              /* Loop for first element  */
+              let additional_elements_array_first_first =
+                GlobalStor.global.addElementsAll[1].elementsList;
+              for (
+                let i = 0;
+                i < additional_elements_array_first_first.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_first_first[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_first_first[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_first_first[i][y]['translate'] =
+                        array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_first_first.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_first_first[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_first_first[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_first_first[i][y][
+                        'description'
+                      ] = array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* Loop for first element  END*/
+
+              /* Loop for second element  */
+              let additional_elements_array_second =
+                GlobalStor.global.addElementsAll[2].elementsList;
+              for (
+                let i = 0;
+                i < additional_elements_array_second.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_second[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_second[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_second[i][y]['translate'] =
+                        array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_second.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_second[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_second[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_second[i][y]['description'] =
+                        array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* Loop for second element end */
+
+              /* For the sixth element */
+              let additional_elements_array_sixth_zero =
+                GlobalStor.global.addElementsAll[6].elementsList;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (
+                let i = 0;
+                i < additional_elements_array_sixth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_sixth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_sixth_zero[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_sixth_zero[i][y]['translate'] =
+                        array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_sixth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_sixth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_sixth_zero[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_sixth_zero[i][y][
+                        'description'
+                      ] = array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* End loop for sixth element */
+
+              /* For the eight element */
+              let additional_elements_array_eighth_zero =
+                GlobalStor.global.addElementsAll[8].elementsList;
+              for (
+                let i = 0;
+                i < additional_elements_array_eighth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_eighth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_eighth_zero[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_eighth_zero[i][y]['translate'] =
+                        array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_eighth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_eighth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_eighth_zero[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_eighth_zero[i][y][
+                        'description'
+                      ] = array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* End for eight element */
+
+              /* Loop for ninth element */
+              let additional_elements_array_ninth =
+                GlobalStor.global.addElementsAll[9].elementsList;
+              for (let i = 0; i < additional_elements_array_ninth.length; i++) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_ninth[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_ninth[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_ninth[i][y]['translate'] =
+                        array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (let i = 0; i < additional_elements_array_ninth.length; i++) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_ninth[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_ninth[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_ninth[i][y]['description'] =
+                        array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* Loop for ninth element end */
+
+              /* Loop for teenth element */
+              let additional_elements_array_teenth =
+                GlobalStor.global.addElementsAll[10].elementsList;
+              for (
+                let i = 0;
+                i < additional_elements_array_teenth.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_teenth[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_teenth[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_teenth[i][y]['translate'] =
+                        array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_teenth.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_teenth[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_teenth[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_teenth[i][y]['description'] =
+                        array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* Loop for teenth element end */
+
+              /* Loop for sixtenth element */
+              let additional_elements_array_sixteenth_zero =
+                GlobalStor.global.addElementsAll[16].elementsList;
+              for (
+                let i = 0;
+                i < additional_elements_array_sixteenth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_sixteenth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_sixteenth_zero[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_sixteenth_zero[i][y][
+                        'translate'
+                      ] = array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_sixteenth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_sixteenth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_sixteenth_zero[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_sixteenth_zero[i][y][
+                        'description'
+                      ] = array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* Loop for sixtenth element END */
+
+              /* Loop for seventh element */
+              let additional_elements_array_seventeenth_zero =
+                GlobalStor.global.addElementsAll[17].elementsList;
+              for (
+                let i = 0;
+                i < additional_elements_array_seventeenth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_seventeenth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_seventeenth_zero[i][y].id ===
+                      array_filtered_by_names_additional_elements[z].table_id
+                    ) {
+                      additional_elements_array_seventeenth_zero[i][y][
+                        'translate'
+                      ] = array_filtered_by_names_additional_elements[z];
+                    }
+                  }
+                }
+              }
+
+              for (
+                let i = 0;
+                i < additional_elements_array_seventeenth_zero.length;
+                i++
+              ) {
+                for (
+                  let y = 0;
+                  y < additional_elements_array_seventeenth_zero[i].length;
+                  y++
+                ) {
+                  for (
+                    let z = 0;
+                    z <
+                    array_filtered_by_description_additional_elements.length;
+                    z++
+                  ) {
+                    if (
+                      additional_elements_array_seventeenth_zero[i][y].id ===
+                      array_filtered_by_description_additional_elements[z]
+                        .table_id
+                    ) {
+                      additional_elements_array_seventeenth_zero[i][y][
+                        'description'
+                      ] = array_filtered_by_description_additional_elements[z];
+                    }
+                  }
+                }
+              }
+              /* Loop for seventh element  END*/
+              //Block for additional elements end ***
+
+              //Block for mosquitos start ***
+              const mosquitos = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_mosquitos;
+                i += array_size
+              ) {
+                mosquitos.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              mosquitos.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_mosquitos
+              );
+              const array_filtered_by_name_mosquitos = mosquitos[0].filter(
+                (element) => element.table_attr === 'name'
+              );
+
+              let mosquitos_array =
+                GlobalStor.global.addElementsAll[0].elementsList[0];
+              for (let i = 0; i < mosquitos_array.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_name_mosquitos.length;
+                  y++
+                ) {
+                  if (
+                    mosquitos_array[i].id ===
+                    array_filtered_by_name_mosquitos[y].table_id
+                  ) {
+                    mosquitos_array[i]['translate'] =
+                      array_filtered_by_name_mosquitos[y];
+                  }
+                }
+              }
+
+              //Block for mosquitos end ***
+
+              //Block for mosquitos SINGLE start ***
+
+              // const mosquitos_single = [];
+              // for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles; i += array_size) {
+              //     mosquitos_single.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles.slice(i, i + array_size));
+              // }
+              // mosquitos_single.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles);
+              // const array_filtered_by_names_mosquitos_single = mosquitos_single[0].filter(element => element.table_attr === "name")
+
+              // let mosquitos_single_elements_array_zero = GlobalStor.global.addElementsAll[0].elementsList[0];
+              // //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              //  for(let i = 0; i < mosquitos_single_elements_array_zero.length; i++) {
+              //      for(let y = 0; y < array_filtered_by_names_mosquitos_single.length; y++) {
+              //          if(mosquitos_single_elements_array_zero[i].id === array_filtered_by_names_mosquitos_single[y].table_id) {
+              //             mosquitos_single_elements_array_zero[i]["translate"] = array_filtered_by_names_mosquitos_single[y]
+              //         }
+              //     }
+              // }
+              //Block for mosquitos SINGLE end ***
+
+              //Block for laminations start ***
+              const laminations = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lamination_factory_colors;
+                i += array_size
+              ) {
+                laminations.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              laminations.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lamination_factory_colors
+              );
+
+              const array_filtered_by_names_laminations = laminations[0].filter(
+                (element) => element.table_attr === 'name'
+              );
+              let laminations_array = GlobalStor.global.laminats;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < laminations_array.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_laminations.length;
+                  y++
+                ) {
+                  if (
+                    laminations_array[i].id ===
+                    array_filtered_by_names_laminations[y].table_id
+                  ) {
+                    laminations_array[i]['translate'] =
+                      array_filtered_by_names_laminations[y];
+                  }
+                }
+              }
+              //Block for laminations end ***
+
+              //Block for lamination-couplese start ***
+              const laminations_couples = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lamination_factory_colors;
+                i += array_size
+              ) {
+                laminations_couples.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              laminations_couples.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lamination_factory_colors
+              );
+
+              const array_filtered_by_names_laminations_couples =
+                laminations_couples[0].filter(
+                  (element) => element.table_attr === 'name'
+                );
+
+              let laminations_couples_array = GlobalStor.global.laminatCouples;
+              //Loop that runs through the glasses folders and pushes there translations from a filtered array
+              for (let i = 0; i < laminations_couples_array.length; i++) {
+                for (
+                  let y = 0;
+                  y < array_filtered_by_names_laminations_couples.length;
+                  y++
+                ) {
+                  if (
+                    laminations_couples_array[i].lamination_in_id ===
+                    array_filtered_by_names_laminations_couples[y].table_id
+                  ) {
+                    laminations_couples_array[i]['translate_in_id'] =
+                      array_filtered_by_names_laminations_couples[y];
+                  }
+                  if (
+                    laminations_couples_array[i].lamination_out_id ===
+                    array_filtered_by_names_laminations_couples[y].table_id
+                  ) {
+                    laminations_couples_array[i]['translate_out_id'] =
+                      array_filtered_by_names_laminations_couples[y];
+                  }
+                }
+              }
+              //Block for lamination-couplese end ***
+
+              //Block for glasses translations starts ***
+              const glasses = [];
+              for (
+                let i = 0;
+                i <
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lists;
+                i += array_size
+              ) {
+                system_folders.push(
+                  GlobalStor.global.locales_names_addition_folders.locales_names_lists.slice(
+                    i,
+                    i + array_size
+                  )
+                );
+              }
+              glasses.push(
+                GlobalStor.global.locales_names_addition_folders
+                  .locales_names_lists
+              );
+              //Filtred array contains only glasses names
+              const array_filtered_by_names_glasses = glasses[0].filter(
+                (element) => element.table_attr === 'name'
+              );
+              const array_filtered_by_description_glasses_first =
+                glasses[0].filter(
+                  (element) => element.table_attr === 'description'
+                );
+              let glasses_array_first = GlobalStor.global.glasses;
+
+              for (let i = 0; i < glasses_array_first.length; i++) {
+                for (let y = 0; y < glasses_array_first[i].length; y++) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_names_glasses.length;
+                    z++
+                  ) {
+                    if (
+                      glasses_array_first[i][y].id ===
+                      array_filtered_by_names_glasses[z].table_id
+                    ) {
+                      glasses_array_first[i][y]['translate'] =
+                        array_filtered_by_names_glasses[z];
+                    }
+                  }
+                }
+              }
+
+              for (let i = 0; i < glasses_array_first.length; i++) {
+                for (let y = 0; y < glasses_array_first[i].length; y++) {
+                  for (
+                    let z = 0;
+                    z < array_filtered_by_description_glasses_first.length;
+                    z++
+                  ) {
+                    if (
+                      glasses_array_first[i][y].id ===
+                      array_filtered_by_description_glasses_first[z].table_id
+                    ) {
+                      glasses_array_first[i][y]['description'] =
+                        array_filtered_by_description_glasses_first[z];
+                    }
+                  }
+                }
+              }
+            } catch (e) {
+              console.log(e);
+            }
+            //Block for glasses translations end ****************
+            // Hardware display logic that fits only a certain profile
+
+            //Download data from backend
+            const windowHardwareProfileSystem =
+              data.window_hardware_profile_systems;
+            //Clearing hardwares arrays
+            GlobalStor.global.hardwares = [];
+            //Loop for windowHardwareProfileSystem elements
+            for (let element of windowHardwareProfileSystem) {
+              //Get current profile id
+              let currentProfileId = ProductStor.product.profile.id;
+              //Check if current profile id equal to element from backend
+              if (element.profile_system_id === currentProfileId) {
+                //Local variables for different manipulation
+                let globalHardwareAxor =
+                  GlobalStor.global.hardwaresDefaultValues[0];
+                let globalHardwareMaco =
+                  GlobalStor.global.hardwaresDefaultValues[1];
+                let globalHardwareWinkHaus =
+                  GlobalStor.global.hardwaresDefaultValues[2];
+                //Logic for AXOR (we are filtering items inside the GlobalStar.global.HARDWARE[0] searching for matching for window hardware group_id with all hardwares and remain it only if it's match)
+                if (globalHardwareAxor) {
+                  let filtredHardwareAxor = globalHardwareAxor.filter(
+                    (item) => item.id === element.window_hardware_group_id
+                  );
+                  if (filtredHardwareAxor.length === 0) {
+                    filtredHardwareAxor = 0;
+                  } else {
+                    if (!GlobalStor.global.hardwares[0]) {
+                      GlobalStor.global.hardwares[0] = [];
+                    }
+                    GlobalStor.global.hardwares[0].push(filtredHardwareAxor[0]);
+                  }
+                }
+                if (globalHardwareMaco) {
+                  //Logic for MACO
+                  let filtredGlobalHardwareMaco = globalHardwareMaco.filter(
+                    (item) => item.id === element.window_hardware_group_id
+                  );
+                  if (filtredGlobalHardwareMaco.length === 0) {
+                    filtredGlobalHardwareMaco = 0;
+                  } else {
+                    if (!GlobalStor.global.hardwares[1]) {
+                      GlobalStor.global.hardwares[1] = [];
+                    }
+                    GlobalStor.global.hardwares[1].push(
+                      filtredGlobalHardwareMaco[0]
+                    );
+                  }
+                }
+
+                //Logic for WINK HAUS
+                if (globalHardwareWinkHaus) {
+                  let filtredGlobalHardwareWinkHaus =
+                    globalHardwareWinkHaus.filter(
+                      (item) => item.id === element.window_hardware_group_id
+                    );
+                  if (filtredGlobalHardwareWinkHaus.length === 0) {
+                    filtredGlobalHardwareWinkHaus = 0;
+                  } else {
+                    if (!GlobalStor.global.hardwares[2]) {
+                      GlobalStor.global.hardwares[2] = [];
+                    }
+                    GlobalStor.global.hardwares[2].push(
+                      filtredGlobalHardwareWinkHaus[0]
+                    );
+                  }
+                }
+              }
+            }
+            setCurrentHardware(ProductStor.product);
+            if (ProductStor.product.profile.id) {
+              preparePrice(
+                ProductStor.product.template,
+                ProductStor.product.profile.id,
+                ProductStor.product.glass,
+                ProductStor.product.hardware.id,
+                ProductStor.product.lamination.lamination_in_id
+              );
+            }
+          });
+
+          if (product.lamination.id > 0) {
+            product.profile.rama_list_id = angular.copy(laminat.rama_list_id);
+            product.profile.rama_still_list_id = angular.copy(
+              laminat.rama_still_list_id
+            );
+            product.profile.stvorka_list_id = angular.copy(
+              laminat.stvorka_list_id
+            );
+            product.profile.impost_list_id = angular.copy(
+              laminat.impost_list_id
+            );
+            product.profile.shtulp_list_id = angular.copy(
+              laminat.shtulp_list_id
+            );
+          }
+          //------- set Depths
+
+          $q.all([
+            downloadProfileDepth(product.profile.rama_list_id),
+            downloadProfileDepth(product.profile.rama_still_list_id),
+            downloadProfileDepth(product.profile.stvorka_list_id),
+            downloadProfileDepth(product.profile.impost_list_id),
+            downloadProfileDepth(product.profile.shtulp_list_id)
+          ]).then(function (result) {
+            product.profileDepths.frameDepth = result[0];
+            product.profileDepths.frameStillDepth = result[1];
+            product.profileDepths.sashDepth = result[2];
+            product.profileDepths.impostDepth = result[3];
+            product.profileDepths.shtulpDepth = result[4];
+            deferred.resolve(product);
+          });
+          return deferred.promise;
+        }
+
+        function setCurrentDoorProfile(product) {
+          var deferred = $q.defer();
+          //------- set Depths
+          $q.all([
+            downloadProfileDepth(product.profile.rama_list_id),
+            downloadProfileDepth(product.profile.rama_still_list_id),
+            downloadProfileDepth(product.profile.stvorka_list_id),
+            downloadProfileDepth(product.profile.impost_list_id),
+            downloadProfileDepth(product.profile.shtulp_list_id)
+          ]).then(function (result) {
+            product.profileDepths.frameDepth = result[0];
+            product.profileDepths.frameStillDepth = result[1];
+            product.profileDepths.sashDepth = result[2];
+            product.profileDepths.impostDepth = result[3];
+            product.profileDepths.shtulpDepth = result[4];
+            deferred.resolve(product);
+          });
+          return deferred.promise;
+        }
+
+        function doorProfile() {
+          var door = [];
+          async.eachSeries(
+            GlobalStor.global.doorsLaminations,
+            calculate,
+            function (err, result) {
+              GlobalStor.global.doorsLaminations = angular.copy(door);
+            }
+          );
+
+          function calculate(product, _cb) {
+            async.waterfall(
+              [
+                function (_callback) {
+                  localDB
+                    .selectLocalDB(
+                      'lists',
+                      {
+                        id: product.rama_list_id
+                      },
+                      'parent_element_id'
+                    )
+                    .then(function (result) {
+                      _callback(null, result);
+                    });
+                },
+
+                function (result, _callback) {
+                  if (result.length) {
+                    localDB
+                      .selectLocalDB(
+                        'elements_profile_systems',
+                        {
+                          element_id: result[0].parent_element_id
+                        },
+                        'profile_system_id'
+                      )
+                      .then(function (result2) {
+                        product.profileId = result2[0].profile_system_id;
+                        door.push(product);
+                        _callback(null, product.profileId);
+                      });
+                  }
+                }
+              ],
+              function (err, result) {
+                if (err) {
+                  return _cb(err, result);
+                }
+                _cb(null, result);
+              }
+            );
+          }
+        }
+
+        function getGlassFromTemplateBlocks(template) {
+          var blocksQty = template.details.length,
+            glassIds = [];
+          while (--blocksQty > 0) {
+            if (!template.details[blocksQty].children.length) {
+              if (template.details[blocksQty].glassId) {
+                glassIds.push(
+                  angular.copy(template.details[blocksQty].glassId)
+                );
+              }
+            }
+          }
+          return glassIds;
+        }
+
+        function setGlassToTemplateBlocks(
+          type,
+          template,
+          glassId,
+          glassName,
+          blockId
+        ) {
+          var blocksQty = template.details.length;
+          while (--blocksQty > 0) {
+            if (blockId) {
+              /** set glass to template block by its Id */
+              if (template.details[blocksQty].id === blockId) {
+                template.details[blocksQty].glassId = glassId;
+                template.details[blocksQty].glassTxt = glassName;
+                template.details[blocksQty].glass_type = type;
+                break;
+              }
+            } else {
+              /** set glass to all template blocks */
+              //if(!template.details[blocksQty].children.length) {
+              template.details[blocksQty].glassId = glassId;
+              template.details[blocksQty].glassTxt = glassName;
+              template.details[blocksQty].glass_type = type;
+              //}
+            }
+          }
+        }
+
+        function setCurrentGlass(product, id) {
+          //------- cleaning glass in product
+          product.glass.length = 0;
+          if (id) {
+            //----- get Glass Ids from template and check dublicates
+            var glassIds = GeneralServ.removeDuplicates(
+                getGlassFromTemplateBlocks(product.template)
+              ),
+              glassIdsQty = glassIds.length;
+            //------- glass filling by new elements
+            while (--glassIdsQty > -1) {
+              product.glass.push(
+                fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses)
+              );
+            }
+          } else {
+            //----- set default glass in ProductStor
+            var tempGlassArr = GlobalStor.global.glassesAll.filter(function (
+              item
+            ) {
+              if (product.profile.profileId) {
+                return product.construction_type == 4
+                  ? item.profileId === product.profile.profileId
+                  : item.profileId === product.profile.id;
+              } else {
+                return item.profileId === product.profile.id;
+              }
+            });
+            if (tempGlassArr.length) {
+              GlobalStor.global.glassTypes = angular.copy(
+                tempGlassArr[0].glassTypes
+              );
+              GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+              product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+              GlobalStor.global.selectGlassId = product.glass[0].id;
+              GlobalStor.global.selectGlassName = product.glass[0].sku;
+              /** set Glass to all template blocks without children */
+              setGlassToTemplateBlocks(
+                product.glass[0].glass_type,
+                ProductStor.product.template_source,
+                product.glass[0].id,
+                product.glass[0].sku
+              );
+            }
+          }
+        }
+
+        function setCurrentGlassInTemplate(templateSourceTemp, product, id) {
+          //------- cleaning glass in product
+          product.glass.length = 0;
+          if (id) {
+            //----- get Glass Ids from template and check dublicates
+            var glassIds = GeneralServ.removeDuplicates(
+                getGlassFromTemplateBlocks(templateSourceTemp)
+              ),
+              glassIdsQty = glassIds.length;
+            //------- glass filling by new elements
+            while (--glassIdsQty > -1) {
+              product.glass.push(
+                fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses)
+              );
+            }
+          } else {
+            //----- set default glass in ProductStor
+            var tempGlassArr = GlobalStor.global.glassesAll.filter(function (
+              item
+            ) {
+              if (product.profile.profileId) {
+                return product.construction_type == 4
+                  ? item.profileId === product.profile.profileId
+                  : item.profileId === product.profile.id;
+              } else {
+                return item.profileId === product.profile.id;
+              }
+            });
+            if (tempGlassArr.length) {
+              GlobalStor.global.glassTypes = angular.copy(
+                tempGlassArr[0].glassTypes
+              );
+              GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+              product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+              GlobalStor.global.selectGlassId = product.glass[0].id;
+              GlobalStor.global.selectGlassName = product.glass[0].sku;
+              /** set Glass to all template blocks without children */
+              setGlassToTemplateBlocks(
+                product.glass[0].glass_type,
+                templateSourceTemp,
+                product.glass[0].id,
+                product.glass[0].sku
+              );
+            }
+          }
+        }
+
+        //for templateTemp
+        function setCurrentGlassForTemplate(templateSource, product) {
+          var tempGlassArr = GlobalStor.global.glassesAll.filter(function (
+            item
+          ) {
+            if (product.profile.profileId) {
+              return product.construction_type === 4
+                ? item.profileId === product.profile.profileId
+                : item.profileId === product.profile.id;
+            } else {
+              return item.profileId === product.profile.id;
+            }
+          });
+          if (tempGlassArr.length) {
+            GlobalStor.global.glassTypes = angular.copy(
+              tempGlassArr[0].glassTypes
+            );
+            GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+            product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+            GlobalStor.global.selectGlassId = product.glass[0].id;
+            GlobalStor.global.selectGlassName = product.glass[0].sku;
+            /** set Glass to all template blocks without children */
+            setGlassToTemplateBlocks(
+              product.glass[0].glass_type,
+              templateSource,
+              product.glass[0].id,
+              product.glass[0].sku
+            );
+          }
+        }
+
+        function checkSashInTemplate(template) {
+          var templQty = template.details.length,
+            counter = 0;
+          while (--templQty > 0) {
+            if (template.details[templQty].blockType === 'sash') {
+              counter += 1;
+              GlobalStor.global.checkSashInTemplate = counter;
+            }
+          }
+          return counter;
+        }
+
+        function saveTemplateInProduct(templateIndex) {
+          var defer = $q.defer();
+          if (!GlobalStor.global.isChangedTemplate) {
+            ProductStor.product.template_source = angular.copy(
+              GlobalStor.global.templatesSource[templateIndex]
+            );
+          }
+          setCurrentGlass(ProductStor.product);
+          //----- create template
+          SVGServ.createSVGTemplate(
+            ProductStor.product.template_source,
+            ProductStor.product.profileDepths
+          ).then(function (result) {
+            DesignStor.design.templateSourceTEMP =
+              ProductStor.product.template_source;
+            DesignStor.design.templateTEMP = angular.copy(result);
+            ProductStor.product.template = angular.copy(result);
+            GlobalStor.global.isSashesInTemplate = checkSashInTemplate(
+              ProductStor.product.template_source
+            );
+            //        console.log('TEMPLATE +++', ProductStor.product.template);
+            //----- create template icon
+            SVGServ.createSVGTemplateIcon(
+              ProductStor.product.template_source,
+              ProductStor.product.profileDepths
+            ).then(function (result) {
+              //------ show elements of room
+              GlobalStor.global.isRoomElements = 1;
+              ProductStor.product.templateIcon = angular.copy(result);
+              defer.resolve(1);
+            });
+          });
+          return defer.promise;
+        }
+
+        function setCurrentHardware(product, id) {
+          if (id) {
+            product.hardware = fineItemById(id, GlobalStor.global.hardwares);
+          } else {
+            //----- set default hardware in ProductStor
+            if (GlobalStor.global.isSashesInTemplate) {
+              for (let currentHardware of GlobalStor.global.hardwares) {
+                if (currentHardware) {
+                  if (currentHardware[0] !== 1) {
+                    product.hardware = currentHardware[1];
+                    break;
+                  } else {
+                    product.hardware = currentHardware[0];
+                    break;
+                  }
+                }
+              }
+            } else {
+              product.hardware = {};
+            }
+          }
+        }
+
+        /** set Bead Id */
+        function setBeadId(profileId, laminatId) {
+          var deff = $q.defer(),
+            promisBeads = _.map(ProductStor.product.glass, function (item) {
+              var deff2 = $q.defer();
+              if (item.glass_width) {
+                localDB
+                  .selectLocalDB(
+                    'beed_profile_systems',
+                    {
+                      profile_system_id: profileId,
+                      glass_width: item.glass_width
+                    },
+                    'list_id'
+                  )
+                  .then(function (beadIds) {
+                    var beadsQty = beadIds.length,
+                      beadObj = {
+                        glassId: item.id,
+                        beadId: 0
+                      };
+                    if (beadsQty) {
+                      //console.log('beads++++', beadIds);
+                      //----- if beads more one
+                      if (beadsQty > 1) {
+                        //----- go to kits and find bead width required laminat Id
+                        var pomisList = _.map(beadIds, function (item2) {
+                          var deff3 = $q.defer();
+                          localDB
+                            .selectLocalDB(
+                              'lists',
+                              {
+                                id: item2.list_id
+                              },
+                              'beed_lamination_id'
+                            )
+                            .then(function (lamId) {
+                              // console.log('lamId++++', lamId);
+                              if (lamId) {
+                                if (lamId[0].beed_lamination_id === laminatId) {
+                                  deff3.resolve(1);
+                                } else {
+                                  deff3.resolve(0);
+                                }
+                              } else {
+                                deff3.resolve(0);
+                              }
+                            });
+                          return deff3.promise;
+                        });
+
+                        $q.all(pomisList).then(function (results) {
+                          //console.log('finish++++', results);
+                          var resultQty = results.length;
+                          while (--resultQty > -1) {
+                            if (results[resultQty]) {
+                              beadObj.beadId = beadIds[resultQty].list_id;
+                              deff2.resolve(beadObj);
+                            }
+                          }
+                          if (!beadObj.beadId) {
+                            console.log('Error in bead!!');
+                            deff2.resolve(0);
+                          }
+                        });
+                      } else {
+                        beadObj.beadId = beadIds[0].list_id;
+                        deff2.resolve(beadObj);
+                      }
+                    } else {
+                      console.log('Error in bead!!');
+                      deff2.resolve(0);
+                    }
+                  });
+              } else {
+                console.log('item.glass_width === 0');
+                deff2.resolve(0);
+              }
+              return deff2.promise;
             });
 
-            function getOnline() {
-                $.get(globalConstants.serverIP, function () {
-                    GlobalStor.global.onlineMode = true;
-                    return true;
-                }).fail(function () {
-                    GlobalStor.global.onlineMode = false;
-                    return false;
-                });
-            }
-
-            getOnline();
-            //saving default values for hardwares
-            GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
-
-            /**---------- Close Room Selector Dialog ---------*/
-            function closeRoomSelectorDialog() {
-                GlobalStor.global.showRoomSelectorDialog = 0;
-                GlobalStor.global.selectRoom = 1;
-                GlobalStor.global.configMenuTips = GlobalStor.global.startProgramm ?
-                    1 :
-                    0;
-                //playSound('fly');
-            }
-
-            function setDefaultDoorConfig() {
-                ProductStor.product.door_shape_id = 0;
-                ProductStor.product.door_type_index = 0;
-                ProductStor.product.door_sash_shape_id = 0;
-                ProductStor.product.door_handle_shape_id = 0;
-                ProductStor.product.door_lock_shape_id = 0;
-                ProductStor.product.doorName = "";
-                ProductStor.product.doorSashName = "";
-                ProductStor.product.doorHandle = {};
-                ProductStor.product.doorLock = {};
-                DesignStor.design.steps.selectedStep1 = 0;
-                DesignStor.design.steps.selectedStep2 = 0;
-                DesignStor.design.steps.selectedStep3 = 0;
-                DesignStor.design.steps.selectedStep4 = 0;
-                DesignStor.designSource.steps.selectedStep1 = 0;
-                DesignStor.designSource.steps.selectedStep2 = 0;
-                DesignStor.designSource.steps.selectedStep3 = 0;
-                DesignStor.designSource.steps.selectedStep4 = 0;
-            }
-
-            function setDefaultAuxParam() {
-                AuxStor.aux.isWindowSchemeDialog = 0;
-                AuxStor.aux.isAddElementListView = 0;
-                AuxStor.aux.isFocusedAddElement = 0;
-                AuxStor.aux.isTabFrame = 0;
-                AuxStor.aux.isAddElementListView = 0;
-                AuxStor.aux.showAddElementsMenu = 0;
-                AuxStor.aux.addElementGroups.length = 0;
-                AuxStor.aux.searchingWord = "";
-                AuxStor.aux.isGridSelectorDialog = 0;
-            }
-
-            function prepareMainPage() {
-                GlobalStor.global.isNavMenu = 0;
-                GlobalStor.global.isConfigMenu = 1;
-                GlobalStor.global.activePanel = 0;
-                setDefaultAuxParam();
-                // if (GlobalStor.global.startProgramm) {
-                //   $timeout(function () {
-                //     GlobalStor.global.showRoomSelectorDialog = 1;
-                //   }, 2000);
-                //   // $timeout(closeRoomSelectorDialog, 5000);
-                // }
-            }
-
-            function saveUserEntry() {
-                $timeout(function () {
-                    localDB.exportUserEntrance(
-                        UserStor.userInfo.phone,
-                        UserStor.userInfo.device_code
-                    );
-                }, 5000);
-
-                //TODO offline
-                //      ++UserStor.userInfo.entries;
-                //      var data = {entries: UserStor.userInfo.entries},
-                //          dataToSend = [
-                //            {
-                //              model: 'users',
-                //              rowId: UserStor.userInfo.id,
-                //              field: JSON.stringify(data)
-                //            }
-                //          ];
-                //       localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
-                //       localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
-                //        if(!data) {
-                //          //----- if no connect with Server save in Export LocalDB
-                //          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
-                //        }
-                //      });
-            }
-
-
-            /**  Create Order Id and Date */
-
-            function createOrderID() {
-                var currTime = new Date().getTime().toString();
-                return (
-                    (UserStor.userInfo.id + "" + currTime.slice(4, currTime.length)) * 1
-                );
-            }
-
-            function createOrderData() {
-                var productDay;
-                //----------- create order number for new project
-                OrderStor.order.id = createOrderID();
-                //------ set delivery day
-                OrderStor.order.order_date = new Date().getTime();
-                productDay =
-                    new Date(OrderStor.order.order_date).getDate() +
-                    GlobalStor.global.deliveryCoeff.standart_time;
-                OrderStor.order.delivery_date = new Date().setDate(productDay);
-                OrderStor.order.new_delivery_date = angular.copy(
-                    OrderStor.order.delivery_date
-                );
-            }
-
-            function setCurrDiscounts() {
-                OrderStor.order.discount_construct = angular.copy(
-                    UserStor.userInfo.discountConstr
-                );
-                OrderStor.order.discount_addelem = angular.copy(
-                    UserStor.userInfo.discountAddElem
-                );
-            }
-
-            function setCurrTemplate() {
-                let room = 6;
-                if (globalConstants.serverIP === 'http://api.calc.csokna.ru') {
-                    room = 0;
-                }
-                if (!GlobalStor.global.rooms[room]) {
-                    room = 0;
-                }
-                ProductStor.product.construction_type =
-                    GlobalStor.global.rooms[room].group_id;
-                ProductStor.product.template_id =
-                    GlobalStor.global.rooms[room].template_id - 1;
-                ProductStor.product.room_id =
-                    GlobalStor.global.rooms[room].template_id - 1;
-            }
-
-            //-------- get default json template
-            function downloadAllTemplates(type) {
-                var deferred = $q.defer();
-
-                switch (type) {
-                    case 1:
-                        optionsServ.getTemplatesWindow(function (results) {
-                            if (results.status) {
-                                GlobalStor.global.templateLabel = $filter("translate")(
-                                    "panels.TEMPLATE_WINDOW"
-                                );
-                                deferred.resolve(results.data.windows);
-                            } else {
-                                console.log(results);
-                            }
-                        });
-                        break;
-                    case 2:
-                        optionsServ.getTemplatesWindowDoor(function (results) {
-                            if (results.status) {
-                                GlobalStor.global.templateLabel = $filter("translate")(
-                                    "panels.TEMPLATE_BALCONY_ENTER"
-                                );
-                                deferred.resolve(results.data.windowDoor);
-                            } else {
-                                console.log(results);
-                            }
-                        });
-                        break;
-                    case 3:
-                        optionsServ.getTemplatesBalcony(function (results) {
-                            if (results.status) {
-                                GlobalStor.global.templateLabel = $filter("translate")(
-                                    "panels.TEMPLATE_BALCONY"
-                                );
-                                deferred.resolve(results.data.balconies);
-                            } else {
-                                console.log(results);
-                            }
-                        });
-                        break;
-                    case 4:
-                        optionsServ.getTemplatesDoor(function (results) {
-                            if (results.status) {
-                                GlobalStor.global.templateLabel = $filter("translate")(
-                                    "panels.TEMPLATE_DOOR"
-                                );
-                                deferred.resolve(results.data.doors);
-                            } else {
-                                console.log(results);
-                            }
-                        });
-                        break;
-                }
-                return deferred.promise;
-            }
-
-            function fineItemById(id, list) {
-                var typeQty = list.length,
-                    itemQty;
-                while (--typeQty > -1) {
-                    itemQty = list[typeQty].length;
-                    while (--itemQty > -1) {
-                        if (list[typeQty][itemQty].id === id) {
-                            return list[typeQty][itemQty];
-                        }
-                    }
-                }
-            }
-          
-
-            function downloadProfileDepth(elementId) {
-                var defer = $q.defer();
-                // console.time("selectLocalDB");
-                localDB
-                    .selectLocalDB("lists", {
-                        id: elementId
-                    })
-                    .then(function (result) {
-                        // console.timeEnd("selectLocalDB");
-                        var resultObj = {};
-                        if (result.length) {
-                            resultObj.a = result[0].a;
-                            resultObj.b = result[0].b;
-                            resultObj.c = result[0].c;
-                            resultObj.d = result[0].d;
-                        }
-                        defer.resolve(resultObj);
-                    });
-                return defer.promise;
-            }
-            
-            //-------- set default profile
-            function setCurrentProfile(product, id) {
-                var deferred = $q.defer();
-                var laminat = 0;
-                for (var i = 0; i < GlobalStor.global.laminatCouples.length; i++) {
-                    if (GlobalStor.global.laminatCouples[i].lamination_in_id === product.lamination.lamination_in_id && GlobalStor.global.laminatCouples[i].lamination_out_id === product.lamination.lamination_out_id && id === GlobalStor.global.laminatCouples[i].profile_id) {
-                        laminat = angular.copy(GlobalStor.global.laminatCouples[i]);
-                        break;
-                    }
-                }
-                if (id) {
-
-                    product.profile = angular.copy(
-                        fineItemById(id, GlobalStor.global.profiles)
-                    );
-                } else {
-                    product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
-                    product.currencies = angular.copy(GlobalStor.global.currencies);
-                }
-                var data = null
-                function needed_data() {
-                    var defer = $q.defer();
-                    db.getItem('tables').then(function (value) {
-                        data = value;
-                        defer.resolve(data);
-                    }).catch(function (err) {
-                        console.log(err);
-                        defer.resolve(0);
-                    });
-                    return defer.promise;
-                }  
-                needed_data().then(
-                    function(data) {
-                        try {
-                        /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
-                        Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
-                        /* TODO */ 
-                        //Block for profiles and profiles descriptions translations ***
-                        product.locales_names_addition_folders = data
-                        GlobalStor.global.locales_names_addition_folders = data
-                        //There are only profiles systems here
-                        const array_size = 100;
-                        const profiles_systems = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.length; i += array_size) {
-                            profiles_systems.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.slice(i, i + array_size));
-                        }
-                        GlobalStor.global.locales_names_addition_folders.locales_names_profile_systems.push(profiles_systems);
-                        const filtered_array_by_name = profiles_systems[0].filter(element => element.table_attr === "name")
-                        let profiles_data_profiles_types_array = GlobalStor.global.profiles[0];
-                        let profiles_data_second_array = GlobalStor.global.profiles[1];
-                        //Loop that runs through the profiles and pushes there translations from a filtered array
-                        for(let i = 0; i < profiles_data_profiles_types_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_name.length; y++) {
-                                if(profiles_data_profiles_types_array[i].id === filtered_array_by_name[y].table_id) {
-                                    profiles_data_profiles_types_array[i]["translate"] = filtered_array_by_name[y]
-                                }
-                            }
-                        }
-                        //Loop that runs through the profiles and pushes there translations from a filtered array. Second one
-                        for(let i = 0; i < profiles_data_second_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_name.length; y++) {
-                                if(profiles_data_second_array[i].id === filtered_array_by_name[y].table_id) {
-                                    profiles_data_second_array[i]["translate"] = filtered_array_by_name[y]
-                                }
-                            }
-                        }
-                        //Filtred array contains only descriptions translations
-                        const filtered_array_by_description = profiles_systems[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < profiles_data_profiles_types_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_description.length; y++) {
-                                if(profiles_data_profiles_types_array[i].id === filtered_array_by_description[y].table_id) {
-                                    profiles_data_profiles_types_array[i]["description"] = filtered_array_by_description[y]
-    
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < profiles_data_second_array.length; i++) {
-                            for(let y = 0; y < filtered_array_by_description.length; y++) {
-                                if(profiles_data_second_array[i].id === filtered_array_by_description[y].table_id) {
-                                    profiles_data_second_array[i]["description"] = filtered_array_by_description[y]
-                                }
-                            }
-                        }
-                        //Block for profiles and profiles descriptions translations end ***
-
-                        //Block for systems_folders translation start ***
-                        const system_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders; i += array_size) {
-                            system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders.slice(i, i + array_size));
-                        }
-                        system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_profile_system_folders);
-                        //Filtred array contains only system_folders names
-                        const filtered_array = system_folders[0].filter(element => element.table_attr === "name")
-                        let profiles_types_array = GlobalStor.global.profilesType;
-                        for(let i = 0; i < profiles_types_array.length; i++) {
-                            for(let y = 0; y < filtered_array.length; y++) {
-                                if(profiles_types_array[i].id === filtered_array[y].table_id) {
-                                    profiles_types_array[i]["translate"] = filtered_array[y]
-                                }
-                            }
-                        }
-                        const array_filtered_by_description_profile_system_folder = system_folders[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < profiles_types_array.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_profile_system_folder.length; y++) {
-                                if(profiles_types_array[i].id === array_filtered_by_description_profile_system_folder[y].table_id) {
-                                    profiles_types_array[i]["description"] = array_filtered_by_description_profile_system_folder[y]
-                                }
-                            }
-                        }
-                        
-                        //Block for systems_folders translation end ***
-                        
-                        //Block for glasses folder starts ***
-                        const glasses_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders; i += array_size) {
-                            glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders.slice(i, i + array_size));
-                        }
-                        glasses_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders);
-                        const array_filtered_by_names_glasses_folders = glasses_folders[0].filter(element => element.table_attr === "name")
-                        let glasses_folders_array_first = GlobalStor.global.glassTypes;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < glasses_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_glasses_folders.length; y++) {
-                                if(glasses_folders_array_first[i].id === array_filtered_by_names_glasses_folders[y].table_id) {
-                                    glasses_folders_array_first[i]["translate"] = array_filtered_by_names_glasses_folders[y]
-                                }
-                            }
-                        }
-                        const array_filtered_by_description_folders = glasses_folders[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < glasses_folders_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_folders.length; y++) {
-                               if(glasses_folders_array_first[i].id === array_filtered_by_description_folders[y].table_id) {
-                                glasses_folders_array_first[i]["description"] = array_filtered_by_description_folders[y]
-                               }
-                           }
-                       }
-                        //Block for glasses folder end ***
-
-
-                        //Block for hardware groups start***
-                        const hardware_groups = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups; i += array_size) {
-                            hardware_groups.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups.slice(i, i + array_size));
-                        }
-                        hardware_groups.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_groups);
-                        const array_filtered_by_names_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "name")
-                        //First looop for first array
-                        let hardware_groups_array_first = GlobalStor.global.hardwares[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
-                                }
-                            }
-                        }
-                        //Second loop for second array
-                        let hardware_groups_array_second = GlobalStor.global.hardwares[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
-                                }
-                            }
-                        }
-
-                        const array_filtered_by_description_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
-                        //Block for hardware goups end ***
-
-                        //Block for hardware folders start ***
-                        const hardware_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders; i += array_size) {
-                            hardware_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders.slice(i, i + array_size));
-                        }
-                        hardware_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_window_hardware_folders);
-                        const array_filtered_by_names_hardware_folders = hardware_folders[0].filter(element => element.table_attr === "name")
-                        //First looop for first array
-                        let hardware_folders_array_first = GlobalStor.global.hardwareTypes;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_folders.length; y++) {
-                                if(hardware_folders_array_first[i].id === array_filtered_by_names_hardware_folders[y].table_id) {
-                                    hardware_folders_array_first[i]["translate"] = array_filtered_by_names_hardware_folders[y]
-                                }
-                            }
-                        }
-                        const array_filtered_by_description_hardware_folders = hardware_folders[0].filter(element => element.table_attr === "description")
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_description_hardware_folders.length; y++) {
-                                if(hardware_folders_array_first[i].id === array_filtered_by_description_hardware_folders[y].table_id) {
-                                    hardware_folders_array_first[i]["description"] = array_filtered_by_description_hardware_folders[y]
-                                }
-                            }
-                        }
-                        //Block for hardware folders end ***
-
-
-                        //Block for additional folders elements starts ***
-                        const additional_folders = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_addition_folders; i += array_size) {
-                            additional_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_addition_folders.slice(i, i + array_size));
-                        }
-                        additional_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_addition_folders);
-                        const array_filtered_by_names_additional_folders = additional_folders[0].filter(element => element.table_attr === "name")
-                        const array_filtered_by_descriptions_additional_folders = additional_folders[0].filter(element => element.table_attr === "description")
-
-                        let additional_folders_array_zero = GlobalStor.global.addElementsAll[1].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_zero.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_zero[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_zero[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_zero.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_zero[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                   additional_folders_array_zero[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_first = GlobalStor.global.addElementsAll[2].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_first[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                     additional_folders_array_first[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_first[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_first[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_second = GlobalStor.global.addElementsAll[6].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_second.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_second[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_second[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_second[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_second[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_third = GlobalStor.global.addElementsAll[8].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_third.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_third[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_third[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_third.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_third[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_third[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_fourth = GlobalStor.global.addElementsAll[9].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_fourth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_fourth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_fourth[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_fourth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_fourth[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_fourth[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_fifth = GlobalStor.global.addElementsAll[10].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_fifth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_fifth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_fifth[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_fifth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_fifth[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_fifth[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_sixth = GlobalStor.global.addElementsAll[16].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_sixth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_sixth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_sixth[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_sixth.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_sixth[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_sixth[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        let additional_folders_array_seventh = GlobalStor.global.addElementsAll[17].elementType;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_seventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_seventh[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                    additional_folders_array_seventh[i]["translate"] = array_filtered_by_names_additional_folders[y]
-                                }
-                            }
-                        }
-                        // Loop for description
-                        for(let i = 0; i < additional_folders_array_seventh.length; i++) {
-                            for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
-                                if(additional_folders_array_seventh[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                    additional_folders_array_seventh[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
-                                }
-                            }
-                        }
-                        //Block for additional folders elements end  ***
-
-
-                        //Block for additional elements start ***
-                        const additional_elements = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lists; i += array_size) {
-                            additional_elements.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists.slice(i, i + array_size));
-                        }
-                        additional_elements.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists);
-                        const array_filtered_by_names_additional_elements = additional_elements[0].filter(element => element.table_attr === "name")
-                        const array_filtered_by_description_additional_elements = additional_elements[0].filter(element => element.table_attr === "description")
-                        /* Loop for zero element */
-                        let additional_elements_array_first_zero = GlobalStor.global.addElementsAll[1].elementsList;
-                        for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_first_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_first_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_first_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_first_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for zero element end */
-                        
-                        /* Loop for first element  */
-                        let additional_elements_array_first_first = GlobalStor.global.addElementsAll[1].elementsList;
-                        for(let i = 0; i < additional_elements_array_first_first.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_first_first[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_first_first[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_first_first.length; i++) {
-                            for(let y = 0; y < additional_elements_array_first_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_first_first[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_first_first[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for first element  END*/
-
-                        /* Loop for second element  */
-                        let additional_elements_array_second = GlobalStor.global.addElementsAll[2].elementsList;
-                        for(let i = 0; i < additional_elements_array_second.length; i++) {
-                            for(let y = 0; y < additional_elements_array_second[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_second[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_second[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_second.length; i++) {
-                            for(let y = 0; y < additional_elements_array_second[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_second[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_second[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for second element end */
-
-                        /* For the sixth element */
-                        let additional_elements_array_sixth_zero = GlobalStor.global.addElementsAll[6].elementsList;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_sixth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_sixth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* End loop for sixth element */
-
-                        /* For the eight element */
-                        let additional_elements_array_eighth_zero = GlobalStor.global.addElementsAll[8].elementsList;
-                        for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_eighth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_eighth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_eighth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_eighth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* End for eight element */
-
-                        /* Loop for ninth element */
-                        let additional_elements_array_ninth = GlobalStor.global.addElementsAll[9].elementsList;
-                        for(let i = 0; i < additional_elements_array_ninth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_ninth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_ninth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_ninth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_ninth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_ninth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_ninth[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_ninth[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for ninth element end */
-    
-                        /* Loop for teenth element */
-                        let additional_elements_array_teenth = GlobalStor.global.addElementsAll[10].elementsList;
-                        for(let i = 0; i < additional_elements_array_teenth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_teenth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_teenth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_teenth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_teenth.length; i++) {
-                            for(let y = 0; y < additional_elements_array_teenth[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_teenth[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_teenth[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for teenth element end */
-
-                        /* Loop for sixtenth element */
-                        let additional_elements_array_sixteenth_zero = GlobalStor.global.addElementsAll[16].elementsList;
-                        for(let i = 0; i < additional_elements_array_sixteenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixteenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_sixteenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_sixteenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_sixteenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_sixteenth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for sixtenth element END */
-                        
-                        /* Loop for seventh element */
-                        let additional_elements_array_seventeenth_zero = GlobalStor.global.addElementsAll[17].elementsList;
-                        for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_seventeenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_seventeenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
-                            for(let y = 0; y < additional_elements_array_seventeenth_zero[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_additional_elements.length; z++) {
-                                    if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_description_additional_elements[z].table_id) {
-                                        additional_elements_array_seventeenth_zero[i][y]["description"] = array_filtered_by_description_additional_elements[z]
-                                    }
-                                }
-                            }
-                        }
-                        /* Loop for seventh element  END*/
-                        //Block for additional elements end ***
-                        
-                        //Block for mosquitos start ***
-                        const mosquitos = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos; i += array_size) {
-                            mosquitos.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos.slice(i, i + array_size));
-                        }
-                        mosquitos.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos)
-                        const array_filtered_by_name_mosquitos = mosquitos[0].filter(element => element.table_attr === "name")
-
-                        let mosquitos_array = GlobalStor.global.addElementsAll[0].elementsList[0];
-                        for(let i = 0; i < mosquitos_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_name_mosquitos.length; y++) {
-                                    if(mosquitos_array[i].id === array_filtered_by_name_mosquitos[y].table_id) {
-                                        mosquitos_array[i]["translate"] = array_filtered_by_name_mosquitos[y]
-                                }
-                            }
-                        }
-
-                        //Block for mosquitos end ***
-
-                        //Block for mosquitos SINGLE start ***
-
-                        // const mosquitos_single = [];
-                        // for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles; i += array_size) {
-                        //     mosquitos_single.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles.slice(i, i + array_size));
-                        // }
-                        // mosquitos_single.push(GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos_singles);
-                        // const array_filtered_by_names_mosquitos_single = mosquitos_single[0].filter(element => element.table_attr === "name")
-
-                        // let mosquitos_single_elements_array_zero = GlobalStor.global.addElementsAll[0].elementsList[0];
-                        // //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        //  for(let i = 0; i < mosquitos_single_elements_array_zero.length; i++) {
-                        //      for(let y = 0; y < array_filtered_by_names_mosquitos_single.length; y++) {
-                        //          if(mosquitos_single_elements_array_zero[i].id === array_filtered_by_names_mosquitos_single[y].table_id) {
-                        //             mosquitos_single_elements_array_zero[i]["translate"] = array_filtered_by_names_mosquitos_single[y]
-                        //         }
-                        //     }
-                        // }
-                        //Block for mosquitos SINGLE end ***
-
-
-                       //Block for laminations start ***
-                       const laminations = [];
-                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
-                        laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
-                       }
-                       laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
-                       
-                       const array_filtered_by_names_laminations = laminations[0].filter(element => element.table_attr === "name")
-                       let laminations_array = GlobalStor.global.laminats;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for(let i = 0; i < laminations_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_names_laminations.length; y++) {
-                                    if(laminations_array[i].id === array_filtered_by_names_laminations[y].table_id) {
-                                        laminations_array[i]["translate"] = array_filtered_by_names_laminations[y]
-                                } 
-                            }
-                        }
-                       //Block for laminations end ***
-
-
-                       //Block for lamination-couplese start ***
-                       const laminations_couples = [];
-                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
-                        laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
-                       }
-                       laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
-
-                       const array_filtered_by_names_laminations_couples = laminations_couples[0].filter(element => element.table_attr === "name")
-
-                        let laminations_couples_array = GlobalStor.global.laminatCouples;
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for(let i = 0; i < laminations_couples_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_names_laminations_couples.length; y++) {
-                                    if(laminations_couples_array[i].lamination_in_id === array_filtered_by_names_laminations_couples[y].table_id) {
-                                        laminations_couples_array[i]["translate_in_id"] = array_filtered_by_names_laminations_couples[y]
-                                    } if(laminations_couples_array[i].lamination_out_id === array_filtered_by_names_laminations_couples[y].table_id) {
-                                        laminations_couples_array[i]["translate_out_id"] = array_filtered_by_names_laminations_couples[y]
-                                    }
-                            }
-                        }
-                       //Block for lamination-couplese end ***
-
-
-                        //Block for glasses translations starts ***
-                        const glasses = [];
-                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lists; i += array_size) {
-                            system_folders.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists.slice(i, i + array_size));
-                        }
-                        glasses.push(GlobalStor.global.locales_names_addition_folders.locales_names_lists);
-                        //Filtred array contains only glasses names
-                        const array_filtered_by_names_glasses = glasses[0].filter(element => element.table_attr === "name")
-                        const array_filtered_by_description_glasses_first = glasses[0].filter(element => element.table_attr === "description")
-                        let glasses_array_first = GlobalStor.global.glasses;
-
-                        for(let i = 0; i < glasses_array_first.length; i++) {
-                            for(let y = 0; y < glasses_array_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_names_glasses.length; z++) {
-                                    if(glasses_array_first[i][y].id === array_filtered_by_names_glasses[z].table_id) {
-                                        glasses_array_first[i][y]["translate"] = array_filtered_by_names_glasses[z]
-                                    }
-                                }
-                            }
-                        }
-
-                        for(let i = 0; i < glasses_array_first.length; i++) {
-                            for(let y = 0; y < glasses_array_first[i].length; y++) {
-                                for(let z = 0; z < array_filtered_by_description_glasses_first.length; z++) {
-                                    if(glasses_array_first[i][y].id === array_filtered_by_description_glasses_first[z].table_id) {
-                                        glasses_array_first[i][y]["description"] = array_filtered_by_description_glasses_first[z]
-                                    }
-                                }
-                            }
-                        }
-                        } catch (e) {
-                            console.log(e)
-                        }
-                        //Block for glasses translations end ****************
-                        // Hardware display logic that fits only a certain profile
-
-                        //Download data from backend
-                        const windowHardwareProfileSystem = data.window_hardware_profile_systems;
-                        //Clearing hardwares arrays
-                        GlobalStor.global.hardwares = []
-                        //Loop for windowHardwareProfileSystem elements 
-                        for (let element of windowHardwareProfileSystem) {
-                            //Get current profile id
-                            let currentProfileId = ProductStor.product.profile.id;
-                            //Check if current profile id equal to element from backend 
-                            if (element.profile_system_id === currentProfileId) {
-                                //Local variables for different manipulation
-                                let globalHardwareAxor = GlobalStor.global.hardwaresDefaultValues[0];
-                                let globalHardwareMaco = GlobalStor.global.hardwaresDefaultValues[1];
-                                let globalHardwareWinkHaus = GlobalStor.global.hardwaresDefaultValues[2];
-                                //Logic for AXOR (we are filtering items inside the GlobalStar.global.HARDWARE[0] searching for matching for window hardware group_id with all hardwares and remain it only if it's match)
-                                let filtredHardwareAxor = globalHardwareAxor.filter((item) => item.id === element.window_hardware_group_id);
-                                if (filtredHardwareAxor.length === 0) {
-                                    filtredHardwareAxor = 0;
-                                } else {
-                                    if (!GlobalStor.global.hardwares[0]) {
-                                        GlobalStor.global.hardwares[0] = []
-                                    }
-                                    GlobalStor.global.hardwares[0].push(filtredHardwareAxor[0])
-                                }
-                                //Logic for MACO
-                                let filtredGlobalHardwareMaco = globalHardwareMaco.filter((item) => item.id === element.window_hardware_group_id);
-                                if (filtredGlobalHardwareMaco.length === 0) {
-                                    filtredGlobalHardwareMaco = 0;
-                                } else {
-                                    if (!GlobalStor.global.hardwares[1]) {
-                                        GlobalStor.global.hardwares[1] = []
-                                    } 
-                                    GlobalStor.global.hardwares[1].push(filtredGlobalHardwareMaco[0])
-                                }
-                                //Logic for WINK HAUS
-                                let filtredGlobalHardwareWinkHaus = globalHardwareWinkHaus.filter((item) => item.id === element.window_hardware_group_id);
-                                if (filtredGlobalHardwareWinkHaus.length === 0) {
-                                    filtredGlobalHardwareWinkHaus = 0;
-                                } else {
-                                    if (!GlobalStor.global.hardwares[2]) {
-                                        GlobalStor.global.hardwares[2] = []
-                                    }
-                                    GlobalStor.global.hardwares[2].push(filtredGlobalHardwareWinkHaus[0])
-                                }
-                            }
-                        }
-                        setCurrentHardware(ProductStor.product);
-                        if (ProductStor.product.profile.id) {
-                            preparePrice(
-                                ProductStor.product.template,
-                                ProductStor.product.profile.id,
-                                ProductStor.product.glass,
-                                ProductStor.product.hardware.id,
-                                ProductStor.product.lamination.lamination_in_id)
-                        } 
-                    }
-                )
-               
-                if (product.lamination.id > 0) {
-                    product.profile.rama_list_id = angular.copy(
-                        laminat.rama_list_id
-                    );
-                    product.profile.rama_still_list_id = angular.copy(
-                        laminat.rama_still_list_id
-                    );
-                    product.profile.stvorka_list_id = angular.copy(
-                        laminat.stvorka_list_id
-                    );
-                    product.profile.impost_list_id = angular.copy(
-                        laminat.impost_list_id
-                    );
-                    product.profile.shtulp_list_id = angular.copy(
-                        laminat.shtulp_list_id
-                    );
-                }
-                //------- set Depths
-
-                $q
-                    .all([
-                        downloadProfileDepth(product.profile.rama_list_id),
-                        downloadProfileDepth(product.profile.rama_still_list_id),
-                        downloadProfileDepth(product.profile.stvorka_list_id),
-                        downloadProfileDepth(product.profile.impost_list_id),
-                        downloadProfileDepth(product.profile.shtulp_list_id)
-                    ])
-                    .then(function (result) {
-                        product.profileDepths.frameDepth = result[0];
-                        product.profileDepths.frameStillDepth = result[1];
-                        product.profileDepths.sashDepth = result[2];
-                        product.profileDepths.impostDepth = result[3];
-                        product.profileDepths.shtulpDepth = result[4];
-                        deferred.resolve(product);
-                    });
-                return deferred.promise;
-            }
-
-            function setCurrentDoorProfile(product) {
-                var deferred = $q.defer();
-                //------- set Depths
-                $q
-                    .all([
-                        downloadProfileDepth(product.profile.rama_list_id),
-                        downloadProfileDepth(product.profile.rama_still_list_id),
-                        downloadProfileDepth(product.profile.stvorka_list_id),
-                        downloadProfileDepth(product.profile.impost_list_id),
-                        downloadProfileDepth(product.profile.shtulp_list_id)
-                    ])
-                    .then(function (result) {
-                        product.profileDepths.frameDepth = result[0];
-                        product.profileDepths.frameStillDepth = result[1];
-                        product.profileDepths.sashDepth = result[2];
-                        product.profileDepths.impostDepth = result[3];
-                        product.profileDepths.shtulpDepth = result[4];
-                        deferred.resolve(product);
-                    });
-                return deferred.promise;
-            }
-
-            function doorProfile() {
-                var door = [];
-                async.eachSeries(
-                    GlobalStor.global.doorsLaminations,
-                    calculate,
-                    function (err, result) {
-                        GlobalStor.global.doorsLaminations = angular.copy(door);
-                    }
-                );
-
-                function calculate(product, _cb) {
-                    async.waterfall(
-                        [
-                            function (_callback) {
-                                localDB
-                                    .selectLocalDB(
-                                        "lists", {
-                                            id: product.rama_list_id
-                                        },
-                                        "parent_element_id"
-                                    )
-                                    .then(function (result) {
-                                        _callback(null, result);
-                                    });
-                            },
-
-                            function (result, _callback) {
-                                if (result.length) {
-                                    localDB
-                                        .selectLocalDB(
-                                            "elements_profile_systems", {
-                                                element_id: result[0].parent_element_id
-                                            },
-                                            "profile_system_id"
-                                        )
-                                        .then(function (result2) {
-                                            product.profileId = result2[0].profile_system_id;
-                                            door.push(product);
-                                            _callback(null, product.profileId);
-                                        });
-                                }
-
-                            }
-                        ],
-                        function (err, result) {
-                            if (err) {
-                                return _cb(err, result);
-                            }
-                            _cb(null, result);
-                        }
-                    );
-                }
-            }
-
-            function getGlassFromTemplateBlocks(template) {
-                var blocksQty = template.details.length,
-                    glassIds = [];
-                while (--blocksQty > 0) {
-                    if (!template.details[blocksQty].children.length) {
-                        if (template.details[blocksQty].glassId) {
-                            glassIds.push(angular.copy(template.details[blocksQty].glassId));
-                        }
-                    }
-                }
-                return glassIds;
-            }
-
-            function setGlassToTemplateBlocks(type,
-                template,
-                glassId,
-                glassName,
-                blockId) {
-                var blocksQty = template.details.length;
-                while (--blocksQty > 0) {
-                    if (blockId) {
-                        /** set glass to template block by its Id */
-                        if (template.details[blocksQty].id === blockId) {
-                            template.details[blocksQty].glassId = glassId;
-                            template.details[blocksQty].glassTxt = glassName;
-                            template.details[blocksQty].glass_type = type;
-                            break;
-                        }
-                    } else {
-                        /** set glass to all template blocks */
-                        //if(!template.details[blocksQty].children.length) {
-                        template.details[blocksQty].glassId = glassId;
-                        template.details[blocksQty].glassTxt = glassName;
-                        template.details[blocksQty].glass_type = type;
-                        //}
-                    }
-                }
-            }
-
-
-            function setCurrentGlass(product, id) {
-                //------- cleaning glass in product
-                product.glass.length = 0;
-                if (id) {
-                    //----- get Glass Ids from template and check dublicates
-                    var glassIds = GeneralServ.removeDuplicates(
-                        getGlassFromTemplateBlocks(product.template)
-                    ),
-                        glassIdsQty = glassIds.length;
-                    //------- glass filling by new elements
-                    while (--glassIdsQty > -1) {
-                        product.glass.push(
-                            fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses)
-                        );
-                    }
-                } else {
-                    //----- set default glass in ProductStor
-                    var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
-                        if (product.profile.profileId) {
-                            return product.construction_type == 4 ?
-                                item.profileId === product.profile.profileId :
-                                item.profileId === product.profile.id;
-                        } else {
-                            return item.profileId === product.profile.id;
-                        }
-                    });
-                    if (tempGlassArr.length) {
-                        GlobalStor.global.glassTypes = angular.copy(
-                            tempGlassArr[0].glassTypes
-                        );
-                        GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-                        product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-                        GlobalStor.global.selectGlassId = product.glass[0].id;
-                        GlobalStor.global.selectGlassName = product.glass[0].sku;
-                        /** set Glass to all template blocks without children */
-                        setGlassToTemplateBlocks(
-                            product.glass[0].glass_type,
-                            ProductStor.product.template_source,
-                            product.glass[0].id,
-                            product.glass[0].sku
-                        );
-                    }
-                }
-            }
-
-            function setCurrentGlassInTemplate(templateSourceTemp, product, id) {
-                //------- cleaning glass in product
-                product.glass.length = 0;
-                if (id) {
-                    //----- get Glass Ids from template and check dublicates
-                    var glassIds = GeneralServ.removeDuplicates(
-                        getGlassFromTemplateBlocks(templateSourceTemp)
-                    ),
-                        glassIdsQty = glassIds.length;
-                    //------- glass filling by new elements
-                    while (--glassIdsQty > -1) {
-                        product.glass.push(
-                            fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses)
-                        );
-                    }
-                } else {
-                    //----- set default glass in ProductStor
-                    var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
-                        if (product.profile.profileId) {
-                            return product.construction_type == 4 ?
-                                item.profileId === product.profile.profileId :
-                                item.profileId === product.profile.id;
-                        } else {
-                            return item.profileId === product.profile.id;
-                        }
-                    });
-                    if (tempGlassArr.length) {
-                        GlobalStor.global.glassTypes = angular.copy(
-                            tempGlassArr[0].glassTypes
-                        );
-                        GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-                        product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-                        GlobalStor.global.selectGlassId = product.glass[0].id;
-                        GlobalStor.global.selectGlassName = product.glass[0].sku;
-                        /** set Glass to all template blocks without children */
-                        setGlassToTemplateBlocks(
-                            product.glass[0].glass_type,
-                            templateSourceTemp,
-                            product.glass[0].id,
-                            product.glass[0].sku
-                        );
-                    }
-                }
-            }
-
-            //for templateTemp
-            function setCurrentGlassForTemplate(templateSource, product) {
-                var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
-                    if (product.profile.profileId) {
-                        return product.construction_type === 4 ?
-                            item.profileId === product.profile.profileId :
-                            item.profileId === product.profile.id;
-                    } else {
-                        return item.profileId === product.profile.id;
-                    }
-                });
-                if (tempGlassArr.length) {
-                    GlobalStor.global.glassTypes = angular.copy(
-                        tempGlassArr[0].glassTypes
-                    );
-                    GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-                    product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-                    GlobalStor.global.selectGlassId = product.glass[0].id;
-                    GlobalStor.global.selectGlassName = product.glass[0].sku;
-                    /** set Glass to all template blocks without children */
-                    setGlassToTemplateBlocks(
-                        product.glass[0].glass_type,
-                        templateSource,
-                        product.glass[0].id,
-                        product.glass[0].sku
-                    );
-                }
-            }
-
-            function checkSashInTemplate(template) {
-                var templQty = template.details.length,
-                    counter = 0;
-                while (--templQty > 0) {
-                    if (template.details[templQty].blockType === "sash") {
-                        counter += 1;
-                        GlobalStor.global.checkSashInTemplate = counter;
-                    }
-                }
-                return counter;
-            }
-
-            function saveTemplateInProduct(templateIndex) {
-                var defer = $q.defer();
-                if (!GlobalStor.global.isChangedTemplate) {
-                    ProductStor.product.template_source = angular.copy(
-                        GlobalStor.global.templatesSource[templateIndex]
-                    );
-                }
-                setCurrentGlass(ProductStor.product);
-                //----- create template
-                SVGServ.createSVGTemplate(
-                    ProductStor.product.template_source,
-                    ProductStor.product.profileDepths
-                ).then(function (result) {
-                    DesignStor.design.templateSourceTEMP = ProductStor.product.template_source;
-                    DesignStor.design.templateTEMP = angular.copy(result);
-                    ProductStor.product.template = angular.copy(result);
-                    GlobalStor.global.isSashesInTemplate = checkSashInTemplate(
-                        ProductStor.product.template_source
-                    );
-                    //        console.log('TEMPLATE +++', ProductStor.product.template);
-                    //----- create template icon
-                    SVGServ.createSVGTemplateIcon(
-                        ProductStor.product.template_source,
-                        ProductStor.product.profileDepths
-                    ).then(function (result) {
-                        //------ show elements of room
-                        GlobalStor.global.isRoomElements = 1;
-                        ProductStor.product.templateIcon = angular.copy(result);
-                        defer.resolve(1);
-                    });
-                });
-                return defer.promise;
-            }
-
-            function setCurrentHardware(product, id) {
-                if (id) {
-                    product.hardware = fineItemById(id, GlobalStor.global.hardwares);
-                } else {
-                    //----- set default hardware in ProductStor
-                    if (GlobalStor.global.isSashesInTemplate) {
-                        for (let currentHardware of GlobalStor.global.hardwares) {
-                            if (currentHardware) {
-                                if (currentHardware[0] !== 1) {
-                                    product.hardware = currentHardware[1];
-                                    break;
-                                } else {
-                                    product.hardware = currentHardware[0];
-                                    break;
-                                }
-                            }  
-                        }
-                    } else {
-                        product.hardware = {};
-                    }
-                }
-            }
-
-            /** set Bead Id */
-            function setBeadId(profileId, laminatId) {
-                var deff = $q.defer(),
-                    promisBeads = _.map(ProductStor.product.glass, function (item) {
-                        var deff2 = $q.defer();
-                        if (item.glass_width) {
-                            localDB
-                                .selectLocalDB(
-                                    "beed_profile_systems", {
-                                        profile_system_id: profileId,
-                                        glass_width: item.glass_width
-                                    },
-                                    "list_id"
-                                )
-                                .then(function (beadIds) {
-                                    var beadsQty = beadIds.length,
-                                        beadObj = {
-                                            glassId: item.id,
-                                            beadId: 0
-                                        };
-                                    if (beadsQty) {
-                                        //console.log('beads++++', beadIds);
-                                        //----- if beads more one
-                                        if (beadsQty > 1) {
-                                            //----- go to kits and find bead width required laminat Id
-                                            var pomisList = _.map(beadIds, function (item2) {
-                                                var deff3 = $q.defer();
-                                                localDB
-                                                    .selectLocalDB(
-                                                        "lists", {
-                                                            id: item2.list_id
-                                                        },
-                                                        "beed_lamination_id"
-                                                    )
-                                                    .then(function (lamId) {
-                                                        // console.log('lamId++++', lamId);
-                                                        if (lamId) {
-                                                            if (lamId[0].beed_lamination_id === laminatId) {
-                                                                deff3.resolve(1);
-                                                            } else {
-                                                                deff3.resolve(0);
-                                                            }
-                                                        } else {
-                                                            deff3.resolve(0);
-                                                        }
-                                                    });
-                                                return deff3.promise;
-                                            });
-
-                                            $q.all(pomisList).then(function (results) {
-                                                //console.log('finish++++', results);
-                                                var resultQty = results.length;
-                                                while (--resultQty > -1) {
-                                                    if (results[resultQty]) {
-                                                        beadObj.beadId = beadIds[resultQty].list_id;
-                                                        deff2.resolve(beadObj);
-                                                    }
-                                                }
-                                                if (!beadObj.beadId) {
-                                                    console.log("Error in bead!!");
-                                                    deff2.resolve(0);
-                                                }
-                                            });
-                                        } else {
-                                            beadObj.beadId = beadIds[0].list_id;
-                                            deff2.resolve(beadObj);
-                                        }
-                                    } else {
-                                        console.log("Error in bead!!");
-                                        deff2.resolve(0);
-                                    }
-                                });
-                        } else {
-                            console.log("item.glass_width === 0");
-                            deff2.resolve(0);
-                        }
-                        return deff2.promise;
-                    });
-
-                deff.resolve($q.all(promisBeads));
-                return deff.promise;
-            }
-
-            function setProductPriceTOTAL(Product) {
-
-                var deliveryCoeff =
-                    GlobalStor.global.deliveryCoeff.percents[
-                    GlobalStor.global.deliveryCoeff.standart_time
-                    ],
-                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
-
-
-                Product.product_price = GeneralServ.roundingValue(
-                    Product.template_price + Product.addelem_price + Product.service_price
-                );
-                Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
-                //------ add Discount of standart delivery day of Plant
-                if (deliveryCoeff) {
-                    Product.productPriceDis = GeneralServ.setPriceDis(
-                        Product.productPriceDis,
-                        deliveryCoeff
-                    );
-                }
-
-                GlobalStor.global.tempPrice =
-                    Product.productPriceDis * GlobalStor.global.product_qty;
-                GlobalStor.global.isLoader = 0;
-
-                if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
-                    setTimeout(function () {
-                        SVGServ.createSVGTemplate(
-                            DesignStor.design.templateSourceTEMP,
-                            ProductStor.product.profileDepths
-                        ).then(function (result) {
-                            DesignStor.design.templateTEMP = angular.copy(result);
-                            DesignStor.design.templateTEMP.details.forEach(function (entry,
-                                index) {
-                                if (entry.impost) {
-                                    DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
-                                    DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
-                                }
-                            });
-                        });
-                    }, 0);
-                }
-            }
-
-            //---------- Price define
-            function calculationPrice(obj) {
-                let tmp_hardware;
-                var deferred = $q.defer();
-                GlobalStor.global.isZeroPriceList = [];
-                localDB.calculationPrice(obj).then(function (result) {
-                    result.constrElements.forEach(function (entry) {
-                        if (entry.element_group_id != 8) {
-                            if (entry.priceReal == 0 || entry.price == 0) {
-                                //console.log('name', entry.name);
-                                GlobalStor.global.isZeroPriceList.push(entry.name);
-                            }
-                        }
-                        if (entry.element_group_id === 5) {
-                            if (entry.size === 0) {
-                                GlobalStor.global.TEMP_HARDWARES[0].forEach(function (hard, item) {
-                                    if (entry.id === hard.child_id) {
-                                        tmp_hardware = angular.copy(entry.priceReal);
-                                        entry.size = hard.length / 1000;
-                                        entry.priceReal = entry.price * entry.size * entry.qty;
-                                        result.priceTotal = result.priceTotal - tmp_hardware + entry.priceReal
-                                    }
-                                });
-                            }
-                        }
-                    });
-                    var works = 0,
-                        works_dis = 0,
-                        works_area = 0,
-                        works_perimeter = 0,
-                        works_piece = 0;
-                    if (GlobalStor.global.area_price) {
-                        works_area = localDB.currencyExgange(
-                            GlobalStor.global.area_price * ProductStor.product.template_square,
-                            GlobalStor.global.area_currencies
-                        );
-                    }
-                    if (GlobalStor.global.perimeter_price) {
-                        works_perimeter = localDB.currencyExgange(
-                            GlobalStor.global.perimeter_price *
-                            ((ProductStor.product.template_width / 1000 +
-                                ProductStor.product.template_height / 1000) *
-                                2),
-                            GlobalStor.global.perimeter_currencies
-                        );
-                    }
-                    if (GlobalStor.global.piece_price) {
-                        works_piece = localDB.currencyExgange(
-                            GlobalStor.global.piece_price,
-                            GlobalStor.global.piece_currencies
-                        );
-                    }
-
-                    if (GlobalStor.global.area_price || GlobalStor.global.perimeter_price || GlobalStor.global.piece_price) {
-                        works = works_area + works_perimeter + works_piece;
-                    }
-
-                    var priceObj = angular.copy(result),
-                        priceMargin,
-                        doorData,
-                        tempDoorItems;
-                        var glassData = null
-                        function glassPricesData() {
-                            var defer = $q.defer();
-                            db.getItem('tables').then(function (value) {
-                                glassPricesData = value;
-                                defer.resolve(glassPricesData);
-                            }).catch(function (err) {
-                                console.log(err);
-                                defer.resolve(0);
-                            });
-                            return defer.promise;
-                        }
-                        /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
-                        glassPricesData().then(
-                            function(data) {
-                                let glassPricesData = data.glass_prices;
-                                let currentGlassData = ProductStor.product.report;
-                                if (glassPricesData) {
-                                    for(var i = 0; i < glassPricesData.length; i++) {
-                                        for(var y = 0; y < currentGlassData.length; y++) {
-                                            /* checks if ids the same */
-                                            if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
-                                                /* check range */
-                                                if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        )
-                    
-                    if (priceObj.priceTotal) {
-                        /** DOOR add handle and lock Ids */
-                        if (ProductStor.product.construction_type === 4) {
-                            localDB
-                                .calcDoorElemPrice(
-                                    ProductStor.product.doorHandle,
-                                    ProductStor.product.doorLock.elem
-                                )
-                                .then(function (doorResult) {
-                                    if (doorResult.consistElem) {
-                                        doorResult.consistElem.forEach(function (entry) {
-                                            // console.log(entry);
-                                            if (entry.element_group_id !== 8) {
-                                                if (entry.priceReal === 0 || entry.price === 0) {
-                                                    GlobalStor.global.isZeroPriceList.push(entry.name);
-                                                }
-                                            }
-                                        });
-                                    }
-                                    if (doorResult.elements) {
-                                        doorResult.elements.forEach(function (entry) {
-                                            // console.log(entry);
-                                            if (entry.element_group_id !== 8) {
-                                                if (entry.priceReal === 0 || entry.price === 0) {
-                                                    GlobalStor.global.isZeroPriceList.push(entry.name);
-                                                }
-                                            }
-                                        });
-                                    }
-                                    doorData = angular.copy(doorResult);
-                                    priceObj.priceTotal += doorData.priceTot;
-                                    priceObj.constrElements = priceObj.constrElements.concat(
-                                        doorData.elements
-                                    );
-                                    priceMargin = GeneralServ.addMarginToPrice(
-                                        priceObj.priceTotal,
-                                        GlobalStor.global.margins.coeff
-                                    );
-                                    ProductStor.product.template_price = GeneralServ.roundingValue(
-                                        priceMargin + GlobalStor.global.screw + works,
-                                        2
-                                    );
-                                    setProductPriceTOTAL((ProductStor.product));
-                                    deferred.resolve(priceObj);
-                                });
-                        } else {
-                            priceMargin = GeneralServ.addMarginToPrice(
-                                priceObj.priceTotal,
-                                GlobalStor.global.margins.coeff
-                            );
-                            ProductStor.product.template_price = GeneralServ.roundingValue(
-                                priceMargin + GlobalStor.global.screw + works,
-                                2
-                            );
-                            setProductPriceTOTAL((ProductStor.product));
-                            deferred.resolve(priceObj);
-                        }
-                    } else {
-                        ProductStor.product.template_price = 0;
-                        deferred.resolve(0);
-                    }
-                });
-                return deferred.promise;
-            }
-                       
-            function prepareReport(elementList) {
-                var report = [],
-                    elementListQty = elementList.length,
-                    ind,
-                    tempObj,
-                    reportQty,
-                    exist,
-                    priceMarg;
-                if (elementListQty) {
-                    for (ind = 0; ind < elementListQty; ind += 1) {
-                        tempObj = angular.copy(elementList[ind]);
-                        tempObj.element_id = angular.copy(tempObj.id);
-                        tempObj.amount = angular.copy(tempObj.qty);
-                        delete tempObj.id;
-                        delete tempObj.amendment_pruninng;
-                        delete tempObj.currency_id;
-                        delete tempObj.qty;
-                        delete tempObj.waste;
-                        if (ind) {
-                            reportQty = report.length;
-                            exist = 0;
-                            if (reportQty) {
-                                while (--reportQty > -1) {
-                                    if (
-                                        report[reportQty].element_id === tempObj.element_id &&
-                                        report[reportQty].size === tempObj.size
-                                    ) {
-                                        exist++;
-                                        report[reportQty].amount += tempObj.amount;
-                                        report[reportQty].priceReal += tempObj.priceReal;
-                                    }
-                                }
-                                if (!exist) {
-                                    report.push(tempObj);
-                                }
-                            }
-                        } else {
-                            report.push(tempObj);
-                        }
-                    }
-                    //------ add margins to price of every elements
-                    reportQty = report.length;
-                    while (--reportQty > -1) {
-                        report[reportQty].amount = GeneralServ.roundingValue(
-                            report[reportQty].amount,
-                            3
-                        );
-                        priceMarg = GeneralServ.addMarginToPrice(
-                            report[reportQty].priceReal,
-                            GlobalStor.global.margins.coeff
-                        );
-                        report[reportQty].priceReal = GeneralServ.roundingValue(
-                            priceMarg,
-                            2
-                        );
-                    }
-                }
-                // console.timeEnd("prepareReport");
-                return report;
-            }
-
-            //---------- Coeffs define
-            function calculateCoeffs(objXFormedPrice) {
-                var glassSqT = 0,
-                    glassSizeQty = objXFormedPrice.sizes[5].length,
-                    glassQty = ProductStor.product.glass.length,
-                    glassHeatCT = 0,
-                    profHeatCT = 0,
-                    heatCoeffTotal = 0,
-                    perimeterPrif = 0,
-                    glassObj = {},
-                    g,
-                    coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
-
-                for (
-                    var l = 0; l < ProductStor.product.template.details.length; l += 1
+          deff.resolve($q.all(promisBeads));
+          return deff.promise;
+        }
+
+        function setProductPriceTOTAL(Product) {
+          var deliveryCoeff =
+              GlobalStor.global.deliveryCoeff.percents[
+                GlobalStor.global.deliveryCoeff.standart_time
+              ],
+            priceDis = GeneralServ.setPriceDis(
+              Product.template_price,
+              OrderStor.order.discount_construct
+            );
+
+          Product.product_price = GeneralServ.roundingValue(
+            Product.template_price +
+              Product.addelem_price +
+              Product.service_price
+          );
+          Product.productPriceDis =
+            priceDis + Product.addelemPriceDis + Product.service_price_dis;
+          //------ add Discount of standart delivery day of Plant
+          if (deliveryCoeff) {
+            Product.productPriceDis = GeneralServ.setPriceDis(
+              Product.productPriceDis,
+              deliveryCoeff
+            );
+          }
+
+          GlobalStor.global.tempPrice =
+            Product.productPriceDis * GlobalStor.global.product_qty;
+          GlobalStor.global.isLoader = 0;
+
+          if (
+            ($location.path() === '/light' || $location.path() === '/mobile') &&
+            !ProductStor.product.is_addelem_only
+          ) {
+            setTimeout(function () {
+              SVGServ.createSVGTemplate(
+                DesignStor.design.templateSourceTEMP,
+                ProductStor.product.profileDepths
+              ).then(function (result) {
+                DesignStor.design.templateTEMP = angular.copy(result);
+                DesignStor.design.templateTEMP.details.forEach(function (
+                  entry,
+                  index
                 ) {
-                    if (!ProductStor.product.template.details[l].children.length) {
-                        //ищем стеклопакет, чтобы получить значение glass_type
-                        glassObj = _.find(_.flatten(GlobalStor.global.glasses), {
-                            id: ProductStor.product.template.details[l].glassId
-                        });
-                        //умнажаем периметр с/п на coefGlass
-                        if (ProductStor.product.template.details[l].sashPointsIn) {
-                            perimeterPrif +=
-                                (Math.abs(
-                                    ProductStor.product.template.details[l].sashPointsIn[1].x -
-                                    ProductStor.product.template.details[l].sashPointsIn[0].x
-                                ) *
-                                    2 +
-                                    Math.abs(
-                                        ProductStor.product.template.details[l].sashPointsIn[2].y -
-                                        ProductStor.product.template.details[l].sashPointsIn[1].y
-                                    ) *
-                                    2) /
-                                1000 *
-                                coefGlass[glassObj.glass_type];
-                        } else {
-                            perimeterPrif +=
-                                (Math.abs(
-                                    ProductStor.product.template.details[l].pointsIn[1].x -
-                                    ProductStor.product.template.details[l].pointsIn[0].x
-                                ) *
-                                    2 +
-                                    Math.abs(
-                                        ProductStor.product.template.details[l].pointsIn[2].y -
-                                        ProductStor.product.template.details[l].pointsIn[1].y
-                                    ) *
-                                    2) /
-                                1000 *
-                                coefGlass[glassObj.glass_type];
-                        }
-                    }
-                }
-
-                /** working with glasses */
-                while (--glassSizeQty > -1) {
-                    /** culculate glass Heat Coeff Total */
-                    for (g = 0; g < glassQty; g += 1) {
-                        if (
-                            objXFormedPrice.sizes[5][glassSizeQty].elemId ==
-                            ProductStor.product.glass[g].id
-                        ) {
-                            //$.isNumeric
-                            ProductStor.product.glass[g].transcalency = parseFloat(ProductStor.product.glass[g].transcalency);
-                            if (!angular.isNumber(ProductStor.product.glass[g].transcalency)) {
-                                ProductStor.product.glass[g].transcalency = 1;
-                            }
-                            glassHeatCT +=
-                                objXFormedPrice.sizes[5][glassSizeQty].square /
-                                ProductStor.product.glass[g].transcalency; //Sglasses
-                        }
-                    }
-                    /** get total glasses square */
-                    glassSqT += objXFormedPrice.sizes[5][glassSizeQty].square; //Sстекломакетов
-                }
-                glassHeatCT = GeneralServ.roundingValue(glassHeatCT);
-                glassSqT = GeneralServ.roundingValue(glassSqT, 3);
-
-                /** culculate profile Heat Coeff Total */
-                ProductStor.product.profile.heat_coeff_value = parseFloat(ProductStor.product.profile.heat_coeff_value);
-                if (!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
-                    ProductStor.product.profile.heat_coeff_value = 1;
-                }
-                profHeatCT =
-                    (ProductStor.product.template_square - glassSqT) /
-                    ProductStor.product.profile.heat_coeff_value;
-
-                heatCoeffTotal = profHeatCT + glassHeatCT + perimeterPrif;
-                /** calculate Heat Coeff Total */
-                if (UserStor.userInfo.therm_coeff_id) {
-                    /** R */
-                    ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
-                        ProductStor.product.template_square / heatCoeffTotal, 2
-                    );
-                } else {
-                    /** U */
-                    ProductStor.product.heat_coef_total =
-                        GeneralServ.roundingValue(
-                            1 / (ProductStor.product.template_square / heatCoeffTotal), 2
-                        );
-                }
-            }
-
-            /**--------- create object for price calculation ----------*/
-
-            function preparePrice(template,
-                profileId,
-                glassIds,
-                hardwareId,
-                laminatId) {
-                var deferred = $q.defer();
-                GlobalStor.global.isLoader = 1;
-                setBeadId(profileId, laminatId).then(function (beadResult) {
-                    if (beadResult.length && beadResult[0]) {
-                        var beadIds = GeneralServ.removeDuplicates(
-                            _.map(angular.copy(beadResult), function (item) {
-                                var beadQty = template.priceElements.beadsSize.length;
-                                while (--beadQty > -1) {
-                                    if (
-                                        template.priceElements.beadsSize[beadQty].glassId ===
-                                        item.glassId
-                                    ) {
-                                        template.priceElements.beadsSize[beadQty].elemId =
-                                            item.beadId;
-                                    }
-                                }
-                                return item.beadId;
-                            })
-                        ),
-                            objXFormedPrice = {
-                                laminationId: laminatId,
-                                ids: [
-                                    ProductStor.product.profile.rama_list_id,
-                                    ProductStor.product.profile.rama_still_list_id,
-                                    ProductStor.product.profile.stvorka_list_id,
-                                    ProductStor.product.profile.impost_list_id,
-                                    ProductStor.product.profile.shtulp_list_id,
-                                    glassIds.length > 1 ?
-                                        _.map(glassIds, function (item) {
-                                            return item.id;
-                                        }) :
-                                        glassIds[0].id,
-                                    beadIds.length > 1 ? beadIds : beadIds[0],
-                                    ProductStor.product.construction_type === 4 ? 0 : hardwareId
-                                ],
-                                sizes: []
-                            };
-                        //-------- beads data for analysis
-                        ProductStor.product.beadsData = angular.copy(
-                            template.priceElements.beadsSize
-                        );
-                        //------- fill objXFormedPrice for sizes
-                        for (var size in template.priceElements) {
-                            /** for door elements */
-                            objXFormedPrice.sizes.push(
-                                angular.copy(template.priceElements[size])
-                            );
-                        }
-
-                        //------- set Overall Dimensions
-                        ProductStor.product.template_width = 0;
-                        ProductStor.product.template_height = 0;
-                        ProductStor.product.template_square = 0;
-                        var overallQty =
-                            ProductStor.product.template.details[0].overallDim.length;
-                        //console.log(ProductStor.product.template.details[0].overallDim);
-                        while (--overallQty > -1) {
-                            if (ProductStor.product.construction_type === 3) {
-                                if (ProductStor.product.template_id === 1) {
-                                    ProductStor.product.template_height =
-                                        ProductStor.product.template.details[0].overallDim[0].h;
-                                } else {
-                                    ProductStor.product.template_height =
-                                        ProductStor.product.template.details[0].overallDim[1].h - ProductStor.product.template.details[0].overallDim[0].h;
-                                }
-                                if (ProductStor.product.template_id === 2) {
-                                    ProductStor.product.template_square =
-                                        ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square + ProductStor.product.template.details[0].overallDim[2].square;
-                                    ProductStor.product.template_width =
-                                        ProductStor.product.template.details[0].overallDim[2].w;
-                                } else {
-                                    ProductStor.product.template_square =
-                                        ProductStor.product.template.details[0].overallDim[0].square + ProductStor.product.template.details[0].overallDim[1].square;
-                                    ProductStor.product.template_width =
-                                        ProductStor.product.template.details[0].overallDim[1].w;
-
-                                }
-                            } else {
-                                ProductStor.product.template_width =
-                                    ProductStor.product.template.details[0].overallDim[
-                                        overallQty
-                                    ].w;
-                                ProductStor.product.template_height =
-                                    ProductStor.product.template.details[0].overallDim[
-                                        overallQty
-                                    ].h;
-                                ProductStor.product.template_square =
-                                    ProductStor.product.template.details[0].overallDim[
-                                        overallQty
-                                    ].square;
-
-                            }
-                        }
-
-                        //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-                        //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-
-                        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-
-                        //--------- get product price
-                        // console.time("calculationPrice");
-                        calculationPrice(objXFormedPrice).then(function (result) {
-                            // console.timeEnd("calculationPrice");
-                            deferred.resolve(1);
-                            /** set Report */
-                            if (result) {
-                                //---- only for this type of user
-                                if (
-                                    UserStor.userInfo.user_type === 5 ||
-                                    UserStor.userInfo.user_type === 7
-                                ) {
-                                    ProductStor.product.report = prepareReport(
-                                        result.constrElements
-                                    );
-                                    //console.log('REPORT', ProductStor.product.report);
-                                    //console.timeEnd('price');
-                                }
-                            }
-                        });
-
-                        /** calculate coeffs */
-                        calculateCoeffs(objXFormedPrice);
-
-                        /** save analytics data first time */
-                        if (
-                            GlobalStor.global.startProgramm &&
-                            ProductStor.product.construction_type !== 4
-                        ) {
-                            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
-                            // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-                            /** send analytics data to Server*/
-                            //------ profile
-                            $timeout(function () {
-                                AnalyticsServ.sendAnalyticsData(
-                                    UserStor.userInfo.id,
-                                    OrderStor.order.id,
-                                    ProductStor.product.template_id,
-                                    ProductStor.product.profile.id,
-                                    1
-                                );
-                            }, 5000);
-                        }
-                    } else {
-                        deferred.resolve(1);
-                    }
+                  if (entry.impost) {
+                    DesignStor.design.templateSourceTEMP.details[
+                      index
+                    ].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+                    DesignStor.design.templateSourceTEMP.details[
+                      index
+                    ].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+                  }
                 });
-                return deferred.promise;
+              });
+            }, 0);
+          }
+        }
+
+        //---------- Price define
+        function calculationPrice(obj) {
+          let tmp_hardware;
+          var deferred = $q.defer();
+          GlobalStor.global.isZeroPriceList = [];
+          localDB.calculationPrice(obj).then(function (result) {
+            result.constrElements.forEach(function (entry) {
+              if (entry.element_group_id != 8) {
+                if (entry.priceReal == 0 || entry.price == 0) {
+                  //console.log('name', entry.name);
+                  GlobalStor.global.isZeroPriceList.push(entry.name);
+                }
+              }
+              if (entry.element_group_id === 5) {
+                if (entry.size === 0) {
+                  GlobalStor.global.TEMP_HARDWARES[0].forEach(function (
+                    hard,
+                    item
+                  ) {
+                    if (entry.id === hard.child_id) {
+                      tmp_hardware = angular.copy(entry.priceReal);
+                      entry.size = hard.length / 1000;
+                      entry.priceReal = entry.price * entry.size * entry.qty;
+                      result.priceTotal =
+                        result.priceTotal - tmp_hardware + entry.priceReal;
+                    }
+                  });
+                }
+              }
+            });
+            var works = 0,
+              works_dis = 0,
+              works_area = 0,
+              works_perimeter = 0,
+              works_piece = 0;
+            if (GlobalStor.global.area_price) {
+              works_area = localDB.currencyExgange(
+                GlobalStor.global.area_price *
+                  ProductStor.product.template_square,
+                GlobalStor.global.area_currencies
+              );
+            }
+            if (GlobalStor.global.perimeter_price) {
+              works_perimeter = localDB.currencyExgange(
+                GlobalStor.global.perimeter_price *
+                  ((ProductStor.product.template_width / 1000 +
+                    ProductStor.product.template_height / 1000) *
+                    2),
+                GlobalStor.global.perimeter_currencies
+              );
+            }
+            if (GlobalStor.global.piece_price) {
+              works_piece = localDB.currencyExgange(
+                GlobalStor.global.piece_price,
+                GlobalStor.global.piece_currencies
+              );
             }
 
-            function parseTemplate() {
-                var deferred = $q.defer();
-                //------- set current template for product
-                saveTemplateInProduct(ProductStor.product.template_id).then(function () {
-                    setCurrentHardware(ProductStor.product);
-                    var hardwareIds = ProductStor.product.hardware.id || 0;
-                    // if ($location.path() !== "/light") {
-                    preparePrice(
-                        ProductStor.product.template,
-                        ProductStor.product.profile.id,
-                        ProductStor.product.glass,
-                        hardwareIds,
-                        ProductStor.product.lamination.lamination_in_id
-                    ).then(function () {
-                        deferred.resolve(1);
-                    });
-                    // } else {
-                    //   deferred.resolve(1);
-                    // }
+            if (
+              GlobalStor.global.area_price ||
+              GlobalStor.global.perimeter_price ||
+              GlobalStor.global.piece_price
+            ) {
+              works = works_area + works_perimeter + works_piece;
+            }
+
+            var priceObj = angular.copy(result),
+              priceMargin,
+              doorData,
+              tempDoorItems;
+            var glassData = null;
+            function glassPricesData() {
+              var defer = $q.defer();
+              db.getItem('tables')
+                .then(function (value) {
+                  glassPricesData = value;
+                  defer.resolve(glassPricesData);
+                })
+                .catch(function (err) {
+                  console.log(err);
+                  defer.resolve(0);
                 });
-                return deferred.promise;
+              return defer.promise;
             }
-
-            function prepareTemplates(type) {
-                var deferred = $q.defer();
-                downloadAllTemplates(type).then(function (data) {
-                    if (data) {
-                        GlobalStor.global.templatesSourceSTORE = angular.copy(data);
-                        GlobalStor.global.templatesSource = angular.copy(data);
-
-                        //--------- set current profile in ProductStor
-                        setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
-                            parseTemplate().then(function () {
-                                deferred.resolve(1);
-                            });
-                        });
-                    } else {
-                        deferred.resolve(0);
-                    }
-                });
-                return deferred.promise;
-            }
-
-            /**-------- filtering Lamination Groupes -----------*/
-
-            function checkLamGroupExist(lamId) {
-                var lamQty = GlobalStor.global.lamGroupFiltered.length,
-                    noExist = 1;
-                while (--lamQty > -1) {
-                    if (GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
-                        noExist = 0;
-                    }
-                }
-                return noExist;
-            }
-
-            function laminationDoor() {
-                var coupleQty = GlobalStor.global.doorsLaminations.length,
-                    laminatQty = GlobalStor.global.laminats.length,
-                    lam;
-                while (--coupleQty > -1) {
-                    for (lam = 0; lam < laminatQty; lam += 1) {
-                        if (
-                            GlobalStor.global.laminats[lam].id ===
-                            GlobalStor.global.doorsLaminations[coupleQty].lamination_in
-                        ) {
-                            GlobalStor.global.doorsLaminations[coupleQty].laminat_in_name =
-                                GlobalStor.global.laminats[lam].name;
-                            GlobalStor.global.doorsLaminations[coupleQty].img_in_id =
-                                GlobalStor.global.laminats[lam].lamination_type_id;
-                            GlobalStor.global.doorsLaminations[coupleQty].lamination_in_id =
-                                GlobalStor.global.doorsLaminations[coupleQty].lamination_in;
-                            delete GlobalStor.global.doorsLaminations[coupleQty]
-                                .lamination_in;
-                        }
-                        if (
-                            GlobalStor.global.laminats[lam].id ===
-                            GlobalStor.global.doorsLaminations[coupleQty].lamination_out
-                        ) {
-                            GlobalStor.global.doorsLaminations[coupleQty].laminat_out_name =
-                                GlobalStor.global.laminats[lam].name;
-                            GlobalStor.global.doorsLaminations[coupleQty].img_out_id =
-                                GlobalStor.global.laminats[lam].lamination_type_id;
-                            GlobalStor.global.doorsLaminations[coupleQty].lamination_out_id =
-                                GlobalStor.global.doorsLaminations[coupleQty].lamination_out;
-                            delete GlobalStor.global.doorsLaminations[coupleQty]
-                                .lamination_out;
-                        }
-                    }
-                }
-            }
-
-            function laminatFiltering() {
-                if (ProductStor.product.construction_type !== 4) {
-                    var laminatQty = GlobalStor.global.laminats.length,
-                        /** sort by Profile */
-                        lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function (item) {
-                            if (item.profile_id) {
-                                return item.profile_id === ProductStor.product.profile.id;
-                            } else {
-                                return true;
-                            }
-                        }),
-                        lamGroupsTempQty,
-                        isAnyActive = 0;
-
-                    //console.info('filter _____ ', lamGroupsTemp);
-                } else {
-                    var laminatQty = GlobalStor.global.laminats.length,
-                        /** sort by Profile */
-                        lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function (item) {
-                            return item.group_id === GlobalStor.global.type_door;
-                        }),
-                        lamGroupsTempQty,
-                        isAnyActive = 0;
-                    for (var a = 0; a < lamGroupsTemp.length; a += 1) {
-                        lamGroupsTemp[a].rama_still_list_id =
-                            lamGroupsTemp[a].door_sill_list_id;
-                    }
-                }
-                GlobalStor.global.lamGroupFiltered.length = 0;
-
-                while (--laminatQty > -1) {
-                    if (GlobalStor.global.laminats[laminatQty].isActive) {
-                        isAnyActive = 1;
-                        lamGroupsTempQty = lamGroupsTemp.length;
-                        while (--lamGroupsTempQty > -1) {
-                            if (
-                                lamGroupsTemp[lamGroupsTempQty].img_in_id ===
-                                GlobalStor.global.laminats[laminatQty].lamination_type_id
-                            ) {
-                                if (checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
-                                    GlobalStor.global.lamGroupFiltered.push(
-                                        lamGroupsTemp[lamGroupsTempQty]
-                                    );
-                                }
-                            } else if (
-                                lamGroupsTemp[lamGroupsTempQty].img_out_id ===
-                                GlobalStor.global.laminats[laminatQty].lamination_type_id
-                            ) {
-                                if (checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
-                                    GlobalStor.global.lamGroupFiltered.push(
-                                        lamGroupsTemp[lamGroupsTempQty]
-                                    );
-                                }
-                            }
-                        }
-                    }
-                }
-                //console.info('lamGroupFiltered _____ ', GlobalStor.global.lamGroupFiltered);
-                if (!GlobalStor.global.lamGroupFiltered.length) {
-                    if (!isAnyActive) {
-                        GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
-                    }
-                }
-            }
-
-            /**-------- set Lamination in product -----------*/
-
-            function cleanLamFilter() {
-                var laminatQty = GlobalStor.global.laminats.length;
-                //---- deselect filter
-                while (--laminatQty > -1) {
-                    GlobalStor.global.laminats[laminatQty].isActive = 0;
-                }
-            }
-
-            function setCurrLamination(product, newLamId) {
-                //может? тут вроде смотрел но уже глаза плывут
-                var selectedLam = [];
-                if (product.construction_type !== 4) {
-                    selectedLam = angular.copy(GlobalStor.global.laminatCouples);
-                } else {
-                    selectedLam = angular.copy(GlobalStor.global.doorsLaminations);
-                }
-                var laminatGroupQty = selectedLam.length;
-                //---- clean filter
-                cleanLamFilter();
-                while (--laminatGroupQty > -1) {
-                    if (newLamId) {
-                        //------ set lamination Couple with color
-                        if (selectedLam[laminatGroupQty].id === newLamId) {
-                            product.lamination = selectedLam[laminatGroupQty];
-                        }
-                    } else {
-                        //----- set white lamination Couple
-                        if (!selectedLam[laminatGroupQty].id) {
-                            var result = angular.copy(
-                                fineItemById(product.profile.id, GlobalStor.global.profiles)
-                            );
-                            product.lamination = selectedLam[laminatGroupQty];
-                            product.lamination.rama_list_id = result.rama_list_id;
-                            product.lamination.rama_still_list_id = result.rama_still_list_id;
-                            product.lamination.stvorka_list_id = result.stvorka_list_id;
-                            product.lamination.impost_list_id = result.impost_list_id;
-                            product.lamination.shtulp_list_id = result.shtulp_list_id;
-                        }
-                    }
-                }
-                if ($location.path() === "/light" || $location.path() === "/mobile") {
-                    SVGServ.createSVGTemplate(
-                        ProductStor.product.template_source,
-                        ProductStor.product.profileDepths
-                    ).then(function (result) {
-                        DesignStor.design.templateTEMP = angular.copy(result);
-                    });
-                }
-
-            }
-
-            function setProfileByLaminat(lamId) {
-                var deff = $q.defer();
-                if (lamId || lamId === 0) {
-                    //------ set profiles parameters
-                    if (ProductStor.product.construction_type !== 4) {
-                        ProductStor.product.profile.rama_list_id =
-                            ProductStor.product.lamination.rama_list_id;
-                        ProductStor.product.profile.rama_still_list_id =
-                            ProductStor.product.lamination.rama_still_list_id;
-                        ProductStor.product.profile.stvorka_list_id =
-                            ProductStor.product.lamination.stvorka_list_id;
-                        ProductStor.product.profile.impost_list_id =
-                            ProductStor.product.lamination.impost_list_id;
-                        ProductStor.product.profile.shtulp_list_id =
-                            ProductStor.product.lamination.shtulp_list_id;
-                    } else {
-                        ProductStor.product.profile = angular.copy(
-                            selectDoor(ProductStor.product.door_shape_id, ProductStor.product)
-                        );
-                        ProductStor.product.profile.rama_still_list_id =
-                            ProductStor.product.profile.door_sill_list_id;
-                    }
-                }
-
-                //------- set Depths
-                $q
-                    .all([
-                        downloadProfileDepth(ProductStor.product.profile.rama_list_id),
-                        downloadProfileDepth(
-                            ProductStor.product.profile.rama_still_list_id
-                        ),
-                        downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
-                        downloadProfileDepth(ProductStor.product.profile.impost_list_id),
-                        downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
-                    ])
-                    .then(function (result) {
-                        ProductStor.product.profileDepths.frameDepth = result[0];
-                        ProductStor.product.profileDepths.frameStillDepth = result[1];
-                        ProductStor.product.profileDepths.sashDepth = result[2];
-                        ProductStor.product.profileDepths.impostDepth = result[3];
-                        ProductStor.product.profileDepths.shtulpDepth = result[4];
-                        var profile =
-                            ProductStor.product.construction_type !== 4 ?
-                                ProductStor.product.profile.id :
-                                ProductStor.product.profile.profileId;
-                        SVGServ.createSVGTemplate(
-                            ProductStor.product.template_source,
-                            ProductStor.product.profileDepths
-                        ).then(function (result) {
-                            ProductStor.product.template = angular.copy(result);
-                            var hardwareIds = ProductStor.product.hardware.id || 0;
-                            preparePrice(
-                                ProductStor.product.template,
-                                profile,
-                                ProductStor.product.glass,
-                                hardwareIds,
-                                ProductStor.product.lamination.lamination_in_id
-                            ).then(function () {
-                                deff.resolve(1);
-                            });
-                            //----- create template icon
-                            SVGServ.createSVGTemplateIcon(
-                                ProductStor.product.template_source,
-                                ProductStor.product.profileDepths
-                            ).then(function (result) {
-                                ProductStor.product.templateIcon = angular.copy(result);
-                                deff.resolve(1);
-                            });
-                        });
-                    });
-                return deff.promise;
-            }
-
-            /**==================temp location for this function!!! =================*/
-            function selectDoor(id, product) {
-                var doorsLaminations = angular.copy(GlobalStor.global.lamGroupFiltered);
-                for (var i = 0; i < doorsLaminations.length; i += 1) {
+            /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
+            glassPricesData().then(function (data) {
+              let glassPricesData = data.glass_prices;
+              let currentGlassData = ProductStor.product.report;
+              if (glassPricesData) {
+                for (var i = 0; i < glassPricesData.length; i++) {
+                  for (var y = 0; y < currentGlassData.length; y++) {
+                    /* checks if ids the same */
                     if (
-                        product.lamination.lamination_in_id ===
-                        doorsLaminations[i].lamination_in_id &&
-                        product.lamination.lamination_out_id ===
-                        doorsLaminations[i].lamination_out_id
+                      currentGlassData[y].element_id ===
+                      glassPricesData[i].element_id
                     ) {
-                        product.profile.door_sill_list_id =
-                            doorsLaminations[i].door_sill_list_id;
-                        product.profile.impost_list_id = doorsLaminations[i].impost_list_id;
-                        product.profile.rama_list_id = doorsLaminations[i].rama_list_id;
-                        product.profile.shtulp_list_id = doorsLaminations[i].shtulp_list_id;
-                        product.profile.stvorka_list_id =
-                            doorsLaminations[i].stvorka_list_id;
-                        break;
+                      /* check range */
+                      if (
+                        currentGlassData[y].size <
+                        glassPricesData[i].col_1_range
+                      ) {
+                        /* setting a new keys in object */
+                        /* price from db for this particular range */
+                        currentGlassData[y]['range_price'] =
+                          glassPricesData[i].col_1_price;
+                        /* calculations the price for report */
+                        currentGlassData[y]['total_range_price'] =
+                          currentGlassData[y].size *
+                          currentGlassData[y].range_price;
+                        /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                        GlobalStor.global.tempPrice -=
+                          currentGlassData[y].priceReal;
+                        GlobalStor.global.tempPrice +=
+                          currentGlassData[y].total_range_price;
+                        /* The last action is to reassign keys to display correct data in report */
+                        if (GlobalStor.global.tempPrice) {
+                          currentGlassData[y]['price'] =
+                            glassPricesData[i].col_1_price;
+                          currentGlassData[y]['priceReal'] =
+                            currentGlassData[y].size *
+                            currentGlassData[y].range_price;
+                        }
+                      } else if (
+                        currentGlassData[y].size >
+                          glassPricesData[i].col_2_range_1 &&
+                        currentGlassData[y].size <
+                          glassPricesData[i].col_2_range_2
+                      ) {
+                        /* setting a new keys in object */
+                        /* price from db for this particular range */
+                        currentGlassData[y]['range_price'] =
+                          glassPricesData[i].col_2_price;
+                        /* calculations the price for report */
+                        currentGlassData[y]['total_range_price'] =
+                          currentGlassData[y].size *
+                          currentGlassData[y].range_price;
+                        /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                        GlobalStor.global.tempPrice -=
+                          currentGlassData[y].priceReal;
+                        GlobalStor.global.tempPrice +=
+                          currentGlassData[y].total_range_price;
+                        /* The last action is to reassign keys to display correct data in report */
+                        if (GlobalStor.global.tempPrice) {
+                          currentGlassData[y]['price'] =
+                            glassPricesData[i].col_2_price;
+                          currentGlassData[y]['priceReal'] =
+                            currentGlassData[y].size *
+                            currentGlassData[y].range_price;
+                        }
+                      } else if (
+                        currentGlassData[y].size >
+                          glassPricesData[i].col_3_range_1 &&
+                        currentGlassData[y].size <
+                          glassPricesData[i].col_3_range_2
+                      ) {
+                        /* setting a new keys in object */
+                        /* price from db for this particular range */
+                        currentGlassData[y]['range_price'] =
+                          glassPricesData[i].col_3_price;
+                        /* calculations the price for report */
+                        currentGlassData[y]['total_range_price'] =
+                          currentGlassData[y].size *
+                          currentGlassData[y].range_price;
+                        /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                        GlobalStor.global.tempPrice -=
+                          currentGlassData[y].priceReal;
+                        GlobalStor.global.tempPrice +=
+                          currentGlassData[y].total_range_price;
+                        /* The last action is to reassign keys to display correct data in report */
+                        if (GlobalStor.global.tempPrice) {
+                          currentGlassData[y]['price'] =
+                            glassPricesData[i].col_3_price;
+                          currentGlassData[y]['priceReal'] =
+                            currentGlassData[y].size *
+                            currentGlassData[y].range_price;
+                        }
+                      } else if (
+                        currentGlassData[y].size >
+                          glassPricesData[i].col_4_range_1 &&
+                        currentGlassData[y].size <
+                          glassPricesData[i].col_4_range_2
+                      ) {
+                        /* setting a new keys in object */
+                        /* price from db for this particular range */
+                        currentGlassData[y]['range_price'] =
+                          glassPricesData[i].col_4_price;
+                        /* calculations the price for report */
+                        currentGlassData[y]['total_range_price'] =
+                          currentGlassData[y].size *
+                          currentGlassData[y].range_price;
+                        /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                        GlobalStor.global.tempPrice -=
+                          currentGlassData[y].priceReal;
+                        GlobalStor.global.tempPrice +=
+                          currentGlassData[y].total_range_price;
+                        /* The last action is to reassign keys to display correct data in report */
+                        if (GlobalStor.global.tempPrice) {
+                          currentGlassData[y]['price'] =
+                            glassPricesData[i].col_4_price;
+                          currentGlassData[y]['priceReal'] =
+                            currentGlassData[y].size *
+                            currentGlassData[y].range_price;
+                        }
+                      } else if (
+                        currentGlassData[y].size >
+                        glassPricesData[i].col_5_range
+                      ) {
+                        /* setting a new keys in object */
+                        /* price from db for this particular range */
+                        currentGlassData[y]['range_price'] =
+                          glassPricesData[i].col_5_price;
+                        /* calculations the price for report */
+                        currentGlassData[y]['total_range_price'] =
+                          currentGlassData[y].size *
+                          currentGlassData[y].range_price;
+                        /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                        GlobalStor.global.tempPrice -=
+                          currentGlassData[y].priceReal;
+                        GlobalStor.global.tempPrice +=
+                          currentGlassData[y].total_range_price;
+                        /* The last action is to reassign keys to display correct data in report */
+                        if (GlobalStor.global.tempPrice) {
+                          currentGlassData[y]['price'] =
+                            glassPricesData[i].col_5_price;
+                          currentGlassData[y]['priceReal'] =
+                            currentGlassData[y].size *
+                            currentGlassData[y].range_price;
+                        }
+                      }
                     }
+                  }
                 }
-                return product.profile;
+              }
+            });
+
+            if (priceObj.priceTotal) {
+              /** DOOR add handle and lock Ids */
+              if (ProductStor.product.construction_type === 4) {
+                localDB
+                  .calcDoorElemPrice(
+                    ProductStor.product.doorHandle,
+                    ProductStor.product.doorLock.elem
+                  )
+                  .then(function (doorResult) {
+                    if (doorResult.consistElem) {
+                      doorResult.consistElem.forEach(function (entry) {
+                        // console.log(entry);
+                        if (entry.element_group_id !== 8) {
+                          if (entry.priceReal === 0 || entry.price === 0) {
+                            GlobalStor.global.isZeroPriceList.push(entry.name);
+                          }
+                        }
+                      });
+                    }
+                    if (doorResult.elements) {
+                      doorResult.elements.forEach(function (entry) {
+                        // console.log(entry);
+                        if (entry.element_group_id !== 8) {
+                          if (entry.priceReal === 0 || entry.price === 0) {
+                            GlobalStor.global.isZeroPriceList.push(entry.name);
+                          }
+                        }
+                      });
+                    }
+                    doorData = angular.copy(doorResult);
+                    priceObj.priceTotal += doorData.priceTot;
+                    priceObj.constrElements = priceObj.constrElements.concat(
+                      doorData.elements
+                    );
+                    priceMargin = GeneralServ.addMarginToPrice(
+                      priceObj.priceTotal,
+                      GlobalStor.global.margins.coeff
+                    );
+                    ProductStor.product.template_price =
+                      GeneralServ.roundingValue(
+                        priceMargin + GlobalStor.global.screw + works,
+                        2
+                      );
+                    setProductPriceTOTAL(ProductStor.product);
+                    deferred.resolve(priceObj);
+                  });
+              } else {
+                priceMargin = GeneralServ.addMarginToPrice(
+                  priceObj.priceTotal,
+                  GlobalStor.global.margins.coeff
+                );
+                ProductStor.product.template_price = GeneralServ.roundingValue(
+                  priceMargin + GlobalStor.global.screw + works,
+                  2
+                );
+                setProductPriceTOTAL(ProductStor.product);
+                deferred.resolve(priceObj);
+              }
+            } else {
+              ProductStor.product.template_price = 0;
+              deferred.resolve(0);
             }
+          });
+          return deferred.promise;
+        }
 
-            /**==================temp location for this function!!! =================*/
-
-            /**----------- Glass sizes checking -------------*/
-
-            function checkGlassSizes(template) {
-                var blocks = template.details,
-                    blocksQty = blocks.length,
-                    wranGlass,
-                    overallGlass,
-                    currWidth,
-                    currHeight,
-                    currSquare,
-                    isWidthError,
-                    isHeightError,
-                    b;
-
-                /** clean extra Glass */
-                DesignStor.design.extraGlass.length = 0;
-
-                /** glass loop */
-                ProductStor.product.glass.forEach(function (item) {
-                    //item.max_sq = 0.2;
-                    //item.max_width = 0.50;
-                    //item.max_height = 0.50;
-
-                    item.max_sq = parseFloat(item.max_sq);
-                    item.max_width = parseFloat(item.max_width);
-                    item.max_height = parseFloat(item.max_height);
-                    item.min_width = parseFloat(item.min_width);
-                    item.min_height = parseFloat(item.min_height);
-
-                    /** check available max_sq and max/min sizes */
+        function prepareReport(elementList) {
+          var report = [],
+            elementListQty = elementList.length,
+            ind,
+            tempObj,
+            reportQty,
+            exist,
+            priceMarg;
+          if (elementListQty) {
+            for (ind = 0; ind < elementListQty; ind += 1) {
+              tempObj = angular.copy(elementList[ind]);
+              tempObj.element_id = angular.copy(tempObj.id);
+              tempObj.amount = angular.copy(tempObj.qty);
+              delete tempObj.id;
+              delete tempObj.amendment_pruninng;
+              delete tempObj.currency_id;
+              delete tempObj.qty;
+              delete tempObj.waste;
+              if (ind) {
+                reportQty = report.length;
+                exist = 0;
+                if (reportQty) {
+                  while (--reportQty > -1) {
                     if (
-                        item.max_sq ||
-                        (item.max_width &&
-                            item.max_height &&
-                            item.min_width &&
-                            item.min_height)
+                      report[reportQty].element_id === tempObj.element_id &&
+                      report[reportQty].size === tempObj.size
                     ) {
-                        /** template loop */
-                        for (b = 1; b < blocksQty; b += 1) {
-                            isWidthError = 0;
-                            isHeightError = 0;
-                            if (blocks[b].glassId === item.id) {
-                                if (blocks[b].glassPoints) {
-                                    if (blocks[b].glassPoints.length) {
-                                        /** estimate current glass sizes */
-                                        overallGlass = GeneralServ.getMaxMinCoord(
-                                            blocks[b].glassPoints
-                                        );
-                                        currWidth = Math.round(
-                                            overallGlass.maxX - overallGlass.minX
-                                        );
-                                        currHeight = Math.round(
-                                            overallGlass.maxY - overallGlass.minY
-                                        );
-                                        currSquare = GeneralServ.roundingValue(
-                                            currWidth * currHeight / 1000000,
-                                            3
-                                        );
-                                        /** square incorrect */
-                                        if (currSquare > item.max_sq) {
-                                            wranGlass =
-                                                $filter("translate")("design.GLASS") +
-                                                " " +
-                                                item.name +
-                                                " " +
-                                                $filter("translate")("design.GLASS_SQUARE") +
-                                                " " +
-                                                currSquare +
-                                                " " +
-                                                $filter("translate")("design.MAX_VALUE_HIGHER") +
-                                                " " +
-                                                item.max_sq +
-                                                " " +
-                                                $filter("translate")("common_words.LETTER_M") +
-                                                "2.";
-
-                                            DesignStor.design.extraGlass.push(wranGlass);
-                                        }
-
-                                        if (
-                                            currWidth > item.max_width ||
-                                            currWidth < item.min_width
-                                        ) {
-                                            isWidthError = 1;
-                                        }
-                                        if (
-                                            currHeight > item.max_height ||
-                                            currHeight < item.min_height
-                                        ) {
-                                            isHeightError = 1;
-                                        }
-
-                                        if (isWidthError && isHeightError) {
-                                            /** width and height incorrect */
-                                            wranGlass =
-                                                $filter("translate")("design.GLASS") +
-                                                " " +
-                                                item.name +
-                                                " " +
-                                                $filter("translate")("design.GLASS_SIZE") +
-                                                " " +
-                                                currWidth +
-                                                " x " +
-                                                currHeight +
-                                                " " +
-                                                $filter("translate")("design.NO_MATCH_RANGE") +
-                                                " " +
-                                                $filter("translate")("design.BY_WIDTH") +
-                                                " " +
-                                                item.min_width +
-                                                " - " +
-                                                item.max_width +
-                                                ", " +
-                                                $filter("translate")("design.BY_HEIGHT") +
-                                                " " +
-                                                item.min_height +
-                                                " - " +
-                                                item.max_height +
-                                                ".";
-
-                                            DesignStor.design.extraGlass.push(wranGlass);
-                                        } else if (isWidthError && !isHeightError) {
-                                            /** width incorrect */
-                                            wranGlass =
-                                                $filter("translate")("design.GLASS") +
-                                                " " +
-                                                item.name +
-                                                " " +
-                                                $filter("translate")("design.GLASS_SIZE") +
-                                                " " +
-                                                currWidth +
-                                                " x " +
-                                                currHeight +
-                                                " " +
-                                                $filter("translate")("design.NO_MATCH_RANGE") +
-                                                " " +
-                                                $filter("translate")("design.BY_WIDTH") +
-                                                " " +
-                                                item.min_width +
-                                                " - " +
-                                                item.max_width +
-                                                ".";
-
-                                            DesignStor.design.extraGlass.push(wranGlass);
-                                        } else if (!isWidthError && isHeightError) {
-                                            /** height incorrect */
-                                            wranGlass =
-                                                $filter("translate")("design.GLASS") +
-                                                " " +
-                                                item.name +
-                                                " " +
-                                                $filter("translate")("design.GLASS_SIZE") +
-                                                " " +
-                                                currWidth +
-                                                " x " +
-                                                currHeight +
-                                                " " +
-                                                $filter("translate")("design.NO_MATCH_RANGE") +
-                                                " " +
-                                                $filter("translate")("design.BY_HEIGHT") +
-                                                " " +
-                                                item.min_height +
-                                                " - " +
-                                                item.max_height +
-                                                ".";
-
-                                            DesignStor.design.extraGlass.push(wranGlass);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                      exist++;
+                      report[reportQty].amount += tempObj.amount;
+                      report[reportQty].priceReal += tempObj.priceReal;
                     }
-                });
-                //console.info('glass result', DesignStor.design.extraGlass);
-            }
-
-            /**----------- Hardware sizes checking -------------*/
-
-            function checkHardwareSizes(template, harwareID) {
-                if (ProductStor.product.construction_type !== 4) {
-                    var blocks = template.details,
-                        blocksQty = blocks.length,
-                        harwareId = harwareID || ProductStor.product.hardware.id,
-                        limits = GlobalStor.global.hardwareLimits.filter(function (item) {
-                            return item.group_id === harwareId;
-                        }),
-                        limitsQty = limits.length,
-                        currLimit = 0,
-                        overallSize,
-                        currWidth,
-                        currHeight,
-                        wranSash,
-                        isSizeError,
-                        b,
-                        lim;
-
-                    //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
-                    /** clean extra Hardware */
-                    DesignStor.design.extraHardware.length = 0;
-
-                    if (limitsQty) {
-                        /** template loop */
-                        for (b = 1; b < blocksQty; b += 1) {
-                            isSizeError = 0;
-                            if (blocks[b].blockType === "sash") {
-                                /** finde limit for current sash */
-                                for (lim = 0; lim < limitsQty; lim += 1) {
-                                    if (limits[lim].type_id === blocks[b].sashType) {
-                                        /** check available max/min sizes */
-                                        if (
-                                            limits[lim].max_width &&
-                                            limits[lim].max_height &&
-                                            limits[lim].min_width &&
-                                            limits[lim].min_height
-                                        ) {
-                                            currLimit = limits[lim];
-                                        }
-                                        break;
-                                    }
-                                }
-                                if (currLimit) {
-                                    if (blocks[b].hardwarePoints.length) {
-                                        /** estimate current sash sizes */
-                                        overallSize = GeneralServ.getMaxMinCoord(
-                                            blocks[b].hardwarePoints
-                                        );
-                                        currWidth = Math.round(overallSize.maxX - overallSize.minX);
-                                        currHeight = Math.round(
-                                            overallSize.maxY - overallSize.minY
-                                        );
-                                        if (
-                                            currWidth > currLimit.max_width ||
-                                            currWidth < currLimit.min_width
-                                        ) {
-                                            isSizeError = 1;
-                                        }
-                                        if (
-                                            currHeight > currLimit.max_height ||
-                                            currHeight < currLimit.min_height
-                                        ) {
-                                            isSizeError = 1;
-                                        }
-
-                                        if (isSizeError) {
-                                            wranSash =
-                                                currWidth +
-                                                " x " +
-                                                currHeight +
-                                                " " +
-                                                $filter("translate")("design.NO_MATCH_RANGE") +
-                                                " (" +
-                                                currLimit.min_width +
-                                                " - " +
-                                                currLimit.max_width +
-                                                ") " +
-                                                "x (" +
-                                                currLimit.min_height +
-                                                " - " +
-                                                currLimit.max_height +
-                                                ")";
-
-                                            DesignStor.design.extraHardware.push(wranSash);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                  }
+                  if (!exist) {
+                    report.push(tempObj);
+                  }
                 }
-                //console.info('glass result', DesignStor.design.extraHardware);
+              } else {
+                report.push(tempObj);
+              }
             }
-
-            /**-------------- show Info Box of element or group ------------*/
-
-            function showInfoBox(id, itemArr) {
-                if (GlobalStor.global.isInfoBox !== id) {
-                    var itemArrQty = itemArr.length,
-                        tempObj = {};
-                    while (--itemArrQty > -1) {
-                        if (itemArr[itemArrQty].lamination_type_id) {
-                            if (itemArr[itemArrQty].lamination_type_id === id) {
-                                tempObj = itemArr[itemArrQty];
-                            }
-                        } else {
-                            if (itemArr[itemArrQty].id === id) {
-                                tempObj = itemArr[itemArrQty];
-                            }
-                        }
-                    }
-                    if (!$.isEmptyObject(tempObj)) {
-                        GlobalStor.global.infoTitle = tempObj.translate;
-                        GlobalStor.global.infoImg = tempObj.img;
-                        GlobalStor.global.infoLink = tempObj.link;
-                        GlobalStor.global.infoDescrip = tempObj.description;
-                        GlobalStor.global.isInfoBox = id;
-                    }
-                }
+            //------ add margins to price of every elements
+            reportQty = report.length;
+            while (--reportQty > -1) {
+              report[reportQty].amount = GeneralServ.roundingValue(
+                report[reportQty].amount,
+                3
+              );
+              priceMarg = GeneralServ.addMarginToPrice(
+                report[reportQty].priceReal,
+                GlobalStor.global.margins.coeff
+              );
+              report[reportQty].priceReal = GeneralServ.roundingValue(
+                priceMarg,
+                2
+              );
             }
+          }
+          // console.timeEnd("prepareReport");
+          return report;
+        }
 
-            /**========== CREATE ORDER ==========*/
+        //---------- Coeffs define
+        function calculateCoeffs(objXFormedPrice) {
+          var glassSqT = 0,
+            glassSizeQty = objXFormedPrice.sizes[5].length,
+            glassQty = ProductStor.product.glass.length,
+            glassHeatCT = 0,
+            profHeatCT = 0,
+            heatCoeffTotal = 0,
+            perimeterPrif = 0,
+            glassObj = {},
+            g,
+            coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
 
-            function createNewProject() {
-                //----- cleaning product
-                ProductStor.product = ProductStor.setDefaultProduct();
-                CartStor.cart = CartStor.setDefaultCart();
-                OrderStor.order = OrderStor.setDefaultOrder();
-                //------- set new orderId
-                createOrderData();
-                //------- set current Discounts
-                setCurrDiscounts();
-                GlobalStor.global.isChangedTemplate = 0;
-                GlobalStor.global.isShowCommentBlock = 0;
-                GlobalStor.global.showCoefInfoBlock = 0;
-                GlobalStor.global.isCreatedNewProject = 1;
-                GlobalStor.global.isCreatedNewProduct = 1;
-                //------- set new templates
-                setCurrTemplate();
-                prepareTemplates(
-                    ProductStor.product.construction_type
-                ).then(function () {
-                    GlobalStor.global.isLoader = 0;
-                    GlobalStor.global.construction_count = 0;
-                    prepareMainPage();
-                    /** start lamination filtering */
-                    cleanLamFilter();
-                    laminatFiltering();
-                    if (GlobalStor.global.currOpenPage !== "main") {
-                        GlobalStor.global.showRoomSelectorDialog = 0;
-                        if ($location.path() === "/light" || $location.path() === "/mobile") {
-                            if ($location.path() === "/light") {
-                                GlobalStor.global.currOpenPage = "light";
-                            }
-                            if ($location.path() === "/mobile") {
-                                GlobalStor.global.currOpenPage = "mobile";
-                            }
-                        } else {
-                            $location.path("/main");
-                            GlobalStor.global.currOpenPage = "main";
-                        }
-                    }
-                });
+          for (
+            var l = 0;
+            l < ProductStor.product.template.details.length;
+            l += 1
+          ) {
+            if (!ProductStor.product.template.details[l].children.length) {
+              //ищем стеклопакет, чтобы получить значение glass_type
+              glassObj = _.find(_.flatten(GlobalStor.global.glasses), {
+                id: ProductStor.product.template.details[l].glassId
+              });
+              //умнажаем периметр с/п на coefGlass
+              if (ProductStor.product.template.details[l].sashPointsIn) {
+                perimeterPrif +=
+                  ((Math.abs(
+                    ProductStor.product.template.details[l].sashPointsIn[1].x -
+                      ProductStor.product.template.details[l].sashPointsIn[0].x
+                  ) *
+                    2 +
+                    Math.abs(
+                      ProductStor.product.template.details[l].sashPointsIn[2]
+                        .y -
+                        ProductStor.product.template.details[l].sashPointsIn[1]
+                          .y
+                    ) *
+                      2) /
+                    1000) *
+                  coefGlass[glassObj.glass_type];
+              } else {
+                perimeterPrif +=
+                  ((Math.abs(
+                    ProductStor.product.template.details[l].pointsIn[1].x -
+                      ProductStor.product.template.details[l].pointsIn[0].x
+                  ) *
+                    2 +
+                    Math.abs(
+                      ProductStor.product.template.details[l].pointsIn[2].y -
+                        ProductStor.product.template.details[l].pointsIn[1].y
+                    ) *
+                      2) /
+                    1000) *
+                  coefGlass[glassObj.glass_type];
+              }
             }
+          }
 
-            /**========== CREATE PRODUCT ==========*/
-
-            function createNewProduct() {
-                // console.time('createNewProduct');
-                //------- cleaning product
-                ProductStor.product = ProductStor.setDefaultProduct();
-                GlobalStor.global.isCreatedNewProduct = 1;
-                GlobalStor.global.isChangedTemplate = 0;
-                //------- set new templates
-                setCurrTemplate();
-                prepareTemplates(
-                    ProductStor.product.construction_type
-                ).then(function () {
-                    /** start lamination filtering */
-                    cleanLamFilter();
-                    laminatFiltering();
-
-                    // console.timeEnd('createNewProduct');
-                });
-                if (GlobalStor.global.currOpenPage !== "main") {
-                    GlobalStor.global.showRoomSelectorDialog = 0;
-                    if ($location.path() === "/light" || $location.path() === "/mobile") {
-                        if ($location.path() === "/light") {
-                            GlobalStor.global.currOpenPage = "light";
-                        }
-                        if ($location.path() === "/mobile") {
-                            GlobalStor.global.currOpenPage = "mobile";
-                            $timeout(function () {
-                                closePanelMobile();
-                            }, 500);
-                        }
-                    } else {
-                        $location.path("/main");
-                        GlobalStor.global.currOpenPage = "main";
-                    }
-                }
-                prepareMainPage();
-            }
-
-            /**========== SAVE PRODUCT ==========*/
-
-            function checkEmptyChoosenAddElems() {
-                var addElemQty = ProductStor.product.chosenAddElements.length,
-                    isExist = 0;
-
-                while (--addElemQty > -1) {
-                    if (ProductStor.product.chosenAddElements[addElemQty].length) {
-                        isExist++;
-                    }
-                }
-                return isExist;
-            }
-
-            //-------- Save Product in Order and go to Cart
-            function inputProductInOrder() {
-                var permission = 1;
-                //------- if AddElems only, check is there selected AddElems
-                if (ProductStor.product.is_addelem_only) {
-                    permission = checkEmptyChoosenAddElems();
-                }
-
-                if (permission) {
-                    // console.info('product-----', ProductStor.product);
-                    GlobalStor.global.tempAddElements.length = 0;
-                    GlobalStor.global.configMenuTips = 0;
-                    GlobalStor.global.isShowCommentBlock = 0;
-                    setDefaultAuxParam();
-
-                    /**============ EDIT Product =======*/
-                    if (GlobalStor.global.productEditNumber) {
-                        var productsQty = OrderStor.order.products.length;
-                        //-------- replace product in order
-                        while (--productsQty > -1) {
-                            if (
-                                OrderStor.order.products[productsQty].product_id ===
-                                GlobalStor.global.productEditNumber
-                            ) {
-                                OrderStor.order.products[productsQty] = angular.copy(
-                                    ProductStor.product
-                                );
-                            }
-                        }
-                        GlobalStor.global.productEditNumber = 0;
-                        /**========== if New Product =========*/
-                    } else {
-                        ProductStor.product.product_id =
-                            OrderStor.order.products.length > 0 ?
-                                OrderStor.order.products.length + 1 :
-                                1;
-                        //delete ProductStor.product.template;
-                        //-------- insert product in order
-                        // OrderStor.order.products.push(ProductStor.product);
-                        OrderStor.order.products.push(angular.copy(ProductStor.product));
-                    }
-                    //----- finish working with product
-                    GlobalStor.global.isCreatedNewProduct = 0;
-                    GeneralServ.stopStartProg();
-                    GlobalStor.global.isChangedTemplate = 0;
-                    GlobalStor.global.isNewTemplate = 0;
-                }
-                // console.log(OrderStor.order);
-                return permission;
-            }
-
-            //--------- moving to Cart when click on Cart button
-            function goToCart() {
-                if (OrderStor.order.products.length) {
-                    $timeout(function () {
-                        //------- set previos Page
-                        GeneralServ.setPreviosPage();
-                        $location.path("/cart");
-                        GlobalStor.global.currOpenPage = "cart";
-                    }, 100);
-                }
-            }
-
-            /** ========== SAVE ORDER ==========*/
-
-            //-------- delete order from LocalDB
-            function deleteOrderInDB(orderNum) {
-                localDB.deleteRowLocalDB("orders", {
-                    id: orderNum
-                });
-                localDB.deleteRowLocalDB(
-                    "order_products", {
-                        order_id: orderNum
-                    }
+          /** working with glasses */
+          while (--glassSizeQty > -1) {
+            /** culculate glass Heat Coeff Total */
+            for (g = 0; g < glassQty; g += 1) {
+              if (
+                objXFormedPrice.sizes[5][glassSizeQty].elemId ==
+                ProductStor.product.glass[g].id
+              ) {
+                //$.isNumeric
+                ProductStor.product.glass[g].transcalency = parseFloat(
+                  ProductStor.product.glass[g].transcalency
                 );
-                localDB.deleteRowLocalDB(
-                    "order_addelements", {
-                        order_id: orderNum
-                    }
-                );
+                if (
+                  !angular.isNumber(ProductStor.product.glass[g].transcalency)
+                ) {
+                  ProductStor.product.glass[g].transcalency = 1;
+                }
+                glassHeatCT +=
+                  objXFormedPrice.sizes[5][glassSizeQty].square /
+                  ProductStor.product.glass[g].transcalency; //Sglasses
+              }
             }
+            /** get total glasses square */
+            glassSqT += objXFormedPrice.sizes[5][glassSizeQty].square; //Sстекломакетов
+          }
+          glassHeatCT = GeneralServ.roundingValue(glassHeatCT);
+          glassSqT = GeneralServ.roundingValue(glassSqT, 3);
 
-            //-------- save Order into Local DB
-            function saveOrderInDB(newOptions, orderType, orderStyle) {
-                var deferred = $q.defer();
-                angular.extend(OrderStor.order, newOptions);
-                if (OrderStor.order.order_edit === 1) {
-                    localDB.deleteRowLocalDB(
-                        "order_products", {
-                            order_id: OrderStor.order.id
-                        }
-                    );
-                    localDB.deleteRowLocalDB(
-                        "order_addelements", {
-                            order_id: OrderStor.order.id
-                        }
-                    );
-                    localDB
-                        .deleteProductServer(
-                            UserStor.userInfo.phone,
-                            UserStor.userInfo.device_code,
-                            OrderStor.order.id,
-                            "order_products"
-                        )
-                        .then(function (def1) {
-                            localDB
-                                .deleteProductServer(
-                                    UserStor.userInfo.phone,
-                                    UserStor.userInfo.device_code,
-                                    OrderStor.order.id,
-                                    "order_addelements"
-                                )
-                                .then(function (def2) {
-                                    save().then(function (res) {
-                                        deferred.resolve(1);
-                                    });
-                                });
-                        });
+          /** culculate profile Heat Coeff Total */
+          ProductStor.product.profile.heat_coeff_value = parseFloat(
+            ProductStor.product.profile.heat_coeff_value
+          );
+          if (!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
+            ProductStor.product.profile.heat_coeff_value = 1;
+          }
+          profHeatCT =
+            (ProductStor.product.template_square - glassSqT) /
+            ProductStor.product.profile.heat_coeff_value;
+
+          heatCoeffTotal = profHeatCT + glassHeatCT + perimeterPrif;
+          /** calculate Heat Coeff Total */
+          if (UserStor.userInfo.therm_coeff_id) {
+            /** R */
+            ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
+              ProductStor.product.template_square / heatCoeffTotal,
+              2
+            );
+          } else {
+            /** U */
+            ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
+              1 / (ProductStor.product.template_square / heatCoeffTotal),
+              2
+            );
+          }
+        }
+
+        /**--------- create object for price calculation ----------*/
+
+        function preparePrice(
+          template,
+          profileId,
+          glassIds,
+          hardwareId,
+          laminatId
+        ) {
+          var deferred = $q.defer();
+          GlobalStor.global.isLoader = 1;
+          setBeadId(profileId, laminatId).then(function (beadResult) {
+            if (beadResult.length && beadResult[0]) {
+              var beadIds = GeneralServ.removeDuplicates(
+                  _.map(angular.copy(beadResult), function (item) {
+                    var beadQty = template.priceElements.beadsSize.length;
+                    while (--beadQty > -1) {
+                      if (
+                        template.priceElements.beadsSize[beadQty].glassId ===
+                        item.glassId
+                      ) {
+                        template.priceElements.beadsSize[beadQty].elemId =
+                          item.beadId;
+                      }
+                    }
+                    return item.beadId;
+                  })
+                ),
+                objXFormedPrice = {
+                  laminationId: laminatId,
+                  ids: [
+                    ProductStor.product.profile.rama_list_id,
+                    ProductStor.product.profile.rama_still_list_id,
+                    ProductStor.product.profile.stvorka_list_id,
+                    ProductStor.product.profile.impost_list_id,
+                    ProductStor.product.profile.shtulp_list_id,
+                    glassIds.length > 1
+                      ? _.map(glassIds, function (item) {
+                          return item.id;
+                        })
+                      : glassIds[0].id,
+                    beadIds.length > 1 ? beadIds : beadIds[0],
+                    ProductStor.product.construction_type === 4 ? 0 : hardwareId
+                  ],
+                  sizes: []
+                };
+              //-------- beads data for analysis
+              ProductStor.product.beadsData = angular.copy(
+                template.priceElements.beadsSize
+              );
+              //------- fill objXFormedPrice for sizes
+              for (var size in template.priceElements) {
+                /** for door elements */
+                objXFormedPrice.sizes.push(
+                  angular.copy(template.priceElements[size])
+                );
+              }
+
+              //------- set Overall Dimensions
+              ProductStor.product.template_width = 0;
+              ProductStor.product.template_height = 0;
+              ProductStor.product.template_square = 0;
+              var overallQty =
+                ProductStor.product.template.details[0].overallDim.length;
+              //console.log(ProductStor.product.template.details[0].overallDim);
+              while (--overallQty > -1) {
+                if (ProductStor.product.construction_type === 3) {
+                  if (ProductStor.product.template_id === 1) {
+                    ProductStor.product.template_height =
+                      ProductStor.product.template.details[0].overallDim[0].h;
+                  } else {
+                    ProductStor.product.template_height =
+                      ProductStor.product.template.details[0].overallDim[1].h -
+                      ProductStor.product.template.details[0].overallDim[0].h;
+                  }
+                  if (ProductStor.product.template_id === 2) {
+                    ProductStor.product.template_square =
+                      ProductStor.product.template.details[0].overallDim[0]
+                        .square +
+                      ProductStor.product.template.details[0].overallDim[1]
+                        .square +
+                      ProductStor.product.template.details[0].overallDim[2]
+                        .square;
+                    ProductStor.product.template_width =
+                      ProductStor.product.template.details[0].overallDim[2].w;
+                  } else {
+                    ProductStor.product.template_square =
+                      ProductStor.product.template.details[0].overallDim[0]
+                        .square +
+                      ProductStor.product.template.details[0].overallDim[1]
+                        .square;
+                    ProductStor.product.template_width =
+                      ProductStor.product.template.details[0].overallDim[1].w;
+                  }
                 } else {
+                  ProductStor.product.template_width =
+                    ProductStor.product.template.details[0].overallDim[
+                      overallQty
+                    ].w;
+                  ProductStor.product.template_height =
+                    ProductStor.product.template.details[0].overallDim[
+                      overallQty
+                    ].h;
+                  ProductStor.product.template_square =
+                    ProductStor.product.template.details[0].overallDim[
+                      overallQty
+                    ].square;
+                }
+              }
+
+              //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+              //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+
+              //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+              //--------- get product price
+              // console.time("calculationPrice");
+              calculationPrice(objXFormedPrice).then(function (result) {
+                // console.timeEnd("calculationPrice");
+                deferred.resolve(1);
+                /** set Report */
+                if (result) {
+                  //---- only for this type of user
+                  if (
+                    UserStor.userInfo.user_type === 5 ||
+                    UserStor.userInfo.user_type === 7
+                  ) {
+                    ProductStor.product.report = prepareReport(
+                      result.constrElements
+                    );
+                    //console.log('REPORT', ProductStor.product.report);
+                    //console.timeEnd('price');
+                  }
+                }
+              });
+
+              /** calculate coeffs */
+              calculateCoeffs(objXFormedPrice);
+
+              /** save analytics data first time */
+              if (
+                GlobalStor.global.startProgramm &&
+                ProductStor.product.construction_type !== 4
+              ) {
+                //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
+                // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+                /** send analytics data to Server*/
+                //------ profile
+                $timeout(function () {
+                  AnalyticsServ.sendAnalyticsData(
+                    UserStor.userInfo.id,
+                    OrderStor.order.id,
+                    ProductStor.product.template_id,
+                    ProductStor.product.profile.id,
+                    1
+                  );
+                }, 5000);
+              }
+            } else {
+              deferred.resolve(1);
+            }
+          });
+          return deferred.promise;
+        }
+
+        function parseTemplate() {
+          var deferred = $q.defer();
+          //------- set current template for product
+          saveTemplateInProduct(ProductStor.product.template_id).then(
+            function () {
+              setCurrentHardware(ProductStor.product);
+              var hardwareIds = ProductStor.product.hardware.id || 0;
+              // if ($location.path() !== "/light") {
+              preparePrice(
+                ProductStor.product.template,
+                ProductStor.product.profile.id,
+                ProductStor.product.glass,
+                hardwareIds,
+                ProductStor.product.lamination.lamination_in_id
+              ).then(function () {
+                deferred.resolve(1);
+              });
+              // } else {
+              //   deferred.resolve(1);
+              // }
+            }
+          );
+          return deferred.promise;
+        }
+
+        function prepareTemplates(type) {
+          var deferred = $q.defer();
+          downloadAllTemplates(type).then(function (data) {
+            if (data) {
+              GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+              GlobalStor.global.templatesSource = angular.copy(data);
+
+              //--------- set current profile in ProductStor
+              setCurrentProfile(
+                ProductStor.product,
+                ProductStor.product.profile.id
+              ).then(function () {
+                parseTemplate().then(function () {
+                  deferred.resolve(1);
+                });
+              });
+            } else {
+              deferred.resolve(0);
+            }
+          });
+          return deferred.promise;
+        }
+
+        /**-------- filtering Lamination Groupes -----------*/
+
+        function checkLamGroupExist(lamId) {
+          var lamQty = GlobalStor.global.lamGroupFiltered.length,
+            noExist = 1;
+          while (--lamQty > -1) {
+            if (GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
+              noExist = 0;
+            }
+          }
+          return noExist;
+        }
+
+        function laminationDoor() {
+          var coupleQty = GlobalStor.global.doorsLaminations.length,
+            laminatQty = GlobalStor.global.laminats.length,
+            lam;
+          while (--coupleQty > -1) {
+            for (lam = 0; lam < laminatQty; lam += 1) {
+              if (
+                GlobalStor.global.laminats[lam].id ===
+                GlobalStor.global.doorsLaminations[coupleQty].lamination_in
+              ) {
+                GlobalStor.global.doorsLaminations[coupleQty].laminat_in_name =
+                  GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.doorsLaminations[coupleQty].img_in_id =
+                  GlobalStor.global.laminats[lam].lamination_type_id;
+                GlobalStor.global.doorsLaminations[coupleQty].lamination_in_id =
+                  GlobalStor.global.doorsLaminations[coupleQty].lamination_in;
+                delete GlobalStor.global.doorsLaminations[coupleQty]
+                  .lamination_in;
+              }
+              if (
+                GlobalStor.global.laminats[lam].id ===
+                GlobalStor.global.doorsLaminations[coupleQty].lamination_out
+              ) {
+                GlobalStor.global.doorsLaminations[coupleQty].laminat_out_name =
+                  GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.doorsLaminations[coupleQty].img_out_id =
+                  GlobalStor.global.laminats[lam].lamination_type_id;
+                GlobalStor.global.doorsLaminations[
+                  coupleQty
+                ].lamination_out_id =
+                  GlobalStor.global.doorsLaminations[coupleQty].lamination_out;
+                delete GlobalStor.global.doorsLaminations[coupleQty]
+                  .lamination_out;
+              }
+            }
+          }
+        }
+
+        function laminatFiltering() {
+          if (ProductStor.product.construction_type !== 4) {
+            var laminatQty = GlobalStor.global.laminats.length,
+              /** sort by Profile */
+              lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function (
+                item
+              ) {
+                if (item.profile_id) {
+                  return item.profile_id === ProductStor.product.profile.id;
+                } else {
+                  return true;
+                }
+              }),
+              lamGroupsTempQty,
+              isAnyActive = 0;
+
+            //console.info('filter _____ ', lamGroupsTemp);
+          } else {
+            var laminatQty = GlobalStor.global.laminats.length,
+              /** sort by Profile */
+              lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(
+                function (item) {
+                  return item.group_id === GlobalStor.global.type_door;
+                }
+              ),
+              lamGroupsTempQty,
+              isAnyActive = 0;
+            for (var a = 0; a < lamGroupsTemp.length; a += 1) {
+              lamGroupsTemp[a].rama_still_list_id =
+                lamGroupsTemp[a].door_sill_list_id;
+            }
+          }
+          GlobalStor.global.lamGroupFiltered.length = 0;
+
+          while (--laminatQty > -1) {
+            if (GlobalStor.global.laminats[laminatQty].isActive) {
+              isAnyActive = 1;
+              lamGroupsTempQty = lamGroupsTemp.length;
+              while (--lamGroupsTempQty > -1) {
+                if (
+                  lamGroupsTemp[lamGroupsTempQty].img_in_id ===
+                  GlobalStor.global.laminats[laminatQty].lamination_type_id
+                ) {
+                  if (checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                    GlobalStor.global.lamGroupFiltered.push(
+                      lamGroupsTemp[lamGroupsTempQty]
+                    );
+                  }
+                } else if (
+                  lamGroupsTemp[lamGroupsTempQty].img_out_id ===
+                  GlobalStor.global.laminats[laminatQty].lamination_type_id
+                ) {
+                  if (checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                    GlobalStor.global.lamGroupFiltered.push(
+                      lamGroupsTemp[lamGroupsTempQty]
+                    );
+                  }
+                }
+              }
+            }
+          }
+          //console.info('lamGroupFiltered _____ ', GlobalStor.global.lamGroupFiltered);
+          if (!GlobalStor.global.lamGroupFiltered.length) {
+            if (!isAnyActive) {
+              GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
+            }
+          }
+        }
+
+        /**-------- set Lamination in product -----------*/
+
+        function cleanLamFilter() {
+          var laminatQty = GlobalStor.global.laminats.length;
+          //---- deselect filter
+          while (--laminatQty > -1) {
+            GlobalStor.global.laminats[laminatQty].isActive = 0;
+          }
+        }
+
+        function setCurrLamination(product, newLamId) {
+          //может? тут вроде смотрел но уже глаза плывут
+          var selectedLam = [];
+          if (product.construction_type !== 4) {
+            selectedLam = angular.copy(GlobalStor.global.laminatCouples);
+          } else {
+            selectedLam = angular.copy(GlobalStor.global.doorsLaminations);
+          }
+          var laminatGroupQty = selectedLam.length;
+          //---- clean filter
+          cleanLamFilter();
+          while (--laminatGroupQty > -1) {
+            if (newLamId) {
+              //------ set lamination Couple with color
+              if (selectedLam[laminatGroupQty].id === newLamId) {
+                product.lamination = selectedLam[laminatGroupQty];
+              }
+            } else {
+              //----- set white lamination Couple
+              if (!selectedLam[laminatGroupQty].id) {
+                var result = angular.copy(
+                  fineItemById(product.profile.id, GlobalStor.global.profiles)
+                );
+                product.lamination = selectedLam[laminatGroupQty];
+                product.lamination.rama_list_id = result.rama_list_id;
+                product.lamination.rama_still_list_id =
+                  result.rama_still_list_id;
+                product.lamination.stvorka_list_id = result.stvorka_list_id;
+                product.lamination.impost_list_id = result.impost_list_id;
+                product.lamination.shtulp_list_id = result.shtulp_list_id;
+              }
+            }
+          }
+          if ($location.path() === '/light' || $location.path() === '/mobile') {
+            SVGServ.createSVGTemplate(
+              ProductStor.product.template_source,
+              ProductStor.product.profileDepths
+            ).then(function (result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+            });
+          }
+        }
+
+        function setProfileByLaminat(lamId) {
+          var deff = $q.defer();
+          if (lamId || lamId === 0) {
+            //------ set profiles parameters
+            if (ProductStor.product.construction_type !== 4) {
+              ProductStor.product.profile.rama_list_id =
+                ProductStor.product.lamination.rama_list_id;
+              ProductStor.product.profile.rama_still_list_id =
+                ProductStor.product.lamination.rama_still_list_id;
+              ProductStor.product.profile.stvorka_list_id =
+                ProductStor.product.lamination.stvorka_list_id;
+              ProductStor.product.profile.impost_list_id =
+                ProductStor.product.lamination.impost_list_id;
+              ProductStor.product.profile.shtulp_list_id =
+                ProductStor.product.lamination.shtulp_list_id;
+            } else {
+              ProductStor.product.profile = angular.copy(
+                selectDoor(
+                  ProductStor.product.door_shape_id,
+                  ProductStor.product
+                )
+              );
+              ProductStor.product.profile.rama_still_list_id =
+                ProductStor.product.profile.door_sill_list_id;
+            }
+          }
+
+          //------- set Depths
+          $q.all([
+            downloadProfileDepth(ProductStor.product.profile.rama_list_id),
+            downloadProfileDepth(
+              ProductStor.product.profile.rama_still_list_id
+            ),
+            downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
+            downloadProfileDepth(ProductStor.product.profile.impost_list_id),
+            downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
+          ]).then(function (result) {
+            ProductStor.product.profileDepths.frameDepth = result[0];
+            ProductStor.product.profileDepths.frameStillDepth = result[1];
+            ProductStor.product.profileDepths.sashDepth = result[2];
+            ProductStor.product.profileDepths.impostDepth = result[3];
+            ProductStor.product.profileDepths.shtulpDepth = result[4];
+            var profile =
+              ProductStor.product.construction_type !== 4
+                ? ProductStor.product.profile.id
+                : ProductStor.product.profile.profileId;
+            SVGServ.createSVGTemplate(
+              ProductStor.product.template_source,
+              ProductStor.product.profileDepths
+            ).then(function (result) {
+              ProductStor.product.template = angular.copy(result);
+              var hardwareIds = ProductStor.product.hardware.id || 0;
+              preparePrice(
+                ProductStor.product.template,
+                profile,
+                ProductStor.product.glass,
+                hardwareIds,
+                ProductStor.product.lamination.lamination_in_id
+              ).then(function () {
+                deff.resolve(1);
+              });
+              //----- create template icon
+              SVGServ.createSVGTemplateIcon(
+                ProductStor.product.template_source,
+                ProductStor.product.profileDepths
+              ).then(function (result) {
+                ProductStor.product.templateIcon = angular.copy(result);
+                deff.resolve(1);
+              });
+            });
+          });
+          return deff.promise;
+        }
+
+        /**==================temp location for this function!!! =================*/
+        function selectDoor(id, product) {
+          var doorsLaminations = angular.copy(
+            GlobalStor.global.lamGroupFiltered
+          );
+          for (var i = 0; i < doorsLaminations.length; i += 1) {
+            if (
+              product.lamination.lamination_in_id ===
+                doorsLaminations[i].lamination_in_id &&
+              product.lamination.lamination_out_id ===
+                doorsLaminations[i].lamination_out_id
+            ) {
+              product.profile.door_sill_list_id =
+                doorsLaminations[i].door_sill_list_id;
+              product.profile.impost_list_id =
+                doorsLaminations[i].impost_list_id;
+              product.profile.rama_list_id = doorsLaminations[i].rama_list_id;
+              product.profile.shtulp_list_id =
+                doorsLaminations[i].shtulp_list_id;
+              product.profile.stvorka_list_id =
+                doorsLaminations[i].stvorka_list_id;
+              break;
+            }
+          }
+          return product.profile;
+        }
+
+        /**==================temp location for this function!!! =================*/
+
+        /**----------- Glass sizes checking -------------*/
+
+        function checkGlassSizes(template) {
+          var blocks = template.details,
+            blocksQty = blocks.length,
+            wranGlass,
+            overallGlass,
+            currWidth,
+            currHeight,
+            currSquare,
+            isWidthError,
+            isHeightError,
+            b;
+
+          /** clean extra Glass */
+          DesignStor.design.extraGlass.length = 0;
+
+          /** glass loop */
+          ProductStor.product.glass.forEach(function (item) {
+            //item.max_sq = 0.2;
+            //item.max_width = 0.50;
+            //item.max_height = 0.50;
+
+            item.max_sq = parseFloat(item.max_sq);
+            item.max_width = parseFloat(item.max_width);
+            item.max_height = parseFloat(item.max_height);
+            item.min_width = parseFloat(item.min_width);
+            item.min_height = parseFloat(item.min_height);
+
+            /** check available max_sq and max/min sizes */
+            if (
+              item.max_sq ||
+              (item.max_width &&
+                item.max_height &&
+                item.min_width &&
+                item.min_height)
+            ) {
+              /** template loop */
+              for (b = 1; b < blocksQty; b += 1) {
+                isWidthError = 0;
+                isHeightError = 0;
+                if (blocks[b].glassId === item.id) {
+                  if (blocks[b].glassPoints) {
+                    if (blocks[b].glassPoints.length) {
+                      /** estimate current glass sizes */
+                      overallGlass = GeneralServ.getMaxMinCoord(
+                        blocks[b].glassPoints
+                      );
+                      currWidth = Math.round(
+                        overallGlass.maxX - overallGlass.minX
+                      );
+                      currHeight = Math.round(
+                        overallGlass.maxY - overallGlass.minY
+                      );
+                      currSquare = GeneralServ.roundingValue(
+                        (currWidth * currHeight) / 1000000,
+                        3
+                      );
+                      /** square incorrect */
+                      if (currSquare > item.max_sq) {
+                        wranGlass =
+                          $filter('translate')('design.GLASS') +
+                          ' ' +
+                          item.name +
+                          ' ' +
+                          $filter('translate')('design.GLASS_SQUARE') +
+                          ' ' +
+                          currSquare +
+                          ' ' +
+                          $filter('translate')('design.MAX_VALUE_HIGHER') +
+                          ' ' +
+                          item.max_sq +
+                          ' ' +
+                          $filter('translate')('common_words.LETTER_M') +
+                          '2.';
+
+                        DesignStor.design.extraGlass.push(wranGlass);
+                      }
+
+                      if (
+                        currWidth > item.max_width ||
+                        currWidth < item.min_width
+                      ) {
+                        isWidthError = 1;
+                      }
+                      if (
+                        currHeight > item.max_height ||
+                        currHeight < item.min_height
+                      ) {
+                        isHeightError = 1;
+                      }
+
+                      if (isWidthError && isHeightError) {
+                        /** width and height incorrect */
+                        wranGlass =
+                          $filter('translate')('design.GLASS') +
+                          ' ' +
+                          item.name +
+                          ' ' +
+                          $filter('translate')('design.GLASS_SIZE') +
+                          ' ' +
+                          currWidth +
+                          ' x ' +
+                          currHeight +
+                          ' ' +
+                          $filter('translate')('design.NO_MATCH_RANGE') +
+                          ' ' +
+                          $filter('translate')('design.BY_WIDTH') +
+                          ' ' +
+                          item.min_width +
+                          ' - ' +
+                          item.max_width +
+                          ', ' +
+                          $filter('translate')('design.BY_HEIGHT') +
+                          ' ' +
+                          item.min_height +
+                          ' - ' +
+                          item.max_height +
+                          '.';
+
+                        DesignStor.design.extraGlass.push(wranGlass);
+                      } else if (isWidthError && !isHeightError) {
+                        /** width incorrect */
+                        wranGlass =
+                          $filter('translate')('design.GLASS') +
+                          ' ' +
+                          item.name +
+                          ' ' +
+                          $filter('translate')('design.GLASS_SIZE') +
+                          ' ' +
+                          currWidth +
+                          ' x ' +
+                          currHeight +
+                          ' ' +
+                          $filter('translate')('design.NO_MATCH_RANGE') +
+                          ' ' +
+                          $filter('translate')('design.BY_WIDTH') +
+                          ' ' +
+                          item.min_width +
+                          ' - ' +
+                          item.max_width +
+                          '.';
+
+                        DesignStor.design.extraGlass.push(wranGlass);
+                      } else if (!isWidthError && isHeightError) {
+                        /** height incorrect */
+                        wranGlass =
+                          $filter('translate')('design.GLASS') +
+                          ' ' +
+                          item.name +
+                          ' ' +
+                          $filter('translate')('design.GLASS_SIZE') +
+                          ' ' +
+                          currWidth +
+                          ' x ' +
+                          currHeight +
+                          ' ' +
+                          $filter('translate')('design.NO_MATCH_RANGE') +
+                          ' ' +
+                          $filter('translate')('design.BY_HEIGHT') +
+                          ' ' +
+                          item.min_height +
+                          ' - ' +
+                          item.max_height +
+                          '.';
+
+                        DesignStor.design.extraGlass.push(wranGlass);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          });
+          //console.info('glass result', DesignStor.design.extraGlass);
+        }
+
+        /**----------- Hardware sizes checking -------------*/
+
+        function checkHardwareSizes(template, harwareID) {
+          if (ProductStor.product.construction_type !== 4) {
+            var blocks = template.details,
+              blocksQty = blocks.length,
+              harwareId = harwareID || ProductStor.product.hardware.id,
+              limits = GlobalStor.global.hardwareLimits.filter(function (item) {
+                return item.group_id === harwareId;
+              }),
+              limitsQty = limits.length,
+              currLimit = 0,
+              overallSize,
+              currWidth,
+              currHeight,
+              wranSash,
+              isSizeError,
+              b,
+              lim;
+
+            //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
+            /** clean extra Hardware */
+            DesignStor.design.extraHardware.length = 0;
+
+            if (limitsQty) {
+              /** template loop */
+              for (b = 1; b < blocksQty; b += 1) {
+                isSizeError = 0;
+                if (blocks[b].blockType === 'sash') {
+                  /** finde limit for current sash */
+                  for (lim = 0; lim < limitsQty; lim += 1) {
+                    if (limits[lim].type_id === blocks[b].sashType) {
+                      /** check available max/min sizes */
+                      if (
+                        limits[lim].max_width &&
+                        limits[lim].max_height &&
+                        limits[lim].min_width &&
+                        limits[lim].min_height
+                      ) {
+                        currLimit = limits[lim];
+                      }
+                      break;
+                    }
+                  }
+                  if (currLimit) {
+                    if (blocks[b].hardwarePoints.length) {
+                      /** estimate current sash sizes */
+                      overallSize = GeneralServ.getMaxMinCoord(
+                        blocks[b].hardwarePoints
+                      );
+                      currWidth = Math.round(
+                        overallSize.maxX - overallSize.minX
+                      );
+                      currHeight = Math.round(
+                        overallSize.maxY - overallSize.minY
+                      );
+                      if (
+                        currWidth > currLimit.max_width ||
+                        currWidth < currLimit.min_width
+                      ) {
+                        isSizeError = 1;
+                      }
+                      if (
+                        currHeight > currLimit.max_height ||
+                        currHeight < currLimit.min_height
+                      ) {
+                        isSizeError = 1;
+                      }
+
+                      if (isSizeError) {
+                        wranSash =
+                          currWidth +
+                          ' x ' +
+                          currHeight +
+                          ' ' +
+                          $filter('translate')('design.NO_MATCH_RANGE') +
+                          ' (' +
+                          currLimit.min_width +
+                          ' - ' +
+                          currLimit.max_width +
+                          ') ' +
+                          'x (' +
+                          currLimit.min_height +
+                          ' - ' +
+                          currLimit.max_height +
+                          ')';
+
+                        DesignStor.design.extraHardware.push(wranSash);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          //console.info('glass result', DesignStor.design.extraHardware);
+        }
+
+        /**-------------- show Info Box of element or group ------------*/
+
+        function showInfoBox(id, itemArr) {
+          if (GlobalStor.global.isInfoBox !== id) {
+            var itemArrQty = itemArr.length,
+              tempObj = {};
+            while (--itemArrQty > -1) {
+              if (itemArr[itemArrQty].lamination_type_id) {
+                if (itemArr[itemArrQty].lamination_type_id === id) {
+                  tempObj = itemArr[itemArrQty];
+                }
+              } else {
+                if (itemArr[itemArrQty].id === id) {
+                  tempObj = itemArr[itemArrQty];
+                }
+              }
+            }
+            if (!$.isEmptyObject(tempObj)) {
+              GlobalStor.global.infoTitle = tempObj.translate;
+              GlobalStor.global.infoImg = tempObj.img;
+              GlobalStor.global.infoLink = tempObj.link;
+              GlobalStor.global.infoDescrip = tempObj.description;
+              GlobalStor.global.isInfoBox = id;
+            }
+          }
+        }
+
+        /**========== CREATE ORDER ==========*/
+
+        function createNewProject() {
+          //----- cleaning product
+          ProductStor.product = ProductStor.setDefaultProduct();
+          CartStor.cart = CartStor.setDefaultCart();
+          OrderStor.order = OrderStor.setDefaultOrder();
+          //------- set new orderId
+          createOrderData();
+          //------- set current Discounts
+          setCurrDiscounts();
+          GlobalStor.global.isChangedTemplate = 0;
+          GlobalStor.global.isShowCommentBlock = 0;
+          GlobalStor.global.showCoefInfoBlock = 0;
+          GlobalStor.global.isCreatedNewProject = 1;
+          GlobalStor.global.isCreatedNewProduct = 1;
+          //------- set new templates
+          setCurrTemplate();
+          prepareTemplates(ProductStor.product.construction_type).then(
+            function () {
+              GlobalStor.global.isLoader = 0;
+              GlobalStor.global.construction_count = 0;
+              prepareMainPage();
+              /** start lamination filtering */
+              cleanLamFilter();
+              laminatFiltering();
+              if (GlobalStor.global.currOpenPage !== 'main') {
+                GlobalStor.global.showRoomSelectorDialog = 0;
+                if (
+                  $location.path() === '/light' ||
+                  $location.path() === '/mobile'
+                ) {
+                  if ($location.path() === '/light') {
+                    GlobalStor.global.currOpenPage = 'light';
+                  }
+                  if ($location.path() === '/mobile') {
+                    GlobalStor.global.currOpenPage = 'mobile';
+                  }
+                } else {
+                  $location.path('/main');
+                  GlobalStor.global.currOpenPage = 'main';
+                }
+              }
+            }
+          );
+        }
+
+        /**========== CREATE PRODUCT ==========*/
+
+        function createNewProduct() {
+          // console.time('createNewProduct');
+          //------- cleaning product
+          ProductStor.product = ProductStor.setDefaultProduct();
+          GlobalStor.global.isCreatedNewProduct = 1;
+          GlobalStor.global.isChangedTemplate = 0;
+          //------- set new templates
+          setCurrTemplate();
+          prepareTemplates(ProductStor.product.construction_type).then(
+            function () {
+              /** start lamination filtering */
+              cleanLamFilter();
+              laminatFiltering();
+
+              // console.timeEnd('createNewProduct');
+            }
+          );
+          if (GlobalStor.global.currOpenPage !== 'main') {
+            GlobalStor.global.showRoomSelectorDialog = 0;
+            if (
+              $location.path() === '/light' ||
+              $location.path() === '/mobile'
+            ) {
+              if ($location.path() === '/light') {
+                GlobalStor.global.currOpenPage = 'light';
+              }
+              if ($location.path() === '/mobile') {
+                GlobalStor.global.currOpenPage = 'mobile';
+                $timeout(function () {
+                  closePanelMobile();
+                }, 500);
+              }
+            } else {
+              $location.path('/main');
+              GlobalStor.global.currOpenPage = 'main';
+            }
+          }
+          prepareMainPage();
+        }
+
+        /**========== SAVE PRODUCT ==========*/
+
+        function checkEmptyChoosenAddElems() {
+          var addElemQty = ProductStor.product.chosenAddElements.length,
+            isExist = 0;
+
+          while (--addElemQty > -1) {
+            if (ProductStor.product.chosenAddElements[addElemQty].length) {
+              isExist++;
+            }
+          }
+          return isExist;
+        }
+
+        //-------- Save Product in Order and go to Cart
+        function inputProductInOrder() {
+          var permission = 1;
+          //------- if AddElems only, check is there selected AddElems
+          if (ProductStor.product.is_addelem_only) {
+            permission = checkEmptyChoosenAddElems();
+          }
+
+          if (permission) {
+            // console.info('product-----', ProductStor.product);
+            GlobalStor.global.tempAddElements.length = 0;
+            GlobalStor.global.configMenuTips = 0;
+            GlobalStor.global.isShowCommentBlock = 0;
+            setDefaultAuxParam();
+
+            /**============ EDIT Product =======*/
+            if (GlobalStor.global.productEditNumber) {
+              var productsQty = OrderStor.order.products.length;
+              //-------- replace product in order
+              while (--productsQty > -1) {
+                if (
+                  OrderStor.order.products[productsQty].product_id ===
+                  GlobalStor.global.productEditNumber
+                ) {
+                  OrderStor.order.products[productsQty] = angular.copy(
+                    ProductStor.product
+                  );
+                }
+              }
+              GlobalStor.global.productEditNumber = 0;
+              /**========== if New Product =========*/
+            } else {
+              ProductStor.product.product_id =
+                OrderStor.order.products.length > 0
+                  ? OrderStor.order.products.length + 1
+                  : 1;
+              //delete ProductStor.product.template;
+              //-------- insert product in order
+              // OrderStor.order.products.push(ProductStor.product);
+              OrderStor.order.products.push(angular.copy(ProductStor.product));
+            }
+            //----- finish working with product
+            GlobalStor.global.isCreatedNewProduct = 0;
+            GeneralServ.stopStartProg();
+            GlobalStor.global.isChangedTemplate = 0;
+            GlobalStor.global.isNewTemplate = 0;
+          }
+          // console.log(OrderStor.order);
+          return permission;
+        }
+
+        //--------- moving to Cart when click on Cart button
+        function goToCart() {
+          if (OrderStor.order.products.length) {
+            $timeout(function () {
+              //------- set previos Page
+              GeneralServ.setPreviosPage();
+              $location.path('/cart');
+              GlobalStor.global.currOpenPage = 'cart';
+            }, 100);
+          }
+        }
+
+        /** ========== SAVE ORDER ==========*/
+
+        //-------- delete order from LocalDB
+        function deleteOrderInDB(orderNum) {
+          localDB.deleteRowLocalDB('orders', {
+            id: orderNum
+          });
+          localDB.deleteRowLocalDB('order_products', {
+            order_id: orderNum
+          });
+          localDB.deleteRowLocalDB('order_addelements', {
+            order_id: orderNum
+          });
+        }
+
+        //-------- save Order into Local DB
+        function saveOrderInDB(newOptions, orderType, orderStyle) {
+          var deferred = $q.defer();
+          angular.extend(OrderStor.order, newOptions);
+          if (OrderStor.order.order_edit === 1) {
+            localDB.deleteRowLocalDB('order_products', {
+              order_id: OrderStor.order.id
+            });
+            localDB.deleteRowLocalDB('order_addelements', {
+              order_id: OrderStor.order.id
+            });
+            localDB
+              .deleteProductServer(
+                UserStor.userInfo.phone,
+                UserStor.userInfo.device_code,
+                OrderStor.order.id,
+                'order_products'
+              )
+              .then(function (def1) {
+                localDB
+                  .deleteProductServer(
+                    UserStor.userInfo.phone,
+                    UserStor.userInfo.device_code,
+                    OrderStor.order.id,
+                    'order_addelements'
+                  )
+                  .then(function (def2) {
                     save().then(function (res) {
-                        deferred.resolve(1);
+                      deferred.resolve(1);
                     });
-                }
+                  });
+              });
+          } else {
+            save().then(function (res) {
+              deferred.resolve(1);
+            });
+          }
 
-                /** ===== SAVE PRODUCTS =====*/
-                function save() {
-                    var defer = $q.defer();
-                    var prodQty = OrderStor.order.products.length,
-                        p;
-                    OrderStor.order.products_qty = 0;
-                    for (p = 0; p < prodQty; p += 1) {
-                        /** culculate products quantity for order */
-                        OrderStor.order.products_qty +=
-                            OrderStor.order.products[p].product_qty;
-                    }
-                    /** ============ SAVE ORDER =========== */
-                    var orderData = angular.copy(OrderStor.order);
-                    orderData.order_date = new Date(OrderStor.order.order_date);
-                    orderData.order_type = orderType;
-                    orderData.order_price_dis = OrderStor.order.order_price_dis;
-                    orderData.order_price = OrderStor.order.order_price;
-                    orderData.order_price_primary = OrderStor.order.order_price_primary;
-                    orderData.order_style = orderStyle;
-                    orderData.factory_id = UserStor.userInfo.factory_id;
-                    orderData.user_id = UserStor.userInfo.id;
-                    orderData.comment = OrderStor.order.comment;
-                    orderData.delivery_date = new Date(OrderStor.order.delivery_date);
-                    orderData.new_delivery_date = new Date(
-                        OrderStor.order.new_delivery_date
-                    );
-                    orderData.customer_sex = +OrderStor.order.customer_sex || 0;
-                    orderData.customer_age = OrderStor.order.customer_age ? OrderStor.order.customer_age.id : 0;
-                    orderData.customer_education = OrderStor.order.customer_education ? OrderStor.order.customer_education.id : 0;
-                    orderData.customer_occupation = OrderStor.order.customer_occupation ? OrderStor.order.customer_occupation.id : 0;
-                    orderData.customer_infoSource = OrderStor.order.customer_infoSource ? OrderStor.order.customer_infoSource.id : 0;
-                    orderData.products_qty = GeneralServ.roundingValue(
-                        OrderStor.order.products_qty
-                    );
-                    orderData.sync_date = GlobalStor.global.loadDate;
-                    if (GlobalStor.global.ISEXT) {
-                        orderData.app_version = "offline";
+          /** ===== SAVE PRODUCTS =====*/
+          function save() {
+            var defer = $q.defer();
+            var prodQty = OrderStor.order.products.length,
+              p;
+            OrderStor.order.products_qty = 0;
+            for (p = 0; p < prodQty; p += 1) {
+              /** culculate products quantity for order */
+              OrderStor.order.products_qty +=
+                OrderStor.order.products[p].product_qty;
+            }
+            /** ============ SAVE ORDER =========== */
+            var orderData = angular.copy(OrderStor.order);
+            orderData.order_date = new Date(OrderStor.order.order_date);
+            orderData.order_type = orderType;
+            orderData.order_price_dis = OrderStor.order.order_price_dis;
+            orderData.order_price = OrderStor.order.order_price;
+            orderData.order_price_primary = OrderStor.order.order_price_primary;
+            orderData.order_style = orderStyle;
+            orderData.factory_id = UserStor.userInfo.factory_id;
+            orderData.user_id = UserStor.userInfo.id;
+            orderData.comment = OrderStor.order.comment;
+            orderData.delivery_date = new Date(OrderStor.order.delivery_date);
+            orderData.new_delivery_date = new Date(
+              OrderStor.order.new_delivery_date
+            );
+            orderData.customer_sex = +OrderStor.order.customer_sex || 0;
+            orderData.customer_age = OrderStor.order.customer_age
+              ? OrderStor.order.customer_age.id
+              : 0;
+            orderData.customer_education = OrderStor.order.customer_education
+              ? OrderStor.order.customer_education.id
+              : 0;
+            orderData.customer_occupation = OrderStor.order.customer_occupation
+              ? OrderStor.order.customer_occupation.id
+              : 0;
+            orderData.customer_infoSource = OrderStor.order.customer_infoSource
+              ? OrderStor.order.customer_infoSource.id
+              : 0;
+            orderData.products_qty = GeneralServ.roundingValue(
+              OrderStor.order.products_qty
+            );
+            orderData.sync_date = GlobalStor.global.loadDate;
+            if (GlobalStor.global.ISEXT) {
+              orderData.app_version = 'offline';
+            } else {
+              orderData.app_version = 'online';
+            }
+
+            //----- rates %
+            orderData.discount_construct_max =
+              UserStor.userInfo.discountConstrMax;
+            orderData.discount_addelem_max =
+              UserStor.userInfo.discountAddElemMax;
+            orderData.default_term_plant =
+              GlobalStor.global.deliveryCoeff.percents[
+                GlobalStor.global.deliveryCoeff.standart_time
+              ];
+            orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
+            orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
+
+            if (orderType && orderData.order_edit === 0) {
+              orderData.additional_payment = '';
+              orderData.created = new Date();
+              orderData.sended = new Date(0);
+              orderData.state_to = new Date(0);
+              orderData.state_buch = new Date(0);
+              orderData.batch = '---';
+              orderData.base_price = 0;
+              orderData.factory_margin = 0;
+              orderData.purchase_price = 0;
+              // orderData.sale_price = 0;
+              orderData.modified = new Date();
+            }
+
+            delete orderData.products;
+            delete orderData.floorName;
+            delete orderData.mountingName;
+            delete orderData.dismantling_name;
+            delete orderData.selectedInstalmentPeriod;
+            delete orderData.selectedInstalmentPercent;
+            delete orderData.productsPriceDis;
+            delete orderData.orderPricePrimaryDis;
+            delete orderData.paymentFirstDis;
+            delete orderData.paymentMonthlyDis;
+            delete orderData.paymentFirstPrimaryDis;
+            delete orderData.paymentMonthlyPrimaryDis;
+
+            if (orderType && orderData.order_edit === 0) {
+              delete orderData.order_edit;
+              localDB
+                .insertServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  'orders',
+                  orderData
+                )
+                .then(function (respond) {
+                  if (
+                    GlobalStor.global.onlineMode &&
+                    navigator.onLine &&
+                    respond
+                  ) {
+                    if (respond.status) {
+                      orderData.order_number = respond.order_number;
                     } else {
-                        orderData.app_version = "online";
+                      orderData.order_number = 0;
                     }
-
-                    //----- rates %
-                    orderData.discount_construct_max =
-                        UserStor.userInfo.discountConstrMax;
-                    orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
-                    orderData.default_term_plant =
-                        GlobalStor.global.deliveryCoeff.percents[
-                        GlobalStor.global.deliveryCoeff.standart_time
-                        ];
-                    orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
-                    orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
-
-                    if (orderType && orderData.order_edit === 0) {
-                        orderData.additional_payment = "";
-                        orderData.created = new Date();
-                        orderData.sended = new Date(0);
-                        orderData.state_to = new Date(0);
-                        orderData.state_buch = new Date(0);
-                        orderData.batch = "---";
-                        orderData.base_price = 0;
-                        orderData.factory_margin = 0;
-                        orderData.purchase_price = 0;
-                        // orderData.sale_price = 0;
-                        orderData.modified = new Date();
-                    }
-
-                    delete orderData.products;
-                    delete orderData.floorName;
-                    delete orderData.mountingName;
-                    delete orderData.dismantling_name;
-                    delete orderData.selectedInstalmentPeriod;
-                    delete orderData.selectedInstalmentPercent;
-                    delete orderData.productsPriceDis;
-                    delete orderData.orderPricePrimaryDis;
-                    delete orderData.paymentFirstDis;
-                    delete orderData.paymentMonthlyDis;
-                    delete orderData.paymentFirstPrimaryDis;
-                    delete orderData.paymentMonthlyPrimaryDis;
-
-                    if (orderType && orderData.order_edit === 0) {
-                        delete orderData.order_edit;
-                        localDB
-                            .insertServer(
-                                UserStor.userInfo.phone,
-                                UserStor.userInfo.device_code,
-                                "orders",
-                                orderData
-                            )
-                            .then(function (respond) {
-                                if (
-                                    GlobalStor.global.onlineMode &&
-                                    navigator.onLine &&
-                                    respond
-                                ) {
-                                    if (respond.status) {
-                                        orderData.order_number = respond.order_number;
-                                    } else {
-                                        orderData.order_number = 0;
-                                    }
-                                } else {
-                                    orderData.order_number = 0;
-                                }
-                                localDB.insertRowLocalDB(
-                                    orderData,
-                                    "orders"
-                                );
-                                defer.resolve(1);
-                            });
-                    } else if (orderType && orderData.order_edit === 1) {
-                        var orderId = angular.copy(orderData.id);
-                        delete orderData.order_edit;
-                        localDB
-                            .updateOrderServer(
-                                UserStor.userInfo.phone,
-                                UserStor.userInfo.device_code,
-                                "orders",
-                                angular.copy(orderData),
-                                orderId
-                            )
-                            .then(function (res) {
-                                // orderData.id = orderId;
-                                //------- save draft
-                                localDB.updateLocalDB(
-                                    "orders",
-                                    angular.copy(orderData), {
-                                        'id': orderId
-                                    }
-                                );
-                                defer.resolve(1);
-                            });
-                    }
-
-                    for (p = 0; p < prodQty; p += 1) {
-                        var productData = angular.copy(OrderStor.order.products[p]);
-                        productData.order_id = OrderStor.order.id;
-                        if (!productData.is_addelem_only) {
-                            productData.template_source["beads"] = angular.copy(
-                                productData.beadsData
-                            );
-                        }
-                        if (productData.construction_type === 4) {
-                            productData.profile_id = 0;
-                            productData.door_group_id =
-                                OrderStor.order.products[p].door_group_id;
-                        } else {
-                            productData.profile_id = OrderStor.order.products[p].profile.id;
-                            productData.door_group_id ?
-                                (productData.door_group_id = 0) :
-                                (productData.door_group_id = 0);
-                        }
-                        productData.glass_id = _.map(
-                            OrderStor.order.products[p].glass,
-                            function (item) {
-                                return item.id;
-                            }
-                        ).join(", ");
-
-                        if (productData.construction_type === 4) {
-                            productData.hardware_id = productData.doorLock.id;
-                        } else {
-                            if (productData.hardware.id) {
-                                productData.hardware_id = productData.hardware.id;
-                            } else {
-                                productData.hardware_id = 0;
-                            }
-                        }
-                        productData.lamination_id =
-                            OrderStor.order.products[p].lamination.id;
-                        productData.template_source = !productData.is_addelem_only ?
-                            JSON.stringify(productData.template_source) :
-                            JSON.stringify({});
-                        productData.lamination_in_id =
-                            OrderStor.order.products[p].lamination.img_in_id;
-                        productData.lamination_out_id =
-                            OrderStor.order.products[p].lamination.img_out_id;
-                        productData.modified = new Date();
-                        if (productData.template) {
-                            delete productData.template;
-                        }
-                        delete productData.templateIcon;
-                        delete productData.profile;
-                        delete productData.glass;
-                        delete productData.hardware;
-                        delete productData.lamination;
-                        delete productData.chosenAddElements;
-                        delete productData.profileDepths;
-                        delete productData.addelemPriceDis;
-                        delete productData.productPriceDis;
-                        delete productData.report;
-                        delete productData.beadsData;
-                        delete productData.doorName;
-                        delete productData.doorSashName;
-                        delete productData.doorHandle;
-                        delete productData.doorLock;
-
-                        if (orderType) {
-                            console.log('productData', productData)
-                            localDB.insertRowLocalDB(
-                                productData,
-                                "order_products"
-                            );
-                            localDB.insertServer(
-                                UserStor.userInfo.phone,
-                                UserStor.userInfo.device_code,
-                                "order_products",
-                                productData
-                            );
-                        }
-
-                        /** ====== SAVE Report Data ===== */
-                        var productReportData = angular.copy(
-                            OrderStor.order.products[p].report
-                        ),
-                            reportQty = productReportData.length;
-                        while (--reportQty > -1) {
-                            productReportData[reportQty].order_id = OrderStor.order.id;
-                            productReportData[reportQty].price = angular.copy(
-                                productReportData[reportQty].priceReal
-                            );
-                            delete productReportData[reportQty].priceReal;
-                            //-------- insert product Report into local DB
-                            //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
-                            //-------- send Report to Server
-                            // TODO localDB.insertServer(
-                            // UserStor.userInfo.phone, UserStor.userInfo.device_code,
-                            // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
-                        }
-
-                        /**============= SAVE ADDELEMENTS ============ */
-
-                        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
-                        for (add = 0; add < addElemQty; add += 1) {
-                            var elemQty =
-                                OrderStor.order.products[p].chosenAddElements[add].length,
-                                elem;
-                            if (elemQty > 0) {
-                                for (elem = 0; elem < elemQty; elem += 1) {
-                                    if (
-                                        OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .list_group_id === 20 &&
-                                        !productData.is_addelem_only
-                                    ) {
-                                        if (
-                                            typeof OrderStor.order.products[p].chosenAddElements[add][
-                                                elem
-                                            ].block_id !== "number"
-                                        ) {
-                                            OrderStor.order.products[p].chosenAddElements[add][
-                                                elem
-                                            ].block_id = OrderStor.order.products[
-                                                p
-                                            ].chosenAddElements[add][elem].block_id.split("_")[1];
-                                        }
-                                    }
-                                    var addElementsData = {
-                                        order_id: OrderStor.order.id,
-                                        product_id: OrderStor.order.products[p].product_id,
-                                        element_type: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .element_type,
-                                        element_id: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .id,
-                                        name: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .name,
-                                        element_width: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .element_width,
-                                        element_height: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .element_height,
-                                        element_price: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .element_price,
-                                        element_qty: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .element_qty,
-                                        block_id: OrderStor.order.products[p].chosenAddElements[add][elem]
-                                            .block_id * 1,
-
-                                        // top_id :OrderStor.order.products[p].chosenAddElements[add][elem].top_id,
-                                        // cloth_id :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_id,
-                                        // cloth_waste :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_waste,
-                                        // top_waste :OrderStor.order.products[p].chosenAddElements[add][elem].top_waste,
-                                        // right_waste :OrderStor.order.products[p].chosenAddElements[add][elem].right_waste,
-                                        // bottom_waste :OrderStor.order.products[p].chosenAddElements[add][elem].bottom_waste,
-                                        // left_waste :OrderStor.order.products[p].chosenAddElements[add][elem].left_waste,
-                                        modified: new Date()
-                                    };
-
-                                    if (orderType) {
-                                        localDB.insertRowLocalDB(
-                                            addElementsData,
-                                            localDB.tablesLocalDB.order_addelements.tableName
-                                        );
-                                        localDB.insertServer(
-                                            UserStor.userInfo.phone,
-                                            UserStor.userInfo.device_code,
-                                            localDB.tablesLocalDB.order_addelements.tableName,
-                                            addElementsData
-                                        );
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    //TODO
-                    //------ send analytics data to Server
-                    //      AnalyticsServ.sendAnalyticsDB();
-
-                    //----- cleaning order
-                    OrderStor.order = OrderStor.setDefaultOrder();
-                    //------ set current GeoLocation
-                    loginServ.setUserGeoLocation(
-                        UserStor.userInfo.city_id,
-                        UserStor.userInfo.cityName,
-                        UserStor.userInfo.climatic_zone,
-                        UserStor.userInfo.heat_transfer,
-                        UserStor.userInfo.fullLocation
-                    );
-                    //----- finish working with order
-                    GlobalStor.global.isCreatedNewProject = 0;
-                    return defer.promise;
-                }
-
-                return deferred.promise;
-            }
-
-            function setGlassfilter() {
-                var product = angular.copy(ProductStor.product);
-                var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
-                    if (product.profile.profileId) {
-                        return product.construction_type == 4 ?
-                            item.profileId === product.profile.profileId :
-                            item.profileId === product.profile.id;
-                    } else {
-                        return item.profileId === product.profile.id;
-                    }
+                  } else {
+                    orderData.order_number = 0;
+                  }
+                  localDB.insertRowLocalDB(orderData, 'orders');
+                  defer.resolve(1);
                 });
-                GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
-                GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-            }
-
-            function setGlassDefault(profileId, template, product) {
-                product.glass.length = 0;
-                var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
-                    return item.profileId === profileId;
+            } else if (orderType && orderData.order_edit === 1) {
+              var orderId = angular.copy(orderData.id);
+              delete orderData.order_edit;
+              localDB
+                .updateOrderServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  'orders',
+                  angular.copy(orderData),
+                  orderId
+                )
+                .then(function (res) {
+                  // orderData.id = orderId;
+                  //------- save draft
+                  localDB.updateLocalDB('orders', angular.copy(orderData), {
+                    id: orderId
+                  });
+                  defer.resolve(1);
                 });
+            }
 
-                GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-                product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-
-                GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
-                GlobalStor.global.selectGlassId = product.glass[0].id;
-                GlobalStor.global.selectGlassName = product.glass[0].sku;
-
-                for (var x = 0; x < template.details.length; x += 1) {
-                    template.details[x].glassId = product.glass[0].id;
-                    template.details[x].glassTxt = product.glass[0].sku;
-                    template.details[x].glass_type = product.glass[0].glass_type;
+            for (p = 0; p < prodQty; p += 1) {
+              var productData = angular.copy(OrderStor.order.products[p]);
+              productData.order_id = OrderStor.order.id;
+              if (!productData.is_addelem_only) {
+                productData.template_source['beads'] = angular.copy(
+                  productData.beadsData
+                );
+              }
+              if (productData.construction_type === 4) {
+                productData.profile_id = 0;
+                productData.door_group_id =
+                  OrderStor.order.products[p].door_group_id;
+              } else {
+                productData.profile_id = OrderStor.order.products[p].profile.id;
+                productData.door_group_id
+                  ? (productData.door_group_id = 0)
+                  : (productData.door_group_id = 0);
+              }
+              productData.glass_id = _.map(
+                OrderStor.order.products[p].glass,
+                function (item) {
+                  return item.id;
                 }
-            }
+              ).join(', ');
 
-            function displayData(value) {
-                return angular.copy(value) * 0.0393701;
-            }
-
-            function profile() {
-                var deferred = $q.defer();
-                if (ProductStor.product.is_addelem_only === 0) {
-                    localDB.selectLocalDB(
-                        localDB.tablesLocalDB.elements_profile_systems.tableName, {
-                            'profile_system_id': ProductStor.product.profile.id
-                        }).then(function (result) {
-                            GlobalStor.global.dataProfiles = angular.copy(result);
-                            deferred.resolve(result);
-                        });
-                }
-                return deferred.promise;
-            }
-
-            function resize() {
-                let obj = $("#main-frame");
-                let width = obj.width();
-                let height = obj.height();
-                let scale = 1,
-                    left = 0,
-                    top = 0;
-                if (self.innerWidth / width > self.innerHeight / height) {
-                    scale = self.innerHeight / height;
-                    left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
+              if (productData.construction_type === 4) {
+                productData.hardware_id = productData.doorLock.id;
+              } else {
+                if (productData.hardware.id) {
+                  productData.hardware_id = productData.hardware.id;
                 } else {
-                    scale = self.innerWidth / width;
-                    top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
+                  productData.hardware_id = 0;
                 }
-                if (scale > 1) {
-                    scale = 1;
-                }
-                obj.css({
-                    "transform": "scale(" + scale + ")",
-                    "left": left + "px",
-                    "top": top + "px"
-                });
-            }
+              }
+              productData.lamination_id =
+                OrderStor.order.products[p].lamination.id;
+              productData.template_source = !productData.is_addelem_only
+                ? JSON.stringify(productData.template_source)
+                : JSON.stringify({});
+              productData.lamination_in_id =
+                OrderStor.order.products[p].lamination.img_in_id;
+              productData.lamination_out_id =
+                OrderStor.order.products[p].lamination.img_out_id;
+              productData.modified = new Date();
+              if (productData.template) {
+                delete productData.template;
+              }
+              delete productData.templateIcon;
+              delete productData.profile;
+              delete productData.glass;
+              delete productData.hardware;
+              delete productData.lamination;
+              delete productData.chosenAddElements;
+              delete productData.profileDepths;
+              delete productData.addelemPriceDis;
+              delete productData.productPriceDis;
+              delete productData.report;
+              delete productData.beadsData;
+              delete productData.doorName;
+              delete productData.doorSashName;
+              delete productData.doorHandle;
+              delete productData.doorLock;
 
-            function closePanelMobile(closeAll) {
-                GlobalStor.global.activePanel = 0;
-                GlobalStor.global.MobileTabActive = 0;
-                GlobalStor.global.OpenSubFolder = -1;
-                CartStor.cart.showCurrentTemp = 0;
-                if (!ProductStor.product.is_addelem_only) {
-                    SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-                        .then(function (result) {
-                            DesignStor.design.templateTEMP = angular.copy(result);
-                            DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
-                                if (entry.impost) {
-                                    DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
-                                    DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
-                                }
-                            });
+              if (orderType) {
+                console.log('productData', productData);
+                localDB.insertRowLocalDB(productData, 'order_products');
+                localDB.insertServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  'order_products',
+                  productData
+                );
+              }
 
-                        });
-                } else {
-                    if (!closeAll) {
-                        setTimeout(() => {
-                            $('#checkForAddElem').trigger('click');
-                        }, 50);
+              /** ====== SAVE Report Data ===== */
+              var productReportData = angular.copy(
+                  OrderStor.order.products[p].report
+                ),
+                reportQty = productReportData.length;
+              while (--reportQty > -1) {
+                productReportData[reportQty].order_id = OrderStor.order.id;
+                productReportData[reportQty].price = angular.copy(
+                  productReportData[reportQty].priceReal
+                );
+                delete productReportData[reportQty].priceReal;
+                //-------- insert product Report into local DB
+                //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
+                //-------- send Report to Server
+                // TODO localDB.insertServer(
+                // UserStor.userInfo.phone, UserStor.userInfo.device_code,
+                // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+              }
+
+              /**============= SAVE ADDELEMENTS ============ */
+
+              var addElemQty =
+                  OrderStor.order.products[p].chosenAddElements.length,
+                add;
+              for (add = 0; add < addElemQty; add += 1) {
+                var elemQty =
+                    OrderStor.order.products[p].chosenAddElements[add].length,
+                  elem;
+                if (elemQty > 0) {
+                  for (elem = 0; elem < elemQty; elem += 1) {
+                    if (
+                      OrderStor.order.products[p].chosenAddElements[add][elem]
+                        .list_group_id === 20 &&
+                      !productData.is_addelem_only
+                    ) {
+                      if (
+                        typeof OrderStor.order.products[p].chosenAddElements[
+                          add
+                        ][elem].block_id !== 'number'
+                      ) {
+                        OrderStor.order.products[p].chosenAddElements[add][
+                          elem
+                        ].block_id =
+                          OrderStor.order.products[p].chosenAddElements[add][
+                            elem
+                          ].block_id.split('_')[1];
+                      }
                     }
-                }
+                    var addElementsData = {
+                      order_id: OrderStor.order.id,
+                      product_id: OrderStor.order.products[p].product_id,
+                      element_type:
+                        OrderStor.order.products[p].chosenAddElements[add][elem]
+                          .element_type,
+                      element_id:
+                        OrderStor.order.products[p].chosenAddElements[add][elem]
+                          .id,
+                      name: OrderStor.order.products[p].chosenAddElements[add][
+                        elem
+                      ].name,
+                      element_width:
+                        OrderStor.order.products[p].chosenAddElements[add][elem]
+                          .element_width,
+                      element_height:
+                        OrderStor.order.products[p].chosenAddElements[add][elem]
+                          .element_height,
+                      element_price:
+                        OrderStor.order.products[p].chosenAddElements[add][elem]
+                          .element_price,
+                      element_qty:
+                        OrderStor.order.products[p].chosenAddElements[add][elem]
+                          .element_qty,
+                      block_id:
+                        OrderStor.order.products[p].chosenAddElements[add][elem]
+                          .block_id * 1,
 
-            }
+                      // top_id :OrderStor.order.products[p].chosenAddElements[add][elem].top_id,
+                      // cloth_id :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_id,
+                      // cloth_waste :OrderStor.order.products[p].chosenAddElements[add][elem].cloth_waste,
+                      // top_waste :OrderStor.order.products[p].chosenAddElements[add][elem].top_waste,
+                      // right_waste :OrderStor.order.products[p].chosenAddElements[add][elem].right_waste,
+                      // bottom_waste :OrderStor.order.products[p].chosenAddElements[add][elem].bottom_waste,
+                      // left_waste :OrderStor.order.products[p].chosenAddElements[add][elem].left_waste,
+                      modified: new Date()
+                    };
 
-            function getPCPower() {
-                var iterations = 1000000;
-                var s = 0;
-                var diffs = 0;
-                for (var j = 0; j < 10; j++) {
-                    var start = +new Date();
-                    for (var i = 0; i < iterations; i++) {
-                        var t = Math.sqrt(i) * Math.sin(i) * Math.cos(i / 2) / 2;
-                        s += t;
+                    if (orderType) {
+                      localDB.insertRowLocalDB(
+                        addElementsData,
+                        localDB.tablesLocalDB.order_addelements.tableName
+                      );
+                      localDB.insertServer(
+                        UserStor.userInfo.phone,
+                        UserStor.userInfo.device_code,
+                        localDB.tablesLocalDB.order_addelements.tableName,
+                        addElementsData
+                      );
                     }
-                    var end = +new Date();
-
-                    var diff = end - start;
-                    diffs += diff;
+                  }
                 }
-                GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
-                GlobalStor.global.loader = 2;
-                return Math.round(1000000 / diffs);
+              }
             }
 
-            function extendUrl(url) {
-                // return cordova.file.applicationStorageDirectory + url;
-                return cordova.file.dataDirectory + url;
+            //TODO
+            //------ send analytics data to Server
+            //      AnalyticsServ.sendAnalyticsDB();
+
+            //----- cleaning order
+            OrderStor.order = OrderStor.setDefaultOrder();
+            //------ set current GeoLocation
+            loginServ.setUserGeoLocation(
+              UserStor.userInfo.city_id,
+              UserStor.userInfo.cityName,
+              UserStor.userInfo.climatic_zone,
+              UserStor.userInfo.heat_transfer,
+              UserStor.userInfo.fullLocation
+            );
+            //----- finish working with order
+            GlobalStor.global.isCreatedNewProject = 0;
+            return defer.promise;
+          }
+
+          return deferred.promise;
+        }
+
+        function setGlassfilter() {
+          var product = angular.copy(ProductStor.product);
+          var tempGlassArr = GlobalStor.global.glassesAll.filter(function (
+            item
+          ) {
+            if (product.profile.profileId) {
+              return product.construction_type == 4
+                ? item.profileId === product.profile.profileId
+                : item.profileId === product.profile.id;
+            } else {
+              return item.profileId === product.profile.id;
             }
+          });
+          GlobalStor.global.glassTypes = angular.copy(
+            tempGlassArr[0].glassTypes
+          );
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+        }
 
-            /**========== FINISH ==========*/
+        function setGlassDefault(profileId, template, product) {
+          product.glass.length = 0;
+          var tempGlassArr = GlobalStor.global.glassesAll.filter(function (
+            item
+          ) {
+            return item.profileId === profileId;
+          });
 
-            thisFactory.publicObj = {
-                extendUrl: extendUrl,
-                getPCPower: getPCPower,
-                closePanelMobile: closePanelMobile,
-                profile: profile,
-                resize: resize,
-                displayData: displayData,
-                setCurrentGlassInTemplate: setCurrentGlassInTemplate,
-                setGlassfilter: setGlassfilter,
-                setGlassDefault: setGlassDefault,
-                saveUserEntry: saveUserEntry,
-                createOrderData: createOrderData,
-                createOrderID: createOrderID,
-                doorProfile: doorProfile,
-                setCurrDiscounts: setCurrDiscounts,
-                setCurrTemplate: setCurrTemplate,
-                prepareTemplates: prepareTemplates,
-                downloadAllTemplates: downloadAllTemplates,
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
 
-                setCurrentProfile: setCurrentProfile,
-                setCurrentDoorProfile: setCurrentDoorProfile,
-                setCurrentGlass: setCurrentGlass,
-                setGlassToTemplateBlocks: setGlassToTemplateBlocks,
-                setCurrentHardware: setCurrentHardware,
-                fineItemById: fineItemById,
-                parseTemplate: parseTemplate,
-                saveTemplateInProduct: saveTemplateInProduct,
-                downloadProfileDepth: downloadProfileDepth,
-                checkSashInTemplate: checkSashInTemplate,
-                preparePrice: preparePrice,
-                setProductPriceTOTAL: setProductPriceTOTAL,
-                showInfoBox: showInfoBox,
-                closeRoomSelectorDialog: closeRoomSelectorDialog,
-                laminatFiltering: laminatFiltering,
-                cleanLamFilter: cleanLamFilter,
-                laminationDoor: laminationDoor,
-                setCurrLamination: setCurrLamination,
-                setProfileByLaminat: setProfileByLaminat,
-                checkGlassSizes: checkGlassSizes,
-                checkHardwareSizes: checkHardwareSizes,
+          GlobalStor.global.glassTypes = angular.copy(
+            tempGlassArr[0].glassTypes
+          );
+          GlobalStor.global.selectGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassName = product.glass[0].sku;
 
-                createNewProject: createNewProject,
-                createNewProduct: createNewProduct,
-                setDefaultDoorConfig: setDefaultDoorConfig,
-                prepareMainPage: prepareMainPage,
-                setDefaultAuxParam: setDefaultAuxParam,
+          for (var x = 0; x < template.details.length; x += 1) {
+            template.details[x].glassId = product.glass[0].id;
+            template.details[x].glassTxt = product.glass[0].sku;
+            template.details[x].glass_type = product.glass[0].glass_type;
+          }
+        }
 
-                inputProductInOrder: inputProductInOrder,
-                goToCart: goToCart,
-                saveOrderInDB: saveOrderInDB,
-                deleteOrderInDB: deleteOrderInDB,
+        function displayData(value) {
+          return angular.copy(value) * 0.0393701;
+        }
 
-                setCurrentGlassForTemplate: setCurrentGlassForTemplate,
-                getOnline: getOnline,
-                calculationPrice: calculationPrice,
-                calculateCoeffs: calculateCoeffs,
-                setBeadId: setBeadId,
-                prepareReport: prepareReport
-            };
+        function profile() {
+          var deferred = $q.defer();
+          if (ProductStor.product.is_addelem_only === 0) {
+            localDB
+              .selectLocalDB(
+                localDB.tablesLocalDB.elements_profile_systems.tableName,
+                {
+                  profile_system_id: ProductStor.product.profile.id
+                }
+              )
+              .then(function (result) {
+                GlobalStor.global.dataProfiles = angular.copy(result);
+                deferred.resolve(result);
+              });
+          }
+          return deferred.promise;
+        }
 
-            return thisFactory.publicObj;
-        });
+        function resize() {
+          let obj = $('#main-frame');
+          let width = obj.width();
+          let height = obj.height();
+          let scale = 1,
+            left = 0,
+            top = 0;
+          if (self.innerWidth / width > self.innerHeight / height) {
+            scale = self.innerHeight / height;
+            left = Math.round(Math.abs(self.innerWidth - width * scale) / 2);
+          } else {
+            scale = self.innerWidth / width;
+            top = Math.round(Math.abs(self.innerHeight - height * scale) / 2);
+          }
+          if (scale > 1) {
+            scale = 1;
+          }
+          obj.css({
+            transform: 'scale(' + scale + ')',
+            left: left + 'px',
+            top: top + 'px'
+          });
+        }
+
+        function closePanelMobile(closeAll) {
+          GlobalStor.global.activePanel = 0;
+          GlobalStor.global.MobileTabActive = 0;
+          GlobalStor.global.OpenSubFolder = -1;
+          CartStor.cart.showCurrentTemp = 0;
+          if (!ProductStor.product.is_addelem_only) {
+            SVGServ.createSVGTemplate(
+              DesignStor.design.templateSourceTEMP,
+              ProductStor.product.profileDepths
+            ).then(function (result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+              DesignStor.design.templateTEMP.details.forEach(function (
+                entry,
+                index
+              ) {
+                if (entry.impost) {
+                  DesignStor.design.templateSourceTEMP.details[
+                    index
+                  ].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+                  DesignStor.design.templateSourceTEMP.details[
+                    index
+                  ].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+                }
+              });
+            });
+          } else {
+            if (!closeAll) {
+              setTimeout(() => {
+                $('#checkForAddElem').trigger('click');
+              }, 50);
+            }
+          }
+        }
+
+        function getPCPower() {
+          var iterations = 1000000;
+          var s = 0;
+          var diffs = 0;
+          for (var j = 0; j < 10; j++) {
+            var start = +new Date();
+            for (var i = 0; i < iterations; i++) {
+              var t = (Math.sqrt(i) * Math.sin(i) * Math.cos(i / 2)) / 2;
+              s += t;
+            }
+            var end = +new Date();
+
+            var diff = end - start;
+            diffs += diff;
+          }
+          GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
+          GlobalStor.global.loader = 2;
+          return Math.round(1000000 / diffs);
+        }
+
+        function extendUrl(url) {
+          // return cordova.file.applicationStorageDirectory + url;
+          return cordova.file.dataDirectory + url;
+        }
+
+        /**========== FINISH ==========*/
+
+        thisFactory.publicObj = {
+          extendUrl: extendUrl,
+          getPCPower: getPCPower,
+          closePanelMobile: closePanelMobile,
+          profile: profile,
+          resize: resize,
+          displayData: displayData,
+          setCurrentGlassInTemplate: setCurrentGlassInTemplate,
+          setGlassfilter: setGlassfilter,
+          setGlassDefault: setGlassDefault,
+          saveUserEntry: saveUserEntry,
+          createOrderData: createOrderData,
+          createOrderID: createOrderID,
+          doorProfile: doorProfile,
+          setCurrDiscounts: setCurrDiscounts,
+          setCurrTemplate: setCurrTemplate,
+          prepareTemplates: prepareTemplates,
+          downloadAllTemplates: downloadAllTemplates,
+
+          setCurrentProfile: setCurrentProfile,
+          setCurrentDoorProfile: setCurrentDoorProfile,
+          setCurrentGlass: setCurrentGlass,
+          setGlassToTemplateBlocks: setGlassToTemplateBlocks,
+          setCurrentHardware: setCurrentHardware,
+          fineItemById: fineItemById,
+          parseTemplate: parseTemplate,
+          saveTemplateInProduct: saveTemplateInProduct,
+          downloadProfileDepth: downloadProfileDepth,
+          checkSashInTemplate: checkSashInTemplate,
+          preparePrice: preparePrice,
+          setProductPriceTOTAL: setProductPriceTOTAL,
+          showInfoBox: showInfoBox,
+          closeRoomSelectorDialog: closeRoomSelectorDialog,
+          laminatFiltering: laminatFiltering,
+          cleanLamFilter: cleanLamFilter,
+          laminationDoor: laminationDoor,
+          setCurrLamination: setCurrLamination,
+          setProfileByLaminat: setProfileByLaminat,
+          checkGlassSizes: checkGlassSizes,
+          checkHardwareSizes: checkHardwareSizes,
+
+          createNewProject: createNewProject,
+          createNewProduct: createNewProduct,
+          setDefaultDoorConfig: setDefaultDoorConfig,
+          prepareMainPage: prepareMainPage,
+          setDefaultAuxParam: setDefaultAuxParam,
+
+          inputProductInOrder: inputProductInOrder,
+          goToCart: goToCart,
+          saveOrderInDB: saveOrderInDB,
+          deleteOrderInDB: deleteOrderInDB,
+
+          setCurrentGlassForTemplate: setCurrentGlassForTemplate,
+          getOnline: getOnline,
+          calculationPrice: calculationPrice,
+          calculateCoeffs: calculateCoeffs,
+          setBeadId: setBeadId,
+          prepareReport: prepareReport
+        };
+
+        return thisFactory.publicObj;
+      }
+    );
 })();
 
 
