@@ -1,56 +1,90 @@
-.loader-container {
-  @extend .backLightView;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  .loader {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30rem;
-    height: 30rem;
-    background: url('../img/spinner.gif') no-repeat;
-    background-size: cover;
-    &.active {
-      background: url('../img/spinner.gif') no-repeat;
-      background-size: cover;
-    }
+.loader {
+  animation: rotate 3s infinite;
+  height: 60px;
+  width: 60px;
+  background-color: #fff;
+  border-radius: 10px;;
+  z-index: 200;
+
+  &:before,
+  &:after {
+    border-radius: 50%;
+    content: "";
+    display: block;
+    height: 20px;
+    width: 20px
   }
-  p {
-    position: absolute;
-    top: 55px;
-    text-align: center;
-    font-size: 18px;
-    color: #A61700;
-    font-weight: bold;
+
+  &:before {
+    animation: ball1 3s infinite;
+    background-color: #000;
+    box-shadow: 30px 0 0 #000;
+    margin-bottom: 10px;
+    margin-left: 4.5px;
+    margin-top: 5px;
   }
-  .loader-counter {
-    position: relative;
-    top : -30px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100px;
-    height: 100px;
-    label {
-      width: 100px;
-      height: 100px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      @include roboto-rg(rem(36px));
-    }
+  &:after {
+     animation: ball2 3s infinite;
+    background-color: #000;
+    box-shadow: 30px 0 0 #000;
+    margin-left: 4.5px;
   }
 }
 
-@media screen and (max-width: 768px){
-  .loader-container {
-    p{
-      font-size: 14px;
-    }
+.loader-position {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.area-loader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 1);
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg) scale(1) }
+  50% { transform: rotate(360deg) scale(1) }
+  100% { transform: rotate(720deg) scale(1) }
+}
+
+@keyframes ball1 {
+  0% {
+    box-shadow: 30px 0 0 #000;
+  }
+  50% {
+    box-shadow: 0 0 0 #000;
+    margin-bottom: 0;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #000;
+    margin-bottom: 10px;
+  }
+}
+
+@keyframes ball2 {
+  0% {
+    box-shadow: 30px 0 0 #000;
+  }
+  50% {
+    box-shadow: 0 0 0 #000;
+    margin-top: -20px;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #000;
+    margin-top: 0;
   }
 }

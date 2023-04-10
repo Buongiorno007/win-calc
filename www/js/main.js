@@ -2068,12 +2068,6 @@ let portrait = false;
 
       function helpModal() {
         const helpModalData = [
-          {
-            id: 1,
-            name: 'Как работает калькулятор?',
-            description: 'Всё очень просто! Приложение позволяет вам построить конструкцию, выбрать стеклопакет, изменить ламинацию, добавить подконник или водоотлив, далее вы оставляете нам свои данные (email и телефон) мы с вами связываемся и уточняем когда вам будет удобно принять ваш товар. Можете начать прямо сейчас! Переходите во вкладки с элементами и окновляйтесь вместе с РЕХАУ!',
-            img: './img/rehau-img/video-help-desktop.gif',
-          }
         ]
         MainServ.showInfoBox(1, helpModalData)
       }
@@ -4823,12 +4817,6 @@ let portrait = false;
 
             function helpModalMobile() {
                 const helpModalData = [
-                  {
-                    id: 1,
-                    name: 'Как работает калькулятор?',
-                    description: 'Всё очень просто! Приложение позволяет вам построить конструкцию, выбрать стеклопакет, изменить ламинацию, добавить подконник или водоотлив, далее вы оставляете нам свои данные (email и телефон) мы с вами связываемся и уточняем когда вам будет удобно принять ваш товар. Можете начать прямо сейчас! Переходите во вкладки с элементами и окновляйтесь вместе с РЕХАУ!',
-                    img: './img/rehau-img/video-help-mobile.gif',
-                  }
                 ]
                 MainServ.showInfoBox(1, helpModalData)
                 console.log('check')
@@ -29790,7 +29778,7 @@ function ErrorResult(code, message) {
                                               id: 1,
                                               lamination_type_id: 1,
                                               isActive: 0,
-                                              name: "mainpage.WHITE_LAMINATION"
+                                              name: "Білий"
                                             });
                                             /** download lamination couples */
                                             downloadLamCouples().then(
@@ -43401,8 +43389,8 @@ function ErrorResult(code, message) {
               id: 0,
               lamination_in_id: 1,
               lamination_out_id: 1,
-              laminat_in_name: 'mainpage.WHITE_LAMINATION',
-              laminat_out_name: 'mainpage.WHITE_LAMINATION',
+              laminat_in_name: 'Білий',
+              laminat_out_name: 'Білий',
               img_in_id: 1,
               img_out_id: 1
             },

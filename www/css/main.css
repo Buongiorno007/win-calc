@@ -1793,7 +1793,7 @@ body {
 }
 
 /* line 343, ../../dev/sass/base/general.scss */
-.fullViewDiv, .backDarkView, .alert-overlay, .box-menu, .box-menu11, .backWhiteView, .alert-overlay-rehau, .room-info-container .coeff-info-block-rehau, .info_container-rehau, .backLightView, .loader-container, .info_container {
+.fullViewDiv, .backDarkView, .alert-overlay, .box-menu, .box-menu11, .backWhiteView, .alert-overlay-rehau, .room-info-container .coeff-info-block-rehau, .info_container-rehau, .backLightView, .info_container {
   position: absolute;
   left: 0;
   right: 0;
@@ -1816,7 +1816,7 @@ body {
 }
 
 /* line 362, ../../dev/sass/base/general.scss */
-.backLightView, .loader-container, .info_container {
+.backLightView, .info_container {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 999;
 }
@@ -2884,63 +2884,100 @@ div.drum figure {
 }
 
 /* line 1, ../../dev/sass/parts/_loader.scss */
-.loader-container {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.loader {
+  animation: rotate 3s infinite;
+  height: 60px;
+  width: 60px;
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: 200;
 }
-/* line 7, ../../dev/sass/parts/_loader.scss */
-.loader-container .loader {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30rem;
-  height: 30rem;
-  background: url("../img/spinner.gif") no-repeat;
-  background-size: cover;
+/* line 9, ../../dev/sass/parts/_loader.scss */
+.loader:before, .loader:after {
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 20px;
+  width: 20px;
 }
-/* line 16, ../../dev/sass/parts/_loader.scss */
-.loader-container .loader.active {
-  background: url("../img/spinner.gif") no-repeat;
-  background-size: cover;
+/* line 18, ../../dev/sass/parts/_loader.scss */
+.loader:before {
+  animation: ball1 3s infinite;
+  background-color: #000;
+  box-shadow: 30px 0 0 #000;
+  margin-bottom: 10px;
+  margin-left: 4.5px;
+  margin-top: 5px;
 }
-/* line 21, ../../dev/sass/parts/_loader.scss */
-.loader-container p {
-  position: absolute;
-  top: 55px;
-  text-align: center;
-  font-size: 18px;
-  color: #A61700;
-  font-weight: bold;
-}
-/* line 29, ../../dev/sass/parts/_loader.scss */
-.loader-container .loader-counter {
-  position: relative;
-  top: -30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100px;
-  height: 100px;
-}
-/* line 38, ../../dev/sass/parts/_loader.scss */
-.loader-container .loader-counter label {
-  width: 100px;
-  height: 100px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  font: normal 2.25rem/1.42857 roboto-regular, sans-serif, icons;
+/* line 26, ../../dev/sass/parts/_loader.scss */
+.loader:after {
+  animation: ball2 3s infinite;
+  background-color: #000;
+  box-shadow: 30px 0 0 #000;
+  margin-left: 4.5px;
 }
 
-@media screen and (max-width: 768px) {
-  /* line 52, ../../dev/sass/parts/_loader.scss */
-  .loader-container p {
-    font-size: 14px;
+/* line 34, ../../dev/sass/parts/_loader.scss */
+.loader-position {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+/* line 43, ../../dev/sass/parts/_loader.scss */
+.area-loader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(360deg) scale(1);
+  }
+  100% {
+    transform: rotate(720deg) scale(1);
+  }
+}
+@keyframes ball1 {
+  0% {
+    box-shadow: 30px 0 0 #000;
+  }
+  50% {
+    box-shadow: 0 0 0 #000;
+    margin-bottom: 0;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #000;
+    margin-bottom: 10px;
+  }
+}
+@keyframes ball2 {
+  0% {
+    box-shadow: 30px 0 0 #000;
+  }
+  50% {
+    box-shadow: 0 0 0 #000;
+    margin-top: -20px;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #000;
+    margin-top: 0;
   }
 }
 /* line 1, ../../dev/sass/parts/_attantions.scss */
@@ -8003,7 +8040,6 @@ div.slider-nav span.left {
 /* line 160, ../../dev/sass/parts/_slider.scss */
 #featured {
   width: 940px;
-  background: #009cff url("../img/orbit/loading.gif") no-repeat center center;
   overflow: hidden;
   transition: opacity 1s, visibility 0s linear 1s;
   opacity: 1;
@@ -8012,7 +8048,7 @@ div.slider-nav span.left {
   height: 450px;
 }
 
-/* line 171, ../../dev/sass/parts/_slider.scss */
+/* line 170, ../../dev/sass/parts/_slider.scss */
 .slider {
   position: absolute;
   top: 15%;

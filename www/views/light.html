@@ -2072,15 +2072,7 @@
     <div ng-click="alertBox.G.global.isNoChangedProduct = 0" class="close-dialog-rehau"></div>
   </div>
 </div>
-<div class="main-block-loader">
-  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP !== 'https://admin.rehauselected.baueffect.com'" class="loader-container">
-    <p>{{ ::loginPage.LOADER_TEXT1 }}<br>{{ ::loginPage.LOADER_TEXT2 }} <br>{{ ::loginPage.LOADER_TEXT3 }}</p>
-    <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
-  </div>
-  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader &amp;&amp; loadBox.consts.serverIP === 'https://admin.rehauselected.baueffect.com'" class="loader-container">
-    <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
-  </div>
-</div>
+<div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="area-loader"><span class="loader loader-position"></span></div>
 <div ng-controller="ErrorProdCtrl as isErrorProd" ng-show="isErrorProd.G.global.isErrorProd" class="alert-overlay">
   <div class="alert-block">
     <div class="alert-sign"></div>
