@@ -70,7 +70,7 @@
             $scope.servisesPrice = [0, 0, 0, 0, 0];
 
             thisCtrl.openIndex = -1;
-            
+
             //Logic and methods from add-elements-mobile file just to reproduce same behavior of screen
             thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;
             thisCtrl.edit = 0;
@@ -83,7 +83,7 @@
             thisCtrl.AddElementsMobile = [];
 
             let addElementsAll = angular.copy(GlobalStor.global.addElementsAll);
-            
+
             /**============ METHODS ================*/
             addElementsAll.forEach((item, index) => {
                 if (index === 0) {
@@ -323,6 +323,13 @@
 
             /**========== FINISH ==========*/
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
+                if (element.list_type_id === 33) {
+                  element.element_width = ProductStor.product.template_width + 200;
+                  element.elementPriceDis = (element.elementPriceDis * element.element_width) / 1000;
+                } if (element.list_type_id === 32) {
+                  element.element_width = ProductStor.product.template_width + 400;
+                  element.elementPriceDis = (element.elementPriceDis * element.element_width) / 1000;
+                }
                 // AuxStor.aux.isFocusedAddElement = 0;
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
                 if (thisCtrl.ChoosenAddElemGroup || ProductStor.product.is_addelem_only) {
@@ -331,7 +338,9 @@
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
                 //We are not displaying glass selector block becouse we do not need it, just calling the function
-                setGridToAll()
+                if (element.list_group_id === 20) {
+                    setGridToAll()
+                }
             }
 
             function closeConfirmAddElem() {
@@ -494,7 +503,7 @@
             thisCtrl.showInfoBox = MainServ.showInfoBox;
             thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
             thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-
+            thisCtrl.closeButton = AddElementsServ.closeButton;
             thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
         });
 })();

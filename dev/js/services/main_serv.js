@@ -1388,6 +1388,7 @@
                 return deff.promise;
             }
 
+            var glassPrices = []
             function setProductPriceTOTAL(Product) {
                 var deliveryCoeff = 
                     GlobalStor.global.deliveryCoeff.percents[
@@ -1395,13 +1396,96 @@
                     ],
                     priceDis = UserStor.userInfo.factory_id == 2 ? Math.round(GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct)) : GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
                     
-                    
-
-
                 Product.product_price = GeneralServ.roundingValue(
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
+                /* This piece of code allows us to calculate glass price with ranges https://trello.com/c/egf7LTSn/586
+                It's not so clear and should be refactored some time*/
+                if (ProductStor.product.report.length > 0) {
+                    Product.report.map((element) => {
+                        if (element.element_group_id === 8) {
+                            localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                            }).then(function(result) {
+                                glassPrices = result[0]
+                            })
+                            if (element.element_id === glassPrices.element_id) {
+                                if (glassPrices.col_1_range > 0) {
+                                    if (element.size < glassPrices.col_1_range) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    } 
+                                } if (glassPrices.col_2_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;  
+
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else  {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                } if (glassPrices.col_3_range_1 > 0) {
+                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                            
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                } if (glassPrices.col_4_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                }
+                                if (glassPrices.col_5_range > 0) {
+                                    if (element.size > glassPrices.col_5_range) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                console.log("no Match") 
+                            }
+                        }
+                    })
+                }
+                
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -1499,106 +1583,6 @@
                         priceMargin,
                         doorData,
                         tempDoorItems;
-                        var glassData = null
-                        function glassPricesData() {
-                            var defer = $q.defer();
-                            db.getItem('tables').then(function (value) {
-                                glassPricesData = value;
-                                defer.resolve(glassPricesData);
-                            }).catch(function (err) {
-                                console.log(err);
-                                defer.resolve(0);
-                            });
-                            return defer.promise;
-                        }
-                        /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
-                        glassPricesData().then(
-                            function(data) {
-                                let glassPricesData = data.glass_prices;
-                                let currentGlassData = ProductStor.product.report;
-                                if (glassPricesData) {
-                                    for(var i = 0; i < glassPricesData.length; i++) {
-                                        for(var y = 0; y < currentGlassData.length; y++) {
-                                            /* checks if ids the same */
-                                            if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
-                                                /* check range */
-                                                if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        )
                     
                     if (priceObj.priceTotal) {
                         /** DOOR add handle and lock Ids */
@@ -1821,7 +1805,7 @@
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
                     if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
-                        ProductStor.product.heat_coef_expert_mark = Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10;
+                        ProductStor.product.heat_coef_expert_mark = (Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10).toFixed(1);
                     }
                 } else {
                     /** U */
@@ -1948,7 +1932,7 @@
                                 //---- only for this type of user
                                 if (
                                     UserStor.userInfo.user_type === 5 ||
-                                    UserStor.userInfo.user_type === 7
+                                    UserStor.userInfo.user_type === 7 || UserStor.userInfo.factory_id === 2
                                 ) {
                                     ProductStor.product.report = prepareReport(
                                         result.constrElements

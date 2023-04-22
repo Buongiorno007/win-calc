@@ -34,7 +34,7 @@ position: absolute;
   background-color: #800000;
   z-index: 35;
 }
-//rehau styles 
+//rehau styles
 .cart-dialogs-rehau {
   @include transition(all 1.5s linear);
   @include overflow-scroll();
@@ -43,7 +43,7 @@ position: absolute;
   right: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(0,0,0,.8);
   backdrop-filter: blur(4px);
   overflow-y: auto;
   overflow-x: hidden;
@@ -53,23 +53,27 @@ position: absolute;
   width: 704px;
   height: 604px;
   margin-left: 35%;
-  margin-top: 5%;
+  margin-top: 0.5%;
 
-  .cart-dialog-header{
+  .cart-dialog-header {
+    @include roboto-md(32px);
     position: relative;
-    text-align: center;
-    padding-top: 3%;
-    background-color: $primary_green;
-    height: 80px;
+    text-align: left;
+    background-color: #fff;
+    padding: 18px;
+
+    p {
+      font-size: 16px;
+    }
   }
   .cart-dialog-tool {
     position: absolute;
-    background-image: url(../img/rehau-img/close.png);
-    background-color: #DE350C;
+    background-image: url(../img/rehau-img/close.svg);
+    background-color: #fff;
     background-repeat: no-repeat;
     background-position: center;
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
 
     border: none;
 
@@ -78,7 +82,7 @@ position: absolute;
   }
   // .back {
   //   &:before {
-  //     background-image: url(../img/rehau-img/close.png);
+  //     background-image: url(../img/rehau-img/close.svg);
   //     width: 32px;
   //     height: 32px;
   //   }
@@ -91,14 +95,15 @@ position: absolute;
   }
 
   .cart-dialog-title {
+    @include roboto-md(32px);
     font-style: normal;
     font-weight: bold;
     font-size: 32px;
     line-height: 32px;
 
-    text-align: center;
+    text-align: left;
 
-    color: #FFFFFF;
+    color: #000;
   }
   .save {
     @extend .splash;
@@ -135,11 +140,11 @@ position: absolute;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: rem(60px);
+    padding: 0px 18px 24px 18px;
     background-color: white;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
 
-    height: 604px;
+    height: auto;
     .user-field {
       font-style: normal;
       font-weight: normal;
@@ -166,7 +171,59 @@ position: absolute;
         width: 12.5% ;
       }
     }
+    .user-field-name {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 32px;
+
+      color: #000000;
+      width: 360px;
+      height: 48px;
+      padding: rem(20px);
+      border: 1px solid #8c8c8c;
+      outline: none;
+
+      &.ng-invalid-minlength,
+      &.ng-invalid-pattern {
+        border-color: $error_color;
+      }
+      &.street {
+        display: inline-block;
+        width: 60%;
+      }
+      &.small {
+        display: inline-block;
+        width: 12.5% ;
+      }
+    }
     .user-field-phone {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 32px;
+
+      color: #000000;
+      width: 360px;
+      height: 48px;
+      padding: rem(20px);
+      border: 1px solid #8c8c8c;
+      outline: none;
+
+      &.ng-invalid-minlength,
+      &.ng-invalid-pattern {
+        border-color: $error_color;
+      }
+      &.street {
+        display: inline-block;
+        width: 60%;
+      }
+      &.small {
+        display: inline-block;
+        width: 12.5% ;
+      }
+    }
+    .user-field-email {
       font-style: normal;
       font-weight: normal;
       font-size: 24px;
@@ -245,9 +302,8 @@ position: absolute;
       }
 
       .agreement {
+        font-family: 'brix-regular';
         font-size: 14px;
-        font-family: cursive;
-        font-style: italic;
       }
     }
   }

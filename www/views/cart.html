@@ -847,7 +847,7 @@
                   <div class="interval">
                     <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
                     <div ng-if="sizeCalc.U.userInfo.factory_id===1966" ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.displayData(sizeCalc.D.design.maxSizeLimit) | number : 0 }}</div>
-                    <div ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
+                    <div ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit max">{{ sizeCalc.D.design.maxSizeLimit }}</div>
                     <div class="calc-label-limit">{{ ::sizeCalc.MAX }}</div>
                   </div>
                 </div>
@@ -950,7 +950,8 @@
                 <button fs-click="sizeCalc.setValueSize('.')" class="cell-rehau calc-digit">.</button>
               </td>
               <td>
-                <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell-rehau calc-ok">OK</button>
+                <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();" class="cell-rehau calc-ok check">OK</button>
+                <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();" class="cell-rehau calc-ok">OK</button>
               </td>
             </tr>
           </table>
@@ -1513,17 +1514,17 @@
           <div ng-if="orderForm.U.userInfo.user_type === 8" class="cart-dialogs-container-rehau">
             <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
               <div class="cart-dialog-header">
-                <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool"></button>
-                <div class="cart-dialog-title">Оставить заявку на окно</div>
+                <button ng-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool"></button>
+                <div class="cart-dialog-title">Оставить заявку</div>
               </div>
               <div class="cart-dialog-body">
                 <div ng-class="{'invalid-data': orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
                   <div class="input-name">Ваше имя</div>
-                  <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field">
+                  <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-name">
                 </div>
                 <div ng-class="{'invalid-data': orderForm.C.cart.customer.customer_phone === 0 }" class="input-field">
                   <div class="input-name">Ваш номер телефона</div>
-                  <input id="phone" placeholder="+7(___) ___-__-__" type="phone" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field-phone">
+                  <input id="phone" placeholder="+7(___) ___-__-__" type="phone" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-phone">
                 </div>
                 <div class="input-field">
                   <div class="input-name">Ваш коментарий</div>
@@ -1531,10 +1532,10 @@
                 </div>
                 <div class="privacy-policy-text">
                   <input type="checkbox" ng-model="checkedList" ng-init="checkedList=false" class="agreement-checkbox">
-                  <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности</div>
+                  <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности. <br /></div>
                 </div>
                 <button type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled class="save save-order little">{{ ::orderForm.READY }}</button>
-                <button type="submit" ng-if="checkedList" class="save save-order little">{{ ::orderForm.READY }}</button>
+                <button type="submit" id="226880291" onclick="ym(86026367,'reachGoal','LEAD')" ng-if="checkedList" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
             </form>
           </div>
@@ -1720,7 +1721,7 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }} </div>
     <div class="alert-btns">
       <div class="thisAlert">
         <section class="loginPage"></section>
@@ -1734,7 +1735,7 @@
   <div class="alert-block-rehau">
     <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
     <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
-    <div class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</div>
+    <h2 class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</h2>
     <div class="alert-descr-rehau">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns-rehau">
       <div class="thisAlert">
@@ -1749,23 +1750,9 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
-  <div class="alert-block-rehau">
-    <div class="alert-danger-sign-rehau"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="main-page"></section>
-      </div>
-      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
-    <div class="alert-sign"></div>
+    <div class="alert-danger-sign-rehau"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
@@ -1790,12 +1777,34 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-ok-rehau">
-    <div class="alert-descr-rehau">{{ alertBox.SAVED_KONSTRUCTION }}</div>
-    <div class="alert-btns-rehau">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
+    <div class="alert-block-inner">
+      <div class="alert-header">
+        <h2 class="alert-title-rehau">Внимание</h2>
       </div>
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes-rehau">{{ ::alertBox.OK }}</button>
+      <div class="alert-body">
+        <div class="alert-descr-rehau">Данная конструкция добавлена в корзину! Пожалуйста выберите следующее действие</div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'design'" class="alert-btns-rehau">
+          <div ng-click="alertBox.goToCart()" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'mobile'" class="alert-btns-rehau">
+          <div ng-click="mobilePage.setTab(4); alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div ng-click="alertBox.G.global.isNoChangedProduct = 0" class="close-dialog-rehau"></div>
   </div>
 </div>

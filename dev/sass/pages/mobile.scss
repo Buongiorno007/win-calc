@@ -74,6 +74,11 @@
   -webkit-text-fill-color: $main_red;
 }
 
+.white-color {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
 html {
   overflow: hidden;
   height: 100%;
@@ -105,6 +110,10 @@ body {
   background: transparent;
 }
 
+.size-box {
+  animation: animate_motion 5s 0s both infinite;
+}
+
 .mobile {
   * {
     outline: none;
@@ -127,11 +136,12 @@ body {
   .price-value {
     @include roboto-lt(rem($price_container-height-mobile),
     1);
+    font-weight: bold;
     display: inline-flex;
     overflow: hidden;
     height: rem($price_container-height-mobile);
     text-align: center;
-    @extend .red-color;
+    color: $primary_pink;
   }
   .digit-cell {
     position: relative;
@@ -144,6 +154,7 @@ body {
     }
   }
   .alert-block,
+  .alert-block-rehau,
   .danger-alert {
     all: unset;
     display: inline-flex;
@@ -153,10 +164,10 @@ body {
     justify-content: center;
     position: absolute;
     background: white;
-    top: 5%;
+    top: 10%;
     left: 5%;
-    height: 90%;
-    width: 90%;
+    height: 80%;
+    width: 91%;
     .alert-btns {
       button {
         display: inline-flex;
@@ -188,19 +199,22 @@ body {
   .price-currency {
     @include roboto-lt(rem($price_container-height-mobile - 4px),
     1);
-    @extend .red-color;
+    color: $primary_pink;
     margin: 0 1vw;
+    font-weight: bold;
   }
   #tamlateSVG {
     all: unset;
     display: inline-block;
     position: relative;
-    left: -2vh;
-    top: -4vh;
+    left: -20px;
+    background-color: #EDEDED;
+    height: 100vh;
   }
   .main-view,
   svg-template,
   .svg-template {
+    height: 32rem !important;
     .size-txt-edit {
       @extend .size-txt;
       stroke: $main_red;
@@ -211,7 +225,7 @@ body {
       }
     }
     .size-txt-edit-rehau {
-      @extend .size-txt;
+      @extend .size-txt-rehau;
       dominant-baseline: middle;
       stroke: white;
       fill: white;
@@ -237,8 +251,8 @@ body {
     }
     // rehau-styles
     .size-rect-rehau {
-      width: 160px;
-      height: 70px;
+      width: 240px;
+      height: 90px;
       stroke: $primary_green !important;
       -moz-stroke: $primary_green;
       stroke-width: 0px;
@@ -257,15 +271,38 @@ body {
         fill: $primary_pink;
       }
     }
+
+    .size-txt-rehau {
+      font-size: 72px;
+      stroke: white;
+      stroke-width: 1px;
+      margin-left: 15px;
+      text-anchor: middle;
+      alignment-baseline: middle;
+      dominant-baseline: middle;
+      cursor: pointer;
+    }
+    .size-txt-edit-rehau {
+      @extend .size-txt-rehau;
+      font-size: 104px;
+      dominant-baseline: middle;
+      stroke: white;
+      fill: white;
+      &.active {
+        stroke: white;
+        fill: white;
+      }
+    }
   }
   .mobile-price {
     position: absolute;
     bottom: calc(10vh + 65px);
     height: 50px;
     width: 100%;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+
     .go-to-cart {
       width: 165px;
       height: 45px;
@@ -384,13 +421,162 @@ body {
       @include roboto-lt(8px);
     }
   }
+
+  .control-buttons-container-rehau {
+    bottom: 0;
+    width: 100%;
+    align-items: center;
+    background-color: darken(#EDEDED, 5%);
+
+    .mobile-price-block-rehau {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      .menu-block {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        text-align: center;
+        flex: 0.25;
+        min-height: 80px;
+        height: auto;
+        img {
+          width: 32px;
+          height: 32px;
+        }
+        .active-img {
+          filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(79deg) brightness(104%) contrast(102%);
+        }
+
+        &.active {
+          background-color: $primary_green;
+          color: #fff;
+        }
+
+        padding: 18px 0;
+
+        color: #000;
+        font-size: 16px;
+
+        .construction-count-mobile {
+          border: none;
+          height: 24px;
+          width: 34px;
+
+          font-size: 16px;
+          background-color: $primary_pink;
+          color: #fff;
+          border-radius: 32px;
+
+          margin-top: -10px;
+          text-align: center;
+        }
+
+        .menu-text {
+          margin-top: 8px;
+        }
+        .menu-icon-basket {
+          display: flex;
+          align-self: center;
+          align-items: flex-start;
+        }
+        &.disabled {
+          display: none;
+          position:absolute;
+          right: -9999px;
+        }
+      }
+    }
+
+
+    .control-button {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      width: 25%;
+      height: 100%;
+      justify-content: space-between;
+      padding-top: 10px;
+      .img-common {
+        width: 30px;
+        height: 30px;
+      }
+      .cart-img {
+        background: url("../img/config-menu/cart.svg") no-repeat center;
+        background-size: contain;
+        &.active {
+          background: url("../img/config-menu/cart_active.svg") no-repeat center;
+          background-size: contain;
+        }
+      }
+      .config-img {
+        background: url("../img/config-menu/conf.svg") no-repeat center;
+        background-size: contain;
+        &.active {
+          background: url("../img/config-menu/conf_active.svg") no-repeat center;
+          background-size: contain;
+        }
+      }
+      .karkas-img {
+        background: url("../img/config-menu/karkas.svg") no-repeat center;
+        background-size: contain;
+        &.active {
+          background: url("../img/config-menu/karkas_active.svg") no-repeat center;
+          background-size: contain;
+        }
+      }
+      .templates-img {
+        background: url("../img/config-menu/template.svg") no-repeat center;
+        background-size: contain;
+        &.active {
+          background: url("../img/config-menu/template_active.svg") no-repeat center;
+          background-size: contain;
+        }
+      }
+      .qty-mobile {
+        @extend .splash;
+        position: relative;
+        top: -10px;
+        right: -20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        height: 20px;
+        width: 20px;
+        background: $main_red;
+        border-radius: 25px;
+        @include roboto-lt(15px);
+        span {
+          position: relative;
+          top: 1px;
+          left: 0.5px;
+        }
+      }
+    }
+    p {
+      text-transform: uppercase;
+      @include roboto-lt(8px);
+    }
+  }
+
+  .help-button {
+    width: 100%;
+    font-size: 16px;
+    height: 34px;
+    color: #fff;
+    background-color: #4e4e4e;
+    border: 1px #4e4e4e;
+  }
+
   .content-container {
     display: inline-flex;
-    height: auto;
+    height: 100%;
     width: 100%;
     position: absolute;
-    bottom: 60px;
+    bottom: 0;
     background: white;
+    z-index: 1;
     .common-content-style {
       width: 100%;
       height: 10vh;
@@ -410,19 +596,351 @@ body {
       overflow-y: hidden;
       box-sizing: content-box;
     }
-    .scroll-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: white;
+    .box {
       width: 100%;
-      height: calc(100% - 100px);
-      z-index: 1;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      padding-top: 100px;
-      box-sizing: content-box;
+      .scroll-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: white;
+        width: 100%;
+        height: calc(100% - 100px);
+        z-index: 1;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-top: 100px;
+        box-sizing: content-box;
+      }
+
+      .common-scroll-container-rehau {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: white;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        box-sizing: content-box;
+
+        .template-content-rehau {
+          //main container
+          .template-main-item {
+            padding: 16px;
+            margin-bottom: 120px;
+            .template-container-rehau {
+              .other-template-rehau {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                .other-single-template-rehau {
+                  display: flex;
+                  flex-direction: column;
+                  min-width: 120px;
+                  min-height: 120px;
+                  align-items: center;
+
+                  margin: 10px;
+
+                  // box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
+                  padding: 8px;
+                  &.selected {
+                    background-color: $primary_green;
+                    color: white;
+                  }
+                  &:hover {
+                    background-color: #F5F5F5;
+                  }
+
+                  .other-template-img {
+                    max-width: 125px;
+                    max-height: 125px;
+                    text-align: center;
+
+                    img {
+                      max-width: 125px;
+                      max-height: 125px;
+                      text-align: center;
+                    }
+                  }
+
+                  .other-template-subscr {
+                    font-size: 18px;
+                    line-height: 32px;
+                    margin: 0 auto;
+                    text-align: center;
+                    color: $primary_green;
+                    white-space: normal;
+                    padding-top: 16px;
+
+                    max-height: 50px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                  }
+
+                }
+                .single-leaf-windows {
+                  margin-top: 0px;
+                  .single-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      margin: 0;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .single-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+                //duble leaf windows
+                .duble-leaf-windows {
+                  .duble-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      margin: 0;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .duble-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+                //three leaf windows
+                .three-leaf-windows {
+                  .three-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      margin: 0;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .three-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+
+                .t-shaped {
+                  .three-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      margin: 0;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .three-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+
+                .balcony-doors {
+                  .three-leaf-windows-title {
+                    h1 {
+                      color: $primary_green;
+                      text-align: start;
+                      font-style: normal;
+                      font-weight: bold;
+                      font-size: 24px;
+                      line-height: 32px;
+
+                      margin: 12px 0;
+
+                      text-transform: uppercase;
+                    }
+                  }
+                  .three-leaf-windows-templates {
+                    text-align: start;
+                    display: flex;
+                    overflow: scroll;
+                  }
+                }
+                
+
+              }
+
+
+              .template-header {
+                text-align: center;
+              }
+
+              .template-title {
+                @extend .splash;
+                @include roboto-lt(rem(80px), rem(80px));
+                height: rem(92px);
+                text-align: center;
+                color: $main_green;
+                border: 1px solid $main_green;
+                border-radius: rem(16px);
+                background-color: transparent;
+                outline: none;
+                &.active {
+                  color: #fff;
+                  background-color: $main_green;
+                }
+              }
+
+              .tempate-type-box {
+                position: relative;
+                display: inline;
+              }
+              .template-type {
+                @include roboto-lt(rem(36px), rem(65px));
+                position: absolute;
+                top: -4rem;
+                left: 2rem;
+                padding: rem(10px) rem(20px);
+                border-radius: rem(16px);
+                background-color: #242424;
+                color: #fff;
+                white-space: nowrap;
+                cursor: pointer;
+                &:before {
+                  position: absolute;
+                  z-index: 1;
+                  top: 1.75rem;
+                  left: -1.25rem;
+                  display: block;
+                  width: 0;
+                  border-width: 1.25rem 1.25rem 1.25rem 0;
+                  border-style: solid;
+                  border-color: transparent #242424;
+                  content: '';
+                }
+              }
+              .template-type-btn {
+                border-bottom: 1px solid $main_gray_btn;
+                &:last-child {
+                  border-bottom: none;
+                }
+              }
+
+              .template-discr {
+                @include roboto-lt(rem(80px));
+                text-align: center;
+                color: $main_gray_txt;
+              }
+
+              .template-section {
+                //width: rem(1500px);
+                height: rem(1000px);
+                text-align: center;
+                cursor: pointer;
+              }
+
+              .template-footer {
+                  @include display-flex();
+                  overflow: auto;
+                  position: relative;
+                  top: 5rem;
+                  display: flex;
+                  overflow: auto;
+            //    @include flex-flow(row nowrap);
+            //    @include justify-content(center);
+              }
+              .template-footerLight {
+                display: none !important;
+                flex-direction: column;
+                left: -1rem;
+                width: 20rem;
+                @include display-flex();
+                overflow: auto;
+                position: relative;
+                top: 20rem;
+                display: flex;
+                overflow: auto;
+                &.goLeft{
+                  display: inline-flex !important;
+                }
+                //    @include flex-flow(row nowrap);
+                //    @include justify-content(center);
+              }
+
+              .other-templates {
+                @include display-flex();
+                @include overflow-scroll();
+                min-height: 14rem;
+                overflow-y: hidden;
+                overflow-x: auto;
+              }
+
+              .other-template {
+                display: inline-block;
+                min-width: 190px;
+                margin: 0 rem(10px);
+                cursor: pointer;
+                &.selected {
+                  background-color: rgba(114, 225, 133, 0.55);
+                  border-radius: 1rem;
+                }
+              }
+
+              .other-template-img {
+                @extend .splash;
+                text-align: center;
+                img {
+                  max-height: 150px;
+                }
+              }
+
+              .other-template-label {
+                @include roboto-lt(rem(24px));
+                max-width: rem(150px);
+                margin: rem(20px) auto 0 auto;
+                text-align: center;
+                word-wrap: break-word;
+                color: #666;
+              }
+
+              .other-template-subscr {
+                @extend .truncated;
+                @include roboto-lt(rem(24px));
+                max-width: rem(200px);
+                margin: 0 auto;
+                text-align: center;
+                color: #666;
+              }
+            }
+          }
+        }
+      }
     }
+
     .swiper-container {
       width: 100% !important;
     }
@@ -471,19 +989,24 @@ body {
         display: inline-block;
         white-space: nowrap;
         height: auto;
-        overflow: scroll; //overflow-x: hidden;
-        //overflow-y: hidden;
-        //-webkit-overflow-scrolling: touch;
-        //-ms-overflow-style: -ms-autohiding-scrollbar;
+        overflow: scroll;
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+          }
+
         .template {
           flex: 0 0 auto;
           padding: 10px 0 0 0;
           min-width: 100px;
-          width: auto;
+          width: 150px;
           height: auto;
           line-height: 80px;
           text-align: center;
-          margin: 0 15px;
           position: relative;
           display: inline-flex;
           flex-direction: column;
@@ -492,13 +1015,25 @@ body {
           box-sizing: content-box;
           .template-img {
             display: inline-block;
-            height: 70px;
+            height: 128px;
+            width: auto;
             object-fit: contain;
           }
           .name {
             margin: 10px 0px;
             @include roboto-lt(rem(25px),
             1);
+            white-space: pre-wrap;
+
+            max-width: 128px;
+
+
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+
+            color: $primary_green;
           }
           &.active {
             border: 2px solid $main_red;
@@ -726,6 +1261,128 @@ body {
         }
       }
     }
+    // rehau styles
+    .config-content-rehau {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+      .common-scroll-container-rehau {
+        width: 100%;
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        box-sizing: content-box;
+
+        .conf-top-item {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          background-color: $primary_green;
+
+          padding: 12px 16px;
+
+          .conf-header {
+            height: auto;
+            width: 100%;
+
+            background: $primary_green;
+
+            .conf-item-title {
+              font-style: normal;
+              font-weight: bold;
+              font-size: 20px;
+              line-height: 24px;
+
+              color: #FFFFFF;
+            }
+
+            .conf-item-subtitle {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 24px;
+
+              color: #FFFFFF;
+            }
+          }
+
+          .conf-close {
+            background-image: url("../img/rehau-img/close.png");
+            background-repeat: no-repeat;
+            width: 19px;
+            height: 19px;
+
+            background-color: $primary_green;
+            border: none;
+
+            align-self: center;
+          }
+        }
+      }
+      .conf-item-rehau {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 10vh;
+        width: 100%;
+
+        padding: 8px 16px;
+
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+        .item-title {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 24px;
+
+          color: $primary_green;
+        }
+
+        &.active {
+          background: white;
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+
+        .conf-item-text {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 24px;
+
+          color: #000000;
+        }
+
+        .additional-items-list-rehau {
+          height: 150px;
+          overflow-y: scroll;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 24px;
+
+          color: #000000;
+
+          ul {
+            padding: 0;
+          }
+          li {
+            list-style-type: none;
+          } 
+        }
+        &:last-child {
+          height: 150px;
+          box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
+        }
+      }
+    }
   }
   .config-panel {
     &.active {
@@ -739,7 +1396,7 @@ body {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    z-index: 1;
+    z-index: 20;
     .calc-delete {
       width: 11rem;
       height: rem(70px);
@@ -774,6 +1431,14 @@ body {
   }
   @supports ((position:sticky) or (position:-webkit-sticky)) {
     .accept-container {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+    .top-container {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+    .bottom-block {
       position: -webkit-sticky;
       position: sticky;
     }
@@ -831,6 +1496,401 @@ body {
       }
     }
   }
+  .top-container {
+    .top-container-item {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      background-color: $primary_green;
+
+      padding: 12px 16px;
+
+      .top-container-header {
+        height: auto;
+        width: 100%;
+
+        background: $primary_green;
+
+        .top-container-title {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 20px;
+          line-height: 24px;
+
+          color: #FFFFFF;
+        }
+
+        .top-container-subtitle {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 24px;
+
+          color: #FFFFFF;
+        }
+      }
+
+      .top-container-close {
+        background-image: url("../img/rehau-img/close.png");
+        background-repeat: no-repeat;
+        width: 19px;
+        height: 19px;
+
+        background-color: $primary_green;
+        border: none;
+
+        align-self: center;
+      }
+    }
+  }
+
+  .bottom-block {
+    width: 100%;
+    height: auto;
+    left: 0px;
+    bottom: 0;
+    background-color: #EDEDED;
+    position: fixed;
+    z-index: 1;
+
+    .to-basket-button {
+      display: flex;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+      margin: 25px;
+      &.disabled {
+        display: none;
+        position:absolute;
+        right: -9999px;
+      }
+    }
+
+    .to-basket-button-for-landing {
+      display: flex;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+      margin: 25px;
+      &.disabled {
+        display: none;
+        position:absolute;
+        right: -9999px;
+      }
+    }
+
+
+    .add-to-basket-img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 40px;
+      background-color: #424242;
+      .go-to-basket-img {
+        width: 30px;
+        height: 30px;
+        filter: invert(1);
+      }
+    }
+
+    .add-to-basket {
+      display: flex;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      padding: 8px 20px;
+      background-color: $primary_green;
+      color: #fff;
+
+      border: none;
+
+      max-width: 200px;
+      transition: 0.3s linear;
+      &:active {
+        background-color: #4E4E4E;
+        transform: scale(1.05);
+      }
+    }
+
+    .heat-coeff-txt {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 16px 0px 16px;
+      .price-discount-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 1vw 0 0;
+
+        .price-discount-span {
+          font-size: 14px;
+          color: gray;
+          text-decoration: line-through;
+        }
+
+        .price-discount-percentage {
+          font-size: 14px;
+          color: $primary_pink;
+          margin-left: 2px;
+        }
+      }
+      .heat-coeff-span {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+
+        color: #4E4E4E;
+      }
+    }
+
+    .price-and-heat-coeff {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 0px 16px 8px 16px;
+
+      .expert-mark-row {
+        display: flex;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+
+        color: #000000;
+
+        .title-rehau {
+          padding-left: 6px;
+        }
+        .expert-mark {
+          font-weight: bold;
+        }
+      }
+      .price-rehau {
+        display: flex;
+      }
+    }
+
+    .price-total {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 8px 16px 8px 16px;
+      font-size: 24px;
+      .price-total-price {
+        .price-discount-text {
+          display: flex;
+          align-items: right;
+          justify-content: right;
+        .price-discount-span {
+          font-size: 14px;
+          color: gray;
+          text-decoration: line-through;
+        }
+
+        .price-discount-percentage {
+          font-size: 14px;
+          color: $primary_pink;
+          margin-left: 2px;
+        }
+      }
+      .price-rehau {
+        display: flex;
+      }
+      }
+
+      .total-txt {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 32px;
+
+        color: #000000;
+      }
+    }
+
+    .to-basket {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 32px;
+
+      text-align: center;
+
+      color: #FFFFFF;
+
+      border: none;
+
+      padding: 8px 24px;
+      margin: auto;
+      width: 100%;
+
+      background: $primary_green;
+    }
+
+    .to-basket-block {
+      display: flex;
+
+      .add-to-basket {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 32px;
+
+        text-align: center;
+
+        color: #FFFFFF;
+
+        border: none;
+
+        padding: 8px 24px;
+        margin: auto;
+        width: 100%;
+      }
+
+      .counter-block-rehau {
+        .counter-rehau-for-landing {
+          width: auto;
+          height: 5rem;
+          display: inline-block;
+  
+          .prodcounter-rehau-for-landing {
+            background-color: #424242;
+            color: white;
+            padding-left: 35px;
+            height: 48px;
+          }
+          input {
+            transition: .5s;
+            cursor: pointer;
+            @include roboto-md(rem(36px), rem(60px));
+            text-align: center;
+            border: none;
+            width: 9rem;
+            height: 5.5rem;
+  
+            background-image: url(../img/rehau-img/basket.png);
+            background-repeat: no-repeat;
+            background-position-y: 50%;
+            background-position-x: 35%;
+          }
+        }
+        &.disabled {
+          display: none;
+          position:absolute;
+          right: -9999px; 
+        }
+      }
+
+      
+      .counter-block-rehau-for-landing-mobile {
+        .counter-rehau-for-landing {
+          width: auto;
+          height: 5rem;
+          display: inline-block;
+  
+          .prodcounter-rehau-for-landing {
+            background-color: #424242;
+            color: white;
+            padding-left: 35px;
+            height: 48px;
+          }
+          input {
+            transition: .5s;
+            cursor: pointer;
+            @include roboto-md(rem(36px), rem(60px));
+            text-align: center;
+            border: none;
+            width: 9rem;
+            height: 5.5rem;
+  
+            background-image: url(../img/rehau-img/basket.png);
+            background-repeat: no-repeat;
+            background-position-y: 50%;
+            background-position-x: 35%;
+          }
+        }
+        &.disabled {
+          display: none;
+          position:absolute;
+          right: -9999px; 
+        }
+      }
+    }
+
+    .accept {
+      display: flex;
+
+      .add-to-basket {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 32px;
+
+        text-align: center;
+
+        color: #FFFFFF;
+
+        border: none;
+
+        padding: 8px 24px;
+        margin: auto;
+        width: 100%;
+
+        background: $primary_green;
+      }
+    }
+
+    .go-to-spec {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 16px 0 16px;
+      bottom: 16px;
+
+      .spec {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 32px;
+
+        text-align: center;
+
+        color: #FFFFFF;
+
+        border: none;
+
+        padding: 8px 24px;
+        margin: auto;
+        width: 100%;
+
+        background: $primary_green;
+      }
+      .add-product-rehau {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 24px;
+
+        border: none;
+
+        text-align: center;
+
+        color: #FFFFFF;
+        margin-top: 16px;
+        background-color: #4E4E4E;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px; 
+      }
+    }
+  }
+
+
   .mobile-common-panel {
     position: absolute;
     top: 0;
@@ -840,6 +1900,7 @@ body {
     background: white;
     overflow-y: auto;
     z-index: 1;
+    overflow-x:hidden;
   }
   .mobile-profiles {
     .profiles-list {
@@ -872,6 +1933,11 @@ body {
             -webkit-text-fill-color: black;
             text-transform: uppercase;
             line-height: 20px;
+          }
+          .info-rehau {
+            background-image: url(../img/rehau-img/info_rehau.png);
+            width: 16px;
+            height: 16px;
           }
         }
         .profile-box {
@@ -958,6 +2024,267 @@ body {
               border-radius: 25px;
               @extend .red-color;
               @include roboto-rg(5vw);
+            }
+          }
+        }
+      }
+    }
+    .profiles-list-rehau {
+      display: inline-flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px 16px 16px 16px;
+      .profile-block {
+        display: inline-flex;
+        flex-direction: column;
+        height: 109vw;
+        flex: 0 0 auto;
+        width: 100%;
+        .producer {
+          display: inline-flex;
+          align-items: center;
+          height: 70px;
+          flex: 0 0 auto;
+          .title {
+            margin: 0;
+            display: inline-flex;
+            align-items: center;
+            @include roboto-rg(24px);
+            color: black;
+            -webkit-text-fill-color: black;
+            text-transform: uppercase;
+            line-height: 20px;
+          }
+        }
+        .profile-box {
+          min-width: 100%;
+          display: flex;
+          flex-wrap: nowrap;
+          height: 88vw;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          -ms-overflow-style: -ms-autohiding-scrollbar;
+          flex: 0 0 auto;
+          .profile-info {
+            flex: 0 0 auto;
+            margin: 0 16px 0 0;
+            position: relative;
+            height: 86vw;
+            width: 43vw !important;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
+            box-sizing: content-box;
+            .profile-info-item {
+              display: inline-flex;
+              flex-direction: column;
+              align-items: center;
+              width: 43vw;
+              .name {
+                @include roboto-bd(4vw);
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                height: 7.74vw;
+                width: 100%;
+                p {
+                  margin: 8px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+              }
+            }
+            &.selected {
+              border: 2px solid $primary_pink;
+              background: $main_f7;
+              border-radius: 0;
+            }
+            .profile-img {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 42vw;
+              height: 42vw;
+              object-fit: contain;
+            }
+            .info-container {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              height: 32px;
+              width: 100%;
+              background-color: $primary_green;
+            }
+            .common-info {
+              margin-top: 16px;
+              p {
+                font-size: 16px;
+                text-align: center;
+              }
+              // .profile-blocks {
+              //   display: flex;
+              //   justify-content: space-between;
+              //   flex-direction: column;
+              //   height: auto;
+              //   width: 100%;
+              //   //noise
+              //   .noise-block {
+              //     margin-bottom: 8px;
+              //     width: 140px;
+              //     height: 18px;
+              //     background-color: #4E4E4E;
+
+              //     .profile-gray-block {
+              //       display: flex;
+              //       justify-content: space-between;
+
+              //       .profile-text-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         text-align: left;
+              //         padding-top: 2px;
+              //         padding-left: 7px;
+              //       }
+              //       .profile-number-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         padding-top: 2px;
+              //         padding-right: 7px;
+              //       }
+              //       .profile-red-block {
+              //         position: absolute;
+              //         z-index: 2;
+              //         width: 100px;
+              //         height: 18px;
+              //         background-color: #DC143C;
+              //       }
+              //     }
+              //   }
+              //   //light
+              //   .light-block {
+              //     margin-bottom: 8px;
+              //     width: 140px;
+              //     height: 18px;
+              //     background-color: #4E4E4E;
+
+              //     .profile-gray-block {
+              //       display: flex;
+              //       justify-content: space-between;
+
+              //       .profile-text-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         text-align: left;
+              //         padding-top: 2px;
+              //         padding-left: 7px;
+              //       }
+              //       .profile-number-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         padding-top: 2px;
+              //         padding-right: 7px;
+              //       }
+              //       .profile-red-block {
+              //         position: absolute;
+              //         z-index: 2;
+              //         width: 120px;
+              //         height: 18px;
+              //         background-color: #DC143C;
+              //       }
+              //     }
+              //   }
+              //   //warm
+              //   .warm-block {
+              //     margin-bottom: 8px;
+              //     width: 140px;
+              //     height: 18px;
+              //     background-color: #4E4E4E;
+
+              //     .profile-gray-block {
+              //       display: flex;
+              //       justify-content: space-between;
+
+              //       .profile-text-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         text-align: left;
+              //         padding-top: 2px;
+              //         padding-left: 7px;
+              //       }
+              //       .profile-number-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         padding-top: 2px;
+              //         padding-right: 7px;
+              //       }
+              //       .profile-red-block {
+              //         position: absolute;
+              //         z-index: 2;
+              //         width: 100px;
+              //         height: 18px;
+              //         background-color: #DC143C;
+              //       }
+              //     }
+              //   }
+              //   //burglary-block
+              //   .burglary-block {
+              //     width: 140px;
+              //     height: 18px;
+              //     background-color: #4E4E4E;
+
+              //     .profile-gray-block {
+              //       display: flex;
+              //       justify-content: space-between;
+
+              //       .profile-text-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         text-align: left;
+              //         padding-top: 2px;
+              //         padding-left: 7px;
+              //       }
+              //       .profile-number-block {
+              //         z-index: 3;
+              //         font-size: 12px;
+              //         color: #fff;
+              //         padding-top: 2px;
+              //         padding-right: 7px;
+              //       }
+              //       .profile-red-block {
+              //         position: absolute;
+              //         z-index: 2;
+              //         width: 120px;
+              //         height: 18px;
+              //         background-color: #DC143C;
+              //       }
+              //     }
+              //   }
+              // }
+            }
+            .information {
+              font-style: normal;
+              font-weight: bold;
+              font-size: 14px;
+              line-height: 24px;
+
+              text-align: center;
+
+              color: #FFFFFF;
             }
           }
         }
@@ -1066,6 +2393,157 @@ body {
           width: 70vw;
           height: 70vw;
         }
+      }
+
+      .glass-block-rehau {
+        all: unset;
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+        flex: 0 0 auto;
+
+        &:last-child {
+          margin-bottom: 150px;
+        }
+        
+        .button {
+          background-color: $primary_green;
+          width: 90%;
+          height: 60px;
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          @include roboto-rg(25px);
+          color: #fff;
+          z-index: 0;
+          padding: 10px;
+          text-transform: uppercase;
+          &.active {
+            .arrow {
+              transform: rotate(360deg);
+            }
+          }
+          p {
+            position: relative;
+            top: 2px;
+            width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        .arrow {
+          top: 30px;
+          align-items: end;
+  
+          transition: 0.5s;
+          align-self: center;
+  
+          padding: 8px;
+          transform: rotate(180deg);
+        }
+        .glass-folder {
+          position: relative;
+          width: 100%;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          transition: 5s linear;
+          .glass-item-rehau {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            height: auto;
+            margin-bottom: 15px;
+
+            border: 1px solid #a9a9a9;
+            .info {
+              height: 35px;
+              width: 35px;
+              background: url("../img/calc/info-button.svg") no-repeat;
+              background-size: contain;
+            }
+            &.active {
+              color: #fff ;
+              border: none;
+              border-radius: 0;
+              margin-bottom: 15px;
+              border: 1px solid $primary_pink
+            }
+            .title {
+              width: 100%;
+              padding: 8px;
+              display: inline-flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-between;
+              @include roboto-rg(20px);
+              color: #fff;
+              z-index: 1;
+              background-color: #818181;
+              margin: 0;
+              &.active {
+                color: #fff;
+                background-color: $primary_pink;
+              }
+            }
+            .glass-extra-info {
+              align-self: start;
+              width: 100%;
+              height: 110%;
+
+              .transcalency {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                align-items: center;
+                height: 32px;
+                padding: 10px;
+                margin-top: 3px;
+              }
+              .noise-isolation  {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                align-items: center;
+                height: 32px;
+                padding: 10px;
+              }
+
+              h4 {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+
+                width: 15%;
+
+                color: #000;
+              }
+
+              span {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 24px;
+
+                color: #000;;
+              }
+            }
+          }
+        }
+        // img {
+        //   position: relative;
+        //   top: 0;
+        //   width: 70vw;
+        //   height: 70vw;
+        // }
       }
     }
   }
@@ -1210,12 +2688,39 @@ body {
         }
       }
     }
+    // // rehau styles
+    // .heat-coef-block-mobile-rehau {
+    //   // position: absolute;
+    //   // bottom: 65px;
+    //   // height: 20px;
+    //   // width: 100%;
+    //   // display: inline-flex;
+    //   // align-items: center;
+    //   // justify-content: center;
+    //   .product-u-coeff-rehau {
+    //     display: inline-flex;
+    //     align-items: flex-end;
+    //     white-space: nowrap;
+    //     margin: 5px;
+    //   }
+    //   .title-rehau {
+    //     display: inline-flex;
+    //     align-items: flex-end;
+    //     margin: 5px;
+    //     p {
+    //       color: #000;
+    //       -webkit-text-fill-color: $main_gray_dark;
+    //       @include roboto-rg(18px);
+    //     }
+    //   }
+    // }
   }
   .mobile-lamination {
     .laminat-filter {
       margin-top: 100px;
       height: calc(100% - 100px);
       overflow: auto;
+      padding: 16px 8px 16px 8px;
     }
     .laminat-box {
       width: 100%;
@@ -1311,6 +2816,159 @@ body {
       }
       margin-bottom: 15px;
     }
+    //rehau styles
+    .box-rehau {
+      .laminat-filter {
+        margin-top: 0;
+        height: auto;
+        overflow: auto;
+      }
+      .laminat-box {
+        width: 100%;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 45px;
+        color: #fff;
+
+        &:last-child {
+          margin-bottom: 150px
+        }
+
+        .laminat-row {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          height: 48px;
+          background: #4E4E4E;
+          border-radius: 0;
+          border: none;
+          margin: 2px 0px 2px 0px;
+
+          color: #fff;
+          @extend .white-color;
+
+          padding: 0 10px;
+          &.active {
+            color: #fff;
+            border: none;
+            background-color: $primary_pink;
+
+            @extend .white-color;
+          }
+        }
+        .laminat-row-descr {
+          width: 100%;
+          display: flex;
+          margin-top: 8px;
+          align-items: center;
+          justify-content: space-between;
+          color: #000;
+        }
+        .laminat-label-button {
+          position: relative;
+          top: 0;
+          width: 100%;
+          height: 48px;
+          background: $primary_green;
+          border-radius: 0;
+          border: none;
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          @include roboto-rg(20px);
+          color: #fff;
+          -webkit-text-fill-color: #fff;
+          z-index: 1;
+          text-transform: uppercase;
+          &.active {
+            border: none;
+            .arrow {
+              transition: 0.5s;
+              transform: rotate(180deg);
+            }
+          }
+          p {
+            width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        .laminat-label {
+          width: auto;
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          @include roboto-rg(15px);
+          color: #fff;
+          -webkit-text-fill-color: #fff;
+          z-index: 1;
+          margin: 5px;
+          p {
+            width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          &.active {
+            color: #fff;
+          }
+        }
+        .laminat-label-where {
+          width: auto;
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          @include roboto-rg(15px);
+          color: #fff;
+          -webkit-text-fill-color: #000;
+          z-index: 1;
+          p {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          &.active {
+            color: #fff;
+          }
+        }
+        .laminat-folder {
+          width: 100%;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      .laminat-img {
+        width: inherit;
+        padding: 12px;
+        border: 1px solid #C2C2C2;
+        img {
+          position: relative;
+          top: 0;
+          width: inherit;
+          height: 40px;
+          border: 1px solid #C2C2C2;
+        }
+        p {
+          font-size: 16px;
+          text-align: left;
+          color: #000;
+        }
+        margin-bottom: -20px;
+        text-align: center;
+      }
+    }
   }
   .add-elements-mobile {
     display: inline-block;
@@ -1318,7 +2976,7 @@ body {
     width: 100%;
     overflow: auto;
     .folders-container {
-      padding-top: 120px;
+      // padding-top: 120px;
       display: inline-flex;
       flex-direction: column;
       width: 100%;
@@ -1414,6 +3072,8 @@ body {
           display: inline-flex;
           flex-direction: column;
           width: 100%;
+
+          padding: 8px;
           .row-header {
             display: inline-flex;
             align-items: center;
@@ -1428,8 +3088,26 @@ body {
               height: 20px;
               width: 20px;
             }
+            .close-dialog-rehau {
+              background-image: url(../img/rehau-img/remove.png);
+              width: 33px;
+              height: 33px;
+              position: absolute;
+              top: 0;
+              right: 0;
+            
+              cursor: pointer;
+            }
             .name {
               @extend .red-color;
+              @include roboto-lt(15px);
+              margin: 5px 0;
+            }
+            //rehau styles
+            .name-rehau {
+              display: flex;
+              justify-content: space-between;
+              @extend .white-color;
               @include roboto-lt(15px);
               margin: 5px 0;
             }
@@ -1444,6 +3122,7 @@ body {
               flex-direction: column;
               align-items: center;
               @include roboto-lt(15px);
+               
               .val {
                 @include roboto-lt(12px);
                 min-width: 30px;
@@ -1543,6 +3222,297 @@ body {
       width: 100%;
       z-index: 3;
     }
+    //rehau styles
+    .box-rehau {
+      .folders-container {
+        position: relative;
+        top: 15px;
+        width: 100%;
+        height: calc(100% - 100px);
+        overflow-y: auto;
+        background: white;
+        padding-top: 16px 8px 0px 8px;
+        padding-bottom: 150px;
+        align-items: center;
+        .folders {
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          width: 97%;
+          height: auto;
+          padding-left: 0;
+          margin-bottom: 16px;
+          transition: 0.5s;
+          .folders-name-box {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            padding: 0px 10px;
+            background-color: $primary_green;
+
+            &.active {
+              .arrow {
+                transition: 0.5s;
+                transform: rotate(180deg);
+              }
+            }
+            .folders-name {
+              display: flex;
+              align-items: center;
+              flex-direction: row;
+              width: 100%;
+              height: 60px;
+              text-transform: none;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              color: #fff;
+              
+              &.active {
+                @include roboto-rg(25px);
+                @extend .white-color;
+              }
+            }
+          }
+          
+          @include roboto-lt(25px);
+          .subfolders {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            background-color: #fff;
+            .subfolders-name {
+              position: relative;
+              width: 100%;
+              height: 48px;
+              background: #2A7E6B;
+              border-radius: 0px;
+              border: none;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              color: #fff;
+              -webkit-text-fill-color: #fff;
+              z-index: 1;
+              margin: 10px 0 0 0;
+              padding: 0 10px;
+              &.active {
+                @extend .white-color;
+                border: none;
+                .arrow {
+                  transition: 0.5s;
+                  transform: rotate(180deg);
+                }
+              }
+              p {
+                width: 100%;
+                @include roboto-rg(20px);
+                text-align: left;
+              }
+              .info {
+                position: relative;
+                height: 43px;
+                width: 42px;
+              }
+            }
+            .subfolders-image {
+              position: relative;
+              top: 15px;
+              width: 100%;
+              height: 230px;
+            }
+            .items {
+              position: relative;
+              display: inline-flex;
+              align-items: center;
+              justify-content: flex-start;
+              width: 100%;
+              height: 48px;
+              background: #fff;
+              border-radius: 0;
+              border: none;
+              margin: 5px 0 5px 0;
+              padding: 8px 10px;
+
+              border-bottom: 1px solid #D9D9D9;
+              p {
+                width: 100%;
+                @include roboto-rg(18px);
+                text-align: left;
+              }
+              .info {
+                position: relative;
+                height: 35px;
+                width: 36px;
+              }
+              &:active {
+                background-color: $primary_pink;
+                color: #fff;
+              }
+            }
+          }
+          .choosen-add-elem {
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            width: 100%;
+            background-color: #424242;
+
+            margin-top: 8px;
+            .row-header {
+              display: inline-flex;
+              align-items: center;
+              justify-content: space-between;
+              height: 30px;
+              padding: 0;
+              margin-bottom: 0px;
+
+              .close-dialog {
+                position: relative;
+                top: 0;
+                left: 0;
+                height: 20px;
+                width: 20px;
+              }
+              .name {
+                @extend .white-color;
+                @include roboto-lt(18px);
+                margin: 5px 0;
+                overflow: hidden;
+                white-space: nowrap;
+
+                text-overflow: ellipsis;
+              }
+            }
+            .row {
+              display: inline-flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 0;
+              .item {
+                display: inline-flex;
+                flex-direction: row;
+                align-items: center;
+                @include roboto-lt(18px);
+
+                .val-price {
+                  color: #fff;
+                }
+                
+                .val {
+                  @include roboto-lt(14px);
+                  min-width: 30px;
+                  height: 20px;
+                  background: #D9D9D9;
+                  border-radius: 0;
+                  border: none;
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 0 10px;
+                  box-sizing: content-box;
+
+                  color: #000;
+
+                  p {
+                    &:first-letter {
+                      text-transform: uppercase;
+                    }
+                    color: #fff;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .confirm-add-elem {
+        position: fixed;
+        top: 0px;
+        left: 0;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        background: white;
+        .name {
+          @include roboto-rg(22px);
+          margin: 20px 0;
+        }
+        .item {
+          display: inline-flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 15px;
+          margin: 20px 0;
+          .item-val {
+            display: inline-flex;
+            align-items: center;
+            width: 120px;
+            height: 40px;
+            @extend .border;
+            border-radius: 25px;
+            padding: 0 15px;
+            box-sizing: border-box;
+            justify-content: flex-end;
+            @include roboto-lt(18px);
+          }
+          .item-name {
+            text-transform: capitalize;
+            @include roboto-lt(18px);
+          }
+        }
+        .add-elem-price {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: calc(100% - 30px);
+          padding-top: 20px;
+          margin: 0 15px;
+          border-top: 1px solid $main_f7;
+          @include roboto-lt(30px);
+          .curr {
+            @include roboto-lt(20px);
+          }
+        }
+        .controls {
+          display: inline-flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 15px;
+          div {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40%;
+            height: 40px;
+            @include roboto-lt(20px);
+            margin: 20px 0;
+          }
+        }
+        .info {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+        }
+      }
+      .mob-qty-calculator {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 3;
+      }
+      //rehau styles
+    }
   }
   .close-dialog {
     all: unset;
@@ -1558,6 +3528,14 @@ body {
       all: unset;
       content: '';
     }
+  }
+  .aux-delete-rehau {
+    background-image: url(../img/rehau-img/delete-cross-for-add-elems.png);
+    width: 24px;
+    height: 24px;
+    align-self: center;
+
+    cursor: pointer;
   }
   .product-u-coeff {
     display: inline-flex;
@@ -1646,7 +3624,7 @@ body {
             align-items: center;
             justify-content: center;
             position: relative;
-            top: 20px;
+            bottom: 100px;
             .order-u-coeff {
               width: 100%;
               display: inline-flex;
@@ -1657,6 +3635,7 @@ body {
             .coeff-low {
               @extend .red-color;
             }
+            
           }
           .prod-count {
             display: inline-flex;
@@ -1724,6 +3703,287 @@ body {
         flex: 0 0 auto;
       }
     }
+
+    .box-rehau {
+      .product-container {
+        display: inline-flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        min-height: calc(100% - 170px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 0 0 10px 0;
+        .alert-no {
+          color: #fff;
+          border-radius: 0;
+          label {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 24px;
+
+            color: #FFFFFF;
+          }
+        }
+        .mounting-rehau {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 24px;
+
+          margin: 16px 16px 16px 16px;
+
+          text-align: center;
+
+          color: #FFFFFF;
+
+          background-color: #4E4E4E;
+
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 50px; 
+        }
+
+        .product-rehau {
+          position: relative;
+          display: inline-flex;
+          min-height: 430px;
+          height: auto;
+          background: white;
+          margin: 16px;
+          box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.24);
+          padding: 40px 24px 24px 24px;
+
+          .prod-number {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 16px;
+
+            text-align: center;
+
+            color: #FFFFFF;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            color: #fff;
+
+            width: 16px;
+            height: 16px;
+
+            background-color: #4E4E4E;
+          }
+
+          .col {
+            display: inline-flex;
+            flex-direction: column;
+            width: 50%;
+            height: 100%;
+            svg-template {
+              all: unset;
+              position: relative;
+              div {
+                all: unset;
+                position: relative;
+              }
+            }
+            .prod-template {
+              width: 100%;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .prod-heat-coef {
+              width: 100%;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              position: relative;
+              bottom: 100px;
+              .order-u-coeff {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .coeff-mark {
+                  text-align: center;
+                  div {
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 16px;
+                    line-height: 24px;
+                    
+                    text-align: center;
+                    
+                    color: #000000;
+                  }
+  
+                  span {
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 24px;
+  
+                    margin-top: 5px;
+  
+                    text-align: center;
+  
+                    color: $primary_pink;
+                  }
+                }
+
+                .price-info {
+                  margin-top: 10px;
+                  text-align: center;
+                  div {
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 16px;
+                    line-height: 24px;
+                    
+                    text-align: center;
+                    
+                    color: #000000;
+                  }
+                  .discount-price-rehau {
+                    .price-discount-span-fixed {
+                      font-style: normal;
+                      font-weight: normal;
+                      font-size: 2.4rem;
+                      line-height: 24px;
+    
+                      margin-top: 5px;
+    
+                      text-align: center;
+    
+                      color: $primary_pink;
+                    }
+                  }
+                  .price-discount-text {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 1vw 0 0;
+            
+                    .price-discount-span {
+                      font-size: 14px;
+                      color: gray;
+                      text-decoration: line-through;
+                    }
+            
+                    .price-discount-percentage {
+                      font-size: 14px;
+                      color: $primary_pink;
+                      margin-left: 2px;
+                    }
+                  }
+                }
+
+                
+              }
+              .coeff-low {
+                @extend .red-color;
+              }
+            }
+            .prod-count {
+              display: inline-flex;
+              width: 30%;
+              align-items: center;
+              align-self: center;
+              justify-content: space-around;
+              position: absolute;
+              bottom: 26px;
+              .count-button {
+                img {
+                  width: 40px;
+                  height: 40px;
+                }
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+              }
+              .count {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 24px;
+                line-height: 32px;
+                /* identical to box height, or 133% */
+                
+                text-align: center;
+                
+                color: #000000;
+              }
+            }
+            .prod-price {
+              display: inline-flex;
+              width: 100%;
+              align-items: center;
+              justify-content: center;
+              @include roboto-rg(22px);
+              position: relative;
+              top: 50px
+            }
+            .order-item {
+              margin: 5px 0;
+              max-height: 90px;
+              overflow: scroll;
+              .order-value {
+                @include roboto-rg(15px);
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              .order-label {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 24px;
+
+                color: #000;
+              }
+            }
+           
+            .order-edit-rehau {
+              font-style: normal;
+              font-weight: bold;
+              font-size: 24px;
+              line-height: 32px;
+
+              text-align: center;
+
+              color: #FFFFFF;
+              background-color: $primary_green;
+
+              margin: 5px 0 0 0;
+              min-height: 40px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              position: absolute;
+              bottom: 26px;
+              width: 40%;
+            }
+          }
+
+          &:last-child {
+            margin-bottom: 100px;
+          }
+        }
+        .empty {
+          display: inline-flex;
+          width: 100%;
+          height: 100px;
+          flex: 0 0 auto;
+        }
+      }
+    }
     .cart-footer-container {
       position: absolute;
       display: inline-flex;
@@ -1769,6 +4029,15 @@ body {
       width: 25px;
       height: 25px;
       background: url("../img/calc/close-calculator-hover.svg") no-repeat;
+      background-size: contain;
+    }
+    .order-delete-rehau {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      background: url("../img/rehau-img/remove.png") no-repeat;
       background-size: contain;
     }
     .template-window {
@@ -1837,6 +4106,22 @@ body {
         display: inline-flex;
         @include roboto-lt(5vw);
       }
+
+      //rehau styles 
+      .mobile-delivery-value-rehau,
+      .mobile-delivery-price-rehau {
+        display: inline-flex;
+        font-size: 20px;
+        @extend .white-color;
+        padding: 0
+      }
+      .mobile-delivery-items-rehau {
+        @include roboto-lt(15px);
+        @extend .white-color;
+        padding: 0 0;
+        width: 100%
+      }
+
       .mobile-delivery-items {
         @include roboto-lt(15px);
         @extend .red-color;
@@ -1851,6 +4136,18 @@ body {
         width: 100%;
         padding: 10px 0;
         flex: 0 0 auto;
+      }
+      //rehau styles 
+      .mobile-delivery-rehau {
+        align-items: center;
+        justify-content: center;
+        display: inline-flex;
+        flex-direction: column;
+        min-height: 80px;
+        width: 100%;
+        padding: 0;
+        flex: 0 0 auto;
+        background-color: $primary_green;
       }
       .mount-delivery-mountings-container {
         display: inline-flex;
@@ -1868,7 +4165,7 @@ body {
           padding: 0px 15px;
           margin: 5px 0;
           @include roboto-lt(20px);
-          @extend .red-color;
+          @extend .white-color;
           input {
             width: 60px;
             border-radius: 5px;
@@ -1880,6 +4177,79 @@ body {
           @extend .border;
           border-radius: 25px;
           @extend .red-color;
+        }
+        .dropdown-items-list {
+          width: 100%;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .dropdown-item {
+          width: 100%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      //rehau styles
+      .mount-delivery-mountings-container-rehau {
+        display: inline-flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+        height: calc(100% - 80px);
+        padding: 0 10px;
+        background: white;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .mobile-delivery-title-rehau {
+          display: inline-flex;
+          align-items: left;
+          justify-content: space-between;
+          width: 100%;
+          height: auto;
+          padding: 10px;
+          label {
+            @include roboto-lt(25px);
+            color: #fff;
+          }
+          .arrow {
+            align-self: center;
+            transition: 0.3s all linear;
+            transform: rotate(180deg);
+            &.active {
+              transform: rotate(360deg);
+            }
+          }
+        }
+        .mobile-delivery-selected-rehau {
+          width: 100%;
+          height: 48px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0px 10px;
+          font-size: 20px;
+          background-color: #4E4E4E;
+          &:active {
+            background-color: $primary_pink;
+          };
+          &.selected {
+            padding: 0 10px;
+            @extend .white-color;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            
+          }
+        }
+        .selected {
+          @extend .white-color;
+          
+          &::first-letter {
+            text-transform: uppercase;
+          }
         }
         .dropdown-items-list {
           width: 100%;
@@ -2008,12 +4378,25 @@ body {
     height: 100%;
     margin: 0;
     background: white;
+    z-index: 10;
     .info_title {
       @extend .red-color;
     }
   }
   .info_box_inner {
     background: white;
+  }
+  .info_box-rehau {
+    all: unset;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: white;
+    z-index: 10;
   }
   .alert-no,
   .alert-yes {
@@ -2045,6 +4428,15 @@ body {
     stroke-width: 1.2px !important;
     stroke: $main_red !important;
   }
+  // rehau styles
+  .size-line-rehau {
+    stroke-width: 1.2px !important;
+    stroke: $primary_green !important;
+  }
+  .size-line-arrow-rehau {
+    stroke-width: 1.2px !important;
+    stroke: black !important;
+  }
   .gray {
     background: $main_f7;
   }
@@ -2070,6 +4462,53 @@ body {
         color: $main_gray_dark;
         -webkit-text-fill-color: $main_gray_dark;
         @include roboto-rg(12px);
+      }
+    }
+  }
+  // rehau styles
+  .heat-coef-block-mobile-rehau {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    display: flex;
+    padding: 0 62px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -50px;
+    .product-u-coeff-rehau {
+      display: flex;
+      // justify-content: space-between;
+      // width: 100%;
+      align-items: center;
+      white-space: nowrap;
+      margin: 5px;
+      .coeff-expert-mark {
+        background-color: $primary_pink;
+        height: 50px;
+        width: 50px;
+        padding: 8px;
+        font-size: 25px;
+        color: #fff;
+        text-align: center;
+      }
+    }
+    .info-coeff-block {
+      margin-left: 8px;
+      .title-rehau {
+        display: inline-flex;
+        align-items: flex-end;
+        font-size: 26px;
+        font-weight: bold;
+      }
+      .subtitle-rehau {
+        font-size: 14px;
+        line-height: 22px;
+  
+        text-align: center;
+        text-decoration-line: underline;
+  
+        color: #4E4E4E;
+  
       }
     }
   }
@@ -2142,6 +4581,99 @@ body {
       }
     }
   }
+  //rehau styles
+  .coeff-info-block-rehau {
+    all: unset;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: white;
+    z-index: 10;
+    padding: 0;
+
+    @media screen and (max-device-width:735px) {
+      font-size: 16px;
+    }
+
+    .coeff-info-block-inner {
+      overflow-y: scroll;
+      background-color: #fff;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      text-align: center;
+      z-index: 2;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .coeff-info-block-header {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 72px;
+      display: flex;
+      justify-content: space-between;
+      background-color: $primary_green;
+      padding: 12px 16px;
+      .coeff-info-block-title {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+        
+        color: #FFFFFF;
+        text-align: left;
+      }
+
+      .coeff-info-block-close {
+        background-image: url("../img/rehau-img/close.png");
+        background-repeat: no-repeat;
+        width: 19px;
+        height: 19px;
+
+        background-color: $primary_green;
+        border: none;
+
+        align-self: center;
+      }
+    }
+
+    .coeff-info-block-body {
+      text-align: left;
+      margin-top: 500px;
+      .coeff-video {
+        text-align: center;
+        video {
+          width: 100%;
+          margin-top: 18px;
+        }
+      }
+
+      .heat-transfer-info2 {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 24px;
+
+        color: $primary_pink;
+        &::before {
+          content: "•";
+          margin-right: 14px;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+
+
   .close-dialog-body {
     position: relative;
     width: 60%;
@@ -2173,6 +4705,16 @@ body {
     align-items: flex-start;
     justify-content: center; //background: url("../img/calc/info.svg") no-repeat;
     background: url("../img/calc/info-button.svg") no-repeat;
+    background-size: contain;
+  }
+  .info-rehau {
+    margin: 4px;
+    height: 24px;
+    width: 26px;
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: url("../img/rehau-img/info_rehau.png") no-repeat;
     background-size: contain;
   }
   .attantion-block {
@@ -2258,6 +4800,72 @@ body {
       justify-content: center;
       align-items: center;
       text-align: center;
+    }
+    .close-dialog-button {
+      position: relative;
+      width: 60%;
+      height: 45px;
+      border-radius: 25px;
+      background: white;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 35px;
+      .close-dialog-title {
+        @include roboto-rg(20px);
+      }
+      .close-dialog {
+        right: 1px;
+        top: 1px;
+        width: 43px;
+        height: 43px;
+      }
+    }
+  }
+
+  //rehau styles 
+  .glass-attantion-rehau {
+    all: unset;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    background: #555555;
+    z-index: 2;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: left;
+    text-align: left;
+    .attention {
+      font-size: 18px;
+      color: white;
+      -webkit-text-fill-color: white;
+      margin-bottom: 0px;
+    }
+    .glass-list {
+      width: 100%;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: left;
+      align-items: left;
+      font-size: 14px;
+      color: white;
+      -webkit-text-fill-color: white;
+      margin: 16px 8px 16px 8px;
+      height: auto;
+    }
+    .extra-glass,
+    span {
+      width: 100%;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: left;
+      align-items: left;
+      text-align: left;
     }
     .close-dialog-button {
       position: relative;
@@ -2417,7 +5025,7 @@ body {
       height: 100%;
       width: 100%;
       background: white;
-      padding: 10px 25px;
+      // padding: 10px 25px;
       overflow-y: scroll;
       overflow-x: hidden;
       .cart-dialog-header {
@@ -2519,6 +5127,203 @@ body {
       .small {
         flex: 0.3;
       }
+      //rehau styles 
+      .box-rehau {
+        .cart-dialog-rehau-header {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 24px;
+    
+          color: #FFFFFF;
+          display: inline-flex;
+          width: 100%;
+          height: 72px;
+          align-items: center;
+          justify-content: space-between;
+
+          padding: 12px 16px;
+
+          background-color: $primary_green;
+          .top-container-close {
+            background-image: url("../img/rehau-img/close.svg");
+            background-repeat: no-repeat;
+            width: 19px;
+            height: 19px;
+    
+            background-color: $primary_green;
+            border: none;
+    
+            align-self: center;
+          }
+          .top-container-close {
+            background-image: url("../img/rehau-img/close.png");
+            background-repeat: no-repeat;
+            width: 19px;
+            height: 19px;
+    
+            background-color: $primary_green;
+            border: none;
+    
+            align-self: center;
+          }
+          .col {
+            display: inline-flex;
+            align-items: center;
+          }
+          .back-button {
+            background: url("../img/calc/back_red.svg") no-repeat;
+            background-size: contain;
+            width: 25px;
+            height: 25px;
+            margin: 0 10px;
+          }
+          .cart-dialog-title {
+            @include roboto-rg(15px);
+            @extend .red-color;
+          }
+          .cart-dialog-label {
+            @include roboto-rg(20px);
+          }
+        }
+        .cart-dialog-body {
+          padding: 16px;
+
+          .name-input {
+            padding-bottom: 16px;
+          }
+
+          .phone-input {
+            padding-bottom: 16px;
+          }
+
+          .comment-input {
+            padding-bottom: 44px;
+
+            input {
+              width: 100%;
+              height: 230px;
+              border: 1px solid #000000;
+              border-radius: 0;
+              padding-bottom: 190px;
+            }
+          }
+          .input-label {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+
+            color: #4E4E4E;
+          }
+          input {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 24px;
+
+            color: #000000;
+            width: 100%;
+            height: 48px;
+            border: 1px solid #000000;
+            border-radius: 0;
+          }
+          .cart-dialog-label {
+            @include roboto-rg(15px);
+            text-align: center;
+            margin: 5px 0;
+          }
+          .bold {
+            @include roboto-bd(22px);
+          }
+        }
+        .save-button {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 32px;
+
+          text-align: center;
+
+          color: #FFFFFF;
+          background-color: $primary_green;
+        
+          width: 100%;
+          height: 60px;
+          border: none;
+
+          position: relative;
+          bottom: 16px;
+
+          @media (max-height: 400px) {
+            display: none;
+          }
+        }
+        .location-list-tooltip {
+          position: absolute;
+          background: white;
+          width: 100%;
+          top: 60px;
+          @include roboto-rg(15px);
+          z-index: 2;
+          @include box-shadow($main_gray_btn 0px 1px 10px 0px);
+        }
+        .input-field-mobile {
+          position: relative;
+          display: inline-flex;
+          justify-content: space-between;
+          width: 100%;
+          margin: 5px 0;
+        }
+        .user-field {
+          border-radius: 25px;
+          background: white;
+          @extend .border;
+          height: 50px;
+          width: 100%;
+          @include roboto-rg(15px);
+          padding-left: 15px;
+        }
+        .user-field-rehau {
+          &.error {
+            border: 1px solid red;
+          }
+        }
+        .user-field-phone {
+          &.error {
+            border: 1px solid red;
+          }
+        }
+        .error-tooltip {
+          all: unset;
+          position: absolute;
+          right: 5px;
+          @extend .red-color;
+          @include roboto-bd(40px);
+          &:before {
+            all: unset;
+          }
+        }
+        .red-field {
+          border-radius: 25px;
+          background: $main_red;
+          color: white;
+          ::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            color: white;
+          }
+          ::-moz-placeholder {
+            /* Firefox 19+ */
+            color: white;
+          }
+        }
+        .street {
+          width: 100%;
+        }
+        .small {
+          flex: 0.3;
+        }
+      }
     }
   }
   .report-container {
@@ -2619,6 +5424,100 @@ body {
       width: 40%;
       height: 40px;
       @include roboto-rg(15px);
+    }
+  }
+  //rehau styles 
+  .buttons-apply-rehau {
+    font-size: 21px;
+    background-color: $primary_green;
+    margin-top: 52px;
+    color: #fff;
+    height: 56px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    align-self: center;
+
+    margin-left: 10px;
+  }
+
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    visibility: hidden;
+    width: 300px;
+    top: 140%;
+    left: 50%;
+    margin-left: -66px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    background-color: #818181;
+    color: #fff;
+    text-align: center;
+    padding: 16px;
+
+    position: absolute;
+    z-index: 1;
+
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%; /* At the top of the tooltip */
+    left: 22%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #818181 transparent;
+  }
+  .mount-delivery-header-rehau {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    background-color: $primary_green;
+
+    .header-buttons-cancel-rehau {
+      text-align: center;
+      padding: 16px;
+      font-size: 18px;
+      align-items: center;
+      align-self: center;
+      // background-color: #555555;
+    }
+
+    .header-title-rehau {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 24px;
+      color: #FFFFFF;
+      padding: 10px;
+      align-self: center;
+    }
+
+    .header-buttons-apply-rehau {
+      text-align: center;
+      color: #fff;
+      padding: 16px;
+      font-size: 18px;
+      align-items: center;
+      align-self: center;
+      background-color: $primary_green;
     }
   }
   .door-config-title {

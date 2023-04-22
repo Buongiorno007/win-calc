@@ -33,7 +33,7 @@
 
                         function zooming() {
                             d3.select('#main_group')
-                                .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                                .attr("transform", "translate(" +1 + ")scale(" + 1.5 + ")");
                         }
 
                         function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
@@ -1101,12 +1101,12 @@
                                             'x': function () {
                                                 if ($location.path() === "/mobile") {
                                                     if (dim.dimId === "fp7") {
-                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                     }
                                                     // if (dim.dimId === "fp11" ) {
                                                     //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                     // }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 60) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                 }
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
@@ -1195,7 +1195,7 @@
                                             },
                                             'x': function () {
                                                 if ($location.path() === "/mobile") {
-                                                    let move_left = 40;
+                                                    let move_left = 60;
                                                     if (dim.dimId === "fp7") {
                                                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                                                     }
@@ -1204,13 +1204,25 @@
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                 }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 + 25) : (dim.from + dim.to - sizeBoxWidth + 45) / 2;
                                             },
                                             'y': function () {
                                                 return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                                             },
-                                            'dx': 80,
-                                            'dy': 40,
+                                            'dx': function () {
+                                                if ($location.path() === "/mobile") {
+                                                   return 110
+                                                } else {
+                                                    return 80
+                                                }
+                                            },
+                                            'dy': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    return 25
+                                                 } else {
+                                                     return 40
+                                                 }
+                                            },
                                             'type': 'line',
                                             'block_id': dim.blockId,
                                             'size_val': dim.text,
@@ -1910,12 +1922,11 @@
                                 } else if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                                     padding = 0.6;
                                 }
-
                                 mainSVG = d3.select(container).append('svg').attr({
                                     'width': widthSVG,
                                     'height': heightSVG
                                 });
-                                
+
                                 if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                                     mainSVG.attr('class', scope.typeConstruction);
                                 } else {
@@ -1945,11 +1956,22 @@
                                     }
 
                                 }
-
-                                mainGroup = mainSVG.append("g").attr({
-                                    'id': 'main_group',
-                                    'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ',' + scale + ')'
-                                });
+                                if((self.innerWidth < 470 ) && (ProductStor.product.template_id < 10)) {
+                                    mainGroup = mainSVG.append("g").attr({
+                                        'id': 'main_group',
+                                        'transform': 'translate(' + (position.x + 30) + ', ' + position.y + ') scale(' + (scale - 0.03) + ',' + scale + ')'
+                                    });
+                                } else if ((self.innerWidth < 470 ) && (ProductStor.product.template_id > 9 && ProductStor.product.template_id < 16)) {
+                                    mainGroup = mainSVG.append("g").attr({
+                                        'id': 'main_group',
+                                        'transform': 'translate(' + (position.x - 40) + ', ' + position.y + ') scale(' + (scale + 0.027) + ',' + (scale + 0.027) + ')'
+                                    });
+                                } else {
+                                    mainGroup = mainSVG.append("g").attr({
+                                        'id': 'main_group',
+                                        'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ',' + scale + ')'
+                                    });
+                                }
 
                                 if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                                     //disable scrolling and displacement
@@ -2188,7 +2210,7 @@
                                         //   .attr('width', 150)
                                         //   .attr('height', 100);
                                     }
-
+                                    
                                     if (GlobalStor.global.imgLink) {
                                         defs.append('pattern')
                                             .attr('id', 'background')
@@ -2264,7 +2286,7 @@
 
 
                                 /** soffits */
-
+                                
                                 if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                                     var scl = scale * 4.4;
                                     if (ProductStor.product.construction_type === 1) {
@@ -2337,7 +2359,7 @@
                                 dimGroup = mainGroup.append("g").attr({
                                     'id': 'dim_group'
                                 });
-
+                                
                                 blocksQty = template.details.length;
                                 for (i = 1; i < blocksQty; i += 1) {
                                     let indexFrame = 0;
@@ -2845,7 +2867,7 @@
                                                     });
                                             }
                                         }
-
+                                        
                                         /** type Glass names */
                                         if (scope.typeConstruction === globalConstants.SVG_ID_GLASS) {
                                             if (!template.details[i].children.length) {

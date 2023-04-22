@@ -36,19 +36,13 @@
 
 .attantion-rehau {
   font-size: 24px;
-
   color: #FFFFFF;
   position: absolute;
   padding: 32px 40px 32px 80px;
   top: -2%;
   left: 50px;
   width: 690px;
-  color: #fff;
-  background: #DE350C;
-  background-image: url(../img/rehau-img/error.png);
-  background-repeat: no-repeat;
-  background-position-y: center;
-  background-position-x: 26px;
+  background: #555555;
   text-align: center;
   z-index: 2000;
 }
@@ -60,12 +54,7 @@
   left: 50px;
   width: 690px;
   height: 159px;
-  color: #fff;
-  background: #DE350C;
-  background-image: url(../img/rehau-img/error.png);
-  background-repeat: no-repeat;
-  background-position-y: center;
-  background-position-x: 16px;
+  background: #555555;
   text-align: center;
   z-index: 2000;
 }
@@ -78,6 +67,7 @@
 .extra-glass-rehau {
   text-align: left;
   padding: 32px 40px 32px 80px;
+  background: #555555;
 
   font-family: Brix Sans;
   font-style: normal;

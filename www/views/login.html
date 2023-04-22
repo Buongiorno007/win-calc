@@ -194,7 +194,7 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }} </div>
     <div class="alert-btns">
       <div class="thisAlert">
         <section class="loginPage"></section>
@@ -208,7 +208,7 @@
   <div class="alert-block-rehau">
     <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
     <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
-    <div class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</div>
+    <h2 class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</h2>
     <div class="alert-descr-rehau">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns-rehau">
       <div class="thisAlert">
@@ -223,23 +223,9 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
-  <div class="alert-block-rehau">
-    <div class="alert-danger-sign-rehau"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="main-page"></section>
-      </div>
-      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
-    <div class="alert-sign"></div>
+    <div class="alert-danger-sign-rehau"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
@@ -264,13 +250,35 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-ok-rehau">
-    <div class="alert-descr-rehau">{{ alertBox.SAVED_KONSTRUCTION }}</div>
-    <div class="alert-btns-rehau">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
+    <div class="alert-block-inner">
+      <div class="alert-header">
+        <h2 class="alert-title-rehau">Внимание</h2>
       </div>
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes-rehau">{{ ::alertBox.OK }}</button>
+      <div class="alert-body">
+        <div class="alert-descr-rehau">Данная конструкция добавлена в корзину! Пожалуйста выберите следующее действие</div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'design'" class="alert-btns-rehau">
+          <div ng-click="alertBox.goToCart()" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'mobile'" class="alert-btns-rehau">
+          <div ng-click="mobilePage.setTab(4); alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div ng-click="alertBox.G.global.isNoChangedProduct = 0" class="close-dialog-rehau"></div>
   </div>
 </div>
 <section ng-if="loginPage.consts.serverIP === &quot;https://admin.rehauselected.baueffect.com&quot;" class="login-page-rehau login-page-mobView-rehau">
@@ -440,7 +448,7 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }} </div>
     <div class="alert-btns">
       <div class="thisAlert">
         <section class="loginPage"></section>
@@ -454,7 +462,7 @@
   <div class="alert-block-rehau">
     <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
     <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
-    <div class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</div>
+    <h2 class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</h2>
     <div class="alert-descr-rehau">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns-rehau">
       <div class="thisAlert">
@@ -469,23 +477,9 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
-  <div class="alert-block-rehau">
-    <div class="alert-danger-sign-rehau"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="main-page"></section>
-      </div>
-      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
-    <div class="alert-sign"></div>
+    <div class="alert-danger-sign-rehau"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
@@ -510,12 +504,34 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-ok-rehau">
-    <div class="alert-descr-rehau">{{ alertBox.SAVED_KONSTRUCTION }}</div>
-    <div class="alert-btns-rehau">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
+    <div class="alert-block-inner">
+      <div class="alert-header">
+        <h2 class="alert-title-rehau">Внимание</h2>
       </div>
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes-rehau">{{ ::alertBox.OK }}</button>
+      <div class="alert-body">
+        <div class="alert-descr-rehau">Данная конструкция добавлена в корзину! Пожалуйста выберите следующее действие</div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'design'" class="alert-btns-rehau">
+          <div ng-click="alertBox.goToCart()" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'mobile'" class="alert-btns-rehau">
+          <div ng-click="mobilePage.setTab(4); alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div ng-click="alertBox.G.global.isNoChangedProduct = 0" class="close-dialog-rehau"></div>
   </div>
 </div>

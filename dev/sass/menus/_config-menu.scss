@@ -68,6 +68,19 @@
     margin: 0;
     padding: 0;
   }
+  .additional-items-list-rehau {
+    font-size: 16px;
+    margin-left: 15px;
+    text-overflow: ellipsis;
+    max-width: 240px;
+
+    padding-bottom: 18px;
+
+    margin-top: -20px;
+
+    max-height: 100px;
+    overflow-y: scroll;
+  }
   .additional-item {
     @extend .truncated;
   }

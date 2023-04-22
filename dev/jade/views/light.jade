@@ -12,6 +12,10 @@
         section.construction-page(ng-if="lightPage.G.global.showCart == 0")
           section.construction-container
             .construction-block
+              .help-block
+                .tooltip(ng-click="lightPage.helpModal()")
+                  img(src="img/rehau-img/modal-help-icon.svg", alt="")
+                  span.tooltiptext Как работает калькулятор
               .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
               include panels/_templatesLight
@@ -136,6 +140,8 @@
             .design-attantion-rehau(ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.D.design.isSquareExtra") {{ ::lightPage.SQUARE_EXTRA }}
               .close-alert-rehau(ng-click="lightPage.closeAttantion()")
             .design-attantion-rehau(ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.G.global.isTest") {{ ::lightPage.TEST_STAGE }}
+              .close-alert-rehau(ng-click="lightPage.closeAttantion()")
+            .design-attantion-rehau(ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.D.design.isDimSmall") {{ ::lightPage.DIM_SMALL }}
               .close-alert-rehau(ng-click="lightPage.closeAttantion()")
 
 
@@ -287,12 +293,7 @@
               .order-block
                 .order-rehau(ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index")
                   button.delete-construction(fs-click="lightPage.clickDeleteProduct($index)")
-                  img.eddit-construction(ng-src='img/rehau-img/eddit-construction.png' fs-click="lightPage.box($index, 'product')")
-                  .order-header(ng-click="lightPage.showCartTemplte($index)")
-                    .order-u-coeff(ng-if="!lightPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > lightPage.O.order.heat_coef_min}")
-                      div U = {{ product.heat_coef_total }}
-                      div {{ ::lightPage.HEATCOEF_VAL }}/{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C
-                  
+                  img.eddit-construction(ng-src='./img/rehau-img/eddit-construction.png' fs-click="lightPage.box($index, 'product')")
                   .order-container
                     .order-template-rehau
                       svg-template(template="product.templateIcon", template-width="152", template-height="160", type-construction="lightPage.constants.SVG_CLASS_ICON")
@@ -310,14 +311,14 @@
                           .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.profile.name }}
                         li.order-item-rehau(ng-if="product.glass.length > 1")
                           .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
-                          .order-value-rehau {{ product.glass[0].sku + ', ...' }}
+                          .order-value-rehau {{ product.glass[0].name + ', ...' }}
                         //- li.order-item-rehau
                         //-   .order-label-rehau {{ ::lightPage.CONFIGMENU_HARDWARE }}
                         //-   .order-label-rehau(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
                         //-   .order-value-rehau(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
                         li.order-item-rehau(ng-if="product.glass.length <= 1")
                           .order-label-rehau {{ ::lightPage.CONFIGMENU_GLASS }}
-                          .order-value-rehau {{ product.glass[0].sku }}
+                          .order-value-rehau {{ product.glass[0].name }}
                         li.order-item-rehau
                           .order-label-rehau {{ ::lightPage.CONFIGMENU_LAMINATION }}
                           .order-value-rehau
@@ -327,46 +328,15 @@
                             span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
                             span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
                         .addelements-detail-content-rehau
-                      li.addelements-detail-item-rehau(ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
+                      li.addelements-detail-item-rehau(ng-repeat="addelement in lightPage.C.cart.allAddElements[$index] track by $index", ng-switch="addelement.element_type")
                         .underline-rehau
                         .addelement-main-container
                           .product-value {{ addelement.name }}
-                          .product-value(ng-switch-when="0") {{ ::lightPage.GRID }}
-                          .product-value(ng-switch-when="1") {{ ::lightPage.VISOR }}
-                          .product-value(ng-switch-when="2") {{ ::lightPage.SPILLWAY }}
-                          .product-value(ng-switch-when="3") {{ ::lightPage.OUTSIDE }}
-                          .product-value(ng-switch-when="4") {{ ::lightPage.LOUVERS }}
-                          .product-value(ng-switch-when="5") {{ ::lightPage.INSIDE }}
-                          .product-value(ng-switch-when="6") {{ ::lightPage.CONNECTORS }}
-                          .product-value(ng-switch-when="7") {{ ::lightPage.FAN }}
-                          .product-value(ng-switch-when="9") {{ ::lightPage.HANDLEL }}
-                          .product-value(ng-switch-when="10") {{ ::lightPage.OTHERS }}
-                          .addelement-parameters-container
-                            .addelement-parameters
-                              .addelement-parameter(ng-if="addelement.element_width")
-                              .addelement-label  Ширина:
-                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_width*0.0393701 | number : 0  }}
-                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_width }}
-                            .addelement-parameter(ng-show="addelement.element_height")
-                              .addelement-label Высота:
-                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id===1966') {{ addelement.element_height*0.0393701 | number : 0  }}
-                              .addelement-value(ng-if='lightPage.U.userInfo.factory_id!==1966') {{ addelement.element_height }}
-                            .addelement-parameters(ng-if="addelement.element_qty")
-                              .addelement-label Кол-во:
-                              .addelement-value {{ addelement.element_qty }}
                         .addelement-price-container
-                          .addelement-price-value(price-fixed="{{addelement.elementPriceDis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
-                    .service-block
-                      .sb-1(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]")
-                        | {{lightPage.SERV1}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]}} {{lightPage.U.userInfo.currency}}
-                      .sb-2(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]")
-                        | {{lightPage.SERV2}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]}} {{lightPage.U.userInfo.currency}}
-                      .sb-3(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]")
-                        | {{lightPage.SERV3}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]}} {{lightPage.U.userInfo.currency}}
-                      .sb-4(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]")
-                        | {{lightPage.SERV4}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]}} {{lightPage.U.userInfo.currency}}
-                      .sb-5(ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]")
-                        | {{lightPage.OTHER}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]}} {{lightPage.U.userInfo.currency}}
+                          .addelement-qty-value {{addelement.element_qty}} x
+                          .addelement-price-single-value {{addelement.elementPriceDis.toFixed(0)}} =
+                          .addelement-price-value-rehau(price-fixed="{{(addelement.elementPriceDis * addelement.element_qty).toFixed(0)}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
+
                     .addelements-detail-row.price-one-product(ng-show="lightPage.C.cart.allAddElements > 0")
                       .addelement-price-value(price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis+ lightPage.O.order.products[lightPage.config.detailProductIndex].service_price_dis}}", qty-element="1", currency-element="{{lightPage.U.userInfo.currency}}")
                       .product-label {{ ::lightPage.ADDELEMENTS_PRODUCT_COST }}
@@ -375,10 +345,11 @@
                       <h3>Оценка энергоэффективности</h3>
                       <h2>{{product.heat_coef_expert_mark}}<h2>
                     .order-footer-price-rehau
-                      <h3>Стоимость изделия</h3>
-                      .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
-                    
-                    
+                      <h3>Стоимость позиции</h3>
+                      .price-discount-text(ng-if="lightPage.U.userInfo.discountConstr > 0")
+                        span.price-discount-span {{product.product_price.toFixed(0)}} руб
+                        span.price-discount-percentage -{{lightPage.U.userInfo.discountConstr}}%  
+                      .order-price(price-fixed="{{product.productPriceDis.toFixed(0)}}", qty-element="{{product.product_qty}}", currency-element="{{lightPage.U.userInfo.currency}}")
                 //- .add-new-product-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
                 //-   .add-img-rehau 
                 //-     img(src="../img/rehau-img/plus-gray.svg", alt="")
@@ -509,7 +480,7 @@
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
         include menus/_addelems-menu
         .config-title-rehau(ng-if="lightPage.U.userInfo.factory_id == 2")
-          h1 Онлайн калькулятор 
+          h1 Онлайн калькулятор
           h3 Задайте параметры вашего окна
 
         .config-buttons(ng-if="lightPage.U.userInfo.factory_id !== 2")
@@ -532,24 +503,24 @@
         .karkas-rehau(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id === 2")
          .construction-left-menu-rehau
             ul.figure-lists-rehau
-              li.figure-item-rehau.temp-fig-rehau(ng-click="designPage.selectMenuItem(6)" ng-class="{'active': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
+              li.figure-item-rehau.temp-fig-rehau(onclick="ym(86026367,'reachGoal','PATTERN');" fs-click="designPage.selectMenuItem(6);" id="226880064" ng-class="{'active': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}")
-                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Шаблон</span>
-                .figure-label-rehau-subtitle(ng-if="!designPage.G.global.SelectedTemplateName", data-output="Поворотно-откидное с импостом"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+                .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Тип конструкции</span>
+                .figure-label-rehau-subtitle(ng-if="!designPage.G.global.SelectedTemplateName", data-output="Левое глухое, правое поворотно–откидное"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
                 .figure-label-rehau-subtitle(ng-if="designPage.G.global.SelectedTemplateName", data-output="{{ lightPage.G.global.SelectedTemplateName }}"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") 
 
               hr.separator
-              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(2)" ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}")
+              li.figure-item-rehau(onclick="ym(86026367,'reachGoal','PROFILE');" fs-click="configMenu.selectConfigPanel(2);" id="226880103" ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Профиль<span>
                 .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.profile.name }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
-              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(3)" ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}")
+              li.figure-item-rehau(onclick="ym(86026367,'reachGoal','PACKET');" fs-click="configMenu.selectConfigPanel(3);" id="226880120" ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Стеклопакет<span>
-                .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.glass[0].sku }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}") <span>4-16-4</span>
+                .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.glass[0].name }}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
-              li.figure-item-rehau(fs-click="configMenu.selectConfigPanel(5)" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}")
+              li.figure-item-rehau(onclick="ym(86026367,'reachGoal','COLOR');" fs-click="configMenu.selectConfigPanel(5);" id="226880131" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}")
                 .figure-item-rehau-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}") 
                 .figure-label-rehau(typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}") <span>Цвет<span>
                 .laminatuin-display-block
@@ -557,56 +528,14 @@
                   .slash-between-laminations(data-output="|", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
                   .figure-label-rehau-subtitle(data-output="{{ lightPage.P.product.lamination.laminat_out_name | translate}}", typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
               hr.separator
-              li.figure-item-rehau(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", fs-click="configMenu.selectConfigPanel(6)")
+              li.figure-item-rehau(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", onclick="ym(86026367,'reachGoal','ADDITION');" fs-click="configMenu.selectConfigPanel(6);" id="226880141")
                 .figure-label-rehau(typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}") <span>Доп. элементы<span>
                 .figure-label-rehau-subtitle(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS_REHAU }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-                //- .additional-items-list
-                //-   ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
-                //-     li.additional-item(ng-repeat="addElement in addElementGroup")
-                //-       span.value-rehau(data-output="") {{ addElement.name }}
+                .additional-items-list-rehau
+                  ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
+                    li.additional-item(ng-repeat="addElement in addElementGroup")
+                      span.value-rehau(data-output="") {{ addElement.name }}
               hr.separator
-
-            #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
-              .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2)")
-              .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(3)")
-              .constr-shape-icon.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(4)")
-              .drop-shape-icon.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(5)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-              .drop-shape-icon.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(6)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-              .drop-shape-icon.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-              .constr-shape-icon.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(8)")
-              .drop-shape-icon.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(9)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
-              .drop-shape-icon.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(10)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
-              .drop-shape-icon.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(11)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
-              .constr-shape-icon.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(12)")
-              .drop-shape-icon.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(13)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
-              //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(14)")
-              //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(15)")
-              .constr-shape-icon.clean(ng-if="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(1)")
-
-            #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
-              .constr-shape-icon.sash-left(ng-click="designPage.insertSash(2)")
-              .drop-shape-icon.sash-right(ng-click="designPage.insertSash(3)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
-              .drop-shape-icon.sash-up(ng-click="designPage.insertSash(4)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
-              .drop-shape-icon.sash-down(ng-click="designPage.insertSash(5)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
-              .constr-shape-icon.sash-right-up(ng-click="designPage.insertSash(6)", ng-hide="designPage.P.product.construction_type === 4")
-              .drop-shape-icon.sash-left-up(ng-click="designPage.insertSash(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}", ng-hide="designPage.P.product.construction_type === 4")
-              .constr-shape-icon(ng-click="designPage.insertSash(8)", ng-class="(designPage.P.product.construction_type === 4) ? 'sash-shtulp-left-door' : 'sash-shtulp-left'")
-              .drop-shape-icon.sash-shtulp-right(ng-click="designPage.insertSash(9)", ng-class="[ (designPage.P.product.construction_type === 4) ? 'sash-shtulp-right-door' : 'sash-shtulp-right' , {'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}]")
-              .constr-shape-icon.clean(ng-click="designPage.insertSash(1)")
-
-            #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
-              .constr-shape-icon.corner(ng-click="designPage.insertCorner(2)")
-              .constr-shape-icon.corner-curv(ng-click="designPage.insertCorner(3)")
-              .constr-shape-icon.clean(ng-click="designPage.insertCorner(1)")
-
-            #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}")
-              .constr-shape-icon.arc(ng-click="designPage.insertArc(2)")
-              .constr-shape-icon.clean(ng-click="designPage.insertArc(1)")
-
-            #position-menu-for-position.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
-              //- .constr-shape-icon.mirror(ng-click="designPage.initMirror()")
-              .constr-shape-position(ng-click="designPage.positionAxis()") {{::designPage.BY_AXIS}}
-              .constr-shape-position(ng-click="designPage.positionGlass()") {{::designPage.BY_GLASS}}
          //- Rehau template end ---------------------
 
         .karkas(ng-controller="DesignCtrl as designPage", ng-if="configMenu.G.global.showKarkas", ng-show="lightPage.U.userInfo.factory_id !== 2")
@@ -847,8 +776,8 @@
         //-rehau templates ---------------------------
         .cart-menu-rehau(ng-if="configMenu.G.global.showCart && lightPage.U.userInfo.factory_id === 2", ng-controller="CartMenuCtrl as cartMenu")
           ul.items-list
-            li.back-home-rehau.order-rehau(ng-click="lightPage.addNewProductInOrder()")
-              button 
+            li.back-home-rehau.order-rehau(fs-click="lightPage.addNewProductInOrder();" onclick="ym(86026367,'reachGoal','BACK');" id="226880275")
+              button
                 <h3>Вернуться на главную</h3> 
             li.add-new-window.order-rehau(ng-click="lightPage.addNewProductInOrder()")
               button 
@@ -857,10 +786,10 @@
               .title-box
                 .title-rehau(typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}") Доставка
                 .tooltip
-                  img(ng-src="../img/rehau-img/tooltip-question.png")
-                  span.tooltiptext Точная стоимость уточняется менеджером
+                  img(ng-src="./img/rehau-img/tooltip-question.png")
+                  span.tooltiptext Точная стоимость уточняется менеджером. В зависимости от расстояния объекта от Москвы замер может быть платным
                 .arrow
-                  img(ng-src="../img/rehau-img/arrow-top.png")
+                  img(ng-src="./img/rehau-img/arrow-top.png")
               .cart-item-data-rehau
                 .value-rehau(ng-show="!cartMenu.O.order.floor_id && !cartMenu.O.order.delivery_garbage_removal && !cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
                 .value-rehau(ng-show="cartMenu.O.order.floor_id", data-output="{{cartMenu.O.order.floorName}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -884,14 +813,15 @@
               .title-box
                 .title-rehau(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
                 .tooltip
-                  img(ng-src="../img/rehau-img/tooltip-question.png")
+                  img(ng-src="./img/rehau-img/tooltip-question.png")
                   span.tooltiptext Точная стоимость уточняется менеджером
                 .arrow
-                  img(ng-src="../img/rehau-img/arrow-top.png")
+                  img(ng-src="./img/rehau-img/arrow-top.png")
               .cart-item-data-rehau
                 .value-rehau(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
                 .value-rehau(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                span.name.aside-rehau(ng-show="cartMenu.O.order.mounting_id", data-output=" ~ {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+                .mounting-price-block(ng-repeat="assemb in cartMenu.G.global.assemblingData")
+                  span.name.aside-rehau(ng-show="cartMenu.O.order.mounting_id", data-output=" ~{{assemb.priceReal}} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
             .dropdown-cart-menu-rehau.drop-assembling-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")
               ul.dropdown-items-list
                 li.dropdown-item-rehau(ng-class="{'selected': !cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(0)")
@@ -901,34 +831,33 @@
                   .dropdown-item-inner-rehau
                     .value.drop-txt-rehau {{ assemb.name }}
                     .name-rehau.drop-txt-rehau ~ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
-           
-            
+
           footer.menu-footer
             .price-block-rehau.price-with-instalments-rehau(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
               price(price-value="cartMenu.O.order.paymentFirstDis", price-currency="cartMenu.U.userInfo.currency")
               price(price-value="cartMenu.O.order.paymentMonthlyDis", price-currency="cartMenu.U.userInfo.currency")
             .price-block-rehau.price-without-instalments-rehau(ng-class="{'active': !cartMenu.O.order.is_instalment}")
-              <h2>Итого:</h2> 
-              price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
-            button.order-btn-rehau(ng-click="cartMenu.openOrderDialog()") <h2>Оставить заявку</h2>
-      
+              <h2>Итого:</h2>
+              .discount-price-rehau
+                .price-discount-text(ng-if="lightPage.U.userInfo.discountConstr > 0")
+                  span.price-discount-span {{cartMenu.O.order.order_price.toFixed(0)}} руб
+                  span.price-discount-percentage -{{lightPage.U.userInfo.discountConstr}}%  
+                price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
+            button.order-btn-rehau(fs-click="cartMenu.openOrderDialog();" id="226880267" onclick="ym(86026367,'reachGoal','PRELEAD');") <h2>Оставить заявку</h2>
+            button.order-btn-rehau-for-landing.disabled(readonly id="226880267") <h2>Оставить заявку</h2>
         .discount-block-rehau(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id == 2")
           .discount-price-rehau
+            .price-discount-text(ng-if="lightPage.U.userInfo.discountConstr > 0")
+              span.price-discount-span {{lightPage.P.product.product_price.toFixed(0)}} руб
+              span.price-discount-percentage -{{lightPage.U.userInfo.discountConstr}}%
             .price-text Цена:
             price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
         .counter-block-rehau(ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2")
-          .counter-rehau
-            input.prodcounter-rehau(readonly, ng-model="lightPage.G.global.construction_count", ng-click="configMenu.cartButton()")
-          .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")
-            p {{lightPage.CONFIGMENU_IN_CART}}
-        //-This block was added in order to be able to manipulate buttons from the landing page. By default class disabled.
-        .counter-block-rehau-for-landing.disabled(ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2")
-          .counter-rehau-for-landing
-            input.prodcounter-rehau-for-landing(readonly, ng-model="lightPage.G.global.construction_count")
-          .save-block-rehau#save-block(ng-click="lightPage.checkForAddElem()")
-            p {{lightPage.CONFIGMENU_IN_CART}}
-        //- rehau template end  
-        
+          .counter-rehau(id="226880249")
+            input.prodcounter-rehau(readonly, ng-model="lightPage.G.global.construction_count", onclick="ym(86026367,'reachGoal','CART_2');" ng-click="configMenu.cartButton();")
+          .save-block-rehau#save-block(onclick="ym(86026367,'reachGoal','CART_1');" fs-click="lightPage.checkForAddElem();")
+            p(id="226880150") {{lightPage.CONFIGMENU_IN_CART}}
+        //- rehau template end
         .discount-block(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id !== 2")
           .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
           .discount-price

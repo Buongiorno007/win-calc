@@ -1,6 +1,10 @@
 .mobile
     //.main-view
     .main-view(ng-hide='mobilePage.P.product.is_addelem_only')
+        .help-block__info-button(ng-if="lightPage.G.global.triggerValue")
+            {{'Как работает калькулятор?'}} 
+        .help-block-mobile
+            img(ng-mouseover="lightPage.helpModalButton()" ng-mouseleave="lightPage.helpModalButton()" ng-click="mobilePage.helpModalMobile()" src="img/rehau-img/modal-help-icon.svg", alt="")
         .svg-template(ng-controller="DesignCtrl as designPage")
             svg-template(template="designPage.D.design.templateTEMP", template-width="mobilePage.mobWidth", template-height="mobilePage.mobHeight", type-construction="designPage.constants.SVG_ID_EDIT")
     include mobile/price-mobile
@@ -11,8 +15,10 @@
             include mobile/karkas-mobile
         .common-content-style.config-content(ng-if="mobilePage.isSet(3)")
             include mobile/config-mobile
+        .common-content-style.config-content(ng-if="mobilePage.isSet(5)")
+            include mobile/config-rehau-mobile
 
-    .control-buttons-container
+    .control-buttons-container(ng-if="mobilePage.U.userInfo.factory_id !== 2")
         .templates.control-button(ng-click="mobilePage.setTab(1)")
             .img-common.templates-img(ng-class="{ active: mobilePage.isSet(1) }")
             p {{mobilePage.ROOM_SELECTION}}
@@ -27,11 +33,12 @@
                 .qty-mobile#qty-mobile
                     span {{ mobilePage.G.global.construction_count }}
             p {{mobilePage.CART}}
+    include mobile/bottom-block
     //- This piece of code is commented out in connection with this task, https://trello.com/c/0joTs55J/587
     //- in order for the mobile version to be able to open the side menu, just uncomment
 
     //- .burger(ng-click='mobilePage.OpenMenu()' ng-class="{ active: mobilePage.mobMenu }")
-    section.mobile_disable(ng-if="mobilePage.U.userInfo.user_type !== 8" ng-class="burger:active")
+    section.mobile_disable(ng-if="mobilePage.U.userInfo.user_type !== 8" ng-class="burger-active")
         include mobile/left-menu-mobile
     include mobile/door-settings-mobile
     include mobile/heat-coef-mobile

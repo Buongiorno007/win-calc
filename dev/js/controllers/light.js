@@ -17,6 +17,7 @@
                                        CartMenuServ,
                                        GlobalStor,
                                        ProductStor,
+                                       GlassesServ,
                                        DesignStor,
                                        OrderStor,
                                        CartStor,
@@ -91,6 +92,7 @@
       thisCtrl.LABEL_LOCK_TYPE = $filter("translate")("design.LABEL_LOCK_TYPE");
       thisCtrl.NOT_AVAILABLE = $filter("translate")("design.NOT_AVAILABLE");
       thisCtrl.DIM_EXTRA = $filter("translate")("design.DIM_EXTRA");
+      thisCtrl.DIM_SMALL = $filter("translate")("design.DIM_SMALL");
       thisCtrl.SQUARE_EXTRA = $filter("translate")("design.SQUARE_EXTRA");
       thisCtrl.ROOM_SELECTION = $filter("translate")("mainpage.ROOM_SELECTION");
       thisCtrl.TEST_STAGE = $filter("translate")("design.TEST_STAGE");
@@ -212,6 +214,7 @@
         GlobalStor.global.isDesignError = 0;
         DesignStor.design.isDimExtra = 0;
         DesignStor.design.isSquareExtra = 0;
+        DesignStor.design.isDimSmall = 0;
       }
 
       function saveProduct() {
@@ -340,6 +343,9 @@
       }
 
       function checkForAddElem() {
+        
+        //  ALERT
+        GlobalStor.global.isNoChangedProduct = 1;
         if (!GlobalStor.global.isChangedTemplate) {
           GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
         }
@@ -375,6 +381,19 @@
           msg += " \n" + thisCtrl.ATENTION_MSG2;
           GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
         }
+        
+      }
+
+      function helpModal() {
+        const helpModalData = [
+          {
+            id: 1,
+            name: 'Как работает калькулятор?',
+            description: 'Всё очень просто! Приложение позволяет вам построить конструкцию, выбрать стеклопакет, изменить ламинацию, добавить подконник или водоотлив, далее вы оставляете нам свои данные (email и телефон) мы с вами связываемся и уточняем когда вам будет удобно принять ваш товар. Можете начать прямо сейчас! Переходите во вкладки с элементами и окновляйтесь вместе с РЕХАУ!',
+            img: './img/rehau-img/video-help-desktop.gif',
+          }
+        ]
+        MainServ.showInfoBox(1, helpModalData)
       }
 
       function coutNull(arr) {
@@ -426,6 +445,7 @@
       thisCtrl.toggleDiscount = toggleDiscount;
       thisCtrl.enterKeyDopService = enterKeyDopService;
       thisCtrl.showCalck = showCalck;
+      thisCtrl.helpModal = helpModal;
 
       thisCtrl.box = LightServ.box;
       thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;

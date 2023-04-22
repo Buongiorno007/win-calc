@@ -25,7 +25,16 @@
     @include display-flex();
     @include flex-flow(column wrap);
     height: 460px;
+    box-shadow: 2px 4px 5px hsla(0, 0, 0, .1),
+        -2px 4px 5px hsla(0, 0, 0, .1);
+    transition: all .2s ease;
+    cursor: pointer;
 
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 2px 9px 50px hsla(0, 0, 0, .1),
+      -2px 9px 60px hsla(0, 0, 0, .1);
+    }
     img {
       width: 100%;
       min-height: 196px;
@@ -125,6 +134,76 @@
       height: 24px;
       background-color: $primary_pink;
     }
+    .profile-red-block-1 {
+      position: absolute;
+      z-index: 2;
+      width: 18px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-2 {
+      position: absolute;
+      z-index: 2;
+      width: 36px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-3 {
+      position: absolute;
+      z-index: 2;
+      width: 54px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-4 {
+      position: absolute;
+      z-index: 2;
+      width: 72px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-5 {
+      position: absolute;
+      z-index: 2;
+      width: 90px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-6 {
+      position: absolute;
+      z-index: 2;
+      width: 108px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-7 {
+      position: absolute;
+      z-index: 2;
+      width: 126px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-8 {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-9 {
+      position: absolute;
+      z-index: 2;
+      width: 162px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-10 {
+      position: absolute;
+      z-index: 2;
+      width: 180px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
   }
 
   .profile-block-light-rehau {
@@ -157,6 +236,76 @@
       position: absolute;
       z-index: 2;
       width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-1 {
+      position: absolute;
+      z-index: 2;
+      width: 18px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-2 {
+      position: absolute;
+      z-index: 2;
+      width: 36px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-3 {
+      position: absolute;
+      z-index: 2;
+      width: 54px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-4 {
+      position: absolute;
+      z-index: 2;
+      width: 72px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-5 {
+      position: absolute;
+      z-index: 2;
+      width: 90px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-6 {
+      position: absolute;
+      z-index: 2;
+      width: 108px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-7 {
+      position: absolute;
+      z-index: 2;
+      width: 126px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-8 {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-9 {
+      position: absolute;
+      z-index: 2;
+      width: 162px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-10 {
+      position: absolute;
+      z-index: 2;
+      width: 180px;
       height: 24px;
       background-color: $primary_pink;
     }
@@ -195,6 +344,76 @@
       height: 24px;
       background-color: $primary_pink;
     }
+    .profile-red-block-1 {
+      position: absolute;
+      z-index: 2;
+      width: 18px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-2 {
+      position: absolute;
+      z-index: 2;
+      width: 36px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-3 {
+      position: absolute;
+      z-index: 2;
+      width: 54px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-4 {
+      position: absolute;
+      z-index: 2;
+      width: 72px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-5 {
+      position: absolute;
+      z-index: 2;
+      width: 90px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-6 {
+      position: absolute;
+      z-index: 2;
+      width: 108px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-7 {
+      position: absolute;
+      z-index: 2;
+      width: 126px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-8 {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-9 {
+      position: absolute;
+      z-index: 2;
+      width: 162px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-10 {
+      position: absolute;
+      z-index: 2;
+      width: 180px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
   }
 
   .profile-block-burglary-rehau {
@@ -227,6 +446,76 @@
       position: absolute;
       z-index: 2;
       width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-1 {
+      position: absolute;
+      z-index: 2;
+      width: 18px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-2 {
+      position: absolute;
+      z-index: 2;
+      width: 36px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-3 {
+      position: absolute;
+      z-index: 2;
+      width: 54px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-4 {
+      position: absolute;
+      z-index: 2;
+      width: 72px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-5 {
+      position: absolute;
+      z-index: 2;
+      width: 90px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-6 {
+      position: absolute;
+      z-index: 2;
+      width: 108px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-7 {
+      position: absolute;
+      z-index: 2;
+      width: 126px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-8 {
+      position: absolute;
+      z-index: 2;
+      width: 144px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-9 {
+      position: absolute;
+      z-index: 2;
+      width: 162px;
+      height: 24px;
+      background-color: $primary_pink;
+    }
+    .profile-red-block-10 {
+      position: absolute;
+      z-index: 2;
+      width: 180px;
       height: 24px;
       background-color: $primary_pink;
     }

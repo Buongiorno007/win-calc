@@ -37,6 +37,11 @@ gulp.task('clean', function () {
 });
 var random = Math.random();
 var env = args.env || 'windowSiteLocal';
+var url_env = {
+  "rehauDev": "'https://dev.rehau2021selected.xyz/api/rehau/request'",
+  "rehauProd": "'https://experience.shop.rhsolutions.ru/api/rehau/request'",
+  "rehauStage": "'https://stage.rehau2022selected.xyz/api/rehau/request'",
+}
 var server_env = {
   // "windowSiteTest": "'https://api.windowscalculator.net'",
   "windowSiteTest": "'http://api.steko.com.ua'",
@@ -46,6 +51,9 @@ var server_env = {
   "orange": "'http://api.calc.csokna.ru'",
   "window": "'https://api.windowscalculator.net'",
   "rehau": "'https://admin.rehauselected.baueffect.com'",
+  "rehauDev": "'https://admin.rehauselected.baueffect.com'",
+  "rehauProd": "'https://admin.rehauselected.baueffect.com'",
+  "rehauStage": "'https://admin.rehauselected.baueffect.com'",
   "windowSteko": "'http://api.steko.com.ua'",
   "apelsin": "'https://admin.apelsin.windowscalculator.net'"
 },
@@ -58,6 +66,9 @@ var server_env = {
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
     "window": "'https://admin.windowscalculator.net/orders/get-order-pdf/'",
     "rehau": "'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/'",
+    "rehauDev": "'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/'",
+    "rehauProd": "'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/'",
+    "rehauStage": "'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/'",
     "windowSteko": "'https://admin.steko.com.ua/orders/get-order-pdf/'",
     "apelsin": "'https://admin.apelsin.windowscalculator.net/orders/get-order-pdf/'"
   },
@@ -68,10 +79,14 @@ var server_env = {
     "steko": "'/local/'",
     "orange": "'/local/'",
     "window": "'/local/'",
-    "rehau": "'/local/'",
+    "rehauDev": "'/local/'",
+    "rehauStage": "'/local/'",
+    "rehauProd": "'/local/'",
+    "rehauStage": "'/local/'",
     "windowSteko": "'/local/'",
     "apelsin": "'/local/'"
   };
+
 //для указания сервера, к которому будет обращаться приложение необходимо передать параметр
 //по умолчанию обращение идет к стеко.
 //пример "gulp --env windowSite"   - переключение на сервер WindowsCalculator
@@ -147,6 +162,7 @@ gulp.task('js', function () {
     .pipe(replace('SERVER_IP', server_env[env]))
     .pipe(replace('PRINT_IP', print_env[env]))
     .pipe(replace('LOCAL_PATH', path_env[env]))
+    .pipe(replace('URL_REQUEST', url_env[env]))
     .pipe(replace('ISEXTFLAG', "0"))// заменить на 1 если нужно офлайн
 
     // .pipe(ngAnnotate({
@@ -481,6 +497,7 @@ function buildSite(id) {
     .pipe(replace('PRINT_IP', print_env[id]))
     .pipe(replace('LOCAL_PATH', path_env[id]))
     .pipe(replace('ISEXTFLAG', "0"))
+    .pipe(replace('URL_REQUEST', url_env[id]))
     .pipe(concat('main.js'))
     .pipe(removeLogs())
     .pipe(stripDebug())
@@ -540,8 +557,20 @@ gulp.task('buildStekoSite', function () {
   buildSite("steko");
 });
 
-gulp.task('buildRehau', function () {
-  buildSite("rehau");
+gulp.task('buildRehauDev', function () {
+  buildSite("rehauDev");
+});
+
+gulp.task('buildRehauStage', function () {
+  buildSite("rehauStage");
+});
+
+gulp.task('buildRehauProd', function () {
+  buildSite("rehauProd");
+});
+
+gulp.task('buildRehauStage', function () {
+  buildSite("rehauStage");
 });
 
 gulp.task('buildWindowSiteTest', function () {
@@ -581,6 +610,7 @@ gulp.task('prod', function () {
     .pipe(replace('SERVER_IP', server_env[env]))
     .pipe(replace('PRINT_IP', print_env[env]))
     .pipe(replace('LOCAL_PATH', path_env[env]))
+    .pipe(replace('URL_REQUEST', url_env[env]))
     .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
     //.pipe(uglify({mangle: true}).on('error', gutil.log))

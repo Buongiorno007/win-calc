@@ -1,50 +1,24 @@
-# BauVoice
-
 ### gulp
 
----
-
-Шаблон для сайта с подключенными gulp, Jade, Compass, HTML5Boilerplate
+App builded with gulp, Jade, Compass, HTML5Boilerplate
 
 sudo npm install -g gulp
 
 npm install
 
-gulp или gulp watch для разработки
+gulp watch -- For dev
 
-gulp build для сборки
+gulp csscomb -- To format styles
 
-gulp production для минификации
+## Server - http://localhost:8888
 
-gulp upload для загрузки на сервер
-
-gulp clean для очистки результирующей папки
-
-gulp csscomb для форматирования файлов стилей
-
-## Сервер - http://localhost:8888
-
-готовые к использованию приложения лежат в \_product/steko/site <- site или \_product/window/ext <- extension
-остальное по аналогии
+Ready builded app path --->  в \_product/...
 
 ---
 
-для создания расширения в командной строке нужно запустить команду "gulp buildStekoExt|buildWindowExt|buildOrangeExt"
+1.  gulp buildRehauDev - with this comand we can build app for Rehau dev https://dev.rehau2022selected.xyz/
+2.  gulp buildRehauProd - with this comand we can build app for Rehau production https://selected.shop.rhsolutions.ru/
 
-пример:
 
-1.  gulp buildStekoExt - данная команда выполняет сборку папку с расширением для стеко
-2.  gulp buildWindowExt - данная команда выполняет сборку папку с расширением для windowscalculator
-3.  gulp buildOrangeExt - данная команда выполняет сборку папку с расширением для orange
-    для создания папки для заливки на сервак
-4.  gulp buildStekoSite - данная команда выполняет сборку папку с файлами для заливки на стеко
-5.  gulp buildWindowSite - данная команда выполняет сборку папку с файлами для заливки на windowscalculator
-6.  gulp buildOrangeSite - данная команда выполняет сборку папку с файлами для заливки на orange
-    файлы находятся в папке \_product/steko/site/
-7.  gulp buildRehau - данная команда выполняет сборку папки с файлами для заливки на сайт rehau
-
-чтобы сбилдить сразу все сайты или расширения выполните команду
-
-gulp buildStekoSite && gulp buildWindowSite && gulp buildOrangeSite <<- для сайтов
-
-gulp buildStekoExt && gulp buildWindowExt && gulp buildOrangeExt <<- для расширений
+Can be some trubles with gulp with node to fix it pls refer here
+ --> How to fix "ReferenceError: primordials is not defined" in Node.js (https://timonweb.com/javascript/how-to-fix-referenceerror-primordials-is-not-defined-error/)

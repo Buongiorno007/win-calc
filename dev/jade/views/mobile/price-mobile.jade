@@ -1,5 +1,6 @@
 .mobile-price(ng-controller="ConfigMenuCtrl as configMenu")
-    price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-click='configMenu.checkForAddElem()' )
-    .go-to-cart
-        .go-to-cart-title#checkForAddElem(ng-click='configMenu.checkForAddElem()') {{configMenu.CONFIGMENU_IN_CART}}
-        .product-counter(ng-click="configMenu.showCalck()") {{configMenu.G.global.product_qty}}
+    .mobile-price-block(ng-if="configMenu.U.userInfo.factory_id !== 2")
+        price(price-value="configMenu.G.global.tempPrice", price-currency="configMenu.U.userInfo.currency" ng-click='configMenu.checkForAddElem()' )
+        .go-to-cart
+            .go-to-cart-title#checkForAddElem(ng-click='configMenu.checkForAddElem()') {{configMenu.CONFIGMENU_IN_CART}}
+            .product-counter(ng-click="configMenu.showCalck()") {{configMenu.G.global.product_qty}}

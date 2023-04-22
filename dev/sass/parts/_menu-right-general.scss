@@ -128,7 +128,7 @@
   }
   .price-currency {
     @include roboto-lt(rem(50px), rem($price_container-height - 8px));
-    margin-left: rem(10px);
+    margin-left: rem(-5px);
     margin-right: -2rem;
     padding-top: rem(8px);
     color: $main_gray_txt;

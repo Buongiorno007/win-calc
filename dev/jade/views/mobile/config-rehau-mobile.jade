@@ -1,0 +1,35 @@
+.config-content-rehau(ng-controller="ConfigMenuCtrl as configMenu")
+  .common-scroll-container-rehau
+    .conf-top-item
+      .conf-header
+        .conf-item-title Конфигурация
+        .conf-item-subtitle Задайте параметры вашего окна
+      button.conf-close(ng-click="mobilePage.closePanelMobile()")
+    .conf-item-rehau(fs-click="mobilePage.setTab(1)" ng-class="{active : configMenu.G.global.activePanel===2}")
+      .item-title Выбор шаблона
+      .conf-item-text(ng-if="!configMenu.G.global.SelectedTemplateName", data-output="Левое глухое, правое поворотно–откидное"  typing="{{ lightPage.config.typing }}", typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}")
+      .conf-item-text(ng-if="configMenu.G.global.SelectedTemplateName") {{ configMenu.G.global.SelectedTemplateName }}
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(2)" ng-class="{active : configMenu.G.global.activePanel===2}")
+      .item-title Профиль
+      .conf-item-text {{ configMenu.P.product.profile.name }}
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(3)" ng-class="{active : configMenu.G.global.activePanel===3}")
+      .item-title Стеклопакет
+      .conf-item-text {{ configMenu.P.product.glass[0].name }}
+    //- .conf-item-rehau(fs-click="configMenu.selectConfigPanel(4)" ng-class="{active : configMenu.G.global.activePanel===4}")
+    //-   .item-title Фурнитура
+    //-   .conf-item-text {{ ::configMenu.CONFIGMENU_HARDWARE }}
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(5)" ng-class="{active : configMenu.G.global.activePanel===5}")
+      .item-title Цвет (В комнате | фасад)
+      .conf-item-text {{ configMenu.P.product.lamination.laminat_in_name | translate }} | {{ configMenu.P.product.lamination.laminat_out_name | translate}}
+      
+    .conf-item-rehau(fs-click="configMenu.selectConfigPanel(6)" ng-class="{active : configMenu.G.global.activePanel===6}")
+      .item-title Доп. элементы
+      .conf-item-box
+      .additional-items-list-rehau
+        ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
+          li.additional-item(ng-repeat="addElement in addElementGroup")
+            span.value-rehau(data-output="") {{ addElement.name }}
+      
+
+      .conf-item-tex
+  include bottom-block

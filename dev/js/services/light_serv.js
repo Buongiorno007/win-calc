@@ -103,7 +103,7 @@
                 /** set Report */
                 if (result) {
                   //---- only for this type of user
-                  if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                  if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7 || UserStor.userInfo.factory_id === 2) {
                     ProductStor.product.report = MainServ.prepareReport(result.constrElements);
                     //console.log('REPORT', ProductStor.product.report);
                     //console.timeEnd('price');

@@ -15,6 +15,7 @@
                       MainServ,
                       NavMenuServ,
                       AddElementMenuServ,
+                      GlassesServ,
                       DesignServ,
                       GlobalStor,
                       OrderStor,
@@ -114,7 +115,16 @@
                             }
                         }
                     });
-
+                    if(GlobalStor.global.glasses.length) {
+                        GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+                          return item.map((elem) => {
+                            elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+                            return elem;
+                          })
+                          
+                        });
+                      }
+        
                 }
 
 
@@ -155,7 +165,7 @@
                 }
 
                 function checkForAddElem() {
-                    // console.log("ProductStor.product", ProductStor.product);
+                    
                     if (!GlobalStor.global.isZeroPriceList.length) {
                         if (!ProductStor.product.is_addelem_only) {
                             alert();

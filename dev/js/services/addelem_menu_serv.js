@@ -423,7 +423,11 @@
                 //--------- when we select new addElement, function checks
                 // is there this addElements in order to increase only elementQty
                 function checkExistedSelectAddElement(elementsArr, currElement) {
-                    var elementsQty = elementsArr.length, isExist = 0;
+                    if (elementsArr === undefined) {
+                        alert("Что-то пошло не так, пожалуйста перезагрузите страницу. Скоро мы это исправим.")
+                    } else {
+                        var elementsQty = elementsArr.length, isExist = 0;
+                    }
                     while (--elementsQty > -1) {
                         if (elementsArr[elementsQty].id === currElement.id) {
                             /** if element has width and height */
@@ -503,7 +507,7 @@
                 }
 
 
-                /** set Selected Grids */
+                /** set EXPERIENCE Grids */
                 function confirmGrid() {
                     var gridsT = [], grids = [];
                     if (GlobalStor.global.sashTypeBlock.length > 0) {

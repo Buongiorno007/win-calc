@@ -14,6 +14,7 @@
         ProductStor,
         $timeout,
         InfoBoxServ,
+        GlassesServ,
         DesignStor,
         SVGServ,
         DesignServ,
@@ -21,7 +22,7 @@
         UserStor) {
         var thisFactory = this;
 
-
+        
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
           if (($location.path() === "/light" || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
@@ -86,6 +87,7 @@
           } else {
             if (id === 3) {
               var temp = [];
+              
               GlobalStor.global.glasses.forEach(function (glass) {
                 glass.forEach(function (glass_img) {
                   temp.push(glass_img.glass_image);
@@ -182,4 +184,5 @@
 
 
       });
+      
 })();

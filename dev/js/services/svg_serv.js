@@ -11,7 +11,8 @@
         GlobalStor,
         ProductStor,
         DesignStor,
-        PointsServ) {
+        PointsServ
+        ) {
         /*jshint validthis:true */
         var thisFactory = this;
 
@@ -2758,8 +2759,51 @@
               setPointsXChildren(thisObj.details[i], thisObj.details, depths);
               //----- create impost parts
               if (thisObj.details[i].children.length) {
-                // thisObj.details[i].impost.impostIn = copyPointsOut(thisObj.details[i].pointsIn, 'impost');
-
+                if (thisObj.details[i].impost.impostIn[0] === undefined || thisObj.details[i].impost.impostIn[3] === undefined) {
+                  // if the width of the structure is too small, then we take a step back and throw an alert
+                  function deselectAllDimension() {
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect').classed('active', false);
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit').classed('active', false);
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect-rehau').classed('active', false);
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit-rehau').classed('active', false);
+                  }
+                  function hideSizeTools() {
+                    deselectAllDimension();
+                    GlobalStor.global.isSizeCalculator = 0;
+                    DesignStor.design.openVoiceHelper = 0;
+                  }
+                  function cleanTempSize() {
+                    DesignStor.design.tempSize.length = 0;
+                    DesignStor.design.isMinSizeRestriction = 0;
+                    DesignStor.design.isMaxSizeRestriction = 0;
+                    DesignStor.design.isDimExtra = 0;
+                    DesignStor.design.isSquareExtra = 0;
+                  }
+                  function rebuildSVGTemplate() {
+                    createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                      .then(function (result) {
+                        DesignStor.design.templateTEMP = angular.copy(result);
+                        DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
+                          if (entry.impost) {
+                            DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+                            DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+                          }
+                        });
+          
+                      });
+                  }
+                  function stepBack() {
+                    GlobalStor.global.checkDoors = 0;
+                    var lastIndex = DesignStor.design.designSteps.length - 1;
+                    DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
+                    rebuildSVGTemplate();
+                    DesignStor.design.designSteps.pop();
+                    cleanTempSize();
+                    hideSizeTools();
+                  }
+                  stepBack()
+                  DesignStor.design.isDimSmall = 1;
+                }
                 var temp1 = angular.copy(thisObj.details[i].impost.impostIn[0].y);
                 var temp2 = angular.copy(thisObj.details[i].impost.impostIn[3].x);
                 var temp3 = angular.copy(thisObj.details[i].impost.impostIn[3].y);
@@ -2977,7 +3021,7 @@
           checkInsidePointInLineEasy: checkInsidePointInLineEasy,
           sortByX: sortByX
         };
-
+       
         return thisFactory.publicObj;
 
 

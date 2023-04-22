@@ -802,7 +802,7 @@ $aux-img-select-path: "auxiliaries-selected";
       padding: 8px;
       margin-top: 8px;
 
-      background-color: $primary_pink;
+      background-color: #424242;
       // color: white;
 
       .aux-params {
@@ -829,7 +829,7 @@ $aux-img-select-path: "auxiliaries-selected";
         align-self: center;
       }
       .aux-delete-rehau {
-        background-image: url(../../img/rehau-img/delete-cross-for-add-elems.png);
+        background-image: url(../img/rehau-img/delete-cross-for-add-elems.png);
         width: 24px;
         height: 24px;
         align-self: center;
@@ -841,6 +841,23 @@ $aux-img-select-path: "auxiliaries-selected";
     .totalNumberAddElements {
       color: #333;
       font-size: 24px;
+    }
+
+    .folders-container {
+
+      &__close-screen-button {
+        background-image: url(../img/rehau-img/close.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        position: relative;
+        top: 36px;
+        left: 700px;
+        z-index: 1000;
+        cursor: pointer;
+      }
     }
 
     .folders {
@@ -959,11 +976,28 @@ $aux-img-select-path: "auxiliaries-selected";
 
       .items {
         width: 104.5%;
+        border: 1px solid darkgray;
+        margin: 2px;
+        box-shadow: 2px 4px 5px hsla(0, 0, 0, .1),
+            -2px 4px 5px hsla(0, 0, 0, .1);
+        transition: all .2s ease;
+        cursor: pointer;
 
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 2px 9px 50px hsla(0, 0, 0, .1),
+          -2px 9px 60px hsla(0, 0, 0, .1);
+        }
         .splice {
+          transition: 0.4s all linear;
           &:active {
             color: #fff;
             background-color: $primary_pink;
+          }
+
+          &:hover {
+            color: #fff;
+            background-color: #424242;   
           }
         }
       }
@@ -982,7 +1016,7 @@ $aux-img-select-path: "auxiliaries-selected";
         color: #000000;
 
         &.active {
-          background-color: #dd0060;
+          background-color: #DC143C;
           color: #fff;
         }
       }

@@ -40,9 +40,9 @@
                 if ($location.path() === "/mobile") {
                     showReport();
                 }
-
+                var glassPrices = []
                 function culcReportPriceTotal(group) {
-                    var currReportList;
+                    var currReportList = [];
                     if (group) {
                         currReportList = ProductStor.product.report.filter(function (item) {
                             return item.element_group_id === group;
@@ -50,13 +50,53 @@
                     } else {
                         currReportList = angular.copy(ProductStor.product.report);
                     }
+
                     if (currReportList.length) {
-                        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
-                            return {priceReal: sum.priceReal + item.priceReal};
-                        }).priceReal, 2);
+                        localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                        }).then(function(result) {
+                            glassPrices = result[0]
+                        })
+                        currReportList.map((element) => {
+                            if (element.element_group_id === 8) {
+                                if (element.element_id === glassPrices.element_id) {
+                                    if (glassPrices.col_1_range > 0) {
+                                        if (element.size < glassPrices.col_1_range) {
+                                            element.price = glassPrices.col_1_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        } 
+                                    } if (glassPrices.col_2_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                            element.price = glassPrices.col_2_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_3_range_1 > 0) {
+                                        if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                            element.price = glassPrices.col_3_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_4_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                            element.price = glassPrices.col_4_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    }
+                                    if (glassPrices.col_5_range > 0) {
+                                        if (element.size > glassPrices.col_5_range) {
+                                            element.price = glassPrices.col_5_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    }
+                                } else {
+                                    console.log("No match ")
+                                }
+                            } 
+                        })
                         thisCtrl.config.reportPriceBase = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
                             return {price: sum.price + item.price};
                         }).price, 2);
+                        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+                            return {priceReal: sum.priceReal + item.priceReal};
+                        }).priceReal, 2);
                     } else {
                         thisCtrl.config.reportPriceTotal = 0;
                         thisCtrl.config.reportPriceBase = 0;

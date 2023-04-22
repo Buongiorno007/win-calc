@@ -1,82 +1,181 @@
 
-<div ng-controller="TemplatesCtrl as templatesPanel" class="scroll-container">
-  <div class="accept-container">
-    <div ng-if="!mobilePage.isSet(1)" class="row">
-      <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
-        <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
+<div ng-controller="TemplatesCtrl as templatesPanel" class="box">
+  <div ng-if="templatesPanel.U.userInfo.factory_id !== 2" class="scroll-container">
+    <div class="accept-container">
+      <div ng-if="!mobilePage.isSet(1)" class="row">
+        <div ng-if="mobilePage.G.global.activePanel !== 6" class="curr-price">
+          <price price-value="mobilePage.G.global.tempPrice" price-currency="mobilePage.U.userInfo.currency"></price>
+        </div>
+        <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
+          <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
+        </div>
+        <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
       </div>
-      <div ng-if="mobilePage.G.global.activePanel === 6" class="curr-price">
-        <price price-value="mobilePage.P.product.addelemPriceDis" price-currency="mobilePage.U.userInfo.currency"></price>
+      <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
+        <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
+          <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
+        </div>
+        <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
+          <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
+        </div>
+        <!--СТЕКЛОПАКЕТ-->
+        <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
+          <div ng-if="mobilePage.P.product.glass.length == 1" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.glass.length == 2" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="value">
+            <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</p>
+          </div>
+        </div>
+        <!--ФУРНИТУРА-->
+        <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
+            <p>{{ mobilePage.P.product.hardware.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorHandle.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorLock.name }}</p>
+          </div>
+        </div>
+        <!--ПРОФИЛЬ-->
+        <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
+          <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
+            <p>{{ mobilePage.P.product.profile.name }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorName | translate }}</p>
+          </div>
+          <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
+            <p>{{ mobilePage.P.product.doorSashName }}</p>
+          </div>
+        </div>
+        <!--ЛАМИНАЦИЯ-->
+        <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
+          <div class="value">
+            <p>{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</p>
+          </div>
+        </div>
       </div>
-      <div ng-click="mobilePage.closePanelMobile()" class="accept-button">{{mobilePage.APPLY}}</div>
+      <div ng-if="mobilePage.isSet(1)" class="row">
+        <div ng-click="mobilePage.closePanelMobile()" class="back-button"></div>
+        <div class="row-title">
+          <p>{{mobilePage.TEMPLATE_SELECTION}}</p>
+        </div>
+      </div>
     </div>
-    <div ng-if="!mobilePage.isSet(1) &amp;&amp; mobilePage.G.global.activePanel !== 6" class="row">
-      <div ng-if="mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &lt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-        <div>R = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.LETTER_M}}&sup2;&deg;C/{{::mobilePage.HEATCOEF_VAL }}</div>
+    <div ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}" class="types">
+      <div class="button">
+        <p>{{ ::templatesPanel.templateName[$index]|translate }}</p>
       </div>
-      <div ng-if="!mobilePage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': mobilePage.P.product.heat_coef_total &gt; mobilePage.O.order.heat_coef_min}" class="product-u-coeff">
-        <div>U = {{ mobilePage.P.product.heat_coef_total | number :2 }} {{ ::mobilePage.HEATCOEF_VAL}}/{{::mobilePage.LETTER_M}}&sup2;&deg;C</div>
-      </div>
-      <!--СТЕКЛОПАКЕТ-->
-      <div ng-if="mobilePage.G.global.activePanel === 3" class="selected-profile">
-        <div ng-if="mobilePage.P.product.glass.length == 1" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.glass.length == 2" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.glass.length &gt; 2" class="value">
-          <p>{{ mobilePage.P.product.glass[0].sku +', '+ mobilePage.P.product.glass[1].sku +', '+ mobilePage.P.product.glass[2].sku }}</p>
-        </div>
-      </div>
-      <!--ФУРНИТУРА-->
-      <div ng-if="mobilePage.G.global.activePanel === 4" class="selected-profile">
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
-          <p>{{ mobilePage.P.product.hardware.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorHandle.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorLock.name }}</p>
-        </div>
-      </div>
-      <!--ПРОФИЛЬ-->
-      <div ng-if="mobilePage.G.global.activePanel === 2" class="selected-profile">
-        <div ng-if="mobilePage.P.product.construction_type !== 4" class="value">
-          <p>{{ mobilePage.P.product.profile.name }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorName | translate }}</p>
-        </div>
-        <div ng-if="mobilePage.P.product.construction_type === 4" class="value">
-          <p>{{ mobilePage.P.product.doorSashName }}</p>
-        </div>
-      </div>
-      <!--ЛАМИНАЦИЯ-->
-      <div ng-if="mobilePage.G.global.activePanel === 5" class="selected-profile">
-        <div class="value">
-          <p>{{ mobilePage.P.product.lamination.laminat_in_name | translate}} / {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</p>
+      <div class="templates-list">
+        <div ng-repeat="templateIcon in templatesPanel.templateList track by $index" ng-if="templateIcon.type === Pindex" ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)" ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}" class="template"><img ng-src="{{ templateIcon.src }}" class="template-img">
+          <div class="name">{{templateIcon.name}}</div>
         </div>
       </div>
     </div>
-    <div ng-if="mobilePage.isSet(1)" class="row">
-      <div ng-click="mobilePage.closePanelMobile()" class="back-button"></div>
-      <div class="row-title">
-        <p>{{mobilePage.TEMPLATE_SELECTION}}</p>
+    <!--.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")| Add elements only
+    -->
+  </div>
+  <!-- rehau templates-->
+  <div ng-if="templatesPanel.U.userInfo.factory_id === 2" class="common-scroll-container-rehau">
+    <div class="top-container">
+      <div ng-if="mobilePage.isSet(1)" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Выбор шаблона</div>
+          <div ng-if="!mobilePage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="top-container-subtitle"></div>
+          <div ng-if="mobilePage.G.global.SelectedTemplateName" class="top-container-subtitle">{{ mobilePage.G.global.SelectedTemplateName }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile()" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 2" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Профиль</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.profile.name  }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 3" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Стелопакет</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.glass[0].name }}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 5" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Ламинация (в комнате | фасад)</div>
+          <div class="top-container-subtitle">{{ mobilePage.P.product.lamination.laminat_in_name | translate}} | {{ mobilePage.P.product.lamination.laminat_out_name | translate}}</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Дополнительные элементы</div>
+          <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} руб)</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+      <div ng-if="mobilePage.isSet(4)" class="top-container-item">
+        <div class="top-container-header">
+          <div class="top-container-title">Корзина</div>
+          <div class="top-container-subtitle">Расчёт стоимости и услуги</div>
+        </div>
+        <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
+      </div>
+    </div>
+    <div class="template-content-rehau">
+      <div class="template-main-item">
+        <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
+          <div class="other-template-rehau">
+            <div class="single-leaf-windows"> 
+              <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
+              <div class="single-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                </div>
+              </div>
+            </div>
+            <div class="duble-leaf-windows">
+              <div class="duble-leaf-windows-title"><h1>Окна двухстворчатые</h1></div>
+              <div class="duble-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 4)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(4, 10)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                </div>
+              </div>
+            </div>
+            <div class="three-leaf-windows">
+              <div class="three-leaf-windows-title"><h1>Окна трёхстворчатые</h1></div>
+              <div class="three-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 10)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(10, 16)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="t-shaped">
+              <div class="three-leaf-windows-title"><h1>Окна Т-образные</h1></div>
+              <div class="three-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 16)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(16, 26)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                </div>
+              </div>
+            </div>
+            <div class="balcony-doors">
+              <div class="three-leaf-windows-title"><h1>Двери балконные</h1></div>
+              <div class="three-leaf-windows-templates">
+                <div fs-click="templatesPanel.selectNewTemplate($index + 26)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)" ng-class="{'selected': templatesPanel.G.global.selectedTemplateName === $index}" class="other-single-template-rehau">
+                  <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div ng-repeat="name in templatesPanel.templateName track by $index" ng-init="Pindex = $index+1" ng-class="{gray : $index%2 === 0}" class="types">
-    <div class="button">
-      <p>{{ ::templatesPanel.templateName[$index]|translate }}</p>
-    </div>
-    <div class="templates-list">
-      <div ng-repeat="templateIcon in templatesPanel.templateList track by $index" ng-if="templateIcon.type === Pindex" ng-click="templatesPanel.downloadTemplateForMobile(Pindex,$index)" ng-class="{active : templatesPanel.G.global.SelectedTemplateIndex === $index ,door : Pindex !== 1}" class="template"><img ng-src="{{ templateIcon.src }}" class="template-img">
-        <div class="name">{{templateIcon.name}}</div>
-      </div>
-    </div>
-  </div>
-  <!--.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")| Add elements only
-  -->
 </div>

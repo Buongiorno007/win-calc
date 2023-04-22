@@ -73,6 +73,8 @@
                 function selectMenuItem(id) {
                     thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? 0 : id;
                 }
+                //By default it's opened
+                selectMenuItem(1)
 
                 function closeInstalment() {
                     OrderStor.order.is_instalment = 0;

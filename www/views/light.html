@@ -66,6 +66,9 @@
         <section ng-if="lightPage.G.global.showCart == 0" class="construction-page">
           <section class="construction-container">
             <div class="construction-block">
+              <div class="help-block">
+                <div ng-click="lightPage.helpModal()" class="tooltip"><img src="img/rehau-img/modal-help-icon.svg" alt=""><span class="tooltiptext">Как работает калькулятор</span></div>
+              </div>
               <div ng-click="lightPage.G.global.activePanel=0" class="construction-scrollbox">
                 <svg-template template="lightPage.D.design.templateTEMP" template-width="lightPage.constants.svgTemplateWidth" template-height="lightPage.constants.svgTemplateHeight" type-construction="lightPage.constants.SVG_ID_EDIT"></svg-template>
               </div>
@@ -83,13 +86,13 @@
                 </div>
               </div>
               <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
+                <div ng-click="templatesPanel.closeButton(6)" class="close-screen-button"></div>
                 <div class="other-template-rehau">
                   <div class="single-leaf-windows"> 
                     <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>
                     <div class="single-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(0, 4)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -98,7 +101,6 @@
                     <div class="duble-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index + 4)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(4, 10)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -107,7 +109,7 @@
                     <div class="three-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index + 10)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(10, 16)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
+                        
                       </div>
                     </div>
                   </div>
@@ -116,7 +118,6 @@
                     <div class="three-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index + 16)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(16, 26)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -125,7 +126,6 @@
                     <div class="three-leaf-windows-templates">
                       <div fs-click="templatesPanel.selectNewTemplate($index + 26)" ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs.slice(26, 36)" ng-class="{'selected': templatesPanel.G.global.selectedTemplateName === $index}" class="other-single-template-rehau">
                         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img"><img ng-src="{{ templateIcon.src }}"></div>
-                        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr">{{ templateIcon.name }}</div>
                       </div>
                     </div>
                   </div>
@@ -172,12 +172,12 @@
                       <div typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-total-heat-mark">
                         <div ng-if="roomInfo.P.product.heat_coef_expert_mark" class="coeff-number">{{roomInfo.P.product.heat_coef_expert_mark}}</div>
                         <div ng-if="roomInfo.P.product.heat_coef_expert_mark &lt; 6.1" class="coeff-mark"><span>Для балконов</span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 6.5" class="coeff-mark"><span>Достаточно хорошо </span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 7" class="coeff-mark"><span>Хорошо! </span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 7.5" class="coeff-mark"><span>Очень хорошо! </span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 8.2" class="coeff-mark"><span>Потрясающе!</span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 9" class="coeff-mark"><span>Превосходно!</span></div>
-                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 9.4" class="coeff-mark"><span>Великолепно!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark&gt; 6.1 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 6.5" class="coeff-mark"><span>Нормально</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 6.5 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 7" class="coeff-mark"><span>Достаточно хорошо!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 7 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 7.5" class="coeff-mark"><span>Хорошо!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 7.5 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 8.2" class="coeff-mark"><span>Очень хорошо!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 8.2 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 9" class="coeff-mark"><span>Отлично!</span></div>
+                        <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 9 &amp;&amp; roomInfo.P.product.heat_coef_expert_mark &lt;= 9.4" class="coeff-mark"><span>Превосходно!</span></div>
                         <div ng-if="roomInfo.P.product.heat_coef_expert_mark &gt; 9.4" class="coeff-mark"><span>Лучший выбор!</span></div>
                       </div>
                     </div>
@@ -230,8 +230,8 @@
                     <td class="report-elem">{{report.sku}}</td>
                     <td class="report-elem">{{report.amount}}</td>
                     <td class="report-elem">{{ (report.sizeLabel) ? report.sizeLabel : report.size }}</td>
-                    <td class="report-elem">{{ report.range_price ? report.range_price : report.price | number : 2}} </td>
-                    <td class="report-elem">{{ report.total_range_price ? report.total_range_price : report.priceReal | number : 2}}</td>
+                    <td class="report-elem">{{ report.price | number : 2}} </td>
+                    <td class="report-elem">{{ report.priceReal | number : 2}}</td>
                   </tr>
                 </table>
                 <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>
@@ -317,11 +317,8 @@
             </div>
             <div ng-show="profilesPanel.U.userInfo.factory_id === 2" ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
               <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
-                <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
-                  <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header-rehau">
-                    <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title-rehau"></div>
-                    <div class="group-info-rehau"><img ng-src="../img/rehau-img/info_rehau.png" ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info-icon"></div>
-                  </div>
+                <div ng-click="profilesPanel.closeButton(2)" class="close-screen-button"></div>
+                <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">       
                   <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box-rehau profile-box unvisible">
                     <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner-rehau"><img ng-if="profile.img.length" ng-src="{{profile.img}}" class="profile-img">
                       <div ng-if="!profile.img.length" data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
@@ -337,31 +334,35 @@
                         <div class="profile-blocks">
                           <div class="profile-block-noise-rehau">
                             <div class="profile-gray-block">
-                              <div class="profile-text-block"><span>Шумоизоляция</span></div>
-                              <div class="profile-number-block"><span>7</span></div>
+                              <div class="profile-text-block"><span>Взломостойкость</span></div>
+                              <div class="profile-number-block">{{profile.burglary_resistance}}</div>
                             </div>
-                            <div class="profile-red-block"></div>
+                            <div ng-if="profile.burglary_resistance === 6" class="profile-red-block-6"></div>
+                            <div ng-if="profile.burglary_resistance === 7" class="profile-red-block-7"></div>
                           </div>
                           <div class="profile-block-light-rehau">
                             <div class="profile-gray-block">
                               <div class="profile-text-block"><span>Светопропускание</span></div>
-                              <div class="profile-number-block"><span>7</span></div>
+                              <div class="profile-number-block">{{profile.light_transmission}}</div>
                             </div>
-                            <div class="profile-red-block"></div>
+                            <div ng-if="profile.light_transmission === 7" class="profile-red-block-7"></div>
+                            <div ng-if="profile.light_transmission === 8" class="profile-red-block-8"></div>
                           </div>
                           <div class="profile-block-warm-rehau">
                             <div class="profile-gray-block">
-                              <div class="profile-text-block"><span>Теплоизоляция</span></div>
-                              <div class="profile-number-block"><span>7</span></div>
+                              <div class="profile-text-block"><span>Теплосбережение</span></div>
+                              <div class="profile-number-block">{{profile.heat_saving}}</div>
                             </div>
-                            <div class="profile-red-block"></div>
+                            <div ng-if="profile.heat_saving === 4" class="profile-red-block-4"></div>
+                            <div ng-if="profile.heat_saving === 8" class="profile-red-block-8"></div>
                           </div>
                           <div class="profile-block-burglary-rehau">
                             <div class="profile-gray-block">
-                              <div class="profile-text-block"><span>Взломостойкость</span></div>
-                              <div class="profile-number-block"><span>7</span></div>
+                              <div class="profile-text-block"><span>Шумоизоляция</span></div>
+                              <div class="profile-number-block">{{profile.noise_isolation}}</div>
                             </div>
-                            <div class="profile-red-block"></div>
+                            <div ng-if="profile.noise_isolation === 6" class="profile-red-block-6"></div>
+                            <div ng-if="profile.noise_isolation === 8" class="profile-red-block-8"></div>
                             <div ng-if="profile.img.length || profile.link.length || profile.description" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="profile-info-block"><span>Подробнее</span></div>
                           </div>
                         </div>
@@ -442,38 +443,37 @@
               </div>
               <div ng-if="glassPanel.G.global.showGlassSelectorDialog" class="backDarkView"></div>
               <div ng-if="glassPanel.U.userInfo.factory_id === 2" class="glass-container-rehau">
+                <div ng-click="glassPanel.closeButton(3)" class="close-screen-button"></div>
                 <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
-                  <div ng-click="glassPanel.OpenGlassFolder($index)" class="folder-img"><img ng-src="{{glassPanel.G.global.glassTypes[$index].img}}" id="anchor{{$index}}"></div>
                   <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="button">
-                    <div ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info-rehau folder-info"></div>
-                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
                     <div ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="arrow"></div>
+                    <label ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="title">{{glassPanel.G.global.glassTypes[$index].name}}</label>
+                    <div class="tooltip"><img ng-src="./img/rehau-img/information-icon-rehau.png" ng-show="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" fs-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)"><span class="tooltiptext">Подробнее</span></div>
                   </div>
                   <div ng-if="glassPanel.OpenFolder === FolderIndex" class="glass-folder">
                     <div class="glass-main-info">
                       <div class="glass-main-info-block">
-                        <h4>Теплопроводимость</h4>
+                        <h4>Наименование</h4>
                         <h4>Шумоизоляция</h4>
-                        <h4>Ширина </h4>
-                        <h4>Формула стеклопакета </h4>
+                        <h4>Теплопроводимость</h4>
+                        <h4></h4>
+                        <div class="glass-main-info-descript">Описание</div>
                       </div>
                     </div>
-                    <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="glass-item">
-                      <div class="glass-warm">
-                        <label>{{glass.transcalency}} м2*С/Вт</label>
+                    <div ng-repeat="glass in typeGlass track by $index" ng-init="indexItem = $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color, glass)" class="glass-item">
+                      <div class="glass-title">
+                        <label>{{glass.name}}</label>
                       </div>
                       <div class="glass-noise"> 
                         <label>{{glass.noise_coeff}} Дб</label>
                       </div>
-                      <div class="glass-width">
-                        <label>{{glass.glass_width}} {{glassPanel.MM}}</label>
+                      <div class="glass-warm">
+                        <label>{{glass.transcalency}} м2*С/Вт</label>
                       </div>
-                      <div class="glass-title">
-                        <label>{{glass.sku}}</label>
-                        <div ng-if="glass.img.length &amp;&amp; glass.description.en" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info item-info">
-                          <label>i</label>
-                        </div>
+                      <div class="glass-price">
+                        <label>{{glassPanel.G.global.selectGlassName === glass.sku ? '' : '≈' }} {{glassPanel.G.global.selectGlassName === glass.sku ? '' : Math.floor(glass.price * glassPanel.G.global.margins.coeff * glassPanel.G.global.sizeCoeff * 0.95) - glassPanel.G.global.apprPrice > 0 ? '+' : '—'}}{{glassPanel.G.global.selectGlassName === glass.sku ? '' : Math.abs(Math.floor(glass.price * glassPanel.G.global.margins.coeff * glassPanel.G.global.sizeCoeff * 0.95) - glassPanel.G.global.apprPrice)}} {{glassPanel.G.global.selectGlassName === glass.sku ? '' : 'руб' }}</label>
                       </div>
+                      <div class="tooltip"><img ng-src="./img/rehau-img/information-icon-rehau.png" ng-if="glass.img.length &amp;&amp; glass.description" fs-click="glassPanel.showInfoBox(glass.id, typeGlass)"><span class="tooltiptext">Подробнее</span></div>
                     </div>
                   </div>
                 </div>
@@ -574,6 +574,7 @@
             </div>
             <div ng-controller="LaminationsCtrl as laminPanel" ng-class="{'active': laminPanel.G.global.activePanel == 5}" class="config-panel lamination-container">
               <div ng-show="laminPanel.U.userInfo.factory_id !== 2" ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner">
+                <div ng-click="laminPanel.closeButton(5)" class="close-screen-button"></div>
                 <div class="laminat-filter">
                   <div class="laminat-inner">
                     <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
@@ -651,11 +652,12 @@
                 </div>
               </div>
               <div ng-show="laminPanel.U.userInfo.factory_id === 2" ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner-rehau">
+                <div ng-click="laminPanel.closeButton(5)" class="close-screen-button"></div>
                 <div class="lamin-title"><h1>Фильтр по цветам</h1></div>
                 <div class="laminat-filter">
                   <div class="laminat-inner">
                     <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
-                      <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg"></div>
+                      <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" class="laminat-img-rehau"><img ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg"></div>
                       <div ng-class="{'active': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; lamin.translate.en " data-output="{{ ::lamin.translate.en }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label-filter"></div>
                       <div ng-class="{'active': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; lamin.translate.ru " data-output="{{ ::lamin.translate.ru }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label-filter"></div>
                       <div ng-class="{'active': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; lamin.translate.ua" data-output="{{ ::lamin.translate.ua }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label-filter"></div>
@@ -678,53 +680,23 @@
                     </div>
                   </div>
                 </div>
-                <div class="lamin-title"><h1>Доступные комбинации</h1></div>
+                <div class="box-title">
+                  <div class="lamin-title"><h1>Доступные комбинации</h1> </div>
+                  <div class="tooltip"><img ng-src="./img/rehau-img/tooltip-question.png"><span class="tooltiptext">Для заказа также доступны и другие виды ламинации, просьба указать Ваши пожелания в комментариях к заказу.</span></div>
+                </div>
                 <div class="laminat-groups">
-                  <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" class="laminat-box">
-                    <div class="laminat-row">
-                      <div class="laminat-label">{{ ::laminPanel.LAMINAT_INSIDE }}</div>
-                      <div class="laminat-label">{{ ::laminPanel.LAMINAT_OUTSIDE }}</div>
+                  <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" ng-class="{'selected': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-box-rehau">
+                    <div class="laminat-row-rehau">
+                      <div class="laminat-label-gray">{{ ::laminPanel.LAMINAT_INSIDE }}</div>
+                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" class="laminat-label-green">{{ lamCouple.laminat_in_name | translate}}</div>
                     </div>
-                    <div ng-class="{'selected': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
-                    <div class="laminat-row">
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en'" class="laminat-label-couples">{{ lamCouple.translate_in_id.en }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en'" class="laminat-label-couples">{{ lamCouple.translate_out_id.en }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; lamCouple.translate_in_id.ru" class="laminat-label-couples">{{ lamCouple.translate_in_id.ru }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; lamCouple.translate_out_id.ru" class="laminat-label-couples">{{ lamCouple.translate_out_id.ru }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk'" class="laminat-label-couples">{{ lamCouple.translate_in_id.ua }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk'" class="laminat-label-couples">{{ lamCouple.translate_out_id.ua }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl'" class="laminat-label-couples">{{ lamCouple.translate_in_id.pl }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl'" class="laminat-label-couples">{{ lamCouple.translate_out_id.pl }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de'" class="laminat-label-couples">{{ lamCouple.translate_in_id.de }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de'" class="laminat-label-couples">{{ lamCouple.translate_out_id.de }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg'" class="laminat-label-couples">{{ lamCouple.translate_in_id.bg }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg'" class="laminat-label-couples">{{ lamCouple.translate_out_id.bg }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it'" class="laminat-label-couples">{{ lamCouple.translate_in_id.it }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it'" class="laminat-label-couples">{{ lamCouple.translate_out_id.it }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es'" class="laminat-label-couples">{{ lamCouple.translate_in_id.es }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es'" class="laminat-label-couples">{{ lamCouple.translate_out_id.es }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro'" class="laminat-label-couples">{{ lamCouple.translate_in_id.ro }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro'" class="laminat-label-couples">{{ lamCouple.translate_out_id.ro }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id === 1" class="laminat-label-couples">{{ lamCouple.laminat_in_name | translate }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" class="laminat-label-couples">{{ lamCouple.laminat_out_name | translate }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; !lamCouple.translate_in_id.en" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; !lamCouple.translate_out_id.en" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !lamCouple.translate_in_id.ru" class="laminat-label-couples">{{ lamCouple.laminat_in_name}}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !lamCouple.translate_out_id.ru" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !lamCouple.translate_in_id.ua" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !lamCouple.translate_out_id.ua" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !lamCouple.translate_in_id.pl" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !lamCouple.translate_out_id.pl" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; !lamCouple.translate_in_id.de" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; !lamCouple.translate_out_id.de" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !lamCouple.translate_in_id.bg" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !lamCouple.translate_out_id.bg" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamCouple.translate_in_id.it" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamCouple.translate_out_id.it" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamCouple.translate_in_id.es" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamCouple.translate_out_id.es" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamCouple.translate_in_id.ro" class="laminat-label-couples">{{ lamCouple.laminat_in_name }}</div>
-                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamCouple.translate_out_id.ro" class="laminat-label-couples">{{ lamCouple.laminat_out_name }}</div>
+                    <div ng-class="{'selected': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id }" class="laminat-img-rehau"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg">
+                    </div>
+                    <div class="laminat-row-rehau">
+                      <div class="laminat-label-gray">{{ ::laminPanel.LAMINAT_OUTSIDE }}</div>
+                      <div ng-class="{'active': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id}" class="laminat-label-green">{{ lamCouple.laminat_out_name | translate}}</div>
+                    </div>
+                    <div ng-class="{'selected': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-img-rehau"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg">
                     </div>
                   </div>
                 </div>
@@ -853,36 +825,29 @@
               <div ng-if="elementsPanel.U.userInfo.factory_id === 2" class="auxiliaries-inner-rehau">
                 <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item-rehau aux-outside unvisible">
                   <div class="folders-container">
-                    <div class="totalNumberAddElements">Общее колличество доп. элементов</div>
+                    <div ng-click="elementsPanel.closeButton(6)" class="folders-container__close-screen-button"></div>
+                    <div class="totalNumberAddElements">Дополнительные элементы ({{elementsPanel.P.product.addelemPriceDis | number: 0}} руб)</div>
                     <div ng-repeat="folders in elementsPanel.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" class="folders">
                       <div ng-click="elementsPanel.OpenFolder($index, $event)" ng-class="{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}" class="title-box">
                         <p class="folders-name-rehau">{{folders.name | translate}}</p>
-                        <div class="arrow"><img ng-src="../img/rehau-img/white-arrow-top.png"></div>
+                        <div class="arrow"><img ng-src="./img/rehau-img/white-arrow-top.png"></div>
                       </div>
                       <div ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index" class="choosen-add-elem">
                         <div ng-click="elementsPanel.editEddElem($parent.$index,$index)" class="row">
                           <div data-output="{{ chosenAddElem.name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
                           <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_qty }}
+                            <button class="aux-params-but">{{ chosenAddElem.element_qty }}
                               <div class="aux-label">{{ ::elementsPanel.QTY_LABEL }}</div>
                             </button>
                           </div>
-                          <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                            <div class="aux-label">Длина:</div>
-                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_width }}</button>
-                          </div>
-                          <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                            <div class="aux-label">Высота:</div>
-                            <button fs-click="elementsPanel.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; elementsPanel.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ chosenAddElem.element_height }}</button>
-                          </div>
-                          <div ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis}}" qty-element="{{chosenAddElem.element_qty}}" currency-element="{{elementsPanel.U.userInfo.currency}}" class="tab-aux-price"></div>
+                          <div ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis.toFixed(0)}}" qty-element="{{chosenAddElem.element_qty}}" currency-element="{{elementsPanel.U.userInfo.currency}}" class="tab-aux-price"></div>
                           <div fs-click="elementsPanel.deleteAddElement($parent.$index, $index)" class="aux-delete-rehau"></div>
                         </div>
                       </div>
                       <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders">
                         <div ng-class="{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
                           <div ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}
-                            <div class="arrow"> <img ng-src="../img/rehau-img/white-arrow-top.png"></div>
+                            <div class="arrow"> <img ng-src="./img/rehau-img/white-arrow-top.png"></div>
                           </div>
                         </div>
                         <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
@@ -998,13 +963,11 @@
               <button fs-click="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ ::elementsListPanel.SCHEME_VIEW }}</button>
             </div>
             <div ng-controller="GridSelectorCtrl as gridBox" ng-if="!gridBox.P.product.is_addelem_only" ng-class="{'active': gridBox.A.aux.isGridSelectorDialog}" class="grid-selector-dialog">
-              <div class="dialog-inner">
-                <svg-template template="gridBox.P.product.template" template-width="gridBox.constants.svgTemplateIconBigWidth" template-height="gridBox.constants.svgTemplateIconBigHeight" type-construction="gridBox.constants.SVG_ID_GRID"></svg-template>
+              <div class="dialog-header">Внимание</div>
+              <div class="dialog-body"> 
+                <div class="dialog-inner">Установить москитную сетку для глухого окна невозможно</div>
               </div>
-              <div fs-click="gridBox.confirmGrid()" class="set-grid-btn">{{gridBox.APPLY}}</div>
-              <div fs-click="gridBox.setGridToAll()" class="set-grid-all-btn">{{ ::gridBox.SELECT_ALL }}</div>
-              <div class="set-grid-warning"><span></span> {{ ::gridBox.SELECT_GLASS_WARN }}</div>
-              <div fs-click="gridBox.closeGridSelectorDialog()" class="close-dialog"></div>
+              <div fs-click="gridBox.closeGridSelectorDialog()" class="close-dialog-rehau"></div>
             </div>
             <section ng-class="{'active': lightPage.D.design.steps.isDoorConfig}" class="door-configuration">
               <div class="door-config-column step1">
@@ -1109,6 +1072,9 @@
               <div ng-click="lightPage.closeAttantion()" class="close-alert-rehau"></div>
             </div>
             <div ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.G.global.isTest" class="design-attantion-rehau">{{ ::lightPage.TEST_STAGE }}
+              <div ng-click="lightPage.closeAttantion()" class="close-alert-rehau"></div>
+            </div>
+            <div ng-show="lightPage.U.userInfo.factory_id === 2" ng-if="lightPage.D.design.isDimSmall" class="design-attantion-rehau">{{ ::lightPage.DIM_SMALL }}
               <div ng-click="lightPage.closeAttantion()" class="close-alert-rehau"></div>
             </div>
           </section>
@@ -1286,13 +1252,7 @@
             <div class="scroll-hor-container-rehau">
               <div class="order-block">
                 <div ng-repeat="product in lightPage.O.order.products | orderBy: 'product_id' track by $index" class="order-rehau">
-                  <button fs-click="lightPage.clickDeleteProduct($index)" class="delete-construction"></button><img ng-src="img/rehau-img/eddit-construction.png" fs-click="lightPage.box($index, 'product')" class="eddit-construction">
-                  <div ng-click="lightPage.showCartTemplte($index)" class="order-header">
-                    <div ng-if="!lightPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &gt; lightPage.O.order.heat_coef_min}" class="order-u-coeff">
-                      <div>U = {{ product.heat_coef_total }}</div>
-                      <div>{{ ::lightPage.HEATCOEF_VAL }}/{{ ::lightPage.LETTER_M }} &sup2;&middot;&deg;C</div>
-                    </div>
-                  </div>
+                  <button fs-click="lightPage.clickDeleteProduct($index)" class="delete-construction"></button><img ng-src="./img/rehau-img/eddit-construction.png" fs-click="lightPage.box($index, 'product')" class="eddit-construction">
                   <div class="order-container">
                     <div class="order-template-rehau">
                       <svg-template template="product.templateIcon" template-width="152" template-height="160" type-construction="lightPage.constants.SVG_CLASS_ICON"></svg-template>
@@ -1314,11 +1274,11 @@
                         </li>
                         <li ng-if="product.glass.length &gt; 1" class="order-item-rehau">
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
-                          <div class="order-value-rehau">{{ product.glass[0].sku + ', ...' }}</div>
+                          <div class="order-value-rehau">{{ product.glass[0].name + ', ...' }}</div>
                         </li>
                         <li ng-if="product.glass.length &lt;= 1" class="order-item-rehau">
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_GLASS }}</div>
-                          <div class="order-value-rehau">{{ product.glass[0].sku }}</div>
+                          <div class="order-value-rehau">{{ product.glass[0].name }}</div>
                         </li>
                         <li class="order-item-rehau">
                           <div class="order-label-rehau">{{ ::lightPage.CONFIGMENU_LAMINATION }}</div>
@@ -1326,49 +1286,17 @@
                         </li>
                         <div class="addelements-detail-content-rehau"></div>
                       </ul>
-                      <li ng-repeat="addelement in lightPage.C.cart.allAddElements[lightPage.config.detailProductIndex] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item-rehau">
+                      <li ng-repeat="addelement in lightPage.C.cart.allAddElements[$index] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item-rehau">
                         <div class="underline-rehau"></div>
                         <div class="addelement-main-container">
                           <div class="product-value">{{ addelement.name }}</div>
-                          <div ng-switch-when="0" class="product-value">{{ ::lightPage.GRID }}</div>
-                          <div ng-switch-when="1" class="product-value">{{ ::lightPage.VISOR }}</div>
-                          <div ng-switch-when="2" class="product-value">{{ ::lightPage.SPILLWAY }}</div>
-                          <div ng-switch-when="3" class="product-value">{{ ::lightPage.OUTSIDE }}</div>
-                          <div ng-switch-when="4" class="product-value">{{ ::lightPage.LOUVERS }}</div>
-                          <div ng-switch-when="5" class="product-value">{{ ::lightPage.INSIDE }}</div>
-                          <div ng-switch-when="6" class="product-value">{{ ::lightPage.CONNECTORS }}</div>
-                          <div ng-switch-when="7" class="product-value">{{ ::lightPage.FAN }}</div>
-                          <div ng-switch-when="9" class="product-value">{{ ::lightPage.HANDLEL }}</div>
-                          <div ng-switch-when="10" class="product-value">{{ ::lightPage.OTHERS }}</div>
-                          <div class="addelement-parameters-container">
-                            <div class="addelement-parameters">
-                              <div ng-if="addelement.element_width" class="addelement-parameter"></div>
-                              <div class="addelement-label"> Ширина:</div>
-                              <div ng-if="lightPage.U.userInfo.factory_id===1966" class="addelement-value">{{ addelement.element_width*0.0393701 | number : 0  }}</div>
-                              <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="addelement-value">{{ addelement.element_width }}</div>
-                            </div>
-                            <div ng-show="addelement.element_height" class="addelement-parameter">
-                              <div class="addelement-label">Высота:</div>
-                              <div ng-if="lightPage.U.userInfo.factory_id===1966" class="addelement-value">{{ addelement.element_height*0.0393701 | number : 0  }}</div>
-                              <div ng-if="lightPage.U.userInfo.factory_id!==1966" class="addelement-value">{{ addelement.element_height }}</div>
-                            </div>
-                            <div ng-if="addelement.element_qty" class="addelement-parameters">
-                              <div class="addelement-label">Кол-во:</div>
-                              <div class="addelement-value">{{ addelement.element_qty }}</div>
-                            </div>
-                          </div>
                         </div>
                         <div class="addelement-price-container">
-                          <div price-fixed="{{addelement.elementPriceDis}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
+                          <div class="addelement-qty-value">{{addelement.element_qty}} x</div>
+                          <div class="addelement-price-single-value">{{addelement.elementPriceDis.toFixed(0)}} =</div>
+                          <div price-fixed="{{(addelement.elementPriceDis * addelement.element_qty).toFixed(0)}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value-rehau"></div>
                         </div>
                       </li>
-                    </div>
-                    <div class="service-block">
-                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]" class="sb-1">{{lightPage.SERV1}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[0]}} {{lightPage.U.userInfo.currency}}</div>
-                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]" class="sb-2">{{lightPage.SERV2}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[1]}} {{lightPage.U.userInfo.currency}}</div>
-                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]" class="sb-3">{{lightPage.SERV3}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[2]}} {{lightPage.U.userInfo.currency}}</div>
-                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]" class="sb-4">{{lightPage.SERV4}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[3]}} {{lightPage.U.userInfo.currency}}</div>
-                      <div ng-if="lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]" class="sb-5">{{lightPage.OTHER}} - {{lightPage.O.order.products[lightPage.config.detailProductIndex].services_price_arr[4]}} {{lightPage.U.userInfo.currency}}</div>
                     </div>
                     <div ng-show="lightPage.C.cart.allAddElements &gt; 0" class="addelements-detail-row price-one-product">
                       <div price-fixed="{{lightPage.O.order.products[lightPage.config.detailProductIndex].addelemPriceDis+ lightPage.O.order.products[lightPage.config.detailProductIndex].service_price_dis}}" qty-element="1" currency-element="{{lightPage.U.userInfo.currency}}" class="addelement-price-value"></div>
@@ -1380,8 +1308,9 @@
                       <h3>Оценка энергоэффективности</h3>
                       <h2>{{product.heat_coef_expert_mark}}<h2>
                     </div>
-                    <div class="order-footer-price-rehau"><h3>Стоимость изделия</h3>
-                      <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
+                    <div class="order-footer-price-rehau"><h3>Стоимость позиции</h3>
+                      <div ng-if="lightPage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{product.product_price.toFixed(0)}} руб</span><span class="price-discount-percentage">-{{lightPage.U.userInfo.discountConstr}}%  </span></div>
+                      <div price-fixed="{{product.productPriceDis.toFixed(0)}}" qty-element="{{product.product_qty}}" currency-element="{{lightPage.U.userInfo.currency}}" class="order-price"></div>
                     </div>
                   </div>
                 </div>
@@ -1953,7 +1882,7 @@
           </div>
         </div>
         <div ng-if="lightPage.U.userInfo.factory_id == 2" class="config-title-rehau">
-          <h1>Онлайн калькулятор </h1>
+          <h1>Онлайн калькулятор</h1>
           <h3>Задайте параметры вашего окна</h3>
         </div>
         <div ng-if="lightPage.U.userInfo.factory_id !== 2" class="config-buttons">
@@ -1982,26 +1911,26 @@
         <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="lightPage.U.userInfo.factory_id === 2" class="karkas-rehau">
           <div class="construction-left-menu-rehau">
             <ul class="figure-lists-rehau">
-              <li ng-click="designPage.selectMenuItem(6)" ng-class="{'active': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item-rehau temp-fig-rehau">
+              <li onclick="ym(86026367,'reachGoal','PATTERN');" fs-click="designPage.selectMenuItem(6);" id="226880064" ng-class="{'active': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item-rehau temp-fig-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 6, 'hov': designPage.D.design.activeMenuItem !== 6}" class="figure-item-rehau-block"></div>
-                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Шаблон</span></div>
-                <div ng-if="!designPage.G.global.SelectedTemplateName" data-output="Поворотно-откидное с импостом" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
+                <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Тип конструкции</span></div>
+                <div ng-if="!designPage.G.global.SelectedTemplateName" data-output="Левое глухое, правое поворотно–откидное" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
                 <div ng-if="designPage.G.global.SelectedTemplateName" data-output="{{ lightPage.G.global.SelectedTemplateName }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"> </div>
               </li>
               <hr class="separator">
-              <li fs-click="configMenu.selectConfigPanel(2)" ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}" class="figure-item-rehau">
+              <li onclick="ym(86026367,'reachGoal','PROFILE');" fs-click="configMenu.selectConfigPanel(2);" id="226880103" ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Профиль<span></div>
                 <div data-output="{{ lightPage.P.product.profile.name }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
-              <li fs-click="configMenu.selectConfigPanel(3)" ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}" class="figure-item-rehau">
+              <li onclick="ym(86026367,'reachGoal','PACKET');" fs-click="configMenu.selectConfigPanel(3);" id="226880120" ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}" class="figure-item-rehau-block"></div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Стеклопакет<span></div>
-                <div data-output="{{ lightPage.P.product.glass[0].sku }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"><span>4-16-4</span></div>
+                <div data-output="{{ lightPage.P.product.glass[0].name }}" typing="{{ lightPage.config.typing }}" typing-delay="{{ lightPage.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
               </li>
               <hr class="separator">
-              <li fs-click="configMenu.selectConfigPanel(5)" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}" class="figure-item-rehau">
+              <li onclick="ym(86026367,'reachGoal','COLOR');" fs-click="configMenu.selectConfigPanel(5);" id="226880131" ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}" class="figure-item-rehau">
                 <div ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}" class="figure-item-rehau-block"> </div>
                 <div typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label-rehau"><span>Цвет<span></div>
                 <div class="laminatuin-display-block">
@@ -2011,53 +1940,17 @@
                 </div>
               </li>
               <hr class="separator">
-              <li ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}" fs-click="configMenu.selectConfigPanel(6)" class="figure-item-rehau">
+              <li ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}" onclick="ym(86026367,'reachGoal','ADDITION');" fs-click="configMenu.selectConfigPanel(6);" id="226880141" class="figure-item-rehau">
                 <div typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau"><span>Доп. элементы<span></div>
                 <div ng-hide="configMenu.P.product.addelem_price &gt; 0" data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS_REHAU }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="figure-label-rehau-subtitle"></div>
+                <div class="additional-items-list-rehau">
+                  <ul ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements" class="additional-items-group">
+                    <li ng-repeat="addElement in addElementGroup" class="additional-item"><span data-output="" class="value-rehau">{{ addElement.name }}</span></li>
+                  </ul>
+                </div>
               </li>
               <hr class="separator">
             </ul>
-            <div id="impost-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}" class="edit_submenu">
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(2)" class="constr-shape-icon impost-vert"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(3)" class="constr-shape-icon impost-hor"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(4)" class="constr-shape-icon impost-inc-hor"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(5)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-hor2"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(6)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(7)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert2"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(8)" class="constr-shape-icon impost-curv-right"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(9)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-left"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(10)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-up"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(11)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-down"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(12)" class="constr-shape-icon impost-curv1"></div>
-              <div ng-hide="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(13)" ng-class="{'active': designPage.D.design.isDropSubMenu == 12}" class="drop-shape-icon impost-curv3"></div>
-              <!--.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(14)")-->
-              <!--.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(15)")-->
-              <div ng-if="designPage.D.design.isImpostDelete" ng-click="designPage.insertImpost(1)" class="constr-shape-icon clean"></div>
-            </div>
-            <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}" class="edit_submenu">
-              <div ng-click="designPage.insertSash(2)" class="constr-shape-icon sash-left"></div>
-              <div ng-click="designPage.insertSash(3)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>
-              <div ng-click="designPage.insertSash(4)" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
-              <div ng-click="designPage.insertSash(5)" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
-              <div ng-click="designPage.insertSash(6)" ng-hide="designPage.P.product.construction_type === 4" class="constr-shape-icon sash-right-up"></div>
-              <div ng-click="designPage.insertSash(7)" ng-class="{'active': designPage.D.design.isDropSubMenu == 6}" ng-hide="designPage.P.product.construction_type === 4" class="drop-shape-icon sash-left-up"></div>
-              <div ng-click="designPage.insertSash(8)" ng-class="(designPage.P.product.construction_type === 4) ? 'sash-shtulp-left-door' : 'sash-shtulp-left'" class="constr-shape-icon"></div>
-              <div ng-click="designPage.insertSash(9)" ng-class="[ (designPage.P.product.construction_type === 4) ? 'sash-shtulp-right-door' : 'sash-shtulp-right' , {'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}]" class="drop-shape-icon sash-shtulp-right"></div>
-              <div ng-click="designPage.insertSash(1)" class="constr-shape-icon clean"></div>
-            </div>
-            <div id="angel-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
-              <div ng-click="designPage.insertCorner(2)" class="constr-shape-icon corner"></div>
-              <div ng-click="designPage.insertCorner(3)" class="constr-shape-icon corner-curv"></div>
-              <div ng-click="designPage.insertCorner(1)" class="constr-shape-icon clean"></div>
-            </div>
-            <div id="arc-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
-              <div ng-click="designPage.insertArc(2)" class="constr-shape-icon arc"></div>
-              <div ng-click="designPage.insertArc(1)" class="constr-shape-icon clean"></div>
-            </div>
-            <div id="position-menu-for-position" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
-              <div ng-click="designPage.positionAxis()" class="constr-shape-position">{{::designPage.BY_AXIS}}</div>
-              <div ng-click="designPage.positionGlass()" class="constr-shape-position">{{::designPage.BY_GLASS}}</div>
-            </div>
           </div>
         </div>
         <div ng-controller="DesignCtrl as designPage" ng-if="configMenu.G.global.showKarkas" ng-show="lightPage.U.userInfo.factory_id !== 2" class="karkas">
@@ -2340,11 +2233,8 @@
         </div>
         <div ng-if="configMenu.G.global.showCart &amp;&amp; lightPage.U.userInfo.factory_id === 2" ng-controller="CartMenuCtrl as cartMenu" class="cart-menu-rehau">
           <ul class="items-list">
-            <li ng-click="lightPage.addNewProductInOrder()" class="back-home-rehau order-rehau">
-              <button>
-                 
-                <h3>Вернуться на главную</h3> 
-              </button>
+            <li fs-click="lightPage.addNewProductInOrder();" onclick="ym(86026367,'reachGoal','BACK');" id="226880275" class="back-home-rehau order-rehau">
+              <button><h3>Вернуться на главную</h3> </button>
             </li>
             <li ng-click="lightPage.addNewProductInOrder()" class="add-new-window order-rehau">
               <button>
@@ -2355,8 +2245,8 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}" fs-click="cartMenu.selectMenuItem(1)" class="item-rehau">
               <div class="title-box">
                 <div typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau">Доставка</div>
-                <div class="tooltip"><img ng-src="../img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
-                <div class="arrow"><img ng-src="../img/rehau-img/arrow-top.png"></div>
+                <div class="tooltip"><img ng-src="./img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером. В зависимости от расстояния объекта от Москвы замер может быть платным</span></div>
+                <div class="arrow"><img ng-src="./img/rehau-img/arrow-top.png"></div>
               </div>
               <div class="cart-item-data-rehau">
                 <div ng-show="!cartMenu.O.order.floor_id &amp;&amp; !cartMenu.O.order.delivery_garbage_removal &amp;&amp; !cartMenu.O.order.delivery_add" data-output="{{ ::cartMenu.SELF_EXPORT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
@@ -2384,12 +2274,13 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}" fs-click="cartMenu.selectMenuItem(2)" class="item-rehau">
               <div class="title-box">
                 <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title-rehau"></div>
-                <div class="tooltip"><img ng-src="../img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
-                <div class="arrow"><img ng-src="../img/rehau-img/arrow-top.png"></div>
+                <div class="tooltip"><img ng-src="./img/rehau-img/tooltip-question.png"><span class="tooltiptext">Точная стоимость уточняется менеджером</span></div>
+                <div class="arrow"><img ng-src="./img/rehau-img/arrow-top.png"></div>
               </div>
               <div class="cart-item-data-rehau">
                 <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
-                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div><span ng-show="cartMenu.O.order.mounting_id" data-output=" ~ {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside-rehau"></span>
+                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value-rehau"></div>
+                <div ng-repeat="assemb in cartMenu.G.global.assemblingData" class="mounting-price-block"><span ng-show="cartMenu.O.order.mounting_id" data-output=" ~{{assemb.priceReal}} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside-rehau"></span></div>
               </div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu-rehau drop-assembling-rehau">
@@ -2413,32 +2304,29 @@
               <price price-value="cartMenu.O.order.paymentFirstDis" price-currency="cartMenu.U.userInfo.currency"></price>
               <price price-value="cartMenu.O.order.paymentMonthlyDis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
-            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" class="price-block-rehau price-without-instalments-rehau"><h2>Итого:</h2> 
-              <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
+            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" class="price-block-rehau price-without-instalments-rehau"><h2>Итого:</h2>
+              <div class="discount-price-rehau">
+                <div ng-if="lightPage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartMenu.O.order.order_price.toFixed(0)}} руб</span><span class="price-discount-percentage">-{{lightPage.U.userInfo.discountConstr}}%  </span></div>
+                <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
+              </div>
             </div>
-            <button ng-click="cartMenu.openOrderDialog()" class="order-btn-rehau"><h2>Оставить заявку</h2></button>
+            <button fs-click="cartMenu.openOrderDialog();" id="226880267" onclick="ym(86026367,'reachGoal','PRELEAD');" class="order-btn-rehau"><h2>Оставить заявку</h2></button>
+            <button readonly id="226880267" class="order-btn-rehau-for-landing disabled"><h2>Оставить заявку</h2></button>
           </footer>
         </div>
         <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="discount-block-rehau">
           <div class="discount-price-rehau">
+            <div ng-if="lightPage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{lightPage.P.product.product_price.toFixed(0)}} руб</span><span class="price-discount-percentage">-{{lightPage.U.userInfo.discountConstr}}%</span></div>
             <div class="price-text">Цена:</div>
             <price price-value="lightPage.G.global.tempPrice" price-currency="lightPage.U.userInfo.currency"></price>
           </div>
         </div>
         <div ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="counter-block-rehau">
-          <div class="counter-rehau">
-            <input readonly ng-model="lightPage.G.global.construction_count" ng-click="configMenu.cartButton()" class="prodcounter-rehau">
+          <div id="226880249" class="counter-rehau">
+            <input readonly ng-model="lightPage.G.global.construction_count" onclick="ym(86026367,'reachGoal','CART_2');" ng-click="configMenu.cartButton();" class="prodcounter-rehau">
           </div>
-          <div id="save-block" ng-click="lightPage.checkForAddElem()" class="save-block-rehau">
-            <p>{{lightPage.CONFIGMENU_IN_CART}}</p>
-          </div>
-        </div>
-        <div ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2" class="counter-block-rehau-for-landing disabled">
-          <div class="counter-rehau-for-landing">
-            <input readonly ng-model="lightPage.G.global.construction_count" class="prodcounter-rehau-for-landing">
-          </div>
-          <div id="save-block" ng-click="lightPage.checkForAddElem()" class="save-block-rehau">
-            <p>{{lightPage.CONFIGMENU_IN_CART}}</p>
+          <div id="save-block" onclick="ym(86026367,'reachGoal','CART_1');" fs-click="lightPage.checkForAddElem();" class="save-block-rehau">
+            <p id="226880150">{{lightPage.CONFIGMENU_IN_CART}}</p>
           </div>
         </div>
         <div ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id !== 2" class="discount-block">
@@ -2481,7 +2369,7 @@
                     <div class="interval">
                       <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
                       <div ng-if="sizeCalc.U.userInfo.factory_id===1966" ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.displayData(sizeCalc.D.design.maxSizeLimit) | number : 0 }}</div>
-                      <div ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
+                      <div ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit max">{{ sizeCalc.D.design.maxSizeLimit }}</div>
                       <div class="calc-label-limit">{{ ::sizeCalc.MAX }}</div>
                     </div>
                   </div>
@@ -2584,7 +2472,8 @@
                   <button fs-click="sizeCalc.setValueSize('.')" class="cell-rehau calc-digit">.</button>
                 </td>
                 <td>
-                  <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell-rehau calc-ok">OK</button>
+                  <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();" class="cell-rehau calc-ok check">OK</button>
+                  <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();" class="cell-rehau calc-ok">OK</button>
                 </td>
               </tr>
             </table>
@@ -2950,17 +2839,17 @@
           <div ng-if="orderForm.U.userInfo.user_type === 8" class="cart-dialogs-container-rehau">
             <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
               <div class="cart-dialog-header">
-                <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool"></button>
-                <div class="cart-dialog-title">Оставить заявку на окно</div>
+                <button ng-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool"></button>
+                <div class="cart-dialog-title">Оставить заявку</div>
               </div>
               <div class="cart-dialog-body">
                 <div ng-class="{'invalid-data': orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
                   <div class="input-name">Ваше имя</div>
-                  <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field">
+                  <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-name">
                 </div>
                 <div ng-class="{'invalid-data': orderForm.C.cart.customer.customer_phone === 0 }" class="input-field">
                   <div class="input-name">Ваш номер телефона</div>
-                  <input id="phone" placeholder="+7(___) ___-__-__" type="phone" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" class="user-field-phone">
+                  <input id="phone" placeholder="+7(___) ___-__-__" type="phone" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" required class="user-field-phone">
                 </div>
                 <div class="input-field">
                   <div class="input-name">Ваш коментарий</div>
@@ -2968,10 +2857,10 @@
                 </div>
                 <div class="privacy-policy-text">
                   <input type="checkbox" ng-model="checkedList" ng-init="checkedList=false" class="agreement-checkbox">
-                  <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности</div>
+                  <div class="agreement">Я соглашаюсь с правилами пользования и политикой конфиденциальности. <br /></div>
                 </div>
                 <button type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled class="save save-order little">{{ ::orderForm.READY }}</button>
-                <button type="submit" ng-if="checkedList" class="save save-order little">{{ ::orderForm.READY }}</button>
+                <button type="submit" id="226880291" onclick="ym(86026367,'reachGoal','LEAD')" ng-if="checkedList" class="save save-order little">{{ ::orderForm.READY }}</button>
               </div>
             </form>
           </div>
@@ -3149,24 +3038,25 @@
   </div>
   <div ng-show="attantBox.U.userInfo.factory_id === 2" class="glass-block">
     <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion-rehau">
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog-rehau"></div>
+      <div fs-click="attantBox.stepBack(); attantBox.stepBack(); attantBox.closeAttantion();" class="close-dialog-rehau"></div>
       <div class="glass-list">
         <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass-rehau">{{ glassExtra }}</div>
       </div>
     </div>
     <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+      <div fs-click="attantBox.closeAttantion(); lightPage.stepBack()" class="close-dialog"></div>
     </div>
-  </div>
-  <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion">
-    <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-    <div class="glass-list">{{ ::attantBox.EXTRA_SASH }}
-      <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
-      <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+    <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion-rehau">
+      <!--dunno why but stepback doesn't work when it's calling only one time, so I call it two times, need to some research-->
+      <div fs-click="attantBox.stepBack(); attantBox.stepBack(); attantBox.closeAttantion()" class="close-dialog-rehau"></div>
+      <div class="glass-list">
+        <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass-rehau"><span>{{ ::attantBox.EXTRA_SASH }}</span><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
+        <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+      </div>
     </div>
-  </div>
-  <div ng-show="attantBox.D.design.isNoDoors" class="design-attantion">{{ ::attantBox.DOOR_ERROR }}
-    <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
+    <div ng-show="attantBox.D.design.isNoDoors" class="design-attantion">{{ ::attantBox.DOOR_ERROR }}
+      <div fs-click="attantBox.closeAttantion(); lightPage.stepBack()" class="close-dialog"></div>
+    </div>
   </div>
 </div>
 <div ng-controller="DangerAlertCtrl as dangerAlert" ng-show="dangerAlert.G.global.dangerAlert===1" class="danger-alert-fon">
@@ -3247,7 +3137,7 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
   <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }}</div>
+    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }} </div>
     <div class="alert-btns">
       <div class="thisAlert">
         <section class="loginPage"></section>
@@ -3261,7 +3151,7 @@
   <div class="alert-block-rehau">
     <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
     <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
-    <div class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</div>
+    <h2 class="alert-title-rehau">{{ alertBox.G.global.alertTitle }}</h2>
     <div class="alert-descr-rehau">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns-rehau">
       <div class="thisAlert">
@@ -3276,23 +3166,9 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
-  <div class="alert-block-rehau">
-    <div class="alert-danger-sign-rehau"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="main-page"></section>
-      </div>
-      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
-    <div class="alert-sign"></div>
+    <div class="alert-danger-sign-rehau"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
@@ -3317,13 +3193,35 @@
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
   <div class="alert-block-ok-rehau">
-    <div class="alert-descr-rehau">{{ alertBox.SAVED_KONSTRUCTION }}</div>
-    <div class="alert-btns-rehau">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
+    <div class="alert-block-inner">
+      <div class="alert-header">
+        <h2 class="alert-title-rehau">Внимание</h2>
       </div>
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes-rehau">{{ ::alertBox.OK }}</button>
+      <div class="alert-body">
+        <div class="alert-descr-rehau">Данная конструкция добавлена в корзину! Пожалуйста выберите следующее действие</div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'design'" class="alert-btns-rehau">
+          <div ng-click="alertBox.goToCart()" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+        <div ng-if="alertBox.G.global.currOpenPage === 'mobile'" class="alert-btns-rehau">
+          <div ng-click="mobilePage.setTab(4); alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Перейти в корзину</button>
+            <div class="black-square-basket"></div>
+          </div>
+          <div ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="rehau-btn">
+            <button class="alert-yes-rehau">Создать новое окно</button>
+            <div class="black-square-new-window"></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div ng-click="alertBox.G.global.isNoChangedProduct = 0" class="close-dialog-rehau"></div>
   </div>
 </div>
 <div class="main-block-loader">

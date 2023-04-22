@@ -65,6 +65,7 @@
             minSizeLimit: 0,
             maxSizeLimit: 0,
             isDimExtra: 0,
+            isDimSmall: 0,
             isSquareExtra: 0,
 
             //------- extra glasses

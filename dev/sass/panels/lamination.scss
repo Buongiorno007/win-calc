@@ -43,13 +43,25 @@
     }
 
     .laminat-box {
-      min-width: 25rem;
+      min-width: auto;
       margin-right: 3rem;
       float: left;
+      padding: 8px;
+      border: 1px solid #C2C2C2;
+      box-shadow: 2px 4px 5px hsla(0, 0, 0, .1),
+            -2px 4px 5px hsla(0, 0, 0, .1);
+      transition: all .2s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 2px 9px 50px hsla(0, 0, 0, .1),
+        -2px 9px 60px hsla(0, 0, 0, .1);
+      }
     }
     .laminat-img {
       img {
-        width: 25.4rem;
+        width: auto;
       }
     }
   }
@@ -66,6 +78,42 @@
     .laminat-box {
       margin-bottom: 3rem;
     }
+    .laminat-box-rehau {
+      margin-bottom: 3rem;
+      border: 1px solid #C2C2C2;
+      padding: 12px;
+      width: 210px;
+      border: 1px solid darkgray;
+      box-shadow: 2px 4px 5px hsla(0, 0, 0, .1),
+            -2px 4px 5px hsla(0, 0, 0, .1);
+      transition: all .2s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 2px 9px 50px hsla(0, 0, 0, .1),
+        -2px 9px 60px hsla(0, 0, 0, .1);
+      }
+      img {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #C2C2C2;
+      }
+
+      .laminat-row-rehau {
+        @include display-flex();
+        @include flex-flow(row wrap);
+        @include justify-content(space-between);
+      }
+
+      &.selected {
+        border: 1px solid $primary_pink;
+        .laminat-label-green {
+          font-size: 16px;
+          color: $primary_pink;
+        }
+      }
+    }
     .laminat-row {
       @include display-flex();
       @include flex-flow(row wrap);
@@ -80,6 +128,14 @@
     .laminat-label {
       font-size: 2rem;
     }
+    .laminat-label-gray {
+      font-size: 16px;
+      color: #4E4E4E;
+    }
+    .laminat-label-green {
+      font-size: 16px;
+      color: $primary_green;
+    }
   }
 
 
@@ -93,6 +149,10 @@
   }
   //rehau styles 
   .panel-inner-rehau {
+    .box-title {
+      display: flex;
+    }
+
     .lamin-title {
       font-style: normal;
       font-weight: bold;
@@ -101,6 +161,53 @@
       color: $primary_green;
 
       text-transform: uppercase;
+    }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      align-self: center;
+
+      margin-left: 10px;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      visibility: hidden;
+      width: 300px;
+      top: 140%;
+      left: 50%;
+      margin-left: -250px; /* Use half of the width (120/2 = 60), to center the tooltip */
+      background-color: #818181;
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+
+      position: absolute;
+      z-index: 1;
+
+      opacity: 0;
+      transition: opacity 0.6s;
+    }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .tooltip .tooltiptext::after {
+      content: " ";
+      position: absolute;
+      bottom: 100%; /* At the top of the tooltip */
+      left: 84%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent #818181 transparent;
     }
     .laminat-img {
       @extend .splash;
@@ -165,9 +272,17 @@
       }
   
       .laminat-box {
-        min-width: 15rem;
         margin-right: 3rem;
         float: left;
+
+        .laminat-img-rehau {
+          img {
+            width: 168px;
+            height: 40px;
+
+            border: 1px solid #C2C2C2;
+          }
+        }
       }
       .laminat-img {
         img {

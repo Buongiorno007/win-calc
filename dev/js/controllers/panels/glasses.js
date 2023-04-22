@@ -6,6 +6,7 @@
     .controller('GlassesCtrl',
 
       function($filter,
+        $scope,
         $location,
         $timeout,
         $anchorScroll,
@@ -27,7 +28,7 @@
         thisCtrl.P = ProductStor;
         thisCtrl.U = UserStor;
         thisCtrl.O = OrderStor;
-
+        $scope.Math = window.Math;
         thisCtrl.config = {
           prevGlassId: 0,
           prevGlassName: '',
@@ -75,6 +76,7 @@
         thisCtrl.MM = $filter("translate")("mainpage.MM");
         thisCtrl.OpenFolder = -1;
 
+        
 
         /**============ METHODS ================*/
         function changePriceAsNewGlass() {
@@ -133,6 +135,7 @@
           /** Extra Glass finding */
           MainServ.checkGlassSizes(ProductStor.product.template);
 
+
           if (DesignStor.design.extraGlass.length) {
             /** there are incorrect glasses
              * expose Alert */
@@ -171,6 +174,17 @@
               ProductStor.product.templateIcon = angular.copy(result);
             });
         }
+        angular.element(function () {
+          if(GlobalStor.global.glasses.length) {
+            GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+              return item.map((elem) => {
+                elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+                return elem;
+              })
+            });
+            GlassesServ.selectGlass(GlobalStor.global.glasses[0][0].id, GlobalStor.global.glasses[0][0].sku, GlobalStor.global.glasses[0][0].glass_color, GlobalStor.global.glasses[0][0])
+          }
+      });
 
         function OpenGlassFolder(index) {
           if (thisCtrl.OpenFolder === index) {
@@ -198,6 +212,8 @@
             }
           }
         }
+        //We call function with param 0 couse we need to open dropdown list by default
+        OpenGlassFolder(0)
 
         /**========== FINISH ==========*/
 
@@ -209,10 +225,10 @@
         thisCtrl.setGlassToAll = setGlassToAll;
 
         thisCtrl.closePanelMobile = MainServ.closePanelMobile;
+        thisCtrl.closeButton = GlassesServ.closeButton;
         thisCtrl.selectGlass = GlassesServ.selectGlass;
         thisCtrl.closeGlassSelectorDialog = DesignServ.closeGlassSelectorDialog;
         thisCtrl.showInfoBox = MainServ.showInfoBox;
-
 
       });
 })();

@@ -563,7 +563,7 @@
         });
 
         $q.all(promises2).then(function (data) {
-          //        console.log('data!!!!', data);
+                //  console.log('data!!!!', data);
           if (data) {
             //-------- select all glass Ids as to profile Id
             var promises3 = _.map(GlobalStor.global.glassesAll, function (item) {
@@ -654,7 +654,7 @@
                             {
                               id: item.parent_element_id
                             },
-                            "id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, " +
+                            "id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, price, transcalency, " +
                             "max_width, min_width, max_height, min_height, max_sq, reg_coeff"
                           )
                           .then(function (result) {
@@ -682,7 +682,7 @@
                         GlobalStor.global.glassesAll[i].glasses = glasses[i];
                       }
                     }
-                    //console.log('FINISH!!!!', GlobalStor.global.glassesAll);
+                    // console.log('FINISH!!!!', GlobalStor.global.glassesAll);
                     defer.resolve(1);
                   });
                 }

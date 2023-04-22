@@ -372,6 +372,7 @@
     display: inline-block; //border-bottom: 1px solid #b1b1b1;
     padding-top: 2.5rem;
     padding-bottom: 0.2rem;
+    cursor: pointer;
 
     background-image: url(../img/rehau-img/back-button-config-menu.png);
     background-repeat: no-repeat;
@@ -385,6 +386,19 @@
       padding-left: 35px;
       transition: 0.6s all linear;
       background-color: rgba(0, 0, 0, 0.07);
+
+      .additional-items-list-rehau {
+        transition: 0.6s all linear;
+        font-size: 16px;
+        margin-left: 15px;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    
+        margin-top: -20px;
+    
+        max-height: 100px;
+        overflow-y: scroll;
+      }
     }
     &.temp-fig-rehau {
       margin-top: -10px;
@@ -419,7 +433,7 @@
   }
 
   .figure-label-rehau-subtitle {
-    text-transform: lowercase;
+    // text-transform: lowercase;
     margin: 0 !important;
     position: relative;
     top: -3rem;
@@ -593,9 +607,12 @@
     }
   }
   // rehau styles
+  .size-box {
+    animation: animate_motion 5s 0s both infinite;
+  }
   .size-rect-rehau {
-    width: 160px;
-    height: 70px;
+    width: 210px;
+    height: 74px;
     stroke: $primary_green !important;
     -moz-stroke: $primary_green;
     stroke-width: 0px;
@@ -606,17 +623,40 @@
     stroke: $primary_green !important;
     fill-opacity: 1;
     fill: $primary_green;
+    transition: 0.4s linear;
+    &:hover {
+      -moz-fill: $primary_pink;
+      -moz-fill-opacity: 1;
+      stroke: $primary_pink !important;
+      fill-opacity: 1;
+      fill: $primary_pink;
+      animation: none;
+    }
     &.active {
       -moz-fill: $primary_pink;
       -moz-fill-opacity: 1;
       stroke: $primary_pink !important;
       fill-opacity: 1;
       fill: $primary_pink;
+      animation: none;
+    }
+    // animation: animate_motion 5s 0s both infinite;
+  }
+   
+  @keyframes animate_motion {
+    0%, 20% {
+      transform: translate3d(0, 0, 0);
+    }
+    10%, 14%, 18%, 2%, 6% {
+      transform: translate3d(-7px, 0, 0);
+    }
+    12%, 16%, 4%, 8% {
+      transform: translate3d(7px, 0, 0);
     }
   }
 
   .size-txt-rehau {
-    font-size: rem(90px);
+    font-size: 70px;
     stroke: white;
     stroke-width: 1px;
     text-anchor: middle;
@@ -625,14 +665,16 @@
     cursor: pointer;
   }
   .size-txt-edit-rehau {
-    @extend .size-txt;
+    @extend .size-txt-rehau;
     dominant-baseline: middle;
     stroke: white;
     fill: white;
     &.active {
       stroke: white;
       fill: white;
+      animation: none;
     }
+    // animation: animate_motion 5s 0s both infinite;
   }
 
   // rehau styles end --------
@@ -712,6 +754,7 @@
     &.goLeft {
       left: 0;
       top: -6rem;
+      height: 100rem;
     }
   }
   input::-webkit-outer-spin-button,
@@ -722,9 +765,10 @@
   // rehau styles  ------------------
   .discount-block-rehau {
     width: 100%;
-    margin-bottom: 5rem;
+    position: absolute;
+    bottom: 75px;
     margin-left: 2.75rem;
-    margin-top: 1rem;
+
     .discount-price-rehau {
       font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
       color: #363636;
@@ -733,12 +777,29 @@
     }
 
     .price-text {
-      font-style: normal;
-      font-weight: normal;
       font-size: 22px;
       line-height: 40px;
 
       margin-bottom: -38px;
+    }
+
+    .price-discount-text {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 0 44px -16px 0px;
+
+      .price-discount-span {
+        font-size: 18px;
+        color: gray;
+        text-decoration: line-through;
+      }
+
+      .price-discount-percentage {
+        font-size: 16px;
+        color: $primary_pink;
+        margin-left: 4px;
+      }
     }
 
     .price-qty {
@@ -754,12 +815,15 @@
     .price-currency {
       color: $primary_pink;
       font-weight: bold;
+      margin-right: 25px;
+      margin-left: 5px;
     }
   }
   .counter-block-rehau {
     text-align: center;
-    position: relative;
-    top: -3.5rem;
+    position: absolute;
+    // top: -3.5rem;
+    bottom: 0;
     width: 100%;
     display: inline-flex;
     flex-direction: row-reverse;
@@ -805,8 +869,8 @@
 
   .counter-block-rehau-for-landing {
     text-align: center;
-    position: relative;
-    top: -3.5rem;
+    position: absolute;
+    bottom: 0;
     width: 100%;
     display: inline-flex;
     flex-direction: row-reverse;
@@ -881,6 +945,7 @@
       width: 12rem;
       vertical-align: middle;
       padding-bottom: 7px;
+      white-space: nowrap;
     }
   }
   // rehau styles end ---------------------
@@ -1102,6 +1167,7 @@
     .order-container {
       display: flex;
       justify-content: space-between;
+      width: 100%;
 
       margin-bottom: 15px;
     }
@@ -1115,6 +1181,7 @@
     &.active {
       top: -6rem;
       overflow: auto;
+      height: 100rem;
     }
     &.lower_z-index {
       z-index: 1;

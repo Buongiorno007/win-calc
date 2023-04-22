@@ -1,16 +1,27 @@
 .grid-selector-dialog {
-  @extend .modal-dialog;
+  @extend .modal-dialog-rehau;
   @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
-  height: 70rem;
+  height: 30rem;
   left: -90rem;
   background-color: #fff;
   z-index: 31;
   text-align: center;
 
+  .dialog-header {
+    background-color: $primary_green;
+    font-size: 22px;
+    color: white;
+    padding: 10px;
+  }
+
   .dialog-inner {
     height: 90%;
     width: 100%;
     text-align: center;
+    font-size: 21px;
+  }
+  .dialog-body {
+    padding: rem(80px) rem(60px);
   }
   .set-grid-btn {
     @extend .button;

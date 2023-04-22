@@ -639,6 +639,7 @@
                 /**----------- Close any Order Dialog ------------*/
 
                 function closeOrderDialog() {
+                    console.warn(localStorage.getItem('region_kladr_id'), 'CHECK HERE PLS')
                     CartStor.cart.submitted = 0;
                     CartStor.cart.isCityBox = 0;
                     if (GlobalStor.global.orderEditNumber > 0) {

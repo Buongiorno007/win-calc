@@ -262,12 +262,101 @@
                     });
                 }
 
+                function closeButton(id) {
+                    if (DesignStor.design.tempSize.length) {
+                        //----- finish size culculation
+                        DesignServ.closeSizeCaclulator();
+                    } else {
+                        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+                        DesignStor.design.isDropSubMenu = 0;
+                        DesignServ.hideCornerMarks();
+                        DesignServ.deselectAllImpost();
+                        if (id !== 4) {
+                            DesignServ.deselectAllArc();
+                        }
+                        //----- hide culculator
+                        DesignServ.hideSizeTools();
+                        if (DesignStor.design.activeMenuItem) {
+                            switch (DesignStor.design.activeMenuItem) {
+                                case 1:
+                                    showAllAvailableGlass(id);
+                                    //------ drop submenu items
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 2;
+                                    }, delaySubMenu1);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 6;
+                                    }, delaySubMenu2);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 8;
+                                    }, delaySubMenu3);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 0;
+                                    }, delaySubMenu4);
+                                    break;
+                                case 2:
+                                    // DesignStor.design.activeSubMenuItem = id;
+                                    DesignServ.deselectAllGlass();
+                                    showAllAvailableCorner(id);
+                                    break;
+                                case 3:
+                                    showAllAvailableGlass(id);
+                                    //------ drop submenu items
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 4;
+                                    }, delaySubMenu1);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 8;
+                                    }, delaySubMenu2);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 12;
+                                    }, delaySubMenu3);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 0;
+                                    }, delaySubMenu4);
+                                    break;
+                                case 4:
+                                    // DesignStor.design.activeSubMenuItem = id;
+                                    DesignServ.deselectAllGlass();
+                                    showAllAvailableArc(id);
+                                    break;
+                                case 5:
+                                    //DesignServ.deselectAllGlass();
+                                    DesignStor.design.activeSubMenuItem = id;
+                                    break;
+                                case 6:
+                                    DesignStor.design.activeSubMenuItem = id;
+                                    GlobalStor.global.goLeft = true;
+                                    //DesignServ.deselectAllGlass();
+                                    break;
+                            }
+                        } else {
+                            //------ if we close menu
+                            DesignStor.design.activeSubMenuItem = 0;
+                            GlobalStor.global.goLeft = false;
+                            GlobalStor.global.showTemplates = false;
+                            GlobalStor.global.activePanel = 0;
+                            //-------- delete selected glasses
+                            DesignServ.deselectAllGlass();
+                            DesignServ.deselectAllArc();
+                            $timeout(function () {
+                                DesignStor.design.isImpostDelete = 0;
+                            }, 300);
+                        }
+                        if (UserStor.userInfo.factory_id === 2) {
+                            if (id === 6) {
+                                GlobalStor.global.activePanel = 1;
+                            }
+                        }
+                    }
+                }
 
                 /**========== FINISH ==========*/
 
                 thisFactory.publicObj = {
                     selectNewTemplate: selectNewTemplate,
-                    initNewTemplateType: initNewTemplateType
+                    initNewTemplateType: initNewTemplateType,
+                    closeButton: closeButton,
                 };
 
                 return thisFactory.publicObj;

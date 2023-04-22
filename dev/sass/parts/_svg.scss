@@ -9,9 +9,19 @@
   stroke-width: 4;
 }
 .glass {
-  @include transition(all 0.1s linear);
+  @include transition(all 0.3s linear);
   cursor: pointer;
+  &:hover {
+    fill: lighten(#7ebdd7, 1%);
+  }
 
+  @media screen and (max-width: 800px) {
+    @include transition(all 0.3s linear);
+    cursor: pointer;
+    &:hover {
+      fill: rgba(155, 204, 255, 0.2);
+    }
+  }
 }
 
 .glass-main {

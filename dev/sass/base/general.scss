@@ -220,6 +220,22 @@ body {
   }
 }
 
+.modal-dialog-rehau {
+  @include top_left_coord(300px, -2000px);
+  @include transition(all 0.3s linear);
+
+  //display: none;
+  position: absolute;
+  width: rem(600px);
+  // padding: rem(80px) rem(60px);
+  border-radius: 0;
+  background-color: rgba(#fff, .85);
+
+  &.active {
+    left: 32rem;
+  }
+}
+
 
 .cross-btn {
   @extend .button;
@@ -255,13 +271,29 @@ body {
 }
 
 .close-dialog-rehau {
-  background-image: url(../img/rehau-img/remove.png);
+  background-image: url(../img/rehau-img/close.png);
+  background-repeat: no-repeat;
+  background-position: center;
   width: 33px;
   height: 33px;
   position: absolute;
   top: 0;
   right: 0;
 
+  cursor: pointer;
+}
+
+.close-screen-button {
+  background-image: url(../img/rehau-img/close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  position: absolute;
+  top: 36px;
+  left: 720px;
+  z-index: 1000;
   cursor: pointer;
 }
 
@@ -324,7 +356,7 @@ body {
 }
 .backWhiteView {
   @extend .fullViewDiv;
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(0,0,0,.8);
   backdrop-filter: blur(4px);
 }
 .backLightView {
@@ -332,11 +364,6 @@ body {
   background-color: rgba(white, .8);
   z-index: 999;
 }
-
-
-
-
-
 //============ Alert confirn
 
 .alert-overlay {
@@ -347,35 +374,340 @@ body {
 //rehau styles 
 .alert-overlay-rehau {
   @extend .backWhiteView;
-  opacity: 1.08;
-  z-index: 10000;
+  z-index: 5;
 }
-
 .alert-block-ok-rehau {
-  @include roboto-lt(2.25rem);
-  display: block;
   position: absolute;
-  left: 25%;
-  top: 25%;
-  width: 464px;
-  height: 220px;
-  margin-top: -5rem;
-  padding: 3rem;
+  top: 30%;
+  right: 0;
+  left: 0;
+  margin: auto; 
+  width: 704px;
+  height: auto;
+  background-color: #fff;
+  overflow: hidden;
 
-  background: #FFFFFF;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
 
-  overflow: hidden;
+  @media screen and (max-device-width: 550px) {
+    width: 300px;
+    margin: auto;
+    position: absolute;
+    top: 15%; 
+    left: 0; 
+    right: 0;
+  }
+}
+
+.alert-block-inner {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow-y: auto;
   text-align: center;
-  z-index: 99999;
+  color: $main_gray_txt;
+}
+
+.alert-header {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  background-color: $primary_green;
+  padding: 18px;
+
+  .alert-title-rehau {
+    color: #fff;
+    font-size: 32px;
+    text-align: left;
+
+    @media screen and (max-device-width:735px) {
+      font-size: 23px;
+    }
+  }
+}
+
+.alert-body {
+  .alert-btns-rehau {
+    display: flex;
+    justify-content: space-around;
+    font-size: 16px;
+
+    .rehau-btn {
+      display: flex;
+      @media screen and (max-device-width: 550px) {
+        margin-bottom: 16px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .alert-yes-rehau {
+        padding: 8px 16px;
+        background-color: $primary_green;
+        color: #fff;
+        border: none;
+  
+        @media screen and (max-device-width: 550px) {
+          min-width: 175px;
+        }
+      }
+      .black-square-basket {
+        width: 50px;
+        height: 50px;
+        background-color:#424242;
+        background-image: url(../img/rehau-img/basket.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+      }
+      .black-square-new-window {
+        width: 50px;
+        height: 50px;
+        background-color:#424242;
+        background-image: url(../img/rehau-img/add-new-window.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+      }
+    }
+    @media screen and (max-device-width: 550px) {
+      flex-direction: column;
+      align-items: center;
+      font-size: 14px;
+    }
+  }
+  padding: 18px 18px 24px 18px;
+
+  @media screen and (max-device-width:735px) {
+    padding: 16px;
+  }
+}
+
+.alert-descr-rehau {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+
+  white-space: pre-line;
+  text-align: center;
+
+  margin-bottom: 16px;
+
+  @media screen and (max-device-width:735px) {
+    text-align: left;
+  }
+}
+
+.alert-btns-rehau {
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+
+  .rehau-btn {
+    display: flex;
+    @media screen and (max-device-width: 550px) {
+      margin-bottom: 16px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .alert-yes-rehau {
+      padding: 8px 16px;
+      background-color: $primary_green;
+      color: #fff;
+      border: none;
+
+      @media screen and (max-device-width: 550px) {
+        min-width: 175px;
+      }
+    }
+    .black-square-basket {
+      width: 50px;
+      height: 50px;
+      background-color:#424242;
+      background-image: url(../img/rehau-img/basket.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+    }
+    .black-square-new-window {
+      width: 50px;
+      height: 50px;
+      background-color:#424242;
+      background-image: url(../img/rehau-img/add-new-window.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+    }
+  }
+  @media screen and (max-device-width: 550px) {
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+  }
+}
+
+.alert-inner {
+  position: absolute;
+  top: 20%;
+  left: 25.5%;
+  width: 504px;
+  height: auto;
+  background-color: #fff;
+  overflow: hidden;
+
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
+
+  .alert-header {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    background-color: $primary_green;
+    padding: 18px;
+
+    .alert-title {
+      @include roboto-md(32px);
+      @extend .truncated;
+      color: #fff;
+  
+      font-style: normal;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 33px;
+  
+      text-align: center;
+  
+      @media screen and (max-device-width:735px) {
+        font-size: 23px;
+      }
+    }
+  }
+  
+  .alert-body {
+    padding: 18px 18px 18px 18px;
+
+    .alert-descr {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+  
+      white-space: pre-line;
+      text-align: center;
+      color: #000000;
+
+      margin-bottom: 16px;
+  
+      @media screen and (max-device-width:735px) {
+        text-align: left;
+        font-size: 16px;
+      }
+    }
+    .alert-btns-rehau {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    .alert-go-to-basket{
+      font-size: 16px;
+      padding: 8px 32px 8px 8px;
+      background-color: $primary_green;
+      color: #fff;
+      border-radius: 0;
+      border: none;
+      white-space: nowrap;
+      min-width: 193px;
+      background-image: url(../img/rehau-img/add-to-cart-2.svg);
+      background-position-x: 98%;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      background-size: 24px;
+    }
+
+    .alert-new-construction {
+      font-size: 16px;
+      padding: 8px 32px 8px 8px ;
+      background-color: $primary_green;
+      color: #fff;
+      border-radius: 0;
+      border: none;
+      white-space: nowrap;
+      min-width: 193px;
+      background-image: url(../img/rehau-img/rehau_+.png);
+      background-position-x: 98%;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      background-size: 24px;
+    }
+  
+    @media screen and (max-device-width:735px) {
+      padding: 16px;
+    }
+  }
+}
+
+.alert-block-basket {
+  position: absolute;
+  top: 5%;
+  left: 15.5%;
+  width: 704px;
+  height: auto;
+  background-color: #fff;
+  overflow: hidden;
+
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.24);
+
+  .alert-block-main {
+    width: 100%;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    text-align: center;
+    color: $main_gray_txt;
+  }
+
+  .alert-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    background-color: $primary_green;
+    padding: 18px;
+  }
+
+  .alert-body {
+    padding: 18px 18px 24px 18px;
+
+    @media screen and (max-device-width:735px) {
+      padding: 16px;
+    }
+  }
+
+  .alert-title {
+    @include roboto-md(32px);
+    @extend .truncated;
+    color: #fff;  
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 32px;
+
+    text-align: left;
+
+    @media screen and (max-device-width:735px) {
+      font-size: 23px;
+    }
+  }
 
   .alert-descr-rehau {
     font-size: 24px;
   }
-  .alert-btns-rehau {
-    @include display-flex();
-    @include justify-content(space-around);
-  }
+
   .alert-yes-rehau {
     background-color: $primary_green;
 
@@ -391,7 +723,11 @@ body {
 
     color: white;
 
-    width: 80px;
+    width: auto;
+
+    @media screen and (max-width: 500px) {
+      margin-top: 20px;
+    }
   }
   .alert-no-rehau {
     background: #4E4E4E;
@@ -420,6 +756,12 @@ body {
     line-height: 32px;
 
     width: 190px;
+
+    @media screen and (max-width: 500px) {
+      margin-right: 12px;
+      width: 132px;
+      font-size: 16px;
+  }
   }
   .alert-edit-rehau {
     background-color: $primary_green;
@@ -434,6 +776,17 @@ body {
     line-height: 32px;
 
     width: 190px;
+    @media screen and (max-width: 500px) {
+      margin-right: 12px;
+      width: 132px;
+      font-size: 16px;
+  }
+  }
+
+  @media (max-width: 500px) {
+    left: 6%;
+    width: 364px;
+    @include roboto-lt(22px);
   }
 }
 
@@ -480,23 +833,24 @@ body {
   }
 
   .alert-title-rehau {
-    font-style: normal;
-    font-weight: bold;
     font-size: 24px;
-    line-height: 32px;
-
     text-align: center;
     text-transform: uppercase;
-
     color: #000000;
   }
   .alert-descr-rehau {
     margin-bottom: 24px;
     margin-top: 8px;
+
+    @media screen and (max-device-width:735px) {
+      font-size: 16px;
+      text-align: center;
+    }
   }
   .alert-btns-rehau {
     @include display-flex();
     @include justify-content(space-around);
+    flex-direction: row;
 
     color: white;
   }
@@ -526,6 +880,10 @@ body {
     line-height: 32px;
 
     width: 80px;
+
+    @media screen and (max-device-width:735px) {
+      margin-right: 76px;
+    }
   }
   .alert-no-rehau {
     background: #4E4E4E;
@@ -554,6 +912,11 @@ body {
     line-height: 32px;
 
     width: 190px;
+
+    @media screen and (max-width: 500px) {
+      width: 172px;
+      font-size: 20px;
+    }
   }
   .alert-edit-rehau {
     background-color: $primary_green;
@@ -568,7 +931,14 @@ body {
     line-height: 32px;
 
     width: 190px;
+    @media screen and (max-width: 500px) {
+      margin-right: 12px;
+      width: 172px;
+      font-size: 20px;
+    }
   }
+
+  
 }
 
 
@@ -603,9 +973,7 @@ body {
 .alert-title {
   @include roboto-bd(2rem);
 }
-.alert-descr {
-  margin: 2rem 0;
-}
+
 .alert-btns {
   @include display-flex();
   @include justify-content(space-around);

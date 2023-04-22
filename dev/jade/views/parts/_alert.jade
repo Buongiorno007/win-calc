@@ -43,7 +43,7 @@
       button.alert-yes(ng-click="alertBox.syncNow()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_Y }}
 .alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isNoChangedProduct && alertBox.U.userInfo.factory_id !== 2")
   .alert-block
-    .alert-descr {{ alertBox.SAVED_KONSTRUCTION }}
+    .alert-descr {{ alertBox.SAVED_KONSTRUCTION }} 
     .alert-btns
       .thisAlert
         section.loginPage
@@ -56,7 +56,7 @@
   .alert-block-rehau
     .alert-question-sign-rehau(ng-show="alertBox.G.global.isBox")
     .alert-danger-sign-rehau(ng-show="!alertBox.G.global.isBox")
-    .alert-title-rehau {{ alertBox.G.global.alertTitle }}
+    h2.alert-title-rehau {{ alertBox.G.global.alertTitle }}
     .alert-descr-rehau {{ alertBox.G.global.alertDescr }}
     .alert-btns-rehau
       .thisAlert
@@ -67,20 +67,9 @@
       button.alert-yes-rehau(ng-click="alertBox.clickYes()", ng-show="!alertBox.G.global.isBox") {{ ::alertBox.BUTTON_Y }}
       button.alert-no-rehau(ng-click="alertBox.isAlert()", ng-show="!alertBox.G.global.isBox") {{ ::alertBox.BUTTON_N }}
 
-.alert-overlay-rehau(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isSavingAlert && alertBox.U.userInfo.factory_id === 2")
-  .alert-block-rehau
-    .alert-danger-sign-rehau
-    .alert-title {{ alertBox.G.global.alertTitle }}
-    .alert-descr {{ alertBox.G.global.alertDescr }}
-    .alert-btns
-      .thisAlert
-        section.main-page
-      button.alert-no(ng-click="alertBox.clickNo()", ng-show="alertBox.G.global.isSavingAlert") {{ ::alertBox.BUTTON_N }}
-      button.alert-yes(ng-click="alertBox.clickYes()", ng-show="alertBox.G.global.isSavingAlert") {{ ::alertBox.BUTTON_Y }}
-
 .alert-overlay-rehau(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isAlertInfo && alertBox.U.userInfo.factory_id === 2")
   .alert-block-rehau
-    .alert-sign
+    .alert-danger-sign-rehau
     .alert-title {{ alertBox.G.global.alertTitle }}
     .alert-descr {{ alertBox.G.global.alertDescr }}
     .alert-btns
@@ -98,8 +87,23 @@
       button.alert-yes(ng-click="alertBox.syncNow()", ng-show="loginPage.G.global.isSyncAlert") {{ ::alertBox.BUTTON_Y }}
 .alert-overlay-rehau(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isNoChangedProduct && alertBox.U.userInfo.factory_id === 2")
   .alert-block-ok-rehau
-    .alert-descr-rehau {{ alertBox.SAVED_KONSTRUCTION }}
-    .alert-btns-rehau
-      .thisAlert
-        section.loginPage
-      button.alert-yes-rehau(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.OK }}
+    .alert-block-inner
+      .alert-header
+        h2.alert-title-rehau Внимание
+      .alert-body
+        .alert-descr-rehau Данная конструкция добавлена в корзину! Пожалуйста выберите следующее действие
+        .alert-btns-rehau(ng-if="alertBox.G.global.currOpenPage === 'design'")
+          .rehau-btn(ng-click="alertBox.goToCart()", ng-show="alertBox.G.global.isNoChangedProduct")
+            button.alert-yes-rehau Перейти в корзину
+            .black-square-basket
+          .rehau-btn(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct")
+            button.alert-yes-rehau Создать новое окно
+            .black-square-new-window
+        .alert-btns-rehau(ng-if="alertBox.G.global.currOpenPage === 'mobile'")
+          .rehau-btn(ng-click="mobilePage.setTab(4); alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct")
+            button.alert-yes-rehau Перейти в корзину
+            .black-square-basket
+          .rehau-btn(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct")
+            button.alert-yes-rehau Создать новое окно
+            .black-square-new-window
+    .close-dialog-rehau(ng-click="alertBox.G.global.isNoChangedProduct = 0")

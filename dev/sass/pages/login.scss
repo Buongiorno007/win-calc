@@ -126,8 +126,7 @@ $img_logo-rehau: '/rehau-img/logo-rehau';
 .login-page-rehau {
   @include display-flex();
   height: 100%;
-  background-image: url(../img/rehau-img/rehau-logo.png);
-  background-position-x: -270px;
+  background-position: center;
   background-size: cover;
 
   #no-visible {

@@ -1,4 +1,5 @@
 .mount-delivery(ng-if='cartPage.G.global.showMountDelivery')
+    .box(ng-if="cartPage.U.userInfo.factory_id !== 2")
         .mount-delivery-header
             .header-buttons.alert-no(ng-click='cartPage.cancelMoundDeliveryFunc()')
                 label {{mobilePage.CANCEL}}
@@ -106,3 +107,70 @@
                         label.splice-comment {{ cartMenu.O.order.comment }}
                 .mobile-delivery-items(ng-if='cartMenu.config.activeMenuItem == 5') 
                     textarea.comment-field.noPreventDefault(ng-model="cartMenu.O.order.comment")
+
+    .box(ng-if="cartPage.U.userInfo.factory_id === 2")
+        .mount-delivery-header-rehau
+            .header-title-rehau(ng-click='cartPage.cancelMoundDeliveryFunc()')
+                label Монтаж / Доставка
+            .header-buttons-cancel-rehau(ng-click='cartPage.cancelMoundDeliveryFunc()')
+                img(src="./img/rehau-img/close.png", alt="")
+        .mount-delivery-mountings-container-rehau(ng-controller="CartMenuCtrl as cartMenu")
+            .mobile-delivery-rehau
+                .mobile-delivery-title-rehau(ng-click="cartMenu.selectMenuItem(1)")
+                    label {{::cartMenu.DELIVERY}}
+                        .tooltip
+                            img(ng-src="./img/rehau-img/tooltip-question.png")
+                            span.tooltiptext Точная стоимость уточняется менеджером. В зависимости от расстояния объекта от Москвы замер может быть платным
+                    .arrow(ng-class="{'active': cartMenu.config.activeMenuItem == 1}")
+                        img(ng-src="./img/calc/right-arrow-white.svg")
+                .mobile-delivery-selected-rehau(ng-if="cartMenu.O.order.floor_id" ng-hide='cartMenu.config.activeMenuItem == 1')
+                    .mobile-delivery-value-rehau
+                        label {{cartMenu.O.order.floorName}}
+                    .mobile-delivery-price-rehau
+                        label {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-selected-rehau(ng-if="cartMenu.O.order.delivery_add"  ng-hide='cartMenu.config.activeMenuItem == 1') 
+                    .mobile-delivery-value-rehau
+                        label {{ ::cartMenu.DELIVERY}}
+                    .mobile-delivery-price-rehau
+                        label {{ cartMenu.O.order.delivery_add }} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-selected-rehau(ng-if="!cartMenu.O.order.floor_id"  ng-hide='cartMenu.config.activeMenuItem == 1')
+                    .mobile-delivery-value-rehau
+                        label  {{ ::cartMenu.SELF_EXPORT }}
+                    .mobile-delivery-price-rehau
+                        label {{ 0 }} {{ cartMenu.U.userInfo.currency }}
+
+
+                .mobile-delivery-items-rehau(ng-if='cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length')
+                    .mobile-delivery-selected-rehau(fs-click="cartMenu.selectFloorPrice(0)" ng-class="{'selected': !cartMenu.O.order.floor_id}" ng-click='cartMenu.config.activeMenuItem = 0')
+                        .mobile-delivery-value-rehau
+                            label {{ ::cartMenu.SELF_EXPORT }}
+                        .mobile-delivery-price-rehau
+                            label {{ 0 }} {{ cartMenu.U.userInfo.currency }}
+                    .mobile-delivery-selected-rehau(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(supplyList)" ng-click='cartMenu.config.activeMenuItem = 0' onClick="this.setSelectionRange(0, this.value.length)")
+                        .mobile-delivery-value-rehau {{supplyList.name}} {{ ::cartMenu.FLOOR }}
+                        .name-rehau  {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
+            
+            .mobile-delivery-rehau(ng-if='cartMenu.G.global.assemblingData.length')
+                .mobile-delivery-title-rehau(ng-click="cartMenu.selectMenuItem(2)")
+                    label {{::cartMenu.ASSEMBLING }}
+                        .tooltip
+                            img(ng-src="./img/rehau-img/tooltip-question.png")
+                            span.tooltiptext Точная стоимость уточняется менеджером. В зависимости от расстояния объекта от Москвы замер может быть платным
+                    .arrow(ng-class="{'active': cartMenu.config.activeMenuItem == 2}")
+                        img(ng-src="./img/calc/right-arrow-white.svg")
+                .mobile-delivery-selected-rehau(ng-hide='cartMenu.config.activeMenuItem == 2')
+                    .mobile-delivery-value-rehau
+                        label(ng-show="!cartMenu.O.order.mounting_id") {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+                        label(ng-show="cartMenu.O.order.mounting_id") {{ cartMenu.O.order.mountingName }}
+                    .mobile-delivery-price-rehau
+                        label  {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}
+                .mobile-delivery-items-rehau(ng-if='cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length')
+                    .mobile-delivery-selected-rehau(ng-class="{'selected': !cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(0)" ng-click='cartMenu.config.activeMenuItem = 0')
+                        .mobile-delivery-value-rehau.drop-txt {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+                        .name-rehau {{ ::cartMenu.FREE }}
+                    .mobile-delivery-selected-rehau(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(assemb)" ng-click='cartMenu.config.activeMenuItem = 0')
+                        .mobile-delivery-value-rehau.drop-txt {{ assemb.name }}
+                        .name-rehau  {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
+            .buttons-apply-rehau(ng-click='cartPage.showMoundDeliveryFunc()')
+                label {{mobilePage.APPLY}}
+        

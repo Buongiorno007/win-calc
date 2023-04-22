@@ -9,6 +9,15 @@
 @include font-face('roboto-thin', font-files('roboto/Roboto-Thin.ttf'));
 
 
+@include font-face('brix-regular', font-files('roboto/Brix-Sans-Regular.ttf'));
+
+@include font-face('brix-bold', font-files('roboto/Brix-Sans-Bold.ttf'));
+
+@include font-face('brix-medium', font-files('roboto/Brix-Sans-Medium.ttf'));
+
+@include font-face('brix-black', font-files('roboto/Brix-Sans-Black.ttf'));
+
+
 // General Icons
 @include font-face('icons', font-files('icons/icomoon.ttf'));
 

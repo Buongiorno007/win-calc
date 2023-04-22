@@ -92,12 +92,8 @@
 
 .config-panel.profile-container(ng-show="profilesPanel.U.userInfo.factory_id === 2", ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
     .panel-inner(ng-if="profilesPanel.G.global.activePanel == 2")
-        .profile-block.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles track by $index", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")
-            .group-block-header-rehau(ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'")
-                .title-rehau(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
-                .group-info-rehau
-                    img.info-icon(ng-src="../img/rehau-img/info_rehau.png", ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
-                    
+        .close-screen-button(ng-click="profilesPanel.closeButton(2)")
+        .profile-block.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles track by $index", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")        
             .box-rehau.profile-box.unvisible(ng-repeat="profile in producer track by $index", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
                 .box_inner-rehau(ng-click="profilesPanel.checkForAddElem(profile.id)")
                     img.profile-img(ng-if="profile.img.length", ng-src="{{profile.img}}")
@@ -115,24 +111,28 @@
                         .profile-blocks
                             .profile-block-noise-rehau
                                 .profile-gray-block
-                                    .profile-text-block <span>Шумоизоляция</span>
-                                    .profile-number-block <span>7</span>
-                                .profile-red-block
+                                    .profile-text-block <span>Взломостойкость</span>
+                                    .profile-number-block {{profile.burglary_resistance}}
+                                .profile-red-block-6(ng-if="profile.burglary_resistance === 6")
+                                .profile-red-block-7(ng-if="profile.burglary_resistance === 7")
                             .profile-block-light-rehau
                                 .profile-gray-block
                                     .profile-text-block <span>Светопропускание</span>
-                                    .profile-number-block <span>7</span>
-                                .profile-red-block
+                                    .profile-number-block {{profile.light_transmission}}
+                                .profile-red-block-7(ng-if="profile.light_transmission === 7")
+                                .profile-red-block-8(ng-if="profile.light_transmission === 8")
                             .profile-block-warm-rehau
                                 .profile-gray-block
-                                    .profile-text-block <span>Теплоизоляция</span>
-                                    .profile-number-block <span>7</span>
-                                .profile-red-block
+                                    .profile-text-block <span>Теплосбережение</span>
+                                    .profile-number-block {{profile.heat_saving}}
+                                .profile-red-block-4(ng-if="profile.heat_saving === 4")
+                                .profile-red-block-8(ng-if="profile.heat_saving === 8")
                             .profile-block-burglary-rehau
                                 .profile-gray-block
-                                    .profile-text-block <span>Взломостойкость</span>
-                                    .profile-number-block <span>7</span>
-                                .profile-red-block
+                                    .profile-text-block <span>Шумоизоляция</span>
+                                    .profile-number-block {{profile.noise_isolation}}
+                                .profile-red-block-6(ng-if="profile.noise_isolation === 6")
+                                .profile-red-block-8(ng-if="profile.noise_isolation === 8")
                                 .profile-info-block(ng-if="profile.img.length || profile.link.length || profile.description", ng-click="profilesPanel.showInfoBox(profile.id, producer)") <span>Подробнее</span>
                         .profile-blocks-green-block
                                    

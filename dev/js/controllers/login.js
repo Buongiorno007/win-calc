@@ -1,4 +1,5 @@
 (function () {
+
   'use strict';
   /**@ngInject*/
   angular
@@ -8,7 +9,7 @@
         $timeout,
         $rootScope,
         $route,
-        $http,
+        $http,   
         // $cordovaNetwork,
         $filter,
         $translate,
@@ -180,25 +181,6 @@
             }
           }
         }
-
-        preloadImages([
-          "./img/room/1.png",
-          "./img/room/4.png",
-          "./img/room/6.png",
-          "./img/room/7.png",
-          "./img/room/8.png",
-          "./img/room/9.png",
-          "./img/room/10.png",
-          "./img/room/11.png",
-          "./img/room/12.png",
-          "./img/room/26.png",
-          "./img/room/121.png",
-          "./img/room/122.png",
-          "./img/room/123.png",
-          "./img/room/fon.jpg",
-          "./img/room/3333.png"
-        ]);
-
         /**============ METHODS ================*/
 
         function startProgramm() {
@@ -240,7 +222,10 @@
                 GlobalStor.global.currOpenPage = 'main';
               }
             }
-
+            MainServ.setProductPriceTOTAL(ProductStor.product)
+            setTimeout(() => {
+              MainServ.setProductPriceTOTAL(ProductStor.product)
+            }, 1);
             /** !!!! **/
 
             let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
@@ -719,13 +704,13 @@
               thisCtrl.isOfflineImport = 1;
             }
 
-            // localforage.getItem("analitics", function (err, value) {
-            //   if (value) {
-            //     GlobalStor.global.analitics_storage.push(value);
-            //     // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
-            //     // console.log(GlobalStor.global.analitics_storage);
-            //   }
-            // });
+            localforage.getItem("analitics", function (err, value) {
+              if (value) {
+                GlobalStor.global.analitics_storage.push(value);
+                // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
+                // console.log(GlobalStor.global.analitics_storage);
+              }
+            });
           }
         }
 
@@ -1009,6 +994,13 @@
               AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
               console.log("Data loaded, the application works");
               MainServ.createOrderData();
+              //We are calling this function 2 time couse we need to recalculate price, dunno why we need do it 2 times but it works only this way
+              setTimeout(() => {
+                MainServ.setProductPriceTOTAL(ProductStor.product)
+                setTimeout(() => {
+                  MainServ.setProductPriceTOTAL(ProductStor.product)
+                }, 1);
+              }, 1);
               return true;
             } else {
               localStorage.clear();
@@ -1030,29 +1022,49 @@
 
         }
         //Simple autologin for rehau landing, sorry have no time to do it better
-        if (window.location.href === "https://rehauselected.baueffect.com/#/") {
-          $(document).ready( function() { 
+        if (window.location.href === "https://dev.rehau2022selected.xyz/#/") {
+          $(document).ready( function(){
             setTimeout(() => {
-              document.querySelector('#login').style.opacity = "1";
-              document.querySelector('#current-password').style.opacity = "1";
-              document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
-              document.querySelector('.login-container-mobView').style.margin = 'auto';
-              document.querySelector('.login-submit').style.opacity = "1";
-              document.querySelector('.privacy-policy').style.opacity = "1";
+              try {
+                document.querySelector('#login').style.opacity = "1";
+                document.querySelector('#current-password').style.opacity = "1";
+                document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
+                document.querySelector('.login-container-mobView').style.margin = 'auto';
+                document.querySelector('.login-submit').style.opacity = "1";
+                document.querySelector('.privacy-policy').style.opacity = "1";
+              } catch(e) {
+
+              }
             }, 1);
           })
         } else if (window.location.href === "http://localhost:8888/#/") {
-          $(document).ready( function() { 
+          $(document).ready( function() {
             setTimeout(() => {
-              document.querySelector('#login').style.opacity = "1";
-              document.querySelector('#current-password').style.opacity = "1";
-              document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
-              document.querySelector('.login-container-mobView').style.margin = 'auto';
-              document.querySelector('.login-submit').style.opacity = "1";
-              document.querySelector('.privacy-policy').style.opacity = "1";
+              try {
+                document.querySelector('#login').style.opacity = "1";
+                document.querySelector('#current-password').style.opacity = "1";
+                document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
+                document.querySelector('.login-container-mobView').style.margin = 'auto';
+                document.querySelector('.login-submit').style.opacity = "1";
+                document.querySelector('.privacy-policy').style.opacity = "1";
+              } catch(e) {
+
+              }
             }, 1);
           })
-        } else if (window.location.href === "https://rehau2021selected.xyz/calculator/rehau/#/") {
+        } else if (window.location.href === "https://experience.shop.rhsolutions.ru/calculator/#/") {
+          setTimeout(() => {   
+            thisCtrl.user.phone = 'rehausite';
+            thisCtrl.user.password = 'rehau';
+            document.querySelector('.login-submit').click();
+          }, 2500);
+        } else if (window.location.href === "https://dev.rehau2022selected.xyz/calculator/#/") {
+          setTimeout(() => {   
+            thisCtrl.user.phone = 'rehausite';
+            thisCtrl.user.password = 'rehau';
+            document.querySelector('.login-submit').click();
+          }, 2500);
+        } else if (window.location.href === "https://stage.rehau2022selected.xyz/calculator/#/") {
           setTimeout(() => {   
             thisCtrl.user.phone = 'rehausite';
             thisCtrl.user.password = 'rehau';
@@ -1123,6 +1135,17 @@
           "left": "0px",
           "top": "0px",
         });
+        if ($location.path() !== "/mobile") {
+          $("#main-frame").removeClass("main-frame-mobView");
+          $("#app-container").removeClass("app-container-mobView");
+          MainServ.resize();
+          window.onload = function () {
+              MainServ.resize();
+          };
+          window.onresize = function () {
+              MainServ.resize();
+          };
+      }
       }
     );
 })();

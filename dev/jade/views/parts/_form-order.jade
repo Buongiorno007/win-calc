@@ -194,21 +194,25 @@
     .cart-dialogs-container-rehau(ng-if="orderForm.U.userInfo.user_type === 8")
       form(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
         .cart-dialog-header
-          button.cart-dialog-tool(fs-click="orderForm.closeOrderDialog()", type="button")
-          .cart-dialog-title Оставить заявку на окно
+          button.cart-dialog-tool(ng-click="orderForm.closeOrderDialog()", type="button")
+          .cart-dialog-title Оставить заявку
         .cart-dialog-body
           .input-field(ng-class="{'invalid-data': orderForm.C.cart.submitted && callOrderForm.name.$error.required }")
             .input-name Ваше имя
-            input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", required)
+            input.user-field-name(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", required)
           .input-field(ng-class="{'invalid-data': orderForm.C.cart.customer.customer_phone === 0 }")
             .input-name Ваш номер телефона
-            input.user-field-phone(id="phone" placeholder="+7(___) ___-__-__" type="phone", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0")
+            input.user-field-phone(id="phone" placeholder="+7(___) ___-__-__" type="phone", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", required)
+          //- .input-field
+          //-   .input-name Ваш email
+          //-   input.user-field-email(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="email")
+          //-   .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.mail.$error.email") {{ ::orderForm.WRONG_EMAIL }}
           .input-field
             .input-name Ваш коментарий
             input.user-field-comment(type="text", name="comment", ng-model="orderForm.O.order.comment", ng-focus="orderForm.C.cart.isCityBox = 0")
           .privacy-policy-text
             input.agreement-checkbox(type="checkbox" ng-model="checkedList" ng-init="checkedList=false")
-            .agreement Я соглашаюсь с правилами пользования и политикой конфиденциальности
+            .agreement Я соглашаюсь с правилами пользования и политикой конфиденциальности. <br />
            
-          button.save.save-order.little(type="submit" ng-if="!checkedList" ng-class="{'unactive': !checkedList}" disabled) {{ ::orderForm.READY }}
-          button.save.save-order.little(type="submit" ng-if="checkedList") {{ ::orderForm.READY }}
+          button.save.save-order.little(type="submit" ng-if="!checkedList"  ng-class="{'unactive': !checkedList}" disabled) {{ ::orderForm.READY }}
+          button.save.save-order.little(type="submit" id="226880291" onclick="ym(86026367,'reachGoal','LEAD')" ng-if="checkedList") {{ ::orderForm.READY }}

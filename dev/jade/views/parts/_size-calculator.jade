@@ -17,7 +17,7 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 5000
           .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.displayData(sizeCalc.D.design.maxSizeLimit) | number : 0 }}
-          .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit }}
+          .calc-value-limit.max(ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit }}
           .calc-label-limit {{ ::sizeCalc.MAX }}
   tr(ng-show="sizeCalc.U.userInfo.factory_id !== 2")
     - for (var cell = 1; cell < 4; ++cell) {
@@ -72,4 +72,5 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
     td(ng-if="sizeCalc.U.userInfo.factory_id==1966")
       button.cell-rehau.calc-digit(fs-click="sizeCalc.setValueSize('.')") .
     td
-      button.cell-rehau.calc-ok#closeSizeCaclulator(ng-show="sizeCalc.U.userInfo.factory_id === 2" fs-click="sizeCalc.closeSizeCaclulator()") OK
+      button.cell-rehau.calc-ok.check#closeSizeCaclulator(ng-show="sizeCalc.U.userInfo.factory_id === 2 && sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();") OK
+      button.cell-rehau.calc-ok#closeSizeCaclulator(ng-show="sizeCalc.U.userInfo.factory_id === 2 && sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();") OK

@@ -1,24 +1,48 @@
 .mobile-lamination.mobile-common-panel(ng-if="mobilePage.G.global.activePanel === 5" ng-controller="LaminationsCtrl as laminPanel")
-    include accept-container
-    .laminat-filter
-        .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'id' track by $index" ng-class = "{gray : $index%2 === 0 }")
-            .laminat-folder-header
-                .laminat-label-button(ng-if="lamin.id > 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}")
-                    p {{ ::lamin.name }}
-                .laminat-label-button(ng-if="lamin.id === 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}")
-                    p {{ ::lamin.name | translate}}
+    .box(ng-if="mobilePage.U.userInfo.factory_id !== 2")
+        include accept-container
+        .laminat-filter
+            .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'id' track by $index" ng-class = "{gray : $index%2 === 0 }")
+                .laminat-folder-header
+                    .laminat-label-button(ng-if="lamin.id > 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}")
+                        p {{ ::lamin.name }}
+                    .laminat-label-button(ng-if="lamin.id === 1" ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,0)" ng-class="{'active': lamin.isActive}")
+                        p {{ ::lamin.name | translate}}
+                    .laminat-img( ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,1)")
+                        img(ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg")
+                .laminat-folder(ng-if="laminPanel.OpenFolder === $index")
+                    .laminat-row-descr
+                        .laminat-label {{laminPanel.INTERIOR}} / {{laminPanel.FACADE}}
+                    .laminat-row(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index"
+                                ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }"
+                                ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if='laminPanel.OpenFolder !==0')
+                        .laminat-label(ng-if="lamCouple.img_in_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name }}
+                        .laminat-label(ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name | translate }}
+                        .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name }}
+                        .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name | translate }}
+                    .laminat-row(ng-if='laminPanel.OpenFolder === 0' ng-click="laminPanel.selectLaminat(0)")
+                        .laminat-label {{ laminPanel.WHITE_LAMINATION | translate}}
+    .box-rehau(ng-if="mobilePage.U.userInfo.factory_id === 2")
+        include top-block
+        .laminat-filter
+            .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'id' track by $index")
                 .laminat-img( ng-click="laminPanel.openLaminatFolder($index,lamin.lamination_type_id,$event,1)")
+                    p {{ lamin.name | translate }}
                     img(ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg")
-            .laminat-folder(ng-if="laminPanel.OpenFolder === $index")
-                .laminat-row-descr
-                    .laminat-label {{laminPanel.INTERIOR}} / {{laminPanel.FACADE}}
-                .laminat-row(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index"
-                             ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }"
-                             ng-click="laminPanel.selectLaminat(lamCouple.id)" ng-if='laminPanel.OpenFolder !==0')
-                    .laminat-label(ng-if="lamCouple.img_in_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name }}
-                    .laminat-label(ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name | translate }}
-                    .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name }}
-                    .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name | translate }}
-                .laminat-row(ng-if='laminPanel.OpenFolder === 0' ng-click="laminPanel.selectLaminat(0)")
-                    .laminat-label {{ laminPanel.WHITE_LAMINATION | translate}}
+                    .laminat-folder(ng-if="laminPanel.OpenFolder === $index")
+                        .laminat-row-descr
+                            .laminat-label-where {{laminPanel.LAMINAT_INSIDE}}
+                            .laminat-label-where {{laminPanel.FACADE}}
+                        .laminat-row(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index"
+                                    ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }"
+                                    ng-click="laminPanel.selectLaminat(lamCouple.id); mobilePage.closePanelMobile();" ng-if='laminPanel.OpenFolder !==0')
+                            .laminat-label(ng-if="lamCouple.laminat_in_name === lamCouple.laminat_out_name" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name }}
+                            .laminat-label(ng-if="lamCouple.img_in_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name }}
+                            .laminat-label(ng-if="lamCouple.img_in_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_in_name | translate }}
+                            .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name }}
+                            .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1" ng-class="{'active': lamCouple.id === laminPanel.P.product.lamination.id }") {{ lamCouple.laminat_out_name | translate }}
+                        .laminat-row(ng-if='laminPanel.OpenFolder === 0' ng-click="laminPanel.selectLaminat(0)")
+                            .laminat-label {{ laminPanel.WHITE_LAMINATION | translate}}
+                            .laminat-label {{ laminPanel.WHITE_LAMINATION | translate}}
+        include bottom-block
 

@@ -1458,6 +1458,7 @@ let portrait = false;
                     GlobalStor.global.isTest = 0;
                     DesignStor.design.isDimExtra = 0;
                     DesignStor.design.isSquareExtra = 0;
+                    DesignStor.design.isDimSmall = 0;
                 }
 
                 function showStepsMobileFunc(step) {
@@ -1700,6 +1701,7 @@ let portrait = false;
                                        CartMenuServ,
                                        GlobalStor,
                                        ProductStor,
+                                       GlassesServ,
                                        DesignStor,
                                        OrderStor,
                                        CartStor,
@@ -1774,6 +1776,7 @@ let portrait = false;
       thisCtrl.LABEL_LOCK_TYPE = $filter("translate")("design.LABEL_LOCK_TYPE");
       thisCtrl.NOT_AVAILABLE = $filter("translate")("design.NOT_AVAILABLE");
       thisCtrl.DIM_EXTRA = $filter("translate")("design.DIM_EXTRA");
+      thisCtrl.DIM_SMALL = $filter("translate")("design.DIM_SMALL");
       thisCtrl.SQUARE_EXTRA = $filter("translate")("design.SQUARE_EXTRA");
       thisCtrl.ROOM_SELECTION = $filter("translate")("mainpage.ROOM_SELECTION");
       thisCtrl.TEST_STAGE = $filter("translate")("design.TEST_STAGE");
@@ -1895,6 +1898,7 @@ let portrait = false;
         GlobalStor.global.isDesignError = 0;
         DesignStor.design.isDimExtra = 0;
         DesignStor.design.isSquareExtra = 0;
+        DesignStor.design.isDimSmall = 0;
       }
 
       function saveProduct() {
@@ -2023,6 +2027,9 @@ let portrait = false;
       }
 
       function checkForAddElem() {
+        
+        //  ALERT
+        GlobalStor.global.isNoChangedProduct = 1;
         if (!GlobalStor.global.isChangedTemplate) {
           GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
         }
@@ -2058,6 +2065,19 @@ let portrait = false;
           msg += " \n" + thisCtrl.ATENTION_MSG2;
           GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
         }
+        
+      }
+
+      function helpModal() {
+        const helpModalData = [
+          {
+            id: 1,
+            name: 'Как работает калькулятор?',
+            description: 'Всё очень просто! Приложение позволяет вам построить конструкцию, выбрать стеклопакет, изменить ламинацию, добавить подконник или водоотлив, далее вы оставляете нам свои данные (email и телефон) мы с вами связываемся и уточняем когда вам будет удобно принять ваш товар. Можете начать прямо сейчас! Переходите во вкладки с элементами и окновляйтесь вместе с РЕХАУ!',
+            img: './img/rehau-img/video-help-desktop.gif',
+          }
+        ]
+        MainServ.showInfoBox(1, helpModalData)
       }
 
       function coutNull(arr) {
@@ -2109,6 +2129,7 @@ let portrait = false;
       thisCtrl.toggleDiscount = toggleDiscount;
       thisCtrl.enterKeyDopService = enterKeyDopService;
       thisCtrl.showCalck = showCalck;
+      thisCtrl.helpModal = helpModal;
 
       thisCtrl.box = LightServ.box;
       thisCtrl.toggleDoorConfig = LightServ.toggleDoorConfig;
@@ -2258,6 +2279,7 @@ let portrait = false;
 // controllers/login.js
 
 (function () {
+
   'use strict';
   /**@ngInject*/
   angular
@@ -2267,7 +2289,7 @@ let portrait = false;
         $timeout,
         $rootScope,
         $route,
-        $http,
+        $http,   
         // $cordovaNetwork,
         $filter,
         $translate,
@@ -2439,25 +2461,6 @@ let portrait = false;
             }
           }
         }
-
-        preloadImages([
-          "./img/room/1.png",
-          "./img/room/4.png",
-          "./img/room/6.png",
-          "./img/room/7.png",
-          "./img/room/8.png",
-          "./img/room/9.png",
-          "./img/room/10.png",
-          "./img/room/11.png",
-          "./img/room/12.png",
-          "./img/room/26.png",
-          "./img/room/121.png",
-          "./img/room/122.png",
-          "./img/room/123.png",
-          "./img/room/fon.jpg",
-          "./img/room/3333.png"
-        ]);
-
         /**============ METHODS ================*/
 
         function startProgramm() {
@@ -2499,7 +2502,10 @@ let portrait = false;
                 GlobalStor.global.currOpenPage = 'main';
               }
             }
-
+            MainServ.setProductPriceTOTAL(ProductStor.product)
+            setTimeout(() => {
+              MainServ.setProductPriceTOTAL(ProductStor.product)
+            }, 1);
             /** !!!! **/
 
             let deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
@@ -2978,13 +2984,13 @@ let portrait = false;
               thisCtrl.isOfflineImport = 1;
             }
 
-            // localforage.getItem("analitics", function (err, value) {
-            //   if (value) {
-            //     GlobalStor.global.analitics_storage.push(value);
-            //     // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
-            //     // console.log(GlobalStor.global.analitics_storage);
-            //   }
-            // });
+            localforage.getItem("analitics", function (err, value) {
+              if (value) {
+                GlobalStor.global.analitics_storage.push(value);
+                // console.log(JSON.stringify(GlobalStor.global.analitics_storage));
+                // console.log(GlobalStor.global.analitics_storage);
+              }
+            });
           }
         }
 
@@ -3268,6 +3274,13 @@ let portrait = false;
               AuxStor.aux = JSON.parse(LZString.decompressFromUTF16(aux));
               console.log("Data loaded, the application works");
               MainServ.createOrderData();
+              //We are calling this function 2 time couse we need to recalculate price, dunno why we need do it 2 times but it works only this way
+              setTimeout(() => {
+                MainServ.setProductPriceTOTAL(ProductStor.product)
+                setTimeout(() => {
+                  MainServ.setProductPriceTOTAL(ProductStor.product)
+                }, 1);
+              }, 1);
               return true;
             } else {
               localStorage.clear();
@@ -3289,29 +3302,49 @@ let portrait = false;
 
         }
         //Simple autologin for rehau landing, sorry have no time to do it better
-        if (window.location.href === "https://rehauselected.baueffect.com/#/") {
-          $(document).ready( function() { 
+        if (window.location.href === "https://dev.rehau2022selected.xyz/#/") {
+          $(document).ready( function(){
             setTimeout(() => {
-              document.querySelector('#login').style.opacity = "1";
-              document.querySelector('#current-password').style.opacity = "1";
-              document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
-              document.querySelector('.login-container-mobView').style.margin = 'auto';
-              document.querySelector('.login-submit').style.opacity = "1";
-              document.querySelector('.privacy-policy').style.opacity = "1";
+              try {
+                document.querySelector('#login').style.opacity = "1";
+                document.querySelector('#current-password').style.opacity = "1";
+                document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
+                document.querySelector('.login-container-mobView').style.margin = 'auto';
+                document.querySelector('.login-submit').style.opacity = "1";
+                document.querySelector('.privacy-policy').style.opacity = "1";
+              } catch(e) {
+
+              }
             }, 1);
           })
         } else if (window.location.href === "http://localhost:8888/#/") {
-          $(document).ready( function() { 
+          $(document).ready( function() {
             setTimeout(() => {
-              document.querySelector('#login').style.opacity = "1";
-              document.querySelector('#current-password').style.opacity = "1";
-              document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
-              document.querySelector('.login-container-mobView').style.margin = 'auto';
-              document.querySelector('.login-submit').style.opacity = "1";
-              document.querySelector('.privacy-policy').style.opacity = "1";
+              try {
+                document.querySelector('#login').style.opacity = "1";
+                document.querySelector('#current-password').style.opacity = "1";
+                document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
+                document.querySelector('.login-container-mobView').style.margin = 'auto';
+                document.querySelector('.login-submit').style.opacity = "1";
+                document.querySelector('.privacy-policy').style.opacity = "1";
+              } catch(e) {
+
+              }
             }, 1);
           })
-        } else if (window.location.href === "https://rehau2021selected.xyz/calculator/rehau/#/") {
+        } else if (window.location.href === "https://experience.shop.rhsolutions.ru/calculator/#/") {
+          setTimeout(() => {   
+            thisCtrl.user.phone = 'rehausite';
+            thisCtrl.user.password = 'rehau';
+            document.querySelector('.login-submit').click();
+          }, 2500);
+        } else if (window.location.href === "https://dev.rehau2022selected.xyz/calculator/#/") {
+          setTimeout(() => {   
+            thisCtrl.user.phone = 'rehausite';
+            thisCtrl.user.password = 'rehau';
+            document.querySelector('.login-submit').click();
+          }, 2500);
+        } else if (window.location.href === "https://stage.rehau2022selected.xyz/calculator/#/") {
           setTimeout(() => {   
             thisCtrl.user.phone = 'rehausite';
             thisCtrl.user.password = 'rehau';
@@ -3382,6 +3415,17 @@ let portrait = false;
           "left": "0px",
           "top": "0px",
         });
+        if ($location.path() !== "/mobile") {
+          $("#main-frame").removeClass("main-frame-mobView");
+          $("#app-container").removeClass("app-container-mobView");
+          MainServ.resize();
+          window.onload = function () {
+              MainServ.resize();
+          };
+          window.onresize = function () {
+              MainServ.resize();
+          };
+      }
       }
     );
 })();
@@ -3922,6 +3966,8 @@ let portrait = false;
                 function selectMenuItem(id) {
                     thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? 0 : id;
                 }
+                //By default it's opened
+                selectMenuItem(1)
 
                 function closeInstalment() {
                     OrderStor.order.is_instalment = 0;
@@ -4014,6 +4060,7 @@ let portrait = false;
                       MainServ,
                       NavMenuServ,
                       AddElementMenuServ,
+                      GlassesServ,
                       DesignServ,
                       GlobalStor,
                       OrderStor,
@@ -4113,7 +4160,16 @@ let portrait = false;
                             }
                         }
                     });
-
+                    if(GlobalStor.global.glasses.length) {
+                        GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+                          return item.map((elem) => {
+                            elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+                            return elem;
+                          })
+                          
+                        });
+                      }
+        
                 }
 
 
@@ -4154,7 +4210,7 @@ let portrait = false;
                 }
 
                 function checkForAddElem() {
-                    // console.log("ProductStor.product", ProductStor.product);
+                    
                     if (!GlobalStor.global.isZeroPriceList.length) {
                         if (!ProductStor.product.is_addelem_only) {
                             alert();
@@ -4526,8 +4582,11 @@ let portrait = false;
             localDB,
             UserStor,
             OrderStor,
+            GeneralServ,
             GlobalStor,
+            GlassesServ,
             DesignStor,
+            globalConstants,
             ProductStor,
             AuxStor,
             CartStor) {
@@ -4582,7 +4641,7 @@ let portrait = false;
             thisCtrl.mobMenu = 0;
             thisCtrl.mobSize = 0;
 
-            thisCtrl.mobWidth = self.innerWidth + 70;
+            thisCtrl.mobWidth = self.innerWidth + 80;
             thisCtrl.mobHeight = self.innerHeight * 0.7;
 
             thisCtrl.mobWidthGlass = self.innerWidth;
@@ -4604,6 +4663,32 @@ let portrait = false;
                     }
             });
 
+            function saveProdAndGoToCart(go_to_cart) {
+                checkForAddElem();
+                GlobalStor.global.isNoChangedProduct = 0;
+            }
+
+            function saveAlertMobile() {
+                GeneralServ.confirmAlert(
+                    $filter('translate')('common_words.SAVE_OR_NO'),
+                    $filter('translate')('  '),
+                    saveProdAndGoToCart
+                );
+                GeneralServ.confirmPath(
+                    setTab(4)
+                );
+            }
+
+            function checkSavingProductMobile() {
+                GlobalStor.global.isBox = 0;
+                if (GlobalStor.global.isChangedTemplate) {
+                    GlobalStor.global.isSavingAlert = 1;
+                    saveAlertMobile();
+                } else {
+                    setTab(4);
+                }
+            }
+
             function setTab(newTab) {
                 GlobalStor.global.activePanel = 0;
                 if (GlobalStor.global.MobileTabActive === newTab) {
@@ -4612,6 +4697,127 @@ let portrait = false;
                     GlobalStor.global.MobileTabActive = newTab;
                 }
             };
+
+            function saveProduct() {
+                GlobalStor.global.showCoefInfoBlock = 0;
+                GlobalStor.global.servicesPriceIndex = -1;
+                GlobalStor.global.continued = 0;
+                ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
+                MainServ.preparePrice(
+                    ProductStor.product.template,
+                    ProductStor.product.profile.id,
+                    ProductStor.product.glass,
+                    ProductStor.product.hardware.id,
+                    ProductStor.product.lamination.lamination_in_id
+                ).then(function () {
+                    if (globalConstants.serverIP === 'http://api.calc.csokna.ru' || globalConstants.serverIP === 'https://api.windowscalculator.net') {
+                        ProductStor.product.template_source.report = ProductStor.product.report;
+                    }
+                    if (MainServ.inputProductInOrder()) {
+                        GlobalStor.global.construction_count = 0;
+                        OrderStor.order.products.forEach(function (product) {
+                            GlobalStor.global.construction_count += parseInt(product.product_qty);
+                        });
+                        GlobalStor.global.product_qty = 1;
+                        if (ProductStor.product.is_addelem_only) {
+                            if ($location.path() === "/mobile") {
+                                GlobalStor.global.MobileTabActive = 4;
+                            }
+                            GlobalStor.global.isLoader = 0;
+                            if ($location.path() !== "/mobile") {
+                                MainServ.createNewProduct();
+                                $timeout(() => {
+                                    NavMenuServ.createAddElementsProduct();
+                                }, 100);
+                            }
+
+                        }
+                    }
+                });
+
+            }
+
+            function checkForAddElem() {
+                if(GlobalStor.global.glasses.length) {
+                    GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+                      return item.map((elem) => {
+                        elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+                        return elem;
+                      })
+                    });
+                    GlassesServ.selectGlass(GlobalStor.global.glasses[0][0].id, GlobalStor.global.glasses[0][0].sku, GlobalStor.global.glasses[0][0].glass_color, GlobalStor.global.glasses[0][0])
+                  }
+                //  ALERT
+                GlobalStor.global.isNoChangedProduct = 1;
+                if (!GlobalStor.global.isZeroPriceList.length) {
+                    if (!ProductStor.product.is_addelem_only) {
+                        if (GlobalStor.global.dangerAlert < 1) {
+                            if (ProductStor.product.beadsData.length > 0) {
+                                if (!OrderStor.order.products.length) {
+                                    $('#qty').hide().show(0);
+                                    $('#qty-mobile').hide().show(0);
+                                    saveProduct();
+                                } else if (GlobalStor.global.isNewTemplate) {
+                                    $('#qty').hide().show(0);
+                                    $('#qty-mobile').hide().show(0);
+                                    saveProduct();
+                                } else if (!GlobalStor.global.isChangedTemplate) {
+                                    //  ALERT
+                                    GlobalStor.global.isNoChangedProduct = 1;
+                                } else {
+                                    $('#qty').hide().show(0);
+                                    $('#qty-mobile').hide().show(0);
+                                    saveProduct();
+                                }
+                            } else {
+                                GeneralServ.isErrorProd(
+                                    $filter('translate')('common_words.ERROR_PROD_BEADS')
+                                );
+                            }
+                        }
+                    } else {
+                        saveProduct();
+                    }
+                } else {
+                    var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                    GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                        msg += " " + ZeroElem + "\n";
+                    });
+                    msg += " \n" + thisCtrl.ATENTION_MSG2;
+                    GeneralServ.infoAlert(
+                        thisCtrl.ATENTION,
+                        msg
+                    );
+                }
+
+            }
+
+            function openOrderDialog() {
+                CartStor.cart.showCurrentTemp = 0;
+                if (OrderStor.order.products.length) {
+                    if (OrderStor.order.is_instalment) {
+                        CartStor.cart.isCreditDialog = 1;
+                    } else {
+                        CartStor.cart.isOrderDialog = 1;
+                    }
+                }
+                setTimeout(() => {
+                    $(".user-field-phone").mask("+7(999) 999-99-99");
+                }, 200);
+            }
+
+            function helpModalMobile() {
+                const helpModalData = [
+                  {
+                    id: 1,
+                    name: 'Как работает калькулятор?',
+                    description: 'Всё очень просто! Приложение позволяет вам построить конструкцию, выбрать стеклопакет, изменить ламинацию, добавить подконник или водоотлив, далее вы оставляете нам свои данные (email и телефон) мы с вами связываемся и уточняем когда вам будет удобно принять ваш товар. Можете начать прямо сейчас! Переходите во вкладки с элементами и окновляйтесь вместе с РЕХАУ!',
+                    img: './img/rehau-img/video-help-mobile.gif',
+                  }
+                ]
+                MainServ.showInfoBox(1, helpModalData)
+                console.log('check')
+            }
 
             function isSet(tabNum) {
                 return GlobalStor.global.MobileTabActive === tabNum;
@@ -4623,6 +4829,7 @@ let portrait = false;
             }
 
             function showCoefInfoBlock() {
+                console.log('CEHECE')
                 GlobalStor.global.showCoefInfoBlock = !GlobalStor.global.showCoefInfoBlock;
             }
 
@@ -4688,6 +4895,25 @@ let portrait = false;
                 }
             }
 
+            function goToCart() {
+                if (OrderStor.order.products.length) {
+                    GlobalStor.global.showKarkas = 0;
+                    GlobalStor.global.showConfiguration = 0;
+                    GlobalStor.global.showCart = 1;
+                    GlobalStor.global.activePanel = 0;
+                    CartMenuServ.calculateOrderPrice();
+                    CartMenuServ.joinAllAddElements();
+                }
+                else {
+                    GeneralServ.infoAlert(
+                        $filter('translate')('natification.ATENTION'),
+                        $filter('translate')('common_words.SAVED_KONSTRUCTION_ATTENTION')
+                    );
+                }
+                //  ALERT
+                GlobalStor.global.isNoChangedProduct = 0;
+            }
+
 
             /**
              * for testing
@@ -4733,9 +4959,14 @@ let portrait = false;
             thisCtrl.closePanelMobile = MainServ.closePanelMobile;
 
             thisCtrl.mobileMenuClick = mobileMenuClick;
+            thisCtrl.goToCart = goToCart;
             thisCtrl.OpenMenu = OpenMenu;
             thisCtrl.OpenPanel = OpenPanel;
+            thisCtrl.helpModalMobile = helpModalMobile;
             thisCtrl.showCoefInfoBlock = showCoefInfoBlock;
+            thisCtrl.checkSavingProductMobile = checkSavingProductMobile;
+            thisCtrl.checkForAddElem = checkForAddElem;
+            thisCtrl.openOrderDialog = openOrderDialog;
             thisCtrl.setTab = setTab;
             thisCtrl.isSet = isSet;
 
@@ -5416,7 +5647,7 @@ if (window.location.hostname !== 'localhost') {
             $scope.servisesPrice = [0, 0, 0, 0, 0];
 
             thisCtrl.openIndex = -1;
-            
+
             //Logic and methods from add-elements-mobile file just to reproduce same behavior of screen
             thisCtrl.configaddElementDATA = GeneralServ.addElementDATA;
             thisCtrl.edit = 0;
@@ -5429,7 +5660,7 @@ if (window.location.hostname !== 'localhost') {
             thisCtrl.AddElementsMobile = [];
 
             let addElementsAll = angular.copy(GlobalStor.global.addElementsAll);
-            
+
             /**============ METHODS ================*/
             addElementsAll.forEach((item, index) => {
                 if (index === 0) {
@@ -5669,6 +5900,13 @@ if (window.location.hostname !== 'localhost') {
 
             /**========== FINISH ==========*/
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
+                if (element.list_type_id === 33) {
+                  element.element_width = ProductStor.product.template_width + 200;
+                  element.elementPriceDis = (element.elementPriceDis * element.element_width) / 1000;
+                } if (element.list_type_id === 32) {
+                  element.element_width = ProductStor.product.template_width + 400;
+                  element.elementPriceDis = (element.elementPriceDis * element.element_width) / 1000;
+                }
                 // AuxStor.aux.isFocusedAddElement = 0;
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
                 if (thisCtrl.ChoosenAddElemGroup || ProductStor.product.is_addelem_only) {
@@ -5677,7 +5915,9 @@ if (window.location.hostname !== 'localhost') {
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
                 //We are not displaying glass selector block becouse we do not need it, just calling the function
-                setGridToAll()
+                if (element.list_group_id === 20) {
+                    setGridToAll()
+                }
             }
 
             function closeConfirmAddElem() {
@@ -5840,7 +6080,7 @@ if (window.location.hostname !== 'localhost') {
             thisCtrl.showInfoBox = MainServ.showInfoBox;
             thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
             thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-
+            thisCtrl.closeButton = AddElementsServ.closeButton;
             thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
         });
 })();
@@ -5857,6 +6097,7 @@ if (window.location.hostname !== 'localhost') {
     .controller('GlassesCtrl',
 
       function($filter,
+        $scope,
         $location,
         $timeout,
         $anchorScroll,
@@ -5878,7 +6119,7 @@ if (window.location.hostname !== 'localhost') {
         thisCtrl.P = ProductStor;
         thisCtrl.U = UserStor;
         thisCtrl.O = OrderStor;
-
+        $scope.Math = window.Math;
         thisCtrl.config = {
           prevGlassId: 0,
           prevGlassName: '',
@@ -5926,6 +6167,7 @@ if (window.location.hostname !== 'localhost') {
         thisCtrl.MM = $filter("translate")("mainpage.MM");
         thisCtrl.OpenFolder = -1;
 
+        
 
         /**============ METHODS ================*/
         function changePriceAsNewGlass() {
@@ -5984,6 +6226,7 @@ if (window.location.hostname !== 'localhost') {
           /** Extra Glass finding */
           MainServ.checkGlassSizes(ProductStor.product.template);
 
+
           if (DesignStor.design.extraGlass.length) {
             /** there are incorrect glasses
              * expose Alert */
@@ -6022,6 +6265,17 @@ if (window.location.hostname !== 'localhost') {
               ProductStor.product.templateIcon = angular.copy(result);
             });
         }
+        angular.element(function () {
+          if(GlobalStor.global.glasses.length) {
+            GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+              return item.map((elem) => {
+                elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+                return elem;
+              })
+            });
+            GlassesServ.selectGlass(GlobalStor.global.glasses[0][0].id, GlobalStor.global.glasses[0][0].sku, GlobalStor.global.glasses[0][0].glass_color, GlobalStor.global.glasses[0][0])
+          }
+      });
 
         function OpenGlassFolder(index) {
           if (thisCtrl.OpenFolder === index) {
@@ -6049,6 +6303,8 @@ if (window.location.hostname !== 'localhost') {
             }
           }
         }
+        //We call function with param 0 couse we need to open dropdown list by default
+        OpenGlassFolder(0)
 
         /**========== FINISH ==========*/
 
@@ -6060,10 +6316,10 @@ if (window.location.hostname !== 'localhost') {
         thisCtrl.setGlassToAll = setGlassToAll;
 
         thisCtrl.closePanelMobile = MainServ.closePanelMobile;
+        thisCtrl.closeButton = GlassesServ.closeButton;
         thisCtrl.selectGlass = GlassesServ.selectGlass;
         thisCtrl.closeGlassSelectorDialog = DesignServ.closeGlassSelectorDialog;
         thisCtrl.showInfoBox = MainServ.showInfoBox;
-
 
       });
 })();
@@ -6161,8 +6417,12 @@ if (window.location.hostname !== 'localhost') {
                       MainServ,
                       GlobalStor,
                       OrderStor,
+                      DesignStor,
                       ProductStor,
-                      DesignServ, 
+                      DesignServ,
+                      AddElementMenuServ,
+                      SVGServ,
+                      GeneralServ, 
                       UserStor) {
                 /*jshint validthis:true */
                 var thisCtrl = this;
@@ -6275,12 +6535,161 @@ if (window.location.hostname !== 'localhost') {
                     }
                 }
 
+                function closeButton(id) {
+                    if (($location.path() === "/light" || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+                      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+                        DesignStor.design.templateTEMP = angular.copy(result);
+                      });
+                      ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+                      ProductStor.product.template = DesignStor.design.templateTEMP;
+                      if (DesignStor.design.activeSubMenuItem > 0) {
+                        DesignStor.design.activeSubMenuItem = 0;
+                        GlobalStor.global.goLeft = false;
+                        GlobalStor.global.showTemplates = false;
+                        GlobalStor.global.activePanel = 0;
+                        $(document).ready(function() {
+                          $(".temp-fig-rehau").removeClass("active")
+                        })
+                      }
+                     
+                    }
+              
+                    GlobalStor.global.configMenuTips++;
+                    //тут тоже может быть
+                    MainServ.laminatFiltering();
+                    if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+                      /** calc Price previous parameter and close caclulators */
+                      AddElementMenuServ.finishCalculators();
+                    }
+                    //---- hide rooms if opened
+                    GlobalStor.global.showRoomSelectorDialog = 0;
+                    GlobalStor.global.showCoefInfoBlock = 0;
+                    //---- hide tips
+                    GlobalStor.global.configMenuTips = 0;
+                    //---- hide comment if opened
+                    GlobalStor.global.isShowCommentBlock = 0;
+                    //---- hide template type menu if opened
+                    GlobalStor.global.isTemplateTypeMenu = 0;
+              
+                    GlobalStor.global.isServiceCalculator = 0;
+                    GlobalStor.global.typeMenu = 5555;
+                    GlobalStor.global.typeMenuID = 5555;
+                    GlobalStor.global.servicesPriceIndex = -1;
+              
+                    GeneralServ.stopStartProg();
+                    MainServ.setDefaultAuxParam();
+                    //------ close Glass Selector Dialogs
+                    if (GlobalStor.global.showGlassSelectorDialog) {
+                      DesignServ.closeGlassSelectorDialog(1);
+                    }
+              
+                    if (id === 1) {
+                      GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+                      GlobalStor.global.activePanel = 0;
+                      DesignStor.design.isGlassExtra = 0;
+                      $location.path("/design");
+                      GlobalStor.global.currOpenPage = 'design';
+                      //console.log(DesignStor.design.showHint);
+                      if (DesignStor.design.showHint >= 0) {
+                        GlobalStor.global.hintTimer = setTimeout(function () {
+                          DesignStor.design.showHint = 1;
+                        }, 90000);
+                      }
+                    } else {
+                      if (id === 3) {
+                        var temp = [];
+                        GlobalStor.global.glasses.forEach(function (glass) {
+                          glass.forEach(function (glass_img) {
+                            temp.push(glass_img.glass_image);
+                          });
+              
+                        });
+                        var transcalency_arr = [];
+                        var noise_coeff_arr = [];
+                        GlobalStor.global.glasses.forEach(function (glass_arr) {
+                          glass_arr.forEach(function (glass) {
+                            transcalency_arr.push(glass.transcalency);
+                            noise_coeff_arr.push(glass.noise_coeff);
+                          });
+                        });
+                        var transcalency_min = Math.min.apply(Math, transcalency_arr);
+                        var transcalency_max = Math.max.apply(Math, transcalency_arr);
+              
+                        var noise_coeff_min = Math.min.apply(Math, noise_coeff_arr);
+                        var noise_coeff_max = Math.max.apply(Math, noise_coeff_arr);
+              
+                        GlobalStor.global.glasses.forEach(function (glass_arr) {
+                          glass_arr.forEach(function (glass) {
+                            glass.transcalencyD = 1 + Math.floor(((glass.transcalency - transcalency_min) / (transcalency_max - transcalency_min)) * 4);
+                            if (glass.noise_coeff !== 0) {
+                              glass.noise_coeffD = 1 + Math.floor(((glass.noise_coeff - noise_coeff_min) / (noise_coeff_max - noise_coeff_min)) * 4);
+                            } else glass.noise_coeffD = glass.noise_coeff;
+                          });
+                        });
+                      }
+                      /** if Door */
+                      if (ProductStor.product.construction_type === 4) {
+                        //--------- show only Glasses and AddElements
+                        if (id === 3 || id === 6 || id === 5) {
+                          GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+                        } else {
+                          // GlobalStor.global.activePanel = 0;
+                          DesignStor.design.isGlassExtra = 0;
+                          if ($location.path() !== '/mobile') {
+                            if ($location.path() !== '/light') {
+                              $location.path("/design")
+                              GlobalStor.global.currOpenPage = 'design';
+                            } else {
+                              $(".config-menu").hide();
+                              $(".right-side").width("100%");
+                              $(".main-content").width("100%");
+                            }
+                          }
+                          GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+                          DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
+                            if ($location.path() !== '/mobile') {
+                              DesignStor.design.steps.isDoorConfig = 1;
+                            } else {
+                              DesignStor.design.isDoorConfigMobile = 1;
+                              DesignStor.design.showMobileStep = 0;
+                            }
+                          })
+                        }
+                      } if (id === 8) {
+                        let someArray = []
+                        GlobalStor.global.templatesImgs.forEach(template => {
+                          someArray.push(template.src)
+                        })
+                      } else {
+                        // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+                        if (GlobalStor.global.activePanel === id) {
+                          GlobalStor.global.activePanel = 0;
+                          GlobalStor.global.isServiceCalculator = 0;
+                          if (($location.path() === '/light' || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+                            setTimeout(function () {
+                              DesignServ.rebuildSVGTemplate();
+                            }, 1000);
+                          }
+                        } else {
+                          GlobalStor.global.activePanel = id;
+                        }
+                      }
+                    }
+                    if (GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {
+                      GlobalStor.global.setTimeout = 1;
+                      $timeout(function () {
+                        InfoBoxServ.autoShow(id);
+                      }, 4000);
+                    }
+                  }
+
                 /**========== FINISH ==========*/
 
                 //------ clicking
                 thisCtrl.openLaminatFolder = openLaminatFolder;
                 thisCtrl.selectLaminat = selectLaminat;
                 thisCtrl.initLaminatFilter = initLaminatFilter;
+                thisCtrl.closeButton = closeButton;
                 thisCtrl.showInfoBox = MainServ.showInfoBox;
 
             });
@@ -6364,6 +6773,92 @@ if (window.location.hostname !== 'localhost') {
                     }
                 }
 
+                function saveProduct() {
+                    GlobalStor.global.showCoefInfoBlock = 0;
+                    GlobalStor.global.servicesPriceIndex = -1;
+                    GlobalStor.global.continued = 0;
+                    ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
+                    MainServ.preparePrice(
+                        ProductStor.product.template,
+                        ProductStor.product.profile.id,
+                        ProductStor.product.glass,
+                        ProductStor.product.hardware.id,
+                        ProductStor.product.lamination.lamination_in_id
+                    ).then(function () {
+                        if (globalConstants.serverIP === 'http://api.calc.csokna.ru' || globalConstants.serverIP === 'https://api.windowscalculator.net') {
+                            ProductStor.product.template_source.report = ProductStor.product.report;
+                        }
+                        if (MainServ.inputProductInOrder()) {
+                            GlobalStor.global.construction_count = 0;
+                            OrderStor.order.products.forEach(function (product) {
+                                GlobalStor.global.construction_count += parseInt(product.product_qty);
+                            });
+                            GlobalStor.global.product_qty = 1;
+                            if (ProductStor.product.is_addelem_only) {
+                                if ($location.path() === "/mobile") {
+                                    GlobalStor.global.MobileTabActive = 4;
+                                }
+                                GlobalStor.global.isLoader = 0;
+                                if ($location.path() !== "/mobile") {
+                                    MainServ.createNewProduct();
+                                    $timeout(() => {
+                                        NavMenuServ.createAddElementsProduct();
+                                    }, 100);
+                                }
+
+                            }
+                        }
+                    });
+
+                }
+
+
+                function checkForAddElemScreen() {
+                    // console.log("ProductStor.product", ProductStor.product);
+                    if (!GlobalStor.global.isZeroPriceList.length) {
+                        if (!ProductStor.product.is_addelem_only) {
+                            // alert();
+                            if (GlobalStor.global.dangerAlert < 1) {
+                                if (ProductStor.product.beadsData.length > 0) {
+                                    if (!OrderStor.order.products.length) {
+                                        $('#qty').hide().show(0);
+                                        $('#qty-mobile').hide().show(0);
+                                        saveProduct();
+                                    } else if (GlobalStor.global.isNewTemplate) {
+                                        $('#qty').hide().show(0);
+                                        $('#qty-mobile').hide().show(0);
+                                        saveProduct();
+                                    } else if (!GlobalStor.global.isChangedTemplate) {
+                                        //  ALERT
+                                        GlobalStor.global.isNoChangedProduct = 1;
+                                    } else {
+                                        $('#qty').hide().show(0);
+                                        $('#qty-mobile').hide().show(0);
+                                        saveProduct();
+                                    }
+                                } else {
+                                    GeneralServ.isErrorProd(
+                                        $filter('translate')('common_words.ERROR_PROD_BEADS')
+                                    );
+                                }
+                            }
+                        } else {
+                            saveProduct();
+                        }
+                    } else {
+                        var msg = thisCtrl.ATENTION_MSG1;//+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                        GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                            msg += " " + ZeroElem + "\n";
+                        });
+                        msg += " \n" + thisCtrl.ATENTION_MSG2;
+                        GeneralServ.infoAlert(
+                            thisCtrl.ATENTION,
+                            msg
+                        );
+                    }
+
+                }
+
                 /**========== FINISH ==========*/
                 //------ clicking
                 thisCtrl.extendUrl = MainServ.extendUrl;
@@ -6371,8 +6866,10 @@ if (window.location.hostname !== 'localhost') {
                 thisCtrl.ClickOnFolder = ClickOnFolder;
                 thisCtrl.alert = alert;
                 thisCtrl.checkForAddElem = ProfileServ.checkForAddElem;
+                thisCtrl.checkForAddElemScreen = checkForAddElemScreen;
                 thisCtrl.profileForAlert = ProfileServ.profileForAlert;
                 thisCtrl.selectProfile = ProfileServ.selectProfile;
+                thisCtrl.closeButton = ProfileServ.closeButton;
                 thisCtrl.showInfoBox = MainServ.showInfoBox;
 
             });
@@ -6449,9 +6946,9 @@ if (window.location.hostname !== 'localhost') {
                         console.log(results);
                     }
                 });
-                
-                
-                
+
+
+
 
                 /**============ METHODS ================*/
 
@@ -6498,7 +6995,84 @@ if (window.location.hostname !== 'localhost') {
                         selected_id = id - 14;
                     }
                     TemplatesServ.selectNewTemplate(selected_id, id);
+                }
 
+                function saveProduct() {
+                    GlobalStor.global.showCoefInfoBlock = 0;
+                    GlobalStor.global.servicesPriceIndex = -1;
+                    GlobalStor.global.continued = 0;
+                    ProductStor.product.product_qty = angular.copy(GlobalStor.global.product_qty);
+                    MainServ.preparePrice(
+                        ProductStor.product.template,
+                        ProductStor.product.profile.id,
+                        ProductStor.product.glass,
+                        ProductStor.product.hardware.id,
+                        ProductStor.product.lamination.lamination_in_id
+                    ).then(function () {
+                        if (globalConstants.serverIP === 'http://api.calc.csokna.ru' || globalConstants.serverIP === 'https://api.windowscalculator.net') {
+                            ProductStor.product.template_source.report = ProductStor.product.report;
+                        }
+                        if (MainServ.inputProductInOrder()) {
+                            GlobalStor.global.construction_count = 0;
+                            OrderStor.order.products.forEach(function (product) {
+                                GlobalStor.global.construction_count += parseInt(product.product_qty);
+                            });
+                            GlobalStor.global.product_qty = 1;
+                            if (ProductStor.product.is_addelem_only) {
+                                if ($location.path() === "/mobile") {
+                                    GlobalStor.global.MobileTabActive = 4;
+                                }
+                                GlobalStor.global.isLoader = 0;
+                                if ($location.path() !== "/mobile") {
+                                    MainServ.createNewProduct();
+                                    $timeout(() => {
+                                        NavMenuServ.createAddElementsProduct();
+                                    }, 100);
+                                }
+
+                            }
+                        }
+                    });
+
+                }
+
+
+                function checkForAddElem() {
+                  if (!GlobalStor.global.isChangedTemplate) {
+                    GlobalStor.global.isChangedTemplate = DesignStor.design.designSteps.length ? 1 : 0;
+                  }
+                  if (!GlobalStor.global.isZeroPriceList.length) {
+                    if (!ProductStor.product.is_addelem_only) {
+                      // alert();
+                      if (GlobalStor.global.dangerAlert < 1) {
+                        if (ProductStor.product.beadsData.length > 0) {
+                          if (OrderStor.order.products.length === 0) {
+                            saveProduct();
+                          } else if (GlobalStor.global.isNewTemplate === 1) {
+                            saveProduct();
+                          } else if (GlobalStor.global.isChangedTemplate === 0) {
+                            //  ALERT
+                            GlobalStor.global.isNoChangedProduct = 1;
+                          } else {
+                            saveProduct();
+                          }
+                        } else {
+                          GeneralServ.isErrorProd(
+                            $filter("translate")("common_words.ERROR_PROD_BEADS")
+                          );
+                        }
+                      }
+                    } else {
+                      saveAddElems();
+                    }
+                  } else {
+                    var msg = thisCtrl.ATENTION_MSG1; //+" "+GlobalStor.global.isZeroPriceList+" "+thisCtrl.ATENTION_MSG2;
+                    GlobalStor.global.isZeroPriceList.forEach(function (ZeroElem) {
+                      msg += " " + ZeroElem + "\n";
+                    });
+                    msg += " \n" + thisCtrl.ATENTION_MSG2;
+                    GeneralServ.infoAlert(thisCtrl.ATENTION, msg);
+                  }
                 }
 
                 function setTab(newTab) {
@@ -6527,10 +7101,13 @@ if (window.location.hostname !== 'localhost') {
                 //------ clicking
                 thisCtrl.setTab = setTab;
                 thisCtrl.isSet = isSet;
+                thisCtrl.checkForAddElem = checkForAddElem;
+                thisCtrl.saveProduct = saveProduct;
                 thisCtrl.downloadTemplateForMobile = downloadTemplateForMobile;
                 thisCtrl.closeTemplatePanelMobile = closeTemplatePanelMobile;
                 thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
                 thisCtrl.toggleTemplateType = toggleTemplateType;
+                thisCtrl.closeButton = TemplatesServ.closeButton;
                 thisCtrl.selectNewTemplateType = selectNewTemplateType;
 
             });
@@ -6788,7 +7365,10 @@ if (window.location.hostname !== 'localhost') {
             GlobalStor,
             UserStor,
             AuxStor,
-            ProductStor) {
+            ProductStor,
+            OrderStor,
+            SVGServ, 
+            DesignStor) {
             /*jshint validthis:true */
             var thisCtrl = this;
             thisCtrl.constants = globalConstants;
@@ -6920,7 +7500,200 @@ if (window.location.hostname !== 'localhost') {
             }, 100);
 
             /**========== FINISH ==========*/
+            //we are adding all these functions from add_elements.js just to have "set all grids" functionality
+            function closeGridSelectorDialog() {
+                DesignServ.removeGlassEventsInSVG();
+                DesignStor.design.selectedGlass.length = 0;
+                AuxStor.aux.selectedGrid = 0;
+                AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
+            }
+
+            function changeSVGTemplateAsNewGrid() {
+                SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+                    .then(function (result) {
+                        ProductStor.product.template = angular.copy(result);
+                        //------ save analytics data
+                        //TODO ?? AnalyticsServ.saveAnalyticDB(
+                        // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+                    });
+            }
+
+            function setAddElementsTotalPrice(currProduct) {
+                var elemTypeQty = currProduct.chosenAddElements.length,
+                    elemQty;
+                currProduct.addelem_price = 0;
+                currProduct.addelemPriceDis = 0;
+                while (--elemTypeQty > -1) {
+                    elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+                    if (elemQty > 0) {
+                        while (--elemQty > -1) {
+                            currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
+
+                        }
+                    }
+                }
+                currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
+                currProduct.addelemPriceDis = GeneralServ.setPriceDis(
+                    currProduct.addelem_price, OrderStor.order.discount_addelem
+                );
+                $timeout(function () {
+                    if (GlobalStor.global.currOpenPage !== 'history') {
+                        MainServ.setProductPriceTOTAL(currProduct);
+                    }
+                }, 50);
+            }
+
+            function pushSelectedAddElement(currProduct, currElement) {
+                var index = (AuxStor.aux.isFocusedAddElement - 1),
+                    existedElement;
+                if (index !== 0) {
+                    existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+                }
+                if (!existedElement || index == 0) {
+                    var newElementSource = {
+                            element_type: index,
+                            element_width: 0,
+                            element_height: 0,
+                            block_id: 0
+                        },
+                        newElement = angular.extend(newElementSource, currElement);
+                    currProduct.chosenAddElements[index].push(newElement);
+                    //---- open TABFrame when second element selected
+                    if (currProduct.chosenAddElements[index].length === 2) {
+                        AuxStor.aux.isTabFrame = 1;
+                    }
+                }
+            }
+
+            function insertGrids(grids) {
+                loginServ.getGridPrice(grids).then(function (data) {
+                    var dataQty = data.length;
+                    AuxStor.aux.currAddElementPrice = 0;
+                    if (dataQty) {
+                        while (--dataQty > -1) {
+                            pushSelectedAddElement(ProductStor.product, data[dataQty]);
+                            AuxStor.aux.currAddElementPrice += data[dataQty].elementPriceDis;
+                        }
+                        AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(AuxStor.aux.currAddElementPrice);
+                        //------ show element price
+                        AuxStor.aux.isAddElement = AuxStor.aux.selectedGrid[0] + '-' + AuxStor.aux.selectedGrid[1];
+                        //------ Set Total Product Price
+                        setAddElementsTotalPrice(ProductStor.product);
+                        //------ change SVG
+                        changeSVGTemplateAsNewGrid();
+                        //------ close Grid Dialog
+                        closeGridSelectorDialog();
+                    }
+                });
+            }
+
+            function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
+                var sizeGridX = _.map(ProductStor.product.template.details[blockIndex].pointsLight, function (item) {
+                        return item.x;
+                    }),
+                    sizeGridY = _.map(ProductStor.product.template.details[blockIndex].pointsLight, function (item) {
+                        return item.y;
+                    }),
+                    gridTemp;
+                //------- insert grid in block
+                ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+                ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+
+                ProductStor.product.template.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+                ProductStor.product.template.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+                //-------- add sizes in grid object
+                gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
+                gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+                gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
+                gridTemp.block_id = blockId;
+                return gridTemp;
+            }
+
+            function collectGridsAsBlock(blockId, gridIndex) {
+                var blocksQty = ProductStor.product.template_source.details.length,
+                    gridElements = [];
+                while (--blocksQty > 0) {
+                    if (blockId) {
+                        /** set grid to template block by its Id */
+                        if (ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            /** check block to old grid
+                             * delete in product.choosenAddElements if exist
+                             * */
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
+                            break;
+                        }
+                    } else {
+                        /** set grid to all template blocks */
+                        if (ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(
+                                ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+                            ));
+                        }
+                    }
+                }
+                return gridElements;
+            }
+
+            function deleteOldGridInList(blockIndex) {
+                var chosenGridsQty;
+                if (ProductStor.product.template_source.details[blockIndex].gridId) {
+                    chosenGridsQty = ProductStor.product.chosenAddElements[0].length;
+                    while (--chosenGridsQty > -1) {
+                        if (ProductStor.product.chosenAddElements[0][chosenGridsQty].block_id === ProductStor.product.template_source.details[blockIndex].id) {
+                            if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty === 1) {
+                                ProductStor.product.chosenAddElements[0].splice(chosenGridsQty, 1);
+                            } else if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty > 1) {
+                                ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty -= 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            function collectGridsAsBlock(blockId, gridIndex) {
+                var blocksQty = ProductStor.product.template_source.details.length,
+                    gridElements = [];
+                while (--blocksQty > 0) {
+                    if (blockId) {
+                        /** set grid to template block by its Id */
+                        if (ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            /** check block to old grid
+                             * delete in product.choosenAddElements if exist
+                             * */
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
+                            break;
+                        }
+                    } else {
+                        /** set grid to all template blocks */
+                        if (ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+                            deleteOldGridInList(blocksQty);
+                            gridElements.push(setCurrGridToBlock(
+                                ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+                            ));
+                        }
+                    }
+                }
+                return gridElements;
+            }
+
+            function setGridToAll() {
+                var grids = collectGridsAsBlock(0, AuxStor.aux.selectedGrid);
+                insertGrids(grids);
+                GlobalStor.global.OpenSubFolder = -1;
+                GlobalStor.global.OpenItemFolder = -1;
+            }
+
             function confirmAddElemDialog(typeId, elementId, clickEvent, addElementsList, element) {
+                if (element.list_type_id === 33) {
+                    element.element_width = ProductStor.product.template_width + 200;
+                    element.elementPriceDis = (element.elementPriceDis * element.element_width) / 1000;
+                  } if (element.list_type_id === 32) {
+                    element.element_width = ProductStor.product.template_width + 400;
+                    element.elementPriceDis = (element.elementPriceDis * element.element_width) / 1000;
+                  }
                 // AuxStor.aux.isFocusedAddElement = 0;
                 AddElementsServ.selectAddElem(typeId, elementId, clickEvent, addElementsList, element);
                 if (thisCtrl.ChoosenAddElemGroup || ProductStor.product.is_addelem_only) {
@@ -6928,6 +7701,23 @@ if (window.location.hostname !== 'localhost') {
                 }
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
+                if (UserStor.userInfo.factory_id === 2) {
+                    if (element.list_group_id === 20) {
+                        setGridToAll()
+                    }
+                    //This logic allows us close drop downlist after click on item
+                    if (element.list_group_id === 9) {
+                        OpenFolder(1, clickEvent)
+                    } else if (element.list_group_id === 20) {
+                        //Calling this function 1 time is not enough, we need 2 times
+                        OpenFolder(0, clickEvent)
+                        OpenFolder(0, clickEvent)
+                    } else if (element.list_group_id === 8) {
+                        OpenFolder(2, clickEvent)
+                    } 
+
+                   
+                }
             }
 
             function closeConfirmAddElem() {
@@ -6947,12 +7737,12 @@ if (window.location.hostname !== 'localhost') {
                 function deleteaddelem() {
                     AddElementMenuServ.deleteAddElement(typeId, elementId)
                 }
-
-                GeneralServ.confirmAlert(
-                    $filter('translate')('common_words.DELETE_ELEM_TITLE'),
-                    $filter('translate')('common_words.DELETE_ELEM_TXT'),
-                    deleteaddelem
-                );
+                deleteaddelem()
+                // GeneralServ.confirmAlert(
+                //     $filter('translate')('common_words.DELETE_ELEM_TITLE'),
+                //     $filter('translate')('common_words.DELETE_ELEM_TXT'),
+                //     deleteaddelem
+                // );
             }
 
             function editEddElem(AddElemGroup, index) {
@@ -6981,6 +7771,7 @@ if (window.location.hostname !== 'localhost') {
             thisCtrl.showItems = showItems;
             thisCtrl.OpenFolder = OpenFolder;
             thisCtrl.confirmAddElemDialog = confirmAddElemDialog;
+            thisCtrl.setGridToAll = setGridToAll;
             thisCtrl.confirmAddElemDelete = confirmAddElemDelete;
             thisCtrl.closeConfirmAddElem = closeConfirmAddElem;
             thisCtrl.editEddElem = editEddElem;
@@ -7047,7 +7838,7 @@ if (window.location.hostname !== 'localhost') {
     .module('MainModule')
     .controller('AlertCtrl',
 
-  function($filter, GlobalStor, UserStor) {
+  function($filter, GlobalStor, UserStor, OrderStor, CartMenuServ, GlassesServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -7066,7 +7857,18 @@ if (window.location.hostname !== 'localhost') {
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isSyncAlert = 0;
       GlobalStor.global.isSavingAlert = 0;
+      console.log('page loading completed');
+      if(GlobalStor.global.glasses.length) {
+        GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+          return item.map((elem) => {
+            elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+            return elem;
+          })
+        });
+        GlassesServ.selectGlass(GlobalStor.global.glasses[0][0].id, GlobalStor.global.glasses[0][0].sku, GlobalStor.global.glasses[0][0].glass_color, GlobalStor.global.glasses[0][0])
+      }
       GlobalStor.global.confirmAction();
+      
     }
     function clickNo() {
       GlobalStor.global.isAlert = 0;
@@ -7097,8 +7899,28 @@ if (window.location.hostname !== 'localhost') {
       GlobalStor.global.confirmAction();
       $("#updateDBcheck").prop("checked", false);
     }
+
+    function goToCart() {
+      if (OrderStor.order.products.length) {
+          GlobalStor.global.showKarkas = 0;
+          GlobalStor.global.showConfiguration = 0;
+          GlobalStor.global.showCart = 1;
+          GlobalStor.global.activePanel = 0;
+          CartMenuServ.calculateOrderPrice();
+          CartMenuServ.joinAllAddElements();
+      }
+      else {
+          GeneralServ.infoAlert(
+              $filter('translate')('natification.ATENTION'),
+              $filter('translate')('common_words.SAVED_KONSTRUCTION_ATTENTION')
+          );
+      }
+      //  ALERT
+      GlobalStor.global.isNoChangedProduct = 0;
+    }
     /**========== FINISH ==========*/
     thisCtrl.isAlert = isAlert;
+    thisCtrl.goToCart = goToCart;
     thisCtrl.clickYes = clickYes;
     thisCtrl.clickNo = clickNo;
     thisCtrl.clickCopy = clickCopy;
@@ -7118,7 +7940,7 @@ if (window.location.hostname !== 'localhost') {
     .module('MainModule')
     .controller('AttantCtrl',
 
-  function($filter, DesignStor, HistoryStor, UserStor) {
+  function($filter, DesignStor, HistoryStor, UserStor, GlobalStor, SVGServ, ProductStor, globalConstants, DesignServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.D = DesignStor;
@@ -7138,14 +7960,70 @@ if (window.location.hostname !== 'localhost') {
       DesignStor.design.isHardwareExtra = 0;
       HistoryStor.history.isNoPrint = 0;
       DesignStor.design.isNoDoors = 0;
+      DesignStor.design.isDimSmall = 0;
     }
 
+    function cleanTempSize() {
+      DesignStor.design.tempSize.length = 0;
+      DesignStor.design.isMinSizeRestriction = 0;
+      DesignStor.design.isMaxSizeRestriction = 0;
+      DesignStor.design.isDimExtra = 0;
+      DesignStor.design.isSquareExtra = 0;
+    }
+
+    function stepBackMobile() {
+      GlobalStor.global.checkDoors = 0;
+      var lastIndex = DesignStor.design.designSteps.length - 1;
+      DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
+      DesignServ.rebuildSVGTemplate();
+      DesignStor.design.designSteps.pop();
+      cleanTempSize();
+      DesignServ.hideSizeTools();
+    }
+
+    function rebuildSVGTemplate() {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+        .then(function (result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
+            if (entry.impost) {
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+            }
+          });
+
+        });
+    }
+    function deselectAllDimension() {
+      d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect').classed('active', false);
+      d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit').classed('active', false);
+      d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect-rehau').classed('active', false);
+      d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit-rehau').classed('active', false);
+    }
+
+    function hideSizeTools() {
+      deselectAllDimension();
+      GlobalStor.global.isSizeCalculator = 0;
+      DesignStor.design.openVoiceHelper = 0;
+    }
+
+
+    function stepBack() {
+      GlobalStor.global.checkDoors = 0;
+      var lastIndex = DesignStor.design.designSteps.length - 1;
+      DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
+      rebuildSVGTemplate();
+      DesignStor.design.designSteps.pop();
+      cleanTempSize();
+      hideSizeTools();
+    }
 
 
     /**========== FINISH ==========*/
       //------ clicking
     thisCtrl.closeAttantion = closeAttantion;
-
+    thisCtrl.stepBackMobile = stepBackMobile;
+    thisCtrl.stepBack = stepBack;
   });
 })();
 
@@ -7768,9 +8646,9 @@ if (window.location.hostname !== 'localhost') {
                 if ($location.path() === "/mobile") {
                     showReport();
                 }
-
+                var glassPrices = []
                 function culcReportPriceTotal(group) {
-                    var currReportList;
+                    var currReportList = [];
                     if (group) {
                         currReportList = ProductStor.product.report.filter(function (item) {
                             return item.element_group_id === group;
@@ -7778,13 +8656,53 @@ if (window.location.hostname !== 'localhost') {
                     } else {
                         currReportList = angular.copy(ProductStor.product.report);
                     }
+
                     if (currReportList.length) {
-                        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
-                            return {priceReal: sum.priceReal + item.priceReal};
-                        }).priceReal, 2);
+                        localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                        }).then(function(result) {
+                            glassPrices = result[0]
+                        })
+                        currReportList.map((element) => {
+                            if (element.element_group_id === 8) {
+                                if (element.element_id === glassPrices.element_id) {
+                                    if (glassPrices.col_1_range > 0) {
+                                        if (element.size < glassPrices.col_1_range) {
+                                            element.price = glassPrices.col_1_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        } 
+                                    } if (glassPrices.col_2_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                            element.price = glassPrices.col_2_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_3_range_1 > 0) {
+                                        if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                            element.price = glassPrices.col_3_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    } if (glassPrices.col_4_range_1 > 0) {
+                                        if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                            element.price = glassPrices.col_4_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    }
+                                    if (glassPrices.col_5_range > 0) {
+                                        if (element.size > glassPrices.col_5_range) {
+                                            element.price = glassPrices.col_5_price
+                                            element.priceReal = (element.price * element.size) * GlobalStor.global.margins.coeff
+                                        }
+                                    }
+                                } else {
+                                    console.log("No match ")
+                                }
+                            } 
+                        })
                         thisCtrl.config.reportPriceBase = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
                             return {price: sum.price + item.price};
                         }).price, 2);
+                        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+                            return {priceReal: sum.priceReal + item.priceReal};
+                        }).priceReal, 2);
                     } else {
                         thisCtrl.config.reportPriceTotal = 0;
                         thisCtrl.config.reportPriceBase = 0;
@@ -7925,7 +8843,7 @@ if (window.location.hostname !== 'localhost') {
           GlobalStor.global.infoTitle = {
             name: 'Оценка энергоэффективности'
           }
-          GlobalStor.global.infoImg = "../img/rehau-img/thermo.png"
+          GlobalStor.global.infoImg = "./img/rehau-img/thermo.png"
           GlobalStor.global.infoDescrip = `Текущая оценка энергоэффективности соответствует коэфициенту сопротивления теплопередаче ${ProductStor.product.heat_coef_total} 
           При остеклении жилых помещений данный коэфициент должен быть более ${UserStor.userInfo.heat_transfer} Вы можете улучшить этот показатель редактируя следующие элементы
           • ПРОФИЛЬ
@@ -8308,7 +9226,8 @@ if (window.location.hostname !== 'localhost') {
                                                     DesignServ,
                                                     LightServ,
                                                     MainServ,
-                                                    EditAddElementCartServ) {
+                                                    EditAddElementCartServ,
+                                                    SVGServ) {
             /*jshint validthis:true */
             var thisCtrl = this;
             thisCtrl.isDesignPage = false;
@@ -8356,10 +9275,142 @@ if (window.location.hostname !== 'localhost') {
                 }
             }
 
-            // GlobalStor.global.activePanel = 0;
+            function recalculate() {
+                if (GlobalStor.global.checkDoors === 0) {
+                    var isSashesInTemplate;
+                    GlobalStor.global.isLoader = 1;
+                    DesignServ.closeSizeCaclulator(1).then(function () {
+                        /** check sizes of all glass */
+                        MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
+                        if (DesignStor.design.extraGlass.length) {
+                            /** expose Alert */
+                            GlobalStor.global.isLoader = 0;
+                            DesignStor.design.isGlassExtra = 1;
+                        } else {
+                            /** if sash was added/removed in template */
+                            isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
+                            if (isSashesInTemplate) {
+                                /** set first hardware if sash were not existed before */
+                                if ((!GlobalStor.global.isSashesInTemplate || !ProductStor.product.hardware.id) && ProductStor.product.construction_type !== 4) {
+                                    GlobalStor.global.isSashesInTemplate = 1;
+                                    ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+                                }
+                                /** check sizes of all hardware in sashes */
+                                MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
+
+                            } else {
+                                /** sashes were removed */
+                                ProductStor.product.hardware = {};
+                                ProductStor.product.hardware.id = 0;
+                                GlobalStor.global.isSashesInTemplate = 0;
+                                //------ clean Extra Hardware
+                                DesignStor.design.extraHardware.length = 0;
+                            }
+
+                            if (DesignStor.design.extraHardware.length) {
+                                /** expose Alert */
+                                GlobalStor.global.isLoader = 0;
+                                DesignStor.design.isHardwareExtra = 1;
+                            } else {
+                                /** save new template in product ***** */
+                                ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+                                ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+                                /** rebuild glasses */
+                                MainServ.setGlassfilter();
+                                if (ProductStor.product.construction_type !== 4) {
+                                    // MainServ.setCurrentGlass(ProductStor.product, 1);
+                                    MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
+                                        next();
+                                    });
+                                } else {
+                                    next();
+                                }
+
+                                //noinspection JSAnnotator
+                                function next() {
+                                    /** create template icon */
+                                    SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                                        .then(function (result) {
+                                            ProductStor.product.templateIcon = angular.copy(result);
+                                        });
+                                    /** save new template in templates Array */
+                                    GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
+                                        ProductStor.product.template_source
+                                    );
+                                    /** check grids */
+                                        // console.log(ProductStor.product);
+                                    var isChanged = DesignServ.updateGrids();
+                                    if (isChanged) {
+                                        //------ get new grids price
+                                        var sumMosq = 0;
+                                        var sumMosqDis = 0;
+                                        ProductStor.product.chosenAddElements[0].forEach(function (entry) {
+                                            sumMosq += entry.element_price;
+                                            sumMosqDis += entry.elementPriceDis;
+                                        });
+
+                                        ProductStor.product.addelem_price -= sumMosq;
+                                        ProductStor.product.addelemPriceDis -= sumMosqDis;
+
+                                        loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]).then(function () {
+                                            sumMosq = 0;
+                                            sumMosqDis = 0;
+                                            ProductStor.product.chosenAddElements[0].forEach(function (entry) {
+                                                sumMosq += entry.element_price;
+                                                sumMosqDis += entry.elementPriceDis;
+                                            });
+                                            ProductStor.product.addelem_price += sumMosq;
+                                            ProductStor.product.addelemPriceDis += sumMosqDis;
+                                        });
+
+
+                                    }
+                                    SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+                                        ProductStor.product.template = angular.copy(result);
+                                        /** refresh price of new template */
+                                        MainServ.preparePrice(
+                                            ProductStor.product.template,
+                                            ProductStor.product.profile.id,
+                                            ProductStor.product.glass,
+                                            ProductStor.product.hardware.id,
+                                            ProductStor.product.lamination.lamination_in_id
+                                        ).then(function () {
+                                            //-------- template was changed
+                                            SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+                                                ProductStor.product.template = angular.copy(result);
+                                                DesignStor.design.templateTEMP = angular.copy(result);
+                                            });
+                                        });
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+                setTimeout(() => {
+                    MainServ.setProductPriceTOTAL(ProductStor.product)
+                }, 1);
+            }
+
+            function deactivMenu() {
+                DesignStor.design.activeMenuItem = 0;
+                DesignStor.design.activeSubMenuItem = 0;
+                DesignStor.design.isDropSubMenu = 0;
+                setTimeout(() => {
+                    recalculate();
+                }, 500)
+            }
+
+            function positionAxisAuto() {
+                GlobalStor.global.isChangedTemplate = 1;
+                deactivMenu();
+                DesignServ.positionAxises();
+            }
 
             thisCtrl.displayData = MainServ.displayData;
             thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+            thisCtrl.positionAxisAuto = positionAxisAuto;
         });
 })();
 
@@ -9190,7 +10241,7 @@ if (window.location.hostname !== 'localhost') {
                         if (typeof price === 'string') {
                             priceByDigit = price.split('');
                         } else {
-                            if (price >  99999) {
+                            if (price > 1) {
                                 priceByDigit = price.toFixed(0).split('');
                             } else {
                                 priceByDigit = price.toFixed(2).split('');
@@ -9253,6 +10304,7 @@ if (window.location.hostname !== 'localhost') {
                         '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                         '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                         '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
+                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit"></div></div>' +
                         '</div>' +
                         '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
                         '</div>',
@@ -9387,7 +10439,7 @@ if (window.location.hostname !== 'localhost') {
 
                         function zooming() {
                             d3.select('#main_group')
-                                .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                                .attr("transform", "translate(" +1 + ")scale(" + 1.5 + ")");
                         }
 
                         function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
@@ -10455,12 +11507,12 @@ if (window.location.hostname !== 'localhost') {
                                             'x': function () {
                                                 if ($location.path() === "/mobile") {
                                                     if (dim.dimId === "fp7") {
-                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                     }
                                                     // if (dim.dimId === "fp11" ) {
                                                     //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                     // }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 70) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 60) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                 }
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
@@ -10549,7 +11601,7 @@ if (window.location.hostname !== 'localhost') {
                                             },
                                             'x': function () {
                                                 if ($location.path() === "/mobile") {
-                                                    let move_left = 40;
+                                                    let move_left = 60;
                                                     if (dim.dimId === "fp7") {
                                                         return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
                                                     }
@@ -10558,13 +11610,25 @@ if (window.location.hostname !== 'localhost') {
                                                 if (dim.dimId === "fp7") {
                                                     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
                                                 }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 + 25) : (dim.from + dim.to - sizeBoxWidth + 45) / 2;
                                             },
                                             'y': function () {
                                                 return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
                                             },
-                                            'dx': 80,
-                                            'dy': 40,
+                                            'dx': function () {
+                                                if ($location.path() === "/mobile") {
+                                                   return 110
+                                                } else {
+                                                    return 80
+                                                }
+                                            },
+                                            'dy': function () {
+                                                if ($location.path() === "/mobile") {
+                                                    return 25
+                                                 } else {
+                                                     return 40
+                                                 }
+                                            },
                                             'type': 'line',
                                             'block_id': dim.blockId,
                                             'size_val': dim.text,
@@ -11264,12 +12328,11 @@ if (window.location.hostname !== 'localhost') {
                                 } else if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                                     padding = 0.6;
                                 }
-
                                 mainSVG = d3.select(container).append('svg').attr({
                                     'width': widthSVG,
                                     'height': heightSVG
                                 });
-                                
+
                                 if (scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                                     mainSVG.attr('class', scope.typeConstruction);
                                 } else {
@@ -11299,11 +12362,22 @@ if (window.location.hostname !== 'localhost') {
                                     }
 
                                 }
-
-                                mainGroup = mainSVG.append("g").attr({
-                                    'id': 'main_group',
-                                    'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ',' + scale + ')'
-                                });
+                                if((self.innerWidth < 470 ) && (ProductStor.product.template_id < 10)) {
+                                    mainGroup = mainSVG.append("g").attr({
+                                        'id': 'main_group',
+                                        'transform': 'translate(' + (position.x + 30) + ', ' + position.y + ') scale(' + (scale - 0.03) + ',' + scale + ')'
+                                    });
+                                } else if ((self.innerWidth < 470 ) && (ProductStor.product.template_id > 9 && ProductStor.product.template_id < 16)) {
+                                    mainGroup = mainSVG.append("g").attr({
+                                        'id': 'main_group',
+                                        'transform': 'translate(' + (position.x - 40) + ', ' + position.y + ') scale(' + (scale + 0.027) + ',' + (scale + 0.027) + ')'
+                                    });
+                                } else {
+                                    mainGroup = mainSVG.append("g").attr({
+                                        'id': 'main_group',
+                                        'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ',' + scale + ')'
+                                    });
+                                }
 
                                 if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                                     //disable scrolling and displacement
@@ -11542,7 +12616,7 @@ if (window.location.hostname !== 'localhost') {
                                         //   .attr('width', 150)
                                         //   .attr('height', 100);
                                     }
-
+                                    
                                     if (GlobalStor.global.imgLink) {
                                         defs.append('pattern')
                                             .attr('id', 'background')
@@ -11618,7 +12692,7 @@ if (window.location.hostname !== 'localhost') {
 
 
                                 /** soffits */
-
+                                
                                 if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                                     var scl = scale * 4.4;
                                     if (ProductStor.product.construction_type === 1) {
@@ -11691,7 +12765,7 @@ if (window.location.hostname !== 'localhost') {
                                 dimGroup = mainGroup.append("g").attr({
                                     'id': 'dim_group'
                                 });
-
+                                
                                 blocksQty = template.details.length;
                                 for (i = 1; i < blocksQty; i += 1) {
                                     let indexFrame = 0;
@@ -12199,7 +13273,7 @@ if (window.location.hostname !== 'localhost') {
                                                     });
                                             }
                                         }
-
+                                        
                                         /** type Glass names */
                                         if (scope.typeConstruction === globalConstants.SVG_ID_GLASS) {
                                             if (!template.details[i].children.length) {
@@ -13068,7 +14142,11 @@ function ErrorResult(code, message) {
                 //--------- when we select new addElement, function checks
                 // is there this addElements in order to increase only elementQty
                 function checkExistedSelectAddElement(elementsArr, currElement) {
-                    var elementsQty = elementsArr.length, isExist = 0;
+                    if (elementsArr === undefined) {
+                        alert("Что-то пошло не так, пожалуйста перезагрузите страницу. Скоро мы это исправим.")
+                    } else {
+                        var elementsQty = elementsArr.length, isExist = 0;
+                    }
                     while (--elementsQty > -1) {
                         if (elementsArr[elementsQty].id === currElement.id) {
                             /** if element has width and height */
@@ -13148,7 +14226,7 @@ function ErrorResult(code, message) {
                 }
 
 
-                /** set Selected Grids */
+                /** set EXPERIENCE Grids */
                 function confirmGrid() {
                     var gridsT = [], grids = [];
                     if (GlobalStor.global.sashTypeBlock.length > 0) {
@@ -13445,6 +14523,8 @@ function ErrorResult(code, message) {
                       AddElementMenuServ,
                       GlobalStor,
                       ProductStor,
+                      SVGServ,
+                      MainServ,
                       AuxStor,
                       DesignServ,
                       DesignStor
@@ -13796,6 +14876,154 @@ function ErrorResult(code, message) {
                     }
                 }
 
+                function closeButton(id) {
+                    if (($location.path() === "/light" || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+                      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+                        DesignStor.design.templateTEMP = angular.copy(result);
+                      });
+                      ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+                      ProductStor.product.template = DesignStor.design.templateTEMP;
+                      if (DesignStor.design.activeSubMenuItem > 0) {
+                        DesignStor.design.activeSubMenuItem = 0;
+                        GlobalStor.global.goLeft = false;
+                        GlobalStor.global.showTemplates = false;
+                        GlobalStor.global.activePanel = 0;
+                        $(document).ready(function() {
+                          $(".temp-fig-rehau").removeClass("active")
+                        })
+                      }
+                     
+                    }
+              
+                    GlobalStor.global.configMenuTips++;
+                    //тут тоже может быть
+                    MainServ.laminatFiltering();
+                    if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+                      /** calc Price previous parameter and close caclulators */
+                      AddElementMenuServ.finishCalculators();
+                    }
+                    //---- hide rooms if opened
+                    GlobalStor.global.showRoomSelectorDialog = 0;
+                    GlobalStor.global.showCoefInfoBlock = 0;
+                    //---- hide tips
+                    GlobalStor.global.configMenuTips = 0;
+                    //---- hide comment if opened
+                    GlobalStor.global.isShowCommentBlock = 0;
+                    //---- hide template type menu if opened
+                    GlobalStor.global.isTemplateTypeMenu = 0;
+              
+                    GlobalStor.global.isServiceCalculator = 0;
+                    GlobalStor.global.typeMenu = 5555;
+                    GlobalStor.global.typeMenuID = 5555;
+                    GlobalStor.global.servicesPriceIndex = -1;
+              
+                    GeneralServ.stopStartProg();
+                    MainServ.setDefaultAuxParam();
+                    //------ close Glass Selector Dialogs
+                    if (GlobalStor.global.showGlassSelectorDialog) {
+                      DesignServ.closeGlassSelectorDialog(1);
+                    }
+              
+                    if (id === 1) {
+                      GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+                      GlobalStor.global.activePanel = 0;
+                      DesignStor.design.isGlassExtra = 0;
+                      $location.path("/design");
+                      GlobalStor.global.currOpenPage = 'design';
+                      //console.log(DesignStor.design.showHint);
+                      if (DesignStor.design.showHint >= 0) {
+                        GlobalStor.global.hintTimer = setTimeout(function () {
+                          DesignStor.design.showHint = 1;
+                        }, 90000);
+                      }
+                    } else {
+                      if (id === 3) {
+                        var temp = [];
+                        GlobalStor.global.glasses.forEach(function (glass) {
+                          glass.forEach(function (glass_img) {
+                            temp.push(glass_img.glass_image);
+                          });
+              
+                        });
+                        var transcalency_arr = [];
+                        var noise_coeff_arr = [];
+                        GlobalStor.global.glasses.forEach(function (glass_arr) {
+                          glass_arr.forEach(function (glass) {
+                            transcalency_arr.push(glass.transcalency);
+                            noise_coeff_arr.push(glass.noise_coeff);
+                          });
+                        });
+                        var transcalency_min = Math.min.apply(Math, transcalency_arr);
+                        var transcalency_max = Math.max.apply(Math, transcalency_arr);
+              
+                        var noise_coeff_min = Math.min.apply(Math, noise_coeff_arr);
+                        var noise_coeff_max = Math.max.apply(Math, noise_coeff_arr);
+              
+                        GlobalStor.global.glasses.forEach(function (glass_arr) {
+                          glass_arr.forEach(function (glass) {
+                            glass.transcalencyD = 1 + Math.floor(((glass.transcalency - transcalency_min) / (transcalency_max - transcalency_min)) * 4);
+                            if (glass.noise_coeff !== 0) {
+                              glass.noise_coeffD = 1 + Math.floor(((glass.noise_coeff - noise_coeff_min) / (noise_coeff_max - noise_coeff_min)) * 4);
+                            } else glass.noise_coeffD = glass.noise_coeff;
+                          });
+                        });
+                      }
+                      /** if Door */
+                      if (ProductStor.product.construction_type === 4) {
+                        //--------- show only Glasses and AddElements
+                        if (id === 3 || id === 6 || id === 5) {
+                          GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+                        } else {
+                          // GlobalStor.global.activePanel = 0;
+                          DesignStor.design.isGlassExtra = 0;
+                          if ($location.path() !== '/mobile') {
+                            if ($location.path() !== '/light') {
+                              $location.path("/design")
+                              GlobalStor.global.currOpenPage = 'design';
+                            } else {
+                              $(".config-menu").hide();
+                              $(".right-side").width("100%");
+                              $(".main-content").width("100%");
+                            }
+                          }
+                          GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+                          DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
+                            if ($location.path() !== '/mobile') {
+                              DesignStor.design.steps.isDoorConfig = 1;
+                            } else {
+                              DesignStor.design.isDoorConfigMobile = 1;
+                              DesignStor.design.showMobileStep = 0;
+                            }
+                          })
+                        }
+                      } if (id === 8) {
+                        let someArray = []
+                        GlobalStor.global.templatesImgs.forEach(template => {
+                          someArray.push(template.src)
+                        })
+                      } else {
+                        // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+                        if (GlobalStor.global.activePanel === id) {
+                          GlobalStor.global.activePanel = 0;
+                          GlobalStor.global.isServiceCalculator = 0;
+                          if (($location.path() === '/light' || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+                            setTimeout(function () {
+                              DesignServ.rebuildSVGTemplate();
+                            }, 1000);
+                          }
+                        } else {
+                          GlobalStor.global.activePanel = id;
+                        }
+                      }
+                    }
+                    if (GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {
+                      GlobalStor.global.setTimeout = 1;
+                      $timeout(function () {
+                        InfoBoxServ.autoShow(id);
+                      }, 4000);
+                    }
+                  }
+
                 /**========== FINISH ==========*/
 
                 thisFactory.publicObj = {
@@ -13807,7 +15035,9 @@ function ErrorResult(code, message) {
                     closeAddElementListView: closeAddElementListView,
                     createAddElementGroups: createAddElementGroups,
                     hideMenu: hideMenu,
-                    downloadAddElementsData: downloadAddElementsData
+                    downloadAddElementsData: downloadAddElementsData,
+                    downloadAddElementsData: downloadAddElementsData,
+                    closeButton: closeButton,
                 };
 
                 return thisFactory.publicObj;
@@ -14589,6 +15819,7 @@ function ErrorResult(code, message) {
                 /**----------- Close any Order Dialog ------------*/
 
                 function closeOrderDialog() {
+                    console.warn(localStorage.getItem('region_kladr_id'), 'CHECK HERE PLS')
                     CartStor.cart.submitted = 0;
                     CartStor.cart.isCityBox = 0;
                     if (GlobalStor.global.orderEditNumber > 0) {
@@ -15221,7 +16452,6 @@ function ErrorResult(code, message) {
                     // console.log(OrderStor.order);
                     CartStor.cart.showCurrentTemp = 0;
                     if (OrderStor.order.products.length) {
-                        // console.log("openOrderDialog");
                         if (OrderStor.order.is_instalment) {
                             CartStor.cart.isCreditDialog = 1;
                         } else {
@@ -15229,7 +16459,6 @@ function ErrorResult(code, message) {
                         }
                     }
                     setTimeout(() => {
-                        // $.mask.definitions['N'] = '[/0-6|9/]';
                         $(".user-field-phone").mask("+7(999) 999-99-99");
                     }, 200);
                 }
@@ -15280,6 +16509,7 @@ function ErrorResult(code, message) {
         ProductStor,
         $timeout,
         InfoBoxServ,
+        GlassesServ,
         DesignStor,
         SVGServ,
         DesignServ,
@@ -15287,7 +16517,7 @@ function ErrorResult(code, message) {
         UserStor) {
         var thisFactory = this;
 
-
+        
         /**============ METHODS ================*/
         function selectConfigPanel(id) {
           if (($location.path() === "/light" || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
@@ -15352,6 +16582,7 @@ function ErrorResult(code, message) {
           } else {
             if (id === 3) {
               var temp = [];
+              
               GlobalStor.global.glasses.forEach(function (glass) {
                 glass.forEach(function (glass_img) {
                   temp.push(glass_img.glass_image);
@@ -15448,6 +16679,7 @@ function ErrorResult(code, message) {
 
 
       });
+      
 })();
 
 
@@ -15463,6 +16695,8 @@ function ErrorResult(code, message) {
       serverIP: 'https://admin.rehauselected.baueffect.com',
       printIP: 'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/',
       localPath: '/local/',
+    
+      requestUrlRehau: 'https://dev.rehau2021selected.xyz/api/rehau/request',
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -15491,7 +16725,7 @@ function ErrorResult(code, message) {
 
       //---Edit Design
       squareLimit: 0.15,
-      minSizeLimit: 100,
+      minSizeLimit: 300,
       minSizeLimitStulp: 300,
       minRadiusHeight: 10,
 
@@ -15604,7 +16838,6 @@ function ErrorResult(code, message) {
           deselectAllDimension();
           GlobalStor.global.isSizeCalculator = 0;
           DesignStor.design.openVoiceHelper = 0;
-
         }
 
 
@@ -15989,6 +17222,8 @@ function ErrorResult(code, message) {
                         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
                           ProductStor.product.template = angular.copy(result);
                           DesignStor.design.templateTEMP = angular.copy(result);
+                          //We have call this function to recalculate price with glass ranges
+                          MainServ.setProductPriceTOTAL(ProductStor.product)
                         });
                       });
                     }, 250);
@@ -16120,7 +17355,145 @@ function ErrorResult(code, message) {
         }
 
 
+        function recalculate() {
+          if (GlobalStor.global.checkDoors === 0) {
+              var isSashesInTemplate;
+              GlobalStor.global.isLoader = 1;
+              closeSizeCaclulator(1).then(function () {
+                  /** check sizes of all glass */
+                  MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
+                  if (DesignStor.design.extraGlass.length) {
+                      /** expose Alert */
+                      GlobalStor.global.isLoader = 0;
+                      DesignStor.design.isGlassExtra = 1;
+                  } else {
+                      /** if sash was added/removed in template */
+                      isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
+                      if (isSashesInTemplate) {
+                          /** set first hardware if sash were not existed before */
+                          if ((!GlobalStor.global.isSashesInTemplate || !ProductStor.product.hardware.id) && ProductStor.product.construction_type !== 4) {
+                              GlobalStor.global.isSashesInTemplate = 1;
+                              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+                          }
+                          /** check sizes of all hardware in sashes */
+                          MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
+
+                      } else {
+                          /** sashes were removed */
+                          ProductStor.product.hardware = {};
+                          ProductStor.product.hardware.id = 0;
+                          GlobalStor.global.isSashesInTemplate = 0;
+                          //------ clean Extra Hardware
+                          DesignStor.design.extraHardware.length = 0;
+                      }
+
+                      if (DesignStor.design.extraHardware.length) {
+                          /** expose Alert */
+                          GlobalStor.global.isLoader = 0;
+                          DesignStor.design.isHardwareExtra = 1;
+                      } else {
+                          /** save new template in product ***** */
+                          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+                          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+                          /** rebuild glasses */
+                          MainServ.setGlassfilter();
+                          if (ProductStor.product.construction_type !== 4) {
+                              // MainServ.setCurrentGlass(ProductStor.product, 1);
+                              MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function () {
+                                  next();
+                              });
+                          } else {
+                              next();
+                          }
+
+                          //noinspection JSAnnotator
+                          function next() {
+                              /** create template icon */
+                              SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                                  .then(function (result) {
+                                      ProductStor.product.templateIcon = angular.copy(result);
+                                  });
+                              /** save new template in templates Array */
+                              GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
+                                  ProductStor.product.template_source
+                              );
+                              /** check grids */
+                                  // console.log(ProductStor.product);
+                              var isChanged = updateGrids();
+                              if (isChanged) {
+                                  //------ get new grids price
+                                  var sumMosq = 0;
+                                  var sumMosqDis = 0;
+                                  ProductStor.product.chosenAddElements[0].forEach(function (entry) {
+                                      sumMosq += entry.element_price;
+                                      sumMosqDis += entry.elementPriceDis;
+                                  });
+
+                                  ProductStor.product.addelem_price -= sumMosq;
+                                  ProductStor.product.addelemPriceDis -= sumMosqDis;
+
+                                  loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]).then(function () {
+                                      sumMosq = 0;
+                                      sumMosqDis = 0;
+                                      ProductStor.product.chosenAddElements[0].forEach(function (entry) {
+                                          sumMosq += entry.element_price;
+                                          sumMosqDis += entry.elementPriceDis;
+                                      });
+                                      ProductStor.product.addelem_price += sumMosq;
+                                      ProductStor.product.addelemPriceDis += sumMosqDis;
+                                  });
+
+
+                              }
+                              SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+                                  ProductStor.product.template = angular.copy(result);
+                                  /** refresh price of new template */
+                                  MainServ.preparePrice(
+                                      ProductStor.product.template,
+                                      ProductStor.product.profile.id,
+                                      ProductStor.product.glass,
+                                      ProductStor.product.hardware.id,
+                                      ProductStor.product.lamination.lamination_in_id
+                                  ).then(function () {
+                                      //-------- template was changed
+                                      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function (result) {
+                                          ProductStor.product.template = angular.copy(result);
+                                          DesignStor.design.templateTEMP = angular.copy(result);
+                                      });
+                                  });
+                              });
+                          }
+                      }
+                  }
+              });
+          }
+          setTimeout(() => {
+            MainServ.setProductPriceTOTAL(ProductStor.product)
+          }, 1);
+        }
+        function deactivMenu() {
+          DesignStor.design.activeMenuItem = 0;
+          DesignStor.design.activeSubMenuItem = 0;
+          DesignStor.design.isDropSubMenu = 0;
+          setTimeout(() => {
+              recalculate();
+          }, 500)
+      }
+
+      function positionAxisAuto() {
+          GlobalStor.global.isChangedTemplate = 1;
+          deactivMenu();
+          positionAxises();
+      }
+
         function pressCulculator(keyEvent) {
+          const maxLimitValue = $('.calc-value-limit.max').text();
+          if (maxLimitValue === '3200' && keyEvent.which === 13) {
+            setTimeout(() => {
+              positionAxisAuto()
+            }, 1);
+          }
           var newValue;
           //--------- Enter
           if (keyEvent.which === 13) {
@@ -18686,7 +20059,6 @@ function ErrorResult(code, message) {
                         x: blocksSource[b].impost.impostAxis[0].x
                       };
                       impostInd.push(tempImpost);
-                      //console.info('impost', blocksSource[b].impost.impostAxis, tempImpost);
                     }
                   }
                 }
@@ -19013,12 +20385,14 @@ function ErrorResult(code, message) {
               isSashesInTemplate;
             GlobalStor.global.isLoader = 1;
             closeSizeCaclulator(1).then(function () {
+
               /** check sizes of all glass */
               MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
               if (DesignStor.design.extraGlass.length) {
                 /** expose Alert */
                 GlobalStor.global.isLoader = 0;
                 DesignStor.design.isGlassExtra = 1;
+                
               } else {
                 /** if sash was added/removed in template */
                 isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
@@ -19124,6 +20498,10 @@ function ErrorResult(code, message) {
             });
           }
           // console.log("ProductStor.product", ProductStor.product);
+          // Calculating the sum of construction
+          setTimeout(() => {
+            MainServ.setProductPriceTOTAL(ProductStor.product)
+          }, 100);
         }
 
 
@@ -20057,6 +21435,8 @@ function ErrorResult(code, message) {
                       MainServ,
                       SVGServ,
                       GlobalStor,
+                      AddElementMenuServ,
+                      GeneralServ,
                       DesignStor) {
                 /*jshint validthis:true */
                 var thisFactory = this;
@@ -20157,7 +21537,7 @@ function ErrorResult(code, message) {
                     DesignServ.closeGlassSelectorDialog();
                   }
 
-                function selectGlass(newId, newName, type) {
+                function selectGlass(newId, newName, type, glass) {
                     GlobalStor.global.isChangedTemplate = 1;
                     GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
                     GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
@@ -20167,6 +21547,24 @@ function ErrorResult(code, message) {
                     //----- open glass selector dialog
                     GlobalStor.global.showGlassSelectorDialog = 1;
                     DesignServ.initAllGlassXGlass();
+
+                    setTimeout(() => {
+                      const apprPrice = ProductStor.product.report
+                      .filter((el) => el.sku === newName)
+                      .map((glass) => glass.priceReal)
+                      .reduce((sum, curr) => sum + curr, 0);
+                      GlobalStor.global.apprPrice = Math.floor(apprPrice * 0.95);
+
+                      const amountGlass = ProductStor.product.report
+                      .filter((el) => el.sku === newName)
+                      .map((glass) => glass.amount)
+
+                      const sizeGlass = ProductStor.product.report
+                      .filter((el) => el.sku === newName)
+                      .map((glass, index) => glass.size * amountGlass[index])
+                      .reduce((sum, curr) => sum + curr, 0);
+                      GlobalStor.global.sizeCoeff = sizeGlass;
+                    }, 0);
                     //We are not displaying glass selector block becouse we do not need it, just calling the function
                     confirmGlass();
                     //A small crutch that allows you to display the energy efficiency block on other screens
@@ -20193,16 +21591,170 @@ function ErrorResult(code, message) {
                           }, 2200);
                         }, 800);
                       })
+                      //Sorry about that, but to calculate correct price for glass with ranges I need to call this function
+                      setTimeout(() => {
+                        MainServ.setProductPriceTOTAL(ProductStor.product)
+                      }, 1);
+                }
+
+                function closeButton(id) {
+                  if (($location.path() === "/light" || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+                    SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+                      DesignStor.design.templateTEMP = angular.copy(result);
+                    });
+                    ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+                    ProductStor.product.template = DesignStor.design.templateTEMP;
+                    if (DesignStor.design.activeSubMenuItem > 0) {
+                      DesignStor.design.activeSubMenuItem = 0;
+                      GlobalStor.global.goLeft = false;
+                      GlobalStor.global.showTemplates = false;
+                      GlobalStor.global.activePanel = 0;
+                      $(document).ready(function() {
+                        $(".temp-fig-rehau").removeClass("active")
+                      })
+                    }
+                   
+                  }
+            
+                  GlobalStor.global.configMenuTips++;
+                  //тут тоже может быть
+                  MainServ.laminatFiltering();
+                  if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+                    /** calc Price previous parameter and close caclulators */
+                    AddElementMenuServ.finishCalculators();
+                  }
+                  //---- hide rooms if opened
+                  GlobalStor.global.showRoomSelectorDialog = 0;
+                  GlobalStor.global.showCoefInfoBlock = 0;
+                  //---- hide tips
+                  GlobalStor.global.configMenuTips = 0;
+                  //---- hide comment if opened
+                  GlobalStor.global.isShowCommentBlock = 0;
+                  //---- hide template type menu if opened
+                  GlobalStor.global.isTemplateTypeMenu = 0;
+            
+                  GlobalStor.global.isServiceCalculator = 0;
+                  GlobalStor.global.typeMenu = 5555;
+                  GlobalStor.global.typeMenuID = 5555;
+                  GlobalStor.global.servicesPriceIndex = -1;
+            
+                  GeneralServ.stopStartProg();
+                  MainServ.setDefaultAuxParam();
+                  //------ close Glass Selector Dialogs
+                  if (GlobalStor.global.showGlassSelectorDialog) {
+                    DesignServ.closeGlassSelectorDialog(1);
+                  }
+            
+                  if (id === 1) {
+                    GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+                    GlobalStor.global.activePanel = 0;
+                    DesignStor.design.isGlassExtra = 0;
+                    $location.path("/design");
+                    GlobalStor.global.currOpenPage = 'design';
+                    //console.log(DesignStor.design.showHint);
+                    if (DesignStor.design.showHint >= 0) {
+                      GlobalStor.global.hintTimer = setTimeout(function () {
+                        DesignStor.design.showHint = 1;
+                      }, 90000);
+                    }
+                  } else {
+                    if (id === 3) {
+                      var temp = [];
+                      GlobalStor.global.glasses.forEach(function (glass) {
+                        glass.forEach(function (glass_img) {
+                          temp.push(glass_img.glass_image);
+                        });
+            
+                      });
+                      var transcalency_arr = [];
+                      var noise_coeff_arr = [];
+                      GlobalStor.global.glasses.forEach(function (glass_arr) {
+                        glass_arr.forEach(function (glass) {
+                          transcalency_arr.push(glass.transcalency);
+                          noise_coeff_arr.push(glass.noise_coeff);
+                        });
+                      });
+                      var transcalency_min = Math.min.apply(Math, transcalency_arr);
+                      var transcalency_max = Math.max.apply(Math, transcalency_arr);
+            
+                      var noise_coeff_min = Math.min.apply(Math, noise_coeff_arr);
+                      var noise_coeff_max = Math.max.apply(Math, noise_coeff_arr);
+            
+                      GlobalStor.global.glasses.forEach(function (glass_arr) {
+                        glass_arr.forEach(function (glass) {
+                          glass.transcalencyD = 1 + Math.floor(((glass.transcalency - transcalency_min) / (transcalency_max - transcalency_min)) * 4);
+                          if (glass.noise_coeff !== 0) {
+                            glass.noise_coeffD = 1 + Math.floor(((glass.noise_coeff - noise_coeff_min) / (noise_coeff_max - noise_coeff_min)) * 4);
+                          } else glass.noise_coeffD = glass.noise_coeff;
+                        });
+                      });
+                    }
+                    /** if Door */
+                    if (ProductStor.product.construction_type === 4) {
+                      //--------- show only Glasses and AddElements
+                      if (id === 3 || id === 6 || id === 5) {
+                        GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+                      } else {
+                        // GlobalStor.global.activePanel = 0;
+                        DesignStor.design.isGlassExtra = 0;
+                        if ($location.path() !== '/mobile') {
+                          if ($location.path() !== '/light') {
+                            $location.path("/design")
+                            GlobalStor.global.currOpenPage = 'design';
+                          } else {
+                            $(".config-menu").hide();
+                            $(".right-side").width("100%");
+                            $(".main-content").width("100%");
+                          }
+                        }
+                        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+                        DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
+                          if ($location.path() !== '/mobile') {
+                            DesignStor.design.steps.isDoorConfig = 1;
+                          } else {
+                            DesignStor.design.isDoorConfigMobile = 1;
+                            DesignStor.design.showMobileStep = 0;
+                          }
+                        })
+                      }
+                    } if (id === 8) {
+                      let someArray = []
+                      GlobalStor.global.templatesImgs.forEach(template => {
+                        someArray.push(template.src)
+                      })
+                    } else {
+                      // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+                      if (GlobalStor.global.activePanel === id) {
+                        GlobalStor.global.activePanel = 0;
+                        GlobalStor.global.isServiceCalculator = 0;
+                        if (($location.path() === '/light' || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+                          setTimeout(function () {
+                            DesignServ.rebuildSVGTemplate();
+                          }, 1000);
+                        }
+                      } else {
+                        GlobalStor.global.activePanel = id;
+                      }
+                    }
+                  }
+                  if (GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {
+                    GlobalStor.global.setTimeout = 1;
+                    $timeout(function () {
+                      InfoBoxServ.autoShow(id);
+                    }, 4000);
+                  }
                 }
 
                 /**========== FINISH ==========*/
                 //------ clicking
                 selectGlass: selectGlass;
                 confirmGlass: confirmGlass;
+                closeButton: closeButton;
 
                 thisFactory.publicObj = {
                     selectGlass: selectGlass,
-                    confirmGlass: confirmGlass
+                    confirmGlass: confirmGlass,
+                    closeButton: closeButton,
                 };
 
                 return thisFactory.publicObj;
@@ -22039,7 +23591,7 @@ function ErrorResult(code, message) {
                 /** set Report */
                 if (result) {
                   //---- only for this type of user
-                  if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                  if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7 || UserStor.userInfo.factory_id === 2) {
                     ProductStor.product.report = MainServ.prepareReport(result.constrElements);
                     //console.log('REPORT', ProductStor.product.report);
                     //console.timeEnd('price');
@@ -23427,37 +24979,42 @@ function ErrorResult(code, message) {
           // console.log("selectLocalDB",tableName);
           var defer = $q.defer();
           let result = [];
-          if (LocalDataBase[tableName]) {
-            if (!options) {
-              result = angular.copy(LocalDataBase[tableName]);
-            } else {
-              result = angular.copy(where(LocalDataBase[tableName], options));
-            }
-            if (columns) {
-              let new_res = [];
-              let col_list = columns.split(",");
-              let result_length = result.length;
-              for (let index = 0; index < result_length; index++) {
-                let item = result[index];
-                let row = {};
-                let col_list_length = col_list.length;
-                for (let jndex = 0; jndex < col_list_length; jndex++) {
-                  let col = col_list[jndex];
-                  col = col.replace(/ /g, "");
-                  row[col] = item[col];
-                }
-                new_res.push(row);
+          try {
+            if (LocalDataBase[tableName]) {
+              if (!options) {
+                result = angular.copy(LocalDataBase[tableName]);
+              } else {
+                result = angular.copy(where(LocalDataBase[tableName], options));
               }
-              result = angular.copy(new_res);
-            }
-            if (result) {
-              defer.resolve(result);
+              if (columns) {
+                let new_res = [];
+                let col_list = columns.split(",");
+                let result_length = result.length;
+                for (let index = 0; index < result_length; index++) {
+                  let item = result[index];
+                  let row = {};
+                  let col_list_length = col_list.length;
+                  for (let jndex = 0; jndex < col_list_length; jndex++) {
+                    let col = col_list[jndex];
+                    col = col.replace(/ /g, "");
+                    row[col] = item[col];
+                  }
+                  new_res.push(row);
+                }
+                result = angular.copy(new_res);
+              }
+              if (result) {
+                defer.resolve(result);
+              } else {
+                defer.resolve(0);
+              }
             } else {
               defer.resolve(0);
             }
-          } else {
-            defer.resolve(0);
+          } catch(e) {
+
           }
+
           return defer.promise;
         }
 
@@ -23793,6 +25350,7 @@ function ErrorResult(code, message) {
                 "comment": comment,
                 "address": localStorage.getItem('location'),
                 "region_kladr_id": localStorage.getItem('region_kladr_id'),
+                "fias_id": localStorage.getItem('fias_id'),
                 "utm": window.location.href
               },
               calculation_id: data,
@@ -23801,15 +25359,20 @@ function ErrorResult(code, message) {
 
           $http
             .post(
-              "https://service.rehauselected.baueffect.com/api/rehau/request",
+              globalConstants.requestUrlRehau,
               dataToSend
             )
             .then(
               function (result) {
                 defer.resolve(result.data);
                 showInfoBox(1, GlobalStor.global.profilesType)
-                const guidFromBackend = JSON.stringify(result.data.guid)
-                GlobalStor.global.infoDescrip = `Её уникальный номер ${guidFromBackend}`
+                const guidFromBackend = result.data.guid
+                JSON.stringify(guidFromBackend)
+                GlobalStor.global.infoDescrip = `Заказ ${guidFromBackend} успешно создан. 
+
+                Ваша заявка передана в обработку. В ближайшее время с вами свяжется специалист  РЕХАУ для подтверждения заявки. 
+                
+                *После дистанционного подписания договора, заказ может быть выслан по размерам клиента без замера`
                 GlobalStor.global.infoTitle = {
                   name: 'Спасибо за вашу заявку!'
                 }
@@ -23823,6 +25386,12 @@ function ErrorResult(code, message) {
         }
 
         function insertServer(login, access, table, data) {
+          //We subtract the cost of additional items and the cost of mounting and installation from the product price to get template_price. Sore but we need that small condition to send correct info to backend
+          if(UserStor.userInfo.factory_id === 2) {
+            if (data.template_price) {
+              data.template_price = data.product_price - data.addelem_price;
+            }
+          }
           const ordered = {};
           Object.keys(data)
             .sort()
@@ -25006,7 +26575,6 @@ function ErrorResult(code, message) {
                     3
                   );
                   priceObj.priceTotal += priceTemp;
-                  //              console.warn('finish bead-________',constrElem);
                   constrElements.push(constrElem);
                 }
               }
@@ -25471,20 +27039,21 @@ function ErrorResult(code, message) {
                 }
               }
             }
-            //console.info('@@@@@@@@@@@@', objTmp);
+            // console.info('@@@@@@@@@@@@', objTmp);
             // console.log(ProductStor.product, 'Product stor');
+            // console.log(globalConstants, 'chec')
             // console.log(OrderStor.order)
             // console.log(CartStor.cart)
             // console.log(OrderStor.order, 'order stor')
             // console.log(GlobalStor.global)
             // console.log(UserStor.userInfo, 'userInfo')
             // console.log(ProductStor.product)
-            //console.log(GlobalStor.global, 'global stor');
+            // console.log(GlobalStor.global, 'global stor');
             // console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
-            //console.log('REPORT', ProductStor.product.report);
+            // console.log('REPORT', ProductStor.product.report);
             //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
 
@@ -27432,7 +29001,7 @@ function ErrorResult(code, message) {
         });
 
         $q.all(promises2).then(function (data) {
-          //        console.log('data!!!!', data);
+                //  console.log('data!!!!', data);
           if (data) {
             //-------- select all glass Ids as to profile Id
             var promises3 = _.map(GlobalStor.global.glassesAll, function (item) {
@@ -27523,7 +29092,7 @@ function ErrorResult(code, message) {
                             {
                               id: item.parent_element_id
                             },
-                            "id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, " +
+                            "id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, price, transcalency, " +
                             "max_width, min_width, max_height, min_height, max_sq, reg_coeff"
                           )
                           .then(function (result) {
@@ -27551,7 +29120,7 @@ function ErrorResult(code, message) {
                         GlobalStor.global.glassesAll[i].glasses = glasses[i];
                       }
                     }
-                    //console.log('FINISH!!!!', GlobalStor.global.glassesAll);
+                    // console.log('FINISH!!!!', GlobalStor.global.glassesAll);
                     defer.resolve(1);
                   });
                 }
@@ -30083,6 +31652,7 @@ function ErrorResult(code, message) {
                 return deff.promise;
             }
 
+            var glassPrices = []
             function setProductPriceTOTAL(Product) {
                 var deliveryCoeff = 
                     GlobalStor.global.deliveryCoeff.percents[
@@ -30090,13 +31660,96 @@ function ErrorResult(code, message) {
                     ],
                     priceDis = UserStor.userInfo.factory_id == 2 ? Math.round(GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct)) : GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
                     
-                    
-
-
                 Product.product_price = GeneralServ.roundingValue(
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
+                /* This piece of code allows us to calculate glass price with ranges https://trello.com/c/egf7LTSn/586
+                It's not so clear and should be refactored some time*/
+                if (ProductStor.product.report.length > 0) {
+                    Product.report.map((element) => {
+                        if (element.element_group_id === 8) {
+                            localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
+                            }).then(function(result) {
+                                glassPrices = result[0]
+                            })
+                            if (element.element_id === glassPrices.element_id) {
+                                if (glassPrices.col_1_range > 0) {
+                                    if (element.size < glassPrices.col_1_range) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    } 
+                                } if (glassPrices.col_2_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;  
+
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else  {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                } if (glassPrices.col_3_range_1 > 0) {
+                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                            
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                } if (glassPrices.col_4_range_1 > 0) {
+                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                }
+                                if (glassPrices.col_5_range > 0) {
+                                    if (element.size > glassPrices.col_5_range) {
+                                        if (UserStor.userInfo.discountConstr > 0) {
+                                            Product.product_price -= element.priceReal;
+                                            Product.product_price += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                            
+                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
+                                            Product.productPriceDis = ProductPriceWithDiscount
+                                        } else {
+                                            Product.productPriceDis -= element.priceReal;
+                                            Product.productPriceDis += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                console.log("no Match") 
+                            }
+                        }
+                    })
+                }
+                
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -30194,106 +31847,6 @@ function ErrorResult(code, message) {
                         priceMargin,
                         doorData,
                         tempDoorItems;
-                        var glassData = null
-                        function glassPricesData() {
-                            var defer = $q.defer();
-                            db.getItem('tables').then(function (value) {
-                                glassPricesData = value;
-                                defer.resolve(glassPricesData);
-                            }).catch(function (err) {
-                                console.log(err);
-                                defer.resolve(0);
-                            });
-                            return defer.promise;
-                        }
-                        /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
-                        glassPricesData().then(
-                            function(data) {
-                                let glassPricesData = data.glass_prices;
-                                let currentGlassData = ProductStor.product.report;
-                                if (glassPricesData) {
-                                    for(var i = 0; i < glassPricesData.length; i++) {
-                                        for(var y = 0; y < currentGlassData.length; y++) {
-                                            /* checks if ids the same */
-                                            if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
-                                                /* check range */
-                                                if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
-                                                    /* setting a new keys in object */
-                                                    /* price from db for this particular range */ 
-                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
-                                                    /* calculations the price for report */
-                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
-                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
-                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
-                                                    /* The last action is to reassign keys to display correct data in report */
-                                                    if(GlobalStor.global.tempPrice) {
-                                                        currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
-                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        )
                     
                     if (priceObj.priceTotal) {
                         /** DOOR add handle and lock Ids */
@@ -30516,7 +32069,7 @@ function ErrorResult(code, message) {
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
                     if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
-                        ProductStor.product.heat_coef_expert_mark = Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10;
+                        ProductStor.product.heat_coef_expert_mark = (Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10).toFixed(1);
                     }
                 } else {
                     /** U */
@@ -30643,7 +32196,7 @@ function ErrorResult(code, message) {
                                 //---- only for this type of user
                                 if (
                                     UserStor.userInfo.user_type === 5 ||
-                                    UserStor.userInfo.user_type === 7
+                                    UserStor.userInfo.user_type === 7 || UserStor.userInfo.factory_id === 2
                                 ) {
                                     ProductStor.product.report = prepareReport(
                                         result.constrElements
@@ -32263,7 +33816,7 @@ function ErrorResult(code, message) {
                                         type: 1
                                     },
                                     //Двустворчатые --------------------!!
-                                    //Глухое с импостом 
+                                    //Глухое окно 
                                     {
                                         id: 5,
                                         name: $filter('translate')('panels.4_TYPE'),
@@ -32285,7 +33838,7 @@ function ErrorResult(code, message) {
                                         type: 1
                                     },
 
-                                    //Двухстворчатое пов.откидное
+                                    //Двухстворчатое поворотно-откидное
                                     {
                                         id: 9,
                                         name: $filter('translate')('panels.40_TYPE'),
@@ -32299,7 +33852,7 @@ function ErrorResult(code, message) {
                                         src: 'img/rehau-templates/25.png',
                                         type: 1
                                     },
-                                    //Штульповое левое 
+                                    //Левое поворотно-откидное, правое поворотное(штульп) 
                                     {
                                         id: 11,
                                         name: $filter('translate')('panels.37_TYPE'),
@@ -32307,7 +33860,7 @@ function ErrorResult(code, message) {
                                         type: 1
                                     },
                                     //Трехстворчатые --------------------!!
-                                    //Глухое с импостами
+                                    //Глухое окно
                                     {
                                         id: 12,
                                         name: $filter('translate')('panels.9_TYPE'),
@@ -32402,14 +33955,14 @@ function ErrorResult(code, message) {
                                         src: 'img/rehau-templates/53.png',
                                         type: 1
                                     },
-                                    //Т-обр. глухое
+                                    //Т-образное глухое
                                     {
                                         id: 26,
                                         name: $filter('translate')('panels.52_TYPE'),
                                         src: 'img/rehau-templates/54.png',
                                         type: 1
                                     },
-                                    //Т-обр. глухое
+                                    //Т-образное глухое
                                     {
                                         id: 27,
                                         name: $filter('translate')('panels.53_TYPE'),
@@ -32436,7 +33989,7 @@ function ErrorResult(code, message) {
                                         src: 'img/rehau-templates/63.png',
                                         type: 1
                                     },
-                                    //Штульповая балк.дверь левая
+                                    //Поворотно-откидная левая, и поворотная правая балконные двери (штульп)
                                     {
                                         id: 31,
                                         name: $filter('translate')('panels.42_TYPE'),
@@ -32555,7 +34108,7 @@ function ErrorResult(code, message) {
                                     {name:"Фрамуга",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"sash",parent:"block_0",children:[],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1200,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1200,y:600,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:600,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1],handlePos:1,sashType:7}],hardwareLines:[[1094,494,1094,494]]},
                                     //4
                                     {
-                                        name: "Глухое с импостами",
+                                        name: "Глухое окно",
                                         details: [{
                                             type: "skylight",
                                             id: "block_0",
@@ -32764,11 +34317,11 @@ function ErrorResult(code, message) {
                                     //6
                                     {name:"Пов.откидное левое с глухой частью",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1300,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1300,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:650,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:650,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}],hardwareLines:[[565.5,1294,565.5,1294]]},
                                     //7
-                                    {name:"Двухстворчатое пов.откидное",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1300,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1300,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:650,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:650,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[565.5,1294,565.5,1294]]},
+                                    {name:"Двухстворчатое поворотно-откидное",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1300,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1300,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:650,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:650,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[565.5,1294,565.5,1294]]},
                                     //8
 
 
-                                    {name:"Штульповое левое",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1300,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1300,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"shtulp",id:"sht1",x:650,y:0,dir:"line",dimType:0},{type:"shtulp",id:"sht1",x:650,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:17},{type:"skylight",id:"block_3",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[4],handlePos:0,sashType:4}],hardwareLines:[[573.5,1294,573.5,1294]]},
+                                    {name:"Левое поворотно-откидное, правое поворотное(штульп)",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1300,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1300,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"shtulp",id:"sht1",x:650,y:0,dir:"line",dimType:0},{type:"shtulp",id:"sht1",x:650,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:17},{type:"skylight",id:"block_3",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[4],handlePos:0,sashType:4}],hardwareLines:[[573.5,1294,573.5,1294]]},
                                     //9
                                     {
                                         name: "Штульповое",
@@ -33185,13 +34738,13 @@ function ErrorResult(code, message) {
                                         hardwareLines: [[574, 1191, 574, 1191]]
                                     },
                                     //13
-                                    {name:"Трёхстворчатое с левой и правой пов.отк. ств.",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:2100,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:2100,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:700,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_6","block_7"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip3",x:1400,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:1400,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_7",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[615.5,1294,615.5,1294]]},
+                                    {name:"Трёхстворчатое с левой и правой поворотно-откидными створками",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:2100,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:2100,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:700,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_6","block_7"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip3",x:1400,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:1400,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_7",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[615.5,1294,615.5,1294]]},
                                     //14
-                                    {name:"Трёхстворчатое с левыми и правой пов.отк. ств.",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:2100,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:2100,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:700,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_6","block_7"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip3",x:1400,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:1400,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_7",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[615.5,1294,615.5,1294]]},
+                                    {name:"Трёхстворчатое с левыми и правой поворотно-откидными створками",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:2100,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:2100,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:700,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_6","block_7"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip3",x:1400,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:1400,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_7",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[615.5,1294,615.5,1294]]},
                                     //15
-                                    {name:"Трёхстворчатое с левой и правыми пов.отк. ств.",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:2100,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:2100,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:700,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_6","block_7"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip3",x:1400,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:1400,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6},{type:"skylight",id:"block_7",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[615.5,1294,615.5,1294]]},
+                                    {name:"Трёхстворчатое с левой и правыми поворотно-откидными створками",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:2100,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:2100,y:1400,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1400,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip1",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip1",x:700,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_2",level:2,blockType:"sash",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_6","block_7"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",impost:{impostAxis:[{type:"impost",id:"ip3",x:1400,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:1400,y:1400,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]},glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6},{type:"skylight",id:"block_7",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:6}],hardwareLines:[[615.5,1294,615.5,1294]]},
                                     //16
-                                    {name:"Т-обр. глухое",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1400,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1400,y:1900,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1900,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip1",x:0,y:600,dir:"line",dimType:1},{type:"impost",id:"ip1",x:1400,y:600,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"frame",parent:"block_1",children:["block_4","block_5"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip2",x:700,y:600,dir:"line",dimType:0},{type:"impost",id:"ip2",x:700,y:1900,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_4",level:3,blockType:"frame",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}]},
+                                    {name:"Т-образное глухое",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1400,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1400,y:1900,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1900,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip1",x:0,y:600,dir:"line",dimType:1},{type:"impost",id:"ip1",x:1400,y:600,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"frame",parent:"block_1",children:["block_4","block_5"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip2",x:700,y:600,dir:"line",dimType:0},{type:"impost",id:"ip2",x:700,y:1900,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_4",level:3,blockType:"frame",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}]},
                                     //17
                                     {name:"Т-обр. левое пов.отк.",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1400,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1400,y:1900,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1900,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip1",x:0,y:600,dir:"line",dimType:1},{type:"impost",id:"ip1",x:1400,y:600,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"frame",parent:"block_1",children:["block_4","block_5"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip2",x:700,y:600,dir:"line",dimType:0},{type:"impost",id:"ip2",x:700,y:1900,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_4",level:3,blockType:"sash",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}],hardwareLines:[[615.5,1215.5,615.5,1215.5]]},
                                     //18
@@ -33201,7 +34754,7 @@ function ErrorResult(code, message) {
                                     //20
                                     {name:"Т-обр. штульповое",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1400,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1400,y:1900,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1900,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip1",x:0,y:600,dir:"line",dimType:1},{type:"impost",id:"ip1",x:1400,y:600,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"frame",parent:"block_1",children:["block_4","block_5"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"shtulp",id:"sht2",x:700,y:600,dir:"line",dimType:0},{type:"shtulp",id:"sht2",x:700,y:1900,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_4",level:3,blockType:"sash",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[2],handlePos:0,sashType:4},{type:"skylight",id:"block_5",level:3,blockType:"sash",parent:"block_2",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,4],handlePos:4,sashType:17}],hardwareLines:[[623.5,1215.5,623.5,1215.5]]},
                                     //21
-                                    {name:"Т-обр. глухое",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1400,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1400,y:1900,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1900,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip1",x:0,y:1300,dir:"line",dimType:1},{type:"impost",id:"ip1",x:1400,y:1300,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_4","block_5"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip3",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:700,y:1300,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_4",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}]},
+                                    {name:"Т-образное глухое",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1400,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1400,y:1900,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1900,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip1",x:0,y:1300,dir:"line",dimType:1},{type:"impost",id:"ip1",x:1400,y:1300,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_4","block_5"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip3",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:700,y:1300,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_4",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}]},
                                     //22
                                     {name:"Т-обр. левое пов.отк.",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_1",level:1,blockType:"frame",parent:"block_0",children:["block_2","block_3"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1400,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1400,y:1900,dir:"line",view:1,sill:1},{type:"frame",id:"fp4",x:0,y:1900,dir:"line",view:1,sill:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip1",x:0,y:1300,dir:"line",dimType:1},{type:"impost",id:"ip1",x:1400,y:1300,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_2",level:2,blockType:"frame",parent:"block_1",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_3",level:2,blockType:"frame",parent:"block_1",children:["block_4","block_5"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"impost",id:"ip3",x:700,y:0,dir:"line",dimType:0},{type:"impost",id:"ip3",x:700,y:1300,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_4",level:3,blockType:"sash",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:6},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}],hardwareLines:[[615.5,1215.5,615.5,1215.5]]},
                                     //23
@@ -33324,7 +34877,7 @@ function ErrorResult(code, message) {
                                         hardwareLines: [[490, 1890, 490, 1890]]
                                     },
                                     //28
-                                    {name:"Штульповая балк.дверь левая",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1","block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_2",level:1,blockType:"frame",parent:"block_0",children:["block_3","block_4"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1300,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1300,y:2100,sill:1,dir:"line",view:1},{type:"frame",id:"fp4",x:0,y:2100,dir:"line",view:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"shtulp",id:"sht2",x:650,y:0,dir:"line",dimType:0},{type:"shtulp",id:"sht2",x:650,y:2100,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_3",level:2,blockType:"sash",parent:"block_2",children:["block_5","block_6"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:17,impost:{impostAxis:[{type:"impost",id:"ip3",x:0,y:1400,dir:"line",dimType:1},{type:"impost",id:"ip3",x:650,y:1400,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_4",level:2,blockType:"sash",parent:"block_2",children:["block_7","block_8"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[4],handlePos:0,sashType:4,impost:{impostAxis:[{type:"impost",id:"ip4",x:650,y:1400,dir:"line",dimType:1},{type:"impost",id:"ip4",x:1300,y:1400,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_7",level:3,blockType:"frame",parent:"block_4",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_8",level:3,blockType:"frame",parent:"block_4",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}],hardwareLines:[[573.5,1994,573.5,1994]]},
+                                    {name:"Поворотно-откидная левая, и поворотная правая балконные двери (штульп)",details:[{type:"skylight",id:"block_0",level:0,blockType:"frame",children:["block_1","block_1"],maxSizeLimit:5000},{type:"skylight",id:"block_2",level:1,blockType:"frame",parent:"block_0",children:["block_3","block_4"],pointsOut:[{type:"frame",id:"fp1",x:0,y:0,dir:"line",view:1},{type:"frame",id:"fp2",x:1300,y:0,dir:"line",view:1},{type:"frame",id:"fp3",x:1300,y:2100,sill:1,dir:"line",view:1},{type:"frame",id:"fp4",x:0,y:2100,dir:"line",view:1}],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,impost:{impostAxis:[{type:"shtulp",id:"sht2",x:650,y:0,dir:"line",dimType:0},{type:"shtulp",id:"sht2",x:650,y:2100,dir:"line",dimType:0}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_3",level:2,blockType:"sash",parent:"block_2",children:["block_5","block_6"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[1,2],handlePos:2,sashType:17,impost:{impostAxis:[{type:"impost",id:"ip3",x:0,y:1400,dir:"line",dimType:1},{type:"impost",id:"ip3",x:650,y:1400,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_4",level:2,blockType:"sash",parent:"block_2",children:["block_7","block_8"],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1,openDir:[4],handlePos:0,sashType:4,impost:{impostAxis:[{type:"impost",id:"ip4",x:650,y:1400,dir:"line",dimType:1},{type:"impost",id:"ip4",x:1300,y:1400,dir:"line",dimType:1}],impostOut:[],impostIn:[],impostLight:[]}},{type:"skylight",id:"block_5",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_6",level:3,blockType:"frame",parent:"block_3",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_7",level:3,blockType:"frame",parent:"block_4",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1},{type:"skylight",id:"block_8",level:3,blockType:"frame",parent:"block_4",children:[],pointsOut:[],pointsIn:[],pointsLight:[],parts:[],glassId:311891,glassTxt:"4-16-4",glass_type:1}],hardwareLines:[[573.5,1994,573.5,1994]]},
                                     //29
                                     {
                                         name: "Штульповые",
@@ -37046,15 +38599,30 @@ function ErrorResult(code, message) {
     ProductStor,
     OrderStor,
     MainServ,
+    SVGServ,
+    DesignServ,
+    GeneralServ,
     DesignStor,
     AnalyticsServ,
     UserStor,
-    localDB
+    localDB,
+    GlassesServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
-
     /**============ METHODS ================*/
+    function getGlassSimData() {
+      var deferred = $q.defer();
+      localDB.selectLocalDB(
+        "glass_similarities", {
+  
+        }).then(function(result) {
+          GlobalStor.global.glassSimilarities = angular.copy(result);
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
+    
     function selectProfile(newId) {
       GlobalStor.global.isChangedTemplate = 1;
       GlobalStor.global.continued = 0;
@@ -37161,7 +38729,12 @@ function ErrorResult(code, message) {
         }
         return deferred.promise;
     }
+
+   
     function checkForAddElem(newId) {
+      const lastChoosenProfileId = ProductStor.product.profile.id;
+      const lastChoosenGlass = ProductStor.product.glass[0].id;
+      getGlassSimData()
       var  deferred = $q.defer();
       profileForAlert(newId).then(function() {
         alert();
@@ -37170,6 +38743,178 @@ function ErrorResult(code, message) {
           selectProfile(newId);
         }
       });
+      setTimeout(() => {
+        if(GlobalStor.global.glasses.length) {
+          GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+            return item.map((elem) => {
+              elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+              return elem;
+            })
+          });
+        }
+        for (let glassSim of GlobalStor.global.glassSimilarities) {
+          if (glassSim.profile_system_id === lastChoosenProfileId && glassSim.element_id === lastChoosenGlass) {
+            for (let element of GlobalStor.global.glassSimilarities) {
+              if (element.profile_system_id === newId && element.similarity_id === glassSim.similarity_id) {
+                const similarObj = GlobalStor.global.glasses[0].filter((el) => el.id === element.element_id && el);
+                GlassesServ.selectGlass(similarObj[0].id, similarObj[0].sku, similarObj[0].glass_color, similarObj[0]);
+              }
+            }
+          }
+        }
+      }, 1);
+      //Sorry about that, but to calculate correct price for glass with ranges I need to call this function
+      setTimeout(() => {
+        MainServ.setProductPriceTOTAL(ProductStor.product)
+      }, 1);
+    }
+
+    function closeButton(id) {
+      if (($location.path() === "/light" || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+        SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+        });
+        ProductStor.product.template_source = DesignStor.design.templateSourceTEMP;
+        ProductStor.product.template = DesignStor.design.templateTEMP;
+        if (DesignStor.design.activeSubMenuItem > 0) {
+          DesignStor.design.activeSubMenuItem = 0;
+          GlobalStor.global.goLeft = false;
+          GlobalStor.global.showTemplates = false;
+          GlobalStor.global.activePanel = 0;
+          $(document).ready(function() {
+            $(".temp-fig-rehau").removeClass("active")
+          })
+        }
+       
+      }
+
+      GlobalStor.global.configMenuTips++;
+      //тут тоже может быть
+      MainServ.laminatFiltering();
+      if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      //---- hide rooms if opened
+      GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.showCoefInfoBlock = 0;
+      //---- hide tips
+      GlobalStor.global.configMenuTips = 0;
+      //---- hide comment if opened
+      GlobalStor.global.isShowCommentBlock = 0;
+      //---- hide template type menu if opened
+      GlobalStor.global.isTemplateTypeMenu = 0;
+
+      GlobalStor.global.isServiceCalculator = 0;
+      GlobalStor.global.typeMenu = 5555;
+      GlobalStor.global.typeMenuID = 5555;
+      GlobalStor.global.servicesPriceIndex = -1;
+
+      GeneralServ.stopStartProg();
+      MainServ.setDefaultAuxParam();
+      //------ close Glass Selector Dialogs
+      if (GlobalStor.global.showGlassSelectorDialog) {
+        DesignServ.closeGlassSelectorDialog(1);
+      }
+
+      if (id === 1) {
+        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+        GlobalStor.global.activePanel = 0;
+        DesignStor.design.isGlassExtra = 0;
+        $location.path("/design");
+        GlobalStor.global.currOpenPage = 'design';
+        //console.log(DesignStor.design.showHint);
+        if (DesignStor.design.showHint >= 0) {
+          GlobalStor.global.hintTimer = setTimeout(function () {
+            DesignStor.design.showHint = 1;
+          }, 90000);
+        }
+      } else {
+        if (id === 3) {
+          var temp = [];
+          GlobalStor.global.glasses.forEach(function (glass) {
+            glass.forEach(function (glass_img) {
+              temp.push(glass_img.glass_image);
+            });
+
+          });
+          var transcalency_arr = [];
+          var noise_coeff_arr = [];
+          GlobalStor.global.glasses.forEach(function (glass_arr) {
+            glass_arr.forEach(function (glass) {
+              transcalency_arr.push(glass.transcalency);
+              noise_coeff_arr.push(glass.noise_coeff);
+            });
+          });
+          var transcalency_min = Math.min.apply(Math, transcalency_arr);
+          var transcalency_max = Math.max.apply(Math, transcalency_arr);
+
+          var noise_coeff_min = Math.min.apply(Math, noise_coeff_arr);
+          var noise_coeff_max = Math.max.apply(Math, noise_coeff_arr);
+
+          GlobalStor.global.glasses.forEach(function (glass_arr) {
+            glass_arr.forEach(function (glass) {
+              glass.transcalencyD = 1 + Math.floor(((glass.transcalency - transcalency_min) / (transcalency_max - transcalency_min)) * 4);
+              if (glass.noise_coeff !== 0) {
+                glass.noise_coeffD = 1 + Math.floor(((glass.noise_coeff - noise_coeff_min) / (noise_coeff_max - noise_coeff_min)) * 4);
+              } else glass.noise_coeffD = glass.noise_coeff;
+            });
+          });
+        }
+        /** if Door */
+        if (ProductStor.product.construction_type === 4) {
+          //--------- show only Glasses and AddElements
+          if (id === 3 || id === 6 || id === 5) {
+            GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+          } else {
+            // GlobalStor.global.activePanel = 0;
+            DesignStor.design.isGlassExtra = 0;
+            if ($location.path() !== '/mobile') {
+              if ($location.path() !== '/light') {
+                $location.path("/design")
+                GlobalStor.global.currOpenPage = 'design';
+              } else {
+                $(".config-menu").hide();
+                $(".right-side").width("100%");
+                $(".main-content").width("100%");
+              }
+            }
+            GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
+            DesignServ.setDoorConfigDefault(ProductStor.product).then(function (result) {
+              if ($location.path() !== '/mobile') {
+                DesignStor.design.steps.isDoorConfig = 1;
+              } else {
+                DesignStor.design.isDoorConfigMobile = 1;
+                DesignStor.design.showMobileStep = 0;
+              }
+            })
+          }
+        } if (id === 8) {
+          let someArray = []
+          GlobalStor.global.templatesImgs.forEach(template => {
+            someArray.push(template.src)
+          })
+        } else {
+          // GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+          if (GlobalStor.global.activePanel === id) {
+            GlobalStor.global.activePanel = 0;
+            GlobalStor.global.isServiceCalculator = 0;
+            if (($location.path() === '/light' || $location.path() === "/mobile") && !ProductStor.product.is_addelem_only) {
+              setTimeout(function () {
+                DesignServ.rebuildSVGTemplate();
+              }, 1000);
+            }
+          } else {
+            GlobalStor.global.activePanel = id;
+          }
+        }
+      }
+      if (GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {
+        GlobalStor.global.setTimeout = 1;
+        $timeout(function () {
+          InfoBoxServ.autoShow(id);
+        }, 4000);
+      }
     }
 
     /**========== FINISH ==========*/
@@ -37179,12 +38924,14 @@ function ErrorResult(code, message) {
     profileForAlert: profileForAlert;
     selectProfile: selectProfile;
     showInfoBox: MainServ.showInfoBox;
+    closeButton: closeButton;
 
     thisFactory.publicObj = {
     alert:alert,
     checkForAddElem: checkForAddElem,
     profileForAlert: profileForAlert,
     selectProfile: selectProfile,
+    closeButton: closeButton,
     };
 
     return thisFactory.publicObj;
@@ -37763,7 +39510,7 @@ function ErrorResult(code, message) {
     //----------- Play audio sounds
     function playSound() {
       var audioPlayer = document.getElementById('sounds');
-      audioPlayer.play();
+      // audioPlayer.play();
     }
     /*
      function playSound(element) {
@@ -37816,7 +39563,8 @@ function ErrorResult(code, message) {
         GlobalStor,
         ProductStor,
         DesignStor,
-        PointsServ) {
+        PointsServ
+        ) {
         /*jshint validthis:true */
         var thisFactory = this;
 
@@ -40563,8 +42311,51 @@ function ErrorResult(code, message) {
               setPointsXChildren(thisObj.details[i], thisObj.details, depths);
               //----- create impost parts
               if (thisObj.details[i].children.length) {
-                // thisObj.details[i].impost.impostIn = copyPointsOut(thisObj.details[i].pointsIn, 'impost');
-
+                if (thisObj.details[i].impost.impostIn[0] === undefined || thisObj.details[i].impost.impostIn[3] === undefined) {
+                  // if the width of the structure is too small, then we take a step back and throw an alert
+                  function deselectAllDimension() {
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect').classed('active', false);
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit').classed('active', false);
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-rect-rehau').classed('active', false);
+                    d3.selectAll('#' + globalConstants.SVG_ID_EDIT + ' .size-txt-edit-rehau').classed('active', false);
+                  }
+                  function hideSizeTools() {
+                    deselectAllDimension();
+                    GlobalStor.global.isSizeCalculator = 0;
+                    DesignStor.design.openVoiceHelper = 0;
+                  }
+                  function cleanTempSize() {
+                    DesignStor.design.tempSize.length = 0;
+                    DesignStor.design.isMinSizeRestriction = 0;
+                    DesignStor.design.isMaxSizeRestriction = 0;
+                    DesignStor.design.isDimExtra = 0;
+                    DesignStor.design.isSquareExtra = 0;
+                  }
+                  function rebuildSVGTemplate() {
+                    createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                      .then(function (result) {
+                        DesignStor.design.templateTEMP = angular.copy(result);
+                        DesignStor.design.templateTEMP.details.forEach(function (entry, index) {
+                          if (entry.impost) {
+                            DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x = entry.impost.impostAxis[0].x;
+                            DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x = entry.impost.impostAxis[1].x;
+                          }
+                        });
+          
+                      });
+                  }
+                  function stepBack() {
+                    GlobalStor.global.checkDoors = 0;
+                    var lastIndex = DesignStor.design.designSteps.length - 1;
+                    DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
+                    rebuildSVGTemplate();
+                    DesignStor.design.designSteps.pop();
+                    cleanTempSize();
+                    hideSizeTools();
+                  }
+                  stepBack()
+                  DesignStor.design.isDimSmall = 1;
+                }
                 var temp1 = angular.copy(thisObj.details[i].impost.impostIn[0].y);
                 var temp2 = angular.copy(thisObj.details[i].impost.impostIn[3].x);
                 var temp3 = angular.copy(thisObj.details[i].impost.impostIn[3].y);
@@ -40782,7 +42573,7 @@ function ErrorResult(code, message) {
           checkInsidePointInLineEasy: checkInsidePointInLineEasy,
           sortByX: sortByX
         };
-
+       
         return thisFactory.publicObj;
 
 
@@ -41058,12 +42849,101 @@ function ErrorResult(code, message) {
                     });
                 }
 
+                function closeButton(id) {
+                    if (DesignStor.design.tempSize.length) {
+                        //----- finish size culculation
+                        DesignServ.closeSizeCaclulator();
+                    } else {
+                        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+                        DesignStor.design.isDropSubMenu = 0;
+                        DesignServ.hideCornerMarks();
+                        DesignServ.deselectAllImpost();
+                        if (id !== 4) {
+                            DesignServ.deselectAllArc();
+                        }
+                        //----- hide culculator
+                        DesignServ.hideSizeTools();
+                        if (DesignStor.design.activeMenuItem) {
+                            switch (DesignStor.design.activeMenuItem) {
+                                case 1:
+                                    showAllAvailableGlass(id);
+                                    //------ drop submenu items
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 2;
+                                    }, delaySubMenu1);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 6;
+                                    }, delaySubMenu2);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 8;
+                                    }, delaySubMenu3);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 0;
+                                    }, delaySubMenu4);
+                                    break;
+                                case 2:
+                                    // DesignStor.design.activeSubMenuItem = id;
+                                    DesignServ.deselectAllGlass();
+                                    showAllAvailableCorner(id);
+                                    break;
+                                case 3:
+                                    showAllAvailableGlass(id);
+                                    //------ drop submenu items
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 4;
+                                    }, delaySubMenu1);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 8;
+                                    }, delaySubMenu2);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 12;
+                                    }, delaySubMenu3);
+                                    $timeout(function () {
+                                        DesignStor.design.isDropSubMenu = 0;
+                                    }, delaySubMenu4);
+                                    break;
+                                case 4:
+                                    // DesignStor.design.activeSubMenuItem = id;
+                                    DesignServ.deselectAllGlass();
+                                    showAllAvailableArc(id);
+                                    break;
+                                case 5:
+                                    //DesignServ.deselectAllGlass();
+                                    DesignStor.design.activeSubMenuItem = id;
+                                    break;
+                                case 6:
+                                    DesignStor.design.activeSubMenuItem = id;
+                                    GlobalStor.global.goLeft = true;
+                                    //DesignServ.deselectAllGlass();
+                                    break;
+                            }
+                        } else {
+                            //------ if we close menu
+                            DesignStor.design.activeSubMenuItem = 0;
+                            GlobalStor.global.goLeft = false;
+                            GlobalStor.global.showTemplates = false;
+                            GlobalStor.global.activePanel = 0;
+                            //-------- delete selected glasses
+                            DesignServ.deselectAllGlass();
+                            DesignServ.deselectAllArc();
+                            $timeout(function () {
+                                DesignStor.design.isImpostDelete = 0;
+                            }, 300);
+                        }
+                        if (UserStor.userInfo.factory_id === 2) {
+                            if (id === 6) {
+                                GlobalStor.global.activePanel = 1;
+                            }
+                        }
+                    }
+                }
 
                 /**========== FINISH ==========*/
 
                 thisFactory.publicObj = {
                     selectNewTemplate: selectNewTemplate,
-                    initNewTemplateType: initNewTemplateType
+                    initNewTemplateType: initNewTemplateType,
+                    closeButton: closeButton,
                 };
 
                 return thisFactory.publicObj;
@@ -41322,6 +43202,7 @@ function ErrorResult(code, message) {
             minSizeLimit: 0,
             maxSizeLimit: 0,
             isDimExtra: 0,
+            isDimSmall: 0,
             isSquareExtra: 0,
 
             //------- extra glasses

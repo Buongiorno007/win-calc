@@ -25,7 +25,7 @@
     //----------- Play audio sounds
     function playSound() {
       var audioPlayer = document.getElementById('sounds');
-      audioPlayer.play();
+      // audioPlayer.play();
     }
     /*
      function playSound(element) {

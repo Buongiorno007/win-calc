@@ -87,6 +87,7 @@
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
         box-shadow: 0px 2px 7px 3px rgba(78, 77, 77, 0.3);
+        
         .glass-item {
           display: inline-flex;
           align-items: center;
@@ -180,6 +181,7 @@
       width: 95%;
       height: auto;
       margin-bottom: 20px;
+      margin-top: 60px;
       .folder-img {
         display: inline-flex;
         align-items: center;
@@ -238,32 +240,56 @@
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        width: 99.9%;
+        width: 99.8%;
         background: white;
         cursor: pointer;
         .glass-item {
           display: flex;
           justify-content: space-between;
-          width: 100%;
+          width: 103%;
           height: 50px;
           align-items: center;
           padding: 10px 10px 10px 10px;
+          margin-top: 3px;
 
+          border: 1px solid darkgray;
+          box-shadow: 2px 4px 5px hsla(0, 0, 0, .1),
+                -2px 4px 5px hsla(0, 0, 0, .1);
+          transition: all .2s ease;
+          cursor: pointer;
+
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 2px 9px 50px hsla(0, 0, 0, .1),
+            -2px 9px 60px hsla(0, 0, 0, .1);
+          }
           .glass-warm {
+            width: 135px;
             color: black;
-            font-size: 17px;
+            font-size: 14px;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+          }
+          .glass-price {
+            width: 135px;
+            color: black;
+            font-size: 14px;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
           }
           .glass-noise {
+            width: 101px;
             color: black;
-            font-size: 17px;
-          }
-          .glass-width{
-            color: black;
-            font-size: 17px;
+            font-size: 14px;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
           }
           .glass-title{
+            width: 151px;
             color: black;
-            font-size: 17px;
+            font-size: 14px;
+            // overflow-x: hidden;
+            // text-overflow: ellipsis;
           }
 
           .item-info{
@@ -278,16 +304,44 @@
             width: 103%;
             background-color: $primary_pink;
             .glass-warm {
-              color: white;
+              color: #fff;
+              font-weight: bold;
+            }
+            .glass-price {
+              color: #fff;
+              font-weight: bold;
             }
             .glass-noise {
-              color: white;
+              color: #fff;
+              font-weight: bold;
             }
             .glass-width{
-              color: white;
+              color: #fff;
+              font-weight: bold;
             }
             .glass-title{
-              color: white;
+              color: #fff;
+              font-weight: bold;
+            }
+          }
+
+          transition: 0.4s all linear;
+
+          &:hover {
+            background-color: #424242;
+
+            .glass-warm {
+              color: #fff;
+            }
+            .glass-noise {
+              color: #fff;
+              
+            }
+            .glass-width{
+              color: #fff;
+            }
+            .glass-title{
+              color: #fff;
             }
           }
         }
@@ -300,10 +354,22 @@
 
           .glass-main-info-block {
             display: flex;
+            gap: 62px;
             justify-content: space-between;
             padding: 10px 10px 10px 10px;
-
+            .glass_head {
+              width: 200px;
+            }
+            .glass-main-info-descript {
+              width: 135px;
+              align-items: center;
+              align-self: center;
+              font-size: 14px;
+              color: white;
+              margin: 0 0 0 0;
+            }
             h4 {
+              width: 135px;
               align-items: center;
               align-self: center;
               font-size: 14px;
@@ -313,16 +379,51 @@
           }
         }
       }
-      .info-rehau {
-        display: none;
-        all: unset;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 45px;
-        background-image: url(../img/rehau-img/information-icon-rehau.png);
-        width: 24px;
-        height: 24px;
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        align-self: center;
+  
+        margin-left: 10px;
+      }
+  
+      /* Tooltip text */
+      .tooltip .tooltiptext {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 24px;
+        visibility: hidden;
+        width: fit-content;
+        top: -40%;
+        margin-left: -125px; /* Use half of the width (120/2 = 60), to center the tooltip */
+        background-color: #818181;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+
+        position: absolute;
+        z-index: 1021;
+
+        opacity: 0;
+        transition: opacity 0.6s;
+      }
+  
+      /* Show the tooltip text when you mouse over the tooltip container */
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+  
+      .tooltip .tooltiptext::after {
+        content: " ";
+        position: absolute;
+        top: 40%; /* At the top of the tooltip */
+        left: 105%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent #818181;
       }
     }
   }

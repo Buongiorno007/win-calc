@@ -171,9 +171,7 @@
   //rehau styles ------
   .order-rehau {
     @extend .splash;
-    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.24);
     position: relative;
-    margin-right: rem(50px);
     float: right;
     height : auto;
 
@@ -201,7 +199,7 @@
   }
 
   .order-delete-rehau {
-    background-image: url(../img/rehau-img/close.png);
+    background-image: url(../img/rehau-img/close.svg);
     background-repeat: no-repeat;
     background-position: center;
 
@@ -212,14 +210,12 @@
     top: -50%;
     right: -40%;
     z-index: 1;
-
-    background-color: #DE350C;
   }
 
   //rehau styles -----
 
   .delete-construction {
-    background-image: url(../img/rehau-img/remove.png);
+    background-image: url(../img/rehau-img/trash.png);
     background-position: center;
     position: absolute;
     right: 0;
@@ -390,7 +386,7 @@
 
     margin-top: 15px;
 
-    padding: 4px 36px;
+    padding: 4px 40px;
 
     background-color: #F1F1F1;
 
@@ -403,7 +399,7 @@
 
         text-align: center;
 
-        color: #DD0060;
+        color: #DC143C;
       }
 
       h3 {
@@ -424,12 +420,26 @@
 
         color: #000000;
       }
-      .order-price {
-        text-align: center;
-        color: $primary_pink;
-        font-size: 18px;
-        font-weight: bold;
+      .price-discount-text {
+        display: flex;
+        justify-content: center;
+        .price-discount-span {
+          font-size: 14px;
+          color: gray;
+          text-decoration: line-through;
+        }
+        .price-discount-percentage {
+          font-size: 14px;
+          color: #DC143C;
+          margin-left: 4px;
+        }
       }
+    }
+    .order-price {
+      text-align: center;
+      color: $primary_pink;
+      font-size: 18px;
+      font-weight: bold;
     }
   }
 
@@ -510,9 +520,20 @@
     .order-rehau {
       width: 704px;
       min-height: 384px;
-      float: left;
+      align-self: center;
 
       margin-bottom: 32px;
+      box-shadow: 2px 4px 5px hsla(0, 0, 0, .1),
+      -2px 4px 5px hsla(0, 0, 0, .1);
+      transition: all .2s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-3px);
+        transform: translateX(3px);
+        box-shadow: 2px 1.5px 25px hsla(0, 0, 0, .1),
+        -1px 4.5px 30px hsla(0, 0, 0, .1);
+      }
 
       .order-header {
         height: 0;
@@ -620,27 +641,40 @@
         border: 1px solid #D9D9D9;
       }
 
+      .addelement-main-container {
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+      }
+
       .addelements-detail-item-rehau {
         display: flex;
         justify-content: space-between;
 
         margin-left: -212px;
         margin-bottom: 16px;
+        padding-right: 40px;
 
         &:last-child {
           margin-bottom: 0px;
         }
 
-        .addelement-price-value {
-          margin-right: 24px;
-
+        .addelement-price-value-rehau {
           align-self: center;
           font-style: normal;
-          font-weight: normal;
+          font-weight: bold;
           font-size: 20px;
           line-height: 32px;
 
           color: $primary_pink;
+        }
+        .addelement-price-single-value {
+          margin-right: 8px;
+          @extend .addelement-price-value-rehau;
+        }
+        .addelement-qty-value {
+          margin-right: 8px;
+          @extend .addelement-price-value-rehau;
         }
       }
 
@@ -686,7 +720,9 @@
       }
 
       .addelement-price-container {
-        display: flex;  
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
       }
 
       .aux-delete-rehau {
@@ -903,7 +939,7 @@
   .addelement-price-value {
     @include roboto-bd(rem(36px));
     color: $main_gray_txt;
-    margin-right: rem(20px);
+    // margin-right: rem(20px);
   }
 
   .price-one-product {

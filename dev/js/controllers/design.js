@@ -676,6 +676,7 @@
                     GlobalStor.global.isTest = 0;
                     DesignStor.design.isDimExtra = 0;
                     DesignStor.design.isSquareExtra = 0;
+                    DesignStor.design.isDimSmall = 0;
                 }
 
                 function showStepsMobileFunc(step) {

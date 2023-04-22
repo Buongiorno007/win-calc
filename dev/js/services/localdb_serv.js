@@ -1016,37 +1016,42 @@
           // console.log("selectLocalDB",tableName);
           var defer = $q.defer();
           let result = [];
-          if (LocalDataBase[tableName]) {
-            if (!options) {
-              result = angular.copy(LocalDataBase[tableName]);
-            } else {
-              result = angular.copy(where(LocalDataBase[tableName], options));
-            }
-            if (columns) {
-              let new_res = [];
-              let col_list = columns.split(",");
-              let result_length = result.length;
-              for (let index = 0; index < result_length; index++) {
-                let item = result[index];
-                let row = {};
-                let col_list_length = col_list.length;
-                for (let jndex = 0; jndex < col_list_length; jndex++) {
-                  let col = col_list[jndex];
-                  col = col.replace(/ /g, "");
-                  row[col] = item[col];
-                }
-                new_res.push(row);
+          try {
+            if (LocalDataBase[tableName]) {
+              if (!options) {
+                result = angular.copy(LocalDataBase[tableName]);
+              } else {
+                result = angular.copy(where(LocalDataBase[tableName], options));
               }
-              result = angular.copy(new_res);
-            }
-            if (result) {
-              defer.resolve(result);
+              if (columns) {
+                let new_res = [];
+                let col_list = columns.split(",");
+                let result_length = result.length;
+                for (let index = 0; index < result_length; index++) {
+                  let item = result[index];
+                  let row = {};
+                  let col_list_length = col_list.length;
+                  for (let jndex = 0; jndex < col_list_length; jndex++) {
+                    let col = col_list[jndex];
+                    col = col.replace(/ /g, "");
+                    row[col] = item[col];
+                  }
+                  new_res.push(row);
+                }
+                result = angular.copy(new_res);
+              }
+              if (result) {
+                defer.resolve(result);
+              } else {
+                defer.resolve(0);
+              }
             } else {
               defer.resolve(0);
             }
-          } else {
-            defer.resolve(0);
+          } catch(e) {
+
           }
+
           return defer.promise;
         }
 
@@ -1382,6 +1387,7 @@
                 "comment": comment,
                 "address": localStorage.getItem('location'),
                 "region_kladr_id": localStorage.getItem('region_kladr_id'),
+                "fias_id": localStorage.getItem('fias_id'),
                 "utm": window.location.href
               },
               calculation_id: data,
@@ -1390,15 +1396,20 @@
 
           $http
             .post(
-              "https://service.rehauselected.baueffect.com/api/rehau/request",
+              globalConstants.requestUrlRehau,
               dataToSend
             )
             .then(
               function (result) {
                 defer.resolve(result.data);
                 showInfoBox(1, GlobalStor.global.profilesType)
-                const guidFromBackend = JSON.stringify(result.data.guid)
-                GlobalStor.global.infoDescrip = `Её уникальный номер ${guidFromBackend}`
+                const guidFromBackend = result.data.guid
+                JSON.stringify(guidFromBackend)
+                GlobalStor.global.infoDescrip = `Заказ ${guidFromBackend} успешно создан. 
+
+                Ваша заявка передана в обработку. В ближайшее время с вами свяжется специалист  РЕХАУ для подтверждения заявки. 
+                
+                *После дистанционного подписания договора, заказ может быть выслан по размерам клиента без замера`
                 GlobalStor.global.infoTitle = {
                   name: 'Спасибо за вашу заявку!'
                 }
@@ -1412,6 +1423,12 @@
         }
 
         function insertServer(login, access, table, data) {
+          //We subtract the cost of additional items and the cost of mounting and installation from the product price to get template_price. Sore but we need that small condition to send correct info to backend
+          if(UserStor.userInfo.factory_id === 2) {
+            if (data.template_price) {
+              data.template_price = data.product_price - data.addelem_price;
+            }
+          }
           const ordered = {};
           Object.keys(data)
             .sort()
@@ -2595,7 +2612,6 @@
                     3
                   );
                   priceObj.priceTotal += priceTemp;
-                  //              console.warn('finish bead-________',constrElem);
                   constrElements.push(constrElem);
                 }
               }
@@ -3060,20 +3076,21 @@
                 }
               }
             }
-            //console.info('@@@@@@@@@@@@', objTmp);
+            // console.info('@@@@@@@@@@@@', objTmp);
             // console.log(ProductStor.product, 'Product stor');
+            // console.log(globalConstants, 'chec')
             // console.log(OrderStor.order)
             // console.log(CartStor.cart)
             // console.log(OrderStor.order, 'order stor')
             // console.log(GlobalStor.global)
             // console.log(UserStor.userInfo, 'userInfo')
             // console.log(ProductStor.product)
-            //console.log(GlobalStor.global, 'global stor');
+            // console.log(GlobalStor.global, 'global stor');
             // console.log(UserStor.userInfo, 'shshshhs')
             // console.log(CartStor.cart, 'check')
             // console.log(DesignStor.design, 'Design stor')
             // console.log(GlobalStor.global.templatesImgs.slice(0, 2) )
-            //console.log('REPORT', ProductStor.product.report);
+            // console.log('REPORT', ProductStor.product.report);
             //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
             //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
 
