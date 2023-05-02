@@ -293,7 +293,7 @@
                 }
               }
             }
-            console.log(GlobalStor.global, 'глобалстор')
+            // console.log(GlobalStor.global, 'глобалстор')
             /** set current GeoLocation */
             if (GlobalStor.global.location === []) {
               prepareLocationToUse();
