@@ -20,7 +20,7 @@
     }
   }
   .nav-menu-btn:before {
-    color: black;
+    color: $main_white;
   }
   .user-info-container {
     position: absolute;
@@ -75,7 +75,7 @@
     padding-top: 0.5rem;
     p {
       @include roboto-lt(rem(20px));
-      color: black;
+      color: $main_white;
       margin: 0;
     }
   }
@@ -566,11 +566,11 @@
   // rehau styles
   .size-line-rehau {
     stroke-width: 1.2px !important;
-    stroke: $primary_green !important;
+    stroke: $main_white !important;
   }
   .size-line-arrow-rehau {
     stroke-width: 1.2px !important;
-    stroke: black !important;
+    stroke: $main_white !important;
   }
   // rehau styles end ---
   .size-rect {

@@ -38,7 +38,7 @@
   .calc-delete {
     position: relative;
     display: table;
-    background-color: $main_gray_btn;
+    background-color: transparent;
     &:after {
       @extend .icon-setting;
       @include font-icon(rem(36px), 0);
@@ -46,7 +46,7 @@
       left: 30%;
       top: 50%;
       position: absolute;
-      color: $main_gray_txt;
+      color: $main_white;
       content: $calc-clean-icon;
     }
   }
@@ -80,6 +80,7 @@
   .calc-value-limit {
     @include roboto-lt(rem(36px));
     max-width: 7rem;
+    color: $main_white;
 
     &.restriction {
       @extend .flashing;

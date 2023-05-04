@@ -411,7 +411,7 @@ body {
   display: flex;
   align-items: center;
   height: 80px;
-  background-color: $primary_green;
+  background-color: $main_deep_green;
   padding: 18px;
 
   .alert-title-rehau {
@@ -442,7 +442,7 @@ body {
 
       .alert-yes-rehau {
         padding: 8px 16px;
-        background-color: $primary_green;
+        background-color: $main_deep_green;
         color: #fff;
         border: none;
   
@@ -514,8 +514,9 @@ body {
     
     .alert-yes-rehau {
       padding: 8px 16px;
-      background-color: $primary_green;
+      background-color: $main_deep_green;
       color: #fff;
+      border-radius: 100px;
       border: none;
 
       @media screen and (max-device-width: 550px) {
@@ -563,7 +564,7 @@ body {
     display: flex;
     align-items: center;
     height: 80px;
-    background-color: $primary_green;
+    background-color: $main_deep_green;
     padding: 18px;
 
     .alert-title {
@@ -614,7 +615,7 @@ body {
     .alert-go-to-basket{
       font-size: 16px;
       padding: 8px 32px 8px 8px;
-      background-color: $primary_green;
+      background-color: $main_deep_green;
       color: #fff;
       border-radius: 0;
       border: none;
@@ -630,7 +631,7 @@ body {
     .alert-new-construction {
       font-size: 16px;
       padding: 8px 32px 8px 8px ;
-      background-color: $primary_green;
+      background-color: $main_deep_green;
       color: #fff;
       border-radius: 0;
       border: none;
@@ -675,7 +676,7 @@ body {
     display: flex;
     align-items: center;
     height: 80px;
-    background-color: $primary_green;
+    background-color: $main_deep_green;
     padding: 18px;
   }
 
@@ -709,7 +710,7 @@ body {
   }
 
   .alert-yes-rehau {
-    background-color: $primary_green;
+    background-color: $main_deep_green;
 
     padding: 8px 10px;
     margin-top: 40px;
@@ -744,7 +745,7 @@ body {
     width: 80px;
   }
   .alert-copy-rehau {
-    background-color: $primary_green;
+    background-color: $main_deep_green;
 
     padding: 8px 10px;
 
@@ -764,7 +765,7 @@ body {
   }
   }
   .alert-edit-rehau {
-    background-color: $primary_green;
+    background-color: $main_deep_green;
 
     padding: 8px 10px;
 
@@ -868,7 +869,7 @@ body {
     line-height: 32px;
   }
   .alert-yes-rehau {
-    background-color: $primary_green;
+    background-color: $main_deep_green;
 
     padding: 8px 10px;
 
@@ -900,7 +901,7 @@ body {
     width: 80px;
   }
   .alert-copy-rehau {
-    background-color: $primary_green;
+    background-color: $main_deep_green;
 
     padding: 8px 10px;
 
@@ -919,7 +920,7 @@ body {
     }
   }
   .alert-edit-rehau {
-    background-color: $primary_green;
+    background-color: $main_deep_green;
 
     padding: 8px 10px;
 

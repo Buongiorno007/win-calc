@@ -75,8 +75,8 @@
 }
 
 .white-color {
-  color: #fff;
-  -webkit-text-fill-color: #fff;
+  color: $main_white;
+  -webkit-text-fill-color: $main_white;
 }
 
 html {
@@ -111,7 +111,7 @@ body {
 }
 
 .size-box {
-  animation: animate_motion 5s 0s both infinite;
+  animation: animate_motion 5s 0s both /* infinite */;
 }
 
 .mobile {
@@ -122,7 +122,7 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100%;
-  background: white;
+  background: $main_white;
   .price {
     @include display-flex();
     @include justify-content(center);
@@ -141,7 +141,7 @@ body {
     overflow: hidden;
     height: rem($price_container-height-mobile);
     text-align: center;
-    color: $primary_pink;
+    color: $main_deep_orange;
   }
   .digit-cell {
     position: relative;
@@ -163,11 +163,11 @@ body {
     align-items: center;
     justify-content: center;
     position: absolute;
-    background: white;
+    background: $main_white;
     top: 10%;
     left: 5%;
-    height: 80%;
-    width: 91%;
+    height: 55%;
+    width: 90%;
     .alert-btns {
       button {
         display: inline-flex;
@@ -199,7 +199,7 @@ body {
   .price-currency {
     @include roboto-lt(rem($price_container-height-mobile - 4px),
     1);
-    color: $primary_pink;
+    color: $main_deep_orange;
     margin: 0 1vw;
     font-weight: bold;
   }
@@ -208,7 +208,7 @@ body {
     display: inline-block;
     position: relative;
     left: -20px;
-    background-color: #EDEDED;
+    background-color: $main_dark_blue;
     height: 100vh;
   }
   .main-view,
@@ -219,26 +219,28 @@ body {
       @extend .size-txt;
       stroke: $main_red;
       fill: $main_red;
+
       &.active {
-        stroke: #fff;
-        fill: #fff;
+        stroke: $main_white;
+        fill: $main_white;
       }
     }
     .size-txt-edit-rehau {
       @extend .size-txt-rehau;
       dominant-baseline: middle;
-      stroke: white;
-      fill: white;
+      stroke: $main_white;
+      fill: $main_white;
+
       &.active {
-        stroke: white;
-        fill: white;
+        stroke: $main_white;
+        fill: $main_white;
       }
     }
 
     .size-rect {
       width: 0;
       height: 0;
-      stroke: white;
+      stroke: $main_white;
       stroke-width: 3px;
       fill-opacity: 0;
       cursor: pointer;
@@ -251,46 +253,46 @@ body {
     }
     // rehau-styles
     .size-rect-rehau {
-      width: 240px;
-      height: 90px;
-      stroke: $primary_green !important;
-      -moz-stroke: $primary_green;
+      width: 0px;
+      height: 0px;
+      -moz-stroke: $main_deep_green;
       stroke-width: 0px;
       fill-opacity: 0;
       cursor: pointer;
-      -moz-fill: $primary_green;
+      -moz-fill: $main_deep_green;
       -moz-fill-opacity: 1;
-      stroke: $primary_green !important;
+      stroke: $main_deep_green !important;
       fill-opacity: 1;
-      fill: $primary_green;
+      fill: $main_deep_green;
       &.active {
-        -moz-fill: $primary_pink;
+        -moz-fill: $main_deep_orange;
         -moz-fill-opacity: 1;
-        stroke: $primary_pink !important;
+        stroke: $main_deep_orange !important;
         fill-opacity: 1;
-        fill: $primary_pink;
+        fill: $main_deep_orange;
       }
     }
 
     .size-txt-rehau {
-      font-size: 72px;
-      stroke: white;
-      stroke-width: 1px;
-      margin-left: 15px;
-      text-anchor: middle;
       alignment-baseline: middle;
-      dominant-baseline: middle;
       cursor: pointer;
+      dominant-baseline: middle;
+      fill: $main_white;
+      font-size: 72px;
+      margin-left: 15px;
+      stroke-width: 1px;
+      stroke: $main_white;
+      text-anchor: middle;
     }
     .size-txt-edit-rehau {
       @extend .size-txt-rehau;
       font-size: 104px;
       dominant-baseline: middle;
-      stroke: white;
-      fill: white;
+      stroke: $main_white;
+      fill: $main_white;
       &.active {
-        stroke: white;
-        fill: white;
+        stroke: $main_white;
+        fill: $main_white;
       }
     }
   }
@@ -313,8 +315,8 @@ body {
       align-items: center;
       justify-content: space-between;
       .go-to-cart-title {
-        color: white;
-        -webkit-text-fill-color: white;
+        color: $main_white;
+        -webkit-text-fill-color: $main_white;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
         1);
         margin-left: 15px;
@@ -328,7 +330,7 @@ body {
         justify-content: center;
         height: 43px;
         width: 43px;
-        background: white;
+        background: $main_white;
         border-radius: 50px;
         @extend .red-color;
         @include roboto-rg(rem($price_container-height-mobile - 4px),
@@ -403,7 +405,7 @@ body {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: $main_white;
         height: 20px;
         width: 20px;
         background: $main_red;
@@ -426,7 +428,7 @@ body {
     bottom: 0;
     width: 100%;
     align-items: center;
-    background-color: darken(#EDEDED, 5%);
+    background-color: darken($main_dark_blue, 5%);
 
     .mobile-price-block-rehau {
       display: flex;
@@ -449,14 +451,15 @@ body {
         }
 
         &.active {
-          background-color: $primary_green;
-          color: #fff;
+          background-color: $main_deep_green;
+          color: $main_white;
+          font-size: 16px;
         }
 
         padding: 18px 0;
 
-        color: #000;
-        font-size: 16px;
+        color: $main_white;
+        font-size: 14px;
 
         .construction-count-mobile {
           border: none;
@@ -464,8 +467,8 @@ body {
           width: 34px;
 
           font-size: 16px;
-          background-color: $primary_pink;
-          color: #fff;
+          background-color: $main_deep_orange;
+          color: $main_white;
           border-radius: 32px;
 
           margin-top: -10px;
@@ -541,7 +544,7 @@ body {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: $main_white;
         height: 20px;
         width: 20px;
         background: $main_red;
@@ -564,7 +567,7 @@ body {
     width: 100%;
     font-size: 16px;
     height: 34px;
-    color: #fff;
+    color: $main_white;
     background-color: #4e4e4e;
     border: 1px #4e4e4e;
   }
@@ -575,12 +578,12 @@ body {
     width: 100%;
     position: absolute;
     bottom: 0;
-    background: white;
+    background: $main_white;
     z-index: 1;
     .common-content-style {
       width: 100%;
       height: 10vh;
-      background: white;
+      background: $main_white;
       z-index: 1;
       display: inline-block;
     }
@@ -602,7 +605,7 @@ body {
         position: fixed;
         top: 0;
         left: 0;
-        background: white;
+        background: $main_white;
         width: 100%;
         height: calc(100% - 100px);
         z-index: 1;
@@ -616,7 +619,7 @@ body {
         position: fixed;
         top: 0;
         left: 0;
-        background: white;
+        background: $main_dark_blue;
         width: 100%;
         height: 100%;
         z-index: 1;
@@ -646,8 +649,8 @@ body {
                   // box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
                   padding: 8px;
                   &.selected {
-                    background-color: $primary_green;
-                    color: white;
+                    background-color: $main_deep_green;
+                    color: $main_white;
                   }
                   &:hover {
                     background-color: #F5F5F5;
@@ -670,7 +673,7 @@ body {
                     line-height: 32px;
                     margin: 0 auto;
                     text-align: center;
-                    color: $primary_green;
+                    color: $main_deep_green;
                     white-space: normal;
                     padding-top: 16px;
 
@@ -684,7 +687,7 @@ body {
                   margin-top: 0px;
                   .single-leaf-windows-title {
                     h1 {
-                      color: $primary_green;
+                      color: $main_white;
                       text-align: start;
                       font-style: normal;
                       font-weight: bold;
@@ -706,7 +709,7 @@ body {
                 .duble-leaf-windows {
                   .duble-leaf-windows-title {
                     h1 {
-                      color: $primary_green;
+                      color: $main_white;
                       text-align: start;
                       font-style: normal;
                       font-weight: bold;
@@ -728,7 +731,7 @@ body {
                 .three-leaf-windows {
                   .three-leaf-windows-title {
                     h1 {
-                      color: $primary_green;
+                      color: $main_white;
                       text-align: start;
                       font-style: normal;
                       font-weight: bold;
@@ -750,7 +753,7 @@ body {
                 .t-shaped {
                   .three-leaf-windows-title {
                     h1 {
-                      color: $primary_green;
+                      color: $main_white;
                       text-align: start;
                       font-style: normal;
                       font-weight: bold;
@@ -772,7 +775,7 @@ body {
                 .balcony-doors {
                   .three-leaf-windows-title {
                     h1 {
-                      color: $primary_green;
+                      color: $main_white;
                       text-align: start;
                       font-style: normal;
                       font-weight: bold;
@@ -810,7 +813,7 @@ body {
                 background-color: transparent;
                 outline: none;
                 &.active {
-                  color: #fff;
+                  color: $main_white;
                   background-color: $main_green;
                 }
               }
@@ -827,7 +830,7 @@ body {
                 padding: rem(10px) rem(20px);
                 border-radius: rem(16px);
                 background-color: #242424;
-                color: #fff;
+                color: $main_white;
                 white-space: nowrap;
                 cursor: pointer;
                 &:before {
@@ -952,7 +955,7 @@ body {
       display: inline-flex;
       flex-direction: column;
       align-items: center;
-      background: white;
+      background: $main_white;
       z-index: 1;
       .types {
         display: inline-flex;
@@ -1033,7 +1036,7 @@ body {
             font-size: 18px;
             line-height: 24px;
 
-            color: $primary_green;
+            color: $main_deep_green;
           }
           &.active {
             border: 2px solid $main_red;
@@ -1075,7 +1078,7 @@ body {
           width: 15vw;
           flex: 0 0 auto;
           &.selected {
-            background: white;
+            background: $main_white;
             border: none;
             border-radius: 0;
           }
@@ -1176,7 +1179,7 @@ body {
           overflow-x: auto;
           overflow-y: hidden;
           box-sizing: content-box;
-          background: white;
+          background: $main_white;
           .edit-btn {
             font-size: 6vh;
             margin: 0 15px;
@@ -1206,7 +1209,7 @@ body {
         height: 10vh;
         width: 19vw;
         &.active {
-          background: white;
+          background: $main_white;
           border-bottom-right-radius: 5px;
           border-bottom-left-radius: 5px;
         }
@@ -1264,6 +1267,7 @@ body {
     // rehau styles
     .config-content-rehau {
       display: flex;
+      background-color: $main_dark_blue;
       flex-direction: column;
       justify-content: space-between;
       height: 100vh;
@@ -1283,7 +1287,7 @@ body {
           justify-content: space-between;
           width: 100%;
 
-          background-color: $primary_green;
+          background-color: $main_deep_green;
 
           padding: 12px 16px;
 
@@ -1291,7 +1295,7 @@ body {
             height: auto;
             width: 100%;
 
-            background: $primary_green;
+            background: $main_deep_green;
 
             .conf-item-title {
               font-style: normal;
@@ -1313,12 +1317,12 @@ body {
           }
 
           .conf-close {
-            background-image: url("../img/rehau-img/close.png");
+            background-image: url("../img/rehau-img/arrow_back.svg");
             background-repeat: no-repeat;
             width: 19px;
             height: 19px;
 
-            background-color: $primary_green;
+            background-color: $main_deep_green;
             border: none;
 
             align-self: center;
@@ -1342,11 +1346,11 @@ body {
           font-size: 18px;
           line-height: 24px;
 
-          color: $primary_green;
+          color: $main_white;
         }
 
         &.active {
-          background: white;
+          background: $main_white;
           border-bottom-right-radius: 5px;
           border-bottom-left-radius: 5px;
         }
@@ -1357,7 +1361,7 @@ body {
           font-size: 14px;
           line-height: 24px;
 
-          color: #000000;
+          color: $main_gray_btn;
         }
 
         .additional-items-list-rehau {
@@ -1391,6 +1395,7 @@ body {
   }
   .size-calc-container {
     position: absolute;
+    background-color: $main_dark_blue;
     bottom: 0;
     width: 100%;
     display: inline-flex;
@@ -1399,15 +1404,13 @@ body {
     z-index: 20;
     .calc-delete {
       width: 11rem;
-      height: rem(70px);
     }
     .calc-interval {
       width: 22rem;
     }
     .cell {
-      height: rem(70px);
       &:active {
-        background-color: #6ed44a;
+        background-color: $main_deep_orange;
       }
     }
   }
@@ -1447,7 +1450,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background: white;
+    background: $main_white;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -1473,8 +1476,8 @@ body {
         align-items: center;
         justify-content: center;
         @include roboto-bd(16px);
-        color: white;
-        -webkit-text-fill-color: white;
+        color: $main_white;
+        -webkit-text-fill-color: $main_white;
       }
       .selected-profile {
         padding-left: 10px;
@@ -1502,7 +1505,7 @@ body {
       justify-content: space-between;
       width: 100%;
 
-      background-color: $primary_green;
+      background-color: $main_deep_green;
 
       padding: 12px 16px;
 
@@ -1510,7 +1513,7 @@ body {
         height: auto;
         width: 100%;
 
-        background: $primary_green;
+        background: $main_deep_green;
 
         .top-container-title {
           font-style: normal;
@@ -1532,12 +1535,12 @@ body {
       }
 
       .top-container-close {
-        background-image: url("../img/rehau-img/close.png");
+        background-image: url("../img/rehau-img/arrow_back.svg");
         background-repeat: no-repeat;
         width: 19px;
         height: 19px;
 
-        background-color: $primary_green;
+        background-color: $main_deep_green;
         border: none;
 
         align-self: center;
@@ -1550,14 +1553,14 @@ body {
     height: auto;
     left: 0px;
     bottom: 0;
-    background-color: #EDEDED;
+    background-color: $main_dark_blue;
     position: fixed;
     z-index: 1;
 
     .to-basket-button {
       display: flex;
       margin: auto;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       margin: 25px;
       &.disabled {
@@ -1572,7 +1575,7 @@ body {
       margin: auto;
       justify-content: center;
       align-items: center;
-      margin: 25px;
+      margin: 20px;
       &.disabled {
         display: none;
         position:absolute;
@@ -1601,8 +1604,9 @@ body {
       line-height: 24px;
       text-align: center;
       padding: 8px 20px;
-      background-color: $primary_green;
-      color: #fff;
+      background-color: $main_deep_green;
+      color: $main_white;
+      border-radius: 40px;
 
       border: none;
 
@@ -1632,7 +1636,7 @@ body {
 
         .price-discount-percentage {
           font-size: 14px;
-          color: $primary_pink;
+          color: $main_deep_orange;
           margin-left: 2px;
         }
       }
@@ -1642,7 +1646,7 @@ body {
         font-size: 12px;
         line-height: 16px;
 
-        color: #4E4E4E;
+        color: $main_white;
       }
     }
 
@@ -1662,9 +1666,11 @@ body {
         color: #000000;
 
         .title-rehau {
+          color: $main_white;
           padding-left: 6px;
         }
         .expert-mark {
+          color: $main_white;
           font-weight: bold;
         }
       }
@@ -1692,7 +1698,7 @@ body {
 
         .price-discount-percentage {
           font-size: 14px;
-          color: $primary_pink;
+          color: $main_deep_orange;
           margin-left: 2px;
         }
       }
@@ -1707,7 +1713,7 @@ body {
         font-size: 24px;
         line-height: 32px;
 
-        color: #000000;
+        color: #ffffff;
       }
     }
 
@@ -1727,7 +1733,7 @@ body {
       margin: auto;
       width: 100%;
 
-      background: $primary_green;
+      background: $main_deep_green;
     }
 
     .to-basket-block {
@@ -1758,7 +1764,7 @@ body {
   
           .prodcounter-rehau-for-landing {
             background-color: #424242;
-            color: white;
+            color: $main_white;
             padding-left: 35px;
             height: 48px;
           }
@@ -1793,7 +1799,7 @@ body {
   
           .prodcounter-rehau-for-landing {
             background-color: #424242;
-            color: white;
+            color: $main_white;
             padding-left: 35px;
             height: 48px;
           }
@@ -1839,7 +1845,7 @@ body {
         margin: auto;
         width: 100%;
 
-        background: $primary_green;
+        background: $main_deep_green;
       }
     }
 
@@ -1866,7 +1872,7 @@ body {
         margin: auto;
         width: 100%;
 
-        background: $primary_green;
+        background: $main_deep_green;
       }
       .add-product-rehau {
         font-style: normal;
@@ -1897,7 +1903,7 @@ body {
     left: 0;
     height: 100%;
     width: 100%;
-    background: white;
+    background: $main_dark_blue;
     overflow-y: auto;
     z-index: 1;
     overflow-x:hidden;
@@ -1953,6 +1959,7 @@ body {
           .profile-info {
             flex: 0 0 auto;
             position: relative;
+            background-color: $main_white;
             height: 86vw;
             width: 43vw !important;
             display: inline-flex;
@@ -1985,7 +1992,7 @@ body {
             }
             &.selected {
               border: 2px solid $main_red;
-              background: $main_f7;
+              background: $main_white;
               border-radius: 0;
             }
             .profile-img {
@@ -2073,6 +2080,7 @@ body {
           .profile-info {
             flex: 0 0 auto;
             margin: 0 16px 0 0;
+            background-color: $main_white;
             position: relative;
             height: 86vw;
             width: 43vw !important;
@@ -2103,8 +2111,8 @@ body {
               }
             }
             &.selected {
-              border: 2px solid $primary_pink;
-              background: $main_f7;
+              border: 2px solid $main_deep_orange;
+              background: $main_white;
               border-radius: 0;
             }
             .profile-img {
@@ -2121,7 +2129,7 @@ body {
               justify-content: center;
               height: 32px;
               width: 100%;
-              background-color: $primary_green;
+              background-color: $main_deep_green;
             }
             .common-info {
               margin-top: 16px;
@@ -2149,7 +2157,7 @@ body {
               //       .profile-text-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         text-align: left;
               //         padding-top: 2px;
               //         padding-left: 7px;
@@ -2157,7 +2165,7 @@ body {
               //       .profile-number-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         padding-top: 2px;
               //         padding-right: 7px;
               //       }
@@ -2184,7 +2192,7 @@ body {
               //       .profile-text-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         text-align: left;
               //         padding-top: 2px;
               //         padding-left: 7px;
@@ -2192,7 +2200,7 @@ body {
               //       .profile-number-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         padding-top: 2px;
               //         padding-right: 7px;
               //       }
@@ -2219,7 +2227,7 @@ body {
               //       .profile-text-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         text-align: left;
               //         padding-top: 2px;
               //         padding-left: 7px;
@@ -2227,7 +2235,7 @@ body {
               //       .profile-number-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         padding-top: 2px;
               //         padding-right: 7px;
               //       }
@@ -2253,7 +2261,7 @@ body {
               //       .profile-text-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         text-align: left;
               //         padding-top: 2px;
               //         padding-left: 7px;
@@ -2261,7 +2269,7 @@ body {
               //       .profile-number-block {
               //         z-index: 3;
               //         font-size: 12px;
-              //         color: #fff;
+              //         color: $main_white;
               //         padding-top: 2px;
               //         padding-right: 7px;
               //       }
@@ -2298,7 +2306,7 @@ body {
       width: 100%;
       height: calc(100% - 100px);
       overflow-y: auto;
-      background: white;
+      background: $main_dark_blue;
       .glass-block {
         all: unset;
         position: relative;
@@ -2311,7 +2319,7 @@ body {
         .button {
           width: 90%;
           height: 60px;
-          background: white;
+          background: $main_white;
           border-radius: 50px;
           border: 2px solid $main_gray_dark;
           display: inline-flex;
@@ -2354,7 +2362,7 @@ body {
             justify-content: space-between;
             width: 90%;
             height: 40px;
-            background: white;
+            background: $main_white;
             border-radius: 50px;
             border: 1px solid $main_gray_dark;
             margin: 5px 0 5px 0;
@@ -2410,7 +2418,7 @@ body {
         }
         
         .button {
-          background-color: $primary_green;
+          background-color: $main_deep_green;
           width: 90%;
           height: 60px;
           display: inline-flex;
@@ -2418,7 +2426,7 @@ body {
           align-items: center;
           justify-content: center;
           @include roboto-rg(25px);
-          color: #fff;
+          color: $main_white;
           z-index: 0;
           padding: 10px;
           text-transform: uppercase;
@@ -2471,11 +2479,11 @@ body {
               background-size: contain;
             }
             &.active {
-              color: #fff ;
+              color: $main_white ;
               border: none;
               border-radius: 0;
               margin-bottom: 15px;
-              border: 1px solid $primary_pink
+              border: 1px solid $main_deep_orange
             }
             .title {
               width: 100%;
@@ -2485,13 +2493,13 @@ body {
               align-items: center;
               justify-content: space-between;
               @include roboto-rg(20px);
-              color: #fff;
+              color: $main_white;
               z-index: 1;
               background-color: #818181;
               margin: 0;
               &.active {
-                color: #fff;
-                background-color: $primary_pink;
+                color: $main_white;
+                background-color: $main_deep_orange;
               }
             }
             .glass-extra-info {
@@ -2524,7 +2532,7 @@ body {
 
                 width: 15%;
 
-                color: #000;
+                color: $main_white;
               }
 
               span {
@@ -2533,7 +2541,7 @@ body {
                 font-size: 14px;
                 line-height: 24px;
 
-                color: #000;;
+                color: $main_white;
               }
             }
           }
@@ -2553,7 +2561,7 @@ body {
     display: inline-block;
     width: 0;
     height: 0;
-    background: white;
+    background: $main_white;
     top: 0;
     left: 0;
     z-index: 2;
@@ -2578,7 +2586,7 @@ body {
       display: inline-block;
       width: 100%;
       height: 100%;
-      background: white;
+      background: $main_white;
       top: 0;
       left: 0;
       z-index: 2;
@@ -2649,7 +2657,7 @@ body {
         }
       }
       .set-glass-btn {
-        background: white;
+        background: $main_white;
         @extend .border;
         p {
           @extend .red-color;
@@ -2658,8 +2666,8 @@ body {
       .set-glass-all-btn {
         background: red;
         p {
-          color: white;
-          -webkit-text-fill-color: white;
+          color: $main_white;
+          -webkit-text-fill-color: $main_white;
         }
       }
     }
@@ -2735,7 +2743,7 @@ body {
         justify-content: center;
         width: 80%;
         height: 40px;
-        background: white;
+        background: $main_white;
         border-radius: 50px;
         border: 1px solid $main_gray_dark;
         margin: 5px 0 5px 0;
@@ -2755,7 +2763,7 @@ body {
         top: 20px;
         width: 90%;
         height: 60px;
-        background: white;
+        background: $main_white;
         border-radius: 50px;
         border: 2px solid $main_gray_dark;
         display: inline-flex;
@@ -2831,7 +2839,7 @@ body {
         justify-content: center;
 
         margin-bottom: 45px;
-        color: #fff;
+        color: $main_white;
 
         &:last-child {
           margin-bottom: 150px
@@ -2849,14 +2857,14 @@ body {
           border: none;
           margin: 2px 0px 2px 0px;
 
-          color: #fff;
+          color: $main_white;
           @extend .white-color;
 
           padding: 0 10px;
           &.active {
-            color: #fff;
+            color: $main_white;
             border: none;
-            background-color: $primary_pink;
+            background-color: $main_deep_orange;
 
             @extend .white-color;
           }
@@ -2874,7 +2882,7 @@ body {
           top: 0;
           width: 100%;
           height: 48px;
-          background: $primary_green;
+          background: $main_deep_green;
           border-radius: 0;
           border: none;
           display: inline-flex;
@@ -2882,8 +2890,8 @@ body {
           align-items: center;
           justify-content: center;
           @include roboto-rg(20px);
-          color: #fff;
-          -webkit-text-fill-color: #fff;
+          color: $main_white;
+          -webkit-text-fill-color: $main_white;
           z-index: 1;
           text-transform: uppercase;
           &.active {
@@ -2907,8 +2915,8 @@ body {
           align-items: center;
           justify-content: center;
           @include roboto-rg(15px);
-          color: #fff;
-          -webkit-text-fill-color: #fff;
+          color: $main_white;
+          -webkit-text-fill-color: $main_white;
           z-index: 1;
           margin: 5px;
           p {
@@ -2918,7 +2926,7 @@ body {
             text-overflow: ellipsis;
           }
           &.active {
-            color: #fff;
+            color: $main_white;
           }
         }
         .laminat-label-where {
@@ -2928,7 +2936,7 @@ body {
           align-items: center;
           justify-content: center;
           @include roboto-rg(15px);
-          color: #fff;
+          color: $main_white;
           -webkit-text-fill-color: #000;
           z-index: 1;
           p {
@@ -2938,7 +2946,7 @@ body {
             text-overflow: ellipsis;
           }
           &.active {
-            color: #fff;
+            color: $main_white;
           }
         }
         .laminat-folder {
@@ -2963,7 +2971,7 @@ body {
         p {
           font-size: 16px;
           text-align: left;
-          color: #000;
+          color: $main_white;
         }
         margin-bottom: -20px;
         text-align: center;
@@ -3013,7 +3021,7 @@ body {
             position: relative;
             width: 90%;
             height: 50px;
-            background: white;
+            background: $main_white;
             border-radius: 50px;
             border: 2px solid $main_gray_dark;
             display: inline-flex;
@@ -3051,7 +3059,7 @@ body {
             justify-content: center;
             width: 90%;
             height: 40px;
-            background: white;
+            background: $main_white;
             border-radius: 50px;
             border: 1px solid $main_gray_dark;
             margin: 5px 0 5px 0;
@@ -3127,7 +3135,7 @@ body {
                 @include roboto-lt(12px);
                 min-width: 30px;
                 height: 20px;
-                background: white;
+                background: $main_white;
                 border-radius: 25px;
                 border: 1px solid;
                 display: inline-flex;
@@ -3152,7 +3160,7 @@ body {
       width: 100%;
       height: 100%;
       z-index: 3;
-      background: white;
+      background: $main_white;
       .name {
         @include roboto-rg(22px);
         margin: 20px 0;
@@ -3230,7 +3238,7 @@ body {
         width: 100%;
         height: calc(100% - 100px);
         overflow-y: auto;
-        background: white;
+        background: $main_dark_blue;
         padding-top: 16px 8px 0px 8px;
         padding-bottom: 150px;
         align-items: center;
@@ -3250,7 +3258,7 @@ body {
             align-items: center;
             width: 100%;
             padding: 0px 10px;
-            background-color: $primary_green;
+            background-color: $main_deep_green;
 
             &.active {
               .arrow {
@@ -3268,7 +3276,7 @@ body {
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              color: #fff;
+              color: $main_white;
               
               &.active {
                 @include roboto-rg(25px);
@@ -3284,7 +3292,7 @@ body {
             align-items: center;
             width: 100%;
 
-            background-color: #fff;
+            background-color: $main_white;
             .subfolders-name {
               position: relative;
               width: 100%;
@@ -3295,8 +3303,8 @@ body {
               display: inline-flex;
               align-items: center;
               justify-content: center;
-              color: #fff;
-              -webkit-text-fill-color: #fff;
+              color: $main_white;
+              -webkit-text-fill-color: $main_white;
               z-index: 1;
               margin: 10px 0 0 0;
               padding: 0 10px;
@@ -3332,7 +3340,7 @@ body {
               justify-content: flex-start;
               width: 100%;
               height: 48px;
-              background: #fff;
+              background: $main_white;
               border-radius: 0;
               border: none;
               margin: 5px 0 5px 0;
@@ -3350,8 +3358,8 @@ body {
                 width: 36px;
               }
               &:active {
-                background-color: $primary_pink;
-                color: #fff;
+                background-color: $main_deep_orange;
+                color: $main_white;
               }
             }
           }
@@ -3400,7 +3408,7 @@ body {
                 @include roboto-lt(18px);
 
                 .val-price {
-                  color: #fff;
+                  color: $main_white;
                 }
                 
                 .val {
@@ -3422,7 +3430,7 @@ body {
                     &:first-letter {
                       text-transform: uppercase;
                     }
-                    color: #fff;
+                    color: $main_white;
                   }
                 }
               }
@@ -3441,7 +3449,7 @@ body {
         width: 100%;
         height: 100%;
         z-index: 3;
-        background: white;
+        background: $main_white;
         .name {
           @include roboto-rg(22px);
           margin: 20px 0;
@@ -3551,7 +3559,7 @@ body {
     }
   }
   .cart-mobile {
-    background: $main_f3;
+    background: $main_dark_blue;
     display: inline-flex;
     flex-direction: column;
     .cart-header {
@@ -3574,6 +3582,7 @@ body {
     }
     .product-container {
       display: inline-flex;
+      background-color: $main_dark_blue;
       flex-direction: column;
       width: 100%;
       height: calc(100% - 170px);
@@ -3592,7 +3601,7 @@ body {
         position: relative;
         display: inline-flex;
         min-height: 370px;
-        background: white;
+        background: $main_white;
         margin: 5px 10px;
         border: 1px solid #afacac;
         border-radius: 15px;
@@ -3715,7 +3724,7 @@ body {
         overflow-x: hidden;
         padding: 0 0 10px 0;
         .alert-no {
-          color: #fff;
+          color: $main_white;
           border-radius: 0;
           label {
             font-style: normal;
@@ -3751,7 +3760,7 @@ body {
           display: inline-flex;
           min-height: 430px;
           height: auto;
-          background: white;
+          background: $main_white;
           margin: 16px;
           box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.24);
           padding: 40px 24px 24px 24px;
@@ -3770,7 +3779,7 @@ body {
             top: 0;
             left: 0;
 
-            color: #fff;
+            color: $main_white;
 
             width: 16px;
             height: 16px;
@@ -3834,7 +3843,7 @@ body {
   
                     text-align: center;
   
-                    color: $primary_pink;
+                    color: $main_deep_orange;
                   }
                 }
 
@@ -3862,7 +3871,7 @@ body {
     
                       text-align: center;
     
-                      color: $primary_pink;
+                      color: $main_deep_orange;
                     }
                   }
                   .price-discount-text {
@@ -3879,7 +3888,7 @@ body {
             
                     .price-discount-percentage {
                       font-size: 14px;
-                      color: $primary_pink;
+                      color: $main_deep_orange;
                       margin-left: 2px;
                     }
                   }
@@ -3959,7 +3968,7 @@ body {
               text-align: center;
 
               color: #FFFFFF;
-              background-color: $primary_green;
+              background-color: $main_deep_green;
 
               margin: 5px 0 0 0;
               min-height: 40px;
@@ -4000,7 +4009,7 @@ body {
       display: inline-flex;
       height: 60px;
       width: 100%;
-      background: white;
+      background: $main_white;
       border-radius: 30px;
       @extend .border;
       box-sizing: content-box;
@@ -4019,7 +4028,7 @@ body {
         background: $main_red;
         border-radius: 30px;
         @include roboto-rg(18px);
-        color: white;
+        color: $main_white;
       }
     }
     .order-delete {
@@ -4050,7 +4059,7 @@ body {
       align-items: center;
       justify-content: center;
       z-index: 1;
-      background: white;
+      background: $main_white;
       border-radius: 15px;
       .order-delete {
         top: 10px;
@@ -4080,7 +4089,7 @@ body {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: white;
+      background: $main_white;
       z-index: 1;
     }
     .mount-delivery {
@@ -4089,7 +4098,7 @@ body {
       left: 0;
       width: 100%;
       height: 100%;
-      background: white;
+      background: $main_dark_blue;
       .mobile-delivery-title {
         display: inline-flex;
         align-items: center;
@@ -4147,14 +4156,14 @@ body {
         width: 100%;
         padding: 0;
         flex: 0 0 auto;
-        background-color: $primary_green;
+        background-color: $main_deep_green;
       }
       .mount-delivery-mountings-container {
         display: inline-flex;
         flex-direction: column;
         width: 100%;
         height: calc(100% - 80px);
-        background: white;
+        background: $main_white;
         overflow-y: auto;
         overflow-x: hidden;
         .mobile-delivery-selected {
@@ -4200,7 +4209,7 @@ body {
         margin-top: 20px;
         height: calc(100% - 80px);
         padding: 0 10px;
-        background: white;
+        background: $main_dark_blue;
         overflow-y: auto;
         overflow-x: hidden;
         .mobile-delivery-title-rehau {
@@ -4212,7 +4221,7 @@ body {
           padding: 10px;
           label {
             @include roboto-lt(25px);
-            color: #fff;
+            color: $main_white;
           }
           .arrow {
             align-self: center;
@@ -4233,7 +4242,7 @@ body {
           font-size: 20px;
           background-color: #4E4E4E;
           &:active {
-            background-color: $primary_pink;
+            background-color: $main_deep_orange;
           };
           &.selected {
             padding: 0 10px;
@@ -4278,7 +4287,7 @@ body {
         height: 100%;
         top: 0;
         left: 0;
-        background: white;
+        background: $main_white;
         z-index: 1;
       }
       .add-elem-header-mobile {
@@ -4345,7 +4354,7 @@ body {
                 align-items: center;
                 width: 25%;
                 height: 30px;
-                border-right: 1px solid white; //border-left: 1px solid white;
+                border-right: 1px solid $main_white; //border-left: 1px solid $main_white;
               }
             }
           }
@@ -4377,14 +4386,14 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    background: white;
+    background: $main_white;
     z-index: 10;
     .info_title {
       @extend .red-color;
     }
   }
   .info_box_inner {
-    background: white;
+    background: $main_white;
   }
   .info_box-rehau {
     all: unset;
@@ -4395,7 +4404,7 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    background: white;
+    background: $main_white;
     z-index: 10;
   }
   .alert-no,
@@ -4405,7 +4414,7 @@ body {
     justify-content: center;
   }
   .alert-no {
-    background: white;
+    background: $main_white;
     @extend .border;
     @extend .red-color;
     border-radius: 25px;
@@ -4413,15 +4422,15 @@ body {
   }
   .alert-yes {
     background: $main_red;
-    color: white;
-    -webkit-text-fill-color: white;
+    color: $main_white;
+    -webkit-text-fill-color: $main_white;
     border-radius: 25px;
     margin: 15px;
   }
   .isApply {
     background: $main_red;
-    color: white;
-    -webkit-text-fill-color: white;
+    color: $main_white;
+    -webkit-text-fill-color: $main_white;
     border-radius: 25px;
   }
   .size-line {
@@ -4430,12 +4439,12 @@ body {
   }
   // rehau styles
   .size-line-rehau {
-    stroke-width: 1.2px !important;
-    stroke: $primary_green !important;
+    stroke-width: 2px !important;
+    stroke: $main_white !important;
   }
   .size-line-arrow-rehau {
     stroke-width: 1.2px !important;
-    stroke: black !important;
+    stroke: $main_white !important;
   }
   .gray {
     background: $main_f7;
@@ -4483,12 +4492,12 @@ body {
       white-space: nowrap;
       margin: 5px;
       .coeff-expert-mark {
-        background-color: $primary_pink;
+        background-color: $main_deep_orange;
         height: 50px;
         width: 50px;
         padding: 8px;
         font-size: 25px;
-        color: #fff;
+        color: $main_white;
         text-align: center;
       }
     }
@@ -4516,7 +4525,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    background: white;
+    background: $main_white;
     width: 100%;
     height: 100%;
   }
@@ -4540,8 +4549,8 @@ body {
       align-items: center;
       display: inline-flex;
       flex-direction: column;
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       @include roboto-bd(90px);
       .heat-transfer {
         display: inline-flex;
@@ -4549,17 +4558,17 @@ body {
       }
     }
     .heat-transfer-info_hr {
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       @include roboto-bd(24px);
     }
     .heat-transfer-info_hr2 {
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       @include roboto-bd(12px);
     }
     .heat-transfer-info-body {
-      background: white;
+      background: $main_white;
       padding: 3px;
       .heat-transfer-info-border {
         padding: 5px;
@@ -4591,7 +4600,7 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    background: white;
+    background: $main_white;
     z-index: 10;
     padding: 0;
 
@@ -4601,7 +4610,7 @@ body {
 
     .coeff-info-block-inner {
       overflow-y: scroll;
-      background-color: #fff;
+      background-color: $main_white;
       display: inline-flex;
       flex-direction: column;
       align-items: center;
@@ -4620,7 +4629,7 @@ body {
       height: 72px;
       display: flex;
       justify-content: space-between;
-      background-color: $primary_green;
+      background-color: $main_deep_green;
       padding: 12px 16px;
       .coeff-info-block-title {
         font-style: normal;
@@ -4638,7 +4647,7 @@ body {
         width: 19px;
         height: 19px;
 
-        background-color: $primary_green;
+        background-color: $main_deep_green;
         border: none;
 
         align-self: center;
@@ -4662,7 +4671,7 @@ body {
         font-size: 18px;
         line-height: 24px;
 
-        color: $primary_pink;
+        color: $main_deep_orange;
         &::before {
           content: "•";
           margin-right: 14px;
@@ -4679,7 +4688,7 @@ body {
     width: 60%;
     height: 40px;
     border-radius: 50px;
-    background: white;
+    background: $main_white;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -4739,7 +4748,7 @@ body {
       bottom: 15px;
       width: 60%;
       height: 40px;
-      background: white;
+      background: $main_white;
       border-radius: 25px;
       @extend .red-color;
       @include roboto-rg(20px);
@@ -4776,8 +4785,8 @@ body {
     align-items: center;
     .attention {
       @include roboto-rg(35px);
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       margin-bottom: 25px;
     }
     .glass-list {
@@ -4787,8 +4796,8 @@ body {
       justify-content: center;
       align-items: center;
       @include roboto-rg(20px);
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       margin: 50px 0 25px 0;
       height: auto;
     }
@@ -4806,7 +4815,7 @@ body {
       width: 60%;
       height: 45px;
       border-radius: 25px;
-      background: white;
+      background: $main_white;
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -4842,8 +4851,8 @@ body {
     text-align: left;
     .attention {
       font-size: 18px;
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       margin-bottom: 0px;
     }
     .glass-list {
@@ -4853,8 +4862,8 @@ body {
       justify-content: left;
       align-items: left;
       font-size: 14px;
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       margin: 16px 8px 16px 8px;
       height: auto;
     }
@@ -4872,7 +4881,7 @@ body {
       width: 60%;
       height: 45px;
       border-radius: 25px;
-      background: white;
+      background: $main_white;
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -4910,7 +4919,7 @@ body {
     top: 0;
     height: 100%;
     width: 70%;
-    background: white;
+    background: $main_white;
     opacity: 0.99;
     left: calc(-75%);
     transition: 0.5s linear;
@@ -4991,7 +5000,7 @@ body {
         align-items: center;
         height: 40px;
         width: 60%;
-        background: white;
+        background: $main_white;
         @extend .border;
         @extend .red-color;
         border-radius: 25px;
@@ -5015,7 +5024,7 @@ body {
     height: 100%;
     min-height: 100%;
     width: 100%;
-    background: white;
+    background: $main_white;
     z-index: 2;
     overflow: hidden;
     .order-dialog-mobile {
@@ -5024,7 +5033,7 @@ body {
       left: 0;
       height: 100%;
       width: 100%;
-      background: white;
+      background: $main_white;
       // padding: 10px 25px;
       overflow-y: scroll;
       overflow-x: hidden;
@@ -5065,8 +5074,8 @@ body {
       }
       .save {
         background: #cc0000;
-        color: white;
-        -webkit-text-fill-color: white;
+        color: $main_white;
+        -webkit-text-fill-color: $main_white;
         border-radius: 50px;
         width: 100%;
         height: 60px;
@@ -5075,7 +5084,7 @@ body {
       }
       .location-list-tooltip {
         position: absolute;
-        background: white;
+        background: $main_white;
         width: 100%;
         top: 60px;
         @include roboto-rg(15px);
@@ -5091,7 +5100,7 @@ body {
       }
       .user-field {
         border-radius: 25px;
-        background: white;
+        background: $main_white;
         @extend .border;
         height: 50px;
         width: 100%;
@@ -5111,14 +5120,14 @@ body {
       .red-field {
         border-radius: 25px;
         background: $main_red;
-        color: white;
+        color: $main_white;
         ::-webkit-input-placeholder {
           /* Chrome/Opera/Safari */
-          color: white;
+          color: $main_white;
         }
         ::-moz-placeholder {
           /* Firefox 19+ */
-          color: white;
+          color: $main_white;
         }
       }
       .street {
@@ -5144,14 +5153,14 @@ body {
 
           padding: 12px 16px;
 
-          background-color: $primary_green;
+          background-color: $main_deep_green;
           .top-container-close {
             background-image: url("../img/rehau-img/close.svg");
             background-repeat: no-repeat;
             width: 19px;
             height: 19px;
     
-            background-color: $primary_green;
+            background-color: $main_deep_green;
             border: none;
     
             align-self: center;
@@ -5162,7 +5171,7 @@ body {
             width: 19px;
             height: 19px;
     
-            background-color: $primary_green;
+            background-color: $main_deep_green;
             border: none;
     
             align-self: center;
@@ -5246,7 +5255,7 @@ body {
           text-align: center;
 
           color: #FFFFFF;
-          background-color: $primary_green;
+          background-color: $main_deep_green;
         
           width: 100%;
           height: 60px;
@@ -5261,7 +5270,7 @@ body {
         }
         .location-list-tooltip {
           position: absolute;
-          background: white;
+          background: $main_white;
           width: 100%;
           top: 60px;
           @include roboto-rg(15px);
@@ -5277,7 +5286,7 @@ body {
         }
         .user-field {
           border-radius: 25px;
-          background: white;
+          background: $main_white;
           @extend .border;
           height: 50px;
           width: 100%;
@@ -5307,14 +5316,14 @@ body {
         .red-field {
           border-radius: 25px;
           background: $main_red;
-          color: white;
+          color: $main_white;
           ::-webkit-input-placeholder {
             /* Chrome/Opera/Safari */
-            color: white;
+            color: $main_white;
           }
           ::-moz-placeholder {
             /* Firefox 19+ */
-            color: white;
+            color: $main_white;
           }
         }
         .street {
@@ -5338,7 +5347,7 @@ body {
     padding: 0rem;
     z-index: 6;
     overflow: hidden;
-    background-color: #fff;
+    background-color: $main_white;
     overflow-y: auto;
     .report-box2 {
       @include user-select('text');
@@ -5393,7 +5402,7 @@ body {
         margin: 5px;
         border: 1px solid #000;
         color: black;
-        background-color: white;
+        background-color: $main_white;
         cursor: pointer;
         &.active {
           @extend .border;
@@ -5429,9 +5438,9 @@ body {
   //rehau styles 
   .buttons-apply-rehau {
     font-size: 21px;
-    background-color: $primary_green;
+    background-color: $main_deep_green;
     margin-top: 52px;
-    color: #fff;
+    color: $main_white;
     height: 56px;
     width: 100%;
     text-align: center;
@@ -5457,7 +5466,7 @@ body {
     left: 50%;
     margin-left: -66px; /* Use half of the width (120/2 = 60), to center the tooltip */
     background-color: #818181;
-    color: #fff;
+    color: $main_white;
     text-align: center;
     padding: 16px;
 
@@ -5489,7 +5498,7 @@ body {
     justify-content: space-between;
     width: 100%;
     height: auto;
-    background-color: $primary_green;
+    background-color: $main_deep_green;
 
     .header-buttons-cancel-rehau {
       text-align: center;
@@ -5512,12 +5521,12 @@ body {
 
     .header-buttons-apply-rehau {
       text-align: center;
-      color: #fff;
+      color: $main_white;
       padding: 16px;
       font-size: 18px;
       align-items: center;
       align-self: center;
-      background-color: $primary_green;
+      background-color: $main_deep_green;
     }
   }
   .door-config-title {
@@ -5550,7 +5559,7 @@ body {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background: white;
+    background: $main_white;
     z-index: 2;
     .door-congig-scroll {
       position: relative;
@@ -5613,9 +5622,9 @@ body {
           left: -5px;
           height: 40px;
           border-radius: 50px;
-          background: white;
+          background: $main_white;
           z-index: 2;
-          border: 1px solid white;
+          border: 1px solid $main_white;
           overflow: hidden;
           transition: 1s;
           &.active {
@@ -5665,9 +5674,9 @@ body {
           height: 0px;
           width: 0px;
           overflow: hidden;
-          border: 1px solid white;
+          border: 1px solid $main_white;
           border-radius: 15px;
-          background: white;
+          background: $main_white;
           padding: 0px;
           transition: 1s;
           &.active {
@@ -5675,7 +5684,7 @@ body {
             right: -5px;
             height: 330px;
             width: 90vw;
-            background: white;
+            background: $main_white;
             z-index: 2;
             padding: 10px;
             transition: 1s;
@@ -5794,7 +5803,7 @@ body {
           transition: 1s;
           overflow: hidden;
           z-index: 1;
-          background: white;
+          background: $main_white;
           padding: 0;
           border: 1px solid transparent;
           &.active {
@@ -5804,7 +5813,7 @@ body {
             height: calc(100% + 2px);
             bottom: -1px;
             left: -1px;
-            background: white;
+            background: $main_white;
             transition: 1s;
             box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5)
           }
@@ -5821,8 +5830,8 @@ body {
             margin: 5px 0;
           }
           .delete {
-            color: white;
-            -webkit-text-fill-color: white;
+            color: $main_white;
+            -webkit-text-fill-color: $main_white;
             background: $main_red;
           }
           .order-delete {
@@ -5869,7 +5878,7 @@ body {
   .mobile-discount {
     display: inline-flex;
     flex-direction: column;
-    background: white;
+    background: $main_white;
     align-items: center;
     padding: 25px 0;
     .mobile-discount-row {
@@ -5962,8 +5971,8 @@ body {
     }
     .delete {
       height: 40px;
-      color: white;
-      -webkit-text-fill-color: white;
+      color: $main_white;
+      -webkit-text-fill-color: $main_white;
       background: $main_red;
       @include roboto-lt(20px);
       justify-content: center;

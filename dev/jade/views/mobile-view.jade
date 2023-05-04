@@ -1,10 +1,6 @@
 .mobile
     //.main-view
     .main-view(ng-hide='mobilePage.P.product.is_addelem_only')
-        .help-block__info-button(ng-if="lightPage.G.global.triggerValue")
-            {{'Как работает калькулятор?'}} 
-        .help-block-mobile
-            img(ng-mouseover="lightPage.helpModalButton()" ng-mouseleave="lightPage.helpModalButton()" ng-click="mobilePage.helpModalMobile()" src="img/rehau-img/modal-help-icon.svg", alt="")
         .svg-template(ng-controller="DesignCtrl as designPage")
             svg-template(template="designPage.D.design.templateTEMP", template-width="mobilePage.mobWidth", template-height="mobilePage.mobHeight", type-construction="designPage.constants.SVG_ID_EDIT")
     include mobile/price-mobile

@@ -1,17 +1,13 @@
 .bottom-block
     .to-basket-button(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && !mobilePage.isSet(2) && !mobilePage.isSet(3) && !mobilePage.isSet(4) && !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();")
         button.add-to-basket Добавить в корзину
-        .add-to-basket-img
-            img(src="./img/rehau-img/add-to-cart-2.svg", class="go-to-basket-img" alt="")
     .to-basket-button-for-landing.disabled(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && !mobilePage.isSet(2) && !mobilePage.isSet(3) && !mobilePage.isSet(5)")
         button.add-to-basket Добавить в корзину
-        .add-to-basket-img
-            img(src="./img/rehau-img/add-to-cart-2.svg", class="go-to-basket-img" alt="")
     .price-and-coeff-block
         .heat-coeff-txt(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && !mobilePage.isSet(2) && !mobilePage.isSet(3) && !mobilePage.isSet(4)")
             span.heat-coeff-span Оценка энергоэффективности
             .price-discount-text(ng-if="mobilePage.U.userInfo.discountConstr > 0")
-                span.price-discount-span {{mobilePage.P.product.product_price.toFixed(0)}} руб
+                span.price-discount-span {{mobilePage.P.product.product_price.toFixed(0)}}
                 span.price-discount-percentage -{{mobilePage.U.userInfo.discountConstr}}%
         .price-and-heat-coeff(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && !mobilePage.isSet(2) && !mobilePage.isSet(3) && !mobilePage.isSet(4)")
             .expert-mark-row
@@ -39,7 +35,7 @@
             span Итого:
         .price-total-price   
           .price-discount-text(ng-if="mobilePage.U.userInfo.discountConstr > 0")
-            span.price-discount-span {{cartPage.O.order.order_price.toFixed(0)}} руб
+            span.price-discount-span {{cartPage.O.order.order_price.toFixed(0)}}
             span.price-discount-percentage -{{mobilePage.U.userInfo.discountConstr}}%
           price(price-value="cartPage.O.order.orderPricePrimaryDis", price-currency="cartPage.U.userInfo.currency")
     //main screen
@@ -47,24 +43,24 @@
         .mobile-price-block-rehau
            .menu-block(fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}")
                 .menu-icon 
-                    img(src="./img/rehau-img/razmeri.svg", alt="rectangle" ng-class="{'active-img': mobilePage.isSet(0)}")
+                    img(src="./img/rehau-img/razmeri.svg", alt="rectangle" class="active-img")
                 .menu-text Размеры
            .menu-block(fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}")
                 .menu-icon 
-                    img(src="./img/rehau-img/shabloni.svg", alt="template" ng-class="{'active-img': mobilePage.isSet(1)}")
-                .menu-text Тип конструкции
+                    img(src="./img/rehau-img/shabloni.svg", alt="template" class="active-img")
+                .menu-text Конструкции
            .menu-block(fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}")
                 .menu-icon 
-                    img(src="./img/rehau-img/settings.svg", alt="settings" ng-class="{'active-img': mobilePage.isSet(5)}")
+                    img(src="./img/rehau-img/settings.svg", alt="settings" class="active-img")
                 .menu-text Параметры
            .menu-block.basket-mobile(fs-click="mobilePage.checkSavingProductMobile()"  ng-class="{'active': mobilePage.isSet(4)}")
                 .menu-icon-basket
-                    img(src="./img/rehau-img/korzina.svg", alt="basket-icon" ng-class="{'active-img': mobilePage.isSet(4)}")
+                    img(src="./img/rehau-img/korzina.svg", alt="basket-icon" class="active-img")
                     input(readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile")
                 .menu-text Корзина
             .menu-block.for-landing-mobile.disabled
                 .menu-icon-basket
-                    img(src="./img/rehau-img/korzina.svg", alt="basket-icon" ng-class="{'active-img': mobilePage.isSet(4)}")
+                    img(src="./img/rehau-img/korzina.svg", alt="basket-icon" class="active-img")
                     input(readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile")
                 .menu-text Корзина
     //basket

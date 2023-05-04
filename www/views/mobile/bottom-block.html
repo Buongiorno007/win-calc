@@ -2,15 +2,13 @@
 <div class="bottom-block">
   <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();" class="to-basket-button">
     <button class="add-to-basket">Добавить в корзину</button>
-    <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
   </div>
   <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(5)" class="to-basket-button-for-landing disabled">
     <button class="add-to-basket">Добавить в корзину</button>
-    <div class="add-to-basket-img"><img src="./img/rehau-img/add-to-cart-2.svg" alt="" class="go-to-basket-img"></div>
   </div>
   <div class="price-and-coeff-block">
     <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="heat-coeff-txt"><span class="heat-coeff-span">Оценка энергоэффективности</span>
-      <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}} руб</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
+      <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{mobilePage.P.product.product_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
     </div>
     <div ng-if="!mobilePage.isSet(4) &amp;&amp; !mobilePage.isSet(1) &amp;&amp; !mobilePage.isSet(2) &amp;&amp; !mobilePage.isSet(3) &amp;&amp; !mobilePage.isSet(4)" class="price-and-heat-coeff">
       <div class="expert-mark-row">
@@ -32,7 +30,7 @@
   <div ng-if="mobilePage.isSet(4)" class="price-total">
     <div class="total-txt"><span>Итого:</span></div>
     <div class="price-total-price">  
-      <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}} руб</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
+      <div ng-if="mobilePage.U.userInfo.discountConstr &gt; 0" class="price-discount-text"><span class="price-discount-span">{{cartPage.O.order.order_price.toFixed(0)}}</span><span class="price-discount-percentage">-{{mobilePage.U.userInfo.discountConstr}}%</span></div>
       <price price-value="cartPage.O.order.orderPricePrimaryDis" price-currency="cartPage.U.userInfo.currency"></price>
     </div>
   </div>
@@ -40,25 +38,25 @@
   <div ng-if="!mobilePage.isSet(4)" class="control-buttons-container-rehau">
     <div class="mobile-price-block-rehau">
       <div fs-click="mobilePage.closePanelMobile()" ng-class="{'active': mobilePage.isSet(0)}" class="menu-block">
-        <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" ng-class="{'active-img': mobilePage.isSet(0)}"></div>
+        <div class="menu-icon"> <img src="./img/rehau-img/razmeri.svg" alt="rectangle" class="active-img"></div>
         <div class="menu-text">Размеры</div>
       </div>
       <div fs-click="mobilePage.setTab(1)" ng-class="{'active': mobilePage.isSet(1)}" class="menu-block">
-        <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" ng-class="{'active-img': mobilePage.isSet(1)}"></div>
-        <div class="menu-text">Тип конструкции</div>
+        <div class="menu-icon"> <img src="./img/rehau-img/shabloni.svg" alt="template" class="active-img"></div>
+        <div class="menu-text">Конструкции</div>
       </div>
       <div fs-click="mobilePage.setTab(5)" ng-class="{'active': mobilePage.isSet(5)}" class="menu-block">
-        <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" ng-class="{'active-img': mobilePage.isSet(5)}"></div>
+        <div class="menu-icon"> <img src="./img/rehau-img/settings.svg" alt="settings" class="active-img"></div>
         <div class="menu-text">Параметры</div>
       </div>
       <div fs-click="mobilePage.checkSavingProductMobile()" ng-class="{'active': mobilePage.isSet(4)}" class="menu-block basket-mobile">
-        <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" ng-class="{'active-img': mobilePage.isSet(4)}">
+        <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
           <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
         </div>
         <div class="menu-text">Корзина</div>
       </div>
       <div class="menu-block for-landing-mobile disabled">
-        <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" ng-class="{'active-img': mobilePage.isSet(4)}">
+        <div class="menu-icon-basket"><img src="./img/rehau-img/korzina.svg" alt="basket-icon" class="active-img">
           <input readonly="readonly" ng-model="mobilePage.G.global.construction_count" class="construction-count-mobile">
         </div>
         <div class="menu-text">Корзина</div>

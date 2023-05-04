@@ -95,15 +95,11 @@
         .alert-btns-rehau(ng-if="alertBox.G.global.currOpenPage === 'design'")
           .rehau-btn(ng-click="alertBox.goToCart()", ng-show="alertBox.G.global.isNoChangedProduct")
             button.alert-yes-rehau Перейти в корзину
-            .black-square-basket
           .rehau-btn(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct")
             button.alert-yes-rehau Создать новое окно
-            .black-square-new-window
         .alert-btns-rehau(ng-if="alertBox.G.global.currOpenPage === 'mobile'")
           .rehau-btn(ng-click="mobilePage.setTab(4); alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct")
             button.alert-yes-rehau Перейти в корзину
-            .black-square-basket
           .rehau-btn(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct")
             button.alert-yes-rehau Создать новое окно
-            .black-square-new-window
     .close-dialog-rehau(ng-click="alertBox.G.global.isNoChangedProduct = 0")
