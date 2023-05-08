@@ -869,7 +869,7 @@
           </li>
         </ul>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
-          <div class="get-price-btn">
+          <div ng-class="{'active': configMenu.O.order.products.length}" class="get-price-btn">
             <p class="get-price-btn-p">{{configMenu.GET_PRICE}}</p>
           </div>
           <!--price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")-->

@@ -350,6 +350,13 @@ th {
   animation: splashing 0.5s ease 0s 1;
 }
 
+/* line 144, ../../dev/sass/base/_animations.scss */
+.splash-price, .light-v .discount-block .discount-price button, .light-v .discount-block .discount-price .door-configuration .door-config-finish-btn, .door-configuration .light-v .discount-block .discount-price .door-config-finish-btn, .light-v .discount-block .discount-price .door-configuration .door-config-finish-save-btn, .door-configuration .light-v .discount-block .discount-price .door-config-finish-save-btn {
+  -moz-animation: splashing 0.5s ease 0.1s 1;
+  -webkit-animation: splashing 0.5s ease 0.1s 1;
+  animation: splashing 0.5s ease 0.1s 1;
+}
+
 @-moz-keyframes splashing {
   from {
     transform: scale(0);
@@ -383,7 +390,7 @@ th {
     transform: scale(1);
   }
 }
-/* line 145, ../../dev/sass/base/_animations.scss */
+/* line 149, ../../dev/sass/base/_animations.scss */
 .flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .light-v .order-u-coeff.coeff-low, .mobile .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s ease 0s 1;
@@ -415,7 +422,7 @@ th {
     opacity: 0;
   }
 }
-/* line 150, ../../dev/sass/base/_animations.scss */
+/* line 154, ../../dev/sass/base/_animations.scss */
 .firstLight, .elem18 {
   -moz-animation: firstLight 10s ease 0s infinite;
   -webkit-animation: firstLight 10s ease 0s infinite;
@@ -446,7 +453,7 @@ th {
     opacity: .5;
   }
 }
-/* line 155, ../../dev/sass/base/_animations.scss */
+/* line 159, ../../dev/sass/base/_animations.scss */
 .ordersAlert {
   -moz-animation: ordersAlert 3s ease 0s;
   -webkit-animation: ordersAlert 3s ease 0s;
@@ -495,7 +502,7 @@ th {
     opacity: 0;
   }
 }
-/* line 160, ../../dev/sass/base/_animations.scss */
+/* line 164, ../../dev/sass/base/_animations.scss */
 .secondLight, .elem19 {
   -moz-animation: secondLight 12s ease 0s infinite;
   -webkit-animation: secondLight 12s ease 0s infinite;
@@ -526,7 +533,7 @@ th {
     opacity: 1;
   }
 }
-/* line 165, ../../dev/sass/base/_animations.scss */
+/* line 169, ../../dev/sass/base/_animations.scss */
 .thirdLight, .elem20 {
   -moz-animation: thirdLight 9s ease 0s infinite;
   -webkit-animation: thirdLight 9s ease 0s infinite;
@@ -557,7 +564,7 @@ th {
     opacity: .7;
   }
 }
-/* line 170, ../../dev/sass/base/_animations.scss */
+/* line 174, ../../dev/sass/base/_animations.scss */
 .elements {
   -moz-animation: elements 3s ease 0s 1;
   -webkit-animation: elements 3s ease 0s 1;
@@ -588,7 +595,7 @@ th {
     opacity: 1;
   }
 }
-/* line 175, ../../dev/sass/base/_animations.scss */
+/* line 179, ../../dev/sass/base/_animations.scss */
 .jumping, .config-menu .menu_tooltip {
   -moz-animation: jump-hor 2s ease-in 0s infinite;
   -webkit-animation: jump-hor 2s ease-in 0s infinite;
@@ -637,7 +644,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 185, ../../dev/sass/base/_animations.scss */
+/* line 189, ../../dev/sass/base/_animations.scss */
 .move-grid {
   -moz-animation: move-grid 1s ease 0s 1;
   -webkit-animation: move-grid 1s ease 0s 1;
@@ -668,7 +675,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 190, ../../dev/sass/base/_animations.scss */
+/* line 194, ../../dev/sass/base/_animations.scss */
 .move-grating {
   -moz-animation: move-grating 1s ease 0s 1;
   -webkit-animation: move-grating 1s ease 0s 1;
@@ -699,7 +706,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 195, ../../dev/sass/base/_animations.scss */
+/* line 199, ../../dev/sass/base/_animations.scss */
 .move-shutters {
   -moz-animation: move-shutters 1s ease 0s 1;
   -webkit-animation: move-shutters 1s ease 0s 1;
@@ -730,7 +737,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 200, ../../dev/sass/base/_animations.scss */
+/* line 204, ../../dev/sass/base/_animations.scss */
 .move-shut {
   -moz-animation: move-shut 1s ease 0s 1;
   -webkit-animation: move-shut 1s ease 0s 1;
@@ -761,7 +768,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 205, ../../dev/sass/base/_animations.scss */
+/* line 209, ../../dev/sass/base/_animations.scss */
 .move-blind {
   -moz-animation: move-blind 1s ease 0s 1;
   -webkit-animation: move-blind 1s ease 0s 1;
@@ -792,7 +799,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 210, ../../dev/sass/base/_animations.scss */
+/* line 214, ../../dev/sass/base/_animations.scss */
 .move-visor {
   -moz-animation: move-visor 1s ease 0s 1;
   -webkit-animation: move-visor 1s ease 0s 1;
@@ -823,7 +830,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 215, ../../dev/sass/base/_animations.scss */
+/* line 219, ../../dev/sass/base/_animations.scss */
 .move-spillway {
   -moz-animation: move-spillway 1s ease 0s 1;
   -webkit-animation: move-spillway 1s ease 0s 1;
@@ -854,7 +861,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 220, ../../dev/sass/base/_animations.scss */
+/* line 224, ../../dev/sass/base/_animations.scss */
 .move-vis {
   -moz-animation: move-vis 1s ease 0s 1;
   -webkit-animation: move-vis 1s ease 0s 1;
@@ -885,7 +892,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 225, ../../dev/sass/base/_animations.scss */
+/* line 229, ../../dev/sass/base/_animations.scss */
 .move-spil {
   -moz-animation: move-spil 1s ease 0s 1;
   -webkit-animation: move-spil 1s ease 0s 1;
@@ -916,7 +923,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 230, ../../dev/sass/base/_animations.scss */
+/* line 234, ../../dev/sass/base/_animations.scss */
 .move-outside {
   -moz-animation: move-outside 1s ease 0s 1;
   -webkit-animation: move-outside 1s ease 0s 1;
@@ -947,7 +954,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 235, ../../dev/sass/base/_animations.scss */
+/* line 239, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
   -moz-animation: move-windowsill 2s ease 0s 1;
   -webkit-animation: move-windowsill 2s ease 0s 1;
@@ -978,7 +985,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 241, ../../dev/sass/base/_animations.scss */
+/* line 245, ../../dev/sass/base/_animations.scss */
 .move-louvers {
   -moz-animation: move-louvers 2s ease 0s 1;
   -webkit-animation: move-louvers 2s ease 0s 1;
@@ -1009,7 +1016,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 246, ../../dev/sass/base/_animations.scss */
+/* line 250, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
   -moz-animation: move-louver-1 2s ease 2s 1;
   -webkit-animation: move-louver-1 2s ease 2s 1;
@@ -1049,7 +1056,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 251, ../../dev/sass/base/_animations.scss */
+/* line 255, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
   -moz-animation: move-louver-2 2s ease 2s 1;
   -webkit-animation: move-louver-2 2s ease 2s 1;
@@ -1089,7 +1096,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 256, ../../dev/sass/base/_animations.scss */
+/* line 260, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
   -moz-animation: move-louver-3 2s ease 2s 1;
   -webkit-animation: move-louver-3 2s ease 2s 1;
@@ -1129,7 +1136,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 261, ../../dev/sass/base/_animations.scss */
+/* line 265, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
   -moz-animation: move-louver-bottom 2s ease 2s 1;
   -webkit-animation: move-louver-bottom 2s ease 2s 1;
@@ -1169,7 +1176,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 267, ../../dev/sass/base/_animations.scss */
+/* line 271, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
   -moz-animation: move-slope-top 1s ease 0s 1;
   -webkit-animation: move-slope-top 1s ease 0s 1;
@@ -1200,7 +1207,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 272, ../../dev/sass/base/_animations.scss */
+/* line 276, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
   -moz-animation: move-slope-right 1s ease 0s 1;
   -webkit-animation: move-slope-right 1s ease 0s 1;
@@ -1231,7 +1238,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 277, ../../dev/sass/base/_animations.scss */
+/* line 281, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
   -moz-animation: move-slope-left 1s ease 0s 1;
   -webkit-animation: move-slope-left 1s ease 0s 1;
@@ -1262,7 +1269,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 283, ../../dev/sass/base/_animations.scss */
+/* line 287, ../../dev/sass/base/_animations.scss */
 .move-fan {
   -moz-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
   -webkit-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
@@ -1317,7 +1324,7 @@ th {
     transform: rotate(360deg);
   }
 }
-/* line 290, ../../dev/sass/base/_animations.scss */
+/* line 294, ../../dev/sass/base/_animations.scss */
 .move-handle {
   -moz-animation: move-handle 1s ease 0s 1;
   -webkit-animation: move-handle 1s ease 0s 1;
@@ -1348,7 +1355,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 296, ../../dev/sass/base/_animations.scss */
+/* line 300, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
   -moz-animation: move-tab 1s ease 0s 1;
   -webkit-animation: move-tab 1s ease 0s 1;
@@ -11035,7 +11042,7 @@ tr.factory_item {
   box-shadow: none;
   background: #4bd963;
 }
-/* line 502, ../../dev/sass/pages/light.scss */
+/* line 503, ../../dev/sass/pages/light.scss */
 .light-v .counter-block {
   text-align: center;
   position: relative;
@@ -11043,16 +11050,16 @@ tr.factory_item {
   width: 100%;
   display: inline-flex;
   flex-direction: row-reverse;
-  margin-left: 2.75rem;
+  margin-left: -2.25rem;
 }
-/* line 511, ../../dev/sass/pages/light.scss */
+/* line 512, ../../dev/sass/pages/light.scss */
 .light-v .counter {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 516, ../../dev/sass/pages/light.scss */
+/* line 517, ../../dev/sass/pages/light.scss */
 .light-v .counter input {
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
   text-align: center;
@@ -11061,40 +11068,42 @@ tr.factory_item {
   height: 7rem;
   margin-right: 4rem;
 }
-/* line 525, ../../dev/sass/pages/light.scss */
+/* line 526, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter {
   color: #cc0000;
 }
-/* line 528, ../../dev/sass/pages/light.scss */
+/* line 529, ../../dev/sass/pages/light.scss */
 .light-v .input-minus,
 .light-v .input-plus {
   cursor: pointer;
   position: relative;
   top: -2rem;
 }
-/* line 534, ../../dev/sass/pages/light.scss */
+/* line 535, ../../dev/sass/pages/light.scss */
 .light-v .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #363636;
 }
-/* line 539, ../../dev/sass/pages/light.scss */
+/* line 540, ../../dev/sass/pages/light.scss */
 .light-v .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 544, ../../dev/sass/pages/light.scss */
+/* line 545, ../../dev/sass/pages/light.scss */
 .light-v .save-block {
   cursor: pointer;
   position: relative;
   background: #0079ff;
   width: 85%;
-  height: 7rem;
-  display: inline-block;
-  padding-top: 1.5rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 }
-/* line 553, ../../dev/sass/pages/light.scss */
+/* line 556, ../../dev/sass/pages/light.scss */
 .light-v .save-block p {
   color: white;
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -11105,7 +11114,7 @@ tr.factory_item {
   width: 12rem;
   vertical-align: middle;
 }
-/* line 564, ../../dev/sass/pages/light.scss */
+/* line 567, ../../dev/sass/pages/light.scss */
 .light-v .cart-img {
   position: relative;
   width: 4rem;
@@ -11117,14 +11126,14 @@ tr.factory_item {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 575, ../../dev/sass/pages/light.scss */
+/* line 578, ../../dev/sass/pages/light.scss */
 .light-v .cart-btn, .light-v .cart-menu .order-btn, .cart-menu .light-v .order-btn {
   position: relative;
   top: .6rem;
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
 }
-/* line 581, ../../dev/sass/pages/light.scss */
+/* line 584, ../../dev/sass/pages/light.scss */
 .light-v .order, .light-v .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-v .product, .light-v .cart-page .addelementunit, .cart-page .light-v .addelementunit {
   top: 2rem;
   width: 32rem;
@@ -11133,24 +11142,24 @@ tr.factory_item {
   border-bottom-left-radius: 1.25rem;
   border: 1px solid #bebebe;
 }
-/* line 589, ../../dev/sass/pages/light.scss */
+/* line 592, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 593, ../../dev/sass/pages/light.scss */
+/* line 596, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 598, ../../dev/sass/pages/light.scss */
+/* line 601, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 603, ../../dev/sass/pages/light.scss */
+/* line 606, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -11158,14 +11167,14 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 611, ../../dev/sass/pages/light.scss */
+/* line 614, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 618, ../../dev/sass/pages/light.scss */
+/* line 621, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -11174,27 +11183,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 625, ../../dev/sass/pages/light.scss */
+/* line 628, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 630, ../../dev/sass/pages/light.scss */
+/* line 633, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 633, ../../dev/sass/pages/light.scss */
+/* line 636, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 637, ../../dev/sass/pages/light.scss */
+/* line 640, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 642, ../../dev/sass/pages/light.scss */
+/* line 645, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -11202,112 +11211,112 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 647, ../../dev/sass/pages/light.scss */
+/* line 650, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 650, ../../dev/sass/pages/light.scss */
+/* line 653, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 657, ../../dev/sass/pages/light.scss */
+/* line 660, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 662, ../../dev/sass/pages/light.scss */
+/* line 665, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 669, ../../dev/sass/pages/light.scss */
+/* line 672, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 674, ../../dev/sass/pages/light.scss */
+/* line 677, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 677, ../../dev/sass/pages/light.scss */
+/* line 680, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 683, ../../dev/sass/pages/light.scss */
+/* line 686, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 688, ../../dev/sass/pages/light.scss */
+/* line 691, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 693, ../../dev/sass/pages/light.scss */
+/* line 696, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 697, ../../dev/sass/pages/light.scss */
+/* line 700, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 701, ../../dev/sass/pages/light.scss */
+/* line 704, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 704, ../../dev/sass/pages/light.scss */
+/* line 707, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 707, ../../dev/sass/pages/light.scss */
+/* line 710, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 712, ../../dev/sass/pages/light.scss */
+/* line 715, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 717, ../../dev/sass/pages/light.scss */
+/* line 720, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 720, ../../dev/sass/pages/light.scss */
+/* line 723, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 723, ../../dev/sass/pages/light.scss */
+/* line 726, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 729, ../../dev/sass/pages/light.scss */
+/* line 732, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 735, ../../dev/sass/pages/light.scss */
+/* line 738, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 739, ../../dev/sass/pages/light.scss */
+/* line 742, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 743, ../../dev/sass/pages/light.scss */
+/* line 746, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
@@ -14948,31 +14957,41 @@ body {
 }
 /* line 4, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .get-price-btn {
-  background-color: #6ed44a;
+  -moz-transition: all 1s linear;
+  -o-transition: all 1s linear;
+  -webkit-transition: all 1s linear;
+  transition: all 1s linear;
+  background-color: #f98000;
   display: inline-flex;
   width: 20rem;
   margin: 0 0 0 1rem;
   border-radius: 10px;
+  height: 5rem;
 }
-/* line 11, ../../dev/sass/menus/_config-menu.scss */
+/* line 13, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .get-price-btn.active {
+  width: 100%;
+  margin: 0;
+}
+/* line 18, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .get-price-btn .get-price-btn-p {
   display: inline-block;
   width: 100%;
   color: white;
   font: normal 2.1875rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
-  margin: 0px;
+  margin: 1rem;
 }
-/* line 20, ../../dev/sass/menus/_config-menu.scss */
+/* line 27, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item {
   padding: 0 2.75rem 0 0;
   min-height: 9.375rem;
 }
-/* line 23, ../../dev/sass/menus/_config-menu.scss */
+/* line 30, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active {
   background-color: rgba(0, 0, 0, 0.07);
 }
-/* line 25, ../../dev/sass/menus/_config-menu.scss */
+/* line 32, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active:before {
   font: normal 5.25rem/1 icons, sans-serif;
   position: absolute;
@@ -14983,49 +15002,49 @@ body {
   color: #f98000;
   content: "";
 }
-/* line 38, ../../dev/sass/menus/_config-menu.scss */
+/* line 45, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.hov:hover {
   background-color: rgba(0, 0, 0, 0.07);
   margin-left: -2.75rem !important;
   padding-left: 2.75rem !important;
 }
-/* line 44, ../../dev/sass/menus/_config-menu.scss */
+/* line 51, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item-header {
   min-height: 18.75rem;
 }
-/* line 47, ../../dev/sass/menus/_config-menu.scss */
+/* line 54, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .name, .config-menu .name.aside {
   padding-top: 1px;
   width: auto;
 }
-/* line 51, ../../dev/sass/menus/_config-menu.scss */
+/* line 58, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .title {
   margin: 0.3125rem 0;
   color: #f98000;
 }
-/* line 55, ../../dev/sass/menus/_config-menu.scss */
+/* line 62, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon {
   height: 7.5rem;
   margin: 1.25rem 0;
 }
-/* line 59, ../../dev/sass/menus/_config-menu.scss */
+/* line 66, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon img {
   max-height: 100%;
 }
-/* line 63, ../../dev/sass/menus/_config-menu.scss */
+/* line 70, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .value {
   padding-top: 1px;
   margin: 0;
   width: auto;
   display: inline-block;
 }
-/* line 69, ../../dev/sass/menus/_config-menu.scss */
+/* line 76, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .right-desc {
   display: inline-block;
   float: right;
   width: 40%;
 }
-/* line 74, ../../dev/sass/menus/_config-menu.scss */
+/* line 81, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-list {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -15038,12 +15057,12 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 82, ../../dev/sass/menus/_config-menu.scss */
+/* line 89, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-group {
   margin: 0;
   padding: 0;
 }
-/* line 89, ../../dev/sass/menus/_config-menu.scss */
+/* line 96, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   position: relative;
@@ -15057,11 +15076,11 @@ body {
   background-color: #f98000;
   display: inline-block;
 }
-/* line 103, ../../dev/sass/menus/_config-menu.scss */
+/* line 110, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty.active {
   left: -3.5rem;
 }
-/* line 108, ../../dev/sass/menus/_config-menu.scss */
+/* line 115, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .curtain {
   position: absolute;
   top: 0;
@@ -15071,12 +15090,12 @@ body {
   background: rgba(248, 248, 248, 0.95);
   z-index: 3;
 }
-/* line 118, ../../dev/sass/menus/_config-menu.scss */
+/* line 125, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff {
   font: normal 2.1875rem/1.42857 roboto-light, sans-serif, icons;
   width: auto;
   position: absolute;
-  top: 79rem;
+  top: 76rem;
   left: 10rem;
   margin: 0;
   text-align: center;
@@ -15084,21 +15103,21 @@ body {
   color: #6ed44a;
   z-index: 2;
 }
-/* line 136, ../../dev/sass/menus/_config-menu.scss */
+/* line 143, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page {
   position: relative;
   top: 1rem;
   width: 100%;
   height: auto;
 }
-/* line 141, ../../dev/sass/menus/_config-menu.scss */
+/* line 148, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page input::-webkit-outer-spin-button,
 .config-menu .counter-main-page input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
   border-radius: 5px;
 }
-/* line 147, ../../dev/sass/menus/_config-menu.scss */
+/* line 154, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter-block {
   text-align: center;
   position: relative;
@@ -15108,7 +15127,7 @@ body {
   align-items: center;
   width: 100%;
 }
-/* line 155, ../../dev/sass/menus/_config-menu.scss */
+/* line 162, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter-block p {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
@@ -15117,7 +15136,7 @@ body {
   float: left;
   display: inline-block;
 }
-/* line 165, ../../dev/sass/menus/_config-menu.scss */
+/* line 172, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter {
   height: 5rem;
   display: inline-flex;
@@ -15125,14 +15144,14 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-/* line 171, ../../dev/sass/menus/_config-menu.scss */
+/* line 178, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter input {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   text-align: center;
   border: 1px solid #b1b1b1;
   width: 5rem;
 }
-/* line 178, ../../dev/sass/menus/_config-menu.scss */
+/* line 185, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-minus, .config-menu .counter-main-page .input-plus {
   cursor: pointer;
   position: relative;
@@ -15140,19 +15159,19 @@ body {
   margin-left: 1rem;
   margin-right: 1rem;
 }
-/* line 185, ../../dev/sass/menus/_config-menu.scss */
+/* line 192, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #bebebe;
 }
-/* line 191, ../../dev/sass/menus/_config-menu.scss */
+/* line 198, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 197, ../../dev/sass/menus/_config-menu.scss */
+/* line 204, ../../dev/sass/menus/_config-menu.scss */
 .config-menu input::-webkit-outer-spin-button,
 .config-menu input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
@@ -15160,12 +15179,12 @@ body {
   margin: 0;
   /* <-- Apparently some margin are still there even though it's hidden */
 }
-/* line 204, ../../dev/sass/menus/_config-menu.scss */
+/* line 211, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .prodCounter {
   border-radius: 5px !important;
   box-shadow: inset 1px 1px 1px 0px #bebebe;
 }
-/* line 208, ../../dev/sass/menus/_config-menu.scss */
+/* line 215, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .cart-btns {
   width: 130%;
   display: inline-flex;
@@ -15173,12 +15192,12 @@ body {
   position: relative;
   left: 4rem;
 }
-/* line 214, ../../dev/sass/menus/_config-menu.scss */
+/* line 221, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .cart-btns.active {
   transition: all 1s ease;
   left: 0;
 }
-/* line 220, ../../dev/sass/menus/_config-menu.scss */
+/* line 227, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart, .config-menu .save-to-cart {
   cursor: pointer;
   border-radius: 1rem;
@@ -15187,7 +15206,7 @@ body {
   top: 0;
   height: 5rem;
 }
-/* line 228, ../../dev/sass/menus/_config-menu.scss */
+/* line 235, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart img, .config-menu .save-to-cart img {
   width: 4.5rem;
   height: 4.5rem;
@@ -15197,13 +15216,13 @@ body {
   top: -.2rem !important;
   background-size: contain;
 }
-/* line 239, ../../dev/sass/menus/_config-menu.scss */
+/* line 246, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart {
   background-color: #f98000;
   display: inline-flex;
   width: 20rem;
 }
-/* line 243, ../../dev/sass/menus/_config-menu.scss */
+/* line 250, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart .save-to-cart-p {
   display: inline-block;
   width: 100%;
@@ -15212,24 +15231,24 @@ body {
   position: relative;
   margin: 1rem;
 }
-/* line 251, ../../dev/sass/menus/_config-menu.scss */
+/* line 258, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart img {
   float: left;
   margin: .5rem;
   position: relative;
   top: -.1rem;
 }
-/* line 259, ../../dev/sass/menus/_config-menu.scss */
+/* line 266, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart {
   width: 25%;
   position: relative;
   left: 4rem;
 }
-/* line 263, ../../dev/sass/menus/_config-menu.scss */
+/* line 270, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart.active {
   left: 0;
 }
-/* line 274, ../../dev/sass/menus/_config-menu.scss */
+/* line 281, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -15246,7 +15265,7 @@ body {
   opacity: 0;
   z-index: 1;
 }
-/* line 287, ../../dev/sass/menus/_config-menu.scss */
+/* line 294, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:after {
   position: absolute;
   right: -1.4rem;
@@ -15258,28 +15277,28 @@ body {
   border-color: transparent rgba(255, 255, 255, 0.85);
   content: '';
 }
-/* line 298, ../../dev/sass/menus/_config-menu.scss */
+/* line 305, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:hover {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 301, ../../dev/sass/menus/_config-menu.scss */
+/* line 308, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.tempate_tip {
   top: 2rem;
   opacity: 1;
 }
-/* line 305, ../../dev/sass/menus/_config-menu.scss */
+/* line 312, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.profile_tip {
   top: 22rem;
   opacity: 1;
 }
-/* line 309, ../../dev/sass/menus/_config-menu.scss */
+/* line 316, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.glass_tip {
   top: 29rem;
   opacity: 1;
 }
-/* line 319, ../../dev/sass/menus/_config-menu.scss */
+/* line 326, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip .close_menu_tooltip {
   position: absolute;
   top: 4%;
@@ -15287,7 +15306,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 330, ../../dev/sass/menus/_config-menu.scss */
+/* line 337, ../../dev/sass/menus/_config-menu.scss */
 .light-v .titleLight {
   font-weight: bold;
   font-size: 1.7rem;
@@ -15295,7 +15314,7 @@ body {
   color: #cc0000 !important;
 }
 
-/* line 337, ../../dev/sass/menus/_config-menu.scss */
+/* line 344, ../../dev/sass/menus/_config-menu.scss */
 input[type='number'] {
   -moz-appearance: textfield;
 }

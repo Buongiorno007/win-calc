@@ -484,6 +484,7 @@
     }
     .discount-price {
       button {
+        @extend .splash-price;
         color: white;
         @include roboto-lt(rem(40px));
         width: 85%;
@@ -506,7 +507,7 @@
     width: 100%;
     display: inline-flex;
     flex-direction: row-reverse;
-    margin-left: 2.75rem;
+    margin-left: -2.25rem;
   }
   .counter {
     width: 40%;
@@ -547,9 +548,11 @@
     position: relative;
     background: $aux_connect_color;
     width: 85%;
-    height: 7rem;
-    display: inline-block;
-    padding-top: 1.5rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
     p {
       color: white;
       @include roboto-lt(rem(40px));

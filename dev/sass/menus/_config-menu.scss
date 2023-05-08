@@ -2,11 +2,18 @@
   @extend .menu-right-general;
   height: 100%;
   .get-price-btn {
-    background-color: $main_green;
+    @include transition(all 1s linear);
+    background-color: $main_orange;
     display: inline-flex;
     width : 20rem;
     margin: 0 0 0 1rem;
     border-radius: 10px;
+    height : 5rem;
+
+    &.active {
+      width : 100%;
+      margin: 0;
+    }
 
     .get-price-btn-p {
       display: inline-block;
@@ -14,7 +21,7 @@
       color: white;
       @include roboto-lt(rem(35px));
       position: relative;
-      margin : 0px;
+      margin : 1rem
     }
   }
   .item {
@@ -121,7 +128,7 @@
     //top: 18rem;
     //left: 3rem;
     position: absolute;
-    top: 79rem;
+    top: 76rem;
     left: 10rem;
     margin: 0;
     text-align: center;

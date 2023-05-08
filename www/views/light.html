@@ -1828,16 +1828,11 @@
           <div class="discount-price">
             <button>{{lightPage.GET_PRICE}}</button>
           </div>
-        </div>
-        <div ng-if="configMenu.G.global.showCart == 0" class="counter-block">
-          <div class="counter">
-            <!--.input-minus(ng-click="lightPage.subtractProdQty()") --->
-            <input min="1" ng-model="lightPage.G.global.product_qty" ng-click="lightPage.showCalck()" class="prodcounter">
-            <!--.input-plus(ng-click="lightPage.addProdQty()") +-->
-          </div>
           <div id="save-block" ng-click="lightPage.checkForAddElem()" class="save-block">
             <p>{{lightPage.CONFIGMENU_IN_CART}}</p>
           </div>
+        </div>
+        <div ng-if="configMenu.G.global.showCart == 0" class="counter-block">
         </div>
         <!--.product-u-coeff(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id && configMenu.G.global.showCart == 0", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")-->
         <!--  div R = {{ configMenu.P.product.heat_coef_total }} {{ ::configMenu.LETTER_M}}&sup2;&deg;C/{{::configMenu.HEATCOEF_VAL }}-->
