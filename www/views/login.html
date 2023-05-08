@@ -27,7 +27,7 @@
       <div class="privacy-policy"> {{ ::loginPage.BY_PRESSING_ENTER }} <a class="privacy-link" ng-click="loginPage.ShowTerms()"> {{ ::loginPage.PRIVACY_POLICY }}</a></div>
       <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
     </form>
-    <button ng-if="loginPage.consts.serverIP !== &quot;https://api.steko.com.ua&quot;" ng-click="loginPage.registration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
+    <button ng-if="(loginPage.consts.serverIP !== &quot;https://api.steko.com.ua&quot;) &amp;&amp; (loginPage.consts.serverIP !== &quot;https://admin.ramex.baueffect.com&quot;)" ng-click="loginPage.registration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
     <!--button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}-->
     <div ng-show="loginPage.isFactoryId" fs-click="loginPage.isFactoryNotSelect = 0;" class="factory_box">
       <div ng-show="loginPage.isFactoryNotSelect" class="attantion">{{ ::loginPage.SELECT_FACTORY }}</div>

@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1612264145') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1683291385') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1612264145') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1683291385') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1612264145') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1683291385') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1612264145') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1683291385') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1612264145') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1683291385') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1612264145') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1683291385') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-max, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -4650,19 +4650,19 @@ textarea.comment-field {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../Library/Ruby/Gems/2.6.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../Library/Ruby/Gems/2.6.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../Library/Ruby/Gems/2.6.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Ruby27-x64/lib/ruby/gems/2.7.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../Library/Ruby/Gems/2.6.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -7247,7 +7247,7 @@ div.slider-nav span.left {
   width: 32rem;
   height: 32rem;
   margin: 0 auto 4.5625rem;
-  background: url('../img/login/logo.png?1612264145') no-repeat;
+  background: url('../img/login/logo.png?1683033769') no-repeat;
   background-size: cover !important;
 }
 
@@ -10357,7 +10357,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1612264145') no-repeat;
+  background: url('../img/door-arrow.png?1683290916') no-repeat;
   background-size: 100% 100%;
 }
 /* line 809, ../../dev/sass/pages/design.scss */
@@ -11023,7 +11023,19 @@ tr.factory_item {
   color: #363636;
   margin-left: 0rem;
 }
-/* line 491, ../../dev/sass/pages/light.scss */
+/* line 486, ../../dev/sass/pages/light.scss */
+.light-v .discount-block .discount-price button, .light-v .discount-block .discount-price .door-configuration .door-config-finish-btn, .door-configuration .light-v .discount-block .discount-price .door-config-finish-btn, .light-v .discount-block .discount-price .door-configuration .door-config-finish-save-btn, .door-configuration .light-v .discount-block .discount-price .door-config-finish-save-btn {
+  color: white;
+  font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
+  width: 85%;
+  height: 6rem;
+  vertical-align: middle;
+  font-size: 18px;
+  border: none;
+  box-shadow: none;
+  background: #4bd963;
+}
+/* line 502, ../../dev/sass/pages/light.scss */
 .light-v .counter-block {
   text-align: center;
   position: relative;
@@ -11033,14 +11045,14 @@ tr.factory_item {
   flex-direction: row-reverse;
   margin-left: 2.75rem;
 }
-/* line 500, ../../dev/sass/pages/light.scss */
+/* line 511, ../../dev/sass/pages/light.scss */
 .light-v .counter {
   width: 40%;
   height: 5rem;
   display: inline-block;
   margin-bottom: 2rem;
 }
-/* line 505, ../../dev/sass/pages/light.scss */
+/* line 516, ../../dev/sass/pages/light.scss */
 .light-v .counter input {
   font: normal 2.25rem/3.75rem roboto-medium, sans-serif, icons;
   text-align: center;
@@ -11049,30 +11061,30 @@ tr.factory_item {
   height: 7rem;
   margin-right: 4rem;
 }
-/* line 514, ../../dev/sass/pages/light.scss */
+/* line 525, ../../dev/sass/pages/light.scss */
 .light-v .prodcounter {
   color: #cc0000;
 }
-/* line 517, ../../dev/sass/pages/light.scss */
+/* line 528, ../../dev/sass/pages/light.scss */
 .light-v .input-minus,
 .light-v .input-plus {
   cursor: pointer;
   position: relative;
   top: -2rem;
 }
-/* line 523, ../../dev/sass/pages/light.scss */
+/* line 534, ../../dev/sass/pages/light.scss */
 .light-v .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #363636;
 }
-/* line 528, ../../dev/sass/pages/light.scss */
+/* line 539, ../../dev/sass/pages/light.scss */
 .light-v .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 533, ../../dev/sass/pages/light.scss */
+/* line 544, ../../dev/sass/pages/light.scss */
 .light-v .save-block {
   cursor: pointer;
   position: relative;
@@ -11082,7 +11094,7 @@ tr.factory_item {
   display: inline-block;
   padding-top: 1.5rem;
 }
-/* line 542, ../../dev/sass/pages/light.scss */
+/* line 553, ../../dev/sass/pages/light.scss */
 .light-v .save-block p {
   color: white;
   font: normal 2.5rem/1.42857 roboto-light, sans-serif, icons;
@@ -11093,7 +11105,7 @@ tr.factory_item {
   width: 12rem;
   vertical-align: middle;
 }
-/* line 553, ../../dev/sass/pages/light.scss */
+/* line 564, ../../dev/sass/pages/light.scss */
 .light-v .cart-img {
   position: relative;
   width: 4rem;
@@ -11105,14 +11117,14 @@ tr.factory_item {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 564, ../../dev/sass/pages/light.scss */
+/* line 575, ../../dev/sass/pages/light.scss */
 .light-v .cart-btn, .light-v .cart-menu .order-btn, .cart-menu .light-v .order-btn {
   position: relative;
   top: .6rem;
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   color: white;
 }
-/* line 570, ../../dev/sass/pages/light.scss */
+/* line 581, ../../dev/sass/pages/light.scss */
 .light-v .order, .light-v .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-v .product, .light-v .cart-page .addelementunit, .cart-page .light-v .addelementunit {
   top: 2rem;
   width: 32rem;
@@ -11121,24 +11133,24 @@ tr.factory_item {
   border-bottom-left-radius: 1.25rem;
   border: 1px solid #bebebe;
 }
-/* line 578, ../../dev/sass/pages/light.scss */
+/* line 589, ../../dev/sass/pages/light.scss */
 .light-v .order-header {
   cursor: pointer;
   height: 20rem;
 }
-/* line 582, ../../dev/sass/pages/light.scss */
+/* line 593, ../../dev/sass/pages/light.scss */
 .light-v .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 587, ../../dev/sass/pages/light.scss */
+/* line 598, ../../dev/sass/pages/light.scss */
 .light-v .order-template {
   text-align: center;
   position: relative;
   top: 1.875rem;
 }
-/* line 592, ../../dev/sass/pages/light.scss */
+/* line 603, ../../dev/sass/pages/light.scss */
 .light-v .close-cur-window {
   position: absolute;
   top: -1.25rem;
@@ -11146,14 +11158,14 @@ tr.factory_item {
   background-color: #F98000;
   z-index: 1;
 }
-/* line 600, ../../dev/sass/pages/light.scss */
+/* line 611, ../../dev/sass/pages/light.scss */
 .light-v .edit-cur-window {
   position: absolute;
   right: 3rem;
   z-index: 1;
   top: -1.25rem;
 }
-/* line 607, ../../dev/sass/pages/light.scss */
+/* line 618, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   position: relative;
@@ -11162,27 +11174,27 @@ tr.factory_item {
   height: auto;
   border-bottom: 1px solid #bebebe;
 }
-/* line 614, ../../dev/sass/pages/light.scss */
+/* line 625, ../../dev/sass/pages/light.scss */
 .light-v .order-u-coeff.coeff-low, .cart-page .full-view .light-v .order-u-coeff.coeff-low,
 .light-v .full-view .order-u-coeff.coeff-low {
   color: #cc0000;
 }
-/* line 619, ../../dev/sass/pages/light.scss */
+/* line 630, ../../dev/sass/pages/light.scss */
 .light-v .coeff {
   color: #6ed44a;
 }
-/* line 622, ../../dev/sass/pages/light.scss */
+/* line 633, ../../dev/sass/pages/light.scss */
 .light-v .order-content {
   padding: 0 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 626, ../../dev/sass/pages/light.scss */
+/* line 637, ../../dev/sass/pages/light.scss */
 .light-v .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 631, ../../dev/sass/pages/light.scss */
+/* line 642, ../../dev/sass/pages/light.scss */
 .light-v .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -11190,112 +11202,112 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 636, ../../dev/sass/pages/light.scss */
+/* line 647, ../../dev/sass/pages/light.scss */
 .light-v .qty-label {
   max-width: 10.625rem;
 }
-/* line 639, ../../dev/sass/pages/light.scss */
+/* line 650, ../../dev/sass/pages/light.scss */
 .light-v .cart-page {
   position: relative;
   width: 100%;
   height: 100%;
   top: 2rem;
 }
-/* line 646, ../../dev/sass/pages/light.scss */
+/* line 657, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration.active {
   top: -6rem;
   left: 3rem;
   width: 98%;
 }
-/* line 651, ../../dev/sass/pages/light.scss */
+/* line 662, ../../dev/sass/pages/light.scss */
 .light-v .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 17rem;
 }
-/* line 658, ../../dev/sass/pages/light.scss */
+/* line 669, ../../dev/sass/pages/light.scss */
 .light-v .right-menu-header {
   position: absolute;
   right: 4rem;
   top: 3.5rem;
 }
-/* line 663, ../../dev/sass/pages/light.scss */
+/* line 674, ../../dev/sass/pages/light.scss */
 .light-v .main-content, .light-v .main-history {
   height: 96rem !important;
 }
-/* line 666, ../../dev/sass/pages/light.scss */
+/* line 677, ../../dev/sass/pages/light.scss */
 .light-v .scroll-hor-container {
   width: auto;
   height: 84rem !important;
   padding-left: 1rem;
   padding-top: 1rem;
 }
-/* line 672, ../../dev/sass/pages/light.scss */
+/* line 683, ../../dev/sass/pages/light.scss */
 .light-v .size-calc-container {
   position: relative;
   top: 2rem;
 }
-/* line 677, ../../dev/sass/pages/light.scss */
+/* line 688, ../../dev/sass/pages/light.scss */
 .light-v .config-panel.active {
   top: -6rem;
 }
-/* line 682, ../../dev/sass/pages/light.scss */
+/* line 693, ../../dev/sass/pages/light.scss */
 .light-v .grid-selector-dialog.active {
   top: 10rem;
 }
-/* line 686, ../../dev/sass/pages/light.scss */
+/* line 697, ../../dev/sass/pages/light.scss */
 .light-v .curtain {
   height: 43.5rem !important;
   z-index: 0 !important;
 }
-/* line 690, ../../dev/sass/pages/light.scss */
+/* line 701, ../../dev/sass/pages/light.scss */
 .light-v .additional-list-container {
   top: -5rem !important;
 }
-/* line 693, ../../dev/sass/pages/light.scss */
+/* line 704, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools {
   width: 7rem;
   height: 7rem;
 }
-/* line 696, ../../dev/sass/pages/light.scss */
+/* line 707, ../../dev/sass/pages/light.scss */
 .light-v .construct-tools:after {
   top: 32%;
   left: 31%;
 }
-/* line 701, ../../dev/sass/pages/light.scss */
+/* line 712, ../../dev/sass/pages/light.scss */
 .light-v .nav-tool-box {
   position: absolute;
   top: -3rem;
   left: -6rem;
 }
-/* line 706, ../../dev/sass/pages/light.scss */
+/* line 717, ../../dev/sass/pages/light.scss */
 .light-v .template-window {
   top: 6.75rem !important;
 }
-/* line 709, ../../dev/sass/pages/light.scss */
+/* line 720, ../../dev/sass/pages/light.scss */
 .light-v .order-delete {
   background-color: #cc0000;
 }
-/* line 712, ../../dev/sass/pages/light.scss */
+/* line 723, ../../dev/sass/pages/light.scss */
 .light-v .order-tool {
   background-color: #cc0000;
   color: #fff;
 }
-/* line 718, ../../dev/sass/pages/light.scss */
+/* line 729, ../../dev/sass/pages/light.scss */
 .light-v .item.active:before {
   color: #cc0000 !important;
 }
-/* line 724, ../../dev/sass/pages/light.scss */
+/* line 735, ../../dev/sass/pages/light.scss */
 .light-v .cart-dialog-tool:before {
   color: #cc0000;
 }
-/* line 728, ../../dev/sass/pages/light.scss */
+/* line 739, ../../dev/sass/pages/light.scss */
 .light-v .user-field, .light-v .user-select-field,
 .light-v .user-select-field {
   font: normal 2.15rem/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 732, ../../dev/sass/pages/light.scss */
+/* line 743, ../../dev/sass/pages/light.scss */
 .light-v .order-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
@@ -14935,15 +14947,32 @@ body {
   /** Tooltip */
 }
 /* line 4, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .get-price-btn {
+  background-color: #6ed44a;
+  display: inline-flex;
+  width: 20rem;
+  margin: 0 0 0 1rem;
+  border-radius: 10px;
+}
+/* line 11, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .get-price-btn .get-price-btn-p {
+  display: inline-block;
+  width: 100%;
+  color: white;
+  font: normal 2.1875rem/1.42857 roboto-light, sans-serif, icons;
+  position: relative;
+  margin: 0px;
+}
+/* line 20, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item {
   padding: 0 2.75rem 0 0;
   min-height: 9.375rem;
 }
-/* line 7, ../../dev/sass/menus/_config-menu.scss */
+/* line 23, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active {
   background-color: rgba(0, 0, 0, 0.07);
 }
-/* line 9, ../../dev/sass/menus/_config-menu.scss */
+/* line 25, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active:before {
   font: normal 5.25rem/1 icons, sans-serif;
   position: absolute;
@@ -14954,49 +14983,49 @@ body {
   color: #f98000;
   content: "";
 }
-/* line 22, ../../dev/sass/menus/_config-menu.scss */
+/* line 38, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.hov:hover {
   background-color: rgba(0, 0, 0, 0.07);
   margin-left: -2.75rem !important;
   padding-left: 2.75rem !important;
 }
-/* line 28, ../../dev/sass/menus/_config-menu.scss */
+/* line 44, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item-header {
   min-height: 18.75rem;
 }
-/* line 31, ../../dev/sass/menus/_config-menu.scss */
+/* line 47, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .name, .config-menu .name.aside {
   padding-top: 1px;
   width: auto;
 }
-/* line 35, ../../dev/sass/menus/_config-menu.scss */
+/* line 51, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .title {
   margin: 0.3125rem 0;
   color: #f98000;
 }
-/* line 39, ../../dev/sass/menus/_config-menu.scss */
+/* line 55, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon {
   height: 7.5rem;
   margin: 1.25rem 0;
 }
-/* line 43, ../../dev/sass/menus/_config-menu.scss */
+/* line 59, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon img {
   max-height: 100%;
 }
-/* line 47, ../../dev/sass/menus/_config-menu.scss */
+/* line 63, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .value {
   padding-top: 1px;
   margin: 0;
   width: auto;
   display: inline-block;
 }
-/* line 53, ../../dev/sass/menus/_config-menu.scss */
+/* line 69, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .right-desc {
   display: inline-block;
   float: right;
   width: 40%;
 }
-/* line 58, ../../dev/sass/menus/_config-menu.scss */
+/* line 74, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-list {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -15009,12 +15038,12 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 66, ../../dev/sass/menus/_config-menu.scss */
+/* line 82, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-group {
   margin: 0;
   padding: 0;
 }
-/* line 73, ../../dev/sass/menus/_config-menu.scss */
+/* line 89, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   position: relative;
@@ -15028,11 +15057,11 @@ body {
   background-color: #f98000;
   display: inline-block;
 }
-/* line 87, ../../dev/sass/menus/_config-menu.scss */
+/* line 103, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty.active {
   left: -3.5rem;
 }
-/* line 92, ../../dev/sass/menus/_config-menu.scss */
+/* line 108, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .curtain {
   position: absolute;
   top: 0;
@@ -15042,7 +15071,7 @@ body {
   background: rgba(248, 248, 248, 0.95);
   z-index: 3;
 }
-/* line 102, ../../dev/sass/menus/_config-menu.scss */
+/* line 118, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff {
   font: normal 2.1875rem/1.42857 roboto-light, sans-serif, icons;
   width: auto;
@@ -15055,21 +15084,21 @@ body {
   color: #6ed44a;
   z-index: 2;
 }
-/* line 120, ../../dev/sass/menus/_config-menu.scss */
+/* line 136, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page {
   position: relative;
   top: 1rem;
   width: 100%;
   height: auto;
 }
-/* line 125, ../../dev/sass/menus/_config-menu.scss */
+/* line 141, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page input::-webkit-outer-spin-button,
 .config-menu .counter-main-page input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
   border-radius: 5px;
 }
-/* line 131, ../../dev/sass/menus/_config-menu.scss */
+/* line 147, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter-block {
   text-align: center;
   position: relative;
@@ -15079,7 +15108,7 @@ body {
   align-items: center;
   width: 100%;
 }
-/* line 139, ../../dev/sass/menus/_config-menu.scss */
+/* line 155, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter-block p {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
@@ -15088,7 +15117,7 @@ body {
   float: left;
   display: inline-block;
 }
-/* line 149, ../../dev/sass/menus/_config-menu.scss */
+/* line 165, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter {
   height: 5rem;
   display: inline-flex;
@@ -15096,14 +15125,14 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-/* line 155, ../../dev/sass/menus/_config-menu.scss */
+/* line 171, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .counter input {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   text-align: center;
   border: 1px solid #b1b1b1;
   width: 5rem;
 }
-/* line 162, ../../dev/sass/menus/_config-menu.scss */
+/* line 178, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-minus, .config-menu .counter-main-page .input-plus {
   cursor: pointer;
   position: relative;
@@ -15111,19 +15140,19 @@ body {
   margin-left: 1rem;
   margin-right: 1rem;
 }
-/* line 169, ../../dev/sass/menus/_config-menu.scss */
+/* line 185, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-minus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: left;
   color: #bebebe;
 }
-/* line 175, ../../dev/sass/menus/_config-menu.scss */
+/* line 191, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .counter-main-page .input-plus {
   font: normal 5.625rem/1.42857 roboto-light, sans-serif, icons;
   float: right;
   color: #6ed44a;
 }
-/* line 181, ../../dev/sass/menus/_config-menu.scss */
+/* line 197, ../../dev/sass/menus/_config-menu.scss */
 .config-menu input::-webkit-outer-spin-button,
 .config-menu input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
@@ -15131,12 +15160,12 @@ body {
   margin: 0;
   /* <-- Apparently some margin are still there even though it's hidden */
 }
-/* line 188, ../../dev/sass/menus/_config-menu.scss */
+/* line 204, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .prodCounter {
   border-radius: 5px !important;
   box-shadow: inset 1px 1px 1px 0px #bebebe;
 }
-/* line 192, ../../dev/sass/menus/_config-menu.scss */
+/* line 208, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .cart-btns {
   width: 130%;
   display: inline-flex;
@@ -15144,12 +15173,12 @@ body {
   position: relative;
   left: 4rem;
 }
-/* line 198, ../../dev/sass/menus/_config-menu.scss */
+/* line 214, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .cart-btns.active {
   transition: all 1s ease;
   left: 0;
 }
-/* line 204, ../../dev/sass/menus/_config-menu.scss */
+/* line 220, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart, .config-menu .save-to-cart {
   cursor: pointer;
   border-radius: 1rem;
@@ -15158,7 +15187,7 @@ body {
   top: 0;
   height: 5rem;
 }
-/* line 212, ../../dev/sass/menus/_config-menu.scss */
+/* line 228, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart img, .config-menu .save-to-cart img {
   width: 4.5rem;
   height: 4.5rem;
@@ -15168,13 +15197,13 @@ body {
   top: -.2rem !important;
   background-size: contain;
 }
-/* line 223, ../../dev/sass/menus/_config-menu.scss */
+/* line 239, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart {
   background-color: #f98000;
   display: inline-flex;
   width: 20rem;
 }
-/* line 227, ../../dev/sass/menus/_config-menu.scss */
+/* line 243, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart .save-to-cart-p {
   display: inline-block;
   width: 100%;
@@ -15183,24 +15212,24 @@ body {
   position: relative;
   margin: 1rem;
 }
-/* line 235, ../../dev/sass/menus/_config-menu.scss */
+/* line 251, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .save-to-cart img {
   float: left;
   margin: .5rem;
   position: relative;
   top: -.1rem;
 }
-/* line 244, ../../dev/sass/menus/_config-menu.scss */
+/* line 259, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart {
   width: 25%;
   position: relative;
   left: 4rem;
 }
-/* line 248, ../../dev/sass/menus/_config-menu.scss */
+/* line 263, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .go-to-cart.active {
   left: 0;
 }
-/* line 259, ../../dev/sass/menus/_config-menu.scss */
+/* line 274, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -15217,7 +15246,7 @@ body {
   opacity: 0;
   z-index: 1;
 }
-/* line 272, ../../dev/sass/menus/_config-menu.scss */
+/* line 287, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:after {
   position: absolute;
   right: -1.4rem;
@@ -15229,28 +15258,28 @@ body {
   border-color: transparent rgba(255, 255, 255, 0.85);
   content: '';
 }
-/* line 283, ../../dev/sass/menus/_config-menu.scss */
+/* line 298, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:hover {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 286, ../../dev/sass/menus/_config-menu.scss */
+/* line 301, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.tempate_tip {
   top: 2rem;
   opacity: 1;
 }
-/* line 290, ../../dev/sass/menus/_config-menu.scss */
+/* line 305, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.profile_tip {
   top: 22rem;
   opacity: 1;
 }
-/* line 294, ../../dev/sass/menus/_config-menu.scss */
+/* line 309, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.glass_tip {
   top: 29rem;
   opacity: 1;
 }
-/* line 304, ../../dev/sass/menus/_config-menu.scss */
+/* line 319, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip .close_menu_tooltip {
   position: absolute;
   top: 4%;
@@ -15258,7 +15287,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 315, ../../dev/sass/menus/_config-menu.scss */
+/* line 330, ../../dev/sass/menus/_config-menu.scss */
 .light-v .titleLight {
   font-weight: bold;
   font-size: 1.7rem;
@@ -15266,7 +15295,7 @@ body {
   color: #cc0000 !important;
 }
 
-/* line 322, ../../dev/sass/menus/_config-menu.scss */
+/* line 337, ../../dev/sass/menus/_config-menu.scss */
 input[type='number'] {
   -moz-appearance: textfield;
 }
@@ -16958,133 +16987,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/grid.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/grating.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/visor.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/outside.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/fan.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/handle.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/blind.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17094,133 +17123,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/grid.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/visor.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/grating.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/outside.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/fan.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1612264145');
+  background-image: url('../img/auxiliaries-selected/handle.png?1683290918');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1612264145');
+  background-image: url('../img/auxiliaries-focused/blind.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17244,7 +17273,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1612264145');
+  background-image: url('../img/auxiliaries/grid.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17261,7 +17290,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1612264145');
+  background-image: url('../img/auxiliaries/visor.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17278,7 +17307,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1612264145');
+  background-image: url('../img/auxiliaries/visor2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17295,7 +17324,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1612264145');
+  background-image: url('../img/auxiliaries/grating.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17312,7 +17341,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1612264145');
+  background-image: url('../img/auxiliaries/grating2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17329,7 +17358,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1612264145');
+  background-image: url('../img/auxiliaries/shutters.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17346,7 +17375,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1612264145');
+  background-image: url('../img/auxiliaries/shutters2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17363,7 +17392,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1612264145');
+  background-image: url('../img/auxiliaries/spillway.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17380,7 +17409,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1612264145');
+  background-image: url('../img/auxiliaries/spillway2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17397,7 +17426,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1612264145');
+  background-image: url('../img/auxiliaries/outside.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17414,7 +17443,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1612264145');
+  background-image: url('../img/auxiliaries/windowsill.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17431,7 +17460,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1612264145');
+  background-image: url('../img/auxiliaries/blind.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17448,7 +17477,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1612264145');
+  background-image: url('../img/auxiliaries/template1.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17465,7 +17494,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1612264145');
+  background-image: url('../img/auxiliaries/template2.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17489,7 +17518,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1612264145');
+  background-image: url('../img/auxiliaries/louvers-top.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17499,7 +17528,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1612264145');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17526,7 +17555,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1612264145');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17549,7 +17578,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1612264145');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17560,7 +17589,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1612264145');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17571,7 +17600,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1612264145');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17588,7 +17617,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1612264145');
+  background-image: url('../img/auxiliaries/fan.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17611,7 +17640,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1612264145');
+  background-image: url('../img/auxiliaries/force-connector.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17622,7 +17651,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1612264145');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -17639,7 +17668,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1612264145');
+  background-image: url('../img/auxiliaries/handle.png?1683290917');
   background-repeat: no-repeat;
   background-size: contain;
 }

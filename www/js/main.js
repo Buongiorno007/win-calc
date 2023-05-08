@@ -1855,6 +1855,7 @@ let portrait = false;
       thisCtrl.POSITION_SHAPE = $filter("translate")("design.POSITION_SHAPE");
       thisCtrl.UNITS_DESCRIP = $filter("translate")("design.UNITS_DESCRIP");
       thisCtrl.PROJECT_DEFAULT = $filter("translate")("design.PROJECT_DEFAULT");
+      thisCtrl.GET_PRICE = $filter('translate')('natification.ASKING_PRICE');
       thisCtrl.BACK = $filter("translate")("common_words.BACK");
       thisCtrl.SAVE = $filter("translate")("settings.SAVE");
       thisCtrl.CANCEL = $filter("translate")("add_elements.CANCEL");
@@ -4143,6 +4144,7 @@ let portrait = false;
                 thisCtrl.CONFIGMENU_NO_ADDELEMENTS = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS');
                 thisCtrl.CONFIGMENU_IN_CART = $filter('translate')('mainpage.CONFIGMENU_IN_CART');
                 thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+                thisCtrl.GET_PRICE = $filter('translate')('natification.ASKING_PRICE');
                 thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
                 thisCtrl.COUNT = $filter('translate')('common_words.COUNT');
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
@@ -14922,8 +14924,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
+      serverIP: 'https://admin.ramex.baueffect.com',
+      printIP: 'ttps://admin.ramex.baueffect.com/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -22949,7 +22951,6 @@ function ErrorResult(code, message) {
                     .post(globalConstants.serverIP + "/api/insert?login=" + login + "&access_token=" + access, dataToSend)
                     .then(
                         function (result) {
-                            console.log("insertServer", result);
                             defer.resolve(result.data);
                         },
                         function (result) {
@@ -26116,7 +26117,7 @@ function ErrorResult(code, message) {
                 }
               }
             }
-            console.log(GlobalStor.global, 'глобалстор')
+            // console.log(GlobalStor.global, 'глобалстор')
             /** set current GeoLocation */
             if (GlobalStor.global.location === []) {
               prepareLocationToUse();
@@ -28072,40 +28073,50 @@ function ErrorResult(code, message) {
                         const array_filtered_by_names_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "name")
                         //First looop for first array
                         let hardware_groups_array_first = GlobalStor.global.hardwares[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_first) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
+
                         //Second loop for second array
                         let hardware_groups_array_second = GlobalStor.global.hardwares[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_second) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
 
                         const array_filtered_by_description_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
+                        if (hardware_groups_array_first) {
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
+
+                        if (hardware_groups_array_second) {
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
                         //Block for hardware goups end ***
 
                         //Block for hardware folders start ***
@@ -28632,39 +28643,15 @@ function ErrorResult(code, message) {
                             //Check if current profile id equal to element from backend 
                             if (element.profile_system_id === currentProfileId) {
                                 //Local variables for different manipulation
-                                let globalHardwareAxor = GlobalStor.global.hardwaresDefaultValues[0];
-                                let globalHardwareMaco = GlobalStor.global.hardwaresDefaultValues[1];
-                                let globalHardwareWinkHaus = GlobalStor.global.hardwaresDefaultValues[2];
-                                //Logic for AXOR (we are filtering items inside the GlobalStar.global.HARDWARE[0] searching for matching for window hardware group_id with all hardwares and remain it only if it's match)
-                                let filtredHardwareAxor = globalHardwareAxor.filter((item) => item.id === element.window_hardware_group_id);
-                                if (filtredHardwareAxor.length === 0) {
-                                    filtredHardwareAxor = 0;
-                                } else {
-                                    if (!GlobalStor.global.hardwares[0]) {
-                                        GlobalStor.global.hardwares[0] = []
+                                GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
+                                    const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
+                                    if (filteredHardwares.length) {
+                                        if (!GlobalStor.global.hardwares[index]) {
+                                            GlobalStor.global.hardwares[index] = []
+                                        }
+                                        GlobalStor.global.hardwares[index].push(filteredHardwares[0])
                                     }
-                                    GlobalStor.global.hardwares[0].push(filtredHardwareAxor[0])
-                                }
-                                //Logic for MACO
-                                let filtredGlobalHardwareMaco = globalHardwareMaco.filter((item) => item.id === element.window_hardware_group_id);
-                                if (filtredGlobalHardwareMaco.length === 0) {
-                                    filtredGlobalHardwareMaco = 0;
-                                } else {
-                                    if (!GlobalStor.global.hardwares[1]) {
-                                        GlobalStor.global.hardwares[1] = []
-                                    } 
-                                    GlobalStor.global.hardwares[1].push(filtredGlobalHardwareMaco[0])
-                                }
-                                //Logic for WINK HAUS
-                                let filtredGlobalHardwareWinkHaus = globalHardwareWinkHaus.filter((item) => item.id === element.window_hardware_group_id);
-                                if (filtredGlobalHardwareWinkHaus.length === 0) {
-                                    filtredGlobalHardwareWinkHaus = 0;
-                                } else {
-                                    if (!GlobalStor.global.hardwares[2]) {
-                                        GlobalStor.global.hardwares[2] = []
-                                    }
-                                    GlobalStor.global.hardwares[2].push(filtredGlobalHardwareWinkHaus[0])
-                                }
+                                })
                             }
                         }
                         setCurrentHardware(ProductStor.product);
@@ -29006,8 +28993,8 @@ function ErrorResult(code, message) {
                     if (GlobalStor.global.isSashesInTemplate) {
                         for (let currentHardware of GlobalStor.global.hardwares) {
                             if (currentHardware) {
-                                if (currentHardware[0] !== 1) {
-                                    product.hardware = currentHardware[1];
+                                if (currentHardware[0].is_default === 1) {
+                                    product.hardware = currentHardware[0];
                                     break;
                                 } else {
                                     product.hardware = currentHardware[0];

@@ -63,6 +63,7 @@
                 thisCtrl.CONFIGMENU_NO_ADDELEMENTS = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS');
                 thisCtrl.CONFIGMENU_IN_CART = $filter('translate')('mainpage.CONFIGMENU_IN_CART');
                 thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+                thisCtrl.GET_PRICE = $filter('translate')('natification.ASKING_PRICE');
                 thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
                 thisCtrl.COUNT = $filter('translate')('common_words.COUNT');
                 thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');

@@ -869,7 +869,9 @@
           </li>
         </ul>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
-          <price price-value="configMenu.G.global.tempPrice" price-currency="configMenu.U.userInfo.currency"></price>
+          <div class="get-price-btn">
+            <p class="get-price-btn-p">{{configMenu.GET_PRICE}}</p>
+          </div>
           <!--price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")-->
           <div ng-class="{'active': configMenu.O.order.products.length}" class="cart-btns">
             <div ng-click="configMenu.checkForAddElem()" ng-class="{'active': configMenu.O.order.products.length}" class="save-to-cart"><img src="./img/config-menu/arrow.svg">

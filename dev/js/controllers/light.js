@@ -63,6 +63,7 @@
       thisCtrl.POSITION_SHAPE = $filter("translate")("design.POSITION_SHAPE");
       thisCtrl.UNITS_DESCRIP = $filter("translate")("design.UNITS_DESCRIP");
       thisCtrl.PROJECT_DEFAULT = $filter("translate")("design.PROJECT_DEFAULT");
+      thisCtrl.GET_PRICE = $filter('translate')('natification.ASKING_PRICE');
       thisCtrl.BACK = $filter("translate")("common_words.BACK");
       thisCtrl.SAVE = $filter("translate")("settings.SAVE");
       thisCtrl.CANCEL = $filter("translate")("add_elements.CANCEL");

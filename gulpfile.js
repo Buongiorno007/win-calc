@@ -43,6 +43,7 @@ var server_env = {
   "windowSiteLocal": "'https://api.windowscalculator.net'",
   "windowSite": "'https://api.windowscalculator.net'",
   "steko": "'https://api.steko.com.ua'",
+  "ramex": "'https://admin.ramex.baueffect.com'",
   "orange": "'http://api.calc.csokna.ru'",
   "window": "'https://api.windowscalculator.net'",
   "windowSteko": "'http://api.steko.com.ua'",
@@ -56,6 +57,7 @@ var server_env = {
     "steko": "'http://admin.steko.com.ua/orders/get-order-pdf/'",
     "orange": "'http://api.calc.csokna.ru/orders/get-order-pdf/'",
     "window": "'https://admin.windowscalculator.net/orders/get-order-pdf/'",
+    "ramex": "'ttps://admin.ramex.baueffect.com/orders/get-order-pdf/'",
     "windowSteko": "'https://admin.steko.com.ua/orders/get-order-pdf/'",
     "apelsin": "'https://admin.apelsin.windowscalculator.net/orders/get-order-pdf/'"
   },
@@ -65,6 +67,7 @@ var server_env = {
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
     "orange": "'/local/'",
+    "ramex": "'/local/'",
     "window": "'/local/'",
     "windowSteko": "'/local/'",
     "apelsin": "'/local/'"
@@ -526,6 +529,9 @@ function buildSite(id) {
 }
 gulp.task('buildWindowSteko', function () {
   buildSite("windowSteko");
+});
+gulp.task('buildWindowRamex', function () {
+  buildSite("ramex");
 });
 gulp.task('buildWindowApelsin', function () {
   buildSite("apelsin");

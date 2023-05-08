@@ -32,7 +32,7 @@ section.login-page.login-page-mobView
                 .error-tooltip(ng-show="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
             .privacy-policy  {{ ::loginPage.BY_PRESSING_ENTER }} <a class="privacy-link" ng-click="loginPage.ShowTerms()"> {{ ::loginPage.PRIVACY_POLICY }}</a>
             button.login-submit(type="submit") {{ ::loginPage.ENTER }}
-        button.login-submit(ng-if='loginPage.consts.serverIP !== "https://api.steko.com.ua"' ng-click='loginPage.registration()')
+        button.login-submit(ng-if='(loginPage.consts.serverIP !== "https://api.steko.com.ua") && (loginPage.consts.serverIP !== "https://admin.ramex.baueffect.com")' ng-click='loginPage.registration()')
             | {{ ::loginPage.REGISTRATION }}
 
 

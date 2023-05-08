@@ -483,6 +483,17 @@
       color: #ff2121;
     }
     .discount-price {
+      button {
+        color: white;
+        @include roboto-lt(rem(40px));
+        width: 85%;
+        height: 6rem;
+        vertical-align: middle;
+        font-size: 18px;
+        border: none;
+        box-shadow: none;
+        background: $aux_big_color;
+      }
       font: normal 4rem/6.25rem roboto-regular, sans-serif, icons;
       color: #363636;
       margin-left: 0rem;
