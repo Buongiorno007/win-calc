@@ -1,14 +1,6 @@
 .attantion-block(ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors")
-  .glass-block(ng-show="attantBox.U.userInfo.factory_id !== 2")
-    .glass-attantion(ng-show="attantBox.D.design.isGlassExtra && attantBox.D.design.extraGlass.length")
-      .close-dialog(fs-click="attantBox.closeAttantion()")
-      .glass-list
-        .extra-glass(ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index") {{ glassExtra }}
-
-    .design-attantion(ng-show="attantBox.H.history.isNoPrint") {{ ::attantBox.NO_PRINT }}
-      .close-dialog(fs-click="attantBox.closeAttantion()")
   //-rehau template
-  .glass-block(ng-show="attantBox.U.userInfo.factory_id === 2")
+  .glass-block
     .glass-attantion-rehau(ng-show="attantBox.D.design.isGlassExtra && attantBox.D.design.extraGlass.length")
       .close-dialog-rehau(fs-click="attantBox.stepBack(); attantBox.stepBack(); attantBox.closeAttantion();")
       .glass-list

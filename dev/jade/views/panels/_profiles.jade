@@ -90,7 +90,7 @@
 
 
 
-.config-panel.profile-container(ng-show="profilesPanel.U.userInfo.factory_id === 2", ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
+.config-panel.profile-container(ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
     .panel-inner(ng-if="profilesPanel.G.global.activePanel == 2")
         .close-screen-button(ng-click="profilesPanel.closeButton(2)")
         .profile-block.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles track by $index", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")        

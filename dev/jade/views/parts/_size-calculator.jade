@@ -19,50 +19,24 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
           .calc-value-limit(ng-if="sizeCalc.U.userInfo.factory_id===1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.displayData(sizeCalc.D.design.maxSizeLimit) | number : 0 }}
           .calc-value-limit.max(ng-if="sizeCalc.U.userInfo.factory_id!==1966" ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit }}
           .calc-label-limit {{ ::sizeCalc.MAX }}
-  tr(ng-show="sizeCalc.U.userInfo.factory_id !== 2")
-    - for (var cell = 1; cell < 4; ++cell) {
-      td
-        button.cell.calc-digit(fs-click="sizeCalc.setValueSize("+cell+")")= cell
-    - }
-  tr(ng-show="sizeCalc.U.userInfo.factory_id !== 2")
-    - for (var cell = 4; cell < 7; ++cell) {
-      td
-        button.cell.calc-digit(fs-click="sizeCalc.setValueSize("+cell+")")= cell
-    - }
-  tr(ng-show="sizeCalc.U.userInfo.factory_id !== 2")
-    - for (var cell = 7; cell < 10; ++cell) {
-      td
-        button.cell.calc-digit(fs-click="sizeCalc.setValueSize("+cell+")")= cell
-    - }
-  tr(ng-show="sizeCalc.U.userInfo.factory_id !== 2")
-    td(colspan= "2", ng-if="sizeCalc.G.global.enterCount" )
-      button.cell.calc-digitLight(fs-click="sizeCalc.setValueSize(0)") 0
-    td(ng-if="!sizeCalc.G.global.enterCount")
-      button.cell.calc-digit(fs-click="sizeCalc.setValueSize(0)") 0
-    td(ng-if="sizeCalc.U.userInfo.factory_id!==1966 && !sizeCalc.G.global.enterCount")
-      button.cell.calc-digit(fs-click="sizeCalc.setValueSize('00')") 00
-    td(ng-if="sizeCalc.U.userInfo.factory_id==1966")
-      button.cell.calc-digit(fs-click="sizeCalc.setValueSize('.')") .
-    td
-      button.cell.calc-equal#closeSizeCaclulator(ng-show="sizeCalc.U.userInfo.factory_id !== 2" fs-click="sizeCalc.closeSizeCaclulator()") =
 
 
-  tr(ng-show="sizeCalc.U.userInfo.factory_id === 2")
+  tr
     - for (var cell = 1; cell < 4; ++cell) {
       td
         button.cell-rehau.calc-digit(fs-click="sizeCalc.setValueSize("+cell+")")= cell
     - }
-  tr(ng-show="sizeCalc.U.userInfo.factory_id === 2")
+  tr
     - for (var cell = 4; cell < 7; ++cell) {
       td
         button.cell-rehau.calc-digit(fs-click="sizeCalc.setValueSize("+cell+")")= cell
     - }
-  tr(ng-show="sizeCalc.U.userInfo.factory_id === 2")
+  tr
     - for (var cell = 7; cell < 10; ++cell) {
       td
         button.cell-rehau.calc-digit(fs-click="sizeCalc.setValueSize("+cell+")")= cell
     - }
-  tr(ng-show="sizeCalc.U.userInfo.factory_id === 2")
+  tr
     td(colspan= "2", ng-if="sizeCalc.G.global.enterCount" )
       button.cell-rehau.calc-digitLight(fs-click="sizeCalc.setValueSize(0)") 0
     td(ng-if="!sizeCalc.G.global.enterCount")
@@ -72,5 +46,5 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
     td(ng-if="sizeCalc.U.userInfo.factory_id==1966")
       button.cell-rehau.calc-digit(fs-click="sizeCalc.setValueSize('.')") .
     td
-      button.cell-rehau.calc-ok.check#closeSizeCaclulator(ng-show="sizeCalc.U.userInfo.factory_id === 2 && sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();") OK
-      button.cell-rehau.calc-ok#closeSizeCaclulator(ng-show="sizeCalc.U.userInfo.factory_id === 2 && sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();") OK
+      button.cell-rehau.calc-ok.check#closeSizeCaclulator(ng-show="sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();") OK
+      button.cell-rehau.calc-ok#closeSizeCaclulator(ng-show="sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();") OK

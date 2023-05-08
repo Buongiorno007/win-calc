@@ -1051,7 +1051,6 @@
                                         'block_id': dim.blockId,
                                         'axis': dim.axis
                                     });
-                                if(UserStor.userInfo.factory_id === 2) {
                                 dimBlock.append('path')
                                     .classed('size-line-rehau', true)
                                     .attr('d', lineCreator(lineSideR));
@@ -1070,63 +1069,41 @@
                                             return dir ? 'url(#dimVertL)' : 'url(#dimHorR)';
                                         }
                                     });
-                                } else {
-                                    dimBlock.append('path')
-                                    .classed('size-line', true)
-                                    .attr('d', lineCreator(lineSideR));
-                                    dimBlock.append('path')
-                                        .classed('size-line', true)
-                                        .attr('d', lineCreator(lineSideL));
-
-                                    dimBlock.append('path')
-                                        .classed('size-line', true)
-                                        .attr({
-                                            'd': lineCreator(lineCenter),
-                                            'marker-start': function () {
-                                                return dir ? 'url(#dimVertR)' : 'url(#dimHorL)';
-                                            },
-                                            'marker-end': function () {
-                                                return dir ? 'url(#dimVertL)' : 'url(#dimHorR)';
-                                            }
-                                        });
-                                }
-                                
 
                                 sizeBox = dimBlock.append('g')
-                                    .classed('size-box', true);
-                                if (scope.typeConstruction === globalConstants.SVG_ID_EDIT && UserStor.userInfo.factory_id === 2) {
-                                    sizeBox.append('rect')
-                                        .classed('size-rect-rehau', true)
-                                        .attr({
-                                            'x': function () {
-                                                if ($location.path() === "/mobile") {
-                                                    if (dim.dimId === "fp7") {
-                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
-                                                    }
-                                                    // if (dim.dimId === "fp11" ) {
-                                                    //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                                    // }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 60) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
-                                                }
+                                .classed('size-box', true);
+                                sizeBox.append('rect')
+                                    .classed('size-rect-rehau', true)
+                                    .attr({
+                                        'x': function () {
+                                            if ($location.path() === "/mobile") {
                                                 if (dim.dimId === "fp7") {
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
                                                 }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            },
+                                                // if (dim.dimId === "fp11" ) {
+                                                //     return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 400) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                                // }
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 60) : (dim.from + dim.to - sizeBoxWidth) / 2 - 65;
+                                            }
+                                            if (dim.dimId === "fp7") {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            }
+                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                        },
 
 
-                                            'y': function () {
-                                                if ($location.path() === "/mobile") {
-                                                    return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
-                                                }
-                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                            },
-                                            'rx': sizeBoxRadius,
-                                            'ry': sizeBoxRadius,
-                                            "height": 46,
-                                            "width": 160
-                                        });
-                                } else if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+                                        'y': function () {
+                                            if ($location.path() === "/mobile") {
+                                                return dir ? (dim.from + dim.to - sizeBoxHeight - 40) / 2 : (dimLineHeight - sizeBoxHeight * 0.8 - 25);
+                                            }
+                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                        },
+                                        'rx': sizeBoxRadius,
+                                        'ry': sizeBoxRadius,
+                                        "height": 46,
+                                        "width": 160
+                                    });
+                                if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                                     sizeBox.append('rect')
                                     .classed('size-rect', true)
                                     .attr({
@@ -1186,91 +1163,54 @@
                                             'axis': dim.axis,
                                             'level': dim.level
                                         });
-                                } else if (UserStor.userInfo.factory_id === 2) {
-                                    sizeBox.append('text')
-                                        .text(dim.text)
-                                        .attr({
-                                            'class': function () {
-                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit-rehau' : 'size-txt-rehau';
-                                            },
-                                            'x': function () {
-                                                if ($location.path() === "/mobile") {
-                                                    let move_left = 60;
-                                                    if (dim.dimId === "fp7") {
-                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
-                                                    }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
-                                                }
-                                                if (dim.dimId === "fp7") {
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                                }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 + 25) : (dim.from + dim.to - sizeBoxWidth + 45) / 2;
-                                            },
-                                            'y': function () {
-                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                            },
-                                            'dx': function () {
-                                                if ($location.path() === "/mobile") {
-                                                   return 110
-                                                } else {
-                                                    return 80
-                                                }
-                                            },
-                                            'dy': function () {
-                                                if ($location.path() === "/mobile") {
-                                                    return 25
-                                                 } else {
-                                                     return 40
-                                                 }
-                                            },
-                                            'type': 'line',
-                                            'block_id': dim.blockId,
-                                            'size_val': dim.text,
-                                            'min_val': dim.minLimit,
-                                            'max_val': dim.maxLimit,
-                                            'dim_id': dim.dimId,
-                                            'from_point': dim.from,
-                                            'to_point': dim.to,
-                                            'axis': dim.axis,
-                                            'level': dim.level
-                                        });
-                                } else {
-                                    sizeBox.append('text')
-                                        .text(dim.text)
-                                        .attr({
-                                            'class': function () {
-                                                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
-                                            },
-                                            'x': function () {
-                                                if ($location.path() === "/mobile") {
-                                                    let move_left = 40;
-                                                    if (dim.dimId === "fp7") {
-                                                        return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
-                                                    }
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
-                                                }
-                                                if (dim.dimId === "fp7") {
-                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                                }
-                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
-                                            },
-                                            'y': function () {
-                                                return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
-                                            },
-                                            'dx': 80,
-                                            'dy': 40,
-                                            'type': 'line',
-                                            'block_id': dim.blockId,
-                                            'size_val': dim.text,
-                                            'min_val': dim.minLimit,
-                                            'max_val': dim.maxLimit,
-                                            'dim_id': dim.dimId,
-                                            'from_point': dim.from,
-                                            'to_point': dim.to,
-                                            'axis': dim.axis,
-                                            'level': dim.level
-                                        });
                                 }
+                                sizeBox.append('text')
+                                    .text(dim.text)
+                                    .attr({
+                                        'class': function () {
+                                            return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit-rehau' : 'size-txt-rehau';
+                                        },
+                                        'x': function () {
+                                            if ($location.path() === "/mobile") {
+                                                let move_left = 60;
+                                                if (dim.dimId === "fp7") {
+                                                    return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                                }
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - move_left) : (dim.from + dim.to - sizeBoxWidth) / 2 - move_left;
+                                            }
+                                            if (dim.dimId === "fp7") {
+                                                return dir ? (dimLineHeight - sizeBoxWidth * 0.8 - 200) : (dim.from + dim.to - sizeBoxWidth) / 2;
+                                            }
+                                            return dir ? (dimLineHeight - sizeBoxWidth * 0.8 + 25) : (dim.from + dim.to - sizeBoxWidth + 45) / 2;
+                                        },
+                                        'y': function () {
+                                            return dir ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+                                        },
+                                        'dx': function () {
+                                            if ($location.path() === "/mobile") {
+                                                return 110
+                                            } else {
+                                                return 80
+                                            }
+                                        },
+                                        'dy': function () {
+                                            if ($location.path() === "/mobile") {
+                                                return 25
+                                                } else {
+                                                    return 40
+                                                }
+                                        },
+                                        'type': 'line',
+                                        'block_id': dim.blockId,
+                                        'size_val': dim.text,
+                                        'min_val': dim.minLimit,
+                                        'max_val': dim.maxLimit,
+                                        'dim_id': dim.dimId,
+                                        'from_point': dim.from,
+                                        'to_point': dim.to,
+                                        'axis': dim.axis,
+                                        'level': dim.level
+                                    });
 
                             }
                         }
@@ -2261,23 +2201,13 @@
                                     // setMarker(defs, 'hingeU', '-1 0 9 4', -16.5,  5, 270, 7,  80, pathHinge, 'hinge-mark');
                                     // setMarker(defs, 'hingeD', '-1 0 9 4', 21.5,   5, 270, 7,  80, pathHinge, 'hinge-mark');
                                     //----- horizontal marker arrow
-                                    if (UserStor.userInfo.factory_id === 2) {
-                                        setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
-                                        setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
-                                    } else {
-                                        setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-                                        setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-                                    }
-                                    
+                                    setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
+                                    setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line-arrow-rehau');
+
                                     //------- vertical marker arrow
-                                    if (UserStor.userInfo.factory_id === 2) {
-                                        setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
-                                        setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
-                                    } else {
-                                        setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-                                        setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-                                    }
-                                    
+                                    setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
+                                    setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line-arrow-rehau');
+
 
                                     setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
                                     setGradient(defs);
@@ -2286,7 +2216,6 @@
 
 
                                 /** soffits */
-                                
                                 if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                                     var scl = scale * 4.4;
                                     if (ProductStor.product.construction_type === 1) {
@@ -2732,10 +2661,36 @@
                                     if (scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                                         /** sash open direction */
                                         // rehau logic
-                                        if (UserStor.userInfo.factory_id === 2) {
-                                            if (template.details[i].sashOpenDir && template.details[i].children.length === 0) {
-                                                elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[i].id)
-                                                    .data(template.details[i].sashOpenDir)
+                                        if (template.details[i].sashOpenDir && template.details[i].children.length === 0) {
+                                            elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[i].id)
+                                                .data(template.details[i].sashOpenDir)
+                                                .enter()
+                                                .append('path')
+                                                .classed('sash_mark-rehau', true)
+                                                .attr({
+                                                    'd': function (d) {
+                                                        return lineCreator(d.points);
+                                                    },
+                                                    //------- handler
+                                                    'marker-mid': function (d) {
+                                                        return setSashFittings(1, d, template.details[i]);
+                                                    },
+                                                    //------- hinges
+                                                    'marker-start': function (d) {
+                                                        return setSashFittings(0, d, template.details[i]);
+                                                    },
+                                                    'marker-end': function (d) {
+                                                        return setSashFittings(0, d, template.details[i]);
+                                                    },
+                                                });
+                                        } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
+                                            GlobalStor.global.createHandle.push(i)
+                                        }
+                                        if (i + 1 === blocksQty && GlobalStor.global.createHandle.length > 0) {
+                                            var h = GlobalStor.global.createHandle;
+                                            for (var z = 0; z < h.length; z += 1) {
+                                                elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[h[z]].id)
+                                                    .data(template.details[h[z]].sashOpenDir)
                                                     .enter()
                                                     .append('path')
                                                     .classed('sash_mark-rehau', true)
@@ -2745,98 +2700,17 @@
                                                         },
                                                         //------- handler
                                                         'marker-mid': function (d) {
-                                                            return setSashFittings(1, d, template.details[i]);
+                                                            return setSashFittings(1, d, template.details[h[z]]);
                                                         },
                                                         //------- hinges
                                                         'marker-start': function (d) {
-                                                            return setSashFittings(0, d, template.details[i]);
+                                                            return setSashFittings(0, d, template.details[h[z]]);
                                                         },
                                                         'marker-end': function (d) {
-                                                            return setSashFittings(0, d, template.details[i]);
+                                                            return setSashFittings(0, d, template.details[h[z]]);
                                                         },
+                                                        "xlink:href": "./img/handle.svg"
                                                     });
-                                            } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
-                                                GlobalStor.global.createHandle.push(i)
-                                            }
-                                            if (i + 1 === blocksQty && GlobalStor.global.createHandle.length > 0 && UserStor.userInfo.factory_id === 2) {
-                                                var h = GlobalStor.global.createHandle;
-                                                for (var z = 0; z < h.length; z += 1) {
-                                                    elementsGroup.selectAll('path.sash_mark-rehau.' + template.details[h[z]].id)
-                                                        .data(template.details[h[z]].sashOpenDir)
-                                                        .enter()
-                                                        .append('path')
-                                                        .classed('sash_mark-rehau', true)
-                                                        .attr({
-                                                            'd': function (d) {
-                                                                return lineCreator(d.points);
-                                                            },
-                                                            //------- handler
-                                                            'marker-mid': function (d) {
-                                                                return setSashFittings(1, d, template.details[h[z]]);
-                                                            },
-                                                            //------- hinges
-                                                            'marker-start': function (d) {
-                                                                return setSashFittings(0, d, template.details[h[z]]);
-                                                            },
-                                                            'marker-end': function (d) {
-                                                                return setSashFittings(0, d, template.details[h[z]]);
-                                                            },
-                                                            "xlink:href": "./img/handle.svg"
-                                                        });
-                                                }
-                                            }
-                                        } else {
-                                            if (template.details[i].sashOpenDir && template.details[i].children.length === 0) {
-                                                elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
-                                                    .data(template.details[i].sashOpenDir)
-                                                    .enter()
-                                                    .append('path')
-                                                    .classed('sash_mark', true)
-                                                    .attr({
-                                                        'd': function (d) {
-                                                            return lineCreator(d.points);
-                                                        },
-                                                        //------- handler
-                                                        'marker-mid': function (d) {
-                                                            return setSashFittings(1, d, template.details[i]);
-                                                        },
-                                                        //------- hinges
-                                                        'marker-start': function (d) {
-                                                            return setSashFittings(0, d, template.details[i]);
-                                                        },
-                                                        'marker-end': function (d) {
-                                                            return setSashFittings(0, d, template.details[i]);
-                                                        }
-                                                    });
-                                            } else if (template.details[i].sashOpenDir && template.details[i].children.length !== 0) {
-                                                GlobalStor.global.createHandle.push(i)
-                                            }
-                                            if (i + 1 === blocksQty && GlobalStor.global.createHandle.length > 0) {
-                                                var h = GlobalStor.global.createHandle;
-                                                for (var z = 0; z < h.length; z += 1) {
-                                                    elementsGroup.selectAll('path.sash_mark.' + template.details[h[z]].id)
-                                                        .data(template.details[h[z]].sashOpenDir)
-                                                        .enter()
-                                                        .append('path')
-                                                        .classed('sash_mark', true)
-                                                        .attr({
-                                                            'd': function (d) {
-                                                                return lineCreator(d.points);
-                                                            },
-                                                            //------- handler
-                                                            'marker-mid': function (d) {
-                                                                return setSashFittings(1, d, template.details[h[z]]);
-                                                            },
-                                                            //------- hinges
-                                                            'marker-start': function (d) {
-                                                                return setSashFittings(0, d, template.details[h[z]]);
-                                                            },
-                                                            'marker-end': function (d) {
-                                                                return setSashFittings(0, d, template.details[h[z]]);
-                                                            },
-                                                            "xlink:href": "./img/handle.svg"
-                                                        });
-                                                }
                                             }
                                         }
                                         // rehau logic ends

@@ -343,10 +343,8 @@
                                 DesignStor.design.isImpostDelete = 0;
                             }, 300);
                         }
-                        if (UserStor.userInfo.factory_id === 2) {
-                            if (id === 6) {
-                                GlobalStor.global.activePanel = 1;
-                            }
+                        if (id === 6) {
+                            GlobalStor.global.activePanel = 1;
                         }
                     }
                 }

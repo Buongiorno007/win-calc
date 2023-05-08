@@ -1361,7 +1361,7 @@
                 }
               }
             }
-            if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
+            if (!$.isEmptyObject(tempObj)) {
               GlobalStor.global.infoTitle = tempObj;
               GlobalStor.global.infoImg = tempObj.img;
               GlobalStor.global.infoLink = tempObj.link;
@@ -1424,10 +1424,8 @@
 
         function insertServer(login, access, table, data) {
           //We subtract the cost of additional items and the cost of mounting and installation from the product price to get template_price. Sore but we need that small condition to send correct info to backend
-          if(UserStor.userInfo.factory_id === 2) {
-            if (data.template_price) {
-              data.template_price = data.product_price - data.addelem_price;
-            }
+          if (data.template_price) {
+            data.template_price = data.product_price - data.addelem_price;
           }
           const ordered = {};
           Object.keys(data)

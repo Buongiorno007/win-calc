@@ -1485,7 +1485,6 @@
                         }
                     })
                 }
-                
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -1493,15 +1492,9 @@
                         deliveryCoeff
                     );
                 }
-                if (UserStor.userInfo.factory_id === 2) {
-                    GlobalStor.global.tempPrice =
-                        Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
-                    GlobalStor.global.isLoader = 0;
-                } else {
-                    GlobalStor.global.tempPrice =
-                        Product.productPriceDis * GlobalStor.global.product_qty;
-                    GlobalStor.global.isLoader = 0;
-                }
+                GlobalStor.global.tempPrice =
+                    Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
+                GlobalStor.global.isLoader = 0;
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
                     setTimeout(function () {
@@ -1932,7 +1925,7 @@
                                 //---- only for this type of user
                                 if (
                                     UserStor.userInfo.user_type === 5 ||
-                                    UserStor.userInfo.user_type === 7 || UserStor.userInfo.factory_id === 2
+                                    UserStor.userInfo.user_type === 7
                                 ) {
                                     ProductStor.product.report = prepareReport(
                                         result.constrElements
@@ -2570,7 +2563,7 @@
                             }
                         }
                     } 
-                    if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
+                    if (!$.isEmptyObject(tempObj)) {
                         GlobalStor.global.infoTitle = tempObj;
                         GlobalStor.global.infoImg = tempObj.img;
                         GlobalStor.global.infoLink = tempObj.link;

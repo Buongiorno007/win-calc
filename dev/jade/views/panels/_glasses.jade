@@ -63,7 +63,7 @@
   .backDarkView(ng-if="glassPanel.G.global.showGlassSelectorDialog")
 
   //-rehau template
-  .glass-container-rehau(ng-if="glassPanel.U.userInfo.factory_id === 2")
+  .glass-container-rehau
     .close-screen-button(ng-click="glassPanel.closeButton(3)")
     .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class = "{gray : $index%2 === 0 }" ng-init="FolderIndex = $index")
       .button(ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }")

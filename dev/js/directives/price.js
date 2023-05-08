@@ -67,7 +67,7 @@
                     for (i = MAX_DIGITS; i > 0; i -= 1) {
                         $digitCell = $(digitCells[n]);
 
-                        if (i > priceByDigit.length) {
+                        if (i > priceByDigit?.length) {
                             changePrice.revertDigitState();
                         } else {
                             changePrice.initDigit();

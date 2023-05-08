@@ -277,7 +277,7 @@
             </div>
           </div>
         </div>
-        <div ng-show="profilesPanel.U.userInfo.factory_id === 2" ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
+        <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
           <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
             <div ng-click="profilesPanel.closeButton(2)" class="close-screen-button"></div>
             <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">       
@@ -406,7 +406,7 @@
             <div fs-click="glassPanel.closeGlassSelectorDialog(1)" class="close-dialog"></div>
           </div>
           <div ng-if="glassPanel.G.global.showGlassSelectorDialog" class="backDarkView"></div>
-          <div ng-if="glassPanel.U.userInfo.factory_id === 2" class="glass-container-rehau">
+          <div class="glass-container-rehau">
             <div ng-click="glassPanel.closeButton(3)" class="close-screen-button"></div>
             <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{gray : $index%2 === 0 }" ng-init="FolderIndex = $index" class="glass-block">
               <div ng-click="glassPanel.OpenGlassFolder($index,$event)" ng-class="{'active': glassPanel.OpenFolder === FolderIndex }" class="button">
@@ -541,85 +541,7 @@
       </div>
       <div ng-if="mainPage.G.global.activePanel == 5" class="panel-inner">
         <div ng-controller="LaminationsCtrl as laminPanel" ng-class="{'active': laminPanel.G.global.activePanel == 5}" class="config-panel lamination-container">
-          <div ng-show="laminPanel.U.userInfo.factory_id !== 2" ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner">
-            <div ng-click="laminPanel.closeButton(5)" class="close-screen-button"></div>
-            <div class="laminat-filter">
-              <div class="laminat-inner">
-                <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
-                  <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.lamination_type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.lamination_type_id }}.jpg"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; lamin.translate.en " data-output="{{ ::lamin.translate.en }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; lamin.translate.ru " data-output="{{ ::lamin.translate.ru }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; lamin.translate.ua" data-output="{{ ::lamin.translate.ua }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl' &amp;&amp; lamin.translate.pl" data-output="{{ ::lamin.translate.pl }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; lamin.translate.de" data-output="{{ ::lamin.translate.de }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; lamin.translate.bg" data-output="{{ ::lamin.translate.bg }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; lamin.translate.it" data-output="{{ ::lamin.translate.it }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; lamin.translate.es" data-output="{{ ::lamin.translate.es }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; lamin.translate.ro" data-output="{{ ::lamin.translate.ro }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; !lamin.translate.en" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !lamin.translate.ru" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !lamin.translate.ua" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !lamin.translate.pl" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; !lamin.translate.de" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !lamin.translate.bg" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamin.translate.it" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamin.translate.es" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamin.translate.ro" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                  <div ng-if="lamin.id === 1" data-output="{{ ::lamin.name | translate}}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-                </div>
-              </div>
-            </div>
-            <div class="laminat-groups">
-              <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" class="laminat-box">
-                <div class="laminat-row">
-                  <div class="laminat-label">{{ ::laminPanel.LAMINAT_INSIDE }}</div>
-                  <div class="laminat-label">{{ ::laminPanel.LAMINAT_OUTSIDE }}</div>
-                </div>
-                <div ng-class="{'selected': lamCouple.img_in_id === laminPanel.P.product.lamination.img_in_id &amp;&amp; lamCouple.img_out_id === laminPanel.P.product.lamination.img_out_id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
-                <div class="laminat-row">
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en'" class="laminat-label">{{ lamCouple.translate_in_id.en }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en'" class="laminat-label">{{ lamCouple.translate_out_id.en }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; lamCouple.translate_in_id.ru" class="laminat-label">{{ lamCouple.translate_in_id.ru }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; lamCouple.translate_out_id.ru" class="laminat-label">{{ lamCouple.translate_out_id.ru }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk'" class="laminat-label">{{ lamCouple.translate_in_id.ua }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk'" class="laminat-label">{{ lamCouple.translate_out_id.ua }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl'" class="laminat-label">{{ lamCouple.translate_in_id.pl }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl'" class="laminat-label">{{ lamCouple.translate_out_id.pl }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de'" class="laminat-label">{{ lamCouple.translate_in_id.de }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de'" class="laminat-label">{{ lamCouple.translate_out_id.de }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg'" class="laminat-label">{{ lamCouple.translate_in_id.bg }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg'" class="laminat-label">{{ lamCouple.translate_out_id.bg }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it'" class="laminat-label">{{ lamCouple.translate_in_id.it }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it'" class="laminat-label">{{ lamCouple.translate_out_id.it }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es'" class="laminat-label">{{ lamCouple.translate_in_id.es }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es'" class="laminat-label">{{ lamCouple.translate_out_id.es }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro'" class="laminat-label">{{ lamCouple.translate_in_id.ro }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro'" class="laminat-label">{{ lamCouple.translate_out_id.ro }}</div>
-                  <div ng-if="lamCouple.img_in_id === 1" class="laminat-label">{{ lamCouple.laminat_in_name | translate }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" class="laminat-label">{{ lamCouple.laminat_out_name | translate }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; !lamCouple.translate_in_id.en" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'en' &amp;&amp; !lamCouple.translate_out_id.en" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !lamCouple.translate_in_id.ru" class="laminat-label">{{ lamCouple.laminat_in_name}}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !lamCouple.translate_out_id.ru" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !lamCouple.translate_in_id.ua" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !lamCouple.translate_out_id.ua" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !lamCouple.translate_in_id.pl" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !lamCouple.translate_out_id.pl" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; !lamCouple.translate_in_id.de" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'de' &amp;&amp; !lamCouple.translate_out_id.de" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !lamCouple.translate_in_id.bg" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !lamCouple.translate_out_id.bg" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamCouple.translate_in_id.it" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'it' &amp;&amp; !lamCouple.translate_out_id.it" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamCouple.translate_in_id.es" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'es' &amp;&amp; !lamCouple.translate_out_id.es" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                  <div ng-if="lamCouple.img_in_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamCouple.translate_in_id.ro" class="laminat-label">{{ lamCouple.laminat_in_name }}</div>
-                  <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1 &amp;&amp; laminPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !lamCouple.translate_out_id.ro" class="laminat-label">{{ lamCouple.laminat_out_name }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div ng-show="laminPanel.U.userInfo.factory_id === 2" ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner-rehau">
+          <div ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner-rehau">
             <div ng-click="laminPanel.closeButton(5)" class="close-screen-button"></div>
             <div class="lamin-title"><h1>Фильтр по цветам</h1></div>
             <div class="laminat-filter">
@@ -673,156 +595,37 @@
       </div>
       <div ng-if="mainPage.G.global.activePanel == 6" class="add-elements-container">
         <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
-          <div ng-if="elementsPanel.U.userInfo.factory_id !== 2" class="auxiliaries-inner">
-            <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
-              <div ng-show="elementsPanel.G.global.typeMenu === 2222" class="aux-template2-img move-outside"></div>
-              <div ng-show="elementsPanel.G.global.typeMenu === 1111 || elementsPanel.G.global.typeMenu === 3333 || elementsPanel.G.global.typeMenu === 5555" class="aux-template1-img move-outside"></div>
-            </div>
-            <div ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index" ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList &amp;&amp; elementsPanel.config.addElementDATA[$index].mainTypeMenu === elementsPanel.G.global.typeMenu || elementsPanel.G.global.addElementsAll[$index].elementsList &amp;&amp; elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.typeMenu" ng-switch="$index" show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}" ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) &amp;&amp; !addElemGroup.length, 'selected': addElemGroup.length}]" class="auxiliary-item unvisible">
-              <div ng-switch-when="0" class="aux-grid-img move-grid"></div>
-              <div ng-switch-when="1" class="aux-visor-img move-visor"></div>
-              <div ng-switch-when="2" class="aux-spillway-img move-spillway"></div>
-              <div ng-switch-when="3" class="aux-outside-img move-outside"></div>
-              <div ng-switch-when="4" class="aux-louver-img move-louvers">
-                <div class="aux-louver-top"></div>
-                <div class="aux-louver-midle louver-midle-1 move-louver-midle-1"></div>
-                <div class="aux-louver-midle louver-midle-2 move-louver-midle-2"></div>
-                <div class="aux-louver-midle louver-midle-3 move-louver-midle-3"></div>
-                <div class="aux-louver-bottom move-louver-bottom"></div>
-              </div>
-              <div ng-switch-when="5" class="aux-inside-img">
-                <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
-                <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>
-                <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPELEFT }}" class="aux-inside-left move-inside-left unvisible"></div>
-              </div>
-              <div ng-switch-when="6" class="aux-connectors-img">
-                <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FORCECONNECT }}" class="aux-force-connect unvisible"></div>
-                <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BALCONCONNECT }}" class="aux-balcon-connect unvisible"></div>
-              </div>
-              <div ng-switch-when="7" class="aux-fan-img move-fan"></div>
-              <div ng-switch-when="8" class="aux-windowsill-img move-windowsill"></div>
-              <div ng-switch-when="9" class="aux-handle-img move-handle"></div>
-              <div ng-switch-when="10" class="aux-txt-box aux-others-txt"></div>
-              <div ng-switch-when="11" class="aux-shutters-img move-shutters"></div>
-              <div ng-switch-when="12" class="aux-grating-img move-grating"></div>
-              <div ng-switch-when="13" class="aux-blind-img move-blind"></div>
-              <div ng-switch-when="14" class="aux-shut-img move-shut"></div>
-              <div ng-switch-when="15" class="aux-grat-img move-grat"></div>
-              <div ng-switch-when="16" class="aux-vis-img move-vis"></div>
-              <div ng-switch-when="17" class="aux-spil-img move-spil"></div>
-              <div ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'" class="aux-txt-box">
-                <div ng-hide="addElemGroup.length" show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="choose-block unvisible">
-                  <button ng-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
-                  <div data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+        </div>
+        <div class="auxiliaries-inner-rehau">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item-rehau aux-outside unvisible">
+            <div class="folders-container">
+              <div ng-click="elementsPanel.closeButton(6)" class="folders-container__close-screen-button"></div>
+              <div class="totalNumberAddElements">Дополнительные элементы ({{elementsPanel.P.product.addelemPriceDis | number: 0}} {{elementsPanel.U.userInfo.currencies}})</div>
+              <div ng-repeat="folders in elementsPanel.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" class="folders">
+                <div ng-click="elementsPanel.OpenFolder($index, $event)" ng-class="{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}" class="title-box">
+                  <p class="folders-name-rehau">{{folders.name | translate}}</p>
+                  <div class="arrow"><img ng-src="./img/rehau-img/white-arrow-top.png"></div>
                 </div>
-                <div ng-show="addElemGroup.length" ng-class="($index==1)?'horisontal':'vertival'" class="selected-block">
-                  <div class="aux-info-box">
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'en'" data-output="{{ addElemGroup[0].translate.en }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'ru'" data-output="{{ addElemGroup[0].translate.ru }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'uk'" data-output="{{ addElemGroup[0].translate.ua }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'pl'" data-output="{{ addElemGroup[0].translate.pl }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'de'" data-output="{{ addElemGroup[0].translate.de }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'bg'" data-output="{{ addElemGroup[0].translate.bg }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'it'" data-output="{{ addElemGroup[0].translate.it }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'es'" data-output="{{ addElemGroup[0].translate.es }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'ro'" data-output="{{ addElemGroup[0].translate.ro }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'en' &amp;&amp; !addElemGroup[0].translate.en" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'ru' &amp;&amp; !addElemGroup[0].translate.ru" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'uk' &amp;&amp; !addElemGroup[0].translate.ua" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'pl' &amp;&amp; !addElemGroup[0].translate.pl" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'de' &amp;&amp; !addElemGroup[0].translate.de" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'bg' &amp;&amp; !addElemGroup[0].translate.bg" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'it' &amp;&amp; !addElemGroup[0].translate.it" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'es' &amp;&amp; !addElemGroup[0].translate.es" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div ng-if="elementsPanel.U.userInfo.langLabel === 'ro' &amp;&amp; !addElemGroup[0].translate.ro" data-output="{{ addElemGroup[0].name }}" fs-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                    <div data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                <div ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index" class="choosen-add-elem">
+                  <div ng-click="elementsPanel.editEddElem($parent.$index,$index)" class="row">
+                    <div data-output="{{ chosenAddElem.name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                    <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                      <button class="aux-params-but">{{ chosenAddElem.element_qty }}
+                        <div class="aux-label">{{ ::elementsPanel.QTY_LABEL }}</div>
+                      </button>
+                    </div>
+                    <div ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis.toFixed(0)}}" qty-element="{{chosenAddElem.element_qty}}" currency-element="{{elementsPanel.U.userInfo.currency}}" class="tab-aux-price"></div>
+                    <div fs-click="elementsPanel.deleteAddElement($parent.$index, $index)" class="aux-delete-rehau"></div>
                   </div>
-                  <div class="aux-sizing-box">
-                    <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-1-0'}" class="aux-params">
-                      <button fs-click="elementsPanel.initAddElementTools(($index+1), 1, 0)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0" ng-class="{'color-selected': !elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0}" class="aux-params-but">{{ addElemGroup[0].element_qty }}</button>
-                      <div data-output="{{ ::elementsPanel.QTY_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                    </div>
-                    <div ng-hide="$index==3 || $index==5 || $index==7 || $index==9 || $index==10" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-2-0'}" class="aux-params">
-                      <button ng-if="elementsPanel.U.userInfo.factory_id===1966" fs-click="elementsPanel.initAddElementTools(($index+1), 2, 0)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0" ng-class="{'color-selected': !elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0}" class="aux-params-but"> {{ addElemGroup[0].element_width*0.0393701 | number : 1  }}</button>
-                      <button ng-if="elementsPanel.U.userInfo.factory_id!==1966" fs-click="elementsPanel.initAddElementTools(($index+1), 2, 0)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0" ng-class="{'color-selected': !elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0}" class="aux-params-but"> {{ addElemGroup[0].element_width }}</button>
-                      <div data-output="{{ ::elementsPanel.WIDTH_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                    </div>
-                    <div ng-show="!$index || $index==4" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-3-0'}" class="aux-params">
-                      <button ng-if="elementsPanel.U.userInfo.factory_id===1966" fs-click="elementsPanel.initAddElementTools(($index+1), 3, 0)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0" ng-class="{'color-selected': !elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0}" class="aux-params-but"> {{ addElemGroup[0].element_height*0.0393701 | number : 1  }}</button>
-                      <button ng-if="elementsPanel.U.userInfo.factory_id!==1966" fs-click="elementsPanel.initAddElementTools(($index+1), 3, 0)" ng-keyup="elementsPanel.pressCulculator($event)" ng-disabled="!elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0" ng-class="{'color-selected': !elementsPanel.P.product.is_addelem_only &amp;&amp; $index == 0}" class="aux-params-but"> {{ addElemGroup[0].element_height }}</button>
-                      <div data-output="{{ ::elementsPanel.HEIGHT_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                    </div>
-                  </div>
-                  <div ng-show="addElemGroup.length&gt;1" class="aux-more">{{ ::elementsPanel.OTHER_ELEMENTS1 }} {{ addElemGroup.length - 1 }} {{ ::elementsPanel.OTHER_ELEMENTS2 }}</div>
                 </div>
-              </div>
-            </div>
-            <div fs-click="elementsPanel.click(5555); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===5555}" id="5555" class="numberMenu">{{::elementsPanel.ALL}}</div>
-            <div fs-click="elementsPanel.click(1111); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===1111}" id="1111" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
-            <div fs-click="elementsPanel.click(2222); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===2222}" id="2222" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
-            <div fs-click="elementsPanel.click(3333); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===3333}" id="3333" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
-            <div fs-click="elementsPanel.click(4444); elementsPanel.G.global.isServiceCalculator = 0; " ng-class="{'green': elementsPanel.config.colorFilter===4444}" id="4444" class="numberMenu">{{::elementsPanel.OTHER}}</div>
-            <div fs-click="elementsPanel.click(6666)" ng-class="{'green': elementsPanel.config.colorFilter===6666}" id="6666" class="numberMenu">{{::elementsPanel.SERVICES}}</div>
-            <div ng-if="elementsPanel.G.global.typeMenuID === 6666" class="services">
-              <div class="service-block">
-                <div ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===0}" class="service-type">{{elementsPanel.SERV1}}</div>
-                <label ng-click="elementsPanel.openServiceCalculator(0)" data-bind="click: function() {clearDisplay();}" class="service-input">{{elementsPanel.P.product.services_price_arr[0] | number : 2}}</label>
-              </div>
-              <div class="service-block">
-                <div ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===1}" class="service-type">{{elementsPanel.SERV2}}</div>
-                <label ng-click="elementsPanel.openServiceCalculator(1)" data-bind="click: function() {clearDisplay();}" class="service-input">{{elementsPanel.P.product.services_price_arr[1] | number : 2}}</label>
-              </div>
-              <div class="service-block">
-                <div ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===2}" class="service-type">{{elementsPanel.SERV3}}</div>
-                <label ng-click="elementsPanel.openServiceCalculator(2)" data-bind="click: function() {clearDisplay();}" class="service-input">{{elementsPanel.P.product.services_price_arr[2] | number : 2}}</label>
-              </div>
-              <div class="service-block">
-                <div ng-class="{'green': elementsPanel.G.global.servicesPriceIndex===3}" class="service-type">{{elementsPanel.SERV4}}</div>
-                <label ng-click="elementsPanel.openServiceCalculator(3)" data-bind="click: function() {clearDisplay();}" class="service-input">{{elementsPanel.P.product.services_price_arr[3] | number : 2}}</label>
-              </div>
-              <div class="service-block">
-                <div ng-class="{ 'green': elementsPanel.G.global.servicesPriceIndex===4}" class="service-type">{{elementsPanel.OTHER}}</div>
-                <label ng-click="elementsPanel.openServiceCalculator(4)" data-bind="click: function() {clearDisplay();}" class="service-input">{{elementsPanel.P.product.services_price_arr[4] | number : 2}}</label>
-              </div>
-            </div>
-            <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" fs-click="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
-            <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
-              <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>
-              <div fs-click="elementsPanel.closeWindowScheme()" class="close-dialog"></div>
-            </div>
-            <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" fs-click="elementsPanel.openAddElementListView()" class="view-switch-tab unvisible">{{ 'add_elements.LIST_VIEW' | translate }}</button>
-          </div>
-          <div ng-if="elementsPanel.U.userInfo.factory_id === 2" class="auxiliaries-inner-rehau">
-            <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item-rehau aux-outside unvisible">
-              <div class="folders-container">
-                <div ng-click="elementsPanel.closeButton(6)" class="folders-container__close-screen-button"></div>
-                <div class="totalNumberAddElements">Дополнительные элементы ({{elementsPanel.P.product.addelemPriceDis | number: 0}} руб)</div>
-                <div ng-repeat="folders in elementsPanel.AddElementsMobile track by $index" ng-init="OpenSubFolder = $index" class="folders">
-                  <div ng-click="elementsPanel.OpenFolder($index, $event)" ng-class="{active : OpenSubFolder === elementsPanel.G.global.OpenSubFolder}" class="title-box">
-                    <p class="folders-name-rehau">{{folders.name | translate}}</p>
-                    <div class="arrow"><img ng-src="./img/rehau-img/white-arrow-top.png"></div>
-                  </div>
-                  <div ng-repeat="chosenAddElem in elementsPanel.P.product.chosenAddElements[$index] track by $index" class="choosen-add-elem">
-                    <div ng-click="elementsPanel.editEddElem($parent.$index,$index)" class="row">
-                      <div data-output="{{ chosenAddElem.name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                      <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                        <button class="aux-params-but">{{ chosenAddElem.element_qty }}
-                          <div class="aux-label">{{ ::elementsPanel.QTY_LABEL }}</div>
-                        </button>
-                      </div>
-                      <div ng-if="elementsPanel.U.userInfo.currencies === '₴'" price-fixed="{{chosenAddElem.elementPriceDis.toFixed(0)}}" qty-element="{{chosenAddElem.element_qty}}" currency-element="{{elementsPanel.U.userInfo.currency}}" class="tab-aux-price"></div>
-                      <div fs-click="elementsPanel.deleteAddElement($parent.$index, $index)" class="aux-delete-rehau"></div>
+                <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders">
+                  <div ng-class="{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
+                    <div ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}
+                      <div class="arrow"> <img ng-src="./img/rehau-img/white-arrow-top.png"></div>
                     </div>
                   </div>
-                  <div ng-repeat="subfolder in folders.folder track by $index" ng-if="OpenSubFolder === elementsPanel.G.global.OpenSubFolder" ng-init="OpenItemFolder = $index" class="subfolders">
-                    <div ng-class="{active : elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1}" ng-if="subfolder.name &amp;&amp; subfolder.id" class="subfolders-name">
-                      <div ng-click="elementsPanel.showItems($index, $event, 0)" class="splice">{{subfolder.name}}
-                        <div class="arrow"> <img ng-src="./img/rehau-img/white-arrow-top.png"></div>
-                      </div>
-                    </div>
-                    <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
-                      <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" class="splice">{{item.name}}</p>
-                    </div>
+                  <div ng-repeat="item in subfolder.subFolder track by $index" ng-if="elementsPanel.G.global.OpenItemFolder === OpenItemFolder || folders.folder.length ===1" class="items">
+                    <p ng-click="elementsPanel.confirmAddElemDialog(0, $index, $event, [subfolder.subFolder],item)" class="splice">{{item.name}}</p>
                   </div>
                 </div>
               </div>
@@ -1337,57 +1140,7 @@
               </div>
             </td>
           </thead>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td>
-              <button fs-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td>
-              <button fs-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td>
-              <button fs-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
-              <button fs-click="sizeCalc.setValueSize(0)" class="cell calc-digitLight">0</button>
-            </td>
-            <td ng-if="!sizeCalc.G.global.enterCount">
-              <button fs-click="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
-            </td>
-            <td ng-if="sizeCalc.U.userInfo.factory_id!==1966 &amp;&amp; !sizeCalc.G.global.enterCount">
-              <button fs-click="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
-            </td>
-            <td ng-if="sizeCalc.U.userInfo.factory_id==1966">
-              <button fs-click="sizeCalc.setValueSize('.')" class="cell calc-digit">.</button>
-            </td>
-            <td>
-              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id !== 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td>
               <button fs-click="sizeCalc.setValueSize(1)" class="cell-rehau calc-digit">1</button>
             </td>
@@ -1398,7 +1151,7 @@
               <button fs-click="sizeCalc.setValueSize(3)" class="cell-rehau calc-digit">3</button>
             </td>
           </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td>
               <button fs-click="sizeCalc.setValueSize(4)" class="cell-rehau calc-digit">4</button>
             </td>
@@ -1409,7 +1162,7 @@
               <button fs-click="sizeCalc.setValueSize(6)" class="cell-rehau calc-digit">6</button>
             </td>
           </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td>
               <button fs-click="sizeCalc.setValueSize(7)" class="cell-rehau calc-digit">7</button>
             </td>
@@ -1420,7 +1173,7 @@
               <button fs-click="sizeCalc.setValueSize(9)" class="cell-rehau calc-digit">9</button>
             </td>
           </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
               <button fs-click="sizeCalc.setValueSize(0)" class="cell-rehau calc-digitLight">0</button>
             </td>
@@ -1434,14 +1187,14 @@
               <button fs-click="sizeCalc.setValueSize('.')" class="cell-rehau calc-digit">.</button>
             </td>
             <td>
-              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();" class="cell-rehau calc-ok check">OK</button>
-              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();" class="cell-rehau calc-ok">OK</button>
+              <button id="closeSizeCaclulator" ng-show="sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();" class="cell-rehau calc-ok check">OK</button>
+              <button id="closeSizeCaclulator" ng-show="sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();" class="cell-rehau calc-ok">OK</button>
             </td>
           </tr>
         </table>
       </div>
       <div ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]" ng-if="mainPage.G.global.isQtyCalculator" class="calculators-box qty-calculator">
-        <div ng-if="qtyCalc.U.userInfo.factory_id === 2" class="container">
+        <div class="container">
           <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container">
             <tr>
               <td>
@@ -1465,37 +1218,6 @@
               </td>
               <td>
                 <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">=</button>
-              </td>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <!--rehau template-->
-        <div ng-if="qtyCalc.U.userInfo.factory_id !== 2" class="container">
-          <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container-rehau">
-            <tr>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
-              </td>
-              <td>
-                <div class="calc-interval">
-                  <div class="interval">
-                    <div class="calc-qty-limit">Кол-во</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
-              </td>
-              <td>
-                <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">OK</button>
               </td>
               <td>
                 <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
@@ -1546,76 +1268,7 @@
     </section>
   </section>
 </section>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-sign"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="cart-page">
-          <div fs-click="alertBox.isAlert()" class="order-delete"></div>
-        </section>
-      </div>
-      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
-      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
-      <button ng-click="alertBox.isAlert()" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-sign"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="main-page"></section>
-      </div>
-      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-sign"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="cart-page"></section>
-      </div>
-      <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.OK }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
-      </div>
-      <button ng-click="alertBox.noSync()" ng-show="loginPage.G.global.isSyncAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.syncNow()" ng-show="loginPage.G.global.isSyncAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }} </div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
-      </div>
-      <!--button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}-->
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes">{{ ::alertBox.OK }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
     <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
     <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
@@ -1634,7 +1287,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
     <div class="alert-danger-sign-rehau"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
@@ -1647,7 +1300,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
@@ -1659,7 +1312,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-overlay-rehau">
   <div class="alert-block-ok-rehau">
     <div class="alert-block-inner">
       <div class="alert-header">
@@ -1720,7 +1373,7 @@
       </div>
     </div>
   </div>
-  <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" ng-show="infoBox.U.userInfo.factory_id === 2" class="info_container-rehau">
+  <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container-rehau">
     <div class="info_box-rehau">
       <div class="info_box_inner">
         <div class="info-header">
@@ -1735,18 +1388,7 @@
   </div>
 </div>
 <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
-  <div ng-show="attantBox.U.userInfo.factory_id !== 2" class="glass-block">
-    <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-      <div class="glass-list">
-        <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
-      </div>
-    </div>
-    <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
-      <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-    </div>
-  </div>
-  <div ng-show="attantBox.U.userInfo.factory_id === 2" class="glass-block">
+  <div class="glass-block">
     <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion-rehau">
       <div fs-click="attantBox.stepBack(); attantBox.stepBack(); attantBox.closeAttantion();" class="close-dialog-rehau"></div>
       <div class="glass-list">

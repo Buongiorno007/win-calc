@@ -14,7 +14,7 @@
         .common-content-style.config-content(ng-if="mobilePage.isSet(5)")
             include mobile/config-rehau-mobile
 
-    .control-buttons-container(ng-if="mobilePage.U.userInfo.factory_id !== 2")
+    .control-buttons-container()
         .templates.control-button(ng-click="mobilePage.setTab(1)")
             .img-common.templates-img(ng-class="{ active: mobilePage.isSet(1) }")
             p {{mobilePage.ROOM_SELECTION}}

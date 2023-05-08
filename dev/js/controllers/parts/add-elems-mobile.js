@@ -352,22 +352,18 @@
                 }
                 thisCtrl.SelectedElement = ProductStor.product.chosenAddElements[GlobalStor.global.OpenSubFolder].length;
                 thisCtrl.addElementsList = addElementsList[0];
-                if (UserStor.userInfo.factory_id === 2) {
-                    if (element.list_group_id === 20) {
-                        setGridToAll()
-                    }
-                    //This logic allows us close drop downlist after click on item
-                    if (element.list_group_id === 9) {
-                        OpenFolder(1, clickEvent)
-                    } else if (element.list_group_id === 20) {
-                        //Calling this function 1 time is not enough, we need 2 times
-                        OpenFolder(0, clickEvent)
-                        OpenFolder(0, clickEvent)
-                    } else if (element.list_group_id === 8) {
-                        OpenFolder(2, clickEvent)
-                    } 
-
-                   
+                if (element.list_group_id === 20) {
+                    setGridToAll()
+                }
+                //This logic allows us close drop downlist after click on item
+                if (element.list_group_id === 9) {
+                    OpenFolder(1, clickEvent)
+                } else if (element.list_group_id === 20) {
+                    //Calling this function 1 time is not enough, we need 2 times
+                    OpenFolder(0, clickEvent)
+                    OpenFolder(0, clickEvent)
+                } else if (element.list_group_id === 8) {
+                    OpenFolder(2, clickEvent)
                 }
             }
 

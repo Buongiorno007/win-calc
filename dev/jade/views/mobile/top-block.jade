@@ -23,7 +23,7 @@
     .top-container-item(ng-if="mobilePage.G.global.activePanel === 6")
         .top-container-header
             .top-container-title Дополнительные элементы
-            .top-container-subtitle Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} руб)
+            .top-container-subtitle Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})
         button.top-container-close(ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)")
     .top-container-item(ng-if="mobilePage.isSet(4)")
         .top-container-header

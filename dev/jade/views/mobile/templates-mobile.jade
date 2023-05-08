@@ -13,11 +13,11 @@
       //.add-elems-only.gray(ng-click="templatesPanel.setTab(0)")
           | Add elements only
   // rehau templates
-  .common-scroll-container-rehau(ng-if="templatesPanel.U.userInfo.factory_id === 2")
+  .common-scroll-container-rehau
       include top-block
       .template-content-rehau
         .template-main-item
-          .configur-panelLight-rehau.template-container-rehau(ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}")
+          .configur-panelLight-rehau.template-container-rehau(ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}")
             .other-template-rehau
               .single-leaf-windows 
                 .single-leaf-windows-title <h1>Окна одностворчатые</h1>

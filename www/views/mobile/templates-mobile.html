@@ -82,7 +82,7 @@
     -->
   </div>
   <!-- rehau templates-->
-  <div ng-if="templatesPanel.U.userInfo.factory_id === 2" class="common-scroll-container-rehau">
+  <div class="common-scroll-container-rehau">
     <div class="top-container">
       <div ng-if="mobilePage.isSet(1)" class="top-container-item">
         <div class="top-container-header">
@@ -116,7 +116,7 @@
       <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
         <div class="top-container-header">
           <div class="top-container-title">Дополнительные элементы</div>
-          <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} руб)</div>
+          <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
         </div>
         <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
       </div>
@@ -130,7 +130,7 @@
     </div>
     <div class="template-content-rehau">
       <div class="template-main-item">
-        <div ng-show="templatesPanel.U.userInfo.factory_id === 2" ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
+        <div ng-class="{'goLeft': templatesPanel.D.design.activeSubMenuItem === 6}" class="configur-panelLight-rehau template-container-rehau">
           <div class="other-template-rehau">
             <div class="single-leaf-windows"> 
               <div class="single-leaf-windows-title"><h1>Окна одностворчатые</h1></div>

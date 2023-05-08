@@ -32,7 +32,7 @@
   <div ng-if="mobilePage.G.global.activePanel === 6" class="top-container-item">
     <div class="top-container-header">
       <div class="top-container-title">Дополнительные элементы</div>
-      <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} руб)</div>
+      <div class="top-container-subtitle">Общая цена доп. элементов ({{ mobilePage.P.product.addelemPriceDis.toFixed(0)}} {{mobilePage.U.userInfo.currencies}})</div>
     </div>
     <button ng-click="mobilePage.closePanelMobile(); mobilePage.setTab(5)" class="top-container-close"></button>
   </div>

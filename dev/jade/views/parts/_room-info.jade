@@ -1,30 +1,5 @@
 .room-info-container(ng-controller="RoomInfoCtrl as roomInfo", ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}", ng-swipe-up="roomInfo.switchComment($event)", ng-swipe-down="roomInfo.switchComment($event)")
-  .coeff-container(ng-if="roomInfo.U.userInfo.factory_id !== 2")
-    .coeff-block
-      .coeff-info-block(ng-if="roomInfo.G.global.showCoefInfoBlock")
-        .coeff-max {{ roomInfo.O.order.heat_coef_min }}
-          .heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id")
-            | {{ ::roomInfo.LETTER_M }} &sup2;&middot;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
-          .heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id")
-            | {{ ::configMenu.HEATCOEF_VAL }}/{{ ::configMenu.LETTER_M }} &sup2;&middot;&deg;C
-        .heat-transfer-info_hr
-          | {{ ::roomInfo.HEAT_TRANSFER_INFO_1 }}
-        .heat-transfer-info
-          | {{ ::roomInfo.HEAT_TRANSFER_INFO_2 }}
-        .close-dialog(fs-click="roomInfo.G.global.showCoefInfoBlock=0")
-      //R
-      .coeff.heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id",
-                            ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total < roomInfo.O.order.heat_coef_min}",
-                            fs-click="roomInfo.showCoefInfoBlock()")
-        | R = {{ roomInfo.P.product.heat_coef_total }} {{ ::roomInfo.LETTER_M}}&sup2;&deg;C/{{ ::roomInfo.HEATCOEF_VAL }}
-        .coeff-title(data-output="{{ ::roomInfo.HEAT_TRANSFER_RESISTANCE }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
-      //U
-      .coeff.heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id",
-                            ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total > roomInfo.O.order.heat_coef_min}",
-                            fs-click="roomInfo.showCoefInfoBlock()")
-        | U = {{ roomInfo.P.product.heat_coef_total }} {{ ::configMenu.HEATCOEF_VAL}}/{{::configMenu.LETTER_M }}&sup2;&deg;C
-        .coeff-title(data-output="{{ ::roomInfo.HEAT_TRANSFER }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
-  .coeff-container(ng-if="roomInfo.U.userInfo.factory_id === 2")
+  .coeff-container
     .coeff-block
       .info-container-rehau
         .coeff-info-block-rehau(ng-if="roomInfo.G.global.showInfoBox(roomInfo.HEAT_TRANSFER_INFO_1, roomInfo.HEAT_TRANSFER_INFO_2)")

@@ -149,57 +149,7 @@
               </div>
             </td>
           </thead>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td>
-              <button fs-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td>
-              <button fs-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td>
-              <button fs-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
-            </td>
-            <td>
-              <button fs-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id !== 2">
-            <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
-              <button fs-click="sizeCalc.setValueSize(0)" class="cell calc-digitLight">0</button>
-            </td>
-            <td ng-if="!sizeCalc.G.global.enterCount">
-              <button fs-click="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
-            </td>
-            <td ng-if="sizeCalc.U.userInfo.factory_id!==1966 &amp;&amp; !sizeCalc.G.global.enterCount">
-              <button fs-click="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
-            </td>
-            <td ng-if="sizeCalc.U.userInfo.factory_id==1966">
-              <button fs-click="sizeCalc.setValueSize('.')" class="cell calc-digit">.</button>
-            </td>
-            <td>
-              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id !== 2" fs-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
-            </td>
-          </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td>
               <button fs-click="sizeCalc.setValueSize(1)" class="cell-rehau calc-digit">1</button>
             </td>
@@ -210,7 +160,7 @@
               <button fs-click="sizeCalc.setValueSize(3)" class="cell-rehau calc-digit">3</button>
             </td>
           </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td>
               <button fs-click="sizeCalc.setValueSize(4)" class="cell-rehau calc-digit">4</button>
             </td>
@@ -221,7 +171,7 @@
               <button fs-click="sizeCalc.setValueSize(6)" class="cell-rehau calc-digit">6</button>
             </td>
           </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td>
               <button fs-click="sizeCalc.setValueSize(7)" class="cell-rehau calc-digit">7</button>
             </td>
@@ -232,7 +182,7 @@
               <button fs-click="sizeCalc.setValueSize(9)" class="cell-rehau calc-digit">9</button>
             </td>
           </tr>
-          <tr ng-show="sizeCalc.U.userInfo.factory_id === 2">
+          <tr>
             <td colspan="2" ng-if="sizeCalc.G.global.enterCount">
               <button fs-click="sizeCalc.setValueSize(0)" class="cell-rehau calc-digitLight">0</button>
             </td>
@@ -246,8 +196,8 @@
               <button fs-click="sizeCalc.setValueSize('.')" class="cell-rehau calc-digit">.</button>
             </td>
             <td>
-              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();" class="cell-rehau calc-ok check">OK</button>
-              <button id="closeSizeCaclulator" ng-show="sizeCalc.U.userInfo.factory_id === 2 &amp;&amp; sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();" class="cell-rehau calc-ok">OK</button>
+              <button id="closeSizeCaclulator" ng-show="sizeCalc.D.design.maxSizeLimit === 3200" fs-click="sizeCalc.closeSizeCaclulator(); sizeCalc.positionAxisAuto();" class="cell-rehau calc-ok check">OK</button>
+              <button id="closeSizeCaclulator" ng-show="sizeCalc.D.design.maxSizeLimit !== 3200" fs-click="sizeCalc.closeSizeCaclulator();" class="cell-rehau calc-ok">OK</button>
             </td>
           </tr>
         </table>
@@ -366,18 +316,7 @@
       <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
     </div>
     <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
-      <div ng-show="attantBox.U.userInfo.factory_id !== 2" class="glass-block">
-        <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
-          <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-          <div class="glass-list">
-            <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
-          </div>
-        </div>
-        <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
-          <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
-        </div>
-      </div>
-      <div ng-show="attantBox.U.userInfo.factory_id === 2" class="glass-block">
+      <div class="glass-block">
         <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion-rehau">
           <div fs-click="attantBox.stepBack(); attantBox.stepBack(); attantBox.closeAttantion();" class="close-dialog-rehau"></div>
           <div class="glass-list">
@@ -409,76 +348,7 @@
     </div>
   </section>
 </section>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-sign"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="cart-page">
-          <div fs-click="alertBox.isAlert()" class="order-delete"></div>
-        </section>
-      </div>
-      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
-      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
-      <button ng-click="alertBox.isAlert()" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSavingAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-sign"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="main-page"></section>
-      </div>
-      <button ng-click="alertBox.clickNo()" ng-show="alertBox.G.global.isSavingAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isSavingAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-sign"></div>
-    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="cart-page"></section>
-      </div>
-      <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info alert-no">{{ ::alertBox.OK }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
-      </div>
-      <button ng-click="alertBox.noSync()" ng-show="loginPage.G.global.isSyncAlert" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.syncNow()" ng-show="loginPage.G.global.isSyncAlert" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id !== 2" class="alert-overlay">
-  <div class="alert-block">
-    <div class="alert-descr">{{ alertBox.SAVED_KONSTRUCTION }} </div>
-    <div class="alert-btns">
-      <div class="thisAlert">
-        <section class="loginPage"></section>
-      </div>
-      <!--button.alert-no(ng-click="alertBox.G.global.isNoChangedProduct = 0", ng-show="alertBox.G.global.isNoChangedProduct") {{ ::alertBox.BUTTON_N }}-->
-      <button ng-click="alertBox.G.global.isNoChangedProduct = 0" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-yes">{{ ::alertBox.OK }}</button>
-    </div>
-  </div>
-</div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
     <div ng-show="alertBox.G.global.isBox" class="alert-question-sign-rehau"></div>
     <div ng-show="!alertBox.G.global.isBox" class="alert-danger-sign-rehau"></div>
@@ -497,7 +367,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
     <div class="alert-danger-sign-rehau"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
@@ -510,7 +380,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isSyncAlert" class="alert-overlay-rehau">
   <div class="alert-block-rehau">
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
@@ -522,7 +392,7 @@
     </div>
   </div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct &amp;&amp; alertBox.U.userInfo.factory_id === 2" class="alert-overlay-rehau">
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isNoChangedProduct" class="alert-overlay-rehau">
   <div class="alert-block-ok-rehau">
     <div class="alert-block-inner">
       <div class="alert-header">
