@@ -4667,11 +4667,12 @@ let portrait = false;
             }
 
             function saveAlertMobile() {
-                GeneralServ.confirmAlert(
+                // We committed this code because we don't need confirm alert
+                /* GeneralServ.confirmAlert(
                     $filter('translate')('common_words.SAVE_OR_NO'),
                     $filter('translate')('  '),
                     saveProdAndGoToCart
-                );
+                ); */
                 GeneralServ.confirmPath(
                     setTab(4)
                 );
@@ -4736,35 +4737,54 @@ let portrait = false;
             }
 
             function checkForAddElem() {
-                if(GlobalStor.global.glasses.length) {
-                    GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
-                      return item.map((elem) => {
-                        elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
-                        return elem;
-                      })
-                    });
-                    GlassesServ.selectGlass(GlobalStor.global.glasses[0][0].id, GlobalStor.global.glasses[0][0].sku, GlobalStor.global.glasses[0][0].glass_color, GlobalStor.global.glasses[0][0])
-                  }
+
+                $('.to-basket-button').append('<div class="animation-to-cart"></div>');
+                var animation = $('.animation-to-cart');
+
+                animation.css({
+                    'position': 'absolute',
+                    'background': '#FF0000',
+                    'width': '25px',
+                    'height': '25px',
+                    'border-radius': '50%',
+                    'right': '100px',
+                    'top': '40px',
+                });
+
+                var cart = $('.construction-count-mobile').offset();
+                var ballPosition = animation.offset();
+
+                animation.animate({ top: (cart.top - ballPosition.top + 40) + 'px', left: cart.left + 'px' }, 600, function () {
+                    $(this).remove();
+                    saveProduct();
+                });    
+                
+                setTimeout(() => {
+                    if (GlobalStor.global.glasses.length) {
+                        GlobalStor.global.glasses = GlobalStor.global.glasses.map((item) => {
+                            return item.map((elem) => {
+                                elem.apprPrice = GlassesServ.selectGlass(elem.id, elem.sku, elem.glass_color, elem)
+                                return elem;
+                            })
+                        });
+                        GlassesServ.selectGlass(GlobalStor.global.glasses[0][0].id, GlobalStor.global.glasses[0][0].sku, GlobalStor.global.glasses[0][0].glass_color, GlobalStor.global.glasses[0][0])
+                    }
+                }, 1000);
+                
                 //  ALERT
-                GlobalStor.global.isNoChangedProduct = 1;
+                /* GlobalStor.global.isNoChangedProduct = 1;
                 if (!GlobalStor.global.isZeroPriceList.length) {
                     if (!ProductStor.product.is_addelem_only) {
                         if (GlobalStor.global.dangerAlert < 1) {
                             if (ProductStor.product.beadsData.length > 0) {
                                 if (!OrderStor.order.products.length) {
-                                    $('#qty').hide().show(0);
-                                    $('#qty-mobile').hide().show(0);
                                     saveProduct();
                                 } else if (GlobalStor.global.isNewTemplate) {
-                                    $('#qty').hide().show(0);
-                                    $('#qty-mobile').hide().show(0);
                                     saveProduct();
                                 } else if (!GlobalStor.global.isChangedTemplate) {
                                     //  ALERT
                                     GlobalStor.global.isNoChangedProduct = 1;
                                 } else {
-                                    $('#qty').hide().show(0);
-                                    $('#qty-mobile').hide().show(0);
                                     saveProduct();
                                 }
                             } else {
@@ -4786,7 +4806,7 @@ let portrait = false;
                         thisCtrl.ATENTION,
                         msg
                     );
-                }
+                } */
 
             }
 
