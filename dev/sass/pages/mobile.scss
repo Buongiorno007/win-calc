@@ -156,18 +156,20 @@ body {
   .alert-block,
   .alert-block-rehau,
   .danger-alert {
-    all: unset;
-    display: inline-flex;
-    flex-direction: column;
     align-content: center;
     align-items: center;
-    justify-content: center;
-    position: absolute;
+    all: unset;
     background: $main_white;
-    top: 10%;
-    left: 5%;
-    height: 55%;
-    width: 90%;
+    display: inline-flex;
+    flex-direction: column;
+    height: 50%;
+    justify-content: center;
+    left: 15%;
+    padding: 10px;
+    position: absolute;
+    top: 15%;
+    width: 70%;
+
     .alert-btns {
       button {
         display: inline-flex;
@@ -640,7 +642,7 @@ body {
                 .other-single-template-rehau {
                   display: flex;
                   flex-direction: column;
-                  min-width: 120px;
+                  min-width: 140px;
                   min-height: 120px;
                   align-items: center;
 
@@ -653,7 +655,8 @@ body {
                     color: $main_white;
                   }
                   &:hover {
-                    background-color: #F5F5F5;
+                    border: 4px solid $main_deep_green;
+                    background-color: transparent;
                   }
 
                   .other-template-img {
@@ -1372,7 +1375,7 @@ body {
           font-size: 14px;
           line-height: 24px;
 
-          color: #000000;
+          color: $main_white;
 
           ul {
             padding: 0;
@@ -1606,7 +1609,7 @@ body {
       padding: 8px 20px;
       background-color: $main_deep_green;
       color: $main_white;
-      border-radius: 40px;
+      border-radius: 6px;
 
       border: none;
 
@@ -2937,7 +2940,7 @@ body {
           justify-content: center;
           @include roboto-rg(15px);
           color: $main_white;
-          -webkit-text-fill-color: #000;
+          -webkit-text-fill-color: $main_white;
           z-index: 1;
           p {
             width: 100%;
@@ -3292,7 +3295,7 @@ body {
             align-items: center;
             width: 100%;
 
-            background-color: $main_white;
+            background-color: $main_dark_blue;
             .subfolders-name {
               position: relative;
               width: 100%;
@@ -3346,7 +3349,6 @@ body {
               margin: 5px 0 5px 0;
               padding: 8px 10px;
 
-              border-bottom: 1px solid #D9D9D9;
               p {
                 width: 100%;
                 @include roboto-rg(18px);
