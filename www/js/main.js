@@ -4745,11 +4745,11 @@ let portrait = false;
 
                 animation.css({
                     'position': 'absolute',
-                    'background': '#FF0000',
+                    'background': '#ef4030',
                     'width': '25px',
                     'height': '25px',
                     'border-radius': '50%',
-                    'right': '100px',
+                    'right': '75px',
                     'top': '40px',
                 });
 
