@@ -1,8 +1,12 @@
 .bottom-block
     .to-basket-button(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && !mobilePage.isSet(2) && !mobilePage.isSet(3) && !mobilePage.isSet(4) && !mobilePage.isSet(5)" ng-click="mobilePage.checkForAddElem();")
         button.add-to-basket Добавить в корзину
+        .add-to-basket-img
+            img(src="./img/rehau-img/add-to-cart-2.svg", class="go-to-basket-img" alt="")
     .to-basket-button-for-landing.disabled(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && !mobilePage.isSet(2) && !mobilePage.isSet(3) && !mobilePage.isSet(5)")
         button.add-to-basket Добавить в корзину
+        .add-to-basket-img
+            img(src="./img/rehau-img/add-to-cart-2.svg", class="go-to-basket-img" alt="")
     .price-and-coeff-block
         .heat-coeff-txt(ng-if="!mobilePage.isSet(4) && !mobilePage.isSet(1) && !mobilePage.isSet(2) && !mobilePage.isSet(3) && !mobilePage.isSet(4)")
             span.heat-coeff-span Оценка энергоэффективности

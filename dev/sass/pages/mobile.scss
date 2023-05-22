@@ -1563,7 +1563,7 @@ body {
     .to-basket-button {
       display: flex;
       margin: auto;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: center;
       margin: 25px;
       &.disabled {
@@ -1588,12 +1588,15 @@ body {
 
 
     .add-to-basket-img {
-      display: flex;
-      justify-content: center;
       align-items: center;
-      width: 50px;
-      height: 40px;
       background-color: #424242;
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      display: flex;
+      height: 40px;
+      justify-content: center;
+      width: 50px;
+      
       .go-to-basket-img {
         width: 30px;
         height: 30px;
@@ -1609,7 +1612,8 @@ body {
       padding: 8px 20px;
       background-color: $main_deep_green;
       color: $main_white;
-      border-radius: 6px;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
 
       border: none;
 
