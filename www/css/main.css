@@ -317,43 +317,43 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1682343666') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1684744520') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1682343664') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1684744518') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1682343665') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1684744519') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1682343665') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1684744519') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1682343666') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1684744520') format('truetype');
 }
 @font-face {
   font-family: "brix-regular";
-  src: url('../fonts/roboto/Brix-Sans-Regular.ttf?1682343444') format('truetype');
+  src: url('../fonts/roboto/Brix-Sans-Regular.ttf?1684744472') format('truetype');
 }
 @font-face {
   font-family: "brix-bold";
-  src: url('../fonts/roboto/Brix-Sans-Bold.ttf?1682343444') format('truetype');
+  src: url('../fonts/roboto/Brix-Sans-Bold.ttf?1684744472') format('truetype');
 }
 @font-face {
   font-family: "brix-medium";
-  src: url('../fonts/roboto/Brix-Sans-Medium.ttf?1682343444') format('truetype');
+  src: url('../fonts/roboto/Brix-Sans-Medium.ttf?1684744472') format('truetype');
 }
 @font-face {
   font-family: "brix-black";
-  src: url('../fonts/roboto/Brix-Sans-Black.ttf?1682343444') format('truetype');
+  src: url('../fonts/roboto/Brix-Sans-Black.ttf?1684744472') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1682343662') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1684744517') format('truetype');
 }
 /* line 140, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .room-info-container .select-window-door, .room-info-container .coeff-info-block-rehau, .room-info-container .coeff-info-block-rehau .coeff-max-rehau, .room-info-container .coeff-info-block-rehau .heat-transfer-rehau, .room-info-container .coeff-max-rehau, .room-info-container .heat-transfer-rehau .coeff-number, .room-info-container .heat-transfer-rehau .coeff-mark, .room-info-container .heat-transfer-rehau.animation, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .cart-menu-rehau .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .hardware-container .hardware-block .box, .config-section .box-rehau, .profile-container .profile-block .box-rehau, .hardware-container .hardware-block .box-rehau, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container-rehau .save, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .template-window,
@@ -12675,7 +12675,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1681825148') no-repeat;
+  background: url('../img/door-arrow.png?1684743937') no-repeat;
   background-size: 100% 100%;
 }
 /* line 945, ../../dev/sass/pages/design.scss */
@@ -14841,14 +14841,12 @@ body {
 /* line 577, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container {
   display: inline-flex;
-  height: 100%;
   width: 100%;
   position: absolute;
-  bottom: 0;
-  background: #fff;
+  bottom: 30%;
   z-index: 1;
 }
-/* line 585, ../../dev/sass/pages/mobile.scss */
+/* line 583, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .common-content-style {
   width: 100%;
   height: 10vh;
@@ -14856,7 +14854,7 @@ body {
   z-index: 1;
   display: inline-block;
 }
-/* line 592, ../../dev/sass/pages/mobile.scss */
+/* line 590, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .common-scroll-container {
   width: 100%;
   min-width: 100%;
@@ -14869,11 +14867,11 @@ body {
   overflow-y: hidden;
   box-sizing: content-box;
 }
-/* line 604, ../../dev/sass/pages/mobile.scss */
+/* line 602, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box {
   width: 100%;
 }
-/* line 606, ../../dev/sass/pages/mobile.scss */
+/* line 604, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .scroll-container {
   position: fixed;
   top: 0;
@@ -14887,7 +14885,7 @@ body {
   padding-top: 100px;
   box-sizing: content-box;
 }
-/* line 620, ../../dev/sass/pages/mobile.scss */
+/* line 618, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau {
   position: fixed;
   top: 0;
@@ -14900,18 +14898,18 @@ body {
   overflow-x: hidden;
   box-sizing: content-box;
 }
-/* line 634, ../../dev/sass/pages/mobile.scss */
+/* line 632, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item {
   padding: 16px;
   margin-bottom: 120px;
 }
-/* line 638, ../../dev/sass/pages/mobile.scss */
+/* line 636, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
-/* line 642, ../../dev/sass/pages/mobile.scss */
+/* line 640, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .other-single-template-rehau {
   display: flex;
   flex-direction: column;
@@ -14921,29 +14919,29 @@ body {
   margin: 10px;
   padding: 8px;
 }
-/* line 653, ../../dev/sass/pages/mobile.scss */
+/* line 651, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .other-single-template-rehau.selected {
   background-color: #20695d;
   color: #fff;
 }
-/* line 657, ../../dev/sass/pages/mobile.scss */
+/* line 655, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .other-single-template-rehau:hover {
   border: 4px solid #20695d;
   background-color: transparent;
 }
-/* line 662, ../../dev/sass/pages/mobile.scss */
+/* line 660, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .other-single-template-rehau .other-template-img {
   max-width: 125px;
   max-height: 125px;
   text-align: center;
 }
-/* line 667, ../../dev/sass/pages/mobile.scss */
+/* line 665, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .other-single-template-rehau .other-template-img img {
   max-width: 125px;
   max-height: 125px;
   text-align: center;
 }
-/* line 674, ../../dev/sass/pages/mobile.scss */
+/* line 672, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .other-single-template-rehau .other-template-subscr {
   font-size: 18px;
   line-height: 32px;
@@ -14956,11 +14954,11 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 689, ../../dev/sass/pages/mobile.scss */
+/* line 687, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .single-leaf-windows {
   margin-top: 0px;
 }
-/* line 692, ../../dev/sass/pages/mobile.scss */
+/* line 690, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-title h1 {
   color: #fff;
   text-align: start;
@@ -14971,13 +14969,13 @@ body {
   margin: 0;
   text-transform: uppercase;
 }
-/* line 705, ../../dev/sass/pages/mobile.scss */
+/* line 703, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .single-leaf-windows .single-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 714, ../../dev/sass/pages/mobile.scss */
+/* line 712, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-title h1 {
   color: #fff;
   text-align: start;
@@ -14988,13 +14986,13 @@ body {
   margin: 0;
   text-transform: uppercase;
 }
-/* line 727, ../../dev/sass/pages/mobile.scss */
+/* line 725, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .duble-leaf-windows .duble-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 736, ../../dev/sass/pages/mobile.scss */
+/* line 734, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-title h1 {
   color: #fff;
   text-align: start;
@@ -15005,13 +15003,13 @@ body {
   margin: 0;
   text-transform: uppercase;
 }
-/* line 749, ../../dev/sass/pages/mobile.scss */
+/* line 747, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .three-leaf-windows .three-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 758, ../../dev/sass/pages/mobile.scss */
+/* line 756, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .t-shaped .three-leaf-windows-title h1 {
   color: #fff;
   text-align: start;
@@ -15022,13 +15020,13 @@ body {
   margin: 0;
   text-transform: uppercase;
 }
-/* line 771, ../../dev/sass/pages/mobile.scss */
+/* line 769, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .t-shaped .three-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 780, ../../dev/sass/pages/mobile.scss */
+/* line 778, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .balcony-doors .three-leaf-windows-title h1 {
   color: #fff;
   text-align: start;
@@ -15039,17 +15037,17 @@ body {
   margin: 12px 0;
   text-transform: uppercase;
 }
-/* line 793, ../../dev/sass/pages/mobile.scss */
+/* line 791, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-rehau .balcony-doors .three-leaf-windows-templates {
   text-align: start;
   display: flex;
   overflow: scroll;
 }
-/* line 804, ../../dev/sass/pages/mobile.scss */
+/* line 802, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-header {
   text-align: center;
 }
-/* line 808, ../../dev/sass/pages/mobile.scss */
+/* line 806, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-title {
   font: normal 5rem/5rem roboto-light, sans-serif, icons;
   height: 5.75rem;
@@ -15060,17 +15058,17 @@ body {
   background-color: transparent;
   outline: none;
 }
-/* line 818, ../../dev/sass/pages/mobile.scss */
+/* line 816, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-title.active {
   color: #fff;
   background-color: #6ed44a;
 }
-/* line 824, ../../dev/sass/pages/mobile.scss */
+/* line 822, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .tempate-type-box {
   position: relative;
   display: inline;
 }
-/* line 828, ../../dev/sass/pages/mobile.scss */
+/* line 826, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-type {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
   position: absolute;
@@ -15083,7 +15081,7 @@ body {
   white-space: nowrap;
   cursor: pointer;
 }
-/* line 839, ../../dev/sass/pages/mobile.scss */
+/* line 837, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-type:before {
   position: absolute;
   z-index: 1;
@@ -15096,27 +15094,27 @@ body {
   border-color: transparent #242424;
   content: '';
 }
-/* line 852, ../../dev/sass/pages/mobile.scss */
+/* line 850, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-type-btn {
   border-bottom: 1px solid #bebebe;
 }
-/* line 854, ../../dev/sass/pages/mobile.scss */
+/* line 852, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-type-btn:last-child {
   border-bottom: none;
 }
-/* line 859, ../../dev/sass/pages/mobile.scss */
+/* line 857, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-discr {
   font: normal 5rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #363636;
 }
-/* line 865, ../../dev/sass/pages/mobile.scss */
+/* line 863, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-section {
   height: 62.5rem;
   text-align: center;
   cursor: pointer;
 }
-/* line 872, ../../dev/sass/pages/mobile.scss */
+/* line 870, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-footer {
   display: -webkit-flex;
   display: flex;
@@ -15126,7 +15124,7 @@ body {
   display: flex;
   overflow: auto;
 }
-/* line 882, ../../dev/sass/pages/mobile.scss */
+/* line 880, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-footerLight {
   display: none !important;
   flex-direction: column;
@@ -15140,11 +15138,11 @@ body {
   display: flex;
   overflow: auto;
 }
-/* line 893, ../../dev/sass/pages/mobile.scss */
+/* line 891, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .template-footerLight.goLeft {
   display: inline-flex !important;
 }
-/* line 900, ../../dev/sass/pages/mobile.scss */
+/* line 898, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-templates {
   display: -webkit-flex;
   display: flex;
@@ -15157,27 +15155,27 @@ body {
   overflow-y: hidden;
   overflow-x: auto;
 }
-/* line 908, ../../dev/sass/pages/mobile.scss */
+/* line 906, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template {
   display: inline-block;
   min-width: 190px;
   margin: 0 0.625rem;
   cursor: pointer;
 }
-/* line 913, ../../dev/sass/pages/mobile.scss */
+/* line 911, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template.selected {
   background-color: rgba(114, 225, 133, 0.55);
   border-radius: 1rem;
 }
-/* line 919, ../../dev/sass/pages/mobile.scss */
+/* line 917, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-img {
   text-align: center;
 }
-/* line 922, ../../dev/sass/pages/mobile.scss */
+/* line 920, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-img img {
   max-height: 150px;
 }
-/* line 927, ../../dev/sass/pages/mobile.scss */
+/* line 925, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-label {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 9.375rem;
@@ -15186,7 +15184,7 @@ body {
   word-wrap: break-word;
   color: #666;
 }
-/* line 936, ../../dev/sass/pages/mobile.scss */
+/* line 934, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .box .common-scroll-container-rehau .template-content-rehau .template-main-item .template-container-rehau .other-template-subscr {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 12.5rem;
@@ -15194,11 +15192,11 @@ body {
   text-align: center;
   color: #666;
 }
-/* line 950, ../../dev/sass/pages/mobile.scss */
+/* line 948, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .swiper-container {
   width: 100% !important;
 }
-/* line 953, ../../dev/sass/pages/mobile.scss */
+/* line 951, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content {
   position: fixed;
   bottom: 0;
@@ -15210,7 +15208,7 @@ body {
   background: #fff;
   z-index: 1;
 }
-/* line 963, ../../dev/sass/pages/mobile.scss */
+/* line 961, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .types {
   display: inline-flex;
   flex-direction: column;
@@ -15223,7 +15221,7 @@ body {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 974, ../../dev/sass/pages/mobile.scss */
+/* line 972, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .types .button, .mobile .content-container .templates-content .types .ghost-button, .mobile .content-container .templates-content .types .aux-choose-but, .mobile .content-container .templates-content .types .parameters-block .aux-params-but, .parameters-block .mobile .content-container .templates-content .types .aux-params-but, .mobile .content-container .templates-content .types .elements-list-container .aux-params-but, .elements-list-container .mobile .content-container .templates-content .types .aux-params-but, .mobile .content-container .templates-content .types .auxiliaries-container .aux-params-but, .auxiliaries-container .mobile .content-container .templates-content .types .aux-params-but, .mobile .content-container .templates-content .types .additional-list-container .aux-list-content .aux-params-but, .additional-list-container .aux-list-content .mobile .content-container .templates-content .types .aux-params-but, .mobile .content-container .templates-content .types .cart-page .alladdelements-block .aux-params-but, .cart-page .alladdelements-block .mobile .content-container .templates-content .types .aux-params-but, .mobile .content-container .templates-content .types .cart-page .addelementunit-only .aux-params-but, .cart-page .addelementunit-only .mobile .content-container .templates-content .types .aux-params-but, .mobile .content-container .templates-content .types .nav-menu .new-calc, .nav-menu .mobile .content-container .templates-content .types .new-calc, .mobile .content-container .templates-content .types .cart-menu .measure-btn, .cart-menu .mobile .content-container .templates-content .types .measure-btn, .mobile .content-container .templates-content .types .cart-menu-rehau .measure-btn, .cart-menu-rehau .mobile .content-container .templates-content .types .measure-btn, .mobile .content-container .templates-content .types .big-button, .mobile .content-container .templates-content .types .orange-big-btn, .mobile .content-container .templates-content .types .menu-right-general .cart-btn, .menu-right-general .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .order-path .cart-btn, .order-path .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .config-menu .cart-btn, .config-menu .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .elements-menu .cart-btn, .elements-menu .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .cart-menu .cart-btn, .cart-menu .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .cart-menu-rehau .cart-btn, .cart-menu-rehau .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .old-price-tab .cart-btn, .old-price-tab .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .old-price-inst-tab .cart-btn, .old-price-inst-tab .mobile .content-container .templates-content .types .cart-btn, .mobile .content-container .templates-content .types .cart-menu .order-btn, .cart-menu .mobile .content-container .templates-content .types .order-btn, .mobile .content-container .templates-content .types .login-submit, .mobile .content-container .templates-content .types .middle-button, .mobile .content-container .templates-content .types .alert-btns button, .alert-btns .mobile .content-container .templates-content .types button, .mobile .content-container .templates-content .types .alert-btns .door-configuration .door-config-finish-btn, .alert-btns .door-configuration .mobile .content-container .templates-content .types .door-config-finish-btn, .mobile .content-container .templates-content .types .door-configuration .alert-btns .door-config-finish-btn, .door-configuration .alert-btns .mobile .content-container .templates-content .types .door-config-finish-btn, .mobile .content-container .templates-content .types .alert-btns .door-configuration .door-config-finish-save-btn, .alert-btns .door-configuration .mobile .content-container .templates-content .types .door-config-finish-save-btn, .mobile .content-container .templates-content .types .door-configuration .alert-btns .door-config-finish-save-btn, .door-configuration .alert-btns .mobile .content-container .templates-content .types .door-config-finish-save-btn, .mobile .content-container .templates-content .types .settings .save, .settings .mobile .content-container .templates-content .types .save, .mobile .content-container .templates-content .types .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .mobile .content-container .templates-content .types .set-grid-all-btn, .mobile .content-container .templates-content .types .search-block .cancel-search, .search-block .mobile .content-container .templates-content .types .cancel-search, .mobile .content-container .templates-content .types .cart-dialogs-container .save, .cart-dialogs-container .mobile .content-container .templates-content .types .save, .mobile .content-container .templates-content .types .cart-page .cart-tool, .cart-page .mobile .content-container .templates-content .types .cart-tool,
 .mobile .content-container .templates-content .types .light-v .cart-tool,
 .light-v .mobile .content-container .templates-content .types .cart-tool, .mobile .content-container .templates-content .types .construction-left-menu .project-default, .construction-left-menu .mobile .content-container .templates-content .types .project-default, .mobile .content-container .templates-content .types .small-button, .mobile .content-container .templates-content .types .cart-page .order-tool, .cart-page .mobile .content-container .templates-content .types .order-tool,
@@ -15248,7 +15246,7 @@ body {
   box-sizing: content-box;
   text-transform: uppercase;
 }
-/* line 987, ../../dev/sass/pages/mobile.scss */
+/* line 985, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .types .button p, .mobile .content-container .templates-content .types .ghost-button p, .mobile .content-container .templates-content .types .aux-choose-but p, .mobile .content-container .templates-content .types .parameters-block .aux-params-but p, .parameters-block .mobile .content-container .templates-content .types .aux-params-but p, .mobile .content-container .templates-content .types .elements-list-container .aux-params-but p, .elements-list-container .mobile .content-container .templates-content .types .aux-params-but p, .mobile .content-container .templates-content .types .auxiliaries-container .aux-params-but p, .auxiliaries-container .mobile .content-container .templates-content .types .aux-params-but p, .mobile .content-container .templates-content .types .additional-list-container .aux-list-content .aux-params-but p, .additional-list-container .aux-list-content .mobile .content-container .templates-content .types .aux-params-but p, .mobile .content-container .templates-content .types .cart-page .alladdelements-block .aux-params-but p, .cart-page .alladdelements-block .mobile .content-container .templates-content .types .aux-params-but p, .mobile .content-container .templates-content .types .cart-page .addelementunit-only .aux-params-but p, .cart-page .addelementunit-only .mobile .content-container .templates-content .types .aux-params-but p, .mobile .content-container .templates-content .types .nav-menu .new-calc p, .nav-menu .mobile .content-container .templates-content .types .new-calc p, .mobile .content-container .templates-content .types .cart-menu .measure-btn p, .cart-menu .mobile .content-container .templates-content .types .measure-btn p, .mobile .content-container .templates-content .types .cart-menu-rehau .measure-btn p, .cart-menu-rehau .mobile .content-container .templates-content .types .measure-btn p, .mobile .content-container .templates-content .types .big-button p, .mobile .content-container .templates-content .types .orange-big-btn p, .mobile .content-container .templates-content .types .menu-right-general .cart-btn p, .menu-right-general .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .order-path .cart-btn p, .order-path .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .config-menu .cart-btn p, .config-menu .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .elements-menu .cart-btn p, .elements-menu .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .cart-menu .cart-btn p, .cart-menu .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .cart-menu-rehau .cart-btn p, .cart-menu-rehau .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .old-price-tab .cart-btn p, .old-price-tab .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .old-price-inst-tab .cart-btn p, .old-price-inst-tab .mobile .content-container .templates-content .types .cart-btn p, .mobile .content-container .templates-content .types .cart-menu .order-btn p, .cart-menu .mobile .content-container .templates-content .types .order-btn p, .mobile .content-container .templates-content .types .login-submit p, .mobile .content-container .templates-content .types .middle-button p, .mobile .content-container .templates-content .types .alert-btns button p, .alert-btns .mobile .content-container .templates-content .types button p, .mobile .content-container .templates-content .types .alert-btns .door-configuration .door-config-finish-btn p, .alert-btns .door-configuration .mobile .content-container .templates-content .types .door-config-finish-btn p, .mobile .content-container .templates-content .types .door-configuration .alert-btns .door-config-finish-btn p, .door-configuration .alert-btns .mobile .content-container .templates-content .types .door-config-finish-btn p, .mobile .content-container .templates-content .types .alert-btns .door-configuration .door-config-finish-save-btn p, .alert-btns .door-configuration .mobile .content-container .templates-content .types .door-config-finish-save-btn p, .mobile .content-container .templates-content .types .door-configuration .alert-btns .door-config-finish-save-btn p, .door-configuration .alert-btns .mobile .content-container .templates-content .types .door-config-finish-save-btn p, .mobile .content-container .templates-content .types .settings .save p, .settings .mobile .content-container .templates-content .types .save p, .mobile .content-container .templates-content .types .grid-selector-dialog .set-grid-all-btn p, .grid-selector-dialog .mobile .content-container .templates-content .types .set-grid-all-btn p, .mobile .content-container .templates-content .types .search-block .cancel-search p, .search-block .mobile .content-container .templates-content .types .cancel-search p, .mobile .content-container .templates-content .types .cart-dialogs-container .save p, .cart-dialogs-container .mobile .content-container .templates-content .types .save p, .mobile .content-container .templates-content .types .cart-page .cart-tool p, .cart-page .mobile .content-container .templates-content .types .cart-tool p,
 .mobile .content-container .templates-content .types .light-v .cart-tool p,
 .light-v .mobile .content-container .templates-content .types .cart-tool p, .mobile .content-container .templates-content .types .construction-left-menu .project-default p, .construction-left-menu .mobile .content-container .templates-content .types .project-default p, .mobile .content-container .templates-content .types .small-button p, .mobile .content-container .templates-content .types .cart-page .order-tool p, .cart-page .mobile .content-container .templates-content .types .order-tool p,
@@ -15262,7 +15260,7 @@ body {
 .light-v .mobile .content-container .templates-content .types .addelements-detail-close p, .mobile .content-container .templates-content .types .door-config-btn p, .mobile .content-container .templates-content .types .elements-menu .element-info p, .elements-menu .mobile .content-container .templates-content .types .element-info p, .mobile .content-container .templates-content .types .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .content-container .templates-content .types .frame-tab p, .mobile .content-container .templates-content .types .calculator .cell p, .calculator .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .size-calc-container .cell p, .size-calc-container .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .qty-calc-container .cell p, .qty-calc-container .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .qty-calc-container-rehau .cell p, .qty-calc-container-rehau .mobile .content-container .templates-content .types .cell p, .mobile .content-container .templates-content .types .calculator .cell-rehau p, .calculator .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .size-calc-container .cell-rehau p, .size-calc-container .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .qty-calc-container-rehau .cell-rehau p, .qty-calc-container-rehau .mobile .content-container .templates-content .types .cell-rehau p, .mobile .content-container .templates-content .types .calculator .calc-digit p, .calculator .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .size-calc-container .calc-digit p, .size-calc-container .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .qty-calc-container .calc-digit p, .qty-calc-container .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .qty-calc-container-rehau .calc-digit p, .qty-calc-container-rehau .mobile .content-container .templates-content .types .calc-digit p, .mobile .content-container .templates-content .types .calculator .calc-digitLight p, .calculator .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .size-calc-container .calc-digitLight p, .size-calc-container .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .qty-calc-container-rehau .calc-digitLight p, .qty-calc-container-rehau .mobile .content-container .templates-content .types .calc-digitLight p, .mobile .content-container .templates-content .types .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .content-container .templates-content .types .set-glass-btn p, .mobile .content-container .templates-content .types .glass-selector-dialog-rehau .set-glass-btn-rehau p, .glass-selector-dialog-rehau .mobile .content-container .templates-content .types .set-glass-btn-rehau p, .mobile .content-container .templates-content .types .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .content-container .templates-content .types .scheme-info p, .mobile .content-container .templates-content .types .additional-list-container .search-element p, .additional-list-container .mobile .content-container .templates-content .types .search-element p, .mobile .content-container .templates-content .types .cart-page .close-alladdelements p, .cart-page .mobile .content-container .templates-content .types .close-alladdelements p {
   margin: 25px 0 5px;
 }
-/* line 992, ../../dev/sass/pages/mobile.scss */
+/* line 990, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list {
   min-width: 100%;
   width: 100%;
@@ -15273,12 +15271,12 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-/* line 1003, ../../dev/sass/pages/mobile.scss */
+/* line 1001, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
-/* line 1008, ../../dev/sass/pages/mobile.scss */
+/* line 1006, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list .template {
   flex: 0 0 auto;
   padding: 10px 0 0 0;
@@ -15294,14 +15292,14 @@ body {
   justify-content: space-between;
   box-sizing: content-box;
 }
-/* line 1022, ../../dev/sass/pages/mobile.scss */
+/* line 1020, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list .template .template-img {
   display: inline-block;
   height: 128px;
   width: auto;
   object-fit: contain;
 }
-/* line 1028, ../../dev/sass/pages/mobile.scss */
+/* line 1026, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list .template .name, .mobile .content-container .templates-content .templates-list .template .old-price-tab .name-rehau, .old-price-tab .mobile .content-container .templates-content .templates-list .template .name-rehau, .mobile .content-container .templates-content .templates-list .template .old-price-inst-tab .name-rehau, .old-price-inst-tab .mobile .content-container .templates-content .templates-list .template .name-rehau {
   margin: 10px 0px;
   font: normal 1.5625rem/1 roboto-light, sans-serif, icons;
@@ -15313,24 +15311,24 @@ body {
   line-height: 24px;
   color: #20695d;
 }
-/* line 1044, ../../dev/sass/pages/mobile.scss */
+/* line 1042, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list .template.active {
   border: 2px solid #cc0000;
 }
-/* line 1048, ../../dev/sass/pages/mobile.scss */
+/* line 1046, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list .door {
   display: inline-flex;
   flex-direction: column;
 }
-/* line 1051, ../../dev/sass/pages/mobile.scss */
+/* line 1049, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .templates-list .door .template-img {
   height: 120px;
 }
-/* line 1056, ../../dev/sass/pages/mobile.scss */
+/* line 1054, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .first {
   padding-top: 100px;
 }
-/* line 1059, ../../dev/sass/pages/mobile.scss */
+/* line 1057, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .templates-content .add-elems-only {
   display: inline-flex;
   align-items: center;
@@ -15341,11 +15339,11 @@ body {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1070, ../../dev/sass/pages/mobile.scss */
+/* line 1068, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content {
   height: 10vh;
 }
-/* line 1073, ../../dev/sass/pages/mobile.scss */
+/* line 1071, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item {
   position: relative;
   display: inline-flex;
@@ -15357,83 +15355,83 @@ body {
   width: 15vw;
   flex: 0 0 auto;
 }
-/* line 1083, ../../dev/sass/pages/mobile.scss */
+/* line 1081, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item.selected {
   background: #fff;
   border: none;
   border-radius: 0;
 }
-/* line 1088, ../../dev/sass/pages/mobile.scss */
+/* line 1086, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .figure-icon {
   position: absolute;
   font-size: 6vh;
 }
-/* line 1092, ../../dev/sass/pages/mobile.scss */
+/* line 1090, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .impost-shape-a {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1095, ../../dev/sass/pages/mobile.scss */
+/* line 1093, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .impost-shape-a:after {
   content: "";
 }
-/* line 1101, ../../dev/sass/pages/mobile.scss */
+/* line 1099, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .impost-shape-b:after {
   content: "";
 }
-/* line 1105, ../../dev/sass/pages/mobile.scss */
+/* line 1103, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .sash-shape-a {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1108, ../../dev/sass/pages/mobile.scss */
+/* line 1106, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .sash-shape-a:after {
   content: "";
 }
-/* line 1114, ../../dev/sass/pages/mobile.scss */
+/* line 1112, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .sash-shape-b:after {
   content: "";
 }
-/* line 1118, ../../dev/sass/pages/mobile.scss */
+/* line 1116, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .angel-shape-a {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1121, ../../dev/sass/pages/mobile.scss */
+/* line 1119, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .angel-shape-a:after {
   content: "";
 }
-/* line 1127, ../../dev/sass/pages/mobile.scss */
+/* line 1125, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .angel-shape-b:after {
   content: "";
 }
-/* line 1131, ../../dev/sass/pages/mobile.scss */
+/* line 1129, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .arch-shape-a {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1134, ../../dev/sass/pages/mobile.scss */
+/* line 1132, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .arch-shape-a:after {
   content: "";
 }
-/* line 1140, ../../dev/sass/pages/mobile.scss */
+/* line 1138, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .arch-shape-b:after {
   content: "";
 }
-/* line 1144, ../../dev/sass/pages/mobile.scss */
+/* line 1142, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .position-shape-a {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1147, ../../dev/sass/pages/mobile.scss */
+/* line 1145, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .position-shape-a:after {
   content: "";
 }
-/* line 1153, ../../dev/sass/pages/mobile.scss */
+/* line 1151, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .position-shape-b:after {
   content: "";
 }
-/* line 1157, ../../dev/sass/pages/mobile.scss */
+/* line 1155, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .figure-lists .figure-item .figure-label {
   position: absolute;
   bottom: 0;
@@ -15441,7 +15439,7 @@ body {
   word-break: keep-all;
   font: normal 1.5vh/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1166, ../../dev/sass/pages/mobile.scss */
+/* line 1164, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .edit-submenu-list {
   position: absolute;
   bottom: 10vh;
@@ -15453,7 +15451,7 @@ body {
   overflow-x: auto;
   overflow-y: hidden;
 }
-/* line 1176, ../../dev/sass/pages/mobile.scss */
+/* line 1174, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .edit-submenu-list .edit-submenu {
   width: 100%;
   min-width: 100%;
@@ -15465,17 +15463,17 @@ body {
   box-sizing: content-box;
   background: #fff;
 }
-/* line 1186, ../../dev/sass/pages/mobile.scss */
+/* line 1184, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .edit-submenu-list .edit-submenu .edit-btn {
   font-size: 6vh;
   margin: 0 15px;
 }
-/* line 1189, ../../dev/sass/pages/mobile.scss */
+/* line 1187, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .edit-submenu-list .edit-submenu .edit-btn:after {
   color: #333;
   -webkit-text-fill-color: #333;
 }
-/* line 1194, ../../dev/sass/pages/mobile.scss */
+/* line 1192, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .karkas-content .edit-submenu-list .edit-submenu .constr-shape-position {
   background: none;
   color: #333;
@@ -15483,7 +15481,7 @@ body {
   font-size: 2vh;
   border: none;
 }
-/* line 1205, ../../dev/sass/pages/mobile.scss */
+/* line 1203, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .conf-item {
   position: relative;
   display: inline-flex;
@@ -15494,72 +15492,72 @@ body {
   height: 10vh;
   width: 19vw;
 }
-/* line 1214, ../../dev/sass/pages/mobile.scss */
+/* line 1212, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .conf-item.active {
   background: #fff;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-/* line 1219, ../../dev/sass/pages/mobile.scss */
+/* line 1217, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .conf-item .configuration {
   height: 6vh;
   width: 6vh;
 }
-/* line 1223, ../../dev/sass/pages/mobile.scss */
+/* line 1221, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .conf-item .conf-item-text {
   font: normal 1.5vh/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1228, ../../dev/sass/pages/mobile.scss */
+/* line 1226, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .profile {
   background: url("../img/config-menu/profile.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1231, ../../dev/sass/pages/mobile.scss */
+/* line 1229, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .profile.active {
   background: url("../img/config-menu/profile_active.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1236, ../../dev/sass/pages/mobile.scss */
+/* line 1234, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .glass {
   background: url("../img/config-menu/glass.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1239, ../../dev/sass/pages/mobile.scss */
+/* line 1237, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .glass.active {
   background: url("../img/config-menu/glass_active.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1244, ../../dev/sass/pages/mobile.scss */
+/* line 1242, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .furniture {
   background: url("../img/config-menu/furniture.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1247, ../../dev/sass/pages/mobile.scss */
+/* line 1245, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .furniture.active {
   background: url("../img/config-menu/furniture_active.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1252, ../../dev/sass/pages/mobile.scss */
+/* line 1250, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .laminataion {
   background: url("../img/config-menu/lamination.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1255, ../../dev/sass/pages/mobile.scss */
+/* line 1253, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .laminataion.active {
   background: url("../img/config-menu/lamination_active.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1260, ../../dev/sass/pages/mobile.scss */
+/* line 1258, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .add-elements {
   background: url("../img/config-menu/add-elems.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1263, ../../dev/sass/pages/mobile.scss */
+/* line 1261, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content .configs-list .add-elements.active {
   background: url("../img/config-menu/add-elems_active.svg") no-repeat center;
   background-size: contain;
 }
-/* line 1271, ../../dev/sass/pages/mobile.scss */
+/* line 1269, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau {
   display: flex;
   background-color: #1b1e23;
@@ -15567,7 +15565,7 @@ body {
   justify-content: space-between;
   height: 100vh;
 }
-/* line 1277, ../../dev/sass/pages/mobile.scss */
+/* line 1275, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .common-scroll-container-rehau {
   width: 100%;
   min-width: 100%;
@@ -15579,7 +15577,7 @@ body {
   overflow-y: hidden;
   box-sizing: content-box;
 }
-/* line 1288, ../../dev/sass/pages/mobile.scss */
+/* line 1286, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .common-scroll-container-rehau .conf-top-item {
   display: flex;
   justify-content: space-between;
@@ -15587,13 +15585,13 @@ body {
   background-color: #20695d;
   padding: 12px 16px;
 }
-/* line 1297, ../../dev/sass/pages/mobile.scss */
+/* line 1295, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .common-scroll-container-rehau .conf-top-item .conf-header {
   height: auto;
   width: 100%;
   background: #20695d;
 }
-/* line 1303, ../../dev/sass/pages/mobile.scss */
+/* line 1301, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .common-scroll-container-rehau .conf-top-item .conf-header .conf-item-title {
   font-style: normal;
   font-weight: bold;
@@ -15601,7 +15599,7 @@ body {
   line-height: 24px;
   color: #FFFFFF;
 }
-/* line 1312, ../../dev/sass/pages/mobile.scss */
+/* line 1310, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .common-scroll-container-rehau .conf-top-item .conf-header .conf-item-subtitle {
   font-style: normal;
   font-weight: normal;
@@ -15609,7 +15607,7 @@ body {
   line-height: 24px;
   color: #FFFFFF;
 }
-/* line 1322, ../../dev/sass/pages/mobile.scss */
+/* line 1320, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .common-scroll-container-rehau .conf-top-item .conf-close {
   background-image: url("../img/rehau-img/arrow_back.svg");
   background-repeat: no-repeat;
@@ -15619,7 +15617,7 @@ body {
   border: none;
   align-self: center;
 }
-/* line 1335, ../../dev/sass/pages/mobile.scss */
+/* line 1333, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau {
   display: flex;
   flex-direction: column;
@@ -15629,7 +15627,7 @@ body {
   padding: 8px 16px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
-/* line 1346, ../../dev/sass/pages/mobile.scss */
+/* line 1344, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau .item-title {
   font-style: normal;
   font-weight: normal;
@@ -15637,13 +15635,13 @@ body {
   line-height: 24px;
   color: #fff;
 }
-/* line 1355, ../../dev/sass/pages/mobile.scss */
+/* line 1353, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau.active {
   background: #fff;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-/* line 1361, ../../dev/sass/pages/mobile.scss */
+/* line 1359, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau .conf-item-text {
   font-style: normal;
   font-weight: normal;
@@ -15651,7 +15649,7 @@ body {
   line-height: 24px;
   color: #bebebe;
 }
-/* line 1370, ../../dev/sass/pages/mobile.scss */
+/* line 1368, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau .additional-items-list-rehau {
   height: 150px;
   overflow-y: scroll;
@@ -15661,24 +15659,24 @@ body {
   line-height: 24px;
   color: #fff;
 }
-/* line 1380, ../../dev/sass/pages/mobile.scss */
+/* line 1378, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau .additional-items-list-rehau ul {
   padding: 0;
 }
-/* line 1383, ../../dev/sass/pages/mobile.scss */
+/* line 1381, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau .additional-items-list-rehau li {
   list-style-type: none;
 }
-/* line 1387, ../../dev/sass/pages/mobile.scss */
+/* line 1385, ../../dev/sass/pages/mobile.scss */
 .mobile .content-container .config-content-rehau .conf-item-rehau:last-child {
   height: 150px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
 }
-/* line 1395, ../../dev/sass/pages/mobile.scss */
+/* line 1393, ../../dev/sass/pages/mobile.scss */
 .mobile .config-panel.active {
   height: 80%;
 }
-/* line 1399, ../../dev/sass/pages/mobile.scss */
+/* line 1397, ../../dev/sass/pages/mobile.scss */
 .mobile .size-calc-container {
   position: absolute;
   background-color: #1b1e23;
@@ -15689,23 +15687,23 @@ body {
   align-items: center;
   z-index: 20;
 }
-/* line 1408, ../../dev/sass/pages/mobile.scss */
+/* line 1406, ../../dev/sass/pages/mobile.scss */
 .mobile .size-calc-container .calc-delete {
   width: 11rem;
 }
-/* line 1411, ../../dev/sass/pages/mobile.scss */
+/* line 1409, ../../dev/sass/pages/mobile.scss */
 .mobile .size-calc-container .calc-interval {
   width: 22rem;
 }
-/* line 1415, ../../dev/sass/pages/mobile.scss */
+/* line 1413, ../../dev/sass/pages/mobile.scss */
 .mobile .size-calc-container .cell:active {
   background-color: #ef4030;
 }
-/* line 1420, ../../dev/sass/pages/mobile.scss */
+/* line 1418, ../../dev/sass/pages/mobile.scss */
 .mobile ::-webkit-scrollbar {
   display: none;
 }
-/* line 1423, ../../dev/sass/pages/mobile.scss */
+/* line 1421, ../../dev/sass/pages/mobile.scss */
 .mobile .value {
   width: 100%;
   height: 30px;
@@ -15714,7 +15712,7 @@ body {
   align-items: center;
   font: normal 14px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 1431, ../../dev/sass/pages/mobile.scss */
+/* line 1429, ../../dev/sass/pages/mobile.scss */
 .mobile .value p {
   width: 100%;
   white-space: nowrap;
@@ -15722,23 +15720,23 @@ body {
   text-overflow: ellipsis;
 }
 @supports (position: sticky) or (position: -webkit-sticky) {
-  /* line 1439, ../../dev/sass/pages/mobile.scss */
+  /* line 1437, ../../dev/sass/pages/mobile.scss */
   .mobile .accept-container {
     position: -webkit-sticky;
     position: sticky;
   }
-  /* line 1443, ../../dev/sass/pages/mobile.scss */
+  /* line 1441, ../../dev/sass/pages/mobile.scss */
   .mobile .top-container {
     position: -webkit-sticky;
     position: sticky;
   }
-  /* line 1447, ../../dev/sass/pages/mobile.scss */
+  /* line 1445, ../../dev/sass/pages/mobile.scss */
   .mobile .bottom-block {
     position: -webkit-sticky;
     position: sticky;
   }
 }
-/* line 1452, ../../dev/sass/pages/mobile.scss */
+/* line 1450, ../../dev/sass/pages/mobile.scss */
 .mobile .accept-container {
   position: fixed;
   top: 0;
@@ -15755,7 +15753,7 @@ body {
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   box-shadow: #bebebe 0 0.3125rem 0.625rem;
 }
-/* line 1465, ../../dev/sass/pages/mobile.scss */
+/* line 1463, ../../dev/sass/pages/mobile.scss */
 .mobile .accept-container .row {
   width: 100%;
   height: auto;
@@ -15764,7 +15762,7 @@ body {
   align-items: center;
   justify-content: space-around;
 }
-/* line 1472, ../../dev/sass/pages/mobile.scss */
+/* line 1470, ../../dev/sass/pages/mobile.scss */
 .mobile .accept-container .row .accept-button {
   width: 40vw;
   height: 40px;
@@ -15778,7 +15776,7 @@ body {
   color: #fff;
   -webkit-text-fill-color: #fff;
 }
-/* line 1485, ../../dev/sass/pages/mobile.scss */
+/* line 1483, ../../dev/sass/pages/mobile.scss */
 .mobile .accept-container .row .selected-profile {
   padding-left: 10px;
   width: 40%;
@@ -15787,7 +15785,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 1493, ../../dev/sass/pages/mobile.scss */
+/* line 1491, ../../dev/sass/pages/mobile.scss */
 .mobile .accept-container .row .row-title {
   width: calc(100% - 70px);
   display: inline-flex;
@@ -15797,7 +15795,7 @@ body {
   font: normal 25px/1.42857 roboto-bold, sans-serif, icons;
   text-transform: uppercase;
 }
-/* line 1506, ../../dev/sass/pages/mobile.scss */
+/* line 1504, ../../dev/sass/pages/mobile.scss */
 .mobile .top-container .top-container-item {
   display: flex;
   justify-content: space-between;
@@ -15805,13 +15803,13 @@ body {
   background-color: #20695d;
   padding: 12px 16px;
 }
-/* line 1515, ../../dev/sass/pages/mobile.scss */
+/* line 1513, ../../dev/sass/pages/mobile.scss */
 .mobile .top-container .top-container-item .top-container-header {
   height: auto;
   width: 100%;
   background: #20695d;
 }
-/* line 1521, ../../dev/sass/pages/mobile.scss */
+/* line 1519, ../../dev/sass/pages/mobile.scss */
 .mobile .top-container .top-container-item .top-container-header .top-container-title {
   font-style: normal;
   font-weight: bold;
@@ -15819,7 +15817,7 @@ body {
   line-height: 24px;
   color: #FFFFFF;
 }
-/* line 1530, ../../dev/sass/pages/mobile.scss */
+/* line 1528, ../../dev/sass/pages/mobile.scss */
 .mobile .top-container .top-container-item .top-container-header .top-container-subtitle {
   font-style: normal;
   font-weight: normal;
@@ -15827,7 +15825,7 @@ body {
   line-height: 24px;
   color: #FFFFFF;
 }
-/* line 1540, ../../dev/sass/pages/mobile.scss */
+/* line 1538, ../../dev/sass/pages/mobile.scss */
 .mobile .top-container .top-container-item .top-container-close {
   background-image: url("../img/rehau-img/arrow_back.svg");
   background-repeat: no-repeat;
@@ -15837,7 +15835,7 @@ body {
   border: none;
   align-self: center;
 }
-/* line 1554, ../../dev/sass/pages/mobile.scss */
+/* line 1552, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block {
   width: 100%;
   height: auto;
@@ -15847,7 +15845,7 @@ body {
   position: fixed;
   z-index: 1;
 }
-/* line 1563, ../../dev/sass/pages/mobile.scss */
+/* line 1561, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-button {
   display: flex;
   margin: auto;
@@ -15855,13 +15853,13 @@ body {
   align-items: center;
   margin: 25px;
 }
-/* line 1569, ../../dev/sass/pages/mobile.scss */
+/* line 1567, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-button.disabled {
   display: none;
   position: absolute;
   right: -9999px;
 }
-/* line 1576, ../../dev/sass/pages/mobile.scss */
+/* line 1574, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-button-for-landing {
   display: flex;
   margin: auto;
@@ -15869,13 +15867,13 @@ body {
   align-items: center;
   margin: 20px;
 }
-/* line 1582, ../../dev/sass/pages/mobile.scss */
+/* line 1580, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-button-for-landing.disabled {
   display: none;
   position: absolute;
   right: -9999px;
 }
-/* line 1590, ../../dev/sass/pages/mobile.scss */
+/* line 1588, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .add-to-basket-img {
   align-items: center;
   background-color: #424242;
@@ -15886,13 +15884,13 @@ body {
   justify-content: center;
   width: 50px;
 }
-/* line 1600, ../../dev/sass/pages/mobile.scss */
+/* line 1598, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .add-to-basket-img .go-to-basket-img {
   width: 30px;
   height: 30px;
   filter: invert(1);
 }
-/* line 1607, ../../dev/sass/pages/mobile.scss */
+/* line 1605, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .add-to-basket {
   display: flex;
   font-size: 16px;
@@ -15907,37 +15905,37 @@ body {
   max-width: 200px;
   transition: 0.3s linear;
 }
-/* line 1622, ../../dev/sass/pages/mobile.scss */
+/* line 1620, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .add-to-basket:active {
   background-color: #4E4E4E;
   transform: scale(1.05);
 }
-/* line 1628, ../../dev/sass/pages/mobile.scss */
+/* line 1626, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .heat-coeff-txt {
   display: flex;
   justify-content: space-between;
   padding: 8px 16px 0px 16px;
 }
-/* line 1632, ../../dev/sass/pages/mobile.scss */
+/* line 1630, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .heat-coeff-txt .price-discount-text {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 1vw 0 0;
 }
-/* line 1638, ../../dev/sass/pages/mobile.scss */
+/* line 1636, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .heat-coeff-txt .price-discount-text .price-discount-span {
   font-size: 14px;
   color: gray;
   text-decoration: line-through;
 }
-/* line 1644, ../../dev/sass/pages/mobile.scss */
+/* line 1642, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .heat-coeff-txt .price-discount-text .price-discount-percentage {
   font-size: 14px;
   color: #ef4030;
   margin-left: 2px;
 }
-/* line 1650, ../../dev/sass/pages/mobile.scss */
+/* line 1648, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .heat-coeff-txt .heat-coeff-span {
   font-style: normal;
   font-weight: normal;
@@ -15945,14 +15943,14 @@ body {
   line-height: 16px;
   color: #fff;
 }
-/* line 1660, ../../dev/sass/pages/mobile.scss */
+/* line 1658, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-and-heat-coeff {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   padding: 0px 16px 8px 16px;
 }
-/* line 1666, ../../dev/sass/pages/mobile.scss */
+/* line 1664, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-and-heat-coeff .expert-mark-row {
   display: flex;
   font-style: normal;
@@ -15961,50 +15959,50 @@ body {
   line-height: 24px;
   color: #000000;
 }
-/* line 1675, ../../dev/sass/pages/mobile.scss */
+/* line 1673, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-and-heat-coeff .expert-mark-row .title-rehau {
   color: #fff;
   padding-left: 6px;
 }
-/* line 1679, ../../dev/sass/pages/mobile.scss */
+/* line 1677, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-and-heat-coeff .expert-mark-row .expert-mark {
   color: #fff;
   font-weight: bold;
 }
-/* line 1684, ../../dev/sass/pages/mobile.scss */
+/* line 1682, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-and-heat-coeff .price-rehau {
   display: flex;
 }
-/* line 1689, ../../dev/sass/pages/mobile.scss */
+/* line 1687, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-total {
   display: flex;
   justify-content: space-between;
   padding: 8px 16px 8px 16px;
   font-size: 24px;
 }
-/* line 1696, ../../dev/sass/pages/mobile.scss */
+/* line 1694, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-total .price-total-price .price-discount-text {
   display: flex;
   align-items: right;
   justify-content: right;
 }
-/* line 1700, ../../dev/sass/pages/mobile.scss */
+/* line 1698, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-total .price-total-price .price-discount-text .price-discount-span {
   font-size: 14px;
   color: gray;
   text-decoration: line-through;
 }
-/* line 1706, ../../dev/sass/pages/mobile.scss */
+/* line 1704, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-total .price-total-price .price-discount-text .price-discount-percentage {
   font-size: 14px;
   color: #ef4030;
   margin-left: 2px;
 }
-/* line 1712, ../../dev/sass/pages/mobile.scss */
+/* line 1710, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-total .price-total-price .price-rehau {
   display: flex;
 }
-/* line 1717, ../../dev/sass/pages/mobile.scss */
+/* line 1715, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .price-total .total-txt {
   font-style: normal;
   font-weight: normal;
@@ -16012,7 +16010,7 @@ body {
   line-height: 32px;
   color: #ffffff;
 }
-/* line 1727, ../../dev/sass/pages/mobile.scss */
+/* line 1725, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket {
   font-style: normal;
   font-weight: bold;
@@ -16026,11 +16024,11 @@ body {
   width: 100%;
   background: #20695d;
 }
-/* line 1746, ../../dev/sass/pages/mobile.scss */
+/* line 1744, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block {
   display: flex;
 }
-/* line 1749, ../../dev/sass/pages/mobile.scss */
+/* line 1747, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .add-to-basket {
   font-style: normal;
   font-weight: bold;
@@ -16043,20 +16041,20 @@ body {
   margin: auto;
   width: 100%;
 }
-/* line 1767, ../../dev/sass/pages/mobile.scss */
+/* line 1765, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau .counter-rehau-for-landing {
   width: auto;
   height: 5rem;
   display: inline-block;
 }
-/* line 1772, ../../dev/sass/pages/mobile.scss */
+/* line 1770, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau .counter-rehau-for-landing .prodcounter-rehau-for-landing {
   background-color: #424242;
   color: #fff;
   padding-left: 35px;
   height: 48px;
 }
-/* line 1778, ../../dev/sass/pages/mobile.scss */
+/* line 1776, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau .counter-rehau-for-landing input {
   transition: .5s;
   cursor: pointer;
@@ -16070,26 +16068,26 @@ body {
   background-position-y: 50%;
   background-position-x: 35%;
 }
-/* line 1793, ../../dev/sass/pages/mobile.scss */
+/* line 1791, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau.disabled {
   display: none;
   position: absolute;
   right: -9999px;
 }
-/* line 1802, ../../dev/sass/pages/mobile.scss */
+/* line 1800, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau-for-landing-mobile .counter-rehau-for-landing {
   width: auto;
   height: 5rem;
   display: inline-block;
 }
-/* line 1807, ../../dev/sass/pages/mobile.scss */
+/* line 1805, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau-for-landing-mobile .counter-rehau-for-landing .prodcounter-rehau-for-landing {
   background-color: #424242;
   color: #fff;
   padding-left: 35px;
   height: 48px;
 }
-/* line 1813, ../../dev/sass/pages/mobile.scss */
+/* line 1811, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau-for-landing-mobile .counter-rehau-for-landing input {
   transition: .5s;
   cursor: pointer;
@@ -16103,17 +16101,17 @@ body {
   background-position-y: 50%;
   background-position-x: 35%;
 }
-/* line 1828, ../../dev/sass/pages/mobile.scss */
+/* line 1826, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .to-basket-block .counter-block-rehau-for-landing-mobile.disabled {
   display: none;
   position: absolute;
   right: -9999px;
 }
-/* line 1836, ../../dev/sass/pages/mobile.scss */
+/* line 1834, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .accept {
   display: flex;
 }
-/* line 1839, ../../dev/sass/pages/mobile.scss */
+/* line 1837, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .accept .add-to-basket {
   font-style: normal;
   font-weight: bold;
@@ -16127,7 +16125,7 @@ body {
   width: 100%;
   background: #20695d;
 }
-/* line 1859, ../../dev/sass/pages/mobile.scss */
+/* line 1857, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .go-to-spec {
   position: relative;
   display: flex;
@@ -16135,7 +16133,7 @@ body {
   padding: 16px 16px 0 16px;
   bottom: 16px;
 }
-/* line 1866, ../../dev/sass/pages/mobile.scss */
+/* line 1864, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .go-to-spec .spec {
   font-style: normal;
   font-weight: bold;
@@ -16148,8 +16146,9 @@ body {
   margin: auto;
   width: 100%;
   background: #20695d;
+  border-radius: 6px;
 }
-/* line 1884, ../../dev/sass/pages/mobile.scss */
+/* line 1883, ../../dev/sass/pages/mobile.scss */
 .mobile .bottom-block .go-to-spec .add-product-rehau {
   font-style: normal;
   font-weight: bold;
@@ -16164,6 +16163,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 50px;
+  border-radius: 6px;
 }
 /* line 1907, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-common-panel {
@@ -18020,8 +18020,9 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 50px;
+  border-radius: 6px;
 }
-/* line 3764, ../../dev/sass/pages/mobile.scss */
+/* line 3765, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau {
   position: relative;
   display: inline-flex;
@@ -18032,7 +18033,7 @@ body {
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.24);
   padding: 40px 24px 24px 24px;
 }
-/* line 3774, ../../dev/sass/pages/mobile.scss */
+/* line 3775, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .prod-number {
   font-style: normal;
   font-weight: normal;
@@ -18048,31 +18049,31 @@ body {
   height: 16px;
   background-color: #4E4E4E;
 }
-/* line 3796, ../../dev/sass/pages/mobile.scss */
+/* line 3797, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col {
   display: inline-flex;
   flex-direction: column;
   width: 50%;
   height: 100%;
 }
-/* line 3801, ../../dev/sass/pages/mobile.scss */
+/* line 3802, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col svg-template {
   all: unset;
   position: relative;
 }
-/* line 3804, ../../dev/sass/pages/mobile.scss */
+/* line 3805, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col svg-template div {
   all: unset;
   position: relative;
 }
-/* line 3809, ../../dev/sass/pages/mobile.scss */
+/* line 3810, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-template {
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 3815, ../../dev/sass/pages/mobile.scss */
+/* line 3816, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef {
   width: 100%;
   display: inline-flex;
@@ -18081,7 +18082,7 @@ body {
   position: relative;
   bottom: 100px;
 }
-/* line 3822, ../../dev/sass/pages/mobile.scss */
+/* line 3823, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff {
   width: 100%;
   display: flex;
@@ -18089,11 +18090,11 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 3829, ../../dev/sass/pages/mobile.scss */
+/* line 3830, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .coeff-mark {
   text-align: center;
 }
-/* line 3831, ../../dev/sass/pages/mobile.scss */
+/* line 3832, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .coeff-mark div {
   font-style: normal;
   font-weight: bold;
@@ -18102,7 +18103,7 @@ body {
   text-align: center;
   color: #000000;
 }
-/* line 3842, ../../dev/sass/pages/mobile.scss */
+/* line 3843, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .coeff-mark span {
   font-style: normal;
   font-weight: normal;
@@ -18112,12 +18113,12 @@ body {
   text-align: center;
   color: #ef4030;
 }
-/* line 3856, ../../dev/sass/pages/mobile.scss */
+/* line 3857, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .price-info {
   margin-top: 10px;
   text-align: center;
 }
-/* line 3859, ../../dev/sass/pages/mobile.scss */
+/* line 3860, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .price-info div {
   font-style: normal;
   font-weight: bold;
@@ -18126,7 +18127,7 @@ body {
   text-align: center;
   color: #000000;
 }
-/* line 3870, ../../dev/sass/pages/mobile.scss */
+/* line 3871, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .price-info .discount-price-rehau .price-discount-span-fixed {
   font-style: normal;
   font-weight: normal;
@@ -18136,26 +18137,26 @@ body {
   text-align: center;
   color: #ef4030;
 }
-/* line 3883, ../../dev/sass/pages/mobile.scss */
+/* line 3884, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .price-info .price-discount-text {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 1vw 0 0;
 }
-/* line 3889, ../../dev/sass/pages/mobile.scss */
+/* line 3890, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .price-info .price-discount-text .price-discount-span {
   font-size: 14px;
   color: gray;
   text-decoration: line-through;
 }
-/* line 3895, ../../dev/sass/pages/mobile.scss */
+/* line 3896, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-heat-coef .order-u-coeff .price-info .price-discount-text .price-discount-percentage {
   font-size: 14px;
   color: #ef4030;
   margin-left: 2px;
 }
-/* line 3909, ../../dev/sass/pages/mobile.scss */
+/* line 3910, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-count {
   display: inline-flex;
   width: 30%;
@@ -18165,18 +18166,18 @@ body {
   position: absolute;
   bottom: 26px;
 }
-/* line 3917, ../../dev/sass/pages/mobile.scss */
+/* line 3918, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-count .count-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 3918, ../../dev/sass/pages/mobile.scss */
+/* line 3919, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-count .count-button img {
   width: 40px;
   height: 40px;
 }
-/* line 3926, ../../dev/sass/pages/mobile.scss */
+/* line 3927, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-count .count {
   font-style: normal;
   font-weight: normal;
@@ -18186,7 +18187,7 @@ body {
   text-align: center;
   color: #000000;
 }
-/* line 3938, ../../dev/sass/pages/mobile.scss */
+/* line 3939, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .prod-price {
   display: inline-flex;
   width: 100%;
@@ -18196,13 +18197,13 @@ body {
   position: relative;
   top: 50px;
 }
-/* line 3947, ../../dev/sass/pages/mobile.scss */
+/* line 3948, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item {
   margin: 5px 0;
   max-height: 90px;
   overflow: scroll;
 }
-/* line 3951, ../../dev/sass/pages/mobile.scss */
+/* line 3952, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .order-value, .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .cart-page .product-value, .cart-page .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .product-value,
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .light-v .product-value,
 .light-v .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .product-value, .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .cart-page .addelement-value, .cart-page .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .addelement-value,
@@ -18214,7 +18215,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 3958, ../../dev/sass/pages/mobile.scss */
+/* line 3959, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .order-label, .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .cart-page .product-icon-label, .cart-page .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .product-icon-label,
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .cart-page .product-label,
 .cart-page .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-item .product-label,
@@ -18230,7 +18231,7 @@ body {
   line-height: 24px;
   color: #000;
 }
-/* line 3968, ../../dev/sass/pages/mobile.scss */
+/* line 3969, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau .col .order-edit-rehau {
   font-style: normal;
   font-weight: bold;
@@ -18248,18 +18249,18 @@ body {
   bottom: 26px;
   width: 40%;
 }
-/* line 3990, ../../dev/sass/pages/mobile.scss */
+/* line 3991, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .product-rehau:last-child {
   margin-bottom: 100px;
 }
-/* line 3994, ../../dev/sass/pages/mobile.scss */
+/* line 3995, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .box-rehau .product-container .empty {
   display: inline-flex;
   width: 100%;
   height: 100px;
   flex: 0 0 auto;
 }
-/* line 4002, ../../dev/sass/pages/mobile.scss */
+/* line 4003, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer-container {
   position: absolute;
   display: inline-flex;
@@ -18273,7 +18274,7 @@ body {
   -webkit-box-shadow: #333 0 2px 10px 0px;
   box-shadow: #333 0 2px 10px 0px;
 }
-/* line 4013, ../../dev/sass/pages/mobile.scss */
+/* line 4014, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer {
   position: relative;
   display: inline-flex;
@@ -18283,11 +18284,11 @@ body {
   border-radius: 30px;
   box-sizing: content-box;
 }
-/* line 4022, ../../dev/sass/pages/mobile.scss */
+/* line 4023, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer .price {
   margin-left: -1rem;
 }
-/* line 4025, ../../dev/sass/pages/mobile.scss */
+/* line 4026, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .cart-footer .spesification {
   display: inline-flex;
   align-items: center;
@@ -18302,7 +18303,7 @@ body {
   font: normal 18px/1.42857 roboto-regular, sans-serif, icons;
   color: #fff;
 }
-/* line 4040, ../../dev/sass/pages/mobile.scss */
+/* line 4041, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .order-delete {
   position: absolute;
   top: 0;
@@ -18312,7 +18313,7 @@ body {
   background: url("../img/calc/close-calculator-hover.svg") no-repeat;
   background-size: contain;
 }
-/* line 4049, ../../dev/sass/pages/mobile.scss */
+/* line 4050, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .order-delete-rehau {
   position: absolute;
   top: 0;
@@ -18322,7 +18323,7 @@ body {
   background: url("../img/rehau-img/remove.png") no-repeat;
   background-size: contain;
 }
-/* line 4058, ../../dev/sass/pages/mobile.scss */
+/* line 4059, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window {
   position: absolute;
   top: 15%;
@@ -18336,13 +18337,13 @@ body {
   background: #fff;
   border-radius: 15px;
 }
-/* line 4070, ../../dev/sass/pages/mobile.scss */
+/* line 4071, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window .order-delete {
   top: 10px;
   right: 10px;
   z-index: 1;
 }
-/* line 4075, ../../dev/sass/pages/mobile.scss */
+/* line 4076, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window .order-edit {
   margin: 0;
   height: 25px;
@@ -18356,13 +18357,13 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   z-index: 1;
 }
-/* line 4088, ../../dev/sass/pages/mobile.scss */
+/* line 4089, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .template-window #tamlateGlassSVG {
   padding: 10px 0 0 0;
   position: relative;
   top: 30px;
 }
-/* line 4094, ../../dev/sass/pages/mobile.scss */
+/* line 4095, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .addelements-detail {
   position: absolute;
   width: 100%;
@@ -18370,7 +18371,7 @@ body {
   background: #fff;
   z-index: 1;
 }
-/* line 4101, ../../dev/sass/pages/mobile.scss */
+/* line 4102, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery {
   position: absolute;
   top: 0;
@@ -18379,7 +18380,7 @@ body {
   height: 100%;
   background: #1b1e23;
 }
-/* line 4108, ../../dev/sass/pages/mobile.scss */
+/* line 4109, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-title {
   display: inline-flex;
   align-items: center;
@@ -18387,36 +18388,36 @@ body {
   width: 100%;
   height: 40px;
 }
-/* line 4114, ../../dev/sass/pages/mobile.scss */
+/* line 4115, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-title label {
   font: normal 25px/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
-/* line 4119, ../../dev/sass/pages/mobile.scss */
+/* line 4120, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-value,
 .mobile .cart-mobile .mount-delivery .mobile-delivery-price {
   display: inline-flex;
   font: normal 5vw/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 4126, ../../dev/sass/pages/mobile.scss */
+/* line 4127, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-value-rehau,
 .mobile .cart-mobile .mount-delivery .mobile-delivery-price-rehau {
   display: inline-flex;
   font-size: 20px;
   padding: 0;
 }
-/* line 4133, ../../dev/sass/pages/mobile.scss */
+/* line 4134, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-items-rehau {
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
   padding: 0 0;
   width: 100%;
 }
-/* line 4140, ../../dev/sass/pages/mobile.scss */
+/* line 4141, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-items {
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
   padding: 0px 15px;
 }
-/* line 4145, ../../dev/sass/pages/mobile.scss */
+/* line 4146, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery {
   align-items: center;
   justify-content: center;
@@ -18427,7 +18428,7 @@ body {
   padding: 10px 0;
   flex: 0 0 auto;
 }
-/* line 4156, ../../dev/sass/pages/mobile.scss */
+/* line 4157, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mobile-delivery-rehau {
   align-items: center;
   justify-content: center;
@@ -18439,7 +18440,7 @@ body {
   flex: 0 0 auto;
   background-color: #20695d;
 }
-/* line 4167, ../../dev/sass/pages/mobile.scss */
+/* line 4168, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container {
   display: inline-flex;
   flex-direction: column;
@@ -18449,7 +18450,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
-/* line 4175, ../../dev/sass/pages/mobile.scss */
+/* line 4176, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .mobile-delivery-selected {
   width: 100%;
   display: inline-flex;
@@ -18459,18 +18460,18 @@ body {
   margin: 5px 0;
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 4184, ../../dev/sass/pages/mobile.scss */
+/* line 4185, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .mobile-delivery-selected input {
   width: 60px;
   border-radius: 5px;
   border: 1px solid #363636;
   text-align: center;
 }
-/* line 4191, ../../dev/sass/pages/mobile.scss */
+/* line 4192, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .selected {
   border-radius: 25px;
 }
-/* line 4196, ../../dev/sass/pages/mobile.scss */
+/* line 4197, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .dropdown-items-list {
   width: 100%;
   display: inline-flex;
@@ -18478,14 +18479,14 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 4203, ../../dev/sass/pages/mobile.scss */
+/* line 4204, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container .dropdown-item {
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 4211, ../../dev/sass/pages/mobile.scss */
+/* line 4212, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau {
   display: inline-flex;
   flex-direction: column;
@@ -18497,7 +18498,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
-/* line 4221, ../../dev/sass/pages/mobile.scss */
+/* line 4222, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .mobile-delivery-title-rehau {
   display: inline-flex;
   align-items: left;
@@ -18506,22 +18507,22 @@ body {
   height: auto;
   padding: 10px;
 }
-/* line 4228, ../../dev/sass/pages/mobile.scss */
+/* line 4229, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .mobile-delivery-title-rehau label {
   font: normal 25px/1.42857 roboto-light, sans-serif, icons;
   color: #fff;
 }
-/* line 4232, ../../dev/sass/pages/mobile.scss */
+/* line 4233, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .mobile-delivery-title-rehau .arrow {
   align-self: center;
   transition: 0.3s all linear;
   transform: rotate(180deg);
 }
-/* line 4236, ../../dev/sass/pages/mobile.scss */
+/* line 4237, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .mobile-delivery-title-rehau .arrow.active {
   transform: rotate(360deg);
 }
-/* line 4241, ../../dev/sass/pages/mobile.scss */
+/* line 4242, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .mobile-delivery-selected-rehau {
   width: 100%;
   height: 48px;
@@ -18532,22 +18533,22 @@ body {
   font-size: 20px;
   background-color: #4E4E4E;
 }
-/* line 4250, ../../dev/sass/pages/mobile.scss */
+/* line 4251, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .mobile-delivery-selected-rehau:active {
   background-color: #ef4030;
 }
-/* line 4253, ../../dev/sass/pages/mobile.scss */
+/* line 4254, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .mobile-delivery-selected-rehau.selected {
   padding: 0 10px;
   border: none;
   border-radius: 0;
   margin: 0;
 }
-/* line 4265, ../../dev/sass/pages/mobile.scss */
+/* line 4266, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .selected::first-letter {
   text-transform: uppercase;
 }
-/* line 4269, ../../dev/sass/pages/mobile.scss */
+/* line 4270, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .dropdown-items-list {
   width: 100%;
   display: inline-flex;
@@ -18555,14 +18556,14 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 4276, ../../dev/sass/pages/mobile.scss */
+/* line 4277, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .mount-delivery .mount-delivery-mountings-container-rehau .dropdown-item {
   width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 4284, ../../dev/sass/pages/mobile.scss */
+/* line 4285, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile {
   position: absolute;
   display: inline-flex;
@@ -18571,7 +18572,7 @@ body {
   height: 0;
   overflow: hidden;
 }
-/* line 4291, ../../dev/sass/pages/mobile.scss */
+/* line 4292, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile.active {
   width: 100%;
   height: 100%;
@@ -18580,11 +18581,11 @@ body {
   background: #fff;
   z-index: 1;
 }
-/* line 4299, ../../dev/sass/pages/mobile.scss */
+/* line 4300, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-header-mobile {
   flex: 0 0 auto;
 }
-/* line 4301, ../../dev/sass/pages/mobile.scss */
+/* line 4302, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-header-mobile .add-elem-price {
   display: inline-flex;
   align-items: center;
@@ -18592,7 +18593,7 @@ body {
   width: calc(96% - 50px);
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 4310, ../../dev/sass/pages/mobile.scss */
+/* line 4311, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elems-scroll {
   display: inline-flex;
   flex-direction: column;
@@ -18601,16 +18602,16 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 4318, ../../dev/sass/pages/mobile.scss */
+/* line 4319, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item {
   position: relative;
   flex: 0 0 auto;
 }
-/* line 4321, ../../dev/sass/pages/mobile.scss */
+/* line 4322, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current {
   position: relative;
 }
-/* line 4323, ../../dev/sass/pages/mobile.scss */
+/* line 4324, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-title {
   display: inline-flex;
   align-items: center;
@@ -18620,13 +18621,13 @@ body {
   font: normal 25px/1.42857 roboto-regular, sans-serif, icons;
   text-transform: capitalize;
 }
-/* line 4332, ../../dev/sass/pages/mobile.scss */
+/* line 4333, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row {
   display: inline-flex;
   flex-direction: column;
   width: 100%;
 }
-/* line 4336, ../../dev/sass/pages/mobile.scss */
+/* line 4337, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-title {
   position: relative;
   display: inline-flex;
@@ -18637,22 +18638,22 @@ body {
   font: normal 20px/1.42857 roboto-light, sans-serif, icons;
   padding: 0px 0px 0px 15px;
 }
-/* line 4345, ../../dev/sass/pages/mobile.scss */
+/* line 4346, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-title label {
   width: 80%;
 }
-/* line 4348, ../../dev/sass/pages/mobile.scss */
+/* line 4349, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-title .order-delete {
   position: relative;
   right: 8%;
 }
-/* line 4353, ../../dev/sass/pages/mobile.scss */
+/* line 4354, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-info {
   padding: 0px 0px 0px 15px;
   display: inline-flex;
   font: normal 15px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 4357, ../../dev/sass/pages/mobile.scss */
+/* line 4358, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .alladdelements-view-mobiile .add-elem-item .add-elem-current .add-elem-current-row .add-elem-row-info .add-elem-row {
   display: inline-flex;
   justify-content: center;
@@ -18661,25 +18662,25 @@ body {
   height: 30px;
   border-right: 1px solid #fff;
 }
-/* line 4370, ../../dev/sass/pages/mobile.scss */
+/* line 4371, ../../dev/sass/pages/mobile.scss */
 .mobile .cart-mobile .backDarkView, .mobile .cart-mobile .alert-overlay, .mobile .cart-mobile .box-menu, .mobile .cart-mobile .box-menu11 {
   z-index: 0;
 }
-/* line 4374, ../../dev/sass/pages/mobile.scss */
+/* line 4375, ../../dev/sass/pages/mobile.scss */
 .mobile .splice, .mobile .mobile-glass .glass-container .glass-block .glass-folder .glass-item p {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 4380, ../../dev/sass/pages/mobile.scss */
+/* line 4381, ../../dev/sass/pages/mobile.scss */
 .mobile .splice-comment {
   width: 80vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 4386, ../../dev/sass/pages/mobile.scss */
+/* line 4387, ../../dev/sass/pages/mobile.scss */
 .mobile .info_box {
   all: unset;
   position: absolute;
@@ -18692,11 +18693,11 @@ body {
   background: #fff;
   z-index: 10;
 }
-/* line 4401, ../../dev/sass/pages/mobile.scss */
+/* line 4402, ../../dev/sass/pages/mobile.scss */
 .mobile .info_box_inner {
   background: #fff;
 }
-/* line 4404, ../../dev/sass/pages/mobile.scss */
+/* line 4405, ../../dev/sass/pages/mobile.scss */
 .mobile .info_box-rehau {
   all: unset;
   position: absolute;
@@ -18709,20 +18710,20 @@ body {
   background: #fff;
   z-index: 10;
 }
-/* line 4416, ../../dev/sass/pages/mobile.scss */
+/* line 4417, ../../dev/sass/pages/mobile.scss */
 .mobile .alert-no,
 .mobile .alert-yes {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-/* line 4422, ../../dev/sass/pages/mobile.scss */
+/* line 4423, ../../dev/sass/pages/mobile.scss */
 .mobile .alert-no {
   background: #fff;
   border-radius: 25px;
   margin: 15px;
 }
-/* line 4429, ../../dev/sass/pages/mobile.scss */
+/* line 4430, ../../dev/sass/pages/mobile.scss */
 .mobile .alert-yes {
   background: #cc0000;
   color: #fff;
@@ -18730,33 +18731,33 @@ body {
   border-radius: 25px;
   margin: 15px;
 }
-/* line 4436, ../../dev/sass/pages/mobile.scss */
+/* line 4437, ../../dev/sass/pages/mobile.scss */
 .mobile .isApply {
   background: #cc0000;
   color: #fff;
   -webkit-text-fill-color: #fff;
   border-radius: 25px;
 }
-/* line 4442, ../../dev/sass/pages/mobile.scss */
+/* line 4443, ../../dev/sass/pages/mobile.scss */
 .mobile .size-line {
   stroke-width: 1.2px !important;
   stroke: #cc0000 !important;
 }
-/* line 4447, ../../dev/sass/pages/mobile.scss */
+/* line 4448, ../../dev/sass/pages/mobile.scss */
 .mobile .size-line-rehau {
   stroke-width: 2px !important;
   stroke: #fff !important;
 }
-/* line 4451, ../../dev/sass/pages/mobile.scss */
+/* line 4452, ../../dev/sass/pages/mobile.scss */
 .mobile .size-line-arrow-rehau {
   stroke-width: 1.2px !important;
   stroke: #fff !important;
 }
-/* line 4455, ../../dev/sass/pages/mobile.scss */
+/* line 4456, ../../dev/sass/pages/mobile.scss */
 .mobile .gray {
   background: #d0d0d0;
 }
-/* line 4458, ../../dev/sass/pages/mobile.scss */
+/* line 4459, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile {
   position: absolute;
   bottom: 65px;
@@ -18766,26 +18767,26 @@ body {
   align-items: center;
   justify-content: center;
 }
-/* line 4466, ../../dev/sass/pages/mobile.scss */
+/* line 4467, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile .product-u-coeff {
   display: inline-flex;
   align-items: flex-end;
   white-space: nowrap;
   margin: 5px;
 }
-/* line 4472, ../../dev/sass/pages/mobile.scss */
+/* line 4473, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile .title {
   display: inline-flex;
   align-items: flex-end;
   margin: 5px;
 }
-/* line 4476, ../../dev/sass/pages/mobile.scss */
+/* line 4477, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile .title p {
   color: #333;
   -webkit-text-fill-color: #333;
   font: normal 12px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 4484, ../../dev/sass/pages/mobile.scss */
+/* line 4485, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile-rehau {
   position: absolute;
   height: auto;
@@ -18796,14 +18797,14 @@ body {
   align-items: center;
   margin-top: -50px;
 }
-/* line 4493, ../../dev/sass/pages/mobile.scss */
+/* line 4494, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile-rehau .product-u-coeff-rehau {
   display: flex;
   align-items: center;
   white-space: nowrap;
   margin: 5px;
 }
-/* line 4500, ../../dev/sass/pages/mobile.scss */
+/* line 4501, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile-rehau .product-u-coeff-rehau .coeff-expert-mark {
   background-color: #ef4030;
   height: 50px;
@@ -18813,18 +18814,18 @@ body {
   color: #fff;
   text-align: center;
 }
-/* line 4510, ../../dev/sass/pages/mobile.scss */
+/* line 4511, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile-rehau .info-coeff-block {
   margin-left: 8px;
 }
-/* line 4512, ../../dev/sass/pages/mobile.scss */
+/* line 4513, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile-rehau .info-coeff-block .title-rehau {
   display: inline-flex;
   align-items: flex-end;
   font-size: 26px;
   font-weight: bold;
 }
-/* line 4518, ../../dev/sass/pages/mobile.scss */
+/* line 4519, ../../dev/sass/pages/mobile.scss */
 .mobile .heat-coef-block-mobile-rehau .info-coeff-block .subtitle-rehau {
   font-size: 14px;
   line-height: 22px;
@@ -18832,7 +18833,7 @@ body {
   text-decoration-line: underline;
   color: #4E4E4E;
 }
-/* line 4530, ../../dev/sass/pages/mobile.scss */
+/* line 4531, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block {
   position: absolute;
   top: 0;
@@ -18841,7 +18842,7 @@ body {
   width: 100%;
   height: 100%;
 }
-/* line 4538, ../../dev/sass/pages/mobile.scss */
+/* line 4539, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner {
   background-color: #cc0000;
   position: absolute;
@@ -18857,7 +18858,7 @@ body {
   text-align: center;
   z-index: 2;
 }
-/* line 4552, ../../dev/sass/pages/mobile.scss */
+/* line 4553, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .coeff-max {
   display: inline-flex;
   width: 100%;
@@ -18868,42 +18869,42 @@ body {
   -webkit-text-fill-color: #fff;
   font: normal 90px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 4561, ../../dev/sass/pages/mobile.scss */
+/* line 4562, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .coeff-max .heat-transfer {
   display: inline-flex;
   font: normal 30px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 4566, ../../dev/sass/pages/mobile.scss */
+/* line 4567, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info_hr {
   color: #fff;
   -webkit-text-fill-color: #fff;
   font: normal 24px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 4571, ../../dev/sass/pages/mobile.scss */
+/* line 4572, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info_hr2 {
   color: #fff;
   -webkit-text-fill-color: #fff;
   font: normal 12px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 4576, ../../dev/sass/pages/mobile.scss */
+/* line 4577, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body {
   background: #fff;
   padding: 3px;
 }
-/* line 4579, ../../dev/sass/pages/mobile.scss */
+/* line 4580, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body .heat-transfer-info-border {
   padding: 5px;
   border: 2px solid #cc0000;
   text-align: left;
 }
-/* line 4583, ../../dev/sass/pages/mobile.scss */
+/* line 4584, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body .heat-transfer-info-border .heat-transfer-info {
   margin-bottom: 5px;
   color: #333;
   -webkit-text-fill-color: #333;
   font: normal 11px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 4589, ../../dev/sass/pages/mobile.scss */
+/* line 4590, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-inner .heat-transfer-info-body .heat-transfer-info-border .heat-transfer-info2 {
   margin-bottom: 5px;
   color: #00219e;
@@ -18911,7 +18912,7 @@ body {
   text-decoration: underline;
   font: normal 11px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 4600, ../../dev/sass/pages/mobile.scss */
+/* line 4601, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau {
   all: unset;
   position: absolute;
@@ -18926,12 +18927,12 @@ body {
   padding: 0;
 }
 @media screen and (max-device-width: 735px) {
-  /* line 4600, ../../dev/sass/pages/mobile.scss */
+  /* line 4601, ../../dev/sass/pages/mobile.scss */
   .mobile .coeff-info-block-rehau {
     font-size: 16px;
   }
 }
-/* line 4617, ../../dev/sass/pages/mobile.scss */
+/* line 4618, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-inner {
   overflow-y: scroll;
   background-color: #fff;
@@ -18945,7 +18946,7 @@ body {
   top: 0;
   left: 0;
 }
-/* line 4631, ../../dev/sass/pages/mobile.scss */
+/* line 4632, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-header {
   position: absolute;
   top: 0;
@@ -18956,7 +18957,7 @@ body {
   background-color: #20695d;
   padding: 12px 16px;
 }
-/* line 4640, ../../dev/sass/pages/mobile.scss */
+/* line 4641, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-header .coeff-info-block-title {
   font-style: normal;
   font-weight: bold;
@@ -18965,7 +18966,7 @@ body {
   color: #FFFFFF;
   text-align: left;
 }
-/* line 4650, ../../dev/sass/pages/mobile.scss */
+/* line 4651, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-header .coeff-info-block-close {
   background-image: url("../img/rehau-img/close.png");
   background-repeat: no-repeat;
@@ -18975,21 +18976,21 @@ body {
   border: none;
   align-self: center;
 }
-/* line 4663, ../../dev/sass/pages/mobile.scss */
+/* line 4664, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-body {
   text-align: left;
   margin-top: 500px;
 }
-/* line 4666, ../../dev/sass/pages/mobile.scss */
+/* line 4667, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-body .coeff-video {
   text-align: center;
 }
-/* line 4668, ../../dev/sass/pages/mobile.scss */
+/* line 4669, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-body .coeff-video video {
   width: 100%;
   margin-top: 18px;
 }
-/* line 4674, ../../dev/sass/pages/mobile.scss */
+/* line 4675, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-body .heat-transfer-info2 {
   font-style: normal;
   font-weight: bold;
@@ -18997,13 +18998,13 @@ body {
   line-height: 24px;
   color: #ef4030;
 }
-/* line 4681, ../../dev/sass/pages/mobile.scss */
+/* line 4682, ../../dev/sass/pages/mobile.scss */
 .mobile .coeff-info-block-rehau .coeff-info-block-body .heat-transfer-info2::before {
   content: "•";
   margin-right: 14px;
   margin-left: 10px;
 }
-/* line 4692, ../../dev/sass/pages/mobile.scss */
+/* line 4693, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog-body {
   position: relative;
   width: 60%;
@@ -19014,23 +19015,23 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* line 4701, ../../dev/sass/pages/mobile.scss */
+/* line 4702, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog-body .close-dialog-text {
   margin-left: -15px;
   font: normal 23px/1.42857 roboto-light, sans-serif, icons;
 }
-/* line 4705, ../../dev/sass/pages/mobile.scss */
+/* line 4706, ../../dev/sass/pages/mobile.scss */
 .mobile .close-dialog-body .close-dialog {
   top: 3px;
   right: 2px;
 }
-/* line 4710, ../../dev/sass/pages/mobile.scss */
+/* line 4711, ../../dev/sass/pages/mobile.scss */
 .mobile .sash_mark {
   fill: none;
   stroke: #cc0000;
   stroke-width: 6;
 }
-/* line 4715, ../../dev/sass/pages/mobile.scss */
+/* line 4716, ../../dev/sass/pages/mobile.scss */
 .mobile .info {
   margin: 2px;
   height: 25px;
@@ -19041,7 +19042,7 @@ body {
   background: url("../img/calc/info-button.svg") no-repeat;
   background-size: contain;
 }
-/* line 4725, ../../dev/sass/pages/mobile.scss */
+/* line 4726, ../../dev/sass/pages/mobile.scss */
 .mobile .info-rehau {
   margin: 4px;
   height: 24px;
@@ -19052,7 +19053,7 @@ body {
   background: url("../img/rehau-img/info_rehau.png") no-repeat;
   background-size: contain;
 }
-/* line 4736, ../../dev/sass/pages/mobile.scss */
+/* line 4737, ../../dev/sass/pages/mobile.scss */
 .mobile .attantion-block .close-dialog {
   right: 15px;
   top: 15px;
@@ -19061,12 +19062,12 @@ body {
   background: url("../img/calc/error.svg") no-repeat;
   background-size: contain;
 }
-/* line 4745, ../../dev/sass/pages/mobile.scss */
+/* line 4746, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert {
   background: #cc0000;
   z-index: 2;
 }
-/* line 4748, ../../dev/sass/pages/mobile.scss */
+/* line 4749, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert .continued-proc {
   all: unset;
   display: inline-flex;
@@ -19080,7 +19081,7 @@ body {
   border-radius: 25px;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 4762, ../../dev/sass/pages/mobile.scss */
+/* line 4763, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert .close-danger-alert {
   all: unset;
   position: absolute;
@@ -19092,11 +19093,11 @@ body {
   background-size: contain;
   z-index: 2;
 }
-/* line 4772, ../../dev/sass/pages/mobile.scss */
+/* line 4773, ../../dev/sass/pages/mobile.scss */
 .mobile .danger-alert .close-danger-alert:after {
   content: '';
 }
-/* line 4777, ../../dev/sass/pages/mobile.scss */
+/* line 4778, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion {
   all: unset;
   padding: 10px;
@@ -19113,14 +19114,14 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* line 4792, ../../dev/sass/pages/mobile.scss */
+/* line 4793, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .attention {
   font: normal 35px/1.42857 roboto-regular, sans-serif, icons;
   color: #fff;
   -webkit-text-fill-color: #fff;
   margin-bottom: 25px;
 }
-/* line 4798, ../../dev/sass/pages/mobile.scss */
+/* line 4799, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .glass-list {
   width: 100%;
   display: inline-flex;
@@ -19133,7 +19134,7 @@ body {
   margin: 50px 0 25px 0;
   height: auto;
 }
-/* line 4810, ../../dev/sass/pages/mobile.scss */
+/* line 4811, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .extra-glass,
 .mobile .glass-attantion span {
   width: 100%;
@@ -19143,7 +19144,7 @@ body {
   align-items: center;
   text-align: center;
 }
-/* line 4819, ../../dev/sass/pages/mobile.scss */
+/* line 4820, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .close-dialog-button {
   position: relative;
   width: 60%;
@@ -19155,18 +19156,18 @@ body {
   align-items: center;
   margin-top: 35px;
 }
-/* line 4829, ../../dev/sass/pages/mobile.scss */
+/* line 4830, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .close-dialog-button .close-dialog-title {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 4832, ../../dev/sass/pages/mobile.scss */
+/* line 4833, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion .close-dialog-button .close-dialog {
   right: 1px;
   top: 1px;
   width: 43px;
   height: 43px;
 }
-/* line 4842, ../../dev/sass/pages/mobile.scss */
+/* line 4843, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion-rehau {
   all: unset;
   padding: 10px;
@@ -19184,14 +19185,14 @@ body {
   align-items: left;
   text-align: left;
 }
-/* line 4858, ../../dev/sass/pages/mobile.scss */
+/* line 4859, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion-rehau .attention {
   font-size: 18px;
   color: #fff;
   -webkit-text-fill-color: #fff;
   margin-bottom: 0px;
 }
-/* line 4864, ../../dev/sass/pages/mobile.scss */
+/* line 4865, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion-rehau .glass-list {
   width: 100%;
   display: inline-flex;
@@ -19204,7 +19205,7 @@ body {
   margin: 16px 8px 16px 8px;
   height: auto;
 }
-/* line 4876, ../../dev/sass/pages/mobile.scss */
+/* line 4877, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion-rehau .extra-glass,
 .mobile .glass-attantion-rehau span {
   width: 100%;
@@ -19214,7 +19215,7 @@ body {
   align-items: left;
   text-align: left;
 }
-/* line 4885, ../../dev/sass/pages/mobile.scss */
+/* line 4886, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion-rehau .close-dialog-button {
   position: relative;
   width: 60%;
@@ -19226,18 +19227,18 @@ body {
   align-items: center;
   margin-top: 35px;
 }
-/* line 4895, ../../dev/sass/pages/mobile.scss */
+/* line 4896, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion-rehau .close-dialog-button .close-dialog-title {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 4898, ../../dev/sass/pages/mobile.scss */
+/* line 4899, ../../dev/sass/pages/mobile.scss */
 .mobile .glass-attantion-rehau .close-dialog-button .close-dialog {
   right: 1px;
   top: 1px;
   width: 43px;
   height: 43px;
 }
-/* line 4906, ../../dev/sass/pages/mobile.scss */
+/* line 4907, ../../dev/sass/pages/mobile.scss */
 .mobile .burger {
   position: absolute;
   top: 15px;
@@ -19248,12 +19249,12 @@ body {
   background: url("../img/config-menu/settings.svg") no-repeat;
   background-size: contain;
 }
-/* line 4915, ../../dev/sass/pages/mobile.scss */
+/* line 4916, ../../dev/sass/pages/mobile.scss */
 .mobile .burger.active {
   transition: 2s linear;
   opacity: 0;
 }
-/* line 4921, ../../dev/sass/pages/mobile.scss */
+/* line 4922, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu {
   position: absolute;
   display: inline-flex;
@@ -19268,7 +19269,7 @@ body {
   z-index: 2;
   border-right: 1px solid #bebebe;
 }
-/* line 4934, ../../dev/sass/pages/mobile.scss */
+/* line 4935, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container {
   position: relative;
   display: inline-flex;
@@ -19279,29 +19280,29 @@ body {
   -webkit-box-shadow: #bebebe 0 2px 10px -2px;
   box-shadow: #bebebe 0 2px 10px -2px;
 }
-/* line 4941, ../../dev/sass/pages/mobile.scss */
+/* line 4942, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-info-block {
   position: absolute;
   bottom: 12px;
   right: 10px;
 }
-/* line 4946, ../../dev/sass/pages/mobile.scss */
+/* line 4947, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-location,
 .mobile .mobile-left-menu .user-info-container .user-name {
   text-align: left;
 }
-/* line 4950, ../../dev/sass/pages/mobile.scss */
+/* line 4951, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .user-info-container .user-foto {
   width: 80px;
   height: 80px;
 }
-/* line 4955, ../../dev/sass/pages/mobile.scss */
+/* line 4956, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu.opened {
   left: 0;
   transition: 0.5s linear;
   box-shadow: 0px 0px 100px 20vw rgba(78, 77, 77, 0.5);
 }
-/* line 4960, ../../dev/sass/pages/mobile.scss */
+/* line 4961, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .burger-inner {
   position: absolute;
   top: 15px;
@@ -19312,14 +19313,14 @@ body {
   background-size: contain;
   transition: 0.5s linear;
 }
-/* line 4969, ../../dev/sass/pages/mobile.scss */
+/* line 4970, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .burger-inner.active {
   transform: rotate(90deg);
   background: url("../img/config-menu/settings.svg") no-repeat;
   background-size: contain;
   transition: 0.5s linear;
 }
-/* line 4976, ../../dev/sass/pages/mobile.scss */
+/* line 4977, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list {
   height: calc(100% - 200px);
   display: inline-flex;
@@ -19328,7 +19329,7 @@ body {
   justify-content: flex-start;
   padding: 10px 0 10px 10px;
 }
-/* line 4983, ../../dev/sass/pages/mobile.scss */
+/* line 4984, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .button, .mobile .mobile-left-menu .buttons-list .ghost-button, .mobile .mobile-left-menu .buttons-list .aux-choose-but, .mobile .mobile-left-menu .buttons-list .parameters-block .aux-params-but, .parameters-block .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .elements-list-container .aux-params-but, .elements-list-container .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .aux-params-but, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .additional-list-container .aux-list-content .aux-params-but, .additional-list-container .aux-list-content .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .cart-page .alladdelements-block .aux-params-but, .cart-page .alladdelements-block .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .cart-page .addelementunit-only .aux-params-but, .cart-page .addelementunit-only .mobile .mobile-left-menu .buttons-list .aux-params-but, .mobile .mobile-left-menu .buttons-list .nav-menu .new-calc, .nav-menu .mobile .mobile-left-menu .buttons-list .new-calc, .mobile .mobile-left-menu .buttons-list .cart-menu .measure-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .measure-btn, .mobile .mobile-left-menu .buttons-list .cart-menu-rehau .measure-btn, .cart-menu-rehau .mobile .mobile-left-menu .buttons-list .measure-btn, .mobile .mobile-left-menu .buttons-list .big-button, .mobile .mobile-left-menu .buttons-list .orange-big-btn, .mobile .mobile-left-menu .buttons-list .menu-right-general .cart-btn, .menu-right-general .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .order-path .cart-btn, .order-path .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .config-menu .cart-btn, .config-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .cart-btn, .elements-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .cart-menu .cart-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .cart-menu-rehau .cart-btn, .cart-menu-rehau .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .old-price-tab .cart-btn, .old-price-tab .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .old-price-inst-tab .cart-btn, .old-price-inst-tab .mobile .mobile-left-menu .buttons-list .cart-btn, .mobile .mobile-left-menu .buttons-list .cart-menu .order-btn, .cart-menu .mobile .mobile-left-menu .buttons-list .order-btn, .mobile .mobile-left-menu .buttons-list .login-submit, .mobile .mobile-left-menu .buttons-list .middle-button, .mobile .mobile-left-menu .buttons-list .alert-btns button, .alert-btns .mobile .mobile-left-menu .buttons-list button, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-btn, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-btn, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-btn, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-btn, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-save-btn, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-save-btn, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn, .mobile .mobile-left-menu .buttons-list .settings .save, .settings .mobile .mobile-left-menu .buttons-list .save, .mobile .mobile-left-menu .buttons-list .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .mobile .mobile-left-menu .buttons-list .set-grid-all-btn, .mobile .mobile-left-menu .buttons-list .search-block .cancel-search, .search-block .mobile .mobile-left-menu .buttons-list .cancel-search, .mobile .mobile-left-menu .buttons-list .cart-dialogs-container .save, .cart-dialogs-container .mobile .mobile-left-menu .buttons-list .save, .mobile .mobile-left-menu .buttons-list .cart-page .cart-tool, .cart-page .mobile .mobile-left-menu .buttons-list .cart-tool,
 .mobile .mobile-left-menu .buttons-list .light-v .cart-tool,
 .light-v .mobile .mobile-left-menu .buttons-list .cart-tool, .mobile .mobile-left-menu .buttons-list .construction-left-menu .project-default, .construction-left-menu .mobile .mobile-left-menu .buttons-list .project-default, .mobile .mobile-left-menu .buttons-list .small-button, .mobile .mobile-left-menu .buttons-list .cart-page .order-tool, .cart-page .mobile .mobile-left-menu .buttons-list .order-tool,
@@ -19342,7 +19343,7 @@ body {
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close, .mobile .mobile-left-menu .buttons-list .door-config-btn, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab, .mobile .mobile-left-menu .buttons-list .calculator .cell, .calculator .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .cell, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .cell, .mobile .mobile-left-menu .buttons-list .calculator .cell-rehau, .calculator .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell-rehau, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell-rehau, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .cell-rehau, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .cell-rehau, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .calc-digit, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .calc-digit, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .calc-digitLight, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .calc-digitLight, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog-rehau .set-glass-btn-rehau, .glass-selector-dialog-rehau .mobile .mobile-left-menu .buttons-list .set-glass-btn-rehau, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements {
   margin: 5px 0 5px 0;
 }
-/* line 4985, ../../dev/sass/pages/mobile.scss */
+/* line 4986, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .button p, .mobile .mobile-left-menu .buttons-list .ghost-button p, .mobile .mobile-left-menu .buttons-list .aux-choose-but p, .mobile .mobile-left-menu .buttons-list .parameters-block .aux-params-but p, .parameters-block .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .elements-list-container .aux-params-but p, .elements-list-container .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .aux-params-but p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .additional-list-container .aux-list-content .aux-params-but p, .additional-list-container .aux-list-content .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .cart-page .alladdelements-block .aux-params-but p, .cart-page .alladdelements-block .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .cart-page .addelementunit-only .aux-params-but p, .cart-page .addelementunit-only .mobile .mobile-left-menu .buttons-list .aux-params-but p, .mobile .mobile-left-menu .buttons-list .nav-menu .new-calc p, .nav-menu .mobile .mobile-left-menu .buttons-list .new-calc p, .mobile .mobile-left-menu .buttons-list .cart-menu .measure-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .measure-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu-rehau .measure-btn p, .cart-menu-rehau .mobile .mobile-left-menu .buttons-list .measure-btn p, .mobile .mobile-left-menu .buttons-list .big-button p, .mobile .mobile-left-menu .buttons-list .orange-big-btn p, .mobile .mobile-left-menu .buttons-list .menu-right-general .cart-btn p, .menu-right-general .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .order-path .cart-btn p, .order-path .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .config-menu .cart-btn p, .config-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .cart-btn p, .elements-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu .cart-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu-rehau .cart-btn p, .cart-menu-rehau .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .old-price-tab .cart-btn p, .old-price-tab .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .old-price-inst-tab .cart-btn p, .old-price-inst-tab .mobile .mobile-left-menu .buttons-list .cart-btn p, .mobile .mobile-left-menu .buttons-list .cart-menu .order-btn p, .cart-menu .mobile .mobile-left-menu .buttons-list .order-btn p, .mobile .mobile-left-menu .buttons-list .login-submit p, .mobile .mobile-left-menu .buttons-list .middle-button p, .mobile .mobile-left-menu .buttons-list .alert-btns button p, .alert-btns .mobile .mobile-left-menu .buttons-list button p, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-btn p, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-btn p, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-btn p, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-btn p, .mobile .mobile-left-menu .buttons-list .alert-btns .door-configuration .door-config-finish-save-btn p, .alert-btns .door-configuration .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn p, .mobile .mobile-left-menu .buttons-list .door-configuration .alert-btns .door-config-finish-save-btn p, .door-configuration .alert-btns .mobile .mobile-left-menu .buttons-list .door-config-finish-save-btn p, .mobile .mobile-left-menu .buttons-list .settings .save p, .settings .mobile .mobile-left-menu .buttons-list .save p, .mobile .mobile-left-menu .buttons-list .grid-selector-dialog .set-grid-all-btn p, .grid-selector-dialog .mobile .mobile-left-menu .buttons-list .set-grid-all-btn p, .mobile .mobile-left-menu .buttons-list .search-block .cancel-search p, .search-block .mobile .mobile-left-menu .buttons-list .cancel-search p, .mobile .mobile-left-menu .buttons-list .cart-dialogs-container .save p, .cart-dialogs-container .mobile .mobile-left-menu .buttons-list .save p, .mobile .mobile-left-menu .buttons-list .cart-page .cart-tool p, .cart-page .mobile .mobile-left-menu .buttons-list .cart-tool p,
 .mobile .mobile-left-menu .buttons-list .light-v .cart-tool p,
 .light-v .mobile .mobile-left-menu .buttons-list .cart-tool p, .mobile .mobile-left-menu .buttons-list .construction-left-menu .project-default p, .construction-left-menu .mobile .mobile-left-menu .buttons-list .project-default p, .mobile .mobile-left-menu .buttons-list .small-button p, .mobile .mobile-left-menu .buttons-list .cart-page .order-tool p, .cart-page .mobile .mobile-left-menu .buttons-list .order-tool p,
@@ -19356,11 +19357,11 @@ body {
 .light-v .mobile .mobile-left-menu .buttons-list .addelements-detail-close p, .mobile .mobile-left-menu .buttons-list .door-config-btn p, .mobile .mobile-left-menu .buttons-list .elements-menu .element-info p, .elements-menu .mobile .mobile-left-menu .buttons-list .element-info p, .mobile .mobile-left-menu .buttons-list .menu-right-tabs .frame-tab p, .menu-right-tabs .mobile .mobile-left-menu .buttons-list .frame-tab p, .mobile .mobile-left-menu .buttons-list .calculator .cell p, .calculator .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .cell p, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .cell p, .mobile .mobile-left-menu .buttons-list .calculator .cell-rehau p, .calculator .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .size-calc-container .cell-rehau p, .size-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .cell-rehau p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .cell-rehau p, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .cell-rehau p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digit p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digit p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digit p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .calc-digit p, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .calc-digit p, .mobile .mobile-left-menu .buttons-list .calculator .calc-digitLight p, .calculator .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .size-calc-container .calc-digitLight p, .size-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .qty-calc-container .calc-digitLight p, .qty-calc-container .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .qty-calc-container-rehau .calc-digitLight p, .qty-calc-container-rehau .mobile .mobile-left-menu .buttons-list .calc-digitLight p, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog .set-glass-btn p, .glass-selector-dialog .mobile .mobile-left-menu .buttons-list .set-glass-btn p, .mobile .mobile-left-menu .buttons-list .glass-selector-dialog-rehau .set-glass-btn-rehau p, .glass-selector-dialog-rehau .mobile .mobile-left-menu .buttons-list .set-glass-btn-rehau p, .mobile .mobile-left-menu .buttons-list .auxiliaries-container .scheme-info p, .auxiliaries-container .mobile .mobile-left-menu .buttons-list .scheme-info p, .mobile .mobile-left-menu .buttons-list .additional-list-container .search-element p, .additional-list-container .mobile .mobile-left-menu .buttons-list .search-element p, .mobile .mobile-left-menu .buttons-list .cart-page .close-alladdelements p, .cart-page .mobile .mobile-left-menu .buttons-list .close-alladdelements p {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 4989, ../../dev/sass/pages/mobile.scss */
+/* line 4990, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .buttons-list .add_elems {
   color: #cc0000;
 }
-/* line 4993, ../../dev/sass/pages/mobile.scss */
+/* line 4994, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer {
   display: inline-flex;
   flex-direction: column;
@@ -19372,7 +19373,7 @@ body {
   width: 100%;
   background: #d0d0d0;
 }
-/* line 5003, ../../dev/sass/pages/mobile.scss */
+/* line 5004, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .index {
   display: inline-flex;
   justify-content: center;
@@ -19382,15 +19383,15 @@ body {
   background: #fff;
   border-radius: 25px;
 }
-/* line 5013, ../../dev/sass/pages/mobile.scss */
+/* line 5014, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .index p {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5019, ../../dev/sass/pages/mobile.scss */
+/* line 5020, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-left-menu .footer .title p {
   font: normal 12px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5026, ../../dev/sass/pages/mobile.scss */
+/* line 5027, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms {
   position: absolute;
   top: 0;
@@ -19402,7 +19403,7 @@ body {
   z-index: 2;
   overflow: hidden;
 }
-/* line 5036, ../../dev/sass/pages/mobile.scss */
+/* line 5037, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile {
   position: absolute;
   top: 0;
@@ -19413,7 +19414,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-/* line 5046, ../../dev/sass/pages/mobile.scss */
+/* line 5047, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header {
   display: inline-flex;
   width: 100%;
@@ -19421,12 +19422,12 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-/* line 5052, ../../dev/sass/pages/mobile.scss */
+/* line 5053, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .col {
   display: inline-flex;
   align-items: center;
 }
-/* line 5056, ../../dev/sass/pages/mobile.scss */
+/* line 5057, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .back-button {
   background: url("../img/calc/back_red.svg") no-repeat;
   background-size: contain;
@@ -19434,25 +19435,25 @@ body {
   height: 25px;
   margin: 0 10px;
 }
-/* line 5063, ../../dev/sass/pages/mobile.scss */
+/* line 5064, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .cart-dialog-title {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5067, ../../dev/sass/pages/mobile.scss */
+/* line 5068, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-header .cart-dialog-label {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5072, ../../dev/sass/pages/mobile.scss */
+/* line 5073, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-body .cart-dialog-label {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   text-align: center;
   margin: 5px 0;
 }
-/* line 5077, ../../dev/sass/pages/mobile.scss */
+/* line 5078, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .cart-dialog-body .bold {
   font: normal 22px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 5081, ../../dev/sass/pages/mobile.scss */
+/* line 5082, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .save {
   background: #cc0000;
   color: #fff;
@@ -19463,7 +19464,7 @@ body {
   border: none;
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5091, ../../dev/sass/pages/mobile.scss */
+/* line 5092, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .location-list-tooltip {
   position: absolute;
   background: #fff;
@@ -19475,7 +19476,7 @@ body {
   -webkit-box-shadow: #bebebe 0px 1px 10px 0px;
   box-shadow: #bebebe 0px 1px 10px 0px;
 }
-/* line 5100, ../../dev/sass/pages/mobile.scss */
+/* line 5101, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .input-field-mobile {
   position: relative;
   display: inline-flex;
@@ -19483,7 +19484,7 @@ body {
   width: 100%;
   margin: 5px 0;
 }
-/* line 5107, ../../dev/sass/pages/mobile.scss */
+/* line 5108, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .user-field, .mobile .mobile-order-forms .order-dialog-mobile .user-select-field {
   border-radius: 25px;
   background: #fff;
@@ -19492,42 +19493,42 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   padding-left: 15px;
 }
-/* line 5116, ../../dev/sass/pages/mobile.scss */
+/* line 5117, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .error-tooltip, .mobile .mobile-order-forms .order-dialog-mobile .setting-container .set-email-error, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .set-email-error {
   all: unset;
   position: absolute;
   right: 5px;
   font: normal 40px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 5122, ../../dev/sass/pages/mobile.scss */
+/* line 5123, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .error-tooltip:before, .mobile .mobile-order-forms .order-dialog-mobile .setting-container .set-email-error:before, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .set-email-error:before {
   all: unset;
 }
-/* line 5126, ../../dev/sass/pages/mobile.scss */
+/* line 5127, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field {
   border-radius: 25px;
   background: #cc0000;
   color: #fff;
 }
-/* line 5130, ../../dev/sass/pages/mobile.scss */
+/* line 5131, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: #fff;
 }
-/* line 5134, ../../dev/sass/pages/mobile.scss */
+/* line 5135, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .red-field ::-moz-placeholder {
   /* Firefox 19+ */
   color: #fff;
 }
-/* line 5139, ../../dev/sass/pages/mobile.scss */
+/* line 5140, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .street {
   width: 100%;
 }
-/* line 5142, ../../dev/sass/pages/mobile.scss */
+/* line 5143, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .small {
   flex: 0.3;
 }
-/* line 5147, ../../dev/sass/pages/mobile.scss */
+/* line 5148, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-rehau-header {
   font-style: normal;
   font-weight: bold;
@@ -19542,7 +19543,7 @@ body {
   padding: 12px 16px;
   background-color: #20695d;
 }
-/* line 5163, ../../dev/sass/pages/mobile.scss */
+/* line 5164, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-rehau-header .top-container-close {
   background-image: url("../img/rehau-img/close.svg");
   background-repeat: no-repeat;
@@ -19552,7 +19553,7 @@ body {
   border: none;
   align-self: center;
 }
-/* line 5174, ../../dev/sass/pages/mobile.scss */
+/* line 5175, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-rehau-header .top-container-close {
   background-image: url("../img/rehau-img/close.png");
   background-repeat: no-repeat;
@@ -19562,12 +19563,12 @@ body {
   border: none;
   align-self: center;
 }
-/* line 5185, ../../dev/sass/pages/mobile.scss */
+/* line 5186, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-rehau-header .col {
   display: inline-flex;
   align-items: center;
 }
-/* line 5189, ../../dev/sass/pages/mobile.scss */
+/* line 5190, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-rehau-header .back-button {
   background: url("../img/calc/back_red.svg") no-repeat;
   background-size: contain;
@@ -19575,31 +19576,31 @@ body {
   height: 25px;
   margin: 0 10px;
 }
-/* line 5196, ../../dev/sass/pages/mobile.scss */
+/* line 5197, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-rehau-header .cart-dialog-title {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5200, ../../dev/sass/pages/mobile.scss */
+/* line 5201, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-rehau-header .cart-dialog-label {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5204, ../../dev/sass/pages/mobile.scss */
+/* line 5205, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body {
   padding: 16px;
 }
-/* line 5207, ../../dev/sass/pages/mobile.scss */
+/* line 5208, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body .name-input {
   padding-bottom: 16px;
 }
-/* line 5211, ../../dev/sass/pages/mobile.scss */
+/* line 5212, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body .phone-input {
   padding-bottom: 16px;
 }
-/* line 5215, ../../dev/sass/pages/mobile.scss */
+/* line 5216, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body .comment-input {
   padding-bottom: 44px;
 }
-/* line 5218, ../../dev/sass/pages/mobile.scss */
+/* line 5219, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body .comment-input input {
   width: 100%;
   height: 230px;
@@ -19607,7 +19608,7 @@ body {
   border-radius: 0;
   padding-bottom: 190px;
 }
-/* line 5226, ../../dev/sass/pages/mobile.scss */
+/* line 5227, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body .input-label {
   font-style: normal;
   font-weight: normal;
@@ -19615,7 +19616,7 @@ body {
   line-height: 24px;
   color: #4E4E4E;
 }
-/* line 5234, ../../dev/sass/pages/mobile.scss */
+/* line 5235, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body input {
   font-style: normal;
   font-weight: normal;
@@ -19627,17 +19628,17 @@ body {
   border: 1px solid #000000;
   border-radius: 0;
 }
-/* line 5246, ../../dev/sass/pages/mobile.scss */
+/* line 5247, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body .cart-dialog-label {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   text-align: center;
   margin: 5px 0;
 }
-/* line 5251, ../../dev/sass/pages/mobile.scss */
+/* line 5252, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .cart-dialog-body .bold {
   font: normal 22px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 5255, ../../dev/sass/pages/mobile.scss */
+/* line 5256, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .save-button {
   font-style: normal;
   font-weight: bold;
@@ -19653,12 +19654,12 @@ body {
   bottom: 16px;
 }
 @media (max-height: 400px) {
-  /* line 5255, ../../dev/sass/pages/mobile.scss */
+  /* line 5256, ../../dev/sass/pages/mobile.scss */
   .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .save-button {
     display: none;
   }
 }
-/* line 5277, ../../dev/sass/pages/mobile.scss */
+/* line 5278, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .location-list-tooltip {
   position: absolute;
   background: #fff;
@@ -19670,7 +19671,7 @@ body {
   -webkit-box-shadow: #bebebe 0px 1px 10px 0px;
   box-shadow: #bebebe 0px 1px 10px 0px;
 }
-/* line 5286, ../../dev/sass/pages/mobile.scss */
+/* line 5287, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .input-field-mobile {
   position: relative;
   display: inline-flex;
@@ -19678,7 +19679,7 @@ body {
   width: 100%;
   margin: 5px 0;
 }
-/* line 5293, ../../dev/sass/pages/mobile.scss */
+/* line 5294, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .user-field, .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .user-select-field {
   border-radius: 25px;
   background: #fff;
@@ -19687,50 +19688,50 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   padding-left: 15px;
 }
-/* line 5303, ../../dev/sass/pages/mobile.scss */
+/* line 5304, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .user-field-rehau.error {
   border: 1px solid red;
 }
-/* line 5308, ../../dev/sass/pages/mobile.scss */
+/* line 5309, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .user-field-phone.error {
   border: 1px solid red;
 }
-/* line 5312, ../../dev/sass/pages/mobile.scss */
+/* line 5313, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .error-tooltip, .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .setting-container .set-email-error, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .set-email-error {
   all: unset;
   position: absolute;
   right: 5px;
   font: normal 40px/1.42857 roboto-bold, sans-serif, icons;
 }
-/* line 5318, ../../dev/sass/pages/mobile.scss */
+/* line 5319, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .error-tooltip:before, .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .setting-container .set-email-error:before, .setting-container .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .set-email-error:before {
   all: unset;
 }
-/* line 5322, ../../dev/sass/pages/mobile.scss */
+/* line 5323, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .red-field {
   border-radius: 25px;
   background: #cc0000;
   color: #fff;
 }
-/* line 5326, ../../dev/sass/pages/mobile.scss */
+/* line 5327, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .red-field ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: #fff;
 }
-/* line 5330, ../../dev/sass/pages/mobile.scss */
+/* line 5331, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .red-field ::-moz-placeholder {
   /* Firefox 19+ */
   color: #fff;
 }
-/* line 5335, ../../dev/sass/pages/mobile.scss */
+/* line 5336, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .street {
   width: 100%;
 }
-/* line 5338, ../../dev/sass/pages/mobile.scss */
+/* line 5339, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-forms .order-dialog-mobile .box-rehau .small {
   flex: 0.3;
 }
-/* line 5344, ../../dev/sass/pages/mobile.scss */
+/* line 5345, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container {
   display: -webkit-flex;
   display: flex;
@@ -19747,7 +19748,7 @@ body {
   background-color: #fff;
   overflow-y: auto;
 }
-/* line 5358, ../../dev/sass/pages/mobile.scss */
+/* line 5359, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 {
   -moz-user-select: text;
   -ms-user-select: text;
@@ -19756,15 +19757,15 @@ body {
   width: 100%;
   height: 50%;
 }
-/* line 5362, ../../dev/sass/pages/mobile.scss */
+/* line 5363, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 table {
   width: 100%;
 }
-/* line 5365, ../../dev/sass/pages/mobile.scss */
+/* line 5366, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-box2 th {
   background-color: #c2c2c2;
 }
-/* line 5369, ../../dev/sass/pages/mobile.scss */
+/* line 5370, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-elem {
   text-align: center;
   vertical-align: middle;
@@ -19773,7 +19774,7 @@ body {
   font-size: 10px;
   max-width: 16vw;
 }
-/* line 5377, ../../dev/sass/pages/mobile.scss */
+/* line 5378, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-price-total {
   font: normal 1.875rem/1.42857 roboto-bold, sans-serif, icons;
   padding: 1rem;
@@ -19781,7 +19782,7 @@ body {
   background-color: #c2c2c2;
   text-align: right;
 }
-/* line 5384, ../../dev/sass/pages/mobile.scss */
+/* line 5385, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu {
   width: 100%;
   height: auto;
@@ -19789,7 +19790,7 @@ body {
   display: inline-flex;
   flex-wrap: wrap;
 }
-/* line 5390, ../../dev/sass/pages/mobile.scss */
+/* line 5391, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .back-button-report {
   display: inline-flex;
   height: 45px;
@@ -19800,7 +19801,7 @@ body {
   position: relative;
   margin: 5px;
 }
-/* line 5400, ../../dev/sass/pages/mobile.scss */
+/* line 5401, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item {
   width: 30%;
   height: 45px;
@@ -19815,11 +19816,11 @@ body {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 5417, ../../dev/sass/pages/mobile.scss */
+/* line 5418, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item.activeAll {
   width: calc(15% - 5px);
 }
-/* line 5420, ../../dev/sass/pages/mobile.scss */
+/* line 5421, ../../dev/sass/pages/mobile.scss */
 .mobile .report-container .report-menu .report-menu-item span {
   width: 90%;
   white-space: nowrap;
@@ -19827,7 +19828,7 @@ body {
   text-overflow: ellipsis;
   text-align: center;
 }
-/* line 5430, ../../dev/sass/pages/mobile.scss */
+/* line 5431, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header {
   display: inline-flex;
   align-items: center;
@@ -19836,14 +19837,14 @@ body {
   height: 80px;
   flex: 0 0 auto;
 }
-/* line 5437, ../../dev/sass/pages/mobile.scss */
+/* line 5438, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header .header-buttons {
   display: inline-flex;
   width: 40%;
   height: 40px;
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5445, ../../dev/sass/pages/mobile.scss */
+/* line 5446, ../../dev/sass/pages/mobile.scss */
 .mobile .buttons-apply-rehau {
   font-size: 21px;
   background-color: #20695d;
@@ -19854,14 +19855,14 @@ body {
   text-align: center;
   padding: 10px;
 }
-/* line 5455, ../../dev/sass/pages/mobile.scss */
+/* line 5456, ../../dev/sass/pages/mobile.scss */
 .mobile .tooltip {
   position: relative;
   display: inline-block;
   align-self: center;
   margin-left: 10px;
 }
-/* line 5464, ../../dev/sass/pages/mobile.scss */
+/* line 5465, ../../dev/sass/pages/mobile.scss */
 .mobile .tooltip .tooltiptext {
   font-style: normal;
   font-weight: normal;
@@ -19882,12 +19883,12 @@ body {
   opacity: 0;
   transition: opacity 0.6s;
 }
-/* line 5487, ../../dev/sass/pages/mobile.scss */
+/* line 5488, ../../dev/sass/pages/mobile.scss */
 .mobile .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
 }
-/* line 5492, ../../dev/sass/pages/mobile.scss */
+/* line 5493, ../../dev/sass/pages/mobile.scss */
 .mobile .tooltip .tooltiptext::after {
   content: " ";
   position: absolute;
@@ -19899,7 +19900,7 @@ body {
   border-style: solid;
   border-color: transparent transparent #818181 transparent;
 }
-/* line 5502, ../../dev/sass/pages/mobile.scss */
+/* line 5503, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header-rehau {
   display: flex;
   justify-content: space-between;
@@ -19907,7 +19908,7 @@ body {
   height: auto;
   background-color: #20695d;
 }
-/* line 5509, ../../dev/sass/pages/mobile.scss */
+/* line 5510, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header-rehau .header-buttons-cancel-rehau {
   text-align: center;
   padding: 16px;
@@ -19915,7 +19916,7 @@ body {
   align-items: center;
   align-self: center;
 }
-/* line 5518, ../../dev/sass/pages/mobile.scss */
+/* line 5519, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header-rehau .header-title-rehau {
   font-style: normal;
   font-weight: bold;
@@ -19925,7 +19926,7 @@ body {
   padding: 10px;
   align-self: center;
 }
-/* line 5528, ../../dev/sass/pages/mobile.scss */
+/* line 5529, ../../dev/sass/pages/mobile.scss */
 .mobile .mount-delivery-header-rehau .header-buttons-apply-rehau {
   text-align: center;
   color: #fff;
@@ -19935,7 +19936,7 @@ body {
   align-self: center;
   background-color: #20695d;
 }
-/* line 5538, ../../dev/sass/pages/mobile.scss */
+/* line 5539, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-title {
   font: normal 25px/1.42857 roboto-light, sans-serif, icons;
   display: inline-flex;
@@ -19944,7 +19945,7 @@ body {
   width: 100%;
   height: 40px;
 }
-/* line 5546, ../../dev/sass/pages/mobile.scss */
+/* line 5547, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-item,
 .mobile .door-config-selected {
   font: normal 18px/1.42857 roboto-light, sans-serif, icons;
@@ -19955,12 +19956,12 @@ body {
   width: 100%;
   margin: 5px 0;
 }
-/* line 5556, ../../dev/sass/pages/mobile.scss */
+/* line 5557, ../../dev/sass/pages/mobile.scss */
 .mobile .door-config-item label,
 .mobile .door-config-selected label {
   width: 90%;
 }
-/* line 5560, ../../dev/sass/pages/mobile.scss */
+/* line 5561, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile {
   position: absolute;
   top: 0;
@@ -19972,7 +19973,7 @@ body {
   background: #fff;
   z-index: 2;
 }
-/* line 5570, ../../dev/sass/pages/mobile.scss */
+/* line 5571, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile .door-congig-scroll {
   position: relative;
   display: inline-flex;
@@ -19982,22 +19983,22 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 5579, ../../dev/sass/pages/mobile.scss */
+/* line 5580, ../../dev/sass/pages/mobile.scss */
 .mobile .door-settings-mobile .door-config {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   width: 100%;
   padding: 10px 15px;
   flex: 0 0 auto;
 }
-/* line 5586, ../../dev/sass/pages/mobile.scss */
+/* line 5587, ../../dev/sass/pages/mobile.scss */
 .mobile .selected {
   border-radius: 25px;
 }
-/* line 5590, ../../dev/sass/pages/mobile.scss */
+/* line 5591, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history {
   z-index: 1;
 }
-/* line 5592, ../../dev/sass/pages/mobile.scss */
+/* line 5593, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .mobile-order-history-title {
   font: normal 7vw/1.42857 roboto-regular, sans-serif, icons;
   width: 100%;
@@ -20006,15 +20007,15 @@ body {
   justify-content: center;
   height: 30px;
 }
-/* line 5600, ../../dev/sass/pages/mobile.scss */
+/* line 5601, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .tool-btn {
   font: normal 3.75rem/1 icons, sans-serif;
 }
-/* line 5606, ../../dev/sass/pages/mobile.scss */
+/* line 5607, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .config:after {
   content: "";
 }
-/* line 5610, ../../dev/sass/pages/mobile.scss */
+/* line 5611, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order {
   width: 100%;
   display: inline-flex;
@@ -20025,15 +20026,15 @@ body {
   -webkit-box-shadow: #333 0 3px 10px -5px;
   box-shadow: #333 0 3px 10px -5px;
 }
-/* line 5617, ../../dev/sass/pages/mobile.scss */
+/* line 5618, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search {
   position: relative;
 }
-/* line 5620, ../../dev/sass/pages/mobile.scss */
+/* line 5621, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .lupa:after {
   content: "";
 }
-/* line 5624, ../../dev/sass/pages/mobile.scss */
+/* line 5625, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search {
   position: absolute;
   width: 0px;
@@ -20047,18 +20048,18 @@ body {
   overflow: hidden;
   transition: 1s;
 }
-/* line 5636, ../../dev/sass/pages/mobile.scss */
+/* line 5637, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search.active {
   width: 90vw;
   transition: 1s;
   border-radius: 50px;
 }
-/* line 5644, ../../dev/sass/pages/mobile.scss */
+/* line 5645, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .close-dialog {
   top: 2px;
   right: 2px;
 }
-/* line 5648, ../../dev/sass/pages/mobile.scss */
+/* line 5649, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .delete-search {
   position: absolute;
   width: 0px;
@@ -20070,7 +20071,7 @@ body {
   background: url(../img/calc/back_red.svg) no-repeat;
   background-size: contain;
 }
-/* line 5659, ../../dev/sass/pages/mobile.scss */
+/* line 5660, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .search .mobile-history-search .search-input {
   margin-left: 5px;
   display: inline-flex;
@@ -20079,14 +20080,14 @@ body {
   font: normal 16px/1.42857 roboto-light, sans-serif, icons;
   border: none;
 }
-/* line 5669, ../../dev/sass/pages/mobile.scss */
+/* line 5670, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings {
   position: relative;
   display: inline-flex;
   height: 35px;
   width: 32px;
 }
-/* line 5674, ../../dev/sass/pages/mobile.scss */
+/* line 5675, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block {
   position: absolute;
   top: 14px;
@@ -20102,7 +20103,7 @@ body {
   padding: 0px;
   transition: 1s;
 }
-/* line 5688, ../../dev/sass/pages/mobile.scss */
+/* line 5689, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block.active {
   top: 50px;
   right: -5px;
@@ -20113,23 +20114,23 @@ body {
   padding: 10px;
   transition: 1s;
 }
-/* line 5701, ../../dev/sass/pages/mobile.scss */
+/* line 5702, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block .filter-divider {
   font: normal 17px/1.42857 roboto-light, sans-serif, icons;
   margin: 5px 0;
   text-align: center;
 }
-/* line 5706, ../../dev/sass/pages/mobile.scss */
+/* line 5707, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .history-settings .settings-block .filter-item {
   font: normal 16px/1.42857 roboto-regular, sans-serif, icons;
   padding: 5px 0 5px 10px;
 }
-/* line 5712, ../../dev/sass/pages/mobile.scss */
+/* line 5713, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit {
   position: relative;
   width: 40vw;
 }
-/* line 5715, ../../dev/sass/pages/mobile.scss */
+/* line 5716, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order select, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product select, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product select, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit select, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit select {
   background: transparent;
   border-radius: 25px;
@@ -20143,7 +20144,7 @@ body {
   /* Safari and Chrome */
   appearance: none;
 }
-/* line 5730, ../../dev/sass/pages/mobile.scss */
+/* line 5731, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .search-config-order .order .arrow-down, .mobile .mobile-order-history .search-config-order .cart-page .products-selector .products-selector-block .products-block .product .arrow-down, .cart-page .products-selector .products-selector-block .products-block .mobile .mobile-order-history .search-config-order .product .arrow-down, .mobile .mobile-order-history .search-config-order .cart-page .addelementunit .arrow-down, .cart-page .mobile .mobile-order-history .search-config-order .addelementunit .arrow-down {
   display: inline-flex;
   position: absolute;
@@ -20156,7 +20157,7 @@ body {
   transform: rotate(270deg);
   z-index: -1;
 }
-/* line 5744, ../../dev/sass/pages/mobile.scss */
+/* line 5745, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block {
   display: inline-flex;
   flex-direction: column;
@@ -20166,7 +20167,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 5752, ../../dev/sass/pages/mobile.scss */
+/* line 5753, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card {
   position: relative;
   display: inline-flex;
@@ -20178,7 +20179,7 @@ body {
   border-radius: 15px;
   padding: 10px;
 }
-/* line 5763, ../../dev/sass/pages/mobile.scss */
+/* line 5764, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row {
   display: inline-flex;
   width: 100%;
@@ -20186,20 +20187,20 @@ body {
   margin: 5px 0 0 0;
   flex: 0 0 auto;
 }
-/* line 5769, ../../dev/sass/pages/mobile.scss */
+/* line 5770, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item {
   display: inline-flex;
   flex-direction: column;
 }
-/* line 5772, ../../dev/sass/pages/mobile.scss */
+/* line 5773, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item label {
   font: normal 18px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5775, ../../dev/sass/pages/mobile.scss */
+/* line 5776, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row .order-row-item span {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5781, ../../dev/sass/pages/mobile.scss */
+/* line 5782, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .row-id {
   width: 100%;
   display: inline-flex;
@@ -20207,7 +20208,7 @@ body {
   font: normal 11px/1.42857 roboto-bold, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 5788, ../../dev/sass/pages/mobile.scss */
+/* line 5789, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-row-price {
   margin: 10px 0 0 0;
   display: inline-flex;
@@ -20217,7 +20218,7 @@ body {
   font: normal 30px/1.42857 roboto-light, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 5798, ../../dev/sass/pages/mobile.scss */
+/* line 5799, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions {
   position: absolute;
   display: inline-flex;
@@ -20236,7 +20237,7 @@ body {
   padding: 0;
   border: 1px solid transparent;
 }
-/* line 5815, ../../dev/sass/pages/mobile.scss */
+/* line 5816, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions.active {
   padding: 5px 10px;
   width: 80%;
@@ -20247,7 +20248,7 @@ body {
   transition: 1s;
   box-shadow: 15px 0px 10px -2px rgba(78, 77, 77, 0.5);
 }
-/* line 5826, ../../dev/sass/pages/mobile.scss */
+/* line 5827, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .btn {
   display: inline-flex;
   align-items: center;
@@ -20259,13 +20260,13 @@ body {
   font: normal 15px/1.42857 roboto-regular, sans-serif, icons;
   margin: 5px 0;
 }
-/* line 5838, ../../dev/sass/pages/mobile.scss */
+/* line 5839, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .delete {
   color: #fff;
   -webkit-text-fill-color: #fff;
   background: #cc0000;
 }
-/* line 5843, ../../dev/sass/pages/mobile.scss */
+/* line 5844, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .order-card .order-actions .order-delete {
   position: absolute;
   top: 10px;
@@ -20275,12 +20276,12 @@ body {
   background: url("../img/calc/close-calculator-hover.svg") no-repeat;
   background-size: contain;
 }
-/* line 5854, ../../dev/sass/pages/mobile.scss */
+/* line 5855, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done {
   border: 1px solid #bebebe;
   background: #f3f3f3;
 }
-/* line 5857, ../../dev/sass/pages/mobile.scss */
+/* line 5858, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-row-price {
   display: inline-flex;
   width: 100%;
@@ -20290,26 +20291,26 @@ body {
   font: normal 30px/1.42857 roboto-light, sans-serif, icons;
   flex: 0 0 auto;
 }
-/* line 5866, ../../dev/sass/pages/mobile.scss */
+/* line 5867, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions {
   justify-content: flex-start;
   background: #f3f3f3;
 }
-/* line 5869, ../../dev/sass/pages/mobile.scss */
+/* line 5870, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions .btn {
   border: 1px solid #bebebe;
 }
-/* line 5872, ../../dev/sass/pages/mobile.scss */
+/* line 5873, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .order-actions.active {
   background: #f3f3f3;
   border: 1px solid #363636;
 }
-/* line 5877, ../../dev/sass/pages/mobile.scss */
+/* line 5878, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-order-history .order-list-scroll-block .done .tool-btn {
   color: black;
   -webkit-text-fill-color: black;
 }
-/* line 5884, ../../dev/sass/pages/mobile.scss */
+/* line 5885, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount {
   display: inline-flex;
   flex-direction: column;
@@ -20317,7 +20318,7 @@ body {
   align-items: center;
   padding: 25px 0;
 }
-/* line 5890, ../../dev/sass/pages/mobile.scss */
+/* line 5891, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row {
   display: inline-flex;
   width: 85%;
@@ -20330,15 +20331,15 @@ body {
   font: normal 20px/1.42857 roboto-regular, sans-serif, icons;
   text-transform: capitalize;
 }
-/* line 5901, ../../dev/sass/pages/mobile.scss */
+/* line 5902, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row .discount-price-label {
   font: normal 10px/1.42857 roboto-regular, sans-serif, icons;
 }
-/* line 5904, ../../dev/sass/pages/mobile.scss */
+/* line 5905, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-row .discount-price-box {
   width: 50%;
 }
-/* line 5908, ../../dev/sass/pages/mobile.scss */
+/* line 5909, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col {
   display: inline-flex;
   flex-direction: column;
@@ -20349,12 +20350,12 @@ body {
   height: auto;
   flex: 0 0 auto;
 }
-/* line 5917, ../../dev/sass/pages/mobile.scss */
+/* line 5918, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-price-box {
   display: inline-flex;
   flex: 0 0 auto;
 }
-/* line 5921, ../../dev/sass/pages/mobile.scss */
+/* line 5922, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box {
   position: relative;
   display: inline-flex;
@@ -20367,15 +20368,15 @@ body {
   text-align: right;
   padding-left: 5px;
 }
-/* line 5932, ../../dev/sass/pages/mobile.scss */
+/* line 5933, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-label {
   margin-left: 10px;
 }
-/* line 5938, ../../dev/sass/pages/mobile.scss */
+/* line 5939, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discount-data {
   width: 70px;
 }
-/* line 5941, ../../dev/sass/pages/mobile.scss */
+/* line 5942, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-icon-down {
   position: absolute;
   right: 10px;
@@ -20387,7 +20388,7 @@ body {
   display: inline-block;
   transform: rotate(270deg);
 }
-/* line 5952, ../../dev/sass/pages/mobile.scss */
+/* line 5953, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .discount-box .discounts-icon-up {
   position: absolute;
   right: 10px;
@@ -20399,23 +20400,23 @@ body {
   display: inline-block;
   transform: rotate(90deg);
 }
-/* line 5964, ../../dev/sass/pages/mobile.scss */
+/* line 5965, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col #disc-input-main {
   width: 30px;
 }
-/* line 5967, ../../dev/sass/pages/mobile.scss */
+/* line 5968, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .disc-input {
   width: 50px;
   border: none;
   text-align: right;
   margin-right: 4px;
 }
-/* line 5973, ../../dev/sass/pages/mobile.scss */
+/* line 5974, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .mobile-discount-col .disc {
   height: auto;
   flex: 0 0 auto;
 }
-/* line 5978, ../../dev/sass/pages/mobile.scss */
+/* line 5979, ../../dev/sass/pages/mobile.scss */
 .mobile .mobile-discount .delete {
   height: 40px;
   color: #fff;
@@ -24670,133 +24671,133 @@ input[type='number'] {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/grid.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 18, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/grating.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 30, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 36, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/visor.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 48, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 60, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 66, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 78, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 84, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 96, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 108, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/outside.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 114, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/fan.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 126, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 132, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/handle.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/blind.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -24806,133 +24807,133 @@ input[type='number'] {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/grid.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 156, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/visor.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 162, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/grating.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 174, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 186, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 192, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 198, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 204, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 216, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 222, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 228, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 240, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 246, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/outside.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 252, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/fan.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 258, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 264, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 270, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1681825148');
+  background-image: url('../img/auxiliaries-selected/handle.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 276, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1681825148');
+  background-image: url('../img/auxiliaries-focused/blind.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -24956,7 +24957,7 @@ input[type='number'] {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1681825148');
+  background-image: url('../img/auxiliaries/grid.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -24973,7 +24974,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1681825148');
+  background-image: url('../img/auxiliaries/visor.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -24990,7 +24991,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1681825148');
+  background-image: url('../img/auxiliaries/visor2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25007,7 +25008,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1681825148');
+  background-image: url('../img/auxiliaries/grating.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25024,7 +25025,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1681825148');
+  background-image: url('../img/auxiliaries/grating2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25041,7 +25042,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1681825148');
+  background-image: url('../img/auxiliaries/shutters.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25058,7 +25059,7 @@ input[type='number'] {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1681825148');
+  background-image: url('../img/auxiliaries/shutters2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25075,7 +25076,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1681825148');
+  background-image: url('../img/auxiliaries/spillway.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25092,7 +25093,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1681825148');
+  background-image: url('../img/auxiliaries/spillway2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25109,7 +25110,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1681825148');
+  background-image: url('../img/auxiliaries/outside.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25126,7 +25127,7 @@ input[type='number'] {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1681825148');
+  background-image: url('../img/auxiliaries/windowsill.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25143,7 +25144,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1681825148');
+  background-image: url('../img/auxiliaries/blind.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25160,7 +25161,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1681825148');
+  background-image: url('../img/auxiliaries/template1.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25177,7 +25178,7 @@ input[type='number'] {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1681825148');
+  background-image: url('../img/auxiliaries/template2.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25201,7 +25202,7 @@ input[type='number'] {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1681825148');
+  background-image: url('../img/auxiliaries/louvers-top.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25211,7 +25212,7 @@ input[type='number'] {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1681825148');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25238,7 +25239,7 @@ input[type='number'] {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1681825148');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25261,7 +25262,7 @@ input[type='number'] {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1681825148');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25272,7 +25273,7 @@ input[type='number'] {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1681825148');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25283,7 +25284,7 @@ input[type='number'] {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1681825148');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25300,7 +25301,7 @@ input[type='number'] {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1681825148');
+  background-image: url('../img/auxiliaries/fan.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25323,7 +25324,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1681825148');
+  background-image: url('../img/auxiliaries/force-connector.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25334,7 +25335,7 @@ input[type='number'] {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1681825148');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1684743938');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -25351,7 +25352,7 @@ input[type='number'] {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1681825148');
+  background-image: url('../img/auxiliaries/handle.png?1684743939');
   background-repeat: no-repeat;
   background-size: contain;
 }

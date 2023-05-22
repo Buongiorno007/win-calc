@@ -576,11 +576,9 @@ body {
 
   .content-container {
     display: inline-flex;
-    height: 100%;
     width: 100%;
     position: absolute;
-    bottom: 0;
-    background: $main_white;
+    bottom: 30%;
     z-index: 1;
     .common-content-style {
       width: 100%;
@@ -1880,6 +1878,7 @@ body {
         width: 100%;
 
         background: $main_deep_green;
+        border-radius: 6px;
       }
       .add-product-rehau {
         font-style: normal;
@@ -1898,7 +1897,8 @@ body {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 50px; 
+        min-height: 50px;
+        border-radius: 6px;
       }
     }
   }
@@ -3758,7 +3758,8 @@ body {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          min-height: 50px; 
+          min-height: 50px;
+          border-radius: 6px;
         }
 
         .product-rehau {
