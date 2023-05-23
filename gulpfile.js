@@ -43,7 +43,7 @@ var server_env = {
   "windowSiteLocal": "'https://api.windowscalculator.net'",
   "windowSite": "'https://api.windowscalculator.net'",
   "steko": "'https://api.steko.com.ua'",
-  "ramex": "'https://calc.crmramex.ru'",
+  "ramex": "'https://admin.ramex.baueffect.com'",
   "orange": "'http://api.calc.csokna.ru'",
   "window": "'https://api.windowscalculator.net'",
   "windowSteko": "'http://api.steko.com.ua'",

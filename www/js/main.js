@@ -14926,7 +14926,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://calc.crmramex.ru',
+      serverIP: 'https://admin.ramex.baueffect.com',
       printIP: 'ttps://admin.ramex.baueffect.com/orders/get-order-pdf/',
       localPath: '/local/',
 
@@ -33701,55 +33701,7 @@ function ErrorResult(code, message) {
 
 // services/print_serv.js
 
-(function () {
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('HistoryModule')
-    .factory('PrintServ',
-
-      function ($location,
-                $filter,
-                GeneralServ,
-                MainServ,
-                CartMenuServ,
-                GlobalStor,
-                HistoryStor) {
-        /*jshint validthis:true */
-        var thisFactory = this;
-
-
-        /**============ METHODS ================*/
-        function getProducts(products, addEl) {
-          HistoryStor.history.PrintProduct = products;
-          HistoryStor.history.PrintAddEl = addEl;
-          setTimeout(function () {
-            if (GlobalStor.global.isDevice) {
-              GlobalStor.global.showReport = 1;
-              $(".page-container").hide();
-              $(".print-conteiner").show();
-            } else {
-            var prtContent = document.getElementById('print-conteiner');
-            var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';
-            var WinPrint = window.open('_blank');
-            WinPrint.document.write('<div class="print-conteiner">');
-            WinPrint.document.write(prtCSS);
-            WinPrint.document.write(prtContent.innerHTML);
-            WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");
-            WinPrint.document.write('</div>');
-            WinPrint.document.close();
-            WinPrint.focus();
-            }
-          }, 800);
-        }
-
-        /**========== FINISH ==========*/
-        thisFactory.publicObj = {
-          getProducts: getProducts,
-        };
-        return thisFactory.publicObj;
-      });
-})();
+(function () {  'use strict';  /**@ngInject*/  angular    .module('HistoryModule')    .factory('PrintServ',      function ($location,                $filter,                GeneralServ,                MainServ,                CartMenuServ,                GlobalStor,                HistoryStor) {        /*jshint validthis:true */        var thisFactory = this;        /**============ METHODS ================*/        function getProducts(products, addEl) {          HistoryStor.history.PrintProduct = products;          HistoryStor.history.PrintAddEl = addEl;          setTimeout(function () {            if (GlobalStor.global.isDevice) {              GlobalStor.global.showReport = 1;              $(".page-container").hide();              $(".print-conteiner").show();            } else {            var prtContent = document.getElementById('print-conteiner');            var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';            var WinPrint = window.open('_blank');            WinPrint.document.write('<div class="print-conteiner">');            WinPrint.document.write(prtCSS);            WinPrint.document.write(prtContent.innerHTML);            WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");            WinPrint.document.write('</div>');            WinPrint.document.close();            WinPrint.focus();            }          }, 800);        }        /**========== FINISH ==========*/        thisFactory.publicObj = {          getProducts: getProducts,        };        return thisFactory.publicObj;      });})();
 
 
 // services/profile_serv.js
