@@ -67,6 +67,7 @@
   "login": {
     "BY_PRESSING_ENTER": "Pulsando el botón de entrada acepto ",
     "PRIVACY_POLICY": "acuerdo de usuario",
+    "OFERTA_AGREE": "contrato-oferta",
     "TITLE": "TÉRMINOS Y CONDICIONES",
     "PLAN_A": "A. CONDICIONES DE VENTA DE PRODUCTOS",
     "PLAN_B": "B. CONDICIONES DE AJUSTE DE PRECIOS Y MATERIALES ",
@@ -125,6 +126,7 @@
     "SELECT_REGION": "Seleccionar región",
     "SELECT_CITY": "Seleccionar ciudad",
     "WINDOW_COST": "WindowsCalculator",
+    "RAMEX_TITLE": "RamexCalc",
     "USER_EXIST": "¡Este usuario ya existe! Inténtelo de nuevo.",
     "USER_NOT_EXIST": "Este usuario no existe. Verifique que el login introducido es correcto",
     "USER_NOT_ACTIVE": "No has activado tu perfil. Revisa tu e-mail.",

@@ -116,6 +116,8 @@
         thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
         thisCtrl.BY_PRESSING_ENTER = $filter('translate')('login.BY_PRESSING_ENTER');
         thisCtrl.PRIVACY_POLICY = $filter('translate')('login.PRIVACY_POLICY');
+        thisCtrl.OFERTA_AGREE = $filter('translate')('login.OFERTA_AGREE');
+        thisCtrl.RAMEX_TITLE = $filter('translate')('login.RAMEX_TITLE');
         thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
         thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
         thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');

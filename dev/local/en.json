@@ -858,6 +858,7 @@
   "login": {
     "BY_PRESSING_ENTER": "By pressing the login button I accept the ",
     "PRIVACY_POLICY": "terms of use",
+    "OFERTA_AGREE": "contract-offer",
     "TITLE": "TERMS AND CONDITIONS",
     "PLAN_A": "A. TERMS OF PRODUCT SALES",
     "PLAN_B": "B. CONDITIONS FOR SETTING PRICES AND MATERIALS ",
@@ -908,6 +909,7 @@
     "IMPORT_DB_FINISH": "Thank you for the download is complete",
     "LOGIN": "Login",
     "WINDOW_COST": "windowscalculator",
+    "RAMEX_TITLE": "RamexCalc",
     "PASSWORD": "Password",
     "MOBILE": "Mobile telephone",
     "REGISTRATION": "Registration",
