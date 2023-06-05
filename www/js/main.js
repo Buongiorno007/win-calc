@@ -28636,26 +28636,35 @@ function ErrorResult(code, message) {
 
                         //Download data from backend
                         const windowHardwareProfileSystem = data.window_hardware_profile_systems;
+                        window.localStorage.setItem("setRender", false);
                         //Clearing hardwares arrays
                         GlobalStor.global.hardwares = []
                         //Loop for windowHardwareProfileSystem elements 
-                        for (let element of windowHardwareProfileSystem) {
-                            //Get current profile id
-                            let currentProfileId = ProductStor.product.profile.id;
-                            //Check if current profile id equal to element from backend 
-                            if (element.profile_system_id === currentProfileId) {
-                                //Local variables for different manipulation
-                                GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
-                                    const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
-                                    if (filteredHardwares.length) {
-                                        if (!GlobalStor.global.hardwares[index]) {
-                                            GlobalStor.global.hardwares[index] = []
+                        if (windowHardwareProfileSystem) {
+                            for (let element of windowHardwareProfileSystem) {
+                                //Get current profile id
+                                let currentProfileId = ProductStor.product.profile.id;
+                                //Check if current profile id equal to element from backend 
+                                if (element.profile_system_id === currentProfileId) {
+                                    //Local variables for different manipulation
+                                    GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
+                                        const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
+                                        if (filteredHardwares.length) {
+                                            if (!GlobalStor.global.hardwares[index]) {
+                                                GlobalStor.global.hardwares[index] = []
+                                            }
+                                            GlobalStor.global.hardwares[index].push(filteredHardwares[0])
                                         }
-                                        GlobalStor.global.hardwares[index].push(filteredHardwares[0])
-                                    }
-                                })
+                                    })
+                                }
+                            }
+                        } else {
+                            if (!JSON.parse(window.localStorage.getItem("setRender"))) {
+                                window.localStorage.setItem("setRender", true);
+                                window.location.reload()
                             }
                         }
+
                         setCurrentHardware(ProductStor.product);
                         if (ProductStor.product.profile.id) {
                             preparePrice(
