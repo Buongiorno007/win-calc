@@ -27956,13 +27956,12 @@ function ErrorResult(code, message) {
                         defer.resolve(0);
                     });
                     return defer.promise;
-                }  
-                needed_data().then(
-                    function(data) {
-                        try {
+                }
+                function configStore (data) {
+                    try {
                         /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
-                        /* TODO */ 
+                        /* TODO */
                         //Block for profiles and profiles descriptions translations ***
                         product.locales_names_addition_folders = data
                         GlobalStor.global.locales_names_addition_folders = data
@@ -27998,7 +27997,7 @@ function ErrorResult(code, message) {
                             for(let y = 0; y < filtered_array_by_description.length; y++) {
                                 if(profiles_data_profiles_types_array[i].id === filtered_array_by_description[y].table_id) {
                                     profiles_data_profiles_types_array[i]["description"] = filtered_array_by_description[y]
-    
+
                                 }
                             }
                         }
@@ -28036,9 +28035,9 @@ function ErrorResult(code, message) {
                                 }
                             }
                         }
-                        
+
                         //Block for systems_folders translation end ***
-                        
+
                         //Block for glasses folder starts ***
                         const glasses_folders = [];
                         for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_glass_folders; i += array_size) {
@@ -28057,12 +28056,12 @@ function ErrorResult(code, message) {
                         }
                         const array_filtered_by_description_folders = glasses_folders[0].filter(element => element.table_attr === "description")
                         for(let i = 0; i < glasses_folders_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_folders.length; y++) {
-                               if(glasses_folders_array_first[i].id === array_filtered_by_description_folders[y].table_id) {
-                                glasses_folders_array_first[i]["description"] = array_filtered_by_description_folders[y]
-                               }
-                           }
-                       }
+                            for(let y = 0; y < array_filtered_by_description_folders.length; y++) {
+                                if(glasses_folders_array_first[i].id === array_filtered_by_description_folders[y].table_id) {
+                                    glasses_folders_array_first[i]["description"] = array_filtered_by_description_folders[y]
+                                }
+                            }
+                        }
                         //Block for glasses folder end ***
 
 
@@ -28161,9 +28160,9 @@ function ErrorResult(code, message) {
 
                         let additional_folders_array_zero = GlobalStor.global.addElementsAll[1].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_zero.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_zero[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                        for(let i = 0; i < additional_folders_array_zero.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_zero[i].id === array_filtered_by_names_additional_folders[y].table_id) {
                                     additional_folders_array_zero[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
@@ -28172,16 +28171,16 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < additional_folders_array_zero.length; i++) {
                             for(let y = 0; y < array_filtered_by_descriptions_additional_folders.length; y++) {
                                 if(additional_folders_array_zero[i].id === array_filtered_by_descriptions_additional_folders[y].table_id) {
-                                   additional_folders_array_zero[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
+                                    additional_folders_array_zero[i]["description"] = array_filtered_by_descriptions_additional_folders[y]
                                 }
                             }
                         }
                         let additional_folders_array_first = GlobalStor.global.addElementsAll[2].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_first.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_first[i].id === array_filtered_by_names_additional_folders[y].table_id) {
-                                     additional_folders_array_first[i]["translate"] = array_filtered_by_names_additional_folders[y]
+                        for(let i = 0; i < additional_folders_array_first.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_first[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                                    additional_folders_array_first[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
                         }
@@ -28195,9 +28194,9 @@ function ErrorResult(code, message) {
                         }
                         let additional_folders_array_second = GlobalStor.global.addElementsAll[6].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_second.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_second[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                        for(let i = 0; i < additional_folders_array_second.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_second[i].id === array_filtered_by_names_additional_folders[y].table_id) {
                                     additional_folders_array_second[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
@@ -28212,9 +28211,9 @@ function ErrorResult(code, message) {
                         }
                         let additional_folders_array_third = GlobalStor.global.addElementsAll[8].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_third.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_third[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                        for(let i = 0; i < additional_folders_array_third.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_third[i].id === array_filtered_by_names_additional_folders[y].table_id) {
                                     additional_folders_array_third[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
@@ -28229,9 +28228,9 @@ function ErrorResult(code, message) {
                         }
                         let additional_folders_array_fourth = GlobalStor.global.addElementsAll[9].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_fourth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_fourth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                        for(let i = 0; i < additional_folders_array_fourth.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_fourth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
                                     additional_folders_array_fourth[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
@@ -28246,9 +28245,9 @@ function ErrorResult(code, message) {
                         }
                         let additional_folders_array_fifth = GlobalStor.global.addElementsAll[10].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_fifth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_fifth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                        for(let i = 0; i < additional_folders_array_fifth.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_fifth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
                                     additional_folders_array_fifth[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
@@ -28263,9 +28262,9 @@ function ErrorResult(code, message) {
                         }
                         let additional_folders_array_sixth = GlobalStor.global.addElementsAll[16].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_sixth.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_sixth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                        for(let i = 0; i < additional_folders_array_sixth.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_sixth[i].id === array_filtered_by_names_additional_folders[y].table_id) {
                                     additional_folders_array_sixth[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
@@ -28280,9 +28279,9 @@ function ErrorResult(code, message) {
                         }
                         let additional_folders_array_seventh = GlobalStor.global.addElementsAll[17].elementType;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                         for(let i = 0; i < additional_folders_array_seventh.length; i++) {
-                             for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
-                                 if(additional_folders_array_seventh[i].id === array_filtered_by_names_additional_folders[y].table_id) {
+                        for(let i = 0; i < additional_folders_array_seventh.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_additional_folders.length; y++) {
+                                if(additional_folders_array_seventh[i].id === array_filtered_by_names_additional_folders[y].table_id) {
                                     additional_folders_array_seventh[i]["translate"] = array_filtered_by_names_additional_folders[y]
                                 }
                             }
@@ -28311,9 +28310,9 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < additional_elements_array_first_zero.length; i++) {
                             for(let y = 0; y < additional_elements_array_first_zero[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_first_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_first_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_first_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_first_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28328,15 +28327,15 @@ function ErrorResult(code, message) {
                             }
                         }
                         /* Loop for zero element end */
-                        
+
                         /* Loop for first element  */
                         let additional_elements_array_first_first = GlobalStor.global.addElementsAll[1].elementsList;
                         for(let i = 0; i < additional_elements_array_first_first.length; i++) {
                             for(let y = 0; y < additional_elements_array_first_first[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_first_first[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_first_first[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_first_first[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_first_first[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28357,9 +28356,9 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < additional_elements_array_second.length; i++) {
                             for(let y = 0; y < additional_elements_array_second[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_second[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_second[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_second[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_second[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28381,9 +28380,9 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < additional_elements_array_sixth_zero.length; i++) {
                             for(let y = 0; y < additional_elements_array_sixth_zero[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_sixth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_sixth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_sixth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28404,9 +28403,9 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < additional_elements_array_eighth_zero.length; i++) {
                             for(let y = 0; y < additional_elements_array_eighth_zero[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_eighth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_eighth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_eighth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28427,9 +28426,9 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < additional_elements_array_ninth.length; i++) {
                             for(let y = 0; y < additional_elements_array_ninth[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_ninth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_ninth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_ninth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_ninth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28444,15 +28443,15 @@ function ErrorResult(code, message) {
                             }
                         }
                         /* Loop for ninth element end */
-    
+
                         /* Loop for teenth element */
                         let additional_elements_array_teenth = GlobalStor.global.addElementsAll[10].elementsList;
                         for(let i = 0; i < additional_elements_array_teenth.length; i++) {
                             for(let y = 0; y < additional_elements_array_teenth[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_teenth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_teenth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_teenth[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_teenth[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28473,9 +28472,9 @@ function ErrorResult(code, message) {
                         for(let i = 0; i < additional_elements_array_sixteenth_zero.length; i++) {
                             for(let y = 0; y < additional_elements_array_sixteenth_zero[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_sixteenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_sixteenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_sixteenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28490,15 +28489,15 @@ function ErrorResult(code, message) {
                             }
                         }
                         /* Loop for sixtenth element END */
-                        
+
                         /* Loop for seventh element */
                         let additional_elements_array_seventeenth_zero = GlobalStor.global.addElementsAll[17].elementsList;
                         for(let i = 0; i < additional_elements_array_seventeenth_zero.length; i++) {
                             for(let y = 0; y < additional_elements_array_seventeenth_zero[i].length; y++) {
                                 for(let z = 0; z < array_filtered_by_names_additional_elements.length; z++) {
-                                   if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
-                                    additional_elements_array_seventeenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
-                                   }
+                                    if(additional_elements_array_seventeenth_zero[i][y].id === array_filtered_by_names_additional_elements[z].table_id) {
+                                        additional_elements_array_seventeenth_zero[i][y]["translate"] =  array_filtered_by_names_additional_elements[z]
+                                    }
                                 }
                             }
                         }
@@ -28514,7 +28513,7 @@ function ErrorResult(code, message) {
                         }
                         /* Loop for seventh element  END*/
                         //Block for additional elements end ***
-                        
+
                         //Block for mosquitos start ***
                         const mosquitos = [];
                         for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_mosquitos; i += array_size) {
@@ -28525,9 +28524,9 @@ function ErrorResult(code, message) {
 
                         let mosquitos_array = GlobalStor.global.addElementsAll[0].elementsList[0];
                         for(let i = 0; i < mosquitos_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_name_mosquitos.length; y++) {
-                                    if(mosquitos_array[i].id === array_filtered_by_name_mosquitos[y].table_id) {
-                                        mosquitos_array[i]["translate"] = array_filtered_by_name_mosquitos[y]
+                            for(let y = 0; y < array_filtered_by_name_mosquitos.length; y++) {
+                                if(mosquitos_array[i].id === array_filtered_by_name_mosquitos[y].table_id) {
+                                    mosquitos_array[i]["translate"] = array_filtered_by_name_mosquitos[y]
                                 }
                             }
                         }
@@ -28555,47 +28554,47 @@ function ErrorResult(code, message) {
                         //Block for mosquitos SINGLE end ***
 
 
-                       //Block for laminations start ***
-                       const laminations = [];
-                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
-                        laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
-                       }
-                       laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
-                       
-                       const array_filtered_by_names_laminations = laminations[0].filter(element => element.table_attr === "name")
-                       let laminations_array = GlobalStor.global.laminats;
+                        //Block for laminations start ***
+                        const laminations = [];
+                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
+                            laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
+                        }
+                        laminations.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
+
+                        const array_filtered_by_names_laminations = laminations[0].filter(element => element.table_attr === "name")
+                        let laminations_array = GlobalStor.global.laminats;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for(let i = 0; i < laminations_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_names_laminations.length; y++) {
-                                    if(laminations_array[i].id === array_filtered_by_names_laminations[y].table_id) {
-                                        laminations_array[i]["translate"] = array_filtered_by_names_laminations[y]
-                                } 
+                        for(let i = 0; i < laminations_array.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_laminations.length; y++) {
+                                if(laminations_array[i].id === array_filtered_by_names_laminations[y].table_id) {
+                                    laminations_array[i]["translate"] = array_filtered_by_names_laminations[y]
+                                }
                             }
                         }
-                       //Block for laminations end ***
+                        //Block for laminations end ***
 
 
-                       //Block for lamination-couplese start ***
-                       const laminations_couples = [];
-                       for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
-                        laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
-                       }
-                       laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
+                        //Block for lamination-couplese start ***
+                        const laminations_couples = [];
+                        for (let i = 0; i < GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors; i += array_size) {
+                            laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors.slice(i, i + array_size));
+                        }
+                        laminations_couples.push(GlobalStor.global.locales_names_addition_folders.locales_names_lamination_factory_colors);
 
-                       const array_filtered_by_names_laminations_couples = laminations_couples[0].filter(element => element.table_attr === "name")
+                        const array_filtered_by_names_laminations_couples = laminations_couples[0].filter(element => element.table_attr === "name")
 
                         let laminations_couples_array = GlobalStor.global.laminatCouples;
                         //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                            for(let i = 0; i < laminations_couples_array.length; i++) {
-                                for(let y = 0; y < array_filtered_by_names_laminations_couples.length; y++) {
-                                    if(laminations_couples_array[i].lamination_in_id === array_filtered_by_names_laminations_couples[y].table_id) {
-                                        laminations_couples_array[i]["translate_in_id"] = array_filtered_by_names_laminations_couples[y]
-                                    } if(laminations_couples_array[i].lamination_out_id === array_filtered_by_names_laminations_couples[y].table_id) {
-                                        laminations_couples_array[i]["translate_out_id"] = array_filtered_by_names_laminations_couples[y]
-                                    }
+                        for(let i = 0; i < laminations_couples_array.length; i++) {
+                            for(let y = 0; y < array_filtered_by_names_laminations_couples.length; y++) {
+                                if(laminations_couples_array[i].lamination_in_id === array_filtered_by_names_laminations_couples[y].table_id) {
+                                    laminations_couples_array[i]["translate_in_id"] = array_filtered_by_names_laminations_couples[y]
+                                } if(laminations_couples_array[i].lamination_out_id === array_filtered_by_names_laminations_couples[y].table_id) {
+                                    laminations_couples_array[i]["translate_out_id"] = array_filtered_by_names_laminations_couples[y]
+                                }
                             }
                         }
-                       //Block for lamination-couplese end ***
+                        //Block for lamination-couplese end ***
 
 
                         //Block for glasses translations starts ***
@@ -28628,52 +28627,48 @@ function ErrorResult(code, message) {
                                 }
                             }
                         }
-                        } catch (e) {
-                            console.log(e)
-                        }
-                        //Block for glasses translations end ****************
-                        // Hardware display logic that fits only a certain profile
+                    } catch (e) {
+                        console.log(e)
+                    }
+                    //Block for glasses translations end ****************
+                    // Hardware display logic that fits only a certain profile
 
-                        //Download data from backend
-                        const windowHardwareProfileSystem = data.window_hardware_profile_systems;
-                        window.localStorage.setItem("setRender", false);
-                        //Clearing hardwares arrays
-                        GlobalStor.global.hardwares = []
-                        //Loop for windowHardwareProfileSystem elements 
-                        if (windowHardwareProfileSystem) {
-                            for (let element of windowHardwareProfileSystem) {
-                                //Get current profile id
-                                let currentProfileId = ProductStor.product.profile.id;
-                                //Check if current profile id equal to element from backend 
-                                if (element.profile_system_id === currentProfileId) {
-                                    //Local variables for different manipulation
-                                    GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
-                                        const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
-                                        if (filteredHardwares.length) {
-                                            if (!GlobalStor.global.hardwares[index]) {
-                                                GlobalStor.global.hardwares[index] = []
-                                            }
-                                            GlobalStor.global.hardwares[index].push(filteredHardwares[0])
+                    //Download data from backend
+                    const windowHardwareProfileSystem = data.window_hardware_profile_systems;
+                    //Loop for windowHardwareProfileSystem elements
+                    if (windowHardwareProfileSystem) {
+                        for (let element of windowHardwareProfileSystem) {
+                            //Get current profile id
+                            let currentProfileId = ProductStor.product.profile.id;
+                            //Check if current profile id equal to element from backend
+                            if (element.profile_system_id === currentProfileId) {
+                                //Local variables for different manipulation
+                                GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
+                                    const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
+                                    if (filteredHardwares.length) {
+                                        if (!GlobalStor.global.hardwares[index]) {
+                                            GlobalStor.global.hardwares[index] = []
                                         }
-                                    })
-                                }
-                            }
-                        } else {
-                            if (!JSON.parse(window.localStorage.getItem("setRender"))) {
-                                window.localStorage.setItem("setRender", true);
-                                window.location.reload()
+                                        GlobalStor.global.hardwares[index].push(filteredHardwares[0])
+                                    }
+                                })
                             }
                         }
+                    }
 
-                        setCurrentHardware(ProductStor.product);
-                        if (ProductStor.product.profile.id) {
-                            preparePrice(
-                                ProductStor.product.template,
-                                ProductStor.product.profile.id,
-                                ProductStor.product.glass,
-                                ProductStor.product.hardware.id,
-                                ProductStor.product.lamination.lamination_in_id)
-                        } 
+                    setCurrentHardware(ProductStor.product);
+                    if (ProductStor.product.profile.id) {
+                        preparePrice(
+                            ProductStor.product.template,
+                            ProductStor.product.profile.id,
+                            ProductStor.product.glass,
+                            ProductStor.product.hardware.id,
+                            ProductStor.product.lamination.lamination_in_id)
+                    }
+                }
+                needed_data().then(
+                    function(data) {
+                        configStore(data);
                     }
                 )
                
