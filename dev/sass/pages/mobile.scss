@@ -219,8 +219,8 @@ body {
     height: 32rem !important;
     .size-txt-edit {
       @extend .size-txt;
-      stroke: $main_red;
-      fill: $main_red;
+      stroke: $main_white;
+      fill: $main_white;
 
       &.active {
         stroke: $main_white;
@@ -249,7 +249,7 @@ body {
       &.active {
         width: 240px;
         height: 110px;
-        fill: $main_red;
+        fill: $main_deep_green;
         fill-opacity: 1;
       }
     }
@@ -990,6 +990,7 @@ body {
         }
       }
       .templates-list {
+        background-color: green;
         min-width: 100%;
         width: 100%;
         display: inline-block;
@@ -4441,7 +4442,7 @@ body {
   }
   .size-line {
     stroke-width: 1.2px !important;
-    stroke: $main_red !important;
+    stroke: $main_deep_green !important;
   }
   // rehau styles
   .size-line-rehau {
@@ -4709,7 +4710,7 @@ body {
   }
   .sash_mark {
     fill: none;
-    stroke: $main_red;
+    stroke: $main_deep_green;
     stroke-width: 6;
   }
   .info {

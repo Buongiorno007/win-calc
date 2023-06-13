@@ -12,10 +12,6 @@
         section.construction-page(ng-if="lightPage.G.global.showCart == 0")
           section.construction-container
             .construction-block
-              .help-block
-                .tooltip(ng-click="lightPage.helpModal()")
-                  img(src="img/rehau-img/modal-help-icon.svg", alt="")
-                  span.tooltiptext Как работает калькулятор
               .construction-scrollbox(ng-click="lightPage.G.global.activePanel=0")
                 svg-template(template="lightPage.D.design.templateTEMP", template-width="lightPage.constants.svgTemplateWidth", template-height="lightPage.constants.svgTemplateHeight", type-construction="lightPage.constants.SVG_ID_EDIT")
               include panels/_templatesLight
@@ -479,11 +475,8 @@
         include panels/_add-elements-cart
       .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
         include menus/_addelems-menu
-        .config-title-rehau(ng-if="lightPage.U.userInfo.factory_id == 2")
-          h1 Онлайн калькулятор
-          h3 Задайте параметры вашего окна
 
-        .config-buttons(ng-if="lightPage.U.userInfo.factory_id !== 2")
+        .config-buttons
           .karkas-button(ng-click="configMenu.karkasButton()", ng-class="{'active': configMenu.G.global.showKarkas == 1}")
               .img-border(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
                 .img-karkas(ng-class="{'active': configMenu.G.global.showKarkas == 1}")
@@ -773,91 +766,6 @@
 
 
 
-        //-rehau templates ---------------------------
-        .cart-menu-rehau(ng-if="configMenu.G.global.showCart && lightPage.U.userInfo.factory_id === 2", ng-controller="CartMenuCtrl as cartMenu")
-          ul.items-list
-            li.back-home-rehau.order-rehau(fs-click="lightPage.addNewProductInOrder();" onclick="ym(86026367,'reachGoal','BACK');" id="226880275")
-              button
-                <h3>Вернуться на главную</h3> 
-            li.add-new-window.order-rehau(ng-click="lightPage.addNewProductInOrder()")
-              button 
-                <h3>Добавить окно</h3>
-            li.item-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}", fs-click="cartMenu.selectMenuItem(1)")
-              .title-box
-                .title-rehau(typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}") Доставка
-                .tooltip
-                  img(ng-src="./img/rehau-img/tooltip-question.png")
-                  span.tooltiptext Точная стоимость уточняется менеджером. В зависимости от расстояния объекта от Москвы замер может быть платным
-                .arrow
-                  img(ng-src="./img/rehau-img/arrow-top.png")
-              .cart-item-data-rehau
-                .value-rehau(ng-show="!cartMenu.O.order.floor_id && !cartMenu.O.order.delivery_garbage_removal && !cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value-rehau(ng-show="cartMenu.O.order.floor_id", data-output="{{cartMenu.O.order.floorName}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value-rehau(ng-show="cartMenu.O.order.delivery_garbage_removal", data-output="{{ ::cartMenu.GARBAGE_REMOVE  }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value-rehau(ng-show="cartMenu.O.order.delivery_add", data-output="{{ ::cartMenu.DELIVERY}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                span.name.aside-rehau(ng-show="cartMenu.O.order.floor_id", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                span.name.aside-rehau(ng-show="cartMenu.O.order.floor_id || cartMenu.O.order.delivery_garbage_removal || cartMenu.O.order.delivery_add",
-                data-output=" ~ {{ cartMenu.O.order.floor_price + cartMenu.O.order.delivery_garbage_removal + cartMenu.O.order.delivery_add}} {{ cartMenu.U.userInfo.currency }}",
-                typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-            .dropdown-cart-menu-rehau.drop-delivery-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length}")
-              ul.dropdown-items-list
-                li.dropdown-item-rehau(ng-class="{'selected': !cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(0)")
-                  .dropdown-item-inner-rehau
-                    .value.drop-txt-rehau {{ ::cartMenu.SELF_EXPORT }}
-                    .name-rehau.drop-txt-rehau
-                li.dropdown-item-rehau(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", fs-click="cartMenu.selectFloorPrice(supplyList)")
-                  .dropdown-item-inner-rehau
-                    .value.drop-txt-rehau {{supplyList.name}} {{ ::cartMenu.FLOOR }}
-                    .name-rehau.drop-txt-rehau ~ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
-            li.item-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}", fs-click="cartMenu.selectMenuItem(2)")
-              .title-box
-                .title-rehau(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .tooltip
-                  img(ng-src="./img/rehau-img/tooltip-question.png")
-                  span.tooltiptext Точная стоимость уточняется менеджером
-                .arrow
-                  img(ng-src="./img/rehau-img/arrow-top.png")
-              .cart-item-data-rehau
-                .value-rehau(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .value-rehau(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-                .mounting-price-block(ng-repeat="assemb in cartMenu.G.global.assemblingData")
-                  span.name.aside-rehau(ng-show="cartMenu.O.order.mounting_id", data-output=" ~{{assemb.priceReal}} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-            .dropdown-cart-menu-rehau.drop-assembling-rehau(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")
-              ul.dropdown-items-list
-                li.dropdown-item-rehau(ng-class="{'selected': !cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(0)")
-                  .dropdown-item-inner-rehau
-                    .value.drop-txt-rehau {{ ::cartMenu.WITHOUT_ASSEMBLING }}
-                li.dropdown-item-rehau(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", fs-click="cartMenu.selectAssembling(assemb)")
-                  .dropdown-item-inner-rehau
-                    .value.drop-txt-rehau {{ assemb.name }}
-                    .name-rehau.drop-txt-rehau ~ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}
-
-          footer.menu-footer
-            .price-block-rehau.price-with-instalments-rehau(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")
-              price(price-value="cartMenu.O.order.paymentFirstDis", price-currency="cartMenu.U.userInfo.currency")
-              price(price-value="cartMenu.O.order.paymentMonthlyDis", price-currency="cartMenu.U.userInfo.currency")
-            .price-block-rehau.price-without-instalments-rehau(ng-class="{'active': !cartMenu.O.order.is_instalment}")
-              <h2>Итого:</h2>
-              .discount-price-rehau
-                .price-discount-text(ng-if="lightPage.U.userInfo.discountConstr > 0")
-                  span.price-discount-span {{cartMenu.O.order.order_price.toFixed(0)}} руб
-                  span.price-discount-percentage -{{lightPage.U.userInfo.discountConstr}}%  
-                price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
-            button.order-btn-rehau(fs-click="cartMenu.openOrderDialog();" id="226880267" onclick="ym(86026367,'reachGoal','PRELEAD');") <h2>Оставить заявку</h2>
-            button.order-btn-rehau-for-landing.disabled(readonly id="226880267") <h2>Оставить заявку</h2>
-        .discount-block-rehau(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id == 2")
-          .discount-price-rehau
-            .price-discount-text(ng-if="lightPage.U.userInfo.discountConstr > 0")
-              span.price-discount-span {{lightPage.P.product.product_price.toFixed(0)}} руб
-              span.price-discount-percentage -{{lightPage.U.userInfo.discountConstr}}%
-            .price-text Цена:
-            price(price-value="lightPage.G.global.tempPrice", price-currency="lightPage.U.userInfo.currency")
-        .counter-block-rehau(ng-class="{'unactive': !lightPage.G.global.construction_count}" ng-if="configMenu.G.global.showCart == 0" ng-show="lightPage.U.userInfo.factory_id == 2")
-          .counter-rehau(id="226880249")
-            input.prodcounter-rehau(readonly, ng-model="lightPage.G.global.construction_count", onclick="ym(86026367,'reachGoal','CART_2');" ng-click="configMenu.cartButton();")
-          .save-block-rehau#save-block(onclick="ym(86026367,'reachGoal','CART_1');" fs-click="lightPage.checkForAddElem();")
-            p(id="226880150") {{lightPage.CONFIGMENU_IN_CART}}
-        //- rehau template end
         .discount-block(ng-if="configMenu.G.global.showCart == 0", ng-show="lightPage.U.userInfo.factory_id !== 2")
           .discount-priceRed {{ lightPage.P.product.product_price * lightPage.G.global.product_qty | number : 2}} {{lightPage.U.userInfo.currency}}
           .discount-price

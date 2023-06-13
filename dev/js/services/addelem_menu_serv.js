@@ -423,11 +423,7 @@
                 //--------- when we select new addElement, function checks
                 // is there this addElements in order to increase only elementQty
                 function checkExistedSelectAddElement(elementsArr, currElement) {
-                    if (elementsArr === undefined) {
-                        alert("Что-то пошло не так, пожалуйста перезагрузите страницу. Скоро мы это исправим.")
-                    } else {
-                        var elementsQty = elementsArr.length, isExist = 0;
-                    }
+                    var elementsQty = elementsArr.length, isExist = 0;
                     while (--elementsQty > -1) {
                         if (elementsArr[elementsQty].id === currElement.id) {
                             /** if element has width and height */
@@ -507,7 +503,7 @@
                 }
 
 
-                /** set EXPERIENCE Grids */
+                /** set Selected Grids */
                 function confirmGrid() {
                     var gridsT = [], grids = [];
                     if (GlobalStor.global.sashTypeBlock.length > 0) {
@@ -712,16 +708,13 @@
                 /**-------- Delete AddElement from global object ---------*/
 
                 function deleteAddElement(typeId, elementId) {
-                    console.log('One')
                     if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
                         /** calc Price previous parameter and close caclulators */
                         finishCalculators();
-                        console.log("Two inside if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator)")
                     }
                     /**------- if grid delete --------*/
                     if (!typeId) {
                         deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
-                        console.log("three inside if(ProductStor.product.chosenAddElements[typeId][elementId].block_id)")
                     }
                     ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
                     //------ Set Total Product Price

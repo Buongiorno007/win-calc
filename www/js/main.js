@@ -10261,7 +10261,7 @@ if (window.location.hostname !== 'localhost') {
                         if (typeof price === 'string') {
                             priceByDigit = price.split('');
                         } else {
-                            if (price > 1) {
+                            if (price >  99999) {
                                 priceByDigit = price.toFixed(0).split('');
                             } else {
                                 priceByDigit = price.toFixed(2).split('');
@@ -10308,39 +10308,7 @@ if (window.location.hostname !== 'localhost') {
                     }
                 }
 
-                if (globalConstants.serverIP === "https://admin.rehauselected.baueffect.com") {
-                    return {
-                        restrict: 'E',
-                        replace: true,
-                        transclude: true,
-                        scope: {
-                            priceValue: '=',
-                            priceCurrency: '='
-                        },
-                        template: '<div class="price-rehau clearfix" data-output="priceValue">' +
-                        '<div id="price" class="price-value">' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                        '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit"></div></div>' +
-                        '</div>' +
-                        '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
-                        '</div>',
-                        link: function (scope, elem, attrs) {
-                            scope.$watchCollection(attrs.output, function (price) {
-                                if(UserStor.userInfo.currencies === '$') {
-                                    changePrice(price / GlobalStor.global.currencies[0].value, elem);
-                                } else if(UserStor.userInfo.currencies === '€') {
-                                    changePrice(price / GlobalStor.global.currencies[2].value, elem);
-                                } else {
-                                    changePrice(price, elem )
-                                }
-                            });
-                        }
-                    };
-                }
+
                 return {
                     restrict: 'E',
                     replace: true,
@@ -10351,9 +10319,6 @@ if (window.location.hostname !== 'localhost') {
                     },
                     template: '<div class="price clearfix" data-output="priceValue">' +
                     '<div id="price" class="price-value">' +
-                    '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                    '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-                    '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                     '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                     '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
                     '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
@@ -10383,7 +10348,6 @@ if (window.location.hostname !== 'localhost') {
                 // event.srcEvent.stopPropagation();
             });
 })();
-
 
 
 // directives/show_delay.js
@@ -14162,11 +14126,7 @@ function ErrorResult(code, message) {
                 //--------- when we select new addElement, function checks
                 // is there this addElements in order to increase only elementQty
                 function checkExistedSelectAddElement(elementsArr, currElement) {
-                    if (elementsArr === undefined) {
-                        alert("Что-то пошло не так, пожалуйста перезагрузите страницу. Скоро мы это исправим.")
-                    } else {
-                        var elementsQty = elementsArr.length, isExist = 0;
-                    }
+                    var elementsQty = elementsArr.length, isExist = 0;
                     while (--elementsQty > -1) {
                         if (elementsArr[elementsQty].id === currElement.id) {
                             /** if element has width and height */
@@ -14246,7 +14206,7 @@ function ErrorResult(code, message) {
                 }
 
 
-                /** set EXPERIENCE Grids */
+                /** set Selected Grids */
                 function confirmGrid() {
                     var gridsT = [], grids = [];
                     if (GlobalStor.global.sashTypeBlock.length > 0) {
@@ -14451,16 +14411,13 @@ function ErrorResult(code, message) {
                 /**-------- Delete AddElement from global object ---------*/
 
                 function deleteAddElement(typeId, elementId) {
-                    console.log('One')
                     if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
                         /** calc Price previous parameter and close caclulators */
                         finishCalculators();
-                        console.log("Two inside if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator)")
                     }
                     /**------- if grid delete --------*/
                     if (!typeId) {
                         deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
-                        console.log("three inside if(ProductStor.product.chosenAddElements[typeId][elementId].block_id)")
                     }
                     ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
                     //------ Set Total Product Price
@@ -14522,7 +14479,6 @@ function ErrorResult(code, message) {
 
             });
 })();
-
 
 
 // services/addelem_serv.js
@@ -16712,11 +16668,9 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'https://admin.rehauselected.baueffect.com',
-      printIP: 'https://admin.rehauselected.baueffect.com/orders/get-order-pdf/',
+      serverIP: 'https://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua/orders/get-order-pdf/',
       localPath: '/local/',
-    
-      requestUrlRehau: 'https://dev.rehau2021selected.xyz/api/rehau/request',
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -30331,6 +30285,8 @@ function ErrorResult(code, message) {
             }
 
             getOnline();
+            //saving default values for hardwares
+            GlobalStor.global.hardwaresDefaultValues = GlobalStor.global.hardwares;
 
             /**---------- Close Room Selector Dialog ---------*/
             function closeRoomSelectorDialog() {
@@ -30472,7 +30428,6 @@ function ErrorResult(code, message) {
                     case 1:
                         optionsServ.getTemplatesWindow(function (results) {
                             if (results.status) {
-                                
                                 GlobalStor.global.templateLabel = $filter("translate")(
                                     "panels.TEMPLATE_WINDOW"
                                 );
@@ -30481,7 +30436,6 @@ function ErrorResult(code, message) {
                                 console.log(results);
                             }
                         });
-                        
                         break;
                     case 2:
                         optionsServ.getTemplatesWindowDoor(function (results) {
@@ -30535,6 +30489,7 @@ function ErrorResult(code, message) {
                     }
                 }
             }
+          
 
             function downloadProfileDepth(elementId) {
                 var defer = $q.defer();
@@ -30556,7 +30511,7 @@ function ErrorResult(code, message) {
                     });
                 return defer.promise;
             }
-
+            
             //-------- set default profile
             function setCurrentProfile(product, id) {
                 var deferred = $q.defer();
@@ -30591,7 +30546,7 @@ function ErrorResult(code, message) {
                 needed_data().then(
                     function(data) {
                         try {
-/*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
+                        /*Here there are a lot of loops that go through already existing arrays in global store. They are made for adding translations.
                         Not everything is very pretty here, but it works. It's better to refactor some places so that it just takes up less space*/
                         /* TODO */ 
                         //Block for profiles and profiles descriptions translations ***
@@ -30706,40 +30661,50 @@ function ErrorResult(code, message) {
                         const array_filtered_by_names_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "name")
                         //First looop for first array
                         let hardware_groups_array_first = GlobalStor.global.hardwares[0];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_first) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
+
                         //Second loop for second array
                         let hardware_groups_array_second = GlobalStor.global.hardwares[1];
-                        //Loop that runs through the glasses folders and pushes there translations from a filtered array
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                            for(let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
-                                if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
-                                    hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                        if (hardware_groups_array_second) {
+                            //Loop that runs through the glasses folders and pushes there translations from a filtered array
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_names_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_names_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["translate"] = array_filtered_by_names_hardware_groups[y]
+                                    }
                                 }
                             }
                         }
 
                         const array_filtered_by_description_hardware_groups = hardware_groups[0].filter(element => element.table_attr === "description")
-                        for(let i = 0; i < hardware_groups_array_first.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
-                        for(let i = 0; i < hardware_groups_array_second.length; i++) {
-                           for(let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
-                               if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
-                                hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
-                               }
-                           }
-                       }
+                        if (hardware_groups_array_first) {
+                            for (let i = 0; i < hardware_groups_array_first.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_first[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_first[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
+
+                        if (hardware_groups_array_second) {
+                            for (let i = 0; i < hardware_groups_array_second.length; i++) {
+                                for (let y = 0; y < array_filtered_by_description_hardware_groups.length; y++) {
+                                    if(hardware_groups_array_second[i].id === array_filtered_by_description_hardware_groups[y].table_id) {
+                                        hardware_groups_array_second[i]["description"] = array_filtered_by_description_hardware_groups[y]
+                                    }
+                                }
+                            }
+                        }
                         //Block for hardware goups end ***
 
                         //Block for hardware folders start ***
@@ -31249,11 +31214,43 @@ function ErrorResult(code, message) {
                                 }
                             }
                         }
-                        //Block for glasses translations end ***
-                        } catch(err) {
-                            // console.log("Not all translations come from the backend, which is why you see this message")
+                        } catch (e) {
+                            console.log(e)
                         }
-                        
+                        //Block for glasses translations end ****************
+                        // Hardware display logic that fits only a certain profile
+
+                        //Download data from backend
+                        const windowHardwareProfileSystem = data.window_hardware_profile_systems;
+                        //Clearing hardwares arrays
+                        GlobalStor.global.hardwares = []
+                        //Loop for windowHardwareProfileSystem elements 
+                        for (let element of windowHardwareProfileSystem) {
+                            //Get current profile id
+                            let currentProfileId = ProductStor.product.profile.id;
+                            //Check if current profile id equal to element from backend 
+                            if (element.profile_system_id === currentProfileId) {
+                                //Local variables for different manipulation
+                                GlobalStor.global.hardwaresDefaultValues.forEach((el, index) => {
+                                    const filteredHardwares = el.filter((item) => item.id === element.window_hardware_group_id);
+                                    if (filteredHardwares.length) {
+                                        if (!GlobalStor.global.hardwares[index]) {
+                                            GlobalStor.global.hardwares[index] = []
+                                        }
+                                        GlobalStor.global.hardwares[index].push(filteredHardwares[0])
+                                    }
+                                })
+                            }
+                        }
+                        setCurrentHardware(ProductStor.product);
+                        if (ProductStor.product.profile.id) {
+                            preparePrice(
+                                ProductStor.product.template,
+                                ProductStor.product.profile.id,
+                                ProductStor.product.glass,
+                                ProductStor.product.hardware.id,
+                                ProductStor.product.lamination.lamination_in_id)
+                        } 
                     }
                 )
                
@@ -31582,7 +31579,17 @@ function ErrorResult(code, message) {
                 } else {
                     //----- set default hardware in ProductStor
                     if (GlobalStor.global.isSashesInTemplate) {
-                        product.hardware = GlobalStor.global.hardwares[0][0];
+                        for (let currentHardware of GlobalStor.global.hardwares) {
+                            if (currentHardware) {
+                                if (currentHardware[0].is_default === 1) {
+                                    product.hardware = currentHardware[0];
+                                    break;
+                                } else {
+                                    product.hardware = currentHardware[0];
+                                    break;
+                                }
+                            }  
+                        }
                     } else {
                         product.hardware = {};
                     }
@@ -31672,104 +31679,19 @@ function ErrorResult(code, message) {
                 return deff.promise;
             }
 
-            var glassPrices = []
             function setProductPriceTOTAL(Product) {
-                var deliveryCoeff = 
+
+                var deliveryCoeff =
                     GlobalStor.global.deliveryCoeff.percents[
                     GlobalStor.global.deliveryCoeff.standart_time
                     ],
-                    priceDis = UserStor.userInfo.factory_id == 2 ? Math.round(GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct)) : GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
-                    
+                    priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+
+
                 Product.product_price = GeneralServ.roundingValue(
                     Product.template_price + Product.addelem_price + Product.service_price
                 );
                 Product.productPriceDis = priceDis + Product.addelemPriceDis + Product.service_price_dis;
-                /* This piece of code allows us to calculate glass price with ranges https://trello.com/c/egf7LTSn/586
-                It's not so clear and should be refactored some time*/
-                if (ProductStor.product.report.length > 0) {
-                    Product.report.map((element) => {
-                        if (element.element_group_id === 8) {
-                            localDB.selectLocalDB(localDB.tablesLocalDB.glass_prices.tableName, {
-                            }).then(function(result) {
-                                glassPrices = result[0]
-                            })
-                            if (element.element_id === glassPrices.element_id) {
-                                if (glassPrices.col_1_range > 0) {
-                                    if (element.size < glassPrices.col_1_range) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_1_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    } 
-                                } if (glassPrices.col_2_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_2_range_1) && (element.size < glassPrices.col_2_range_2 || glassPrices.col_2_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;  
-
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else  {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_2_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                } if (glassPrices.col_3_range_1 > 0) {
-                                    if (element.size > glassPrices.col_3_range_1 && (element.size < glassPrices.col_3_range_2 || glassPrices.col_3_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                            
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_3_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                } if (glassPrices.col_4_range_1 > 0) {
-                                    if ((element.size > glassPrices.col_4_range_1) && (element.size < glassPrices.col_4_range_2 || glassPrices.col_4_range_2 === 0)) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_4_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                }
-                                if (glassPrices.col_5_range > 0) {
-                                    if (element.size > glassPrices.col_5_range) {
-                                        if (UserStor.userInfo.discountConstr > 0) {
-                                            Product.product_price -= element.priceReal;
-                                            Product.product_price += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                            
-                                            let ProductPriceWithDiscount =  Product.product_price - ((Product.product_price / 100) * UserStor.userInfo.discountConstr);
-                                            Product.productPriceDis = ProductPriceWithDiscount
-                                        } else {
-                                            Product.productPriceDis -= element.priceReal;
-                                            Product.productPriceDis += ((glassPrices.col_5_price * element.size) * GlobalStor.global.margins.coeff) * element.amount;
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                console.log("no Match") 
-                            }
-                        }
-                    })
-                }
-                
                 //------ add Discount of standart delivery day of Plant
                 if (deliveryCoeff) {
                     Product.productPriceDis = GeneralServ.setPriceDis(
@@ -31777,15 +31699,10 @@ function ErrorResult(code, message) {
                         deliveryCoeff
                     );
                 }
-                if (UserStor.userInfo.factory_id === 2) {
-                    GlobalStor.global.tempPrice =
-                        Math.round(Product.productPriceDis * GlobalStor.global.product_qty);
-                    GlobalStor.global.isLoader = 0;
-                } else {
-                    GlobalStor.global.tempPrice =
-                        Product.productPriceDis * GlobalStor.global.product_qty;
-                    GlobalStor.global.isLoader = 0;
-                }
+
+                GlobalStor.global.tempPrice =
+                    Product.productPriceDis * GlobalStor.global.product_qty;
+                GlobalStor.global.isLoader = 0;
 
                 if (($location.path() === "/light" || $location.path() === "/mobile") && (!ProductStor.product.is_addelem_only)) {
                     setTimeout(function () {
@@ -31867,6 +31784,106 @@ function ErrorResult(code, message) {
                         priceMargin,
                         doorData,
                         tempDoorItems;
+                        var glassData = null
+                        function glassPricesData() {
+                            var defer = $q.defer();
+                            db.getItem('tables').then(function (value) {
+                                glassPricesData = value;
+                                defer.resolve(glassPricesData);
+                            }).catch(function (err) {
+                                console.log(err);
+                                defer.resolve(0);
+                            });
+                            return defer.promise;
+                        }
+                        /* This funciton calculates price for glasses with different ranges from db (glass_prices), also adding new key for report obj to recalculate the priceReal */
+                        glassPricesData().then(
+                            function(data) {
+                                let glassPricesData = data.glass_prices;
+                                let currentGlassData = ProductStor.product.report;
+                                if (glassPricesData) {
+                                    for(var i = 0; i < glassPricesData.length; i++) {
+                                        for(var y = 0; y < currentGlassData.length; y++) {
+                                            /* checks if ids the same */
+                                            if(currentGlassData[y].element_id === glassPricesData[i].element_id) {
+                                                /* check range */
+                                                if (currentGlassData[y].size < glassPricesData[i].col_1_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_1_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_1_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_2_range_1) && (currentGlassData[y].size < glassPricesData[i].col_2_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_2_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_2_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_3_range_1) && (currentGlassData[y].size < glassPricesData[i].col_3_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_3_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_3_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if ((currentGlassData[y].size > glassPricesData[i].col_4_range_1) && (currentGlassData[y].size < glassPricesData[i].col_4_range_2)) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_4_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_4_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                } else if (currentGlassData[y].size > glassPricesData[i].col_5_range) {
+                                                    /* setting a new keys in object */
+                                                    /* price from db for this particular range */ 
+                                                    currentGlassData[y]["range_price"] = glassPricesData[i].col_5_price;
+                                                    /* calculations the price for report */
+                                                    currentGlassData[y]["total_range_price"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    /* To display correct price at main screen we first subtract the old price and then add the new one, so everything works correctly */
+                                                    GlobalStor.global.tempPrice -= currentGlassData[y].priceReal;
+                                                    GlobalStor.global.tempPrice += currentGlassData[y].total_range_price;
+                                                    /* The last action is to reassign keys to display correct data in report */
+                                                    if(GlobalStor.global.tempPrice) {
+                                                        currentGlassData[y]["price"] = glassPricesData[i].col_5_price;
+                                                        currentGlassData[y]["priceReal"] = (currentGlassData[y].size * currentGlassData[y].range_price);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        )
                     
                     if (priceObj.priceTotal) {
                         /** DOOR add handle and lock Ids */
@@ -32088,9 +32105,6 @@ function ErrorResult(code, message) {
                     ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
                         ProductStor.product.template_square / heatCoeffTotal, 2
                     );
-                    if (globalConstants.serverIP === 'https://admin.rehauselected.baueffect.com') {
-                        ProductStor.product.heat_coef_expert_mark = (Math.round(Math.sqrt(ProductStor.product.heat_coef_total) * 10 * 10) / 10).toFixed(1);
-                    }
                 } else {
                     /** U */
                     ProductStor.product.heat_coef_total =
@@ -32216,7 +32230,7 @@ function ErrorResult(code, message) {
                                 //---- only for this type of user
                                 if (
                                     UserStor.userInfo.user_type === 5 ||
-                                    UserStor.userInfo.user_type === 7 || UserStor.userInfo.factory_id === 2
+                                    UserStor.userInfo.user_type === 7
                                 ) {
                                     ProductStor.product.report = prepareReport(
                                         result.constrElements
@@ -32853,14 +32867,8 @@ function ErrorResult(code, message) {
                                 tempObj = itemArr[itemArrQty];
                             }
                         }
-                    } 
-                    if (UserStor.userInfo.factory_id === 2 && !$.isEmptyObject(tempObj)) {
-                        GlobalStor.global.infoTitle = tempObj;
-                        GlobalStor.global.infoImg = tempObj.img;
-                        GlobalStor.global.infoLink = tempObj.link;
-                        GlobalStor.global.infoDescrip = tempObj.description;
-                        GlobalStor.global.isInfoBox = id;
-                    } else {
+                    }
+                    if (!$.isEmptyObject(tempObj)) {
                         GlobalStor.global.infoTitle = tempObj.translate;
                         GlobalStor.global.infoImg = tempObj.img;
                         GlobalStor.global.infoLink = tempObj.link;
@@ -33608,7 +33616,6 @@ function ErrorResult(code, message) {
             return thisFactory.publicObj;
         });
 })();
-
 
 
 // services/nav_menu_serv.js
@@ -42843,18 +42850,7 @@ function ErrorResult(code, message) {
                             GlobalStor.global.activePanel = 0;
                         }, 100);
                     }
-
-                    if (GlobalStor.global.isChangedTemplate) {
-                        //----- если выбран новый шаблон после изменения предыдущего
-                        GeneralServ.confirmAlert(
-                            $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-                            $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-                            goToNewTemplate
-                        );
-                    } else {
-                        goToNewTemplate()
-                    }
-
+                    goToNewTemplate()
                 }
 
 

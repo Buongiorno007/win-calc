@@ -13,6 +13,8 @@
     z-index: 14;
   }
   .cell.calc-digit {
+    background-color: #1b1e23;
+    color: #fff;
     &:active {
       background-color: #6ed44a;
     }

@@ -8,8 +8,6 @@
       serverIP: SERVER_IP,
       printIP: PRINT_IP,
       localPath: LOCAL_PATH,
-    
-      requestUrlRehau: URL_REQUEST,
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,

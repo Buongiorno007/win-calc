@@ -75,7 +75,6 @@
     padding-top: 0.5rem;
     p {
       @include roboto-lt(rem(20px));
-      color: $main_white;
       margin: 0;
     }
   }
@@ -1179,7 +1178,6 @@
   }
   .config-panel {
     &.active {
-      top: -6rem;
       overflow: auto;
       height: 100rem;
     }

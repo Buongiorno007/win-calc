@@ -236,18 +236,7 @@
                             GlobalStor.global.activePanel = 0;
                         }, 100);
                     }
-
-                    if (GlobalStor.global.isChangedTemplate) {
-                        //----- если выбран новый шаблон после изменения предыдущего
-                        GeneralServ.confirmAlert(
-                            $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-                            $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-                            goToNewTemplate
-                        );
-                    } else {
-                        goToNewTemplate()
-                    }
-
+                    goToNewTemplate()
                 }
 
 
