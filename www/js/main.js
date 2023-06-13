@@ -3294,52 +3294,10 @@ let portrait = false;
 
         }
         //Simple autologin for rehau landing, sorry have no time to do it better
-        if (window.location.href === "https://dev.rehau2022selected.xyz/#/") {
-          $(document).ready( function(){
-            setTimeout(() => {
-              try {
-                document.querySelector('#login').style.opacity = "1";
-                document.querySelector('#current-password').style.opacity = "1";
-                document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
-                document.querySelector('.login-container-mobView').style.margin = 'auto';
-                document.querySelector('.login-submit').style.opacity = "1";
-                document.querySelector('.privacy-policy').style.opacity = "1";
-              } catch(e) {
-
-              }
-            }, 1);
-          })
-        } else if (window.location.href === "http://localhost:8888/#/") {
-          $(document).ready( function() {
-            setTimeout(() => {
-              try {
-                document.querySelector('#login').style.opacity = "1";
-                document.querySelector('#current-password').style.opacity = "1";
-                document.querySelector('.login-page-rehau').style.background = "linear-gradient(181deg, rgba(16, 35, 52, 1) 1%, rgba(87, 101, 114, 1) 100%)";
-                document.querySelector('.login-container-mobView').style.margin = 'auto';
-                document.querySelector('.login-submit').style.opacity = "1";
-                document.querySelector('.privacy-policy').style.opacity = "1";
-              } catch(e) {
-
-              }
-            }, 1);
-          })
-        } else if (window.location.href === "https://experience.shop.rhsolutions.ru/calculator/#/") {
-          setTimeout(() => {   
-            thisCtrl.user.phone = 'rehausite';
-            thisCtrl.user.password = 'rehau';
-            document.querySelector('.login-submit').click();
-          }, 2500);
-        } else if (window.location.href === "https://dev.rehau2022selected.xyz/calculator/#/") {
-          setTimeout(() => {   
-            thisCtrl.user.phone = 'rehausite';
-            thisCtrl.user.password = 'rehau';
-            document.querySelector('.login-submit').click();
-          }, 2500);
-        } else if (window.location.href === "https://stage.rehau2022selected.xyz/calculator/#/") {
-          setTimeout(() => {   
-            thisCtrl.user.phone = 'rehausite';
-            thisCtrl.user.password = 'rehau';
+        if (window.location.href) {
+          setTimeout(() => {
+            thisCtrl.user.phone = 'okna';
+            thisCtrl.user.password = 'okna';
             document.querySelector('.login-submit').click();
           }, 2500);
         }
